@@ -27,6 +27,7 @@ local v25 = require(l_CorePackages_0.Packages.RoactAppExperiment);
 local l_AppBtidLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppBtidLayers;
 local v27 = game:DefineFastFlag("FixMorePageContentValidateProps", false);
 local v28 = require(l_Modules_0.LuaApp.Flags.FFlagFixMorePageLogOutCutOff);
+local v29 = game:DefineFastFlag("FixMorePageExitButtonCutOff", false);
 local l_FFlagAuthSecExclusions_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAuthSecExclusions;
 local l_FFlagEnableMorePageDirectionalLayoutRolloutFix_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableMorePageDirectionalLayoutRolloutFix;
 local l_FFlagEnableLeftNavOnConsole_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLeftNavOnConsole;
@@ -34,12 +35,15 @@ local l_FFlagMorePageGateAccountSwitcherByCachedVariantId_0 = require(l_CorePack
 local l_GetFStringAccountSwitcherTruthyVariantId_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFStringAccountSwitcherTruthyVariantId;
 local l_GetFStringAccountSwitcherFalsyVariantId_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFStringAccountSwitcherFalsyVariantId;
 local l_GetFFlagEnableAccountSwitcherRedesignIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableAccountSwitcherRedesignIXP;
+local l_FFlagEnableLuaLoginRevamp_0 = v4.FFlagEnableLuaLoginRevamp;
+local l_FStringLuaLoginRevampIxpLayer_0 = v4.FStringLuaLoginRevampIxpLayer;
+local l_FFlagEnableAccountSwitcherLoginV2Correction_0 = v4.FFlagEnableAccountSwitcherLoginV2Correction;
 local l_GridMetrics_0 = v2.App.Grid.GridMetrics;
 local l_VerticalScrollViewWithMargin_0 = v2.App.Container.VerticalScrollViewWithMargin;
-local v38 = l_GetFFlagUIBloxUseFoundationButton_0() and 2 or 0;
-local v39 = v16.PureComponent:extend("MorePageContent");
-local v40 = require(script.Parent.Parent.Parent.Thunks.Authentication.User);
-v39.validateProps = v3.strictInterface({
+local v42 = l_GetFFlagUIBloxUseFoundationButton_0() and 2 or 0;
+local v43 = v16.PureComponent:extend("MorePageContent");
+local v44 = require(script.Parent.Parent.Parent.Thunks.Authentication.User);
+v43.validateProps = v3.strictInterface({
     isWideView = v3.boolean, 
     itemTable = v3.table, 
     topBarHeight = v3.integer, 
@@ -51,87 +55,87 @@ v39.validateProps = v3.strictInterface({
     navBarPlacement = if v28 then v3.valueOf(v5.Placement) else nil, 
     excludeAccountSwitcher = v3.optional(v3.boolean)
 });
-v39.init = function(v41) --[[ Line: 96 ]] --[[ Name: init ]]
+v43.init = function(v45) --[[ Line: 100 ]] --[[ Name: init ]]
     -- upvalues: v16 (copy), l_GridMetrics_0 (copy), v10 (copy), l_FFlagEnableMorePageDirectionalLayoutRolloutFix_0 (copy), l_UserInputService_0 (copy), l_UserGameSettings_0 (copy)
-    v41.shouldResize = true;
-    v41.scrollviewRef = v16.createRef();
-    v41.contentRef = v16.createRef();
-    v41.onWillFocus = function() --[[ Line: 103 ]]
-        -- upvalues: v41 (copy)
-        if v41.scrollviewRef.current then
-            local _ = v41.scrollviewRef.current.AbsoluteCanvasSize;
+    v45.shouldResize = true;
+    v45.scrollviewRef = v16.createRef();
+    v45.contentRef = v16.createRef();
+    v45.onWillFocus = function() --[[ Line: 107 ]]
+        -- upvalues: v45 (copy)
+        if v45.scrollviewRef.current then
+            local _ = v45.scrollviewRef.current.AbsoluteCanvasSize;
         end;
     end;
-    v41.onResize = function(v43) --[[ Line: 112 ]]
-        -- upvalues: v41 (copy), l_GridMetrics_0 (ref)
-        if not v41.shouldResize then
+    v45.onResize = function(v47) --[[ Line: 116 ]]
+        -- upvalues: v45 (copy), l_GridMetrics_0 (ref)
+        if not v45.shouldResize then
             return;
         else
-            local v44 = nil;
-            if v41.contentRef.current then
-                v44 = v41.contentRef.current.AbsoluteSize.X;
-            elseif v43 then
-                v44 = v43.AbsoluteSize.X;
+            local v48 = nil;
+            if v45.contentRef.current then
+                v48 = v45.contentRef.current.AbsoluteSize.X;
+            elseif v47 then
+                v48 = v47.AbsoluteSize.X;
             else
                 return;
             end;
-            local l_isWideView_0 = v41.props.isWideView;
-            local v46 = nil;
-            local v47 = nil;
-            if v41.props.isDirectional then
-                local v48 = v41.props.itemTable[1];
-                local v49 = nil;
-                if #v48 <= 4 then
-                    v47 = 36;
-                    v49 = 4;
+            local l_isWideView_0 = v45.props.isWideView;
+            local v50 = nil;
+            local v51 = nil;
+            if v45.props.isDirectional then
+                local v52 = v45.props.itemTable[1];
+                local v53 = nil;
+                if #v52 <= 4 then
+                    v51 = 36;
+                    v53 = 4;
                 else
-                    v47 = 48;
-                    v49 = 5;
+                    v51 = 48;
+                    v53 = 5;
                 end;
-                v46 = 96;
-                local v50 = (v44 - (v49 - 1) * v47 - 2 * v46) / v49;
-                v41:setState({
-                    gridCellSize = math.floor(v50), 
-                    gridCellsInARow = v49, 
-                    gutter = v47, 
-                    paddingHorizontal = v46
+                v50 = 96;
+                local v54 = (v48 - (v53 - 1) * v51 - 2 * v50) / v53;
+                v45:setState({
+                    gridCellSize = math.floor(v54), 
+                    gridCellsInARow = v53, 
+                    gutter = v51, 
+                    paddingHorizontal = v50
                 });
                 return;
             else
                 if l_isWideView_0 then
-                    v47 = 24;
-                    v46 = if v44 > 1020 then (v44 - 924) / 2 else 48;
+                    v51 = 24;
+                    v50 = if v48 > 1020 then (v48 - 924) / 2 else 48;
                 else
-                    v47 = 12;
-                    v46 = v44 < 360 and 12 or 24;
+                    v51 = 12;
+                    v50 = v48 < 360 and 12 or 24;
                 end;
-                local v51 = v44 - 2 * v46;
-                if v51 <= 0 then
+                local v55 = v48 - 2 * v50;
+                if v55 <= 0 then
                     return;
                 else
-                    local v52 = l_GridMetrics_0.getMediumMetrics(v51, v47);
-                    v41:setState({
-                        gridCellSize = v52.itemWidth, 
-                        gridCellsInARow = v52.itemsPerRow, 
-                        gutter = v47, 
-                        paddingHorizontal = v46
+                    local v56 = l_GridMetrics_0.getMediumMetrics(v55, v51);
+                    v45:setState({
+                        gridCellSize = v56.itemWidth, 
+                        gridCellsInARow = v56.itemsPerRow, 
+                        gutter = v51, 
+                        paddingHorizontal = v50
                     });
                     return;
                 end;
             end;
         end;
     end;
-    v41.renderGridItem = function(v53, v54) --[[ Line: 182 ]]
-        -- upvalues: v16 (ref), v10 (ref), l_FFlagEnableMorePageDirectionalLayoutRolloutFix_0 (ref), v41 (copy)
+    v45.renderGridItem = function(v57, v58) --[[ Line: 186 ]]
+        -- upvalues: v16 (ref), v10 (ref), l_FFlagEnableMorePageDirectionalLayoutRolloutFix_0 (ref), v45 (copy)
         return v16.createElement(v10, {
-            item = v53, 
-            layoutOrder = v54, 
-            isDirectional = if l_FFlagEnableMorePageDirectionalLayoutRolloutFix_0 then v41.props.isDirectional else nil
+            item = v57, 
+            layoutOrder = v58, 
+            isDirectional = if l_FFlagEnableMorePageDirectionalLayoutRolloutFix_0 then v45.props.isDirectional else nil
         });
     end;
-    v41.statusBarTappedConnection = l_UserInputService_0.StatusBarTapped:Connect(function() --[[ Line: 190 ]]
-        -- upvalues: v41 (copy), l_UserGameSettings_0 (ref)
-        local l_current_0 = v41.scrollviewRef.current;
+    v45.statusBarTappedConnection = l_UserInputService_0.StatusBarTapped:Connect(function() --[[ Line: 194 ]]
+        -- upvalues: v45 (copy), l_UserGameSettings_0 (ref)
+        local l_current_0 = v45.scrollviewRef.current;
         if not l_current_0 then
             return;
         elseif l_UserGameSettings_0.ReducedMotion then
@@ -142,85 +146,86 @@ v39.init = function(v41) --[[ Line: 96 ]] --[[ Name: init ]]
             return;
         end;
     end);
-    v41:setState({
+    v45:setState({
         gridCellSize = 1, 
         gridCellsInARow = 1, 
         gutter = 12, 
         paddingHorizontal = 12
     });
 end;
-v39.willUnmount = function(v56) --[[ Line: 211 ]] --[[ Name: willUnmount ]]
-    v56.shouldResize = false;
-    v56.statusBarTappedConnection:Disconnect();
+v43.willUnmount = function(v60) --[[ Line: 215 ]] --[[ Name: willUnmount ]]
+    v60.shouldResize = false;
+    v60.statusBarTappedConnection:Disconnect();
 end;
-v39.didUpdate = function(v57, v58, _) --[[ Line: 216 ]] --[[ Name: didUpdate ]]
-    if v58.isWideView ~= v57.props.isWideView then
-        v57.onResize(nil);
+v43.didUpdate = function(v61, v62, _) --[[ Line: 220 ]] --[[ Name: didUpdate ]]
+    if v62.isWideView ~= v61.props.isWideView then
+        v61.onResize(nil);
     end;
 end;
-v39.render = function(v60) --[[ Line: 222 ]] --[[ Name: render ]]
-    -- upvalues: v40 (copy), v23 (copy), v24 (copy), l_FFlagMorePageGateAccountSwitcherByCachedVariantId_0 (copy), l_AppStorageUtilities_0 (copy), l_GetFStringAccountSwitcherTruthyVariantId_0 (copy), l_GetFStringAccountSwitcherFalsyVariantId_0 (copy), l_authPageload_0 (copy), l_FFlagAuthSecExclusions_0 (copy), l_GetFFlagUIBloxUseFoundationButton_0 (copy), v38 (copy), l_FFlagEnableMorePageExitButtonSupport_0 (copy), l_FFlagAppIaScrollAway_0 (copy), v5 (copy), v16 (copy), v15 (copy), v28 (copy), v20 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), l_NavigationEvents_0 (copy), l_VerticalScrollViewWithMargin_0 (copy), v14 (copy), v9 (copy), v11 (copy), v13 (copy)
-    local l_gridCellSize_0 = v60.state.gridCellSize;
-    local l_gridCellsInARow_0 = v60.state.gridCellsInARow;
-    local l_gutter_0 = v60.state.gutter;
-    local l_paddingHorizontal_0 = v60.state.paddingHorizontal;
-    local v65 = v60.props.itemTable[1];
-    local v66 = v60.props.itemTable[2][1];
-    local l_topBarHeight_0 = v60.props.topBarHeight;
-    local v68 = #v65;
-    local l_isDirectional_0 = v60.props.isDirectional;
+v43.render = function(v64) --[[ Line: 226 ]] --[[ Name: render ]]
+    -- upvalues: v44 (copy), v23 (copy), v24 (copy), l_FFlagMorePageGateAccountSwitcherByCachedVariantId_0 (copy), l_AppStorageUtilities_0 (copy), l_GetFStringAccountSwitcherTruthyVariantId_0 (copy), l_GetFStringAccountSwitcherFalsyVariantId_0 (copy), l_authPageload_0 (copy), l_FFlagAuthSecExclusions_0 (copy), l_GetFFlagUIBloxUseFoundationButton_0 (copy), v42 (copy), l_FFlagEnableMorePageExitButtonSupport_0 (copy), v29 (copy), l_FFlagAppIaScrollAway_0 (copy), v5 (copy), v16 (copy), v15 (copy), v28 (copy), v20 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), l_NavigationEvents_0 (copy), l_VerticalScrollViewWithMargin_0 (copy), v14 (copy), v9 (copy), v11 (copy), v13 (copy)
+    local l_gridCellSize_0 = v64.state.gridCellSize;
+    local l_gridCellsInARow_0 = v64.state.gridCellsInARow;
+    local l_gutter_0 = v64.state.gutter;
+    local l_paddingHorizontal_0 = v64.state.paddingHorizontal;
+    local v69 = v64.props.itemTable[1];
+    local v70 = v64.props.itemTable[2][1];
+    local l_topBarHeight_0 = v64.props.topBarHeight;
+    local v72 = #v69;
+    local l_isDirectional_0 = v64.props.isDirectional;
     if l_isDirectional_0 then
-        l_gridCellsInARow_0 = #v65 <= 4 and 4 or 5;
+        l_gridCellsInARow_0 = #v69 <= 4 and 4 or 5;
     end;
-    local v70 = math.ceil(v68 / l_gridCellsInARow_0) * (l_gridCellSize_0 + l_gutter_0) - l_gutter_0;
-    local v71 = v40.fromLocalStorage().isUnder13 ~= true;
-    local v72 = false;
+    local v74 = math.ceil(v72 / l_gridCellsInARow_0) * (l_gridCellSize_0 + l_gutter_0) - l_gutter_0;
+    local v75 = v44.fromLocalStorage().isUnder13 ~= true;
+    local v76 = false;
     if v23 then
-        local v73 = v60.props.isAccountSwitcherEnabled or v24 == true;
+        local v77 = v64.props.isAccountSwitcherEnabled or v24 == true;
         if l_FFlagMorePageGateAccountSwitcherByCachedVariantId_0 then
-            local v74 = l_AppStorageUtilities_0.getAccountSwitcherAvailableByVariantId();
-            if v74 == nil then
-                local v75 = if v73 then l_GetFStringAccountSwitcherTruthyVariantId_0() else l_GetFStringAccountSwitcherFalsyVariantId_0();
-                l_AppStorageUtilities_0.setAccountSwitcherExperimentVariantId(v75);
+            local v78 = l_AppStorageUtilities_0.getAccountSwitcherAvailableByVariantId();
+            if v78 == nil then
+                local v79 = if v77 then l_GetFStringAccountSwitcherTruthyVariantId_0() else l_GetFStringAccountSwitcherFalsyVariantId_0();
+                l_AppStorageUtilities_0.setAccountSwitcherExperimentVariantId(v79);
                 l_AppStorageUtilities_0.flush();
-                l_authPageload_0("userEnrolledInCachedAs", (tostring(v73)));
+                l_authPageload_0("userEnrolledInCachedAs", (tostring(v77)));
             else
-                v73 = v74;
-                l_authPageload_0("morePageCachedAsValue", (tostring(v74)));
+                v77 = v78;
+                l_authPageload_0("morePageCachedAsValue", (tostring(v78)));
             end;
         end;
-        v72 = not (v60.props.excludeAccountSwitcher and l_FFlagAuthSecExclusions_0) and v71 and v73;
+        v76 = not (v64.props.excludeAccountSwitcher and l_FFlagAuthSecExclusions_0) and v75 and v77;
     end;
-    local v76 = if l_isDirectional_0 then if l_GetFFlagUIBloxUseFoundationButton_0() then v38 + 72 else 72 else if l_GetFFlagUIBloxUseFoundationButton_0() then v38 + 48 else 48;
-    local v77 = l_isDirectional_0 and 1024 or 640;
-    local v78 = nil;
-    v78 = if v72 then v70 + 2 * l_gutter_0 + v76 * 2 else v70 + 2 * l_gutter_0 + v76;
-    if l_FFlagEnableMorePageExitButtonSupport_0 and v60.props.isExitButtonSupported then
-        v78 = v78 + v76;
+    local v80 = if l_isDirectional_0 then if l_GetFFlagUIBloxUseFoundationButton_0() then v42 + 72 else 72 else if l_GetFFlagUIBloxUseFoundationButton_0() then v42 + 48 else 48;
+    local v81 = l_isDirectional_0 and 1024 or 640;
+    local v82 = nil;
+    v82 = if v76 then v74 + 2 * l_gutter_0 + v80 * 2 else v74 + 2 * l_gutter_0 + v80;
+    if l_FFlagEnableMorePageExitButtonSupport_0 and v64.props.isExitButtonSupported then
+        v82 = v82 + v80 + if v29 and v76 then l_gutter_0 else 0;
     end;
     if l_isDirectional_0 then
-        v78 = v78 + 200;
+        v82 = v82 + 200;
     end;
     if l_FFlagAppIaScrollAway_0 and v5.getScrollAwayEnabled() then
-        v78 = v78 + l_topBarHeight_0;
+        v82 = v82 + l_topBarHeight_0;
     end;
-    local v79 = nil;
-    if v72 then
-        local v80 = v60.props.itemTable[2][1];
-        v79 = v16.createElement(v15, {
-            buttonHeight = v76, 
-            buttonMaxWidth = v77, 
-            item = v80, 
+    local v83 = nil;
+    if v76 then
+        local v84 = v64.props.itemTable[2][1];
+        v83 = v16.createElement(v15, {
+            buttonHeight = v80, 
+            buttonMaxWidth = v81, 
+            item = v84, 
             layoutOrder = 2, 
-            enableFoundationDesign = v60.props.enableFoundationDesign, 
-            enableSignedOutAccounts = v60.props.enableSignedOutAccounts
+            enableFoundationDesign = v64.props.enableFoundationDesign, 
+            enableSignedOutAccounts = v64.props.enableSignedOutAccounts, 
+            showLoginRevamp = v64.props.showLoginRevamp
         });
     end;
-    local v81 = if v28 and v60.props.navBarPlacement == v5.Placement.Bottom then v20.BOTTOM_BAR_SIZE else 0;
+    local v85 = if v28 and v64.props.navBarPlacement == v5.Placement.Bottom then v20.BOTTOM_BAR_SIZE else 0;
     return v16.createElement("Frame", {
         BackgroundTransparency = 1, 
         Position = if l_FFlagAppIaScrollAway_0 and v5.getScrollAwayEnabled() then nil else UDim2.fromOffset(0, l_topBarHeight_0), 
-        Size = if l_FFlagAppIaScrollAway_0 and v5.getScrollAwayEnabled() then UDim2.new(1, 0, 1, 0) else if v28 then UDim2.new(1, 0, 1, -l_topBarHeight_0 - v81) else UDim2.new(1, 0, 1, -l_topBarHeight_0 - v20.BOTTOM_BAR_SIZE)
+        Size = if l_FFlagAppIaScrollAway_0 and v5.getScrollAwayEnabled() then UDim2.new(1, 0, 1, 0) else if v28 then UDim2.new(1, 0, 1, -l_topBarHeight_0 - v85) else UDim2.new(1, 0, 1, -l_topBarHeight_0 - v20.BOTTOM_BAR_SIZE)
     }, {
         UIPadding = v16.createElement("UIPadding", {
             PaddingTop = UDim.new(0, l_gutter_0)
@@ -228,8 +233,8 @@ v39.render = function(v60) --[[ Line: 222 ]] --[[ Name: render ]]
         Content = v16.createElement("Frame", {
             BackgroundTransparency = (not l_isDirectional_0 or l_FFlagEnableLeftNavOnConsole_0) and 1 or 0, 
             Size = UDim2.new(1, 0, 1, 0), 
-            [v16.Ref] = v60.contentRef, 
-            [v16.Change.AbsoluteSize] = v60.onResize
+            [v16.Ref] = v64.contentRef, 
+            [v16.Change.AbsoluteSize] = v64.onResize
         }, {
             UIGradient = if not l_isDirectional_0 or l_FFlagEnableLeftNavOnConsole_0 then nil else v16.createElement("UIGradient", {
                 Color = ColorSequence.new(Color3.new(0, 0, 0)), 
@@ -237,13 +242,13 @@ v39.render = function(v60) --[[ Line: 222 ]] --[[ Name: render ]]
                 Rotation = 90
             }), 
             NavigationEvents = v16.createElement(l_NavigationEvents_0, {
-                onWillFocus = v60.onWillFocus
+                onWillFocus = v64.onWillFocus
             }), 
             VerticalScrollViewWithMargin = v16.createElement(l_VerticalScrollViewWithMargin_0, {
-                canvasSizeY = UDim.new(0, v78), 
+                canvasSizeY = UDim.new(0, v82), 
                 paddingHorizontal = l_paddingHorizontal_0, 
                 paddingTop = if l_FFlagAppIaScrollAway_0 and v5.getScrollAwayEnabled() then l_topBarHeight_0 else nil, 
-                [v16.Ref] = v60.scrollviewRef, 
+                [v16.Ref] = v64.scrollviewRef, 
                 Selectable = false
             }, {
                 UIListLayout = v16.createElement("UIListLayout", {
@@ -253,52 +258,62 @@ v39.render = function(v60) --[[ Line: 222 ]] --[[ Name: render ]]
                 }), 
                 TenFootMoreHeader = if l_isDirectional_0 then v16.createElement(v14) else nil, 
                 MoreGrid = v16.createElement(v9, {
-                    size = UDim2.new(1, 0, 0, v70), 
+                    size = UDim2.new(1, 0, 0, v74), 
                     gridCellPadding = l_gutter_0, 
                     gridCellSize = l_gridCellSize_0, 
-                    items = v65, 
-                    renderItem = v60.renderGridItem, 
+                    items = v69, 
+                    renderItem = v64.renderGridItem, 
                     layoutOrder = 1
                 }), 
-                MoreSwitchAccount = v79, 
+                MoreSwitchAccount = v83, 
                 MoreLogOut = v16.createElement(v11, {
-                    buttonHeight = v76, 
-                    buttonMaxWidth = v77, 
-                    item = v66, 
+                    buttonHeight = v80, 
+                    buttonMaxWidth = v81, 
+                    item = v70, 
                     layoutOrder = 3
                 }), 
-                MoreExitAppButton = if l_FFlagEnableMorePageExitButtonSupport_0 and v13 and v60.props.isExitButtonSupported then v16.createElement(v13, {
+                MoreExitAppButton = if l_FFlagEnableMorePageExitButtonSupport_0 and v13 and v64.props.isExitButtonSupported then v16.createElement(v13, {
                     layoutOrder = 4, 
-                    buttonMaxWidth = v77, 
-                    buttonHeight = v76
+                    buttonMaxWidth = v81, 
+                    buttonHeight = v80
                 }) else nil
             })
         })
     });
 end;
-v39 = l_RoactAppPolicy_0.connect(function(v82, _) --[[ Line: 401 ]]
+v43 = l_RoactAppPolicy_0.connect(function(v86, _) --[[ Line: 408 ]]
     return {
-        excludeAccountSwitcher = v82.getExcludeAccountSwitcher()
+        excludeAccountSwitcher = v86.getExcludeAccountSwitcher()
     };
-end)(v39);
+end)(v43);
 if v23 == true then
-    v39 = v25.connectBrowserTrackerLayer({
+    v43 = v25.connectBrowserTrackerLayer({
         l_AppBtidLayers_0.AccountSwitcherLayer
-    }, function(v84, _) --[[ Line: 410 ]]
+    }, function(v88, _) --[[ Line: 417 ]]
         -- upvalues: l_AppBtidLayers_0 (copy), l_GetFFlagEnableAccountSwitcherRedesignIXP_0 (copy)
-        local v86 = v84[l_AppBtidLayers_0.AccountSwitcherLayer] or {};
-        local v87 = {
-            isAccountSwitcherEnabled = v86.isAccountSwitcherEnabled
+        local v90 = v88[l_AppBtidLayers_0.AccountSwitcherLayer] or {};
+        local v91 = {
+            isAccountSwitcherEnabled = v90.isAccountSwitcherEnabled
         };
         if l_GetFFlagEnableAccountSwitcherRedesignIXP_0() then
-            v87.enableFoundationDesign = v86.enableAccountSwitcherFoundationDesign == true;
-            v87.enableSignedOutAccounts = v86.enableAccountSwitcherSignedOutAccounts == true;
-            return v87;
+            v91.enableFoundationDesign = v90.enableAccountSwitcherFoundationDesign == true;
+            v91.enableSignedOutAccounts = v90.enableAccountSwitcherSignedOutAccounts == true;
+            return v91;
         else
-            v87.enableFoundationDesign = true;
-            v87.enableSignedOutAccounts = true;
-            return v87;
+            v91.enableFoundationDesign = true;
+            v91.enableSignedOutAccounts = true;
+            return v91;
         end;
-    end)(v39);
+    end)(v43);
 end;
-return v39;
+if l_FFlagEnableLuaLoginRevamp_0 and l_FFlagEnableAccountSwitcherLoginV2Correction_0 then
+    v43 = v25.connectBrowserTrackerLayer({
+        l_FStringLuaLoginRevampIxpLayer_0
+    }, function(v92, _) --[[ Line: 436 ]]
+        -- upvalues: l_FStringLuaLoginRevampIxpLayer_0 (copy)
+        return {
+            showLoginRevamp = (v92[l_FStringLuaLoginRevampIxpLayer_0] or {}).showLoginRevamp
+        };
+    end)(v43);
+end;
+return v43;

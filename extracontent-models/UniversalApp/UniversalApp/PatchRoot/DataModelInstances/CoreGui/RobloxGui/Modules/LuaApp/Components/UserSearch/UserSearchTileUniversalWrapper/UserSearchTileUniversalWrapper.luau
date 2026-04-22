@@ -3,15 +3,15 @@ local v1 = require(l_CorePackages_0.Packages.Roact);
 local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local v4 = require(l_Modules_0.LuaApp.Thunks.NavigateToUserInfo);
-local v5 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
+local v5 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums);
 local l_UserSearchTile_0 = require(script.Parent.Parent.api).UserSearchTile;
 local l_ImpressionsTaggerWrapper_0 = require(l_CorePackages_0.Workspace.Packages.Impressions).ImpressionsTaggerWrapper;
 local l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSearchPeopleUnifiedSchemaFields;
 local _ = require(l_CorePackages_0.Workspace.Packages.GraphQLServer);
-return function(v10) --[[ Line: 78 ]]
+return function(v10) --[[ Line: 77 ]]
     -- upvalues: l_useDispatch_0 (copy), v4 (copy), v5 (copy), v1 (copy), l_ImpressionsTaggerWrapper_0 (copy), l_UserSearchTile_0 (copy), l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 (copy)
     local v11 = l_useDispatch_0();
-    local function v13(v12) --[[ Line: 81 ]]
+    local function v13(v12) --[[ Line: 80 ]]
         -- upvalues: v11 (copy), v4 (ref), v5 (ref), v10 (copy)
         v11(v4(v12.userId, {
             profilePeekViewProps = {
@@ -28,7 +28,7 @@ return function(v10) --[[ Line: 78 ]]
     return v1.createElement(l_ImpressionsTaggerWrapper_0, {
         impressionsIndex = v10.index, 
         impressionsTag = v10.impressionsTag, 
-        renderComponent = function() --[[ Line: 99 ]] --[[ Name: renderComponent ]]
+        renderComponent = function() --[[ Line: 98 ]] --[[ Name: renderComponent ]]
             -- upvalues: v1 (ref), l_UserSearchTile_0 (ref), v10 (copy), v13 (copy), l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 (ref)
             return v1.createElement(l_UserSearchTile_0, {
                 index = v10.index, 

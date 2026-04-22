@@ -25,13 +25,12 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitCount", 5);
 game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitPeriod", 60);
 game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTenths", 10);
 game:DefineFastInt("CoreScriptBacktraceErrorReportPercentage", 100);
-local v19 = game:DefineFastFlag("EnableLuaCoreScriptsErrorV2Counter", false);
-local v20 = game:DefineFastFlag("EnableCoreScriptsSessionWithError", false);
-local function _() --[[ Line: 54 ]] --[[ Name: CanReportCoreScriptBacktrace ]]
+local v19 = game:DefineFastFlag("EnableCoreScriptsSessionWithError", false);
+local function _() --[[ Line: 52 ]] --[[ Name: CanReportCoreScriptBacktrace ]]
     return math.random(1, 100) <= math.clamp(game:GetFastInt("CoreScriptBacktraceErrorReportPercentage"), 0, 100);
 end;
 if not game:GetFastFlag("DisableCorescriptBacktraceReporting") and game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" and math.random(1, 100) <= math.clamp(game:GetFastInt("CoreScriptBacktraceErrorReportPercentage"), 0, 100) then
-    local v22 = {
+    local v21 = {
         LocalVersion = l_RunService_0:GetRobloxVersion(), 
         BaseUrl = l_ContentProvider_0.BaseUrl, 
         PlaceId = game.PlaceId, 
@@ -39,72 +38,70 @@ if not game:GetFastFlag("DisableCorescriptBacktraceReporting") and game:GetFastS
         UserAgent = l_HttpService_0:GetUserAgent(), 
         CoreScriptVersion = l_RunService_0:GetCoreScriptVersion()
     };
-    local v23 = v11.new({
+    local v22 = v11.new({
         eraseTimeout = game:GetFastInt("CoreScriptBacktracePIIFilterEraseTimeoutSeconds")
     });
     local l_CoreScriptBacktraceRepeatedErrorRateLimiting_0 = game:GetFastFlag("CoreScriptBacktraceRepeatedErrorRateLimiting");
-    local v25 = nil;
+    local v24 = nil;
     if l_CoreScriptBacktraceRepeatedErrorRateLimiting_0 then
-        v25 = v10.new({
+        v24 = v10.new({
             period = game:GetFastInt("CoreScriptBacktraceRepeatedErrorRateLimitPeriod"), 
             threshold = game:GetFastInt("CoreScriptBacktraceRepeatedErrorRateLimitCount"), 
             processInterval = game:GetFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTenths") / 10
         });
     end;
-    local v26 = if v20 then l_SessionWithErrorReporter_0.new(v18, 300, nil) else nil;
-    local v28 = l_BacktraceReporter_0.new({
+    local v25 = if v19 then l_SessionWithErrorReporter_0.new(v18, 300, nil) else nil;
+    local v27 = l_BacktraceReporter_0.new({
         httpService = l_HttpService_0, 
         token = game:GetFastString("CoreScriptBacktraceErrorUploadToken"), 
-        processErrorReportMethod = function(v27) --[[ Line: 92 ]] --[[ Name: processReport ]]
-            -- upvalues: v22 (copy), l_Players_0 (copy), l_RunService_0 (copy)
-            v27:addAttributes(v22);
-            v27:addAttributes({
+        processErrorReportMethod = function(v26) --[[ Line: 90 ]] --[[ Name: processReport ]]
+            -- upvalues: v21 (copy), l_Players_0 (copy), l_RunService_0 (copy)
+            v26:addAttributes(v21);
+            v26:addAttributes({
                 PlayerCount = #l_Players_0:GetPlayers()
             });
-            v27:addAttributes({
+            v26:addAttributes({
                 RobloxChannel = l_RunService_0:GetRobloxClientChannel()
             });
-            return v27;
+            return v26;
         end
     });
     do
-        local l_v25_0 = v25;
-        local function v39(v30, v31, v32, v33) --[[ Line: 113 ]] --[[ Name: handleErrorDetailed ]]
-            -- upvalues: l_CoreGui_0 (copy), l_CorePackages_0 (copy), v15 (copy), v23 (copy), l_CoreScriptBacktraceRepeatedErrorRateLimiting_0 (copy), l_v25_0 (ref), v28 (copy), v19 (copy), l_default_0 (copy), v12 (copy), v20 (copy), v26 (copy)
-            if v32 ~= nil and (v32:IsDescendantOf(l_CoreGui_0) or v32:IsDescendantOf(l_CorePackages_0)) then
-                local v34, v35 = v15.unstable_parseReactError(v30);
-                v30 = v34.message;
-                v31 = v34.stack or v31;
-                v33 = v33 or v35;
-                local v36 = v23:cleanPii(v30);
-                local v37 = v23:cleanPii(v31);
-                if v33 ~= nil then
-                    v33 = v23:cleanPii(v33);
+        local l_v24_0 = v24;
+        local function v38(v29, v30, v31, v32) --[[ Line: 111 ]] --[[ Name: handleErrorDetailed ]]
+            -- upvalues: l_CoreGui_0 (copy), l_CorePackages_0 (copy), v15 (copy), v22 (copy), l_CoreScriptBacktraceRepeatedErrorRateLimiting_0 (copy), l_v24_0 (ref), v27 (copy), l_default_0 (copy), v12 (copy), v19 (copy), v25 (copy)
+            if v31 ~= nil and (v31:IsDescendantOf(l_CoreGui_0) or v31:IsDescendantOf(l_CorePackages_0)) then
+                local v33, v34 = v15.unstable_parseReactError(v29);
+                v29 = v33.message;
+                v30 = v33.stack or v30;
+                v32 = v32 or v34;
+                local v35 = v22:cleanPii(v29);
+                local v36 = v22:cleanPii(v30);
+                if v32 ~= nil then
+                    v32 = v22:cleanPii(v32);
                 end;
                 if l_CoreScriptBacktraceRepeatedErrorRateLimiting_0 then
-                    local v38 = v36 .. v37;
-                    if l_v25_0:isRateLimited(v38) then
+                    local v37 = v35 .. v36;
+                    if l_v24_0:isRateLimited(v37) then
                         return;
                     else
-                        l_v25_0:increment(v38);
+                        l_v24_0:increment(v37);
                     end;
                 end;
-                v28:reportErrorDeferred(v36, v37, v33);
+                v27:reportErrorDeferred(v35, v36, v32);
+                l_default_0:logRobloxTelemetryCounter(v12, 1);
                 if v19 then
-                    l_default_0:logRobloxTelemetryCounter(v12, 1);
-                end;
-                if v20 then
-                    v26:reportEvent(1, nil, "ERROR");
+                    v25:reportEvent(1, nil, "ERROR");
                 end;
             end;
         end;
-        l_ScriptContext_0.ErrorDetailed:Connect(function(...) --[[ Line: 158 ]]
-            -- upvalues: v39 (copy)
-            local l_status_0, l_result_0 = pcall(v39, ...);
+        l_ScriptContext_0.ErrorDetailed:Connect(function(...) --[[ Line: 154 ]]
+            -- upvalues: v38 (copy)
+            local l_status_0, l_result_0 = pcall(v38, ...);
             if not l_status_0 then
                 warn(("CoreScript error reporter failed to handle an error:\n%s"):format(l_result_0));
             end;
         end);
-        v22.ServerVersion = l_RobloxReplicatedStorage_0:WaitForChild("GetServerVersion", 1e999):InvokeServer();
+        v21.ServerVersion = l_RobloxReplicatedStorage_0:WaitForChild("GetServerVersion", 1e999):InvokeServer();
     end;
 end;

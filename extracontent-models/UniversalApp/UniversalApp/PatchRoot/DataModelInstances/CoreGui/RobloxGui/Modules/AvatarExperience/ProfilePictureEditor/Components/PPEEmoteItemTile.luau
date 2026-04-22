@@ -21,9 +21,9 @@ local v19 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
 local l_ItemTile_0 = v4.Tile.ItemTile;
 local v21 = require(l_Modules_0.AvatarExperience.ProfilePictureEditor.Thunks.SetEmoteAssetId);
 local v22 = require(l_Modules_0.LuaApp.Constants);
-local v23 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = v6.Debug.logOnOverlayClosed;
 local v24 = require(l_Modules_0.AvatarExperience.Common.Components.ItemTileDetailButton);
-local v25 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v26 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenItemDetails);
 local v27 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
 local l_wasLastInputGamepad_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).wasLastInputGamepad;
@@ -33,7 +33,7 @@ local l_getRbxthumbWithTypeSizeAndOptions_0 = v29.Utils.getRbxthumbWithTypeSizeA
 local v32 = require(l_Modules_0.AvatarExperience.ProfilePictureEditor.Components.usePPEEmoteItemTileBindings);
 local v33 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
 local l_useLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).Hooks.useLocalization;
-local v35 = require(l_Modules_0.AvatarExperience.Common.Context.useAdaptiveScrolling);
+local l_useAdaptiveScrolling_0 = v8.Hooks.useAdaptiveScrolling;
 local l_useFocusGuiObject_0 = v12.useFocusGuiObject;
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
 local l_useAvatarRoute_0 = v6.AvatarRoute.Hooks.useAvatarRoute;
@@ -71,20 +71,20 @@ local v78 = v3.connect(function(v44, v45) --[[ Line: 251 ]] --[[ Name: mapStateT
         avatarType = l_AvatarType_0
     };
 end, function(v52) --[[ Line: 274 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v21 (copy), v25 (copy)
+    -- upvalues: v21 (copy), l_NavigateWithLock_0 (copy)
     return {
         setEmoteAssetId = function(v53, v54) --[[ Line: 276 ]] --[[ Name: setEmoteAssetId ]]
             -- upvalues: v52 (copy), v21 (ref)
             return v52(v21(v53, v54));
         end, 
         navigateWithLock = function(v55) --[[ Line: 279 ]] --[[ Name: navigateWithLock ]]
-            -- upvalues: v52 (copy), v25 (ref)
-            v52(v25(v55));
+            -- upvalues: v52 (copy), l_NavigateWithLock_0 (ref)
+            v52(l_NavigateWithLock_0(v55));
         end
     };
 end)(function(v56) --[[ Line: 96 ]] --[[ Name: PPEEmoteItemTile ]]
-    -- upvalues: v35 (copy), v14 (copy), l_useDispatch_0 (copy), l_useFocusGuiObject_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), l_useInputType_0 (copy), l_useRoactService_0 (copy), v27 (copy), l_wasLastInputGamepad_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useLocalization_0 (copy), v13 (copy), v19 (copy), v18 (copy), v26 (copy), l_AvatarScreen_0 (copy), v23 (copy), v22 (copy), v24 (copy), v32 (copy), l_useTableWrappedCallbackRef_0 (copy), l_CatalogItemCard_0 (copy), l_ItemCardThumbnail_0 (copy), l_ItemTile_0 (copy)
-    local v57 = v35();
+    -- upvalues: l_useAdaptiveScrolling_0 (copy), v14 (copy), l_useDispatch_0 (copy), l_useFocusGuiObject_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), l_useInputType_0 (copy), l_useRoactService_0 (copy), v27 (copy), l_wasLastInputGamepad_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useLocalization_0 (copy), v13 (copy), v19 (copy), v18 (copy), v26 (copy), l_AvatarScreen_0 (copy), l_logOnOverlayClosed_0 (copy), v22 (copy), v24 (copy), v32 (copy), l_useTableWrappedCallbackRef_0 (copy), l_CatalogItemCard_0 (copy), l_ItemCardThumbnail_0 (copy), l_ItemTile_0 (copy)
+    local v57 = l_useAdaptiveScrolling_0();
     local v58 = v14.createRef();
     local v59 = l_useDispatch_0();
     local v60 = shouldProvideControlsToViewItemDetails(v56);
@@ -146,7 +146,7 @@ end)(function(v56) --[[ Line: 96 ]] --[[ Name: PPEEmoteItemTile ]]
         v58.current
     });
     local v74 = v13.useCallback(function() --[[ Line: 158 ]]
-        -- upvalues: v56 (copy), v62 (copy), v73 (copy), v18 (ref), l_AvatarScreen_0 (ref), v23 (ref), v66 (copy), v61 (copy), v58 (copy)
+        -- upvalues: v56 (copy), v62 (copy), v73 (copy), v18 (ref), l_AvatarScreen_0 (ref), l_logOnOverlayClosed_0 (ref), v66 (copy), v61 (copy), v58 (copy)
         if v56.itemId == v56.emoteAssetId then
             v56.setEmoteAssetId(nil, v62);
             v73(true);
@@ -160,8 +160,8 @@ end)(function(v56) --[[ Line: 96 ]] --[[ Name: PPEEmoteItemTile ]]
                     v73(false);
                 end, 
                 onOverlayClosed = function() --[[ Line: 172 ]] --[[ Name: onOverlayClosed ]]
-                    -- upvalues: v23 (ref), v66 (ref), v61 (ref), v58 (ref)
-                    v23("EmotesScrollView", v66);
+                    -- upvalues: l_logOnOverlayClosed_0 (ref), v66 (ref), v61 (ref), v58 (ref)
+                    l_logOnOverlayClosed_0("EmotesScrollView", v66);
                     if v66 then
                         v61(v58.current);
                     end;

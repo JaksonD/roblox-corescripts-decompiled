@@ -5,7 +5,7 @@ local v3 = require(l_Actions_0.Games.SetGameSocialLinks);
 local v4 = require(l_Modules_0.LuaApp.Http.Requests.GamesApi.GamesGetSocialLinks);
 local v5 = require(l_Modules_0.LuaApp.Models.GamesApi.GameSocialLink);
 local v6 = require(l_Modules_0.LuaApp.Enum.SocialMediaType);
-local l_EnableCommunityProfilePageIXP_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform).EnableCommunityProfilePageIXP;
+local v7 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EnableCommunityProfilePageIXP);
 local v8 = require(script.Parent.ProcessGameSocialLinks);
 local l_FFlagLuaAppProcessGameSocialLinks_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppProcessGameSocialLinks;
 local _ = function(v10) --[[ Line: 14 ]]
@@ -18,11 +18,11 @@ local _ = function(v10) --[[ Line: 14 ]]
     return false;
 end;
 return function(v14, v15) --[[ Line: 23 ]]
-    -- upvalues: v4 (copy), l_FFlagLuaAppProcessGameSocialLinks_0 (copy), v8 (copy), v3 (copy), v5 (copy), v6 (copy), l_EnableCommunityProfilePageIXP_0 (copy)
+    -- upvalues: v4 (copy), l_FFlagLuaAppProcessGameSocialLinks_0 (copy), v8 (copy), v3 (copy), v5 (copy), v6 (copy), v7 (copy)
     return function(v16) --[[ Line: 24 ]]
-        -- upvalues: v4 (ref), v14 (copy), v15 (copy), l_FFlagLuaAppProcessGameSocialLinks_0 (ref), v8 (ref), v3 (ref), v5 (ref), v6 (ref), l_EnableCommunityProfilePageIXP_0 (ref)
+        -- upvalues: v4 (ref), v14 (copy), v15 (copy), l_FFlagLuaAppProcessGameSocialLinks_0 (ref), v8 (ref), v3 (ref), v5 (ref), v6 (ref), v7 (ref)
         return v4(v14, v15):andThen(function(v17) --[[ Line: 25 ]]
-            -- upvalues: l_FFlagLuaAppProcessGameSocialLinks_0 (ref), v8 (ref), v15 (ref), v16 (copy), v3 (ref), v5 (ref), v6 (ref), l_EnableCommunityProfilePageIXP_0 (ref)
+            -- upvalues: l_FFlagLuaAppProcessGameSocialLinks_0 (ref), v8 (ref), v15 (ref), v16 (copy), v3 (ref), v5 (ref), v6 (ref), v7 (ref)
             local v18 = false;
             local l_data_0 = v17.responseBody.data;
             local v20 = {};
@@ -54,7 +54,7 @@ return function(v14, v15) --[[ Line: 23 ]]
                     elseif v25.type == v6.RobloxGroup then
                         if not v21 then
                             v21 = v25;
-                            if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v21.url ~= nil then
+                            if v7.FFlagIsSetupEnabled and v21.url ~= nil then
                                 v27 = string.split(v21.url, "/");
                                 l_type_0 = v27[#v27];
                                 if tonumber(l_type_0) ~= nil then

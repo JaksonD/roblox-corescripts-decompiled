@@ -176,8 +176,8 @@ local v47 = v5.forwardRef(function(v38, v39) --[[ Line: 231 ]]
         local l_isRoactGamepadEnabled_1 = v41.isRoactGamepadEnabled;
         local v43 = v10.getMaxWidth(v41.standardSize, v41.maxWidth);
         local v44 = v5.useRef(nil);
-        local v45 = (if v23.useProvidedRefForButton then v38.buttonRef or v39 else v39) or v44;
-        v5.useLayoutEffect(function() --[[ Line: 243 ]]
+        local v45 = v38.buttonRef or v39 or v44;
+        v5.useLayoutEffect(function() --[[ Line: 242 ]]
             -- upvalues: v43 (copy), v45 (copy)
             local v46 = nil;
             if v43 and v45 and typeof(v45) == "table" and v45.current then
@@ -185,7 +185,7 @@ local v47 = v5.forwardRef(function(v38, v39) --[[ Line: 231 ]]
                 v46.MaxSize = Vector2.new(v43, 1e999);
                 v46.Parent = v45.current;
             end;
-            return function() --[[ Line: 251 ]]
+            return function() --[[ Line: 250 ]]
                 -- upvalues: v46 (ref)
                 if v46 then
                     v46.Parent = nil;
@@ -219,7 +219,7 @@ local v47 = v5.forwardRef(function(v38, v39) --[[ Line: 231 ]]
         });
     else
         return v5.createElement(v37, v6.Dictionary.join(v38, {
-            buttonRef = if v23.useProvidedRefForButton then v38.buttonRef or v39 else v39
+            buttonRef = v38.buttonRef or v39
         }));
     end;
 end);

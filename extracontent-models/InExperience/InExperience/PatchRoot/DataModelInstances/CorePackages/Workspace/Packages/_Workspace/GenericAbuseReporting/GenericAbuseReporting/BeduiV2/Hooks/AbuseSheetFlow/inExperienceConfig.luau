@@ -9,6 +9,7 @@ return {
             type = "listItem", 
             value = {
                 {
+                    leading = "Microphone", 
                     id = "voiceChat", 
                     label = {
                         ["$translate"] = "Label.SurfaceVoiceChat"
@@ -18,6 +19,7 @@ return {
                     }
                 }, 
                 {
+                    leading = "SpeechBubbleAlignCenter", 
                     id = "textChat", 
                     label = {
                         ["$translate"] = "Label.SurfaceTextChat"
@@ -27,6 +29,7 @@ return {
                     }
                 }, 
                 {
+                    leading = "Person", 
                     id = "avatarOrName", 
                     label = "Someone playing", 
                     description = "Their username, avatar, or behavior", 
@@ -35,6 +38,7 @@ return {
                     }
                 }, 
                 {
+                    leading = "Controller", 
                     id = "gameOrExperience", 
                     label = "The game or experience", 
                     description = "Objects, sounds, or the whole experience", 
@@ -64,71 +68,11 @@ return {
                 }
             }
         }, 
-        textChatMessages = {
-            type = "listItem", 
-            value = {
-                {
-                    id = "message1", 
-                    label = "[Sent privately] <font color=\"#b38bf5\">bigfootflow</font>: yo mamaa a treehouse bruh"
-                }, 
-                {
-                    id = "message2", 
-                    label = "<font color=\"#b38bf5\">bigfootflow</font>: bruhhh hahaha you suck at this game you should uninstall"
-                }, 
-                {
-                    id = "message3", 
-                    label = "[Sent privately] <font color=\"#55ffab\">notsocialman</font>: ugh shut up"
-                }, 
-                {
-                    id = "message4", 
-                    label = "<font color=\"#55ffab\">notsocialman</font>: YOU SUCK"
-                }, 
-                {
-                    id = "message5", 
-                    label = "<font color=\"#b38bf5\">bigfootflow</font>: lol get rekt noob"
-                }, 
-                {
-                    id = "message6", 
-                    label = "[Sent privately] <font color=\"#55ffab\">notsocialman</font>: im gonna find u irl"
-                }, 
-                {
-                    id = "message7", 
-                    label = "<font color=\"#619bff\">xXgamerXx</font>: anyone wanna trade?"
-                }, 
-                {
-                    id = "message8", 
-                    label = "<font color=\"#b38bf5\">bigfootflow</font>: give me ur password ill duplicate ur robux"
-                }, 
-                {
-                    id = "message9", 
-                    label = "[Sent privately] <font color=\"#619bff\">xXgamerXx</font>: go to this website for free stuff"
-                }, 
-                {
-                    id = "message10", 
-                    label = "<font color=\"#55ffab\">notsocialman</font>: everyone report bigfootflow"
-                }, 
-                {
-                    id = "message11", 
-                    label = "<font color=\"#b38bf5\">bigfootflow</font>: ur trash at this game just quit already"
-                }, 
-                {
-                    id = "message12", 
-                    label = "[Sent privately] <font color=\"#b38bf5\">bigfootflow</font>: whats ur real name"
-                }, 
-                {
-                    id = "message13", 
-                    label = "<font color=\"#619bff\">xXgamerXx</font>: stop spamming chat please"
-                }, 
-                {
-                    id = "message14", 
-                    label = "<font color=\"#55ffab\">notsocialman</font>: nobody likes you bigfootflow leave the server"
-                }
-            }
-        }, 
         experienceTargets = {
             type = "listItem", 
             value = {
                 {
+                    leading = "CubeQuestionMark", 
                     id = "somethingInExperience", 
                     label = "Something in the experience", 
                     meta = {
@@ -136,6 +80,7 @@ return {
                     }
                 }, 
                 {
+                    leading = "Controller", 
                     id = "wholeGameOrExperience", 
                     label = "The whole game or experience"
                 }
@@ -324,6 +269,12 @@ return {
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
             }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
+            }, 
             next = {
                 ["$switch"] = {
                     {
@@ -382,13 +333,30 @@ return {
             variant = "chevron", 
             title = "Who do you want to report?", 
             items = {
-                ["$resource"] = "temporaryUsers"
+                ["$load"] = "voiceUsers", 
+                stub = {
+                    {
+                        id = "12345", 
+                        label = "StubUser", 
+                        description = "@stubuser", 
+                        meta = {
+                            username = "stubuser", 
+                            displayname = "Stub User"
+                        }
+                    }
+                }
             }, 
             formKey = "voiceTargetId", 
             required = true, 
             storeSelectionAsContext = "selectedPlayer", 
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
+            }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
             }, 
             next = "voiceChatAbuseSelection"
         }, 
@@ -416,13 +384,19 @@ return {
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
             }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
+            }, 
             next = "generalUserAbuseSelection"
         }, 
         textChatLineSelection = {
             type = "inExpChatSelection", 
             title = "Select one chat to report", 
             items = {
-                ["$resource"] = "textChatMessages"
+                ["$load"] = "inExpChatMessages"
             }, 
             formKey = "textChatMessageId", 
             required = true, 
@@ -430,7 +404,20 @@ return {
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
             }, 
-            next = "textChatAbuseSelection"
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
+            }, 
+            emptyText = {
+                ["$translate"] = "Label.NoChatMessages"
+            }, 
+            next = {
+                type = "goto", 
+                nodeId = "textChatAbuseSelection", 
+                replace = true
+            }
         }, 
         experienceSubSelection = {
             type = "list", 
@@ -445,13 +432,19 @@ return {
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
             }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
+            }, 
             next = {
                 ["$switch"] = {
                     {
                         condition = {
                             ["$context"] = "selectedGameExperienceTarget.meta.routeHighlightMode"
                         }, 
-                        value = "highlightMode"
+                        value = "sceneSelection"
                     }, 
                     {
                         condition = true, 
@@ -460,11 +453,11 @@ return {
                 }
             }
         }, 
-        highlightMode = {
-            type = "paragraph", 
+        sceneSelection = {
+            type = "inExpSceneSelection", 
             title = "Highlight the problem", 
-            paragraph = "[Placeholder] This should open the in-experience precision selector.", 
-            nextButtonText = "TBD", 
+            openingStatusText = "Opening scene selection...", 
+            failedStatusText = "Unable to open scene selection.", 
             next = {
                 type = "close"
             }
@@ -484,6 +477,12 @@ return {
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
             }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
+            }, 
             next = "socialComment"
         }, 
         textChatAbuseSelection = {
@@ -500,6 +499,12 @@ return {
             storeSelectionAsContext = "selectedAbuseType", 
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
+            }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
             }, 
             next = "socialComment"
         }, 
@@ -518,6 +523,12 @@ return {
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
             }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
+            }, 
             next = "socialComment"
         }, 
         experienceAbuseSelection = {
@@ -534,6 +545,12 @@ return {
             storeSelectionAsContext = "selectedAbuseType", 
             nextButtonText = {
                 ["$translate"] = "Action.Continue"
+            }, 
+            errorText = {
+                ["$translate"] = "Description.GeneralError"
+            }, 
+            retryButtonText = {
+                ["$translate"] = "Action.Retry"
             }, 
             next = "gameExperienceComment"
         }, 
@@ -651,7 +668,7 @@ return {
             }
         }, 
         userConfirmation = {
-            type = "confirmation", 
+            type = "inExpConfirmation", 
             title = "Thanks for your report", 
             message = "Our moderation team will use it to make Roblox safer for you and everyone.", 
             blockToggle = {
@@ -685,6 +702,37 @@ return {
                     ["$translate"] = "Label.UnblockedPerson"
                 }
             }, 
+            muteToggle = {
+                label = "Mute [username]", 
+                description = "You won't see chats from them anymore", 
+                errorLabel = {
+                    ["$translate"] = "Label.GeneralError"
+                }, 
+                userId = {
+                    ["$switch"] = {
+                        {
+                            condition = {
+                                ["$attribute"] = "preselectedAbuserId"
+                            }, 
+                            value = {
+                                ["$attribute"] = "preselectedAbuserId"
+                            }
+                        }, 
+                        {
+                            condition = true, 
+                            value = {
+                                ["$context"] = "selectedPlayer.id"
+                            }
+                        }
+                    }
+                }, 
+                mutedSnackbarMessage = {
+                    ["$translate"] = "Label.MutedPerson"
+                }, 
+                unmutedSnackbarMessage = {
+                    ["$translate"] = "Label.UnmutedPerson"
+                }
+            }, 
             helpline = {
                 ["$switch"] = {
                     {
@@ -705,11 +753,11 @@ return {
                 ["$translate"] = "Action.Close"
             }, 
             next = {
-                type = "close"
+                type = "reset"
             }
         }, 
         experienceConfirmation = {
-            type = "confirmation", 
+            type = "inExpConfirmation", 
             title = "Thanks for your report", 
             message = "Our moderation team will use it to make Roblox safer for you and everyone.", 
             helpline = {
@@ -732,7 +780,7 @@ return {
                 ["$translate"] = "Action.Close"
             }, 
             next = {
-                type = "close"
+                type = "reset"
             }
         }, 
         generalError = {
@@ -752,11 +800,62 @@ return {
         }
     }, 
     submission = {
-        endpoint = "abuse-reporting/v1/abuse-report", 
+        endpoint = {
+            ["$switch"] = {
+                {
+                    condition = {
+                        ["$context"] = "selectedSurface.meta.routeVoiceChat"
+                    }, 
+                    value = "voice"
+                }, 
+                {
+                    condition = {
+                        ["$context"] = "selectedSurface.meta.routeTextChat"
+                    }, 
+                    value = "chat"
+                }, 
+                {
+                    condition = {
+                        ["$context"] = "selectedSurface.meta.routeAvatarOrName"
+                    }, 
+                    value = "avatar"
+                }, 
+                {
+                    condition = {
+                        ["$context"] = "selectedSurface.meta.routeGameOrExperience"
+                    }, 
+                    value = "place"
+                }
+            }
+        }, 
         data = {
-            targetType = "user", 
             abuseVector = {
-                ["$attribute"] = "abuseVector"
+                ["$switch"] = {
+                    {
+                        condition = {
+                            ["$context"] = "selectedSurface.meta.routeVoiceChat"
+                        }, 
+                        value = "voice"
+                    }, 
+                    {
+                        condition = {
+                            ["$context"] = "selectedSurface.meta.routeTextChat"
+                        }, 
+                        value = "chat"
+                    }, 
+                    {
+                        condition = {
+                            ["$context"] = "selectedSurface.meta.routeAvatarOrName"
+                        }, 
+                        value = "avatar"
+                    }, 
+                    {
+                        condition = {
+                            ["$context"] = "selectedSurface.meta.routeGameOrExperience"
+                        }, 
+                        value = "place"
+                    }
+                }
             }, 
             targetIdStr = {
                 ["$switch"] = {
@@ -791,23 +890,8 @@ return {
                 ["$formData"] = "comment"
             }, 
             custom = {
-                REPORTED_ABUSE_SURFACE = {
-                    ["$formData"] = "surfaceId"
-                }, 
-                REPORTED_VOICE_TARGET = {
-                    ["$formData"] = "voiceTargetId"
-                }, 
-                REPORTED_PLAYER_TARGET = {
-                    ["$formData"] = "playerTargetId"
-                }, 
-                REPORTED_TEXT_CHAT_MESSAGE = {
+                textChatMessageId = {
                     ["$formData"] = "textChatMessageId"
-                }, 
-                REPORTED_GAME_EXPERIENCE_TARGET = {
-                    ["$formData"] = "gameExperienceTargetId"
-                }, 
-                REPORT_TARGET_ASSET_ID = {
-                    ["$attribute"] = "experienceTargetId"
                 }
             }
         }
@@ -815,6 +899,9 @@ return {
     translations = {
         ["Action.Close"] = "Close", 
         ["Action.Continue"] = "Continue", 
+        ["Action.Retry"] = "Retry", 
+        ["Label.NoChatMessages"] = "No chat messages", 
+        ["Description.GeneralError"] = "Something went wrong. Please try again later.", 
         ["Action.Ok"] = "OK", 
         ["Action.ViewHelplines"] = "View helplines", 
         ["Description.AbuseBullying"] = "Being mean to someone or threatening them", 
@@ -847,9 +934,11 @@ return {
         ["Label.AbuseViolence"] = "Extreme violence", 
         ["Label.BlockedPerson"] = "You blocked this person", 
         ["Label.GeneralError"] = "Something went wrong. Please try again later.", 
+        ["Label.MutedPerson"] = "You muted this person", 
         ["Label.SurfaceTextChat"] = "Text chat messages", 
         ["Label.SurfaceVoiceChat"] = "Voice chat messages", 
         ["Label.UnblockedPerson"] = "You unblocked this person", 
+        ["Label.UnmutedPerson"] = "You unmuted this person", 
         ["Title.HowReportsWork"] = "How reports work", 
         ["Title.SomethingWentWrong"] = "Something went wrong", 
         ["Title.WhatIssue"] = "What was the issue?"

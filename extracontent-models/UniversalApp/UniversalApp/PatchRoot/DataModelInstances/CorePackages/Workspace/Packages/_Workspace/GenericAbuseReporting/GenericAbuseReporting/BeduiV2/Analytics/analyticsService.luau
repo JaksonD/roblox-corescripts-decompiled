@@ -14,13 +14,15 @@ local v5 = {
     NodeDone = "NodeDone", 
     SelectItem = "SelectItem", 
     IsUserBlockAvailable = "IsUserBlockAvailable", 
+    IsUserMuteAvailable = "IsUserMuteAvailable", 
     DidBlockUser = "DidBlockUser", 
     DidUnblockUser = "DidUnblockUser", 
+    DidMuteUser = "DidMuteUser", 
     HelplineShown = "HelplineShown", 
     HelplineOpened = "HelplineOpened", 
     Error = "Error"
 };
-local _ = function(v6) --[[ Line: 66 ]] --[[ Name: isArray ]]
+local _ = function(v6) --[[ Line: 70 ]] --[[ Name: isArray ]]
     local v7 = 0;
     for _ in v6 do
         v7 = v7 + 1;
@@ -31,7 +33,7 @@ local _ = function(v6) --[[ Line: 66 ]] --[[ Name: isArray ]]
     end;
     return v9;
 end;
-local function v22(v11) --[[ Line: 79 ]] --[[ Name: flattenForTelemetry ]]
+local function v22(v11) --[[ Line: 83 ]] --[[ Name: flattenForTelemetry ]]
     local v12 = {};
     for v13, v14 in v11 do
         if type(v14) == "table" then
@@ -76,7 +78,7 @@ local v23 = {
     links = "https://github.rbx.com/Roblox/proto-schemas/pull/8782"
 };
 return {
-    sendAnalyticsEvent = function(v24, v25) --[[ Line: 115 ]] --[[ Name: sendAnalyticsEvent ]]
+    sendAnalyticsEvent = function(v24, v25) --[[ Line: 119 ]] --[[ Name: sendAnalyticsEvent ]]
         -- upvalues: l_FFlagFixAnalyticsForDynamicReportV2_0 (copy), v3 (copy), l_LocalPlayer_0 (copy), l_TelemetryService_0 (copy), v23 (copy), v22 (copy)
         if l_FFlagFixAnalyticsForDynamicReportV2_0 then
             local v26 = v3.join(v24, v25, {

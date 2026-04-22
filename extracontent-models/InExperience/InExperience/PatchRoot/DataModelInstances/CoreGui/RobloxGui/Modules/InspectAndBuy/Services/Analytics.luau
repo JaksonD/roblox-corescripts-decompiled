@@ -8,79 +8,118 @@ local l_HttpService_0 = game:GetService("HttpService");
 local l_default_0 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol).default;
 local l_EventStreamReporter_0 = require(l_CorePackages_0.Workspace.Packages.TelemetryService).EventStreamReporter;
 local v9 = require(script.Parent.Parent.Flags.FFlagAXEnableInspectAndBuyVersionAnalytics);
-local v10 = {
+local l_UnifiedEventLogEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogEnums;
+local l_UnifiedLoggingSurface_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.UnifiedLoggingSurface;
+local l_UnifiedEventLogConstants_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogConstants;
+local l_ItemTypeEnum_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Enums.ItemTypeEnum;
+local l_TIMED_OPTION_BY_DAYS_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Constants.TIMED_OPTION_BY_DAYS;
+local v15 = {
     SEND_EVENT_DEFERRED = 0, 
     SEND_EVENT_IMMEDIATELY = 1, 
     SEND_ROBLOX_TELEMETRY_EVENT = 2
 };
-local v11 = {};
-v11.__index = v11;
-v11.__tostring = function() --[[ Line: 26 ]]
+local v16 = {};
+v16.__index = v16;
+v16.__tostring = function() --[[ Line: 40 ]]
     return "Service(Analytics)";
 end;
-v11.new = function(v12, v13, v14) --[[ Line: 32 ]] --[[ Name: new ]]
-    -- upvalues: v11 (copy), l_EventStreamReporter_0 (copy), l_default_0 (copy), l_Players_0 (copy), v9 (copy), l_UserInputService_0 (copy), l_HttpService_0 (copy), l_RunService_0 (copy), l_RbxAnalyticsService_0 (copy)
-    local v15 = {};
-    setmetatable(v15, v11);
-    v15.eventStream = l_EventStreamReporter_0.new(l_default_0);
-    v15.pid = tostring(game.PlaceId);
-    v15.uid = tostring(l_Players_0.LocalPlayer.UserId);
-    v15.feature = "inspectAndBuy";
-    v15.inspecteeUid = v12;
-    v15.ctx = v13;
-    v15.version = if v9 then v14 else nil;
-    v15.reportOpenInspectMenu = function() --[[ Line: 46 ]] --[[ Name: reportOpenInspectMenu ]]
-        -- upvalues: v15 (copy)
-        v15:report("inspectUser", {});
+v16.new = function(v17, v18, v19) --[[ Line: 46 ]] --[[ Name: new ]]
+    -- upvalues: v16 (copy), l_EventStreamReporter_0 (copy), l_default_0 (copy), l_Players_0 (copy), v9 (copy), l_UnifiedEventLogEnums_0 (copy), l_TIMED_OPTION_BY_DAYS_0 (copy), l_ItemTypeEnum_0 (copy), l_UserInputService_0 (copy), l_HttpService_0 (copy), l_RunService_0 (copy), l_RbxAnalyticsService_0 (copy)
+    local v20 = {};
+    setmetatable(v20, v16);
+    v20.eventStream = l_EventStreamReporter_0.new(l_default_0);
+    v20.pid = tostring(game.PlaceId);
+    v20.uid = tostring(l_Players_0.LocalPlayer.UserId);
+    v20.feature = "inspectAndBuy";
+    v20.inspecteeUid = v17;
+    v20.ctx = v18;
+    v20.version = if v9 then v19 else nil;
+    v20.reportOpenInspectMenu = function() --[[ Line: 60 ]] --[[ Name: reportOpenInspectMenu ]]
+        -- upvalues: v20 (copy)
+        v20:report("inspectUser", {});
     end;
-    v15.reportTryOnButtonClicked = function(v16, v17) --[[ Line: 53 ]] --[[ Name: reportTryOnButtonClicked ]]
-        -- upvalues: v15 (copy)
-        local v18 = {
-            itemType = v16, 
-            itemID = v17
+    v20.reportTryOnButtonClicked = function(v21, v22) --[[ Line: 67 ]] --[[ Name: reportTryOnButtonClicked ]]
+        -- upvalues: v20 (copy)
+        local v23 = {
+            itemType = v21, 
+            itemID = v22
         };
-        v15:report("tryItem", v18);
+        v20:report("tryItem", v23);
     end;
-    v15.reportFavoriteItem = function(v19, v20, v21, v22, v23, v24) --[[ Line: 63 ]] --[[ Name: reportFavoriteItem ]]
-        -- upvalues: v15 (copy)
-        local v25 = {
-            itemType = v19, 
-            itemID = v20, 
-            favorite = v21, 
-            success = v22, 
-            failureReason = v23, 
-            favoriteCount = v24
+    v20.reportFavoriteItem = function(v24, v25, v26, v27, v28, v29) --[[ Line: 77 ]] --[[ Name: reportFavoriteItem ]]
+        -- upvalues: v20 (copy)
+        local v30 = {
+            itemType = v24, 
+            itemID = v25, 
+            favorite = v26, 
+            success = v27, 
+            failureReason = v28, 
+            favoriteCount = v29
         };
-        v15:report("favoriteItem", v25);
+        v20:report("favoriteItem", v30);
     end;
-    v15.reportPurchaseAttempt = function(v26, v27) --[[ Line: 77 ]] --[[ Name: reportPurchaseAttempt ]]
-        -- upvalues: v15 (copy)
-        local v28 = {
-            itemType = v26, 
-            itemID = v27
+    v20.reportPurchaseAttempt = function(v31, v32) --[[ Line: 91 ]] --[[ Name: reportPurchaseAttempt ]]
+        -- upvalues: v20 (copy)
+        local v33 = {
+            itemType = v31, 
+            itemID = v32
         };
-        v15:report("purchaseAttemptItem", v28);
+        v20:report("purchaseAttemptItem", v33);
     end;
-    v15.reportPurchaseSuccess = function(v29, v30) --[[ Line: 87 ]] --[[ Name: reportPurchaseSuccess ]]
-        -- upvalues: v15 (copy)
-        local v31 = {
-            itemType = v29, 
-            itemID = v30
+    v20.reportPurchaseAttemptUnifiedEvent = function(v34, v35, v36) --[[ Line: 101 ]] --[[ Name: reportPurchaseAttemptUnifiedEvent ]]
+        -- upvalues: v20 (copy), l_UnifiedEventLogEnums_0 (ref), l_TIMED_OPTION_BY_DAYS_0 (ref), l_ItemTypeEnum_0 (ref)
+        v20:reportUnifiedEvent({
+            action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.PURCHASE_ATTEMPT, 
+            itemId = v35, 
+            itemType = v34, 
+            organicTimedOption = if v36.timedOptionDays ~= nil then l_TIMED_OPTION_BY_DAYS_0[v36.timedOptionDays] else nil, 
+            assetType = if v34 == l_ItemTypeEnum_0.Asset then v36.itemSubType else nil, 
+            bundleType = if v34 == l_ItemTypeEnum_0.Bundle then v36.itemSubType else nil, 
+            organicItemPrice = v36.price or 0
+        });
+        local v37 = {
+            itemType = v34, 
+            itemID = v35
         };
-        v15:report("purchaseSuccessItem", v31);
+        v20:report("purchaseAttemptItem", v37);
     end;
-    v15.reportItemDetailPageOpened = function(v32, v33) --[[ Line: 101 ]] --[[ Name: reportItemDetailPageOpened ]]
-        -- upvalues: v15 (copy)
-        local v34 = {
-            itemType = v32, 
-            itemID = v33
+    v20.reportPurchaseSuccessUnifiedEvent = function(v38, v39, v40) --[[ Line: 123 ]] --[[ Name: reportPurchaseSuccessUnifiedEvent ]]
+        -- upvalues: v20 (copy), l_UnifiedEventLogEnums_0 (ref), l_TIMED_OPTION_BY_DAYS_0 (ref), l_ItemTypeEnum_0 (ref)
+        v20:reportUnifiedEvent({
+            action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.PURCHASE_SUCCESS, 
+            itemId = v39, 
+            itemType = v38, 
+            organicTimedOption = if v40.timedOptionDays ~= nil then l_TIMED_OPTION_BY_DAYS_0[v40.timedOptionDays] else nil, 
+            assetType = if v38 == l_ItemTypeEnum_0.Asset then v40.itemSubType else nil, 
+            bundleType = if v38 == l_ItemTypeEnum_0.Bundle then v40.itemSubType else nil, 
+            organicItemPrice = v40.price or 0
+        });
+        local v41 = {
+            itemType = v38, 
+            itemID = v39
         };
-        v15:report("itemDetailView", v34);
+        v20:report("purchaseSuccessItem", v41);
     end;
-    v15.platformStr = (function() --[[ Line: 111 ]] --[[ Name: getPlatformString ]]
+    v20.reportPurchaseSuccess = function(v42, v43) --[[ Line: 145 ]] --[[ Name: reportPurchaseSuccess ]]
+        -- upvalues: v20 (copy)
+        local v44 = {
+            itemType = v42, 
+            itemID = v43
+        };
+        v20:report("purchaseSuccessItem", v44);
+    end;
+    v20.reportItemDetailPageOpened = function(v45, v46) --[[ Line: 159 ]] --[[ Name: reportItemDetailPageOpened ]]
+        -- upvalues: v20 (copy)
+        local v47 = {
+            itemType = v45, 
+            itemID = v46
+        };
+        v20:report("itemDetailView", v47);
+    end;
+    v20.platformStr = (function() --[[ Line: 169 ]] --[[ Name: getPlatformString ]]
         -- upvalues: l_UserInputService_0 (ref), l_HttpService_0 (ref)
         local l_l_UserInputService_0_Platform_0 = l_UserInputService_0:GetPlatform();
-        local v36 = "Unknown";
+        local v49 = "Unknown";
         if l_l_UserInputService_0_Platform_0 == Enum.Platform.Windows then
             return "Windows";
         elseif l_l_UserInputService_0_Platform_0 == Enum.Platform.OSX then
@@ -90,7 +129,7 @@ v11.new = function(v12, v13, v14) --[[ Line: 32 ]] --[[ Name: new ]]
         else
             if l_l_UserInputService_0_Platform_0 == Enum.Platform.Android then
                 local l_l_HttpService_0_UserAgent_0 = l_HttpService_0:GetUserAgent();
-                v36 = string.find(l_l_HttpService_0_UserAgent_0, "AmazonAppStore") and "Amazon" or "Android";
+                v49 = string.find(l_l_HttpService_0_UserAgent_0, "AmazonAppStore") and "Amazon" or "Android";
                 if string.find(l_l_HttpService_0_UserAgent_0, "OculusQuest3Store") then
                     return "Quest";
                 end;
@@ -99,34 +138,42 @@ v11.new = function(v12, v13, v14) --[[ Line: 32 ]] --[[ Name: new ]]
             elseif l_l_UserInputService_0_Platform_0 == Enum.Platform.UWP then
                 return "UWP";
             elseif l_l_UserInputService_0_Platform_0 == Enum.Platform.PS4 or l_l_UserInputService_0_Platform_0 == Enum.Platform.PS3 or l_l_UserInputService_0_Platform_0 == Enum.Platform.PS5 then
-                v36 = "PlayStation";
+                v49 = "PlayStation";
             end;
-            return v36;
+            return v49;
         end;
     end)();
-    v15.sendCounter = function(v38) --[[ Line: 144 ]] --[[ Name: sendCounter ]]
-        -- upvalues: l_RunService_0 (ref), v15 (copy), l_RbxAnalyticsService_0 (ref)
+    v20.sendCounter = function(v51) --[[ Line: 202 ]] --[[ Name: sendCounter ]]
+        -- upvalues: l_RunService_0 (ref), v20 (copy), l_RbxAnalyticsService_0 (ref)
         if l_RunService_0:IsStudio() then
             return;
         else
-            local v39 = "inspectAndBuy" .. "_" .. v15.platformStr .. "_" .. v38;
-            l_RbxAnalyticsService_0:ReportCounter(v39);
+            local v52 = "inspectAndBuy" .. "_" .. v20.platformStr .. "_" .. v51;
+            l_RbxAnalyticsService_0:ReportCounter(v52);
             return;
         end;
     end;
-    return v15;
+    return v20;
 end;
-v11.report = function(v40, v41, v42) --[[ Line: 156 ]] --[[ Name: report ]]
-    -- upvalues: v10 (copy), v9 (copy), v3 (copy)
-    local v43 = {
-        pid = v40.pid, 
-        uid = v40.uid, 
-        inspecteeUid = v40.inspecteeUid, 
+v16.report = function(v53, v54, v55) --[[ Line: 214 ]] --[[ Name: report ]]
+    -- upvalues: v15 (copy), v9 (copy), v3 (copy)
+    local v56 = {
+        pid = v53.pid, 
+        uid = v53.uid, 
+        inspecteeUid = v53.inspecteeUid, 
         feature = "inspectAndBuy", 
-        event_sender_api = v10.SEND_ROBLOX_TELEMETRY_EVENT, 
-        inspectAndBuyVersion = if v9 then v40.version else nil
+        event_sender_api = v15.SEND_ROBLOX_TELEMETRY_EVENT, 
+        inspectAndBuyVersion = if v9 then v53.version else nil
     };
-    local v44 = v3.Dictionary.join(v43, v42);
-    v40.eventStream:sendTelemetryEvent(v40.ctx, v41, v44);
+    local v57 = v3.Dictionary.join(v56, v55);
+    v53.eventStream:sendTelemetryEvent(v53.ctx, v54, v57);
 end;
-return v11;
+v16.reportUnifiedEvent = function(v58, v59) --[[ Line: 228 ]] --[[ Name: reportUnifiedEvent ]]
+    -- upvalues: l_UnifiedLoggingSurface_0 (copy), v3 (copy), l_UnifiedEventLogConstants_0 (copy)
+    local v60 = {
+        surface = l_UnifiedLoggingSurface_0.IN_EXPERIENCE_INSPECT_BUY
+    };
+    local v61 = v3.Dictionary.join(v60, v59);
+    v58.eventStream:sendTelemetryEvent(v58.ctx, l_UnifiedEventLogConstants_0.EVENT_NAME, v61);
+end;
+return v16;

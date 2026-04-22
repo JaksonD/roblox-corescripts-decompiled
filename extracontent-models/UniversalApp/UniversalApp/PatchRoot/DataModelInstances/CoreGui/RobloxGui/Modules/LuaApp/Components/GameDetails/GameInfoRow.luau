@@ -16,36 +16,36 @@ local l_useStyle_0 = v11.Core.Style.useStyle;
 local l_CloseCentralOverlay_0 = require(l_CorePackages_0.Workspace.Packages.CentralOverlay).Thunks.CloseCentralOverlay;
 local v16 = require(l_CorePackages_0.Workspace.Packages.VerifiedBadges);
 local l_GuildedLogoWhiteAsset_0 = require(l_CorePackages_0.Workspace.Packages.CommunityLinks).Constants.GuildedLogoWhiteAsset;
-local v18 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
-local l_ProfileTypes_0 = v18.ProfileTypes;
-local l_EnableCommunityProfilePageIXP_0 = v18.EnableCommunityProfilePageIXP;
+local l_ProfileTypes_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums).ProfileTypes;
+local v19 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EnableCommunityProfilePageIXP);
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
 local l_navigateToBadgesSeeAll_0 = require(l_CorePackages_0.Workspace.Packages.Badges).navigateToBadgesSeeAll;
 local l_GameDetailsSubpage_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryMonolith).Modules.LuaApp.Analytics.Events.Games.GameDetailsEvents.GameDetailsSubpage;
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v25 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
-local v26 = require(l_Modules_0.LuaApp.Components.LocalizedTextLabel);
-local v27 = require(l_Modules_0.LuaApp.Enum.TransitionAnimation);
-local v28 = require(l_Modules_0.LuaApp.withTheme_DEPRECATED);
-local v29 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForExperienceGuidelines);
-local v30 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForLeaveRobloxAlert);
+local v24 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
+local v25 = require(l_Modules_0.LuaApp.Components.LocalizedTextLabel);
+local v26 = require(l_Modules_0.LuaApp.Enum.TransitionAnimation);
+local v27 = require(l_Modules_0.LuaApp.withTheme_DEPRECATED);
+local v28 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForExperienceGuidelines);
+local v29 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForLeaveRobloxAlert);
 local l_OpenCloseOnlyInteractiveAlert_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryRouting).OpenCloseOnlyInteractiveAlert;
 local l_GetFFlagUseVoiceExitBetaLanguage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagUseVoiceExitBetaLanguage;
-local v33 = require(l_Modules_0.Personalization.Flags.FStringLuaAppGenreTooltipStage);
+local v32 = require(l_Modules_0.Personalization.Flags.FStringLuaAppGenreTooltipStage);
 local l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddUniverseIdToGameDetailsEvents;
-local v35 = game:DefineFastFlag("LuaAppRemoveDeadGameInfoRowTooltipBranch", false);
+local v34 = game:DefineFastFlag("LuaAppRemoveDeadGameInfoRowTooltipBranch", false);
 local l_FFlagLuaAppBadgesSeeAllEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppBadgesSeeAllEnabled;
 local l_FStringLuaAppBadgesSeeAllIxpLayer_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FStringLuaAppBadgesSeeAllIxpLayer;
 local l_FFlagLuaAppBadgesSeeAllLogExposure_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppBadgesSeeAllLogExposure;
-local v39 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreGridPositionLogging);
+local v38 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreGridPositionLogging);
+local l_FFlagEnableBlackbirdPageCloseCallback_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableBlackbirdPageCloseCallback;
 local v40 = l_Images_0["icons/actions/cycleRight"];
 local v41 = v2.PureComponent:extend("GameInfoRow");
 v41.defaultProps = {
     leftPadding = 0, 
     rightPadding = 0
 };
-v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
-    -- upvalues: v2 (copy), l_GameDetailsSubpage_0 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (copy), l_AppPage_0 (copy), v39 (copy), l_FFlagLuaAppBadgesSeeAllLogExposure_0 (copy), l_IXPService_0 (copy), l_FStringLuaAppBadgesSeeAllIxpLayer_0 (copy), l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_navigateToBadgesSeeAll_0 (copy), v35 (copy), v33 (copy), l_EnableCommunityProfilePageIXP_0 (copy), v27 (copy)
+v41.init = function(v42) --[[ Line: 73 ]] --[[ Name: init ]]
+    -- upvalues: v2 (copy), l_GameDetailsSubpage_0 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (copy), l_AppPage_0 (copy), v38 (copy), l_FFlagLuaAppBadgesSeeAllLogExposure_0 (copy), l_IXPService_0 (copy), l_FStringLuaAppBadgesSeeAllIxpLayer_0 (copy), l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_navigateToBadgesSeeAll_0 (copy), v34 (copy), v32 (copy), v19 (copy), v26 (copy), l_FFlagEnableBlackbirdPageCloseCallback_0 (copy)
     v42.infoNameTextLabelRef = v2.createRef();
     local v43, v44 = v2.createBinding(0);
     v42.maxRightContentWidth = v43;
@@ -53,12 +53,12 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
     v42.state = {
         buttonPressed = false
     };
-    v42.onAbsoluteSizeChange = function(v45) --[[ Line: 79 ]]
+    v42.onAbsoluteSizeChange = function(v45) --[[ Line: 81 ]]
         -- upvalues: v42 (copy)
         local l_X_0 = v45.AbsoluteSize.X;
         v42.setMaxRightContentWidth((math.floor(l_X_0 - (v42.props.leftPadding + v42.props.rightPadding))));
     end;
-    v42.onInputBegan = function(_, v48) --[[ Line: 84 ]]
+    v42.onInputBegan = function(_, v48) --[[ Line: 86 ]]
         -- upvalues: v42 (copy)
         if v48.UserInputState == Enum.UserInputState.Begin and (v48.UserInputType == Enum.UserInputType.Touch or v48.UserInputType == Enum.UserInputType.MouseButton1) and not v42.state.buttonPressed then
             v42:setState({
@@ -66,7 +66,7 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
             });
         end;
     end;
-    v42.onInputEnded = function() --[[ Line: 100 ]]
+    v42.onInputEnded = function() --[[ Line: 102 ]]
         -- upvalues: v42 (copy)
         if v42.state.buttonPressed then
             v42:setState({
@@ -74,8 +74,8 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
             });
         end;
     end;
-    v42.onActivated = function() --[[ Line: 108 ]]
-        -- upvalues: v42 (copy), l_GameDetailsSubpage_0 (ref), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), l_AppPage_0 (ref), v39 (ref), l_FFlagLuaAppBadgesSeeAllLogExposure_0 (ref), l_IXPService_0 (ref), l_FStringLuaAppBadgesSeeAllIxpLayer_0 (ref), l_FFlagLuaAppBadgesSeeAllEnabled_0 (ref), l_navigateToBadgesSeeAll_0 (ref), v35 (ref), v33 (ref), l_EnableCommunityProfilePageIXP_0 (ref), v27 (ref)
+    v42.onActivated = function() --[[ Line: 110 ]]
+        -- upvalues: v42 (copy), l_GameDetailsSubpage_0 (ref), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), l_AppPage_0 (ref), v38 (ref), l_FFlagLuaAppBadgesSeeAllLogExposure_0 (ref), l_IXPService_0 (ref), l_FStringLuaAppBadgesSeeAllIxpLayer_0 (ref), l_FFlagLuaAppBadgesSeeAllEnabled_0 (ref), l_navigateToBadgesSeeAll_0 (ref), v34 (ref), v32 (ref), v19 (ref), v26 (ref), l_FFlagEnableBlackbirdPageCloseCallback_0 (ref)
         local l_linkPage_0 = v42.props.linkPage;
         local l_linkView_0 = v42.props.linkView;
         local l_linkUrl_0 = v42.props.linkUrl;
@@ -85,7 +85,7 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
             local l_eventIngest_0 = v42.props.eventIngest;
             local l_universeId_0 = v42.props.universeId;
             if l_linkUrl_0 then
-                v42.props.openLeaveRobloxAlert(function() --[[ Line: 121 ]]
+                v42.props.openLeaveRobloxAlert(function() --[[ Line: 123 ]]
                     -- upvalues: v42 (ref), l_linkUrl_0 (copy)
                     v42.props.linking:openURL(l_linkUrl_0);
                     v42.props.closeAlert();
@@ -107,7 +107,7 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
                     v42.props.navigateDown({
                         name = l_AppPage_0.PassesPage, 
                         detail = l_universeId_0, 
-                        extraProps = if v39() then {
+                        extraProps = if v38() then {
                             viewWidth = v42.props.viewWidth
                         } else nil
                     });
@@ -120,7 +120,7 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
                         l_navigateToBadgesSeeAll_0(v42.props.navigation, l_universeId_0);
                         return;
                     else
-                        if not v35 then
+                        if not v34 then
                             if l_linkView_0 == "UpdatedGenre" then
                                 local l_localization_0 = v42.props.localization;
                                 v42.props.openCloseOnlyInteractiveAlert(v42.props.infoData, l_localization_0:Format("Feature.GameDetails.Label.GenreInProgress"), v42.props.closeAlert);
@@ -128,9 +128,9 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
                             elseif l_linkView_0 == "GenreUnderConstruction" then
                                 local l_localization_1 = v42.props.localization;
                                 local v60 = nil;
-                                if v33 == "UnderConstruction" then
+                                if v32 == "UnderConstruction" then
                                     v60 = l_localization_1:Format("Feature.GameDetails.Label.GenreUnderConstruction");
-                                elseif v33 == "InProgress" then
+                                elseif v32 == "InProgress" then
                                     v60 = l_localization_1:Format("Feature.GameDetails.Label.GenreInProgress");
                                 end;
                                 if v60 then
@@ -139,10 +139,10 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
                                 return;
                             end;
                         end;
-                        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and (l_analyticsSubPage_0 == "Developer" or l_analyticsSubPage_0 == "Group") then
-                            l_EnableCommunityProfilePageIXP_0.logExposure();
+                        if v19.FFlagIsSetupEnabled and (l_analyticsSubPage_0 == "Developer" or l_analyticsSubPage_0 == "Group") then
+                            v19.logExposure();
                         end;
-                        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and l_linkView_0 == "CommunityProfilePlatform" and v42.props.linkViewData ~= nil then
+                        if v19.FFlagIsSetupEnabled and l_linkView_0 == "CommunityProfilePlatform" and v42.props.linkViewData ~= nil then
                             local l_linkViewData_0 = v42.props.linkViewData;
                             v42.props.openCommunityProfilePage(l_linkViewData_0, (("ExperienceDetailsPage:%*"):format(l_analyticsSubPage_0)));
                             return;
@@ -156,7 +156,8 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
                                 detail = l_linkPage_0, 
                                 extraProps = {
                                     title = l_Text_0, 
-                                    transitionAnimation = v27.SlideInFromRight
+                                    transitionAnimation = v26.SlideInFromRight, 
+                                    onClose = if l_FFlagEnableBlackbirdPageCloseCallback_0 then v42.props.onClose else nil
                                 }
                             });
                             return;
@@ -167,8 +168,8 @@ v41.init = function(v42) --[[ Line: 71 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v41.render = function(v63) --[[ Line: 229 ]] --[[ Name: render ]]
-    -- upvalues: l_GetFFlagUseVoiceExitBetaLanguage_0 (copy), l_GuildedLogoWhiteAsset_0 (copy), v2 (copy), v3 (copy), l_ImageSetLabel_0 (copy), v16 (copy), v40 (copy), v26 (copy)
+v41.render = function(v63) --[[ Line: 232 ]] --[[ Name: render ]]
+    -- upvalues: l_GetFFlagUseVoiceExitBetaLanguage_0 (copy), l_GuildedLogoWhiteAsset_0 (copy), v2 (copy), v3 (copy), l_ImageSetLabel_0 (copy), v16 (copy), v40 (copy), v25 (copy)
     local l_Cells_0 = v63.props.appTheme.GameDetails.GameInfoList.Cells;
     local l_Size_0 = v63.props.Size;
     local l_Position_0 = v63.props.Position;
@@ -194,7 +195,7 @@ v41.render = function(v63) --[[ Line: 229 ]] --[[ Name: render ]]
     if not v73 then
         l_buttonPressed_0 = false;
     end;
-    local function v80(_, v79) --[[ Line: 257 ]] --[[ Name: getInfoDataTextLabel ]]
+    local function v80(_, v79) --[[ Line: 260 ]] --[[ Name: getInfoDataTextLabel ]]
         -- upvalues: v2 (ref), v70 (copy), v3 (ref), v63 (copy)
         return v2.createElement("TextLabel", {
             Size = UDim2.new(0, 0, 0, 0), 
@@ -258,7 +259,7 @@ v41.render = function(v63) --[[ Line: 229 ]] --[[ Name: render ]]
                 HorizontalFlex = Enum.UIFlexAlignment.Fill
             }), 
             UISizeConstraint = v2.createElement("UISizeConstraint", {
-                MaxSize = v63.maxRightContentWidth:map(function(v82) --[[ Line: 322 ]]
+                MaxSize = v63.maxRightContentWidth:map(function(v82) --[[ Line: 325 ]]
                     return Vector2.new(v82, 1e999);
                 end)
             }), 
@@ -294,7 +295,7 @@ v41.render = function(v63) --[[ Line: 229 ]] --[[ Name: render ]]
                 [v3.Tag] = if v63.props.testId then ("data-testid=%*"):format(v63.props.testId) else nil
             })
         }), 
-        InfoNameTextLabel = v2.createElement(v63.props.disableInfoNameLocalization and "TextLabel" or v26, {
+        InfoNameTextLabel = v2.createElement(v63.props.disableInfoNameLocalization and "TextLabel" or v25, {
             Size = UDim2.new(v70 ~= "" and 0 or 1, v70 ~= "" and 0 or -25, 0, 0), 
             AutomaticSize = Enum.AutomaticSize.XY, 
             Position = UDim2.new(0, 0, 0, 0), 
@@ -313,31 +314,31 @@ v41.render = function(v63) --[[ Line: 229 ]] --[[ Name: render ]]
         })
     });
 end;
-local v83 = v28(v41);
-v41 = v4.connect(nil, function(v84) --[[ Line: 403 ]]
-    -- upvalues: l_NavigateDown_0 (copy), v29 (copy), v30 (copy), v35 (copy), l_OpenCloseOnlyInteractiveAlert_0 (copy), l_CloseCentralOverlay_0 (copy), l_EnableCommunityProfilePageIXP_0 (copy), l_AppPage_0 (copy), l_ProfileTypes_0 (copy)
+local v83 = v27(v41);
+v41 = v4.connect(nil, function(v84) --[[ Line: 406 ]]
+    -- upvalues: l_NavigateDown_0 (copy), v28 (copy), v29 (copy), v34 (copy), l_OpenCloseOnlyInteractiveAlert_0 (copy), l_CloseCentralOverlay_0 (copy), v19 (copy), l_AppPage_0 (copy), l_ProfileTypes_0 (copy)
     return {
-        navigateDown = function(v85) --[[ Line: 405 ]] --[[ Name: navigateDown ]]
+        navigateDown = function(v85) --[[ Line: 408 ]] --[[ Name: navigateDown ]]
             -- upvalues: v84 (copy), l_NavigateDown_0 (ref)
             return v84(l_NavigateDown_0(v85));
         end, 
-        openExperienceGuidelinesExplained = function(v86) --[[ Line: 408 ]] --[[ Name: openExperienceGuidelinesExplained ]]
+        openExperienceGuidelinesExplained = function(v86) --[[ Line: 411 ]] --[[ Name: openExperienceGuidelinesExplained ]]
+            -- upvalues: v84 (copy), v28 (ref)
+            v84(v28(v86, false));
+        end, 
+        openLeaveRobloxAlert = function(v87) --[[ Line: 414 ]] --[[ Name: openLeaveRobloxAlert ]]
             -- upvalues: v84 (copy), v29 (ref)
-            v84(v29(v86, false));
+            v84(v29(v87));
         end, 
-        openLeaveRobloxAlert = function(v87) --[[ Line: 411 ]] --[[ Name: openLeaveRobloxAlert ]]
-            -- upvalues: v84 (copy), v30 (ref)
-            v84(v30(v87));
-        end, 
-        openCloseOnlyInteractiveAlert = if v35 then nil else function(v88, v89, v90) --[[ Line: 416 ]]
+        openCloseOnlyInteractiveAlert = if v34 then nil else function(v88, v89, v90) --[[ Line: 419 ]]
             -- upvalues: v84 (copy), l_OpenCloseOnlyInteractiveAlert_0 (ref)
             v84(l_OpenCloseOnlyInteractiveAlert_0(v88, v89, v90, nil, false));
         end, 
-        closeAlert = if v35 then nil else function() --[[ Line: 421 ]]
+        closeAlert = if v34 then nil else function() --[[ Line: 424 ]]
             -- upvalues: v84 (copy), l_CloseCentralOverlay_0 (ref)
             v84(l_CloseCentralOverlay_0());
         end, 
-        openCommunityProfilePage = l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and function(v91, v92) --[[ Line: 425 ]]
+        openCommunityProfilePage = v19.FFlagIsSetupEnabled and function(v91, v92) --[[ Line: 428 ]]
             -- upvalues: v84 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_ProfileTypes_0 (ref)
             v84(l_NavigateDown_0({
                 name = l_AppPage_0.ProfilePlatform, 
@@ -348,7 +349,7 @@ v41 = v4.connect(nil, function(v84) --[[ Line: 403 ]]
                 }
             }));
         end or nil, 
-        openUserProfilePage = function(v93, v94) --[[ Line: 436 ]] --[[ Name: openUserProfilePage ]]
+        openUserProfilePage = function(v93, v94) --[[ Line: 439 ]] --[[ Name: openUserProfilePage ]]
             -- upvalues: v84 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_ProfileTypes_0 (ref)
             v84(l_NavigateDown_0({
                 name = l_AppPage_0.ProfilePlatform, 
@@ -360,7 +361,7 @@ v41 = v4.connect(nil, function(v84) --[[ Line: 403 ]]
             }));
         end
     };
-end)(function(v95) --[[ Line: 392 ]]
+end)(function(v95) --[[ Line: 395 ]]
     -- upvalues: l_useStyle_0 (copy), l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_useNavigation_0 (copy), v10 (copy), v2 (copy), v83 (copy)
     local v96 = l_useStyle_0();
     local v97 = if l_FFlagLuaAppBadgesSeeAllEnabled_0 then l_useNavigation_0() else nil;
@@ -373,5 +374,5 @@ end);
 return l_RoactServices_0.connect({
     eventIngest = l_AppEventIngestService_0, 
     linking = l_AppLinking_0, 
-    localization = v25
+    localization = v24
 })(v41);

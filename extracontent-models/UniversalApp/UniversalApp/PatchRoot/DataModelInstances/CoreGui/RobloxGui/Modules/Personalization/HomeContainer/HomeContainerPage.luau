@@ -29,157 +29,184 @@ local l_FFlagAppIaHomeSubTabAnalytics_0 = v25.FFlagAppIaHomeSubTabAnalytics;
 local l_FFlagAppIaStatusBar_0 = v25.FFlagAppIaStatusBar;
 local l_FFlagLuaAppChartsStickyHeader_0 = v25.FFlagLuaAppChartsStickyHeader;
 local l_FFlagLuaAppCompositionHome_0 = v25.FFlagLuaAppCompositionHome;
-local v31 = v23();
-local v32 = if l_FFlagAppIaHomeSubTabAnalytics_0 then {
+local v31 = game:DefineFastFlag("AppIaHomeSubTabFrame", false);
+local v32 = v23();
+local v33 = if l_FFlagAppIaHomeSubTabAnalytics_0 then {
     [l_AppPage_0.Home] = Enum.AppShellActionType.TapHomePageTab, 
     [l_AppPage_0.Games] = Enum.AppShellActionType.TapGamePageTab
 } else nil;
-local function _(v33) --[[ Line: 62 ]]
-    local l_state_0 = v33.state;
+local function _(v34) --[[ Line: 63 ]]
+    local l_state_0 = v34.state;
     return l_state_0.routes[l_state_0.index].routeName;
 end;
-local v59 = v3.forwardRef(function(v36, v37) --[[ Line: 67 ]]
-    -- upvalues: l_useLocalization_0 (copy), l_FFlagAppIaHomeSubTabAnalytics_0 (copy), l_useRoactService_0 (copy), l_AppNotificationService_0 (copy), v3 (copy), v32 (copy), l_AppPage_0 (copy), l_useDesignTokens_0 (copy), l_useSelector_0 (copy), l_FormFactor_0 (copy), l_FillBehavior_0 (copy), l_FFlagLuaAppCompositionHome_0 (copy), l_usePageSideMargin_0 (copy), l_FFlagAppIaStatusBar_0 (copy), l_FFlagAppIaScrollAway_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), l_View_0 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_CompositionTags_0 (copy), v22 (copy), l_Tabs_0 (copy), l_InputSize_0 (copy), v31 (copy)
-    local v38 = l_useLocalization_0({
+local v60 = v3.forwardRef(function(v37, v38) --[[ Line: 68 ]]
+    -- upvalues: l_useLocalization_0 (copy), l_FFlagAppIaHomeSubTabAnalytics_0 (copy), l_useRoactService_0 (copy), l_AppNotificationService_0 (copy), v3 (copy), v33 (copy), l_AppPage_0 (copy), l_useDesignTokens_0 (copy), l_useSelector_0 (copy), l_FormFactor_0 (copy), l_FillBehavior_0 (copy), l_FFlagLuaAppCompositionHome_0 (copy), l_usePageSideMargin_0 (copy), l_FFlagAppIaStatusBar_0 (copy), l_FFlagAppIaScrollAway_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v31 (copy), l_View_0 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_CompositionTags_0 (copy), v22 (copy), l_Tabs_0 (copy), l_InputSize_0 (copy), v32 (copy)
+    local v39 = l_useLocalization_0({
         Charts = "CommonUI.Features.Label.Charts", 
         ForYou = "CommonUI.Features.Label.ForYou"
     });
-    local v39 = if l_FFlagAppIaHomeSubTabAnalytics_0 then l_useRoactService_0(l_AppNotificationService_0) else nil;
-    local l_state_1 = v36.navigation.state;
+    local v40 = if l_FFlagAppIaHomeSubTabAnalytics_0 then l_useRoactService_0(l_AppNotificationService_0) else nil;
+    local l_state_1 = v37.navigation.state;
     local l_routeName_0 = l_state_1.routes[l_state_1.index].routeName;
-    local v44 = v3.useCallback(function(v42) --[[ Line: 77 ]]
-        -- upvalues: l_FFlagAppIaHomeSubTabAnalytics_0 (ref), l_routeName_0 (copy), v36 (copy), v32 (ref), v39 (copy)
+    local v45 = v3.useCallback(function(v43) --[[ Line: 78 ]]
+        -- upvalues: l_FFlagAppIaHomeSubTabAnalytics_0 (ref), l_routeName_0 (copy), v37 (copy), v33 (ref), v40 (copy)
         if l_FFlagAppIaHomeSubTabAnalytics_0 then
-            if v42 == l_routeName_0 then
+            if v43 == l_routeName_0 then
                 return;
             else
-                v36.navigation.navigate(v42);
-                local v43 = v32[v42];
-                if v43 then
-                    v39:ActionTaken(v43);
+                v37.navigation.navigate(v43);
+                local v44 = v33[v43];
+                if v44 then
+                    v40:ActionTaken(v44);
                     return;
                 end;
             end;
         else
-            v36.navigation.navigate(v42);
+            v37.navigation.navigate(v43);
         end;
     end, {
-        v36.navigation, 
-        if l_FFlagAppIaHomeSubTabAnalytics_0 then v39 else nil
+        v37.navigation, 
+        if l_FFlagAppIaHomeSubTabAnalytics_0 then v40 else nil
     });
     l_state_1 = {
         {
             id = l_AppPage_0.Home, 
-            text = v38.ForYou
+            text = v39.ForYou
         }, 
         {
             id = l_AppPage_0.Games, 
-            text = v38.Charts
+            text = v39.Charts
         }
     };
-    local v45 = l_useDesignTokens_0();
-    local v47 = if l_useSelector_0(function(v46) --[[ Line: 105 ]]
-        return v46.FormFactor;
+    local v46 = l_useDesignTokens_0();
+    local v48 = if l_useSelector_0(function(v47) --[[ Line: 106 ]]
+        return v47.FormFactor;
     end) == l_FormFactor_0.COMPACT then l_FillBehavior_0.Fill else l_FillBehavior_0.Fit;
-    local v48 = nil;
+    local v49 = nil;
     if not l_FFlagLuaAppCompositionHome_0 then
-        v48 = l_usePageSideMargin_0();
+        v49 = l_usePageSideMargin_0();
     end;
-    local v50 = if l_FFlagAppIaStatusBar_0 then l_useSelector_0(function(v49) --[[ Line: 117 ]]
-        return v49.TopBar.statusBarHeight;
+    local v51 = if l_FFlagAppIaStatusBar_0 then l_useSelector_0(function(v50) --[[ Line: 118 ]]
+        return v50.TopBar.statusBarHeight;
     end) else nil;
-    local v51 = nil;
     local v52 = nil;
     local v53 = nil;
     local v54 = nil;
     local v55 = nil;
+    local v56 = nil;
     if l_FFlagAppIaScrollAway_0 then
-        local v56, v57 = v3.useState(0);
-        v51 = v56;
+        local v57, v58 = v3.useState(0);
         v52 = v57;
+        v53 = v58;
         if l_FFlagLuaAppChartsStickyHeader_0 then
-            v56, v57 = v3.useBinding(0);
-            v54 = v56;
+            v57, v58 = v3.useBinding(0);
             v55 = v57;
+            v56 = v58;
         end;
-        v53 = v3.useCallback(function(v58) --[[ Line: 131 ]]
-            -- upvalues: v52 (ref), l_FFlagLuaAppChartsStickyHeader_0 (ref), v55 (ref)
-            v52(v58.AbsoluteSize.Y);
+        v54 = v3.useCallback(function(v59) --[[ Line: 132 ]]
+            -- upvalues: v53 (ref), l_FFlagLuaAppChartsStickyHeader_0 (ref), v56 (ref)
+            v53(v59.AbsoluteSize.Y);
             if l_FFlagLuaAppChartsStickyHeader_0 then
-                v55(v58.AbsoluteSize.Y);
+                v56(v59.AbsoluteSize.Y);
             end;
         end, {});
     end;
-    return v3.createElement(l_View_0, {
-        backgroundStyle = {
-            Color3 = v45.LuaApps.App.Page.BackgroundColor, 
-            Transparency = v45.LuaApps.App.Page.BackgroundTransparency
-        }, 
-        tag = {
+    return v3.createElement(v31 and "Frame" or l_View_0, {
+        BackgroundColor3 = if v31 then v46.LuaApps.App.Page.BackgroundColor else nil, 
+        BackgroundTransparency = if v31 then v46.LuaApps.App.Page.BackgroundTransparency else nil, 
+        BorderSizePixel = v31 and 0 or nil, 
+        Size = if v31 then UDim2.fromScale(1, 1) else nil, 
+        backgroundStyle = if not v31 then {
+            Color3 = v46.LuaApps.App.Page.BackgroundColor, 
+            Transparency = v46.LuaApps.App.Page.BackgroundTransparency
+        } else nil, 
+        tag = if not v31 then {
             ["size-full"] = true, 
             col = not l_FFlagAppIaScrollAway_0
-        }, 
-        ref = v37
+        } else nil, 
+        ref = v38
     }, {
+        UIListLayout = if not v31 or l_FFlagAppIaScrollAway_0 then nil else v3.createElement("UIListLayout", {
+            FillDirection = Enum.FillDirection.Vertical, 
+            SortOrder = Enum.SortOrder.LayoutOrder
+        }), 
         HeaderFocusRoot = v3.createElement(l_FocusNavigableSurfaceWrapper_0, {
             surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.HeaderView, 
             frameProps = {
                 AutomaticSize = Enum.AutomaticSize.Y, 
+                LayoutOrder = v31 and -1 or nil, 
                 Size = UDim2.fromScale(1, 0), 
                 ZIndex = 2, 
                 [v3.Tag] = if l_FFlagLuaAppCompositionHome_0 then l_CompositionTags_0.ContentRegion.Header else nil
             }
         }, {
-            StatusBarBackground = if l_FFlagAppIaStatusBar_0 then v3.createElement(l_View_0, {
-                backgroundStyle = {
-                    Color3 = v45.LuaApps.App.Page.BackgroundColor, 
+            StatusBarBackground = if l_FFlagAppIaStatusBar_0 then v3.createElement(v31 and "Frame" or l_View_0, {
+                BackgroundColor3 = if v31 then v46.LuaApps.App.Page.BackgroundColor else nil, 
+                BorderSizePixel = v31 and 0 or nil, 
+                backgroundStyle = if not v31 then {
+                    Color3 = v46.LuaApps.App.Page.BackgroundColor, 
                     Transparency = 0
-                }, 
-                Size = UDim2.new(1, 0, 0, v50), 
+                } else nil, 
+                Size = UDim2.new(1, 0, 0, v51), 
                 ZIndex = 2
             }) else nil, 
-            Header = v3.createElement(l_View_0, {
-                tag = "size-full-0 auto-y col", 
-                backgroundStyle = {
-                    Color3 = v45.LuaApps.App.Page.BackgroundColor, 
+            Header = v3.createElement(v31 and "Frame" or l_View_0, {
+                AutomaticSize = if v31 then Enum.AutomaticSize.Y else nil, 
+                BackgroundColor3 = if v31 then v46.LuaApps.App.Page.BackgroundColor else nil, 
+                BorderSizePixel = v31 and 0 or nil, 
+                Size = if v31 then UDim2.fromScale(1, 0) else nil, 
+                [v3.Change.AbsoluteSize] = if v31 and l_FFlagAppIaScrollAway_0 then v54 else nil, 
+                tag = not v31 and "col size-full-0 auto-y" or nil, 
+                backgroundStyle = if not v31 then {
+                    Color3 = v46.LuaApps.App.Page.BackgroundColor, 
                     Transparency = 0
-                }, 
-                onAbsoluteSizeChanged = if l_FFlagAppIaScrollAway_0 then v53 else nil
+                } else nil, 
+                onAbsoluteSizeChanged = if not v31 and l_FFlagAppIaScrollAway_0 then v54 else nil
             }, {
-                AppHeaderBar = v3.createElement(l_View_0, {
-                    tag = "size-full-0 auto-y", 
+                UIListLayout = if v31 then v3.createElement("UIListLayout", {
+                    FillDirection = Enum.FillDirection.Vertical, 
+                    SortOrder = Enum.SortOrder.LayoutOrder
+                }) else nil, 
+                AppHeaderBar = v3.createElement(v31 and "Frame" or l_View_0, {
+                    AutomaticSize = if v31 then Enum.AutomaticSize.Y else nil, 
+                    BackgroundTransparency = v31 and 1 or nil, 
+                    Size = if v31 then UDim2.fromScale(1, 0) else nil, 
+                    tag = not v31 and "size-full-0 auto-y" or nil, 
                     LayoutOrder = 1
                 }, {
                     PersonalizationTopBar = v3.createElement(v22, {
                         sideMarginOverride = l_FFlagLuaAppCompositionHome_0 and 0 or nil
                     })
                 }), 
-                SubTabs = v3.createElement(l_View_0, {
-                    tag = "size-full-0 auto-y", 
+                SubTabs = v3.createElement(v31 and "Frame" or l_View_0, {
+                    AutomaticSize = if v31 then Enum.AutomaticSize.Y else nil, 
+                    BackgroundTransparency = v31 and 1 or nil, 
+                    Size = if v31 then UDim2.fromScale(1, 0) else nil, 
+                    tag = not v31 and "size-full-0 auto-y" or nil, 
                     LayoutOrder = 2
                 }, {
                     UIPadding = if not l_FFlagLuaAppCompositionHome_0 then v3.createElement("UIPadding", {
-                        PaddingLeft = UDim.new(0, v48), 
-                        PaddingRight = UDim.new(0, v48)
+                        PaddingLeft = UDim.new(0, v49), 
+                        PaddingRight = UDim.new(0, v49)
                     }) else nil, 
                     Tabs = v3.createElement(l_Tabs_0, {
                         activeTabId = l_routeName_0, 
-                        onActivated = v44, 
+                        onActivated = v45, 
                         tabs = l_state_1, 
                         size = l_InputSize_0.Medium, 
-                        fillBehavior = v47
+                        fillBehavior = v48
                     })
                 })
             })
         }), 
-        HomeSubTabNavigator = v3.createElement(v31, {
-            navigation = v36.navigation, 
+        HomeSubTabNavigator = v3.createElement(v32, {
+            navigation = v37.navigation, 
             screenProps = if l_FFlagAppIaScrollAway_0 then {
-                headerHeight = v51, 
-                headerHeightBinding = if l_FFlagLuaAppChartsStickyHeader_0 then v54 else nil
+                headerHeight = v52, 
+                headerHeightBinding = if l_FFlagLuaAppChartsStickyHeader_0 then v55 else nil
             } else nil
         })
     });
 end);
-v59.router = v31.router;
-return v59;
+v60.router = v32.router;
+return v60;

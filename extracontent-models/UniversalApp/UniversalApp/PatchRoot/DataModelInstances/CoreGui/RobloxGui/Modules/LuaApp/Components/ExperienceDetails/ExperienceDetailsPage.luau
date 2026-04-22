@@ -189,6 +189,7 @@ v128.validateProps = v9.strictInterface({
     edpServerIxpVariables = if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v9.optional(v9.table) else nil, 
     hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v9.optional(v9.boolean) else nil, 
     hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v9.optional(v9.boolean) else nil, 
+    unifyToUIBloxIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v9.optional(v9.boolean) else nil, 
     fetchGameDetailsPageData = v9.callback, 
     openLeaveRobloxAlertUIBlox = v9.callback, 
     openMoreContextualMenu = v9.callback, 
@@ -254,7 +255,7 @@ v128.validateProps = v9.strictInterface({
     foundationTokens = v9.optional(v9.table), 
     disableStickyActionBar = v9.optional(v9.boolean)
 });
-local function _(v129) --[[ Line: 348 ]] --[[ Name: createImageURL ]]
+local function _(v129) --[[ Line: 349 ]] --[[ Name: createImageURL ]]
     if v129 then
         return "rbxassetid://" .. v129;
     else
@@ -267,26 +268,26 @@ local v131 = {
     showCornerGradientPropEnabled = false, 
     showCommunityLink = false
 };
-v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
+v128.init = function(v132) --[[ Line: 364 ]] --[[ Name: init ]]
     -- upvalues: l_Localization_0 (copy), l_LocalizationService_0 (copy), l_abbreviateCount_0 (copy), l_UiMode_0 (copy), l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), v45 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_memoize_0 (copy), l_Text_0 (copy), l_FFlagLuaAppGameStatsFallbackRendering_0 (copy), v6 (copy), l_StyledTextLabel_0 (copy), v90 (copy), l_withStyle_0 (copy), v89 (copy), v107 (copy), l_IXPServiceWrapper_0 (copy), v108 (copy), l_AppPage_0 (copy), l_UrlBuilder_0 (copy), v63 (copy), v106 (copy), v29 (copy), v5 (copy), v74 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_GameStats_0 (copy), l_PlayerCount_0 (copy), v125 (copy), l_Images_0 (copy), v68 (copy), l_RetrievalStatus_0 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_withLocalization_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), v69 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (copy), v62 (copy), v64 (copy), l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (copy), v44 (copy), v70 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (copy), v81 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (copy), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (copy), v73 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (copy), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (copy), l_ExperienceRatings_0 (copy), v71 (copy), v65 (copy), v75 (copy), l_FFlagSongEdpCarouselIxp_0 (copy), v76 (copy), l_ExperienceCommunityLink_0 (copy), l_checkAndFormatPossibleLink_0 (copy), l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (copy), v66 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (copy), v126 (copy), v127 (copy), l_ContentPosition_0 (copy), l_GetFFlagExpDetailsUseSelectionBumpers_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v42 (copy), l_ExperienceDetailsNoticeType_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v47 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), l_AppStorageService_0 (copy)
     local v133 = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
-    v132.applyTokenScaling = function(v134) --[[ Line: 365 ]]
+    v132.applyTokenScaling = function(v134) --[[ Line: 366 ]]
         -- upvalues: v132 (copy)
         return v134 * v132.props.foundationTokens.Stroke.Standard;
     end;
-    v132.getAbbreviateCount = function(v135) --[[ Line: 370 ]]
+    v132.getAbbreviateCount = function(v135) --[[ Line: 371 ]]
         -- upvalues: l_abbreviateCount_0 (ref), v133 (copy)
         return l_abbreviateCount_0(v135, v133:GetLocale());
     end;
-    v132.upperString = function(v136) --[[ Line: 373 ]]
+    v132.upperString = function(v136) --[[ Line: 374 ]]
         -- upvalues: v133 (copy)
         return string.upper(v133:Format(v136));
     end;
-    v132.onPlayButtonActivated = function() --[[ Line: 377 ]]
+    v132.onPlayButtonActivated = function() --[[ Line: 378 ]]
         -- upvalues: v132 (copy)
         return v132.props.onPlayButtonActivated();
     end;
-    v132.openMoreContextualMenu = function(v137) --[[ Line: 381 ]]
+    v132.openMoreContextualMenu = function(v137) --[[ Line: 382 ]]
         -- upvalues: v132 (copy), l_UiMode_0 (ref), l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0 (ref), l_FFlagEnableLeftNavOnConsole_0 (ref), v45 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
         local l_universeId_0 = v132.props.universeId;
         local v139 = nil;
@@ -304,17 +305,17 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
         end;
         return v132.props.openMoreContextualMenu(l_universeId_0, v140, v139, if l_FFlagHideCloseButtonEdp_0 then v132.props.hideCloseButton else nil);
     end;
-    v132.getTextHeight = l_memoize_0(function(v143, v144, v145, v146) --[[ Line: 416 ]]
+    v132.getTextHeight = l_memoize_0(function(v143, v144, v145, v146) --[[ Line: 417 ]]
         -- upvalues: l_Text_0 (ref)
         return l_Text_0.GetTextHeight(v143, v144, v145, v146);
     end);
-    v132.openShareContextualMenu = function(v147) --[[ Line: 420 ]]
+    v132.openShareContextualMenu = function(v147) --[[ Line: 421 ]]
         -- upvalues: v132 (copy), l_FFlagHideCloseButtonEdp_0 (ref)
         local l_universeId_1 = v132.props.universeId;
         local v149 = UDim2.fromOffset(v147.AbsolutePosition.X + v147.AbsoluteSize.X - 300, v147.AbsolutePosition.Y + v147.AbsoluteSize.Y + 12);
         return v132.props.openShareContextualMenu(l_universeId_1, v149, if l_FFlagHideCloseButtonEdp_0 then v132.props.hideCloseButton else nil);
     end;
-    v132.getPlaysAnsVisitsInfo = function(v150, v151) --[[ Line: 434 ]]
+    v132.getPlaysAnsVisitsInfo = function(v150, v151) --[[ Line: 435 ]]
         -- upvalues: l_FFlagLuaAppGameStatsFallbackRendering_0 (ref)
         return {
             plays = v150 and v150.playing or v151 and v151.playerCount or if l_FFlagLuaAppGameStatsFallbackRendering_0 then nil else 0, 
@@ -323,7 +324,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             totalDownVotes = v151 and v151.totalDownVotes or 1
         };
     end;
-    v132.getStyledTextLabel = function(v152, v153, v154) --[[ Line: 445 ]]
+    v132.getStyledTextLabel = function(v152, v153, v154) --[[ Line: 446 ]]
         -- upvalues: v6 (ref), l_StyledTextLabel_0 (ref)
         if v152 then
             return v6.createElement(l_StyledTextLabel_0, {
@@ -339,7 +340,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             return nil;
         end;
     end;
-    v132.toggleFollowExperience = function() --[[ Line: 461 ]]
+    v132.toggleFollowExperience = function() --[[ Line: 462 ]]
         -- upvalues: v90 (ref), v132 (copy)
         if v90() then
             v132:setState({
@@ -357,11 +358,11 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v132.renderSubtitleTextOverride = function(v157, v158, v159, _, v161, v162) --[[ Line: 480 ]]
+    v132.renderSubtitleTextOverride = function(v157, v158, v159, _, v161, v162) --[[ Line: 481 ]]
         -- upvalues: l_withStyle_0 (ref), v89 (ref), v107 (ref), l_IXPServiceWrapper_0 (ref), v108 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v133 (copy), v63 (ref), v6 (ref), v106 (ref), v132 (copy), v29 (ref)
-        local function _(v163) --[[ Line: 488 ]]
+        local function _(v163) --[[ Line: 489 ]]
             -- upvalues: l_withStyle_0 (ref), v89 (ref), v107 (ref), l_IXPServiceWrapper_0 (ref), v108 (ref), v162 (copy), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v159 (copy), v158 (copy), v133 (ref), v63 (ref), v6 (ref), v106 (ref), v132 (ref)
-            return l_withStyle_0(function(v164) --[[ Line: 489 ]]
+            return l_withStyle_0(function(v164) --[[ Line: 490 ]]
                 -- upvalues: v89 (ref), v107 (ref), l_IXPServiceWrapper_0 (ref), v108 (ref), v163 (copy), v162 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v159 (ref), v158 (ref), v133 (ref), v63 (ref), v6 (ref), v106 (ref), v132 (ref)
                 local v165 = if v89 then v164.Tokens.Semantic.Typography.Subheader else v164.Font.Header2;
                 local v166 = if v89 then v165.FontSize else v165.RelativeSize * v164.Font.BaseSize;
@@ -391,7 +392,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                         AutomaticSize = Enum.AutomaticSize.XY, 
                         TextSize = v166, 
                         BackgroundTransparency = 1, 
-                        [v6.Event.Activated] = function() --[[ Line: 527 ]]
+                        [v6.Event.Activated] = function() --[[ Line: 528 ]]
                             -- upvalues: v106 (ref), v159 (ref), v132 (ref), v158 (ref), v168 (copy)
                             if v106 then
                                 if v159 == "User" then
@@ -416,7 +417,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             layoutOrder = 2, 
             onActivated = if v161 and v162 then v132.props.openVerifiedBadgeModal else nil
         }, {
-            userText = l_withStyle_0(function(v170) --[[ Line: 489 ]]
+            userText = l_withStyle_0(function(v170) --[[ Line: 490 ]]
                 -- upvalues: v89 (ref), v107 (ref), l_IXPServiceWrapper_0 (ref), v108 (ref), v157 (copy), v162 (copy), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v159 (copy), v158 (copy), v133 (ref), v63 (ref), v6 (ref), v106 (ref), v132 (ref)
                 local v171 = if v89 then v170.Tokens.Semantic.Typography.Subheader else v170.Font.Header2;
                 local v172 = if v89 then v171.FontSize else v171.RelativeSize * v170.Font.BaseSize;
@@ -446,7 +447,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                         AutomaticSize = Enum.AutomaticSize.XY, 
                         TextSize = v172, 
                         BackgroundTransparency = 1, 
-                        [v6.Event.Activated] = function() --[[ Line: 527 ]]
+                        [v6.Event.Activated] = function() --[[ Line: 528 ]]
                             -- upvalues: v106 (ref), v159 (ref), v132 (ref), v158 (ref), v174 (copy)
                             if v106 then
                                 if v159 == "User" then
@@ -467,11 +468,11 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end)
         });
     end;
-    v132.renderTextOverride = function(v175, _, _, v178) --[[ Line: 554 ]]
+    v132.renderTextOverride = function(v175, _, _, v178) --[[ Line: 555 ]]
         -- upvalues: l_withStyle_0 (ref), v89 (ref), v132 (copy), v6 (ref), v29 (ref)
-        local function _(v179) --[[ Line: 555 ]]
+        local function _(v179) --[[ Line: 556 ]]
             -- upvalues: l_withStyle_0 (ref), v89 (ref), v132 (ref)
-            return l_withStyle_0(function(v180) --[[ Line: 556 ]]
+            return l_withStyle_0(function(v180) --[[ Line: 557 ]]
                 -- upvalues: v89 (ref), v132 (ref), v179 (copy)
                 local v181 = if v89 then v180.Tokens.Semantic.Typography.Subheader else v180.Font.Header2;
                 local l_TextEmphasis_0 = v180.Theme.TextEmphasis;
@@ -483,7 +484,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             layoutOrder = 0, 
             size = UDim2.fromScale(0, 1)
         }, {
-            userText = l_withStyle_0(function(v184) --[[ Line: 556 ]]
+            userText = l_withStyle_0(function(v184) --[[ Line: 557 ]]
                 -- upvalues: v89 (ref), v132 (ref), v175 (copy)
                 local v185 = if v89 then v184.Tokens.Semantic.Typography.Subheader else v184.Font.Header2;
                 local l_TextEmphasis_1 = v184.Theme.TextEmphasis;
@@ -491,7 +492,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end)
         });
     end;
-    v132.renderExperienceGuidelines = l_memoize_0(function(v187) --[[ Line: 574 ]]
+    v132.renderExperienceGuidelines = l_memoize_0(function(v187) --[[ Line: 575 ]]
         -- upvalues: v5 (ref), v74 (ref), l_FFlagHideCloseButtonEdp_0 (ref), v132 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
         return v5.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 0), 
@@ -513,7 +514,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             })
         });
     end);
-    v132.renderInlinePlayerCountAndLikes = l_memoize_0(function(v188, v189, v190) --[[ Line: 598 ]]
+    v132.renderInlinePlayerCountAndLikes = l_memoize_0(function(v188, v189, v190) --[[ Line: 599 ]]
         -- upvalues: v6 (ref), l_GameStats_0 (ref)
         return v6.createElement("Frame", {
             Size = UDim2.new(0, 120, 0, 20), 
@@ -529,9 +530,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             })
         });
     end);
-    v132.renderBriefDescription = function(v191, v192) --[[ Line: 614 ]]
+    v132.renderBriefDescription = function(v191, v192) --[[ Line: 615 ]]
         -- upvalues: l_withStyle_0 (ref), v89 (ref), v132 (copy), v6 (ref), l_StyledTextLabel_0 (ref)
-        return l_withStyle_0(function(v193) --[[ Line: 615 ]]
+        return l_withStyle_0(function(v193) --[[ Line: 616 ]]
             -- upvalues: v191 (copy), v89 (ref), v132 (ref), v192 (copy), v6 (ref), l_StyledTextLabel_0 (ref)
             local l_Font_0 = v193.Font;
             local l_headerDescriptionLineHeight_0 = v191.headerDescriptionLineHeight;
@@ -557,13 +558,13 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             });
         end);
     end;
-    v132.renderInfoContent = function(v200, v201, v202, v203, v204, v205, v206, v207, v208, v209) --[[ Line: 650 ]]
+    v132.renderInfoContent = function(v200, v201, v202, v203, v204, v205, v206, v207, v208, v209) --[[ Line: 651 ]]
         -- upvalues: v132 (copy), l_UiMode_0 (ref), v106 (ref), v6 (ref)
         local v210 = v132.props.uiModeInfo and v132.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
         local v211 = v200 and v200.headerItemPadding or 0;
         local v212 = v210 and v206 ~= nil and #v206 > 0;
         local v213 = not v210;
-        return function() --[[ Line: 669 ]]
+        return function() --[[ Line: 670 ]]
             -- upvalues: v106 (ref), v132 (ref), v202 (copy), v203 (copy), v204 (copy), v201 (copy), v205 (copy), l_UiMode_0 (ref), v6 (ref), v211 (copy), v210 (copy), v207 (copy), v208 (copy), v209 (copy), v212 (copy), v200 (copy), v206 (copy), v213 (copy)
             local v214 = if v106 then v132.renderSubtitleTextOverride(v202, v203, v204, v201, v205, v132.props.uiModeInfo.uiMode ~= l_UiMode_0.TenFoot) else v132.renderSubtitleTextOverride(v202, v203, v204, v201, v205);
             return v6.createElement("Frame", {
@@ -587,9 +588,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             });
         end;
     end;
-    v132.renderPlaysAndVisits = l_memoize_0(function(v215, v216) --[[ Line: 708 ]]
+    v132.renderPlaysAndVisits = l_memoize_0(function(v215, v216) --[[ Line: 709 ]]
         -- upvalues: v6 (ref), l_PlayerCount_0 (ref), l_FFlagLuaAppGameStatsFallbackRendering_0 (ref), v125 (ref), v132 (copy), l_Images_0 (ref)
-        return function() --[[ Line: 709 ]]
+        return function() --[[ Line: 710 ]]
             -- upvalues: v6 (ref), l_PlayerCount_0 (ref), l_FFlagLuaAppGameStatsFallbackRendering_0 (ref), v215 (copy), v125 (ref), v132 (ref), l_Images_0 (ref), v216 (copy)
             return v6.createElement(l_PlayerCount_0, {
                 layoutOrder = 1, 
@@ -606,16 +607,16 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             });
         end;
     end);
-    v132.onFocusChanged = function(v217) --[[ Line: 730 ]]
+    v132.onFocusChanged = function(v217) --[[ Line: 731 ]]
         -- upvalues: v132 (copy)
         if v132.props.setControllerBarNavigation then
             local v218 = not v217;
             v132.props.setControllerBarNavigation(v218);
         end;
     end;
-    v132.renderDescription = l_memoize_0(function(v219, v220) --[[ Line: 737 ]]
+    v132.renderDescription = l_memoize_0(function(v219, v220) --[[ Line: 738 ]]
         -- upvalues: v6 (ref), v68 (ref), l_RetrievalStatus_0 (ref), v132 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (ref), l_AppPage_0 (ref)
-        return function() --[[ Line: 738 ]]
+        return function() --[[ Line: 739 ]]
             -- upvalues: v6 (ref), v68 (ref), l_RetrievalStatus_0 (ref), v219 (copy), v220 (copy), v132 (ref), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (ref), l_AppPage_0 (ref)
             return v6.createElement(v68, {
                 dataStatus = l_RetrievalStatus_0.fromRawValue(v219), 
@@ -628,14 +629,14 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
         end;
     end);
     if l_FFlagLuaAppShowNoticeOnEdp_0 then
-        v132.renderNotice = l_memoize_0(function(v221) --[[ Line: 751 ]]
+        v132.renderNotice = l_memoize_0(function(v221) --[[ Line: 752 ]]
             -- upvalues: l_withLocalization_0 (ref), v6 (ref), v68 (ref), l_RetrievalStatus_0 (ref), v132 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (ref), l_AppPage_0 (ref)
-            return function() --[[ Line: 752 ]]
+            return function() --[[ Line: 753 ]]
                 -- upvalues: l_withLocalization_0 (ref), v6 (ref), v68 (ref), l_RetrievalStatus_0 (ref), v221 (copy), v132 (ref), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (ref), l_AppPage_0 (ref)
                 return l_withLocalization_0({
                     noticeHeader = "Feature.ExperienceDetails.Body.NotesTitle", 
                     noticeText = "Feature.ExperienceDetails.Notes.InExperiencePurchase"
-                })(function(v222) --[[ Line: 756 ]]
+                })(function(v222) --[[ Line: 757 ]]
                     -- upvalues: v6 (ref), v68 (ref), l_RetrievalStatus_0 (ref), v221 (ref), v132 (ref), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (ref), l_AppPage_0 (ref)
                     return v6.createElement(v68, {
                         dataStatus = l_RetrievalStatus_0.fromRawValue(v221), 
@@ -650,14 +651,14 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end;
         end);
     end;
-    v132.renderIgrsRatingLabel = if l_FFlagLuaAppAddIgrsRatingToEdp_0 then l_memoize_0(function(v223, v224, v225, v226, v227) --[[ Line: 774 ]]
+    v132.renderIgrsRatingLabel = if l_FFlagLuaAppAddIgrsRatingToEdp_0 then l_memoize_0(function(v223, v224, v225, v226, v227) --[[ Line: 775 ]]
         -- upvalues: v5 (ref), v69 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v62 (ref), v133 (copy), v132 (copy), v64 (ref)
-        return function() --[[ Line: 775 ]]
+        return function() --[[ Line: 776 ]]
             -- upvalues: v5 (ref), v69 (ref), v223 (copy), v224 (copy), v225 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v226 (copy), v62 (ref), v133 (ref), v132 (ref), v64 (ref), v227 (copy)
             return v5.createElement(v69, {
                 igrsRating = v223, 
                 igrsRatingDisplayMessage = v224, 
-                onActivated = v225 and function() --[[ Line: 780 ]]
+                onActivated = v225 and function() --[[ Line: 781 ]]
                     -- upvalues: l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v226 (ref), v62 (ref), v133 (ref), v132 (ref)
                     if l_FFlagLuaAppIgrsRatingPropMemoization_0 then
                         v226(v62.INDONESIAN_CONTENT_MATURITY_URL, v133:Format("Feature.GameDetails.Label.ContentMaturity"));
@@ -666,16 +667,16 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                         v132.props.openWebview(v62.INDONESIAN_CONTENT_MATURITY_URL, v133:Format("Feature.GameDetails.Label.ContentMaturity"));
                         return;
                     end;
-                end or function() --[[ Line: 793 ]]
+                end or function() --[[ Line: 794 ]]
                     -- upvalues: v64 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v227 (ref), v132 (ref), v62 (ref)
                     v64(if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v227 else v132.props.linking, v62.INDONESIAN_CONTENT_MATURITY_URL);
                 end
             });
         end;
     end) else nil;
-    v132.renderLogoTray = l_memoize_0(function(v228, v229) --[[ Line: 804 ]]
+    v132.renderLogoTray = l_memoize_0(function(v228, v229) --[[ Line: 805 ]]
         -- upvalues: l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (ref), v132 (copy), v5 (ref), v44 (ref), v6 (ref), v70 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v81 (ref), l_AppPage_0 (ref)
-        return function() --[[ Line: 805 ]]
+        return function() --[[ Line: 806 ]]
             -- upvalues: l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (ref), v132 (ref), v5 (ref), v44 (ref), v6 (ref), v70 (ref), v228 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v229 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v81 (ref), l_AppPage_0 (ref)
             if l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 then
                 local v230 = ("EXPERIENCE_SOCIAL_LINKS_%*"):format(v132.props.universeId);
@@ -689,7 +690,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                         closeAlert = v132.props.closeAlert, 
                         impressionsTag = v230, 
                         forwardRef = v231, 
-                        onAbsolutePositionChanged = function(_) --[[ Line: 817 ]]
+                        onAbsolutePositionChanged = function(_) --[[ Line: 818 ]]
                             -- upvalues: v232 (copy)
                             v232:fire();
                         end, 
@@ -715,13 +716,13 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end;
         end;
     end);
-    local function _(v234) --[[ Line: 853 ]] --[[ Name: handleControllerBarInMediaGalleryFullscreen ]]
+    local function _(v234) --[[ Line: 854 ]] --[[ Name: handleControllerBarInMediaGalleryFullscreen ]]
         -- upvalues: v132 (copy)
         if v132.props.setControllerBarNavigation then
             v132.props.setControllerBarNavigation(v234);
         end;
     end;
-    v132.onMediaGalleryPreviewActivated = function(v236, v237) --[[ Line: 859 ]]
+    v132.onMediaGalleryPreviewActivated = function(v236, v237) --[[ Line: 860 ]]
         -- upvalues: v132 (copy), l_UiMode_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref)
         local v238 = v132.props.uiModeInfo and v132.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
         if not v132.state.isFullscreen and v238 and v132.props.setControllerBarNavigation then
@@ -742,10 +743,10 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v132.renderMediaGallery = l_memoize_0(function(v239, v240) --[[ Line: 878 ]]
+    v132.renderMediaGallery = l_memoize_0(function(v239, v240) --[[ Line: 879 ]]
         -- upvalues: v132 (copy), l_UiMode_0 (ref), v6 (ref), v73 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref)
         if v132.props.uiModeInfo and v132.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-            return function() --[[ Line: 881 ]]
+            return function() --[[ Line: 882 ]]
                 -- upvalues: v6 (ref), v73 (ref), v132 (ref), v239 (copy), v240 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(v73, {
                     tokens = v132.props.tokens, 
@@ -761,7 +762,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                 });
             end;
         else
-            return function() --[[ Line: 898 ]]
+            return function() --[[ Line: 899 ]]
                 -- upvalues: v6 (ref), v73 (ref), v132 (ref), v239 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (ref), v240 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(v73, {
                     deviceType = v132.props.deviceType, 
@@ -778,9 +779,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end;
         end;
     end);
-    v132.renderExperienceRating = l_memoize_0(function(v241) --[[ Line: 929 ]]
+    v132.renderExperienceRating = l_memoize_0(function(v241) --[[ Line: 930 ]]
         -- upvalues: v6 (ref), l_ExperienceRatings_0 (ref), v132 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
-        return function() --[[ Line: 930 ]]
+        return function() --[[ Line: 931 ]]
             -- upvalues: v6 (ref), l_ExperienceRatings_0 (ref), v241 (copy), v132 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
             return v6.createElement(l_ExperienceRatings_0, {
                 universeId = v241, 
@@ -792,9 +793,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             });
         end;
     end);
-    v132.renderExperienceInfoTable = l_memoize_0(function(v242) --[[ Line: 944 ]]
+    v132.renderExperienceInfoTable = l_memoize_0(function(v242) --[[ Line: 945 ]]
         -- upvalues: v6 (ref), v132 (copy), v71 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
-        return function() --[[ Line: 945 ]]
+        return function() --[[ Line: 946 ]]
             -- upvalues: v6 (ref), v132 (ref), v71 (ref), v242 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
             return v6.createElement("Folder", {
                 [v6.Ref] = v132.props.statsAndInfoRef
@@ -807,9 +808,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             }));
         end;
     end);
-    v132.renderEventsList = l_memoize_0(function(v243, v244) --[[ Line: 964 ]]
+    v132.renderEventsList = l_memoize_0(function(v243, v244) --[[ Line: 965 ]]
         -- upvalues: v6 (ref), v65 (ref)
-        return function() --[[ Line: 965 ]]
+        return function() --[[ Line: 966 ]]
             -- upvalues: v6 (ref), v65 (ref), v243 (copy), v244 (copy)
             return v6.createElement(v65, {
                 universeId = v243, 
@@ -818,9 +819,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             });
         end;
     end);
-    v132.renderRecommendedExperiencesCarousel = l_memoize_0(function(v245) --[[ Line: 974 ]]
+    v132.renderRecommendedExperiencesCarousel = l_memoize_0(function(v245) --[[ Line: 975 ]]
         -- upvalues: v6 (ref), v75 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v132 (copy), l_AppPage_0 (ref)
-        return function() --[[ Line: 975 ]]
+        return function() --[[ Line: 976 ]]
             -- upvalues: v6 (ref), v75 (ref), v245 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v132 (ref), l_AppPage_0 (ref)
             return v6.createElement(v75, {
                 universeId = v245, 
@@ -830,9 +831,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
         end;
     end);
     if l_FFlagSongEdpCarouselIxp_0 then
-        v132.renderExperienceSongsCarousel = l_memoize_0(function(v246, v247) --[[ Line: 987 ]]
+        v132.renderExperienceSongsCarousel = l_memoize_0(function(v246, v247) --[[ Line: 988 ]]
             -- upvalues: v5 (ref), v76 (ref)
-            return function() --[[ Line: 988 ]]
+            return function() --[[ Line: 989 ]]
                 -- upvalues: v5 (ref), v76 (ref), v246 (copy), v247 (copy)
                 return v5.createElement(v76, {
                     universeId = v246, 
@@ -844,9 +845,9 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end;
         end);
     end;
-    v132.renderCommunityLink = l_memoize_0(function(v248, v249, v250) --[[ Line: 1000 ]]
+    v132.renderCommunityLink = l_memoize_0(function(v248, v249, v250) --[[ Line: 1001 ]]
         -- upvalues: v5 (ref), l_ExperienceCommunityLink_0 (ref)
-        return function() --[[ Line: 1001 ]]
+        return function() --[[ Line: 1002 ]]
             -- upvalues: v5 (ref), l_ExperienceCommunityLink_0 (ref), v248 (copy), v249 (copy), v250 (copy)
             return v5.createElement("Frame", {
                 Size = UDim2.fromScale(1, 0), 
@@ -864,20 +865,20 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             });
         end;
     end);
-    v132.linkStartStyle = l_memoize_0(function(v251) --[[ Line: 1019 ]]
+    v132.linkStartStyle = l_memoize_0(function(v251) --[[ Line: 1020 ]]
         local l_Color3_0 = v251.Tokens.Semantic.Color.Text.Link.Color3;
         return (("<font color=\"%*\"><b>"):format((string.format("rgb(%d, %d, %d)", math.round(l_Color3_0.R * 255), math.round(l_Color3_0.G * 255), (math.round(l_Color3_0.B * 255))))));
     end);
-    v132.checkAndFormatPossibleLink = l_memoize_0(function(v253, v254) --[[ Line: 1031 ]]
+    v132.checkAndFormatPossibleLink = l_memoize_0(function(v253, v254) --[[ Line: 1032 ]]
         -- upvalues: l_checkAndFormatPossibleLink_0 (ref), v132 (copy)
         return l_checkAndFormatPossibleLink_0(v254, nil, nil, v132.linkStartStyle(v253), "</b></font>");
     end);
-    v132.renderRefundPolicy = l_memoize_0(function(v255) --[[ Line: 1037 ]]
+    v132.renderRefundPolicy = l_memoize_0(function(v255) --[[ Line: 1038 ]]
         -- upvalues: l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (ref), l_withStyle_0 (ref), v6 (ref), v66 (ref), v132 (copy), v5 (ref)
-        return function() --[[ Line: 1038 ]]
+        return function() --[[ Line: 1039 ]]
             -- upvalues: l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (ref), l_withStyle_0 (ref), v6 (ref), v66 (ref), v255 (copy), v132 (ref), v5 (ref)
             if l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 then
-                return l_withStyle_0(function(v256) --[[ Line: 1040 ]]
+                return l_withStyle_0(function(v256) --[[ Line: 1041 ]]
                     -- upvalues: v6 (ref), v66 (ref), v255 (ref)
                     return v6.createElement(v66, {
                         refundPolicy = v255, 
@@ -885,7 +886,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                     });
                 end);
             else
-                return l_withStyle_0(function(v257) --[[ Line: 1047 ]]
+                return l_withStyle_0(function(v257) --[[ Line: 1048 ]]
                     -- upvalues: v132 (ref), v255 (ref), v5 (ref)
                     local l_Body_0 = v257.Tokens.Semantic.Typography.Body;
                     local l_Muted_0 = v257.Tokens.Semantic.Color.Text.Muted;
@@ -910,7 +911,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                             TextWrapped = true, 
                             TextXAlignment = Enum.TextXAlignment.Left, 
                             RichText = v260, 
-                            [v5.Event.Activated] = function(_) --[[ Line: 1074 ]]
+                            [v5.Event.Activated] = function(_) --[[ Line: 1075 ]]
                                 -- upvalues: v132 (ref), v255 (ref)
                                 v132.props.openRefundPolicyLearnMorePage(v255.learnMoreUrl);
                             end
@@ -920,7 +921,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end;
         end;
     end);
-    v132.getBodyComponentListProps = l_memoize_0(function(v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273, v274, v275, v276, v277, v278, v279, v280, v281, v282, v283, v284) --[[ Line: 1084 ]]
+    v132.getBodyComponentListProps = l_memoize_0(function(v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273, v274, v275, v276, v277, v278, v279, v280, v281, v282, v283, v284) --[[ Line: 1085 ]]
         -- upvalues: v132 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (ref), v126 (ref), v127 (ref), l_ContentPosition_0 (ref), l_GetFFlagExpDetailsUseSelectionBumpers_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v42 (ref), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_ExperienceDetailsNoticeType_0 (ref), l_FFlagSongEdpCarouselIxp_0 (ref)
         local v285 = v273.showLogoTraySection and v269 and next(v269);
         local v286 = v273.showCommunityLink and v271 and v272 == "banner" and v270;
@@ -1028,7 +1029,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
         end;
         return v295;
     end);
-    v132.onClose = function() --[[ Line: 1338 ]]
+    v132.onClose = function() --[[ Line: 1339 ]]
         -- upvalues: v132 (copy), l_UiMode_0 (ref)
         if v132.state.isFullscreen then
             v132:setState({
@@ -1042,7 +1043,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             v132.props.onClose();
         end;
     end;
-    v132.exitFullscreen = l_FFlagLuaAppEdpMediaGalleryFullScreen_0 and function(v298, v299) --[[ Line: 1355 ]]
+    v132.exitFullscreen = l_FFlagLuaAppEdpMediaGalleryFullScreen_0 and function(v298, v299) --[[ Line: 1356 ]]
         -- upvalues: v132 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref)
         if not v132.state.isFullscreen then
             return;
@@ -1059,17 +1060,17 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
     end or nil;
     v132.focusEventHandlers = {
         [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-            handler = v47.onRelease(function(v300) --[[ Line: 1373 ]]
+            handler = v47.onRelease(function(v300) --[[ Line: 1374 ]]
                 -- upvalues: v132 (copy)
                 v132.onClose();
                 v300:cancel();
             end)
         }
     };
-    v132.renderFullscreenContent = l_memoize_0(function(v301, v302, v303, v304, v305, v306) --[[ Line: 1381 ]]
+    v132.renderFullscreenContent = l_memoize_0(function(v301, v302, v303, v304, v305, v306) --[[ Line: 1382 ]]
         -- upvalues: v132 (copy), l_UiMode_0 (ref), v6 (ref), v73 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref)
         if v132.props.uiModeInfo and v132.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-            return function() --[[ Line: 1384 ]]
+            return function() --[[ Line: 1385 ]]
                 -- upvalues: v6 (ref), v73 (ref), v132 (ref), v301 (copy), v302 (copy), v303 (copy), v304 (copy), v306 (copy), v305 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(v73, {
                     tokens = v132.props.tokens, 
@@ -1088,7 +1089,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                 });
             end;
         else
-            return function() --[[ Line: 1404 ]]
+            return function() --[[ Line: 1405 ]]
                 -- upvalues: v6 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v132 (ref), v73 (ref), v301 (copy), v302 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(l_FocusNavigableSurfaceWrapper_0, {
                     surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.PopUp, 
@@ -1110,10 +1111,10 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             end;
         end;
     end);
-    v132.resolveTitleText = function(v307, v308) --[[ Line: 1435 ]]
+    v132.resolveTitleText = function(v307, v308) --[[ Line: 1436 ]]
         return v307 and v307.name or v308 and v308.name or nil;
     end;
-    v132.checkCommunityLinkExposureLogging = function() --[[ Line: 1440 ]]
+    v132.checkCommunityLinkExposureLogging = function() --[[ Line: 1441 ]]
         -- upvalues: v132 (copy), l_IXPService_0 (ref), l_AppUserLayers_0 (ref)
         if v132.props.communityLink then
             l_IXPService_0:LogUserLayerExposure(l_AppUserLayers_0.EDPCommunityLinksLayer);
@@ -1126,19 +1127,19 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
             currentIndex = 1, 
             nextIndex = 1
         };
-        v132.setCurrentIndex = function(v309) --[[ Line: 1455 ]]
+        v132.setCurrentIndex = function(v309) --[[ Line: 1456 ]]
             -- upvalues: v132 (copy)
             v132:setState({
                 currentIndex = v309
             });
         end;
-        v132.setCrossFade = function(v310) --[[ Line: 1461 ]]
+        v132.setCrossFade = function(v310) --[[ Line: 1462 ]]
             -- upvalues: v132 (copy)
             v132:setState({
                 isCrossFade = v310
             });
         end;
-        v132.onSelectionGained = function(v311, v312) --[[ Line: 1467 ]]
+        v132.onSelectionGained = function(v311, v312) --[[ Line: 1468 ]]
             -- upvalues: v132 (copy)
             if v132.state.nextIndex ~= v311 and v132.state.isCrossFade == false then
                 v132.setCrossFade(true);
@@ -1148,7 +1149,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
                 nextIndex = v311
             });
         end;
-        v132.mediaGalleryGainFocused = function(v313) --[[ Line: 1478 ]]
+        v132.mediaGalleryGainFocused = function(v313) --[[ Line: 1479 ]]
             -- upvalues: v132 (copy)
             if not v313 then
                 v132:setState({
@@ -1159,7 +1160,7 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
     end;
     if v90() then
         v132.isMounted = false;
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 1490 ]]
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 1491 ]]
             -- upvalues: l_AppStorageService_0 (ref)
             return l_AppStorageService_0:GetItem("ShowNotificationsOptInTooltip");
         end);
@@ -1169,19 +1170,19 @@ v128.init = function(v132) --[[ Line: 363 ]] --[[ Name: init ]]
         });
     end;
 end;
-v128.didMount = function(v316) --[[ Line: 1499 ]] --[[ Name: didMount ]]
+v128.didMount = function(v316) --[[ Line: 1500 ]] --[[ Name: didMount ]]
     -- upvalues: v90 (copy), l_AppStorageService_0 (copy), v8 (copy), v91 (copy)
     v316.checkCommunityLinkExposureLogging();
     if v90() then
         v316.isMounted = true;
         if v316.showTooltip then
-            pcall(function() --[[ Line: 1505 ]]
+            pcall(function() --[[ Line: 1506 ]]
                 -- upvalues: l_AppStorageService_0 (ref)
                 l_AppStorageService_0:SetItem("ShowNotificationsOptInTooltip", "false");
                 l_AppStorageService_0:Flush();
             end);
         end;
-        v8.delay(v91()):andThen(function() --[[ Line: 1511 ]]
+        v8.delay(v91()):andThen(function() --[[ Line: 1512 ]]
             -- upvalues: v316 (copy)
             if v316.isMounted then
                 v316:setState({
@@ -1191,12 +1192,12 @@ v128.didMount = function(v316) --[[ Line: 1499 ]] --[[ Name: didMount ]]
         end);
     end;
 end;
-v128.didUpdate = function(v317, v318) --[[ Line: 1521 ]] --[[ Name: didUpdate ]]
+v128.didUpdate = function(v317, v318) --[[ Line: 1522 ]] --[[ Name: didUpdate ]]
     if not v318.communityLink then
         v317.checkCommunityLinkExposureLogging();
     end;
 end;
-v128.render = function(v319) --[[ Line: 1527 ]] --[[ Name: render ]]
+v128.render = function(v319) --[[ Line: 1528 ]] --[[ Name: render ]]
     -- upvalues: v4 (copy), l_RetrievalStatus_1 (copy), v6 (copy), l_LoadingStateContainer_0 (copy), l_RetrievalStatus_0 (copy)
     if v4 then
         if v319.props.gameDetailsPageDataStatus == l_RetrievalStatus_1.Failed and not v319.props.gameInfo then
@@ -1207,7 +1208,7 @@ v128.render = function(v319) --[[ Line: 1527 ]] --[[ Name: render ]]
     else
         return v6.createElement(l_LoadingStateContainer_0, {
             dataStatus = l_RetrievalStatus_0.fromRawValue(v319.props.gameDetailsPageDataStatus), 
-            renderOnFailed = function() --[[ Line: 1545 ]] --[[ Name: renderOnFailed ]]
+            renderOnFailed = function() --[[ Line: 1546 ]] --[[ Name: renderOnFailed ]]
                 -- upvalues: v319 (copy)
                 if v319.props.gameInfo then
                     return v319:renderOnLoaded();
@@ -1215,27 +1216,27 @@ v128.render = function(v319) --[[ Line: 1527 ]] --[[ Name: render ]]
                     return v319:renderOnFailed();
                 end;
             end, 
-            renderOnLoaded = function() --[[ Line: 1553 ]] --[[ Name: renderOnLoaded ]]
+            renderOnLoaded = function() --[[ Line: 1554 ]] --[[ Name: renderOnLoaded ]]
                 -- upvalues: v319 (copy)
                 return v319:renderOnLoaded();
             end, 
-            renderOnLoading = function() --[[ Line: 1556 ]] --[[ Name: renderOnLoading ]]
+            renderOnLoading = function() --[[ Line: 1557 ]] --[[ Name: renderOnLoading ]]
                 -- upvalues: v319 (copy)
                 return v319:renderOnLoading();
             end
         });
     end;
 end;
-v128.renderOnLoading = function(_) --[[ Line: 1562 ]] --[[ Name: renderOnLoading ]]
+v128.renderOnLoading = function(_) --[[ Line: 1563 ]] --[[ Name: renderOnLoading ]]
     -- upvalues: v6 (copy), v72 (copy)
     return v6.createElement(v72);
 end;
-v128.renderOnFailed = function(v321) --[[ Line: 1566 ]] --[[ Name: renderOnFailed ]]
+v128.renderOnFailed = function(v321) --[[ Line: 1567 ]] --[[ Name: renderOnFailed ]]
     -- upvalues: l_withLocalization_0 (copy), l_EnumGameDetailErrorTypes_0 (copy), v6 (copy), l_EmptyState_0 (copy)
     return l_withLocalization_0({
         failedMessage = "Feature.EmptyStatePage.Message.NoInternet", 
         experienceUnavailableMessage = "Feature.GamePage.QuickLaunch.LaunchError.TemporarilyUnavailable"
-    })(function(v322) --[[ Line: 1570 ]]
+    })(function(v322) --[[ Line: 1571 ]]
         -- upvalues: v321 (copy), l_EnumGameDetailErrorTypes_0 (ref), v6 (ref), l_EmptyState_0 (ref)
         local v323 = nil;
         v323 = v321.props.gameDetailError and v321.props.gameDetailError.errorType == l_EnumGameDetailErrorTypes_0.ExperienceUnavailable;
@@ -1245,13 +1246,13 @@ v128.renderOnFailed = function(v321) --[[ Line: 1566 ]] --[[ Name: renderOnFaile
         });
     end);
 end;
-v128.willUnmount = function(v324) --[[ Line: 1581 ]] --[[ Name: willUnmount ]]
+v128.willUnmount = function(v324) --[[ Line: 1582 ]] --[[ Name: willUnmount ]]
     -- upvalues: v90 (copy)
     if v90() then
         v324.isMounted = false;
     end;
 end;
-v128.renderOnLoaded = function(v325) --[[ Line: 1587 ]] --[[ Name: renderOnLoaded ]]
+v128.renderOnLoaded = function(v325) --[[ Line: 1588 ]] --[[ Name: renderOnLoaded ]]
     -- upvalues: l_UiMode_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_getPlayButtonProps_0 (copy), v90 (copy), l_DeviceType_0 (copy), l_GetFFlagNotificationsForceEnableEDPDiscoverability_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v42 (copy), v7 (copy), l_Images_0 (copy), v6 (copy), v5 (copy), v67 (copy), l_TooltipOrientation_0 (copy), l_withLocalization_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_FFlagLuaAppEdpFixDefaultBanner_0 (copy), l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), l_FFlagLuaAppEnablePlaySquadButton_0 (copy), l_PlayButton_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_ButtonSize_0 (copy), v131 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (copy), l_DetailsPageSelector_0 (copy)
     local l_deviceType_0 = v325.props.deviceType;
     local l_universeId_3 = v325.props.universeId;
@@ -1356,7 +1357,7 @@ v128.renderOnLoaded = function(v325) --[[ Line: 1587 ]] --[[ Name: renderOnLoade
                 } else nil
             }
         } or nil
-    }, function(v364) --[[ Line: 1732 ]]
+    }, function(v364) --[[ Line: 1733 ]]
         return v364 ~= nil;
     end);
     local v366 = nil;
@@ -1377,7 +1378,7 @@ v128.renderOnLoaded = function(v325) --[[ Line: 1587 ]] --[[ Name: renderOnLoade
                     userInteractionEnabled = true, 
                     showBackground = true, 
                     size = v325.props.textButtonSize, 
-                    onActivated = function() --[[ Line: 1754 ]] --[[ Name: onActivated ]]
+                    onActivated = function() --[[ Line: 1755 ]] --[[ Name: onActivated ]]
                         -- upvalues: v325 (copy), l_universeId_3 (copy)
                         v325.props.openExperienceGuidelinesExplained(l_universeId_3, true);
                     end, 
@@ -1412,7 +1413,7 @@ v128.renderOnLoaded = function(v325) --[[ Line: 1587 ]] --[[ Name: renderOnLoade
                     userInteractionEnabled = true, 
                     showBackground = true, 
                     size = v325.props.textButtonSize, 
-                    onActivated = function() --[[ Line: 1789 ]] --[[ Name: onActivated ]]
+                    onActivated = function() --[[ Line: 1790 ]] --[[ Name: onActivated ]]
                         -- upvalues: v325 (copy), l_universeId_3 (copy)
                         v325.props.openExperienceGuidelinesExplained(l_universeId_3, true);
                     end, 
@@ -1423,7 +1424,7 @@ v128.renderOnLoaded = function(v325) --[[ Line: 1587 ]] --[[ Name: renderOnLoade
     end;
     return l_withLocalization_0({
         buttonText = l_textKey_0
-    })(function(v368) --[[ Line: 1801 ]]
+    })(function(v368) --[[ Line: 1802 ]]
         -- upvalues: v346 (copy), l_price_0 (copy), v325 (copy), l_deviceType_0 (copy), l_thumbnail_0 (ref), v335 (copy), l_FFlagHideCloseButtonEdp_0 (ref), l_tokens_0 (copy), l_universeId_3 (copy), v336 (copy), v337 (copy), v338 (copy), v333 (copy), v343 (copy), l_FFlagLuaAppEdpFixDefaultBanner_0 (ref), l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 (ref), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (ref), l_FFlagLuaAppEnablePlaySquadButton_0 (ref), l_icon_0 (copy), l_Images_0 (ref), v6 (ref), l_PlayButton_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), v331 (copy), l_ButtonSize_0 (ref), v365 (copy), v366 (ref), v334 (copy), l_socialLinks_0 (copy), l_communityLink_0 (copy), v131 (ref), l_isFullscreen_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v42 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), v340 (ref), v341 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_mediaGalleryShowIndex_0 (copy), l_isCrossFade_0 (copy), l_currentIndex_0 (copy), l_nextIndex_0 (copy), v357 (ref), v359 (ref), v356 (ref), v358 (ref), l_DetailsPageSelector_0 (ref)
         local l_buttonText_0 = v368.buttonText;
         if v346.localizedFiatPrice then
@@ -1489,6 +1490,7 @@ v128.renderOnLoaded = function(v325) --[[ Line: 1587 ]] --[[ Name: renderOnLoade
                 placeId = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v325.props.placeIdOverride else nil, 
                 buttonSize = if v331 then l_ButtonSize_0.Medium else l_ButtonSize_0.Large, 
                 squadButtonHeight = UDim.new(0, v325.props.actionBarHeight), 
+                useUIBloxButton = v325.props.unifyToUIBloxIxp, 
                 testId = "--experience-details--play-button"
             }) else nil, 
             icons = v365, 
@@ -1524,7 +1526,7 @@ v128.renderOnLoaded = function(v325) --[[ Line: 1587 ]] --[[ Name: renderOnLoade
         });
     end);
 end;
-return function(v374) --[[ Line: 1963 ]] --[[ Name: ExperienceDetailsPageFn ]]
+return function(v374) --[[ Line: 1965 ]] --[[ Name: ExperienceDetailsPageFn ]]
     -- upvalues: l_FFlagEDPTTITrackingEnabled_0 (copy), l_useFirstMediaCarouselImageUri_0 (copy), v85 (copy), l_EDPTTIConstants_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v42 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), v78 (copy), v79 (copy), v126 (copy), v127 (copy), v77 (copy), v80 (copy), l_useUiModeInfo_0 (copy), v27 (copy), v5 (copy), l_UiMode_0 (copy), l_useTokens_0 (copy), l_FFlagLuaAppFixEdpInitialFocus_0 (copy), v11 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_useCloseWithBackButton_0 (copy), v6 (copy), v128 (copy), v7 (copy)
     if l_FFlagEDPTTITrackingEnabled_0 then
         local v375 = l_useFirstMediaCarouselImageUri_0(v374.universeId);
@@ -1582,7 +1584,7 @@ return function(v374) --[[ Line: 1963 ]] --[[ Name: ExperienceDetailsPageFn ]]
         v396 = v5.useRef(nil);
         do
             local l_v395_0 = v395;
-            v5.useEffect(function() --[[ Line: 2041 ]]
+            v5.useEffect(function() --[[ Line: 2043 ]]
                 -- upvalues: l_v395_0 (ref), v396 (copy), v392 (ref), v382 (copy)
                 if l_v395_0 == nil then
                     v396.current = false;
@@ -1598,12 +1600,12 @@ return function(v374) --[[ Line: 1963 ]] --[[ Name: ExperienceDetailsPageFn ]]
                 l_v395_0, 
                 v382
             });
-            v5.useEffect(function() --[[ Line: 2053 ]]
+            v5.useEffect(function() --[[ Line: 2055 ]]
                 -- upvalues: v383 (copy)
                 local v399 = -1;
                 local v400 = nil;
                 if v383 then
-                    v400 = v383.SelectionChanged:Connect(function(_, v402, v403) --[[ Line: 2057 ]]
+                    v400 = v383.SelectionChanged:Connect(function(_, v402, v403) --[[ Line: 2059 ]]
                         -- upvalues: v383 (ref), v399 (ref)
                         if v403 == nil or v402 == nil or not v403:IsDescendantOf(v383) or not v402:IsDescendantOf(v383) then
                             return;
@@ -1614,7 +1616,7 @@ return function(v374) --[[ Line: 1963 ]] --[[ Name: ExperienceDetailsPageFn ]]
                         end;
                     end);
                 end;
-                return function() --[[ Line: 2071 ]]
+                return function() --[[ Line: 2073 ]]
                     -- upvalues: v400 (ref)
                     if v400 then
                         v400:Disconnect();

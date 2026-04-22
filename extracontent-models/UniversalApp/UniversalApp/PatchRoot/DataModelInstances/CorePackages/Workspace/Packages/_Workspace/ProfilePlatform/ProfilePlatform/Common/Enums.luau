@@ -135,8 +135,6 @@ return {
         SetNicknameModal = "SetNicknameModal", 
         ContextualMenu = "ContextualMenu", 
         EditProfileBackground = "EditProfileBackground", 
-        PersonaAvatarPage = "PersonaAvatarPage", 
-        EditPersonaNameModal = "EditPersonaNameModal", 
         CommunityVerificationModal = "CommunityVerificationModal", 
         TransferRobuxFlow = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and "TransferRobuxFlow" or ""
     }, 

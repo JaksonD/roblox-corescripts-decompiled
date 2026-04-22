@@ -10,7 +10,6 @@ return {
     didMountUpdateFullPageModal = false, 
     useTokenizedShortcutBar = false, 
     passRowAndColumnDataToItemInGridView = false, 
-    useProvidedRefForButton = false, 
     enableActionBarButtonOverride = false, 
     enableShortcutCustomization = false, 
     enableScalingForSomeEdpIcons = false, 
@@ -18,5 +17,7 @@ return {
     enableTooltipRichText = false, 
     useFoundationCheckbox = false, 
     useFoundationLoading = false, 
-    disableTokenScaling = false
+    disableTokenScaling = false, 
+    enableFoundationTokenMapping = false, 
+    useColorTokensForThemeMapping = false
 };

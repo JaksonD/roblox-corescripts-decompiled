@@ -1,19 +1,18 @@
 local l_Parent_0 = script:FindFirstAncestor("AvatarExperienceCommon").Parent;
 local v1 = require(script.Parent.LabelAbuseTypeMapping);
-local v2 = require(l_Parent_0.AvatarExperienceFlags);
-local l_FFlagAXCatalogBodySuits_0 = v2.FFlagAXCatalogBodySuits;
-local l_FFlagAXCustomizeMakeupSupport_0 = v2.FFlagAXCustomizeMakeupSupport;
-local l_FFlagAXMakeupEquipping_0 = v2.FFlagAXMakeupEquipping;
-local l_FFlagAXCatalogMakeupSupport_0 = v2.FFlagAXCatalogMakeupSupport;
-local l_FFlagAXAvatarTimeoutFlow_0 = v2.FFlagAXAvatarTimeoutFlow;
-local l_FFlagAXAvatarTimeoutFlowIE_0 = v2.FFlagAXAvatarTimeoutFlowIE;
+local _ = require(script.Parent.Types.CategoryTypes.CategoryTypes);
+local v3 = require(l_Parent_0.AvatarExperienceFlags);
+local l_FFlagAXCatalogBodySuits_0 = v3.FFlagAXCatalogBodySuits;
+local l_FFlagAXCustomizeMakeupSupport_0 = v3.FFlagAXCustomizeMakeupSupport;
+local l_FFlagAXMakeupEquipping_0 = v3.FFlagAXMakeupEquipping;
+local l_FFlagAXCatalogMakeupSupport_0 = v3.FFlagAXCatalogMakeupSupport;
+local v8 = {};
 local v9 = {};
-local v10 = {};
-for _, v12 in (Enum.AvatarAssetType:GetEnumItems()) do
-    v9[v12.Name] = tostring(v12.Value);
-    v10[tostring(v12.Value)] = v12.Name;
+for _, v11 in (Enum.AvatarAssetType:GetEnumItems()) do
+    v8[v11.Name] = tostring(v11.Value);
+    v9[tostring(v11.Value)] = v11.Name;
 end;
-local v13 = {
+local v12 = {
     [tostring(Enum.AssetType.Hat.Value)] = Enum.AccessoryType.Hat, 
     [tostring(Enum.AssetType.HairAccessory.Value)] = Enum.AccessoryType.Hair, 
     [tostring(Enum.AssetType.FaceAccessory.Value)] = Enum.AccessoryType.Face, 
@@ -34,11 +33,11 @@ local v13 = {
     [tostring(Enum.AssetType.EyebrowAccessory.Value)] = Enum.AccessoryType.Eyebrow, 
     [tostring(Enum.AssetType.EyelashAccessory.Value)] = Enum.AccessoryType.Eyelash
 };
-local v14 = {};
-for v15, v16 in v13 do
-    v14[v16] = v15;
+local v13 = {};
+for v14, v15 in v12 do
+    v13[v15] = v14;
 end;
-local v17 = {
+local v16 = {
     [tostring(Enum.AssetType.TShirt.Value)] = "GraphicTShirt", 
     [tostring(Enum.AssetType.Hat.Value)] = "HatAccessory", 
     [tostring(Enum.AssetType.Shirt.Value)] = "Shirt", 
@@ -67,7 +66,7 @@ local v17 = {
     [tostring(Enum.AssetType.MoodAnimation.Value)] = "MoodAnimation", 
     [tostring(Enum.AssetType.DynamicHead.Value)] = "Head"
 };
-local v18 = {
+local v17 = {
     bodyType = "BodyTypeScale", 
     head = "HeadScale", 
     height = "HeightScale", 
@@ -75,7 +74,7 @@ local v18 = {
     depth = "DepthScale", 
     width = "WidthScale"
 };
-local v19 = {
+local v18 = {
     headColor3 = "HeadColor", 
     leftArmColor3 = "LeftArmColor", 
     leftLegColor3 = "LeftLegColor", 
@@ -83,18 +82,18 @@ local v19 = {
     rightLegColor3 = "RightLegColor", 
     torsoColor3 = "TorsoColor"
 };
-local v20 = {
+local v19 = {
     IS_LEFT = "IS_LEFT", 
     IS_RIGHT = "IS_RIGHT"
 };
-local v21 = game:DefineFastInt("AXMakeupZoomRadius", 7);
-local v22 = game:DefineFastInt("AXMakeupLooksZoomRadius", 7);
-local v23 = game:DefineFastInt("AXEyelashesZoomRadius", 7);
-local v24 = game:DefineFastInt("AXEyebrowsZoomRadius", 7);
-local v25 = game:DefineFastInt("AXFaceMakeupZoomRadius", 7);
-local v26 = game:DefineFastInt("AXLipMakeupZoomRadius", 7);
-local v27 = game:DefineFastInt("AXEyeMakeupZoomRadius", 7);
-local v28 = {
+local v20 = game:DefineFastInt("AXMakeupZoomRadius", 7);
+local v21 = game:DefineFastInt("AXMakeupLooksZoomRadius", 7);
+local v22 = game:DefineFastInt("AXEyelashesZoomRadius", 7);
+local v23 = game:DefineFastInt("AXEyebrowsZoomRadius", 7);
+local v24 = game:DefineFastInt("AXFaceMakeupZoomRadius", 7);
+local v25 = game:DefineFastInt("AXLipMakeupZoomRadius", 7);
+local v26 = game:DefineFastInt("AXEyeMakeupZoomRadius", 7);
+local v27 = {
     BodyCategories = {
         Heads = 8.5, 
         Hair = 8.5, 
@@ -154,46 +153,46 @@ local v28 = {
         Bodysuits = l_FFlagAXCatalogBodySuits_0 and 12 or nil
     }, 
     Makeup = if not not l_FFlagAXCustomizeMakeupSupport_0 or l_FFlagAXCatalogMakeupSupport_0 then {
-        Makeup = v21, 
-        MakeupLooks = v22, 
-        Eyelashes = v23, 
-        Eyebrows = v24, 
-        FaceMakeup = v25, 
-        LipMakeup = v26, 
-        EyeMakeup = v27
+        Makeup = v20, 
+        MakeupLooks = v21, 
+        Eyelashes = v22, 
+        Eyebrows = v23, 
+        FaceMakeup = v24, 
+        LipMakeup = v25, 
+        EyeMakeup = v26
     } else nil, 
     Special = {
         HeadRefinement = 7
     }
 };
-local v29 = {
+local v28 = {
     Seen = "AXTooltipSeen", 
     TimeDismiss = "AXTooltipTimeDismiss", 
     ClickDismiss = "AXTooltipClickDismiss", 
     CallbackDismiss = "AXTooltipCallbackDismiss"
 };
-local v30 = {
+local v29 = {
     CreateOutfitKey = "avatar.createOutfit", 
     CreateMakeupLookKey = l_FFlagAXCatalogMakeupSupport_0 and "avatar.createMakeupLook" or nil
 };
-local v31 = {
-    [v9.EyebrowAccessory] = 0, 
-    [v9.EyelashAccessory] = 1, 
-    [v9.Pants] = 2, 
-    [v9.Shirt] = 3, 
-    [v9.TShirt] = 4, 
-    [v9.LeftShoeAccessory] = 5, 
-    [v9.RightShoeAccessory] = 5, 
-    [v9.PantsAccessory] = 6, 
-    [v9.ShortsAccessory] = 7, 
-    [v9.DressSkirtAccessory] = 8, 
-    [v9.TShirtAccessory] = 9, 
-    [v9.ShirtAccessory] = 10, 
-    [v9.SweaterAccessory] = 11, 
-    [v9.JacketAccessory] = 12, 
-    [v9.HairAccessory] = 13
+local v30 = {
+    [v8.EyebrowAccessory] = 0, 
+    [v8.EyelashAccessory] = 1, 
+    [v8.Pants] = 2, 
+    [v8.Shirt] = 3, 
+    [v8.TShirt] = 4, 
+    [v8.LeftShoeAccessory] = 5, 
+    [v8.RightShoeAccessory] = 5, 
+    [v8.PantsAccessory] = 6, 
+    [v8.ShortsAccessory] = 7, 
+    [v8.DressSkirtAccessory] = 8, 
+    [v8.TShirtAccessory] = 9, 
+    [v8.ShirtAccessory] = 10, 
+    [v8.SweaterAccessory] = 11, 
+    [v8.JacketAccessory] = 12, 
+    [v8.HairAccessory] = 13
 };
-local v32 = {
+local v31 = {
     [tostring(Enum.AssetType.TShirtAccessory.Value)] = Enum.AccessoryType.TShirt, 
     [tostring(Enum.AssetType.ShirtAccessory.Value)] = Enum.AccessoryType.Shirt, 
     [tostring(Enum.AssetType.PantsAccessory.Value)] = Enum.AccessoryType.Pants, 
@@ -207,61 +206,61 @@ local v32 = {
     [tostring(Enum.AssetType.EyebrowAccessory.Value)] = Enum.AccessoryType.Eyebrow, 
     [tostring(Enum.AssetType.EyelashAccessory.Value)] = Enum.AccessoryType.Eyelash
 };
-local v33 = {
-    [v9.EyeMakeup] = true, 
-    [v9.FaceMakeup] = true, 
-    [v9.LipMakeup] = true, 
-    [v9.EyebrowAccessory] = true, 
-    [v9.EyelashAccessory] = true
+local v32 = {
+    [v8.EyeMakeup] = true, 
+    [v8.FaceMakeup] = true, 
+    [v8.LipMakeup] = true, 
+    [v8.EyebrowAccessory] = true, 
+    [v8.EyelashAccessory] = true
 };
-local v34 = {
+local v33 = {
     Avatar = "Avatar", 
     Makeup = "Makeup", 
     Outfit = "Outfit"
 };
-local v35 = if not not l_FFlagAXMakeupEquipping_0 or l_FFlagAXCustomizeMakeupSupport_0 then {
-    [v9.EyeMakeup] = Enum.MakeupType.Eye, 
-    [v9.FaceMakeup] = Enum.MakeupType.Face, 
-    [v9.LipMakeup] = Enum.MakeupType.Lip
+local v34 = if not not l_FFlagAXMakeupEquipping_0 or l_FFlagAXCustomizeMakeupSupport_0 then {
+    [v8.EyeMakeup] = Enum.MakeupType.Eye, 
+    [v8.FaceMakeup] = Enum.MakeupType.Face, 
+    [v8.LipMakeup] = Enum.MakeupType.Lip
+} else nil;
+local v35 = if l_FFlagAXCustomizeMakeupSupport_0 then {
+    [Enum.MakeupType.Eye] = v8.EyeMakeup, 
+    [Enum.MakeupType.Face] = v8.FaceMakeup, 
+    [Enum.MakeupType.Lip] = v8.LipMakeup
 } else nil;
 local v36 = if l_FFlagAXCustomizeMakeupSupport_0 then {
-    [Enum.MakeupType.Eye] = v9.EyeMakeup, 
-    [Enum.MakeupType.Face] = v9.FaceMakeup, 
-    [Enum.MakeupType.Lip] = v9.LipMakeup
-} else nil;
-local v37 = if l_FFlagAXCustomizeMakeupSupport_0 then {
-    [v9.FaceMakeup] = 0, 
-    [v9.LipMakeup] = 1, 
-    [v9.EyeMakeup] = 2
+    [v8.FaceMakeup] = 0, 
+    [v8.LipMakeup] = 1, 
+    [v8.EyeMakeup] = 2
 } else nil;
 return {
     BODY_BUNDLE_TYPE_ID = "1", 
     AVATAR_ANIMATIONS_BUNDLE_TYPE_ID = "2", 
     SHOES_BUNDLE_TYPE_ID = "3", 
     DYNAMIC_HEAD_BUNDLE_TYPE_ID = "4", 
-    ASSET_TYPE_TO_ACCESSORY_TYPE = v13, 
-    ACCESSORY_TYPE_TO_ASSET_TYPE = v14, 
-    ASSET_TYPE_ID_STRING_TO_HUMANOID_DESCRIPTION_PROP = v17, 
-    HUMANOID_DESCRIPTION_SCALE_TO_NAME = v18, 
-    BODY_PART_FOR_SKIN_COLORING_ID_TO_HUMANOID_DESCRIPTION = v19, 
-    ASSET_TYPE_NAME_TO_ID_STRING = v9, 
-    ASSET_TYPE_ID_STRING_TO_NAME = v10, 
-    NAVIGATION_DIRECTION = v20, 
+    ASSET_TYPE_TO_ACCESSORY_TYPE = v12, 
+    ACCESSORY_TYPE_TO_ASSET_TYPE = v13, 
+    ASSET_TYPE_ID_STRING_TO_HUMANOID_DESCRIPTION_PROP = v16, 
+    HUMANOID_DESCRIPTION_SCALE_TO_NAME = v17, 
+    BODY_PART_FOR_SKIN_COLORING_ID_TO_HUMANOID_DESCRIPTION = v18, 
+    ASSET_TYPE_NAME_TO_ID_STRING = v8, 
+    ASSET_TYPE_ID_STRING_TO_NAME = v9, 
+    NAVIGATION_DIRECTION = v19, 
     LANDSCAPE_UI_WIDTH_PERCENTAGE = 0.6, 
     LANDSCAPE_SCENE_WIDTH_PERCENTAGE = 0.4, 
-    CAMERA_ZOOM_RADIUS = v28, 
+    CAMERA_ZOOM_RADIUS = v27, 
     AVATAR_BLOCKY_DEFAULT_BUNDLE_ID = "356", 
     AX_TOOLTIP_STORAGE_KEY = "AXTooltipStorageKey", 
-    AX_TOOLTIP_COUNTERS = v29, 
-    AVATAR_EDITOR_CONSTANTS = v30, 
-    LAYERED_CLOTHING_ORDER = v31, 
-    LAYERED_ASSET_TYPES = v32, 
-    ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE = v35, 
-    MAKEUP_TYPE_TO_ASSET_TYPE_ID = v36, 
-    LAYERED_MAKEUP_ORDER = v37, 
-    MAKEUP_LOOK_ASSET_TYPES = v33, 
+    AX_TOOLTIP_COUNTERS = v28, 
+    AVATAR_EDITOR_CONSTANTS = v29, 
+    LAYERED_CLOTHING_ORDER = v30, 
+    LAYERED_ASSET_TYPES = v31, 
+    ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE = v34, 
+    MAKEUP_TYPE_TO_ASSET_TYPE_ID = v35, 
+    LAYERED_MAKEUP_ORDER = v36, 
+    MAKEUP_LOOK_ASSET_TYPES = v32, 
     MAX_MAKEUP_LAYERS = 6, 
-    LOOK_TYPE = v34, 
+    LOOK_TYPE = v33, 
     MIN_MAKEUP_ITEMS_FOR_LAYERING_BUTTON = 2, 
-    LabelAbuseTypeMapping = if not not l_FFlagAXAvatarTimeoutFlow_0 or l_FFlagAXAvatarTimeoutFlowIE_0 then v1 else nil
+    LabelAbuseTypeMapping = v1
 };

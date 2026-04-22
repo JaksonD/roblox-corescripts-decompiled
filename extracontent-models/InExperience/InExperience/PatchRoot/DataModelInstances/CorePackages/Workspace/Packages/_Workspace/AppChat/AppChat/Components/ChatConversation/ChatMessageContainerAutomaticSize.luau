@@ -58,11 +58,13 @@ local v56 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatAvatarPresenceIxp
 local v57 = require(l_script_FirstAncestor_0.Flags.FStringAppChatAvatarPresenceIxpLayer);
 local v58 = game:DefineFastFlag("AppChatUseSymmetricSwipe", false);
 local v59 = game:DefineFastInt("AppChatReplyIconSwipeOffset", 25);
-local v60 = UDim2.new(0, 0, 0.5, 0);
-local v61 = UDim2.new(1, 0, 0.5, 0);
-local v62 = Vector2.new(0, 0.5);
-local v63 = Vector2.new(1, 0.5);
-local v64 = {
+local v60 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatSignalsMessageStore);
+local v61 = if v60 then require(l_script_FirstAncestor_0.Stores.GetMessageViewModelStore) else nil;
+local v62 = UDim2.new(0, 0, 0.5, 0);
+local v63 = UDim2.new(1, 0, 0.5, 0);
+local v64 = Vector2.new(0, 0.5);
+local v65 = Vector2.new(1, 0.5);
+local v66 = {
     failed = false, 
     filteredForReceivers = false, 
     Font = Enum.Font.Gotham, 
@@ -75,15 +77,15 @@ local v64 = {
     messageTypePaddingOffset = 0, 
     moderated = false, 
     messageMaxWidth = 0, 
-    openViewProfile = function() --[[ Line: 94 ]] --[[ Name: openViewProfile ]]
+    openViewProfile = function() --[[ Line: 98 ]] --[[ Name: openViewProfile ]]
         -- upvalues: v21 (copy)
         v21:warning("openViewProfile was not passed to ChatMessage");
     end, 
-    renderMessage = function() --[[ Line: 97 ]] --[[ Name: renderMessage ]]
+    renderMessage = function() --[[ Line: 101 ]] --[[ Name: renderMessage ]]
         -- upvalues: v21 (copy)
         v21:warning("renderMessage was not passed to ChatMessage");
     end, 
-    closeKeyboard = function() --[[ Line: 100 ]] --[[ Name: closeKeyboard ]]
+    closeKeyboard = function() --[[ Line: 104 ]] --[[ Name: closeKeyboard ]]
 
     end, 
     inputBoxRef = nil, 
@@ -96,34 +98,32 @@ local v64 = {
     visibility = nil, 
     unitTestTouchEnabled = false
 };
-local v65 = v33() and "TextButton" or "Frame";
-ChatMessageContainer = function(v66) --[[ Line: 115 ]] --[[ Name: ChatMessageContainer ]]
-    -- upvalues: v14 (copy), v64 (copy), v51 (copy), v52 (copy), v6 (copy), l_useStyle_0 (copy), v20 (copy), v54 (copy), v9 (copy), v18 (copy), v56 (copy), l_IXPService_0 (copy), v57 (copy), v15 (copy), v53 (copy), v58 (copy), v32 (copy), v60 (copy), v61 (copy), v59 (copy), v62 (copy), v63 (copy), v34 (copy), v37 (copy), v26 (copy), l_useTriggerFeedback_0 (copy), v27 (copy), v48 (copy), l_MessageFtuxTooltipDismissSignal_0 (copy), l_MessageFtuxTooltipVariant_0 (copy), v25 (copy), l_useNavigation_0 (copy), v35 (copy), l_useLocalUserId_0 (copy), l_HapticFeedbackContext_0 (copy), l_HapticFeedbackType_0 (copy), v41 (copy), v13 (copy), v49 (copy), l_setTimeout_0 (copy), v50 (copy), l_UserInputService_0 (copy), v45 (copy), v12 (copy), v11 (copy), v24 (copy), l_useLocalization_0 (copy), l_TextService_0 (copy), v33 (copy), v10 (copy), l_UserTile_0 (copy), l_LayoutMode_0 (copy), v55 (copy), l_UserPresence_0 (copy), l_Skeleton_0 (copy), l_MessageFtuxTooltip_0 (copy), v46 (copy), v47 (copy), v65 (copy), v23 (copy), v22 (copy)
-    local v67 = v14.Dictionary.join(v64, v66);
-    local v68 = if v51 and v67.visibility then v67.visibility == v52.VisibilityTypes.Hidden else false;
-    local v69 = v6.useCallback(function() --[[ Line: 122 ]]
-        -- upvalues: v67 (copy)
-        if v67.viewProfileOnAvatarPressed then
-            v67.openViewProfile(v67.senderUserId);
+local v67 = v33() and "TextButton" or "Frame";
+ChatMessageContainer = function(v68) --[[ Line: 119 ]] --[[ Name: ChatMessageContainer ]]
+    -- upvalues: v14 (copy), v66 (copy), v51 (copy), v52 (copy), v6 (copy), l_useStyle_0 (copy), v20 (copy), v54 (copy), v9 (copy), v18 (copy), v56 (copy), l_IXPService_0 (copy), v57 (copy), v15 (copy), v53 (copy), v58 (copy), v32 (copy), v62 (copy), v63 (copy), v59 (copy), v64 (copy), v65 (copy), v34 (copy), v37 (copy), v26 (copy), l_useTriggerFeedback_0 (copy), v27 (copy), v48 (copy), l_MessageFtuxTooltipDismissSignal_0 (copy), l_MessageFtuxTooltipVariant_0 (copy), v25 (copy), l_useNavigation_0 (copy), v60 (copy), v61 (copy), v35 (copy), l_useLocalUserId_0 (copy), l_HapticFeedbackContext_0 (copy), l_HapticFeedbackType_0 (copy), v41 (copy), v13 (copy), v49 (copy), l_setTimeout_0 (copy), v50 (copy), l_UserInputService_0 (copy), v45 (copy), v12 (copy), v11 (copy), v24 (copy), l_useLocalization_0 (copy), l_TextService_0 (copy), v33 (copy), v10 (copy), l_UserTile_0 (copy), l_LayoutMode_0 (copy), v55 (copy), l_UserPresence_0 (copy), l_Skeleton_0 (copy), l_MessageFtuxTooltip_0 (copy), v46 (copy), v47 (copy), v67 (copy), v23 (copy), v22 (copy)
+    local v69 = v14.Dictionary.join(v66, v68);
+    local v70 = if v51 and v69.visibility then v69.visibility == v52.VisibilityTypes.Hidden else false;
+    local v71 = v6.useCallback(function() --[[ Line: 126 ]]
+        -- upvalues: v69 (copy)
+        if v69.viewProfileOnAvatarPressed then
+            v69.openViewProfile(v69.senderUserId);
         end;
     end, {
-        v67.senderUserId
+        v69.senderUserId
     });
-    local v70 = l_useStyle_0();
-    local l_shouldShowName_0 = v67.shouldShowName;
-    local v72 = v20();
-    local v73 = v54(v67.senderUserId or "");
-    local v74 = v9(v67.conversationId or "");
-    local v75 = v74 and v74.conversationType == v18.Type.MULTI_USER_CONVERSATION;
-    v6.useEffect(function() --[[ Line: 136 ]]
+    local v72 = l_useStyle_0();
+    local l_shouldShowName_0 = v69.shouldShowName;
+    local v74 = v20();
+    local v75 = v54(v69.senderUserId or "");
+    local v76 = v9(v69.conversationId or "");
+    local v77 = v76 and v76.conversationType == v18.Type.MULTI_USER_CONVERSATION;
+    v6.useEffect(function() --[[ Line: 140 ]]
         -- upvalues: v56 (ref), l_IXPService_0 (ref), v57 (ref)
         if v56 then
             l_IXPService_0:LogFlagLinkedUserLayerExposure(v57);
         end;
     end, {});
-    local v76 = v15.Hooks.useTokens();
-    local v77 = nil;
-    local v78 = nil;
+    local v78 = v15.Hooks.useTokens();
     local v79 = nil;
     local v80 = nil;
     local v81 = nil;
@@ -131,493 +131,497 @@ ChatMessageContainer = function(v66) --[[ Line: 115 ]] --[[ Name: ChatMessageCon
     local v83 = nil;
     local v84 = nil;
     local v85 = nil;
+    local v86 = nil;
+    local v87 = nil;
     if v53 then
-        v85 = v6.useMemo(function() --[[ Line: 153 ]]
-            -- upvalues: v58 (ref), v67 (copy), v32 (ref), v15 (ref), v60 (ref), v61 (ref), v59 (ref), v62 (ref), v63 (ref)
+        v87 = v6.useMemo(function() --[[ Line: 157 ]]
+            -- upvalues: v58 (ref), v69 (copy), v32 (ref), v15 (ref), v62 (ref), v63 (ref), v59 (ref), v64 (ref), v65 (ref)
             if v58 then
                 return {
-                    direction = if v67.isIncoming then v32.Right else v32.Left, 
-                    iconName = if v67.isIncoming then v15.Enums.IconName.ArrowThickToRight else v15.Enums.IconName.ArrowThickToLeft, 
-                    messagePosition = if v67.isIncoming then v60 else v61, 
-                    iconOffset = if v67.isIncoming then v59 else -v59, 
-                    iconAnchorPoint = if v67.isIncoming then v62 else v63
+                    direction = if v69.isIncoming then v32.Right else v32.Left, 
+                    iconName = if v69.isIncoming then v15.Enums.IconName.ArrowThickToRight else v15.Enums.IconName.ArrowThickToLeft, 
+                    messagePosition = if v69.isIncoming then v62 else v63, 
+                    iconOffset = if v69.isIncoming then v59 else -v59, 
+                    iconAnchorPoint = if v69.isIncoming then v64 else v65
                 };
             else
                 return {
                     direction = v32.Right, 
                     iconName = v15.Enums.IconName.ArrowThickToRight, 
-                    messagePosition = v60, 
+                    messagePosition = v62, 
                     iconOffset = v59, 
-                    iconAnchorPoint = v62
+                    iconAnchorPoint = v64
                 };
             end;
         end, {});
     end;
-    local v86 = nil;
-    local v87 = nil;
     local v88 = nil;
     local v89 = nil;
     local v90 = nil;
     local v91 = nil;
     local v92 = nil;
-    local v93 = v6.useRef(nil);
-    local v94 = v6.useRef(Vector2.zero);
+    local v93 = nil;
+    local v94 = nil;
+    local v95 = v6.useRef(nil);
+    local v96 = v6.useRef(Vector2.zero);
     if v34() then
-        local v95 = v37(v26.Context);
-        local v96 = l_useTriggerFeedback_0();
-        local v97, v98 = v6.useState(false);
-        v79 = v97;
-        v80 = v98;
-        v97, v98 = v6.useState(false);
+        local v97 = v37(v26.Context);
+        local v98 = l_useTriggerFeedback_0();
         local v99, v100 = v6.useState(false);
-        local l_v100_0 = v100 --[[ copy: 34 -> 53 ]];
-        v6.useEffect(function() --[[ Line: 194 ]]
-            -- upvalues: v27 (ref), l_v100_0 (copy)
-            local v102 = v27.dismissed:connect(function() --[[ Line: 195 ]]
-                -- upvalues: l_v100_0 (ref)
-                l_v100_0(false);
+        v81 = v99;
+        v82 = v100;
+        v99, v100 = v6.useState(false);
+        local v101, v102 = v6.useState(false);
+        local l_v102_0 = v102 --[[ copy: 34 -> 53 ]];
+        v6.useEffect(function() --[[ Line: 198 ]]
+            -- upvalues: v27 (ref), l_v102_0 (copy)
+            local v104 = v27.dismissed:connect(function() --[[ Line: 199 ]]
+                -- upvalues: l_v102_0 (ref)
+                l_v102_0(false);
             end);
-            return function() --[[ Line: 198 ]]
-                -- upvalues: v102 (copy)
-                v102:disconnect();
+            return function() --[[ Line: 202 ]]
+                -- upvalues: v104 (copy)
+                v104:disconnect();
             end;
         end);
-        local v103 = v6.useMemo(function() --[[ Line: 204 ]]
-            -- upvalues: v67 (copy), v51 (ref)
+        local v105 = v6.useMemo(function() --[[ Line: 208 ]]
+            -- upvalues: v69 (copy), v51 (ref)
             return {
-                conversationId = v67.conversationId, 
-                targetMessageSenderId = v67.senderUserId, 
-                targetMessageId = v67.messageId, 
-                targetMessageSentAt = if v67.sent then v67.sent.dateTime else nil, 
-                targetMessageLength = if v67.content then #v67.content else nil, 
-                targetMessageVisibility = if v51 then v67.visibility else nil
+                conversationId = v69.conversationId, 
+                targetMessageSenderId = v69.senderUserId, 
+                targetMessageId = v69.messageId, 
+                targetMessageSentAt = if v69.sent then v69.sent.dateTime else nil, 
+                targetMessageLength = if v69.content then #v69.content else nil, 
+                targetMessageVisibility = if v51 then v69.visibility else nil
             };
         end, {
-            v67.conversationId, 
-            v67.senderUserId, 
-            v67.messageId, 
-            v67.sent, 
-            v67.content, 
-            if v51 then v67.visibility else nil
+            v69.conversationId, 
+            v69.senderUserId, 
+            v69.messageId, 
+            v69.sent, 
+            v69.content, 
+            if v51 then v69.visibility else nil
         });
-        local l_v97_0 = v97 --[[ copy: 31 -> 54 ]];
-        local l_v99_0 = v99 --[[ copy: 33 -> 55 ]];
-        v77 = v6.useMemo(function() --[[ Line: 224 ]]
-            -- upvalues: v51 (ref), v68 (copy), l_v97_0 (copy), v53 (ref), l_v99_0 (copy)
-            local v106;
+        local l_v99_0 = v99 --[[ copy: 31 -> 54 ]];
+        local l_v101_0 = v101 --[[ copy: 33 -> 55 ]];
+        v79 = v6.useMemo(function() --[[ Line: 228 ]]
+            -- upvalues: v51 (ref), v70 (copy), l_v99_0 (copy), v53 (ref), l_v101_0 (copy)
+            local v108;
             if v51 then
-                v106 = not v68;
-                if v106 then
-                    v106 = l_v97_0;
-                    if not v106 then
-                        v106 = not v53;
-                        if v106 then
-                            return l_v99_0;
+                v108 = not v70;
+                if v108 then
+                    v108 = l_v99_0;
+                    if not v108 then
+                        v108 = not v53;
+                        if v108 then
+                            return l_v101_0;
                         end;
                     end;
                 end;
             else
-                v106 = l_v97_0 or not v53 and l_v99_0;
+                v108 = l_v99_0 or not v53 and l_v101_0;
             end;
-            return v106;
+            return v108;
         end, {
-            v97, 
             v99, 
-            v68
+            v101, 
+            v70
         });
-        v6.useEffect(function() --[[ Line: 231 ]]
-            -- upvalues: v48 (ref), v77 (ref), v67 (copy), l_MessageFtuxTooltipDismissSignal_0 (ref), l_MessageFtuxTooltipVariant_0 (ref)
-            if v48 and v77 and v67.isLastIncomingChatMessage then
+        v6.useEffect(function() --[[ Line: 235 ]]
+            -- upvalues: v48 (ref), v79 (ref), v69 (copy), l_MessageFtuxTooltipDismissSignal_0 (ref), l_MessageFtuxTooltipVariant_0 (ref)
+            if v48 and v79 and v69.isLastIncomingChatMessage then
                 l_MessageFtuxTooltipDismissSignal_0.dismiss(l_MessageFtuxTooltipVariant_0.Replies);
             end;
         end, {
-            v77, 
-            v67.isLastIncomingChatMessage
+            v79, 
+            v69.isLastIncomingChatMessage
         });
-        local l_v95_0 = v95 --[[ copy: 29 -> 56 ]];
-        local l_v103_0 = v103 --[[ copy: 35 -> 57 ]];
-        v78 = v6.useCallback(function() --[[ Line: 236 ]]
-            -- upvalues: v25 (ref), l_v95_0 (copy), l_v103_0 (copy)
+        local l_v97_0 = v97 --[[ copy: 29 -> 56 ]];
+        local l_v105_0 = v105 --[[ copy: 35 -> 57 ]];
+        v80 = v6.useCallback(function() --[[ Line: 240 ]]
+            -- upvalues: v25 (ref), l_v97_0 (copy), l_v105_0 (copy)
             if v25.ConversationMessageReplyIconImpression then
-                l_v95_0.emit(v25.ConversationMessageReplyIconImpression, l_v103_0);
+                l_v97_0.emit(v25.ConversationMessageReplyIconImpression, l_v105_0);
             end;
         end, {
-            v95, 
-            v103
+            v97, 
+            v105
         });
-        v81 = l_useNavigation_0();
-        v82 = v9(v67.conversationId);
-        local v109 = nil;
-        if v82 and v82.messages then
-            v109 = v82.messages:Get(v67.messageId);
+        v83 = l_useNavigation_0();
+        v84 = v9(v69.conversationId);
+        local v111 = nil;
+        if v60 and v61 then
+            v111 = v61(false).channelsMessageStore.messages[v69.messageId];
+        elseif v84 and v84.messages then
+            v111 = v84.messages:Get(v69.messageId);
         end;
-        local v110 = v35();
-        v83 = l_useLocalUserId_0();
+        local v112 = v35();
+        v85 = l_useLocalUserId_0();
         do
-            local l_v109_0 = v109;
+            local l_v111_0 = v111;
             if v53 then
-                local l_v96_0 = v96 --[[ copy: 30 -> 67 ]];
-                local v113 = v6.useCallback(function() --[[ Line: 256 ]]
-                    -- upvalues: v51 (ref), v68 (copy), l_v96_0 (copy), l_HapticFeedbackContext_0 (ref), l_HapticFeedbackType_0 (ref)
-                    if not v51 or not v68 then
-                        l_v96_0(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Press);
+                local l_v98_0 = v98 --[[ copy: 30 -> 67 ]];
+                local v115 = v6.useCallback(function() --[[ Line: 263 ]]
+                    -- upvalues: v51 (ref), v70 (copy), l_v98_0 (copy), l_HapticFeedbackContext_0 (ref), l_HapticFeedbackType_0 (ref)
+                    if not v51 or not v70 then
+                        l_v98_0(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Press);
                     end;
                 end, {});
-                local l_v95_1 = v95 --[[ copy: 29 -> 68 ]];
-                local l_v103_1 = v103 --[[ copy: 35 -> 69 ]];
-                local l_v110_0 = v110 --[[ copy: 37 -> 70 ]];
-                local v117 = v6.useCallback(function() --[[ Line: 262 ]]
-                    -- upvalues: v25 (ref), l_v95_1 (copy), l_v103_1 (copy), v51 (ref), v68 (copy), l_v110_0 (copy), l_v109_0 (ref)
+                local l_v97_1 = v97 --[[ copy: 29 -> 68 ]];
+                local l_v105_1 = v105 --[[ copy: 35 -> 69 ]];
+                local l_v112_0 = v112 --[[ copy: 37 -> 70 ]];
+                local v119 = v6.useCallback(function() --[[ Line: 269 ]]
+                    -- upvalues: v25 (ref), l_v97_1 (copy), l_v105_1 (copy), v51 (ref), v70 (copy), l_v112_0 (copy), l_v111_0 (ref)
                     if v25.ConversationMessageSwiped then
-                        l_v95_1.emit(v25.ConversationMessageSwiped, l_v103_1);
+                        l_v97_1.emit(v25.ConversationMessageSwiped, l_v105_1);
                     end;
-                    if not v51 or not v68 then
-                        l_v110_0(l_v109_0);
+                    if not v51 or not v70 then
+                        l_v112_0(l_v111_0);
                     end;
                 end, {
-                    v110, 
-                    l_v109_0, 
-                    v95, 
-                    v103
+                    v112, 
+                    l_v111_0, 
+                    v97, 
+                    v105
                 });
-                v84 = v41({
-                    onSwipeThresholdReached = v113, 
-                    onSwipeComplete = v117, 
-                    direction = v85.direction
+                v86 = v41({
+                    onSwipeThresholdReached = v115, 
+                    onSwipeComplete = v119, 
+                    direction = v87.direction
                 });
             end;
-            local v118 = v6.useCallback(function() --[[ Line: 278 ]]
-                -- upvalues: v81 (ref), v13 (ref), v67 (copy)
-                v81.navigate(v13.MessageContextMenu, {
-                    messageId = v67.messageId, 
-                    conversationId = v67.conversationId, 
-                    inputBoxRef = v67.inputBoxRef
+            local v120 = v6.useCallback(function() --[[ Line: 285 ]]
+                -- upvalues: v83 (ref), v13 (ref), v69 (copy)
+                v83.navigate(v13.MessageContextMenu, {
+                    messageId = v69.messageId, 
+                    conversationId = v69.conversationId, 
+                    inputBoxRef = v69.inputBoxRef
                 });
             end, {
-                v81.navigate, 
-                v67.messageId, 
-                v67.conversationId, 
-                v67.inputBoxRef
+                v83.navigate, 
+                v69.messageId, 
+                v69.conversationId, 
+                v69.inputBoxRef
             });
-            local v124 = v6.useCallback(function(v119, v120, v121) --[[ Line: 287 ]]
-                -- upvalues: v49 (ref), v94 (copy), l_setTimeout_0 (ref), v50 (ref), v92 (ref)
-                if v49 and v120 then
-                    v94.current = Vector2.new(v120.Position.X, v120.Position.Y);
+            local v126 = v6.useCallback(function(v121, v122, v123) --[[ Line: 294 ]]
+                -- upvalues: v49 (ref), v96 (copy), l_setTimeout_0 (ref), v50 (ref), v94 (ref)
+                if v49 and v122 then
+                    v96.current = Vector2.new(v122.Position.X, v122.Position.Y);
                 end;
-                l_setTimeout_0(function() --[[ Line: 291 ]]
-                    -- upvalues: v49 (ref), v120 (copy), v94 (ref), v50 (ref), v92 (ref), v119 (copy)
-                    local v122 = 0;
-                    if v49 and v120 then
-                        local l_current_0 = v94.current;
-                        v122 = (Vector2.new(v120.Position.X, v120.Position.Y) - l_current_0).Magnitude;
+                l_setTimeout_0(function() --[[ Line: 298 ]]
+                    -- upvalues: v49 (ref), v122 (copy), v96 (ref), v50 (ref), v94 (ref), v121 (copy)
+                    local v124 = 0;
+                    if v49 and v122 then
+                        local l_current_0 = v96.current;
+                        v124 = (Vector2.new(v122.Position.X, v122.Position.Y) - l_current_0).Magnitude;
                     end;
-                    if v120 and (v120.UserInputState == Enum.UserInputState.Begin or v120.UserInputState == Enum.UserInputState.Change) and (not v49 or v122 < v50) then
-                        v92(v119, v120);
+                    if v122 and (v122.UserInputState == Enum.UserInputState.Begin or v122.UserInputState == Enum.UserInputState.Change) and (not v49 or v124 < v50) then
+                        v94(v121, v122);
                     end;
-                end, v121);
+                end, v123);
             end, {
-                v92
+                v94
             });
-            local l_v98_0 = v98 --[[ copy: 32 -> 58 ]];
-            local l_v95_2 = v95 --[[ copy: 29 -> 59 ]];
-            local l_v103_2 = v103 --[[ copy: 35 -> 60 ]];
-            local l_v96_1 = v96 --[[ copy: 30 -> 61 ]];
-            local l_v100_1 = v100 --[[ copy: 34 -> 62 ]];
-            local l_v118_0 = v118 --[[ copy: 38 -> 63 ]];
-            local l_v124_0 = v124 --[[ copy: 39 -> 64 ]];
-            local l_v99_1 = v99 --[[ copy: 33 -> 65 ]];
-            local l_v110_1 = v110 --[[ copy: 37 -> 66 ]];
-            v92 = v6.useCallback(function(v134, v135, v136) --[[ Line: 314 ]]
-                -- upvalues: v67 (copy), l_UserInputService_0 (ref), v6 (ref), l_v98_0 (copy), v25 (ref), l_v95_2 (copy), l_v103_2 (copy), v51 (ref), v68 (copy), v53 (ref), l_v96_1 (copy), l_HapticFeedbackContext_0 (ref), l_HapticFeedbackType_0 (ref), l_v100_1 (copy), v45 (ref), l_v118_0 (copy), l_v124_0 (copy), v12 (ref), v49 (ref), v80 (ref), l_v99_1 (copy), v27 (ref), v11 (ref), l_v110_1 (copy), l_v109_0 (ref)
-                if v67.isPending then
+            local l_v100_0 = v100 --[[ copy: 32 -> 58 ]];
+            local l_v97_2 = v97 --[[ copy: 29 -> 59 ]];
+            local l_v105_2 = v105 --[[ copy: 35 -> 60 ]];
+            local l_v98_1 = v98 --[[ copy: 30 -> 61 ]];
+            local l_v102_1 = v102 --[[ copy: 34 -> 62 ]];
+            local l_v120_0 = v120 --[[ copy: 38 -> 63 ]];
+            local l_v126_0 = v126 --[[ copy: 39 -> 64 ]];
+            local l_v101_1 = v101 --[[ copy: 33 -> 65 ]];
+            local l_v112_1 = v112 --[[ copy: 37 -> 66 ]];
+            v94 = v6.useCallback(function(v136, v137, v138) --[[ Line: 321 ]]
+                -- upvalues: v69 (copy), l_UserInputService_0 (ref), v6 (ref), l_v100_0 (copy), v25 (ref), l_v97_2 (copy), l_v105_2 (copy), v51 (ref), v70 (copy), v53 (ref), l_v98_1 (copy), l_HapticFeedbackContext_0 (ref), l_HapticFeedbackType_0 (ref), l_v102_1 (copy), v45 (ref), l_v120_0 (copy), l_v126_0 (copy), v12 (ref), v49 (ref), v82 (ref), l_v101_1 (copy), v27 (ref), v11 (ref), l_v112_1 (copy), l_v111_0 (ref)
+                if v69.isPending then
                     return;
                 else
                     if l_UserInputService_0.MouseEnabled then
-                        if v134 == v6.Event.MouseEnter then
-                            l_v98_0(true);
+                        if v136 == v6.Event.MouseEnter then
+                            l_v100_0(true);
                         end;
-                        if v134 == v6.Event.MouseLeave then
-                            l_v98_0(false);
+                        if v136 == v6.Event.MouseLeave then
+                            l_v100_0(false);
                         end;
-                        if v134 == v6.Event.MouseButton1Down then
-                            v67.closeKeyboard();
+                        if v136 == v6.Event.MouseButton1Down then
+                            v69.closeKeyboard();
                         end;
                     end;
-                    if l_UserInputService_0.GamepadEnabled or l_UserInputService_0.TouchEnabled or v67.unitTestTouchEnabled then
-                        if v134 == v6.Event.TouchLongPress then
+                    if l_UserInputService_0.GamepadEnabled or l_UserInputService_0.TouchEnabled or v69.unitTestTouchEnabled then
+                        if v136 == v6.Event.TouchLongPress then
                             if v25.ConversationMessageLongPressed then
-                                l_v95_2.emit(v25.ConversationMessageLongPressed, l_v103_2);
+                                l_v97_2.emit(v25.ConversationMessageLongPressed, l_v105_2);
                             end;
-                            if not v51 or not v68 then
+                            if not v51 or not v70 then
                                 if not v53 then
-                                    l_v96_1(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Release);
+                                    l_v98_1(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Release);
                                 end;
-                                l_v100_1(true);
+                                l_v102_1(true);
                                 if v45 then
-                                    l_v118_0();
+                                    l_v120_0();
                                 end;
-                                l_v124_0(v6.Event.InputEnded, v135, v12.PEEK_VIEW_ANIMATION_MILLISEC);
+                                l_v126_0(v6.Event.InputEnded, v137, v12.PEEK_VIEW_ANIMATION_MILLISEC);
                             end;
                         end;
-                        if v134 == v6.Event.InputBegan and v135 then
+                        if v136 == v6.Event.InputBegan and v137 then
                             if v25.ConversationMessagePressed then
-                                l_v95_2.emit(v25.ConversationMessagePressed, l_v103_2);
+                                l_v97_2.emit(v25.ConversationMessagePressed, l_v105_2);
                             end;
-                            if not v51 or not v68 then
+                            if not v51 or not v70 then
                                 if not v49 then
-                                    l_v96_1(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Press);
-                                    v80(true);
+                                    l_v98_1(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Press);
+                                    v82(true);
                                 end;
-                                if not l_v99_1 then
+                                if not l_v101_1 then
                                     v27.dismiss();
                                 end;
                             end;
-                            l_v124_0(v6.Event.TouchLongPress, v135, v12.LONG_PRESS_DELAY_MILLISEC);
+                            l_v126_0(v6.Event.TouchLongPress, v137, v12.LONG_PRESS_DELAY_MILLISEC);
                         end;
-                        if not v49 and v134 == v6.Event.InputEnded then
-                            v80(false);
+                        if not v49 and v136 == v6.Event.InputEnded then
+                            v82(false);
                         end;
-                        if v134 == v6.Event.TouchTap then
-                            v67.closeKeyboard();
+                        if v136 == v6.Event.TouchTap then
+                            v69.closeKeyboard();
                         end;
                     end;
-                    if v134 == v6.Event.Activated then
+                    if v136 == v6.Event.Activated then
                         v27.dismiss();
-                        if v136 == v11.MessageContextMenu then
+                        if v138 == v11.MessageContextMenu then
                             if v25.ConversationMessageOpenMenuIconClicked then
-                                l_v95_2.emit(v25.ConversationMessageOpenMenuIconClicked, l_v103_2);
+                                l_v97_2.emit(v25.ConversationMessageOpenMenuIconClicked, l_v105_2);
                             end;
-                            l_v118_0();
+                            l_v120_0();
                         end;
-                        if v136 == v11.Reply then
+                        if v138 == v11.Reply then
                             if v25.ConversationMessageReplyIconClicked then
-                                l_v95_2.emit(v25.ConversationMessageReplyIconClicked, l_v103_2);
+                                l_v97_2.emit(v25.ConversationMessageReplyIconClicked, l_v105_2);
                             end;
-                            l_v96_1(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Press);
-                            l_v110_1(l_v109_0);
+                            l_v98_1(l_HapticFeedbackContext_0.Default, l_HapticFeedbackType_0.Press);
+                            l_v112_1(l_v111_0);
                         end;
                     end;
                     return;
                 end;
             end, {
-                v67.isPending, 
-                v67.unitTestTouchEnabled, 
+                v69.isPending, 
+                v69.unitTestTouchEnabled, 
                 l_UserInputService_0.MouseEnabled, 
                 l_UserInputService_0.TouchEnabled, 
-                v124, 
-                v98, 
+                v126, 
                 v100, 
-                v80, 
-                v95, 
-                v118, 
-                v110, 
-                v96, 
-                v68
+                v102, 
+                v82, 
+                v97, 
+                v120, 
+                v112, 
+                v98, 
+                v70
             });
-            v88 = v6.useCallback(function(v137, v138) --[[ Line: 428 ]]
-                -- upvalues: v53 (ref), l_UserInputService_0 (ref), v84 (ref), l_MessageFtuxTooltipDismissSignal_0 (ref), l_MessageFtuxTooltipVariant_0 (ref), l_v124_0 (copy), v6 (ref), v12 (ref)
-                if v53 and l_UserInputService_0.TouchEnabled and v84 then
-                    v84.onInputBegan(v137, v138);
+            v90 = v6.useCallback(function(v139, v140) --[[ Line: 435 ]]
+                -- upvalues: v53 (ref), l_UserInputService_0 (ref), v86 (ref), l_MessageFtuxTooltipDismissSignal_0 (ref), l_MessageFtuxTooltipVariant_0 (ref), l_v126_0 (copy), v6 (ref), v12 (ref)
+                if v53 and l_UserInputService_0.TouchEnabled and v86 then
+                    v86.onInputBegan(v139, v140);
                     l_MessageFtuxTooltipDismissSignal_0.dismiss(l_MessageFtuxTooltipVariant_0.Replies);
                 end;
-                l_v124_0(v6.Event.InputBegan, v138, v12.INPUT_BEGAN_DELAY_MILLISEC);
+                l_v126_0(v6.Event.InputBegan, v140, v12.INPUT_BEGAN_DELAY_MILLISEC);
             end, {
-                v124, 
-                v84
+                v126, 
+                v86
             });
-            v89 = v6.useCallback(function(_) --[[ Line: 437 ]]
-                -- upvalues: v92 (ref), v6 (ref)
-                v92(v6.Event.InputEnded);
+            v91 = v6.useCallback(function(_) --[[ Line: 444 ]]
+                -- upvalues: v94 (ref), v6 (ref)
+                v94(v6.Event.InputEnded);
             end, {
-                v92
+                v94
             });
-            v86 = v6.useCallback(function(_) --[[ Line: 441 ]]
-                -- upvalues: v92 (ref), v6 (ref)
-                v92(v6.Event.MouseEnter);
+            v88 = v6.useCallback(function(_) --[[ Line: 448 ]]
+                -- upvalues: v94 (ref), v6 (ref)
+                v94(v6.Event.MouseEnter);
             end, {
-                v92
+                v94
             });
-            v87 = v6.useCallback(function(_) --[[ Line: 445 ]]
-                -- upvalues: v92 (ref), v6 (ref)
-                v92(v6.Event.MouseLeave);
+            v89 = v6.useCallback(function(_) --[[ Line: 452 ]]
+                -- upvalues: v94 (ref), v6 (ref)
+                v94(v6.Event.MouseLeave);
             end, {
-                v92
+                v94
             });
-            v90 = v6.useCallback(function(_) --[[ Line: 449 ]]
-                -- upvalues: v92 (ref), v6 (ref)
-                v92(v6.Event.TouchTap);
+            v92 = v6.useCallback(function(_) --[[ Line: 456 ]]
+                -- upvalues: v94 (ref), v6 (ref)
+                v94(v6.Event.TouchTap);
             end, {
-                v92
+                v94
             });
-            v91 = v6.useCallback(function(_) --[[ Line: 453 ]]
-                -- upvalues: v92 (ref), v6 (ref)
-                v92(v6.Event.MouseButton1Down);
+            v93 = v6.useCallback(function(_) --[[ Line: 460 ]]
+                -- upvalues: v94 (ref), v6 (ref)
+                v94(v6.Event.MouseButton1Down);
             end, {
-                v92
+                v94
             });
         end;
     end;
-    local v144 = v34() and v67.repliesTo and v67.repliesTo.senderTargetId;
-    local function v150(v145, v146) --[[ Line: 460 ]] --[[ Name: getDisplayNameText ]]
-        -- upvalues: v83 (ref), v67 (copy), v144 (copy), v82 (ref), v18 (ref)
-        local v147 = v83 == v67.senderUserId;
-        local v148 = v67.senderUserId == v67.repliesTo.senderTargetId;
-        local v149 = v83 == v67.repliesTo.senderTargetId;
-        if not v144 then
-            return v145;
-        elseif v147 and v148 then
+    local v146 = v34() and v69.repliesTo and v69.repliesTo.senderTargetId;
+    local function v152(v147, v148) --[[ Line: 467 ]] --[[ Name: getDisplayNameText ]]
+        -- upvalues: v85 (ref), v69 (copy), v146 (copy), v84 (ref), v18 (ref)
+        local v149 = v85 == v69.senderUserId;
+        local v150 = v69.senderUserId == v69.repliesTo.senderTargetId;
+        local v151 = v85 == v69.repliesTo.senderTargetId;
+        if not v146 then
+            return v147;
+        elseif v149 and v150 then
             return "Feature.Chat.Label.YouRepliedToYou";
         else
-            if v82.conversationType == v18.Type.ONE_TO_ONE_CONVERSATION then
-                if v147 and not v148 then
+            if v84.conversationType == v18.Type.ONE_TO_ONE_CONVERSATION then
+                if v149 and not v150 then
                     return "Feature.Chat.Label.OneToOne.YouRepliedToThem";
-                elseif not v147 and v149 then
+                elseif not v149 and v151 then
                     return "Feature.Chat.Label.OneToOne.ThemRepliedToYou";
-                elseif not v147 and v148 then
+                elseif not v149 and v150 then
                     return "Feature.Chat.Label.OneToOne.ThemRepliedToThem";
                 end;
             end;
-            if v82.conversationType == v18.Type.MULTI_USER_CONVERSATION then
-                if v147 and not v148 then
+            if v84.conversationType == v18.Type.MULTI_USER_CONVERSATION then
+                if v149 and not v150 then
                     return {
                         "Feature.Chat.Label.Group.YouRepliedToThem"; 
-                        DISPLAY_NAME = v146
+                        DISPLAY_NAME = v148
                     };
-                elseif not v147 and v149 then
+                elseif not v149 and v151 then
                     return {
                         "Feature.Chat.Label.Group.ThemRepliedToYou"; 
-                        DISPLAY_NAME = v145
+                        DISPLAY_NAME = v147
                     };
-                elseif not v147 and v148 then
+                elseif not v149 and v150 then
                     return {
                         "Feature.Chat.Label.Group.ThemRepliedToThem"; 
-                        DISPLAY_NAME = v145
+                        DISPLAY_NAME = v147
                     };
-                elseif not v147 and not v149 then
+                elseif not v149 and not v151 then
                     return {
                         "Feature.Chat.Label.Group.ThemRepliedToOther"; 
-                        DISPLAY_NAME_1 = v145, 
-                        DISPLAY_NAME_2 = v146
+                        DISPLAY_NAME_1 = v147, 
+                        DISPLAY_NAME_2 = v148
                     };
                 end;
             end;
-            return v67.unknownUserKey;
+            return v69.unknownUserKey;
         end;
     end;
-    local v151 = {
-        v67.senderUserId
+    local v153 = {
+        v69.senderUserId
     };
-    if v144 then
-        table.insert(v151, v67.repliesTo.senderTargetId);
+    if v146 then
+        table.insert(v153, v69.repliesTo.senderTargetId);
     end;
-    local v152 = v24.Hooks.useUserProfilesFetch({
-        userIds = v151, 
+    local v154 = v24.Hooks.useUserProfilesFetch({
+        userIds = v153, 
         query = v24.Queries.userProfilesCombinedNameAndUsernameByUserIds
     });
-    local v153 = nil;
-    local v154 = nil;
-    if v152.data then
-        v154 = false;
-        local v155 = v24.Selectors.getCombinedNameFromId(v152.data, v67.senderUserId) or v67.unknownUserKey;
-        v153 = if v144 then v150(v155, v24.Selectors.getCombinedNameFromId(v152.data, v67.repliesTo.senderTargetId) or v67.unknownUserKey) else v155;
+    local v155 = nil;
+    local v156 = nil;
+    if v154.data then
+        v156 = false;
+        local v157 = v24.Selectors.getCombinedNameFromId(v154.data, v69.senderUserId) or v69.unknownUserKey;
+        v155 = if v146 then v152(v157, v24.Selectors.getCombinedNameFromId(v154.data, v69.repliesTo.senderTargetId) or v69.unknownUserKey) else v157;
     else
-        v154 = true;
-        v153 = nil;
+        v156 = true;
+        v155 = nil;
     end;
-    local v156 = l_useLocalization_0(if v144 then {
-        displayName = v153
-    } else {}).displayName or v153;
-    local v159 = v6.useCallback(function() --[[ Line: 552 ]]
-        -- upvalues: v67 (copy), v12 (ref), l_TextService_0 (ref), v156 (ref), v70 (copy)
-        local v157 = Vector2.new(math.max(1, v67.messageMaxWidth - v12.TAIL_WIDTH), 1e999);
-        local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v156, v70.Font.BaseSize * v70.Font.Footer.RelativeSize, v70.Font.Footer.Font, v157);
+    local v158 = l_useLocalization_0(if v146 then {
+        displayName = v155
+    } else {}).displayName or v155;
+    local v161 = v6.useCallback(function() --[[ Line: 559 ]]
+        -- upvalues: v69 (copy), v12 (ref), l_TextService_0 (ref), v158 (ref), v72 (copy)
+        local v159 = Vector2.new(math.max(1, v69.messageMaxWidth - v12.TAIL_WIDTH), 1e999);
+        local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v158, v72.Font.BaseSize * v72.Font.Footer.RelativeSize, v72.Font.Footer.Font, v159);
         return UDim2.new(0, l_l_TextService_0_TextSize_0.X, 0, l_l_TextService_0_TextSize_0.Y);
     end, {
-        v70.Font.BaseSize * v70.Font.Footer.RelativeSize, 
-        v70.Font.Footer.Font, 
-        v67.messageMaxWidth - v12.TAIL_WIDTH, 
-        v156
+        v72.Font.BaseSize * v72.Font.Footer.RelativeSize, 
+        v72.Font.Footer.Font, 
+        v69.messageMaxWidth - v12.TAIL_WIDTH, 
+        v158
     });
-    local v160 = 0;
-    if not v67.showDateTime then
-        v160 = (if not not v67.isNewSender or v144 then v12.CHAT_MESSAGE_MAX_SPACE else v12.CHAT_MESSAGE_MIN_SPACE) + v67.messageTypePaddingOffset;
+    local v162 = 0;
+    if not v69.showDateTime then
+        v162 = (if not not v69.isNewSender or v146 then v12.CHAT_MESSAGE_MAX_SPACE else v12.CHAT_MESSAGE_MIN_SPACE) + v69.messageTypePaddingOffset;
     end;
-    local l_left_0 = v72.left;
-    local v162 = l_left_0 + v76.Size.Size_700;
-    local v163 = v67.isIncoming and Enum.HorizontalAlignment.Left or Enum.HorizontalAlignment.Right;
-    local v164, v165 = v6.useState(false);
-    local v167 = v6.useCallback(function() --[[ Line: 580 ]]
-        -- upvalues: v33 (ref), v165 (copy)
+    local l_left_0 = v74.left;
+    local v164 = l_left_0 + v78.Size.Size_700;
+    local v165 = v69.isIncoming and Enum.HorizontalAlignment.Left or Enum.HorizontalAlignment.Right;
+    local v166, v167 = v6.useState(false);
+    local v169 = v6.useCallback(function() --[[ Line: 587 ]]
+        -- upvalues: v33 (ref), v167 (copy)
         if v33() then
-            v165(function(v166) --[[ Line: 582 ]]
-                return not v166;
+            v167(function(v168) --[[ Line: 589 ]]
+                return not v168;
             end);
         end;
     end, {
-        v165
+        v167
     });
-    local v168 = v164 or v67.moderated or v67.filteredForReceivers or v51 and v68;
-    local v169 = if v164 then v67.messageId else if v51 and v68 then v67.messageHiddenNoticeText else v67.moderated and v67.messageModeratedNoticeText or v67.messageDefaultNoticeText;
-    local v170 = v6.useMemo(function() --[[ Line: 597 ]]
-        -- upvalues: v6 (ref), v15 (ref), v76 (copy), v67 (copy)
+    local v170 = v166 or v69.moderated or v69.filteredForReceivers or v51 and v70;
+    local v171 = if v166 then v69.messageId else if v51 and v70 then v69.messageHiddenNoticeText else v69.moderated and v69.messageModeratedNoticeText or v69.messageDefaultNoticeText;
+    local v172 = v6.useMemo(function() --[[ Line: 604 ]]
+        -- upvalues: v6 (ref), v15 (ref), v78 (copy), v69 (copy)
         return v6.createElement(v15.Icon, {
             name = v15.Enums.IconName.TriangleExclamation, 
             size = v15.Enums.IconSize.Large, 
-            style = v76.Color.System.Alert, 
-            LayoutOrder = v67.isIncoming and 0 or 3
+            style = v78.Color.System.Alert, 
+            LayoutOrder = v69.isIncoming and 0 or 3
         });
     end, {
-        v76, 
-        v70, 
-        v67.isIncoming
+        v78, 
+        v72, 
+        v69.isIncoming
     });
-    local v171 = nil;
-    v171 = if not not v67.failed or v67.moderated then v170 else if v77 then v6.createElement(v10, {
-        LayoutOrder = v67.isIncoming and 2 or 1, 
-        isIncoming = v67.isIncoming, 
-        handleEvent = v92, 
-        emitImpressionTelemetryEvent = v78
+    local v173 = nil;
+    v173 = if not not v69.failed or v69.moderated then v172 else if v79 then v6.createElement(v10, {
+        LayoutOrder = v69.isIncoming and 2 or 1, 
+        isIncoming = v69.isIncoming, 
+        handleEvent = v94, 
+        emitImpressionTelemetryEvent = v80
     }) else nil;
-    local v172 = not v34() or v67.isIncoming;
-    local v175 = if v53 and v84 and v84.swipeProgress then v84.swipeProgress:map(function(v173) --[[ Line: 625 ]]
-        -- upvalues: v76 (copy)
-        local v174 = 1 - math.pow(v173, 3);
+    local v174 = not v34() or v69.isIncoming;
+    local v177 = if v53 and v86 and v86.swipeProgress then v86.swipeProgress:map(function(v175) --[[ Line: 632 ]]
+        -- upvalues: v78 (copy)
+        local v176 = 1 - math.pow(v175, 3);
         return {
-            Color3 = v76.Semantic.Color.Icon.Default.Color3, 
-            Transparency = v174
+            Color3 = v78.Semantic.Color.Icon.Default.Color3, 
+            Transparency = v176
         };
     end) else nil;
-    local v178 = if v53 and v84 and v84.swipeOffset then v84.swipeOffset:map(function(v176) --[[ Line: 638 ]]
-        -- upvalues: v85 (ref), v32 (ref)
-        local v177 = if v85.direction == v32.Right then v176 else -v176;
-        return UDim2.new(0, v177, 0, 0);
+    local v180 = if v53 and v86 and v86.swipeOffset then v86.swipeOffset:map(function(v178) --[[ Line: 645 ]]
+        -- upvalues: v87 (ref), v32 (ref)
+        local v179 = if v87.direction == v32.Right then v178 else -v178;
+        return UDim2.new(0, v179, 0, 0);
     end) else nil;
-    local v180 = if v53 and v84 and v84.swipeProgress then v84.swipeProgress:map(function(v179) --[[ Line: 648 ]]
-        -- upvalues: v85 (ref)
-        return v85.messagePosition + UDim2.new(0, v179 * v85.iconOffset, 0, 0);
+    local v182 = if v53 and v86 and v86.swipeProgress then v86.swipeProgress:map(function(v181) --[[ Line: 655 ]]
+        -- upvalues: v87 (ref)
+        return v87.messagePosition + UDim2.new(0, v181 * v87.iconOffset, 0, 0);
     end) else nil;
-    local function v182() --[[ Line: 654 ]] --[[ Name: renderMessage ]]
-        -- upvalues: v6 (ref), v53 (ref), v178 (copy), v86 (ref), v87 (ref), v160 (ref), v67 (copy), l_left_0 (copy), v162 (copy), v72 (copy), v163 (copy), v15 (ref), l_UserTile_0 (ref), l_LayoutMode_0 (ref), v55 (ref), v75 (copy), v73 (copy), l_UserPresence_0 (ref), v69 (copy), v76 (copy), l_shouldShowName_0 (copy), v12 (ref), v172 (copy), v144 (copy), v154 (ref), v70 (copy), v159 (copy), v156 (ref), l_Skeleton_0 (ref), v34 (ref), v170 (copy), v88 (ref), v89 (ref), v90 (ref), v91 (ref), v79 (ref), v171 (ref), v93 (copy), v48 (ref), v51 (ref), v68 (copy), l_MessageFtuxTooltip_0 (ref), l_MessageFtuxTooltipVariant_0 (ref), v85 (ref), v180 (copy), v175 (copy)
-        local v181 = v6.createElement("Frame", {
+    local function v184() --[[ Line: 661 ]] --[[ Name: renderMessage ]]
+        -- upvalues: v6 (ref), v53 (ref), v180 (copy), v88 (ref), v89 (ref), v162 (ref), v69 (copy), l_left_0 (copy), v164 (copy), v74 (copy), v165 (copy), v15 (ref), l_UserTile_0 (ref), l_LayoutMode_0 (ref), v55 (ref), v77 (copy), v75 (copy), l_UserPresence_0 (ref), v71 (copy), v78 (copy), l_shouldShowName_0 (copy), v12 (ref), v174 (copy), v146 (copy), v156 (ref), v72 (copy), v161 (copy), v158 (ref), l_Skeleton_0 (ref), v34 (ref), v172 (copy), v90 (ref), v91 (ref), v92 (ref), v93 (ref), v81 (ref), v173 (ref), v95 (copy), v48 (ref), v51 (ref), v70 (copy), l_MessageFtuxTooltip_0 (ref), l_MessageFtuxTooltipVariant_0 (ref), v87 (ref), v182 (copy), v177 (copy)
+        local v183 = v6.createElement("Frame", {
             BackgroundTransparency = 1, 
             BorderSizePixel = 0, 
             AutomaticSize = Enum.AutomaticSize.Y, 
             LayoutOrder = 2, 
             Size = UDim2.new(1, 0, 0, 0), 
-            Position = if v53 then v178 else nil, 
-            [v6.Event.MouseEnter] = v86, 
-            [v6.Event.MouseLeave] = v87
+            Position = if v53 then v180 else nil, 
+            [v6.Event.MouseEnter] = v88, 
+            [v6.Event.MouseLeave] = v89
         }, {
             Padding = v6.createElement("UIPadding", {
-                PaddingTop = UDim.new(0, v160), 
-                PaddingLeft = UDim.new(0, v67.thumbnail and l_left_0 or v162), 
-                PaddingRight = UDim.new(0, v72.right - 0)
+                PaddingTop = UDim.new(0, v162), 
+                PaddingLeft = UDim.new(0, v69.thumbnail and l_left_0 or v164), 
+                PaddingRight = UDim.new(0, v74.right - 0)
             }), 
             Layout = v6.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Horizontal, 
-                HorizontalAlignment = v163
+                HorizontalAlignment = v165
             }), 
-            AvatarContainer = if v67.thumbnail then v6.createElement(v15.View, {
+            AvatarContainer = if v69.thumbnail then v6.createElement(v15.View, {
                 tag = {
                     ["col auto-x size-0-full"] = true, 
                     ["align-y-top"] = false
@@ -628,11 +632,11 @@ ChatMessageContainer = function(v66) --[[ Line: 115 ]] --[[ Name: ChatMessageCon
                     tag = "size-700-700"
                 }, {
                     AvatarCircle = v6.createElement(l_UserTile_0, {
-                        userId = v67.senderUserId, 
+                        userId = v69.senderUserId, 
                         layoutMode = l_LayoutMode_0.compact, 
-                        userPresenceType = if v55 and v75 then v73.presence else l_UserPresence_0.None, 
+                        userPresenceType = if v55 and v77 then v75.presence else l_UserPresence_0.None, 
                         layoutOrder = 1, 
-                        onActivated = v69
+                        onActivated = v71
                     })
                 })
             }) else nil, 
@@ -641,44 +645,44 @@ ChatMessageContainer = function(v66) --[[ Line: 115 ]] --[[ Name: ChatMessageCon
                 BorderSizePixel = 0, 
                 LayoutOrder = 2, 
                 AutomaticSize = Enum.AutomaticSize.Y, 
-                Size = UDim2.new(1, v67.isIncoming and -v162 or 0, 0, 0)
+                Size = UDim2.new(1, v69.isIncoming and -v164 or 0, 0, 0)
             }, {
                 Layout = v6.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Vertical, 
-                    HorizontalAlignment = v163
+                    HorizontalAlignment = v165
                 }), 
                 Padding = v6.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, v67.isIncoming and v76.Size.Size_200 or 0)
+                    PaddingLeft = UDim.new(0, v69.isIncoming and v78.Size.Size_200 or 0)
                 }), 
                 DisplayNameContainer = l_shouldShowName_0 and v6.createElement("Frame", {
                     BackgroundTransparency = 1, 
                     BorderSizePixel = 0, 
-                    Size = UDim2.new(0, v67.messageMaxWidth - v12.TAIL_WIDTH, 0, 0), 
+                    Size = UDim2.new(0, v69.messageMaxWidth - v12.TAIL_WIDTH, 0, 0), 
                     AutomaticSize = Enum.AutomaticSize.Y, 
                     LayoutOrder = 1
                 }, {
                     Padding = v6.createElement("UIPadding", {
                         PaddingLeft = UDim.new(0, v12.GROUPED_MESSAGE_DISPLAY_NAME_LEFT_PADDING), 
-                        PaddingRight = if v172 then UDim.new(0, 0) else UDim.new(0, v12.TAIL_WIDTH), 
-                        PaddingBottom = if v144 then UDim.new(0, v12.REPLIED_DISPLAY_NAME_BOTTOM_PADDING) else UDim.new(0, v12.GROUPED_MESSAGE_DISPLAY_NAME_BOTTOM_PADDING)
+                        PaddingRight = if v174 then UDim.new(0, 0) else UDim.new(0, v12.TAIL_WIDTH), 
+                        PaddingBottom = if v146 then UDim.new(0, v12.REPLIED_DISPLAY_NAME_BOTTOM_PADDING) else UDim.new(0, v12.GROUPED_MESSAGE_DISPLAY_NAME_BOTTOM_PADDING)
                     }), 
-                    DisplayName = if not v154 then v6.createElement("TextLabel", {
+                    DisplayName = if not v156 then v6.createElement("TextLabel", {
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
-                        Font = v70.Font.Footer.Font, 
-                        Size = v159(), 
-                        AnchorPoint = if v172 then Vector2.new(0, 0) else Vector2.new(1, 0), 
-                        Position = if v172 then UDim2.fromScale(0, 0) else UDim2.fromScale(1, 0), 
-                        Text = v156, 
-                        TextColor3 = v70.Theme.TextDefault.Color, 
-                        TextSize = v70.Font.BaseSize * v70.Font.Footer.RelativeSize, 
-                        TextTransparency = v70.Theme.TextDefault.Transparency, 
-                        TextXAlignment = if v172 then Enum.TextXAlignment.Left else Enum.TextXAlignment.Right, 
+                        Font = v72.Font.Footer.Font, 
+                        Size = v161(), 
+                        AnchorPoint = if v174 then Vector2.new(0, 0) else Vector2.new(1, 0), 
+                        Position = if v174 then UDim2.fromScale(0, 0) else UDim2.fromScale(1, 0), 
+                        Text = v158, 
+                        TextColor3 = v72.Theme.TextDefault.Color, 
+                        TextSize = v72.Font.BaseSize * v72.Font.Footer.RelativeSize, 
+                        TextTransparency = v72.Theme.TextDefault.Transparency, 
+                        TextXAlignment = if v174 then Enum.TextXAlignment.Left else Enum.TextXAlignment.Right, 
                         TextYAlignment = Enum.TextYAlignment.Top
                     }) else nil, 
-                    ShimmerName = if v154 then v6.createElement(l_Skeleton_0, {
-                        AnchorPoint = if v172 then Vector2.new(0, 0) else Vector2.new(1, 0), 
-                        Position = if v172 then UDim2.fromScale(0, 0) else UDim2.fromScale(1, 0), 
+                    ShimmerName = if v156 then v6.createElement(l_Skeleton_0, {
+                        AnchorPoint = if v174 then Vector2.new(0, 0) else Vector2.new(1, 0), 
+                        Position = if v174 then UDim2.fromScale(0, 0) else UDim2.fromScale(1, 0), 
                         Size = UDim2.new(0, v12.SHIMMER_WIDTH, 0, v12.SHIMMER_HEIGHT), 
                         LayoutOrder = 2
                     }) else nil
@@ -688,37 +692,37 @@ ChatMessageContainer = function(v66) --[[ Line: 115 ]] --[[ Name: ChatMessageCon
                     BorderSizePixel = 0, 
                     LayoutOrder = 2, 
                     AutomaticSize = Enum.AutomaticSize.Y, 
-                    Size = UDim2.new(1, v67.isIncoming and -v162 or 0, 0, 0)
+                    Size = UDim2.new(1, v69.isIncoming and -v164 or 0, 0, 0)
                 }, {
                     Layout = v6.createElement("UIListLayout", {
                         SortOrder = Enum.SortOrder.LayoutOrder, 
                         FillDirection = Enum.FillDirection.Horizontal, 
-                        HorizontalAlignment = v163, 
+                        HorizontalAlignment = v165, 
                         VerticalAlignment = Enum.VerticalAlignment.Center, 
                         Padding = UDim.new(0, 10), 
                         ItemLineAlignment = Enum.ItemLineAlignment.Center
                     }), 
-                    AlertIcon = if not v34() and (v67.failed or v67.moderated) then v170 else nil, 
-                    Message = v67.renderMessage({
-                        LayoutOrder = v67.isIncoming and 1 or 2, 
-                        [v6.Event.InputBegan] = v88, 
-                        [v6.Event.InputEnded] = v89, 
-                        [v6.Event.TouchTap] = v90, 
-                        [v6.Event.MouseButton1Down] = v91
+                    AlertIcon = if not v34() and (v69.failed or v69.moderated) then v172 else nil, 
+                    Message = v69.renderMessage({
+                        LayoutOrder = v69.isIncoming and 1 or 2, 
+                        [v6.Event.InputBegan] = v90, 
+                        [v6.Event.InputEnded] = v91, 
+                        [v6.Event.TouchTap] = v92, 
+                        [v6.Event.MouseButton1Down] = v93
                     }, if v34() then {
-                        isPressed = v79, 
-                        Icons = v171, 
-                        ref = v93
+                        isPressed = v81, 
+                        Icons = v173, 
+                        ref = v95
                     } else nil), 
-                    MessageFtuxTooltip = if not (v48 and v34() and v67.isLastIncomingChatMessage) or v51 and v68 then nil else v6.createElement(l_MessageFtuxTooltip_0, {
+                    MessageFtuxTooltip = if not (v48 and v34() and v69.isLastIncomingChatMessage) or v51 and v70 then nil else v6.createElement(l_MessageFtuxTooltip_0, {
                         variant = l_MessageFtuxTooltipVariant_0.Replies, 
-                        messageRef = v93, 
-                        isReversed = v67.isIncoming
+                        messageRef = v95, 
+                        isReversed = v69.isIncoming
                     })
                 })
             })
         });
-        if v53 and (not v51 or not v68) then
+        if v53 and (not v51 or not v70) then
             return v6.createElement(v15.View, {
                 tag = "size-full-0 auto-y", 
                 ClipsDescendants = false, 
@@ -726,66 +730,66 @@ ChatMessageContainer = function(v66) --[[ Line: 115 ]] --[[ Name: ChatMessageCon
                 ZIndex = 2
             }, {
                 ReplyIconFilled = v6.createElement(v15.Icon, {
-                    name = v85.iconName, 
+                    name = v87.iconName, 
                     size = v15.Enums.IconSize.Medium, 
                     variant = v15.Enums.IconVariant.Filled, 
-                    AnchorPoint = v85.iconAnchorPoint, 
-                    Position = v180, 
-                    style = v175, 
+                    AnchorPoint = v87.iconAnchorPoint, 
+                    Position = v182, 
+                    style = v177, 
                     ZIndex = 1
                 }), 
-                Content = v181
+                Content = v183
             });
         else
-            return v181;
+            return v183;
         end;
     end;
-    v6.useEffect(function() --[[ Line: 826 ]]
-        -- upvalues: v46 (ref), v67 (copy), l_IXPService_0 (ref), v47 (ref)
-        if v46 and v67.isLastIncomingChatMessage then
+    v6.useEffect(function() --[[ Line: 833 ]]
+        -- upvalues: v46 (ref), v69 (copy), l_IXPService_0 (ref), v47 (ref)
+        if v46 and v69.isLastIncomingChatMessage then
             l_IXPService_0:LogFlagLinkedUserLayerExposure(v47);
         end;
     end, {
-        v67.isLastIncomingChatMessage
+        v69.isLastIncomingChatMessage
     });
-    return v6.createElement(v65, {
+    return v6.createElement(v67, {
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.new(1, 0, 0, 0), 
         Text = v33() and "" or nil, 
-        [v6.Event.Activated] = if v33() then v167 else nil
+        [v6.Event.Activated] = if v33() then v169 else nil
     }, {
         Layout = v6.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
-            HorizontalAlignment = v163, 
+            HorizontalAlignment = v165, 
             SortOrder = Enum.SortOrder.LayoutOrder
         }), 
-        DateTime = v67.showDateTime and v6.createElement(v23, {
+        DateTime = v69.showDateTime and v6.createElement(v23, {
             LayoutOrder = 1, 
-            Text = v67.sent:GetLongRelativeTime(), 
+            Text = v69.sent:GetLongRelativeTime(), 
             maxWidth = v12.DATETIME_MAX_WIDTH
         }), 
-        MessageWithAvatar = v182(), 
-        Notice = v168 and v6.createElement(v22, {
-            Font = v67.Font, 
-            HorizontalAlignment = v163, 
+        MessageWithAvatar = v184(), 
+        Notice = v170 and v6.createElement(v22, {
+            Font = v69.Font, 
+            HorizontalAlignment = v165, 
             LayoutOrder = 3, 
-            Text = v169, 
-            TextColor3 = if v51 and v68 then v76.Color.Content.Muted.Color3 else v67.moderated and v70.Theme.Alert.Color or v70.Theme.UIDefault.Color, 
-            TextTransparency = if v51 and v68 then v76.Color.Content.Muted.Transparency else v67.moderated and v70.Theme.Alert.Transparency or v70.Theme.UIDefault.Transparency, 
-            TextXAlignment = v67.isIncoming and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right, 
-            TextSize = v76.Typography.CaptionSmall.FontSize, 
+            Text = v171, 
+            TextColor3 = if v51 and v70 then v78.Color.Content.Muted.Color3 else v69.moderated and v72.Theme.Alert.Color or v72.Theme.UIDefault.Color, 
+            TextTransparency = if v51 and v70 then v78.Color.Content.Muted.Transparency else v69.moderated and v72.Theme.Alert.Transparency or v72.Theme.UIDefault.Transparency, 
+            TextXAlignment = v69.isIncoming and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right, 
+            TextSize = v78.Typography.CaptionSmall.FontSize, 
             margin = {
-                top = v76.Padding.Small, 
-                left = v67.isIncoming and v162 + v12.NOTICE_HORIZONTAL_PADDING or 0, 
-                right = not v67.isIncoming and v72.right or 0, 
+                top = v78.Padding.Small, 
+                left = v69.isIncoming and v164 + v12.NOTICE_HORIZONTAL_PADDING or 0, 
+                right = not v69.isIncoming and v74.right or 0, 
                 bottom = 0
             }, 
-            maxWidth = v67.parentWidth, 
-            width = UDim.new(1, v67.isIncoming and -v162 or 0)
+            maxWidth = v69.parentWidth, 
+            width = UDim.new(1, v69.isIncoming and -v164 or 0)
         }), 
-        debug = v67.debugElement or nil
+        debug = v69.debugElement or nil
     });
 end;
 return ChatMessageContainer;

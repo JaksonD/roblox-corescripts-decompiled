@@ -3,34 +3,39 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local v2 = require(l_CorePackages_0.Packages.React);
 local v3 = require(l_CorePackages_0.Packages.Foundation);
 local l_useIsSpatial_0 = require(l_CorePackages_0.Workspace.Packages.Responsive).useIsSpatial;
-local v5 = require(script.Parent.VRFoundationOverlay);
-return function(v6) --[[ Line: 9 ]] --[[ Name: VRFoundationOverlayProvider ]]
-    -- upvalues: v2 (copy), l_useIsSpatial_0 (copy), l_CoreGui_0 (copy), v3 (copy), v5 (copy)
-    local v7, v8 = v2.useState(nil);
-    local v9 = l_useIsSpatial_0();
-    local v10, v11 = v2.useState(false);
-    v2.useEffect(function() --[[ Line: 17 ]]
-        -- upvalues: l_CoreGui_0 (ref), v11 (copy)
-        local v12 = task.spawn(function() --[[ Line: 18 ]]
-            -- upvalues: l_CoreGui_0 (ref), v11 (ref)
-            l_CoreGui_0:WaitForChild("LuaAppScreenGui"):WaitForChild("MainAppScreen_SurfaceGui");
-            v11(true);
-        end);
-        return function() --[[ Line: 24 ]]
-            -- upvalues: v12 (copy)
-            task.cancel(v12);
+return function(v5) --[[ Line: 8 ]] --[[ Name: VRFoundationOverlayProvider ]]
+    -- upvalues: v2 (copy), l_useIsSpatial_0 (copy), l_CoreGui_0 (copy), v3 (copy)
+    local v6, v7 = v2.useState(nil);
+    local v8 = l_useIsSpatial_0();
+    v2.useEffect(function() --[[ Line: 12 ]]
+        -- upvalues: v8 (copy), v7 (copy), l_CoreGui_0 (ref)
+        if not v8 then
+            v7(nil);
+            return;
+        else
+            local v11 = task.spawn(function() --[[ Line: 18 ]]
+                -- upvalues: l_CoreGui_0 (ref), v7 (ref)
+                local l_LuaAppScreenGui_0 = l_CoreGui_0:WaitForChild("LuaAppScreenGui");
+                local v10 = if l_LuaAppScreenGui_0 then l_LuaAppScreenGui_0:WaitForChild("MainAppScreen_SurfaceGui") else nil;
+                if v10 and v10:IsA("SurfaceGui") then
+                    v7(v10);
+                end;
+            end);
+            return function() --[[ Line: 28 ]]
+                -- upvalues: v11 (copy)
+                task.cancel(v11);
+            end;
         end;
-    end, {});
-    if v9 then
+    end, {
+        v8
+    });
+    if v8 then
         return (v2.createElement(v3.OverlayProvider, {
-            gui = v7
+            gui = v6
         }, {
-            Overlay = if v10 then v2.createElement(v5, {
-                ref = v8
-            }) else nil, 
-            Children = v2.createElement(v2.Fragment, nil, v6.children)
+            Children = v2.createElement(v2.Fragment, nil, v5.children)
         }));
     else
-        return (v2.createElement(v2.Fragment, nil, v6.children));
+        return (v2.createElement(v2.Fragment, nil, v5.children));
     end;
 end;

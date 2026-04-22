@@ -25,88 +25,89 @@ local l_FFlagLuaAppMoveProfileIntoTopBar_0 = v20.FFlagLuaAppMoveProfileIntoTopBa
 local l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 = v20.FFlagLuaAppMoveProfileIntoTopBarIXP;
 local l_FFlagSearchTopResultsTabEnabledForAll_0 = v20.FFlagSearchTopResultsTabEnabledForAll;
 local l_FFlagLuaAppEnableChartsPageProfileLink_0 = v20.FFlagLuaAppEnableChartsPageProfileLink;
-local v25 = require(l_Modules_0.LuaApp.Flags.FFlagEnableFlyoutSidePanel);
+local l_FFlagEnableHomeRobloxLogo_0 = v20.FFlagEnableHomeRobloxLogo;
+local v26 = require(l_Modules_0.LuaApp.Flags.FFlagEnableFlyoutSidePanel);
 local l_FFlagLuaAppChartsStickyHeader_0 = v20.FFlagLuaAppChartsStickyHeader;
 local l_FFlagLuaAppCompositionSupport_0 = v20.FFlagLuaAppCompositionSupport;
-local function _(v28) --[[ Line: 37 ]] --[[ Name: makePadding ]]
+local function _(v29) --[[ Line: 38 ]] --[[ Name: makePadding ]]
     -- upvalues: v9 (copy)
-    return function() --[[ Line: 38 ]]
-        -- upvalues: v9 (ref), v28 (copy)
+    return function() --[[ Line: 39 ]]
+        -- upvalues: v9 (ref), v29 (copy)
         return v9.createElement("Frame", {
             BackgroundTransparency = 1, 
-            Size = UDim2.new(0, v28, 1, 0)
+            Size = UDim2.new(0, v29, 1, 0)
         });
     end;
 end;
-local v30 = nil;
+local v31 = nil;
 if l_FFlagLuaAppEnableChartsPageProfileLink_0 then
-    v30 = function(v31) --[[ Line: 48 ]]
+    v31 = function(v32) --[[ Line: 49 ]]
         -- upvalues: v9 (copy), v19 (copy)
-        return function(_) --[[ Line: 49 ]]
-            -- upvalues: v9 (ref), v19 (ref), v31 (copy)
+        return function(_) --[[ Line: 50 ]]
+            -- upvalues: v9 (ref), v19 (ref), v32 (copy)
             return v9.createElement(v19, {
-                source = v31
+                source = v32
             });
         end;
     end;
 end;
-return function(v33) --[[ Line: 60 ]]
-    -- upvalues: l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_FFlagSearchTopResultsTabEnabledForAll_0 (copy), l_useSelector_0 (copy), l_FFlagLuaAppEnableChartsPageProfileLink_0 (copy), v30 (ref), v19 (copy), v9 (copy), v17 (copy), v18 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 (copy), l_VerticalEfficiencyExperimentation_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v25 (copy), l_SearchTypes_0 (copy)
-    local v37, v38 = l_useUserExperiment_0({
+return function(v34) --[[ Line: 61 ]]
+    -- upvalues: l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_FFlagSearchTopResultsTabEnabledForAll_0 (copy), l_useSelector_0 (copy), l_FFlagLuaAppEnableChartsPageProfileLink_0 (copy), v31 (ref), v19 (copy), v9 (copy), v17 (copy), v18 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 (copy), l_VerticalEfficiencyExperimentation_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v26 (copy), l_FFlagEnableHomeRobloxLogo_0 (copy), l_SearchTypes_0 (copy)
+    local v38, v39 = l_useUserExperiment_0({
         l_AppUserLayers_0.OmniSearchResultsPageUXExposureLayer
-    }, function(v34) --[[ Line: 63 ]]
+    }, function(v35) --[[ Line: 64 ]]
         -- upvalues: l_AppUserLayers_0 (ref), l_FFlagSearchTopResultsTabEnabledForAll_0 (ref)
-        local v35 = v34[l_AppUserLayers_0.OmniSearchResultsPageUXExposureLayer] or {};
-        local l_isSearchTypeAuto_0 = v35.isSearchTypeAuto;
+        local v36 = v35[l_AppUserLayers_0.OmniSearchResultsPageUXExposureLayer] or {};
+        local l_isSearchTypeAuto_0 = v36.isSearchTypeAuto;
         if not l_FFlagSearchTopResultsTabEnabledForAll_0 then
-            return l_isSearchTypeAuto_0, v35.isTopPageEnabled;
+            return l_isSearchTypeAuto_0, v36.isTopPageEnabled;
         else
             return l_isSearchTypeAuto_0, nil;
         end;
     end, false);
-    local v39 = nil;
     local v40 = nil;
-    local v42 = l_useSelector_0(function(v41) --[[ Line: 77 ]]
-        return v41.ScreenSize;
+    local v41 = nil;
+    local v43 = l_useSelector_0(function(v42) --[[ Line: 78 ]]
+        return v42.ScreenSize;
     end);
-    if v33.useGridPageLayout then
-        local v43 = if l_FFlagLuaAppEnableChartsPageProfileLink_0 then v30(v33.profileSource) else v19;
-        local v44 = {};
-        local l_v43_0 = v43;
-        local v46 = 0;
-        local l_v46_0 = v46 --[[ copy: 10 -> 13 ]];
-        local function v48() --[[ Line: 38 ]]
-            -- upvalues: v9 (ref), l_v46_0 (copy)
+    if v34.useGridPageLayout then
+        local v44 = if l_FFlagLuaAppEnableChartsPageProfileLink_0 then v31(v34.profileSource) else v19;
+        local v45 = {};
+        local l_v44_0 = v44;
+        local v47 = 0;
+        local l_v47_0 = v47 --[[ copy: 10 -> 13 ]];
+        local function v49() --[[ Line: 39 ]]
+            -- upvalues: v9 (ref), l_v47_0 (copy)
             return v9.createElement("Frame", {
                 BackgroundTransparency = 1, 
-                Size = UDim2.new(0, l_v46_0, 1, 0)
+                Size = UDim2.new(0, l_v47_0, 1, 0)
             });
         end;
-        v46 = v17.SearchButton;
+        v47 = v17.SearchButton;
         local l_BuyRobuxButton_0 = v17.BuyRobuxButton;
         local l_NotificationsButton_0 = v17.NotificationsButton;
-        v6(v44, 1, l_v43_0, v48, v46, l_BuyRobuxButton_0, l_NotificationsButton_0);
-        v39 = v44;
-        v40 = v42.X < v18.COMPACT_WIDTH_BREAKPOINT;
+        v6(v45, 1, l_v44_0, v49, v47, l_BuyRobuxButton_0, l_NotificationsButton_0);
+        v40 = v45;
+        v41 = v43.X < v18.COMPACT_WIDTH_BREAKPOINT;
     else
-        v39 = {
+        v40 = {
             v17.SearchButton, 
             v17.BuyRobuxButton, 
             v17.NotificationsButton
         };
     end;
-    local v51 = nil;
+    local v52 = nil;
     if l_FFlagLuaAppMoveProfileIntoTopBar_0 then
-        v51 = not v33.useGridPageLayout and (not l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 or l_VerticalEfficiencyExperimentation_0.getIsProfileMovedToTopBar());
+        v52 = not v34.useGridPageLayout and (not l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 or l_VerticalEfficiencyExperimentation_0.getIsProfileMovedToTopBar());
     end;
     return v9.createElement(v17.Container, {
-        tag = if l_FFlagLuaAppCompositionSupport_0 then v33.tag else nil, 
-        titleText = v33.titleText, 
-        ZIndex = if l_FFlagLuaAppChartsStickyHeader_0 and v33.zIndexOverride then v33.zIndexOverride else 2, 
-        forceCompactMode = v40, 
-        leftItem = if l_FFlagLuaAppMoveProfileIntoTopBar_0 and v51 or v25 then v17.PersonalizationLeftItem else v17.BackButton, 
-        rightItems = v39, 
-        searchType = if not not l_FFlagSearchTopResultsTabEnabledForAll_0 or v38 then l_SearchTypes_0.TopResults else if v37 then l_SearchTypes_0.Auto else nil, 
-        sideMarginOverride = if l_FFlagLuaAppCompositionSupport_0 then v33.sideMarginOverride else nil
+        tag = if l_FFlagLuaAppCompositionSupport_0 then v34.tag else nil, 
+        titleText = v34.titleText, 
+        ZIndex = if l_FFlagLuaAppChartsStickyHeader_0 and v34.zIndexOverride then v34.zIndexOverride else 2, 
+        forceCompactMode = v41, 
+        leftItem = if l_FFlagLuaAppMoveProfileIntoTopBar_0 and v52 or v26 or l_FFlagEnableHomeRobloxLogo_0 then v17.PersonalizationLeftItem else v17.BackButton, 
+        rightItems = v40, 
+        searchType = if not not l_FFlagSearchTopResultsTabEnabledForAll_0 or v39 then l_SearchTypes_0.TopResults else if v38 then l_SearchTypes_0.Auto else nil, 
+        sideMarginOverride = if l_FFlagLuaAppCompositionSupport_0 then v34.sideMarginOverride else nil
     });
 end;

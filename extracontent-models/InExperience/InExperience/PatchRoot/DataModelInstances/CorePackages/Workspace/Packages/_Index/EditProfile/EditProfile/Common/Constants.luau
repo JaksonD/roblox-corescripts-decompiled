@@ -6,7 +6,6 @@ return {
     EditProfilePage = "EditProfilePage", 
     EditDisplayNameModal = "EditDisplayNameModal", 
     EditProfileBackground = "EditProfileBackground", 
-    PersonaAvatarPage = "PersonaAvatarPage", 
     EditUserNameWebView = "navigateToEditUsername", 
     ChangeUsernamePrice = 1000, 
     JavascriptHybrid = {

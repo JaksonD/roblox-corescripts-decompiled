@@ -62,25 +62,26 @@ local v56 = require(l_script_FirstAncestor_0.Flags.getFFlagHideNotificationIconF
 local v57 = require(l_script_FirstAncestor_0.Flags.getFFlagFixChatsBottomInsetBackgroundColor);
 local v58 = require(l_script_FirstAncestor_0.Flags.getFFlagAppChatEnableRepliesUI);
 local l_GetFFlagEnableAppChatInExperience_0 = v6.GetFFlagEnableAppChatInExperience;
-local v60 = require(l_script_FirstAncestor_0.Flags.FFlagSupportViewingUserProfileOnOSA);
-local v61 = require(l_script_FirstAncestor_0.Stores.GetOverlayStore);
-local v62 = require(l_script_FirstAncestor_0.Utils.navigateWithOsaGate);
+local v60 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarConfigDriven);
+local v61 = require(l_script_FirstAncestor_0.Flags.FFlagSupportViewingUserProfileOnOSA);
+local v62 = require(l_script_FirstAncestor_0.Stores.GetOverlayStore);
+local v63 = require(l_script_FirstAncestor_0.Utils.navigateWithOsaGate);
 local l_FFlagAppChatShowOSAOnPageEntry_0 = v6.FFlagAppChatShowOSAOnPageEntry;
 local l_FFlagEnableHeaderBarButtonsUpdate_0 = v6.FFlagEnableHeaderBarButtonsUpdate;
-local v65 = require(l_script_FirstAncestor_0.Constants);
+local v66 = require(l_script_FirstAncestor_0.Constants);
 local l_FFlagRemoveDependencyArrayAntipattern_0 = v6.FFlagRemoveDependencyArrayAntipattern;
-local l_NAV_BAR_WITH_FACEPILE_SIZE_0 = v65.NAV_BAR_WITH_FACEPILE_SIZE;
-local v69 = {
+local l_NAV_BAR_WITH_FACEPILE_SIZE_0 = v66.NAV_BAR_WITH_FACEPILE_SIZE;
+local v70 = {
     logger = l_Logger_0, 
     navigateToLuaAppPages = nil, 
     parameters = nil, 
     rnBypassActionSignal = nil, 
     setActiveConversationId = nil, 
     setBackButtonEnabled = nil, 
-    setTabBarVisible = function() --[[ Line: 126 ]] --[[ Name: setTabBarVisible ]]
+    setTabBarVisible = function() --[[ Line: 127 ]] --[[ Name: setTabBarVisible ]]
 
     end, 
-    setInitialConversationId = function(_) --[[ Line: 127 ]] --[[ Name: setInitialConversationId ]]
+    setInitialConversationId = function(_) --[[ Line: 128 ]] --[[ Name: setInitialConversationId ]]
 
     end, 
     wideMode = false, 
@@ -90,220 +91,220 @@ local v69 = {
     initialConversationId = "", 
     chatPlacement = v18.Enum.Unknown
 };
-AppChatEntryPoint = function(v70) --[[ Line: 140 ]] --[[ Name: AppChatEntryPoint ]]
-    -- upvalues: v4 (copy), v69 (copy), v18 (copy), l_useTokens_0 (copy), v13 (copy), v11 (ref), l_script_FirstAncestor_0 (copy), v12 (ref), l_useSelector_0 (copy), l_useCallback_0 (copy), l_useDispatch_0 (copy), l_useEffect_0 (copy), v46 (copy), v8 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v33 (copy), l_useState_0 (copy), v26 (copy), v27 (copy), v9 (copy), l_useRef_0 (copy), v60 (copy), v61 (copy), v51 (copy), v49 (copy), v50 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_FFlagAppChatShowOSAOnPageEntry_0 (copy), v62 (copy), v24 (copy), v25 (copy), v16 (copy), v3 (copy), v19 (copy), v54 (copy), v55 (copy), l_useCurrentSquadParentChannelId_0 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useIsVoiceConnected_0 (copy), v31 (copy), v56 (copy), l_usePageSideMargin_0 (copy), v45 (copy), l_GetFFlagEnableAppChatInExperience_0 (copy), l_useStyle_0 (copy), l_SetTabBarVisible_0 (copy), l_UserInputService_0 (copy), l_NAV_BAR_WITH_FACEPILE_SIZE_0 (copy), l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), v20 (copy), v58 (copy), v43 (copy), v47 (copy), l_HapticFeedbackConfig_0 (copy), l_LayerCollectorProvider_0 (copy), v42 (copy), l_RbxAnalyticsService_0 (copy), v15 (copy), v23 (copy), v17 (copy), v57 (copy), v22 (copy)
-    local v71 = v4.Dictionary.join(v69, v70);
-    local v72 = v18.isPlacementInExperience(v71.chatPlacement);
-    local v73 = l_useTokens_0();
+AppChatEntryPoint = function(v71) --[[ Line: 141 ]] --[[ Name: AppChatEntryPoint ]]
+    -- upvalues: v4 (copy), v70 (copy), v18 (copy), l_useTokens_0 (copy), v13 (copy), v11 (ref), l_script_FirstAncestor_0 (copy), v12 (ref), l_useSelector_0 (copy), l_useCallback_0 (copy), l_useDispatch_0 (copy), l_useEffect_0 (copy), v46 (copy), v8 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v33 (copy), l_useState_0 (copy), v26 (copy), v27 (copy), v9 (copy), l_useRef_0 (copy), v61 (copy), v62 (copy), v51 (copy), v49 (copy), v50 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_FFlagAppChatShowOSAOnPageEntry_0 (copy), v63 (copy), v24 (copy), v25 (copy), v16 (copy), v3 (copy), v19 (copy), v54 (copy), v55 (copy), l_useCurrentSquadParentChannelId_0 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useIsVoiceConnected_0 (copy), v31 (copy), v56 (copy), l_usePageSideMargin_0 (copy), v45 (copy), v60 (copy), l_GetFFlagEnableAppChatInExperience_0 (copy), l_useStyle_0 (copy), l_SetTabBarVisible_0 (copy), l_UserInputService_0 (copy), l_NAV_BAR_WITH_FACEPILE_SIZE_0 (copy), l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), v20 (copy), v58 (copy), v43 (copy), v47 (copy), l_HapticFeedbackConfig_0 (copy), l_LayerCollectorProvider_0 (copy), v42 (copy), l_RbxAnalyticsService_0 (copy), v15 (copy), v23 (copy), v17 (copy), v57 (copy), v22 (copy)
+    local v72 = v4.Dictionary.join(v70, v71);
+    local v73 = v18.isPlacementInExperience(v72.chatPlacement);
+    local v74 = l_useTokens_0();
     if v13 then
         v11 = require(l_script_FirstAncestor_0.Navigators.Compact.rootNavigator);
         v12 = require(l_script_FirstAncestor_0.Navigators.Wide.rootNavigator);
     end;
-    local v75 = l_useSelector_0(l_useCallback_0(function(v74) --[[ Line: 151 ]]
-        return v74.LocalUserId;
-    end, {})) or v71.localUserId;
-    local v77 = l_useSelector_0(l_useCallback_0(function(v76) --[[ Line: 154 ]]
-        return v76.GlobalGuiInset;
+    local v76 = l_useSelector_0(l_useCallback_0(function(v75) --[[ Line: 152 ]]
+        return v75.LocalUserId;
+    end, {})) or v72.localUserId;
+    local v78 = l_useSelector_0(l_useCallback_0(function(v77) --[[ Line: 155 ]]
+        return v77.GlobalGuiInset;
     end, {})) or {
         bottom = 0
     };
-    local v79 = l_useSelector_0(l_useCallback_0(function(v78) --[[ Line: 157 ]]
-        return v78.ChatAppReducer.LastEntryPoint;
+    local v80 = l_useSelector_0(l_useCallback_0(function(v79) --[[ Line: 158 ]]
+        return v79.ChatAppReducer.LastEntryPoint;
     end, {}));
-    local v80 = l_useDispatch_0();
-    l_useEffect_0(function() --[[ Line: 164 ]]
-        -- upvalues: v80 (copy), v46 (ref), v72 (copy), v8 (ref)
-        v80(v46.rodux.GetChatLandingModal.API(v72)):catch(function(v81) --[[ Line: 165 ]]
+    local v81 = l_useDispatch_0();
+    l_useEffect_0(function() --[[ Line: 165 ]]
+        -- upvalues: v81 (copy), v46 (ref), v73 (copy), v8 (ref)
+        v81(v46.rodux.GetChatLandingModal.API(v73)):catch(function(v82) --[[ Line: 166 ]]
             -- upvalues: v8 (ref)
-            v8:warning("Error in GetChatLandingModal request. Error: {}", (tostring(v81)));
+            v8:warning("Error in GetChatLandingModal request. Error: {}", (tostring(v82)));
         end);
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v80, 
-        v75, 
-        v72
-    } else l_dependencyArray_0(v80, v75, v72));
-    local v82 = v33();
-    local v83, v84 = l_useState_0({});
-    local v85 = v26.useMemo(function() --[[ Line: 179 ]]
-        -- upvalues: v27 (ref), v9 (ref), v71 (copy), v12 (ref), v11 (ref)
-        return v27.createAppContainer(v9(v71.wideMode and v12 or v11, v71.navigateToRootStack, v71.androidBackButtonSignal, v71.androidBackButtonConnection));
+        v81, 
+        v76, 
+        v73
+    } else l_dependencyArray_0(v81, v76, v73));
+    local v83 = v33();
+    local v84, v85 = l_useState_0({});
+    local v86 = v26.useMemo(function() --[[ Line: 180 ]]
+        -- upvalues: v27 (ref), v9 (ref), v72 (copy), v12 (ref), v11 (ref)
+        return v27.createAppContainer(v9(v72.wideMode and v12 or v11, v72.navigateToRootStack, v72.androidBackButtonSignal, v72.androidBackButtonConnection));
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v71.wideMode, 
+        v72.wideMode, 
         v12, 
         v11, 
-        v71.navigateToRootStack, 
-        v71.androidBackButtonSignal, 
-        v71.androidBackButtonConnection
-    } else l_dependencyArray_0(v71.wideMode, v12, v11, v71.navigateToRootStack, v71.androidBackButtonSignal, v71.androidBackButtonConnection));
-    local v86 = if v72 then v85 else l_useRef_0(v27.createAppContainer(v9(v71.wideMode and v12 or v11, v71.navigateToRootStack, v71.androidBackButtonSignal, v71.androidBackButtonConnection)));
-    if not v72 then
-        v86 = v86.current;
+        v72.navigateToRootStack, 
+        v72.androidBackButtonSignal, 
+        v72.androidBackButtonConnection
+    } else l_dependencyArray_0(v72.wideMode, v12, v11, v72.navigateToRootStack, v72.androidBackButtonSignal, v72.androidBackButtonConnection));
+    local v87 = if v73 then v86 else l_useRef_0(v27.createAppContainer(v9(v72.wideMode and v12 or v11, v72.navigateToRootStack, v72.androidBackButtonSignal, v72.androidBackButtonConnection)));
+    if not v73 then
+        v87 = v87.current;
     end;
-    local v87 = l_useRef_0(false);
-    local v88 = l_useRef_0(nil);
-    local v89 = l_useRef_0(function(...) --[[ Line: 227 ]]
+    local v88 = l_useRef_0(false);
+    local v89 = l_useRef_0(nil);
+    local v90 = l_useRef_0(function(...) --[[ Line: 228 ]]
 
     end);
-    l_useEffect_0(function() --[[ Line: 229 ]]
-        -- upvalues: v71 (copy), v8 (ref)
-        if v71.logger then
-            v8:setParent(v71.logger);
+    l_useEffect_0(function() --[[ Line: 230 ]]
+        -- upvalues: v72 (copy), v8 (ref)
+        if v72.logger then
+            v8:setParent(v72.logger);
         end;
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v71.logger
-    } else l_dependencyArray_0(v71.logger));
-    local v91 = l_useCallback_0(function(v90) --[[ Line: 236 ]]
-        -- upvalues: v87 (copy), v89 (copy)
-        if not v87.current then
+        v72.logger
+    } else l_dependencyArray_0(v72.logger));
+    local v92 = l_useCallback_0(function(v91) --[[ Line: 237 ]]
+        -- upvalues: v88 (copy), v90 (copy)
+        if not v88.current then
             return;
         else
-            if v89.current then
-                v89.current(v90);
+            if v90.current then
+                v90.current(v91);
             end;
             return;
         end;
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v87, 
-        v89
-    } else l_dependencyArray_0(v87, v89));
-    if v60 then
-        local l_navigateToLuaAppPages_0 = v71.navigateToLuaAppPages;
-        local l_l_navigateToLuaAppPages_0_0 = l_navigateToLuaAppPages_0 --[[ copy: 17 -> 47 ]];
-        l_useEffect_0(function() --[[ Line: 252 ]]
-            -- upvalues: v61 (ref), l_l_navigateToLuaAppPages_0_0 (copy), v51 (ref)
-            v61(false).setOverlayDefaultProps({
+        v88, 
+        v90
+    } else l_dependencyArray_0(v88, v90));
+    if v61 then
+        local l_navigateToLuaAppPages_0 = v72.navigateToLuaAppPages;
+        local l_l_navigateToLuaAppPages_0_0 = l_navigateToLuaAppPages_0 --[[ copy: 17 -> 48 ]];
+        l_useEffect_0(function() --[[ Line: 253 ]]
+            -- upvalues: v62 (ref), l_l_navigateToLuaAppPages_0_0 (copy), v51 (ref)
+            v62(false).setOverlayDefaultProps({
                 onViewUserProfile = if l_l_navigateToLuaAppPages_0_0 then l_l_navigateToLuaAppPages_0_0[v51.ViewUserProfile] else nil
             });
         end, {
             l_navigateToLuaAppPages_0
         });
     end;
-    local v95 = l_useCallback_0(function(v94) --[[ Line: 262 ]]
+    local v96 = l_useCallback_0(function(v95) --[[ Line: 263 ]]
         -- upvalues: v27 (ref), v51 (ref)
         return v27.Actions.navigate({
             routeName = v51.ChatConversation, 
             params = {
-                conversationId = v94
+                conversationId = v95
             }
         });
     end, {});
-    local v99 = l_useCallback_0(function(v96, v97) --[[ Line: 270 ]]
-        -- upvalues: v27 (ref), v51 (ref), v71 (copy)
-        local v98 = {
+    local v100 = l_useCallback_0(function(v97, v98) --[[ Line: 271 ]]
+        -- upvalues: v27 (ref), v51 (ref), v72 (copy)
+        local v99 = {
             v27.Actions.navigate({
                 routeName = v51.ChatConversation, 
                 params = {
-                    conversationId = v96
+                    conversationId = v97
                 }
             }), 
             v27.Actions.navigate({
                 routeName = v51.SquadLobby, 
                 params = {
-                    conversationId = v96, 
-                    extraParams = v97
+                    conversationId = v97, 
+                    extraParams = v98
                 }
             })
         };
-        if v71.wideMode then
+        if v72.wideMode then
             return v27.Actions.navigate({
                 routeName = v51.ChatLanding, 
                 params = {
-                    conversationId = v96
+                    conversationId = v97
                 }, 
                 action = v27.StackActions.reset({
                     index = 2, 
-                    actions = v98
+                    actions = v99
                 })
             });
         else
-            table.insert(v98, 1, v27.Actions.navigate({
+            table.insert(v99, 1, v27.Actions.navigate({
                 routeName = v51.ChatLanding
             }));
             return v27.Actions.navigate({
                 routeName = v51.ChatLandingStack, 
                 params = {
-                    conversationId = v96
+                    conversationId = v97
                 }, 
                 action = v27.StackActions.reset({
                     index = 3, 
-                    actions = v98
+                    actions = v99
                 })
             });
         end;
     end, {
-        v71.wideMode
+        v72.wideMode
     });
-    local v101 = l_useCallback_0(function(v100) --[[ Line: 319 ]]
-        -- upvalues: v80 (copy), v49 (ref)
-        return v80(v49("one_to_one", {
-            v100
+    local v102 = l_useCallback_0(function(v101) --[[ Line: 320 ]]
+        -- upvalues: v81 (copy), v49 (ref)
+        return v81(v49("one_to_one", {
+            v101
         }));
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v80
-    } else l_dependencyArray_0(v80));
-    local v103 = l_useCallback_0(function(v102) --[[ Line: 323 ]]
-        -- upvalues: v80 (copy), v50 (ref)
-        return v80(v50(v102));
+        v81
+    } else l_dependencyArray_0(v81));
+    local v104 = l_useCallback_0(function(v103) --[[ Line: 324 ]]
+        -- upvalues: v81 (copy), v50 (ref)
+        return v81(v50(v103));
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v80
-    } else l_dependencyArray_0(v80));
-    local v117 = l_useCallback_0(function(v104) --[[ Line: 328 ]]
-        -- upvalues: v89 (copy), v71 (copy), l_GetFFlagIsSquadEnabled_0 (ref), v4 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v62 (ref), v80 (copy), v99 (copy), v51 (ref), v24 (ref), v25 (ref), v103 (copy), v8 (ref), v95 (copy), v101 (copy), v27 (ref)
-        v89.current = v104;
-        if not v71.updateExternalNavigationForScreen then
-            return function() --[[ Line: 331 ]]
-                -- upvalues: v89 (ref)
-                v89.current = nil;
+        v81
+    } else l_dependencyArray_0(v81));
+    local v118 = l_useCallback_0(function(v105) --[[ Line: 329 ]]
+        -- upvalues: v90 (copy), v72 (copy), l_GetFFlagIsSquadEnabled_0 (ref), v4 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v63 (ref), v81 (copy), v100 (copy), v51 (ref), v24 (ref), v25 (ref), v104 (copy), v8 (ref), v96 (copy), v102 (copy), v27 (ref)
+        v90.current = v105;
+        if not v72.updateExternalNavigationForScreen then
+            return function() --[[ Line: 332 ]]
+                -- upvalues: v90 (ref)
+                v90.current = nil;
             end;
         else
-            local l_updateExternalNavigationForScreen_0 = v71.updateExternalNavigationForScreen;
+            local l_updateExternalNavigationForScreen_0 = v72.updateExternalNavigationForScreen;
             if l_GetFFlagIsSquadEnabled_0() then
-                l_updateExternalNavigationForScreen_0(function(v106) --[[ Line: 338 ]]
-                    -- upvalues: v4 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v62 (ref), v80 (ref), v104 (copy), v99 (ref)
-                    local l_conversationId_0 = v106.conversationId;
-                    local v108 = v4.Dictionary.omit(v106, "conversationId");
+                l_updateExternalNavigationForScreen_0(function(v107) --[[ Line: 339 ]]
+                    -- upvalues: v4 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v63 (ref), v81 (ref), v105 (copy), v100 (ref)
+                    local l_conversationId_0 = v107.conversationId;
+                    local v109 = v4.Dictionary.omit(v107, "conversationId");
                     if l_FFlagAppChatShowOSAOnPageEntry_0 then
-                        v62({
+                        v63({
                             conversationId = l_conversationId_0, 
-                            dispatch = v80, 
-                            onAccepted = function() --[[ Line: 345 ]] --[[ Name: onAccepted ]]
-                                -- upvalues: v104 (ref), v99 (ref), l_conversationId_0 (copy), v108 (copy)
-                                v104(v99(l_conversationId_0, v108));
+                            dispatch = v81, 
+                            onAccepted = function() --[[ Line: 346 ]] --[[ Name: onAccepted ]]
+                                -- upvalues: v105 (ref), v100 (ref), l_conversationId_0 (copy), v109 (copy)
+                                v105(v100(l_conversationId_0, v109));
                             end, 
                             requireMultiUserForU13 = true
                         });
                         return;
                     else
-                        v104(v99(l_conversationId_0, v108));
+                        v105(v100(l_conversationId_0, v109));
                         return;
                     end;
                 end, v51.SquadLobby);
             end;
-            l_updateExternalNavigationForScreen_0(function(v109) --[[ Line: 356 ]]
-                -- upvalues: l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v62 (ref), v80 (ref), v24 (ref), v25 (ref), v103 (ref), v8 (ref), v104 (copy), v95 (ref), v101 (ref)
-                local v110 = v109 and v109.conversationId;
-                if v110 then
+            l_updateExternalNavigationForScreen_0(function(v110) --[[ Line: 357 ]]
+                -- upvalues: l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v63 (ref), v81 (ref), v24 (ref), v25 (ref), v104 (ref), v8 (ref), v105 (copy), v96 (ref), v102 (ref)
+                local v111 = v110 and v110.conversationId;
+                if v111 then
                     if l_FFlagAppChatShowOSAOnPageEntry_0 then
-                        v62({
-                            conversationId = v110, 
-                            dispatch = v80, 
-                            onAccepted = function() --[[ Line: 364 ]] --[[ Name: onAccepted ]]
-                                -- upvalues: v24 (ref), v25 (ref), v110 (copy), v103 (ref), v8 (ref), v104 (ref), v95 (ref)
+                        v63({
+                            conversationId = v111, 
+                            dispatch = v81, 
+                            onAccepted = function() --[[ Line: 365 ]] --[[ Name: onAccepted ]]
+                                -- upvalues: v24 (ref), v25 (ref), v111 (copy), v104 (ref), v8 (ref), v105 (ref), v96 (ref)
                                 if v24 then
                                     v25.start(v25.Events.ChatConversationTTI, {
-                                        conversationId = v110
+                                        conversationId = v111
                                     });
                                 end;
-                                v103(v110):andThen(function() --[[ Line: 371 ]]
-                                    -- upvalues: v8 (ref), v110 (ref), v104 (ref), v95 (ref)
-                                    v8:info("Successfully fetched conversation details for conversationId {} for external navigation", v110);
-                                    v104(v95(v110));
-                                end):catch(function(v111) --[[ Line: 378 ]]
-                                    -- upvalues: v8 (ref), v24 (ref), v25 (ref), v110 (ref)
-                                    v8:warning("Error in fetchLatestConversationDetails request before navigate to conversation. error: {}", (tostring(v111)));
+                                v104(v111):andThen(function() --[[ Line: 372 ]]
+                                    -- upvalues: v8 (ref), v111 (ref), v105 (ref), v96 (ref)
+                                    v8:info("Successfully fetched conversation details for conversationId {} for external navigation", v111);
+                                    v105(v96(v111));
+                                end):catch(function(v112) --[[ Line: 379 ]]
+                                    -- upvalues: v8 (ref), v24 (ref), v25 (ref), v111 (ref)
+                                    v8:warning("Error in fetchLatestConversationDetails request before navigate to conversation. error: {}", (tostring(v112)));
                                     if v24 then
                                         v25.cancel(v25.Events.ChatConversationTTI, {
-                                            conversationId = v110
+                                            conversationId = v111
                                         });
                                     end;
                                 end);
@@ -312,358 +313,357 @@ AppChatEntryPoint = function(v70) --[[ Line: 140 ]] --[[ Name: AppChatEntryPoint
                     else
                         if v24 then
                             v25.start(v25.Events.ChatConversationTTI, {
-                                conversationId = v110
+                                conversationId = v111
                             });
                         end;
-                        v103(v110):andThen(function() --[[ Line: 398 ]]
-                            -- upvalues: v8 (ref), v110 (copy), v104 (ref), v95 (ref)
-                            v8:info("Successfully fetched conversation details for conversationId {} for external navigation", v110);
-                            v104(v95(v110));
-                        end):catch(function(v112) --[[ Line: 405 ]]
-                            -- upvalues: v8 (ref), v24 (ref), v25 (ref), v110 (copy)
-                            v8:warning("Error in fetchLatestConversationDetails request before navigate to conversation. error: {}", (tostring(v112)));
+                        v104(v111):andThen(function() --[[ Line: 399 ]]
+                            -- upvalues: v8 (ref), v111 (copy), v105 (ref), v96 (ref)
+                            v8:info("Successfully fetched conversation details for conversationId {} for external navigation", v111);
+                            v105(v96(v111));
+                        end):catch(function(v113) --[[ Line: 406 ]]
+                            -- upvalues: v8 (ref), v24 (ref), v25 (ref), v111 (copy)
+                            v8:warning("Error in fetchLatestConversationDetails request before navigate to conversation. error: {}", (tostring(v113)));
                             if v24 then
                                 v25.cancel(v25.Events.ChatConversationTTI, {
-                                    conversationId = v110
+                                    conversationId = v111
                                 });
                             end;
                         end);
                         return;
                     end;
                 end;
-                local v113 = v109 and v109.userId;
-                if not v113 then
+                local v114 = v110 and v110.userId;
+                if not v114 then
                     return;
                 else
-                    spawn(function() --[[ Line: 426 ]]
-                        -- upvalues: v101 (ref), v113 (copy), v24 (ref), v25 (ref), v8 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v62 (ref), v80 (ref), v104 (ref), v95 (ref)
-                        v101(v113):andThen(function(v114) --[[ Line: 428 ]]
-                            -- upvalues: v24 (ref), v25 (ref), v8 (ref), v113 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v62 (ref), v80 (ref), v104 (ref), v95 (ref)
+                    spawn(function() --[[ Line: 427 ]]
+                        -- upvalues: v102 (ref), v114 (copy), v24 (ref), v25 (ref), v8 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v63 (ref), v81 (ref), v105 (ref), v96 (ref)
+                        v102(v114):andThen(function(v115) --[[ Line: 429 ]]
+                            -- upvalues: v24 (ref), v25 (ref), v8 (ref), v114 (ref), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v63 (ref), v81 (ref), v105 (ref), v96 (ref)
                             if v24 then
                                 v25.start(v25.Events.ChatConversationTTI, {
-                                    conversationId = v114.id
+                                    conversationId = v115.id
                                 });
                             end;
-                            v8:info("Successfully fetched conversation details for userId {} for external navigation", v113);
+                            v8:info("Successfully fetched conversation details for userId {} for external navigation", v114);
                             if l_FFlagAppChatShowOSAOnPageEntry_0 then
-                                v62({
-                                    conversationId = v114.id, 
-                                    dispatch = v80, 
-                                    onAccepted = function() --[[ Line: 442 ]] --[[ Name: onAccepted ]]
-                                        -- upvalues: v104 (ref), v95 (ref), v114 (copy)
-                                        v104(v95(v114.id));
+                                v63({
+                                    conversationId = v115.id, 
+                                    dispatch = v81, 
+                                    onAccepted = function() --[[ Line: 443 ]] --[[ Name: onAccepted ]]
+                                        -- upvalues: v105 (ref), v96 (ref), v115 (copy)
+                                        v105(v96(v115.id));
                                     end
                                 });
                                 return;
                             else
-                                v104(v95(v114.id));
+                                v105(v96(v115.id));
                                 return;
                             end;
-                        end):catch(function(v115) --[[ Line: 450 ]]
+                        end):catch(function(v116) --[[ Line: 451 ]]
                             -- upvalues: v8 (ref)
-                            v8:warning("Error in CreateConversation request before navigate to conversation. error: {}", (tostring(v115)));
+                            v8:warning("Error in CreateConversation request before navigate to conversation. error: {}", (tostring(v116)));
                         end);
                     end);
                     return;
                 end;
             end, v51.ChatConversation);
-            l_updateExternalNavigationForScreen_0(function(v116) --[[ Line: 460 ]]
-                -- upvalues: v104 (copy), v27 (ref), v51 (ref), v71 (ref)
-                v104(v27.Actions.navigate({
+            l_updateExternalNavigationForScreen_0(function(v117) --[[ Line: 461 ]]
+                -- upvalues: v105 (copy), v27 (ref), v51 (ref), v72 (ref)
+                v105(v27.Actions.navigate({
                     routeName = v51.ChatLanding, 
-                    params = v116
+                    params = v117
                 }));
-                if v71.wideMode then
-                    v104(v27.Actions.navigate({
+                if v72.wideMode then
+                    v105(v27.Actions.navigate({
                         routeName = v51.EmptyConversation
                     }));
                 end;
             end, v51.ChatLanding);
-            return function() --[[ Line: 472 ]]
-                -- upvalues: l_updateExternalNavigationForScreen_0 (copy), v51 (ref), l_GetFFlagIsSquadEnabled_0 (ref), v89 (ref)
+            return function() --[[ Line: 473 ]]
+                -- upvalues: l_updateExternalNavigationForScreen_0 (copy), v51 (ref), l_GetFFlagIsSquadEnabled_0 (ref), v90 (ref)
                 l_updateExternalNavigationForScreen_0(nil, v51.ChatLanding);
                 l_updateExternalNavigationForScreen_0(nil, v51.ChatConversation);
                 if l_GetFFlagIsSquadEnabled_0() then
                     l_updateExternalNavigationForScreen_0(nil, v51.SquadLobby);
                 end;
-                v89.current = nil;
+                v90.current = nil;
             end;
+        end;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v90
+    } else l_dependencyArray_0(v90));
+    local v120 = l_useCallback_0(function(v119) --[[ Line: 488 ]]
+        -- upvalues: v16 (ref)
+        return v16(false).getScreenTopBar(v119)(false);
+    end, {});
+    local v123 = l_useCallback_0(function(v121, v122) --[[ Line: 493 ]]
+        -- upvalues: v16 (ref)
+        v16(false).setScreenTopBar(v121, v122);
+    end, {});
+    local v125 = l_useCallback_0(function(v124) --[[ Line: 497 ]]
+        -- upvalues: v3 (ref), v84 (copy)
+        v3.isType(v124, "string", "screen");
+        return v84[v124] or {};
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v84
+    } else l_dependencyArray_0(v84));
+    local v130 = l_useCallback_0(function(v126, v127) --[[ Line: 502 ]]
+        -- upvalues: v3 (ref), v85 (copy), v4 (ref)
+        v3.isType(v126, "string", "screen");
+        v3.isType(v127, "table", "state");
+        v85(function(v128) --[[ Line: 505 ]]
+            -- upvalues: v4 (ref), v126 (copy), v127 (copy)
+            local v129 = v4.Dictionary.join(v128[v126] or {}, v127);
+            return v4.Dictionary.join(v128, {
+                [v126] = v129
+            });
+        end);
+    end, {});
+    local v131 = if v19 then v120 else v125;
+    local v132 = if v19 then v123 else v130;
+    local v134 = l_useCallback_0(function(v133) --[[ Line: 521 ]]
+        -- upvalues: v89 (copy), v92 (copy)
+        if v89.current then
+            v89.current:disconnect();
+            v89.current = nil;
+        end;
+        if v133 then
+            v89.current = v133:connect(v92);
         end;
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
         v89
     } else l_dependencyArray_0(v89));
-    local v119 = l_useCallback_0(function(v118) --[[ Line: 487 ]]
-        -- upvalues: v16 (ref)
-        return v16(false).getScreenTopBar(v118)(false);
-    end, {});
-    local v122 = l_useCallback_0(function(v120, v121) --[[ Line: 492 ]]
-        -- upvalues: v16 (ref)
-        v16(false).setScreenTopBar(v120, v121);
-    end, {});
-    local v124 = l_useCallback_0(function(v123) --[[ Line: 496 ]]
-        -- upvalues: v3 (ref), v83 (copy)
-        v3.isType(v123, "string", "screen");
-        return v83[v123] or {};
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v83
-    } else l_dependencyArray_0(v83));
-    local v129 = l_useCallback_0(function(v125, v126) --[[ Line: 501 ]]
-        -- upvalues: v3 (ref), v84 (copy), v4 (ref)
-        v3.isType(v125, "string", "screen");
-        v3.isType(v126, "table", "state");
-        v84(function(v127) --[[ Line: 504 ]]
-            -- upvalues: v4 (ref), v125 (copy), v126 (copy)
-            local v128 = v4.Dictionary.join(v127[v125] or {}, v126);
-            return v4.Dictionary.join(v127, {
-                [v125] = v128
-            });
-        end);
-    end, {});
-    local v130 = if v19 then v119 else v124;
-    local v131 = if v19 then v122 else v129;
-    local v133 = l_useCallback_0(function(v132) --[[ Line: 520 ]]
-        -- upvalues: v88 (copy), v91 (copy)
-        if v88.current then
-            v88.current:disconnect();
-            v88.current = nil;
-        end;
-        if v132 then
-            v88.current = v132:connect(v91);
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v88
-    } else l_dependencyArray_0(v88));
-    l_useEffect_0(function() --[[ Line: 535 ]]
-        -- upvalues: v87 (copy), v133 (copy), v71 (copy), v80 (copy), v54 (ref)
-        v87.current = true;
-        v133(v71.rnBypassActionSignal);
-        return function() --[[ Line: 539 ]]
-            -- upvalues: v87 (ref), v133 (ref), v80 (ref), v54 (ref)
-            v87.current = false;
-            v133(nil);
-            v80(v54());
+    l_useEffect_0(function() --[[ Line: 536 ]]
+        -- upvalues: v88 (copy), v134 (copy), v72 (copy), v81 (copy), v54 (ref)
+        v88.current = true;
+        v134(v72.rnBypassActionSignal);
+        return function() --[[ Line: 540 ]]
+            -- upvalues: v88 (ref), v134 (ref), v81 (ref), v54 (ref)
+            v88.current = false;
+            v134(nil);
+            v81(v54());
         end;
     end, {});
-    l_useEffect_0(function() --[[ Line: 548 ]]
-        -- upvalues: v71 (copy), v72 (copy), v80 (copy), v55 (ref), v51 (ref), v75 (copy)
-        if v71.initialConversationId and v71.initialConversationId ~= "" and v72 then
-            v80(v55({
+    l_useEffect_0(function() --[[ Line: 549 ]]
+        -- upvalues: v72 (copy), v73 (copy), v81 (copy), v55 (ref), v51 (ref), v76 (copy)
+        if v72.initialConversationId and v72.initialConversationId ~= "" and v73 then
+            v81(v55({
                 screen = v51.ChatConversation, 
                 params = {
-                    userId = v75, 
-                    conversationId = v71.initialConversationId
+                    userId = v76, 
+                    conversationId = v72.initialConversationId
                 }
             }));
-            v71.setInitialConversationId("");
+            v72.setInitialConversationId("");
         end;
-        return function() --[[ Line: 557 ]]
+        return function() --[[ Line: 558 ]]
 
         end;
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v80, 
-        v75, 
-        v71.initialConversationId, 
-        v71.setInitialConversationId
-    } else l_dependencyArray_0(v80, v75, v71.initialConversationId, v71.setInitialConversationId));
-    local v134 = nil;
+        v81, 
+        v76, 
+        v72.initialConversationId, 
+        v72.setInitialConversationId
+    } else l_dependencyArray_0(v81, v76, v72.initialConversationId, v72.setInitialConversationId));
     local v135 = nil;
+    local v136 = nil;
     if l_GetFFlagIsSquadEnabled_0() then
-        v134 = l_useCurrentSquadParentChannelId_0();
+        v135 = l_useCurrentSquadParentChannelId_0();
         if l_GetFFlagEnableCrossExpVoice_0() then
-            v135 = l_useIsVoiceConnected_0();
+            v136 = l_useIsVoiceConnected_0();
         end;
     end;
-    l_useEffect_0(function() --[[ Line: 578 ]]
-        -- upvalues: l_GetFFlagIsSquadEnabled_0 (ref), v72 (copy), v71 (copy), v134 (ref), l_GetFFlagEnableCrossExpVoice_0 (ref), v135 (ref), v80 (copy), v55 (ref), v51 (ref), v75 (copy)
-        if l_GetFFlagIsSquadEnabled_0() and v72 and v71.initialConversationId == "" and v134 then
-            if l_GetFFlagEnableCrossExpVoice_0() and v135 then
-                v80(v55({
+    l_useEffect_0(function() --[[ Line: 579 ]]
+        -- upvalues: l_GetFFlagIsSquadEnabled_0 (ref), v73 (copy), v72 (copy), v135 (ref), l_GetFFlagEnableCrossExpVoice_0 (ref), v136 (ref), v81 (copy), v55 (ref), v51 (ref), v76 (copy)
+        if l_GetFFlagIsSquadEnabled_0() and v73 and v72.initialConversationId == "" and v135 then
+            if l_GetFFlagEnableCrossExpVoice_0() and v136 then
+                v81(v55({
                     screen = v51.SquadLobby, 
                     params = {
-                        userId = v75, 
-                        conversationId = v134
+                        userId = v76, 
+                        conversationId = v135
                     }
                 }));
                 return;
             else
-                v80(v55({
+                v81(v55({
                     screen = v51.ChatConversation, 
                     params = {
-                        userId = v75, 
-                        conversationId = v134
+                        userId = v76, 
+                        conversationId = v135
                     }
                 }));
             end;
         end;
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {} else l_dependencyArray_0());
-    l_useEffect_0(function() --[[ Line: 600 ]]
-        -- upvalues: v133 (copy), v71 (copy)
-        v133(v71.rnBypassActionSignal);
+    l_useEffect_0(function() --[[ Line: 601 ]]
+        -- upvalues: v134 (copy), v72 (copy)
+        v134(v72.rnBypassActionSignal);
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v71.rnBypassActionSignal
-    } else l_dependencyArray_0(v71.rnBypassActionSignal));
-    l_useEffect_0(function() --[[ Line: 609 ]]
-        -- upvalues: v19 (ref), v4 (ref), v83 (copy), v84 (copy)
-        if not v19 and not v4.isEmpty(v83) then
-            v84({});
+        v72.rnBypassActionSignal
+    } else l_dependencyArray_0(v72.rnBypassActionSignal));
+    l_useEffect_0(function() --[[ Line: 610 ]]
+        -- upvalues: v19 (ref), v4 (ref), v84 (copy), v85 (copy)
+        if not v19 and not v4.isEmpty(v84) then
+            v85({});
         end;
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v71.wideMode, 
+        v72.wideMode, 
         v19
-    } else l_dependencyArray_0(v71.wideMode, v19));
-    local v137 = v31(function(v136) --[[ Line: 619 ]]
-        return v136.getChatHeaderSearch();
+    } else l_dependencyArray_0(v72.wideMode, v19));
+    local v138 = v31(function(v137) --[[ Line: 620 ]]
+        return v137.getChatHeaderSearch();
     end);
-    local v139 = v31(function(v138) --[[ Line: 622 ]]
-        return v138.getChatHeaderCreateChatGroup();
+    local v140 = v31(function(v139) --[[ Line: 623 ]]
+        return v139.getChatHeaderCreateChatGroup();
     end);
-    local v141 = v31(function(v140) --[[ Line: 625 ]]
+    local v142 = v31(function(v141) --[[ Line: 626 ]]
         -- upvalues: v56 (ref)
-        return v140.getChatHeaderNotifications() and (not v56() or v140.getWebViewSupport());
+        return v141.getChatHeaderNotifications() and (not v56() or v141.getWebViewSupport());
     end);
-    local v142 = l_usePageSideMargin_0(v86.current);
-    local v143 = v26.useMemo(function() --[[ Line: 631 ]]
-        -- upvalues: v72 (copy), v142 (copy)
+    local v143 = l_usePageSideMargin_0(v87.current);
+    local v144 = v26.useMemo(function() --[[ Line: 632 ]]
+        -- upvalues: v73 (copy), v143 (copy)
         return {
-            outer = v72 and 12 or v142, 
-            inner = v72 and 12 or v142, 
+            outer = v73 and 12 or v143, 
+            inner = v73 and 12 or v143, 
             default = 12
         };
     end, {
-        v142, 
-        v72
+        v143, 
+        v73
     });
-    local v144 = not v72 and v141;
-    local v145 = v137 and not v72;
-    local v146 = v45();
-    v139 = v139 and v146;
-    v145 = v145 and v146;
-    local v147 = v72 and l_GetFFlagEnableAppChatInExperience_0();
-    local v148 = l_useStyle_0();
-    local v150 = l_useCallback_0(function(v149) --[[ Line: 651 ]]
-        -- upvalues: v80 (copy), l_SetTabBarVisible_0 (ref)
-        v80(l_SetTabBarVisible_0(v149));
+    local v145 = v45();
+    local v146 = if v60() then nil else not v73 and v142;
+    local v147 = if v60() then nil else v138 and not v73 and v145;
+    local v148 = if v60() then nil else v140 and v145;
+    local v149 = if v60() then nil else v73 and l_GetFFlagEnableAppChatInExperience_0();
+    local v150 = l_useStyle_0();
+    local v152 = l_useCallback_0(function(v151) --[[ Line: 658 ]]
+        -- upvalues: v81 (copy), l_SetTabBarVisible_0 (ref)
+        v81(l_SetTabBarVisible_0(v151));
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v80
-    } else l_dependencyArray_0(v80));
-    local v151 = v26.createElement(v86, {
-        externalDispatchConnector = v117, 
-        parameters = v71.parameters, 
-        setActiveConversationId = v71.setActiveConversationId, 
-        setBackButtonEnabled = v71.setBackButtonEnabled, 
-        setTabBarVisible = v150, 
-        chatIsVisible = v82, 
+        v81
+    } else l_dependencyArray_0(v81));
+    local v153 = v26.createElement(v87, {
+        externalDispatchConnector = v118, 
+        parameters = v72.parameters, 
+        setActiveConversationId = v72.setActiveConversationId, 
+        setBackButtonEnabled = v72.setBackButtonEnabled, 
+        setTabBarVisible = v152, 
+        chatIsVisible = v83, 
         screenProps = {
-            navigateToLuaAppPages = v71.navigateToLuaAppPages, 
-            topBarHeight = math.max(l_UserInputService_0.NavBarSize.Y, if v73 then v73.Size.Size_1400 else l_NAV_BAR_WITH_FACEPILE_SIZE_0), 
-            wideMode = v71.wideMode, 
-            isInExperience = v72, 
-            isVisible = v71.isVisible, 
-            notificationCount = v71.notificationCount, 
-            appChatOuterPadding = v143.outer, 
-            appChatInnerPadding = v143.inner, 
-            appChatDefaultPadding = v143.default, 
-            topBarShowSearch = v145, 
-            topBarShowCreateChatGroup = v139, 
-            topBarShowNotifications = v144, 
-            topBarShowSnoozeNotifications = v147, 
-            topBarUtilityIconSideMargin = if l_FFlagEnableHeaderBarButtonsUpdate_0 then v73.Size.Size_100 else nil, 
-            showSearchRow = v72, 
-            navigateToRootStack = v71.navigateToRootStack, 
-            navigateToAddFriends = v71.navigateToAddFriends, 
-            getScreenTopBar = if v19 then nil else v130, 
-            setScreenTopBar = if v19 then nil else v131
+            navigateToLuaAppPages = v72.navigateToLuaAppPages, 
+            topBarHeight = math.max(l_UserInputService_0.NavBarSize.Y, if v74 then v74.Size.Size_1400 else l_NAV_BAR_WITH_FACEPILE_SIZE_0), 
+            wideMode = v72.wideMode, 
+            isInExperience = v73, 
+            isVisible = v72.isVisible, 
+            notificationCount = v72.notificationCount, 
+            appChatOuterPadding = v144.outer, 
+            appChatInnerPadding = v144.inner, 
+            appChatDefaultPadding = v144.default, 
+            topBarShowSearch = v147, 
+            topBarShowCreateChatGroup = v148, 
+            topBarShowNotifications = v146, 
+            topBarShowSnoozeNotifications = v149, 
+            topBarUtilityIconSideMargin = if l_FFlagEnableHeaderBarButtonsUpdate_0 then v74.Size.Size_100 else nil, 
+            showSearchRow = v73, 
+            navigateToRootStack = v72.navigateToRootStack, 
+            navigateToAddFriends = v72.navigateToAddFriends, 
+            getScreenTopBar = if v19 then nil else v131, 
+            setScreenTopBar = if v19 then nil else v132
         }
     });
-    v151 = v26.createElement(v20, {
-        navigateToLuaAppPages = v71.navigateToLuaAppPages, 
-        dispatch = v80
+    v153 = v26.createElement(v20, {
+        navigateToLuaAppPages = v72.navigateToLuaAppPages, 
+        dispatch = v81
     }, {
-        navigation = v151
+        navigation = v153
     });
-    v151 = v26.createElement(v18.Provider, {
+    v153 = v26.createElement(v18.Provider, {
         value = {
-            chatPlacement = v71.chatPlacement
+            chatPlacement = v72.chatPlacement
         }
     }, {
-        navigation = v151
+        navigation = v153
     });
     if v58() then
-        v151 = v26.createElement(v43, {}, {
-            navigation = v151
+        v153 = v26.createElement(v43, {}, {
+            navigation = v153
         });
-        v151 = v26.createElement(v47.InteractionFeedbackContext.Provider, {
+        v153 = v26.createElement(v47.InteractionFeedbackContext.Provider, {
             value = l_HapticFeedbackConfig_0
         }, {
-            navigation = v151
+            navigation = v153
         });
     end;
-    if not v72 then
-        v151 = v26.createElement(l_LayerCollectorProvider_0, {}, {
-            navigation = v151
+    if not v73 then
+        v153 = v26.createElement(l_LayerCollectorProvider_0, {}, {
+            navigation = v153
         });
     end;
-    local v152 = v42();
+    local v154 = v42();
     local l_l_RbxAnalyticsService_0_PlaySessionId_0 = l_RbxAnalyticsService_0:GetPlaySessionId();
-    local v156 = if l_GetFFlagIsSquadEnabled_0() then l_useSelector_0(function(v154) --[[ Line: 723 ]]
-        local v155 = v154.Squad and v154.Squad.Squad and v154.Squad.Squad.currentSquad;
-        if v155 and v155.squadId then
-            return v155.squadId;
+    local v158 = if l_GetFFlagIsSquadEnabled_0() then l_useSelector_0(function(v156) --[[ Line: 730 ]]
+        local v157 = v156.Squad and v156.Squad.Squad and v156.Squad.Squad.currentSquad;
+        if v157 and v157.squadId then
+            return v157.squadId;
         else
             return nil;
         end;
     end) else nil;
-    local v157 = v26.createElement(v15, {
-        localUserId = v75, 
-        entryPoint = v79
+    local v159 = v26.createElement(v15, {
+        localUserId = v76, 
+        entryPoint = v80
     }, {
         telemetry = v26.createElement(v23.Provider, {
             value = {
                 context = "platformChat", 
-                locale = v152, 
-                entryPoint = v79 or "unknown", 
-                userId = v75, 
+                locale = v154, 
+                entryPoint = v80 or "unknown", 
+                userId = v76, 
                 playSessionId = l_l_RbxAnalyticsService_0_PlaySessionId_0, 
-                currentSquadId = v156, 
-                placement = v71.chatPlacement
+                currentSquadId = v158, 
+                placement = v72.chatPlacement
             }
         }, {
             v26.createElement(if v19 then v26.Fragment else v17.Provider, if v19 then nil else {
-                value = v4.Dictionary.join(v83, {
-                    getScreenTopBar = v130, 
-                    setScreenTopBar = v131
+                value = v4.Dictionary.join(v84, {
+                    getScreenTopBar = v131, 
+                    setScreenTopBar = v132
                 })
             }, {
-                navigation = v151, 
-                BottomInsetBackground = if v77.bottom > 0 then v26.createElement("Frame", {
-                    BackgroundColor3 = if v57() then v148.Theme.BackgroundDefault.Color else v148.Theme.NavigationBar.Color, 
-                    BackgroundTransparency = if v57() then v148.Theme.BackgroundDefault.Transparency else v148.Theme.NavigationBar.Transparency, 
+                navigation = v153, 
+                BottomInsetBackground = if v78.bottom > 0 then v26.createElement("Frame", {
+                    BackgroundColor3 = if v57() then v150.Theme.BackgroundDefault.Color else v150.Theme.NavigationBar.Color, 
+                    BackgroundTransparency = if v57() then v150.Theme.BackgroundDefault.Transparency else v150.Theme.NavigationBar.Transparency, 
                     BorderSizePixel = 0, 
                     Position = UDim2.new(0, 0, 1, 0), 
-                    Size = UDim2.new(1, 0, 0, v77.bottom), 
+                    Size = UDim2.new(1, 0, 0, v78.bottom), 
                     ZIndex = 3
                 }) else nil
             })
         })
     });
     if v24 then
-        l_useEffect_0(function() --[[ Line: 777 ]]
-            -- upvalues: v25 (ref), v71 (copy), v79 (copy), v156 (copy)
+        l_useEffect_0(function() --[[ Line: 784 ]]
+            -- upvalues: v25 (ref), v72 (copy), v80 (copy), v158 (copy)
             v25.setSharedContext({
-                placement = v71.chatPlacement, 
-                entryPoint = v79, 
-                hasActiveParty = v156 ~= nil
+                placement = v72.chatPlacement, 
+                entryPoint = v80, 
+                hasActiveParty = v158 ~= nil
             });
         end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-            v71.chatPlacement, 
-            v79, 
-            v156
-        } else l_dependencyArray_0(v71.chatPlacement, v79, v156));
+            v72.chatPlacement, 
+            v80, 
+            v158
+        } else l_dependencyArray_0(v72.chatPlacement, v80, v158));
     end;
     return v26.createElement(v22, {
-        entryPoint = v79
+        entryPoint = v80
     }, {
-        v157
+        v159
     });
 end;
 return l_memo_0(AppChatEntryPoint);

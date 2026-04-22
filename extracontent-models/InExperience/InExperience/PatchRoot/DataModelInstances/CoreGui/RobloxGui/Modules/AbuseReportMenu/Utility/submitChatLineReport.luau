@@ -2,11 +2,12 @@ local l_script_FirstAncestor_0 = script:FindFirstAncestor("AbuseReportMenu");
 local l_CorePackages_0 = game:GetService("CorePackages");
 local l_Players_0 = game:GetService("Players");
 local l_isSystemMessage_0 = require(l_CorePackages_0.Workspace.Packages.ChatLineReporting).Helpers.isSystemMessage;
-local v4 = require(l_script_FirstAncestor_0.Components.Constants);
+local l_FFlagEnableGlobalChatAbuseReporting_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableGlobalChatAbuseReporting;
+local v5 = require(l_script_FirstAncestor_0.Components.Constants);
 local _ = require(l_script_FirstAncestor_0.Components.Types);
-local function v12(v6, v7, v8, v9, v10) --[[ Line: 12 ]] --[[ Name: buildReportTags ]]
-    -- upvalues: v4 (copy)
-    local v11 = {
+local function v13(v7, v8, v9, v10, v11) --[[ Line: 15 ]] --[[ Name: buildReportTags ]]
+    -- upvalues: v5 (copy)
+    local v12 = {
         tags = {
             ENTRY_POINT = {
                 valueList = {
@@ -18,21 +19,21 @@ local function v12(v6, v7, v8, v9, v10) --[[ Line: 12 ]] --[[ Name: buildReportT
             SUBMITTER_USER_ID = {
                 valueList = {
                     {
-                        data = tostring(v6)
+                        data = tostring(v7)
                     }
                 }
             }, 
             REPORTED_ABUSE_CATEGORY = {
                 valueList = {
                     {
-                        data = v8
+                        data = v9
                     }
                 }
             }, 
             REPORTER_COMMENT = {
                 valueList = {
                     {
-                        data = v9
+                        data = v10
                     }
                 }
             }, 
@@ -46,56 +47,63 @@ local function v12(v6, v7, v8, v9, v10) --[[ Line: 12 ]] --[[ Name: buildReportT
             REPORT_TARGET_USER_ID = {
                 valueList = {
                     {
-                        data = v7
+                        data = v8
                     }
                 }
             }, 
             VARIANT = {
                 valueList = {
                     {
-                        data = v4.ChatLineReportingVariant.IGM_CLRv1
+                        data = v5.ChatLineReportingVariant.IGM_CLRv1
                     }
                 }
             }
         }
     };
-    if v10 then
-        v11.tags.REPORT_TARGET_MESSAGE_ID = {
+    if v11 then
+        v12.tags.REPORT_TARGET_MESSAGE_ID = {
             valueList = {
                 {
-                    data = v10
+                    data = v11
                 }
             }
         };
     end;
-    return v11;
+    return v12;
 end;
-return function(v13) --[[ Line: 84 ]]
-    -- upvalues: v12 (copy), l_isSystemMessage_0 (copy), l_Players_0 (copy)
-    local v14 = v12(v13.localPlayerUserId, v13.reportTargetUser, v13.abuseReason, v13.abuseDescription, v13.selectedMessage.messageId);
-    local v15 = {};
-    for _, v17 in ipairs(v13.orderedMessages) do
-        if v17.userId ~= nil and v17.textChannel ~= nil then
-            local v18 = {
-                channel = v17.textChannel, 
-                messageId = v17.messageId
+return function(v14) --[[ Line: 87 ]]
+    -- upvalues: v13 (copy), l_FFlagEnableGlobalChatAbuseReporting_0 (copy), l_isSystemMessage_0 (copy), l_Players_0 (copy)
+    local v15 = v13(v14.localPlayerUserId, v14.reportTargetUser, v14.abuseReason, v14.abuseDescription, v14.selectedMessage.messageId);
+    local v16 = {};
+    for _, v18 in ipairs(v14.orderedMessages) do
+        local v19 = false;
+        if v18.userId ~= nil then
+            v19 = true;
+            if v18.textChannel == nil then
+                v19 = l_FFlagEnableGlobalChatAbuseReporting_0;
+            end;
+        end;
+        if v19 then
+            local v20 = {
+                channel = v18.textChannel, 
+                messageId = v18.messageId
             };
             if not l_isSystemMessage_0({
-                userId = v17.userId, 
-                textChannel = v17.textChannel
+                userId = v18.userId, 
+                textChannel = v18.textChannel
             }) then
-                table.insert(v15, v18);
+                table.insert(v16, v20);
             end;
         end;
     end;
-    local v19 = {
+    local v21 = {
         {
-            channel = v13.selectedMessage.textChannel, 
-            messageId = v13.selectedMessage.messageId
+            channel = v14.selectedMessage.textChannel, 
+            messageId = v14.selectedMessage.messageId
         }
     };
-    task.defer(function() --[[ Line: 119 ]]
-        -- upvalues: l_Players_0 (ref), v15 (copy), v19 (copy), v14 (copy)
-        l_Players_0:ReportChatAbuse(v15, v19, v14);
+    task.defer(function() --[[ Line: 123 ]]
+        -- upvalues: l_Players_0 (ref), v16 (copy), v21 (copy), v15 (copy)
+        l_Players_0:ReportChatAbuse(v16, v21, v15);
     end);
 end;

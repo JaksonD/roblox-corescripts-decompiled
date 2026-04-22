@@ -5,7 +5,6 @@ return {
     useFoundationButton = l_UIBlox_0.GetFFlagUIBloxUseFoundationButton(), 
     setZIndexOnGridCells = game:DefineFastFlag("UIBloxUseNewZindex", false), 
     passRowAndColumnDataToItemInGridView = game:DefineFastFlag("UIBloxUseGridInfoForTile", false), 
-    useProvidedRefForButton = true, 
     responsiveGridDisplayLinesNonNil = true, 
     enableTooltipV2HoverControllerReRenderFix = l_UIBlox_0.GetFFlagUIBloxEnableTooltipV2HoverControllerReRenderFix(), 
     enableTooltipV2BodyFontFix = l_UIBlox_0.GetFFlagUIBloxEnableTooltipV2BodyFontFix(), 
@@ -15,10 +14,11 @@ return {
     enableScalingForSomeEdpIcons = true, 
     enableShortcutCustomization = v1.FFlagLuaAppEnableStickyShortcutBar or v1.FFlagGuacStickyShortcutBarEnabled, 
     enableActionBarButtonOverride = l_UIBlox_0.FFlagUIBloxEnableActionBarButtonOverride, 
-    enablePanel3DSurfaceGuiRef = v1.FFlagLuaAppSupportFoundationOverlayInVR, 
     enableTooltipRichText = l_UIBlox_0.FFlagUIBloxEnableTooltipRichText, 
     fixCoplayFooterConditionalHooks = l_UIBlox_0.FFlagUIBloxFixCoplayFooterConditionalHooks, 
     useFoundationCheckbox = l_UIBlox_0.FFlagLuaAppUseFoundationCheckbox, 
     useFoundationLoading = l_UIBlox_0.FFlagLuaAppUseFoundationLoading, 
-    disableTokenScaling = l_UIBlox_0.FFlagUIBloxDisableTokenScaling
+    disableTokenScaling = l_UIBlox_0.FFlagUIBloxDisableTokenScaling, 
+    enableFoundationTokenMapping = l_UIBlox_0.FFlagUIBloxEnableFoundationTokenMapping, 
+    useColorTokensForThemeMapping = l_UIBlox_0.FFlagUIBloxUseColorTokensForThemeMapping
 };

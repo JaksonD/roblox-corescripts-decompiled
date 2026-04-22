@@ -4000,6 +4000,14 @@ return {
                         value = "Pending", 
                         kind = "Name"
                     }
+                }, 
+                {
+                    directives = {}, 
+                    kind = "EnumValueDefinition", 
+                    name = {
+                        value = "Error", 
+                        kind = "Name"
+                    }
                 }
             }, 
             name = {
@@ -4072,6 +4080,46 @@ return {
                     kind = "EnumValueDefinition", 
                     name = {
                         value = "Subscription", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    directives = {}, 
+                    kind = "EnumValueDefinition", 
+                    name = {
+                        value = "CardVerification", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    directives = {}, 
+                    kind = "EnumValueDefinition", 
+                    name = {
+                        value = "Wait", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    directives = {}, 
+                    kind = "EnumValueDefinition", 
+                    name = {
+                        value = "UserAgreement", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    directives = {}, 
+                    kind = "EnumValueDefinition", 
+                    name = {
+                        value = "UserSettings", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    directives = {}, 
+                    kind = "EnumValueDefinition", 
+                    name = {
+                        value = "Invalid", 
                         kind = "Name"
                     }
                 }
@@ -4199,6 +4247,295 @@ return {
                     type = {
                         kind = "NamedType", 
                         name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "featureVector", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "endTime", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "startTime", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "Int", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "duration", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "vectorTargetID", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "evidence", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "decisionEventID", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "Int", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "violationType", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "Int", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "sublabel", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "acknowledgedTime", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "Boolean", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "permanent", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "Boolean", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "acknowledgeable", 
+                        kind = "Name"
+                    }
+                }
+            }, 
+            name = {
+                value = "TimeoutActionResponse", 
+                kind = "Name"
+            }
+        }, 
+        {
+            directives = {}, 
+            interfaces = {}, 
+            kind = "ObjectTypeDefinition", 
+            fields = {
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "id", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "displayUrl", 
+                        kind = "Name"
+                    }
+                }
+            }, 
+            name = {
+                value = "AgreementResponse", 
+                kind = "Name"
+            }
+        }, 
+        {
+            directives = {}, 
+            interfaces = {}, 
+            kind = "ObjectTypeDefinition", 
+            fields = {
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "settingName", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "String", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "settingValue", 
+                        kind = "Name"
+                    }
+                }
+            }, 
+            name = {
+                value = "UserSettingsResponse", 
+                kind = "Name"
+            }
+        }, 
+        {
+            directives = {}, 
+            interfaces = {}, 
+            kind = "ObjectTypeDefinition", 
+            fields = {
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
                             value = "RecourseActions", 
                             kind = "Name"
                         }
@@ -4224,6 +4561,60 @@ return {
                     }, 
                     name = {
                         value = "parentConsentTypes", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "ListType", 
+                        type = {
+                            kind = "NamedType", 
+                            name = {
+                                value = "TimeoutActionResponse", 
+                                kind = "Name"
+                            }
+                        }
+                    }, 
+                    name = {
+                        value = "timeoutActions", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "ListType", 
+                        type = {
+                            kind = "NamedType", 
+                            name = {
+                                value = "AgreementResponse", 
+                                kind = "Name"
+                            }
+                        }
+                    }, 
+                    name = {
+                        value = "agreements", 
+                        kind = "Name"
+                    }
+                }, 
+                {
+                    arguments = {}, 
+                    directives = {}, 
+                    kind = "FieldDefinition", 
+                    type = {
+                        kind = "NamedType", 
+                        name = {
+                            value = "UserSettingsResponse", 
+                            kind = "Name"
+                        }
+                    }, 
+                    name = {
+                        value = "userSettings", 
                         kind = "Name"
                     }
                 }

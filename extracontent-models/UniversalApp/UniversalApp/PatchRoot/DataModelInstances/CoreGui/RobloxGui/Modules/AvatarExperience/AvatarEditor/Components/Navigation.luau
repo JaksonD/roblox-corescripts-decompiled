@@ -27,7 +27,7 @@ local v25 = require(l_Modules_0.AvatarExperience.Common.Actions.ClearTryOns);
 local l_ItemView_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceSlotBasedEditor).Enums.ItemView;
 local v27 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
 local v28 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local v29 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = v11.Debug.logOnOverlayClosed;
 local v30 = require(l_Modules_0.AvatarExperience.Common.Thunks.Exit3DFullView);
 local v31 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
@@ -52,7 +52,7 @@ local function v43(v42) --[[ Line: 80 ]] --[[ Name: selectExternalNavigationRequ
     return v42.AvatarExperience.ExternalNavigationRequest or {};
 end;
 return v2.memo(function(v44) --[[ Line: 84 ]] --[[ Name: Navigation ]]
-    -- upvalues: v17 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), l_useSelector_0 (copy), v35 (copy), v37 (copy), v39 (copy), v41 (copy), v43 (copy), l_useSlotBasedEditorContext_0 (copy), l_ScreenLayout_0 (copy), l_ItemView_0 (copy), v2 (copy), v31 (copy), v24 (copy), v15 (copy), v20 (copy), v27 (copy), v16 (copy), l_wasLastInputGamepad_0 (copy), v29 (copy), v33 (copy), l_AvatarScreen_0 (copy), v18 (copy), v30 (copy), v23 (copy), v22 (copy), l_usePrevious_0 (copy), v25 (copy), v28 (copy), l_useAvatarRoute_0 (copy), v19 (copy)
+    -- upvalues: v17 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), l_useSelector_0 (copy), v35 (copy), v37 (copy), v39 (copy), v41 (copy), v43 (copy), l_useSlotBasedEditorContext_0 (copy), l_ScreenLayout_0 (copy), l_ItemView_0 (copy), v2 (copy), v31 (copy), v24 (copy), v15 (copy), v20 (copy), v27 (copy), v16 (copy), l_wasLastInputGamepad_0 (copy), l_logOnOverlayClosed_0 (copy), v33 (copy), l_AvatarScreen_0 (copy), v18 (copy), v30 (copy), v23 (copy), v22 (copy), l_usePrevious_0 (copy), v25 (copy), v28 (copy), l_useAvatarRoute_0 (copy), v19 (copy)
     local v45 = v17();
     local v46 = l_useDispatch_0();
     local v47 = l_useNavigation_0();
@@ -120,9 +120,9 @@ return v2.memo(function(v44) --[[ Line: 84 ]] --[[ Name: Navigation ]]
         v46
     });
     local v71 = v2.useCallback(function() --[[ Line: 165 ]]
-        -- upvalues: l_wasLastInputGamepad_0 (ref), v29 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v48 (copy)
+        -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v48 (copy)
         local v70 = l_wasLastInputGamepad_0();
-        v29("Navigation", v70);
+        l_logOnOverlayClosed_0("Navigation", v70);
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v70 then
             v48.captureFocus();
         end;

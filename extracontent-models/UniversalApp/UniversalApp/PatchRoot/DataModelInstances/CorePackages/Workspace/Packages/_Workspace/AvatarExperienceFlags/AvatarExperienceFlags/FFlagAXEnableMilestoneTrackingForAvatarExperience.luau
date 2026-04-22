@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AXEnableMilestoneTrackingForAvatarExperience", false);
+return game:DefineFastFlag("AXEnableMilestoneTrackingForAvatarExperienceV2", false);

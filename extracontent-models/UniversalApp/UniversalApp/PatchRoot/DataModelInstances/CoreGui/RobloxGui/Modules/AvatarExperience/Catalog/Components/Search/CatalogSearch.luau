@@ -38,59 +38,64 @@ local v36 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_FFlagAXEnableTTIViaModule_0 = v35.FFlagAXEnableTTIViaModule;
 local l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 = v35.FFlagAXEnableMilestoneTrackingForAvatarExperience;
 local l_TimeToInteractiveTracker_0 = require(l_CorePackages_0.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker;
-local l_TTIPerformanceManager_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceTTIPerformance).TTIPerformanceManager;
-local v41 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceSearch);
-local v42 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
-local l_AvatarScreen_0 = v42.Enums.AvatarScreen;
-local l_AvatarRoute_0 = v42.AvatarRoute.AvatarRoute;
-local l_useAvatarRoute_0 = v42.AvatarRoute.Hooks.useAvatarRoute;
-local v46 = require(l_Modules_0.LuaApp.Components.TopBar.TopBar);
-local v47 = require(l_Modules_0.LuaApp.Components.SearchBar);
-local v48 = require(l_Modules_0.AvatarExperience.Catalog.Actions.CatalogTilesLatencyTracker);
-local v49 = require(l_Modules_0.LuaApp.Actions.SetSearchParameters);
-local v50 = require(l_Modules_0.LuaApp.Actions.SetSearchType);
-local v51 = require(l_Modules_0.LuaApp.Analytics.Events.catalogSearchEvent);
+local v40 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceTTIPerformance);
+local l_TTIPerformanceManager_0 = v40.TTIPerformanceManager;
+local l_OrganicTTIMilestoneManager_0 = v40.OrganicTTIMilestoneManager;
+local v43 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceSearch);
+local v44 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
+local l_AvatarScreen_0 = v44.Enums.AvatarScreen;
+local l_AvatarRoute_0 = v44.AvatarRoute.AvatarRoute;
+local l_useAvatarRoute_0 = v44.AvatarRoute.Hooks.useAvatarRoute;
+local v48 = require(l_Modules_0.LuaApp.Components.TopBar.TopBar);
+local v49 = require(l_Modules_0.LuaApp.Components.SearchBar);
+local v50 = require(l_Modules_0.AvatarExperience.Catalog.Actions.CatalogTilesLatencyTracker);
+local v51 = require(l_Modules_0.LuaApp.Actions.SetSearchParameters);
+local v52 = require(l_Modules_0.LuaApp.Actions.SetSearchType);
+local v53 = require(l_Modules_0.LuaApp.Analytics.Events.catalogSearchEvent);
 local l_HorizontalPageMargin_0 = require(l_CorePackages_0.Packages.UIBlox).App.Container.HorizontalPageMargin;
-local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
+local v55 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
 local l_Common_0 = l_Modules_0.AvatarExperience.Common;
 local _ = require(l_Common_0.AvatarExperienceState);
-local v56 = require(l_Common_0.Components.RoactNavigation.NavigationUtils);
-local v57 = require(l_Common_0.withContextValue);
-local v58 = require(l_Common_0.Context.PageObjectManagerContext);
-local v59 = require(l_Common_0.Utils);
-local v60 = require(l_Common_0.NamedRefConstants);
+local v58 = require(l_Common_0.Components.RoactNavigation.NavigationUtils);
+local v59 = require(l_Common_0.withContextValue);
+local v60 = require(l_Common_0.Context.PageObjectManagerContext);
+local v61 = require(l_Common_0.Utils);
+local v62 = require(l_Common_0.NamedRefConstants);
 local l_AvatarScreenProperties_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).AvatarRoute.AvatarScreenProperties;
-local v62 = require(l_Common_0.Components.RoactNavigation.withAvatarRoute);
-local v63 = require(l_Common_0.Context.withNamedRefs);
-local v64 = require(l_Common_0.Services.Analytics);
-local v65 = require(l_Common_0.Components.AvatarExperienceView);
-local v66 = require(l_Common_0.Components.BoundInputsUpdater);
-local v67 = require(l_Common_0.Components.GamepadFocusHandlerForPage);
-local v68 = require(l_Common_0.Components.RoactNavigation.Debug.NavigationEventsLogger);
-local v69 = require(l_Common_0.Selectors.selectIsFullView);
+local v64 = require(l_Common_0.Components.RoactNavigation.withAvatarRoute);
+local v65 = require(l_Common_0.Context.withNamedRefs);
+local v66 = require(l_Common_0.Services.Analytics);
+local v67 = require(l_Common_0.Components.AvatarExperienceView);
+local v68 = require(l_Common_0.Components.BoundInputsUpdater);
+local v69 = require(l_Common_0.Components.GamepadFocusHandlerForPage);
+local v70 = require(l_Common_0.Components.RoactNavigation.Debug.NavigationEventsLogger);
+local v71 = require(l_Common_0.Selectors.selectIsFullView);
 local l_PeekViewState_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).PeekViewState;
-local v71 = require(l_Common_0.Actions.SetItemDetailsPeekViewState);
-local v72 = require(l_Common_0.Thunks.OpenItemPrompt);
-local v73 = require(l_Common_0.Thunks.OpenQuickMenu);
-local v74 = require(l_Common_0.Thunks.SetFullView);
-local v75 = require(l_Common_0.Enum.FullView);
-local v76 = require(l_Common_0.Hooks.useAvatarExperienceFocusNavigationBindings);
-local v77 = require(l_Common_0.Hooks.useOverlayClosedCallback);
+local v73 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
+local l_SetItemDetailsPeekViewState_0 = v73.Actions.SetItemDetailsPeekViewState;
+local v75 = require(l_Common_0.Thunks.OpenItemPrompt);
+local v76 = require(l_Common_0.Thunks.OpenQuickMenu);
+local v77 = require(l_Common_0.Thunks.SetFullView);
+local l_FullView_0 = v55.Enums.FullView;
+local v79 = require(l_Common_0.Hooks.useAvatarExperienceFocusNavigationBindings);
+local v80 = require(l_Common_0.Hooks.useOverlayClosedCallback);
 local l_Catalog_0 = l_Modules_0.AvatarExperience.Catalog;
-local v79 = require(l_Catalog_0.Services.Analytics);
-local v80 = require(l_Catalog_0.CatalogConstants);
-local v81 = require(l_Catalog_0.Components.Search.ResultsList);
-local v82 = require(l_Catalog_0.CatalogUtils);
-local v83 = require(l_Catalog_0.Actions.RemoveSearchInCatalog);
-local v84 = require(l_Catalog_0.Actions.SetSortAndFilters);
-local v85 = require(l_Catalog_0.Actions.ResetSortAndFilters);
-local v86 = require(l_Catalog_0.Actions.SetTryOnManagerPeekViewState);
-local v87 = require(l_Catalog_0.Thunks.FetchWidgetInfo);
-local v88 = require(l_Catalog_0.Thunks.ApiFetchCatalogSearch);
+local v82 = require(l_Catalog_0.Services.Analytics);
+local v83 = require(l_Catalog_0.CatalogConstants);
+local v84 = require(l_Catalog_0.Components.Search.ResultsList);
+local v85 = require(l_Catalog_0.CatalogUtils);
+local v86 = require(l_Catalog_0.Actions.RemoveSearchInCatalog);
+local v87 = require(l_Catalog_0.Actions.SetSortAndFilters);
+local v88 = require(l_Catalog_0.Actions.ResetSortAndFilters);
+local v89 = require(l_Catalog_0.Thunks.ResetSortAndFiltersThunk);
+local l_SetTryOnManagerPeekViewState_0 = v73.Actions.SetTryOnManagerPeekViewState;
+local v91 = require(l_Catalog_0.Thunks.FetchWidgetInfo);
+local v92 = require(l_Catalog_0.Thunks.ApiFetchCatalogSearch);
 local l_Flags_0 = l_Modules_0.AvatarExperience.Flags;
-local v90 = require(l_Flags_0.GetFFlagAvatarAutocompleteEnabledForAll);
-local v91 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableCatalogTileLoadingLatency);
-local v92 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
+local v94 = require(l_Flags_0.GetFFlagAvatarAutocompleteEnabledForAll);
+local v95 = require(l_Flags_0.FFlagAXResetAnalyticsMetadataOnFilterReset);
+local v96 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableCatalogTileLoadingLatency);
+local v97 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
 local l_FFlagAXEnableManualSaving_0 = v35.FFlagAXEnableManualSaving;
 local l_FFlagAXMISEnableMultiShopping_0 = v35.FFlagAXMISEnableMultiShopping;
 local l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateCatalogSearchToFocusNavigation;
@@ -98,40 +103,40 @@ local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace
 local l_FFlagAXExpandPeekViewOnFirstScroll_0 = v35.FFlagAXExpandPeekViewOnFirstScroll;
 local l_FFlagAXHideMenuOnScroll_0 = v35.FFlagAXHideMenuOnScroll;
 local l_FFlagAXCatalogCategoriesStore_0 = v35.FFlagAXCatalogCategoriesStore;
-local v100 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
+local v105 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
 local l_useSignalState_0 = require(l_CorePackages_0.Packages.SignalsReact).useSignalState;
-local l_RecentSearchTermsAppStorage_0 = v41.Utils.RecentSearchTermsAppStorage;
-local v103 = {
+local l_RecentSearchTermsAppStorage_0 = v43.Utils.RecentSearchTermsAppStorage;
+local v108 = {
     [Enum.KeyCode.ButtonX] = l_FocusNavigationEventNameEnum_0.OpenBuyCatalogItemPrompt, 
     [Enum.KeyCode.ButtonY] = l_FocusNavigationEventNameEnum_0.ToggleTryOn
 };
-local function v105(v104) --[[ Line: 152 ]]
-    return v104.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState;
+local function v110(v109) --[[ Line: 156 ]]
+    return v109.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState;
 end;
-local function v107(v106) --[[ Line: 156 ]]
-    return v106.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
+local function v112(v111) --[[ Line: 160 ]]
+    return v111.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
 end;
-local function v113(v108, v109, v110) --[[ Line: 160 ]] --[[ Name: useCatalogSearchFocusNavigationBindings ]]
-    -- upvalues: v24 (copy), v103 (copy), v6 (copy), l_FocusNavigationEventNameEnum_0 (copy), v25 (copy)
-    local v111 = v24.useEventMap(v103, v108);
-    local v112 = v6.useMemo(function() --[[ Line: 166 ]]
-        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v109 (copy), v25 (ref), v110 (copy)
+local function v118(v113, v114, v115) --[[ Line: 164 ]] --[[ Name: useCatalogSearchFocusNavigationBindings ]]
+    -- upvalues: v24 (copy), v108 (copy), v6 (copy), l_FocusNavigationEventNameEnum_0 (copy), v25 (copy)
+    local v116 = v24.useEventMap(v108, v113);
+    local v117 = v6.useMemo(function() --[[ Line: 170 ]]
+        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v114 (copy), v25 (ref), v115 (copy)
         return {
-            [l_FocusNavigationEventNameEnum_0.OpenBuyCatalogItemPrompt] = if v109 then {
-                handler = v25.onRelease(v109)
+            [l_FocusNavigationEventNameEnum_0.OpenBuyCatalogItemPrompt] = if v114 then {
+                handler = v25.onRelease(v114)
             } else nil, 
-            [l_FocusNavigationEventNameEnum_0.ToggleTryOn] = if v110 then {
-                handler = v25.onRelease(v110)
+            [l_FocusNavigationEventNameEnum_0.ToggleTryOn] = if v115 then {
+                handler = v25.onRelease(v115)
             } else nil
         };
     end, {
-        v109, 
-        v110
+        v114, 
+        v115
     });
-    return v24.useEventHandlerMap(v112, v111);
+    return v24.useEventHandlerMap(v117, v116);
 end;
-local v114 = v4.PureComponent:extend("CatalogSearch");
-v114.validateProps = v11.strictInterface({
+local v119 = v4.PureComponent:extend("CatalogSearch");
+v119.validateProps = v11.strictInterface({
     searchUuid = v11.string, 
     searchParameters = v11.table, 
     isVisible = v11.optional(v11.boolean), 
@@ -156,7 +161,7 @@ v114.validateProps = v11.strictInterface({
     resetSortAndFilters = v11.callback, 
     setTryOnManagerPeekViewState = v11.callback, 
     fetchWidgetInfo = v11.callback, 
-    dispatchCatalogTilesLatencyStartTracker = if v91() then v11.callback else nil, 
+    dispatchCatalogTilesLatencyStartTracker = if v96() then v11.callback else nil, 
     dispatchSearchWithParameters = v11.callback, 
     pageObjectManager = v11.optional(v11.table), 
     namedRefs = v11.table, 
@@ -173,138 +178,142 @@ v114.validateProps = v11.strictInterface({
     designTokens = v11.table, 
     focusNavigationRef = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then v11.table else nil
 });
-v114.init = function(v115) --[[ Line: 241 ]] --[[ Name: init ]]
-    -- upvalues: v4 (copy), l_AvatarScreen_0 (copy), v60 (copy), v5 (copy), v75 (copy), v82 (copy), v13 (copy), v33 (copy), v32 (copy), v90 (copy), v51 (copy), l_RecentSearchTermsAppStorage_0 (copy), v56 (copy), v59 (copy), v91 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (copy), l_TTIPerformanceManager_0 (copy), l_TimeToInteractiveTracker_0 (copy), v36 (copy)
-    local v116, v117 = v4.createBinding(0);
-    v115.pillBarScrollOffset = v116;
-    v115.updatePillBarScrollOffset = v117;
-    v115.searchBarRef = v4.createRef();
-    v115.sceneUIContainerRef = v4.createRef();
-    v115.resultsListRef = v115.props.namedRefs[l_AvatarScreen_0.CatalogSearch .. v60.ItemsList];
-    v115.refinementButtonsRef = v4.createRef();
-    v115.multiTryOnBottomBarRef = v4.createRef();
-    v115.isMounted = false;
-    v115.itemDetailsPeekViewRefs = v5.createRefCache();
-    v115:setState({
+v119.init = function(v120) --[[ Line: 245 ]] --[[ Name: init ]]
+    -- upvalues: v4 (copy), l_AvatarScreen_0 (copy), v62 (copy), v5 (copy), l_FullView_0 (copy), v85 (copy), v13 (copy), v33 (copy), v32 (copy), v94 (copy), v53 (copy), l_RecentSearchTermsAppStorage_0 (copy), v58 (copy), v61 (copy), v96 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (copy), l_TTIPerformanceManager_0 (copy), l_OrganicTTIMilestoneManager_0 (copy), l_TimeToInteractiveTracker_0 (copy), v36 (copy)
+    local v121, v122 = v4.createBinding(0);
+    v120.pillBarScrollOffset = v121;
+    v120.updatePillBarScrollOffset = v122;
+    v120.searchBarRef = v4.createRef();
+    v120.sceneUIContainerRef = v4.createRef();
+    v120.resultsListRef = v120.props.namedRefs[l_AvatarScreen_0.CatalogSearch .. v62.ItemsList];
+    v120.refinementButtonsRef = v4.createRef();
+    v120.multiTryOnBottomBarRef = v4.createRef();
+    v120.isMounted = false;
+    v120.itemDetailsPeekViewRefs = v5.createRefCache();
+    v120:setState({
         isSearching = false
     });
-    v115.onNavBarSizeChanged = function(v118) --[[ Line: 257 ]]
-        -- upvalues: v115 (copy)
-        if v115.resultsListRef.current then
-            v115.resultsListRef.current.Size = UDim2.new(1, 0, 1, -v118.Y);
+    v120.onNavBarSizeChanged = function(v123) --[[ Line: 261 ]]
+        -- upvalues: v120 (copy)
+        if v120.resultsListRef.current then
+            v120.resultsListRef.current.Size = UDim2.new(1, 0, 1, -v123.Y);
         end;
     end;
-    v115.dispatchInitialSearch = function() --[[ Line: 263 ]]
-        -- upvalues: v115 (copy), v75 (ref), v82 (ref), v13 (ref)
-        local l_searchUuid_0 = v115.props.searchUuid;
-        local l_searchParameters_0 = v115.props.searchParameters;
-        local l_dispatchSearchWithParameters_0 = v115.props.dispatchSearchWithParameters;
-        local v122 = v115.props.fullView == v75.SceneFullView;
-        local l_avatarExperienceAnalytics_0 = v115.props.avatarExperienceAnalytics;
-        if v122 then
-            v115.props.setFullView(l_avatarExperienceAnalytics_0, v115.props.avatarRoute.opaque.name, v75.None);
+    v120.dispatchInitialSearch = function() --[[ Line: 267 ]]
+        -- upvalues: v120 (copy), l_FullView_0 (ref), v85 (ref), v13 (ref)
+        local l_searchUuid_0 = v120.props.searchUuid;
+        local l_searchParameters_0 = v120.props.searchParameters;
+        local l_dispatchSearchWithParameters_0 = v120.props.dispatchSearchWithParameters;
+        local v127 = v120.props.fullView == l_FullView_0.SceneFullView;
+        local l_avatarExperienceAnalytics_0 = v120.props.avatarExperienceAnalytics;
+        if v127 then
+            v120.props.setFullView(l_avatarExperienceAnalytics_0, v120.props.avatarRoute.opaque.name, l_FullView_0.None);
         end;
-        local l_fetchWidgetInfo_0 = v115.props.fetchWidgetInfo;
-        local l_networking_0 = v115.props.networking;
-        local v126 = v82.getQueryStringForSearchWidgets(l_searchParameters_0);
-        if v126 then
-            l_fetchWidgetInfo_0(l_networking_0, v126);
+        local l_fetchWidgetInfo_0 = v120.props.fetchWidgetInfo;
+        local l_networking_0 = v120.props.networking;
+        local v131 = v85.getQueryStringForSearchWidgets(l_searchParameters_0);
+        if v131 then
+            l_fetchWidgetInfo_0(l_networking_0, v131);
         end;
-        local l_categoryInfo_0 = v115.props.categoryInfo;
+        local l_categoryInfo_0 = v120.props.categoryInfo;
         if not l_searchParameters_0.categoryInfo then
             l_searchParameters_0 = v13.join(l_searchParameters_0, {
                 categoryInfo = l_categoryInfo_0
             });
-            v115.props.setSearchParameters(l_searchUuid_0, l_searchParameters_0);
+            v120.props.setSearchParameters(l_searchUuid_0, l_searchParameters_0);
         end;
-        return l_dispatchSearchWithParameters_0(l_searchParameters_0, l_searchUuid_0, l_categoryInfo_0, v115.props.networking);
+        return l_dispatchSearchWithParameters_0(l_searchParameters_0, l_searchUuid_0, l_categoryInfo_0, v120.props.networking);
     end;
-    v115.setUIFullView = function() --[[ Line: 294 ]]
-        -- upvalues: v115 (copy), v75 (ref)
-        local l_avatarExperienceAnalytics_1 = v115.props.avatarExperienceAnalytics;
-        v115.props.setFullView(l_avatarExperienceAnalytics_1, v115.props.avatarRoute.opaque.name, v75.UIFullView);
+    v120.setUIFullView = function() --[[ Line: 298 ]]
+        -- upvalues: v120 (copy), l_FullView_0 (ref)
+        local l_avatarExperienceAnalytics_1 = v120.props.avatarExperienceAnalytics;
+        v120.props.setFullView(l_avatarExperienceAnalytics_1, v120.props.avatarRoute.opaque.name, l_FullView_0.UIFullView);
     end;
-    v115.confirmSearchCallback = function(v129, v130, v131) --[[ Line: 299 ]]
-        -- upvalues: v33 (ref), v115 (copy), v13 (ref), v32 (ref), v90 (ref), l_AvatarScreen_0 (ref), v51 (ref), l_RecentSearchTermsAppStorage_0 (ref), v56 (ref)
-        local v132 = v33();
-        local l_categoryInfo_1 = v115.props.categoryInfo;
-        local v134 = nil;
-        local v135 = v115.props.navigation.getParam("searchParams") or {};
-        v134 = v13.join(v135, {
-            searchKeyword = v129, 
+    v120.confirmSearchCallback = function(v134, v135, v136) --[[ Line: 303 ]]
+        -- upvalues: v33 (ref), v120 (copy), v13 (ref), v32 (ref), v94 (ref), l_AvatarScreen_0 (ref), v53 (ref), l_RecentSearchTermsAppStorage_0 (ref), v58 (ref)
+        local v137 = v33();
+        local l_categoryInfo_1 = v120.props.categoryInfo;
+        local v139 = nil;
+        local v140 = v120.props.navigation.getParam("searchParams") or {};
+        v139 = v13.join(v140, {
+            searchKeyword = v134, 
             isKeywordSuggestionEnabled = true, 
             categoryInfo = l_categoryInfo_1
         });
-        v115.props.setSearchType(v132, v32.SearchTypes.Catalog);
-        v115.props.setSearchParameters(v132, v134);
-        if v90() then
-            if v115.props.isPortrait then
-                v115.setUIFullView();
+        v120.props.setSearchType(v137, v32.SearchTypes.Catalog);
+        v120.props.setSearchParameters(v137, v139);
+        if v94() then
+            if v120.props.isPortrait then
+                v120.setUIFullView();
             end;
             local l_CatalogSearch_0 = l_AvatarScreen_0.CatalogSearch;
-            v51(v115.props.eventIngest, "catalog", v129, v130, l_CatalogSearch_0, v131);
+            v53(v120.props.eventIngest, "catalog", v134, v135, l_CatalogSearch_0, v136);
         end;
-        l_RecentSearchTermsAppStorage_0.addTerm(v129);
-        v56.navigateToSearch(v115.props.navigation, v132, v134);
+        l_RecentSearchTermsAppStorage_0.addTerm(v134);
+        v58.navigateToSearch(v120.props.navigation, v137, v139);
     end;
-    v115.cancelSearchCallback = function() --[[ Line: 341 ]]
-        -- upvalues: v115 (copy), l_AvatarScreen_0 (ref)
-        v115.props.navigation.navigate(l_AvatarScreen_0.Catalog);
-        if v115.isMounted then
-            v115:setState({
+    v120.cancelSearchCallback = function() --[[ Line: 345 ]]
+        -- upvalues: v120 (copy), l_AvatarScreen_0 (ref)
+        v120.props.navigation.navigate(l_AvatarScreen_0.Catalog);
+        if v120.isMounted then
+            v120:setState({
                 isSearching = false
             });
         end;
     end;
-    v115.onSearchBarFocused = function() --[[ Line: 351 ]]
-        -- upvalues: v115 (copy)
-        if not v115.isMounted then
+    v120.onSearchBarFocused = function() --[[ Line: 355 ]]
+        -- upvalues: v120 (copy)
+        if not v120.isMounted then
             return;
         else
-            v115:setState({
+            v120:setState({
                 isSearching = true
             });
             return;
         end;
     end;
-    v115.changeView = function() --[[ Line: 361 ]]
-        -- upvalues: v115 (copy), v59 (ref)
-        local l_avatarExperienceAnalytics_2 = v115.props.avatarExperienceAnalytics;
-        local v138 = v59.getNewFullViewEnum(v115.props.fullView);
-        v115.props.setFullView(l_avatarExperienceAnalytics_2, v115.props.avatarRoute.opaque.name, v138);
+    v120.changeView = function() --[[ Line: 365 ]]
+        -- upvalues: v120 (copy), v61 (ref)
+        local l_avatarExperienceAnalytics_2 = v120.props.avatarExperienceAnalytics;
+        local v143 = v61.getNewFullViewEnum(v120.props.fullView);
+        v120.props.setFullView(l_avatarExperienceAnalytics_2, v120.props.avatarRoute.opaque.name, v143);
     end;
-    v115.onSameTermConfirmSearch = function() --[[ Line: 368 ]]
-        -- upvalues: v115 (copy)
-        if v115.isMounted then
-            v115:setState({
+    v120.onSameTermConfirmSearch = function() --[[ Line: 372 ]]
+        -- upvalues: v120 (copy)
+        if v120.isMounted then
+            v120:setState({
                 isSearching = false
             });
         end;
     end;
-    v115.clearSearchState = function(v139) --[[ Line: 376 ]]
-        -- upvalues: v115 (copy)
-        v115.props.dispatchRemoveSearch(v139);
-        v115.props.pageObjectManager:storePageObject(v139, nil);
+    v120.clearSearchState = function(v144) --[[ Line: 380 ]]
+        -- upvalues: v120 (copy)
+        v120.props.dispatchRemoveSearch(v144);
+        v120.props.pageObjectManager:storePageObject(v144, nil);
     end;
-    v115.dispatchWidgetSearch = function() --[[ Line: 381 ]]
-        -- upvalues: v115 (copy), v82 (ref)
-        local l_searchParameters_1 = v115.props.searchParameters;
-        local l_fetchWidgetInfo_1 = v115.props.fetchWidgetInfo;
-        local l_networking_1 = v115.props.networking;
-        local v143 = v82.getQueryStringForSearchWidgets(l_searchParameters_1);
-        if v143 then
-            l_fetchWidgetInfo_1(l_networking_1, v143);
+    v120.dispatchWidgetSearch = function() --[[ Line: 385 ]]
+        -- upvalues: v120 (copy), v85 (ref)
+        local l_searchParameters_1 = v120.props.searchParameters;
+        local l_fetchWidgetInfo_1 = v120.props.fetchWidgetInfo;
+        local l_networking_1 = v120.props.networking;
+        local v148 = v85.getQueryStringForSearchWidgets(l_searchParameters_1);
+        if v148 then
+            l_fetchWidgetInfo_1(l_networking_1, v148);
         end;
     end;
-    v115.onCategoryOrSubcategoryChangeById = function(v144, v145) --[[ Line: 391 ]]
-        -- upvalues: v59 (ref), v115 (copy), v91 (ref), l_FFlagAXEnableTTIViaModule_0 (ref), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (ref), l_TTIPerformanceManager_0 (ref), l_TimeToInteractiveTracker_0 (ref), v36 (ref)
-        local v146 = v59.getCatalogCategoryInfoById(v144, v145);
-        if v146 ~= v115.props.categoryInfo then
-            v115.dispatchSearchOnCategoryOrSubcategoryChange(v146);
-            if v91() then
+    v120.onCategoryOrSubcategoryChangeById = function(v149, v150) --[[ Line: 395 ]]
+        -- upvalues: v61 (ref), v120 (copy), v96 (ref), l_FFlagAXEnableTTIViaModule_0 (ref), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (ref), l_TTIPerformanceManager_0 (ref), l_OrganicTTIMilestoneManager_0 (ref), l_TimeToInteractiveTracker_0 (ref), v36 (ref)
+        local v151 = v61.getCatalogCategoryInfoById(v149, v150);
+        if v151 ~= v120.props.categoryInfo then
+            v120.dispatchSearchOnCategoryOrSubcategoryChange(v151);
+            if v96() then
                 if l_FFlagAXEnableTTIViaModule_0 then
                     if l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 then
                         l_TTIPerformanceManager_0.Surface.Marketplace.Root.startTracking();
+                        if l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 and l_OrganicTTIMilestoneManager_0 then
+                            l_OrganicTTIMilestoneManager_0.L2.primaryDataStarted();
+                            l_OrganicTTIMilestoneManager_0.L3.networkFetch();
+                        end;
                     else
                         l_TimeToInteractiveTracker_0.trackStart(v36.Counter.PREFIX .. v36.Counter.Latency.Organic.Tiles);
                         l_TimeToInteractiveTracker_0.trackStart(v36.Counter.PREFIX .. v36.Counter.Latency.Organic.Thumbnails);
@@ -312,75 +321,75 @@ v114.init = function(v115) --[[ Line: 241 ]] --[[ Name: init ]]
                         l_TimeToInteractiveTracker_0.trackStart(v36.Counter.PREFIX .. v36.Counter.Latency.Widget.Thumbnails);
                     end;
                 end;
-                v115.props.dispatchCatalogTilesLatencyStartTracker(v115.props.searchUuid);
+                v120.props.dispatchCatalogTilesLatencyStartTracker(v120.props.searchUuid);
             end;
         end;
     end;
-    v115.dispatchSearchOnCategoryOrSubcategoryChange = function(v147) --[[ Line: 428 ]]
-        -- upvalues: v115 (copy), v13 (ref)
-        local l_searchUuid_1 = v115.props.searchUuid;
-        local l_searchParameters_2 = v115.props.searchParameters;
-        local l_dispatchSearch_0 = v115.props.dispatchSearch;
-        local v151 = v13.join(l_searchParameters_2, {
-            categoryInfo = v13.join({}, v147)
+    v120.dispatchSearchOnCategoryOrSubcategoryChange = function(v152) --[[ Line: 436 ]]
+        -- upvalues: v120 (copy), v13 (ref)
+        local l_searchUuid_1 = v120.props.searchUuid;
+        local l_searchParameters_2 = v120.props.searchParameters;
+        local l_dispatchSearch_0 = v120.props.dispatchSearch;
+        local v156 = v13.join(l_searchParameters_2, {
+            categoryInfo = v13.join({}, v152)
         });
-        v115.props.setSearchParameters(l_searchUuid_1, v151);
-        v115.clearSearchState(l_searchUuid_1);
-        if v147 and v147.ShowWidgets then
-            v115.dispatchWidgetSearch();
+        v120.props.setSearchParameters(l_searchUuid_1, v156);
+        v120.clearSearchState(l_searchUuid_1);
+        if v152 and v152.ShowWidgets then
+            v120.dispatchWidgetSearch();
         end;
-        return l_dispatchSearch_0(l_searchParameters_2.searchKeyword, l_searchUuid_1, v147, v115.props.networking);
+        return l_dispatchSearch_0(l_searchParameters_2.searchKeyword, l_searchUuid_1, v152, v120.props.networking);
     end;
 end;
 if not l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then
-    v114.getInputBindings = function(v152) --[[ Line: 449 ]] --[[ Name: getInputBindings ]]
-        -- upvalues: l_AvatarScreenProperties_0 (copy), v12 (copy), v5 (copy), v56 (copy), l_AvatarScreen_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_PeekViewState_0 (copy)
-        local l_avatarRoute_0 = v152.props.avatarRoute;
+    v119.getInputBindings = function(v157) --[[ Line: 457 ]] --[[ Name: getInputBindings ]]
+        -- upvalues: l_AvatarScreenProperties_0 (copy), v12 (copy), v5 (copy), v58 (copy), l_AvatarScreen_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_PeekViewState_0 (copy)
+        local l_avatarRoute_0 = v157.props.avatarRoute;
         local l_name_0 = l_avatarRoute_0.current.name;
         local l_isMultiTryOn_0 = l_AvatarScreenProperties_0[l_avatarRoute_0.opaque.name].isMultiTryOn;
-        local v156 = #v12.Dictionary.values(v152.props.tryOnItems) > 1;
-        local v157 = {
-            NavigateBack = v5.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 457 ]]
-                -- upvalues: v56 (ref), v152 (copy)
-                v56.closeFocusedScreen(v152.props.navigation);
+        local v161 = #v12.Dictionary.values(v157.props.tryOnItems) > 1;
+        local v162 = {
+            NavigateBack = v5.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 465 ]]
+                -- upvalues: v58 (ref), v157 (copy)
+                v58.closeFocusedScreen(v157.props.navigation);
             end), 
-            OpenTryOnManager = if l_name_0 ~= l_AvatarScreen_0.TryOnManager and (l_isMultiTryOn_0 or l_FFlagAXMISEnableMultiShopping_0) and v156 then v5.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 463 ]]
-                -- upvalues: v56 (ref), v152 (copy), l_AvatarScreen_0 (ref)
-                v56.closeFiltersAndItemDetails(v152.props.navigation);
-                v152.props.navigation.navigate(l_AvatarScreen_0.TryOnManager);
+            OpenTryOnManager = if l_name_0 ~= l_AvatarScreen_0.TryOnManager and (l_isMultiTryOn_0 or l_FFlagAXMISEnableMultiShopping_0) and v161 then v5.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 471 ]]
+                -- upvalues: v58 (ref), v157 (copy), l_AvatarScreen_0 (ref)
+                v58.closeFiltersAndItemDetails(v157.props.navigation);
+                v157.props.navigation.navigate(l_AvatarScreen_0.TryOnManager);
             end, {
                 key = "Feature.Catalog.Label.TryOns"
             }) else nil
         };
         if l_name_0 == l_AvatarScreen_0.ItemDetails then
-            return (v12.Dictionary.join(v157, {
-                OpenItemPrompt = v5.Input.onBegin(Enum.KeyCode.ButtonX, function() --[[ Line: 474 ]]
-                    -- upvalues: v152 (copy), l_avatarRoute_0 (copy)
-                    v152.props.openItemPrompt(v152.props.networking, v152.props.catalogAnalytics, v152.props.overlayClosedCallback, v152.props.navigation, l_avatarRoute_0);
+            return (v12.Dictionary.join(v162, {
+                OpenItemPrompt = v5.Input.onBegin(Enum.KeyCode.ButtonX, function() --[[ Line: 482 ]]
+                    -- upvalues: v157 (copy), l_avatarRoute_0 (copy)
+                    v157.props.openItemPrompt(v157.props.networking, v157.props.catalogAnalytics, v157.props.overlayClosedCallback, v157.props.navigation, l_avatarRoute_0);
                 end, {
                     key = "Feature.Catalog.Action.Buy"
                 }), 
-                OpenCatalogContextMenu = v5.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 485 ]]
-                    -- upvalues: v152 (copy), l_AvatarScreen_0 (ref), l_avatarRoute_0 (copy)
-                    v152.props.navigation.navigate(l_AvatarScreen_0.CatalogContextMenu, {
+                OpenCatalogContextMenu = v5.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 493 ]]
+                    -- upvalues: v157 (copy), l_AvatarScreen_0 (ref), l_avatarRoute_0 (copy)
+                    v157.props.navigation.navigate(l_AvatarScreen_0.CatalogContextMenu, {
                         itemId = l_avatarRoute_0.current.params.itemId, 
                         itemType = l_avatarRoute_0.current.params.itemType, 
-                        onOverlayClosed = v152.props.overlayClosedCallback
+                        onOverlayClosed = v157.props.overlayClosedCallback
                     });
                 end, {
                     key = "Feature.Catalog.Action.ItemOptions"
                 })
             }));
         elseif l_name_0 == l_AvatarScreen_0.TryOnManager then
-            return (v12.Dictionary.join(v157, {
-                OpenCloseTryOnManager = v5.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 497 ]]
-                    -- upvalues: v152 (copy), l_PeekViewState_0 (ref)
-                    local l_tryOnManagerPeekViewState_0 = v152.props.tryOnManagerPeekViewState;
+            return (v12.Dictionary.join(v162, {
+                OpenCloseTryOnManager = v5.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 505 ]]
+                    -- upvalues: v157 (copy), l_PeekViewState_0 (ref)
+                    local l_tryOnManagerPeekViewState_0 = v157.props.tryOnManagerPeekViewState;
                     if l_tryOnManagerPeekViewState_0 == l_PeekViewState_0.Full or l_tryOnManagerPeekViewState_0 == l_PeekViewState_0.Extended then
-                        v152.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Brief);
+                        v157.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Brief);
                         return;
                     else
-                        v152.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Full);
+                        v157.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Full);
                         return;
                     end;
                 end, {
@@ -389,15 +398,15 @@ if not l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then
             }));
         else
             if l_name_0 == l_AvatarScreen_0.LookDetails then
-                v157 = v12.Dictionary.join(v157, {
-                    OpenCloseTryOnManager = v5.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 510 ]]
-                        -- upvalues: v152 (copy), l_PeekViewState_0 (ref)
-                        local l_tryOnManagerPeekViewState_1 = v152.props.tryOnManagerPeekViewState;
+                v162 = v12.Dictionary.join(v162, {
+                    OpenCloseTryOnManager = v5.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 518 ]]
+                        -- upvalues: v157 (copy), l_PeekViewState_0 (ref)
+                        local l_tryOnManagerPeekViewState_1 = v157.props.tryOnManagerPeekViewState;
                         if l_tryOnManagerPeekViewState_1 == l_PeekViewState_0.Full or l_tryOnManagerPeekViewState_1 == l_PeekViewState_0.Extended then
-                            v152.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Brief);
+                            v157.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Brief);
                             return;
                         else
-                            v152.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Full);
+                            v157.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Full);
                             return;
                         end;
                     end, {
@@ -405,23 +414,23 @@ if not l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then
                     })
                 });
             end;
-            return v157;
+            return v162;
         end;
     end;
 end;
-v114.renderSearchBar = function(v160) --[[ Line: 527 ]] --[[ Name: renderSearchBar ]]
-    -- upvalues: v4 (copy), v90 (copy), l_HorizontalPageMargin_0 (copy), v47 (copy), v32 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
-    local l_searchKeyword_0 = v160.props.searchParameters.searchKeyword;
-    local l_topBarHeight_0 = v160.props.topBarHeight;
-    local v163 = 20;
-    if v160.props.designTokens then
-        v163 = v160.props.designTokens.Global.Space_600;
+v119.renderSearchBar = function(v165) --[[ Line: 535 ]] --[[ Name: renderSearchBar ]]
+    -- upvalues: v4 (copy), v94 (copy), l_HorizontalPageMargin_0 (copy), v49 (copy), v32 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
+    local l_searchKeyword_0 = v165.props.searchParameters.searchKeyword;
+    local l_topBarHeight_0 = v165.props.topBarHeight;
+    local v168 = 20;
+    if v165.props.designTokens then
+        v168 = v165.props.designTokens.Global.Space_600;
     end;
     return v4.createElement("Frame", {
         Size = UDim2.new(1, 0, 0, l_topBarHeight_0), 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        ZIndex = v90() and 3 or nil
+        ZIndex = v94() and 3 or nil
     }, {
         PaddedFrame = v4.createElement("Frame", {
             AnchorPoint = Vector2.new(0, 1), 
@@ -429,372 +438,378 @@ v114.renderSearchBar = function(v160) --[[ Line: 527 ]] --[[ Name: renderSearchB
             Position = UDim2.new(0, 0, 1, 0), 
             Size = UDim2.new(1, 0, 1, 0)
         }, {
-            SearchBarPadding = if v160.props.isPortrait then v4.createElement("UIPadding", {
-                PaddingTop = UDim.new(0, v163)
+            SearchBarPadding = if v165.props.isPortrait then v4.createElement("UIPadding", {
+                PaddingTop = UDim.new(0, v168)
             }) else nil, 
             SearchBar = v4.createElement(l_HorizontalPageMargin_0, {
                 backgroundTransparency = 1, 
                 backgroundColor3 = Color3.fromRGB(0, 0, 0)
             }, {
-                v4.createElement(v47, {
-                    cancelSearch = v160.cancelSearchCallback, 
-                    confirmSearch = v160.confirmSearchCallback, 
-                    onFocused = v160.onSearchBarFocused, 
-                    placeholderText = v160.props.localized.searchPlaceholder, 
+                v4.createElement(v49, {
+                    cancelSearch = v165.cancelSearchCallback, 
+                    confirmSearch = v165.confirmSearchCallback, 
+                    onFocused = v165.onSearchBarFocused, 
+                    placeholderText = v165.props.localized.searchPlaceholder, 
                     isCompactView = true, 
                     modernUI = true, 
-                    autocomplete = v90(), 
-                    isSearching = v160.state.isSearching, 
+                    autocomplete = v94(), 
+                    isSearching = v165.state.isSearching, 
                     searchType = v32.SearchTypes.Catalog, 
                     initialSearchText = l_searchKeyword_0, 
-                    [v4.Ref] = v160.searchBarRef, 
-                    NextSelectionDown = v160.resultsListRef, 
-                    focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v160.props.focusController, 
-                    forceShowCancelButton = v90(), 
-                    onSameTermConfirmSearch = v160.onSameTermConfirmSearch, 
+                    [v4.Ref] = v165.searchBarRef, 
+                    NextSelectionDown = v165.resultsListRef, 
+                    focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v165.props.focusController, 
+                    forceShowCancelButton = v94(), 
+                    onSameTermConfirmSearch = v165.onSameTermConfirmSearch, 
                     shouldShowRecentSearchTerms = true
                 })
             })
         })
     });
 end;
-v114.render = function(v164) --[[ Line: 582 ]] --[[ Name: render ]]
-    -- upvalues: v75 (copy), l_AvatarScreen_0 (copy), v4 (copy), l_Focusable_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 (copy), v66 (copy), v8 (copy), v68 (copy), v65 (copy), l_FFlagAXHideMenuOnScroll_0 (copy), l_FFlagAXExpandPeekViewOnFirstScroll_0 (copy), v92 (copy), l_FFlagAXEnableManualSaving_0 (copy), v67 (copy), v81 (copy), v80 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy)
-    local l_hasEntries_0 = v164.props.hasEntries;
-    local v166 = v164.props.fullView == v75.SceneFullView;
-    local v167 = v164.props.fullView == v75.UIFullView;
-    local l_searchUuid_2 = v164.props.searchUuid;
-    local l_refinementButtonsRef_0 = v164.refinementButtonsRef;
-    if v164.props.avatarRoute.current.name == l_AvatarScreen_0.TryOnManager then
-        l_refinementButtonsRef_0 = v164.props.namedRefs[l_AvatarScreen_0.TryOnManager];
-    elseif v164.props.avatarRoute.current.name == l_AvatarScreen_0.LookDetails then
-        l_refinementButtonsRef_0 = v164.props.namedRefs[l_AvatarScreen_0.LookDetails];
+v119.render = function(v169) --[[ Line: 590 ]] --[[ Name: render ]]
+    -- upvalues: l_FullView_0 (copy), l_AvatarScreen_0 (copy), v4 (copy), l_Focusable_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 (copy), v68 (copy), v8 (copy), v70 (copy), v67 (copy), l_FFlagAXHideMenuOnScroll_0 (copy), l_FFlagAXExpandPeekViewOnFirstScroll_0 (copy), v97 (copy), l_FFlagAXEnableManualSaving_0 (copy), v69 (copy), v84 (copy), v83 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy)
+    local l_hasEntries_0 = v169.props.hasEntries;
+    local v171 = v169.props.fullView == l_FullView_0.SceneFullView;
+    local v172 = v169.props.fullView == l_FullView_0.UIFullView;
+    local l_searchUuid_2 = v169.props.searchUuid;
+    local l_refinementButtonsRef_0 = v169.refinementButtonsRef;
+    if v169.props.avatarRoute.current.name == l_AvatarScreen_0.TryOnManager then
+        l_refinementButtonsRef_0 = v169.props.namedRefs[l_AvatarScreen_0.TryOnManager];
+    elseif v169.props.avatarRoute.current.name == l_AvatarScreen_0.LookDetails then
+        l_refinementButtonsRef_0 = v169.props.namedRefs[l_AvatarScreen_0.LookDetails];
     end;
     return v4.createElement(l_Focusable_0.Frame, {
         BackgroundTransparency = 1, 
         Size = UDim2.new(1, 0, 1, 0), 
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v164.props.focusController, 
-        defaultChild = l_hasEntries_0 and v164.resultsListRef or v164.searchBarRef, 
-        inputBindings = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then nil else v164:getInputBindings(), 
-        [v4.Ref] = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then v164.props.focusNavigationRef else nil
+        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v169.props.focusController, 
+        defaultChild = l_hasEntries_0 and v169.resultsListRef or v169.searchBarRef, 
+        inputBindings = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then nil else v169:getInputBindings(), 
+        [v4.Ref] = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then v169.props.focusNavigationRef else nil
     }, {
-        BoundInputsUpdater = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v4.createElement(v66), 
+        BoundInputsUpdater = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v4.createElement(v68), 
         NavigationEvents = v4.createElement(v8.NavigationEvents, {
-            onDidFocus = function() --[[ Line: 606 ]] --[[ Name: onDidFocus ]]
-                -- upvalues: v164 (copy)
-                local l_sortAndFilters_0 = (v164.props.navigation.getParam("searchParams") or {}).sortAndFilters;
+            onDidFocus = function() --[[ Line: 614 ]] --[[ Name: onDidFocus ]]
+                -- upvalues: v169 (copy)
+                local l_sortAndFilters_0 = (v169.props.navigation.getParam("searchParams") or {}).sortAndFilters;
                 if l_sortAndFilters_0 then
-                    v164.props.setSortAndFilters(l_sortAndFilters_0);
+                    v169.props.setSortAndFilters(l_sortAndFilters_0);
                     return;
                 else
-                    v164.props.resetSortAndFilters();
+                    v169.props.resetSortAndFilters();
                     return;
                 end;
             end
         }), 
-        NavigationEventsLogger = v4.createElement(v68, {
+        NavigationEventsLogger = v4.createElement(v70, {
             pageName = "CatalogSearch"
         }), 
-        AvatarExperienceView = v4.createElement(v65, {
-            changeViewFunction = v164.changeView, 
+        AvatarExperienceView = v4.createElement(v67, {
+            changeViewFunction = v169.changeView, 
             allowAdaptiveScrolling = true, 
             adaptiveScrollingProps = if not not l_FFlagAXHideMenuOnScroll_0 or l_FFlagAXExpandPeekViewOnFirstScroll_0 then {
                 enableExpandPeekViewOnUpwardScroll = l_FFlagAXExpandPeekViewOnFirstScroll_0 and true or nil, 
                 enableAnimatedVisibility = l_FFlagAXHideMenuOnScroll_0 and true or nil
             } else nil, 
-            isSceneFullView = v166, 
-            isUIFullView = v167, 
-            topBar = v164:renderSearchBar(), 
-            [v4.Ref] = v164.sceneUIContainerRef, 
-            NextSelectionLeft = v164.searchBarRef, 
-            refinementButtonsRef = v164.refinementButtonsRef, 
-            defaultChildRef = l_hasEntries_0 and v164.resultsListRef or v164.searchBarRef, 
-            multiTryOnBottomBarRef = v164.multiTryOnBottomBarRef, 
-            itemDetailsPeekViewRefs = v164.itemDetailsPeekViewRefs, 
-            showUndoRedo = v92() and true or nil, 
-            showSaveButton = v92() and l_FFlagAXEnableManualSaving_0 and true or nil
+            isSceneFullView = v171, 
+            isUIFullView = v172, 
+            topBar = v169:renderSearchBar(), 
+            [v4.Ref] = v169.sceneUIContainerRef, 
+            NextSelectionLeft = v169.searchBarRef, 
+            refinementButtonsRef = v169.refinementButtonsRef, 
+            defaultChildRef = l_hasEntries_0 and v169.resultsListRef or v169.searchBarRef, 
+            multiTryOnBottomBarRef = v169.multiTryOnBottomBarRef, 
+            itemDetailsPeekViewRefs = v169.itemDetailsPeekViewRefs, 
+            showUndoRedo = v97() and true or nil, 
+            showSaveButton = v97() and l_FFlagAXEnableManualSaving_0 and true or nil
         }, {
-            GamepadFocusHandlerForPage = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v4.createElement(v67, {
-                focusController = v164.props.focusController
+            GamepadFocusHandlerForPage = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v4.createElement(v69, {
+                focusController = v169.props.focusController
             }), 
-            ResultsList = v4.createElement(v81, {
-                analyticsContext = v80.AnalyticsContext.CatalogSearch, 
+            ResultsList = v4.createElement(v84, {
+                analyticsContext = v83.AnalyticsContext.CatalogSearch, 
                 fromSearch = true, 
                 searchUuid = l_searchUuid_2, 
-                onRetry = v164.dispatchInitialSearch, 
-                frameRef = v164.resultsListRef, 
-                NextSelectionUp = v164.searchBarRef, 
+                onRetry = v169.dispatchInitialSearch, 
+                frameRef = v169.resultsListRef, 
+                NextSelectionUp = v169.searchBarRef, 
                 NextSelectionRight = l_refinementButtonsRef_0, 
-                multiTryOnBottomBarRef = v164.multiTryOnBottomBarRef, 
-                onCategoryOrSubcategoryChange = v164.onCategoryOrSubcategoryChange, 
-                onCategoryOrSubcategoryChangeById = v164.onCategoryOrSubcategoryChangeById, 
-                categoryInfo = if l_FFlagAXCatalogCategoriesStore_0 then nil else v164.props.categoryInfo, 
-                itemDetailsPeekViewRefs = v164.itemDetailsPeekViewRefs
+                multiTryOnBottomBarRef = v169.multiTryOnBottomBarRef, 
+                onCategoryOrSubcategoryChange = v169.onCategoryOrSubcategoryChange, 
+                onCategoryOrSubcategoryChangeById = v169.onCategoryOrSubcategoryChangeById, 
+                categoryInfo = if l_FFlagAXCatalogCategoriesStore_0 then nil else v169.props.categoryInfo, 
+                itemDetailsPeekViewRefs = v169.itemDetailsPeekViewRefs
             })
         })
     });
 end;
-v114.didMount = function(v171) --[[ Line: 666 ]] --[[ Name: didMount ]]
+v119.didMount = function(v176) --[[ Line: 674 ]] --[[ Name: didMount ]]
     -- upvalues: l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
-    v171.isMounted = true;
-    v171.dispatchInitialSearch():catch(function(v172) --[[ Line: 668 ]]
+    v176.isMounted = true;
+    v176.dispatchInitialSearch():catch(function(v177) --[[ Line: 676 ]]
         if not _G.__TESTEZ_RUNNING_TEST__ then
-            warn("Error fetching CatalogSearch results:\n" .. tostring(v172));
+            warn("Error fetching CatalogSearch results:\n" .. tostring(v177));
         end;
     end);
     local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-    local v174 = l_l_UserInputService_0_LastInputType_0 and l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_0);
-    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v174 then
-        v171.props.focusController.captureFocus();
+    local v179 = l_l_UserInputService_0_LastInputType_0 and l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_0);
+    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v179 then
+        v176.props.focusController.captureFocus();
     end;
 end;
-v114.willUnmount = function(v175) --[[ Line: 683 ]] --[[ Name: willUnmount ]]
-    v175.isMounted = false;
-    local l_searchUuid_3 = v175.props.searchUuid;
-    v175.props.dispatchRemoveSearch(l_searchUuid_3);
-    v175.props.pageObjectManager:storePageObject(l_searchUuid_3, nil);
-    v175.props.resetSortAndFilters();
+v119.willUnmount = function(v180) --[[ Line: 691 ]] --[[ Name: willUnmount ]]
+    v180.isMounted = false;
+    local l_searchUuid_3 = v180.props.searchUuid;
+    v180.props.dispatchRemoveSearch(l_searchUuid_3);
+    v180.props.pageObjectManager:storePageObject(l_searchUuid_3, nil);
+    v180.props.resetSortAndFilters();
 end;
-v114.didUpdate = function(v177, v178) --[[ Line: 694 ]] --[[ Name: didUpdate ]]
-    if v178.searchUuid ~= v177.props.searchUuid then
-        if v178.searchUuid ~= nil then
-            v177.props.dispatchRemoveSearch(v178.searchUuid);
-            v177.props.pageObjectManager:storePageObject(v178.searchUuid, nil);
+v119.didUpdate = function(v182, v183) --[[ Line: 702 ]] --[[ Name: didUpdate ]]
+    if v183.searchUuid ~= v182.props.searchUuid then
+        if v183.searchUuid ~= nil then
+            v182.props.dispatchRemoveSearch(v183.searchUuid);
+            v182.props.pageObjectManager:storePageObject(v183.searchUuid, nil);
         end;
-        v177.dispatchInitialSearch();
+        v182.dispatchInitialSearch();
     end;
 end;
-v114 = v10.connect(function(v179, v180) --[[ Line: 705 ]] --[[ Name: mapStateToProps ]]
-    -- upvalues: v59 (copy), l_DeviceOrientationMode_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v22 (copy), v69 (copy), l_AvatarScreen_0 (copy), l_PerformFetch_0 (copy), v46 (copy), l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 (copy)
-    local v181 = v179.Search.SearchesInCatalog[v180.searchUuid];
-    local v182 = v181 and v181.items or nil;
-    local v183 = v182 and #v182 ~= 0 or false;
-    local v184 = v59.getSearchKey(v179, v180.searchUuid);
-    local v185 = v179.DeviceOrientation == l_DeviceOrientationMode_0.Portrait;
-    local v186 = nil;
+v119 = v10.connect(function(v184, v185) --[[ Line: 713 ]] --[[ Name: mapStateToProps ]]
+    -- upvalues: v61 (copy), l_DeviceOrientationMode_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v22 (copy), v71 (copy), l_AvatarScreen_0 (copy), l_PerformFetch_0 (copy), v48 (copy), l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 (copy)
+    local v186 = v184.Search.SearchesInCatalog[v185.searchUuid];
+    local v187 = v186 and v186.items or nil;
+    local v188 = v187 and #v187 ~= 0 or false;
+    local v189 = v61.getSearchKey(v184, v185.searchUuid);
+    local v190 = v184.DeviceOrientation == l_DeviceOrientationMode_0.Portrait;
+    local v191 = nil;
     if l_FFlagAXCatalogCategoriesStore_0 then
-        v186 = v180.categoryInfo;
+        v191 = v185.categoryInfo;
     else
-        local l_SearchCategories_0 = v179.AvatarExperience.Catalog.SearchCategories;
+        local l_SearchCategories_0 = v184.AvatarExperience.Catalog.SearchCategories;
         if l_SearchCategories_0 then
             local l_categoryId_0 = l_SearchCategories_0.categoryId;
             local l_subcategoryId_0 = l_SearchCategories_0.subcategoryId;
             if l_categoryId_0 == nil then
                 v22("[CatalogSearch] categoryId is nil");
             else
-                v186 = v59.getCatalogCategoryInfoById(l_categoryId_0, l_subcategoryId_0);
+                v191 = v61.getCatalogCategoryInfoById(l_categoryId_0, l_subcategoryId_0);
             end;
         end;
     end;
     return {
-        categoryInfo = v186, 
-        fullView = v69(v179, l_AvatarScreen_0.CatalogSearch), 
-        hasEntries = v183, 
-        dataStatus = l_PerformFetch_0.GetStatus(v179, v184), 
-        topBarHeight = v46.selectTopBarHeightNoBanners(v179), 
-        itemDetailsExpanded = v179.AvatarExperience.Common.ItemDetailsExpanded, 
-        isPortrait = v185, 
-        tryOnManagerPeekViewState = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then nil else v179.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState, 
-        tryOnItems = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then nil else v179.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems
+        categoryInfo = v191, 
+        fullView = v71(v184, l_AvatarScreen_0.CatalogSearch), 
+        hasEntries = v188, 
+        dataStatus = l_PerformFetch_0.GetStatus(v184, v189), 
+        topBarHeight = v48.selectTopBarHeightNoBanners(v184), 
+        itemDetailsExpanded = v184.AvatarExperience.Common.ItemDetailsExpanded, 
+        isPortrait = v190, 
+        tryOnManagerPeekViewState = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then nil else v184.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState, 
+        tryOnItems = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then nil else v184.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems
     };
-end, function(v190) --[[ Line: 749 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v88 (copy), v83 (copy), v50 (copy), v49 (copy), v84 (copy), v72 (copy), v71 (copy), v74 (copy), v73 (copy), v85 (copy), v86 (copy), v87 (copy), v91 (copy), v48 (copy)
+end, function(v195) --[[ Line: 757 ]] --[[ Name: mapDispatchToProps ]]
+    -- upvalues: v92 (copy), v86 (copy), v52 (copy), v51 (copy), v87 (copy), v75 (copy), l_SetItemDetailsPeekViewState_0 (copy), v77 (copy), v76 (copy), v95 (copy), v89 (copy), v88 (copy), l_SetTryOnManagerPeekViewState_0 (copy), v91 (copy), v96 (copy), v50 (copy)
     return {
-        dispatchSearch = function(v191, v192, v193, v194) --[[ Line: 751 ]] --[[ Name: dispatchSearch ]]
-            -- upvalues: v190 (copy), v88 (ref)
-            return v190(v88({
-                searchKeyword = v191, 
-                searchUuid = v192, 
-                categoryInfo = v193
-            }, v194));
+        dispatchSearch = function(v196, v197, v198, v199) --[[ Line: 759 ]] --[[ Name: dispatchSearch ]]
+            -- upvalues: v195 (copy), v92 (ref)
+            return v195(v92({
+                searchKeyword = v196, 
+                searchUuid = v197, 
+                categoryInfo = v198
+            }, v199));
         end, 
-        dispatchSearchWithParameters = function(v195, v196, v197, v198) --[[ Line: 758 ]] --[[ Name: dispatchSearchWithParameters ]]
-            -- upvalues: v190 (copy), v88 (ref)
-            local v199 = {};
-            if v195.sortAndFilters then
-                v199 = v195.sortAndFilters.SelectedTopics or {};
+        dispatchSearchWithParameters = function(v200, v201, v202, v203) --[[ Line: 766 ]] --[[ Name: dispatchSearchWithParameters ]]
+            -- upvalues: v195 (copy), v92 (ref)
+            local v204 = {};
+            if v200.sortAndFilters then
+                v204 = v200.sortAndFilters.SelectedTopics or {};
             end;
-            return v190(v88({
-                searchKeyword = v195.searchKeyword, 
-                searchUuid = v196, 
-                categoryInfo = v197, 
-                topics = v199
-            }, v198));
+            return v195(v92({
+                searchKeyword = v200.searchKeyword, 
+                searchUuid = v201, 
+                categoryInfo = v202, 
+                topics = v204
+            }, v203));
         end, 
-        dispatchRemoveSearch = function(v200) --[[ Line: 771 ]] --[[ Name: dispatchRemoveSearch ]]
-            -- upvalues: v190 (copy), v83 (ref)
-            v190(v83(v200));
+        dispatchRemoveSearch = function(v205) --[[ Line: 779 ]] --[[ Name: dispatchRemoveSearch ]]
+            -- upvalues: v195 (copy), v86 (ref)
+            v195(v86(v205));
         end, 
-        setSearchType = function(v201, v202) --[[ Line: 775 ]] --[[ Name: setSearchType ]]
-            -- upvalues: v190 (copy), v50 (ref)
-            return v190(v50(v201, v202));
+        setSearchType = function(v206, v207) --[[ Line: 783 ]] --[[ Name: setSearchType ]]
+            -- upvalues: v195 (copy), v52 (ref)
+            return v195(v52(v206, v207));
         end, 
-        setSearchParameters = function(v203, v204) --[[ Line: 779 ]] --[[ Name: setSearchParameters ]]
-            -- upvalues: v190 (copy), v49 (ref)
-            return v190(v49(v203, v204));
+        setSearchParameters = function(v208, v209) --[[ Line: 787 ]] --[[ Name: setSearchParameters ]]
+            -- upvalues: v195 (copy), v51 (ref)
+            return v195(v51(v208, v209));
         end, 
-        setSortAndFilters = function(v205) --[[ Line: 783 ]] --[[ Name: setSortAndFilters ]]
-            -- upvalues: v190 (copy), v84 (ref)
-            return v190(v84(v205));
+        setSortAndFilters = function(v210) --[[ Line: 791 ]] --[[ Name: setSortAndFilters ]]
+            -- upvalues: v195 (copy), v87 (ref)
+            return v195(v87(v210));
         end, 
-        openItemPrompt = function(v206, v207, v208, v209, v210) --[[ Line: 787 ]] --[[ Name: openItemPrompt ]]
-            -- upvalues: v190 (copy), v72 (ref)
-            v190(v72(v206, v207, v208, v209, v210));
+        openItemPrompt = function(v211, v212, v213, v214, v215) --[[ Line: 795 ]] --[[ Name: openItemPrompt ]]
+            -- upvalues: v195 (copy), v75 (ref)
+            v195(v75(v211, v212, v213, v214, v215));
         end, 
-        setItemDetailsPeekViewState = function(v211) --[[ Line: 791 ]] --[[ Name: setItemDetailsPeekViewState ]]
-            -- upvalues: v190 (copy), v71 (ref)
-            v190(v71(v211));
+        setItemDetailsPeekViewState = function(v216) --[[ Line: 799 ]] --[[ Name: setItemDetailsPeekViewState ]]
+            -- upvalues: v195 (copy), l_SetItemDetailsPeekViewState_0 (ref)
+            v195(l_SetItemDetailsPeekViewState_0(v216));
         end, 
-        setFullView = function(v212, v213, v214) --[[ Line: 795 ]] --[[ Name: setFullView ]]
-            -- upvalues: v190 (copy), v74 (ref)
-            v190(v74(v212, v213, v214));
+        setFullView = function(v217, v218, v219) --[[ Line: 803 ]] --[[ Name: setFullView ]]
+            -- upvalues: v195 (copy), v77 (ref)
+            v195(v77(v217, v218, v219));
         end, 
-        navigateIntoQuickMenu = function(v215, v216) --[[ Line: 799 ]] --[[ Name: navigateIntoQuickMenu ]]
-            -- upvalues: v190 (copy), v73 (ref)
-            v190(v73(v215, v216));
+        navigateIntoQuickMenu = function(v220, v221) --[[ Line: 807 ]] --[[ Name: navigateIntoQuickMenu ]]
+            -- upvalues: v195 (copy), v76 (ref)
+            v195(v76(v220, v221));
         end, 
-        resetSortAndFilters = function() --[[ Line: 803 ]] --[[ Name: resetSortAndFilters ]]
-            -- upvalues: v190 (copy), v85 (ref)
-            v190(v85());
-        end, 
-        setTryOnManagerPeekViewState = function(v217) --[[ Line: 807 ]] --[[ Name: setTryOnManagerPeekViewState ]]
-            -- upvalues: v190 (copy), v86 (ref)
-            v190(v86(v217));
-        end, 
-        fetchWidgetInfo = function(v218, v219) --[[ Line: 811 ]] --[[ Name: fetchWidgetInfo ]]
-            -- upvalues: v190 (copy), v87 (ref)
-            v190(v87(v218, v219));
-        end, 
-        dispatchCatalogTilesLatencyStartTracker = v91() and function(v220) --[[ Line: 816 ]]
-            -- upvalues: v190 (copy), v48 (ref)
-            v190((v48.StartTracking(v220)));
-        end or nil
-    };
-end)(v114);
-if not l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then
-    v114 = v62((l_withNavigation_0(v114)));
-end;
-v114 = v57(v63(v114), v58.Consumer, "pageObjectManager");
-v114 = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then l_RoactServices_0.connect({
-    avatarExperienceAnalytics = v64, 
-    eventIngest = v31
-})(v114) else l_RoactServices_0.connect({
-    analytics = v28, 
-    catalogAnalytics = v79, 
-    avatarExperienceAnalytics = v64, 
-    networking = v30, 
-    eventIngest = v31
-})(v114);
-if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then
-    return function(v221) --[[ Line: 848 ]] --[[ Name: CatalogSearchContainer ]]
-        -- upvalues: l_useDispatch_0 (copy), l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), v21 (copy), v79 (copy), v30 (copy), l_useSelector_0 (copy), v105 (copy), v107 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v6 (copy), v5 (copy), v77 (copy), v76 (copy), l_useLocalization_0 (copy), l_useDesignTokens_0 (copy), v72 (copy), v56 (copy), l_AvatarScreen_0 (copy), l_PeekViewState_0 (copy), v86 (copy), l_AvatarScreenProperties_0 (copy), v12 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v113 (copy), l_useTableWrappedCallbackRef_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v100 (copy), l_useSignalState_0 (copy), v114 (ref)
-        local v222 = l_useDispatch_0();
-        local v223 = l_useAvatarRoute_0();
-        local v224 = l_useNavigation_0();
-        local v225 = v21(v79);
-        local v226 = v21(v30);
-        local v227 = l_useSelector_0(v105);
-        local v228 = l_useSelector_0(v107);
-        local l_name_1 = v223.current.name;
-        local v230 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.useRef(v5.createFocusController()).current;
-        local v231 = v77(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v230);
-        local v232 = v76({
-            overlayClosedCallback = v231
-        });
-        local v233 = l_useLocalization_0({
-            searchPlaceholder = "Search.GlobalSearch.Example.SearchCatalog"
-        });
-        local v234 = l_useDesignTokens_0();
-        local v235 = nil;
-        local v236 = v6.useCallback(function() --[[ Line: 875 ]]
-            -- upvalues: v222 (copy), v72 (ref), v226 (copy), v225 (copy), v231 (copy), v224 (copy), v223 (copy)
-            v222(v72(v226, v225, v231, v224, v223));
-        end, {
-            v222, 
-            v231, 
-            v223, 
-            v224, 
-            v226, 
-            v225
-        });
-        local v237 = v6.useCallback(function() --[[ Line: 879 ]]
-            -- upvalues: v56 (ref), v224 (copy), l_AvatarScreen_0 (ref)
-            v56.closeFiltersAndItemDetails(v224);
-            v224.navigate(l_AvatarScreen_0.TryOnManager);
-        end, {
-            v224
-        });
-        local v238 = v6.useCallback(function() --[[ Line: 884 ]]
-            -- upvalues: v227 (copy), l_PeekViewState_0 (ref), v222 (copy), v86 (ref)
-            if v227 == l_PeekViewState_0.Full or v227 == l_PeekViewState_0.Extended then
-                v222(v86(l_PeekViewState_0.Brief));
+        resetSortAndFilters = function() --[[ Line: 811 ]] --[[ Name: resetSortAndFilters ]]
+            -- upvalues: v95 (ref), v195 (copy), v89 (ref), v88 (ref)
+            if v95 then
+                v195(v89());
                 return;
             else
-                v222(v86(l_PeekViewState_0.Full));
+                v195(v88());
+                return;
+            end;
+        end, 
+        setTryOnManagerPeekViewState = function(v222) --[[ Line: 819 ]] --[[ Name: setTryOnManagerPeekViewState ]]
+            -- upvalues: v195 (copy), l_SetTryOnManagerPeekViewState_0 (ref)
+            v195(l_SetTryOnManagerPeekViewState_0(v222));
+        end, 
+        fetchWidgetInfo = function(v223, v224) --[[ Line: 823 ]] --[[ Name: fetchWidgetInfo ]]
+            -- upvalues: v195 (copy), v91 (ref)
+            v195(v91(v223, v224));
+        end, 
+        dispatchCatalogTilesLatencyStartTracker = v96() and function(v225) --[[ Line: 828 ]]
+            -- upvalues: v195 (copy), v50 (ref)
+            v195((v50.StartTracking(v225)));
+        end or nil
+    };
+end)(v119);
+if not l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then
+    v119 = v64((l_withNavigation_0(v119)));
+end;
+v119 = v59(v65(v119), v60.Consumer, "pageObjectManager");
+v119 = if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then l_RoactServices_0.connect({
+    avatarExperienceAnalytics = v66, 
+    eventIngest = v31
+})(v119) else l_RoactServices_0.connect({
+    analytics = v28, 
+    catalogAnalytics = v82, 
+    avatarExperienceAnalytics = v66, 
+    networking = v30, 
+    eventIngest = v31
+})(v119);
+if l_FFlagAXMigrateCatalogSearchToFocusNavigation_0 then
+    return function(v226) --[[ Line: 860 ]] --[[ Name: CatalogSearchContainer ]]
+        -- upvalues: l_useDispatch_0 (copy), l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), v21 (copy), v82 (copy), v30 (copy), l_useSelector_0 (copy), v110 (copy), v112 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v6 (copy), v5 (copy), v80 (copy), v79 (copy), l_useLocalization_0 (copy), l_useDesignTokens_0 (copy), v75 (copy), v58 (copy), l_AvatarScreen_0 (copy), l_PeekViewState_0 (copy), l_SetTryOnManagerPeekViewState_0 (copy), l_AvatarScreenProperties_0 (copy), v12 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v118 (copy), l_useTableWrappedCallbackRef_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v105 (copy), l_useSignalState_0 (copy), v119 (ref)
+        local v227 = l_useDispatch_0();
+        local v228 = l_useAvatarRoute_0();
+        local v229 = l_useNavigation_0();
+        local v230 = v21(v82);
+        local v231 = v21(v30);
+        local v232 = l_useSelector_0(v110);
+        local v233 = l_useSelector_0(v112);
+        local l_name_1 = v228.current.name;
+        local v235 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.useRef(v5.createFocusController()).current;
+        local v236 = v80(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v235);
+        local v237 = v79({
+            overlayClosedCallback = v236
+        });
+        local v238 = l_useLocalization_0({
+            searchPlaceholder = "Search.GlobalSearch.Example.SearchCatalog"
+        });
+        local v239 = l_useDesignTokens_0();
+        local v240 = nil;
+        local v241 = v6.useCallback(function() --[[ Line: 887 ]]
+            -- upvalues: v227 (copy), v75 (ref), v231 (copy), v230 (copy), v236 (copy), v229 (copy), v228 (copy)
+            v227(v75(v231, v230, v236, v229, v228));
+        end, {
+            v227, 
+            v236, 
+            v228, 
+            v229, 
+            v231, 
+            v230
+        });
+        local v242 = v6.useCallback(function() --[[ Line: 891 ]]
+            -- upvalues: v58 (ref), v229 (copy), l_AvatarScreen_0 (ref)
+            v58.closeFiltersAndItemDetails(v229);
+            v229.navigate(l_AvatarScreen_0.TryOnManager);
+        end, {
+            v229
+        });
+        local v243 = v6.useCallback(function() --[[ Line: 896 ]]
+            -- upvalues: v232 (copy), l_PeekViewState_0 (ref), v227 (copy), l_SetTryOnManagerPeekViewState_0 (ref)
+            if v232 == l_PeekViewState_0.Full or v232 == l_PeekViewState_0.Extended then
+                v227(l_SetTryOnManagerPeekViewState_0(l_PeekViewState_0.Brief));
+                return;
+            else
+                v227(l_SetTryOnManagerPeekViewState_0(l_PeekViewState_0.Full));
                 return;
             end;
         end, {
-            v227, 
-            v222
+            v232, 
+            v227
         });
-        local l_isMultiTryOn_1 = l_AvatarScreenProperties_0[v223.opaque.name].isMultiTryOn;
-        local v240 = #v12.Dictionary.values(v228) > 1;
-        local v241 = nil;
-        if l_name_1 ~= l_AvatarScreen_0.TryOnManager and (l_isMultiTryOn_1 or l_FFlagAXMISEnableMultiShopping_0) and v240 then
-            v241 = v237;
+        local l_isMultiTryOn_1 = l_AvatarScreenProperties_0[v228.opaque.name].isMultiTryOn;
+        local v245 = #v12.Dictionary.values(v233) > 1;
+        local v246 = nil;
+        if l_name_1 ~= l_AvatarScreen_0.TryOnManager and (l_isMultiTryOn_1 or l_FFlagAXMISEnableMultiShopping_0) and v245 then
+            v246 = v242;
         end;
         if l_name_1 == l_AvatarScreen_0.TryOnManager or l_name_1 == l_AvatarScreen_0.LookDetails then
-            v241 = v238;
+            v246 = v243;
         end;
-        local v242 = v113(nil, if l_name_1 == l_AvatarScreen_0.ItemDetails then v236 else nil, v241);
-        v235 = l_useTableWrappedCallbackRef_0(v242);
-        local v243 = v12.Dictionary.join(v221, {
-            focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v230, 
-            overlayClosedCallback = v231, 
-            localized = v233, 
-            designTokens = v234, 
-            focusNavigationRef = v235, 
-            avatarRoute = v223, 
-            navigation = v224, 
-            networking = v226, 
-            tryOnManagerPeekViewState = v227
+        local v247 = v118(nil, if l_name_1 == l_AvatarScreen_0.ItemDetails then v241 else nil, v246);
+        v240 = l_useTableWrappedCallbackRef_0(v247);
+        local v248 = v12.Dictionary.join(v226, {
+            focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v235, 
+            overlayClosedCallback = v236, 
+            localized = v238, 
+            designTokens = v239, 
+            focusNavigationRef = v240, 
+            avatarRoute = v228, 
+            navigation = v229, 
+            networking = v231, 
+            tryOnManagerPeekViewState = v232
         });
         if l_FFlagAXCatalogCategoriesStore_0 then
-            local v244 = v100.getCatalogSearchSelectionStore();
-            v243.categoryInfo = l_useSignalState_0(v244.selectedCategoryInfo);
+            local v249 = v105.getCatalogSearchSelectionStore();
+            v248.categoryInfo = l_useSignalState_0(v249.selectedCategoryInfo);
         end;
         return v6.createElement("Frame", {
-            ref = v232, 
+            ref = v237, 
             BackgroundTransparency = 1, 
             Size = UDim2.fromScale(1, 1)
-        }, v6.createElement(v114, v243));
+        }, v6.createElement(v119, v248));
     end;
 else
-    return function(v245) --[[ Line: 944 ]] --[[ Name: CatalogSearchContainer ]]
-        -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v6 (copy), v5 (copy), v77 (copy), v76 (copy), l_useLocalization_0 (copy), l_useDesignTokens_0 (copy), v12 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v100 (copy), l_useSignalState_0 (copy), v114 (ref)
-        local v246 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.useRef(v5.createFocusController()).current;
-        local v247 = v77(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v246);
-        local v248 = v76({
-            overlayClosedCallback = v247
+    return function(v250) --[[ Line: 956 ]] --[[ Name: CatalogSearchContainer ]]
+        -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v6 (copy), v5 (copy), v80 (copy), v79 (copy), l_useLocalization_0 (copy), l_useDesignTokens_0 (copy), v12 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v105 (copy), l_useSignalState_0 (copy), v119 (ref)
+        local v251 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.useRef(v5.createFocusController()).current;
+        local v252 = v80(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v251);
+        local v253 = v79({
+            overlayClosedCallback = v252
         });
-        local v249 = l_useLocalization_0({
+        local v254 = l_useLocalization_0({
             searchPlaceholder = "Search.GlobalSearch.Example.SearchCatalog"
         });
-        local v250 = l_useDesignTokens_0();
-        local v251 = v12.Dictionary.join(v245, {
-            focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v246, 
-            overlayClosedCallback = v247, 
-            localized = v249, 
-            designTokens = v250
+        local v255 = l_useDesignTokens_0();
+        local v256 = v12.Dictionary.join(v250, {
+            focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v251, 
+            overlayClosedCallback = v252, 
+            localized = v254, 
+            designTokens = v255
         });
         if l_FFlagAXCatalogCategoriesStore_0 then
-            local v252 = v100.getCatalogSearchSelectionStore();
-            v251.categoryInfo = l_useSignalState_0(v252.selectedCategoryInfo);
+            local v257 = v105.getCatalogSearchSelectionStore();
+            v256.categoryInfo = l_useSignalState_0(v257.selectedCategoryInfo);
         end;
         return v6.createElement("Frame", {
-            ref = v248, 
+            ref = v253, 
             BackgroundTransparency = 1, 
             Size = UDim2.fromScale(1, 1)
-        }, v6.createElement(v114, v251));
+        }, v6.createElement(v119, v256));
     end;
 end;

@@ -6,126 +6,275 @@ local v4 = require(script.Parent.prop_condition);
 local v5 = {};
 v5.__index = v5;
 local l_v5_0 = v5 --[[ copy: 5 -> 6 ]];
-v5.new = function(v7) --[[ Line: 2914 ]] --[[ Name: new ]]
+v5.new = function(v7) --[[ Line: 3068 ]] --[[ Name: new ]]
     -- upvalues: l_v5_0 (copy)
     return (setmetatable({
-        str = (not (v7 ~= nil) or v7.str == nil) and "" or v7.str, 
-        args = if not (v7 ~= nil) or v7.args == nil then {} else v7.args
+        namespace = (not (v7 ~= nil) or v7.namespace == nil) and "" or v7.namespace, 
+        key = (not (v7 ~= nil) or v7.key == nil) and "" or v7.key, 
+        map_key = (not (v7 ~= nil) or v7.map_key == nil) and "" or v7.map_key
     }, l_v5_0));
 end;
-v5.encode = function(v8) --[[ Line: 2921 ]] --[[ Name: encode ]]
+v5.encode = function(v8) --[[ Line: 3076 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v9 = buffer.create(0);
     local v10 = 0;
-    if v8.str ~= nil and v8.str ~= "" then
+    if v8.namespace ~= nil and v8.namespace ~= "" then
         local v11, v12 = v0.writeTag(v9, v10, 1, v0.wireTypes.lengthDelimited);
-        v11, v12 = v0.writeString(v11, v12, v8.str);
+        v11, v12 = v0.writeString(v11, v12, v8.namespace);
         v9 = v11;
         v10 = v12;
     end;
-    if v8.args ~= nil and next(v8.args) ~= nil then
-        for v13, v14 in v8.args do
-            local v15 = buffer.create(0);
-            local v16, v17 = v0.writeTag(v15, 0, 1, v0.wireTypes.lengthDelimited);
-            v16, v17 = v0.writeString(v16, v17, v13);
-            v15 = v16;
-            local l_v17_0 = v17;
-            v16 = v14:encode();
-            local v19;
-            v17, v19 = v0.writeTag(v15, l_v17_0, 2, v0.wireTypes.lengthDelimited);
-            v17, v19 = v0.writeBuffer(v17, v19, v16, buffer.len(v16));
-            v15 = v17;
-            l_v17_0 = v19;
-            v17, v19 = v0.writeTag(v9, v10, 2, v0.wireTypes.lengthDelimited);
-            v17, v19 = v0.writeBuffer(v17, v19, v15, l_v17_0);
-            v9 = v17;
-            v10 = v19;
-        end;
+    if v8.key ~= nil and v8.key ~= "" then
+        local v13, v14 = v0.writeTag(v9, v10, 2, v0.wireTypes.lengthDelimited);
+        v13, v14 = v0.writeString(v13, v14, v8.key);
+        v9 = v13;
+        v10 = v14;
     end;
-    local v20 = buffer.create(v10);
-    buffer.copy(v20, 0, v9, 0, v10);
-    return v20;
+    if v8.map_key ~= nil and v8.map_key ~= "" then
+        local v15, v16 = v0.writeTag(v9, v10, 3, v0.wireTypes.lengthDelimited);
+        v15, v16 = v0.writeString(v15, v16, v8.map_key);
+        v9 = v15;
+        v10 = v16;
+    end;
+    local v17 = buffer.create(v10);
+    buffer.copy(v17, 0, v9, 0, v10);
+    return v17;
 end;
-v5.decode = function(v21) --[[ Line: 2949 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_0 (copy), v0 (copy), v2 (copy)
-    local v22 = l_v5_0.new();
-    local v23 = 0;
-    while v23 < buffer.len(v21) do
-        local v24 = nil;
-        local v25 = nil;
-        local v26, v27, v28 = v0.readTag(v21, v23);
-        v24 = v26;
-        v25 = v27;
-        v23 = v28;
-        if v25 == v0.wireTypes.varint then
-            v26 = nil;
-            v27, v28 = v0.readVarInt(v21, v23);
-            v26 = v27;
-            v23 = v28;
-        elseif v25 == v0.wireTypes.lengthDelimited then
-            if v24 == 1 then
-                v26 = nil;
-                v27, v28 = v0.readBuffer(v21, v23);
-                v26 = v27;
-                v23 = v28;
-                v22.str = buffer.tostring(v26);
-            elseif v24 == 2 then
-                v26 = nil;
-                v27, v28 = v0.readBuffer(v21, v23);
-                v26 = v27;
-                v23 = v28;
-                v27 = v2.StringFormat_ArgsEntry.decode(v26);
-                v28 = v2.StringFormat_FormatArg.new();
-                v22.args[v27.key or ""] = v27.value or v28;
+v5.decode = function(v18) --[[ Line: 3100 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_0 (copy), v0 (copy)
+    local v19 = l_v5_0.new();
+    local v20 = 0;
+    while v20 < buffer.len(v18) do
+        local v21 = nil;
+        local v22 = nil;
+        local v23, v24, v25 = v0.readTag(v18, v20);
+        v21 = v23;
+        v22 = v24;
+        v20 = v25;
+        if v22 == v0.wireTypes.varint then
+            v23 = nil;
+            v24, v25 = v0.readVarInt(v18, v20);
+            v23 = v24;
+            v20 = v25;
+        elseif v22 == v0.wireTypes.lengthDelimited then
+            if v21 == 1 then
+                v23 = nil;
+                v24, v25 = v0.readBuffer(v18, v20);
+                v23 = v24;
+                v20 = v25;
+                v19.namespace = buffer.tostring(v23);
+            elseif v21 == 2 then
+                v23 = nil;
+                v24, v25 = v0.readBuffer(v18, v20);
+                v23 = v24;
+                v20 = v25;
+                v19.key = buffer.tostring(v23);
+            elseif v21 == 3 then
+                v23 = nil;
+                v24, v25 = v0.readBuffer(v18, v20);
+                v23 = v24;
+                v20 = v25;
+                v19.map_key = buffer.tostring(v23);
             else
-                v26 = nil;
-                v27, v28 = v0.readVarInt(v21, v23);
-                v23 = v28 + v27;
+                v23 = nil;
+                v24, v25 = v0.readVarInt(v18, v20);
+                v20 = v25 + v24;
             end;
-        elseif v25 == v0.wireTypes.i32 then
-            v26 = nil;
-            v27, v28 = v0.readFixed32(v21, v23);
-            v26 = v27;
-            v23 = v28;
-        elseif v25 == v0.wireTypes.i64 then
-            v26 = nil;
-            v27, v28 = v0.readFixed64(v21, v23);
-            v26 = v27;
-            v23 = v28;
+        elseif v22 == v0.wireTypes.i32 then
+            v23 = nil;
+            v24, v25 = v0.readFixed32(v18, v20);
+            v23 = v24;
+            v20 = v25;
+        elseif v22 == v0.wireTypes.i64 then
+            v23 = nil;
+            v24, v25 = v0.readFixed64(v18, v20);
+            v23 = v24;
+            v20 = v25;
         else
-            error("Unsupported wire type: " .. v25);
+            error("Unsupported wire type: " .. v22);
         end;
     end;
-    return v22;
+    return v19;
 end;
-v5.jsonEncode = function(v29) --[[ Line: 3004 ]] --[[ Name: jsonEncode ]]
-    local v30 = {};
-    if v29.str ~= nil and v29.str ~= "" then
-        v30.str = v29.str;
+v5.jsonEncode = function(v26) --[[ Line: 3153 ]] --[[ Name: jsonEncode ]]
+    local v27 = {};
+    if v26.namespace ~= nil and v26.namespace ~= "" then
+        v27.namespace = v26.namespace;
     end;
-    if v29.args ~= nil and next(v29.args) ~= nil then
-        local v31 = {};
-        for v32, v33 in v29.args do
-            v31[v32] = v33:jsonEncode();
-        end;
-        v30.args = v31;
+    if v26.key ~= nil and v26.key ~= "" then
+        v27.key = v26.key;
     end;
-    return v30;
+    if v26.map_key ~= nil and v26.map_key ~= "" then
+        v27.mapKey = v26.map_key;
+    end;
+    return v27;
 end;
-v5.jsonDecode = function(v34) --[[ Line: 3022 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_0 (copy), v2 (copy)
-    local v35 = l_v5_0.new();
-    if v34.str ~= nil then
-        v35.str = v34.str;
+v5.jsonDecode = function(v28) --[[ Line: 3171 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_0 (copy)
+    local v29 = l_v5_0.new();
+    if v28.namespace ~= nil then
+        v29.namespace = v28.namespace;
     end;
-    if v34.args ~= nil then
-        local v36 = {};
-        for v37, v38 in v34.args do
-            v36[v37] = v2.StringFormat_FormatArg.jsonDecode(v38);
+    if v28.key ~= nil then
+        v29.key = v28.key;
+    end;
+    if v28.map_key ~= nil then
+        v29.map_key = v28.map_key;
+    end;
+    if v28.mapKey ~= nil then
+        v29.map_key = v28.mapKey;
+    end;
+    return v29;
+end;
+v5.descriptor = {
+    name = "TranslationRef", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.TranslationRef"
+};
+v2.TranslationRef = v5;
+v1.default:register(v2.TranslationRef);
+v5 = {};
+v5.__index = v5;
+local l_v5_1 = v5 --[[ copy: 5 -> 7 ]];
+v5.new = function(v31) --[[ Line: 3207 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_1 (copy)
+    return (setmetatable({
+        str = (not (v31 ~= nil) or v31.str == nil) and "" or v31.str, 
+        args = if not (v31 ~= nil) or v31.args == nil then {} else v31.args, 
+        translation = if not (v31 ~= nil) or v31.translation == nil then nil else v31.translation
+    }, l_v5_1));
+end;
+v5.encode = function(v32) --[[ Line: 3215 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v33 = buffer.create(0);
+    local v34 = 0;
+    if v32.str ~= nil and v32.str ~= "" then
+        local v35, v36 = v0.writeTag(v33, v34, 1, v0.wireTypes.lengthDelimited);
+        v35, v36 = v0.writeString(v35, v36, v32.str);
+        v33 = v35;
+        v34 = v36;
+    end;
+    if v32.args ~= nil and next(v32.args) ~= nil then
+        for v37, v38 in v32.args do
+            local v39 = buffer.create(0);
+            local v40, v41 = v0.writeTag(v39, 0, 1, v0.wireTypes.lengthDelimited);
+            v40, v41 = v0.writeString(v40, v41, v37);
+            v39 = v40;
+            local l_v41_0 = v41;
+            v40 = v38:encode();
+            local v43;
+            v41, v43 = v0.writeTag(v39, l_v41_0, 2, v0.wireTypes.lengthDelimited);
+            v41, v43 = v0.writeBuffer(v41, v43, v40, buffer.len(v40));
+            v39 = v41;
+            l_v41_0 = v43;
+            v41, v43 = v0.writeTag(v33, v34, 2, v0.wireTypes.lengthDelimited);
+            v41, v43 = v0.writeBuffer(v41, v43, v39, l_v41_0);
+            v33 = v41;
+            v34 = v43;
         end;
-        v35.args = v36;
     end;
-    return v35;
+    if v32.translation ~= nil then
+        local v44 = v32.translation:encode();
+        local v45, v46 = v0.writeTag(v33, v34, 3, v0.wireTypes.lengthDelimited);
+        v45, v46 = v0.writeBuffer(v45, v46, v44, buffer.len(v44));
+        v33 = v45;
+        v34 = v46;
+    end;
+    local v47 = buffer.create(v34);
+    buffer.copy(v47, 0, v33, 0, v34);
+    return v47;
+end;
+v5.decode = function(v48) --[[ Line: 3249 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_1 (copy), v0 (copy), v2 (copy)
+    local v49 = l_v5_1.new();
+    local v50 = 0;
+    while v50 < buffer.len(v48) do
+        local v51 = nil;
+        local v52 = nil;
+        local v53, v54, v55 = v0.readTag(v48, v50);
+        v51 = v53;
+        v52 = v54;
+        v50 = v55;
+        if v52 == v0.wireTypes.varint then
+            v53 = nil;
+            v54, v55 = v0.readVarInt(v48, v50);
+            v53 = v54;
+            v50 = v55;
+        elseif v52 == v0.wireTypes.lengthDelimited then
+            if v51 == 1 then
+                v53 = nil;
+                v54, v55 = v0.readBuffer(v48, v50);
+                v53 = v54;
+                v50 = v55;
+                v49.str = buffer.tostring(v53);
+            elseif v51 == 2 then
+                v53 = nil;
+                v54, v55 = v0.readBuffer(v48, v50);
+                v53 = v54;
+                v50 = v55;
+                v54 = v2.StringFormat_ArgsEntry.decode(v53);
+                v55 = v2.StringFormat_FormatArg.new();
+                v49.args[v54.key or ""] = v54.value or v55;
+            elseif v51 == 3 then
+                v53 = nil;
+                v54, v55 = v0.readBuffer(v48, v50);
+                v53 = v54;
+                v50 = v55;
+                v49.translation = v2.TranslationRef.decode(v53);
+            else
+                v53 = nil;
+                v54, v55 = v0.readVarInt(v48, v50);
+                v50 = v55 + v54;
+            end;
+        elseif v52 == v0.wireTypes.i32 then
+            v53 = nil;
+            v54, v55 = v0.readFixed32(v48, v50);
+            v53 = v54;
+            v50 = v55;
+        elseif v52 == v0.wireTypes.i64 then
+            v53 = nil;
+            v54, v55 = v0.readFixed64(v48, v50);
+            v53 = v54;
+            v50 = v55;
+        else
+            error("Unsupported wire type: " .. v52);
+        end;
+    end;
+    return v49;
+end;
+v5.jsonEncode = function(v56) --[[ Line: 3309 ]] --[[ Name: jsonEncode ]]
+    local v57 = {};
+    if v56.str ~= nil and v56.str ~= "" then
+        v57.str = v56.str;
+    end;
+    if v56.args ~= nil and next(v56.args) ~= nil then
+        local v58 = {};
+        for v59, v60 in v56.args do
+            v58[v59] = v60:jsonEncode();
+        end;
+        v57.args = v58;
+    end;
+    if v56.translation ~= nil then
+        v57.translation = v56.translation:jsonEncode();
+    end;
+    return v57;
+end;
+v5.jsonDecode = function(v61) --[[ Line: 3331 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_1 (copy), v2 (copy)
+    local v62 = l_v5_1.new();
+    if v61.str ~= nil then
+        v62.str = v61.str;
+    end;
+    if v61.args ~= nil then
+        local v63 = {};
+        for v64, v65 in v61.args do
+            v63[v64] = v2.StringFormat_FormatArg.jsonDecode(v65);
+        end;
+        v62.args = v63;
+    end;
+    if v61.translation ~= nil then
+        v62.translation = v2.TranslationRef.jsonDecode(v61.translation);
+    end;
+    return v62;
 end;
 v5.descriptor = {
     name = "StringFormat", 
@@ -135,124 +284,143 @@ v2.StringFormat = v5;
 v1.default:register(v2.StringFormat);
 v5 = {};
 v5.__index = v5;
-local l_v5_1 = v5 --[[ copy: 5 -> 7 ]];
-v5.new = function(v40) --[[ Line: 3055 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_1 (copy)
+local l_v5_2 = v5 --[[ copy: 5 -> 8 ]];
+v5.new = function(v67) --[[ Line: 3368 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_2 (copy)
     return (setmetatable({
-        kind = if not (v40 ~= nil) or v40.kind == nil then nil else v40.kind
-    }, l_v5_1));
+        kind = if not (v67 ~= nil) or v67.kind == nil then nil else v67.kind, 
+        formatter = if not (v67 ~= nil) or v67.formatter == nil then nil else v67.formatter
+    }, l_v5_2));
 end;
-v5.encode = function(v41) --[[ Line: 3061 ]] --[[ Name: encode ]]
+v5.encode = function(v68) --[[ Line: 3375 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v42 = buffer.create(0);
-    local v43 = 0;
-    if v41.kind ~= nil then
-        if v41.kind.type == "literal" then
-            local v44, v45 = v0.writeTag(v42, v43, 1, v0.wireTypes.lengthDelimited);
-            v44, v45 = v0.writeString(v44, v45, v41.kind.value);
-            v42 = v44;
-            v43 = v45;
-        elseif v41.kind.type == "binding_path" then
-            local v46, v47 = v0.writeTag(v42, v43, 2, v0.wireTypes.lengthDelimited);
-            v46, v47 = v0.writeString(v46, v47, v41.kind.value);
-            v42 = v46;
-            v43 = v47;
+    local v69 = buffer.create(0);
+    local v70 = 0;
+    if v68.kind ~= nil then
+        if v68.kind.type == "literal" then
+            local v71, v72 = v0.writeTag(v69, v70, 1, v0.wireTypes.lengthDelimited);
+            v71, v72 = v0.writeString(v71, v72, v68.kind.value);
+            v69 = v71;
+            v70 = v72;
+        elseif v68.kind.type == "binding_path" then
+            local v73, v74 = v0.writeTag(v69, v70, 2, v0.wireTypes.lengthDelimited);
+            v73, v74 = v0.writeString(v73, v74, v68.kind.value);
+            v69 = v73;
+            v70 = v74;
         end;
     end;
-    local v48 = buffer.create(v43);
-    buffer.copy(v48, 0, v42, 0, v43);
-    return v48;
+    if v68.formatter ~= nil then
+        local v75 = v68.formatter:encode();
+        local v76, v77 = v0.writeTag(v69, v70, 3, v0.wireTypes.lengthDelimited);
+        v76, v77 = v0.writeBuffer(v76, v77, v75, buffer.len(v75));
+        v69 = v76;
+        v70 = v77;
+    end;
+    local v78 = buffer.create(v70);
+    buffer.copy(v78, 0, v69, 0, v70);
+    return v78;
 end;
-v5.decode = function(v49) --[[ Line: 3080 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_1 (copy), v0 (copy)
-    local v50 = l_v5_1.new();
-    local v51 = 0;
-    while v51 < buffer.len(v49) do
-        local v52 = nil;
-        local v53 = nil;
-        local v54, v55, v56 = v0.readTag(v49, v51);
-        v52 = v54;
-        v53 = v55;
-        v51 = v56;
-        if v53 == v0.wireTypes.varint then
-            v54 = nil;
-            v55, v56 = v0.readVarInt(v49, v51);
-            v54 = v55;
-            v51 = v56;
-        elseif v53 == v0.wireTypes.lengthDelimited then
-            if v52 == 1 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.kind = {
+v5.decode = function(v79) --[[ Line: 3400 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_2 (copy), v0 (copy), v2 (copy)
+    local v80 = l_v5_2.new();
+    local v81 = 0;
+    while v81 < buffer.len(v79) do
+        local v82 = nil;
+        local v83 = nil;
+        local v84, v85, v86 = v0.readTag(v79, v81);
+        v82 = v84;
+        v83 = v85;
+        v81 = v86;
+        if v83 == v0.wireTypes.varint then
+            v84 = nil;
+            v85, v86 = v0.readVarInt(v79, v81);
+            v84 = v85;
+            v81 = v86;
+        elseif v83 == v0.wireTypes.lengthDelimited then
+            if v82 == 1 then
+                v84 = nil;
+                v85, v86 = v0.readBuffer(v79, v81);
+                v84 = v85;
+                v81 = v86;
+                v80.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v54)
+                    value = buffer.tostring(v84)
                 };
-            elseif v52 == 2 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.kind = {
+            elseif v82 == 2 then
+                v84 = nil;
+                v85, v86 = v0.readBuffer(v79, v81);
+                v84 = v85;
+                v81 = v86;
+                v80.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v54)
+                    value = buffer.tostring(v84)
                 };
+            elseif v82 == 3 then
+                v84 = nil;
+                v85, v86 = v0.readBuffer(v79, v81);
+                v84 = v85;
+                v81 = v86;
+                v80.formatter = v2.StringFormat_FormatArg_Formatter.decode(v84);
             else
-                v54 = nil;
-                v55, v56 = v0.readVarInt(v49, v51);
-                v51 = v56 + v55;
+                v84 = nil;
+                v85, v86 = v0.readVarInt(v79, v81);
+                v81 = v86 + v85;
             end;
-        elseif v53 == v0.wireTypes.i32 then
-            v54 = nil;
-            v55, v56 = v0.readFixed32(v49, v51);
-            v54 = v55;
-            v51 = v56;
-        elseif v53 == v0.wireTypes.i64 then
-            v54 = nil;
-            v55, v56 = v0.readFixed64(v49, v51);
-            v54 = v55;
-            v51 = v56;
+        elseif v83 == v0.wireTypes.i32 then
+            v84 = nil;
+            v85, v86 = v0.readFixed32(v79, v81);
+            v84 = v85;
+            v81 = v86;
+        elseif v83 == v0.wireTypes.i64 then
+            v84 = nil;
+            v85, v86 = v0.readFixed64(v79, v81);
+            v84 = v85;
+            v81 = v86;
         else
-            error("Unsupported wire type: " .. v53);
+            error("Unsupported wire type: " .. v83);
         end;
     end;
-    return v50;
+    return v80;
 end;
-v5.jsonEncode = function(v57) --[[ Line: 3128 ]] --[[ Name: jsonEncode ]]
-    local v58 = {};
-    if v57.kind ~= nil then
-        if v57.kind.type == "literal" then
-            v58.literal = v57.kind.value;
-            return v58;
-        elseif v57.kind.type == "binding_path" then
-            v58.bindingPath = v57.kind.value;
+v5.jsonEncode = function(v87) --[[ Line: 3453 ]] --[[ Name: jsonEncode ]]
+    local v88 = {};
+    if v87.kind ~= nil then
+        if v87.kind.type == "literal" then
+            v88.literal = v87.kind.value;
+        elseif v87.kind.type == "binding_path" then
+            v88.bindingPath = v87.kind.value;
         end;
     end;
-    return v58;
+    if v87.formatter ~= nil then
+        v88.formatter = v87.formatter:jsonEncode();
+    end;
+    return v88;
 end;
-v5.jsonDecode = function(v59) --[[ Line: 3142 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_1 (copy)
-    local v60 = l_v5_1.new();
-    if v59.literal ~= nil then
-        v60.kind = {
+v5.jsonDecode = function(v89) --[[ Line: 3471 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_2 (copy), v2 (copy)
+    local v90 = l_v5_2.new();
+    if v89.literal ~= nil then
+        v90.kind = {
             type = "literal", 
-            value = v59.literal
+            value = v89.literal
         };
     end;
-    if v59.binding_path ~= nil then
-        v60.kind = {
+    if v89.binding_path ~= nil then
+        v90.kind = {
             type = "binding_path", 
-            value = v59.binding_path
+            value = v89.binding_path
         };
     end;
-    if v59.bindingPath ~= nil then
-        v60.kind = {
+    if v89.bindingPath ~= nil then
+        v90.kind = {
             type = "binding_path", 
-            value = v59.bindingPath
+            value = v89.bindingPath
         };
     end;
-    return v60;
+    if v89.formatter ~= nil then
+        v90.formatter = v2.StringFormat_FormatArg_Formatter.jsonDecode(v89.formatter);
+    end;
+    return v90;
 end;
 v5.descriptor = {
     name = "StringFormat_FormatArg", 
@@ -262,160 +430,36 @@ v2.StringFormat_FormatArg = v5;
 v1.default:register(v2.StringFormat_FormatArg);
 v5 = {};
 v5.__index = v5;
-local l_v5_2 = v5 --[[ copy: 5 -> 8 ]];
-v5.new = function(v62) --[[ Line: 3174 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_2 (copy)
-    return (setmetatable({
-        key = (not (v62 ~= nil) or v62.key == nil) and "" or v62.key, 
-        value = if not (v62 ~= nil) or v62.value == nil then nil else v62.value
-    }, l_v5_2));
-end;
-v5.encode = function(v63) --[[ Line: 3181 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v64 = buffer.create(0);
-    local v65 = 0;
-    if v63.key ~= nil and v63.key ~= "" then
-        local v66, v67 = v0.writeTag(v64, v65, 1, v0.wireTypes.lengthDelimited);
-        v66, v67 = v0.writeString(v66, v67, v63.key);
-        v64 = v66;
-        v65 = v67;
-    end;
-    if v63.value ~= nil then
-        local v68 = v63.value:encode();
-        local v69, v70 = v0.writeTag(v64, v65, 2, v0.wireTypes.lengthDelimited);
-        v69, v70 = v0.writeBuffer(v69, v70, v68, buffer.len(v68));
-        v64 = v69;
-        v65 = v70;
-    end;
-    local v71 = buffer.create(v65);
-    buffer.copy(v71, 0, v64, 0, v65);
-    return v71;
-end;
-v5.decode = function(v72) --[[ Line: 3201 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_2 (copy), v0 (copy), v2 (copy)
-    local v73 = l_v5_2.new();
-    local v74 = 0;
-    while v74 < buffer.len(v72) do
-        local v75 = nil;
-        local v76 = nil;
-        local v77, v78, v79 = v0.readTag(v72, v74);
-        v75 = v77;
-        v76 = v78;
-        v74 = v79;
-        if v76 == v0.wireTypes.varint then
-            v77 = nil;
-            v78, v79 = v0.readVarInt(v72, v74);
-            v77 = v78;
-            v74 = v79;
-        elseif v76 == v0.wireTypes.lengthDelimited then
-            if v75 == 1 then
-                v77 = nil;
-                v78, v79 = v0.readBuffer(v72, v74);
-                v77 = v78;
-                v74 = v79;
-                v73.key = buffer.tostring(v77);
-            elseif v75 == 2 then
-                v77 = nil;
-                v78, v79 = v0.readBuffer(v72, v74);
-                v77 = v78;
-                v74 = v79;
-                v73.value = v2.StringFormat_FormatArg.decode(v77);
-            else
-                v77 = nil;
-                v78, v79 = v0.readVarInt(v72, v74);
-                v74 = v79 + v78;
-            end;
-        elseif v76 == v0.wireTypes.i32 then
-            v77 = nil;
-            v78, v79 = v0.readFixed32(v72, v74);
-            v77 = v78;
-            v74 = v79;
-        elseif v76 == v0.wireTypes.i64 then
-            v77 = nil;
-            v78, v79 = v0.readFixed64(v72, v74);
-            v77 = v78;
-            v74 = v79;
-        else
-            error("Unsupported wire type: " .. v76);
-        end;
-    end;
-    return v73;
-end;
-v5.jsonEncode = function(v80) --[[ Line: 3249 ]] --[[ Name: jsonEncode ]]
-    local v81 = {};
-    if v80.key ~= nil and v80.key ~= "" then
-        v81.key = v80.key;
-    end;
-    if v80.value ~= nil then
-        v81.value = v80.value:jsonEncode();
-    end;
-    return v81;
-end;
-v5.jsonDecode = function(v82) --[[ Line: 3263 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_2 (copy), v2 (copy)
-    local v83 = l_v5_2.new();
-    if v82.key ~= nil then
-        v83.key = v82.key;
-    end;
-    if v82.value ~= nil then
-        v83.value = v2.StringFormat_FormatArg.jsonDecode(v82.value);
-    end;
-    return v83;
-end;
-v5.descriptor = {
-    name = "StringFormat_ArgsEntry", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.ArgsEntry"
-};
-v2.StringFormat_ArgsEntry = v5;
-v1.default:register(v2.StringFormat_ArgsEntry);
-v5 = {};
-v5.__index = v5;
 local l_v5_3 = v5 --[[ copy: 5 -> 9 ]];
-v5.new = function(v85) --[[ Line: 3291 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_3 (copy)
+v5.new = function(v92) --[[ Line: 3507 ]] --[[ Name: new ]]
+    -- upvalues: v2 (copy), l_v5_3 (copy)
     return (setmetatable({
-        kind = if not (v85 ~= nil) or v85.kind == nil then nil else v85.kind
+        type = if not (v92 ~= nil) or v92.type == nil then assert(v2.StringFormat_FormatArg_Formatter_Type.fromNumber(0), "Enum has no 0 default") else v92.type, 
+        config = if not (v92 ~= nil) or v92.config == nil then nil else v92.config
     }, l_v5_3));
 end;
-v5.encode = function(v86) --[[ Line: 3297 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v87 = buffer.create(0);
-    local v88 = 0;
-    if v86.kind ~= nil then
-        if v86.kind.type == "literal" then
-            local v89, v90 = v0.writeTag(v87, v88, 1, v0.wireTypes.lengthDelimited);
-            v89, v90 = v0.writeString(v89, v90, v86.kind.value);
-            v87 = v89;
-            v88 = v90;
-        elseif v86.kind.type == "binding_path" then
-            local v91, v92 = v0.writeTag(v87, v88, 2, v0.wireTypes.lengthDelimited);
-            v91, v92 = v0.writeString(v91, v92, v86.kind.value);
-            v87 = v91;
-            v88 = v92;
-        elseif v86.kind.type == "token" then
-            local v93, v94 = v0.writeTag(v87, v88, 3, v0.wireTypes.lengthDelimited);
-            v93, v94 = v0.writeString(v93, v94, v86.kind.value);
-            v87 = v93;
-            v88 = v94;
-        elseif v86.kind.type == "format" then
-            local v95 = v86.kind.value:encode();
-            local v96, v97 = v0.writeTag(v87, v88, 4, v0.wireTypes.lengthDelimited);
-            v96, v97 = v0.writeBuffer(v96, v97, v95, buffer.len(v95));
-            v87 = v96;
-            v88 = v97;
-        elseif v86.kind.type == "conditional" then
-            local v98 = v86.kind.value:encode();
-            local v99, v100 = v0.writeTag(v87, v88, 5, v0.wireTypes.lengthDelimited);
-            v99, v100 = v0.writeBuffer(v99, v100, v98, buffer.len(v98));
-            v87 = v99;
-            v88 = v100;
-        end;
+v5.encode = function(v93) --[[ Line: 3518 ]] --[[ Name: encode ]]
+    -- upvalues: v2 (copy), v0 (copy)
+    local v94 = buffer.create(0);
+    local v95 = 0;
+    if v93.type ~= nil and (v93.type ~= nil and v93.type ~= 0 or v93.type ~= v2.StringFormat_FormatArg_Formatter_Type.fromNumber(0)) then
+        local v96, v97 = v0.writeTag(v94, v95, 1, v0.wireTypes.varint);
+        v96, v97 = v0.writeVarInt(v96, v97, v2.StringFormat_FormatArg_Formatter_Type.toNumber(v93.type));
+        v94 = v96;
+        v95 = v97;
     end;
-    local v101 = buffer.create(v88);
-    buffer.copy(v101, 0, v87, 0, v88);
+    if v93.config ~= nil and v93.config.type == "date_config" then
+        local v98 = v93.config.value:encode();
+        local v99, v100 = v0.writeTag(v94, v95, 2, v0.wireTypes.lengthDelimited);
+        v99, v100 = v0.writeBuffer(v99, v100, v98, buffer.len(v98));
+        v94 = v99;
+        v95 = v100;
+    end;
+    local v101 = buffer.create(v95);
+    buffer.copy(v101, 0, v94, 0, v95);
     return v101;
 end;
-v5.decode = function(v102) --[[ Line: 3327 ]] --[[ Name: decode ]]
+v5.decode = function(v102) --[[ Line: 3550 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_3 (copy), v0 (copy), v2 (copy)
     local v103 = l_v5_3.new();
     local v104 = 0;
@@ -427,55 +471,27 @@ v5.decode = function(v102) --[[ Line: 3327 ]] --[[ Name: decode ]]
         v106 = v108;
         v104 = v109;
         if v106 == v0.wireTypes.varint then
-            v107 = nil;
-            v108, v109 = v0.readVarInt(v102, v104);
-            v107 = v108;
-            v104 = v109;
-        elseif v106 == v0.wireTypes.lengthDelimited then
             if v105 == 1 then
                 v107 = nil;
-                v108, v109 = v0.readBuffer(v102, v104);
+                v108, v109 = v0.readVarIntI32(v102, v104);
                 v107 = v108;
                 v104 = v109;
-                v103.kind = {
-                    type = "literal", 
-                    value = buffer.tostring(v107)
-                };
-            elseif v105 == 2 then
+                v103.type = v2.StringFormat_FormatArg_Formatter_Type.fromNumber(v107) or v107;
+            else
+                v107 = nil;
+                v108, v109 = v0.readVarInt(v102, v104);
+                v107 = v108;
+                v104 = v109;
+            end;
+        elseif v106 == v0.wireTypes.lengthDelimited then
+            if v105 == 2 then
                 v107 = nil;
                 v108, v109 = v0.readBuffer(v102, v104);
                 v107 = v108;
                 v104 = v109;
-                v103.kind = {
-                    type = "binding_path", 
-                    value = buffer.tostring(v107)
-                };
-            elseif v105 == 3 then
-                v107 = nil;
-                v108, v109 = v0.readBuffer(v102, v104);
-                v107 = v108;
-                v104 = v109;
-                v103.kind = {
-                    type = "token", 
-                    value = buffer.tostring(v107)
-                };
-            elseif v105 == 4 then
-                v107 = nil;
-                v108, v109 = v0.readBuffer(v102, v104);
-                v107 = v108;
-                v104 = v109;
-                v103.kind = {
-                    type = "format", 
-                    value = v2.StringFormat.decode(v107)
-                };
-            elseif v105 == 5 then
-                v107 = nil;
-                v108, v109 = v0.readBuffer(v102, v104);
-                v107 = v108;
-                v104 = v109;
-                v103.kind = {
-                    type = "conditional", 
-                    value = v2.StringProp_ConditionalOptions.decode(v107)
+                v103.config = {
+                    type = "date_config", 
+                    value = v2.StringFormat_FormatArg_Formatter_DateConfig.decode(v107)
                 };
             else
                 v107 = nil;
@@ -498,67 +514,495 @@ v5.decode = function(v102) --[[ Line: 3327 ]] --[[ Name: decode ]]
     end;
     return v103;
 end;
-v5.jsonEncode = function(v110) --[[ Line: 3390 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v110) --[[ Line: 3601 ]] --[[ Name: jsonEncode ]]
+    -- upvalues: v2 (copy)
     local v111 = {};
-    if v110.kind ~= nil then
-        if v110.kind.type == "literal" then
-            v111.literal = v110.kind.value;
-            return v111;
-        elseif v110.kind.type == "binding_path" then
-            v111.bindingPath = v110.kind.value;
-            return v111;
-        elseif v110.kind.type == "token" then
-            v111.token = v110.kind.value;
-            return v111;
-        elseif v110.kind.type == "format" then
-            v111.format = v110.kind.value:jsonEncode();
-            return v111;
-        elseif v110.kind.type == "conditional" then
-            v111.conditional = v110.kind.value:jsonEncode();
-        end;
+    if v110.type ~= nil and (v110.type ~= nil and v110.type ~= 0 or v110.type ~= v2.StringFormat_FormatArg_Formatter_Type.fromNumber(0)) then
+        v111.type = if typeof(v110.type) == "number" then v110.type else v2.StringFormat_FormatArg_Formatter_Type.toNumber(v110.type);
+    end;
+    if v110.config ~= nil and v110.config.type == "date_config" then
+        v111.dateConfig = v110.config.value:jsonEncode();
     end;
     return v111;
 end;
-v5.jsonDecode = function(v112) --[[ Line: 3410 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v112) --[[ Line: 3625 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_3 (copy), v2 (copy)
     local v113 = l_v5_3.new();
-    if v112.literal ~= nil then
-        v113.kind = {
-            type = "literal", 
-            value = v112.literal
+    if v112.type ~= nil then
+        v113.type = if typeof(v112.type) == "number" then v2.StringFormat_FormatArg_Formatter_Type.fromNumber(v112.type) or v112.type else v2.StringFormat_FormatArg_Formatter_Type.fromName(v112.type) or v112.type;
+    end;
+    if v112.date_config ~= nil then
+        v113.config = {
+            type = "date_config", 
+            value = v2.StringFormat_FormatArg_Formatter_DateConfig.jsonDecode(v112.date_config)
         };
     end;
-    if v112.binding_path ~= nil then
-        v113.kind = {
-            type = "binding_path", 
-            value = v112.binding_path
-        };
-    end;
-    if v112.bindingPath ~= nil then
-        v113.kind = {
-            type = "binding_path", 
-            value = v112.bindingPath
-        };
-    end;
-    if v112.token ~= nil then
-        v113.kind = {
-            type = "token", 
-            value = v112.token
-        };
-    end;
-    if v112.format ~= nil then
-        v113.kind = {
-            type = "format", 
-            value = v2.StringFormat.jsonDecode(v112.format)
-        };
-    end;
-    if v112.conditional ~= nil then
-        v113.kind = {
-            type = "conditional", 
-            value = v2.StringProp_ConditionalOptions.jsonDecode(v112.conditional)
+    if v112.dateConfig ~= nil then
+        v113.config = {
+            type = "date_config", 
+            value = v2.StringFormat_FormatArg_Formatter_DateConfig.jsonDecode(v112.dateConfig)
         };
     end;
     return v113;
+end;
+v5.descriptor = {
+    name = "StringFormat_FormatArg_Formatter", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.Formatter"
+};
+v2.StringFormat_FormatArg_Formatter = v5;
+v1.default:register(v2.StringFormat_FormatArg_Formatter);
+v5 = {};
+v5.__index = v5;
+local l_v5_4 = v5 --[[ copy: 5 -> 10 ]];
+v5.new = function(v115) --[[ Line: 3667 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_4 (copy)
+    return (setmetatable({
+        pattern = (not (v115 ~= nil) or v115.pattern == nil) and "" or v115.pattern
+    }, l_v5_4));
+end;
+v5.encode = function(v116) --[[ Line: 3675 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v117 = buffer.create(0);
+    local v118 = 0;
+    if v116.pattern ~= nil and v116.pattern ~= "" then
+        local v119, v120 = v0.writeTag(v117, v118, 1, v0.wireTypes.lengthDelimited);
+        v119, v120 = v0.writeString(v119, v120, v116.pattern);
+        v117 = v119;
+        v118 = v120;
+    end;
+    local v121 = buffer.create(v118);
+    buffer.copy(v121, 0, v117, 0, v118);
+    return v121;
+end;
+v5.decode = function(v122) --[[ Line: 3691 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_4 (copy), v0 (copy)
+    local v123 = l_v5_4.new();
+    local v124 = 0;
+    while v124 < buffer.len(v122) do
+        local v125 = nil;
+        local v126 = nil;
+        local v127, v128, v129 = v0.readTag(v122, v124);
+        v125 = v127;
+        v126 = v128;
+        v124 = v129;
+        if v126 == v0.wireTypes.varint then
+            v127 = nil;
+            v128, v129 = v0.readVarInt(v122, v124);
+            v127 = v128;
+            v124 = v129;
+        elseif v126 == v0.wireTypes.lengthDelimited then
+            if v125 == 1 then
+                v127 = nil;
+                v128, v129 = v0.readBuffer(v122, v124);
+                v127 = v128;
+                v124 = v129;
+                v123.pattern = buffer.tostring(v127);
+            else
+                v127 = nil;
+                v128, v129 = v0.readVarInt(v122, v124);
+                v124 = v129 + v128;
+            end;
+        elseif v126 == v0.wireTypes.i32 then
+            v127 = nil;
+            v128, v129 = v0.readFixed32(v122, v124);
+            v127 = v128;
+            v124 = v129;
+        elseif v126 == v0.wireTypes.i64 then
+            v127 = nil;
+            v128, v129 = v0.readFixed64(v122, v124);
+            v127 = v128;
+            v124 = v129;
+        else
+            error("Unsupported wire type: " .. v126);
+        end;
+    end;
+    return v123;
+end;
+v5.jsonEncode = function(v130) --[[ Line: 3736 ]] --[[ Name: jsonEncode ]]
+    local v131 = {};
+    if v130.pattern ~= nil and v130.pattern ~= "" then
+        v131.pattern = v130.pattern;
+    end;
+    return v131;
+end;
+v5.jsonDecode = function(v132) --[[ Line: 3748 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_4 (copy)
+    local v133 = l_v5_4.new();
+    if v132.pattern ~= nil then
+        v133.pattern = v132.pattern;
+    end;
+    return v133;
+end;
+v5.descriptor = {
+    name = "StringFormat_FormatArg_Formatter_DateConfig", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.DateConfig"
+};
+v2.StringFormat_FormatArg_Formatter_DateConfig = v5;
+v1.default:register(v2.StringFormat_FormatArg_Formatter_DateConfig);
+v2.StringFormat_FormatArg_Formatter_Type = {
+    fromNumber = function(v134) --[[ Line: 3771 ]] --[[ Name: fromNumber ]]
+        if v134 == 0 then
+            return "TYPE_INVALID";
+        elseif v134 == 1 then
+            return "TYPE_NUMBER_ABBREVIATE";
+        elseif v134 == 2 then
+            return "TYPE_NUMBER_LOCALIZE";
+        elseif v134 == 3 then
+            return "TYPE_DATE_FORMAT";
+        else
+            return nil;
+        end;
+    end, 
+    toNumber = function(v135) --[[ Line: 3785 ]] --[[ Name: toNumber ]]
+        if v135 == "TYPE_INVALID" then
+            return 0;
+        elseif v135 == "TYPE_NUMBER_ABBREVIATE" then
+            return 1;
+        elseif v135 == "TYPE_NUMBER_LOCALIZE" then
+            return 2;
+        elseif v135 == "TYPE_DATE_FORMAT" then
+            return 3;
+        else
+            return v135;
+        end;
+    end, 
+    fromName = function(v136) --[[ Line: 3799 ]] --[[ Name: fromName ]]
+        if v136 == "TYPE_INVALID" then
+            return "TYPE_INVALID";
+        elseif v136 == "TYPE_NUMBER_ABBREVIATE" then
+            return "TYPE_NUMBER_ABBREVIATE";
+        elseif v136 == "TYPE_NUMBER_LOCALIZE" then
+            return "TYPE_NUMBER_LOCALIZE";
+        elseif v136 == "TYPE_DATE_FORMAT" then
+            return "TYPE_DATE_FORMAT";
+        else
+            return nil;
+        end;
+    end
+};
+v5 = {};
+v5.__index = v5;
+local l_v5_5 = v5 --[[ copy: 5 -> 11 ]];
+v5.new = function(v138) --[[ Line: 3818 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_5 (copy)
+    return (setmetatable({
+        key = (not (v138 ~= nil) or v138.key == nil) and "" or v138.key, 
+        value = if not (v138 ~= nil) or v138.value == nil then nil else v138.value
+    }, l_v5_5));
+end;
+v5.encode = function(v139) --[[ Line: 3825 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v140 = buffer.create(0);
+    local v141 = 0;
+    if v139.key ~= nil and v139.key ~= "" then
+        local v142, v143 = v0.writeTag(v140, v141, 1, v0.wireTypes.lengthDelimited);
+        v142, v143 = v0.writeString(v142, v143, v139.key);
+        v140 = v142;
+        v141 = v143;
+    end;
+    if v139.value ~= nil then
+        local v144 = v139.value:encode();
+        local v145, v146 = v0.writeTag(v140, v141, 2, v0.wireTypes.lengthDelimited);
+        v145, v146 = v0.writeBuffer(v145, v146, v144, buffer.len(v144));
+        v140 = v145;
+        v141 = v146;
+    end;
+    local v147 = buffer.create(v141);
+    buffer.copy(v147, 0, v140, 0, v141);
+    return v147;
+end;
+v5.decode = function(v148) --[[ Line: 3845 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_5 (copy), v0 (copy), v2 (copy)
+    local v149 = l_v5_5.new();
+    local v150 = 0;
+    while v150 < buffer.len(v148) do
+        local v151 = nil;
+        local v152 = nil;
+        local v153, v154, v155 = v0.readTag(v148, v150);
+        v151 = v153;
+        v152 = v154;
+        v150 = v155;
+        if v152 == v0.wireTypes.varint then
+            v153 = nil;
+            v154, v155 = v0.readVarInt(v148, v150);
+            v153 = v154;
+            v150 = v155;
+        elseif v152 == v0.wireTypes.lengthDelimited then
+            if v151 == 1 then
+                v153 = nil;
+                v154, v155 = v0.readBuffer(v148, v150);
+                v153 = v154;
+                v150 = v155;
+                v149.key = buffer.tostring(v153);
+            elseif v151 == 2 then
+                v153 = nil;
+                v154, v155 = v0.readBuffer(v148, v150);
+                v153 = v154;
+                v150 = v155;
+                v149.value = v2.StringFormat_FormatArg.decode(v153);
+            else
+                v153 = nil;
+                v154, v155 = v0.readVarInt(v148, v150);
+                v150 = v155 + v154;
+            end;
+        elseif v152 == v0.wireTypes.i32 then
+            v153 = nil;
+            v154, v155 = v0.readFixed32(v148, v150);
+            v153 = v154;
+            v150 = v155;
+        elseif v152 == v0.wireTypes.i64 then
+            v153 = nil;
+            v154, v155 = v0.readFixed64(v148, v150);
+            v153 = v154;
+            v150 = v155;
+        else
+            error("Unsupported wire type: " .. v152);
+        end;
+    end;
+    return v149;
+end;
+v5.jsonEncode = function(v156) --[[ Line: 3893 ]] --[[ Name: jsonEncode ]]
+    local v157 = {};
+    if v156.key ~= nil and v156.key ~= "" then
+        v157.key = v156.key;
+    end;
+    if v156.value ~= nil then
+        v157.value = v156.value:jsonEncode();
+    end;
+    return v157;
+end;
+v5.jsonDecode = function(v158) --[[ Line: 3907 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_5 (copy), v2 (copy)
+    local v159 = l_v5_5.new();
+    if v158.key ~= nil then
+        v159.key = v158.key;
+    end;
+    if v158.value ~= nil then
+        v159.value = v2.StringFormat_FormatArg.jsonDecode(v158.value);
+    end;
+    return v159;
+end;
+v5.descriptor = {
+    name = "StringFormat_ArgsEntry", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ArgsEntry"
+};
+v2.StringFormat_ArgsEntry = v5;
+v1.default:register(v2.StringFormat_ArgsEntry);
+v5 = {};
+v5.__index = v5;
+local l_v5_6 = v5 --[[ copy: 5 -> 12 ]];
+v5.new = function(v161) --[[ Line: 3935 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_6 (copy)
+    return (setmetatable({
+        kind = if not (v161 ~= nil) or v161.kind == nil then nil else v161.kind
+    }, l_v5_6));
+end;
+v5.encode = function(v162) --[[ Line: 3941 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v163 = buffer.create(0);
+    local v164 = 0;
+    if v162.kind ~= nil then
+        if v162.kind.type == "literal" then
+            local v165, v166 = v0.writeTag(v163, v164, 1, v0.wireTypes.lengthDelimited);
+            v165, v166 = v0.writeString(v165, v166, v162.kind.value);
+            v163 = v165;
+            v164 = v166;
+        elseif v162.kind.type == "binding_path" then
+            local v167, v168 = v0.writeTag(v163, v164, 2, v0.wireTypes.lengthDelimited);
+            v167, v168 = v0.writeString(v167, v168, v162.kind.value);
+            v163 = v167;
+            v164 = v168;
+        elseif v162.kind.type == "token" then
+            local v169, v170 = v0.writeTag(v163, v164, 3, v0.wireTypes.lengthDelimited);
+            v169, v170 = v0.writeString(v169, v170, v162.kind.value);
+            v163 = v169;
+            v164 = v170;
+        elseif v162.kind.type == "format" then
+            local v171 = v162.kind.value:encode();
+            local v172, v173 = v0.writeTag(v163, v164, 4, v0.wireTypes.lengthDelimited);
+            v172, v173 = v0.writeBuffer(v172, v173, v171, buffer.len(v171));
+            v163 = v172;
+            v164 = v173;
+        elseif v162.kind.type == "conditional" then
+            local v174 = v162.kind.value:encode();
+            local v175, v176 = v0.writeTag(v163, v164, 5, v0.wireTypes.lengthDelimited);
+            v175, v176 = v0.writeBuffer(v175, v176, v174, buffer.len(v174));
+            v163 = v175;
+            v164 = v176;
+        elseif v162.kind.type == "translation" then
+            local v177 = v162.kind.value:encode();
+            local v178, v179 = v0.writeTag(v163, v164, 6, v0.wireTypes.lengthDelimited);
+            v178, v179 = v0.writeBuffer(v178, v179, v177, buffer.len(v177));
+            v163 = v178;
+            v164 = v179;
+        end;
+    end;
+    local v180 = buffer.create(v164);
+    buffer.copy(v180, 0, v163, 0, v164);
+    return v180;
+end;
+v5.decode = function(v181) --[[ Line: 3975 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_6 (copy), v0 (copy), v2 (copy)
+    local v182 = l_v5_6.new();
+    local v183 = 0;
+    while v183 < buffer.len(v181) do
+        local v184 = nil;
+        local v185 = nil;
+        local v186, v187, v188 = v0.readTag(v181, v183);
+        v184 = v186;
+        v185 = v187;
+        v183 = v188;
+        if v185 == v0.wireTypes.varint then
+            v186 = nil;
+            v187, v188 = v0.readVarInt(v181, v183);
+            v186 = v187;
+            v183 = v188;
+        elseif v185 == v0.wireTypes.lengthDelimited then
+            if v184 == 1 then
+                v186 = nil;
+                v187, v188 = v0.readBuffer(v181, v183);
+                v186 = v187;
+                v183 = v188;
+                v182.kind = {
+                    type = "literal", 
+                    value = buffer.tostring(v186)
+                };
+            elseif v184 == 2 then
+                v186 = nil;
+                v187, v188 = v0.readBuffer(v181, v183);
+                v186 = v187;
+                v183 = v188;
+                v182.kind = {
+                    type = "binding_path", 
+                    value = buffer.tostring(v186)
+                };
+            elseif v184 == 3 then
+                v186 = nil;
+                v187, v188 = v0.readBuffer(v181, v183);
+                v186 = v187;
+                v183 = v188;
+                v182.kind = {
+                    type = "token", 
+                    value = buffer.tostring(v186)
+                };
+            elseif v184 == 4 then
+                v186 = nil;
+                v187, v188 = v0.readBuffer(v181, v183);
+                v186 = v187;
+                v183 = v188;
+                v182.kind = {
+                    type = "format", 
+                    value = v2.StringFormat.decode(v186)
+                };
+            elseif v184 == 5 then
+                v186 = nil;
+                v187, v188 = v0.readBuffer(v181, v183);
+                v186 = v187;
+                v183 = v188;
+                v182.kind = {
+                    type = "conditional", 
+                    value = v2.StringProp_ConditionalOptions.decode(v186)
+                };
+            elseif v184 == 6 then
+                v186 = nil;
+                v187, v188 = v0.readBuffer(v181, v183);
+                v186 = v187;
+                v183 = v188;
+                v182.kind = {
+                    type = "translation", 
+                    value = v2.TranslationRef.decode(v186)
+                };
+            else
+                v186 = nil;
+                v187, v188 = v0.readVarInt(v181, v183);
+                v183 = v188 + v187;
+            end;
+        elseif v185 == v0.wireTypes.i32 then
+            v186 = nil;
+            v187, v188 = v0.readFixed32(v181, v183);
+            v186 = v187;
+            v183 = v188;
+        elseif v185 == v0.wireTypes.i64 then
+            v186 = nil;
+            v187, v188 = v0.readFixed64(v181, v183);
+            v186 = v187;
+            v183 = v188;
+        else
+            error("Unsupported wire type: " .. v185);
+        end;
+    end;
+    return v182;
+end;
+v5.jsonEncode = function(v189) --[[ Line: 4043 ]] --[[ Name: jsonEncode ]]
+    local v190 = {};
+    if v189.kind ~= nil then
+        if v189.kind.type == "literal" then
+            v190.literal = v189.kind.value;
+            return v190;
+        elseif v189.kind.type == "binding_path" then
+            v190.bindingPath = v189.kind.value;
+            return v190;
+        elseif v189.kind.type == "token" then
+            v190.token = v189.kind.value;
+            return v190;
+        elseif v189.kind.type == "format" then
+            v190.format = v189.kind.value:jsonEncode();
+            return v190;
+        elseif v189.kind.type == "conditional" then
+            v190.conditional = v189.kind.value:jsonEncode();
+            return v190;
+        elseif v189.kind.type == "translation" then
+            v190.translation = v189.kind.value:jsonEncode();
+        end;
+    end;
+    return v190;
+end;
+v5.jsonDecode = function(v191) --[[ Line: 4065 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_6 (copy), v2 (copy)
+    local v192 = l_v5_6.new();
+    if v191.literal ~= nil then
+        v192.kind = {
+            type = "literal", 
+            value = v191.literal
+        };
+    end;
+    if v191.binding_path ~= nil then
+        v192.kind = {
+            type = "binding_path", 
+            value = v191.binding_path
+        };
+    end;
+    if v191.bindingPath ~= nil then
+        v192.kind = {
+            type = "binding_path", 
+            value = v191.bindingPath
+        };
+    end;
+    if v191.token ~= nil then
+        v192.kind = {
+            type = "token", 
+            value = v191.token
+        };
+    end;
+    if v191.format ~= nil then
+        v192.kind = {
+            type = "format", 
+            value = v2.StringFormat.jsonDecode(v191.format)
+        };
+    end;
+    if v191.conditional ~= nil then
+        v192.kind = {
+            type = "conditional", 
+            value = v2.StringProp_ConditionalOptions.jsonDecode(v191.conditional)
+        };
+    end;
+    if v191.translation ~= nil then
+        v192.kind = {
+            type = "translation", 
+            value = v2.TranslationRef.jsonDecode(v191.translation)
+        };
+    end;
+    return v192;
 end;
 v5.descriptor = {
     name = "StringProp", 
@@ -568,191 +1012,215 @@ v2.StringProp = v5;
 v1.default:register(v2.StringProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_4 = v5 --[[ copy: 5 -> 10 ]];
-v5.new = function(v115) --[[ Line: 3455 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_4 (copy)
+local l_v5_7 = v5 --[[ copy: 5 -> 13 ]];
+v5.new = function(v194) --[[ Line: 4114 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_7 (copy)
     return (setmetatable({
-        condition = if not (v115 ~= nil) or v115.condition == nil then nil else v115.condition, 
-        kind = if not (v115 ~= nil) or v115.kind == nil then nil else v115.kind
-    }, l_v5_4));
+        condition = if not (v194 ~= nil) or v194.condition == nil then nil else v194.condition, 
+        kind = if not (v194 ~= nil) or v194.kind == nil then nil else v194.kind
+    }, l_v5_7));
 end;
-v5.encode = function(v116) --[[ Line: 3464 ]] --[[ Name: encode ]]
+v5.encode = function(v195) --[[ Line: 4123 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v117 = buffer.create(0);
-    local v118 = 0;
-    if v116.condition ~= nil then
-        local v119 = v116.condition:encode();
-        local v120, v121 = v0.writeTag(v117, v118, 1, v0.wireTypes.lengthDelimited);
-        v120, v121 = v0.writeBuffer(v120, v121, v119, buffer.len(v119));
-        v117 = v120;
-        v118 = v121;
+    local v196 = buffer.create(0);
+    local v197 = 0;
+    if v195.condition ~= nil then
+        local v198 = v195.condition:encode();
+        local v199, v200 = v0.writeTag(v196, v197, 1, v0.wireTypes.lengthDelimited);
+        v199, v200 = v0.writeBuffer(v199, v200, v198, buffer.len(v198));
+        v196 = v199;
+        v197 = v200;
     end;
-    if v116.kind ~= nil then
-        if v116.kind.type == "literal" then
-            local v122, v123 = v0.writeTag(v117, v118, 2, v0.wireTypes.lengthDelimited);
-            v122, v123 = v0.writeString(v122, v123, v116.kind.value);
-            v117 = v122;
-            v118 = v123;
-        elseif v116.kind.type == "binding_path" then
-            local v124, v125 = v0.writeTag(v117, v118, 3, v0.wireTypes.lengthDelimited);
-            v124, v125 = v0.writeString(v124, v125, v116.kind.value);
-            v117 = v124;
-            v118 = v125;
-        elseif v116.kind.type == "token" then
-            local v126, v127 = v0.writeTag(v117, v118, 4, v0.wireTypes.lengthDelimited);
-            v126, v127 = v0.writeString(v126, v127, v116.kind.value);
-            v117 = v126;
-            v118 = v127;
-        elseif v116.kind.type == "format" then
-            local v128 = v116.kind.value:encode();
-            local v129, v130 = v0.writeTag(v117, v118, 5, v0.wireTypes.lengthDelimited);
-            v129, v130 = v0.writeBuffer(v129, v130, v128, buffer.len(v128));
-            v117 = v129;
-            v118 = v130;
+    if v195.kind ~= nil then
+        if v195.kind.type == "literal" then
+            local v201, v202 = v0.writeTag(v196, v197, 2, v0.wireTypes.lengthDelimited);
+            v201, v202 = v0.writeString(v201, v202, v195.kind.value);
+            v196 = v201;
+            v197 = v202;
+        elseif v195.kind.type == "binding_path" then
+            local v203, v204 = v0.writeTag(v196, v197, 3, v0.wireTypes.lengthDelimited);
+            v203, v204 = v0.writeString(v203, v204, v195.kind.value);
+            v196 = v203;
+            v197 = v204;
+        elseif v195.kind.type == "token" then
+            local v205, v206 = v0.writeTag(v196, v197, 4, v0.wireTypes.lengthDelimited);
+            v205, v206 = v0.writeString(v205, v206, v195.kind.value);
+            v196 = v205;
+            v197 = v206;
+        elseif v195.kind.type == "format" then
+            local v207 = v195.kind.value:encode();
+            local v208, v209 = v0.writeTag(v196, v197, 5, v0.wireTypes.lengthDelimited);
+            v208, v209 = v0.writeBuffer(v208, v209, v207, buffer.len(v207));
+            v196 = v208;
+            v197 = v209;
+        elseif v195.kind.type == "translation" then
+            local v210 = v195.kind.value:encode();
+            local v211, v212 = v0.writeTag(v196, v197, 6, v0.wireTypes.lengthDelimited);
+            v211, v212 = v0.writeBuffer(v211, v212, v210, buffer.len(v210));
+            v196 = v211;
+            v197 = v212;
         end;
     end;
-    local v131 = buffer.create(v118);
-    buffer.copy(v131, 0, v117, 0, v118);
-    return v131;
+    local v213 = buffer.create(v197);
+    buffer.copy(v213, 0, v196, 0, v197);
+    return v213;
 end;
-v5.decode = function(v132) --[[ Line: 3496 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_4 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v133 = l_v5_4.new();
-    local v134 = 0;
-    while v134 < buffer.len(v132) do
-        local v135 = nil;
-        local v136 = nil;
-        local v137, v138, v139 = v0.readTag(v132, v134);
-        v135 = v137;
-        v136 = v138;
-        v134 = v139;
-        if v136 == v0.wireTypes.varint then
-            v137 = nil;
-            v138, v139 = v0.readVarInt(v132, v134);
-            v137 = v138;
-            v134 = v139;
-        elseif v136 == v0.wireTypes.lengthDelimited then
-            if v135 == 1 then
-                v137 = nil;
-                v138, v139 = v0.readBuffer(v132, v134);
-                v137 = v138;
-                v134 = v139;
-                v133.condition = v4.PropCondition.decode(v137);
-            elseif v135 == 2 then
-                v137 = nil;
-                v138, v139 = v0.readBuffer(v132, v134);
-                v137 = v138;
-                v134 = v139;
-                v133.kind = {
+v5.decode = function(v214) --[[ Line: 4159 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_7 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v215 = l_v5_7.new();
+    local v216 = 0;
+    while v216 < buffer.len(v214) do
+        local v217 = nil;
+        local v218 = nil;
+        local v219, v220, v221 = v0.readTag(v214, v216);
+        v217 = v219;
+        v218 = v220;
+        v216 = v221;
+        if v218 == v0.wireTypes.varint then
+            v219 = nil;
+            v220, v221 = v0.readVarInt(v214, v216);
+            v219 = v220;
+            v216 = v221;
+        elseif v218 == v0.wireTypes.lengthDelimited then
+            if v217 == 1 then
+                v219 = nil;
+                v220, v221 = v0.readBuffer(v214, v216);
+                v219 = v220;
+                v216 = v221;
+                v215.condition = v4.PropCondition.decode(v219);
+            elseif v217 == 2 then
+                v219 = nil;
+                v220, v221 = v0.readBuffer(v214, v216);
+                v219 = v220;
+                v216 = v221;
+                v215.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v137)
+                    value = buffer.tostring(v219)
                 };
-            elseif v135 == 3 then
-                v137 = nil;
-                v138, v139 = v0.readBuffer(v132, v134);
-                v137 = v138;
-                v134 = v139;
-                v133.kind = {
+            elseif v217 == 3 then
+                v219 = nil;
+                v220, v221 = v0.readBuffer(v214, v216);
+                v219 = v220;
+                v216 = v221;
+                v215.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v137)
+                    value = buffer.tostring(v219)
                 };
-            elseif v135 == 4 then
-                v137 = nil;
-                v138, v139 = v0.readBuffer(v132, v134);
-                v137 = v138;
-                v134 = v139;
-                v133.kind = {
+            elseif v217 == 4 then
+                v219 = nil;
+                v220, v221 = v0.readBuffer(v214, v216);
+                v219 = v220;
+                v216 = v221;
+                v215.kind = {
                     type = "token", 
-                    value = buffer.tostring(v137)
+                    value = buffer.tostring(v219)
                 };
-            elseif v135 == 5 then
-                v137 = nil;
-                v138, v139 = v0.readBuffer(v132, v134);
-                v137 = v138;
-                v134 = v139;
-                v133.kind = {
+            elseif v217 == 5 then
+                v219 = nil;
+                v220, v221 = v0.readBuffer(v214, v216);
+                v219 = v220;
+                v216 = v221;
+                v215.kind = {
                     type = "format", 
-                    value = v2.StringFormat.decode(v137)
+                    value = v2.StringFormat.decode(v219)
+                };
+            elseif v217 == 6 then
+                v219 = nil;
+                v220, v221 = v0.readBuffer(v214, v216);
+                v219 = v220;
+                v216 = v221;
+                v215.kind = {
+                    type = "translation", 
+                    value = v2.TranslationRef.decode(v219)
                 };
             else
-                v137 = nil;
-                v138, v139 = v0.readVarInt(v132, v134);
-                v134 = v139 + v138;
+                v219 = nil;
+                v220, v221 = v0.readVarInt(v214, v216);
+                v216 = v221 + v220;
             end;
-        elseif v136 == v0.wireTypes.i32 then
-            v137 = nil;
-            v138, v139 = v0.readFixed32(v132, v134);
-            v137 = v138;
-            v134 = v139;
-        elseif v136 == v0.wireTypes.i64 then
-            v137 = nil;
-            v138, v139 = v0.readFixed64(v132, v134);
-            v137 = v138;
-            v134 = v139;
+        elseif v218 == v0.wireTypes.i32 then
+            v219 = nil;
+            v220, v221 = v0.readFixed32(v214, v216);
+            v219 = v220;
+            v216 = v221;
+        elseif v218 == v0.wireTypes.i64 then
+            v219 = nil;
+            v220, v221 = v0.readFixed64(v214, v216);
+            v219 = v220;
+            v216 = v221;
         else
-            error("Unsupported wire type: " .. v136);
+            error("Unsupported wire type: " .. v218);
         end;
     end;
-    return v133;
+    return v215;
 end;
-v5.jsonEncode = function(v140) --[[ Line: 3559 ]] --[[ Name: jsonEncode ]]
-    local v141 = {};
-    if v140.condition ~= nil then
-        v141.condition = v140.condition:jsonEncode();
+v5.jsonEncode = function(v222) --[[ Line: 4227 ]] --[[ Name: jsonEncode ]]
+    local v223 = {};
+    if v222.condition ~= nil then
+        v223.condition = v222.condition:jsonEncode();
     end;
-    if v140.kind ~= nil then
-        if v140.kind.type == "literal" then
-            v141.literal = v140.kind.value;
-            return v141;
-        elseif v140.kind.type == "binding_path" then
-            v141.bindingPath = v140.kind.value;
-            return v141;
-        elseif v140.kind.type == "token" then
-            v141.token = v140.kind.value;
-            return v141;
-        elseif v140.kind.type == "format" then
-            v141.format = v140.kind.value:jsonEncode();
+    if v222.kind ~= nil then
+        if v222.kind.type == "literal" then
+            v223.literal = v222.kind.value;
+            return v223;
+        elseif v222.kind.type == "binding_path" then
+            v223.bindingPath = v222.kind.value;
+            return v223;
+        elseif v222.kind.type == "token" then
+            v223.token = v222.kind.value;
+            return v223;
+        elseif v222.kind.type == "format" then
+            v223.format = v222.kind.value:jsonEncode();
+            return v223;
+        elseif v222.kind.type == "translation" then
+            v223.translation = v222.kind.value:jsonEncode();
         end;
     end;
-    return v141;
+    return v223;
 end;
-v5.jsonDecode = function(v142) --[[ Line: 3581 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_4 (copy), v4 (copy), v2 (copy)
-    local v143 = l_v5_4.new();
-    if v142.condition ~= nil then
-        v143.condition = v4.PropCondition.jsonDecode(v142.condition);
+v5.jsonDecode = function(v224) --[[ Line: 4251 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_7 (copy), v4 (copy), v2 (copy)
+    local v225 = l_v5_7.new();
+    if v224.condition ~= nil then
+        v225.condition = v4.PropCondition.jsonDecode(v224.condition);
     end;
-    if v142.literal ~= nil then
-        v143.kind = {
+    if v224.literal ~= nil then
+        v225.kind = {
             type = "literal", 
-            value = v142.literal
+            value = v224.literal
         };
     end;
-    if v142.binding_path ~= nil then
-        v143.kind = {
+    if v224.binding_path ~= nil then
+        v225.kind = {
             type = "binding_path", 
-            value = v142.binding_path
+            value = v224.binding_path
         };
     end;
-    if v142.bindingPath ~= nil then
-        v143.kind = {
+    if v224.bindingPath ~= nil then
+        v225.kind = {
             type = "binding_path", 
-            value = v142.bindingPath
+            value = v224.bindingPath
         };
     end;
-    if v142.token ~= nil then
-        v143.kind = {
+    if v224.token ~= nil then
+        v225.kind = {
             type = "token", 
-            value = v142.token
+            value = v224.token
         };
     end;
-    if v142.format ~= nil then
-        v143.kind = {
+    if v224.format ~= nil then
+        v225.kind = {
             type = "format", 
-            value = v2.StringFormat.jsonDecode(v142.format)
+            value = v2.StringFormat.jsonDecode(v224.format)
         };
     end;
-    return v143;
+    if v224.translation ~= nil then
+        v225.kind = {
+            type = "translation", 
+            value = v2.TranslationRef.jsonDecode(v224.translation)
+        };
+    end;
+    return v225;
 end;
 v5.descriptor = {
     name = "StringProp_ConditionalOption", 
@@ -762,96 +1230,96 @@ v2.StringProp_ConditionalOption = v5;
 v1.default:register(v2.StringProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_5 = v5 --[[ copy: 5 -> 11 ]];
-v5.new = function(v145) --[[ Line: 3626 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_5 (copy)
+local l_v5_8 = v5 --[[ copy: 5 -> 14 ]];
+v5.new = function(v227) --[[ Line: 4300 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_8 (copy)
     return (setmetatable({
-        options = if not (v145 ~= nil) or v145.options == nil then {} else v145.options
-    }, l_v5_5));
+        options = if not (v227 ~= nil) or v227.options == nil then {} else v227.options
+    }, l_v5_8));
 end;
-v5.encode = function(v146) --[[ Line: 3634 ]] --[[ Name: encode ]]
+v5.encode = function(v228) --[[ Line: 4308 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v147 = buffer.create(0);
-    local v148 = 0;
-    if v146.options ~= nil and #v146.options > 0 then
-        for _, v150 in v146.options do
-            local v151 = v150:encode();
-            local v152, v153 = v0.writeTag(v147, v148, 1, v0.wireTypes.lengthDelimited);
-            v152, v153 = v0.writeBuffer(v152, v153, v151, buffer.len(v151));
-            v147 = v152;
-            v148 = v153;
+    local v229 = buffer.create(0);
+    local v230 = 0;
+    if v228.options ~= nil and #v228.options > 0 then
+        for _, v232 in v228.options do
+            local v233 = v232:encode();
+            local v234, v235 = v0.writeTag(v229, v230, 1, v0.wireTypes.lengthDelimited);
+            v234, v235 = v0.writeBuffer(v234, v235, v233, buffer.len(v233));
+            v229 = v234;
+            v230 = v235;
         end;
     end;
-    local v154 = buffer.create(v148);
-    buffer.copy(v154, 0, v147, 0, v148);
-    return v154;
+    local v236 = buffer.create(v230);
+    buffer.copy(v236, 0, v229, 0, v230);
+    return v236;
 end;
-v5.decode = function(v155) --[[ Line: 3651 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_5 (copy), v0 (copy), v2 (copy)
-    local v156 = l_v5_5.new();
-    local v157 = 0;
-    while v157 < buffer.len(v155) do
-        local v158 = nil;
-        local v159 = nil;
-        local v160, v161, v162 = v0.readTag(v155, v157);
-        v158 = v160;
-        v159 = v161;
-        v157 = v162;
-        if v159 == v0.wireTypes.varint then
-            v160 = nil;
-            v161, v162 = v0.readVarInt(v155, v157);
-            v160 = v161;
-            v157 = v162;
-        elseif v159 == v0.wireTypes.lengthDelimited then
-            if v158 == 1 then
-                v160 = nil;
-                v161, v162 = v0.readBuffer(v155, v157);
-                v160 = v161;
-                v157 = v162;
-                table.insert(v156.options, v2.StringProp_ConditionalOption.decode(v160));
+v5.decode = function(v237) --[[ Line: 4325 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_8 (copy), v0 (copy), v2 (copy)
+    local v238 = l_v5_8.new();
+    local v239 = 0;
+    while v239 < buffer.len(v237) do
+        local v240 = nil;
+        local v241 = nil;
+        local v242, v243, v244 = v0.readTag(v237, v239);
+        v240 = v242;
+        v241 = v243;
+        v239 = v244;
+        if v241 == v0.wireTypes.varint then
+            v242 = nil;
+            v243, v244 = v0.readVarInt(v237, v239);
+            v242 = v243;
+            v239 = v244;
+        elseif v241 == v0.wireTypes.lengthDelimited then
+            if v240 == 1 then
+                v242 = nil;
+                v243, v244 = v0.readBuffer(v237, v239);
+                v242 = v243;
+                v239 = v244;
+                table.insert(v238.options, v2.StringProp_ConditionalOption.decode(v242));
             else
-                v160 = nil;
-                v161, v162 = v0.readVarInt(v155, v157);
-                v157 = v162 + v161;
+                v242 = nil;
+                v243, v244 = v0.readVarInt(v237, v239);
+                v239 = v244 + v243;
             end;
-        elseif v159 == v0.wireTypes.i32 then
-            v160 = nil;
-            v161, v162 = v0.readFixed32(v155, v157);
-            v160 = v161;
-            v157 = v162;
-        elseif v159 == v0.wireTypes.i64 then
-            v160 = nil;
-            v161, v162 = v0.readFixed64(v155, v157);
-            v160 = v161;
-            v157 = v162;
+        elseif v241 == v0.wireTypes.i32 then
+            v242 = nil;
+            v243, v244 = v0.readFixed32(v237, v239);
+            v242 = v243;
+            v239 = v244;
+        elseif v241 == v0.wireTypes.i64 then
+            v242 = nil;
+            v243, v244 = v0.readFixed64(v237, v239);
+            v242 = v243;
+            v239 = v244;
         else
-            error("Unsupported wire type: " .. v159);
+            error("Unsupported wire type: " .. v241);
         end;
     end;
-    return v156;
+    return v238;
 end;
-v5.jsonEncode = function(v163) --[[ Line: 3694 ]] --[[ Name: jsonEncode ]]
-    local v164 = {};
-    if v163.options ~= nil and #v163.options > 0 then
-        local v165 = {};
-        for _, v167 in v163.options do
-            table.insert(v165, v167:jsonEncode());
+v5.jsonEncode = function(v245) --[[ Line: 4368 ]] --[[ Name: jsonEncode ]]
+    local v246 = {};
+    if v245.options ~= nil and #v245.options > 0 then
+        local v247 = {};
+        for _, v249 in v245.options do
+            table.insert(v247, v249:jsonEncode());
         end;
-        v164.options = v165;
+        v246.options = v247;
     end;
-    return v164;
+    return v246;
 end;
-v5.jsonDecode = function(v168) --[[ Line: 3708 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_5 (copy), v2 (copy)
-    local v169 = l_v5_5.new();
-    if v168.options ~= nil then
-        local v170 = {};
-        for _, v172 in v168.options do
-            table.insert(v170, v2.StringProp_ConditionalOption.jsonDecode(v172));
+v5.jsonDecode = function(v250) --[[ Line: 4382 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_8 (copy), v2 (copy)
+    local v251 = l_v5_8.new();
+    if v250.options ~= nil then
+        local v252 = {};
+        for _, v254 in v250.options do
+            table.insert(v252, v2.StringProp_ConditionalOption.jsonDecode(v254));
         end;
-        v169.options = v170;
+        v251.options = v252;
     end;
-    return v169;
+    return v251;
 end;
 v5.descriptor = {
     name = "StringProp_ConditionalOptions", 
@@ -861,174 +1329,174 @@ v2.StringProp_ConditionalOptions = v5;
 v1.default:register(v2.StringProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_6 = v5 --[[ copy: 5 -> 12 ]];
-v5.new = function(v174) --[[ Line: 3737 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_6 (copy)
+local l_v5_9 = v5 --[[ copy: 5 -> 15 ]];
+v5.new = function(v256) --[[ Line: 4411 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_9 (copy)
     return (setmetatable({
-        kind = if not (v174 ~= nil) or v174.kind == nil then nil else v174.kind
-    }, l_v5_6));
+        kind = if not (v256 ~= nil) or v256.kind == nil then nil else v256.kind
+    }, l_v5_9));
 end;
-v5.encode = function(v175) --[[ Line: 3743 ]] --[[ Name: encode ]]
+v5.encode = function(v257) --[[ Line: 4417 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v176 = buffer.create(0);
-    local v177 = 0;
-    if v175.kind ~= nil then
-        if v175.kind.type == "literal" then
-            local v178, v179 = v0.writeTag(v176, v177, 1, v0.wireTypes.i32);
-            v178, v179 = v0.writeFloat(v178, v179, v175.kind.value);
-            v176 = v178;
-            v177 = v179;
-        elseif v175.kind.type == "binding_path" then
-            local v180, v181 = v0.writeTag(v176, v177, 2, v0.wireTypes.lengthDelimited);
-            v180, v181 = v0.writeString(v180, v181, v175.kind.value);
-            v176 = v180;
-            v177 = v181;
-        elseif v175.kind.type == "token" then
-            local v182, v183 = v0.writeTag(v176, v177, 3, v0.wireTypes.lengthDelimited);
-            v182, v183 = v0.writeString(v182, v183, v175.kind.value);
-            v176 = v182;
-            v177 = v183;
-        elseif v175.kind.type == "conditional" then
-            local v184 = v175.kind.value:encode();
-            local v185, v186 = v0.writeTag(v176, v177, 4, v0.wireTypes.lengthDelimited);
-            v185, v186 = v0.writeBuffer(v185, v186, v184, buffer.len(v184));
-            v176 = v185;
-            v177 = v186;
+    local v258 = buffer.create(0);
+    local v259 = 0;
+    if v257.kind ~= nil then
+        if v257.kind.type == "literal" then
+            local v260, v261 = v0.writeTag(v258, v259, 1, v0.wireTypes.i32);
+            v260, v261 = v0.writeFloat(v260, v261, v257.kind.value);
+            v258 = v260;
+            v259 = v261;
+        elseif v257.kind.type == "binding_path" then
+            local v262, v263 = v0.writeTag(v258, v259, 2, v0.wireTypes.lengthDelimited);
+            v262, v263 = v0.writeString(v262, v263, v257.kind.value);
+            v258 = v262;
+            v259 = v263;
+        elseif v257.kind.type == "token" then
+            local v264, v265 = v0.writeTag(v258, v259, 3, v0.wireTypes.lengthDelimited);
+            v264, v265 = v0.writeString(v264, v265, v257.kind.value);
+            v258 = v264;
+            v259 = v265;
+        elseif v257.kind.type == "conditional" then
+            local v266 = v257.kind.value:encode();
+            local v267, v268 = v0.writeTag(v258, v259, 4, v0.wireTypes.lengthDelimited);
+            v267, v268 = v0.writeBuffer(v267, v268, v266, buffer.len(v266));
+            v258 = v267;
+            v259 = v268;
         end;
     end;
-    local v187 = buffer.create(v177);
-    buffer.copy(v187, 0, v176, 0, v177);
-    return v187;
+    local v269 = buffer.create(v259);
+    buffer.copy(v269, 0, v258, 0, v259);
+    return v269;
 end;
-v5.decode = function(v188) --[[ Line: 3769 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_6 (copy), v0 (copy), v2 (copy)
-    local v189 = l_v5_6.new();
-    local v190 = 0;
-    while v190 < buffer.len(v188) do
-        local v191 = nil;
-        local v192 = nil;
-        local v193, v194, v195 = v0.readTag(v188, v190);
-        v191 = v193;
-        v192 = v194;
-        v190 = v195;
-        if v192 == v0.wireTypes.varint then
-            v193 = nil;
-            v194, v195 = v0.readVarInt(v188, v190);
-            v193 = v194;
-            v190 = v195;
-        elseif v192 == v0.wireTypes.lengthDelimited then
-            if v191 == 2 then
-                v193 = nil;
-                v194, v195 = v0.readBuffer(v188, v190);
-                v193 = v194;
-                v190 = v195;
-                v189.kind = {
+v5.decode = function(v270) --[[ Line: 4443 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_9 (copy), v0 (copy), v2 (copy)
+    local v271 = l_v5_9.new();
+    local v272 = 0;
+    while v272 < buffer.len(v270) do
+        local v273 = nil;
+        local v274 = nil;
+        local v275, v276, v277 = v0.readTag(v270, v272);
+        v273 = v275;
+        v274 = v276;
+        v272 = v277;
+        if v274 == v0.wireTypes.varint then
+            v275 = nil;
+            v276, v277 = v0.readVarInt(v270, v272);
+            v275 = v276;
+            v272 = v277;
+        elseif v274 == v0.wireTypes.lengthDelimited then
+            if v273 == 2 then
+                v275 = nil;
+                v276, v277 = v0.readBuffer(v270, v272);
+                v275 = v276;
+                v272 = v277;
+                v271.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v193)
+                    value = buffer.tostring(v275)
                 };
-            elseif v191 == 3 then
-                v193 = nil;
-                v194, v195 = v0.readBuffer(v188, v190);
-                v193 = v194;
-                v190 = v195;
-                v189.kind = {
+            elseif v273 == 3 then
+                v275 = nil;
+                v276, v277 = v0.readBuffer(v270, v272);
+                v275 = v276;
+                v272 = v277;
+                v271.kind = {
                     type = "token", 
-                    value = buffer.tostring(v193)
+                    value = buffer.tostring(v275)
                 };
-            elseif v191 == 4 then
-                v193 = nil;
-                v194, v195 = v0.readBuffer(v188, v190);
-                v193 = v194;
-                v190 = v195;
-                v189.kind = {
+            elseif v273 == 4 then
+                v275 = nil;
+                v276, v277 = v0.readBuffer(v270, v272);
+                v275 = v276;
+                v272 = v277;
+                v271.kind = {
                     type = "conditional", 
-                    value = v2.FloatProp_ConditionalOptions.decode(v193)
+                    value = v2.FloatProp_ConditionalOptions.decode(v275)
                 };
             else
-                v193 = nil;
-                v194, v195 = v0.readVarInt(v188, v190);
-                v190 = v195 + v194;
+                v275 = nil;
+                v276, v277 = v0.readVarInt(v270, v272);
+                v272 = v277 + v276;
             end;
-        elseif v192 == v0.wireTypes.i32 then
-            if v191 == 1 then
-                v193 = nil;
-                v194, v195 = v0.readFloat(v188, v190);
-                v193 = v194;
-                v190 = v195;
-                v189.kind = {
+        elseif v274 == v0.wireTypes.i32 then
+            if v273 == 1 then
+                v275 = nil;
+                v276, v277 = v0.readFloat(v270, v272);
+                v275 = v276;
+                v272 = v277;
+                v271.kind = {
                     type = "literal", 
-                    value = v193
+                    value = v275
                 };
             else
-                v193 = nil;
-                v194, v195 = v0.readFixed32(v188, v190);
-                v193 = v194;
-                v190 = v195;
+                v275 = nil;
+                v276, v277 = v0.readFixed32(v270, v272);
+                v275 = v276;
+                v272 = v277;
             end;
-        elseif v192 == v0.wireTypes.i64 then
-            v193 = nil;
-            v194, v195 = v0.readFixed64(v188, v190);
-            v193 = v194;
-            v190 = v195;
+        elseif v274 == v0.wireTypes.i64 then
+            v275 = nil;
+            v276, v277 = v0.readFixed64(v270, v272);
+            v275 = v276;
+            v272 = v277;
         else
-            error("Unsupported wire type: " .. v192);
+            error("Unsupported wire type: " .. v274);
         end;
     end;
-    return v189;
+    return v271;
 end;
-v5.jsonEncode = function(v196) --[[ Line: 3827 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v278) --[[ Line: 4501 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
-    local v197 = {};
-    if v196.kind ~= nil then
-        if v196.kind.type == "literal" then
-            v197.literal = v0.json.serializeNumber(v196.kind.value);
-            return v197;
-        elseif v196.kind.type == "binding_path" then
-            v197.bindingPath = v196.kind.value;
-            return v197;
-        elseif v196.kind.type == "token" then
-            v197.token = v196.kind.value;
-            return v197;
-        elseif v196.kind.type == "conditional" then
-            v197.conditional = v196.kind.value:jsonEncode();
+    local v279 = {};
+    if v278.kind ~= nil then
+        if v278.kind.type == "literal" then
+            v279.literal = v0.json.serializeNumber(v278.kind.value);
+            return v279;
+        elseif v278.kind.type == "binding_path" then
+            v279.bindingPath = v278.kind.value;
+            return v279;
+        elseif v278.kind.type == "token" then
+            v279.token = v278.kind.value;
+            return v279;
+        elseif v278.kind.type == "conditional" then
+            v279.conditional = v278.kind.value:jsonEncode();
         end;
     end;
-    return v197;
+    return v279;
 end;
-v5.jsonDecode = function(v198) --[[ Line: 3845 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_6 (copy), v0 (copy), v2 (copy)
-    local v199 = l_v5_6.new();
-    if v198.literal ~= nil then
-        v199.kind = {
+v5.jsonDecode = function(v280) --[[ Line: 4519 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_9 (copy), v0 (copy), v2 (copy)
+    local v281 = l_v5_9.new();
+    if v280.literal ~= nil then
+        v281.kind = {
             type = "literal", 
-            value = v0.json.deserializeNumber(v198.literal)
+            value = v0.json.deserializeNumber(v280.literal)
         };
     end;
-    if v198.binding_path ~= nil then
-        v199.kind = {
+    if v280.binding_path ~= nil then
+        v281.kind = {
             type = "binding_path", 
-            value = v198.binding_path
+            value = v280.binding_path
         };
     end;
-    if v198.bindingPath ~= nil then
-        v199.kind = {
+    if v280.bindingPath ~= nil then
+        v281.kind = {
             type = "binding_path", 
-            value = v198.bindingPath
+            value = v280.bindingPath
         };
     end;
-    if v198.token ~= nil then
-        v199.kind = {
+    if v280.token ~= nil then
+        v281.kind = {
             type = "token", 
-            value = v198.token
+            value = v280.token
         };
     end;
-    if v198.conditional ~= nil then
-        v199.kind = {
+    if v280.conditional ~= nil then
+        v281.kind = {
             type = "conditional", 
-            value = v2.FloatProp_ConditionalOptions.jsonDecode(v198.conditional)
+            value = v2.FloatProp_ConditionalOptions.jsonDecode(v280.conditional)
         };
     end;
-    return v199;
+    return v281;
 end;
 v5.descriptor = {
     name = "FloatProp", 
@@ -1038,170 +1506,170 @@ v2.FloatProp = v5;
 v1.default:register(v2.FloatProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_7 = v5 --[[ copy: 5 -> 13 ]];
-v5.new = function(v201) --[[ Line: 3886 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_7 (copy)
+local l_v5_10 = v5 --[[ copy: 5 -> 16 ]];
+v5.new = function(v283) --[[ Line: 4560 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_10 (copy)
     return (setmetatable({
-        condition = if not (v201 ~= nil) or v201.condition == nil then nil else v201.condition, 
-        kind = if not (v201 ~= nil) or v201.kind == nil then nil else v201.kind
-    }, l_v5_7));
+        condition = if not (v283 ~= nil) or v283.condition == nil then nil else v283.condition, 
+        kind = if not (v283 ~= nil) or v283.kind == nil then nil else v283.kind
+    }, l_v5_10));
 end;
-v5.encode = function(v202) --[[ Line: 3895 ]] --[[ Name: encode ]]
+v5.encode = function(v284) --[[ Line: 4569 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v203 = buffer.create(0);
-    local v204 = 0;
-    if v202.condition ~= nil then
-        local v205 = v202.condition:encode();
-        local v206, v207 = v0.writeTag(v203, v204, 1, v0.wireTypes.lengthDelimited);
-        v206, v207 = v0.writeBuffer(v206, v207, v205, buffer.len(v205));
-        v203 = v206;
-        v204 = v207;
+    local v285 = buffer.create(0);
+    local v286 = 0;
+    if v284.condition ~= nil then
+        local v287 = v284.condition:encode();
+        local v288, v289 = v0.writeTag(v285, v286, 1, v0.wireTypes.lengthDelimited);
+        v288, v289 = v0.writeBuffer(v288, v289, v287, buffer.len(v287));
+        v285 = v288;
+        v286 = v289;
     end;
-    if v202.kind ~= nil then
-        if v202.kind.type == "literal" then
-            local v208, v209 = v0.writeTag(v203, v204, 2, v0.wireTypes.i32);
-            v208, v209 = v0.writeFloat(v208, v209, v202.kind.value);
-            v203 = v208;
-            v204 = v209;
-        elseif v202.kind.type == "binding_path" then
-            local v210, v211 = v0.writeTag(v203, v204, 3, v0.wireTypes.lengthDelimited);
-            v210, v211 = v0.writeString(v210, v211, v202.kind.value);
-            v203 = v210;
-            v204 = v211;
-        elseif v202.kind.type == "token" then
-            local v212, v213 = v0.writeTag(v203, v204, 4, v0.wireTypes.lengthDelimited);
-            v212, v213 = v0.writeString(v212, v213, v202.kind.value);
-            v203 = v212;
-            v204 = v213;
+    if v284.kind ~= nil then
+        if v284.kind.type == "literal" then
+            local v290, v291 = v0.writeTag(v285, v286, 2, v0.wireTypes.i32);
+            v290, v291 = v0.writeFloat(v290, v291, v284.kind.value);
+            v285 = v290;
+            v286 = v291;
+        elseif v284.kind.type == "binding_path" then
+            local v292, v293 = v0.writeTag(v285, v286, 3, v0.wireTypes.lengthDelimited);
+            v292, v293 = v0.writeString(v292, v293, v284.kind.value);
+            v285 = v292;
+            v286 = v293;
+        elseif v284.kind.type == "token" then
+            local v294, v295 = v0.writeTag(v285, v286, 4, v0.wireTypes.lengthDelimited);
+            v294, v295 = v0.writeString(v294, v295, v284.kind.value);
+            v285 = v294;
+            v286 = v295;
         end;
     end;
-    local v214 = buffer.create(v204);
-    buffer.copy(v214, 0, v203, 0, v204);
-    return v214;
+    local v296 = buffer.create(v286);
+    buffer.copy(v296, 0, v285, 0, v286);
+    return v296;
 end;
-v5.decode = function(v215) --[[ Line: 3923 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_7 (copy), v0 (copy), v4 (copy)
-    local v216 = l_v5_7.new();
-    local v217 = 0;
-    while v217 < buffer.len(v215) do
-        local v218 = nil;
-        local v219 = nil;
-        local v220, v221, v222 = v0.readTag(v215, v217);
-        v218 = v220;
-        v219 = v221;
-        v217 = v222;
-        if v219 == v0.wireTypes.varint then
-            v220 = nil;
-            v221, v222 = v0.readVarInt(v215, v217);
-            v220 = v221;
-            v217 = v222;
-        elseif v219 == v0.wireTypes.lengthDelimited then
-            if v218 == 1 then
-                v220 = nil;
-                v221, v222 = v0.readBuffer(v215, v217);
-                v220 = v221;
-                v217 = v222;
-                v216.condition = v4.PropCondition.decode(v220);
-            elseif v218 == 3 then
-                v220 = nil;
-                v221, v222 = v0.readBuffer(v215, v217);
-                v220 = v221;
-                v217 = v222;
-                v216.kind = {
+v5.decode = function(v297) --[[ Line: 4597 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_10 (copy), v0 (copy), v4 (copy)
+    local v298 = l_v5_10.new();
+    local v299 = 0;
+    while v299 < buffer.len(v297) do
+        local v300 = nil;
+        local v301 = nil;
+        local v302, v303, v304 = v0.readTag(v297, v299);
+        v300 = v302;
+        v301 = v303;
+        v299 = v304;
+        if v301 == v0.wireTypes.varint then
+            v302 = nil;
+            v303, v304 = v0.readVarInt(v297, v299);
+            v302 = v303;
+            v299 = v304;
+        elseif v301 == v0.wireTypes.lengthDelimited then
+            if v300 == 1 then
+                v302 = nil;
+                v303, v304 = v0.readBuffer(v297, v299);
+                v302 = v303;
+                v299 = v304;
+                v298.condition = v4.PropCondition.decode(v302);
+            elseif v300 == 3 then
+                v302 = nil;
+                v303, v304 = v0.readBuffer(v297, v299);
+                v302 = v303;
+                v299 = v304;
+                v298.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v220)
+                    value = buffer.tostring(v302)
                 };
-            elseif v218 == 4 then
-                v220 = nil;
-                v221, v222 = v0.readBuffer(v215, v217);
-                v220 = v221;
-                v217 = v222;
-                v216.kind = {
+            elseif v300 == 4 then
+                v302 = nil;
+                v303, v304 = v0.readBuffer(v297, v299);
+                v302 = v303;
+                v299 = v304;
+                v298.kind = {
                     type = "token", 
-                    value = buffer.tostring(v220)
+                    value = buffer.tostring(v302)
                 };
             else
-                v220 = nil;
-                v221, v222 = v0.readVarInt(v215, v217);
-                v217 = v222 + v221;
+                v302 = nil;
+                v303, v304 = v0.readVarInt(v297, v299);
+                v299 = v304 + v303;
             end;
-        elseif v219 == v0.wireTypes.i32 then
-            if v218 == 2 then
-                v220 = nil;
-                v221, v222 = v0.readFloat(v215, v217);
-                v220 = v221;
-                v217 = v222;
-                v216.kind = {
+        elseif v301 == v0.wireTypes.i32 then
+            if v300 == 2 then
+                v302 = nil;
+                v303, v304 = v0.readFloat(v297, v299);
+                v302 = v303;
+                v299 = v304;
+                v298.kind = {
                     type = "literal", 
-                    value = v220
+                    value = v302
                 };
             else
-                v220 = nil;
-                v221, v222 = v0.readFixed32(v215, v217);
-                v220 = v221;
-                v217 = v222;
+                v302 = nil;
+                v303, v304 = v0.readFixed32(v297, v299);
+                v302 = v303;
+                v299 = v304;
             end;
-        elseif v219 == v0.wireTypes.i64 then
-            v220 = nil;
-            v221, v222 = v0.readFixed64(v215, v217);
-            v220 = v221;
-            v217 = v222;
+        elseif v301 == v0.wireTypes.i64 then
+            v302 = nil;
+            v303, v304 = v0.readFixed64(v297, v299);
+            v302 = v303;
+            v299 = v304;
         else
-            error("Unsupported wire type: " .. v219);
+            error("Unsupported wire type: " .. v301);
         end;
     end;
-    return v216;
+    return v298;
 end;
-v5.jsonEncode = function(v223) --[[ Line: 3981 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v305) --[[ Line: 4655 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
-    local v224 = {};
-    if v223.condition ~= nil then
-        v224.condition = v223.condition:jsonEncode();
+    local v306 = {};
+    if v305.condition ~= nil then
+        v306.condition = v305.condition:jsonEncode();
     end;
-    if v223.kind ~= nil then
-        if v223.kind.type == "literal" then
-            v224.literal = v0.json.serializeNumber(v223.kind.value);
-            return v224;
-        elseif v223.kind.type == "binding_path" then
-            v224.bindingPath = v223.kind.value;
-            return v224;
-        elseif v223.kind.type == "token" then
-            v224.token = v223.kind.value;
+    if v305.kind ~= nil then
+        if v305.kind.type == "literal" then
+            v306.literal = v0.json.serializeNumber(v305.kind.value);
+            return v306;
+        elseif v305.kind.type == "binding_path" then
+            v306.bindingPath = v305.kind.value;
+            return v306;
+        elseif v305.kind.type == "token" then
+            v306.token = v305.kind.value;
         end;
     end;
-    return v224;
+    return v306;
 end;
-v5.jsonDecode = function(v225) --[[ Line: 4001 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_7 (copy), v4 (copy), v0 (copy)
-    local v226 = l_v5_7.new();
-    if v225.condition ~= nil then
-        v226.condition = v4.PropCondition.jsonDecode(v225.condition);
+v5.jsonDecode = function(v307) --[[ Line: 4675 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_10 (copy), v4 (copy), v0 (copy)
+    local v308 = l_v5_10.new();
+    if v307.condition ~= nil then
+        v308.condition = v4.PropCondition.jsonDecode(v307.condition);
     end;
-    if v225.literal ~= nil then
-        v226.kind = {
+    if v307.literal ~= nil then
+        v308.kind = {
             type = "literal", 
-            value = v0.json.deserializeNumber(v225.literal)
+            value = v0.json.deserializeNumber(v307.literal)
         };
     end;
-    if v225.binding_path ~= nil then
-        v226.kind = {
+    if v307.binding_path ~= nil then
+        v308.kind = {
             type = "binding_path", 
-            value = v225.binding_path
+            value = v307.binding_path
         };
     end;
-    if v225.bindingPath ~= nil then
-        v226.kind = {
+    if v307.bindingPath ~= nil then
+        v308.kind = {
             type = "binding_path", 
-            value = v225.bindingPath
+            value = v307.bindingPath
         };
     end;
-    if v225.token ~= nil then
-        v226.kind = {
+    if v307.token ~= nil then
+        v308.kind = {
             type = "token", 
-            value = v225.token
+            value = v307.token
         };
     end;
-    return v226;
+    return v308;
 end;
 v5.descriptor = {
     name = "FloatProp_ConditionalOption", 
@@ -1211,96 +1679,96 @@ v2.FloatProp_ConditionalOption = v5;
 v1.default:register(v2.FloatProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_8 = v5 --[[ copy: 5 -> 14 ]];
-v5.new = function(v228) --[[ Line: 4042 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_8 (copy)
+local l_v5_11 = v5 --[[ copy: 5 -> 17 ]];
+v5.new = function(v310) --[[ Line: 4716 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_11 (copy)
     return (setmetatable({
-        options = if not (v228 ~= nil) or v228.options == nil then {} else v228.options
-    }, l_v5_8));
+        options = if not (v310 ~= nil) or v310.options == nil then {} else v310.options
+    }, l_v5_11));
 end;
-v5.encode = function(v229) --[[ Line: 4050 ]] --[[ Name: encode ]]
+v5.encode = function(v311) --[[ Line: 4724 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v230 = buffer.create(0);
-    local v231 = 0;
-    if v229.options ~= nil and #v229.options > 0 then
-        for _, v233 in v229.options do
-            local v234 = v233:encode();
-            local v235, v236 = v0.writeTag(v230, v231, 1, v0.wireTypes.lengthDelimited);
-            v235, v236 = v0.writeBuffer(v235, v236, v234, buffer.len(v234));
-            v230 = v235;
-            v231 = v236;
+    local v312 = buffer.create(0);
+    local v313 = 0;
+    if v311.options ~= nil and #v311.options > 0 then
+        for _, v315 in v311.options do
+            local v316 = v315:encode();
+            local v317, v318 = v0.writeTag(v312, v313, 1, v0.wireTypes.lengthDelimited);
+            v317, v318 = v0.writeBuffer(v317, v318, v316, buffer.len(v316));
+            v312 = v317;
+            v313 = v318;
         end;
     end;
-    local v237 = buffer.create(v231);
-    buffer.copy(v237, 0, v230, 0, v231);
-    return v237;
+    local v319 = buffer.create(v313);
+    buffer.copy(v319, 0, v312, 0, v313);
+    return v319;
 end;
-v5.decode = function(v238) --[[ Line: 4067 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_8 (copy), v0 (copy), v2 (copy)
-    local v239 = l_v5_8.new();
-    local v240 = 0;
-    while v240 < buffer.len(v238) do
-        local v241 = nil;
-        local v242 = nil;
-        local v243, v244, v245 = v0.readTag(v238, v240);
-        v241 = v243;
-        v242 = v244;
-        v240 = v245;
-        if v242 == v0.wireTypes.varint then
-            v243 = nil;
-            v244, v245 = v0.readVarInt(v238, v240);
-            v243 = v244;
-            v240 = v245;
-        elseif v242 == v0.wireTypes.lengthDelimited then
-            if v241 == 1 then
-                v243 = nil;
-                v244, v245 = v0.readBuffer(v238, v240);
-                v243 = v244;
-                v240 = v245;
-                table.insert(v239.options, v2.FloatProp_ConditionalOption.decode(v243));
+v5.decode = function(v320) --[[ Line: 4741 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_11 (copy), v0 (copy), v2 (copy)
+    local v321 = l_v5_11.new();
+    local v322 = 0;
+    while v322 < buffer.len(v320) do
+        local v323 = nil;
+        local v324 = nil;
+        local v325, v326, v327 = v0.readTag(v320, v322);
+        v323 = v325;
+        v324 = v326;
+        v322 = v327;
+        if v324 == v0.wireTypes.varint then
+            v325 = nil;
+            v326, v327 = v0.readVarInt(v320, v322);
+            v325 = v326;
+            v322 = v327;
+        elseif v324 == v0.wireTypes.lengthDelimited then
+            if v323 == 1 then
+                v325 = nil;
+                v326, v327 = v0.readBuffer(v320, v322);
+                v325 = v326;
+                v322 = v327;
+                table.insert(v321.options, v2.FloatProp_ConditionalOption.decode(v325));
             else
-                v243 = nil;
-                v244, v245 = v0.readVarInt(v238, v240);
-                v240 = v245 + v244;
+                v325 = nil;
+                v326, v327 = v0.readVarInt(v320, v322);
+                v322 = v327 + v326;
             end;
-        elseif v242 == v0.wireTypes.i32 then
-            v243 = nil;
-            v244, v245 = v0.readFixed32(v238, v240);
-            v243 = v244;
-            v240 = v245;
-        elseif v242 == v0.wireTypes.i64 then
-            v243 = nil;
-            v244, v245 = v0.readFixed64(v238, v240);
-            v243 = v244;
-            v240 = v245;
+        elseif v324 == v0.wireTypes.i32 then
+            v325 = nil;
+            v326, v327 = v0.readFixed32(v320, v322);
+            v325 = v326;
+            v322 = v327;
+        elseif v324 == v0.wireTypes.i64 then
+            v325 = nil;
+            v326, v327 = v0.readFixed64(v320, v322);
+            v325 = v326;
+            v322 = v327;
         else
-            error("Unsupported wire type: " .. v242);
+            error("Unsupported wire type: " .. v324);
         end;
     end;
-    return v239;
+    return v321;
 end;
-v5.jsonEncode = function(v246) --[[ Line: 4110 ]] --[[ Name: jsonEncode ]]
-    local v247 = {};
-    if v246.options ~= nil and #v246.options > 0 then
-        local v248 = {};
-        for _, v250 in v246.options do
-            table.insert(v248, v250:jsonEncode());
+v5.jsonEncode = function(v328) --[[ Line: 4784 ]] --[[ Name: jsonEncode ]]
+    local v329 = {};
+    if v328.options ~= nil and #v328.options > 0 then
+        local v330 = {};
+        for _, v332 in v328.options do
+            table.insert(v330, v332:jsonEncode());
         end;
-        v247.options = v248;
+        v329.options = v330;
     end;
-    return v247;
+    return v329;
 end;
-v5.jsonDecode = function(v251) --[[ Line: 4124 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_8 (copy), v2 (copy)
-    local v252 = l_v5_8.new();
-    if v251.options ~= nil then
-        local v253 = {};
-        for _, v255 in v251.options do
-            table.insert(v253, v2.FloatProp_ConditionalOption.jsonDecode(v255));
+v5.jsonDecode = function(v333) --[[ Line: 4798 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_11 (copy), v2 (copy)
+    local v334 = l_v5_11.new();
+    if v333.options ~= nil then
+        local v335 = {};
+        for _, v337 in v333.options do
+            table.insert(v335, v2.FloatProp_ConditionalOption.jsonDecode(v337));
         end;
-        v252.options = v253;
+        v334.options = v335;
     end;
-    return v252;
+    return v334;
 end;
 v5.descriptor = {
     name = "FloatProp_ConditionalOptions", 
@@ -1310,174 +1778,174 @@ v2.FloatProp_ConditionalOptions = v5;
 v1.default:register(v2.FloatProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_9 = v5 --[[ copy: 5 -> 15 ]];
-v5.new = function(v257) --[[ Line: 4153 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_9 (copy)
+local l_v5_12 = v5 --[[ copy: 5 -> 18 ]];
+v5.new = function(v339) --[[ Line: 4827 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_12 (copy)
     return (setmetatable({
-        kind = if not (v257 ~= nil) or v257.kind == nil then nil else v257.kind
-    }, l_v5_9));
+        kind = if not (v339 ~= nil) or v339.kind == nil then nil else v339.kind
+    }, l_v5_12));
 end;
-v5.encode = function(v258) --[[ Line: 4159 ]] --[[ Name: encode ]]
+v5.encode = function(v340) --[[ Line: 4833 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v259 = buffer.create(0);
-    local v260 = 0;
-    if v258.kind ~= nil then
-        if v258.kind.type == "literal" then
-            local v261, v262 = v0.writeTag(v259, v260, 1, v0.wireTypes.i64);
-            v261, v262 = v0.writeDouble(v261, v262, v258.kind.value);
-            v259 = v261;
-            v260 = v262;
-        elseif v258.kind.type == "binding_path" then
-            local v263, v264 = v0.writeTag(v259, v260, 2, v0.wireTypes.lengthDelimited);
-            v263, v264 = v0.writeString(v263, v264, v258.kind.value);
-            v259 = v263;
-            v260 = v264;
-        elseif v258.kind.type == "token" then
-            local v265, v266 = v0.writeTag(v259, v260, 3, v0.wireTypes.lengthDelimited);
-            v265, v266 = v0.writeString(v265, v266, v258.kind.value);
-            v259 = v265;
-            v260 = v266;
-        elseif v258.kind.type == "conditional" then
-            local v267 = v258.kind.value:encode();
-            local v268, v269 = v0.writeTag(v259, v260, 4, v0.wireTypes.lengthDelimited);
-            v268, v269 = v0.writeBuffer(v268, v269, v267, buffer.len(v267));
-            v259 = v268;
-            v260 = v269;
+    local v341 = buffer.create(0);
+    local v342 = 0;
+    if v340.kind ~= nil then
+        if v340.kind.type == "literal" then
+            local v343, v344 = v0.writeTag(v341, v342, 1, v0.wireTypes.i64);
+            v343, v344 = v0.writeDouble(v343, v344, v340.kind.value);
+            v341 = v343;
+            v342 = v344;
+        elseif v340.kind.type == "binding_path" then
+            local v345, v346 = v0.writeTag(v341, v342, 2, v0.wireTypes.lengthDelimited);
+            v345, v346 = v0.writeString(v345, v346, v340.kind.value);
+            v341 = v345;
+            v342 = v346;
+        elseif v340.kind.type == "token" then
+            local v347, v348 = v0.writeTag(v341, v342, 3, v0.wireTypes.lengthDelimited);
+            v347, v348 = v0.writeString(v347, v348, v340.kind.value);
+            v341 = v347;
+            v342 = v348;
+        elseif v340.kind.type == "conditional" then
+            local v349 = v340.kind.value:encode();
+            local v350, v351 = v0.writeTag(v341, v342, 4, v0.wireTypes.lengthDelimited);
+            v350, v351 = v0.writeBuffer(v350, v351, v349, buffer.len(v349));
+            v341 = v350;
+            v342 = v351;
         end;
     end;
-    local v270 = buffer.create(v260);
-    buffer.copy(v270, 0, v259, 0, v260);
-    return v270;
+    local v352 = buffer.create(v342);
+    buffer.copy(v352, 0, v341, 0, v342);
+    return v352;
 end;
-v5.decode = function(v271) --[[ Line: 4185 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_9 (copy), v0 (copy), v2 (copy)
-    local v272 = l_v5_9.new();
-    local v273 = 0;
-    while v273 < buffer.len(v271) do
-        local v274 = nil;
-        local v275 = nil;
-        local v276, v277, v278 = v0.readTag(v271, v273);
-        v274 = v276;
-        v275 = v277;
-        v273 = v278;
-        if v275 == v0.wireTypes.varint then
-            v276 = nil;
-            v277, v278 = v0.readVarInt(v271, v273);
-            v276 = v277;
-            v273 = v278;
-        elseif v275 == v0.wireTypes.lengthDelimited then
-            if v274 == 2 then
-                v276 = nil;
-                v277, v278 = v0.readBuffer(v271, v273);
-                v276 = v277;
-                v273 = v278;
-                v272.kind = {
+v5.decode = function(v353) --[[ Line: 4859 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_12 (copy), v0 (copy), v2 (copy)
+    local v354 = l_v5_12.new();
+    local v355 = 0;
+    while v355 < buffer.len(v353) do
+        local v356 = nil;
+        local v357 = nil;
+        local v358, v359, v360 = v0.readTag(v353, v355);
+        v356 = v358;
+        v357 = v359;
+        v355 = v360;
+        if v357 == v0.wireTypes.varint then
+            v358 = nil;
+            v359, v360 = v0.readVarInt(v353, v355);
+            v358 = v359;
+            v355 = v360;
+        elseif v357 == v0.wireTypes.lengthDelimited then
+            if v356 == 2 then
+                v358 = nil;
+                v359, v360 = v0.readBuffer(v353, v355);
+                v358 = v359;
+                v355 = v360;
+                v354.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v276)
+                    value = buffer.tostring(v358)
                 };
-            elseif v274 == 3 then
-                v276 = nil;
-                v277, v278 = v0.readBuffer(v271, v273);
-                v276 = v277;
-                v273 = v278;
-                v272.kind = {
+            elseif v356 == 3 then
+                v358 = nil;
+                v359, v360 = v0.readBuffer(v353, v355);
+                v358 = v359;
+                v355 = v360;
+                v354.kind = {
                     type = "token", 
-                    value = buffer.tostring(v276)
+                    value = buffer.tostring(v358)
                 };
-            elseif v274 == 4 then
-                v276 = nil;
-                v277, v278 = v0.readBuffer(v271, v273);
-                v276 = v277;
-                v273 = v278;
-                v272.kind = {
+            elseif v356 == 4 then
+                v358 = nil;
+                v359, v360 = v0.readBuffer(v353, v355);
+                v358 = v359;
+                v355 = v360;
+                v354.kind = {
                     type = "conditional", 
-                    value = v2.DoubleProp_ConditionalOptions.decode(v276)
+                    value = v2.DoubleProp_ConditionalOptions.decode(v358)
                 };
             else
-                v276 = nil;
-                v277, v278 = v0.readVarInt(v271, v273);
-                v273 = v278 + v277;
+                v358 = nil;
+                v359, v360 = v0.readVarInt(v353, v355);
+                v355 = v360 + v359;
             end;
-        elseif v275 == v0.wireTypes.i32 then
-            v276 = nil;
-            v277, v278 = v0.readFixed32(v271, v273);
-            v276 = v277;
-            v273 = v278;
-        elseif v275 == v0.wireTypes.i64 then
-            if v274 == 1 then
-                v276 = nil;
-                v277, v278 = v0.readDouble(v271, v273);
-                v276 = v277;
-                v273 = v278;
-                v272.kind = {
+        elseif v357 == v0.wireTypes.i32 then
+            v358 = nil;
+            v359, v360 = v0.readFixed32(v353, v355);
+            v358 = v359;
+            v355 = v360;
+        elseif v357 == v0.wireTypes.i64 then
+            if v356 == 1 then
+                v358 = nil;
+                v359, v360 = v0.readDouble(v353, v355);
+                v358 = v359;
+                v355 = v360;
+                v354.kind = {
                     type = "literal", 
-                    value = v276
+                    value = v358
                 };
             else
-                v276 = nil;
-                v277, v278 = v0.readFixed64(v271, v273);
-                v276 = v277;
-                v273 = v278;
+                v358 = nil;
+                v359, v360 = v0.readFixed64(v353, v355);
+                v358 = v359;
+                v355 = v360;
             end;
         else
-            error("Unsupported wire type: " .. v275);
+            error("Unsupported wire type: " .. v357);
         end;
     end;
-    return v272;
+    return v354;
 end;
-v5.jsonEncode = function(v279) --[[ Line: 4243 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v361) --[[ Line: 4917 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
-    local v280 = {};
-    if v279.kind ~= nil then
-        if v279.kind.type == "literal" then
-            v280.literal = v0.json.serializeNumber(v279.kind.value);
-            return v280;
-        elseif v279.kind.type == "binding_path" then
-            v280.bindingPath = v279.kind.value;
-            return v280;
-        elseif v279.kind.type == "token" then
-            v280.token = v279.kind.value;
-            return v280;
-        elseif v279.kind.type == "conditional" then
-            v280.conditional = v279.kind.value:jsonEncode();
+    local v362 = {};
+    if v361.kind ~= nil then
+        if v361.kind.type == "literal" then
+            v362.literal = v0.json.serializeNumber(v361.kind.value);
+            return v362;
+        elseif v361.kind.type == "binding_path" then
+            v362.bindingPath = v361.kind.value;
+            return v362;
+        elseif v361.kind.type == "token" then
+            v362.token = v361.kind.value;
+            return v362;
+        elseif v361.kind.type == "conditional" then
+            v362.conditional = v361.kind.value:jsonEncode();
         end;
     end;
-    return v280;
+    return v362;
 end;
-v5.jsonDecode = function(v281) --[[ Line: 4261 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_9 (copy), v0 (copy), v2 (copy)
-    local v282 = l_v5_9.new();
-    if v281.literal ~= nil then
-        v282.kind = {
+v5.jsonDecode = function(v363) --[[ Line: 4935 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_12 (copy), v0 (copy), v2 (copy)
+    local v364 = l_v5_12.new();
+    if v363.literal ~= nil then
+        v364.kind = {
             type = "literal", 
-            value = v0.json.deserializeNumber(v281.literal)
+            value = v0.json.deserializeNumber(v363.literal)
         };
     end;
-    if v281.binding_path ~= nil then
-        v282.kind = {
+    if v363.binding_path ~= nil then
+        v364.kind = {
             type = "binding_path", 
-            value = v281.binding_path
+            value = v363.binding_path
         };
     end;
-    if v281.bindingPath ~= nil then
-        v282.kind = {
+    if v363.bindingPath ~= nil then
+        v364.kind = {
             type = "binding_path", 
-            value = v281.bindingPath
+            value = v363.bindingPath
         };
     end;
-    if v281.token ~= nil then
-        v282.kind = {
+    if v363.token ~= nil then
+        v364.kind = {
             type = "token", 
-            value = v281.token
+            value = v363.token
         };
     end;
-    if v281.conditional ~= nil then
-        v282.kind = {
+    if v363.conditional ~= nil then
+        v364.kind = {
             type = "conditional", 
-            value = v2.DoubleProp_ConditionalOptions.jsonDecode(v281.conditional)
+            value = v2.DoubleProp_ConditionalOptions.jsonDecode(v363.conditional)
         };
     end;
-    return v282;
+    return v364;
 end;
 v5.descriptor = {
     name = "DoubleProp", 
@@ -1487,170 +1955,170 @@ v2.DoubleProp = v5;
 v1.default:register(v2.DoubleProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_10 = v5 --[[ copy: 5 -> 16 ]];
-v5.new = function(v284) --[[ Line: 4302 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_10 (copy)
+local l_v5_13 = v5 --[[ copy: 5 -> 19 ]];
+v5.new = function(v366) --[[ Line: 4976 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_13 (copy)
     return (setmetatable({
-        condition = if not (v284 ~= nil) or v284.condition == nil then nil else v284.condition, 
-        kind = if not (v284 ~= nil) or v284.kind == nil then nil else v284.kind
-    }, l_v5_10));
+        condition = if not (v366 ~= nil) or v366.condition == nil then nil else v366.condition, 
+        kind = if not (v366 ~= nil) or v366.kind == nil then nil else v366.kind
+    }, l_v5_13));
 end;
-v5.encode = function(v285) --[[ Line: 4311 ]] --[[ Name: encode ]]
+v5.encode = function(v367) --[[ Line: 4985 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v286 = buffer.create(0);
-    local v287 = 0;
-    if v285.condition ~= nil then
-        local v288 = v285.condition:encode();
-        local v289, v290 = v0.writeTag(v286, v287, 1, v0.wireTypes.lengthDelimited);
-        v289, v290 = v0.writeBuffer(v289, v290, v288, buffer.len(v288));
-        v286 = v289;
-        v287 = v290;
+    local v368 = buffer.create(0);
+    local v369 = 0;
+    if v367.condition ~= nil then
+        local v370 = v367.condition:encode();
+        local v371, v372 = v0.writeTag(v368, v369, 1, v0.wireTypes.lengthDelimited);
+        v371, v372 = v0.writeBuffer(v371, v372, v370, buffer.len(v370));
+        v368 = v371;
+        v369 = v372;
     end;
-    if v285.kind ~= nil then
-        if v285.kind.type == "literal" then
-            local v291, v292 = v0.writeTag(v286, v287, 2, v0.wireTypes.i64);
-            v291, v292 = v0.writeDouble(v291, v292, v285.kind.value);
-            v286 = v291;
-            v287 = v292;
-        elseif v285.kind.type == "binding_path" then
-            local v293, v294 = v0.writeTag(v286, v287, 3, v0.wireTypes.lengthDelimited);
-            v293, v294 = v0.writeString(v293, v294, v285.kind.value);
-            v286 = v293;
-            v287 = v294;
-        elseif v285.kind.type == "token" then
-            local v295, v296 = v0.writeTag(v286, v287, 4, v0.wireTypes.lengthDelimited);
-            v295, v296 = v0.writeString(v295, v296, v285.kind.value);
-            v286 = v295;
-            v287 = v296;
+    if v367.kind ~= nil then
+        if v367.kind.type == "literal" then
+            local v373, v374 = v0.writeTag(v368, v369, 2, v0.wireTypes.i64);
+            v373, v374 = v0.writeDouble(v373, v374, v367.kind.value);
+            v368 = v373;
+            v369 = v374;
+        elseif v367.kind.type == "binding_path" then
+            local v375, v376 = v0.writeTag(v368, v369, 3, v0.wireTypes.lengthDelimited);
+            v375, v376 = v0.writeString(v375, v376, v367.kind.value);
+            v368 = v375;
+            v369 = v376;
+        elseif v367.kind.type == "token" then
+            local v377, v378 = v0.writeTag(v368, v369, 4, v0.wireTypes.lengthDelimited);
+            v377, v378 = v0.writeString(v377, v378, v367.kind.value);
+            v368 = v377;
+            v369 = v378;
         end;
     end;
-    local v297 = buffer.create(v287);
-    buffer.copy(v297, 0, v286, 0, v287);
-    return v297;
+    local v379 = buffer.create(v369);
+    buffer.copy(v379, 0, v368, 0, v369);
+    return v379;
 end;
-v5.decode = function(v298) --[[ Line: 4339 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_10 (copy), v0 (copy), v4 (copy)
-    local v299 = l_v5_10.new();
-    local v300 = 0;
-    while v300 < buffer.len(v298) do
-        local v301 = nil;
-        local v302 = nil;
-        local v303, v304, v305 = v0.readTag(v298, v300);
-        v301 = v303;
-        v302 = v304;
-        v300 = v305;
-        if v302 == v0.wireTypes.varint then
-            v303 = nil;
-            v304, v305 = v0.readVarInt(v298, v300);
-            v303 = v304;
-            v300 = v305;
-        elseif v302 == v0.wireTypes.lengthDelimited then
-            if v301 == 1 then
-                v303 = nil;
-                v304, v305 = v0.readBuffer(v298, v300);
-                v303 = v304;
-                v300 = v305;
-                v299.condition = v4.PropCondition.decode(v303);
-            elseif v301 == 3 then
-                v303 = nil;
-                v304, v305 = v0.readBuffer(v298, v300);
-                v303 = v304;
-                v300 = v305;
-                v299.kind = {
+v5.decode = function(v380) --[[ Line: 5013 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_13 (copy), v0 (copy), v4 (copy)
+    local v381 = l_v5_13.new();
+    local v382 = 0;
+    while v382 < buffer.len(v380) do
+        local v383 = nil;
+        local v384 = nil;
+        local v385, v386, v387 = v0.readTag(v380, v382);
+        v383 = v385;
+        v384 = v386;
+        v382 = v387;
+        if v384 == v0.wireTypes.varint then
+            v385 = nil;
+            v386, v387 = v0.readVarInt(v380, v382);
+            v385 = v386;
+            v382 = v387;
+        elseif v384 == v0.wireTypes.lengthDelimited then
+            if v383 == 1 then
+                v385 = nil;
+                v386, v387 = v0.readBuffer(v380, v382);
+                v385 = v386;
+                v382 = v387;
+                v381.condition = v4.PropCondition.decode(v385);
+            elseif v383 == 3 then
+                v385 = nil;
+                v386, v387 = v0.readBuffer(v380, v382);
+                v385 = v386;
+                v382 = v387;
+                v381.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v303)
+                    value = buffer.tostring(v385)
                 };
-            elseif v301 == 4 then
-                v303 = nil;
-                v304, v305 = v0.readBuffer(v298, v300);
-                v303 = v304;
-                v300 = v305;
-                v299.kind = {
+            elseif v383 == 4 then
+                v385 = nil;
+                v386, v387 = v0.readBuffer(v380, v382);
+                v385 = v386;
+                v382 = v387;
+                v381.kind = {
                     type = "token", 
-                    value = buffer.tostring(v303)
+                    value = buffer.tostring(v385)
                 };
             else
-                v303 = nil;
-                v304, v305 = v0.readVarInt(v298, v300);
-                v300 = v305 + v304;
+                v385 = nil;
+                v386, v387 = v0.readVarInt(v380, v382);
+                v382 = v387 + v386;
             end;
-        elseif v302 == v0.wireTypes.i32 then
-            v303 = nil;
-            v304, v305 = v0.readFixed32(v298, v300);
-            v303 = v304;
-            v300 = v305;
-        elseif v302 == v0.wireTypes.i64 then
-            if v301 == 2 then
-                v303 = nil;
-                v304, v305 = v0.readDouble(v298, v300);
-                v303 = v304;
-                v300 = v305;
-                v299.kind = {
+        elseif v384 == v0.wireTypes.i32 then
+            v385 = nil;
+            v386, v387 = v0.readFixed32(v380, v382);
+            v385 = v386;
+            v382 = v387;
+        elseif v384 == v0.wireTypes.i64 then
+            if v383 == 2 then
+                v385 = nil;
+                v386, v387 = v0.readDouble(v380, v382);
+                v385 = v386;
+                v382 = v387;
+                v381.kind = {
                     type = "literal", 
-                    value = v303
+                    value = v385
                 };
             else
-                v303 = nil;
-                v304, v305 = v0.readFixed64(v298, v300);
-                v303 = v304;
-                v300 = v305;
+                v385 = nil;
+                v386, v387 = v0.readFixed64(v380, v382);
+                v385 = v386;
+                v382 = v387;
             end;
         else
-            error("Unsupported wire type: " .. v302);
+            error("Unsupported wire type: " .. v384);
         end;
     end;
-    return v299;
+    return v381;
 end;
-v5.jsonEncode = function(v306) --[[ Line: 4397 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v388) --[[ Line: 5071 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
-    local v307 = {};
-    if v306.condition ~= nil then
-        v307.condition = v306.condition:jsonEncode();
+    local v389 = {};
+    if v388.condition ~= nil then
+        v389.condition = v388.condition:jsonEncode();
     end;
-    if v306.kind ~= nil then
-        if v306.kind.type == "literal" then
-            v307.literal = v0.json.serializeNumber(v306.kind.value);
-            return v307;
-        elseif v306.kind.type == "binding_path" then
-            v307.bindingPath = v306.kind.value;
-            return v307;
-        elseif v306.kind.type == "token" then
-            v307.token = v306.kind.value;
+    if v388.kind ~= nil then
+        if v388.kind.type == "literal" then
+            v389.literal = v0.json.serializeNumber(v388.kind.value);
+            return v389;
+        elseif v388.kind.type == "binding_path" then
+            v389.bindingPath = v388.kind.value;
+            return v389;
+        elseif v388.kind.type == "token" then
+            v389.token = v388.kind.value;
         end;
     end;
-    return v307;
+    return v389;
 end;
-v5.jsonDecode = function(v308) --[[ Line: 4417 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_10 (copy), v4 (copy), v0 (copy)
-    local v309 = l_v5_10.new();
-    if v308.condition ~= nil then
-        v309.condition = v4.PropCondition.jsonDecode(v308.condition);
+v5.jsonDecode = function(v390) --[[ Line: 5091 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_13 (copy), v4 (copy), v0 (copy)
+    local v391 = l_v5_13.new();
+    if v390.condition ~= nil then
+        v391.condition = v4.PropCondition.jsonDecode(v390.condition);
     end;
-    if v308.literal ~= nil then
-        v309.kind = {
+    if v390.literal ~= nil then
+        v391.kind = {
             type = "literal", 
-            value = v0.json.deserializeNumber(v308.literal)
+            value = v0.json.deserializeNumber(v390.literal)
         };
     end;
-    if v308.binding_path ~= nil then
-        v309.kind = {
+    if v390.binding_path ~= nil then
+        v391.kind = {
             type = "binding_path", 
-            value = v308.binding_path
+            value = v390.binding_path
         };
     end;
-    if v308.bindingPath ~= nil then
-        v309.kind = {
+    if v390.bindingPath ~= nil then
+        v391.kind = {
             type = "binding_path", 
-            value = v308.bindingPath
+            value = v390.bindingPath
         };
     end;
-    if v308.token ~= nil then
-        v309.kind = {
+    if v390.token ~= nil then
+        v391.kind = {
             type = "token", 
-            value = v308.token
+            value = v390.token
         };
     end;
-    return v309;
+    return v391;
 end;
 v5.descriptor = {
     name = "DoubleProp_ConditionalOption", 
@@ -1660,96 +2128,96 @@ v2.DoubleProp_ConditionalOption = v5;
 v1.default:register(v2.DoubleProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_11 = v5 --[[ copy: 5 -> 17 ]];
-v5.new = function(v311) --[[ Line: 4458 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_11 (copy)
+local l_v5_14 = v5 --[[ copy: 5 -> 20 ]];
+v5.new = function(v393) --[[ Line: 5132 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_14 (copy)
     return (setmetatable({
-        options = if not (v311 ~= nil) or v311.options == nil then {} else v311.options
-    }, l_v5_11));
+        options = if not (v393 ~= nil) or v393.options == nil then {} else v393.options
+    }, l_v5_14));
 end;
-v5.encode = function(v312) --[[ Line: 4466 ]] --[[ Name: encode ]]
+v5.encode = function(v394) --[[ Line: 5140 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v313 = buffer.create(0);
-    local v314 = 0;
-    if v312.options ~= nil and #v312.options > 0 then
-        for _, v316 in v312.options do
-            local v317 = v316:encode();
-            local v318, v319 = v0.writeTag(v313, v314, 1, v0.wireTypes.lengthDelimited);
-            v318, v319 = v0.writeBuffer(v318, v319, v317, buffer.len(v317));
-            v313 = v318;
-            v314 = v319;
+    local v395 = buffer.create(0);
+    local v396 = 0;
+    if v394.options ~= nil and #v394.options > 0 then
+        for _, v398 in v394.options do
+            local v399 = v398:encode();
+            local v400, v401 = v0.writeTag(v395, v396, 1, v0.wireTypes.lengthDelimited);
+            v400, v401 = v0.writeBuffer(v400, v401, v399, buffer.len(v399));
+            v395 = v400;
+            v396 = v401;
         end;
     end;
-    local v320 = buffer.create(v314);
-    buffer.copy(v320, 0, v313, 0, v314);
-    return v320;
+    local v402 = buffer.create(v396);
+    buffer.copy(v402, 0, v395, 0, v396);
+    return v402;
 end;
-v5.decode = function(v321) --[[ Line: 4483 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_11 (copy), v0 (copy), v2 (copy)
-    local v322 = l_v5_11.new();
-    local v323 = 0;
-    while v323 < buffer.len(v321) do
-        local v324 = nil;
-        local v325 = nil;
-        local v326, v327, v328 = v0.readTag(v321, v323);
-        v324 = v326;
-        v325 = v327;
-        v323 = v328;
-        if v325 == v0.wireTypes.varint then
-            v326 = nil;
-            v327, v328 = v0.readVarInt(v321, v323);
-            v326 = v327;
-            v323 = v328;
-        elseif v325 == v0.wireTypes.lengthDelimited then
-            if v324 == 1 then
-                v326 = nil;
-                v327, v328 = v0.readBuffer(v321, v323);
-                v326 = v327;
-                v323 = v328;
-                table.insert(v322.options, v2.DoubleProp_ConditionalOption.decode(v326));
+v5.decode = function(v403) --[[ Line: 5157 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_14 (copy), v0 (copy), v2 (copy)
+    local v404 = l_v5_14.new();
+    local v405 = 0;
+    while v405 < buffer.len(v403) do
+        local v406 = nil;
+        local v407 = nil;
+        local v408, v409, v410 = v0.readTag(v403, v405);
+        v406 = v408;
+        v407 = v409;
+        v405 = v410;
+        if v407 == v0.wireTypes.varint then
+            v408 = nil;
+            v409, v410 = v0.readVarInt(v403, v405);
+            v408 = v409;
+            v405 = v410;
+        elseif v407 == v0.wireTypes.lengthDelimited then
+            if v406 == 1 then
+                v408 = nil;
+                v409, v410 = v0.readBuffer(v403, v405);
+                v408 = v409;
+                v405 = v410;
+                table.insert(v404.options, v2.DoubleProp_ConditionalOption.decode(v408));
             else
-                v326 = nil;
-                v327, v328 = v0.readVarInt(v321, v323);
-                v323 = v328 + v327;
+                v408 = nil;
+                v409, v410 = v0.readVarInt(v403, v405);
+                v405 = v410 + v409;
             end;
-        elseif v325 == v0.wireTypes.i32 then
-            v326 = nil;
-            v327, v328 = v0.readFixed32(v321, v323);
-            v326 = v327;
-            v323 = v328;
-        elseif v325 == v0.wireTypes.i64 then
-            v326 = nil;
-            v327, v328 = v0.readFixed64(v321, v323);
-            v326 = v327;
-            v323 = v328;
+        elseif v407 == v0.wireTypes.i32 then
+            v408 = nil;
+            v409, v410 = v0.readFixed32(v403, v405);
+            v408 = v409;
+            v405 = v410;
+        elseif v407 == v0.wireTypes.i64 then
+            v408 = nil;
+            v409, v410 = v0.readFixed64(v403, v405);
+            v408 = v409;
+            v405 = v410;
         else
-            error("Unsupported wire type: " .. v325);
+            error("Unsupported wire type: " .. v407);
         end;
     end;
-    return v322;
+    return v404;
 end;
-v5.jsonEncode = function(v329) --[[ Line: 4526 ]] --[[ Name: jsonEncode ]]
-    local v330 = {};
-    if v329.options ~= nil and #v329.options > 0 then
-        local v331 = {};
-        for _, v333 in v329.options do
-            table.insert(v331, v333:jsonEncode());
+v5.jsonEncode = function(v411) --[[ Line: 5200 ]] --[[ Name: jsonEncode ]]
+    local v412 = {};
+    if v411.options ~= nil and #v411.options > 0 then
+        local v413 = {};
+        for _, v415 in v411.options do
+            table.insert(v413, v415:jsonEncode());
         end;
-        v330.options = v331;
+        v412.options = v413;
     end;
-    return v330;
+    return v412;
 end;
-v5.jsonDecode = function(v334) --[[ Line: 4540 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_11 (copy), v2 (copy)
-    local v335 = l_v5_11.new();
-    if v334.options ~= nil then
-        local v336 = {};
-        for _, v338 in v334.options do
-            table.insert(v336, v2.DoubleProp_ConditionalOption.jsonDecode(v338));
+v5.jsonDecode = function(v416) --[[ Line: 5214 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_14 (copy), v2 (copy)
+    local v417 = l_v5_14.new();
+    if v416.options ~= nil then
+        local v418 = {};
+        for _, v420 in v416.options do
+            table.insert(v418, v2.DoubleProp_ConditionalOption.jsonDecode(v420));
         end;
-        v335.options = v336;
+        v417.options = v418;
     end;
-    return v335;
+    return v417;
 end;
 v5.descriptor = {
     name = "DoubleProp_ConditionalOptions", 
@@ -1759,173 +2227,173 @@ v2.DoubleProp_ConditionalOptions = v5;
 v1.default:register(v2.DoubleProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_12 = v5 --[[ copy: 5 -> 18 ]];
-v5.new = function(v340) --[[ Line: 4569 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_12 (copy)
+local l_v5_15 = v5 --[[ copy: 5 -> 21 ]];
+v5.new = function(v422) --[[ Line: 5243 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_15 (copy)
     return (setmetatable({
-        kind = if not (v340 ~= nil) or v340.kind == nil then nil else v340.kind
-    }, l_v5_12));
+        kind = if not (v422 ~= nil) or v422.kind == nil then nil else v422.kind
+    }, l_v5_15));
 end;
-v5.encode = function(v341) --[[ Line: 4575 ]] --[[ Name: encode ]]
+v5.encode = function(v423) --[[ Line: 5249 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v342 = buffer.create(0);
-    local v343 = 0;
-    if v341.kind ~= nil then
-        if v341.kind.type == "literal" then
-            local v344, v345 = v0.writeTag(v342, v343, 1, v0.wireTypes.varint);
-            v344, v345 = v0.writeVarInt(v344, v345, v341.kind.value);
-            v342 = v344;
-            v343 = v345;
-        elseif v341.kind.type == "binding_path" then
-            local v346, v347 = v0.writeTag(v342, v343, 2, v0.wireTypes.lengthDelimited);
-            v346, v347 = v0.writeString(v346, v347, v341.kind.value);
-            v342 = v346;
-            v343 = v347;
-        elseif v341.kind.type == "token" then
-            local v348, v349 = v0.writeTag(v342, v343, 3, v0.wireTypes.lengthDelimited);
-            v348, v349 = v0.writeString(v348, v349, v341.kind.value);
-            v342 = v348;
-            v343 = v349;
-        elseif v341.kind.type == "conditional" then
-            local v350 = v341.kind.value:encode();
-            local v351, v352 = v0.writeTag(v342, v343, 4, v0.wireTypes.lengthDelimited);
-            v351, v352 = v0.writeBuffer(v351, v352, v350, buffer.len(v350));
-            v342 = v351;
-            v343 = v352;
+    local v424 = buffer.create(0);
+    local v425 = 0;
+    if v423.kind ~= nil then
+        if v423.kind.type == "literal" then
+            local v426, v427 = v0.writeTag(v424, v425, 1, v0.wireTypes.varint);
+            v426, v427 = v0.writeVarInt(v426, v427, v423.kind.value);
+            v424 = v426;
+            v425 = v427;
+        elseif v423.kind.type == "binding_path" then
+            local v428, v429 = v0.writeTag(v424, v425, 2, v0.wireTypes.lengthDelimited);
+            v428, v429 = v0.writeString(v428, v429, v423.kind.value);
+            v424 = v428;
+            v425 = v429;
+        elseif v423.kind.type == "token" then
+            local v430, v431 = v0.writeTag(v424, v425, 3, v0.wireTypes.lengthDelimited);
+            v430, v431 = v0.writeString(v430, v431, v423.kind.value);
+            v424 = v430;
+            v425 = v431;
+        elseif v423.kind.type == "conditional" then
+            local v432 = v423.kind.value:encode();
+            local v433, v434 = v0.writeTag(v424, v425, 4, v0.wireTypes.lengthDelimited);
+            v433, v434 = v0.writeBuffer(v433, v434, v432, buffer.len(v432));
+            v424 = v433;
+            v425 = v434;
         end;
     end;
-    local v353 = buffer.create(v343);
-    buffer.copy(v353, 0, v342, 0, v343);
-    return v353;
+    local v435 = buffer.create(v425);
+    buffer.copy(v435, 0, v424, 0, v425);
+    return v435;
 end;
-v5.decode = function(v354) --[[ Line: 4601 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_12 (copy), v0 (copy), v2 (copy)
-    local v355 = l_v5_12.new();
-    local v356 = 0;
-    while v356 < buffer.len(v354) do
-        local v357 = nil;
-        local v358 = nil;
-        local v359, v360, v361 = v0.readTag(v354, v356);
-        v357 = v359;
-        v358 = v360;
-        v356 = v361;
-        if v358 == v0.wireTypes.varint then
-            if v357 == 1 then
-                v359 = nil;
-                v360, v361 = v0.readVarIntI32(v354, v356);
-                v359 = v360;
-                v356 = v361;
-                v355.kind = {
+v5.decode = function(v436) --[[ Line: 5275 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_15 (copy), v0 (copy), v2 (copy)
+    local v437 = l_v5_15.new();
+    local v438 = 0;
+    while v438 < buffer.len(v436) do
+        local v439 = nil;
+        local v440 = nil;
+        local v441, v442, v443 = v0.readTag(v436, v438);
+        v439 = v441;
+        v440 = v442;
+        v438 = v443;
+        if v440 == v0.wireTypes.varint then
+            if v439 == 1 then
+                v441 = nil;
+                v442, v443 = v0.readVarIntI32(v436, v438);
+                v441 = v442;
+                v438 = v443;
+                v437.kind = {
                     type = "literal", 
-                    value = v359
+                    value = v441
                 };
             else
-                v359 = nil;
-                v360, v361 = v0.readVarInt(v354, v356);
-                v359 = v360;
-                v356 = v361;
+                v441 = nil;
+                v442, v443 = v0.readVarInt(v436, v438);
+                v441 = v442;
+                v438 = v443;
             end;
-        elseif v358 == v0.wireTypes.lengthDelimited then
-            if v357 == 2 then
-                v359 = nil;
-                v360, v361 = v0.readBuffer(v354, v356);
-                v359 = v360;
-                v356 = v361;
-                v355.kind = {
+        elseif v440 == v0.wireTypes.lengthDelimited then
+            if v439 == 2 then
+                v441 = nil;
+                v442, v443 = v0.readBuffer(v436, v438);
+                v441 = v442;
+                v438 = v443;
+                v437.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v359)
+                    value = buffer.tostring(v441)
                 };
-            elseif v357 == 3 then
-                v359 = nil;
-                v360, v361 = v0.readBuffer(v354, v356);
-                v359 = v360;
-                v356 = v361;
-                v355.kind = {
+            elseif v439 == 3 then
+                v441 = nil;
+                v442, v443 = v0.readBuffer(v436, v438);
+                v441 = v442;
+                v438 = v443;
+                v437.kind = {
                     type = "token", 
-                    value = buffer.tostring(v359)
+                    value = buffer.tostring(v441)
                 };
-            elseif v357 == 4 then
-                v359 = nil;
-                v360, v361 = v0.readBuffer(v354, v356);
-                v359 = v360;
-                v356 = v361;
-                v355.kind = {
+            elseif v439 == 4 then
+                v441 = nil;
+                v442, v443 = v0.readBuffer(v436, v438);
+                v441 = v442;
+                v438 = v443;
+                v437.kind = {
                     type = "conditional", 
-                    value = v2.Int32Prop_ConditionalOptions.decode(v359)
+                    value = v2.Int32Prop_ConditionalOptions.decode(v441)
                 };
             else
-                v359 = nil;
-                v360, v361 = v0.readVarInt(v354, v356);
-                v356 = v361 + v360;
+                v441 = nil;
+                v442, v443 = v0.readVarInt(v436, v438);
+                v438 = v443 + v442;
             end;
-        elseif v358 == v0.wireTypes.i32 then
-            v359 = nil;
-            v360, v361 = v0.readFixed32(v354, v356);
-            v359 = v360;
-            v356 = v361;
-        elseif v358 == v0.wireTypes.i64 then
-            v359 = nil;
-            v360, v361 = v0.readFixed64(v354, v356);
-            v359 = v360;
-            v356 = v361;
+        elseif v440 == v0.wireTypes.i32 then
+            v441 = nil;
+            v442, v443 = v0.readFixed32(v436, v438);
+            v441 = v442;
+            v438 = v443;
+        elseif v440 == v0.wireTypes.i64 then
+            v441 = nil;
+            v442, v443 = v0.readFixed64(v436, v438);
+            v441 = v442;
+            v438 = v443;
         else
-            error("Unsupported wire type: " .. v358);
+            error("Unsupported wire type: " .. v440);
         end;
     end;
-    return v355;
+    return v437;
 end;
-v5.jsonEncode = function(v362) --[[ Line: 4659 ]] --[[ Name: jsonEncode ]]
-    local v363 = {};
-    if v362.kind ~= nil then
-        if v362.kind.type == "literal" then
-            v363.literal = v362.kind.value;
-            return v363;
-        elseif v362.kind.type == "binding_path" then
-            v363.bindingPath = v362.kind.value;
-            return v363;
-        elseif v362.kind.type == "token" then
-            v363.token = v362.kind.value;
-            return v363;
-        elseif v362.kind.type == "conditional" then
-            v363.conditional = v362.kind.value:jsonEncode();
+v5.jsonEncode = function(v444) --[[ Line: 5333 ]] --[[ Name: jsonEncode ]]
+    local v445 = {};
+    if v444.kind ~= nil then
+        if v444.kind.type == "literal" then
+            v445.literal = v444.kind.value;
+            return v445;
+        elseif v444.kind.type == "binding_path" then
+            v445.bindingPath = v444.kind.value;
+            return v445;
+        elseif v444.kind.type == "token" then
+            v445.token = v444.kind.value;
+            return v445;
+        elseif v444.kind.type == "conditional" then
+            v445.conditional = v444.kind.value:jsonEncode();
         end;
     end;
-    return v363;
+    return v445;
 end;
-v5.jsonDecode = function(v364) --[[ Line: 4677 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_12 (copy), v2 (copy)
-    local v365 = l_v5_12.new();
-    if v364.literal ~= nil then
-        v365.kind = {
+v5.jsonDecode = function(v446) --[[ Line: 5351 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_15 (copy), v2 (copy)
+    local v447 = l_v5_15.new();
+    if v446.literal ~= nil then
+        v447.kind = {
             type = "literal", 
-            value = v364.literal
+            value = v446.literal
         };
     end;
-    if v364.binding_path ~= nil then
-        v365.kind = {
+    if v446.binding_path ~= nil then
+        v447.kind = {
             type = "binding_path", 
-            value = v364.binding_path
+            value = v446.binding_path
         };
     end;
-    if v364.bindingPath ~= nil then
-        v365.kind = {
+    if v446.bindingPath ~= nil then
+        v447.kind = {
             type = "binding_path", 
-            value = v364.bindingPath
+            value = v446.bindingPath
         };
     end;
-    if v364.token ~= nil then
-        v365.kind = {
+    if v446.token ~= nil then
+        v447.kind = {
             type = "token", 
-            value = v364.token
+            value = v446.token
         };
     end;
-    if v364.conditional ~= nil then
-        v365.kind = {
+    if v446.conditional ~= nil then
+        v447.kind = {
             type = "conditional", 
-            value = v2.Int32Prop_ConditionalOptions.jsonDecode(v364.conditional)
+            value = v2.Int32Prop_ConditionalOptions.jsonDecode(v446.conditional)
         };
     end;
-    return v365;
+    return v447;
 end;
 v5.descriptor = {
     name = "Int32Prop", 
@@ -1935,169 +2403,169 @@ v2.Int32Prop = v5;
 v1.default:register(v2.Int32Prop);
 v5 = {};
 v5.__index = v5;
-local l_v5_13 = v5 --[[ copy: 5 -> 19 ]];
-v5.new = function(v367) --[[ Line: 4718 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_13 (copy)
+local l_v5_16 = v5 --[[ copy: 5 -> 22 ]];
+v5.new = function(v449) --[[ Line: 5392 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_16 (copy)
     return (setmetatable({
-        condition = if not (v367 ~= nil) or v367.condition == nil then nil else v367.condition, 
-        kind = if not (v367 ~= nil) or v367.kind == nil then nil else v367.kind
-    }, l_v5_13));
+        condition = if not (v449 ~= nil) or v449.condition == nil then nil else v449.condition, 
+        kind = if not (v449 ~= nil) or v449.kind == nil then nil else v449.kind
+    }, l_v5_16));
 end;
-v5.encode = function(v368) --[[ Line: 4727 ]] --[[ Name: encode ]]
+v5.encode = function(v450) --[[ Line: 5401 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v369 = buffer.create(0);
-    local v370 = 0;
-    if v368.condition ~= nil then
-        local v371 = v368.condition:encode();
-        local v372, v373 = v0.writeTag(v369, v370, 1, v0.wireTypes.lengthDelimited);
-        v372, v373 = v0.writeBuffer(v372, v373, v371, buffer.len(v371));
-        v369 = v372;
-        v370 = v373;
+    local v451 = buffer.create(0);
+    local v452 = 0;
+    if v450.condition ~= nil then
+        local v453 = v450.condition:encode();
+        local v454, v455 = v0.writeTag(v451, v452, 1, v0.wireTypes.lengthDelimited);
+        v454, v455 = v0.writeBuffer(v454, v455, v453, buffer.len(v453));
+        v451 = v454;
+        v452 = v455;
     end;
-    if v368.kind ~= nil then
-        if v368.kind.type == "literal" then
-            local v374, v375 = v0.writeTag(v369, v370, 2, v0.wireTypes.varint);
-            v374, v375 = v0.writeVarInt(v374, v375, v368.kind.value);
-            v369 = v374;
-            v370 = v375;
-        elseif v368.kind.type == "binding_path" then
-            local v376, v377 = v0.writeTag(v369, v370, 3, v0.wireTypes.lengthDelimited);
-            v376, v377 = v0.writeString(v376, v377, v368.kind.value);
-            v369 = v376;
-            v370 = v377;
-        elseif v368.kind.type == "token" then
-            local v378, v379 = v0.writeTag(v369, v370, 4, v0.wireTypes.lengthDelimited);
-            v378, v379 = v0.writeString(v378, v379, v368.kind.value);
-            v369 = v378;
-            v370 = v379;
+    if v450.kind ~= nil then
+        if v450.kind.type == "literal" then
+            local v456, v457 = v0.writeTag(v451, v452, 2, v0.wireTypes.varint);
+            v456, v457 = v0.writeVarInt(v456, v457, v450.kind.value);
+            v451 = v456;
+            v452 = v457;
+        elseif v450.kind.type == "binding_path" then
+            local v458, v459 = v0.writeTag(v451, v452, 3, v0.wireTypes.lengthDelimited);
+            v458, v459 = v0.writeString(v458, v459, v450.kind.value);
+            v451 = v458;
+            v452 = v459;
+        elseif v450.kind.type == "token" then
+            local v460, v461 = v0.writeTag(v451, v452, 4, v0.wireTypes.lengthDelimited);
+            v460, v461 = v0.writeString(v460, v461, v450.kind.value);
+            v451 = v460;
+            v452 = v461;
         end;
     end;
-    local v380 = buffer.create(v370);
-    buffer.copy(v380, 0, v369, 0, v370);
-    return v380;
+    local v462 = buffer.create(v452);
+    buffer.copy(v462, 0, v451, 0, v452);
+    return v462;
 end;
-v5.decode = function(v381) --[[ Line: 4755 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_13 (copy), v0 (copy), v4 (copy)
-    local v382 = l_v5_13.new();
-    local v383 = 0;
-    while v383 < buffer.len(v381) do
-        local v384 = nil;
-        local v385 = nil;
-        local v386, v387, v388 = v0.readTag(v381, v383);
-        v384 = v386;
-        v385 = v387;
-        v383 = v388;
-        if v385 == v0.wireTypes.varint then
-            if v384 == 2 then
-                v386 = nil;
-                v387, v388 = v0.readVarIntI32(v381, v383);
-                v386 = v387;
-                v383 = v388;
-                v382.kind = {
+v5.decode = function(v463) --[[ Line: 5429 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_16 (copy), v0 (copy), v4 (copy)
+    local v464 = l_v5_16.new();
+    local v465 = 0;
+    while v465 < buffer.len(v463) do
+        local v466 = nil;
+        local v467 = nil;
+        local v468, v469, v470 = v0.readTag(v463, v465);
+        v466 = v468;
+        v467 = v469;
+        v465 = v470;
+        if v467 == v0.wireTypes.varint then
+            if v466 == 2 then
+                v468 = nil;
+                v469, v470 = v0.readVarIntI32(v463, v465);
+                v468 = v469;
+                v465 = v470;
+                v464.kind = {
                     type = "literal", 
-                    value = v386
+                    value = v468
                 };
             else
-                v386 = nil;
-                v387, v388 = v0.readVarInt(v381, v383);
-                v386 = v387;
-                v383 = v388;
+                v468 = nil;
+                v469, v470 = v0.readVarInt(v463, v465);
+                v468 = v469;
+                v465 = v470;
             end;
-        elseif v385 == v0.wireTypes.lengthDelimited then
-            if v384 == 1 then
-                v386 = nil;
-                v387, v388 = v0.readBuffer(v381, v383);
-                v386 = v387;
-                v383 = v388;
-                v382.condition = v4.PropCondition.decode(v386);
-            elseif v384 == 3 then
-                v386 = nil;
-                v387, v388 = v0.readBuffer(v381, v383);
-                v386 = v387;
-                v383 = v388;
-                v382.kind = {
+        elseif v467 == v0.wireTypes.lengthDelimited then
+            if v466 == 1 then
+                v468 = nil;
+                v469, v470 = v0.readBuffer(v463, v465);
+                v468 = v469;
+                v465 = v470;
+                v464.condition = v4.PropCondition.decode(v468);
+            elseif v466 == 3 then
+                v468 = nil;
+                v469, v470 = v0.readBuffer(v463, v465);
+                v468 = v469;
+                v465 = v470;
+                v464.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v386)
+                    value = buffer.tostring(v468)
                 };
-            elseif v384 == 4 then
-                v386 = nil;
-                v387, v388 = v0.readBuffer(v381, v383);
-                v386 = v387;
-                v383 = v388;
-                v382.kind = {
+            elseif v466 == 4 then
+                v468 = nil;
+                v469, v470 = v0.readBuffer(v463, v465);
+                v468 = v469;
+                v465 = v470;
+                v464.kind = {
                     type = "token", 
-                    value = buffer.tostring(v386)
+                    value = buffer.tostring(v468)
                 };
             else
-                v386 = nil;
-                v387, v388 = v0.readVarInt(v381, v383);
-                v383 = v388 + v387;
+                v468 = nil;
+                v469, v470 = v0.readVarInt(v463, v465);
+                v465 = v470 + v469;
             end;
-        elseif v385 == v0.wireTypes.i32 then
-            v386 = nil;
-            v387, v388 = v0.readFixed32(v381, v383);
-            v386 = v387;
-            v383 = v388;
-        elseif v385 == v0.wireTypes.i64 then
-            v386 = nil;
-            v387, v388 = v0.readFixed64(v381, v383);
-            v386 = v387;
-            v383 = v388;
+        elseif v467 == v0.wireTypes.i32 then
+            v468 = nil;
+            v469, v470 = v0.readFixed32(v463, v465);
+            v468 = v469;
+            v465 = v470;
+        elseif v467 == v0.wireTypes.i64 then
+            v468 = nil;
+            v469, v470 = v0.readFixed64(v463, v465);
+            v468 = v469;
+            v465 = v470;
         else
-            error("Unsupported wire type: " .. v385);
+            error("Unsupported wire type: " .. v467);
         end;
     end;
-    return v382;
+    return v464;
 end;
-v5.jsonEncode = function(v389) --[[ Line: 4813 ]] --[[ Name: jsonEncode ]]
-    local v390 = {};
-    if v389.condition ~= nil then
-        v390.condition = v389.condition:jsonEncode();
+v5.jsonEncode = function(v471) --[[ Line: 5487 ]] --[[ Name: jsonEncode ]]
+    local v472 = {};
+    if v471.condition ~= nil then
+        v472.condition = v471.condition:jsonEncode();
     end;
-    if v389.kind ~= nil then
-        if v389.kind.type == "literal" then
-            v390.literal = v389.kind.value;
-            return v390;
-        elseif v389.kind.type == "binding_path" then
-            v390.bindingPath = v389.kind.value;
-            return v390;
-        elseif v389.kind.type == "token" then
-            v390.token = v389.kind.value;
+    if v471.kind ~= nil then
+        if v471.kind.type == "literal" then
+            v472.literal = v471.kind.value;
+            return v472;
+        elseif v471.kind.type == "binding_path" then
+            v472.bindingPath = v471.kind.value;
+            return v472;
+        elseif v471.kind.type == "token" then
+            v472.token = v471.kind.value;
         end;
     end;
-    return v390;
+    return v472;
 end;
-v5.jsonDecode = function(v391) --[[ Line: 4833 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_13 (copy), v4 (copy)
-    local v392 = l_v5_13.new();
-    if v391.condition ~= nil then
-        v392.condition = v4.PropCondition.jsonDecode(v391.condition);
+v5.jsonDecode = function(v473) --[[ Line: 5507 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_16 (copy), v4 (copy)
+    local v474 = l_v5_16.new();
+    if v473.condition ~= nil then
+        v474.condition = v4.PropCondition.jsonDecode(v473.condition);
     end;
-    if v391.literal ~= nil then
-        v392.kind = {
+    if v473.literal ~= nil then
+        v474.kind = {
             type = "literal", 
-            value = v391.literal
+            value = v473.literal
         };
     end;
-    if v391.binding_path ~= nil then
-        v392.kind = {
+    if v473.binding_path ~= nil then
+        v474.kind = {
             type = "binding_path", 
-            value = v391.binding_path
+            value = v473.binding_path
         };
     end;
-    if v391.bindingPath ~= nil then
-        v392.kind = {
+    if v473.bindingPath ~= nil then
+        v474.kind = {
             type = "binding_path", 
-            value = v391.bindingPath
+            value = v473.bindingPath
         };
     end;
-    if v391.token ~= nil then
-        v392.kind = {
+    if v473.token ~= nil then
+        v474.kind = {
             type = "token", 
-            value = v391.token
+            value = v473.token
         };
     end;
-    return v392;
+    return v474;
 end;
 v5.descriptor = {
     name = "Int32Prop_ConditionalOption", 
@@ -2107,96 +2575,96 @@ v2.Int32Prop_ConditionalOption = v5;
 v1.default:register(v2.Int32Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_14 = v5 --[[ copy: 5 -> 20 ]];
-v5.new = function(v394) --[[ Line: 4874 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_14 (copy)
+local l_v5_17 = v5 --[[ copy: 5 -> 23 ]];
+v5.new = function(v476) --[[ Line: 5548 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_17 (copy)
     return (setmetatable({
-        options = if not (v394 ~= nil) or v394.options == nil then {} else v394.options
-    }, l_v5_14));
+        options = if not (v476 ~= nil) or v476.options == nil then {} else v476.options
+    }, l_v5_17));
 end;
-v5.encode = function(v395) --[[ Line: 4882 ]] --[[ Name: encode ]]
+v5.encode = function(v477) --[[ Line: 5556 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v396 = buffer.create(0);
-    local v397 = 0;
-    if v395.options ~= nil and #v395.options > 0 then
-        for _, v399 in v395.options do
-            local v400 = v399:encode();
-            local v401, v402 = v0.writeTag(v396, v397, 1, v0.wireTypes.lengthDelimited);
-            v401, v402 = v0.writeBuffer(v401, v402, v400, buffer.len(v400));
-            v396 = v401;
-            v397 = v402;
+    local v478 = buffer.create(0);
+    local v479 = 0;
+    if v477.options ~= nil and #v477.options > 0 then
+        for _, v481 in v477.options do
+            local v482 = v481:encode();
+            local v483, v484 = v0.writeTag(v478, v479, 1, v0.wireTypes.lengthDelimited);
+            v483, v484 = v0.writeBuffer(v483, v484, v482, buffer.len(v482));
+            v478 = v483;
+            v479 = v484;
         end;
     end;
-    local v403 = buffer.create(v397);
-    buffer.copy(v403, 0, v396, 0, v397);
-    return v403;
+    local v485 = buffer.create(v479);
+    buffer.copy(v485, 0, v478, 0, v479);
+    return v485;
 end;
-v5.decode = function(v404) --[[ Line: 4899 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_14 (copy), v0 (copy), v2 (copy)
-    local v405 = l_v5_14.new();
-    local v406 = 0;
-    while v406 < buffer.len(v404) do
-        local v407 = nil;
-        local v408 = nil;
-        local v409, v410, v411 = v0.readTag(v404, v406);
-        v407 = v409;
-        v408 = v410;
-        v406 = v411;
-        if v408 == v0.wireTypes.varint then
-            v409 = nil;
-            v410, v411 = v0.readVarInt(v404, v406);
-            v409 = v410;
-            v406 = v411;
-        elseif v408 == v0.wireTypes.lengthDelimited then
-            if v407 == 1 then
-                v409 = nil;
-                v410, v411 = v0.readBuffer(v404, v406);
-                v409 = v410;
-                v406 = v411;
-                table.insert(v405.options, v2.Int32Prop_ConditionalOption.decode(v409));
+v5.decode = function(v486) --[[ Line: 5573 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_17 (copy), v0 (copy), v2 (copy)
+    local v487 = l_v5_17.new();
+    local v488 = 0;
+    while v488 < buffer.len(v486) do
+        local v489 = nil;
+        local v490 = nil;
+        local v491, v492, v493 = v0.readTag(v486, v488);
+        v489 = v491;
+        v490 = v492;
+        v488 = v493;
+        if v490 == v0.wireTypes.varint then
+            v491 = nil;
+            v492, v493 = v0.readVarInt(v486, v488);
+            v491 = v492;
+            v488 = v493;
+        elseif v490 == v0.wireTypes.lengthDelimited then
+            if v489 == 1 then
+                v491 = nil;
+                v492, v493 = v0.readBuffer(v486, v488);
+                v491 = v492;
+                v488 = v493;
+                table.insert(v487.options, v2.Int32Prop_ConditionalOption.decode(v491));
             else
-                v409 = nil;
-                v410, v411 = v0.readVarInt(v404, v406);
-                v406 = v411 + v410;
+                v491 = nil;
+                v492, v493 = v0.readVarInt(v486, v488);
+                v488 = v493 + v492;
             end;
-        elseif v408 == v0.wireTypes.i32 then
-            v409 = nil;
-            v410, v411 = v0.readFixed32(v404, v406);
-            v409 = v410;
-            v406 = v411;
-        elseif v408 == v0.wireTypes.i64 then
-            v409 = nil;
-            v410, v411 = v0.readFixed64(v404, v406);
-            v409 = v410;
-            v406 = v411;
+        elseif v490 == v0.wireTypes.i32 then
+            v491 = nil;
+            v492, v493 = v0.readFixed32(v486, v488);
+            v491 = v492;
+            v488 = v493;
+        elseif v490 == v0.wireTypes.i64 then
+            v491 = nil;
+            v492, v493 = v0.readFixed64(v486, v488);
+            v491 = v492;
+            v488 = v493;
         else
-            error("Unsupported wire type: " .. v408);
+            error("Unsupported wire type: " .. v490);
         end;
     end;
-    return v405;
+    return v487;
 end;
-v5.jsonEncode = function(v412) --[[ Line: 4942 ]] --[[ Name: jsonEncode ]]
-    local v413 = {};
-    if v412.options ~= nil and #v412.options > 0 then
-        local v414 = {};
-        for _, v416 in v412.options do
-            table.insert(v414, v416:jsonEncode());
+v5.jsonEncode = function(v494) --[[ Line: 5616 ]] --[[ Name: jsonEncode ]]
+    local v495 = {};
+    if v494.options ~= nil and #v494.options > 0 then
+        local v496 = {};
+        for _, v498 in v494.options do
+            table.insert(v496, v498:jsonEncode());
         end;
-        v413.options = v414;
+        v495.options = v496;
     end;
-    return v413;
+    return v495;
 end;
-v5.jsonDecode = function(v417) --[[ Line: 4956 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_14 (copy), v2 (copy)
-    local v418 = l_v5_14.new();
-    if v417.options ~= nil then
-        local v419 = {};
-        for _, v421 in v417.options do
-            table.insert(v419, v2.Int32Prop_ConditionalOption.jsonDecode(v421));
+v5.jsonDecode = function(v499) --[[ Line: 5630 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_17 (copy), v2 (copy)
+    local v500 = l_v5_17.new();
+    if v499.options ~= nil then
+        local v501 = {};
+        for _, v503 in v499.options do
+            table.insert(v501, v2.Int32Prop_ConditionalOption.jsonDecode(v503));
         end;
-        v418.options = v419;
+        v500.options = v501;
     end;
-    return v418;
+    return v500;
 end;
 v5.descriptor = {
     name = "Int32Prop_ConditionalOptions", 
@@ -2206,173 +2674,173 @@ v2.Int32Prop_ConditionalOptions = v5;
 v1.default:register(v2.Int32Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_15 = v5 --[[ copy: 5 -> 21 ]];
-v5.new = function(v423) --[[ Line: 4985 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_15 (copy)
+local l_v5_18 = v5 --[[ copy: 5 -> 24 ]];
+v5.new = function(v505) --[[ Line: 5659 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_18 (copy)
     return (setmetatable({
-        kind = if not (v423 ~= nil) or v423.kind == nil then nil else v423.kind
-    }, l_v5_15));
+        kind = if not (v505 ~= nil) or v505.kind == nil then nil else v505.kind
+    }, l_v5_18));
 end;
-v5.encode = function(v424) --[[ Line: 4991 ]] --[[ Name: encode ]]
+v5.encode = function(v506) --[[ Line: 5665 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v425 = buffer.create(0);
-    local v426 = 0;
-    if v424.kind ~= nil then
-        if v424.kind.type == "literal" then
-            local v427, v428 = v0.writeTag(v425, v426, 1, v0.wireTypes.varint);
-            v427, v428 = v0.writeVarInt(v427, v428, v424.kind.value);
-            v425 = v427;
-            v426 = v428;
-        elseif v424.kind.type == "binding_path" then
-            local v429, v430 = v0.writeTag(v425, v426, 2, v0.wireTypes.lengthDelimited);
-            v429, v430 = v0.writeString(v429, v430, v424.kind.value);
-            v425 = v429;
-            v426 = v430;
-        elseif v424.kind.type == "token" then
-            local v431, v432 = v0.writeTag(v425, v426, 3, v0.wireTypes.lengthDelimited);
-            v431, v432 = v0.writeString(v431, v432, v424.kind.value);
-            v425 = v431;
-            v426 = v432;
-        elseif v424.kind.type == "conditional" then
-            local v433 = v424.kind.value:encode();
-            local v434, v435 = v0.writeTag(v425, v426, 4, v0.wireTypes.lengthDelimited);
-            v434, v435 = v0.writeBuffer(v434, v435, v433, buffer.len(v433));
-            v425 = v434;
-            v426 = v435;
+    local v507 = buffer.create(0);
+    local v508 = 0;
+    if v506.kind ~= nil then
+        if v506.kind.type == "literal" then
+            local v509, v510 = v0.writeTag(v507, v508, 1, v0.wireTypes.varint);
+            v509, v510 = v0.writeVarInt(v509, v510, v506.kind.value);
+            v507 = v509;
+            v508 = v510;
+        elseif v506.kind.type == "binding_path" then
+            local v511, v512 = v0.writeTag(v507, v508, 2, v0.wireTypes.lengthDelimited);
+            v511, v512 = v0.writeString(v511, v512, v506.kind.value);
+            v507 = v511;
+            v508 = v512;
+        elseif v506.kind.type == "token" then
+            local v513, v514 = v0.writeTag(v507, v508, 3, v0.wireTypes.lengthDelimited);
+            v513, v514 = v0.writeString(v513, v514, v506.kind.value);
+            v507 = v513;
+            v508 = v514;
+        elseif v506.kind.type == "conditional" then
+            local v515 = v506.kind.value:encode();
+            local v516, v517 = v0.writeTag(v507, v508, 4, v0.wireTypes.lengthDelimited);
+            v516, v517 = v0.writeBuffer(v516, v517, v515, buffer.len(v515));
+            v507 = v516;
+            v508 = v517;
         end;
     end;
-    local v436 = buffer.create(v426);
-    buffer.copy(v436, 0, v425, 0, v426);
-    return v436;
+    local v518 = buffer.create(v508);
+    buffer.copy(v518, 0, v507, 0, v508);
+    return v518;
 end;
-v5.decode = function(v437) --[[ Line: 5017 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_15 (copy), v0 (copy), v2 (copy)
-    local v438 = l_v5_15.new();
-    local v439 = 0;
-    while v439 < buffer.len(v437) do
-        local v440 = nil;
-        local v441 = nil;
-        local v442, v443, v444 = v0.readTag(v437, v439);
-        v440 = v442;
-        v441 = v443;
-        v439 = v444;
-        if v441 == v0.wireTypes.varint then
-            if v440 == 1 then
-                v442 = nil;
-                v443, v444 = v0.readVarIntI64(v437, v439);
-                v442 = v443;
-                v439 = v444;
-                v438.kind = {
+v5.decode = function(v519) --[[ Line: 5691 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_18 (copy), v0 (copy), v2 (copy)
+    local v520 = l_v5_18.new();
+    local v521 = 0;
+    while v521 < buffer.len(v519) do
+        local v522 = nil;
+        local v523 = nil;
+        local v524, v525, v526 = v0.readTag(v519, v521);
+        v522 = v524;
+        v523 = v525;
+        v521 = v526;
+        if v523 == v0.wireTypes.varint then
+            if v522 == 1 then
+                v524 = nil;
+                v525, v526 = v0.readVarIntI64(v519, v521);
+                v524 = v525;
+                v521 = v526;
+                v520.kind = {
                     type = "literal", 
-                    value = v442
+                    value = v524
                 };
             else
-                v442 = nil;
-                v443, v444 = v0.readVarInt(v437, v439);
-                v442 = v443;
-                v439 = v444;
+                v524 = nil;
+                v525, v526 = v0.readVarInt(v519, v521);
+                v524 = v525;
+                v521 = v526;
             end;
-        elseif v441 == v0.wireTypes.lengthDelimited then
-            if v440 == 2 then
-                v442 = nil;
-                v443, v444 = v0.readBuffer(v437, v439);
-                v442 = v443;
-                v439 = v444;
-                v438.kind = {
+        elseif v523 == v0.wireTypes.lengthDelimited then
+            if v522 == 2 then
+                v524 = nil;
+                v525, v526 = v0.readBuffer(v519, v521);
+                v524 = v525;
+                v521 = v526;
+                v520.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v442)
+                    value = buffer.tostring(v524)
                 };
-            elseif v440 == 3 then
-                v442 = nil;
-                v443, v444 = v0.readBuffer(v437, v439);
-                v442 = v443;
-                v439 = v444;
-                v438.kind = {
+            elseif v522 == 3 then
+                v524 = nil;
+                v525, v526 = v0.readBuffer(v519, v521);
+                v524 = v525;
+                v521 = v526;
+                v520.kind = {
                     type = "token", 
-                    value = buffer.tostring(v442)
+                    value = buffer.tostring(v524)
                 };
-            elseif v440 == 4 then
-                v442 = nil;
-                v443, v444 = v0.readBuffer(v437, v439);
-                v442 = v443;
-                v439 = v444;
-                v438.kind = {
+            elseif v522 == 4 then
+                v524 = nil;
+                v525, v526 = v0.readBuffer(v519, v521);
+                v524 = v525;
+                v521 = v526;
+                v520.kind = {
                     type = "conditional", 
-                    value = v2.Int64Prop_ConditionalOptions.decode(v442)
+                    value = v2.Int64Prop_ConditionalOptions.decode(v524)
                 };
             else
-                v442 = nil;
-                v443, v444 = v0.readVarInt(v437, v439);
-                v439 = v444 + v443;
+                v524 = nil;
+                v525, v526 = v0.readVarInt(v519, v521);
+                v521 = v526 + v525;
             end;
-        elseif v441 == v0.wireTypes.i32 then
-            v442 = nil;
-            v443, v444 = v0.readFixed32(v437, v439);
-            v442 = v443;
-            v439 = v444;
-        elseif v441 == v0.wireTypes.i64 then
-            v442 = nil;
-            v443, v444 = v0.readFixed64(v437, v439);
-            v442 = v443;
-            v439 = v444;
+        elseif v523 == v0.wireTypes.i32 then
+            v524 = nil;
+            v525, v526 = v0.readFixed32(v519, v521);
+            v524 = v525;
+            v521 = v526;
+        elseif v523 == v0.wireTypes.i64 then
+            v524 = nil;
+            v525, v526 = v0.readFixed64(v519, v521);
+            v524 = v525;
+            v521 = v526;
         else
-            error("Unsupported wire type: " .. v441);
+            error("Unsupported wire type: " .. v523);
         end;
     end;
-    return v438;
+    return v520;
 end;
-v5.jsonEncode = function(v445) --[[ Line: 5075 ]] --[[ Name: jsonEncode ]]
-    local v446 = {};
-    if v445.kind ~= nil then
-        if v445.kind.type == "literal" then
-            v446.literal = v445.kind.value;
-            return v446;
-        elseif v445.kind.type == "binding_path" then
-            v446.bindingPath = v445.kind.value;
-            return v446;
-        elseif v445.kind.type == "token" then
-            v446.token = v445.kind.value;
-            return v446;
-        elseif v445.kind.type == "conditional" then
-            v446.conditional = v445.kind.value:jsonEncode();
+v5.jsonEncode = function(v527) --[[ Line: 5749 ]] --[[ Name: jsonEncode ]]
+    local v528 = {};
+    if v527.kind ~= nil then
+        if v527.kind.type == "literal" then
+            v528.literal = v527.kind.value;
+            return v528;
+        elseif v527.kind.type == "binding_path" then
+            v528.bindingPath = v527.kind.value;
+            return v528;
+        elseif v527.kind.type == "token" then
+            v528.token = v527.kind.value;
+            return v528;
+        elseif v527.kind.type == "conditional" then
+            v528.conditional = v527.kind.value:jsonEncode();
         end;
     end;
-    return v446;
+    return v528;
 end;
-v5.jsonDecode = function(v447) --[[ Line: 5093 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_15 (copy), v2 (copy)
-    local v448 = l_v5_15.new();
-    if v447.literal ~= nil then
-        v448.kind = {
+v5.jsonDecode = function(v529) --[[ Line: 5767 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_18 (copy), v2 (copy)
+    local v530 = l_v5_18.new();
+    if v529.literal ~= nil then
+        v530.kind = {
             type = "literal", 
-            value = v447.literal
+            value = v529.literal
         };
     end;
-    if v447.binding_path ~= nil then
-        v448.kind = {
+    if v529.binding_path ~= nil then
+        v530.kind = {
             type = "binding_path", 
-            value = v447.binding_path
+            value = v529.binding_path
         };
     end;
-    if v447.bindingPath ~= nil then
-        v448.kind = {
+    if v529.bindingPath ~= nil then
+        v530.kind = {
             type = "binding_path", 
-            value = v447.bindingPath
+            value = v529.bindingPath
         };
     end;
-    if v447.token ~= nil then
-        v448.kind = {
+    if v529.token ~= nil then
+        v530.kind = {
             type = "token", 
-            value = v447.token
+            value = v529.token
         };
     end;
-    if v447.conditional ~= nil then
-        v448.kind = {
+    if v529.conditional ~= nil then
+        v530.kind = {
             type = "conditional", 
-            value = v2.Int64Prop_ConditionalOptions.jsonDecode(v447.conditional)
+            value = v2.Int64Prop_ConditionalOptions.jsonDecode(v529.conditional)
         };
     end;
-    return v448;
+    return v530;
 end;
 v5.descriptor = {
     name = "Int64Prop", 
@@ -2382,169 +2850,169 @@ v2.Int64Prop = v5;
 v1.default:register(v2.Int64Prop);
 v5 = {};
 v5.__index = v5;
-local l_v5_16 = v5 --[[ copy: 5 -> 22 ]];
-v5.new = function(v450) --[[ Line: 5134 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_16 (copy)
+local l_v5_19 = v5 --[[ copy: 5 -> 25 ]];
+v5.new = function(v532) --[[ Line: 5808 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_19 (copy)
     return (setmetatable({
-        condition = if not (v450 ~= nil) or v450.condition == nil then nil else v450.condition, 
-        kind = if not (v450 ~= nil) or v450.kind == nil then nil else v450.kind
-    }, l_v5_16));
+        condition = if not (v532 ~= nil) or v532.condition == nil then nil else v532.condition, 
+        kind = if not (v532 ~= nil) or v532.kind == nil then nil else v532.kind
+    }, l_v5_19));
 end;
-v5.encode = function(v451) --[[ Line: 5143 ]] --[[ Name: encode ]]
+v5.encode = function(v533) --[[ Line: 5817 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v452 = buffer.create(0);
-    local v453 = 0;
-    if v451.condition ~= nil then
-        local v454 = v451.condition:encode();
-        local v455, v456 = v0.writeTag(v452, v453, 1, v0.wireTypes.lengthDelimited);
-        v455, v456 = v0.writeBuffer(v455, v456, v454, buffer.len(v454));
-        v452 = v455;
-        v453 = v456;
+    local v534 = buffer.create(0);
+    local v535 = 0;
+    if v533.condition ~= nil then
+        local v536 = v533.condition:encode();
+        local v537, v538 = v0.writeTag(v534, v535, 1, v0.wireTypes.lengthDelimited);
+        v537, v538 = v0.writeBuffer(v537, v538, v536, buffer.len(v536));
+        v534 = v537;
+        v535 = v538;
     end;
-    if v451.kind ~= nil then
-        if v451.kind.type == "literal" then
-            local v457, v458 = v0.writeTag(v452, v453, 2, v0.wireTypes.varint);
-            v457, v458 = v0.writeVarInt(v457, v458, v451.kind.value);
-            v452 = v457;
-            v453 = v458;
-        elseif v451.kind.type == "binding_path" then
-            local v459, v460 = v0.writeTag(v452, v453, 3, v0.wireTypes.lengthDelimited);
-            v459, v460 = v0.writeString(v459, v460, v451.kind.value);
-            v452 = v459;
-            v453 = v460;
-        elseif v451.kind.type == "token" then
-            local v461, v462 = v0.writeTag(v452, v453, 4, v0.wireTypes.lengthDelimited);
-            v461, v462 = v0.writeString(v461, v462, v451.kind.value);
-            v452 = v461;
-            v453 = v462;
+    if v533.kind ~= nil then
+        if v533.kind.type == "literal" then
+            local v539, v540 = v0.writeTag(v534, v535, 2, v0.wireTypes.varint);
+            v539, v540 = v0.writeVarInt(v539, v540, v533.kind.value);
+            v534 = v539;
+            v535 = v540;
+        elseif v533.kind.type == "binding_path" then
+            local v541, v542 = v0.writeTag(v534, v535, 3, v0.wireTypes.lengthDelimited);
+            v541, v542 = v0.writeString(v541, v542, v533.kind.value);
+            v534 = v541;
+            v535 = v542;
+        elseif v533.kind.type == "token" then
+            local v543, v544 = v0.writeTag(v534, v535, 4, v0.wireTypes.lengthDelimited);
+            v543, v544 = v0.writeString(v543, v544, v533.kind.value);
+            v534 = v543;
+            v535 = v544;
         end;
     end;
-    local v463 = buffer.create(v453);
-    buffer.copy(v463, 0, v452, 0, v453);
-    return v463;
+    local v545 = buffer.create(v535);
+    buffer.copy(v545, 0, v534, 0, v535);
+    return v545;
 end;
-v5.decode = function(v464) --[[ Line: 5171 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_16 (copy), v0 (copy), v4 (copy)
-    local v465 = l_v5_16.new();
-    local v466 = 0;
-    while v466 < buffer.len(v464) do
-        local v467 = nil;
-        local v468 = nil;
-        local v469, v470, v471 = v0.readTag(v464, v466);
-        v467 = v469;
-        v468 = v470;
-        v466 = v471;
-        if v468 == v0.wireTypes.varint then
-            if v467 == 2 then
-                v469 = nil;
-                v470, v471 = v0.readVarIntI64(v464, v466);
-                v469 = v470;
-                v466 = v471;
-                v465.kind = {
+v5.decode = function(v546) --[[ Line: 5845 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_19 (copy), v0 (copy), v4 (copy)
+    local v547 = l_v5_19.new();
+    local v548 = 0;
+    while v548 < buffer.len(v546) do
+        local v549 = nil;
+        local v550 = nil;
+        local v551, v552, v553 = v0.readTag(v546, v548);
+        v549 = v551;
+        v550 = v552;
+        v548 = v553;
+        if v550 == v0.wireTypes.varint then
+            if v549 == 2 then
+                v551 = nil;
+                v552, v553 = v0.readVarIntI64(v546, v548);
+                v551 = v552;
+                v548 = v553;
+                v547.kind = {
                     type = "literal", 
-                    value = v469
+                    value = v551
                 };
             else
-                v469 = nil;
-                v470, v471 = v0.readVarInt(v464, v466);
-                v469 = v470;
-                v466 = v471;
+                v551 = nil;
+                v552, v553 = v0.readVarInt(v546, v548);
+                v551 = v552;
+                v548 = v553;
             end;
-        elseif v468 == v0.wireTypes.lengthDelimited then
-            if v467 == 1 then
-                v469 = nil;
-                v470, v471 = v0.readBuffer(v464, v466);
-                v469 = v470;
-                v466 = v471;
-                v465.condition = v4.PropCondition.decode(v469);
-            elseif v467 == 3 then
-                v469 = nil;
-                v470, v471 = v0.readBuffer(v464, v466);
-                v469 = v470;
-                v466 = v471;
-                v465.kind = {
+        elseif v550 == v0.wireTypes.lengthDelimited then
+            if v549 == 1 then
+                v551 = nil;
+                v552, v553 = v0.readBuffer(v546, v548);
+                v551 = v552;
+                v548 = v553;
+                v547.condition = v4.PropCondition.decode(v551);
+            elseif v549 == 3 then
+                v551 = nil;
+                v552, v553 = v0.readBuffer(v546, v548);
+                v551 = v552;
+                v548 = v553;
+                v547.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v469)
+                    value = buffer.tostring(v551)
                 };
-            elseif v467 == 4 then
-                v469 = nil;
-                v470, v471 = v0.readBuffer(v464, v466);
-                v469 = v470;
-                v466 = v471;
-                v465.kind = {
+            elseif v549 == 4 then
+                v551 = nil;
+                v552, v553 = v0.readBuffer(v546, v548);
+                v551 = v552;
+                v548 = v553;
+                v547.kind = {
                     type = "token", 
-                    value = buffer.tostring(v469)
+                    value = buffer.tostring(v551)
                 };
             else
-                v469 = nil;
-                v470, v471 = v0.readVarInt(v464, v466);
-                v466 = v471 + v470;
+                v551 = nil;
+                v552, v553 = v0.readVarInt(v546, v548);
+                v548 = v553 + v552;
             end;
-        elseif v468 == v0.wireTypes.i32 then
-            v469 = nil;
-            v470, v471 = v0.readFixed32(v464, v466);
-            v469 = v470;
-            v466 = v471;
-        elseif v468 == v0.wireTypes.i64 then
-            v469 = nil;
-            v470, v471 = v0.readFixed64(v464, v466);
-            v469 = v470;
-            v466 = v471;
+        elseif v550 == v0.wireTypes.i32 then
+            v551 = nil;
+            v552, v553 = v0.readFixed32(v546, v548);
+            v551 = v552;
+            v548 = v553;
+        elseif v550 == v0.wireTypes.i64 then
+            v551 = nil;
+            v552, v553 = v0.readFixed64(v546, v548);
+            v551 = v552;
+            v548 = v553;
         else
-            error("Unsupported wire type: " .. v468);
+            error("Unsupported wire type: " .. v550);
         end;
     end;
-    return v465;
+    return v547;
 end;
-v5.jsonEncode = function(v472) --[[ Line: 5229 ]] --[[ Name: jsonEncode ]]
-    local v473 = {};
-    if v472.condition ~= nil then
-        v473.condition = v472.condition:jsonEncode();
+v5.jsonEncode = function(v554) --[[ Line: 5903 ]] --[[ Name: jsonEncode ]]
+    local v555 = {};
+    if v554.condition ~= nil then
+        v555.condition = v554.condition:jsonEncode();
     end;
-    if v472.kind ~= nil then
-        if v472.kind.type == "literal" then
-            v473.literal = v472.kind.value;
-            return v473;
-        elseif v472.kind.type == "binding_path" then
-            v473.bindingPath = v472.kind.value;
-            return v473;
-        elseif v472.kind.type == "token" then
-            v473.token = v472.kind.value;
+    if v554.kind ~= nil then
+        if v554.kind.type == "literal" then
+            v555.literal = v554.kind.value;
+            return v555;
+        elseif v554.kind.type == "binding_path" then
+            v555.bindingPath = v554.kind.value;
+            return v555;
+        elseif v554.kind.type == "token" then
+            v555.token = v554.kind.value;
         end;
     end;
-    return v473;
+    return v555;
 end;
-v5.jsonDecode = function(v474) --[[ Line: 5249 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_16 (copy), v4 (copy)
-    local v475 = l_v5_16.new();
-    if v474.condition ~= nil then
-        v475.condition = v4.PropCondition.jsonDecode(v474.condition);
+v5.jsonDecode = function(v556) --[[ Line: 5923 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_19 (copy), v4 (copy)
+    local v557 = l_v5_19.new();
+    if v556.condition ~= nil then
+        v557.condition = v4.PropCondition.jsonDecode(v556.condition);
     end;
-    if v474.literal ~= nil then
-        v475.kind = {
+    if v556.literal ~= nil then
+        v557.kind = {
             type = "literal", 
-            value = v474.literal
+            value = v556.literal
         };
     end;
-    if v474.binding_path ~= nil then
-        v475.kind = {
+    if v556.binding_path ~= nil then
+        v557.kind = {
             type = "binding_path", 
-            value = v474.binding_path
+            value = v556.binding_path
         };
     end;
-    if v474.bindingPath ~= nil then
-        v475.kind = {
+    if v556.bindingPath ~= nil then
+        v557.kind = {
             type = "binding_path", 
-            value = v474.bindingPath
+            value = v556.bindingPath
         };
     end;
-    if v474.token ~= nil then
-        v475.kind = {
+    if v556.token ~= nil then
+        v557.kind = {
             type = "token", 
-            value = v474.token
+            value = v556.token
         };
     end;
-    return v475;
+    return v557;
 end;
 v5.descriptor = {
     name = "Int64Prop_ConditionalOption", 
@@ -2554,96 +3022,96 @@ v2.Int64Prop_ConditionalOption = v5;
 v1.default:register(v2.Int64Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_17 = v5 --[[ copy: 5 -> 23 ]];
-v5.new = function(v477) --[[ Line: 5290 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_17 (copy)
+local l_v5_20 = v5 --[[ copy: 5 -> 26 ]];
+v5.new = function(v559) --[[ Line: 5964 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_20 (copy)
     return (setmetatable({
-        options = if not (v477 ~= nil) or v477.options == nil then {} else v477.options
-    }, l_v5_17));
+        options = if not (v559 ~= nil) or v559.options == nil then {} else v559.options
+    }, l_v5_20));
 end;
-v5.encode = function(v478) --[[ Line: 5298 ]] --[[ Name: encode ]]
+v5.encode = function(v560) --[[ Line: 5972 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v479 = buffer.create(0);
-    local v480 = 0;
-    if v478.options ~= nil and #v478.options > 0 then
-        for _, v482 in v478.options do
-            local v483 = v482:encode();
-            local v484, v485 = v0.writeTag(v479, v480, 1, v0.wireTypes.lengthDelimited);
-            v484, v485 = v0.writeBuffer(v484, v485, v483, buffer.len(v483));
-            v479 = v484;
-            v480 = v485;
+    local v561 = buffer.create(0);
+    local v562 = 0;
+    if v560.options ~= nil and #v560.options > 0 then
+        for _, v564 in v560.options do
+            local v565 = v564:encode();
+            local v566, v567 = v0.writeTag(v561, v562, 1, v0.wireTypes.lengthDelimited);
+            v566, v567 = v0.writeBuffer(v566, v567, v565, buffer.len(v565));
+            v561 = v566;
+            v562 = v567;
         end;
     end;
-    local v486 = buffer.create(v480);
-    buffer.copy(v486, 0, v479, 0, v480);
-    return v486;
+    local v568 = buffer.create(v562);
+    buffer.copy(v568, 0, v561, 0, v562);
+    return v568;
 end;
-v5.decode = function(v487) --[[ Line: 5315 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_17 (copy), v0 (copy), v2 (copy)
-    local v488 = l_v5_17.new();
-    local v489 = 0;
-    while v489 < buffer.len(v487) do
-        local v490 = nil;
-        local v491 = nil;
-        local v492, v493, v494 = v0.readTag(v487, v489);
-        v490 = v492;
-        v491 = v493;
-        v489 = v494;
-        if v491 == v0.wireTypes.varint then
-            v492 = nil;
-            v493, v494 = v0.readVarInt(v487, v489);
-            v492 = v493;
-            v489 = v494;
-        elseif v491 == v0.wireTypes.lengthDelimited then
-            if v490 == 1 then
-                v492 = nil;
-                v493, v494 = v0.readBuffer(v487, v489);
-                v492 = v493;
-                v489 = v494;
-                table.insert(v488.options, v2.Int64Prop_ConditionalOption.decode(v492));
+v5.decode = function(v569) --[[ Line: 5989 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_20 (copy), v0 (copy), v2 (copy)
+    local v570 = l_v5_20.new();
+    local v571 = 0;
+    while v571 < buffer.len(v569) do
+        local v572 = nil;
+        local v573 = nil;
+        local v574, v575, v576 = v0.readTag(v569, v571);
+        v572 = v574;
+        v573 = v575;
+        v571 = v576;
+        if v573 == v0.wireTypes.varint then
+            v574 = nil;
+            v575, v576 = v0.readVarInt(v569, v571);
+            v574 = v575;
+            v571 = v576;
+        elseif v573 == v0.wireTypes.lengthDelimited then
+            if v572 == 1 then
+                v574 = nil;
+                v575, v576 = v0.readBuffer(v569, v571);
+                v574 = v575;
+                v571 = v576;
+                table.insert(v570.options, v2.Int64Prop_ConditionalOption.decode(v574));
             else
-                v492 = nil;
-                v493, v494 = v0.readVarInt(v487, v489);
-                v489 = v494 + v493;
+                v574 = nil;
+                v575, v576 = v0.readVarInt(v569, v571);
+                v571 = v576 + v575;
             end;
-        elseif v491 == v0.wireTypes.i32 then
-            v492 = nil;
-            v493, v494 = v0.readFixed32(v487, v489);
-            v492 = v493;
-            v489 = v494;
-        elseif v491 == v0.wireTypes.i64 then
-            v492 = nil;
-            v493, v494 = v0.readFixed64(v487, v489);
-            v492 = v493;
-            v489 = v494;
+        elseif v573 == v0.wireTypes.i32 then
+            v574 = nil;
+            v575, v576 = v0.readFixed32(v569, v571);
+            v574 = v575;
+            v571 = v576;
+        elseif v573 == v0.wireTypes.i64 then
+            v574 = nil;
+            v575, v576 = v0.readFixed64(v569, v571);
+            v574 = v575;
+            v571 = v576;
         else
-            error("Unsupported wire type: " .. v491);
+            error("Unsupported wire type: " .. v573);
         end;
     end;
-    return v488;
+    return v570;
 end;
-v5.jsonEncode = function(v495) --[[ Line: 5358 ]] --[[ Name: jsonEncode ]]
-    local v496 = {};
-    if v495.options ~= nil and #v495.options > 0 then
-        local v497 = {};
-        for _, v499 in v495.options do
-            table.insert(v497, v499:jsonEncode());
+v5.jsonEncode = function(v577) --[[ Line: 6032 ]] --[[ Name: jsonEncode ]]
+    local v578 = {};
+    if v577.options ~= nil and #v577.options > 0 then
+        local v579 = {};
+        for _, v581 in v577.options do
+            table.insert(v579, v581:jsonEncode());
         end;
-        v496.options = v497;
+        v578.options = v579;
     end;
-    return v496;
+    return v578;
 end;
-v5.jsonDecode = function(v500) --[[ Line: 5372 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_17 (copy), v2 (copy)
-    local v501 = l_v5_17.new();
-    if v500.options ~= nil then
-        local v502 = {};
-        for _, v504 in v500.options do
-            table.insert(v502, v2.Int64Prop_ConditionalOption.jsonDecode(v504));
+v5.jsonDecode = function(v582) --[[ Line: 6046 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_20 (copy), v2 (copy)
+    local v583 = l_v5_20.new();
+    if v582.options ~= nil then
+        local v584 = {};
+        for _, v586 in v582.options do
+            table.insert(v584, v2.Int64Prop_ConditionalOption.jsonDecode(v586));
         end;
-        v501.options = v502;
+        v583.options = v584;
     end;
-    return v501;
+    return v583;
 end;
 v5.descriptor = {
     name = "Int64Prop_ConditionalOptions", 
@@ -2653,150 +3121,150 @@ v2.Int64Prop_ConditionalOptions = v5;
 v1.default:register(v2.Int64Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_18 = v5 --[[ copy: 5 -> 24 ]];
-v5.new = function(v506) --[[ Line: 5401 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_18 (copy)
+local l_v5_21 = v5 --[[ copy: 5 -> 27 ]];
+v5.new = function(v588) --[[ Line: 6075 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_21 (copy)
     return (setmetatable({
-        kind = if not (v506 ~= nil) or v506.kind == nil then nil else v506.kind
-    }, l_v5_18));
+        kind = if not (v588 ~= nil) or v588.kind == nil then nil else v588.kind
+    }, l_v5_21));
 end;
-v5.encode = function(v507) --[[ Line: 5407 ]] --[[ Name: encode ]]
+v5.encode = function(v589) --[[ Line: 6081 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v508 = buffer.create(0);
-    local v509 = 0;
-    if v507.kind ~= nil then
-        if v507.kind.type == "literal" then
-            local v510, v511 = v0.writeTag(v508, v509, 1, v0.wireTypes.varint);
-            v510, v511 = v0.writeVarInt(v510, v511, v507.kind.value and 1 or 0);
-            v508 = v510;
-            v509 = v511;
-        elseif v507.kind.type == "binding_path" then
-            local v512, v513 = v0.writeTag(v508, v509, 2, v0.wireTypes.lengthDelimited);
-            v512, v513 = v0.writeString(v512, v513, v507.kind.value);
-            v508 = v512;
-            v509 = v513;
-        elseif v507.kind.type == "conditional" then
-            local v514 = v507.kind.value:encode();
-            local v515, v516 = v0.writeTag(v508, v509, 3, v0.wireTypes.lengthDelimited);
-            v515, v516 = v0.writeBuffer(v515, v516, v514, buffer.len(v514));
-            v508 = v515;
-            v509 = v516;
+    local v590 = buffer.create(0);
+    local v591 = 0;
+    if v589.kind ~= nil then
+        if v589.kind.type == "literal" then
+            local v592, v593 = v0.writeTag(v590, v591, 1, v0.wireTypes.varint);
+            v592, v593 = v0.writeVarInt(v592, v593, v589.kind.value and 1 or 0);
+            v590 = v592;
+            v591 = v593;
+        elseif v589.kind.type == "binding_path" then
+            local v594, v595 = v0.writeTag(v590, v591, 2, v0.wireTypes.lengthDelimited);
+            v594, v595 = v0.writeString(v594, v595, v589.kind.value);
+            v590 = v594;
+            v591 = v595;
+        elseif v589.kind.type == "conditional" then
+            local v596 = v589.kind.value:encode();
+            local v597, v598 = v0.writeTag(v590, v591, 3, v0.wireTypes.lengthDelimited);
+            v597, v598 = v0.writeBuffer(v597, v598, v596, buffer.len(v596));
+            v590 = v597;
+            v591 = v598;
         end;
     end;
-    local v517 = buffer.create(v509);
-    buffer.copy(v517, 0, v508, 0, v509);
-    return v517;
+    local v599 = buffer.create(v591);
+    buffer.copy(v599, 0, v590, 0, v591);
+    return v599;
 end;
-v5.decode = function(v518) --[[ Line: 5430 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_18 (copy), v0 (copy), v2 (copy)
-    local v519 = l_v5_18.new();
-    local v520 = 0;
-    while v520 < buffer.len(v518) do
-        local v521 = nil;
-        local v522 = nil;
-        local v523, v524, v525 = v0.readTag(v518, v520);
-        v521 = v523;
-        v522 = v524;
-        v520 = v525;
-        if v522 == v0.wireTypes.varint then
-            if v521 == 1 then
-                v523 = nil;
-                v524, v525 = v0.readVarInt(v518, v520);
-                v523 = v524;
-                v520 = v525;
-                v519.kind = {
+v5.decode = function(v600) --[[ Line: 6104 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_21 (copy), v0 (copy), v2 (copy)
+    local v601 = l_v5_21.new();
+    local v602 = 0;
+    while v602 < buffer.len(v600) do
+        local v603 = nil;
+        local v604 = nil;
+        local v605, v606, v607 = v0.readTag(v600, v602);
+        v603 = v605;
+        v604 = v606;
+        v602 = v607;
+        if v604 == v0.wireTypes.varint then
+            if v603 == 1 then
+                v605 = nil;
+                v606, v607 = v0.readVarInt(v600, v602);
+                v605 = v606;
+                v602 = v607;
+                v601.kind = {
                     type = "literal", 
-                    value = v523 ~= 0
+                    value = v605 ~= 0
                 };
             else
-                v523 = nil;
-                v524, v525 = v0.readVarInt(v518, v520);
-                v523 = v524;
-                v520 = v525;
+                v605 = nil;
+                v606, v607 = v0.readVarInt(v600, v602);
+                v605 = v606;
+                v602 = v607;
             end;
-        elseif v522 == v0.wireTypes.lengthDelimited then
-            if v521 == 2 then
-                v523 = nil;
-                v524, v525 = v0.readBuffer(v518, v520);
-                v523 = v524;
-                v520 = v525;
-                v519.kind = {
+        elseif v604 == v0.wireTypes.lengthDelimited then
+            if v603 == 2 then
+                v605 = nil;
+                v606, v607 = v0.readBuffer(v600, v602);
+                v605 = v606;
+                v602 = v607;
+                v601.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v523)
+                    value = buffer.tostring(v605)
                 };
-            elseif v521 == 3 then
-                v523 = nil;
-                v524, v525 = v0.readBuffer(v518, v520);
-                v523 = v524;
-                v520 = v525;
-                v519.kind = {
+            elseif v603 == 3 then
+                v605 = nil;
+                v606, v607 = v0.readBuffer(v600, v602);
+                v605 = v606;
+                v602 = v607;
+                v601.kind = {
                     type = "conditional", 
-                    value = v2.BoolProp_ConditionalOptions.decode(v523)
+                    value = v2.BoolProp_ConditionalOptions.decode(v605)
                 };
             else
-                v523 = nil;
-                v524, v525 = v0.readVarInt(v518, v520);
-                v520 = v525 + v524;
+                v605 = nil;
+                v606, v607 = v0.readVarInt(v600, v602);
+                v602 = v607 + v606;
             end;
-        elseif v522 == v0.wireTypes.i32 then
-            v523 = nil;
-            v524, v525 = v0.readFixed32(v518, v520);
-            v523 = v524;
-            v520 = v525;
-        elseif v522 == v0.wireTypes.i64 then
-            v523 = nil;
-            v524, v525 = v0.readFixed64(v518, v520);
-            v523 = v524;
-            v520 = v525;
+        elseif v604 == v0.wireTypes.i32 then
+            v605 = nil;
+            v606, v607 = v0.readFixed32(v600, v602);
+            v605 = v606;
+            v602 = v607;
+        elseif v604 == v0.wireTypes.i64 then
+            v605 = nil;
+            v606, v607 = v0.readFixed64(v600, v602);
+            v605 = v606;
+            v602 = v607;
         else
-            error("Unsupported wire type: " .. v522);
+            error("Unsupported wire type: " .. v604);
         end;
     end;
-    return v519;
+    return v601;
 end;
-v5.jsonEncode = function(v526) --[[ Line: 5483 ]] --[[ Name: jsonEncode ]]
-    local v527 = {};
-    if v526.kind ~= nil then
-        if v526.kind.type == "literal" then
-            v527.literal = v526.kind.value;
-            return v527;
-        elseif v526.kind.type == "binding_path" then
-            v527.bindingPath = v526.kind.value;
-            return v527;
-        elseif v526.kind.type == "conditional" then
-            v527.conditional = v526.kind.value:jsonEncode();
+v5.jsonEncode = function(v608) --[[ Line: 6157 ]] --[[ Name: jsonEncode ]]
+    local v609 = {};
+    if v608.kind ~= nil then
+        if v608.kind.type == "literal" then
+            v609.literal = v608.kind.value;
+            return v609;
+        elseif v608.kind.type == "binding_path" then
+            v609.bindingPath = v608.kind.value;
+            return v609;
+        elseif v608.kind.type == "conditional" then
+            v609.conditional = v608.kind.value:jsonEncode();
         end;
     end;
-    return v527;
+    return v609;
 end;
-v5.jsonDecode = function(v528) --[[ Line: 5499 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_18 (copy), v2 (copy)
-    local v529 = l_v5_18.new();
-    if v528.literal ~= nil then
-        v529.kind = {
+v5.jsonDecode = function(v610) --[[ Line: 6173 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_21 (copy), v2 (copy)
+    local v611 = l_v5_21.new();
+    if v610.literal ~= nil then
+        v611.kind = {
             type = "literal", 
-            value = v528.literal
+            value = v610.literal
         };
     end;
-    if v528.binding_path ~= nil then
-        v529.kind = {
+    if v610.binding_path ~= nil then
+        v611.kind = {
             type = "binding_path", 
-            value = v528.binding_path
+            value = v610.binding_path
         };
     end;
-    if v528.bindingPath ~= nil then
-        v529.kind = {
+    if v610.bindingPath ~= nil then
+        v611.kind = {
             type = "binding_path", 
-            value = v528.bindingPath
+            value = v610.bindingPath
         };
     end;
-    if v528.conditional ~= nil then
-        v529.kind = {
+    if v610.conditional ~= nil then
+        v611.kind = {
             type = "conditional", 
-            value = v2.BoolProp_ConditionalOptions.jsonDecode(v528.conditional)
+            value = v2.BoolProp_ConditionalOptions.jsonDecode(v610.conditional)
         };
     end;
-    return v529;
+    return v611;
 end;
 v5.descriptor = {
     name = "BoolProp", 
@@ -2806,146 +3274,146 @@ v2.BoolProp = v5;
 v1.default:register(v2.BoolProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_19 = v5 --[[ copy: 5 -> 25 ]];
-v5.new = function(v531) --[[ Line: 5536 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_19 (copy)
+local l_v5_22 = v5 --[[ copy: 5 -> 28 ]];
+v5.new = function(v613) --[[ Line: 6210 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_22 (copy)
     return (setmetatable({
-        condition = if not (v531 ~= nil) or v531.condition == nil then nil else v531.condition, 
-        kind = if not (v531 ~= nil) or v531.kind == nil then nil else v531.kind
-    }, l_v5_19));
+        condition = if not (v613 ~= nil) or v613.condition == nil then nil else v613.condition, 
+        kind = if not (v613 ~= nil) or v613.kind == nil then nil else v613.kind
+    }, l_v5_22));
 end;
-v5.encode = function(v532) --[[ Line: 5545 ]] --[[ Name: encode ]]
+v5.encode = function(v614) --[[ Line: 6219 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v533 = buffer.create(0);
-    local v534 = 0;
-    if v532.condition ~= nil then
-        local v535 = v532.condition:encode();
-        local v536, v537 = v0.writeTag(v533, v534, 1, v0.wireTypes.lengthDelimited);
-        v536, v537 = v0.writeBuffer(v536, v537, v535, buffer.len(v535));
-        v533 = v536;
-        v534 = v537;
+    local v615 = buffer.create(0);
+    local v616 = 0;
+    if v614.condition ~= nil then
+        local v617 = v614.condition:encode();
+        local v618, v619 = v0.writeTag(v615, v616, 1, v0.wireTypes.lengthDelimited);
+        v618, v619 = v0.writeBuffer(v618, v619, v617, buffer.len(v617));
+        v615 = v618;
+        v616 = v619;
     end;
-    if v532.kind ~= nil then
-        if v532.kind.type == "literal" then
-            local v538, v539 = v0.writeTag(v533, v534, 2, v0.wireTypes.varint);
-            v538, v539 = v0.writeVarInt(v538, v539, v532.kind.value and 1 or 0);
-            v533 = v538;
-            v534 = v539;
-        elseif v532.kind.type == "binding_path" then
-            local v540, v541 = v0.writeTag(v533, v534, 3, v0.wireTypes.lengthDelimited);
-            v540, v541 = v0.writeString(v540, v541, v532.kind.value);
-            v533 = v540;
-            v534 = v541;
+    if v614.kind ~= nil then
+        if v614.kind.type == "literal" then
+            local v620, v621 = v0.writeTag(v615, v616, 2, v0.wireTypes.varint);
+            v620, v621 = v0.writeVarInt(v620, v621, v614.kind.value and 1 or 0);
+            v615 = v620;
+            v616 = v621;
+        elseif v614.kind.type == "binding_path" then
+            local v622, v623 = v0.writeTag(v615, v616, 3, v0.wireTypes.lengthDelimited);
+            v622, v623 = v0.writeString(v622, v623, v614.kind.value);
+            v615 = v622;
+            v616 = v623;
         end;
     end;
-    local v542 = buffer.create(v534);
-    buffer.copy(v542, 0, v533, 0, v534);
-    return v542;
+    local v624 = buffer.create(v616);
+    buffer.copy(v624, 0, v615, 0, v616);
+    return v624;
 end;
-v5.decode = function(v543) --[[ Line: 5570 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_19 (copy), v0 (copy), v4 (copy)
-    local v544 = l_v5_19.new();
-    local v545 = 0;
-    while v545 < buffer.len(v543) do
-        local v546 = nil;
-        local v547 = nil;
-        local v548, v549, v550 = v0.readTag(v543, v545);
-        v546 = v548;
-        v547 = v549;
-        v545 = v550;
-        if v547 == v0.wireTypes.varint then
-            if v546 == 2 then
-                v548 = nil;
-                v549, v550 = v0.readVarInt(v543, v545);
-                v548 = v549;
-                v545 = v550;
-                v544.kind = {
+v5.decode = function(v625) --[[ Line: 6244 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_22 (copy), v0 (copy), v4 (copy)
+    local v626 = l_v5_22.new();
+    local v627 = 0;
+    while v627 < buffer.len(v625) do
+        local v628 = nil;
+        local v629 = nil;
+        local v630, v631, v632 = v0.readTag(v625, v627);
+        v628 = v630;
+        v629 = v631;
+        v627 = v632;
+        if v629 == v0.wireTypes.varint then
+            if v628 == 2 then
+                v630 = nil;
+                v631, v632 = v0.readVarInt(v625, v627);
+                v630 = v631;
+                v627 = v632;
+                v626.kind = {
                     type = "literal", 
-                    value = v548 ~= 0
+                    value = v630 ~= 0
                 };
             else
-                v548 = nil;
-                v549, v550 = v0.readVarInt(v543, v545);
-                v548 = v549;
-                v545 = v550;
+                v630 = nil;
+                v631, v632 = v0.readVarInt(v625, v627);
+                v630 = v631;
+                v627 = v632;
             end;
-        elseif v547 == v0.wireTypes.lengthDelimited then
-            if v546 == 1 then
-                v548 = nil;
-                v549, v550 = v0.readBuffer(v543, v545);
-                v548 = v549;
-                v545 = v550;
-                v544.condition = v4.PropCondition.decode(v548);
-            elseif v546 == 3 then
-                v548 = nil;
-                v549, v550 = v0.readBuffer(v543, v545);
-                v548 = v549;
-                v545 = v550;
-                v544.kind = {
+        elseif v629 == v0.wireTypes.lengthDelimited then
+            if v628 == 1 then
+                v630 = nil;
+                v631, v632 = v0.readBuffer(v625, v627);
+                v630 = v631;
+                v627 = v632;
+                v626.condition = v4.PropCondition.decode(v630);
+            elseif v628 == 3 then
+                v630 = nil;
+                v631, v632 = v0.readBuffer(v625, v627);
+                v630 = v631;
+                v627 = v632;
+                v626.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v548)
+                    value = buffer.tostring(v630)
                 };
             else
-                v548 = nil;
-                v549, v550 = v0.readVarInt(v543, v545);
-                v545 = v550 + v549;
+                v630 = nil;
+                v631, v632 = v0.readVarInt(v625, v627);
+                v627 = v632 + v631;
             end;
-        elseif v547 == v0.wireTypes.i32 then
-            v548 = nil;
-            v549, v550 = v0.readFixed32(v543, v545);
-            v548 = v549;
-            v545 = v550;
-        elseif v547 == v0.wireTypes.i64 then
-            v548 = nil;
-            v549, v550 = v0.readFixed64(v543, v545);
-            v548 = v549;
-            v545 = v550;
+        elseif v629 == v0.wireTypes.i32 then
+            v630 = nil;
+            v631, v632 = v0.readFixed32(v625, v627);
+            v630 = v631;
+            v627 = v632;
+        elseif v629 == v0.wireTypes.i64 then
+            v630 = nil;
+            v631, v632 = v0.readFixed64(v625, v627);
+            v630 = v631;
+            v627 = v632;
         else
-            error("Unsupported wire type: " .. v547);
+            error("Unsupported wire type: " .. v629);
         end;
     end;
-    return v544;
+    return v626;
 end;
-v5.jsonEncode = function(v551) --[[ Line: 5623 ]] --[[ Name: jsonEncode ]]
-    local v552 = {};
-    if v551.condition ~= nil then
-        v552.condition = v551.condition:jsonEncode();
+v5.jsonEncode = function(v633) --[[ Line: 6297 ]] --[[ Name: jsonEncode ]]
+    local v634 = {};
+    if v633.condition ~= nil then
+        v634.condition = v633.condition:jsonEncode();
     end;
-    if v551.kind ~= nil then
-        if v551.kind.type == "literal" then
-            v552.literal = v551.kind.value;
-            return v552;
-        elseif v551.kind.type == "binding_path" then
-            v552.bindingPath = v551.kind.value;
+    if v633.kind ~= nil then
+        if v633.kind.type == "literal" then
+            v634.literal = v633.kind.value;
+            return v634;
+        elseif v633.kind.type == "binding_path" then
+            v634.bindingPath = v633.kind.value;
         end;
     end;
-    return v552;
+    return v634;
 end;
-v5.jsonDecode = function(v553) --[[ Line: 5641 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_19 (copy), v4 (copy)
-    local v554 = l_v5_19.new();
-    if v553.condition ~= nil then
-        v554.condition = v4.PropCondition.jsonDecode(v553.condition);
+v5.jsonDecode = function(v635) --[[ Line: 6315 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_22 (copy), v4 (copy)
+    local v636 = l_v5_22.new();
+    if v635.condition ~= nil then
+        v636.condition = v4.PropCondition.jsonDecode(v635.condition);
     end;
-    if v553.literal ~= nil then
-        v554.kind = {
+    if v635.literal ~= nil then
+        v636.kind = {
             type = "literal", 
-            value = v553.literal
+            value = v635.literal
         };
     end;
-    if v553.binding_path ~= nil then
-        v554.kind = {
+    if v635.binding_path ~= nil then
+        v636.kind = {
             type = "binding_path", 
-            value = v553.binding_path
+            value = v635.binding_path
         };
     end;
-    if v553.bindingPath ~= nil then
-        v554.kind = {
+    if v635.bindingPath ~= nil then
+        v636.kind = {
             type = "binding_path", 
-            value = v553.bindingPath
+            value = v635.bindingPath
         };
     end;
-    return v554;
+    return v636;
 end;
 v5.descriptor = {
     name = "BoolProp_ConditionalOption", 
@@ -2955,96 +3423,96 @@ v2.BoolProp_ConditionalOption = v5;
 v1.default:register(v2.BoolProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_20 = v5 --[[ copy: 5 -> 26 ]];
-v5.new = function(v556) --[[ Line: 5678 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_20 (copy)
+local l_v5_23 = v5 --[[ copy: 5 -> 29 ]];
+v5.new = function(v638) --[[ Line: 6352 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_23 (copy)
     return (setmetatable({
-        options = if not (v556 ~= nil) or v556.options == nil then {} else v556.options
-    }, l_v5_20));
+        options = if not (v638 ~= nil) or v638.options == nil then {} else v638.options
+    }, l_v5_23));
 end;
-v5.encode = function(v557) --[[ Line: 5686 ]] --[[ Name: encode ]]
+v5.encode = function(v639) --[[ Line: 6360 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v558 = buffer.create(0);
-    local v559 = 0;
-    if v557.options ~= nil and #v557.options > 0 then
-        for _, v561 in v557.options do
-            local v562 = v561:encode();
-            local v563, v564 = v0.writeTag(v558, v559, 1, v0.wireTypes.lengthDelimited);
-            v563, v564 = v0.writeBuffer(v563, v564, v562, buffer.len(v562));
-            v558 = v563;
-            v559 = v564;
+    local v640 = buffer.create(0);
+    local v641 = 0;
+    if v639.options ~= nil and #v639.options > 0 then
+        for _, v643 in v639.options do
+            local v644 = v643:encode();
+            local v645, v646 = v0.writeTag(v640, v641, 1, v0.wireTypes.lengthDelimited);
+            v645, v646 = v0.writeBuffer(v645, v646, v644, buffer.len(v644));
+            v640 = v645;
+            v641 = v646;
         end;
     end;
-    local v565 = buffer.create(v559);
-    buffer.copy(v565, 0, v558, 0, v559);
-    return v565;
+    local v647 = buffer.create(v641);
+    buffer.copy(v647, 0, v640, 0, v641);
+    return v647;
 end;
-v5.decode = function(v566) --[[ Line: 5703 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_20 (copy), v0 (copy), v2 (copy)
-    local v567 = l_v5_20.new();
-    local v568 = 0;
-    while v568 < buffer.len(v566) do
-        local v569 = nil;
-        local v570 = nil;
-        local v571, v572, v573 = v0.readTag(v566, v568);
-        v569 = v571;
-        v570 = v572;
-        v568 = v573;
-        if v570 == v0.wireTypes.varint then
-            v571 = nil;
-            v572, v573 = v0.readVarInt(v566, v568);
-            v571 = v572;
-            v568 = v573;
-        elseif v570 == v0.wireTypes.lengthDelimited then
-            if v569 == 1 then
-                v571 = nil;
-                v572, v573 = v0.readBuffer(v566, v568);
-                v571 = v572;
-                v568 = v573;
-                table.insert(v567.options, v2.BoolProp_ConditionalOption.decode(v571));
+v5.decode = function(v648) --[[ Line: 6377 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_23 (copy), v0 (copy), v2 (copy)
+    local v649 = l_v5_23.new();
+    local v650 = 0;
+    while v650 < buffer.len(v648) do
+        local v651 = nil;
+        local v652 = nil;
+        local v653, v654, v655 = v0.readTag(v648, v650);
+        v651 = v653;
+        v652 = v654;
+        v650 = v655;
+        if v652 == v0.wireTypes.varint then
+            v653 = nil;
+            v654, v655 = v0.readVarInt(v648, v650);
+            v653 = v654;
+            v650 = v655;
+        elseif v652 == v0.wireTypes.lengthDelimited then
+            if v651 == 1 then
+                v653 = nil;
+                v654, v655 = v0.readBuffer(v648, v650);
+                v653 = v654;
+                v650 = v655;
+                table.insert(v649.options, v2.BoolProp_ConditionalOption.decode(v653));
             else
-                v571 = nil;
-                v572, v573 = v0.readVarInt(v566, v568);
-                v568 = v573 + v572;
+                v653 = nil;
+                v654, v655 = v0.readVarInt(v648, v650);
+                v650 = v655 + v654;
             end;
-        elseif v570 == v0.wireTypes.i32 then
-            v571 = nil;
-            v572, v573 = v0.readFixed32(v566, v568);
-            v571 = v572;
-            v568 = v573;
-        elseif v570 == v0.wireTypes.i64 then
-            v571 = nil;
-            v572, v573 = v0.readFixed64(v566, v568);
-            v571 = v572;
-            v568 = v573;
+        elseif v652 == v0.wireTypes.i32 then
+            v653 = nil;
+            v654, v655 = v0.readFixed32(v648, v650);
+            v653 = v654;
+            v650 = v655;
+        elseif v652 == v0.wireTypes.i64 then
+            v653 = nil;
+            v654, v655 = v0.readFixed64(v648, v650);
+            v653 = v654;
+            v650 = v655;
         else
-            error("Unsupported wire type: " .. v570);
+            error("Unsupported wire type: " .. v652);
         end;
     end;
-    return v567;
+    return v649;
 end;
-v5.jsonEncode = function(v574) --[[ Line: 5746 ]] --[[ Name: jsonEncode ]]
-    local v575 = {};
-    if v574.options ~= nil and #v574.options > 0 then
-        local v576 = {};
-        for _, v578 in v574.options do
-            table.insert(v576, v578:jsonEncode());
+v5.jsonEncode = function(v656) --[[ Line: 6420 ]] --[[ Name: jsonEncode ]]
+    local v657 = {};
+    if v656.options ~= nil and #v656.options > 0 then
+        local v658 = {};
+        for _, v660 in v656.options do
+            table.insert(v658, v660:jsonEncode());
         end;
-        v575.options = v576;
+        v657.options = v658;
     end;
-    return v575;
+    return v657;
 end;
-v5.jsonDecode = function(v579) --[[ Line: 5760 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_20 (copy), v2 (copy)
-    local v580 = l_v5_20.new();
-    if v579.options ~= nil then
-        local v581 = {};
-        for _, v583 in v579.options do
-            table.insert(v581, v2.BoolProp_ConditionalOption.jsonDecode(v583));
+v5.jsonDecode = function(v661) --[[ Line: 6434 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_23 (copy), v2 (copy)
+    local v662 = l_v5_23.new();
+    if v661.options ~= nil then
+        local v663 = {};
+        for _, v665 in v661.options do
+            table.insert(v663, v2.BoolProp_ConditionalOption.jsonDecode(v665));
         end;
-        v580.options = v581;
+        v662.options = v663;
     end;
-    return v580;
+    return v662;
 end;
 v5.descriptor = {
     name = "BoolProp_ConditionalOptions", 
@@ -3054,149 +3522,149 @@ v2.BoolProp_ConditionalOptions = v5;
 v1.default:register(v2.BoolProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_21 = v5 --[[ copy: 5 -> 27 ]];
-v5.new = function(v585) --[[ Line: 5789 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_21 (copy)
+local l_v5_24 = v5 --[[ copy: 5 -> 30 ]];
+v5.new = function(v667) --[[ Line: 6463 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_24 (copy)
     return (setmetatable({
-        kind = if not (v585 ~= nil) or v585.kind == nil then nil else v585.kind
-    }, l_v5_21));
+        kind = if not (v667 ~= nil) or v667.kind == nil then nil else v667.kind
+    }, l_v5_24));
 end;
-v5.encode = function(v586) --[[ Line: 5795 ]] --[[ Name: encode ]]
+v5.encode = function(v668) --[[ Line: 6469 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v587 = buffer.create(0);
-    local v588 = 0;
-    if v586.kind ~= nil then
-        if v586.kind.type == "literal" then
-            local v589 = v586.kind.value:encode();
-            local v590, v591 = v0.writeTag(v587, v588, 1, v0.wireTypes.lengthDelimited);
-            v590, v591 = v0.writeBuffer(v590, v591, v589, buffer.len(v589));
-            v587 = v590;
-            v588 = v591;
-        elseif v586.kind.type == "binding_path" then
-            local v592, v593 = v0.writeTag(v587, v588, 2, v0.wireTypes.lengthDelimited);
-            v592, v593 = v0.writeString(v592, v593, v586.kind.value);
-            v587 = v592;
-            v588 = v593;
-        elseif v586.kind.type == "conditional" then
-            local v594 = v586.kind.value:encode();
-            local v595, v596 = v0.writeTag(v587, v588, 3, v0.wireTypes.lengthDelimited);
-            v595, v596 = v0.writeBuffer(v595, v596, v594, buffer.len(v594));
-            v587 = v595;
-            v588 = v596;
+    local v669 = buffer.create(0);
+    local v670 = 0;
+    if v668.kind ~= nil then
+        if v668.kind.type == "literal" then
+            local v671 = v668.kind.value:encode();
+            local v672, v673 = v0.writeTag(v669, v670, 1, v0.wireTypes.lengthDelimited);
+            v672, v673 = v0.writeBuffer(v672, v673, v671, buffer.len(v671));
+            v669 = v672;
+            v670 = v673;
+        elseif v668.kind.type == "binding_path" then
+            local v674, v675 = v0.writeTag(v669, v670, 2, v0.wireTypes.lengthDelimited);
+            v674, v675 = v0.writeString(v674, v675, v668.kind.value);
+            v669 = v674;
+            v670 = v675;
+        elseif v668.kind.type == "conditional" then
+            local v676 = v668.kind.value:encode();
+            local v677, v678 = v0.writeTag(v669, v670, 3, v0.wireTypes.lengthDelimited);
+            v677, v678 = v0.writeBuffer(v677, v678, v676, buffer.len(v676));
+            v669 = v677;
+            v670 = v678;
         end;
     end;
-    local v597 = buffer.create(v588);
-    buffer.copy(v597, 0, v587, 0, v588);
-    return v597;
+    local v679 = buffer.create(v670);
+    buffer.copy(v679, 0, v669, 0, v670);
+    return v679;
 end;
-v5.decode = function(v598) --[[ Line: 5819 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_21 (copy), v0 (copy), v3 (copy), v2 (copy)
-    local v599 = l_v5_21.new();
-    local v600 = 0;
-    while v600 < buffer.len(v598) do
-        local v601 = nil;
-        local v602 = nil;
-        local v603, v604, v605 = v0.readTag(v598, v600);
-        v601 = v603;
-        v602 = v604;
-        v600 = v605;
-        if v602 == v0.wireTypes.varint then
-            v603 = nil;
-            v604, v605 = v0.readVarInt(v598, v600);
-            v603 = v604;
-            v600 = v605;
-        elseif v602 == v0.wireTypes.lengthDelimited then
-            if v601 == 1 then
-                v603 = nil;
-                v604, v605 = v0.readBuffer(v598, v600);
-                v603 = v604;
-                v600 = v605;
-                v599.kind = {
+v5.decode = function(v680) --[[ Line: 6493 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_24 (copy), v0 (copy), v3 (copy), v2 (copy)
+    local v681 = l_v5_24.new();
+    local v682 = 0;
+    while v682 < buffer.len(v680) do
+        local v683 = nil;
+        local v684 = nil;
+        local v685, v686, v687 = v0.readTag(v680, v682);
+        v683 = v685;
+        v684 = v686;
+        v682 = v687;
+        if v684 == v0.wireTypes.varint then
+            v685 = nil;
+            v686, v687 = v0.readVarInt(v680, v682);
+            v685 = v686;
+            v682 = v687;
+        elseif v684 == v0.wireTypes.lengthDelimited then
+            if v683 == 1 then
+                v685 = nil;
+                v686, v687 = v0.readBuffer(v680, v682);
+                v685 = v686;
+                v682 = v687;
+                v681.kind = {
                     type = "literal", 
-                    value = v3.Struct.decode(v603)
+                    value = v3.Struct.decode(v685)
                 };
-            elseif v601 == 2 then
-                v603 = nil;
-                v604, v605 = v0.readBuffer(v598, v600);
-                v603 = v604;
-                v600 = v605;
-                v599.kind = {
+            elseif v683 == 2 then
+                v685 = nil;
+                v686, v687 = v0.readBuffer(v680, v682);
+                v685 = v686;
+                v682 = v687;
+                v681.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v603)
+                    value = buffer.tostring(v685)
                 };
-            elseif v601 == 3 then
-                v603 = nil;
-                v604, v605 = v0.readBuffer(v598, v600);
-                v603 = v604;
-                v600 = v605;
-                v599.kind = {
+            elseif v683 == 3 then
+                v685 = nil;
+                v686, v687 = v0.readBuffer(v680, v682);
+                v685 = v686;
+                v682 = v687;
+                v681.kind = {
                     type = "conditional", 
-                    value = v2.StructProp_ConditionalOptions.decode(v603)
+                    value = v2.StructProp_ConditionalOptions.decode(v685)
                 };
             else
-                v603 = nil;
-                v604, v605 = v0.readVarInt(v598, v600);
-                v600 = v605 + v604;
+                v685 = nil;
+                v686, v687 = v0.readVarInt(v680, v682);
+                v682 = v687 + v686;
             end;
-        elseif v602 == v0.wireTypes.i32 then
-            v603 = nil;
-            v604, v605 = v0.readFixed32(v598, v600);
-            v603 = v604;
-            v600 = v605;
-        elseif v602 == v0.wireTypes.i64 then
-            v603 = nil;
-            v604, v605 = v0.readFixed64(v598, v600);
-            v603 = v604;
-            v600 = v605;
+        elseif v684 == v0.wireTypes.i32 then
+            v685 = nil;
+            v686, v687 = v0.readFixed32(v680, v682);
+            v685 = v686;
+            v682 = v687;
+        elseif v684 == v0.wireTypes.i64 then
+            v685 = nil;
+            v686, v687 = v0.readFixed64(v680, v682);
+            v685 = v686;
+            v682 = v687;
         else
-            error("Unsupported wire type: " .. v602);
+            error("Unsupported wire type: " .. v684);
         end;
     end;
-    return v599;
+    return v681;
 end;
-v5.jsonEncode = function(v606) --[[ Line: 5872 ]] --[[ Name: jsonEncode ]]
-    local v607 = {};
-    if v606.kind ~= nil then
-        if v606.kind.type == "literal" then
-            v607.literal = v606.kind.value:jsonEncode();
-            return v607;
-        elseif v606.kind.type == "binding_path" then
-            v607.bindingPath = v606.kind.value;
-            return v607;
-        elseif v606.kind.type == "conditional" then
-            v607.conditional = v606.kind.value:jsonEncode();
+v5.jsonEncode = function(v688) --[[ Line: 6546 ]] --[[ Name: jsonEncode ]]
+    local v689 = {};
+    if v688.kind ~= nil then
+        if v688.kind.type == "literal" then
+            v689.literal = v688.kind.value:jsonEncode();
+            return v689;
+        elseif v688.kind.type == "binding_path" then
+            v689.bindingPath = v688.kind.value;
+            return v689;
+        elseif v688.kind.type == "conditional" then
+            v689.conditional = v688.kind.value:jsonEncode();
         end;
     end;
-    return v607;
+    return v689;
 end;
-v5.jsonDecode = function(v608) --[[ Line: 5888 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_21 (copy), v3 (copy), v2 (copy)
-    local v609 = l_v5_21.new();
-    if v608.literal ~= nil then
-        v609.kind = {
+v5.jsonDecode = function(v690) --[[ Line: 6562 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_24 (copy), v3 (copy), v2 (copy)
+    local v691 = l_v5_24.new();
+    if v690.literal ~= nil then
+        v691.kind = {
             type = "literal", 
-            value = v3.Struct.jsonDecode(v608.literal)
+            value = v3.Struct.jsonDecode(v690.literal)
         };
     end;
-    if v608.binding_path ~= nil then
-        v609.kind = {
+    if v690.binding_path ~= nil then
+        v691.kind = {
             type = "binding_path", 
-            value = v608.binding_path
+            value = v690.binding_path
         };
     end;
-    if v608.bindingPath ~= nil then
-        v609.kind = {
+    if v690.bindingPath ~= nil then
+        v691.kind = {
             type = "binding_path", 
-            value = v608.bindingPath
+            value = v690.bindingPath
         };
     end;
-    if v608.conditional ~= nil then
-        v609.kind = {
+    if v690.conditional ~= nil then
+        v691.kind = {
             type = "conditional", 
-            value = v2.StructProp_ConditionalOptions.jsonDecode(v608.conditional)
+            value = v2.StructProp_ConditionalOptions.jsonDecode(v690.conditional)
         };
     end;
-    return v609;
+    return v691;
 end;
 v5.descriptor = {
     name = "StructProp", 
@@ -3206,145 +3674,145 @@ v2.StructProp = v5;
 v1.default:register(v2.StructProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_22 = v5 --[[ copy: 5 -> 28 ]];
-v5.new = function(v611) --[[ Line: 5925 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_22 (copy)
+local l_v5_25 = v5 --[[ copy: 5 -> 31 ]];
+v5.new = function(v693) --[[ Line: 6599 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_25 (copy)
     return (setmetatable({
-        condition = if not (v611 ~= nil) or v611.condition == nil then nil else v611.condition, 
-        kind = if not (v611 ~= nil) or v611.kind == nil then nil else v611.kind
-    }, l_v5_22));
+        condition = if not (v693 ~= nil) or v693.condition == nil then nil else v693.condition, 
+        kind = if not (v693 ~= nil) or v693.kind == nil then nil else v693.kind
+    }, l_v5_25));
 end;
-v5.encode = function(v612) --[[ Line: 5934 ]] --[[ Name: encode ]]
+v5.encode = function(v694) --[[ Line: 6608 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v613 = buffer.create(0);
-    local v614 = 0;
-    if v612.condition ~= nil then
-        local v615 = v612.condition:encode();
-        local v616, v617 = v0.writeTag(v613, v614, 1, v0.wireTypes.lengthDelimited);
-        v616, v617 = v0.writeBuffer(v616, v617, v615, buffer.len(v615));
-        v613 = v616;
-        v614 = v617;
+    local v695 = buffer.create(0);
+    local v696 = 0;
+    if v694.condition ~= nil then
+        local v697 = v694.condition:encode();
+        local v698, v699 = v0.writeTag(v695, v696, 1, v0.wireTypes.lengthDelimited);
+        v698, v699 = v0.writeBuffer(v698, v699, v697, buffer.len(v697));
+        v695 = v698;
+        v696 = v699;
     end;
-    if v612.kind ~= nil then
-        if v612.kind.type == "literal" then
-            local v618 = v612.kind.value:encode();
-            local v619, v620 = v0.writeTag(v613, v614, 2, v0.wireTypes.lengthDelimited);
-            v619, v620 = v0.writeBuffer(v619, v620, v618, buffer.len(v618));
-            v613 = v619;
-            v614 = v620;
-        elseif v612.kind.type == "binding_path" then
-            local v621, v622 = v0.writeTag(v613, v614, 3, v0.wireTypes.lengthDelimited);
-            v621, v622 = v0.writeString(v621, v622, v612.kind.value);
-            v613 = v621;
-            v614 = v622;
+    if v694.kind ~= nil then
+        if v694.kind.type == "literal" then
+            local v700 = v694.kind.value:encode();
+            local v701, v702 = v0.writeTag(v695, v696, 2, v0.wireTypes.lengthDelimited);
+            v701, v702 = v0.writeBuffer(v701, v702, v700, buffer.len(v700));
+            v695 = v701;
+            v696 = v702;
+        elseif v694.kind.type == "binding_path" then
+            local v703, v704 = v0.writeTag(v695, v696, 3, v0.wireTypes.lengthDelimited);
+            v703, v704 = v0.writeString(v703, v704, v694.kind.value);
+            v695 = v703;
+            v696 = v704;
         end;
     end;
-    local v623 = buffer.create(v614);
-    buffer.copy(v623, 0, v613, 0, v614);
-    return v623;
+    local v705 = buffer.create(v696);
+    buffer.copy(v705, 0, v695, 0, v696);
+    return v705;
 end;
-v5.decode = function(v624) --[[ Line: 5960 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_22 (copy), v0 (copy), v4 (copy), v3 (copy)
-    local v625 = l_v5_22.new();
-    local v626 = 0;
-    while v626 < buffer.len(v624) do
-        local v627 = nil;
-        local v628 = nil;
-        local v629, v630, v631 = v0.readTag(v624, v626);
-        v627 = v629;
-        v628 = v630;
-        v626 = v631;
-        if v628 == v0.wireTypes.varint then
-            v629 = nil;
-            v630, v631 = v0.readVarInt(v624, v626);
-            v629 = v630;
-            v626 = v631;
-        elseif v628 == v0.wireTypes.lengthDelimited then
-            if v627 == 1 then
-                v629 = nil;
-                v630, v631 = v0.readBuffer(v624, v626);
-                v629 = v630;
-                v626 = v631;
-                v625.condition = v4.PropCondition.decode(v629);
-            elseif v627 == 2 then
-                v629 = nil;
-                v630, v631 = v0.readBuffer(v624, v626);
-                v629 = v630;
-                v626 = v631;
-                v625.kind = {
+v5.decode = function(v706) --[[ Line: 6634 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_25 (copy), v0 (copy), v4 (copy), v3 (copy)
+    local v707 = l_v5_25.new();
+    local v708 = 0;
+    while v708 < buffer.len(v706) do
+        local v709 = nil;
+        local v710 = nil;
+        local v711, v712, v713 = v0.readTag(v706, v708);
+        v709 = v711;
+        v710 = v712;
+        v708 = v713;
+        if v710 == v0.wireTypes.varint then
+            v711 = nil;
+            v712, v713 = v0.readVarInt(v706, v708);
+            v711 = v712;
+            v708 = v713;
+        elseif v710 == v0.wireTypes.lengthDelimited then
+            if v709 == 1 then
+                v711 = nil;
+                v712, v713 = v0.readBuffer(v706, v708);
+                v711 = v712;
+                v708 = v713;
+                v707.condition = v4.PropCondition.decode(v711);
+            elseif v709 == 2 then
+                v711 = nil;
+                v712, v713 = v0.readBuffer(v706, v708);
+                v711 = v712;
+                v708 = v713;
+                v707.kind = {
                     type = "literal", 
-                    value = v3.Struct.decode(v629)
+                    value = v3.Struct.decode(v711)
                 };
-            elseif v627 == 3 then
-                v629 = nil;
-                v630, v631 = v0.readBuffer(v624, v626);
-                v629 = v630;
-                v626 = v631;
-                v625.kind = {
+            elseif v709 == 3 then
+                v711 = nil;
+                v712, v713 = v0.readBuffer(v706, v708);
+                v711 = v712;
+                v708 = v713;
+                v707.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v629)
+                    value = buffer.tostring(v711)
                 };
             else
-                v629 = nil;
-                v630, v631 = v0.readVarInt(v624, v626);
-                v626 = v631 + v630;
+                v711 = nil;
+                v712, v713 = v0.readVarInt(v706, v708);
+                v708 = v713 + v712;
             end;
-        elseif v628 == v0.wireTypes.i32 then
-            v629 = nil;
-            v630, v631 = v0.readFixed32(v624, v626);
-            v629 = v630;
-            v626 = v631;
-        elseif v628 == v0.wireTypes.i64 then
-            v629 = nil;
-            v630, v631 = v0.readFixed64(v624, v626);
-            v629 = v630;
-            v626 = v631;
+        elseif v710 == v0.wireTypes.i32 then
+            v711 = nil;
+            v712, v713 = v0.readFixed32(v706, v708);
+            v711 = v712;
+            v708 = v713;
+        elseif v710 == v0.wireTypes.i64 then
+            v711 = nil;
+            v712, v713 = v0.readFixed64(v706, v708);
+            v711 = v712;
+            v708 = v713;
         else
-            error("Unsupported wire type: " .. v628);
+            error("Unsupported wire type: " .. v710);
         end;
     end;
-    return v625;
+    return v707;
 end;
-v5.jsonEncode = function(v632) --[[ Line: 6013 ]] --[[ Name: jsonEncode ]]
-    local v633 = {};
-    if v632.condition ~= nil then
-        v633.condition = v632.condition:jsonEncode();
+v5.jsonEncode = function(v714) --[[ Line: 6687 ]] --[[ Name: jsonEncode ]]
+    local v715 = {};
+    if v714.condition ~= nil then
+        v715.condition = v714.condition:jsonEncode();
     end;
-    if v632.kind ~= nil then
-        if v632.kind.type == "literal" then
-            v633.literal = v632.kind.value:jsonEncode();
-            return v633;
-        elseif v632.kind.type == "binding_path" then
-            v633.bindingPath = v632.kind.value;
+    if v714.kind ~= nil then
+        if v714.kind.type == "literal" then
+            v715.literal = v714.kind.value:jsonEncode();
+            return v715;
+        elseif v714.kind.type == "binding_path" then
+            v715.bindingPath = v714.kind.value;
         end;
     end;
-    return v633;
+    return v715;
 end;
-v5.jsonDecode = function(v634) --[[ Line: 6031 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_22 (copy), v4 (copy), v3 (copy)
-    local v635 = l_v5_22.new();
-    if v634.condition ~= nil then
-        v635.condition = v4.PropCondition.jsonDecode(v634.condition);
+v5.jsonDecode = function(v716) --[[ Line: 6705 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_25 (copy), v4 (copy), v3 (copy)
+    local v717 = l_v5_25.new();
+    if v716.condition ~= nil then
+        v717.condition = v4.PropCondition.jsonDecode(v716.condition);
     end;
-    if v634.literal ~= nil then
-        v635.kind = {
+    if v716.literal ~= nil then
+        v717.kind = {
             type = "literal", 
-            value = v3.Struct.jsonDecode(v634.literal)
+            value = v3.Struct.jsonDecode(v716.literal)
         };
     end;
-    if v634.binding_path ~= nil then
-        v635.kind = {
+    if v716.binding_path ~= nil then
+        v717.kind = {
             type = "binding_path", 
-            value = v634.binding_path
+            value = v716.binding_path
         };
     end;
-    if v634.bindingPath ~= nil then
-        v635.kind = {
+    if v716.bindingPath ~= nil then
+        v717.kind = {
             type = "binding_path", 
-            value = v634.bindingPath
+            value = v716.bindingPath
         };
     end;
-    return v635;
+    return v717;
 end;
 v5.descriptor = {
     name = "StructProp_ConditionalOption", 
@@ -3354,96 +3822,96 @@ v2.StructProp_ConditionalOption = v5;
 v1.default:register(v2.StructProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_23 = v5 --[[ copy: 5 -> 29 ]];
-v5.new = function(v637) --[[ Line: 6068 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_23 (copy)
+local l_v5_26 = v5 --[[ copy: 5 -> 32 ]];
+v5.new = function(v719) --[[ Line: 6742 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_26 (copy)
     return (setmetatable({
-        options = if not (v637 ~= nil) or v637.options == nil then {} else v637.options
-    }, l_v5_23));
+        options = if not (v719 ~= nil) or v719.options == nil then {} else v719.options
+    }, l_v5_26));
 end;
-v5.encode = function(v638) --[[ Line: 6076 ]] --[[ Name: encode ]]
+v5.encode = function(v720) --[[ Line: 6750 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v639 = buffer.create(0);
-    local v640 = 0;
-    if v638.options ~= nil and #v638.options > 0 then
-        for _, v642 in v638.options do
-            local v643 = v642:encode();
-            local v644, v645 = v0.writeTag(v639, v640, 1, v0.wireTypes.lengthDelimited);
-            v644, v645 = v0.writeBuffer(v644, v645, v643, buffer.len(v643));
-            v639 = v644;
-            v640 = v645;
+    local v721 = buffer.create(0);
+    local v722 = 0;
+    if v720.options ~= nil and #v720.options > 0 then
+        for _, v724 in v720.options do
+            local v725 = v724:encode();
+            local v726, v727 = v0.writeTag(v721, v722, 1, v0.wireTypes.lengthDelimited);
+            v726, v727 = v0.writeBuffer(v726, v727, v725, buffer.len(v725));
+            v721 = v726;
+            v722 = v727;
         end;
     end;
-    local v646 = buffer.create(v640);
-    buffer.copy(v646, 0, v639, 0, v640);
-    return v646;
+    local v728 = buffer.create(v722);
+    buffer.copy(v728, 0, v721, 0, v722);
+    return v728;
 end;
-v5.decode = function(v647) --[[ Line: 6093 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_23 (copy), v0 (copy), v2 (copy)
-    local v648 = l_v5_23.new();
-    local v649 = 0;
-    while v649 < buffer.len(v647) do
-        local v650 = nil;
-        local v651 = nil;
-        local v652, v653, v654 = v0.readTag(v647, v649);
-        v650 = v652;
-        v651 = v653;
-        v649 = v654;
-        if v651 == v0.wireTypes.varint then
-            v652 = nil;
-            v653, v654 = v0.readVarInt(v647, v649);
-            v652 = v653;
-            v649 = v654;
-        elseif v651 == v0.wireTypes.lengthDelimited then
-            if v650 == 1 then
-                v652 = nil;
-                v653, v654 = v0.readBuffer(v647, v649);
-                v652 = v653;
-                v649 = v654;
-                table.insert(v648.options, v2.StructProp_ConditionalOption.decode(v652));
+v5.decode = function(v729) --[[ Line: 6767 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_26 (copy), v0 (copy), v2 (copy)
+    local v730 = l_v5_26.new();
+    local v731 = 0;
+    while v731 < buffer.len(v729) do
+        local v732 = nil;
+        local v733 = nil;
+        local v734, v735, v736 = v0.readTag(v729, v731);
+        v732 = v734;
+        v733 = v735;
+        v731 = v736;
+        if v733 == v0.wireTypes.varint then
+            v734 = nil;
+            v735, v736 = v0.readVarInt(v729, v731);
+            v734 = v735;
+            v731 = v736;
+        elseif v733 == v0.wireTypes.lengthDelimited then
+            if v732 == 1 then
+                v734 = nil;
+                v735, v736 = v0.readBuffer(v729, v731);
+                v734 = v735;
+                v731 = v736;
+                table.insert(v730.options, v2.StructProp_ConditionalOption.decode(v734));
             else
-                v652 = nil;
-                v653, v654 = v0.readVarInt(v647, v649);
-                v649 = v654 + v653;
+                v734 = nil;
+                v735, v736 = v0.readVarInt(v729, v731);
+                v731 = v736 + v735;
             end;
-        elseif v651 == v0.wireTypes.i32 then
-            v652 = nil;
-            v653, v654 = v0.readFixed32(v647, v649);
-            v652 = v653;
-            v649 = v654;
-        elseif v651 == v0.wireTypes.i64 then
-            v652 = nil;
-            v653, v654 = v0.readFixed64(v647, v649);
-            v652 = v653;
-            v649 = v654;
+        elseif v733 == v0.wireTypes.i32 then
+            v734 = nil;
+            v735, v736 = v0.readFixed32(v729, v731);
+            v734 = v735;
+            v731 = v736;
+        elseif v733 == v0.wireTypes.i64 then
+            v734 = nil;
+            v735, v736 = v0.readFixed64(v729, v731);
+            v734 = v735;
+            v731 = v736;
         else
-            error("Unsupported wire type: " .. v651);
+            error("Unsupported wire type: " .. v733);
         end;
     end;
-    return v648;
+    return v730;
 end;
-v5.jsonEncode = function(v655) --[[ Line: 6136 ]] --[[ Name: jsonEncode ]]
-    local v656 = {};
-    if v655.options ~= nil and #v655.options > 0 then
-        local v657 = {};
-        for _, v659 in v655.options do
-            table.insert(v657, v659:jsonEncode());
+v5.jsonEncode = function(v737) --[[ Line: 6810 ]] --[[ Name: jsonEncode ]]
+    local v738 = {};
+    if v737.options ~= nil and #v737.options > 0 then
+        local v739 = {};
+        for _, v741 in v737.options do
+            table.insert(v739, v741:jsonEncode());
         end;
-        v656.options = v657;
+        v738.options = v739;
     end;
-    return v656;
+    return v738;
 end;
-v5.jsonDecode = function(v660) --[[ Line: 6150 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_23 (copy), v2 (copy)
-    local v661 = l_v5_23.new();
-    if v660.options ~= nil then
-        local v662 = {};
-        for _, v664 in v660.options do
-            table.insert(v662, v2.StructProp_ConditionalOption.jsonDecode(v664));
+v5.jsonDecode = function(v742) --[[ Line: 6824 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_26 (copy), v2 (copy)
+    local v743 = l_v5_26.new();
+    if v742.options ~= nil then
+        local v744 = {};
+        for _, v746 in v742.options do
+            table.insert(v744, v2.StructProp_ConditionalOption.jsonDecode(v746));
         end;
-        v661.options = v662;
+        v743.options = v744;
     end;
-    return v661;
+    return v743;
 end;
 v5.descriptor = {
     name = "StructProp_ConditionalOptions", 
@@ -3453,492 +3921,53 @@ v2.StructProp_ConditionalOptions = v5;
 v1.default:register(v2.StructProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_24 = v5 --[[ copy: 5 -> 30 ]];
-v5.new = function(v666) --[[ Line: 6179 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_24 (copy)
-    return (setmetatable({
-        kind = if not (v666 ~= nil) or v666.kind == nil then nil else v666.kind
-    }, l_v5_24));
-end;
-v5.encode = function(v667) --[[ Line: 6185 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v668 = buffer.create(0);
-    local v669 = 0;
-    if v667.kind ~= nil then
-        if v667.kind.type == "literal" then
-            local v670, v671 = v0.writeTag(v668, v669, 1, v0.wireTypes.lengthDelimited);
-            v670, v671 = v0.writeString(v670, v671, v667.kind.value);
-            v668 = v670;
-            v669 = v671;
-        elseif v667.kind.type == "binding_path" then
-            local v672, v673 = v0.writeTag(v668, v669, 2, v0.wireTypes.lengthDelimited);
-            v672, v673 = v0.writeString(v672, v673, v667.kind.value);
-            v668 = v672;
-            v669 = v673;
-        elseif v667.kind.type == "format" then
-            local v674 = v667.kind.value:encode();
-            local v675, v676 = v0.writeTag(v668, v669, 3, v0.wireTypes.lengthDelimited);
-            v675, v676 = v0.writeBuffer(v675, v676, v674, buffer.len(v674));
-            v668 = v675;
-            v669 = v676;
-        elseif v667.kind.type == "conditional" then
-            local v677 = v667.kind.value:encode();
-            local v678, v679 = v0.writeTag(v668, v669, 4, v0.wireTypes.lengthDelimited);
-            v678, v679 = v0.writeBuffer(v678, v679, v677, buffer.len(v677));
-            v668 = v678;
-            v669 = v679;
-        end;
-    end;
-    local v680 = buffer.create(v669);
-    buffer.copy(v680, 0, v668, 0, v669);
-    return v680;
-end;
-v5.decode = function(v681) --[[ Line: 6212 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_24 (copy), v0 (copy), v2 (copy)
-    local v682 = l_v5_24.new();
-    local v683 = 0;
-    while v683 < buffer.len(v681) do
-        local v684 = nil;
-        local v685 = nil;
-        local v686, v687, v688 = v0.readTag(v681, v683);
-        v684 = v686;
-        v685 = v687;
-        v683 = v688;
-        if v685 == v0.wireTypes.varint then
-            v686 = nil;
-            v687, v688 = v0.readVarInt(v681, v683);
-            v686 = v687;
-            v683 = v688;
-        elseif v685 == v0.wireTypes.lengthDelimited then
-            if v684 == 1 then
-                v686 = nil;
-                v687, v688 = v0.readBuffer(v681, v683);
-                v686 = v687;
-                v683 = v688;
-                v682.kind = {
-                    type = "literal", 
-                    value = buffer.tostring(v686)
-                };
-            elseif v684 == 2 then
-                v686 = nil;
-                v687, v688 = v0.readBuffer(v681, v683);
-                v686 = v687;
-                v683 = v688;
-                v682.kind = {
-                    type = "binding_path", 
-                    value = buffer.tostring(v686)
-                };
-            elseif v684 == 3 then
-                v686 = nil;
-                v687, v688 = v0.readBuffer(v681, v683);
-                v686 = v687;
-                v683 = v688;
-                v682.kind = {
-                    type = "format", 
-                    value = v2.StringFormat.decode(v686)
-                };
-            elseif v684 == 4 then
-                v686 = nil;
-                v687, v688 = v0.readBuffer(v681, v683);
-                v686 = v687;
-                v683 = v688;
-                v682.kind = {
-                    type = "conditional", 
-                    value = v2.ImageStringProp_ConditionalOptions.decode(v686)
-                };
-            else
-                v686 = nil;
-                v687, v688 = v0.readVarInt(v681, v683);
-                v683 = v688 + v687;
-            end;
-        elseif v685 == v0.wireTypes.i32 then
-            v686 = nil;
-            v687, v688 = v0.readFixed32(v681, v683);
-            v686 = v687;
-            v683 = v688;
-        elseif v685 == v0.wireTypes.i64 then
-            v686 = nil;
-            v687, v688 = v0.readFixed64(v681, v683);
-            v686 = v687;
-            v683 = v688;
-        else
-            error("Unsupported wire type: " .. v685);
-        end;
-    end;
-    return v682;
-end;
-v5.jsonEncode = function(v689) --[[ Line: 6271 ]] --[[ Name: jsonEncode ]]
-    local v690 = {};
-    if v689.kind ~= nil then
-        if v689.kind.type == "literal" then
-            v690.literal = v689.kind.value;
-            return v690;
-        elseif v689.kind.type == "binding_path" then
-            v690.bindingPath = v689.kind.value;
-            return v690;
-        elseif v689.kind.type == "format" then
-            v690.format = v689.kind.value:jsonEncode();
-            return v690;
-        elseif v689.kind.type == "conditional" then
-            v690.conditional = v689.kind.value:jsonEncode();
-        end;
-    end;
-    return v690;
-end;
-v5.jsonDecode = function(v691) --[[ Line: 6289 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_24 (copy), v2 (copy)
-    local v692 = l_v5_24.new();
-    if v691.literal ~= nil then
-        v692.kind = {
-            type = "literal", 
-            value = v691.literal
-        };
-    end;
-    if v691.binding_path ~= nil then
-        v692.kind = {
-            type = "binding_path", 
-            value = v691.binding_path
-        };
-    end;
-    if v691.bindingPath ~= nil then
-        v692.kind = {
-            type = "binding_path", 
-            value = v691.bindingPath
-        };
-    end;
-    if v691.format ~= nil then
-        v692.kind = {
-            type = "format", 
-            value = v2.StringFormat.jsonDecode(v691.format)
-        };
-    end;
-    if v691.conditional ~= nil then
-        v692.kind = {
-            type = "conditional", 
-            value = v2.ImageStringProp_ConditionalOptions.jsonDecode(v691.conditional)
-        };
-    end;
-    return v692;
-end;
-v5.descriptor = {
-    name = "ImageStringProp", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.ImageStringProp"
-};
-v2.ImageStringProp = v5;
-v1.default:register(v2.ImageStringProp);
-v5 = {};
-v5.__index = v5;
-local l_v5_25 = v5 --[[ copy: 5 -> 31 ]];
-v5.new = function(v694) --[[ Line: 6332 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_25 (copy)
-    return (setmetatable({
-        condition = if not (v694 ~= nil) or v694.condition == nil then nil else v694.condition, 
-        kind = if not (v694 ~= nil) or v694.kind == nil then nil else v694.kind
-    }, l_v5_25));
-end;
-v5.encode = function(v695) --[[ Line: 6341 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v696 = buffer.create(0);
-    local v697 = 0;
-    if v695.condition ~= nil then
-        local v698 = v695.condition:encode();
-        local v699, v700 = v0.writeTag(v696, v697, 1, v0.wireTypes.lengthDelimited);
-        v699, v700 = v0.writeBuffer(v699, v700, v698, buffer.len(v698));
-        v696 = v699;
-        v697 = v700;
-    end;
-    if v695.kind ~= nil then
-        if v695.kind.type == "literal" then
-            local v701, v702 = v0.writeTag(v696, v697, 2, v0.wireTypes.lengthDelimited);
-            v701, v702 = v0.writeString(v701, v702, v695.kind.value);
-            v696 = v701;
-            v697 = v702;
-        elseif v695.kind.type == "binding_path" then
-            local v703, v704 = v0.writeTag(v696, v697, 3, v0.wireTypes.lengthDelimited);
-            v703, v704 = v0.writeString(v703, v704, v695.kind.value);
-            v696 = v703;
-            v697 = v704;
-        elseif v695.kind.type == "format" then
-            local v705 = v695.kind.value:encode();
-            local v706, v707 = v0.writeTag(v696, v697, 4, v0.wireTypes.lengthDelimited);
-            v706, v707 = v0.writeBuffer(v706, v707, v705, buffer.len(v705));
-            v696 = v706;
-            v697 = v707;
-        end;
-    end;
-    local v708 = buffer.create(v697);
-    buffer.copy(v708, 0, v696, 0, v697);
-    return v708;
-end;
-v5.decode = function(v709) --[[ Line: 6370 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_25 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v710 = l_v5_25.new();
-    local v711 = 0;
-    while v711 < buffer.len(v709) do
-        local v712 = nil;
-        local v713 = nil;
-        local v714, v715, v716 = v0.readTag(v709, v711);
-        v712 = v714;
-        v713 = v715;
-        v711 = v716;
-        if v713 == v0.wireTypes.varint then
-            v714 = nil;
-            v715, v716 = v0.readVarInt(v709, v711);
-            v714 = v715;
-            v711 = v716;
-        elseif v713 == v0.wireTypes.lengthDelimited then
-            if v712 == 1 then
-                v714 = nil;
-                v715, v716 = v0.readBuffer(v709, v711);
-                v714 = v715;
-                v711 = v716;
-                v710.condition = v4.PropCondition.decode(v714);
-            elseif v712 == 2 then
-                v714 = nil;
-                v715, v716 = v0.readBuffer(v709, v711);
-                v714 = v715;
-                v711 = v716;
-                v710.kind = {
-                    type = "literal", 
-                    value = buffer.tostring(v714)
-                };
-            elseif v712 == 3 then
-                v714 = nil;
-                v715, v716 = v0.readBuffer(v709, v711);
-                v714 = v715;
-                v711 = v716;
-                v710.kind = {
-                    type = "binding_path", 
-                    value = buffer.tostring(v714)
-                };
-            elseif v712 == 4 then
-                v714 = nil;
-                v715, v716 = v0.readBuffer(v709, v711);
-                v714 = v715;
-                v711 = v716;
-                v710.kind = {
-                    type = "format", 
-                    value = v2.StringFormat.decode(v714)
-                };
-            else
-                v714 = nil;
-                v715, v716 = v0.readVarInt(v709, v711);
-                v711 = v716 + v715;
-            end;
-        elseif v713 == v0.wireTypes.i32 then
-            v714 = nil;
-            v715, v716 = v0.readFixed32(v709, v711);
-            v714 = v715;
-            v711 = v716;
-        elseif v713 == v0.wireTypes.i64 then
-            v714 = nil;
-            v715, v716 = v0.readFixed64(v709, v711);
-            v714 = v715;
-            v711 = v716;
-        else
-            error("Unsupported wire type: " .. v713);
-        end;
-    end;
-    return v710;
-end;
-v5.jsonEncode = function(v717) --[[ Line: 6428 ]] --[[ Name: jsonEncode ]]
-    local v718 = {};
-    if v717.condition ~= nil then
-        v718.condition = v717.condition:jsonEncode();
-    end;
-    if v717.kind ~= nil then
-        if v717.kind.type == "literal" then
-            v718.literal = v717.kind.value;
-            return v718;
-        elseif v717.kind.type == "binding_path" then
-            v718.bindingPath = v717.kind.value;
-            return v718;
-        elseif v717.kind.type == "format" then
-            v718.format = v717.kind.value:jsonEncode();
-        end;
-    end;
-    return v718;
-end;
-v5.jsonDecode = function(v719) --[[ Line: 6448 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_25 (copy), v4 (copy), v2 (copy)
-    local v720 = l_v5_25.new();
-    if v719.condition ~= nil then
-        v720.condition = v4.PropCondition.jsonDecode(v719.condition);
-    end;
-    if v719.literal ~= nil then
-        v720.kind = {
-            type = "literal", 
-            value = v719.literal
-        };
-    end;
-    if v719.binding_path ~= nil then
-        v720.kind = {
-            type = "binding_path", 
-            value = v719.binding_path
-        };
-    end;
-    if v719.bindingPath ~= nil then
-        v720.kind = {
-            type = "binding_path", 
-            value = v719.bindingPath
-        };
-    end;
-    if v719.format ~= nil then
-        v720.kind = {
-            type = "format", 
-            value = v2.StringFormat.jsonDecode(v719.format)
-        };
-    end;
-    return v720;
-end;
-v5.descriptor = {
-    name = "ImageStringProp_ConditionalOption", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption"
-};
-v2.ImageStringProp_ConditionalOption = v5;
-v1.default:register(v2.ImageStringProp_ConditionalOption);
-v5 = {};
-v5.__index = v5;
-local l_v5_26 = v5 --[[ copy: 5 -> 32 ]];
-v5.new = function(v722) --[[ Line: 6491 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_26 (copy)
-    return (setmetatable({
-        options = if not (v722 ~= nil) or v722.options == nil then {} else v722.options
-    }, l_v5_26));
-end;
-v5.encode = function(v723) --[[ Line: 6499 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v724 = buffer.create(0);
-    local v725 = 0;
-    if v723.options ~= nil and #v723.options > 0 then
-        for _, v727 in v723.options do
-            local v728 = v727:encode();
-            local v729, v730 = v0.writeTag(v724, v725, 1, v0.wireTypes.lengthDelimited);
-            v729, v730 = v0.writeBuffer(v729, v730, v728, buffer.len(v728));
-            v724 = v729;
-            v725 = v730;
-        end;
-    end;
-    local v731 = buffer.create(v725);
-    buffer.copy(v731, 0, v724, 0, v725);
-    return v731;
-end;
-v5.decode = function(v732) --[[ Line: 6516 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_26 (copy), v0 (copy), v2 (copy)
-    local v733 = l_v5_26.new();
-    local v734 = 0;
-    while v734 < buffer.len(v732) do
-        local v735 = nil;
-        local v736 = nil;
-        local v737, v738, v739 = v0.readTag(v732, v734);
-        v735 = v737;
-        v736 = v738;
-        v734 = v739;
-        if v736 == v0.wireTypes.varint then
-            v737 = nil;
-            v738, v739 = v0.readVarInt(v732, v734);
-            v737 = v738;
-            v734 = v739;
-        elseif v736 == v0.wireTypes.lengthDelimited then
-            if v735 == 1 then
-                v737 = nil;
-                v738, v739 = v0.readBuffer(v732, v734);
-                v737 = v738;
-                v734 = v739;
-                table.insert(v733.options, v2.ImageStringProp_ConditionalOption.decode(v737));
-            else
-                v737 = nil;
-                v738, v739 = v0.readVarInt(v732, v734);
-                v734 = v739 + v738;
-            end;
-        elseif v736 == v0.wireTypes.i32 then
-            v737 = nil;
-            v738, v739 = v0.readFixed32(v732, v734);
-            v737 = v738;
-            v734 = v739;
-        elseif v736 == v0.wireTypes.i64 then
-            v737 = nil;
-            v738, v739 = v0.readFixed64(v732, v734);
-            v737 = v738;
-            v734 = v739;
-        else
-            error("Unsupported wire type: " .. v736);
-        end;
-    end;
-    return v733;
-end;
-v5.jsonEncode = function(v740) --[[ Line: 6559 ]] --[[ Name: jsonEncode ]]
-    local v741 = {};
-    if v740.options ~= nil and #v740.options > 0 then
-        local v742 = {};
-        for _, v744 in v740.options do
-            table.insert(v742, v744:jsonEncode());
-        end;
-        v741.options = v742;
-    end;
-    return v741;
-end;
-v5.jsonDecode = function(v745) --[[ Line: 6573 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_26 (copy), v2 (copy)
-    local v746 = l_v5_26.new();
-    if v745.options ~= nil then
-        local v747 = {};
-        for _, v749 in v745.options do
-            table.insert(v747, v2.ImageStringProp_ConditionalOption.jsonDecode(v749));
-        end;
-        v746.options = v747;
-    end;
-    return v746;
-end;
-v5.descriptor = {
-    name = "ImageStringProp_ConditionalOptions", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions"
-};
-v2.ImageStringProp_ConditionalOptions = v5;
-v1.default:register(v2.ImageStringProp_ConditionalOptions);
-v5 = {};
-v5.__index = v5;
 local l_v5_27 = v5 --[[ copy: 5 -> 33 ]];
-v5.new = function(v751) --[[ Line: 6604 ]] --[[ Name: new ]]
+v5.new = function(v748) --[[ Line: 6853 ]] --[[ Name: new ]]
     -- upvalues: l_v5_27 (copy)
     return (setmetatable({
-        kind = if not (v751 ~= nil) or v751.kind == nil then nil else v751.kind
+        kind = if not (v748 ~= nil) or v748.kind == nil then nil else v748.kind
     }, l_v5_27));
 end;
-v5.encode = function(v752) --[[ Line: 6610 ]] --[[ Name: encode ]]
+v5.encode = function(v749) --[[ Line: 6859 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v753 = buffer.create(0);
-    local v754 = 0;
-    if v752.kind ~= nil then
-        if v752.kind.type == "literal" then
-            local v755, v756 = v0.writeTag(v753, v754, 1, v0.wireTypes.lengthDelimited);
-            v755, v756 = v0.writeString(v755, v756, v752.kind.value);
-            v753 = v755;
-            v754 = v756;
-        elseif v752.kind.type == "binding_path" then
-            local v757, v758 = v0.writeTag(v753, v754, 2, v0.wireTypes.lengthDelimited);
-            v757, v758 = v0.writeString(v757, v758, v752.kind.value);
-            v753 = v757;
-            v754 = v758;
-        elseif v752.kind.type == "format" then
-            local v759 = v752.kind.value:encode();
-            local v760, v761 = v0.writeTag(v753, v754, 3, v0.wireTypes.lengthDelimited);
+    local v750 = buffer.create(0);
+    local v751 = 0;
+    if v749.kind ~= nil then
+        if v749.kind.type == "literal" then
+            local v752, v753 = v0.writeTag(v750, v751, 1, v0.wireTypes.lengthDelimited);
+            v752, v753 = v0.writeString(v752, v753, v749.kind.value);
+            v750 = v752;
+            v751 = v753;
+        elseif v749.kind.type == "binding_path" then
+            local v754, v755 = v0.writeTag(v750, v751, 2, v0.wireTypes.lengthDelimited);
+            v754, v755 = v0.writeString(v754, v755, v749.kind.value);
+            v750 = v754;
+            v751 = v755;
+        elseif v749.kind.type == "format" then
+            local v756 = v749.kind.value:encode();
+            local v757, v758 = v0.writeTag(v750, v751, 3, v0.wireTypes.lengthDelimited);
+            v757, v758 = v0.writeBuffer(v757, v758, v756, buffer.len(v756));
+            v750 = v757;
+            v751 = v758;
+        elseif v749.kind.type == "conditional" then
+            local v759 = v749.kind.value:encode();
+            local v760, v761 = v0.writeTag(v750, v751, 4, v0.wireTypes.lengthDelimited);
             v760, v761 = v0.writeBuffer(v760, v761, v759, buffer.len(v759));
-            v753 = v760;
-            v754 = v761;
-        elseif v752.kind.type == "conditional" then
-            local v762 = v752.kind.value:encode();
-            local v763, v764 = v0.writeTag(v753, v754, 4, v0.wireTypes.lengthDelimited);
+            v750 = v760;
+            v751 = v761;
+        elseif v749.kind.type == "translation" then
+            local v762 = v749.kind.value:encode();
+            local v763, v764 = v0.writeTag(v750, v751, 5, v0.wireTypes.lengthDelimited);
             v763, v764 = v0.writeBuffer(v763, v764, v762, buffer.len(v762));
-            v753 = v763;
-            v754 = v764;
+            v750 = v763;
+            v751 = v764;
         end;
     end;
-    local v765 = buffer.create(v754);
-    buffer.copy(v765, 0, v753, 0, v754);
+    local v765 = buffer.create(v751);
+    buffer.copy(v765, 0, v750, 0, v751);
     return v765;
 end;
-v5.decode = function(v766) --[[ Line: 6637 ]] --[[ Name: decode ]]
+v5.decode = function(v766) --[[ Line: 6890 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_27 (copy), v0 (copy), v2 (copy)
     local v767 = l_v5_27.new();
     local v768 = 0;
@@ -3989,7 +4018,16 @@ v5.decode = function(v766) --[[ Line: 6637 ]] --[[ Name: decode ]]
                 v768 = v773;
                 v767.kind = {
                     type = "conditional", 
-                    value = v2.ImageSetProp_ConditionalOptions.decode(v771)
+                    value = v2.ImageStringProp_ConditionalOptions.decode(v771)
+                };
+            elseif v769 == 5 then
+                v771 = nil;
+                v772, v773 = v0.readBuffer(v766, v768);
+                v771 = v772;
+                v768 = v773;
+                v767.kind = {
+                    type = "translation", 
+                    value = v2.TranslationRef.decode(v771)
                 };
             else
                 v771 = nil;
@@ -4012,7 +4050,7 @@ v5.decode = function(v766) --[[ Line: 6637 ]] --[[ Name: decode ]]
     end;
     return v767;
 end;
-v5.jsonEncode = function(v774) --[[ Line: 6695 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v774) --[[ Line: 6954 ]] --[[ Name: jsonEncode ]]
     local v775 = {};
     if v774.kind ~= nil then
         if v774.kind.type == "literal" then
@@ -4026,11 +4064,14 @@ v5.jsonEncode = function(v774) --[[ Line: 6695 ]] --[[ Name: jsonEncode ]]
             return v775;
         elseif v774.kind.type == "conditional" then
             v775.conditional = v774.kind.value:jsonEncode();
+            return v775;
+        elseif v774.kind.type == "translation" then
+            v775.translation = v774.kind.value:jsonEncode();
         end;
     end;
     return v775;
 end;
-v5.jsonDecode = function(v776) --[[ Line: 6713 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v776) --[[ Line: 6974 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_27 (copy), v2 (copy)
     local v777 = l_v5_27.new();
     if v776.literal ~= nil then
@@ -4060,28 +4101,34 @@ v5.jsonDecode = function(v776) --[[ Line: 6713 ]] --[[ Name: jsonDecode ]]
     if v776.conditional ~= nil then
         v777.kind = {
             type = "conditional", 
-            value = v2.ImageSetProp_ConditionalOptions.jsonDecode(v776.conditional)
+            value = v2.ImageStringProp_ConditionalOptions.jsonDecode(v776.conditional)
+        };
+    end;
+    if v776.translation ~= nil then
+        v777.kind = {
+            type = "translation", 
+            value = v2.TranslationRef.jsonDecode(v776.translation)
         };
     end;
     return v777;
 end;
 v5.descriptor = {
-    name = "ImageSetProp", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.ImageSetProp"
+    name = "ImageStringProp", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ImageStringProp"
 };
-v2.ImageSetProp = v5;
-v1.default:register(v2.ImageSetProp);
+v2.ImageStringProp = v5;
+v1.default:register(v2.ImageStringProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_28 = v5 --[[ copy: 5 -> 34 ]];
-v5.new = function(v779) --[[ Line: 6754 ]] --[[ Name: new ]]
+v5.new = function(v779) --[[ Line: 7021 ]] --[[ Name: new ]]
     -- upvalues: l_v5_28 (copy)
     return (setmetatable({
         condition = if not (v779 ~= nil) or v779.condition == nil then nil else v779.condition, 
         kind = if not (v779 ~= nil) or v779.kind == nil then nil else v779.kind
     }, l_v5_28));
 end;
-v5.encode = function(v780) --[[ Line: 6763 ]] --[[ Name: encode ]]
+v5.encode = function(v780) --[[ Line: 7030 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v781 = buffer.create(0);
     local v782 = 0;
@@ -4109,132 +4156,649 @@ v5.encode = function(v780) --[[ Line: 6763 ]] --[[ Name: encode ]]
             v791, v792 = v0.writeBuffer(v791, v792, v790, buffer.len(v790));
             v781 = v791;
             v782 = v792;
+        elseif v780.kind.type == "translation" then
+            local v793 = v780.kind.value:encode();
+            local v794, v795 = v0.writeTag(v781, v782, 5, v0.wireTypes.lengthDelimited);
+            v794, v795 = v0.writeBuffer(v794, v795, v793, buffer.len(v793));
+            v781 = v794;
+            v782 = v795;
         end;
     end;
-    local v793 = buffer.create(v782);
-    buffer.copy(v793, 0, v781, 0, v782);
-    return v793;
+    local v796 = buffer.create(v782);
+    buffer.copy(v796, 0, v781, 0, v782);
+    return v796;
 end;
-v5.decode = function(v794) --[[ Line: 6792 ]] --[[ Name: decode ]]
+v5.decode = function(v797) --[[ Line: 7063 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_28 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v795 = l_v5_28.new();
-    local v796 = 0;
-    while v796 < buffer.len(v794) do
-        local v797 = nil;
-        local v798 = nil;
-        local v799, v800, v801 = v0.readTag(v794, v796);
-        v797 = v799;
-        v798 = v800;
-        v796 = v801;
-        if v798 == v0.wireTypes.varint then
-            v799 = nil;
-            v800, v801 = v0.readVarInt(v794, v796);
-            v799 = v800;
-            v796 = v801;
-        elseif v798 == v0.wireTypes.lengthDelimited then
-            if v797 == 1 then
-                v799 = nil;
-                v800, v801 = v0.readBuffer(v794, v796);
-                v799 = v800;
-                v796 = v801;
-                v795.condition = v4.PropCondition.decode(v799);
-            elseif v797 == 2 then
-                v799 = nil;
-                v800, v801 = v0.readBuffer(v794, v796);
-                v799 = v800;
-                v796 = v801;
-                v795.kind = {
+    local v798 = l_v5_28.new();
+    local v799 = 0;
+    while v799 < buffer.len(v797) do
+        local v800 = nil;
+        local v801 = nil;
+        local v802, v803, v804 = v0.readTag(v797, v799);
+        v800 = v802;
+        v801 = v803;
+        v799 = v804;
+        if v801 == v0.wireTypes.varint then
+            v802 = nil;
+            v803, v804 = v0.readVarInt(v797, v799);
+            v802 = v803;
+            v799 = v804;
+        elseif v801 == v0.wireTypes.lengthDelimited then
+            if v800 == 1 then
+                v802 = nil;
+                v803, v804 = v0.readBuffer(v797, v799);
+                v802 = v803;
+                v799 = v804;
+                v798.condition = v4.PropCondition.decode(v802);
+            elseif v800 == 2 then
+                v802 = nil;
+                v803, v804 = v0.readBuffer(v797, v799);
+                v802 = v803;
+                v799 = v804;
+                v798.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v799)
+                    value = buffer.tostring(v802)
                 };
-            elseif v797 == 3 then
-                v799 = nil;
-                v800, v801 = v0.readBuffer(v794, v796);
-                v799 = v800;
-                v796 = v801;
-                v795.kind = {
+            elseif v800 == 3 then
+                v802 = nil;
+                v803, v804 = v0.readBuffer(v797, v799);
+                v802 = v803;
+                v799 = v804;
+                v798.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v799)
+                    value = buffer.tostring(v802)
                 };
-            elseif v797 == 4 then
-                v799 = nil;
-                v800, v801 = v0.readBuffer(v794, v796);
-                v799 = v800;
-                v796 = v801;
-                v795.kind = {
+            elseif v800 == 4 then
+                v802 = nil;
+                v803, v804 = v0.readBuffer(v797, v799);
+                v802 = v803;
+                v799 = v804;
+                v798.kind = {
                     type = "format", 
-                    value = v2.StringFormat.decode(v799)
+                    value = v2.StringFormat.decode(v802)
+                };
+            elseif v800 == 5 then
+                v802 = nil;
+                v803, v804 = v0.readBuffer(v797, v799);
+                v802 = v803;
+                v799 = v804;
+                v798.kind = {
+                    type = "translation", 
+                    value = v2.TranslationRef.decode(v802)
                 };
             else
-                v799 = nil;
-                v800, v801 = v0.readVarInt(v794, v796);
-                v796 = v801 + v800;
+                v802 = nil;
+                v803, v804 = v0.readVarInt(v797, v799);
+                v799 = v804 + v803;
             end;
-        elseif v798 == v0.wireTypes.i32 then
-            v799 = nil;
-            v800, v801 = v0.readFixed32(v794, v796);
-            v799 = v800;
-            v796 = v801;
-        elseif v798 == v0.wireTypes.i64 then
-            v799 = nil;
-            v800, v801 = v0.readFixed64(v794, v796);
-            v799 = v800;
-            v796 = v801;
+        elseif v801 == v0.wireTypes.i32 then
+            v802 = nil;
+            v803, v804 = v0.readFixed32(v797, v799);
+            v802 = v803;
+            v799 = v804;
+        elseif v801 == v0.wireTypes.i64 then
+            v802 = nil;
+            v803, v804 = v0.readFixed64(v797, v799);
+            v802 = v803;
+            v799 = v804;
         else
-            error("Unsupported wire type: " .. v798);
+            error("Unsupported wire type: " .. v801);
         end;
     end;
-    return v795;
+    return v798;
 end;
-v5.jsonEncode = function(v802) --[[ Line: 6850 ]] --[[ Name: jsonEncode ]]
-    local v803 = {};
-    if v802.condition ~= nil then
-        v803.condition = v802.condition:jsonEncode();
+v5.jsonEncode = function(v805) --[[ Line: 7126 ]] --[[ Name: jsonEncode ]]
+    local v806 = {};
+    if v805.condition ~= nil then
+        v806.condition = v805.condition:jsonEncode();
     end;
-    if v802.kind ~= nil then
-        if v802.kind.type == "literal" then
-            v803.literal = v802.kind.value;
-            return v803;
-        elseif v802.kind.type == "binding_path" then
-            v803.bindingPath = v802.kind.value;
-            return v803;
-        elseif v802.kind.type == "format" then
-            v803.format = v802.kind.value:jsonEncode();
+    if v805.kind ~= nil then
+        if v805.kind.type == "literal" then
+            v806.literal = v805.kind.value;
+            return v806;
+        elseif v805.kind.type == "binding_path" then
+            v806.bindingPath = v805.kind.value;
+            return v806;
+        elseif v805.kind.type == "format" then
+            v806.format = v805.kind.value:jsonEncode();
+            return v806;
+        elseif v805.kind.type == "translation" then
+            v806.translation = v805.kind.value:jsonEncode();
         end;
     end;
-    return v803;
+    return v806;
 end;
-v5.jsonDecode = function(v804) --[[ Line: 6870 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v807) --[[ Line: 7148 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_28 (copy), v4 (copy), v2 (copy)
-    local v805 = l_v5_28.new();
-    if v804.condition ~= nil then
-        v805.condition = v4.PropCondition.jsonDecode(v804.condition);
+    local v808 = l_v5_28.new();
+    if v807.condition ~= nil then
+        v808.condition = v4.PropCondition.jsonDecode(v807.condition);
     end;
-    if v804.literal ~= nil then
-        v805.kind = {
+    if v807.literal ~= nil then
+        v808.kind = {
             type = "literal", 
-            value = v804.literal
+            value = v807.literal
         };
     end;
-    if v804.binding_path ~= nil then
-        v805.kind = {
+    if v807.binding_path ~= nil then
+        v808.kind = {
             type = "binding_path", 
-            value = v804.binding_path
+            value = v807.binding_path
         };
     end;
-    if v804.bindingPath ~= nil then
-        v805.kind = {
+    if v807.bindingPath ~= nil then
+        v808.kind = {
             type = "binding_path", 
-            value = v804.bindingPath
+            value = v807.bindingPath
         };
     end;
-    if v804.format ~= nil then
-        v805.kind = {
+    if v807.format ~= nil then
+        v808.kind = {
             type = "format", 
-            value = v2.StringFormat.jsonDecode(v804.format)
+            value = v2.StringFormat.jsonDecode(v807.format)
         };
     end;
-    return v805;
+    if v807.translation ~= nil then
+        v808.kind = {
+            type = "translation", 
+            value = v2.TranslationRef.jsonDecode(v807.translation)
+        };
+    end;
+    return v808;
+end;
+v5.descriptor = {
+    name = "ImageStringProp_ConditionalOption", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption"
+};
+v2.ImageStringProp_ConditionalOption = v5;
+v1.default:register(v2.ImageStringProp_ConditionalOption);
+v5 = {};
+v5.__index = v5;
+local l_v5_29 = v5 --[[ copy: 5 -> 35 ]];
+v5.new = function(v810) --[[ Line: 7195 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_29 (copy)
+    return (setmetatable({
+        options = if not (v810 ~= nil) or v810.options == nil then {} else v810.options
+    }, l_v5_29));
+end;
+v5.encode = function(v811) --[[ Line: 7203 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v812 = buffer.create(0);
+    local v813 = 0;
+    if v811.options ~= nil and #v811.options > 0 then
+        for _, v815 in v811.options do
+            local v816 = v815:encode();
+            local v817, v818 = v0.writeTag(v812, v813, 1, v0.wireTypes.lengthDelimited);
+            v817, v818 = v0.writeBuffer(v817, v818, v816, buffer.len(v816));
+            v812 = v817;
+            v813 = v818;
+        end;
+    end;
+    local v819 = buffer.create(v813);
+    buffer.copy(v819, 0, v812, 0, v813);
+    return v819;
+end;
+v5.decode = function(v820) --[[ Line: 7220 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_29 (copy), v0 (copy), v2 (copy)
+    local v821 = l_v5_29.new();
+    local v822 = 0;
+    while v822 < buffer.len(v820) do
+        local v823 = nil;
+        local v824 = nil;
+        local v825, v826, v827 = v0.readTag(v820, v822);
+        v823 = v825;
+        v824 = v826;
+        v822 = v827;
+        if v824 == v0.wireTypes.varint then
+            v825 = nil;
+            v826, v827 = v0.readVarInt(v820, v822);
+            v825 = v826;
+            v822 = v827;
+        elseif v824 == v0.wireTypes.lengthDelimited then
+            if v823 == 1 then
+                v825 = nil;
+                v826, v827 = v0.readBuffer(v820, v822);
+                v825 = v826;
+                v822 = v827;
+                table.insert(v821.options, v2.ImageStringProp_ConditionalOption.decode(v825));
+            else
+                v825 = nil;
+                v826, v827 = v0.readVarInt(v820, v822);
+                v822 = v827 + v826;
+            end;
+        elseif v824 == v0.wireTypes.i32 then
+            v825 = nil;
+            v826, v827 = v0.readFixed32(v820, v822);
+            v825 = v826;
+            v822 = v827;
+        elseif v824 == v0.wireTypes.i64 then
+            v825 = nil;
+            v826, v827 = v0.readFixed64(v820, v822);
+            v825 = v826;
+            v822 = v827;
+        else
+            error("Unsupported wire type: " .. v824);
+        end;
+    end;
+    return v821;
+end;
+v5.jsonEncode = function(v828) --[[ Line: 7263 ]] --[[ Name: jsonEncode ]]
+    local v829 = {};
+    if v828.options ~= nil and #v828.options > 0 then
+        local v830 = {};
+        for _, v832 in v828.options do
+            table.insert(v830, v832:jsonEncode());
+        end;
+        v829.options = v830;
+    end;
+    return v829;
+end;
+v5.jsonDecode = function(v833) --[[ Line: 7277 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_29 (copy), v2 (copy)
+    local v834 = l_v5_29.new();
+    if v833.options ~= nil then
+        local v835 = {};
+        for _, v837 in v833.options do
+            table.insert(v835, v2.ImageStringProp_ConditionalOption.jsonDecode(v837));
+        end;
+        v834.options = v835;
+    end;
+    return v834;
+end;
+v5.descriptor = {
+    name = "ImageStringProp_ConditionalOptions", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions"
+};
+v2.ImageStringProp_ConditionalOptions = v5;
+v1.default:register(v2.ImageStringProp_ConditionalOptions);
+v5 = {};
+v5.__index = v5;
+local l_v5_30 = v5 --[[ copy: 5 -> 36 ]];
+v5.new = function(v839) --[[ Line: 7308 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_30 (copy)
+    return (setmetatable({
+        kind = if not (v839 ~= nil) or v839.kind == nil then nil else v839.kind
+    }, l_v5_30));
+end;
+v5.encode = function(v840) --[[ Line: 7314 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v841 = buffer.create(0);
+    local v842 = 0;
+    if v840.kind ~= nil then
+        if v840.kind.type == "literal" then
+            local v843, v844 = v0.writeTag(v841, v842, 1, v0.wireTypes.lengthDelimited);
+            v843, v844 = v0.writeString(v843, v844, v840.kind.value);
+            v841 = v843;
+            v842 = v844;
+        elseif v840.kind.type == "binding_path" then
+            local v845, v846 = v0.writeTag(v841, v842, 2, v0.wireTypes.lengthDelimited);
+            v845, v846 = v0.writeString(v845, v846, v840.kind.value);
+            v841 = v845;
+            v842 = v846;
+        elseif v840.kind.type == "format" then
+            local v847 = v840.kind.value:encode();
+            local v848, v849 = v0.writeTag(v841, v842, 3, v0.wireTypes.lengthDelimited);
+            v848, v849 = v0.writeBuffer(v848, v849, v847, buffer.len(v847));
+            v841 = v848;
+            v842 = v849;
+        elseif v840.kind.type == "conditional" then
+            local v850 = v840.kind.value:encode();
+            local v851, v852 = v0.writeTag(v841, v842, 4, v0.wireTypes.lengthDelimited);
+            v851, v852 = v0.writeBuffer(v851, v852, v850, buffer.len(v850));
+            v841 = v851;
+            v842 = v852;
+        elseif v840.kind.type == "translation" then
+            local v853 = v840.kind.value:encode();
+            local v854, v855 = v0.writeTag(v841, v842, 5, v0.wireTypes.lengthDelimited);
+            v854, v855 = v0.writeBuffer(v854, v855, v853, buffer.len(v853));
+            v841 = v854;
+            v842 = v855;
+        end;
+    end;
+    local v856 = buffer.create(v842);
+    buffer.copy(v856, 0, v841, 0, v842);
+    return v856;
+end;
+v5.decode = function(v857) --[[ Line: 7345 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_30 (copy), v0 (copy), v2 (copy)
+    local v858 = l_v5_30.new();
+    local v859 = 0;
+    while v859 < buffer.len(v857) do
+        local v860 = nil;
+        local v861 = nil;
+        local v862, v863, v864 = v0.readTag(v857, v859);
+        v860 = v862;
+        v861 = v863;
+        v859 = v864;
+        if v861 == v0.wireTypes.varint then
+            v862 = nil;
+            v863, v864 = v0.readVarInt(v857, v859);
+            v862 = v863;
+            v859 = v864;
+        elseif v861 == v0.wireTypes.lengthDelimited then
+            if v860 == 1 then
+                v862 = nil;
+                v863, v864 = v0.readBuffer(v857, v859);
+                v862 = v863;
+                v859 = v864;
+                v858.kind = {
+                    type = "literal", 
+                    value = buffer.tostring(v862)
+                };
+            elseif v860 == 2 then
+                v862 = nil;
+                v863, v864 = v0.readBuffer(v857, v859);
+                v862 = v863;
+                v859 = v864;
+                v858.kind = {
+                    type = "binding_path", 
+                    value = buffer.tostring(v862)
+                };
+            elseif v860 == 3 then
+                v862 = nil;
+                v863, v864 = v0.readBuffer(v857, v859);
+                v862 = v863;
+                v859 = v864;
+                v858.kind = {
+                    type = "format", 
+                    value = v2.StringFormat.decode(v862)
+                };
+            elseif v860 == 4 then
+                v862 = nil;
+                v863, v864 = v0.readBuffer(v857, v859);
+                v862 = v863;
+                v859 = v864;
+                v858.kind = {
+                    type = "conditional", 
+                    value = v2.ImageSetProp_ConditionalOptions.decode(v862)
+                };
+            elseif v860 == 5 then
+                v862 = nil;
+                v863, v864 = v0.readBuffer(v857, v859);
+                v862 = v863;
+                v859 = v864;
+                v858.kind = {
+                    type = "translation", 
+                    value = v2.TranslationRef.decode(v862)
+                };
+            else
+                v862 = nil;
+                v863, v864 = v0.readVarInt(v857, v859);
+                v859 = v864 + v863;
+            end;
+        elseif v861 == v0.wireTypes.i32 then
+            v862 = nil;
+            v863, v864 = v0.readFixed32(v857, v859);
+            v862 = v863;
+            v859 = v864;
+        elseif v861 == v0.wireTypes.i64 then
+            v862 = nil;
+            v863, v864 = v0.readFixed64(v857, v859);
+            v862 = v863;
+            v859 = v864;
+        else
+            error("Unsupported wire type: " .. v861);
+        end;
+    end;
+    return v858;
+end;
+v5.jsonEncode = function(v865) --[[ Line: 7408 ]] --[[ Name: jsonEncode ]]
+    local v866 = {};
+    if v865.kind ~= nil then
+        if v865.kind.type == "literal" then
+            v866.literal = v865.kind.value;
+            return v866;
+        elseif v865.kind.type == "binding_path" then
+            v866.bindingPath = v865.kind.value;
+            return v866;
+        elseif v865.kind.type == "format" then
+            v866.format = v865.kind.value:jsonEncode();
+            return v866;
+        elseif v865.kind.type == "conditional" then
+            v866.conditional = v865.kind.value:jsonEncode();
+            return v866;
+        elseif v865.kind.type == "translation" then
+            v866.translation = v865.kind.value:jsonEncode();
+        end;
+    end;
+    return v866;
+end;
+v5.jsonDecode = function(v867) --[[ Line: 7428 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_30 (copy), v2 (copy)
+    local v868 = l_v5_30.new();
+    if v867.literal ~= nil then
+        v868.kind = {
+            type = "literal", 
+            value = v867.literal
+        };
+    end;
+    if v867.binding_path ~= nil then
+        v868.kind = {
+            type = "binding_path", 
+            value = v867.binding_path
+        };
+    end;
+    if v867.bindingPath ~= nil then
+        v868.kind = {
+            type = "binding_path", 
+            value = v867.bindingPath
+        };
+    end;
+    if v867.format ~= nil then
+        v868.kind = {
+            type = "format", 
+            value = v2.StringFormat.jsonDecode(v867.format)
+        };
+    end;
+    if v867.conditional ~= nil then
+        v868.kind = {
+            type = "conditional", 
+            value = v2.ImageSetProp_ConditionalOptions.jsonDecode(v867.conditional)
+        };
+    end;
+    if v867.translation ~= nil then
+        v868.kind = {
+            type = "translation", 
+            value = v2.TranslationRef.jsonDecode(v867.translation)
+        };
+    end;
+    return v868;
+end;
+v5.descriptor = {
+    name = "ImageSetProp", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ImageSetProp"
+};
+v2.ImageSetProp = v5;
+v1.default:register(v2.ImageSetProp);
+v5 = {};
+v5.__index = v5;
+local l_v5_31 = v5 --[[ copy: 5 -> 37 ]];
+v5.new = function(v870) --[[ Line: 7473 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_31 (copy)
+    return (setmetatable({
+        condition = if not (v870 ~= nil) or v870.condition == nil then nil else v870.condition, 
+        kind = if not (v870 ~= nil) or v870.kind == nil then nil else v870.kind
+    }, l_v5_31));
+end;
+v5.encode = function(v871) --[[ Line: 7482 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v872 = buffer.create(0);
+    local v873 = 0;
+    if v871.condition ~= nil then
+        local v874 = v871.condition:encode();
+        local v875, v876 = v0.writeTag(v872, v873, 1, v0.wireTypes.lengthDelimited);
+        v875, v876 = v0.writeBuffer(v875, v876, v874, buffer.len(v874));
+        v872 = v875;
+        v873 = v876;
+    end;
+    if v871.kind ~= nil then
+        if v871.kind.type == "literal" then
+            local v877, v878 = v0.writeTag(v872, v873, 2, v0.wireTypes.lengthDelimited);
+            v877, v878 = v0.writeString(v877, v878, v871.kind.value);
+            v872 = v877;
+            v873 = v878;
+        elseif v871.kind.type == "binding_path" then
+            local v879, v880 = v0.writeTag(v872, v873, 3, v0.wireTypes.lengthDelimited);
+            v879, v880 = v0.writeString(v879, v880, v871.kind.value);
+            v872 = v879;
+            v873 = v880;
+        elseif v871.kind.type == "format" then
+            local v881 = v871.kind.value:encode();
+            local v882, v883 = v0.writeTag(v872, v873, 4, v0.wireTypes.lengthDelimited);
+            v882, v883 = v0.writeBuffer(v882, v883, v881, buffer.len(v881));
+            v872 = v882;
+            v873 = v883;
+        elseif v871.kind.type == "translation" then
+            local v884 = v871.kind.value:encode();
+            local v885, v886 = v0.writeTag(v872, v873, 5, v0.wireTypes.lengthDelimited);
+            v885, v886 = v0.writeBuffer(v885, v886, v884, buffer.len(v884));
+            v872 = v885;
+            v873 = v886;
+        end;
+    end;
+    local v887 = buffer.create(v873);
+    buffer.copy(v887, 0, v872, 0, v873);
+    return v887;
+end;
+v5.decode = function(v888) --[[ Line: 7515 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_31 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v889 = l_v5_31.new();
+    local v890 = 0;
+    while v890 < buffer.len(v888) do
+        local v891 = nil;
+        local v892 = nil;
+        local v893, v894, v895 = v0.readTag(v888, v890);
+        v891 = v893;
+        v892 = v894;
+        v890 = v895;
+        if v892 == v0.wireTypes.varint then
+            v893 = nil;
+            v894, v895 = v0.readVarInt(v888, v890);
+            v893 = v894;
+            v890 = v895;
+        elseif v892 == v0.wireTypes.lengthDelimited then
+            if v891 == 1 then
+                v893 = nil;
+                v894, v895 = v0.readBuffer(v888, v890);
+                v893 = v894;
+                v890 = v895;
+                v889.condition = v4.PropCondition.decode(v893);
+            elseif v891 == 2 then
+                v893 = nil;
+                v894, v895 = v0.readBuffer(v888, v890);
+                v893 = v894;
+                v890 = v895;
+                v889.kind = {
+                    type = "literal", 
+                    value = buffer.tostring(v893)
+                };
+            elseif v891 == 3 then
+                v893 = nil;
+                v894, v895 = v0.readBuffer(v888, v890);
+                v893 = v894;
+                v890 = v895;
+                v889.kind = {
+                    type = "binding_path", 
+                    value = buffer.tostring(v893)
+                };
+            elseif v891 == 4 then
+                v893 = nil;
+                v894, v895 = v0.readBuffer(v888, v890);
+                v893 = v894;
+                v890 = v895;
+                v889.kind = {
+                    type = "format", 
+                    value = v2.StringFormat.decode(v893)
+                };
+            elseif v891 == 5 then
+                v893 = nil;
+                v894, v895 = v0.readBuffer(v888, v890);
+                v893 = v894;
+                v890 = v895;
+                v889.kind = {
+                    type = "translation", 
+                    value = v2.TranslationRef.decode(v893)
+                };
+            else
+                v893 = nil;
+                v894, v895 = v0.readVarInt(v888, v890);
+                v890 = v895 + v894;
+            end;
+        elseif v892 == v0.wireTypes.i32 then
+            v893 = nil;
+            v894, v895 = v0.readFixed32(v888, v890);
+            v893 = v894;
+            v890 = v895;
+        elseif v892 == v0.wireTypes.i64 then
+            v893 = nil;
+            v894, v895 = v0.readFixed64(v888, v890);
+            v893 = v894;
+            v890 = v895;
+        else
+            error("Unsupported wire type: " .. v892);
+        end;
+    end;
+    return v889;
+end;
+v5.jsonEncode = function(v896) --[[ Line: 7578 ]] --[[ Name: jsonEncode ]]
+    local v897 = {};
+    if v896.condition ~= nil then
+        v897.condition = v896.condition:jsonEncode();
+    end;
+    if v896.kind ~= nil then
+        if v896.kind.type == "literal" then
+            v897.literal = v896.kind.value;
+            return v897;
+        elseif v896.kind.type == "binding_path" then
+            v897.bindingPath = v896.kind.value;
+            return v897;
+        elseif v896.kind.type == "format" then
+            v897.format = v896.kind.value:jsonEncode();
+            return v897;
+        elseif v896.kind.type == "translation" then
+            v897.translation = v896.kind.value:jsonEncode();
+        end;
+    end;
+    return v897;
+end;
+v5.jsonDecode = function(v898) --[[ Line: 7600 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_31 (copy), v4 (copy), v2 (copy)
+    local v899 = l_v5_31.new();
+    if v898.condition ~= nil then
+        v899.condition = v4.PropCondition.jsonDecode(v898.condition);
+    end;
+    if v898.literal ~= nil then
+        v899.kind = {
+            type = "literal", 
+            value = v898.literal
+        };
+    end;
+    if v898.binding_path ~= nil then
+        v899.kind = {
+            type = "binding_path", 
+            value = v898.binding_path
+        };
+    end;
+    if v898.bindingPath ~= nil then
+        v899.kind = {
+            type = "binding_path", 
+            value = v898.bindingPath
+        };
+    end;
+    if v898.format ~= nil then
+        v899.kind = {
+            type = "format", 
+            value = v2.StringFormat.jsonDecode(v898.format)
+        };
+    end;
+    if v898.translation ~= nil then
+        v899.kind = {
+            type = "translation", 
+            value = v2.TranslationRef.jsonDecode(v898.translation)
+        };
+    end;
+    return v899;
 end;
 v5.descriptor = {
     name = "ImageSetProp_ConditionalOption", 
@@ -4244,96 +4808,96 @@ v2.ImageSetProp_ConditionalOption = v5;
 v1.default:register(v2.ImageSetProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_29 = v5 --[[ copy: 5 -> 35 ]];
-v5.new = function(v807) --[[ Line: 6911 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_29 (copy)
+local l_v5_32 = v5 --[[ copy: 5 -> 38 ]];
+v5.new = function(v901) --[[ Line: 7645 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_32 (copy)
     return (setmetatable({
-        options = if not (v807 ~= nil) or v807.options == nil then {} else v807.options
-    }, l_v5_29));
+        options = if not (v901 ~= nil) or v901.options == nil then {} else v901.options
+    }, l_v5_32));
 end;
-v5.encode = function(v808) --[[ Line: 6919 ]] --[[ Name: encode ]]
+v5.encode = function(v902) --[[ Line: 7653 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v809 = buffer.create(0);
-    local v810 = 0;
-    if v808.options ~= nil and #v808.options > 0 then
-        for _, v812 in v808.options do
-            local v813 = v812:encode();
-            local v814, v815 = v0.writeTag(v809, v810, 1, v0.wireTypes.lengthDelimited);
-            v814, v815 = v0.writeBuffer(v814, v815, v813, buffer.len(v813));
-            v809 = v814;
-            v810 = v815;
+    local v903 = buffer.create(0);
+    local v904 = 0;
+    if v902.options ~= nil and #v902.options > 0 then
+        for _, v906 in v902.options do
+            local v907 = v906:encode();
+            local v908, v909 = v0.writeTag(v903, v904, 1, v0.wireTypes.lengthDelimited);
+            v908, v909 = v0.writeBuffer(v908, v909, v907, buffer.len(v907));
+            v903 = v908;
+            v904 = v909;
         end;
     end;
-    local v816 = buffer.create(v810);
-    buffer.copy(v816, 0, v809, 0, v810);
-    return v816;
+    local v910 = buffer.create(v904);
+    buffer.copy(v910, 0, v903, 0, v904);
+    return v910;
 end;
-v5.decode = function(v817) --[[ Line: 6936 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_29 (copy), v0 (copy), v2 (copy)
-    local v818 = l_v5_29.new();
-    local v819 = 0;
-    while v819 < buffer.len(v817) do
-        local v820 = nil;
-        local v821 = nil;
-        local v822, v823, v824 = v0.readTag(v817, v819);
-        v820 = v822;
-        v821 = v823;
-        v819 = v824;
-        if v821 == v0.wireTypes.varint then
-            v822 = nil;
-            v823, v824 = v0.readVarInt(v817, v819);
-            v822 = v823;
-            v819 = v824;
-        elseif v821 == v0.wireTypes.lengthDelimited then
-            if v820 == 1 then
-                v822 = nil;
-                v823, v824 = v0.readBuffer(v817, v819);
-                v822 = v823;
-                v819 = v824;
-                table.insert(v818.options, v2.ImageSetProp_ConditionalOption.decode(v822));
+v5.decode = function(v911) --[[ Line: 7670 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_32 (copy), v0 (copy), v2 (copy)
+    local v912 = l_v5_32.new();
+    local v913 = 0;
+    while v913 < buffer.len(v911) do
+        local v914 = nil;
+        local v915 = nil;
+        local v916, v917, v918 = v0.readTag(v911, v913);
+        v914 = v916;
+        v915 = v917;
+        v913 = v918;
+        if v915 == v0.wireTypes.varint then
+            v916 = nil;
+            v917, v918 = v0.readVarInt(v911, v913);
+            v916 = v917;
+            v913 = v918;
+        elseif v915 == v0.wireTypes.lengthDelimited then
+            if v914 == 1 then
+                v916 = nil;
+                v917, v918 = v0.readBuffer(v911, v913);
+                v916 = v917;
+                v913 = v918;
+                table.insert(v912.options, v2.ImageSetProp_ConditionalOption.decode(v916));
             else
-                v822 = nil;
-                v823, v824 = v0.readVarInt(v817, v819);
-                v819 = v824 + v823;
+                v916 = nil;
+                v917, v918 = v0.readVarInt(v911, v913);
+                v913 = v918 + v917;
             end;
-        elseif v821 == v0.wireTypes.i32 then
-            v822 = nil;
-            v823, v824 = v0.readFixed32(v817, v819);
-            v822 = v823;
-            v819 = v824;
-        elseif v821 == v0.wireTypes.i64 then
-            v822 = nil;
-            v823, v824 = v0.readFixed64(v817, v819);
-            v822 = v823;
-            v819 = v824;
+        elseif v915 == v0.wireTypes.i32 then
+            v916 = nil;
+            v917, v918 = v0.readFixed32(v911, v913);
+            v916 = v917;
+            v913 = v918;
+        elseif v915 == v0.wireTypes.i64 then
+            v916 = nil;
+            v917, v918 = v0.readFixed64(v911, v913);
+            v916 = v917;
+            v913 = v918;
         else
-            error("Unsupported wire type: " .. v821);
+            error("Unsupported wire type: " .. v915);
         end;
     end;
-    return v818;
+    return v912;
 end;
-v5.jsonEncode = function(v825) --[[ Line: 6979 ]] --[[ Name: jsonEncode ]]
-    local v826 = {};
-    if v825.options ~= nil and #v825.options > 0 then
-        local v827 = {};
-        for _, v829 in v825.options do
-            table.insert(v827, v829:jsonEncode());
+v5.jsonEncode = function(v919) --[[ Line: 7713 ]] --[[ Name: jsonEncode ]]
+    local v920 = {};
+    if v919.options ~= nil and #v919.options > 0 then
+        local v921 = {};
+        for _, v923 in v919.options do
+            table.insert(v921, v923:jsonEncode());
         end;
-        v826.options = v827;
+        v920.options = v921;
     end;
-    return v826;
+    return v920;
 end;
-v5.jsonDecode = function(v830) --[[ Line: 6993 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_29 (copy), v2 (copy)
-    local v831 = l_v5_29.new();
-    if v830.options ~= nil then
-        local v832 = {};
-        for _, v834 in v830.options do
-            table.insert(v832, v2.ImageSetProp_ConditionalOption.jsonDecode(v834));
+v5.jsonDecode = function(v924) --[[ Line: 7727 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_32 (copy), v2 (copy)
+    local v925 = l_v5_32.new();
+    if v924.options ~= nil then
+        local v926 = {};
+        for _, v928 in v924.options do
+            table.insert(v926, v2.ImageSetProp_ConditionalOption.jsonDecode(v928));
         end;
-        v831.options = v832;
+        v925.options = v926;
     end;
-    return v831;
+    return v925;
 end;
 v5.descriptor = {
     name = "ImageSetProp_ConditionalOptions", 
@@ -4343,171 +4907,171 @@ v2.ImageSetProp_ConditionalOptions = v5;
 v1.default:register(v2.ImageSetProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_30 = v5 --[[ copy: 5 -> 36 ]];
-v5.new = function(v836) --[[ Line: 7022 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_30 (copy)
+local l_v5_33 = v5 --[[ copy: 5 -> 39 ]];
+v5.new = function(v930) --[[ Line: 7756 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_33 (copy)
     return (setmetatable({
-        kind = if not (v836 ~= nil) or v836.kind == nil then nil else v836.kind
-    }, l_v5_30));
+        kind = if not (v930 ~= nil) or v930.kind == nil then nil else v930.kind
+    }, l_v5_33));
 end;
-v5.encode = function(v837) --[[ Line: 7028 ]] --[[ Name: encode ]]
+v5.encode = function(v931) --[[ Line: 7762 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v838 = buffer.create(0);
-    local v839 = 0;
-    if v837.kind ~= nil then
-        if v837.kind.type == "literal" then
-            local v840, v841 = v0.writeTag(v838, v839, 1, v0.wireTypes.lengthDelimited);
-            v840, v841 = v0.writeString(v840, v841, v837.kind.value);
-            v838 = v840;
-            v839 = v841;
-        elseif v837.kind.type == "token" then
-            local v842, v843 = v0.writeTag(v838, v839, 2, v0.wireTypes.lengthDelimited);
-            v842, v843 = v0.writeString(v842, v843, v837.kind.value);
-            v838 = v842;
-            v839 = v843;
-        elseif v837.kind.type == "conditional" then
-            local v844 = v837.kind.value:encode();
-            local v845, v846 = v0.writeTag(v838, v839, 3, v0.wireTypes.lengthDelimited);
-            v845, v846 = v0.writeBuffer(v845, v846, v844, buffer.len(v844));
-            v838 = v845;
-            v839 = v846;
-        elseif v837.kind.type == "binding_path" then
-            local v847, v848 = v0.writeTag(v838, v839, 4, v0.wireTypes.lengthDelimited);
-            v847, v848 = v0.writeString(v847, v848, v837.kind.value);
-            v838 = v847;
-            v839 = v848;
+    local v932 = buffer.create(0);
+    local v933 = 0;
+    if v931.kind ~= nil then
+        if v931.kind.type == "literal" then
+            local v934, v935 = v0.writeTag(v932, v933, 1, v0.wireTypes.lengthDelimited);
+            v934, v935 = v0.writeString(v934, v935, v931.kind.value);
+            v932 = v934;
+            v933 = v935;
+        elseif v931.kind.type == "token" then
+            local v936, v937 = v0.writeTag(v932, v933, 2, v0.wireTypes.lengthDelimited);
+            v936, v937 = v0.writeString(v936, v937, v931.kind.value);
+            v932 = v936;
+            v933 = v937;
+        elseif v931.kind.type == "conditional" then
+            local v938 = v931.kind.value:encode();
+            local v939, v940 = v0.writeTag(v932, v933, 3, v0.wireTypes.lengthDelimited);
+            v939, v940 = v0.writeBuffer(v939, v940, v938, buffer.len(v938));
+            v932 = v939;
+            v933 = v940;
+        elseif v931.kind.type == "binding_path" then
+            local v941, v942 = v0.writeTag(v932, v933, 4, v0.wireTypes.lengthDelimited);
+            v941, v942 = v0.writeString(v941, v942, v931.kind.value);
+            v932 = v941;
+            v933 = v942;
         end;
     end;
-    local v849 = buffer.create(v839);
-    buffer.copy(v849, 0, v838, 0, v839);
-    return v849;
+    local v943 = buffer.create(v933);
+    buffer.copy(v943, 0, v932, 0, v933);
+    return v943;
 end;
-v5.decode = function(v850) --[[ Line: 7054 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_30 (copy), v0 (copy), v2 (copy)
-    local v851 = l_v5_30.new();
-    local v852 = 0;
-    while v852 < buffer.len(v850) do
-        local v853 = nil;
-        local v854 = nil;
-        local v855, v856, v857 = v0.readTag(v850, v852);
-        v853 = v855;
-        v854 = v856;
-        v852 = v857;
-        if v854 == v0.wireTypes.varint then
-            v855 = nil;
-            v856, v857 = v0.readVarInt(v850, v852);
-            v855 = v856;
-            v852 = v857;
-        elseif v854 == v0.wireTypes.lengthDelimited then
-            if v853 == 1 then
-                v855 = nil;
-                v856, v857 = v0.readBuffer(v850, v852);
-                v855 = v856;
-                v852 = v857;
-                v851.kind = {
+v5.decode = function(v944) --[[ Line: 7788 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_33 (copy), v0 (copy), v2 (copy)
+    local v945 = l_v5_33.new();
+    local v946 = 0;
+    while v946 < buffer.len(v944) do
+        local v947 = nil;
+        local v948 = nil;
+        local v949, v950, v951 = v0.readTag(v944, v946);
+        v947 = v949;
+        v948 = v950;
+        v946 = v951;
+        if v948 == v0.wireTypes.varint then
+            v949 = nil;
+            v950, v951 = v0.readVarInt(v944, v946);
+            v949 = v950;
+            v946 = v951;
+        elseif v948 == v0.wireTypes.lengthDelimited then
+            if v947 == 1 then
+                v949 = nil;
+                v950, v951 = v0.readBuffer(v944, v946);
+                v949 = v950;
+                v946 = v951;
+                v945.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v855)
+                    value = buffer.tostring(v949)
                 };
-            elseif v853 == 2 then
-                v855 = nil;
-                v856, v857 = v0.readBuffer(v850, v852);
-                v855 = v856;
-                v852 = v857;
-                v851.kind = {
+            elseif v947 == 2 then
+                v949 = nil;
+                v950, v951 = v0.readBuffer(v944, v946);
+                v949 = v950;
+                v946 = v951;
+                v945.kind = {
                     type = "token", 
-                    value = buffer.tostring(v855)
+                    value = buffer.tostring(v949)
                 };
-            elseif v853 == 3 then
-                v855 = nil;
-                v856, v857 = v0.readBuffer(v850, v852);
-                v855 = v856;
-                v852 = v857;
-                v851.kind = {
+            elseif v947 == 3 then
+                v949 = nil;
+                v950, v951 = v0.readBuffer(v944, v946);
+                v949 = v950;
+                v946 = v951;
+                v945.kind = {
                     type = "conditional", 
-                    value = v2.ColorProp_ConditionalOptions.decode(v855)
+                    value = v2.ColorProp_ConditionalOptions.decode(v949)
                 };
-            elseif v853 == 4 then
-                v855 = nil;
-                v856, v857 = v0.readBuffer(v850, v852);
-                v855 = v856;
-                v852 = v857;
-                v851.kind = {
+            elseif v947 == 4 then
+                v949 = nil;
+                v950, v951 = v0.readBuffer(v944, v946);
+                v949 = v950;
+                v946 = v951;
+                v945.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v855)
+                    value = buffer.tostring(v949)
                 };
             else
-                v855 = nil;
-                v856, v857 = v0.readVarInt(v850, v852);
-                v852 = v857 + v856;
+                v949 = nil;
+                v950, v951 = v0.readVarInt(v944, v946);
+                v946 = v951 + v950;
             end;
-        elseif v854 == v0.wireTypes.i32 then
-            v855 = nil;
-            v856, v857 = v0.readFixed32(v850, v852);
-            v855 = v856;
-            v852 = v857;
-        elseif v854 == v0.wireTypes.i64 then
-            v855 = nil;
-            v856, v857 = v0.readFixed64(v850, v852);
-            v855 = v856;
-            v852 = v857;
+        elseif v948 == v0.wireTypes.i32 then
+            v949 = nil;
+            v950, v951 = v0.readFixed32(v944, v946);
+            v949 = v950;
+            v946 = v951;
+        elseif v948 == v0.wireTypes.i64 then
+            v949 = nil;
+            v950, v951 = v0.readFixed64(v944, v946);
+            v949 = v950;
+            v946 = v951;
         else
-            error("Unsupported wire type: " .. v854);
+            error("Unsupported wire type: " .. v948);
         end;
     end;
-    return v851;
+    return v945;
 end;
-v5.jsonEncode = function(v858) --[[ Line: 7112 ]] --[[ Name: jsonEncode ]]
-    local v859 = {};
-    if v858.kind ~= nil then
-        if v858.kind.type == "literal" then
-            v859.literal = v858.kind.value;
-            return v859;
-        elseif v858.kind.type == "token" then
-            v859.token = v858.kind.value;
-            return v859;
-        elseif v858.kind.type == "conditional" then
-            v859.conditional = v858.kind.value:jsonEncode();
-            return v859;
-        elseif v858.kind.type == "binding_path" then
-            v859.bindingPath = v858.kind.value;
+v5.jsonEncode = function(v952) --[[ Line: 7846 ]] --[[ Name: jsonEncode ]]
+    local v953 = {};
+    if v952.kind ~= nil then
+        if v952.kind.type == "literal" then
+            v953.literal = v952.kind.value;
+            return v953;
+        elseif v952.kind.type == "token" then
+            v953.token = v952.kind.value;
+            return v953;
+        elseif v952.kind.type == "conditional" then
+            v953.conditional = v952.kind.value:jsonEncode();
+            return v953;
+        elseif v952.kind.type == "binding_path" then
+            v953.bindingPath = v952.kind.value;
         end;
     end;
-    return v859;
+    return v953;
 end;
-v5.jsonDecode = function(v860) --[[ Line: 7130 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_30 (copy), v2 (copy)
-    local v861 = l_v5_30.new();
-    if v860.literal ~= nil then
-        v861.kind = {
+v5.jsonDecode = function(v954) --[[ Line: 7864 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_33 (copy), v2 (copy)
+    local v955 = l_v5_33.new();
+    if v954.literal ~= nil then
+        v955.kind = {
             type = "literal", 
-            value = v860.literal
+            value = v954.literal
         };
     end;
-    if v860.token ~= nil then
-        v861.kind = {
+    if v954.token ~= nil then
+        v955.kind = {
             type = "token", 
-            value = v860.token
+            value = v954.token
         };
     end;
-    if v860.conditional ~= nil then
-        v861.kind = {
+    if v954.conditional ~= nil then
+        v955.kind = {
             type = "conditional", 
-            value = v2.ColorProp_ConditionalOptions.jsonDecode(v860.conditional)
+            value = v2.ColorProp_ConditionalOptions.jsonDecode(v954.conditional)
         };
     end;
-    if v860.binding_path ~= nil then
-        v861.kind = {
+    if v954.binding_path ~= nil then
+        v955.kind = {
             type = "binding_path", 
-            value = v860.binding_path
+            value = v954.binding_path
         };
     end;
-    if v860.bindingPath ~= nil then
-        v861.kind = {
+    if v954.bindingPath ~= nil then
+        v955.kind = {
             type = "binding_path", 
-            value = v860.bindingPath
+            value = v954.bindingPath
         };
     end;
-    return v861;
+    return v955;
 end;
 v5.descriptor = {
     name = "ColorProp", 
@@ -4517,167 +5081,167 @@ v2.ColorProp = v5;
 v1.default:register(v2.ColorProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_31 = v5 --[[ copy: 5 -> 37 ]];
-v5.new = function(v863) --[[ Line: 7171 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_31 (copy)
+local l_v5_34 = v5 --[[ copy: 5 -> 40 ]];
+v5.new = function(v957) --[[ Line: 7905 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_34 (copy)
     return (setmetatable({
-        condition = if not (v863 ~= nil) or v863.condition == nil then nil else v863.condition, 
-        kind = if not (v863 ~= nil) or v863.kind == nil then nil else v863.kind
-    }, l_v5_31));
+        condition = if not (v957 ~= nil) or v957.condition == nil then nil else v957.condition, 
+        kind = if not (v957 ~= nil) or v957.kind == nil then nil else v957.kind
+    }, l_v5_34));
 end;
-v5.encode = function(v864) --[[ Line: 7180 ]] --[[ Name: encode ]]
+v5.encode = function(v958) --[[ Line: 7914 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v865 = buffer.create(0);
-    local v866 = 0;
-    if v864.condition ~= nil then
-        local v867 = v864.condition:encode();
-        local v868, v869 = v0.writeTag(v865, v866, 1, v0.wireTypes.lengthDelimited);
-        v868, v869 = v0.writeBuffer(v868, v869, v867, buffer.len(v867));
-        v865 = v868;
-        v866 = v869;
+    local v959 = buffer.create(0);
+    local v960 = 0;
+    if v958.condition ~= nil then
+        local v961 = v958.condition:encode();
+        local v962, v963 = v0.writeTag(v959, v960, 1, v0.wireTypes.lengthDelimited);
+        v962, v963 = v0.writeBuffer(v962, v963, v961, buffer.len(v961));
+        v959 = v962;
+        v960 = v963;
     end;
-    if v864.kind ~= nil then
-        if v864.kind.type == "literal" then
-            local v870, v871 = v0.writeTag(v865, v866, 2, v0.wireTypes.lengthDelimited);
-            v870, v871 = v0.writeString(v870, v871, v864.kind.value);
-            v865 = v870;
-            v866 = v871;
-        elseif v864.kind.type == "token" then
-            local v872, v873 = v0.writeTag(v865, v866, 3, v0.wireTypes.lengthDelimited);
-            v872, v873 = v0.writeString(v872, v873, v864.kind.value);
-            v865 = v872;
-            v866 = v873;
-        elseif v864.kind.type == "binding_path" then
-            local v874, v875 = v0.writeTag(v865, v866, 4, v0.wireTypes.lengthDelimited);
-            v874, v875 = v0.writeString(v874, v875, v864.kind.value);
-            v865 = v874;
-            v866 = v875;
+    if v958.kind ~= nil then
+        if v958.kind.type == "literal" then
+            local v964, v965 = v0.writeTag(v959, v960, 2, v0.wireTypes.lengthDelimited);
+            v964, v965 = v0.writeString(v964, v965, v958.kind.value);
+            v959 = v964;
+            v960 = v965;
+        elseif v958.kind.type == "token" then
+            local v966, v967 = v0.writeTag(v959, v960, 3, v0.wireTypes.lengthDelimited);
+            v966, v967 = v0.writeString(v966, v967, v958.kind.value);
+            v959 = v966;
+            v960 = v967;
+        elseif v958.kind.type == "binding_path" then
+            local v968, v969 = v0.writeTag(v959, v960, 4, v0.wireTypes.lengthDelimited);
+            v968, v969 = v0.writeString(v968, v969, v958.kind.value);
+            v959 = v968;
+            v960 = v969;
         end;
     end;
-    local v876 = buffer.create(v866);
-    buffer.copy(v876, 0, v865, 0, v866);
-    return v876;
+    local v970 = buffer.create(v960);
+    buffer.copy(v970, 0, v959, 0, v960);
+    return v970;
 end;
-v5.decode = function(v877) --[[ Line: 7208 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_31 (copy), v0 (copy), v4 (copy)
-    local v878 = l_v5_31.new();
-    local v879 = 0;
-    while v879 < buffer.len(v877) do
-        local v880 = nil;
-        local v881 = nil;
-        local v882, v883, v884 = v0.readTag(v877, v879);
-        v880 = v882;
-        v881 = v883;
-        v879 = v884;
-        if v881 == v0.wireTypes.varint then
-            v882 = nil;
-            v883, v884 = v0.readVarInt(v877, v879);
-            v882 = v883;
-            v879 = v884;
-        elseif v881 == v0.wireTypes.lengthDelimited then
-            if v880 == 1 then
-                v882 = nil;
-                v883, v884 = v0.readBuffer(v877, v879);
-                v882 = v883;
-                v879 = v884;
-                v878.condition = v4.PropCondition.decode(v882);
-            elseif v880 == 2 then
-                v882 = nil;
-                v883, v884 = v0.readBuffer(v877, v879);
-                v882 = v883;
-                v879 = v884;
-                v878.kind = {
+v5.decode = function(v971) --[[ Line: 7942 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_34 (copy), v0 (copy), v4 (copy)
+    local v972 = l_v5_34.new();
+    local v973 = 0;
+    while v973 < buffer.len(v971) do
+        local v974 = nil;
+        local v975 = nil;
+        local v976, v977, v978 = v0.readTag(v971, v973);
+        v974 = v976;
+        v975 = v977;
+        v973 = v978;
+        if v975 == v0.wireTypes.varint then
+            v976 = nil;
+            v977, v978 = v0.readVarInt(v971, v973);
+            v976 = v977;
+            v973 = v978;
+        elseif v975 == v0.wireTypes.lengthDelimited then
+            if v974 == 1 then
+                v976 = nil;
+                v977, v978 = v0.readBuffer(v971, v973);
+                v976 = v977;
+                v973 = v978;
+                v972.condition = v4.PropCondition.decode(v976);
+            elseif v974 == 2 then
+                v976 = nil;
+                v977, v978 = v0.readBuffer(v971, v973);
+                v976 = v977;
+                v973 = v978;
+                v972.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v882)
+                    value = buffer.tostring(v976)
                 };
-            elseif v880 == 3 then
-                v882 = nil;
-                v883, v884 = v0.readBuffer(v877, v879);
-                v882 = v883;
-                v879 = v884;
-                v878.kind = {
+            elseif v974 == 3 then
+                v976 = nil;
+                v977, v978 = v0.readBuffer(v971, v973);
+                v976 = v977;
+                v973 = v978;
+                v972.kind = {
                     type = "token", 
-                    value = buffer.tostring(v882)
+                    value = buffer.tostring(v976)
                 };
-            elseif v880 == 4 then
-                v882 = nil;
-                v883, v884 = v0.readBuffer(v877, v879);
-                v882 = v883;
-                v879 = v884;
-                v878.kind = {
+            elseif v974 == 4 then
+                v976 = nil;
+                v977, v978 = v0.readBuffer(v971, v973);
+                v976 = v977;
+                v973 = v978;
+                v972.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v882)
+                    value = buffer.tostring(v976)
                 };
             else
-                v882 = nil;
-                v883, v884 = v0.readVarInt(v877, v879);
-                v879 = v884 + v883;
+                v976 = nil;
+                v977, v978 = v0.readVarInt(v971, v973);
+                v973 = v978 + v977;
             end;
-        elseif v881 == v0.wireTypes.i32 then
-            v882 = nil;
-            v883, v884 = v0.readFixed32(v877, v879);
-            v882 = v883;
-            v879 = v884;
-        elseif v881 == v0.wireTypes.i64 then
-            v882 = nil;
-            v883, v884 = v0.readFixed64(v877, v879);
-            v882 = v883;
-            v879 = v884;
+        elseif v975 == v0.wireTypes.i32 then
+            v976 = nil;
+            v977, v978 = v0.readFixed32(v971, v973);
+            v976 = v977;
+            v973 = v978;
+        elseif v975 == v0.wireTypes.i64 then
+            v976 = nil;
+            v977, v978 = v0.readFixed64(v971, v973);
+            v976 = v977;
+            v973 = v978;
         else
-            error("Unsupported wire type: " .. v881);
+            error("Unsupported wire type: " .. v975);
         end;
     end;
-    return v878;
+    return v972;
 end;
-v5.jsonEncode = function(v885) --[[ Line: 7266 ]] --[[ Name: jsonEncode ]]
-    local v886 = {};
-    if v885.condition ~= nil then
-        v886.condition = v885.condition:jsonEncode();
+v5.jsonEncode = function(v979) --[[ Line: 8000 ]] --[[ Name: jsonEncode ]]
+    local v980 = {};
+    if v979.condition ~= nil then
+        v980.condition = v979.condition:jsonEncode();
     end;
-    if v885.kind ~= nil then
-        if v885.kind.type == "literal" then
-            v886.literal = v885.kind.value;
-            return v886;
-        elseif v885.kind.type == "token" then
-            v886.token = v885.kind.value;
-            return v886;
-        elseif v885.kind.type == "binding_path" then
-            v886.bindingPath = v885.kind.value;
+    if v979.kind ~= nil then
+        if v979.kind.type == "literal" then
+            v980.literal = v979.kind.value;
+            return v980;
+        elseif v979.kind.type == "token" then
+            v980.token = v979.kind.value;
+            return v980;
+        elseif v979.kind.type == "binding_path" then
+            v980.bindingPath = v979.kind.value;
         end;
     end;
-    return v886;
+    return v980;
 end;
-v5.jsonDecode = function(v887) --[[ Line: 7286 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_31 (copy), v4 (copy)
-    local v888 = l_v5_31.new();
-    if v887.condition ~= nil then
-        v888.condition = v4.PropCondition.jsonDecode(v887.condition);
+v5.jsonDecode = function(v981) --[[ Line: 8020 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_34 (copy), v4 (copy)
+    local v982 = l_v5_34.new();
+    if v981.condition ~= nil then
+        v982.condition = v4.PropCondition.jsonDecode(v981.condition);
     end;
-    if v887.literal ~= nil then
-        v888.kind = {
+    if v981.literal ~= nil then
+        v982.kind = {
             type = "literal", 
-            value = v887.literal
+            value = v981.literal
         };
     end;
-    if v887.token ~= nil then
-        v888.kind = {
+    if v981.token ~= nil then
+        v982.kind = {
             type = "token", 
-            value = v887.token
+            value = v981.token
         };
     end;
-    if v887.binding_path ~= nil then
-        v888.kind = {
+    if v981.binding_path ~= nil then
+        v982.kind = {
             type = "binding_path", 
-            value = v887.binding_path
+            value = v981.binding_path
         };
     end;
-    if v887.bindingPath ~= nil then
-        v888.kind = {
+    if v981.bindingPath ~= nil then
+        v982.kind = {
             type = "binding_path", 
-            value = v887.bindingPath
+            value = v981.bindingPath
         };
     end;
-    return v888;
+    return v982;
 end;
 v5.descriptor = {
     name = "ColorProp_ConditionalOption", 
@@ -4687,96 +5251,96 @@ v2.ColorProp_ConditionalOption = v5;
 v1.default:register(v2.ColorProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_32 = v5 --[[ copy: 5 -> 38 ]];
-v5.new = function(v890) --[[ Line: 7327 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_32 (copy)
+local l_v5_35 = v5 --[[ copy: 5 -> 41 ]];
+v5.new = function(v984) --[[ Line: 8061 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_35 (copy)
     return (setmetatable({
-        options = if not (v890 ~= nil) or v890.options == nil then {} else v890.options
-    }, l_v5_32));
+        options = if not (v984 ~= nil) or v984.options == nil then {} else v984.options
+    }, l_v5_35));
 end;
-v5.encode = function(v891) --[[ Line: 7335 ]] --[[ Name: encode ]]
+v5.encode = function(v985) --[[ Line: 8069 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v892 = buffer.create(0);
-    local v893 = 0;
-    if v891.options ~= nil and #v891.options > 0 then
-        for _, v895 in v891.options do
-            local v896 = v895:encode();
-            local v897, v898 = v0.writeTag(v892, v893, 1, v0.wireTypes.lengthDelimited);
-            v897, v898 = v0.writeBuffer(v897, v898, v896, buffer.len(v896));
-            v892 = v897;
-            v893 = v898;
+    local v986 = buffer.create(0);
+    local v987 = 0;
+    if v985.options ~= nil and #v985.options > 0 then
+        for _, v989 in v985.options do
+            local v990 = v989:encode();
+            local v991, v992 = v0.writeTag(v986, v987, 1, v0.wireTypes.lengthDelimited);
+            v991, v992 = v0.writeBuffer(v991, v992, v990, buffer.len(v990));
+            v986 = v991;
+            v987 = v992;
         end;
     end;
-    local v899 = buffer.create(v893);
-    buffer.copy(v899, 0, v892, 0, v893);
-    return v899;
+    local v993 = buffer.create(v987);
+    buffer.copy(v993, 0, v986, 0, v987);
+    return v993;
 end;
-v5.decode = function(v900) --[[ Line: 7352 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_32 (copy), v0 (copy), v2 (copy)
-    local v901 = l_v5_32.new();
-    local v902 = 0;
-    while v902 < buffer.len(v900) do
-        local v903 = nil;
-        local v904 = nil;
-        local v905, v906, v907 = v0.readTag(v900, v902);
-        v903 = v905;
-        v904 = v906;
-        v902 = v907;
-        if v904 == v0.wireTypes.varint then
-            v905 = nil;
-            v906, v907 = v0.readVarInt(v900, v902);
-            v905 = v906;
-            v902 = v907;
-        elseif v904 == v0.wireTypes.lengthDelimited then
-            if v903 == 1 then
-                v905 = nil;
-                v906, v907 = v0.readBuffer(v900, v902);
-                v905 = v906;
-                v902 = v907;
-                table.insert(v901.options, v2.ColorProp_ConditionalOption.decode(v905));
+v5.decode = function(v994) --[[ Line: 8086 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_35 (copy), v0 (copy), v2 (copy)
+    local v995 = l_v5_35.new();
+    local v996 = 0;
+    while v996 < buffer.len(v994) do
+        local v997 = nil;
+        local v998 = nil;
+        local v999, v1000, v1001 = v0.readTag(v994, v996);
+        v997 = v999;
+        v998 = v1000;
+        v996 = v1001;
+        if v998 == v0.wireTypes.varint then
+            v999 = nil;
+            v1000, v1001 = v0.readVarInt(v994, v996);
+            v999 = v1000;
+            v996 = v1001;
+        elseif v998 == v0.wireTypes.lengthDelimited then
+            if v997 == 1 then
+                v999 = nil;
+                v1000, v1001 = v0.readBuffer(v994, v996);
+                v999 = v1000;
+                v996 = v1001;
+                table.insert(v995.options, v2.ColorProp_ConditionalOption.decode(v999));
             else
-                v905 = nil;
-                v906, v907 = v0.readVarInt(v900, v902);
-                v902 = v907 + v906;
+                v999 = nil;
+                v1000, v1001 = v0.readVarInt(v994, v996);
+                v996 = v1001 + v1000;
             end;
-        elseif v904 == v0.wireTypes.i32 then
-            v905 = nil;
-            v906, v907 = v0.readFixed32(v900, v902);
-            v905 = v906;
-            v902 = v907;
-        elseif v904 == v0.wireTypes.i64 then
-            v905 = nil;
-            v906, v907 = v0.readFixed64(v900, v902);
-            v905 = v906;
-            v902 = v907;
+        elseif v998 == v0.wireTypes.i32 then
+            v999 = nil;
+            v1000, v1001 = v0.readFixed32(v994, v996);
+            v999 = v1000;
+            v996 = v1001;
+        elseif v998 == v0.wireTypes.i64 then
+            v999 = nil;
+            v1000, v1001 = v0.readFixed64(v994, v996);
+            v999 = v1000;
+            v996 = v1001;
         else
-            error("Unsupported wire type: " .. v904);
+            error("Unsupported wire type: " .. v998);
         end;
     end;
-    return v901;
+    return v995;
 end;
-v5.jsonEncode = function(v908) --[[ Line: 7395 ]] --[[ Name: jsonEncode ]]
-    local v909 = {};
-    if v908.options ~= nil and #v908.options > 0 then
-        local v910 = {};
-        for _, v912 in v908.options do
-            table.insert(v910, v912:jsonEncode());
+v5.jsonEncode = function(v1002) --[[ Line: 8129 ]] --[[ Name: jsonEncode ]]
+    local v1003 = {};
+    if v1002.options ~= nil and #v1002.options > 0 then
+        local v1004 = {};
+        for _, v1006 in v1002.options do
+            table.insert(v1004, v1006:jsonEncode());
         end;
-        v909.options = v910;
+        v1003.options = v1004;
     end;
-    return v909;
+    return v1003;
 end;
-v5.jsonDecode = function(v913) --[[ Line: 7409 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_32 (copy), v2 (copy)
-    local v914 = l_v5_32.new();
-    if v913.options ~= nil then
-        local v915 = {};
-        for _, v917 in v913.options do
-            table.insert(v915, v2.ColorProp_ConditionalOption.jsonDecode(v917));
+v5.jsonDecode = function(v1007) --[[ Line: 8143 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_35 (copy), v2 (copy)
+    local v1008 = l_v5_35.new();
+    if v1007.options ~= nil then
+        local v1009 = {};
+        for _, v1011 in v1007.options do
+            table.insert(v1009, v2.ColorProp_ConditionalOption.jsonDecode(v1011));
         end;
-        v914.options = v915;
+        v1008.options = v1009;
     end;
-    return v914;
+    return v1008;
 end;
 v5.descriptor = {
     name = "ColorProp_ConditionalOptions", 
@@ -4786,119 +5350,119 @@ v2.ColorProp_ConditionalOptions = v5;
 v1.default:register(v2.ColorProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_33 = v5 --[[ copy: 5 -> 39 ]];
-v5.new = function(v919) --[[ Line: 7438 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_33 (copy)
+local l_v5_36 = v5 --[[ copy: 5 -> 42 ]];
+v5.new = function(v1013) --[[ Line: 8172 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_36 (copy)
     return (setmetatable({
-        kind = if not (v919 ~= nil) or v919.kind == nil then nil else v919.kind
-    }, l_v5_33));
+        kind = if not (v1013 ~= nil) or v1013.kind == nil then nil else v1013.kind
+    }, l_v5_36));
 end;
-v5.encode = function(v920) --[[ Line: 7444 ]] --[[ Name: encode ]]
+v5.encode = function(v1014) --[[ Line: 8178 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v921 = buffer.create(0);
-    local v922 = 0;
-    if v920.kind ~= nil then
-        if v920.kind.type == "token" then
-            local v923, v924 = v0.writeTag(v921, v922, 1, v0.wireTypes.lengthDelimited);
-            v923, v924 = v0.writeString(v923, v924, v920.kind.value);
-            v921 = v923;
-            v922 = v924;
-        elseif v920.kind.type == "conditional" then
-            local v925 = v920.kind.value:encode();
-            local v926, v927 = v0.writeTag(v921, v922, 2, v0.wireTypes.lengthDelimited);
-            v926, v927 = v0.writeBuffer(v926, v927, v925, buffer.len(v925));
-            v921 = v926;
-            v922 = v927;
+    local v1015 = buffer.create(0);
+    local v1016 = 0;
+    if v1014.kind ~= nil then
+        if v1014.kind.type == "token" then
+            local v1017, v1018 = v0.writeTag(v1015, v1016, 1, v0.wireTypes.lengthDelimited);
+            v1017, v1018 = v0.writeString(v1017, v1018, v1014.kind.value);
+            v1015 = v1017;
+            v1016 = v1018;
+        elseif v1014.kind.type == "conditional" then
+            local v1019 = v1014.kind.value:encode();
+            local v1020, v1021 = v0.writeTag(v1015, v1016, 2, v0.wireTypes.lengthDelimited);
+            v1020, v1021 = v0.writeBuffer(v1020, v1021, v1019, buffer.len(v1019));
+            v1015 = v1020;
+            v1016 = v1021;
         end;
     end;
-    local v928 = buffer.create(v922);
-    buffer.copy(v928, 0, v921, 0, v922);
-    return v928;
+    local v1022 = buffer.create(v1016);
+    buffer.copy(v1022, 0, v1015, 0, v1016);
+    return v1022;
 end;
-v5.decode = function(v929) --[[ Line: 7464 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_33 (copy), v0 (copy), v2 (copy)
-    local v930 = l_v5_33.new();
-    local v931 = 0;
-    while v931 < buffer.len(v929) do
-        local v932 = nil;
-        local v933 = nil;
-        local v934, v935, v936 = v0.readTag(v929, v931);
-        v932 = v934;
-        v933 = v935;
-        v931 = v936;
-        if v933 == v0.wireTypes.varint then
-            v934 = nil;
-            v935, v936 = v0.readVarInt(v929, v931);
-            v934 = v935;
-            v931 = v936;
-        elseif v933 == v0.wireTypes.lengthDelimited then
-            if v932 == 1 then
-                v934 = nil;
-                v935, v936 = v0.readBuffer(v929, v931);
-                v934 = v935;
-                v931 = v936;
-                v930.kind = {
+v5.decode = function(v1023) --[[ Line: 8198 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_36 (copy), v0 (copy), v2 (copy)
+    local v1024 = l_v5_36.new();
+    local v1025 = 0;
+    while v1025 < buffer.len(v1023) do
+        local v1026 = nil;
+        local v1027 = nil;
+        local v1028, v1029, v1030 = v0.readTag(v1023, v1025);
+        v1026 = v1028;
+        v1027 = v1029;
+        v1025 = v1030;
+        if v1027 == v0.wireTypes.varint then
+            v1028 = nil;
+            v1029, v1030 = v0.readVarInt(v1023, v1025);
+            v1028 = v1029;
+            v1025 = v1030;
+        elseif v1027 == v0.wireTypes.lengthDelimited then
+            if v1026 == 1 then
+                v1028 = nil;
+                v1029, v1030 = v0.readBuffer(v1023, v1025);
+                v1028 = v1029;
+                v1025 = v1030;
+                v1024.kind = {
                     type = "token", 
-                    value = buffer.tostring(v934)
+                    value = buffer.tostring(v1028)
                 };
-            elseif v932 == 2 then
-                v934 = nil;
-                v935, v936 = v0.readBuffer(v929, v931);
-                v934 = v935;
-                v931 = v936;
-                v930.kind = {
+            elseif v1026 == 2 then
+                v1028 = nil;
+                v1029, v1030 = v0.readBuffer(v1023, v1025);
+                v1028 = v1029;
+                v1025 = v1030;
+                v1024.kind = {
                     type = "conditional", 
-                    value = v2.TypographyProp_ConditionalOptions.decode(v934)
+                    value = v2.TypographyProp_ConditionalOptions.decode(v1028)
                 };
             else
-                v934 = nil;
-                v935, v936 = v0.readVarInt(v929, v931);
-                v931 = v936 + v935;
+                v1028 = nil;
+                v1029, v1030 = v0.readVarInt(v1023, v1025);
+                v1025 = v1030 + v1029;
             end;
-        elseif v933 == v0.wireTypes.i32 then
-            v934 = nil;
-            v935, v936 = v0.readFixed32(v929, v931);
-            v934 = v935;
-            v931 = v936;
-        elseif v933 == v0.wireTypes.i64 then
-            v934 = nil;
-            v935, v936 = v0.readFixed64(v929, v931);
-            v934 = v935;
-            v931 = v936;
+        elseif v1027 == v0.wireTypes.i32 then
+            v1028 = nil;
+            v1029, v1030 = v0.readFixed32(v1023, v1025);
+            v1028 = v1029;
+            v1025 = v1030;
+        elseif v1027 == v0.wireTypes.i64 then
+            v1028 = nil;
+            v1029, v1030 = v0.readFixed64(v1023, v1025);
+            v1028 = v1029;
+            v1025 = v1030;
         else
-            error("Unsupported wire type: " .. v933);
+            error("Unsupported wire type: " .. v1027);
         end;
     end;
-    return v930;
+    return v1024;
 end;
-v5.jsonEncode = function(v937) --[[ Line: 7513 ]] --[[ Name: jsonEncode ]]
-    local v938 = {};
-    if v937.kind ~= nil then
-        if v937.kind.type == "token" then
-            v938.token = v937.kind.value;
-            return v938;
-        elseif v937.kind.type == "conditional" then
-            v938.conditional = v937.kind.value:jsonEncode();
+v5.jsonEncode = function(v1031) --[[ Line: 8247 ]] --[[ Name: jsonEncode ]]
+    local v1032 = {};
+    if v1031.kind ~= nil then
+        if v1031.kind.type == "token" then
+            v1032.token = v1031.kind.value;
+            return v1032;
+        elseif v1031.kind.type == "conditional" then
+            v1032.conditional = v1031.kind.value:jsonEncode();
         end;
     end;
-    return v938;
+    return v1032;
 end;
-v5.jsonDecode = function(v939) --[[ Line: 7527 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_33 (copy), v2 (copy)
-    local v940 = l_v5_33.new();
-    if v939.token ~= nil then
-        v940.kind = {
+v5.jsonDecode = function(v1033) --[[ Line: 8261 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_36 (copy), v2 (copy)
+    local v1034 = l_v5_36.new();
+    if v1033.token ~= nil then
+        v1034.kind = {
             type = "token", 
-            value = v939.token
+            value = v1033.token
         };
     end;
-    if v939.conditional ~= nil then
-        v940.kind = {
+    if v1033.conditional ~= nil then
+        v1034.kind = {
             type = "conditional", 
-            value = v2.TypographyProp_ConditionalOptions.jsonDecode(v939.conditional)
+            value = v2.TypographyProp_ConditionalOptions.jsonDecode(v1033.conditional)
         };
     end;
-    return v940;
+    return v1034;
 end;
 v5.descriptor = {
     name = "TypographyProp", 
@@ -4908,111 +5472,111 @@ v2.TypographyProp = v5;
 v1.default:register(v2.TypographyProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_34 = v5 --[[ copy: 5 -> 40 ]];
-v5.new = function(v942) --[[ Line: 7558 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_34 (copy)
+local l_v5_37 = v5 --[[ copy: 5 -> 43 ]];
+v5.new = function(v1036) --[[ Line: 8292 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_37 (copy)
     return (setmetatable({
-        condition = if not (v942 ~= nil) or v942.condition == nil then nil else v942.condition, 
-        kind = if not (v942 ~= nil) or v942.kind == nil then nil else v942.kind
-    }, l_v5_34));
+        condition = if not (v1036 ~= nil) or v1036.condition == nil then nil else v1036.condition, 
+        kind = if not (v1036 ~= nil) or v1036.kind == nil then nil else v1036.kind
+    }, l_v5_37));
 end;
-v5.encode = function(v943) --[[ Line: 7567 ]] --[[ Name: encode ]]
+v5.encode = function(v1037) --[[ Line: 8301 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v944 = buffer.create(0);
-    local v945 = 0;
-    if v943.condition ~= nil then
-        local v946 = v943.condition:encode();
-        local v947, v948 = v0.writeTag(v944, v945, 1, v0.wireTypes.lengthDelimited);
-        v947, v948 = v0.writeBuffer(v947, v948, v946, buffer.len(v946));
-        v944 = v947;
-        v945 = v948;
+    local v1038 = buffer.create(0);
+    local v1039 = 0;
+    if v1037.condition ~= nil then
+        local v1040 = v1037.condition:encode();
+        local v1041, v1042 = v0.writeTag(v1038, v1039, 1, v0.wireTypes.lengthDelimited);
+        v1041, v1042 = v0.writeBuffer(v1041, v1042, v1040, buffer.len(v1040));
+        v1038 = v1041;
+        v1039 = v1042;
     end;
-    if v943.kind ~= nil and v943.kind.type == "token" then
-        local v949, v950 = v0.writeTag(v944, v945, 2, v0.wireTypes.lengthDelimited);
-        v949, v950 = v0.writeString(v949, v950, v943.kind.value);
-        v944 = v949;
-        v945 = v950;
+    if v1037.kind ~= nil and v1037.kind.type == "token" then
+        local v1043, v1044 = v0.writeTag(v1038, v1039, 2, v0.wireTypes.lengthDelimited);
+        v1043, v1044 = v0.writeString(v1043, v1044, v1037.kind.value);
+        v1038 = v1043;
+        v1039 = v1044;
     end;
-    local v951 = buffer.create(v945);
-    buffer.copy(v951, 0, v944, 0, v945);
-    return v951;
+    local v1045 = buffer.create(v1039);
+    buffer.copy(v1045, 0, v1038, 0, v1039);
+    return v1045;
 end;
-v5.decode = function(v952) --[[ Line: 7589 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_34 (copy), v0 (copy), v4 (copy)
-    local v953 = l_v5_34.new();
-    local v954 = 0;
-    while v954 < buffer.len(v952) do
-        local v955 = nil;
-        local v956 = nil;
-        local v957, v958, v959 = v0.readTag(v952, v954);
-        v955 = v957;
-        v956 = v958;
-        v954 = v959;
-        if v956 == v0.wireTypes.varint then
-            v957 = nil;
-            v958, v959 = v0.readVarInt(v952, v954);
-            v957 = v958;
-            v954 = v959;
-        elseif v956 == v0.wireTypes.lengthDelimited then
-            if v955 == 1 then
-                v957 = nil;
-                v958, v959 = v0.readBuffer(v952, v954);
-                v957 = v958;
-                v954 = v959;
-                v953.condition = v4.PropCondition.decode(v957);
-            elseif v955 == 2 then
-                v957 = nil;
-                v958, v959 = v0.readBuffer(v952, v954);
-                v957 = v958;
-                v954 = v959;
-                v953.kind = {
+v5.decode = function(v1046) --[[ Line: 8323 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_37 (copy), v0 (copy), v4 (copy)
+    local v1047 = l_v5_37.new();
+    local v1048 = 0;
+    while v1048 < buffer.len(v1046) do
+        local v1049 = nil;
+        local v1050 = nil;
+        local v1051, v1052, v1053 = v0.readTag(v1046, v1048);
+        v1049 = v1051;
+        v1050 = v1052;
+        v1048 = v1053;
+        if v1050 == v0.wireTypes.varint then
+            v1051 = nil;
+            v1052, v1053 = v0.readVarInt(v1046, v1048);
+            v1051 = v1052;
+            v1048 = v1053;
+        elseif v1050 == v0.wireTypes.lengthDelimited then
+            if v1049 == 1 then
+                v1051 = nil;
+                v1052, v1053 = v0.readBuffer(v1046, v1048);
+                v1051 = v1052;
+                v1048 = v1053;
+                v1047.condition = v4.PropCondition.decode(v1051);
+            elseif v1049 == 2 then
+                v1051 = nil;
+                v1052, v1053 = v0.readBuffer(v1046, v1048);
+                v1051 = v1052;
+                v1048 = v1053;
+                v1047.kind = {
                     type = "token", 
-                    value = buffer.tostring(v957)
+                    value = buffer.tostring(v1051)
                 };
             else
-                v957 = nil;
-                v958, v959 = v0.readVarInt(v952, v954);
-                v954 = v959 + v958;
+                v1051 = nil;
+                v1052, v1053 = v0.readVarInt(v1046, v1048);
+                v1048 = v1053 + v1052;
             end;
-        elseif v956 == v0.wireTypes.i32 then
-            v957 = nil;
-            v958, v959 = v0.readFixed32(v952, v954);
-            v957 = v958;
-            v954 = v959;
-        elseif v956 == v0.wireTypes.i64 then
-            v957 = nil;
-            v958, v959 = v0.readFixed64(v952, v954);
-            v957 = v958;
-            v954 = v959;
+        elseif v1050 == v0.wireTypes.i32 then
+            v1051 = nil;
+            v1052, v1053 = v0.readFixed32(v1046, v1048);
+            v1051 = v1052;
+            v1048 = v1053;
+        elseif v1050 == v0.wireTypes.i64 then
+            v1051 = nil;
+            v1052, v1053 = v0.readFixed64(v1046, v1048);
+            v1051 = v1052;
+            v1048 = v1053;
         else
-            error("Unsupported wire type: " .. v956);
+            error("Unsupported wire type: " .. v1050);
         end;
     end;
-    return v953;
+    return v1047;
 end;
-v5.jsonEncode = function(v960) --[[ Line: 7637 ]] --[[ Name: jsonEncode ]]
-    local v961 = {};
-    if v960.condition ~= nil then
-        v961.condition = v960.condition:jsonEncode();
+v5.jsonEncode = function(v1054) --[[ Line: 8371 ]] --[[ Name: jsonEncode ]]
+    local v1055 = {};
+    if v1054.condition ~= nil then
+        v1055.condition = v1054.condition:jsonEncode();
     end;
-    if v960.kind ~= nil and v960.kind.type == "token" then
-        v961.token = v960.kind.value;
+    if v1054.kind ~= nil and v1054.kind.type == "token" then
+        v1055.token = v1054.kind.value;
     end;
-    return v961;
+    return v1055;
 end;
-v5.jsonDecode = function(v962) --[[ Line: 7653 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_34 (copy), v4 (copy)
-    local v963 = l_v5_34.new();
-    if v962.condition ~= nil then
-        v963.condition = v4.PropCondition.jsonDecode(v962.condition);
+v5.jsonDecode = function(v1056) --[[ Line: 8387 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_37 (copy), v4 (copy)
+    local v1057 = l_v5_37.new();
+    if v1056.condition ~= nil then
+        v1057.condition = v4.PropCondition.jsonDecode(v1056.condition);
     end;
-    if v962.token ~= nil then
-        v963.kind = {
+    if v1056.token ~= nil then
+        v1057.kind = {
             type = "token", 
-            value = v962.token
+            value = v1056.token
         };
     end;
-    return v963;
+    return v1057;
 end;
 v5.descriptor = {
     name = "TypographyProp_ConditionalOption", 
@@ -5022,96 +5586,96 @@ v2.TypographyProp_ConditionalOption = v5;
 v1.default:register(v2.TypographyProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_35 = v5 --[[ copy: 5 -> 41 ]];
-v5.new = function(v965) --[[ Line: 7684 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_35 (copy)
+local l_v5_38 = v5 --[[ copy: 5 -> 44 ]];
+v5.new = function(v1059) --[[ Line: 8418 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_38 (copy)
     return (setmetatable({
-        options = if not (v965 ~= nil) or v965.options == nil then {} else v965.options
-    }, l_v5_35));
+        options = if not (v1059 ~= nil) or v1059.options == nil then {} else v1059.options
+    }, l_v5_38));
 end;
-v5.encode = function(v966) --[[ Line: 7692 ]] --[[ Name: encode ]]
+v5.encode = function(v1060) --[[ Line: 8426 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v967 = buffer.create(0);
-    local v968 = 0;
-    if v966.options ~= nil and #v966.options > 0 then
-        for _, v970 in v966.options do
-            local v971 = v970:encode();
-            local v972, v973 = v0.writeTag(v967, v968, 1, v0.wireTypes.lengthDelimited);
-            v972, v973 = v0.writeBuffer(v972, v973, v971, buffer.len(v971));
-            v967 = v972;
-            v968 = v973;
+    local v1061 = buffer.create(0);
+    local v1062 = 0;
+    if v1060.options ~= nil and #v1060.options > 0 then
+        for _, v1064 in v1060.options do
+            local v1065 = v1064:encode();
+            local v1066, v1067 = v0.writeTag(v1061, v1062, 1, v0.wireTypes.lengthDelimited);
+            v1066, v1067 = v0.writeBuffer(v1066, v1067, v1065, buffer.len(v1065));
+            v1061 = v1066;
+            v1062 = v1067;
         end;
     end;
-    local v974 = buffer.create(v968);
-    buffer.copy(v974, 0, v967, 0, v968);
-    return v974;
+    local v1068 = buffer.create(v1062);
+    buffer.copy(v1068, 0, v1061, 0, v1062);
+    return v1068;
 end;
-v5.decode = function(v975) --[[ Line: 7709 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_35 (copy), v0 (copy), v2 (copy)
-    local v976 = l_v5_35.new();
-    local v977 = 0;
-    while v977 < buffer.len(v975) do
-        local v978 = nil;
-        local v979 = nil;
-        local v980, v981, v982 = v0.readTag(v975, v977);
-        v978 = v980;
-        v979 = v981;
-        v977 = v982;
-        if v979 == v0.wireTypes.varint then
-            v980 = nil;
-            v981, v982 = v0.readVarInt(v975, v977);
-            v980 = v981;
-            v977 = v982;
-        elseif v979 == v0.wireTypes.lengthDelimited then
-            if v978 == 1 then
-                v980 = nil;
-                v981, v982 = v0.readBuffer(v975, v977);
-                v980 = v981;
-                v977 = v982;
-                table.insert(v976.options, v2.TypographyProp_ConditionalOption.decode(v980));
+v5.decode = function(v1069) --[[ Line: 8443 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_38 (copy), v0 (copy), v2 (copy)
+    local v1070 = l_v5_38.new();
+    local v1071 = 0;
+    while v1071 < buffer.len(v1069) do
+        local v1072 = nil;
+        local v1073 = nil;
+        local v1074, v1075, v1076 = v0.readTag(v1069, v1071);
+        v1072 = v1074;
+        v1073 = v1075;
+        v1071 = v1076;
+        if v1073 == v0.wireTypes.varint then
+            v1074 = nil;
+            v1075, v1076 = v0.readVarInt(v1069, v1071);
+            v1074 = v1075;
+            v1071 = v1076;
+        elseif v1073 == v0.wireTypes.lengthDelimited then
+            if v1072 == 1 then
+                v1074 = nil;
+                v1075, v1076 = v0.readBuffer(v1069, v1071);
+                v1074 = v1075;
+                v1071 = v1076;
+                table.insert(v1070.options, v2.TypographyProp_ConditionalOption.decode(v1074));
             else
-                v980 = nil;
-                v981, v982 = v0.readVarInt(v975, v977);
-                v977 = v982 + v981;
+                v1074 = nil;
+                v1075, v1076 = v0.readVarInt(v1069, v1071);
+                v1071 = v1076 + v1075;
             end;
-        elseif v979 == v0.wireTypes.i32 then
-            v980 = nil;
-            v981, v982 = v0.readFixed32(v975, v977);
-            v980 = v981;
-            v977 = v982;
-        elseif v979 == v0.wireTypes.i64 then
-            v980 = nil;
-            v981, v982 = v0.readFixed64(v975, v977);
-            v980 = v981;
-            v977 = v982;
+        elseif v1073 == v0.wireTypes.i32 then
+            v1074 = nil;
+            v1075, v1076 = v0.readFixed32(v1069, v1071);
+            v1074 = v1075;
+            v1071 = v1076;
+        elseif v1073 == v0.wireTypes.i64 then
+            v1074 = nil;
+            v1075, v1076 = v0.readFixed64(v1069, v1071);
+            v1074 = v1075;
+            v1071 = v1076;
         else
-            error("Unsupported wire type: " .. v979);
+            error("Unsupported wire type: " .. v1073);
         end;
     end;
-    return v976;
+    return v1070;
 end;
-v5.jsonEncode = function(v983) --[[ Line: 7752 ]] --[[ Name: jsonEncode ]]
-    local v984 = {};
-    if v983.options ~= nil and #v983.options > 0 then
-        local v985 = {};
-        for _, v987 in v983.options do
-            table.insert(v985, v987:jsonEncode());
+v5.jsonEncode = function(v1077) --[[ Line: 8486 ]] --[[ Name: jsonEncode ]]
+    local v1078 = {};
+    if v1077.options ~= nil and #v1077.options > 0 then
+        local v1079 = {};
+        for _, v1081 in v1077.options do
+            table.insert(v1079, v1081:jsonEncode());
         end;
-        v984.options = v985;
+        v1078.options = v1079;
     end;
-    return v984;
+    return v1078;
 end;
-v5.jsonDecode = function(v988) --[[ Line: 7766 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_35 (copy), v2 (copy)
-    local v989 = l_v5_35.new();
-    if v988.options ~= nil then
-        local v990 = {};
-        for _, v992 in v988.options do
-            table.insert(v990, v2.TypographyProp_ConditionalOption.jsonDecode(v992));
+v5.jsonDecode = function(v1082) --[[ Line: 8500 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_38 (copy), v2 (copy)
+    local v1083 = l_v5_38.new();
+    if v1082.options ~= nil then
+        local v1084 = {};
+        for _, v1086 in v1082.options do
+            table.insert(v1084, v2.TypographyProp_ConditionalOption.jsonDecode(v1086));
         end;
-        v989.options = v990;
+        v1083.options = v1084;
     end;
-    return v989;
+    return v1083;
 end;
 v5.descriptor = {
     name = "TypographyProp_ConditionalOptions", 
@@ -5121,119 +5685,119 @@ v2.TypographyProp_ConditionalOptions = v5;
 v1.default:register(v2.TypographyProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_36 = v5 --[[ copy: 5 -> 42 ]];
-v5.new = function(v994) --[[ Line: 7797 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_36 (copy)
+local l_v5_39 = v5 --[[ copy: 5 -> 45 ]];
+v5.new = function(v1088) --[[ Line: 8531 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_39 (copy)
     return (setmetatable({
-        kind = if not (v994 ~= nil) or v994.kind == nil then nil else v994.kind
-    }, l_v5_36));
+        kind = if not (v1088 ~= nil) or v1088.kind == nil then nil else v1088.kind
+    }, l_v5_39));
 end;
-v5.encode = function(v995) --[[ Line: 7803 ]] --[[ Name: encode ]]
+v5.encode = function(v1089) --[[ Line: 8537 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v996 = buffer.create(0);
-    local v997 = 0;
-    if v995.kind ~= nil then
-        if v995.kind.type == "token" then
-            local v998, v999 = v0.writeTag(v996, v997, 1, v0.wireTypes.lengthDelimited);
-            v998, v999 = v0.writeString(v998, v999, v995.kind.value);
-            v996 = v998;
-            v997 = v999;
-        elseif v995.kind.type == "conditional" then
-            local v1000 = v995.kind.value:encode();
-            local v1001, v1002 = v0.writeTag(v996, v997, 2, v0.wireTypes.lengthDelimited);
-            v1001, v1002 = v0.writeBuffer(v1001, v1002, v1000, buffer.len(v1000));
-            v996 = v1001;
-            v997 = v1002;
+    local v1090 = buffer.create(0);
+    local v1091 = 0;
+    if v1089.kind ~= nil then
+        if v1089.kind.type == "token" then
+            local v1092, v1093 = v0.writeTag(v1090, v1091, 1, v0.wireTypes.lengthDelimited);
+            v1092, v1093 = v0.writeString(v1092, v1093, v1089.kind.value);
+            v1090 = v1092;
+            v1091 = v1093;
+        elseif v1089.kind.type == "conditional" then
+            local v1094 = v1089.kind.value:encode();
+            local v1095, v1096 = v0.writeTag(v1090, v1091, 2, v0.wireTypes.lengthDelimited);
+            v1095, v1096 = v0.writeBuffer(v1095, v1096, v1094, buffer.len(v1094));
+            v1090 = v1095;
+            v1091 = v1096;
         end;
     end;
-    local v1003 = buffer.create(v997);
-    buffer.copy(v1003, 0, v996, 0, v997);
-    return v1003;
+    local v1097 = buffer.create(v1091);
+    buffer.copy(v1097, 0, v1090, 0, v1091);
+    return v1097;
 end;
-v5.decode = function(v1004) --[[ Line: 7823 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_36 (copy), v0 (copy), v2 (copy)
-    local v1005 = l_v5_36.new();
-    local v1006 = 0;
-    while v1006 < buffer.len(v1004) do
-        local v1007 = nil;
-        local v1008 = nil;
-        local v1009, v1010, v1011 = v0.readTag(v1004, v1006);
-        v1007 = v1009;
-        v1008 = v1010;
-        v1006 = v1011;
-        if v1008 == v0.wireTypes.varint then
-            v1009 = nil;
-            v1010, v1011 = v0.readVarInt(v1004, v1006);
-            v1009 = v1010;
-            v1006 = v1011;
-        elseif v1008 == v0.wireTypes.lengthDelimited then
-            if v1007 == 1 then
-                v1009 = nil;
-                v1010, v1011 = v0.readBuffer(v1004, v1006);
-                v1009 = v1010;
-                v1006 = v1011;
-                v1005.kind = {
+v5.decode = function(v1098) --[[ Line: 8557 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_39 (copy), v0 (copy), v2 (copy)
+    local v1099 = l_v5_39.new();
+    local v1100 = 0;
+    while v1100 < buffer.len(v1098) do
+        local v1101 = nil;
+        local v1102 = nil;
+        local v1103, v1104, v1105 = v0.readTag(v1098, v1100);
+        v1101 = v1103;
+        v1102 = v1104;
+        v1100 = v1105;
+        if v1102 == v0.wireTypes.varint then
+            v1103 = nil;
+            v1104, v1105 = v0.readVarInt(v1098, v1100);
+            v1103 = v1104;
+            v1100 = v1105;
+        elseif v1102 == v0.wireTypes.lengthDelimited then
+            if v1101 == 1 then
+                v1103 = nil;
+                v1104, v1105 = v0.readBuffer(v1098, v1100);
+                v1103 = v1104;
+                v1100 = v1105;
+                v1099.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1009)
+                    value = buffer.tostring(v1103)
                 };
-            elseif v1007 == 2 then
-                v1009 = nil;
-                v1010, v1011 = v0.readBuffer(v1004, v1006);
-                v1009 = v1010;
-                v1006 = v1011;
-                v1005.kind = {
+            elseif v1101 == 2 then
+                v1103 = nil;
+                v1104, v1105 = v0.readBuffer(v1098, v1100);
+                v1103 = v1104;
+                v1100 = v1105;
+                v1099.kind = {
                     type = "conditional", 
-                    value = v2.TypographyFontProp_ConditionalOptions.decode(v1009)
+                    value = v2.TypographyFontProp_ConditionalOptions.decode(v1103)
                 };
             else
-                v1009 = nil;
-                v1010, v1011 = v0.readVarInt(v1004, v1006);
-                v1006 = v1011 + v1010;
+                v1103 = nil;
+                v1104, v1105 = v0.readVarInt(v1098, v1100);
+                v1100 = v1105 + v1104;
             end;
-        elseif v1008 == v0.wireTypes.i32 then
-            v1009 = nil;
-            v1010, v1011 = v0.readFixed32(v1004, v1006);
-            v1009 = v1010;
-            v1006 = v1011;
-        elseif v1008 == v0.wireTypes.i64 then
-            v1009 = nil;
-            v1010, v1011 = v0.readFixed64(v1004, v1006);
-            v1009 = v1010;
-            v1006 = v1011;
+        elseif v1102 == v0.wireTypes.i32 then
+            v1103 = nil;
+            v1104, v1105 = v0.readFixed32(v1098, v1100);
+            v1103 = v1104;
+            v1100 = v1105;
+        elseif v1102 == v0.wireTypes.i64 then
+            v1103 = nil;
+            v1104, v1105 = v0.readFixed64(v1098, v1100);
+            v1103 = v1104;
+            v1100 = v1105;
         else
-            error("Unsupported wire type: " .. v1008);
+            error("Unsupported wire type: " .. v1102);
         end;
     end;
-    return v1005;
+    return v1099;
 end;
-v5.jsonEncode = function(v1012) --[[ Line: 7872 ]] --[[ Name: jsonEncode ]]
-    local v1013 = {};
-    if v1012.kind ~= nil then
-        if v1012.kind.type == "token" then
-            v1013.token = v1012.kind.value;
-            return v1013;
-        elseif v1012.kind.type == "conditional" then
-            v1013.conditional = v1012.kind.value:jsonEncode();
+v5.jsonEncode = function(v1106) --[[ Line: 8606 ]] --[[ Name: jsonEncode ]]
+    local v1107 = {};
+    if v1106.kind ~= nil then
+        if v1106.kind.type == "token" then
+            v1107.token = v1106.kind.value;
+            return v1107;
+        elseif v1106.kind.type == "conditional" then
+            v1107.conditional = v1106.kind.value:jsonEncode();
         end;
     end;
-    return v1013;
+    return v1107;
 end;
-v5.jsonDecode = function(v1014) --[[ Line: 7886 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_36 (copy), v2 (copy)
-    local v1015 = l_v5_36.new();
-    if v1014.token ~= nil then
-        v1015.kind = {
+v5.jsonDecode = function(v1108) --[[ Line: 8620 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_39 (copy), v2 (copy)
+    local v1109 = l_v5_39.new();
+    if v1108.token ~= nil then
+        v1109.kind = {
             type = "token", 
-            value = v1014.token
+            value = v1108.token
         };
     end;
-    if v1014.conditional ~= nil then
-        v1015.kind = {
+    if v1108.conditional ~= nil then
+        v1109.kind = {
             type = "conditional", 
-            value = v2.TypographyFontProp_ConditionalOptions.jsonDecode(v1014.conditional)
+            value = v2.TypographyFontProp_ConditionalOptions.jsonDecode(v1108.conditional)
         };
     end;
-    return v1015;
+    return v1109;
 end;
 v5.descriptor = {
     name = "TypographyFontProp", 
@@ -5243,111 +5807,111 @@ v2.TypographyFontProp = v5;
 v1.default:register(v2.TypographyFontProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_37 = v5 --[[ copy: 5 -> 43 ]];
-v5.new = function(v1017) --[[ Line: 7917 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_37 (copy)
+local l_v5_40 = v5 --[[ copy: 5 -> 46 ]];
+v5.new = function(v1111) --[[ Line: 8651 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_40 (copy)
     return (setmetatable({
-        condition = if not (v1017 ~= nil) or v1017.condition == nil then nil else v1017.condition, 
-        kind = if not (v1017 ~= nil) or v1017.kind == nil then nil else v1017.kind
-    }, l_v5_37));
+        condition = if not (v1111 ~= nil) or v1111.condition == nil then nil else v1111.condition, 
+        kind = if not (v1111 ~= nil) or v1111.kind == nil then nil else v1111.kind
+    }, l_v5_40));
 end;
-v5.encode = function(v1018) --[[ Line: 7926 ]] --[[ Name: encode ]]
+v5.encode = function(v1112) --[[ Line: 8660 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1019 = buffer.create(0);
-    local v1020 = 0;
-    if v1018.condition ~= nil then
-        local v1021 = v1018.condition:encode();
-        local v1022, v1023 = v0.writeTag(v1019, v1020, 1, v0.wireTypes.lengthDelimited);
-        v1022, v1023 = v0.writeBuffer(v1022, v1023, v1021, buffer.len(v1021));
-        v1019 = v1022;
-        v1020 = v1023;
+    local v1113 = buffer.create(0);
+    local v1114 = 0;
+    if v1112.condition ~= nil then
+        local v1115 = v1112.condition:encode();
+        local v1116, v1117 = v0.writeTag(v1113, v1114, 1, v0.wireTypes.lengthDelimited);
+        v1116, v1117 = v0.writeBuffer(v1116, v1117, v1115, buffer.len(v1115));
+        v1113 = v1116;
+        v1114 = v1117;
     end;
-    if v1018.kind ~= nil and v1018.kind.type == "token" then
-        local v1024, v1025 = v0.writeTag(v1019, v1020, 2, v0.wireTypes.lengthDelimited);
-        v1024, v1025 = v0.writeString(v1024, v1025, v1018.kind.value);
-        v1019 = v1024;
-        v1020 = v1025;
+    if v1112.kind ~= nil and v1112.kind.type == "token" then
+        local v1118, v1119 = v0.writeTag(v1113, v1114, 2, v0.wireTypes.lengthDelimited);
+        v1118, v1119 = v0.writeString(v1118, v1119, v1112.kind.value);
+        v1113 = v1118;
+        v1114 = v1119;
     end;
-    local v1026 = buffer.create(v1020);
-    buffer.copy(v1026, 0, v1019, 0, v1020);
-    return v1026;
+    local v1120 = buffer.create(v1114);
+    buffer.copy(v1120, 0, v1113, 0, v1114);
+    return v1120;
 end;
-v5.decode = function(v1027) --[[ Line: 7948 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_37 (copy), v0 (copy), v4 (copy)
-    local v1028 = l_v5_37.new();
-    local v1029 = 0;
-    while v1029 < buffer.len(v1027) do
-        local v1030 = nil;
-        local v1031 = nil;
-        local v1032, v1033, v1034 = v0.readTag(v1027, v1029);
-        v1030 = v1032;
-        v1031 = v1033;
-        v1029 = v1034;
-        if v1031 == v0.wireTypes.varint then
-            v1032 = nil;
-            v1033, v1034 = v0.readVarInt(v1027, v1029);
-            v1032 = v1033;
-            v1029 = v1034;
-        elseif v1031 == v0.wireTypes.lengthDelimited then
-            if v1030 == 1 then
-                v1032 = nil;
-                v1033, v1034 = v0.readBuffer(v1027, v1029);
-                v1032 = v1033;
-                v1029 = v1034;
-                v1028.condition = v4.PropCondition.decode(v1032);
-            elseif v1030 == 2 then
-                v1032 = nil;
-                v1033, v1034 = v0.readBuffer(v1027, v1029);
-                v1032 = v1033;
-                v1029 = v1034;
-                v1028.kind = {
+v5.decode = function(v1121) --[[ Line: 8682 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_40 (copy), v0 (copy), v4 (copy)
+    local v1122 = l_v5_40.new();
+    local v1123 = 0;
+    while v1123 < buffer.len(v1121) do
+        local v1124 = nil;
+        local v1125 = nil;
+        local v1126, v1127, v1128 = v0.readTag(v1121, v1123);
+        v1124 = v1126;
+        v1125 = v1127;
+        v1123 = v1128;
+        if v1125 == v0.wireTypes.varint then
+            v1126 = nil;
+            v1127, v1128 = v0.readVarInt(v1121, v1123);
+            v1126 = v1127;
+            v1123 = v1128;
+        elseif v1125 == v0.wireTypes.lengthDelimited then
+            if v1124 == 1 then
+                v1126 = nil;
+                v1127, v1128 = v0.readBuffer(v1121, v1123);
+                v1126 = v1127;
+                v1123 = v1128;
+                v1122.condition = v4.PropCondition.decode(v1126);
+            elseif v1124 == 2 then
+                v1126 = nil;
+                v1127, v1128 = v0.readBuffer(v1121, v1123);
+                v1126 = v1127;
+                v1123 = v1128;
+                v1122.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1032)
+                    value = buffer.tostring(v1126)
                 };
             else
-                v1032 = nil;
-                v1033, v1034 = v0.readVarInt(v1027, v1029);
-                v1029 = v1034 + v1033;
+                v1126 = nil;
+                v1127, v1128 = v0.readVarInt(v1121, v1123);
+                v1123 = v1128 + v1127;
             end;
-        elseif v1031 == v0.wireTypes.i32 then
-            v1032 = nil;
-            v1033, v1034 = v0.readFixed32(v1027, v1029);
-            v1032 = v1033;
-            v1029 = v1034;
-        elseif v1031 == v0.wireTypes.i64 then
-            v1032 = nil;
-            v1033, v1034 = v0.readFixed64(v1027, v1029);
-            v1032 = v1033;
-            v1029 = v1034;
+        elseif v1125 == v0.wireTypes.i32 then
+            v1126 = nil;
+            v1127, v1128 = v0.readFixed32(v1121, v1123);
+            v1126 = v1127;
+            v1123 = v1128;
+        elseif v1125 == v0.wireTypes.i64 then
+            v1126 = nil;
+            v1127, v1128 = v0.readFixed64(v1121, v1123);
+            v1126 = v1127;
+            v1123 = v1128;
         else
-            error("Unsupported wire type: " .. v1031);
+            error("Unsupported wire type: " .. v1125);
         end;
     end;
-    return v1028;
+    return v1122;
 end;
-v5.jsonEncode = function(v1035) --[[ Line: 7996 ]] --[[ Name: jsonEncode ]]
-    local v1036 = {};
-    if v1035.condition ~= nil then
-        v1036.condition = v1035.condition:jsonEncode();
+v5.jsonEncode = function(v1129) --[[ Line: 8730 ]] --[[ Name: jsonEncode ]]
+    local v1130 = {};
+    if v1129.condition ~= nil then
+        v1130.condition = v1129.condition:jsonEncode();
     end;
-    if v1035.kind ~= nil and v1035.kind.type == "token" then
-        v1036.token = v1035.kind.value;
+    if v1129.kind ~= nil and v1129.kind.type == "token" then
+        v1130.token = v1129.kind.value;
     end;
-    return v1036;
+    return v1130;
 end;
-v5.jsonDecode = function(v1037) --[[ Line: 8012 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_37 (copy), v4 (copy)
-    local v1038 = l_v5_37.new();
-    if v1037.condition ~= nil then
-        v1038.condition = v4.PropCondition.jsonDecode(v1037.condition);
+v5.jsonDecode = function(v1131) --[[ Line: 8746 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_40 (copy), v4 (copy)
+    local v1132 = l_v5_40.new();
+    if v1131.condition ~= nil then
+        v1132.condition = v4.PropCondition.jsonDecode(v1131.condition);
     end;
-    if v1037.token ~= nil then
-        v1038.kind = {
+    if v1131.token ~= nil then
+        v1132.kind = {
             type = "token", 
-            value = v1037.token
+            value = v1131.token
         };
     end;
-    return v1038;
+    return v1132;
 end;
 v5.descriptor = {
     name = "TypographyFontProp_ConditionalOption", 
@@ -5357,96 +5921,96 @@ v2.TypographyFontProp_ConditionalOption = v5;
 v1.default:register(v2.TypographyFontProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_38 = v5 --[[ copy: 5 -> 44 ]];
-v5.new = function(v1040) --[[ Line: 8043 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_38 (copy)
+local l_v5_41 = v5 --[[ copy: 5 -> 47 ]];
+v5.new = function(v1134) --[[ Line: 8777 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_41 (copy)
     return (setmetatable({
-        options = if not (v1040 ~= nil) or v1040.options == nil then {} else v1040.options
-    }, l_v5_38));
+        options = if not (v1134 ~= nil) or v1134.options == nil then {} else v1134.options
+    }, l_v5_41));
 end;
-v5.encode = function(v1041) --[[ Line: 8051 ]] --[[ Name: encode ]]
+v5.encode = function(v1135) --[[ Line: 8785 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1042 = buffer.create(0);
-    local v1043 = 0;
-    if v1041.options ~= nil and #v1041.options > 0 then
-        for _, v1045 in v1041.options do
-            local v1046 = v1045:encode();
-            local v1047, v1048 = v0.writeTag(v1042, v1043, 1, v0.wireTypes.lengthDelimited);
-            v1047, v1048 = v0.writeBuffer(v1047, v1048, v1046, buffer.len(v1046));
-            v1042 = v1047;
-            v1043 = v1048;
+    local v1136 = buffer.create(0);
+    local v1137 = 0;
+    if v1135.options ~= nil and #v1135.options > 0 then
+        for _, v1139 in v1135.options do
+            local v1140 = v1139:encode();
+            local v1141, v1142 = v0.writeTag(v1136, v1137, 1, v0.wireTypes.lengthDelimited);
+            v1141, v1142 = v0.writeBuffer(v1141, v1142, v1140, buffer.len(v1140));
+            v1136 = v1141;
+            v1137 = v1142;
         end;
     end;
-    local v1049 = buffer.create(v1043);
-    buffer.copy(v1049, 0, v1042, 0, v1043);
-    return v1049;
+    local v1143 = buffer.create(v1137);
+    buffer.copy(v1143, 0, v1136, 0, v1137);
+    return v1143;
 end;
-v5.decode = function(v1050) --[[ Line: 8068 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_38 (copy), v0 (copy), v2 (copy)
-    local v1051 = l_v5_38.new();
-    local v1052 = 0;
-    while v1052 < buffer.len(v1050) do
-        local v1053 = nil;
-        local v1054 = nil;
-        local v1055, v1056, v1057 = v0.readTag(v1050, v1052);
-        v1053 = v1055;
-        v1054 = v1056;
-        v1052 = v1057;
-        if v1054 == v0.wireTypes.varint then
-            v1055 = nil;
-            v1056, v1057 = v0.readVarInt(v1050, v1052);
-            v1055 = v1056;
-            v1052 = v1057;
-        elseif v1054 == v0.wireTypes.lengthDelimited then
-            if v1053 == 1 then
-                v1055 = nil;
-                v1056, v1057 = v0.readBuffer(v1050, v1052);
-                v1055 = v1056;
-                v1052 = v1057;
-                table.insert(v1051.options, v2.TypographyFontProp_ConditionalOption.decode(v1055));
+v5.decode = function(v1144) --[[ Line: 8802 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_41 (copy), v0 (copy), v2 (copy)
+    local v1145 = l_v5_41.new();
+    local v1146 = 0;
+    while v1146 < buffer.len(v1144) do
+        local v1147 = nil;
+        local v1148 = nil;
+        local v1149, v1150, v1151 = v0.readTag(v1144, v1146);
+        v1147 = v1149;
+        v1148 = v1150;
+        v1146 = v1151;
+        if v1148 == v0.wireTypes.varint then
+            v1149 = nil;
+            v1150, v1151 = v0.readVarInt(v1144, v1146);
+            v1149 = v1150;
+            v1146 = v1151;
+        elseif v1148 == v0.wireTypes.lengthDelimited then
+            if v1147 == 1 then
+                v1149 = nil;
+                v1150, v1151 = v0.readBuffer(v1144, v1146);
+                v1149 = v1150;
+                v1146 = v1151;
+                table.insert(v1145.options, v2.TypographyFontProp_ConditionalOption.decode(v1149));
             else
-                v1055 = nil;
-                v1056, v1057 = v0.readVarInt(v1050, v1052);
-                v1052 = v1057 + v1056;
+                v1149 = nil;
+                v1150, v1151 = v0.readVarInt(v1144, v1146);
+                v1146 = v1151 + v1150;
             end;
-        elseif v1054 == v0.wireTypes.i32 then
-            v1055 = nil;
-            v1056, v1057 = v0.readFixed32(v1050, v1052);
-            v1055 = v1056;
-            v1052 = v1057;
-        elseif v1054 == v0.wireTypes.i64 then
-            v1055 = nil;
-            v1056, v1057 = v0.readFixed64(v1050, v1052);
-            v1055 = v1056;
-            v1052 = v1057;
+        elseif v1148 == v0.wireTypes.i32 then
+            v1149 = nil;
+            v1150, v1151 = v0.readFixed32(v1144, v1146);
+            v1149 = v1150;
+            v1146 = v1151;
+        elseif v1148 == v0.wireTypes.i64 then
+            v1149 = nil;
+            v1150, v1151 = v0.readFixed64(v1144, v1146);
+            v1149 = v1150;
+            v1146 = v1151;
         else
-            error("Unsupported wire type: " .. v1054);
+            error("Unsupported wire type: " .. v1148);
         end;
     end;
-    return v1051;
+    return v1145;
 end;
-v5.jsonEncode = function(v1058) --[[ Line: 8111 ]] --[[ Name: jsonEncode ]]
-    local v1059 = {};
-    if v1058.options ~= nil and #v1058.options > 0 then
-        local v1060 = {};
-        for _, v1062 in v1058.options do
-            table.insert(v1060, v1062:jsonEncode());
+v5.jsonEncode = function(v1152) --[[ Line: 8845 ]] --[[ Name: jsonEncode ]]
+    local v1153 = {};
+    if v1152.options ~= nil and #v1152.options > 0 then
+        local v1154 = {};
+        for _, v1156 in v1152.options do
+            table.insert(v1154, v1156:jsonEncode());
         end;
-        v1059.options = v1060;
+        v1153.options = v1154;
     end;
-    return v1059;
+    return v1153;
 end;
-v5.jsonDecode = function(v1063) --[[ Line: 8125 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_38 (copy), v2 (copy)
-    local v1064 = l_v5_38.new();
-    if v1063.options ~= nil then
-        local v1065 = {};
-        for _, v1067 in v1063.options do
-            table.insert(v1065, v2.TypographyFontProp_ConditionalOption.jsonDecode(v1067));
+v5.jsonDecode = function(v1157) --[[ Line: 8859 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_41 (copy), v2 (copy)
+    local v1158 = l_v5_41.new();
+    if v1157.options ~= nil then
+        local v1159 = {};
+        for _, v1161 in v1157.options do
+            table.insert(v1159, v2.TypographyFontProp_ConditionalOption.jsonDecode(v1161));
         end;
-        v1064.options = v1065;
+        v1158.options = v1159;
     end;
-    return v1064;
+    return v1158;
 end;
 v5.descriptor = {
     name = "TypographyFontProp_ConditionalOptions", 
@@ -5456,119 +6020,119 @@ v2.TypographyFontProp_ConditionalOptions = v5;
 v1.default:register(v2.TypographyFontProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_39 = v5 --[[ copy: 5 -> 45 ]];
-v5.new = function(v1069) --[[ Line: 8156 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_39 (copy)
+local l_v5_42 = v5 --[[ copy: 5 -> 48 ]];
+v5.new = function(v1163) --[[ Line: 8890 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_42 (copy)
     return (setmetatable({
-        kind = if not (v1069 ~= nil) or v1069.kind == nil then nil else v1069.kind
-    }, l_v5_39));
+        kind = if not (v1163 ~= nil) or v1163.kind == nil then nil else v1163.kind
+    }, l_v5_42));
 end;
-v5.encode = function(v1070) --[[ Line: 8162 ]] --[[ Name: encode ]]
+v5.encode = function(v1164) --[[ Line: 8896 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1071 = buffer.create(0);
-    local v1072 = 0;
-    if v1070.kind ~= nil then
-        if v1070.kind.type == "token" then
-            local v1073, v1074 = v0.writeTag(v1071, v1072, 1, v0.wireTypes.lengthDelimited);
-            v1073, v1074 = v0.writeString(v1073, v1074, v1070.kind.value);
-            v1071 = v1073;
-            v1072 = v1074;
-        elseif v1070.kind.type == "conditional" then
-            local v1075 = v1070.kind.value:encode();
-            local v1076, v1077 = v0.writeTag(v1071, v1072, 2, v0.wireTypes.lengthDelimited);
-            v1076, v1077 = v0.writeBuffer(v1076, v1077, v1075, buffer.len(v1075));
-            v1071 = v1076;
-            v1072 = v1077;
+    local v1165 = buffer.create(0);
+    local v1166 = 0;
+    if v1164.kind ~= nil then
+        if v1164.kind.type == "token" then
+            local v1167, v1168 = v0.writeTag(v1165, v1166, 1, v0.wireTypes.lengthDelimited);
+            v1167, v1168 = v0.writeString(v1167, v1168, v1164.kind.value);
+            v1165 = v1167;
+            v1166 = v1168;
+        elseif v1164.kind.type == "conditional" then
+            local v1169 = v1164.kind.value:encode();
+            local v1170, v1171 = v0.writeTag(v1165, v1166, 2, v0.wireTypes.lengthDelimited);
+            v1170, v1171 = v0.writeBuffer(v1170, v1171, v1169, buffer.len(v1169));
+            v1165 = v1170;
+            v1166 = v1171;
         end;
     end;
-    local v1078 = buffer.create(v1072);
-    buffer.copy(v1078, 0, v1071, 0, v1072);
-    return v1078;
+    local v1172 = buffer.create(v1166);
+    buffer.copy(v1172, 0, v1165, 0, v1166);
+    return v1172;
 end;
-v5.decode = function(v1079) --[[ Line: 8182 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_39 (copy), v0 (copy), v2 (copy)
-    local v1080 = l_v5_39.new();
-    local v1081 = 0;
-    while v1081 < buffer.len(v1079) do
-        local v1082 = nil;
-        local v1083 = nil;
-        local v1084, v1085, v1086 = v0.readTag(v1079, v1081);
-        v1082 = v1084;
-        v1083 = v1085;
-        v1081 = v1086;
-        if v1083 == v0.wireTypes.varint then
-            v1084 = nil;
-            v1085, v1086 = v0.readVarInt(v1079, v1081);
-            v1084 = v1085;
-            v1081 = v1086;
-        elseif v1083 == v0.wireTypes.lengthDelimited then
-            if v1082 == 1 then
-                v1084 = nil;
-                v1085, v1086 = v0.readBuffer(v1079, v1081);
-                v1084 = v1085;
-                v1081 = v1086;
-                v1080.kind = {
+v5.decode = function(v1173) --[[ Line: 8916 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_42 (copy), v0 (copy), v2 (copy)
+    local v1174 = l_v5_42.new();
+    local v1175 = 0;
+    while v1175 < buffer.len(v1173) do
+        local v1176 = nil;
+        local v1177 = nil;
+        local v1178, v1179, v1180 = v0.readTag(v1173, v1175);
+        v1176 = v1178;
+        v1177 = v1179;
+        v1175 = v1180;
+        if v1177 == v0.wireTypes.varint then
+            v1178 = nil;
+            v1179, v1180 = v0.readVarInt(v1173, v1175);
+            v1178 = v1179;
+            v1175 = v1180;
+        elseif v1177 == v0.wireTypes.lengthDelimited then
+            if v1176 == 1 then
+                v1178 = nil;
+                v1179, v1180 = v0.readBuffer(v1173, v1175);
+                v1178 = v1179;
+                v1175 = v1180;
+                v1174.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1084)
+                    value = buffer.tostring(v1178)
                 };
-            elseif v1082 == 2 then
-                v1084 = nil;
-                v1085, v1086 = v0.readBuffer(v1079, v1081);
-                v1084 = v1085;
-                v1081 = v1086;
-                v1080.kind = {
+            elseif v1176 == 2 then
+                v1178 = nil;
+                v1179, v1180 = v0.readBuffer(v1173, v1175);
+                v1178 = v1179;
+                v1175 = v1180;
+                v1174.kind = {
                     type = "conditional", 
-                    value = v2.ColorStyleProp_ConditionalOptions.decode(v1084)
+                    value = v2.ColorStyleProp_ConditionalOptions.decode(v1178)
                 };
             else
-                v1084 = nil;
-                v1085, v1086 = v0.readVarInt(v1079, v1081);
-                v1081 = v1086 + v1085;
+                v1178 = nil;
+                v1179, v1180 = v0.readVarInt(v1173, v1175);
+                v1175 = v1180 + v1179;
             end;
-        elseif v1083 == v0.wireTypes.i32 then
-            v1084 = nil;
-            v1085, v1086 = v0.readFixed32(v1079, v1081);
-            v1084 = v1085;
-            v1081 = v1086;
-        elseif v1083 == v0.wireTypes.i64 then
-            v1084 = nil;
-            v1085, v1086 = v0.readFixed64(v1079, v1081);
-            v1084 = v1085;
-            v1081 = v1086;
+        elseif v1177 == v0.wireTypes.i32 then
+            v1178 = nil;
+            v1179, v1180 = v0.readFixed32(v1173, v1175);
+            v1178 = v1179;
+            v1175 = v1180;
+        elseif v1177 == v0.wireTypes.i64 then
+            v1178 = nil;
+            v1179, v1180 = v0.readFixed64(v1173, v1175);
+            v1178 = v1179;
+            v1175 = v1180;
         else
-            error("Unsupported wire type: " .. v1083);
+            error("Unsupported wire type: " .. v1177);
         end;
     end;
-    return v1080;
+    return v1174;
 end;
-v5.jsonEncode = function(v1087) --[[ Line: 8231 ]] --[[ Name: jsonEncode ]]
-    local v1088 = {};
-    if v1087.kind ~= nil then
-        if v1087.kind.type == "token" then
-            v1088.token = v1087.kind.value;
-            return v1088;
-        elseif v1087.kind.type == "conditional" then
-            v1088.conditional = v1087.kind.value:jsonEncode();
+v5.jsonEncode = function(v1181) --[[ Line: 8965 ]] --[[ Name: jsonEncode ]]
+    local v1182 = {};
+    if v1181.kind ~= nil then
+        if v1181.kind.type == "token" then
+            v1182.token = v1181.kind.value;
+            return v1182;
+        elseif v1181.kind.type == "conditional" then
+            v1182.conditional = v1181.kind.value:jsonEncode();
         end;
     end;
-    return v1088;
+    return v1182;
 end;
-v5.jsonDecode = function(v1089) --[[ Line: 8245 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_39 (copy), v2 (copy)
-    local v1090 = l_v5_39.new();
-    if v1089.token ~= nil then
-        v1090.kind = {
+v5.jsonDecode = function(v1183) --[[ Line: 8979 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_42 (copy), v2 (copy)
+    local v1184 = l_v5_42.new();
+    if v1183.token ~= nil then
+        v1184.kind = {
             type = "token", 
-            value = v1089.token
+            value = v1183.token
         };
     end;
-    if v1089.conditional ~= nil then
-        v1090.kind = {
+    if v1183.conditional ~= nil then
+        v1184.kind = {
             type = "conditional", 
-            value = v2.ColorStyleProp_ConditionalOptions.jsonDecode(v1089.conditional)
+            value = v2.ColorStyleProp_ConditionalOptions.jsonDecode(v1183.conditional)
         };
     end;
-    return v1090;
+    return v1184;
 end;
 v5.descriptor = {
     name = "ColorStyleProp", 
@@ -5578,111 +6142,111 @@ v2.ColorStyleProp = v5;
 v1.default:register(v2.ColorStyleProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_40 = v5 --[[ copy: 5 -> 46 ]];
-v5.new = function(v1092) --[[ Line: 8276 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_40 (copy)
+local l_v5_43 = v5 --[[ copy: 5 -> 49 ]];
+v5.new = function(v1186) --[[ Line: 9010 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_43 (copy)
     return (setmetatable({
-        condition = if not (v1092 ~= nil) or v1092.condition == nil then nil else v1092.condition, 
-        kind = if not (v1092 ~= nil) or v1092.kind == nil then nil else v1092.kind
-    }, l_v5_40));
+        condition = if not (v1186 ~= nil) or v1186.condition == nil then nil else v1186.condition, 
+        kind = if not (v1186 ~= nil) or v1186.kind == nil then nil else v1186.kind
+    }, l_v5_43));
 end;
-v5.encode = function(v1093) --[[ Line: 8285 ]] --[[ Name: encode ]]
+v5.encode = function(v1187) --[[ Line: 9019 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1094 = buffer.create(0);
-    local v1095 = 0;
-    if v1093.condition ~= nil then
-        local v1096 = v1093.condition:encode();
-        local v1097, v1098 = v0.writeTag(v1094, v1095, 1, v0.wireTypes.lengthDelimited);
-        v1097, v1098 = v0.writeBuffer(v1097, v1098, v1096, buffer.len(v1096));
-        v1094 = v1097;
-        v1095 = v1098;
+    local v1188 = buffer.create(0);
+    local v1189 = 0;
+    if v1187.condition ~= nil then
+        local v1190 = v1187.condition:encode();
+        local v1191, v1192 = v0.writeTag(v1188, v1189, 1, v0.wireTypes.lengthDelimited);
+        v1191, v1192 = v0.writeBuffer(v1191, v1192, v1190, buffer.len(v1190));
+        v1188 = v1191;
+        v1189 = v1192;
     end;
-    if v1093.kind ~= nil and v1093.kind.type == "token" then
-        local v1099, v1100 = v0.writeTag(v1094, v1095, 2, v0.wireTypes.lengthDelimited);
-        v1099, v1100 = v0.writeString(v1099, v1100, v1093.kind.value);
-        v1094 = v1099;
-        v1095 = v1100;
+    if v1187.kind ~= nil and v1187.kind.type == "token" then
+        local v1193, v1194 = v0.writeTag(v1188, v1189, 2, v0.wireTypes.lengthDelimited);
+        v1193, v1194 = v0.writeString(v1193, v1194, v1187.kind.value);
+        v1188 = v1193;
+        v1189 = v1194;
     end;
-    local v1101 = buffer.create(v1095);
-    buffer.copy(v1101, 0, v1094, 0, v1095);
-    return v1101;
+    local v1195 = buffer.create(v1189);
+    buffer.copy(v1195, 0, v1188, 0, v1189);
+    return v1195;
 end;
-v5.decode = function(v1102) --[[ Line: 8307 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_40 (copy), v0 (copy), v4 (copy)
-    local v1103 = l_v5_40.new();
-    local v1104 = 0;
-    while v1104 < buffer.len(v1102) do
-        local v1105 = nil;
-        local v1106 = nil;
-        local v1107, v1108, v1109 = v0.readTag(v1102, v1104);
-        v1105 = v1107;
-        v1106 = v1108;
-        v1104 = v1109;
-        if v1106 == v0.wireTypes.varint then
-            v1107 = nil;
-            v1108, v1109 = v0.readVarInt(v1102, v1104);
-            v1107 = v1108;
-            v1104 = v1109;
-        elseif v1106 == v0.wireTypes.lengthDelimited then
-            if v1105 == 1 then
-                v1107 = nil;
-                v1108, v1109 = v0.readBuffer(v1102, v1104);
-                v1107 = v1108;
-                v1104 = v1109;
-                v1103.condition = v4.PropCondition.decode(v1107);
-            elseif v1105 == 2 then
-                v1107 = nil;
-                v1108, v1109 = v0.readBuffer(v1102, v1104);
-                v1107 = v1108;
-                v1104 = v1109;
-                v1103.kind = {
+v5.decode = function(v1196) --[[ Line: 9041 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_43 (copy), v0 (copy), v4 (copy)
+    local v1197 = l_v5_43.new();
+    local v1198 = 0;
+    while v1198 < buffer.len(v1196) do
+        local v1199 = nil;
+        local v1200 = nil;
+        local v1201, v1202, v1203 = v0.readTag(v1196, v1198);
+        v1199 = v1201;
+        v1200 = v1202;
+        v1198 = v1203;
+        if v1200 == v0.wireTypes.varint then
+            v1201 = nil;
+            v1202, v1203 = v0.readVarInt(v1196, v1198);
+            v1201 = v1202;
+            v1198 = v1203;
+        elseif v1200 == v0.wireTypes.lengthDelimited then
+            if v1199 == 1 then
+                v1201 = nil;
+                v1202, v1203 = v0.readBuffer(v1196, v1198);
+                v1201 = v1202;
+                v1198 = v1203;
+                v1197.condition = v4.PropCondition.decode(v1201);
+            elseif v1199 == 2 then
+                v1201 = nil;
+                v1202, v1203 = v0.readBuffer(v1196, v1198);
+                v1201 = v1202;
+                v1198 = v1203;
+                v1197.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1107)
+                    value = buffer.tostring(v1201)
                 };
             else
-                v1107 = nil;
-                v1108, v1109 = v0.readVarInt(v1102, v1104);
-                v1104 = v1109 + v1108;
+                v1201 = nil;
+                v1202, v1203 = v0.readVarInt(v1196, v1198);
+                v1198 = v1203 + v1202;
             end;
-        elseif v1106 == v0.wireTypes.i32 then
-            v1107 = nil;
-            v1108, v1109 = v0.readFixed32(v1102, v1104);
-            v1107 = v1108;
-            v1104 = v1109;
-        elseif v1106 == v0.wireTypes.i64 then
-            v1107 = nil;
-            v1108, v1109 = v0.readFixed64(v1102, v1104);
-            v1107 = v1108;
-            v1104 = v1109;
+        elseif v1200 == v0.wireTypes.i32 then
+            v1201 = nil;
+            v1202, v1203 = v0.readFixed32(v1196, v1198);
+            v1201 = v1202;
+            v1198 = v1203;
+        elseif v1200 == v0.wireTypes.i64 then
+            v1201 = nil;
+            v1202, v1203 = v0.readFixed64(v1196, v1198);
+            v1201 = v1202;
+            v1198 = v1203;
         else
-            error("Unsupported wire type: " .. v1106);
+            error("Unsupported wire type: " .. v1200);
         end;
     end;
-    return v1103;
+    return v1197;
 end;
-v5.jsonEncode = function(v1110) --[[ Line: 8355 ]] --[[ Name: jsonEncode ]]
-    local v1111 = {};
-    if v1110.condition ~= nil then
-        v1111.condition = v1110.condition:jsonEncode();
+v5.jsonEncode = function(v1204) --[[ Line: 9089 ]] --[[ Name: jsonEncode ]]
+    local v1205 = {};
+    if v1204.condition ~= nil then
+        v1205.condition = v1204.condition:jsonEncode();
     end;
-    if v1110.kind ~= nil and v1110.kind.type == "token" then
-        v1111.token = v1110.kind.value;
+    if v1204.kind ~= nil and v1204.kind.type == "token" then
+        v1205.token = v1204.kind.value;
     end;
-    return v1111;
+    return v1205;
 end;
-v5.jsonDecode = function(v1112) --[[ Line: 8371 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_40 (copy), v4 (copy)
-    local v1113 = l_v5_40.new();
-    if v1112.condition ~= nil then
-        v1113.condition = v4.PropCondition.jsonDecode(v1112.condition);
+v5.jsonDecode = function(v1206) --[[ Line: 9105 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_43 (copy), v4 (copy)
+    local v1207 = l_v5_43.new();
+    if v1206.condition ~= nil then
+        v1207.condition = v4.PropCondition.jsonDecode(v1206.condition);
     end;
-    if v1112.token ~= nil then
-        v1113.kind = {
+    if v1206.token ~= nil then
+        v1207.kind = {
             type = "token", 
-            value = v1112.token
+            value = v1206.token
         };
     end;
-    return v1113;
+    return v1207;
 end;
 v5.descriptor = {
     name = "ColorStyleProp_ConditionalOption", 
@@ -5692,96 +6256,96 @@ v2.ColorStyleProp_ConditionalOption = v5;
 v1.default:register(v2.ColorStyleProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_41 = v5 --[[ copy: 5 -> 47 ]];
-v5.new = function(v1115) --[[ Line: 8402 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_41 (copy)
+local l_v5_44 = v5 --[[ copy: 5 -> 50 ]];
+v5.new = function(v1209) --[[ Line: 9136 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_44 (copy)
     return (setmetatable({
-        options = if not (v1115 ~= nil) or v1115.options == nil then {} else v1115.options
-    }, l_v5_41));
+        options = if not (v1209 ~= nil) or v1209.options == nil then {} else v1209.options
+    }, l_v5_44));
 end;
-v5.encode = function(v1116) --[[ Line: 8410 ]] --[[ Name: encode ]]
+v5.encode = function(v1210) --[[ Line: 9144 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1117 = buffer.create(0);
-    local v1118 = 0;
-    if v1116.options ~= nil and #v1116.options > 0 then
-        for _, v1120 in v1116.options do
-            local v1121 = v1120:encode();
-            local v1122, v1123 = v0.writeTag(v1117, v1118, 1, v0.wireTypes.lengthDelimited);
-            v1122, v1123 = v0.writeBuffer(v1122, v1123, v1121, buffer.len(v1121));
-            v1117 = v1122;
-            v1118 = v1123;
+    local v1211 = buffer.create(0);
+    local v1212 = 0;
+    if v1210.options ~= nil and #v1210.options > 0 then
+        for _, v1214 in v1210.options do
+            local v1215 = v1214:encode();
+            local v1216, v1217 = v0.writeTag(v1211, v1212, 1, v0.wireTypes.lengthDelimited);
+            v1216, v1217 = v0.writeBuffer(v1216, v1217, v1215, buffer.len(v1215));
+            v1211 = v1216;
+            v1212 = v1217;
         end;
     end;
-    local v1124 = buffer.create(v1118);
-    buffer.copy(v1124, 0, v1117, 0, v1118);
-    return v1124;
+    local v1218 = buffer.create(v1212);
+    buffer.copy(v1218, 0, v1211, 0, v1212);
+    return v1218;
 end;
-v5.decode = function(v1125) --[[ Line: 8427 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_41 (copy), v0 (copy), v2 (copy)
-    local v1126 = l_v5_41.new();
-    local v1127 = 0;
-    while v1127 < buffer.len(v1125) do
-        local v1128 = nil;
-        local v1129 = nil;
-        local v1130, v1131, v1132 = v0.readTag(v1125, v1127);
-        v1128 = v1130;
-        v1129 = v1131;
-        v1127 = v1132;
-        if v1129 == v0.wireTypes.varint then
-            v1130 = nil;
-            v1131, v1132 = v0.readVarInt(v1125, v1127);
-            v1130 = v1131;
-            v1127 = v1132;
-        elseif v1129 == v0.wireTypes.lengthDelimited then
-            if v1128 == 1 then
-                v1130 = nil;
-                v1131, v1132 = v0.readBuffer(v1125, v1127);
-                v1130 = v1131;
-                v1127 = v1132;
-                table.insert(v1126.options, v2.ColorStyleProp_ConditionalOption.decode(v1130));
+v5.decode = function(v1219) --[[ Line: 9161 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_44 (copy), v0 (copy), v2 (copy)
+    local v1220 = l_v5_44.new();
+    local v1221 = 0;
+    while v1221 < buffer.len(v1219) do
+        local v1222 = nil;
+        local v1223 = nil;
+        local v1224, v1225, v1226 = v0.readTag(v1219, v1221);
+        v1222 = v1224;
+        v1223 = v1225;
+        v1221 = v1226;
+        if v1223 == v0.wireTypes.varint then
+            v1224 = nil;
+            v1225, v1226 = v0.readVarInt(v1219, v1221);
+            v1224 = v1225;
+            v1221 = v1226;
+        elseif v1223 == v0.wireTypes.lengthDelimited then
+            if v1222 == 1 then
+                v1224 = nil;
+                v1225, v1226 = v0.readBuffer(v1219, v1221);
+                v1224 = v1225;
+                v1221 = v1226;
+                table.insert(v1220.options, v2.ColorStyleProp_ConditionalOption.decode(v1224));
             else
-                v1130 = nil;
-                v1131, v1132 = v0.readVarInt(v1125, v1127);
-                v1127 = v1132 + v1131;
+                v1224 = nil;
+                v1225, v1226 = v0.readVarInt(v1219, v1221);
+                v1221 = v1226 + v1225;
             end;
-        elseif v1129 == v0.wireTypes.i32 then
-            v1130 = nil;
-            v1131, v1132 = v0.readFixed32(v1125, v1127);
-            v1130 = v1131;
-            v1127 = v1132;
-        elseif v1129 == v0.wireTypes.i64 then
-            v1130 = nil;
-            v1131, v1132 = v0.readFixed64(v1125, v1127);
-            v1130 = v1131;
-            v1127 = v1132;
+        elseif v1223 == v0.wireTypes.i32 then
+            v1224 = nil;
+            v1225, v1226 = v0.readFixed32(v1219, v1221);
+            v1224 = v1225;
+            v1221 = v1226;
+        elseif v1223 == v0.wireTypes.i64 then
+            v1224 = nil;
+            v1225, v1226 = v0.readFixed64(v1219, v1221);
+            v1224 = v1225;
+            v1221 = v1226;
         else
-            error("Unsupported wire type: " .. v1129);
+            error("Unsupported wire type: " .. v1223);
         end;
     end;
-    return v1126;
+    return v1220;
 end;
-v5.jsonEncode = function(v1133) --[[ Line: 8470 ]] --[[ Name: jsonEncode ]]
-    local v1134 = {};
-    if v1133.options ~= nil and #v1133.options > 0 then
-        local v1135 = {};
-        for _, v1137 in v1133.options do
-            table.insert(v1135, v1137:jsonEncode());
+v5.jsonEncode = function(v1227) --[[ Line: 9204 ]] --[[ Name: jsonEncode ]]
+    local v1228 = {};
+    if v1227.options ~= nil and #v1227.options > 0 then
+        local v1229 = {};
+        for _, v1231 in v1227.options do
+            table.insert(v1229, v1231:jsonEncode());
         end;
-        v1134.options = v1135;
+        v1228.options = v1229;
     end;
-    return v1134;
+    return v1228;
 end;
-v5.jsonDecode = function(v1138) --[[ Line: 8484 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_41 (copy), v2 (copy)
-    local v1139 = l_v5_41.new();
-    if v1138.options ~= nil then
-        local v1140 = {};
-        for _, v1142 in v1138.options do
-            table.insert(v1140, v2.ColorStyleProp_ConditionalOption.jsonDecode(v1142));
+v5.jsonDecode = function(v1232) --[[ Line: 9218 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_44 (copy), v2 (copy)
+    local v1233 = l_v5_44.new();
+    if v1232.options ~= nil then
+        local v1234 = {};
+        for _, v1236 in v1232.options do
+            table.insert(v1234, v2.ColorStyleProp_ConditionalOption.jsonDecode(v1236));
         end;
-        v1139.options = v1140;
+        v1233.options = v1234;
     end;
-    return v1139;
+    return v1233;
 end;
 v5.descriptor = {
     name = "ColorStyleProp_ConditionalOptions", 
@@ -5791,148 +6355,148 @@ v2.ColorStyleProp_ConditionalOptions = v5;
 v1.default:register(v2.ColorStyleProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_42 = v5 --[[ copy: 5 -> 48 ]];
-v5.new = function(v1144) --[[ Line: 8515 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_42 (copy)
+local l_v5_45 = v5 --[[ copy: 5 -> 51 ]];
+v5.new = function(v1238) --[[ Line: 9249 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_45 (copy)
     return (setmetatable({
-        kind = if not (v1144 ~= nil) or v1144.kind == nil then nil else v1144.kind
-    }, l_v5_42));
+        kind = if not (v1238 ~= nil) or v1238.kind == nil then nil else v1238.kind
+    }, l_v5_45));
 end;
-v5.encode = function(v1145) --[[ Line: 8521 ]] --[[ Name: encode ]]
+v5.encode = function(v1239) --[[ Line: 9255 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1146 = buffer.create(0);
-    local v1147 = 0;
-    if v1145.kind ~= nil then
-        if v1145.kind.type == "literal" then
-            local v1148, v1149 = v0.writeTag(v1146, v1147, 1, v0.wireTypes.lengthDelimited);
-            v1148, v1149 = v0.writeString(v1148, v1149, v1145.kind.value);
-            v1146 = v1148;
-            v1147 = v1149;
-        elseif v1145.kind.type == "conditional" then
-            local v1150 = v1145.kind.value:encode();
-            local v1151, v1152 = v0.writeTag(v1146, v1147, 2, v0.wireTypes.lengthDelimited);
-            v1151, v1152 = v0.writeBuffer(v1151, v1152, v1150, buffer.len(v1150));
-            v1146 = v1151;
-            v1147 = v1152;
-        elseif v1145.kind.type == "binding_path" then
-            local v1153, v1154 = v0.writeTag(v1146, v1147, 3, v0.wireTypes.lengthDelimited);
-            v1153, v1154 = v0.writeString(v1153, v1154, v1145.kind.value);
-            v1146 = v1153;
-            v1147 = v1154;
+    local v1240 = buffer.create(0);
+    local v1241 = 0;
+    if v1239.kind ~= nil then
+        if v1239.kind.type == "literal" then
+            local v1242, v1243 = v0.writeTag(v1240, v1241, 1, v0.wireTypes.lengthDelimited);
+            v1242, v1243 = v0.writeString(v1242, v1243, v1239.kind.value);
+            v1240 = v1242;
+            v1241 = v1243;
+        elseif v1239.kind.type == "conditional" then
+            local v1244 = v1239.kind.value:encode();
+            local v1245, v1246 = v0.writeTag(v1240, v1241, 2, v0.wireTypes.lengthDelimited);
+            v1245, v1246 = v0.writeBuffer(v1245, v1246, v1244, buffer.len(v1244));
+            v1240 = v1245;
+            v1241 = v1246;
+        elseif v1239.kind.type == "binding_path" then
+            local v1247, v1248 = v0.writeTag(v1240, v1241, 3, v0.wireTypes.lengthDelimited);
+            v1247, v1248 = v0.writeString(v1247, v1248, v1239.kind.value);
+            v1240 = v1247;
+            v1241 = v1248;
         end;
     end;
-    local v1155 = buffer.create(v1147);
-    buffer.copy(v1155, 0, v1146, 0, v1147);
-    return v1155;
+    local v1249 = buffer.create(v1241);
+    buffer.copy(v1249, 0, v1240, 0, v1241);
+    return v1249;
 end;
-v5.decode = function(v1156) --[[ Line: 8544 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_42 (copy), v0 (copy), v2 (copy)
-    local v1157 = l_v5_42.new();
-    local v1158 = 0;
-    while v1158 < buffer.len(v1156) do
-        local v1159 = nil;
-        local v1160 = nil;
-        local v1161, v1162, v1163 = v0.readTag(v1156, v1158);
-        v1159 = v1161;
-        v1160 = v1162;
-        v1158 = v1163;
-        if v1160 == v0.wireTypes.varint then
-            v1161 = nil;
-            v1162, v1163 = v0.readVarInt(v1156, v1158);
-            v1161 = v1162;
-            v1158 = v1163;
-        elseif v1160 == v0.wireTypes.lengthDelimited then
-            if v1159 == 1 then
-                v1161 = nil;
-                v1162, v1163 = v0.readBuffer(v1156, v1158);
-                v1161 = v1162;
-                v1158 = v1163;
-                v1157.kind = {
+v5.decode = function(v1250) --[[ Line: 9278 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_45 (copy), v0 (copy), v2 (copy)
+    local v1251 = l_v5_45.new();
+    local v1252 = 0;
+    while v1252 < buffer.len(v1250) do
+        local v1253 = nil;
+        local v1254 = nil;
+        local v1255, v1256, v1257 = v0.readTag(v1250, v1252);
+        v1253 = v1255;
+        v1254 = v1256;
+        v1252 = v1257;
+        if v1254 == v0.wireTypes.varint then
+            v1255 = nil;
+            v1256, v1257 = v0.readVarInt(v1250, v1252);
+            v1255 = v1256;
+            v1252 = v1257;
+        elseif v1254 == v0.wireTypes.lengthDelimited then
+            if v1253 == 1 then
+                v1255 = nil;
+                v1256, v1257 = v0.readBuffer(v1250, v1252);
+                v1255 = v1256;
+                v1252 = v1257;
+                v1251.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1161)
+                    value = buffer.tostring(v1255)
                 };
-            elseif v1159 == 2 then
-                v1161 = nil;
-                v1162, v1163 = v0.readBuffer(v1156, v1158);
-                v1161 = v1162;
-                v1158 = v1163;
-                v1157.kind = {
+            elseif v1253 == 2 then
+                v1255 = nil;
+                v1256, v1257 = v0.readBuffer(v1250, v1252);
+                v1255 = v1256;
+                v1252 = v1257;
+                v1251.kind = {
                     type = "conditional", 
-                    value = v2.FillBehaviorProp_ConditionalOptions.decode(v1161)
+                    value = v2.FillBehaviorProp_ConditionalOptions.decode(v1255)
                 };
-            elseif v1159 == 3 then
-                v1161 = nil;
-                v1162, v1163 = v0.readBuffer(v1156, v1158);
-                v1161 = v1162;
-                v1158 = v1163;
-                v1157.kind = {
+            elseif v1253 == 3 then
+                v1255 = nil;
+                v1256, v1257 = v0.readBuffer(v1250, v1252);
+                v1255 = v1256;
+                v1252 = v1257;
+                v1251.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1161)
+                    value = buffer.tostring(v1255)
                 };
             else
-                v1161 = nil;
-                v1162, v1163 = v0.readVarInt(v1156, v1158);
-                v1158 = v1163 + v1162;
+                v1255 = nil;
+                v1256, v1257 = v0.readVarInt(v1250, v1252);
+                v1252 = v1257 + v1256;
             end;
-        elseif v1160 == v0.wireTypes.i32 then
-            v1161 = nil;
-            v1162, v1163 = v0.readFixed32(v1156, v1158);
-            v1161 = v1162;
-            v1158 = v1163;
-        elseif v1160 == v0.wireTypes.i64 then
-            v1161 = nil;
-            v1162, v1163 = v0.readFixed64(v1156, v1158);
-            v1161 = v1162;
-            v1158 = v1163;
+        elseif v1254 == v0.wireTypes.i32 then
+            v1255 = nil;
+            v1256, v1257 = v0.readFixed32(v1250, v1252);
+            v1255 = v1256;
+            v1252 = v1257;
+        elseif v1254 == v0.wireTypes.i64 then
+            v1255 = nil;
+            v1256, v1257 = v0.readFixed64(v1250, v1252);
+            v1255 = v1256;
+            v1252 = v1257;
         else
-            error("Unsupported wire type: " .. v1160);
+            error("Unsupported wire type: " .. v1254);
         end;
     end;
-    return v1157;
+    return v1251;
 end;
-v5.jsonEncode = function(v1164) --[[ Line: 8598 ]] --[[ Name: jsonEncode ]]
-    local v1165 = {};
-    if v1164.kind ~= nil then
-        if v1164.kind.type == "literal" then
-            v1165.literal = v1164.kind.value;
-            return v1165;
-        elseif v1164.kind.type == "conditional" then
-            v1165.conditional = v1164.kind.value:jsonEncode();
-            return v1165;
-        elseif v1164.kind.type == "binding_path" then
-            v1165.bindingPath = v1164.kind.value;
+v5.jsonEncode = function(v1258) --[[ Line: 9332 ]] --[[ Name: jsonEncode ]]
+    local v1259 = {};
+    if v1258.kind ~= nil then
+        if v1258.kind.type == "literal" then
+            v1259.literal = v1258.kind.value;
+            return v1259;
+        elseif v1258.kind.type == "conditional" then
+            v1259.conditional = v1258.kind.value:jsonEncode();
+            return v1259;
+        elseif v1258.kind.type == "binding_path" then
+            v1259.bindingPath = v1258.kind.value;
         end;
     end;
-    return v1165;
+    return v1259;
 end;
-v5.jsonDecode = function(v1166) --[[ Line: 8614 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_42 (copy), v2 (copy)
-    local v1167 = l_v5_42.new();
-    if v1166.literal ~= nil then
-        v1167.kind = {
+v5.jsonDecode = function(v1260) --[[ Line: 9348 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_45 (copy), v2 (copy)
+    local v1261 = l_v5_45.new();
+    if v1260.literal ~= nil then
+        v1261.kind = {
             type = "literal", 
-            value = v1166.literal
+            value = v1260.literal
         };
     end;
-    if v1166.conditional ~= nil then
-        v1167.kind = {
+    if v1260.conditional ~= nil then
+        v1261.kind = {
             type = "conditional", 
-            value = v2.FillBehaviorProp_ConditionalOptions.jsonDecode(v1166.conditional)
+            value = v2.FillBehaviorProp_ConditionalOptions.jsonDecode(v1260.conditional)
         };
     end;
-    if v1166.binding_path ~= nil then
-        v1167.kind = {
+    if v1260.binding_path ~= nil then
+        v1261.kind = {
             type = "binding_path", 
-            value = v1166.binding_path
+            value = v1260.binding_path
         };
     end;
-    if v1166.bindingPath ~= nil then
-        v1167.kind = {
+    if v1260.bindingPath ~= nil then
+        v1261.kind = {
             type = "binding_path", 
-            value = v1166.bindingPath
+            value = v1260.bindingPath
         };
     end;
-    return v1167;
+    return v1261;
 end;
 v5.descriptor = {
     name = "FillBehaviorProp", 
@@ -5942,144 +6506,144 @@ v2.FillBehaviorProp = v5;
 v1.default:register(v2.FillBehaviorProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_43 = v5 --[[ copy: 5 -> 49 ]];
-v5.new = function(v1169) --[[ Line: 8653 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_43 (copy)
+local l_v5_46 = v5 --[[ copy: 5 -> 52 ]];
+v5.new = function(v1263) --[[ Line: 9387 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_46 (copy)
     return (setmetatable({
-        condition = if not (v1169 ~= nil) or v1169.condition == nil then nil else v1169.condition, 
-        kind = if not (v1169 ~= nil) or v1169.kind == nil then nil else v1169.kind
-    }, l_v5_43));
+        condition = if not (v1263 ~= nil) or v1263.condition == nil then nil else v1263.condition, 
+        kind = if not (v1263 ~= nil) or v1263.kind == nil then nil else v1263.kind
+    }, l_v5_46));
 end;
-v5.encode = function(v1170) --[[ Line: 8662 ]] --[[ Name: encode ]]
+v5.encode = function(v1264) --[[ Line: 9396 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1171 = buffer.create(0);
-    local v1172 = 0;
-    if v1170.condition ~= nil then
-        local v1173 = v1170.condition:encode();
-        local v1174, v1175 = v0.writeTag(v1171, v1172, 1, v0.wireTypes.lengthDelimited);
-        v1174, v1175 = v0.writeBuffer(v1174, v1175, v1173, buffer.len(v1173));
-        v1171 = v1174;
-        v1172 = v1175;
+    local v1265 = buffer.create(0);
+    local v1266 = 0;
+    if v1264.condition ~= nil then
+        local v1267 = v1264.condition:encode();
+        local v1268, v1269 = v0.writeTag(v1265, v1266, 1, v0.wireTypes.lengthDelimited);
+        v1268, v1269 = v0.writeBuffer(v1268, v1269, v1267, buffer.len(v1267));
+        v1265 = v1268;
+        v1266 = v1269;
     end;
-    if v1170.kind ~= nil then
-        if v1170.kind.type == "literal" then
-            local v1176, v1177 = v0.writeTag(v1171, v1172, 2, v0.wireTypes.lengthDelimited);
-            v1176, v1177 = v0.writeString(v1176, v1177, v1170.kind.value);
-            v1171 = v1176;
-            v1172 = v1177;
-        elseif v1170.kind.type == "binding_path" then
-            local v1178, v1179 = v0.writeTag(v1171, v1172, 3, v0.wireTypes.lengthDelimited);
-            v1178, v1179 = v0.writeString(v1178, v1179, v1170.kind.value);
-            v1171 = v1178;
-            v1172 = v1179;
+    if v1264.kind ~= nil then
+        if v1264.kind.type == "literal" then
+            local v1270, v1271 = v0.writeTag(v1265, v1266, 2, v0.wireTypes.lengthDelimited);
+            v1270, v1271 = v0.writeString(v1270, v1271, v1264.kind.value);
+            v1265 = v1270;
+            v1266 = v1271;
+        elseif v1264.kind.type == "binding_path" then
+            local v1272, v1273 = v0.writeTag(v1265, v1266, 3, v0.wireTypes.lengthDelimited);
+            v1272, v1273 = v0.writeString(v1272, v1273, v1264.kind.value);
+            v1265 = v1272;
+            v1266 = v1273;
         end;
     end;
-    local v1180 = buffer.create(v1172);
-    buffer.copy(v1180, 0, v1171, 0, v1172);
-    return v1180;
+    local v1274 = buffer.create(v1266);
+    buffer.copy(v1274, 0, v1265, 0, v1266);
+    return v1274;
 end;
-v5.decode = function(v1181) --[[ Line: 8687 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_43 (copy), v0 (copy), v4 (copy)
-    local v1182 = l_v5_43.new();
-    local v1183 = 0;
-    while v1183 < buffer.len(v1181) do
-        local v1184 = nil;
-        local v1185 = nil;
-        local v1186, v1187, v1188 = v0.readTag(v1181, v1183);
-        v1184 = v1186;
-        v1185 = v1187;
-        v1183 = v1188;
-        if v1185 == v0.wireTypes.varint then
-            v1186 = nil;
-            v1187, v1188 = v0.readVarInt(v1181, v1183);
-            v1186 = v1187;
-            v1183 = v1188;
-        elseif v1185 == v0.wireTypes.lengthDelimited then
-            if v1184 == 1 then
-                v1186 = nil;
-                v1187, v1188 = v0.readBuffer(v1181, v1183);
-                v1186 = v1187;
-                v1183 = v1188;
-                v1182.condition = v4.PropCondition.decode(v1186);
-            elseif v1184 == 2 then
-                v1186 = nil;
-                v1187, v1188 = v0.readBuffer(v1181, v1183);
-                v1186 = v1187;
-                v1183 = v1188;
-                v1182.kind = {
+v5.decode = function(v1275) --[[ Line: 9421 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_46 (copy), v0 (copy), v4 (copy)
+    local v1276 = l_v5_46.new();
+    local v1277 = 0;
+    while v1277 < buffer.len(v1275) do
+        local v1278 = nil;
+        local v1279 = nil;
+        local v1280, v1281, v1282 = v0.readTag(v1275, v1277);
+        v1278 = v1280;
+        v1279 = v1281;
+        v1277 = v1282;
+        if v1279 == v0.wireTypes.varint then
+            v1280 = nil;
+            v1281, v1282 = v0.readVarInt(v1275, v1277);
+            v1280 = v1281;
+            v1277 = v1282;
+        elseif v1279 == v0.wireTypes.lengthDelimited then
+            if v1278 == 1 then
+                v1280 = nil;
+                v1281, v1282 = v0.readBuffer(v1275, v1277);
+                v1280 = v1281;
+                v1277 = v1282;
+                v1276.condition = v4.PropCondition.decode(v1280);
+            elseif v1278 == 2 then
+                v1280 = nil;
+                v1281, v1282 = v0.readBuffer(v1275, v1277);
+                v1280 = v1281;
+                v1277 = v1282;
+                v1276.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1186)
+                    value = buffer.tostring(v1280)
                 };
-            elseif v1184 == 3 then
-                v1186 = nil;
-                v1187, v1188 = v0.readBuffer(v1181, v1183);
-                v1186 = v1187;
-                v1183 = v1188;
-                v1182.kind = {
+            elseif v1278 == 3 then
+                v1280 = nil;
+                v1281, v1282 = v0.readBuffer(v1275, v1277);
+                v1280 = v1281;
+                v1277 = v1282;
+                v1276.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1186)
+                    value = buffer.tostring(v1280)
                 };
             else
-                v1186 = nil;
-                v1187, v1188 = v0.readVarInt(v1181, v1183);
-                v1183 = v1188 + v1187;
+                v1280 = nil;
+                v1281, v1282 = v0.readVarInt(v1275, v1277);
+                v1277 = v1282 + v1281;
             end;
-        elseif v1185 == v0.wireTypes.i32 then
-            v1186 = nil;
-            v1187, v1188 = v0.readFixed32(v1181, v1183);
-            v1186 = v1187;
-            v1183 = v1188;
-        elseif v1185 == v0.wireTypes.i64 then
-            v1186 = nil;
-            v1187, v1188 = v0.readFixed64(v1181, v1183);
-            v1186 = v1187;
-            v1183 = v1188;
+        elseif v1279 == v0.wireTypes.i32 then
+            v1280 = nil;
+            v1281, v1282 = v0.readFixed32(v1275, v1277);
+            v1280 = v1281;
+            v1277 = v1282;
+        elseif v1279 == v0.wireTypes.i64 then
+            v1280 = nil;
+            v1281, v1282 = v0.readFixed64(v1275, v1277);
+            v1280 = v1281;
+            v1277 = v1282;
         else
-            error("Unsupported wire type: " .. v1185);
+            error("Unsupported wire type: " .. v1279);
         end;
     end;
-    return v1182;
+    return v1276;
 end;
-v5.jsonEncode = function(v1189) --[[ Line: 8740 ]] --[[ Name: jsonEncode ]]
-    local v1190 = {};
-    if v1189.condition ~= nil then
-        v1190.condition = v1189.condition:jsonEncode();
+v5.jsonEncode = function(v1283) --[[ Line: 9474 ]] --[[ Name: jsonEncode ]]
+    local v1284 = {};
+    if v1283.condition ~= nil then
+        v1284.condition = v1283.condition:jsonEncode();
     end;
-    if v1189.kind ~= nil then
-        if v1189.kind.type == "literal" then
-            v1190.literal = v1189.kind.value;
-            return v1190;
-        elseif v1189.kind.type == "binding_path" then
-            v1190.bindingPath = v1189.kind.value;
+    if v1283.kind ~= nil then
+        if v1283.kind.type == "literal" then
+            v1284.literal = v1283.kind.value;
+            return v1284;
+        elseif v1283.kind.type == "binding_path" then
+            v1284.bindingPath = v1283.kind.value;
         end;
     end;
-    return v1190;
+    return v1284;
 end;
-v5.jsonDecode = function(v1191) --[[ Line: 8758 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_43 (copy), v4 (copy)
-    local v1192 = l_v5_43.new();
-    if v1191.condition ~= nil then
-        v1192.condition = v4.PropCondition.jsonDecode(v1191.condition);
+v5.jsonDecode = function(v1285) --[[ Line: 9492 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_46 (copy), v4 (copy)
+    local v1286 = l_v5_46.new();
+    if v1285.condition ~= nil then
+        v1286.condition = v4.PropCondition.jsonDecode(v1285.condition);
     end;
-    if v1191.literal ~= nil then
-        v1192.kind = {
+    if v1285.literal ~= nil then
+        v1286.kind = {
             type = "literal", 
-            value = v1191.literal
+            value = v1285.literal
         };
     end;
-    if v1191.binding_path ~= nil then
-        v1192.kind = {
+    if v1285.binding_path ~= nil then
+        v1286.kind = {
             type = "binding_path", 
-            value = v1191.binding_path
+            value = v1285.binding_path
         };
     end;
-    if v1191.bindingPath ~= nil then
-        v1192.kind = {
+    if v1285.bindingPath ~= nil then
+        v1286.kind = {
             type = "binding_path", 
-            value = v1191.bindingPath
+            value = v1285.bindingPath
         };
     end;
-    return v1192;
+    return v1286;
 end;
 v5.descriptor = {
     name = "FillBehaviorProp_ConditionalOption", 
@@ -6089,96 +6653,96 @@ v2.FillBehaviorProp_ConditionalOption = v5;
 v1.default:register(v2.FillBehaviorProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_44 = v5 --[[ copy: 5 -> 50 ]];
-v5.new = function(v1194) --[[ Line: 8797 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_44 (copy)
+local l_v5_47 = v5 --[[ copy: 5 -> 53 ]];
+v5.new = function(v1288) --[[ Line: 9531 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_47 (copy)
     return (setmetatable({
-        options = if not (v1194 ~= nil) or v1194.options == nil then {} else v1194.options
-    }, l_v5_44));
+        options = if not (v1288 ~= nil) or v1288.options == nil then {} else v1288.options
+    }, l_v5_47));
 end;
-v5.encode = function(v1195) --[[ Line: 8805 ]] --[[ Name: encode ]]
+v5.encode = function(v1289) --[[ Line: 9539 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1196 = buffer.create(0);
-    local v1197 = 0;
-    if v1195.options ~= nil and #v1195.options > 0 then
-        for _, v1199 in v1195.options do
-            local v1200 = v1199:encode();
-            local v1201, v1202 = v0.writeTag(v1196, v1197, 1, v0.wireTypes.lengthDelimited);
-            v1201, v1202 = v0.writeBuffer(v1201, v1202, v1200, buffer.len(v1200));
-            v1196 = v1201;
-            v1197 = v1202;
+    local v1290 = buffer.create(0);
+    local v1291 = 0;
+    if v1289.options ~= nil and #v1289.options > 0 then
+        for _, v1293 in v1289.options do
+            local v1294 = v1293:encode();
+            local v1295, v1296 = v0.writeTag(v1290, v1291, 1, v0.wireTypes.lengthDelimited);
+            v1295, v1296 = v0.writeBuffer(v1295, v1296, v1294, buffer.len(v1294));
+            v1290 = v1295;
+            v1291 = v1296;
         end;
     end;
-    local v1203 = buffer.create(v1197);
-    buffer.copy(v1203, 0, v1196, 0, v1197);
-    return v1203;
+    local v1297 = buffer.create(v1291);
+    buffer.copy(v1297, 0, v1290, 0, v1291);
+    return v1297;
 end;
-v5.decode = function(v1204) --[[ Line: 8822 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_44 (copy), v0 (copy), v2 (copy)
-    local v1205 = l_v5_44.new();
-    local v1206 = 0;
-    while v1206 < buffer.len(v1204) do
-        local v1207 = nil;
-        local v1208 = nil;
-        local v1209, v1210, v1211 = v0.readTag(v1204, v1206);
-        v1207 = v1209;
-        v1208 = v1210;
-        v1206 = v1211;
-        if v1208 == v0.wireTypes.varint then
-            v1209 = nil;
-            v1210, v1211 = v0.readVarInt(v1204, v1206);
-            v1209 = v1210;
-            v1206 = v1211;
-        elseif v1208 == v0.wireTypes.lengthDelimited then
-            if v1207 == 1 then
-                v1209 = nil;
-                v1210, v1211 = v0.readBuffer(v1204, v1206);
-                v1209 = v1210;
-                v1206 = v1211;
-                table.insert(v1205.options, v2.FillBehaviorProp_ConditionalOption.decode(v1209));
+v5.decode = function(v1298) --[[ Line: 9556 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_47 (copy), v0 (copy), v2 (copy)
+    local v1299 = l_v5_47.new();
+    local v1300 = 0;
+    while v1300 < buffer.len(v1298) do
+        local v1301 = nil;
+        local v1302 = nil;
+        local v1303, v1304, v1305 = v0.readTag(v1298, v1300);
+        v1301 = v1303;
+        v1302 = v1304;
+        v1300 = v1305;
+        if v1302 == v0.wireTypes.varint then
+            v1303 = nil;
+            v1304, v1305 = v0.readVarInt(v1298, v1300);
+            v1303 = v1304;
+            v1300 = v1305;
+        elseif v1302 == v0.wireTypes.lengthDelimited then
+            if v1301 == 1 then
+                v1303 = nil;
+                v1304, v1305 = v0.readBuffer(v1298, v1300);
+                v1303 = v1304;
+                v1300 = v1305;
+                table.insert(v1299.options, v2.FillBehaviorProp_ConditionalOption.decode(v1303));
             else
-                v1209 = nil;
-                v1210, v1211 = v0.readVarInt(v1204, v1206);
-                v1206 = v1211 + v1210;
+                v1303 = nil;
+                v1304, v1305 = v0.readVarInt(v1298, v1300);
+                v1300 = v1305 + v1304;
             end;
-        elseif v1208 == v0.wireTypes.i32 then
-            v1209 = nil;
-            v1210, v1211 = v0.readFixed32(v1204, v1206);
-            v1209 = v1210;
-            v1206 = v1211;
-        elseif v1208 == v0.wireTypes.i64 then
-            v1209 = nil;
-            v1210, v1211 = v0.readFixed64(v1204, v1206);
-            v1209 = v1210;
-            v1206 = v1211;
+        elseif v1302 == v0.wireTypes.i32 then
+            v1303 = nil;
+            v1304, v1305 = v0.readFixed32(v1298, v1300);
+            v1303 = v1304;
+            v1300 = v1305;
+        elseif v1302 == v0.wireTypes.i64 then
+            v1303 = nil;
+            v1304, v1305 = v0.readFixed64(v1298, v1300);
+            v1303 = v1304;
+            v1300 = v1305;
         else
-            error("Unsupported wire type: " .. v1208);
+            error("Unsupported wire type: " .. v1302);
         end;
     end;
-    return v1205;
+    return v1299;
 end;
-v5.jsonEncode = function(v1212) --[[ Line: 8865 ]] --[[ Name: jsonEncode ]]
-    local v1213 = {};
-    if v1212.options ~= nil and #v1212.options > 0 then
-        local v1214 = {};
-        for _, v1216 in v1212.options do
-            table.insert(v1214, v1216:jsonEncode());
+v5.jsonEncode = function(v1306) --[[ Line: 9599 ]] --[[ Name: jsonEncode ]]
+    local v1307 = {};
+    if v1306.options ~= nil and #v1306.options > 0 then
+        local v1308 = {};
+        for _, v1310 in v1306.options do
+            table.insert(v1308, v1310:jsonEncode());
         end;
-        v1213.options = v1214;
+        v1307.options = v1308;
     end;
-    return v1213;
+    return v1307;
 end;
-v5.jsonDecode = function(v1217) --[[ Line: 8879 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_44 (copy), v2 (copy)
-    local v1218 = l_v5_44.new();
-    if v1217.options ~= nil then
-        local v1219 = {};
-        for _, v1221 in v1217.options do
-            table.insert(v1219, v2.FillBehaviorProp_ConditionalOption.jsonDecode(v1221));
+v5.jsonDecode = function(v1311) --[[ Line: 9613 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_47 (copy), v2 (copy)
+    local v1312 = l_v5_47.new();
+    if v1311.options ~= nil then
+        local v1313 = {};
+        for _, v1315 in v1311.options do
+            table.insert(v1313, v2.FillBehaviorProp_ConditionalOption.jsonDecode(v1315));
         end;
-        v1218.options = v1219;
+        v1312.options = v1313;
     end;
-    return v1218;
+    return v1312;
 end;
 v5.descriptor = {
     name = "FillBehaviorProp_ConditionalOptions", 
@@ -6188,148 +6752,148 @@ v2.FillBehaviorProp_ConditionalOptions = v5;
 v1.default:register(v2.FillBehaviorProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_45 = v5 --[[ copy: 5 -> 51 ]];
-v5.new = function(v1223) --[[ Line: 8910 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_45 (copy)
+local l_v5_48 = v5 --[[ copy: 5 -> 54 ]];
+v5.new = function(v1317) --[[ Line: 9644 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_48 (copy)
     return (setmetatable({
-        kind = if not (v1223 ~= nil) or v1223.kind == nil then nil else v1223.kind
-    }, l_v5_45));
+        kind = if not (v1317 ~= nil) or v1317.kind == nil then nil else v1317.kind
+    }, l_v5_48));
 end;
-v5.encode = function(v1224) --[[ Line: 8916 ]] --[[ Name: encode ]]
+v5.encode = function(v1318) --[[ Line: 9650 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1225 = buffer.create(0);
-    local v1226 = 0;
-    if v1224.kind ~= nil then
-        if v1224.kind.type == "literal" then
-            local v1227, v1228 = v0.writeTag(v1225, v1226, 1, v0.wireTypes.lengthDelimited);
-            v1227, v1228 = v0.writeString(v1227, v1228, v1224.kind.value);
-            v1225 = v1227;
-            v1226 = v1228;
-        elseif v1224.kind.type == "conditional" then
-            local v1229 = v1224.kind.value:encode();
-            local v1230, v1231 = v0.writeTag(v1225, v1226, 2, v0.wireTypes.lengthDelimited);
-            v1230, v1231 = v0.writeBuffer(v1230, v1231, v1229, buffer.len(v1229));
-            v1225 = v1230;
-            v1226 = v1231;
-        elseif v1224.kind.type == "binding_path" then
-            local v1232, v1233 = v0.writeTag(v1225, v1226, 3, v0.wireTypes.lengthDelimited);
-            v1232, v1233 = v0.writeString(v1232, v1233, v1224.kind.value);
-            v1225 = v1232;
-            v1226 = v1233;
+    local v1319 = buffer.create(0);
+    local v1320 = 0;
+    if v1318.kind ~= nil then
+        if v1318.kind.type == "literal" then
+            local v1321, v1322 = v0.writeTag(v1319, v1320, 1, v0.wireTypes.lengthDelimited);
+            v1321, v1322 = v0.writeString(v1321, v1322, v1318.kind.value);
+            v1319 = v1321;
+            v1320 = v1322;
+        elseif v1318.kind.type == "conditional" then
+            local v1323 = v1318.kind.value:encode();
+            local v1324, v1325 = v0.writeTag(v1319, v1320, 2, v0.wireTypes.lengthDelimited);
+            v1324, v1325 = v0.writeBuffer(v1324, v1325, v1323, buffer.len(v1323));
+            v1319 = v1324;
+            v1320 = v1325;
+        elseif v1318.kind.type == "binding_path" then
+            local v1326, v1327 = v0.writeTag(v1319, v1320, 3, v0.wireTypes.lengthDelimited);
+            v1326, v1327 = v0.writeString(v1326, v1327, v1318.kind.value);
+            v1319 = v1326;
+            v1320 = v1327;
         end;
     end;
-    local v1234 = buffer.create(v1226);
-    buffer.copy(v1234, 0, v1225, 0, v1226);
-    return v1234;
+    local v1328 = buffer.create(v1320);
+    buffer.copy(v1328, 0, v1319, 0, v1320);
+    return v1328;
 end;
-v5.decode = function(v1235) --[[ Line: 8939 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_45 (copy), v0 (copy), v2 (copy)
-    local v1236 = l_v5_45.new();
-    local v1237 = 0;
-    while v1237 < buffer.len(v1235) do
-        local v1238 = nil;
-        local v1239 = nil;
-        local v1240, v1241, v1242 = v0.readTag(v1235, v1237);
-        v1238 = v1240;
-        v1239 = v1241;
-        v1237 = v1242;
-        if v1239 == v0.wireTypes.varint then
-            v1240 = nil;
-            v1241, v1242 = v0.readVarInt(v1235, v1237);
-            v1240 = v1241;
-            v1237 = v1242;
-        elseif v1239 == v0.wireTypes.lengthDelimited then
-            if v1238 == 1 then
-                v1240 = nil;
-                v1241, v1242 = v0.readBuffer(v1235, v1237);
-                v1240 = v1241;
-                v1237 = v1242;
-                v1236.kind = {
+v5.decode = function(v1329) --[[ Line: 9673 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_48 (copy), v0 (copy), v2 (copy)
+    local v1330 = l_v5_48.new();
+    local v1331 = 0;
+    while v1331 < buffer.len(v1329) do
+        local v1332 = nil;
+        local v1333 = nil;
+        local v1334, v1335, v1336 = v0.readTag(v1329, v1331);
+        v1332 = v1334;
+        v1333 = v1335;
+        v1331 = v1336;
+        if v1333 == v0.wireTypes.varint then
+            v1334 = nil;
+            v1335, v1336 = v0.readVarInt(v1329, v1331);
+            v1334 = v1335;
+            v1331 = v1336;
+        elseif v1333 == v0.wireTypes.lengthDelimited then
+            if v1332 == 1 then
+                v1334 = nil;
+                v1335, v1336 = v0.readBuffer(v1329, v1331);
+                v1334 = v1335;
+                v1331 = v1336;
+                v1330.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1240)
+                    value = buffer.tostring(v1334)
                 };
-            elseif v1238 == 2 then
-                v1240 = nil;
-                v1241, v1242 = v0.readBuffer(v1235, v1237);
-                v1240 = v1241;
-                v1237 = v1242;
-                v1236.kind = {
+            elseif v1332 == 2 then
+                v1334 = nil;
+                v1335, v1336 = v0.readBuffer(v1329, v1331);
+                v1334 = v1335;
+                v1331 = v1336;
+                v1330.kind = {
                     type = "conditional", 
-                    value = v2.InputSizeProp_ConditionalOptions.decode(v1240)
+                    value = v2.InputSizeProp_ConditionalOptions.decode(v1334)
                 };
-            elseif v1238 == 3 then
-                v1240 = nil;
-                v1241, v1242 = v0.readBuffer(v1235, v1237);
-                v1240 = v1241;
-                v1237 = v1242;
-                v1236.kind = {
+            elseif v1332 == 3 then
+                v1334 = nil;
+                v1335, v1336 = v0.readBuffer(v1329, v1331);
+                v1334 = v1335;
+                v1331 = v1336;
+                v1330.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1240)
+                    value = buffer.tostring(v1334)
                 };
             else
-                v1240 = nil;
-                v1241, v1242 = v0.readVarInt(v1235, v1237);
-                v1237 = v1242 + v1241;
+                v1334 = nil;
+                v1335, v1336 = v0.readVarInt(v1329, v1331);
+                v1331 = v1336 + v1335;
             end;
-        elseif v1239 == v0.wireTypes.i32 then
-            v1240 = nil;
-            v1241, v1242 = v0.readFixed32(v1235, v1237);
-            v1240 = v1241;
-            v1237 = v1242;
-        elseif v1239 == v0.wireTypes.i64 then
-            v1240 = nil;
-            v1241, v1242 = v0.readFixed64(v1235, v1237);
-            v1240 = v1241;
-            v1237 = v1242;
+        elseif v1333 == v0.wireTypes.i32 then
+            v1334 = nil;
+            v1335, v1336 = v0.readFixed32(v1329, v1331);
+            v1334 = v1335;
+            v1331 = v1336;
+        elseif v1333 == v0.wireTypes.i64 then
+            v1334 = nil;
+            v1335, v1336 = v0.readFixed64(v1329, v1331);
+            v1334 = v1335;
+            v1331 = v1336;
         else
-            error("Unsupported wire type: " .. v1239);
+            error("Unsupported wire type: " .. v1333);
         end;
     end;
-    return v1236;
+    return v1330;
 end;
-v5.jsonEncode = function(v1243) --[[ Line: 8993 ]] --[[ Name: jsonEncode ]]
-    local v1244 = {};
-    if v1243.kind ~= nil then
-        if v1243.kind.type == "literal" then
-            v1244.literal = v1243.kind.value;
-            return v1244;
-        elseif v1243.kind.type == "conditional" then
-            v1244.conditional = v1243.kind.value:jsonEncode();
-            return v1244;
-        elseif v1243.kind.type == "binding_path" then
-            v1244.bindingPath = v1243.kind.value;
+v5.jsonEncode = function(v1337) --[[ Line: 9727 ]] --[[ Name: jsonEncode ]]
+    local v1338 = {};
+    if v1337.kind ~= nil then
+        if v1337.kind.type == "literal" then
+            v1338.literal = v1337.kind.value;
+            return v1338;
+        elseif v1337.kind.type == "conditional" then
+            v1338.conditional = v1337.kind.value:jsonEncode();
+            return v1338;
+        elseif v1337.kind.type == "binding_path" then
+            v1338.bindingPath = v1337.kind.value;
         end;
     end;
-    return v1244;
+    return v1338;
 end;
-v5.jsonDecode = function(v1245) --[[ Line: 9009 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_45 (copy), v2 (copy)
-    local v1246 = l_v5_45.new();
-    if v1245.literal ~= nil then
-        v1246.kind = {
+v5.jsonDecode = function(v1339) --[[ Line: 9743 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_48 (copy), v2 (copy)
+    local v1340 = l_v5_48.new();
+    if v1339.literal ~= nil then
+        v1340.kind = {
             type = "literal", 
-            value = v1245.literal
+            value = v1339.literal
         };
     end;
-    if v1245.conditional ~= nil then
-        v1246.kind = {
+    if v1339.conditional ~= nil then
+        v1340.kind = {
             type = "conditional", 
-            value = v2.InputSizeProp_ConditionalOptions.jsonDecode(v1245.conditional)
+            value = v2.InputSizeProp_ConditionalOptions.jsonDecode(v1339.conditional)
         };
     end;
-    if v1245.binding_path ~= nil then
-        v1246.kind = {
+    if v1339.binding_path ~= nil then
+        v1340.kind = {
             type = "binding_path", 
-            value = v1245.binding_path
+            value = v1339.binding_path
         };
     end;
-    if v1245.bindingPath ~= nil then
-        v1246.kind = {
+    if v1339.bindingPath ~= nil then
+        v1340.kind = {
             type = "binding_path", 
-            value = v1245.bindingPath
+            value = v1339.bindingPath
         };
     end;
-    return v1246;
+    return v1340;
 end;
 v5.descriptor = {
     name = "InputSizeProp", 
@@ -6339,144 +6903,144 @@ v2.InputSizeProp = v5;
 v1.default:register(v2.InputSizeProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_46 = v5 --[[ copy: 5 -> 52 ]];
-v5.new = function(v1248) --[[ Line: 9048 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_46 (copy)
+local l_v5_49 = v5 --[[ copy: 5 -> 55 ]];
+v5.new = function(v1342) --[[ Line: 9782 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_49 (copy)
     return (setmetatable({
-        condition = if not (v1248 ~= nil) or v1248.condition == nil then nil else v1248.condition, 
-        kind = if not (v1248 ~= nil) or v1248.kind == nil then nil else v1248.kind
-    }, l_v5_46));
+        condition = if not (v1342 ~= nil) or v1342.condition == nil then nil else v1342.condition, 
+        kind = if not (v1342 ~= nil) or v1342.kind == nil then nil else v1342.kind
+    }, l_v5_49));
 end;
-v5.encode = function(v1249) --[[ Line: 9057 ]] --[[ Name: encode ]]
+v5.encode = function(v1343) --[[ Line: 9791 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1250 = buffer.create(0);
-    local v1251 = 0;
-    if v1249.condition ~= nil then
-        local v1252 = v1249.condition:encode();
-        local v1253, v1254 = v0.writeTag(v1250, v1251, 1, v0.wireTypes.lengthDelimited);
-        v1253, v1254 = v0.writeBuffer(v1253, v1254, v1252, buffer.len(v1252));
-        v1250 = v1253;
-        v1251 = v1254;
+    local v1344 = buffer.create(0);
+    local v1345 = 0;
+    if v1343.condition ~= nil then
+        local v1346 = v1343.condition:encode();
+        local v1347, v1348 = v0.writeTag(v1344, v1345, 1, v0.wireTypes.lengthDelimited);
+        v1347, v1348 = v0.writeBuffer(v1347, v1348, v1346, buffer.len(v1346));
+        v1344 = v1347;
+        v1345 = v1348;
     end;
-    if v1249.kind ~= nil then
-        if v1249.kind.type == "literal" then
-            local v1255, v1256 = v0.writeTag(v1250, v1251, 2, v0.wireTypes.lengthDelimited);
-            v1255, v1256 = v0.writeString(v1255, v1256, v1249.kind.value);
-            v1250 = v1255;
-            v1251 = v1256;
-        elseif v1249.kind.type == "binding_path" then
-            local v1257, v1258 = v0.writeTag(v1250, v1251, 3, v0.wireTypes.lengthDelimited);
-            v1257, v1258 = v0.writeString(v1257, v1258, v1249.kind.value);
-            v1250 = v1257;
-            v1251 = v1258;
+    if v1343.kind ~= nil then
+        if v1343.kind.type == "literal" then
+            local v1349, v1350 = v0.writeTag(v1344, v1345, 2, v0.wireTypes.lengthDelimited);
+            v1349, v1350 = v0.writeString(v1349, v1350, v1343.kind.value);
+            v1344 = v1349;
+            v1345 = v1350;
+        elseif v1343.kind.type == "binding_path" then
+            local v1351, v1352 = v0.writeTag(v1344, v1345, 3, v0.wireTypes.lengthDelimited);
+            v1351, v1352 = v0.writeString(v1351, v1352, v1343.kind.value);
+            v1344 = v1351;
+            v1345 = v1352;
         end;
     end;
-    local v1259 = buffer.create(v1251);
-    buffer.copy(v1259, 0, v1250, 0, v1251);
-    return v1259;
+    local v1353 = buffer.create(v1345);
+    buffer.copy(v1353, 0, v1344, 0, v1345);
+    return v1353;
 end;
-v5.decode = function(v1260) --[[ Line: 9082 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_46 (copy), v0 (copy), v4 (copy)
-    local v1261 = l_v5_46.new();
-    local v1262 = 0;
-    while v1262 < buffer.len(v1260) do
-        local v1263 = nil;
-        local v1264 = nil;
-        local v1265, v1266, v1267 = v0.readTag(v1260, v1262);
-        v1263 = v1265;
-        v1264 = v1266;
-        v1262 = v1267;
-        if v1264 == v0.wireTypes.varint then
-            v1265 = nil;
-            v1266, v1267 = v0.readVarInt(v1260, v1262);
-            v1265 = v1266;
-            v1262 = v1267;
-        elseif v1264 == v0.wireTypes.lengthDelimited then
-            if v1263 == 1 then
-                v1265 = nil;
-                v1266, v1267 = v0.readBuffer(v1260, v1262);
-                v1265 = v1266;
-                v1262 = v1267;
-                v1261.condition = v4.PropCondition.decode(v1265);
-            elseif v1263 == 2 then
-                v1265 = nil;
-                v1266, v1267 = v0.readBuffer(v1260, v1262);
-                v1265 = v1266;
-                v1262 = v1267;
-                v1261.kind = {
+v5.decode = function(v1354) --[[ Line: 9816 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_49 (copy), v0 (copy), v4 (copy)
+    local v1355 = l_v5_49.new();
+    local v1356 = 0;
+    while v1356 < buffer.len(v1354) do
+        local v1357 = nil;
+        local v1358 = nil;
+        local v1359, v1360, v1361 = v0.readTag(v1354, v1356);
+        v1357 = v1359;
+        v1358 = v1360;
+        v1356 = v1361;
+        if v1358 == v0.wireTypes.varint then
+            v1359 = nil;
+            v1360, v1361 = v0.readVarInt(v1354, v1356);
+            v1359 = v1360;
+            v1356 = v1361;
+        elseif v1358 == v0.wireTypes.lengthDelimited then
+            if v1357 == 1 then
+                v1359 = nil;
+                v1360, v1361 = v0.readBuffer(v1354, v1356);
+                v1359 = v1360;
+                v1356 = v1361;
+                v1355.condition = v4.PropCondition.decode(v1359);
+            elseif v1357 == 2 then
+                v1359 = nil;
+                v1360, v1361 = v0.readBuffer(v1354, v1356);
+                v1359 = v1360;
+                v1356 = v1361;
+                v1355.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1265)
+                    value = buffer.tostring(v1359)
                 };
-            elseif v1263 == 3 then
-                v1265 = nil;
-                v1266, v1267 = v0.readBuffer(v1260, v1262);
-                v1265 = v1266;
-                v1262 = v1267;
-                v1261.kind = {
+            elseif v1357 == 3 then
+                v1359 = nil;
+                v1360, v1361 = v0.readBuffer(v1354, v1356);
+                v1359 = v1360;
+                v1356 = v1361;
+                v1355.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1265)
+                    value = buffer.tostring(v1359)
                 };
             else
-                v1265 = nil;
-                v1266, v1267 = v0.readVarInt(v1260, v1262);
-                v1262 = v1267 + v1266;
+                v1359 = nil;
+                v1360, v1361 = v0.readVarInt(v1354, v1356);
+                v1356 = v1361 + v1360;
             end;
-        elseif v1264 == v0.wireTypes.i32 then
-            v1265 = nil;
-            v1266, v1267 = v0.readFixed32(v1260, v1262);
-            v1265 = v1266;
-            v1262 = v1267;
-        elseif v1264 == v0.wireTypes.i64 then
-            v1265 = nil;
-            v1266, v1267 = v0.readFixed64(v1260, v1262);
-            v1265 = v1266;
-            v1262 = v1267;
+        elseif v1358 == v0.wireTypes.i32 then
+            v1359 = nil;
+            v1360, v1361 = v0.readFixed32(v1354, v1356);
+            v1359 = v1360;
+            v1356 = v1361;
+        elseif v1358 == v0.wireTypes.i64 then
+            v1359 = nil;
+            v1360, v1361 = v0.readFixed64(v1354, v1356);
+            v1359 = v1360;
+            v1356 = v1361;
         else
-            error("Unsupported wire type: " .. v1264);
+            error("Unsupported wire type: " .. v1358);
         end;
     end;
-    return v1261;
+    return v1355;
 end;
-v5.jsonEncode = function(v1268) --[[ Line: 9135 ]] --[[ Name: jsonEncode ]]
-    local v1269 = {};
-    if v1268.condition ~= nil then
-        v1269.condition = v1268.condition:jsonEncode();
+v5.jsonEncode = function(v1362) --[[ Line: 9869 ]] --[[ Name: jsonEncode ]]
+    local v1363 = {};
+    if v1362.condition ~= nil then
+        v1363.condition = v1362.condition:jsonEncode();
     end;
-    if v1268.kind ~= nil then
-        if v1268.kind.type == "literal" then
-            v1269.literal = v1268.kind.value;
-            return v1269;
-        elseif v1268.kind.type == "binding_path" then
-            v1269.bindingPath = v1268.kind.value;
+    if v1362.kind ~= nil then
+        if v1362.kind.type == "literal" then
+            v1363.literal = v1362.kind.value;
+            return v1363;
+        elseif v1362.kind.type == "binding_path" then
+            v1363.bindingPath = v1362.kind.value;
         end;
     end;
-    return v1269;
+    return v1363;
 end;
-v5.jsonDecode = function(v1270) --[[ Line: 9153 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_46 (copy), v4 (copy)
-    local v1271 = l_v5_46.new();
-    if v1270.condition ~= nil then
-        v1271.condition = v4.PropCondition.jsonDecode(v1270.condition);
+v5.jsonDecode = function(v1364) --[[ Line: 9887 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_49 (copy), v4 (copy)
+    local v1365 = l_v5_49.new();
+    if v1364.condition ~= nil then
+        v1365.condition = v4.PropCondition.jsonDecode(v1364.condition);
     end;
-    if v1270.literal ~= nil then
-        v1271.kind = {
+    if v1364.literal ~= nil then
+        v1365.kind = {
             type = "literal", 
-            value = v1270.literal
+            value = v1364.literal
         };
     end;
-    if v1270.binding_path ~= nil then
-        v1271.kind = {
+    if v1364.binding_path ~= nil then
+        v1365.kind = {
             type = "binding_path", 
-            value = v1270.binding_path
+            value = v1364.binding_path
         };
     end;
-    if v1270.bindingPath ~= nil then
-        v1271.kind = {
+    if v1364.bindingPath ~= nil then
+        v1365.kind = {
             type = "binding_path", 
-            value = v1270.bindingPath
+            value = v1364.bindingPath
         };
     end;
-    return v1271;
+    return v1365;
 end;
 v5.descriptor = {
     name = "InputSizeProp_ConditionalOption", 
@@ -6486,96 +7050,96 @@ v2.InputSizeProp_ConditionalOption = v5;
 v1.default:register(v2.InputSizeProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_47 = v5 --[[ copy: 5 -> 53 ]];
-v5.new = function(v1273) --[[ Line: 9190 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_47 (copy)
+local l_v5_50 = v5 --[[ copy: 5 -> 56 ]];
+v5.new = function(v1367) --[[ Line: 9924 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_50 (copy)
     return (setmetatable({
-        options = if not (v1273 ~= nil) or v1273.options == nil then {} else v1273.options
-    }, l_v5_47));
+        options = if not (v1367 ~= nil) or v1367.options == nil then {} else v1367.options
+    }, l_v5_50));
 end;
-v5.encode = function(v1274) --[[ Line: 9198 ]] --[[ Name: encode ]]
+v5.encode = function(v1368) --[[ Line: 9932 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1275 = buffer.create(0);
-    local v1276 = 0;
-    if v1274.options ~= nil and #v1274.options > 0 then
-        for _, v1278 in v1274.options do
-            local v1279 = v1278:encode();
-            local v1280, v1281 = v0.writeTag(v1275, v1276, 1, v0.wireTypes.lengthDelimited);
-            v1280, v1281 = v0.writeBuffer(v1280, v1281, v1279, buffer.len(v1279));
-            v1275 = v1280;
-            v1276 = v1281;
+    local v1369 = buffer.create(0);
+    local v1370 = 0;
+    if v1368.options ~= nil and #v1368.options > 0 then
+        for _, v1372 in v1368.options do
+            local v1373 = v1372:encode();
+            local v1374, v1375 = v0.writeTag(v1369, v1370, 1, v0.wireTypes.lengthDelimited);
+            v1374, v1375 = v0.writeBuffer(v1374, v1375, v1373, buffer.len(v1373));
+            v1369 = v1374;
+            v1370 = v1375;
         end;
     end;
-    local v1282 = buffer.create(v1276);
-    buffer.copy(v1282, 0, v1275, 0, v1276);
-    return v1282;
+    local v1376 = buffer.create(v1370);
+    buffer.copy(v1376, 0, v1369, 0, v1370);
+    return v1376;
 end;
-v5.decode = function(v1283) --[[ Line: 9215 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_47 (copy), v0 (copy), v2 (copy)
-    local v1284 = l_v5_47.new();
-    local v1285 = 0;
-    while v1285 < buffer.len(v1283) do
-        local v1286 = nil;
-        local v1287 = nil;
-        local v1288, v1289, v1290 = v0.readTag(v1283, v1285);
-        v1286 = v1288;
-        v1287 = v1289;
-        v1285 = v1290;
-        if v1287 == v0.wireTypes.varint then
-            v1288 = nil;
-            v1289, v1290 = v0.readVarInt(v1283, v1285);
-            v1288 = v1289;
-            v1285 = v1290;
-        elseif v1287 == v0.wireTypes.lengthDelimited then
-            if v1286 == 1 then
-                v1288 = nil;
-                v1289, v1290 = v0.readBuffer(v1283, v1285);
-                v1288 = v1289;
-                v1285 = v1290;
-                table.insert(v1284.options, v2.InputSizeProp_ConditionalOption.decode(v1288));
+v5.decode = function(v1377) --[[ Line: 9949 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_50 (copy), v0 (copy), v2 (copy)
+    local v1378 = l_v5_50.new();
+    local v1379 = 0;
+    while v1379 < buffer.len(v1377) do
+        local v1380 = nil;
+        local v1381 = nil;
+        local v1382, v1383, v1384 = v0.readTag(v1377, v1379);
+        v1380 = v1382;
+        v1381 = v1383;
+        v1379 = v1384;
+        if v1381 == v0.wireTypes.varint then
+            v1382 = nil;
+            v1383, v1384 = v0.readVarInt(v1377, v1379);
+            v1382 = v1383;
+            v1379 = v1384;
+        elseif v1381 == v0.wireTypes.lengthDelimited then
+            if v1380 == 1 then
+                v1382 = nil;
+                v1383, v1384 = v0.readBuffer(v1377, v1379);
+                v1382 = v1383;
+                v1379 = v1384;
+                table.insert(v1378.options, v2.InputSizeProp_ConditionalOption.decode(v1382));
             else
-                v1288 = nil;
-                v1289, v1290 = v0.readVarInt(v1283, v1285);
-                v1285 = v1290 + v1289;
+                v1382 = nil;
+                v1383, v1384 = v0.readVarInt(v1377, v1379);
+                v1379 = v1384 + v1383;
             end;
-        elseif v1287 == v0.wireTypes.i32 then
-            v1288 = nil;
-            v1289, v1290 = v0.readFixed32(v1283, v1285);
-            v1288 = v1289;
-            v1285 = v1290;
-        elseif v1287 == v0.wireTypes.i64 then
-            v1288 = nil;
-            v1289, v1290 = v0.readFixed64(v1283, v1285);
-            v1288 = v1289;
-            v1285 = v1290;
+        elseif v1381 == v0.wireTypes.i32 then
+            v1382 = nil;
+            v1383, v1384 = v0.readFixed32(v1377, v1379);
+            v1382 = v1383;
+            v1379 = v1384;
+        elseif v1381 == v0.wireTypes.i64 then
+            v1382 = nil;
+            v1383, v1384 = v0.readFixed64(v1377, v1379);
+            v1382 = v1383;
+            v1379 = v1384;
         else
-            error("Unsupported wire type: " .. v1287);
+            error("Unsupported wire type: " .. v1381);
         end;
     end;
-    return v1284;
+    return v1378;
 end;
-v5.jsonEncode = function(v1291) --[[ Line: 9258 ]] --[[ Name: jsonEncode ]]
-    local v1292 = {};
-    if v1291.options ~= nil and #v1291.options > 0 then
-        local v1293 = {};
-        for _, v1295 in v1291.options do
-            table.insert(v1293, v1295:jsonEncode());
+v5.jsonEncode = function(v1385) --[[ Line: 9992 ]] --[[ Name: jsonEncode ]]
+    local v1386 = {};
+    if v1385.options ~= nil and #v1385.options > 0 then
+        local v1387 = {};
+        for _, v1389 in v1385.options do
+            table.insert(v1387, v1389:jsonEncode());
         end;
-        v1292.options = v1293;
+        v1386.options = v1387;
     end;
-    return v1292;
+    return v1386;
 end;
-v5.jsonDecode = function(v1296) --[[ Line: 9272 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_47 (copy), v2 (copy)
-    local v1297 = l_v5_47.new();
-    if v1296.options ~= nil then
-        local v1298 = {};
-        for _, v1300 in v1296.options do
-            table.insert(v1298, v2.InputSizeProp_ConditionalOption.jsonDecode(v1300));
+v5.jsonDecode = function(v1390) --[[ Line: 10006 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_50 (copy), v2 (copy)
+    local v1391 = l_v5_50.new();
+    if v1390.options ~= nil then
+        local v1392 = {};
+        for _, v1394 in v1390.options do
+            table.insert(v1392, v2.InputSizeProp_ConditionalOption.jsonDecode(v1394));
         end;
-        v1297.options = v1298;
+        v1391.options = v1392;
     end;
-    return v1297;
+    return v1391;
 end;
 v5.descriptor = {
     name = "InputSizeProp_ConditionalOptions", 
@@ -6585,171 +7149,171 @@ v2.InputSizeProp_ConditionalOptions = v5;
 v1.default:register(v2.InputSizeProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_48 = v5 --[[ copy: 5 -> 54 ]];
-v5.new = function(v1302) --[[ Line: 9303 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_48 (copy)
+local l_v5_51 = v5 --[[ copy: 5 -> 57 ]];
+v5.new = function(v1396) --[[ Line: 10037 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_51 (copy)
     return (setmetatable({
-        kind = if not (v1302 ~= nil) or v1302.kind == nil then nil else v1302.kind
-    }, l_v5_48));
+        kind = if not (v1396 ~= nil) or v1396.kind == nil then nil else v1396.kind
+    }, l_v5_51));
 end;
-v5.encode = function(v1303) --[[ Line: 9309 ]] --[[ Name: encode ]]
+v5.encode = function(v1397) --[[ Line: 10043 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1304 = buffer.create(0);
-    local v1305 = 0;
-    if v1303.kind ~= nil then
-        if v1303.kind.type == "literal" then
-            local v1306, v1307 = v0.writeTag(v1304, v1305, 1, v0.wireTypes.lengthDelimited);
-            v1306, v1307 = v0.writeString(v1306, v1307, v1303.kind.value);
-            v1304 = v1306;
-            v1305 = v1307;
-        elseif v1303.kind.type == "token" then
-            local v1308, v1309 = v0.writeTag(v1304, v1305, 2, v0.wireTypes.lengthDelimited);
-            v1308, v1309 = v0.writeString(v1308, v1309, v1303.kind.value);
-            v1304 = v1308;
-            v1305 = v1309;
-        elseif v1303.kind.type == "conditional" then
-            local v1310 = v1303.kind.value:encode();
-            local v1311, v1312 = v0.writeTag(v1304, v1305, 3, v0.wireTypes.lengthDelimited);
-            v1311, v1312 = v0.writeBuffer(v1311, v1312, v1310, buffer.len(v1310));
-            v1304 = v1311;
-            v1305 = v1312;
-        elseif v1303.kind.type == "binding_path" then
-            local v1313, v1314 = v0.writeTag(v1304, v1305, 4, v0.wireTypes.lengthDelimited);
-            v1313, v1314 = v0.writeString(v1313, v1314, v1303.kind.value);
-            v1304 = v1313;
-            v1305 = v1314;
+    local v1398 = buffer.create(0);
+    local v1399 = 0;
+    if v1397.kind ~= nil then
+        if v1397.kind.type == "literal" then
+            local v1400, v1401 = v0.writeTag(v1398, v1399, 1, v0.wireTypes.lengthDelimited);
+            v1400, v1401 = v0.writeString(v1400, v1401, v1397.kind.value);
+            v1398 = v1400;
+            v1399 = v1401;
+        elseif v1397.kind.type == "token" then
+            local v1402, v1403 = v0.writeTag(v1398, v1399, 2, v0.wireTypes.lengthDelimited);
+            v1402, v1403 = v0.writeString(v1402, v1403, v1397.kind.value);
+            v1398 = v1402;
+            v1399 = v1403;
+        elseif v1397.kind.type == "conditional" then
+            local v1404 = v1397.kind.value:encode();
+            local v1405, v1406 = v0.writeTag(v1398, v1399, 3, v0.wireTypes.lengthDelimited);
+            v1405, v1406 = v0.writeBuffer(v1405, v1406, v1404, buffer.len(v1404));
+            v1398 = v1405;
+            v1399 = v1406;
+        elseif v1397.kind.type == "binding_path" then
+            local v1407, v1408 = v0.writeTag(v1398, v1399, 4, v0.wireTypes.lengthDelimited);
+            v1407, v1408 = v0.writeString(v1407, v1408, v1397.kind.value);
+            v1398 = v1407;
+            v1399 = v1408;
         end;
     end;
-    local v1315 = buffer.create(v1305);
-    buffer.copy(v1315, 0, v1304, 0, v1305);
-    return v1315;
+    local v1409 = buffer.create(v1399);
+    buffer.copy(v1409, 0, v1398, 0, v1399);
+    return v1409;
 end;
-v5.decode = function(v1316) --[[ Line: 9335 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_48 (copy), v0 (copy), v2 (copy)
-    local v1317 = l_v5_48.new();
-    local v1318 = 0;
-    while v1318 < buffer.len(v1316) do
-        local v1319 = nil;
-        local v1320 = nil;
-        local v1321, v1322, v1323 = v0.readTag(v1316, v1318);
-        v1319 = v1321;
-        v1320 = v1322;
-        v1318 = v1323;
-        if v1320 == v0.wireTypes.varint then
-            v1321 = nil;
-            v1322, v1323 = v0.readVarInt(v1316, v1318);
-            v1321 = v1322;
-            v1318 = v1323;
-        elseif v1320 == v0.wireTypes.lengthDelimited then
-            if v1319 == 1 then
-                v1321 = nil;
-                v1322, v1323 = v0.readBuffer(v1316, v1318);
-                v1321 = v1322;
-                v1318 = v1323;
-                v1317.kind = {
+v5.decode = function(v1410) --[[ Line: 10069 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_51 (copy), v0 (copy), v2 (copy)
+    local v1411 = l_v5_51.new();
+    local v1412 = 0;
+    while v1412 < buffer.len(v1410) do
+        local v1413 = nil;
+        local v1414 = nil;
+        local v1415, v1416, v1417 = v0.readTag(v1410, v1412);
+        v1413 = v1415;
+        v1414 = v1416;
+        v1412 = v1417;
+        if v1414 == v0.wireTypes.varint then
+            v1415 = nil;
+            v1416, v1417 = v0.readVarInt(v1410, v1412);
+            v1415 = v1416;
+            v1412 = v1417;
+        elseif v1414 == v0.wireTypes.lengthDelimited then
+            if v1413 == 1 then
+                v1415 = nil;
+                v1416, v1417 = v0.readBuffer(v1410, v1412);
+                v1415 = v1416;
+                v1412 = v1417;
+                v1411.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1321)
+                    value = buffer.tostring(v1415)
                 };
-            elseif v1319 == 2 then
-                v1321 = nil;
-                v1322, v1323 = v0.readBuffer(v1316, v1318);
-                v1321 = v1322;
-                v1318 = v1323;
-                v1317.kind = {
+            elseif v1413 == 2 then
+                v1415 = nil;
+                v1416, v1417 = v0.readBuffer(v1410, v1412);
+                v1415 = v1416;
+                v1412 = v1417;
+                v1411.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1321)
+                    value = buffer.tostring(v1415)
                 };
-            elseif v1319 == 3 then
-                v1321 = nil;
-                v1322, v1323 = v0.readBuffer(v1316, v1318);
-                v1321 = v1322;
-                v1318 = v1323;
-                v1317.kind = {
+            elseif v1413 == 3 then
+                v1415 = nil;
+                v1416, v1417 = v0.readBuffer(v1410, v1412);
+                v1415 = v1416;
+                v1412 = v1417;
+                v1411.kind = {
                     type = "conditional", 
-                    value = v2.UDimProp_ConditionalOptions.decode(v1321)
+                    value = v2.UDimProp_ConditionalOptions.decode(v1415)
                 };
-            elseif v1319 == 4 then
-                v1321 = nil;
-                v1322, v1323 = v0.readBuffer(v1316, v1318);
-                v1321 = v1322;
-                v1318 = v1323;
-                v1317.kind = {
+            elseif v1413 == 4 then
+                v1415 = nil;
+                v1416, v1417 = v0.readBuffer(v1410, v1412);
+                v1415 = v1416;
+                v1412 = v1417;
+                v1411.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1321)
+                    value = buffer.tostring(v1415)
                 };
             else
-                v1321 = nil;
-                v1322, v1323 = v0.readVarInt(v1316, v1318);
-                v1318 = v1323 + v1322;
+                v1415 = nil;
+                v1416, v1417 = v0.readVarInt(v1410, v1412);
+                v1412 = v1417 + v1416;
             end;
-        elseif v1320 == v0.wireTypes.i32 then
-            v1321 = nil;
-            v1322, v1323 = v0.readFixed32(v1316, v1318);
-            v1321 = v1322;
-            v1318 = v1323;
-        elseif v1320 == v0.wireTypes.i64 then
-            v1321 = nil;
-            v1322, v1323 = v0.readFixed64(v1316, v1318);
-            v1321 = v1322;
-            v1318 = v1323;
+        elseif v1414 == v0.wireTypes.i32 then
+            v1415 = nil;
+            v1416, v1417 = v0.readFixed32(v1410, v1412);
+            v1415 = v1416;
+            v1412 = v1417;
+        elseif v1414 == v0.wireTypes.i64 then
+            v1415 = nil;
+            v1416, v1417 = v0.readFixed64(v1410, v1412);
+            v1415 = v1416;
+            v1412 = v1417;
         else
-            error("Unsupported wire type: " .. v1320);
+            error("Unsupported wire type: " .. v1414);
         end;
     end;
-    return v1317;
+    return v1411;
 end;
-v5.jsonEncode = function(v1324) --[[ Line: 9393 ]] --[[ Name: jsonEncode ]]
-    local v1325 = {};
-    if v1324.kind ~= nil then
-        if v1324.kind.type == "literal" then
-            v1325.literal = v1324.kind.value;
-            return v1325;
-        elseif v1324.kind.type == "token" then
-            v1325.token = v1324.kind.value;
-            return v1325;
-        elseif v1324.kind.type == "conditional" then
-            v1325.conditional = v1324.kind.value:jsonEncode();
-            return v1325;
-        elseif v1324.kind.type == "binding_path" then
-            v1325.bindingPath = v1324.kind.value;
+v5.jsonEncode = function(v1418) --[[ Line: 10127 ]] --[[ Name: jsonEncode ]]
+    local v1419 = {};
+    if v1418.kind ~= nil then
+        if v1418.kind.type == "literal" then
+            v1419.literal = v1418.kind.value;
+            return v1419;
+        elseif v1418.kind.type == "token" then
+            v1419.token = v1418.kind.value;
+            return v1419;
+        elseif v1418.kind.type == "conditional" then
+            v1419.conditional = v1418.kind.value:jsonEncode();
+            return v1419;
+        elseif v1418.kind.type == "binding_path" then
+            v1419.bindingPath = v1418.kind.value;
         end;
     end;
-    return v1325;
+    return v1419;
 end;
-v5.jsonDecode = function(v1326) --[[ Line: 9411 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_48 (copy), v2 (copy)
-    local v1327 = l_v5_48.new();
-    if v1326.literal ~= nil then
-        v1327.kind = {
+v5.jsonDecode = function(v1420) --[[ Line: 10145 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_51 (copy), v2 (copy)
+    local v1421 = l_v5_51.new();
+    if v1420.literal ~= nil then
+        v1421.kind = {
             type = "literal", 
-            value = v1326.literal
+            value = v1420.literal
         };
     end;
-    if v1326.token ~= nil then
-        v1327.kind = {
+    if v1420.token ~= nil then
+        v1421.kind = {
             type = "token", 
-            value = v1326.token
+            value = v1420.token
         };
     end;
-    if v1326.conditional ~= nil then
-        v1327.kind = {
+    if v1420.conditional ~= nil then
+        v1421.kind = {
             type = "conditional", 
-            value = v2.UDimProp_ConditionalOptions.jsonDecode(v1326.conditional)
+            value = v2.UDimProp_ConditionalOptions.jsonDecode(v1420.conditional)
         };
     end;
-    if v1326.binding_path ~= nil then
-        v1327.kind = {
+    if v1420.binding_path ~= nil then
+        v1421.kind = {
             type = "binding_path", 
-            value = v1326.binding_path
+            value = v1420.binding_path
         };
     end;
-    if v1326.bindingPath ~= nil then
-        v1327.kind = {
+    if v1420.bindingPath ~= nil then
+        v1421.kind = {
             type = "binding_path", 
-            value = v1326.bindingPath
+            value = v1420.bindingPath
         };
     end;
-    return v1327;
+    return v1421;
 end;
 v5.descriptor = {
     name = "UDimProp", 
@@ -6759,167 +7323,167 @@ v2.UDimProp = v5;
 v1.default:register(v2.UDimProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_49 = v5 --[[ copy: 5 -> 55 ]];
-v5.new = function(v1329) --[[ Line: 9452 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_49 (copy)
+local l_v5_52 = v5 --[[ copy: 5 -> 58 ]];
+v5.new = function(v1423) --[[ Line: 10186 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_52 (copy)
     return (setmetatable({
-        condition = if not (v1329 ~= nil) or v1329.condition == nil then nil else v1329.condition, 
-        kind = if not (v1329 ~= nil) or v1329.kind == nil then nil else v1329.kind
-    }, l_v5_49));
+        condition = if not (v1423 ~= nil) or v1423.condition == nil then nil else v1423.condition, 
+        kind = if not (v1423 ~= nil) or v1423.kind == nil then nil else v1423.kind
+    }, l_v5_52));
 end;
-v5.encode = function(v1330) --[[ Line: 9461 ]] --[[ Name: encode ]]
+v5.encode = function(v1424) --[[ Line: 10195 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1331 = buffer.create(0);
-    local v1332 = 0;
-    if v1330.condition ~= nil then
-        local v1333 = v1330.condition:encode();
-        local v1334, v1335 = v0.writeTag(v1331, v1332, 1, v0.wireTypes.lengthDelimited);
-        v1334, v1335 = v0.writeBuffer(v1334, v1335, v1333, buffer.len(v1333));
-        v1331 = v1334;
-        v1332 = v1335;
+    local v1425 = buffer.create(0);
+    local v1426 = 0;
+    if v1424.condition ~= nil then
+        local v1427 = v1424.condition:encode();
+        local v1428, v1429 = v0.writeTag(v1425, v1426, 1, v0.wireTypes.lengthDelimited);
+        v1428, v1429 = v0.writeBuffer(v1428, v1429, v1427, buffer.len(v1427));
+        v1425 = v1428;
+        v1426 = v1429;
     end;
-    if v1330.kind ~= nil then
-        if v1330.kind.type == "literal" then
-            local v1336, v1337 = v0.writeTag(v1331, v1332, 2, v0.wireTypes.lengthDelimited);
-            v1336, v1337 = v0.writeString(v1336, v1337, v1330.kind.value);
-            v1331 = v1336;
-            v1332 = v1337;
-        elseif v1330.kind.type == "token" then
-            local v1338, v1339 = v0.writeTag(v1331, v1332, 3, v0.wireTypes.lengthDelimited);
-            v1338, v1339 = v0.writeString(v1338, v1339, v1330.kind.value);
-            v1331 = v1338;
-            v1332 = v1339;
-        elseif v1330.kind.type == "binding_path" then
-            local v1340, v1341 = v0.writeTag(v1331, v1332, 4, v0.wireTypes.lengthDelimited);
-            v1340, v1341 = v0.writeString(v1340, v1341, v1330.kind.value);
-            v1331 = v1340;
-            v1332 = v1341;
+    if v1424.kind ~= nil then
+        if v1424.kind.type == "literal" then
+            local v1430, v1431 = v0.writeTag(v1425, v1426, 2, v0.wireTypes.lengthDelimited);
+            v1430, v1431 = v0.writeString(v1430, v1431, v1424.kind.value);
+            v1425 = v1430;
+            v1426 = v1431;
+        elseif v1424.kind.type == "token" then
+            local v1432, v1433 = v0.writeTag(v1425, v1426, 3, v0.wireTypes.lengthDelimited);
+            v1432, v1433 = v0.writeString(v1432, v1433, v1424.kind.value);
+            v1425 = v1432;
+            v1426 = v1433;
+        elseif v1424.kind.type == "binding_path" then
+            local v1434, v1435 = v0.writeTag(v1425, v1426, 4, v0.wireTypes.lengthDelimited);
+            v1434, v1435 = v0.writeString(v1434, v1435, v1424.kind.value);
+            v1425 = v1434;
+            v1426 = v1435;
         end;
     end;
-    local v1342 = buffer.create(v1332);
-    buffer.copy(v1342, 0, v1331, 0, v1332);
-    return v1342;
+    local v1436 = buffer.create(v1426);
+    buffer.copy(v1436, 0, v1425, 0, v1426);
+    return v1436;
 end;
-v5.decode = function(v1343) --[[ Line: 9489 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_49 (copy), v0 (copy), v4 (copy)
-    local v1344 = l_v5_49.new();
-    local v1345 = 0;
-    while v1345 < buffer.len(v1343) do
-        local v1346 = nil;
-        local v1347 = nil;
-        local v1348, v1349, v1350 = v0.readTag(v1343, v1345);
-        v1346 = v1348;
-        v1347 = v1349;
-        v1345 = v1350;
-        if v1347 == v0.wireTypes.varint then
-            v1348 = nil;
-            v1349, v1350 = v0.readVarInt(v1343, v1345);
-            v1348 = v1349;
-            v1345 = v1350;
-        elseif v1347 == v0.wireTypes.lengthDelimited then
-            if v1346 == 1 then
-                v1348 = nil;
-                v1349, v1350 = v0.readBuffer(v1343, v1345);
-                v1348 = v1349;
-                v1345 = v1350;
-                v1344.condition = v4.PropCondition.decode(v1348);
-            elseif v1346 == 2 then
-                v1348 = nil;
-                v1349, v1350 = v0.readBuffer(v1343, v1345);
-                v1348 = v1349;
-                v1345 = v1350;
-                v1344.kind = {
+v5.decode = function(v1437) --[[ Line: 10223 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_52 (copy), v0 (copy), v4 (copy)
+    local v1438 = l_v5_52.new();
+    local v1439 = 0;
+    while v1439 < buffer.len(v1437) do
+        local v1440 = nil;
+        local v1441 = nil;
+        local v1442, v1443, v1444 = v0.readTag(v1437, v1439);
+        v1440 = v1442;
+        v1441 = v1443;
+        v1439 = v1444;
+        if v1441 == v0.wireTypes.varint then
+            v1442 = nil;
+            v1443, v1444 = v0.readVarInt(v1437, v1439);
+            v1442 = v1443;
+            v1439 = v1444;
+        elseif v1441 == v0.wireTypes.lengthDelimited then
+            if v1440 == 1 then
+                v1442 = nil;
+                v1443, v1444 = v0.readBuffer(v1437, v1439);
+                v1442 = v1443;
+                v1439 = v1444;
+                v1438.condition = v4.PropCondition.decode(v1442);
+            elseif v1440 == 2 then
+                v1442 = nil;
+                v1443, v1444 = v0.readBuffer(v1437, v1439);
+                v1442 = v1443;
+                v1439 = v1444;
+                v1438.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1348)
+                    value = buffer.tostring(v1442)
                 };
-            elseif v1346 == 3 then
-                v1348 = nil;
-                v1349, v1350 = v0.readBuffer(v1343, v1345);
-                v1348 = v1349;
-                v1345 = v1350;
-                v1344.kind = {
+            elseif v1440 == 3 then
+                v1442 = nil;
+                v1443, v1444 = v0.readBuffer(v1437, v1439);
+                v1442 = v1443;
+                v1439 = v1444;
+                v1438.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1348)
+                    value = buffer.tostring(v1442)
                 };
-            elseif v1346 == 4 then
-                v1348 = nil;
-                v1349, v1350 = v0.readBuffer(v1343, v1345);
-                v1348 = v1349;
-                v1345 = v1350;
-                v1344.kind = {
+            elseif v1440 == 4 then
+                v1442 = nil;
+                v1443, v1444 = v0.readBuffer(v1437, v1439);
+                v1442 = v1443;
+                v1439 = v1444;
+                v1438.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1348)
+                    value = buffer.tostring(v1442)
                 };
             else
-                v1348 = nil;
-                v1349, v1350 = v0.readVarInt(v1343, v1345);
-                v1345 = v1350 + v1349;
+                v1442 = nil;
+                v1443, v1444 = v0.readVarInt(v1437, v1439);
+                v1439 = v1444 + v1443;
             end;
-        elseif v1347 == v0.wireTypes.i32 then
-            v1348 = nil;
-            v1349, v1350 = v0.readFixed32(v1343, v1345);
-            v1348 = v1349;
-            v1345 = v1350;
-        elseif v1347 == v0.wireTypes.i64 then
-            v1348 = nil;
-            v1349, v1350 = v0.readFixed64(v1343, v1345);
-            v1348 = v1349;
-            v1345 = v1350;
+        elseif v1441 == v0.wireTypes.i32 then
+            v1442 = nil;
+            v1443, v1444 = v0.readFixed32(v1437, v1439);
+            v1442 = v1443;
+            v1439 = v1444;
+        elseif v1441 == v0.wireTypes.i64 then
+            v1442 = nil;
+            v1443, v1444 = v0.readFixed64(v1437, v1439);
+            v1442 = v1443;
+            v1439 = v1444;
         else
-            error("Unsupported wire type: " .. v1347);
+            error("Unsupported wire type: " .. v1441);
         end;
     end;
-    return v1344;
+    return v1438;
 end;
-v5.jsonEncode = function(v1351) --[[ Line: 9547 ]] --[[ Name: jsonEncode ]]
-    local v1352 = {};
-    if v1351.condition ~= nil then
-        v1352.condition = v1351.condition:jsonEncode();
+v5.jsonEncode = function(v1445) --[[ Line: 10281 ]] --[[ Name: jsonEncode ]]
+    local v1446 = {};
+    if v1445.condition ~= nil then
+        v1446.condition = v1445.condition:jsonEncode();
     end;
-    if v1351.kind ~= nil then
-        if v1351.kind.type == "literal" then
-            v1352.literal = v1351.kind.value;
-            return v1352;
-        elseif v1351.kind.type == "token" then
-            v1352.token = v1351.kind.value;
-            return v1352;
-        elseif v1351.kind.type == "binding_path" then
-            v1352.bindingPath = v1351.kind.value;
+    if v1445.kind ~= nil then
+        if v1445.kind.type == "literal" then
+            v1446.literal = v1445.kind.value;
+            return v1446;
+        elseif v1445.kind.type == "token" then
+            v1446.token = v1445.kind.value;
+            return v1446;
+        elseif v1445.kind.type == "binding_path" then
+            v1446.bindingPath = v1445.kind.value;
         end;
     end;
-    return v1352;
+    return v1446;
 end;
-v5.jsonDecode = function(v1353) --[[ Line: 9567 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_49 (copy), v4 (copy)
-    local v1354 = l_v5_49.new();
-    if v1353.condition ~= nil then
-        v1354.condition = v4.PropCondition.jsonDecode(v1353.condition);
+v5.jsonDecode = function(v1447) --[[ Line: 10301 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_52 (copy), v4 (copy)
+    local v1448 = l_v5_52.new();
+    if v1447.condition ~= nil then
+        v1448.condition = v4.PropCondition.jsonDecode(v1447.condition);
     end;
-    if v1353.literal ~= nil then
-        v1354.kind = {
+    if v1447.literal ~= nil then
+        v1448.kind = {
             type = "literal", 
-            value = v1353.literal
+            value = v1447.literal
         };
     end;
-    if v1353.token ~= nil then
-        v1354.kind = {
+    if v1447.token ~= nil then
+        v1448.kind = {
             type = "token", 
-            value = v1353.token
+            value = v1447.token
         };
     end;
-    if v1353.binding_path ~= nil then
-        v1354.kind = {
+    if v1447.binding_path ~= nil then
+        v1448.kind = {
             type = "binding_path", 
-            value = v1353.binding_path
+            value = v1447.binding_path
         };
     end;
-    if v1353.bindingPath ~= nil then
-        v1354.kind = {
+    if v1447.bindingPath ~= nil then
+        v1448.kind = {
             type = "binding_path", 
-            value = v1353.bindingPath
+            value = v1447.bindingPath
         };
     end;
-    return v1354;
+    return v1448;
 end;
 v5.descriptor = {
     name = "UDimProp_ConditionalOption", 
@@ -6929,96 +7493,96 @@ v2.UDimProp_ConditionalOption = v5;
 v1.default:register(v2.UDimProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_50 = v5 --[[ copy: 5 -> 56 ]];
-v5.new = function(v1356) --[[ Line: 9608 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_50 (copy)
+local l_v5_53 = v5 --[[ copy: 5 -> 59 ]];
+v5.new = function(v1450) --[[ Line: 10342 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_53 (copy)
     return (setmetatable({
-        options = if not (v1356 ~= nil) or v1356.options == nil then {} else v1356.options
-    }, l_v5_50));
+        options = if not (v1450 ~= nil) or v1450.options == nil then {} else v1450.options
+    }, l_v5_53));
 end;
-v5.encode = function(v1357) --[[ Line: 9616 ]] --[[ Name: encode ]]
+v5.encode = function(v1451) --[[ Line: 10350 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1358 = buffer.create(0);
-    local v1359 = 0;
-    if v1357.options ~= nil and #v1357.options > 0 then
-        for _, v1361 in v1357.options do
-            local v1362 = v1361:encode();
-            local v1363, v1364 = v0.writeTag(v1358, v1359, 1, v0.wireTypes.lengthDelimited);
-            v1363, v1364 = v0.writeBuffer(v1363, v1364, v1362, buffer.len(v1362));
-            v1358 = v1363;
-            v1359 = v1364;
+    local v1452 = buffer.create(0);
+    local v1453 = 0;
+    if v1451.options ~= nil and #v1451.options > 0 then
+        for _, v1455 in v1451.options do
+            local v1456 = v1455:encode();
+            local v1457, v1458 = v0.writeTag(v1452, v1453, 1, v0.wireTypes.lengthDelimited);
+            v1457, v1458 = v0.writeBuffer(v1457, v1458, v1456, buffer.len(v1456));
+            v1452 = v1457;
+            v1453 = v1458;
         end;
     end;
-    local v1365 = buffer.create(v1359);
-    buffer.copy(v1365, 0, v1358, 0, v1359);
-    return v1365;
+    local v1459 = buffer.create(v1453);
+    buffer.copy(v1459, 0, v1452, 0, v1453);
+    return v1459;
 end;
-v5.decode = function(v1366) --[[ Line: 9633 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_50 (copy), v0 (copy), v2 (copy)
-    local v1367 = l_v5_50.new();
-    local v1368 = 0;
-    while v1368 < buffer.len(v1366) do
-        local v1369 = nil;
-        local v1370 = nil;
-        local v1371, v1372, v1373 = v0.readTag(v1366, v1368);
-        v1369 = v1371;
-        v1370 = v1372;
-        v1368 = v1373;
-        if v1370 == v0.wireTypes.varint then
-            v1371 = nil;
-            v1372, v1373 = v0.readVarInt(v1366, v1368);
-            v1371 = v1372;
-            v1368 = v1373;
-        elseif v1370 == v0.wireTypes.lengthDelimited then
-            if v1369 == 1 then
-                v1371 = nil;
-                v1372, v1373 = v0.readBuffer(v1366, v1368);
-                v1371 = v1372;
-                v1368 = v1373;
-                table.insert(v1367.options, v2.UDimProp_ConditionalOption.decode(v1371));
+v5.decode = function(v1460) --[[ Line: 10367 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_53 (copy), v0 (copy), v2 (copy)
+    local v1461 = l_v5_53.new();
+    local v1462 = 0;
+    while v1462 < buffer.len(v1460) do
+        local v1463 = nil;
+        local v1464 = nil;
+        local v1465, v1466, v1467 = v0.readTag(v1460, v1462);
+        v1463 = v1465;
+        v1464 = v1466;
+        v1462 = v1467;
+        if v1464 == v0.wireTypes.varint then
+            v1465 = nil;
+            v1466, v1467 = v0.readVarInt(v1460, v1462);
+            v1465 = v1466;
+            v1462 = v1467;
+        elseif v1464 == v0.wireTypes.lengthDelimited then
+            if v1463 == 1 then
+                v1465 = nil;
+                v1466, v1467 = v0.readBuffer(v1460, v1462);
+                v1465 = v1466;
+                v1462 = v1467;
+                table.insert(v1461.options, v2.UDimProp_ConditionalOption.decode(v1465));
             else
-                v1371 = nil;
-                v1372, v1373 = v0.readVarInt(v1366, v1368);
-                v1368 = v1373 + v1372;
+                v1465 = nil;
+                v1466, v1467 = v0.readVarInt(v1460, v1462);
+                v1462 = v1467 + v1466;
             end;
-        elseif v1370 == v0.wireTypes.i32 then
-            v1371 = nil;
-            v1372, v1373 = v0.readFixed32(v1366, v1368);
-            v1371 = v1372;
-            v1368 = v1373;
-        elseif v1370 == v0.wireTypes.i64 then
-            v1371 = nil;
-            v1372, v1373 = v0.readFixed64(v1366, v1368);
-            v1371 = v1372;
-            v1368 = v1373;
+        elseif v1464 == v0.wireTypes.i32 then
+            v1465 = nil;
+            v1466, v1467 = v0.readFixed32(v1460, v1462);
+            v1465 = v1466;
+            v1462 = v1467;
+        elseif v1464 == v0.wireTypes.i64 then
+            v1465 = nil;
+            v1466, v1467 = v0.readFixed64(v1460, v1462);
+            v1465 = v1466;
+            v1462 = v1467;
         else
-            error("Unsupported wire type: " .. v1370);
+            error("Unsupported wire type: " .. v1464);
         end;
     end;
-    return v1367;
+    return v1461;
 end;
-v5.jsonEncode = function(v1374) --[[ Line: 9676 ]] --[[ Name: jsonEncode ]]
-    local v1375 = {};
-    if v1374.options ~= nil and #v1374.options > 0 then
-        local v1376 = {};
-        for _, v1378 in v1374.options do
-            table.insert(v1376, v1378:jsonEncode());
+v5.jsonEncode = function(v1468) --[[ Line: 10410 ]] --[[ Name: jsonEncode ]]
+    local v1469 = {};
+    if v1468.options ~= nil and #v1468.options > 0 then
+        local v1470 = {};
+        for _, v1472 in v1468.options do
+            table.insert(v1470, v1472:jsonEncode());
         end;
-        v1375.options = v1376;
+        v1469.options = v1470;
     end;
-    return v1375;
+    return v1469;
 end;
-v5.jsonDecode = function(v1379) --[[ Line: 9690 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_50 (copy), v2 (copy)
-    local v1380 = l_v5_50.new();
-    if v1379.options ~= nil then
-        local v1381 = {};
-        for _, v1383 in v1379.options do
-            table.insert(v1381, v2.UDimProp_ConditionalOption.jsonDecode(v1383));
+v5.jsonDecode = function(v1473) --[[ Line: 10424 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_53 (copy), v2 (copy)
+    local v1474 = l_v5_53.new();
+    if v1473.options ~= nil then
+        local v1475 = {};
+        for _, v1477 in v1473.options do
+            table.insert(v1475, v2.UDimProp_ConditionalOption.jsonDecode(v1477));
         end;
-        v1380.options = v1381;
+        v1474.options = v1475;
     end;
-    return v1380;
+    return v1474;
 end;
 v5.descriptor = {
     name = "UDimProp_ConditionalOptions", 
@@ -7028,171 +7592,171 @@ v2.UDimProp_ConditionalOptions = v5;
 v1.default:register(v2.UDimProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_51 = v5 --[[ copy: 5 -> 57 ]];
-v5.new = function(v1385) --[[ Line: 9719 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_51 (copy)
+local l_v5_54 = v5 --[[ copy: 5 -> 60 ]];
+v5.new = function(v1479) --[[ Line: 10453 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_54 (copy)
     return (setmetatable({
-        kind = if not (v1385 ~= nil) or v1385.kind == nil then nil else v1385.kind
-    }, l_v5_51));
+        kind = if not (v1479 ~= nil) or v1479.kind == nil then nil else v1479.kind
+    }, l_v5_54));
 end;
-v5.encode = function(v1386) --[[ Line: 9725 ]] --[[ Name: encode ]]
+v5.encode = function(v1480) --[[ Line: 10459 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1387 = buffer.create(0);
-    local v1388 = 0;
-    if v1386.kind ~= nil then
-        if v1386.kind.type == "literal" then
-            local v1389, v1390 = v0.writeTag(v1387, v1388, 1, v0.wireTypes.lengthDelimited);
-            v1389, v1390 = v0.writeString(v1389, v1390, v1386.kind.value);
-            v1387 = v1389;
-            v1388 = v1390;
-        elseif v1386.kind.type == "token" then
-            local v1391, v1392 = v0.writeTag(v1387, v1388, 2, v0.wireTypes.lengthDelimited);
-            v1391, v1392 = v0.writeString(v1391, v1392, v1386.kind.value);
-            v1387 = v1391;
-            v1388 = v1392;
-        elseif v1386.kind.type == "conditional" then
-            local v1393 = v1386.kind.value:encode();
-            local v1394, v1395 = v0.writeTag(v1387, v1388, 3, v0.wireTypes.lengthDelimited);
-            v1394, v1395 = v0.writeBuffer(v1394, v1395, v1393, buffer.len(v1393));
-            v1387 = v1394;
-            v1388 = v1395;
-        elseif v1386.kind.type == "binding_path" then
-            local v1396, v1397 = v0.writeTag(v1387, v1388, 4, v0.wireTypes.lengthDelimited);
-            v1396, v1397 = v0.writeString(v1396, v1397, v1386.kind.value);
-            v1387 = v1396;
-            v1388 = v1397;
+    local v1481 = buffer.create(0);
+    local v1482 = 0;
+    if v1480.kind ~= nil then
+        if v1480.kind.type == "literal" then
+            local v1483, v1484 = v0.writeTag(v1481, v1482, 1, v0.wireTypes.lengthDelimited);
+            v1483, v1484 = v0.writeString(v1483, v1484, v1480.kind.value);
+            v1481 = v1483;
+            v1482 = v1484;
+        elseif v1480.kind.type == "token" then
+            local v1485, v1486 = v0.writeTag(v1481, v1482, 2, v0.wireTypes.lengthDelimited);
+            v1485, v1486 = v0.writeString(v1485, v1486, v1480.kind.value);
+            v1481 = v1485;
+            v1482 = v1486;
+        elseif v1480.kind.type == "conditional" then
+            local v1487 = v1480.kind.value:encode();
+            local v1488, v1489 = v0.writeTag(v1481, v1482, 3, v0.wireTypes.lengthDelimited);
+            v1488, v1489 = v0.writeBuffer(v1488, v1489, v1487, buffer.len(v1487));
+            v1481 = v1488;
+            v1482 = v1489;
+        elseif v1480.kind.type == "binding_path" then
+            local v1490, v1491 = v0.writeTag(v1481, v1482, 4, v0.wireTypes.lengthDelimited);
+            v1490, v1491 = v0.writeString(v1490, v1491, v1480.kind.value);
+            v1481 = v1490;
+            v1482 = v1491;
         end;
     end;
-    local v1398 = buffer.create(v1388);
-    buffer.copy(v1398, 0, v1387, 0, v1388);
-    return v1398;
+    local v1492 = buffer.create(v1482);
+    buffer.copy(v1492, 0, v1481, 0, v1482);
+    return v1492;
 end;
-v5.decode = function(v1399) --[[ Line: 9751 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_51 (copy), v0 (copy), v2 (copy)
-    local v1400 = l_v5_51.new();
-    local v1401 = 0;
-    while v1401 < buffer.len(v1399) do
-        local v1402 = nil;
-        local v1403 = nil;
-        local v1404, v1405, v1406 = v0.readTag(v1399, v1401);
-        v1402 = v1404;
-        v1403 = v1405;
-        v1401 = v1406;
-        if v1403 == v0.wireTypes.varint then
-            v1404 = nil;
-            v1405, v1406 = v0.readVarInt(v1399, v1401);
-            v1404 = v1405;
-            v1401 = v1406;
-        elseif v1403 == v0.wireTypes.lengthDelimited then
-            if v1402 == 1 then
-                v1404 = nil;
-                v1405, v1406 = v0.readBuffer(v1399, v1401);
-                v1404 = v1405;
-                v1401 = v1406;
-                v1400.kind = {
+v5.decode = function(v1493) --[[ Line: 10485 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_54 (copy), v0 (copy), v2 (copy)
+    local v1494 = l_v5_54.new();
+    local v1495 = 0;
+    while v1495 < buffer.len(v1493) do
+        local v1496 = nil;
+        local v1497 = nil;
+        local v1498, v1499, v1500 = v0.readTag(v1493, v1495);
+        v1496 = v1498;
+        v1497 = v1499;
+        v1495 = v1500;
+        if v1497 == v0.wireTypes.varint then
+            v1498 = nil;
+            v1499, v1500 = v0.readVarInt(v1493, v1495);
+            v1498 = v1499;
+            v1495 = v1500;
+        elseif v1497 == v0.wireTypes.lengthDelimited then
+            if v1496 == 1 then
+                v1498 = nil;
+                v1499, v1500 = v0.readBuffer(v1493, v1495);
+                v1498 = v1499;
+                v1495 = v1500;
+                v1494.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1404)
+                    value = buffer.tostring(v1498)
                 };
-            elseif v1402 == 2 then
-                v1404 = nil;
-                v1405, v1406 = v0.readBuffer(v1399, v1401);
-                v1404 = v1405;
-                v1401 = v1406;
-                v1400.kind = {
+            elseif v1496 == 2 then
+                v1498 = nil;
+                v1499, v1500 = v0.readBuffer(v1493, v1495);
+                v1498 = v1499;
+                v1495 = v1500;
+                v1494.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1404)
+                    value = buffer.tostring(v1498)
                 };
-            elseif v1402 == 3 then
-                v1404 = nil;
-                v1405, v1406 = v0.readBuffer(v1399, v1401);
-                v1404 = v1405;
-                v1401 = v1406;
-                v1400.kind = {
+            elseif v1496 == 3 then
+                v1498 = nil;
+                v1499, v1500 = v0.readBuffer(v1493, v1495);
+                v1498 = v1499;
+                v1495 = v1500;
+                v1494.kind = {
                     type = "conditional", 
-                    value = v2.UDim2Prop_ConditionalOptions.decode(v1404)
+                    value = v2.UDim2Prop_ConditionalOptions.decode(v1498)
                 };
-            elseif v1402 == 4 then
-                v1404 = nil;
-                v1405, v1406 = v0.readBuffer(v1399, v1401);
-                v1404 = v1405;
-                v1401 = v1406;
-                v1400.kind = {
+            elseif v1496 == 4 then
+                v1498 = nil;
+                v1499, v1500 = v0.readBuffer(v1493, v1495);
+                v1498 = v1499;
+                v1495 = v1500;
+                v1494.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1404)
+                    value = buffer.tostring(v1498)
                 };
             else
-                v1404 = nil;
-                v1405, v1406 = v0.readVarInt(v1399, v1401);
-                v1401 = v1406 + v1405;
+                v1498 = nil;
+                v1499, v1500 = v0.readVarInt(v1493, v1495);
+                v1495 = v1500 + v1499;
             end;
-        elseif v1403 == v0.wireTypes.i32 then
-            v1404 = nil;
-            v1405, v1406 = v0.readFixed32(v1399, v1401);
-            v1404 = v1405;
-            v1401 = v1406;
-        elseif v1403 == v0.wireTypes.i64 then
-            v1404 = nil;
-            v1405, v1406 = v0.readFixed64(v1399, v1401);
-            v1404 = v1405;
-            v1401 = v1406;
+        elseif v1497 == v0.wireTypes.i32 then
+            v1498 = nil;
+            v1499, v1500 = v0.readFixed32(v1493, v1495);
+            v1498 = v1499;
+            v1495 = v1500;
+        elseif v1497 == v0.wireTypes.i64 then
+            v1498 = nil;
+            v1499, v1500 = v0.readFixed64(v1493, v1495);
+            v1498 = v1499;
+            v1495 = v1500;
         else
-            error("Unsupported wire type: " .. v1403);
+            error("Unsupported wire type: " .. v1497);
         end;
     end;
-    return v1400;
+    return v1494;
 end;
-v5.jsonEncode = function(v1407) --[[ Line: 9809 ]] --[[ Name: jsonEncode ]]
-    local v1408 = {};
-    if v1407.kind ~= nil then
-        if v1407.kind.type == "literal" then
-            v1408.literal = v1407.kind.value;
-            return v1408;
-        elseif v1407.kind.type == "token" then
-            v1408.token = v1407.kind.value;
-            return v1408;
-        elseif v1407.kind.type == "conditional" then
-            v1408.conditional = v1407.kind.value:jsonEncode();
-            return v1408;
-        elseif v1407.kind.type == "binding_path" then
-            v1408.bindingPath = v1407.kind.value;
+v5.jsonEncode = function(v1501) --[[ Line: 10543 ]] --[[ Name: jsonEncode ]]
+    local v1502 = {};
+    if v1501.kind ~= nil then
+        if v1501.kind.type == "literal" then
+            v1502.literal = v1501.kind.value;
+            return v1502;
+        elseif v1501.kind.type == "token" then
+            v1502.token = v1501.kind.value;
+            return v1502;
+        elseif v1501.kind.type == "conditional" then
+            v1502.conditional = v1501.kind.value:jsonEncode();
+            return v1502;
+        elseif v1501.kind.type == "binding_path" then
+            v1502.bindingPath = v1501.kind.value;
         end;
     end;
-    return v1408;
+    return v1502;
 end;
-v5.jsonDecode = function(v1409) --[[ Line: 9827 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_51 (copy), v2 (copy)
-    local v1410 = l_v5_51.new();
-    if v1409.literal ~= nil then
-        v1410.kind = {
+v5.jsonDecode = function(v1503) --[[ Line: 10561 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_54 (copy), v2 (copy)
+    local v1504 = l_v5_54.new();
+    if v1503.literal ~= nil then
+        v1504.kind = {
             type = "literal", 
-            value = v1409.literal
+            value = v1503.literal
         };
     end;
-    if v1409.token ~= nil then
-        v1410.kind = {
+    if v1503.token ~= nil then
+        v1504.kind = {
             type = "token", 
-            value = v1409.token
+            value = v1503.token
         };
     end;
-    if v1409.conditional ~= nil then
-        v1410.kind = {
+    if v1503.conditional ~= nil then
+        v1504.kind = {
             type = "conditional", 
-            value = v2.UDim2Prop_ConditionalOptions.jsonDecode(v1409.conditional)
+            value = v2.UDim2Prop_ConditionalOptions.jsonDecode(v1503.conditional)
         };
     end;
-    if v1409.binding_path ~= nil then
-        v1410.kind = {
+    if v1503.binding_path ~= nil then
+        v1504.kind = {
             type = "binding_path", 
-            value = v1409.binding_path
+            value = v1503.binding_path
         };
     end;
-    if v1409.bindingPath ~= nil then
-        v1410.kind = {
+    if v1503.bindingPath ~= nil then
+        v1504.kind = {
             type = "binding_path", 
-            value = v1409.bindingPath
+            value = v1503.bindingPath
         };
     end;
-    return v1410;
+    return v1504;
 end;
 v5.descriptor = {
     name = "UDim2Prop", 
@@ -7202,167 +7766,167 @@ v2.UDim2Prop = v5;
 v1.default:register(v2.UDim2Prop);
 v5 = {};
 v5.__index = v5;
-local l_v5_52 = v5 --[[ copy: 5 -> 58 ]];
-v5.new = function(v1412) --[[ Line: 9868 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_52 (copy)
+local l_v5_55 = v5 --[[ copy: 5 -> 61 ]];
+v5.new = function(v1506) --[[ Line: 10602 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_55 (copy)
     return (setmetatable({
-        condition = if not (v1412 ~= nil) or v1412.condition == nil then nil else v1412.condition, 
-        kind = if not (v1412 ~= nil) or v1412.kind == nil then nil else v1412.kind
-    }, l_v5_52));
+        condition = if not (v1506 ~= nil) or v1506.condition == nil then nil else v1506.condition, 
+        kind = if not (v1506 ~= nil) or v1506.kind == nil then nil else v1506.kind
+    }, l_v5_55));
 end;
-v5.encode = function(v1413) --[[ Line: 9877 ]] --[[ Name: encode ]]
+v5.encode = function(v1507) --[[ Line: 10611 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1414 = buffer.create(0);
-    local v1415 = 0;
-    if v1413.condition ~= nil then
-        local v1416 = v1413.condition:encode();
-        local v1417, v1418 = v0.writeTag(v1414, v1415, 1, v0.wireTypes.lengthDelimited);
-        v1417, v1418 = v0.writeBuffer(v1417, v1418, v1416, buffer.len(v1416));
-        v1414 = v1417;
-        v1415 = v1418;
+    local v1508 = buffer.create(0);
+    local v1509 = 0;
+    if v1507.condition ~= nil then
+        local v1510 = v1507.condition:encode();
+        local v1511, v1512 = v0.writeTag(v1508, v1509, 1, v0.wireTypes.lengthDelimited);
+        v1511, v1512 = v0.writeBuffer(v1511, v1512, v1510, buffer.len(v1510));
+        v1508 = v1511;
+        v1509 = v1512;
     end;
-    if v1413.kind ~= nil then
-        if v1413.kind.type == "literal" then
-            local v1419, v1420 = v0.writeTag(v1414, v1415, 2, v0.wireTypes.lengthDelimited);
-            v1419, v1420 = v0.writeString(v1419, v1420, v1413.kind.value);
-            v1414 = v1419;
-            v1415 = v1420;
-        elseif v1413.kind.type == "token" then
-            local v1421, v1422 = v0.writeTag(v1414, v1415, 3, v0.wireTypes.lengthDelimited);
-            v1421, v1422 = v0.writeString(v1421, v1422, v1413.kind.value);
-            v1414 = v1421;
-            v1415 = v1422;
-        elseif v1413.kind.type == "binding_path" then
-            local v1423, v1424 = v0.writeTag(v1414, v1415, 4, v0.wireTypes.lengthDelimited);
-            v1423, v1424 = v0.writeString(v1423, v1424, v1413.kind.value);
-            v1414 = v1423;
-            v1415 = v1424;
+    if v1507.kind ~= nil then
+        if v1507.kind.type == "literal" then
+            local v1513, v1514 = v0.writeTag(v1508, v1509, 2, v0.wireTypes.lengthDelimited);
+            v1513, v1514 = v0.writeString(v1513, v1514, v1507.kind.value);
+            v1508 = v1513;
+            v1509 = v1514;
+        elseif v1507.kind.type == "token" then
+            local v1515, v1516 = v0.writeTag(v1508, v1509, 3, v0.wireTypes.lengthDelimited);
+            v1515, v1516 = v0.writeString(v1515, v1516, v1507.kind.value);
+            v1508 = v1515;
+            v1509 = v1516;
+        elseif v1507.kind.type == "binding_path" then
+            local v1517, v1518 = v0.writeTag(v1508, v1509, 4, v0.wireTypes.lengthDelimited);
+            v1517, v1518 = v0.writeString(v1517, v1518, v1507.kind.value);
+            v1508 = v1517;
+            v1509 = v1518;
         end;
     end;
-    local v1425 = buffer.create(v1415);
-    buffer.copy(v1425, 0, v1414, 0, v1415);
-    return v1425;
+    local v1519 = buffer.create(v1509);
+    buffer.copy(v1519, 0, v1508, 0, v1509);
+    return v1519;
 end;
-v5.decode = function(v1426) --[[ Line: 9905 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_52 (copy), v0 (copy), v4 (copy)
-    local v1427 = l_v5_52.new();
-    local v1428 = 0;
-    while v1428 < buffer.len(v1426) do
-        local v1429 = nil;
-        local v1430 = nil;
-        local v1431, v1432, v1433 = v0.readTag(v1426, v1428);
-        v1429 = v1431;
-        v1430 = v1432;
-        v1428 = v1433;
-        if v1430 == v0.wireTypes.varint then
-            v1431 = nil;
-            v1432, v1433 = v0.readVarInt(v1426, v1428);
-            v1431 = v1432;
-            v1428 = v1433;
-        elseif v1430 == v0.wireTypes.lengthDelimited then
-            if v1429 == 1 then
-                v1431 = nil;
-                v1432, v1433 = v0.readBuffer(v1426, v1428);
-                v1431 = v1432;
-                v1428 = v1433;
-                v1427.condition = v4.PropCondition.decode(v1431);
-            elseif v1429 == 2 then
-                v1431 = nil;
-                v1432, v1433 = v0.readBuffer(v1426, v1428);
-                v1431 = v1432;
-                v1428 = v1433;
-                v1427.kind = {
+v5.decode = function(v1520) --[[ Line: 10639 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_55 (copy), v0 (copy), v4 (copy)
+    local v1521 = l_v5_55.new();
+    local v1522 = 0;
+    while v1522 < buffer.len(v1520) do
+        local v1523 = nil;
+        local v1524 = nil;
+        local v1525, v1526, v1527 = v0.readTag(v1520, v1522);
+        v1523 = v1525;
+        v1524 = v1526;
+        v1522 = v1527;
+        if v1524 == v0.wireTypes.varint then
+            v1525 = nil;
+            v1526, v1527 = v0.readVarInt(v1520, v1522);
+            v1525 = v1526;
+            v1522 = v1527;
+        elseif v1524 == v0.wireTypes.lengthDelimited then
+            if v1523 == 1 then
+                v1525 = nil;
+                v1526, v1527 = v0.readBuffer(v1520, v1522);
+                v1525 = v1526;
+                v1522 = v1527;
+                v1521.condition = v4.PropCondition.decode(v1525);
+            elseif v1523 == 2 then
+                v1525 = nil;
+                v1526, v1527 = v0.readBuffer(v1520, v1522);
+                v1525 = v1526;
+                v1522 = v1527;
+                v1521.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1431)
+                    value = buffer.tostring(v1525)
                 };
-            elseif v1429 == 3 then
-                v1431 = nil;
-                v1432, v1433 = v0.readBuffer(v1426, v1428);
-                v1431 = v1432;
-                v1428 = v1433;
-                v1427.kind = {
+            elseif v1523 == 3 then
+                v1525 = nil;
+                v1526, v1527 = v0.readBuffer(v1520, v1522);
+                v1525 = v1526;
+                v1522 = v1527;
+                v1521.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1431)
+                    value = buffer.tostring(v1525)
                 };
-            elseif v1429 == 4 then
-                v1431 = nil;
-                v1432, v1433 = v0.readBuffer(v1426, v1428);
-                v1431 = v1432;
-                v1428 = v1433;
-                v1427.kind = {
+            elseif v1523 == 4 then
+                v1525 = nil;
+                v1526, v1527 = v0.readBuffer(v1520, v1522);
+                v1525 = v1526;
+                v1522 = v1527;
+                v1521.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1431)
+                    value = buffer.tostring(v1525)
                 };
             else
-                v1431 = nil;
-                v1432, v1433 = v0.readVarInt(v1426, v1428);
-                v1428 = v1433 + v1432;
+                v1525 = nil;
+                v1526, v1527 = v0.readVarInt(v1520, v1522);
+                v1522 = v1527 + v1526;
             end;
-        elseif v1430 == v0.wireTypes.i32 then
-            v1431 = nil;
-            v1432, v1433 = v0.readFixed32(v1426, v1428);
-            v1431 = v1432;
-            v1428 = v1433;
-        elseif v1430 == v0.wireTypes.i64 then
-            v1431 = nil;
-            v1432, v1433 = v0.readFixed64(v1426, v1428);
-            v1431 = v1432;
-            v1428 = v1433;
+        elseif v1524 == v0.wireTypes.i32 then
+            v1525 = nil;
+            v1526, v1527 = v0.readFixed32(v1520, v1522);
+            v1525 = v1526;
+            v1522 = v1527;
+        elseif v1524 == v0.wireTypes.i64 then
+            v1525 = nil;
+            v1526, v1527 = v0.readFixed64(v1520, v1522);
+            v1525 = v1526;
+            v1522 = v1527;
         else
-            error("Unsupported wire type: " .. v1430);
+            error("Unsupported wire type: " .. v1524);
         end;
     end;
-    return v1427;
+    return v1521;
 end;
-v5.jsonEncode = function(v1434) --[[ Line: 9963 ]] --[[ Name: jsonEncode ]]
-    local v1435 = {};
-    if v1434.condition ~= nil then
-        v1435.condition = v1434.condition:jsonEncode();
+v5.jsonEncode = function(v1528) --[[ Line: 10697 ]] --[[ Name: jsonEncode ]]
+    local v1529 = {};
+    if v1528.condition ~= nil then
+        v1529.condition = v1528.condition:jsonEncode();
     end;
-    if v1434.kind ~= nil then
-        if v1434.kind.type == "literal" then
-            v1435.literal = v1434.kind.value;
-            return v1435;
-        elseif v1434.kind.type == "token" then
-            v1435.token = v1434.kind.value;
-            return v1435;
-        elseif v1434.kind.type == "binding_path" then
-            v1435.bindingPath = v1434.kind.value;
+    if v1528.kind ~= nil then
+        if v1528.kind.type == "literal" then
+            v1529.literal = v1528.kind.value;
+            return v1529;
+        elseif v1528.kind.type == "token" then
+            v1529.token = v1528.kind.value;
+            return v1529;
+        elseif v1528.kind.type == "binding_path" then
+            v1529.bindingPath = v1528.kind.value;
         end;
     end;
-    return v1435;
+    return v1529;
 end;
-v5.jsonDecode = function(v1436) --[[ Line: 9983 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_52 (copy), v4 (copy)
-    local v1437 = l_v5_52.new();
-    if v1436.condition ~= nil then
-        v1437.condition = v4.PropCondition.jsonDecode(v1436.condition);
+v5.jsonDecode = function(v1530) --[[ Line: 10717 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_55 (copy), v4 (copy)
+    local v1531 = l_v5_55.new();
+    if v1530.condition ~= nil then
+        v1531.condition = v4.PropCondition.jsonDecode(v1530.condition);
     end;
-    if v1436.literal ~= nil then
-        v1437.kind = {
+    if v1530.literal ~= nil then
+        v1531.kind = {
             type = "literal", 
-            value = v1436.literal
+            value = v1530.literal
         };
     end;
-    if v1436.token ~= nil then
-        v1437.kind = {
+    if v1530.token ~= nil then
+        v1531.kind = {
             type = "token", 
-            value = v1436.token
+            value = v1530.token
         };
     end;
-    if v1436.binding_path ~= nil then
-        v1437.kind = {
+    if v1530.binding_path ~= nil then
+        v1531.kind = {
             type = "binding_path", 
-            value = v1436.binding_path
+            value = v1530.binding_path
         };
     end;
-    if v1436.bindingPath ~= nil then
-        v1437.kind = {
+    if v1530.bindingPath ~= nil then
+        v1531.kind = {
             type = "binding_path", 
-            value = v1436.bindingPath
+            value = v1530.bindingPath
         };
     end;
-    return v1437;
+    return v1531;
 end;
 v5.descriptor = {
     name = "UDim2Prop_ConditionalOption", 
@@ -7372,96 +7936,96 @@ v2.UDim2Prop_ConditionalOption = v5;
 v1.default:register(v2.UDim2Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_53 = v5 --[[ copy: 5 -> 59 ]];
-v5.new = function(v1439) --[[ Line: 10024 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_53 (copy)
+local l_v5_56 = v5 --[[ copy: 5 -> 62 ]];
+v5.new = function(v1533) --[[ Line: 10758 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_56 (copy)
     return (setmetatable({
-        options = if not (v1439 ~= nil) or v1439.options == nil then {} else v1439.options
-    }, l_v5_53));
+        options = if not (v1533 ~= nil) or v1533.options == nil then {} else v1533.options
+    }, l_v5_56));
 end;
-v5.encode = function(v1440) --[[ Line: 10032 ]] --[[ Name: encode ]]
+v5.encode = function(v1534) --[[ Line: 10766 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1441 = buffer.create(0);
-    local v1442 = 0;
-    if v1440.options ~= nil and #v1440.options > 0 then
-        for _, v1444 in v1440.options do
-            local v1445 = v1444:encode();
-            local v1446, v1447 = v0.writeTag(v1441, v1442, 1, v0.wireTypes.lengthDelimited);
-            v1446, v1447 = v0.writeBuffer(v1446, v1447, v1445, buffer.len(v1445));
-            v1441 = v1446;
-            v1442 = v1447;
+    local v1535 = buffer.create(0);
+    local v1536 = 0;
+    if v1534.options ~= nil and #v1534.options > 0 then
+        for _, v1538 in v1534.options do
+            local v1539 = v1538:encode();
+            local v1540, v1541 = v0.writeTag(v1535, v1536, 1, v0.wireTypes.lengthDelimited);
+            v1540, v1541 = v0.writeBuffer(v1540, v1541, v1539, buffer.len(v1539));
+            v1535 = v1540;
+            v1536 = v1541;
         end;
     end;
-    local v1448 = buffer.create(v1442);
-    buffer.copy(v1448, 0, v1441, 0, v1442);
-    return v1448;
+    local v1542 = buffer.create(v1536);
+    buffer.copy(v1542, 0, v1535, 0, v1536);
+    return v1542;
 end;
-v5.decode = function(v1449) --[[ Line: 10049 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_53 (copy), v0 (copy), v2 (copy)
-    local v1450 = l_v5_53.new();
-    local v1451 = 0;
-    while v1451 < buffer.len(v1449) do
-        local v1452 = nil;
-        local v1453 = nil;
-        local v1454, v1455, v1456 = v0.readTag(v1449, v1451);
-        v1452 = v1454;
-        v1453 = v1455;
-        v1451 = v1456;
-        if v1453 == v0.wireTypes.varint then
-            v1454 = nil;
-            v1455, v1456 = v0.readVarInt(v1449, v1451);
-            v1454 = v1455;
-            v1451 = v1456;
-        elseif v1453 == v0.wireTypes.lengthDelimited then
-            if v1452 == 1 then
-                v1454 = nil;
-                v1455, v1456 = v0.readBuffer(v1449, v1451);
-                v1454 = v1455;
-                v1451 = v1456;
-                table.insert(v1450.options, v2.UDim2Prop_ConditionalOption.decode(v1454));
+v5.decode = function(v1543) --[[ Line: 10783 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_56 (copy), v0 (copy), v2 (copy)
+    local v1544 = l_v5_56.new();
+    local v1545 = 0;
+    while v1545 < buffer.len(v1543) do
+        local v1546 = nil;
+        local v1547 = nil;
+        local v1548, v1549, v1550 = v0.readTag(v1543, v1545);
+        v1546 = v1548;
+        v1547 = v1549;
+        v1545 = v1550;
+        if v1547 == v0.wireTypes.varint then
+            v1548 = nil;
+            v1549, v1550 = v0.readVarInt(v1543, v1545);
+            v1548 = v1549;
+            v1545 = v1550;
+        elseif v1547 == v0.wireTypes.lengthDelimited then
+            if v1546 == 1 then
+                v1548 = nil;
+                v1549, v1550 = v0.readBuffer(v1543, v1545);
+                v1548 = v1549;
+                v1545 = v1550;
+                table.insert(v1544.options, v2.UDim2Prop_ConditionalOption.decode(v1548));
             else
-                v1454 = nil;
-                v1455, v1456 = v0.readVarInt(v1449, v1451);
-                v1451 = v1456 + v1455;
+                v1548 = nil;
+                v1549, v1550 = v0.readVarInt(v1543, v1545);
+                v1545 = v1550 + v1549;
             end;
-        elseif v1453 == v0.wireTypes.i32 then
-            v1454 = nil;
-            v1455, v1456 = v0.readFixed32(v1449, v1451);
-            v1454 = v1455;
-            v1451 = v1456;
-        elseif v1453 == v0.wireTypes.i64 then
-            v1454 = nil;
-            v1455, v1456 = v0.readFixed64(v1449, v1451);
-            v1454 = v1455;
-            v1451 = v1456;
+        elseif v1547 == v0.wireTypes.i32 then
+            v1548 = nil;
+            v1549, v1550 = v0.readFixed32(v1543, v1545);
+            v1548 = v1549;
+            v1545 = v1550;
+        elseif v1547 == v0.wireTypes.i64 then
+            v1548 = nil;
+            v1549, v1550 = v0.readFixed64(v1543, v1545);
+            v1548 = v1549;
+            v1545 = v1550;
         else
-            error("Unsupported wire type: " .. v1453);
+            error("Unsupported wire type: " .. v1547);
         end;
     end;
-    return v1450;
+    return v1544;
 end;
-v5.jsonEncode = function(v1457) --[[ Line: 10092 ]] --[[ Name: jsonEncode ]]
-    local v1458 = {};
-    if v1457.options ~= nil and #v1457.options > 0 then
-        local v1459 = {};
-        for _, v1461 in v1457.options do
-            table.insert(v1459, v1461:jsonEncode());
+v5.jsonEncode = function(v1551) --[[ Line: 10826 ]] --[[ Name: jsonEncode ]]
+    local v1552 = {};
+    if v1551.options ~= nil and #v1551.options > 0 then
+        local v1553 = {};
+        for _, v1555 in v1551.options do
+            table.insert(v1553, v1555:jsonEncode());
         end;
-        v1458.options = v1459;
+        v1552.options = v1553;
     end;
-    return v1458;
+    return v1552;
 end;
-v5.jsonDecode = function(v1462) --[[ Line: 10106 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_53 (copy), v2 (copy)
-    local v1463 = l_v5_53.new();
-    if v1462.options ~= nil then
-        local v1464 = {};
-        for _, v1466 in v1462.options do
-            table.insert(v1464, v2.UDim2Prop_ConditionalOption.jsonDecode(v1466));
+v5.jsonDecode = function(v1556) --[[ Line: 10840 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_56 (copy), v2 (copy)
+    local v1557 = l_v5_56.new();
+    if v1556.options ~= nil then
+        local v1558 = {};
+        for _, v1560 in v1556.options do
+            table.insert(v1558, v2.UDim2Prop_ConditionalOption.jsonDecode(v1560));
         end;
-        v1463.options = v1464;
+        v1557.options = v1558;
     end;
-    return v1463;
+    return v1557;
 end;
 v5.descriptor = {
     name = "UDim2Prop_ConditionalOptions", 
@@ -7471,171 +8035,171 @@ v2.UDim2Prop_ConditionalOptions = v5;
 v1.default:register(v2.UDim2Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_54 = v5 --[[ copy: 5 -> 60 ]];
-v5.new = function(v1468) --[[ Line: 10135 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_54 (copy)
+local l_v5_57 = v5 --[[ copy: 5 -> 63 ]];
+v5.new = function(v1562) --[[ Line: 10869 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_57 (copy)
     return (setmetatable({
-        kind = if not (v1468 ~= nil) or v1468.kind == nil then nil else v1468.kind
-    }, l_v5_54));
+        kind = if not (v1562 ~= nil) or v1562.kind == nil then nil else v1562.kind
+    }, l_v5_57));
 end;
-v5.encode = function(v1469) --[[ Line: 10141 ]] --[[ Name: encode ]]
+v5.encode = function(v1563) --[[ Line: 10875 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1470 = buffer.create(0);
-    local v1471 = 0;
-    if v1469.kind ~= nil then
-        if v1469.kind.type == "literal" then
-            local v1472, v1473 = v0.writeTag(v1470, v1471, 1, v0.wireTypes.lengthDelimited);
-            v1472, v1473 = v0.writeString(v1472, v1473, v1469.kind.value);
-            v1470 = v1472;
-            v1471 = v1473;
-        elseif v1469.kind.type == "token" then
-            local v1474, v1475 = v0.writeTag(v1470, v1471, 2, v0.wireTypes.lengthDelimited);
-            v1474, v1475 = v0.writeString(v1474, v1475, v1469.kind.value);
-            v1470 = v1474;
-            v1471 = v1475;
-        elseif v1469.kind.type == "conditional" then
-            local v1476 = v1469.kind.value:encode();
-            local v1477, v1478 = v0.writeTag(v1470, v1471, 3, v0.wireTypes.lengthDelimited);
-            v1477, v1478 = v0.writeBuffer(v1477, v1478, v1476, buffer.len(v1476));
-            v1470 = v1477;
-            v1471 = v1478;
-        elseif v1469.kind.type == "binding_path" then
-            local v1479, v1480 = v0.writeTag(v1470, v1471, 4, v0.wireTypes.lengthDelimited);
-            v1479, v1480 = v0.writeString(v1479, v1480, v1469.kind.value);
-            v1470 = v1479;
-            v1471 = v1480;
+    local v1564 = buffer.create(0);
+    local v1565 = 0;
+    if v1563.kind ~= nil then
+        if v1563.kind.type == "literal" then
+            local v1566, v1567 = v0.writeTag(v1564, v1565, 1, v0.wireTypes.lengthDelimited);
+            v1566, v1567 = v0.writeString(v1566, v1567, v1563.kind.value);
+            v1564 = v1566;
+            v1565 = v1567;
+        elseif v1563.kind.type == "token" then
+            local v1568, v1569 = v0.writeTag(v1564, v1565, 2, v0.wireTypes.lengthDelimited);
+            v1568, v1569 = v0.writeString(v1568, v1569, v1563.kind.value);
+            v1564 = v1568;
+            v1565 = v1569;
+        elseif v1563.kind.type == "conditional" then
+            local v1570 = v1563.kind.value:encode();
+            local v1571, v1572 = v0.writeTag(v1564, v1565, 3, v0.wireTypes.lengthDelimited);
+            v1571, v1572 = v0.writeBuffer(v1571, v1572, v1570, buffer.len(v1570));
+            v1564 = v1571;
+            v1565 = v1572;
+        elseif v1563.kind.type == "binding_path" then
+            local v1573, v1574 = v0.writeTag(v1564, v1565, 4, v0.wireTypes.lengthDelimited);
+            v1573, v1574 = v0.writeString(v1573, v1574, v1563.kind.value);
+            v1564 = v1573;
+            v1565 = v1574;
         end;
     end;
-    local v1481 = buffer.create(v1471);
-    buffer.copy(v1481, 0, v1470, 0, v1471);
-    return v1481;
+    local v1575 = buffer.create(v1565);
+    buffer.copy(v1575, 0, v1564, 0, v1565);
+    return v1575;
 end;
-v5.decode = function(v1482) --[[ Line: 10167 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_54 (copy), v0 (copy), v2 (copy)
-    local v1483 = l_v5_54.new();
-    local v1484 = 0;
-    while v1484 < buffer.len(v1482) do
-        local v1485 = nil;
-        local v1486 = nil;
-        local v1487, v1488, v1489 = v0.readTag(v1482, v1484);
-        v1485 = v1487;
-        v1486 = v1488;
-        v1484 = v1489;
-        if v1486 == v0.wireTypes.varint then
-            v1487 = nil;
-            v1488, v1489 = v0.readVarInt(v1482, v1484);
-            v1487 = v1488;
-            v1484 = v1489;
-        elseif v1486 == v0.wireTypes.lengthDelimited then
-            if v1485 == 1 then
-                v1487 = nil;
-                v1488, v1489 = v0.readBuffer(v1482, v1484);
-                v1487 = v1488;
-                v1484 = v1489;
-                v1483.kind = {
+v5.decode = function(v1576) --[[ Line: 10901 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_57 (copy), v0 (copy), v2 (copy)
+    local v1577 = l_v5_57.new();
+    local v1578 = 0;
+    while v1578 < buffer.len(v1576) do
+        local v1579 = nil;
+        local v1580 = nil;
+        local v1581, v1582, v1583 = v0.readTag(v1576, v1578);
+        v1579 = v1581;
+        v1580 = v1582;
+        v1578 = v1583;
+        if v1580 == v0.wireTypes.varint then
+            v1581 = nil;
+            v1582, v1583 = v0.readVarInt(v1576, v1578);
+            v1581 = v1582;
+            v1578 = v1583;
+        elseif v1580 == v0.wireTypes.lengthDelimited then
+            if v1579 == 1 then
+                v1581 = nil;
+                v1582, v1583 = v0.readBuffer(v1576, v1578);
+                v1581 = v1582;
+                v1578 = v1583;
+                v1577.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1487)
+                    value = buffer.tostring(v1581)
                 };
-            elseif v1485 == 2 then
-                v1487 = nil;
-                v1488, v1489 = v0.readBuffer(v1482, v1484);
-                v1487 = v1488;
-                v1484 = v1489;
-                v1483.kind = {
+            elseif v1579 == 2 then
+                v1581 = nil;
+                v1582, v1583 = v0.readBuffer(v1576, v1578);
+                v1581 = v1582;
+                v1578 = v1583;
+                v1577.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1487)
+                    value = buffer.tostring(v1581)
                 };
-            elseif v1485 == 3 then
-                v1487 = nil;
-                v1488, v1489 = v0.readBuffer(v1482, v1484);
-                v1487 = v1488;
-                v1484 = v1489;
-                v1483.kind = {
+            elseif v1579 == 3 then
+                v1581 = nil;
+                v1582, v1583 = v0.readBuffer(v1576, v1578);
+                v1581 = v1582;
+                v1578 = v1583;
+                v1577.kind = {
                     type = "conditional", 
-                    value = v2.Vector2Prop_ConditionalOptions.decode(v1487)
+                    value = v2.Vector2Prop_ConditionalOptions.decode(v1581)
                 };
-            elseif v1485 == 4 then
-                v1487 = nil;
-                v1488, v1489 = v0.readBuffer(v1482, v1484);
-                v1487 = v1488;
-                v1484 = v1489;
-                v1483.kind = {
+            elseif v1579 == 4 then
+                v1581 = nil;
+                v1582, v1583 = v0.readBuffer(v1576, v1578);
+                v1581 = v1582;
+                v1578 = v1583;
+                v1577.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1487)
+                    value = buffer.tostring(v1581)
                 };
             else
-                v1487 = nil;
-                v1488, v1489 = v0.readVarInt(v1482, v1484);
-                v1484 = v1489 + v1488;
+                v1581 = nil;
+                v1582, v1583 = v0.readVarInt(v1576, v1578);
+                v1578 = v1583 + v1582;
             end;
-        elseif v1486 == v0.wireTypes.i32 then
-            v1487 = nil;
-            v1488, v1489 = v0.readFixed32(v1482, v1484);
-            v1487 = v1488;
-            v1484 = v1489;
-        elseif v1486 == v0.wireTypes.i64 then
-            v1487 = nil;
-            v1488, v1489 = v0.readFixed64(v1482, v1484);
-            v1487 = v1488;
-            v1484 = v1489;
+        elseif v1580 == v0.wireTypes.i32 then
+            v1581 = nil;
+            v1582, v1583 = v0.readFixed32(v1576, v1578);
+            v1581 = v1582;
+            v1578 = v1583;
+        elseif v1580 == v0.wireTypes.i64 then
+            v1581 = nil;
+            v1582, v1583 = v0.readFixed64(v1576, v1578);
+            v1581 = v1582;
+            v1578 = v1583;
         else
-            error("Unsupported wire type: " .. v1486);
+            error("Unsupported wire type: " .. v1580);
         end;
     end;
-    return v1483;
+    return v1577;
 end;
-v5.jsonEncode = function(v1490) --[[ Line: 10225 ]] --[[ Name: jsonEncode ]]
-    local v1491 = {};
-    if v1490.kind ~= nil then
-        if v1490.kind.type == "literal" then
-            v1491.literal = v1490.kind.value;
-            return v1491;
-        elseif v1490.kind.type == "token" then
-            v1491.token = v1490.kind.value;
-            return v1491;
-        elseif v1490.kind.type == "conditional" then
-            v1491.conditional = v1490.kind.value:jsonEncode();
-            return v1491;
-        elseif v1490.kind.type == "binding_path" then
-            v1491.bindingPath = v1490.kind.value;
+v5.jsonEncode = function(v1584) --[[ Line: 10959 ]] --[[ Name: jsonEncode ]]
+    local v1585 = {};
+    if v1584.kind ~= nil then
+        if v1584.kind.type == "literal" then
+            v1585.literal = v1584.kind.value;
+            return v1585;
+        elseif v1584.kind.type == "token" then
+            v1585.token = v1584.kind.value;
+            return v1585;
+        elseif v1584.kind.type == "conditional" then
+            v1585.conditional = v1584.kind.value:jsonEncode();
+            return v1585;
+        elseif v1584.kind.type == "binding_path" then
+            v1585.bindingPath = v1584.kind.value;
         end;
     end;
-    return v1491;
+    return v1585;
 end;
-v5.jsonDecode = function(v1492) --[[ Line: 10243 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_54 (copy), v2 (copy)
-    local v1493 = l_v5_54.new();
-    if v1492.literal ~= nil then
-        v1493.kind = {
+v5.jsonDecode = function(v1586) --[[ Line: 10977 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_57 (copy), v2 (copy)
+    local v1587 = l_v5_57.new();
+    if v1586.literal ~= nil then
+        v1587.kind = {
             type = "literal", 
-            value = v1492.literal
+            value = v1586.literal
         };
     end;
-    if v1492.token ~= nil then
-        v1493.kind = {
+    if v1586.token ~= nil then
+        v1587.kind = {
             type = "token", 
-            value = v1492.token
+            value = v1586.token
         };
     end;
-    if v1492.conditional ~= nil then
-        v1493.kind = {
+    if v1586.conditional ~= nil then
+        v1587.kind = {
             type = "conditional", 
-            value = v2.Vector2Prop_ConditionalOptions.jsonDecode(v1492.conditional)
+            value = v2.Vector2Prop_ConditionalOptions.jsonDecode(v1586.conditional)
         };
     end;
-    if v1492.binding_path ~= nil then
-        v1493.kind = {
+    if v1586.binding_path ~= nil then
+        v1587.kind = {
             type = "binding_path", 
-            value = v1492.binding_path
+            value = v1586.binding_path
         };
     end;
-    if v1492.bindingPath ~= nil then
-        v1493.kind = {
+    if v1586.bindingPath ~= nil then
+        v1587.kind = {
             type = "binding_path", 
-            value = v1492.bindingPath
+            value = v1586.bindingPath
         };
     end;
-    return v1493;
+    return v1587;
 end;
 v5.descriptor = {
     name = "Vector2Prop", 
@@ -7645,167 +8209,167 @@ v2.Vector2Prop = v5;
 v1.default:register(v2.Vector2Prop);
 v5 = {};
 v5.__index = v5;
-local l_v5_55 = v5 --[[ copy: 5 -> 61 ]];
-v5.new = function(v1495) --[[ Line: 10284 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_55 (copy)
+local l_v5_58 = v5 --[[ copy: 5 -> 64 ]];
+v5.new = function(v1589) --[[ Line: 11018 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_58 (copy)
     return (setmetatable({
-        condition = if not (v1495 ~= nil) or v1495.condition == nil then nil else v1495.condition, 
-        kind = if not (v1495 ~= nil) or v1495.kind == nil then nil else v1495.kind
-    }, l_v5_55));
+        condition = if not (v1589 ~= nil) or v1589.condition == nil then nil else v1589.condition, 
+        kind = if not (v1589 ~= nil) or v1589.kind == nil then nil else v1589.kind
+    }, l_v5_58));
 end;
-v5.encode = function(v1496) --[[ Line: 10293 ]] --[[ Name: encode ]]
+v5.encode = function(v1590) --[[ Line: 11027 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1497 = buffer.create(0);
-    local v1498 = 0;
-    if v1496.condition ~= nil then
-        local v1499 = v1496.condition:encode();
-        local v1500, v1501 = v0.writeTag(v1497, v1498, 1, v0.wireTypes.lengthDelimited);
-        v1500, v1501 = v0.writeBuffer(v1500, v1501, v1499, buffer.len(v1499));
-        v1497 = v1500;
-        v1498 = v1501;
+    local v1591 = buffer.create(0);
+    local v1592 = 0;
+    if v1590.condition ~= nil then
+        local v1593 = v1590.condition:encode();
+        local v1594, v1595 = v0.writeTag(v1591, v1592, 1, v0.wireTypes.lengthDelimited);
+        v1594, v1595 = v0.writeBuffer(v1594, v1595, v1593, buffer.len(v1593));
+        v1591 = v1594;
+        v1592 = v1595;
     end;
-    if v1496.kind ~= nil then
-        if v1496.kind.type == "literal" then
-            local v1502, v1503 = v0.writeTag(v1497, v1498, 2, v0.wireTypes.lengthDelimited);
-            v1502, v1503 = v0.writeString(v1502, v1503, v1496.kind.value);
-            v1497 = v1502;
-            v1498 = v1503;
-        elseif v1496.kind.type == "token" then
-            local v1504, v1505 = v0.writeTag(v1497, v1498, 3, v0.wireTypes.lengthDelimited);
-            v1504, v1505 = v0.writeString(v1504, v1505, v1496.kind.value);
-            v1497 = v1504;
-            v1498 = v1505;
-        elseif v1496.kind.type == "binding_path" then
-            local v1506, v1507 = v0.writeTag(v1497, v1498, 4, v0.wireTypes.lengthDelimited);
-            v1506, v1507 = v0.writeString(v1506, v1507, v1496.kind.value);
-            v1497 = v1506;
-            v1498 = v1507;
+    if v1590.kind ~= nil then
+        if v1590.kind.type == "literal" then
+            local v1596, v1597 = v0.writeTag(v1591, v1592, 2, v0.wireTypes.lengthDelimited);
+            v1596, v1597 = v0.writeString(v1596, v1597, v1590.kind.value);
+            v1591 = v1596;
+            v1592 = v1597;
+        elseif v1590.kind.type == "token" then
+            local v1598, v1599 = v0.writeTag(v1591, v1592, 3, v0.wireTypes.lengthDelimited);
+            v1598, v1599 = v0.writeString(v1598, v1599, v1590.kind.value);
+            v1591 = v1598;
+            v1592 = v1599;
+        elseif v1590.kind.type == "binding_path" then
+            local v1600, v1601 = v0.writeTag(v1591, v1592, 4, v0.wireTypes.lengthDelimited);
+            v1600, v1601 = v0.writeString(v1600, v1601, v1590.kind.value);
+            v1591 = v1600;
+            v1592 = v1601;
         end;
     end;
-    local v1508 = buffer.create(v1498);
-    buffer.copy(v1508, 0, v1497, 0, v1498);
-    return v1508;
+    local v1602 = buffer.create(v1592);
+    buffer.copy(v1602, 0, v1591, 0, v1592);
+    return v1602;
 end;
-v5.decode = function(v1509) --[[ Line: 10321 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_55 (copy), v0 (copy), v4 (copy)
-    local v1510 = l_v5_55.new();
-    local v1511 = 0;
-    while v1511 < buffer.len(v1509) do
-        local v1512 = nil;
-        local v1513 = nil;
-        local v1514, v1515, v1516 = v0.readTag(v1509, v1511);
-        v1512 = v1514;
-        v1513 = v1515;
-        v1511 = v1516;
-        if v1513 == v0.wireTypes.varint then
-            v1514 = nil;
-            v1515, v1516 = v0.readVarInt(v1509, v1511);
-            v1514 = v1515;
-            v1511 = v1516;
-        elseif v1513 == v0.wireTypes.lengthDelimited then
-            if v1512 == 1 then
-                v1514 = nil;
-                v1515, v1516 = v0.readBuffer(v1509, v1511);
-                v1514 = v1515;
-                v1511 = v1516;
-                v1510.condition = v4.PropCondition.decode(v1514);
-            elseif v1512 == 2 then
-                v1514 = nil;
-                v1515, v1516 = v0.readBuffer(v1509, v1511);
-                v1514 = v1515;
-                v1511 = v1516;
-                v1510.kind = {
+v5.decode = function(v1603) --[[ Line: 11055 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_58 (copy), v0 (copy), v4 (copy)
+    local v1604 = l_v5_58.new();
+    local v1605 = 0;
+    while v1605 < buffer.len(v1603) do
+        local v1606 = nil;
+        local v1607 = nil;
+        local v1608, v1609, v1610 = v0.readTag(v1603, v1605);
+        v1606 = v1608;
+        v1607 = v1609;
+        v1605 = v1610;
+        if v1607 == v0.wireTypes.varint then
+            v1608 = nil;
+            v1609, v1610 = v0.readVarInt(v1603, v1605);
+            v1608 = v1609;
+            v1605 = v1610;
+        elseif v1607 == v0.wireTypes.lengthDelimited then
+            if v1606 == 1 then
+                v1608 = nil;
+                v1609, v1610 = v0.readBuffer(v1603, v1605);
+                v1608 = v1609;
+                v1605 = v1610;
+                v1604.condition = v4.PropCondition.decode(v1608);
+            elseif v1606 == 2 then
+                v1608 = nil;
+                v1609, v1610 = v0.readBuffer(v1603, v1605);
+                v1608 = v1609;
+                v1605 = v1610;
+                v1604.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v1514)
+                    value = buffer.tostring(v1608)
                 };
-            elseif v1512 == 3 then
-                v1514 = nil;
-                v1515, v1516 = v0.readBuffer(v1509, v1511);
-                v1514 = v1515;
-                v1511 = v1516;
-                v1510.kind = {
+            elseif v1606 == 3 then
+                v1608 = nil;
+                v1609, v1610 = v0.readBuffer(v1603, v1605);
+                v1608 = v1609;
+                v1605 = v1610;
+                v1604.kind = {
                     type = "token", 
-                    value = buffer.tostring(v1514)
+                    value = buffer.tostring(v1608)
                 };
-            elseif v1512 == 4 then
-                v1514 = nil;
-                v1515, v1516 = v0.readBuffer(v1509, v1511);
-                v1514 = v1515;
-                v1511 = v1516;
-                v1510.kind = {
+            elseif v1606 == 4 then
+                v1608 = nil;
+                v1609, v1610 = v0.readBuffer(v1603, v1605);
+                v1608 = v1609;
+                v1605 = v1610;
+                v1604.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1514)
+                    value = buffer.tostring(v1608)
                 };
             else
-                v1514 = nil;
-                v1515, v1516 = v0.readVarInt(v1509, v1511);
-                v1511 = v1516 + v1515;
+                v1608 = nil;
+                v1609, v1610 = v0.readVarInt(v1603, v1605);
+                v1605 = v1610 + v1609;
             end;
-        elseif v1513 == v0.wireTypes.i32 then
-            v1514 = nil;
-            v1515, v1516 = v0.readFixed32(v1509, v1511);
-            v1514 = v1515;
-            v1511 = v1516;
-        elseif v1513 == v0.wireTypes.i64 then
-            v1514 = nil;
-            v1515, v1516 = v0.readFixed64(v1509, v1511);
-            v1514 = v1515;
-            v1511 = v1516;
+        elseif v1607 == v0.wireTypes.i32 then
+            v1608 = nil;
+            v1609, v1610 = v0.readFixed32(v1603, v1605);
+            v1608 = v1609;
+            v1605 = v1610;
+        elseif v1607 == v0.wireTypes.i64 then
+            v1608 = nil;
+            v1609, v1610 = v0.readFixed64(v1603, v1605);
+            v1608 = v1609;
+            v1605 = v1610;
         else
-            error("Unsupported wire type: " .. v1513);
+            error("Unsupported wire type: " .. v1607);
         end;
     end;
-    return v1510;
+    return v1604;
 end;
-v5.jsonEncode = function(v1517) --[[ Line: 10379 ]] --[[ Name: jsonEncode ]]
-    local v1518 = {};
-    if v1517.condition ~= nil then
-        v1518.condition = v1517.condition:jsonEncode();
+v5.jsonEncode = function(v1611) --[[ Line: 11113 ]] --[[ Name: jsonEncode ]]
+    local v1612 = {};
+    if v1611.condition ~= nil then
+        v1612.condition = v1611.condition:jsonEncode();
     end;
-    if v1517.kind ~= nil then
-        if v1517.kind.type == "literal" then
-            v1518.literal = v1517.kind.value;
-            return v1518;
-        elseif v1517.kind.type == "token" then
-            v1518.token = v1517.kind.value;
-            return v1518;
-        elseif v1517.kind.type == "binding_path" then
-            v1518.bindingPath = v1517.kind.value;
+    if v1611.kind ~= nil then
+        if v1611.kind.type == "literal" then
+            v1612.literal = v1611.kind.value;
+            return v1612;
+        elseif v1611.kind.type == "token" then
+            v1612.token = v1611.kind.value;
+            return v1612;
+        elseif v1611.kind.type == "binding_path" then
+            v1612.bindingPath = v1611.kind.value;
         end;
     end;
-    return v1518;
+    return v1612;
 end;
-v5.jsonDecode = function(v1519) --[[ Line: 10399 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_55 (copy), v4 (copy)
-    local v1520 = l_v5_55.new();
-    if v1519.condition ~= nil then
-        v1520.condition = v4.PropCondition.jsonDecode(v1519.condition);
+v5.jsonDecode = function(v1613) --[[ Line: 11133 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_58 (copy), v4 (copy)
+    local v1614 = l_v5_58.new();
+    if v1613.condition ~= nil then
+        v1614.condition = v4.PropCondition.jsonDecode(v1613.condition);
     end;
-    if v1519.literal ~= nil then
-        v1520.kind = {
+    if v1613.literal ~= nil then
+        v1614.kind = {
             type = "literal", 
-            value = v1519.literal
+            value = v1613.literal
         };
     end;
-    if v1519.token ~= nil then
-        v1520.kind = {
+    if v1613.token ~= nil then
+        v1614.kind = {
             type = "token", 
-            value = v1519.token
+            value = v1613.token
         };
     end;
-    if v1519.binding_path ~= nil then
-        v1520.kind = {
+    if v1613.binding_path ~= nil then
+        v1614.kind = {
             type = "binding_path", 
-            value = v1519.binding_path
+            value = v1613.binding_path
         };
     end;
-    if v1519.bindingPath ~= nil then
-        v1520.kind = {
+    if v1613.bindingPath ~= nil then
+        v1614.kind = {
             type = "binding_path", 
-            value = v1519.bindingPath
+            value = v1613.bindingPath
         };
     end;
-    return v1520;
+    return v1614;
 end;
 v5.descriptor = {
     name = "Vector2Prop_ConditionalOption", 
@@ -7815,96 +8379,96 @@ v2.Vector2Prop_ConditionalOption = v5;
 v1.default:register(v2.Vector2Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_56 = v5 --[[ copy: 5 -> 62 ]];
-v5.new = function(v1522) --[[ Line: 10440 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_56 (copy)
+local l_v5_59 = v5 --[[ copy: 5 -> 65 ]];
+v5.new = function(v1616) --[[ Line: 11174 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_59 (copy)
     return (setmetatable({
-        options = if not (v1522 ~= nil) or v1522.options == nil then {} else v1522.options
-    }, l_v5_56));
+        options = if not (v1616 ~= nil) or v1616.options == nil then {} else v1616.options
+    }, l_v5_59));
 end;
-v5.encode = function(v1523) --[[ Line: 10448 ]] --[[ Name: encode ]]
+v5.encode = function(v1617) --[[ Line: 11182 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1524 = buffer.create(0);
-    local v1525 = 0;
-    if v1523.options ~= nil and #v1523.options > 0 then
-        for _, v1527 in v1523.options do
-            local v1528 = v1527:encode();
-            local v1529, v1530 = v0.writeTag(v1524, v1525, 1, v0.wireTypes.lengthDelimited);
-            v1529, v1530 = v0.writeBuffer(v1529, v1530, v1528, buffer.len(v1528));
-            v1524 = v1529;
-            v1525 = v1530;
+    local v1618 = buffer.create(0);
+    local v1619 = 0;
+    if v1617.options ~= nil and #v1617.options > 0 then
+        for _, v1621 in v1617.options do
+            local v1622 = v1621:encode();
+            local v1623, v1624 = v0.writeTag(v1618, v1619, 1, v0.wireTypes.lengthDelimited);
+            v1623, v1624 = v0.writeBuffer(v1623, v1624, v1622, buffer.len(v1622));
+            v1618 = v1623;
+            v1619 = v1624;
         end;
     end;
-    local v1531 = buffer.create(v1525);
-    buffer.copy(v1531, 0, v1524, 0, v1525);
-    return v1531;
+    local v1625 = buffer.create(v1619);
+    buffer.copy(v1625, 0, v1618, 0, v1619);
+    return v1625;
 end;
-v5.decode = function(v1532) --[[ Line: 10465 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_56 (copy), v0 (copy), v2 (copy)
-    local v1533 = l_v5_56.new();
-    local v1534 = 0;
-    while v1534 < buffer.len(v1532) do
-        local v1535 = nil;
-        local v1536 = nil;
-        local v1537, v1538, v1539 = v0.readTag(v1532, v1534);
-        v1535 = v1537;
-        v1536 = v1538;
-        v1534 = v1539;
-        if v1536 == v0.wireTypes.varint then
-            v1537 = nil;
-            v1538, v1539 = v0.readVarInt(v1532, v1534);
-            v1537 = v1538;
-            v1534 = v1539;
-        elseif v1536 == v0.wireTypes.lengthDelimited then
-            if v1535 == 1 then
-                v1537 = nil;
-                v1538, v1539 = v0.readBuffer(v1532, v1534);
-                v1537 = v1538;
-                v1534 = v1539;
-                table.insert(v1533.options, v2.Vector2Prop_ConditionalOption.decode(v1537));
+v5.decode = function(v1626) --[[ Line: 11199 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_59 (copy), v0 (copy), v2 (copy)
+    local v1627 = l_v5_59.new();
+    local v1628 = 0;
+    while v1628 < buffer.len(v1626) do
+        local v1629 = nil;
+        local v1630 = nil;
+        local v1631, v1632, v1633 = v0.readTag(v1626, v1628);
+        v1629 = v1631;
+        v1630 = v1632;
+        v1628 = v1633;
+        if v1630 == v0.wireTypes.varint then
+            v1631 = nil;
+            v1632, v1633 = v0.readVarInt(v1626, v1628);
+            v1631 = v1632;
+            v1628 = v1633;
+        elseif v1630 == v0.wireTypes.lengthDelimited then
+            if v1629 == 1 then
+                v1631 = nil;
+                v1632, v1633 = v0.readBuffer(v1626, v1628);
+                v1631 = v1632;
+                v1628 = v1633;
+                table.insert(v1627.options, v2.Vector2Prop_ConditionalOption.decode(v1631));
             else
-                v1537 = nil;
-                v1538, v1539 = v0.readVarInt(v1532, v1534);
-                v1534 = v1539 + v1538;
+                v1631 = nil;
+                v1632, v1633 = v0.readVarInt(v1626, v1628);
+                v1628 = v1633 + v1632;
             end;
-        elseif v1536 == v0.wireTypes.i32 then
-            v1537 = nil;
-            v1538, v1539 = v0.readFixed32(v1532, v1534);
-            v1537 = v1538;
-            v1534 = v1539;
-        elseif v1536 == v0.wireTypes.i64 then
-            v1537 = nil;
-            v1538, v1539 = v0.readFixed64(v1532, v1534);
-            v1537 = v1538;
-            v1534 = v1539;
+        elseif v1630 == v0.wireTypes.i32 then
+            v1631 = nil;
+            v1632, v1633 = v0.readFixed32(v1626, v1628);
+            v1631 = v1632;
+            v1628 = v1633;
+        elseif v1630 == v0.wireTypes.i64 then
+            v1631 = nil;
+            v1632, v1633 = v0.readFixed64(v1626, v1628);
+            v1631 = v1632;
+            v1628 = v1633;
         else
-            error("Unsupported wire type: " .. v1536);
+            error("Unsupported wire type: " .. v1630);
         end;
     end;
-    return v1533;
+    return v1627;
 end;
-v5.jsonEncode = function(v1540) --[[ Line: 10508 ]] --[[ Name: jsonEncode ]]
-    local v1541 = {};
-    if v1540.options ~= nil and #v1540.options > 0 then
-        local v1542 = {};
-        for _, v1544 in v1540.options do
-            table.insert(v1542, v1544:jsonEncode());
+v5.jsonEncode = function(v1634) --[[ Line: 11242 ]] --[[ Name: jsonEncode ]]
+    local v1635 = {};
+    if v1634.options ~= nil and #v1634.options > 0 then
+        local v1636 = {};
+        for _, v1638 in v1634.options do
+            table.insert(v1636, v1638:jsonEncode());
         end;
-        v1541.options = v1542;
+        v1635.options = v1636;
     end;
-    return v1541;
+    return v1635;
 end;
-v5.jsonDecode = function(v1545) --[[ Line: 10522 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_56 (copy), v2 (copy)
-    local v1546 = l_v5_56.new();
-    if v1545.options ~= nil then
-        local v1547 = {};
-        for _, v1549 in v1545.options do
-            table.insert(v1547, v2.Vector2Prop_ConditionalOption.jsonDecode(v1549));
+v5.jsonDecode = function(v1639) --[[ Line: 11256 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_59 (copy), v2 (copy)
+    local v1640 = l_v5_59.new();
+    if v1639.options ~= nil then
+        local v1641 = {};
+        for _, v1643 in v1639.options do
+            table.insert(v1641, v2.Vector2Prop_ConditionalOption.jsonDecode(v1643));
         end;
-        v1546.options = v1547;
+        v1640.options = v1641;
     end;
-    return v1546;
+    return v1640;
 end;
 v5.descriptor = {
     name = "Vector2Prop_ConditionalOptions", 
@@ -7914,125 +8478,149 @@ v2.Vector2Prop_ConditionalOptions = v5;
 v1.default:register(v2.Vector2Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_57 = v5 --[[ copy: 5 -> 63 ]];
-v5.new = function(v1551) --[[ Line: 10551 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_57 (copy)
+local l_v5_60 = v5 --[[ copy: 5 -> 66 ]];
+v5.new = function(v1645) --[[ Line: 11285 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_60 (copy)
     return (setmetatable({
-        kind = if not (v1551 ~= nil) or v1551.kind == nil then nil else v1551.kind
-    }, l_v5_57));
+        kind = if not (v1645 ~= nil) or v1645.kind == nil then nil else v1645.kind
+    }, l_v5_60));
 end;
-v5.encode = function(v1552) --[[ Line: 10557 ]] --[[ Name: encode ]]
+v5.encode = function(v1646) --[[ Line: 11291 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1553 = buffer.create(0);
-    local v1554 = 0;
-    if v1552.kind ~= nil then
-        if v1552.kind.type == "literal" then
-            local v1555 = v1552.kind.value:encode();
-            local v1556, v1557 = v0.writeTag(v1553, v1554, 1, v0.wireTypes.lengthDelimited);
-            v1556, v1557 = v0.writeBuffer(v1556, v1557, v1555, buffer.len(v1555));
-            v1553 = v1556;
-            v1554 = v1557;
-        elseif v1552.kind.type == "binding_path" then
-            local v1558, v1559 = v0.writeTag(v1553, v1554, 2, v0.wireTypes.lengthDelimited);
-            v1558, v1559 = v0.writeString(v1558, v1559, v1552.kind.value);
-            v1553 = v1558;
-            v1554 = v1559;
+    local v1647 = buffer.create(0);
+    local v1648 = 0;
+    if v1646.kind ~= nil then
+        if v1646.kind.type == "literal" then
+            local v1649 = v1646.kind.value:encode();
+            local v1650, v1651 = v0.writeTag(v1647, v1648, 1, v0.wireTypes.lengthDelimited);
+            v1650, v1651 = v0.writeBuffer(v1650, v1651, v1649, buffer.len(v1649));
+            v1647 = v1650;
+            v1648 = v1651;
+        elseif v1646.kind.type == "binding_path" then
+            local v1652, v1653 = v0.writeTag(v1647, v1648, 2, v0.wireTypes.lengthDelimited);
+            v1652, v1653 = v0.writeString(v1652, v1653, v1646.kind.value);
+            v1647 = v1652;
+            v1648 = v1653;
+        elseif v1646.kind.type == "translation" then
+            local v1654 = v1646.kind.value:encode();
+            local v1655, v1656 = v0.writeTag(v1647, v1648, 3, v0.wireTypes.lengthDelimited);
+            v1655, v1656 = v0.writeBuffer(v1655, v1656, v1654, buffer.len(v1654));
+            v1647 = v1655;
+            v1648 = v1656;
         end;
     end;
-    local v1560 = buffer.create(v1554);
-    buffer.copy(v1560, 0, v1553, 0, v1554);
-    return v1560;
+    local v1657 = buffer.create(v1648);
+    buffer.copy(v1657, 0, v1647, 0, v1648);
+    return v1657;
 end;
-v5.decode = function(v1561) --[[ Line: 10577 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_57 (copy), v0 (copy), v2 (copy)
-    local v1562 = l_v5_57.new();
-    local v1563 = 0;
-    while v1563 < buffer.len(v1561) do
-        local v1564 = nil;
-        local v1565 = nil;
-        local v1566, v1567, v1568 = v0.readTag(v1561, v1563);
-        v1564 = v1566;
-        v1565 = v1567;
-        v1563 = v1568;
-        if v1565 == v0.wireTypes.varint then
-            v1566 = nil;
-            v1567, v1568 = v0.readVarInt(v1561, v1563);
-            v1566 = v1567;
-            v1563 = v1568;
-        elseif v1565 == v0.wireTypes.lengthDelimited then
-            if v1564 == 1 then
-                v1566 = nil;
-                v1567, v1568 = v0.readBuffer(v1561, v1563);
-                v1566 = v1567;
-                v1563 = v1568;
-                v1562.kind = {
+v5.decode = function(v1658) --[[ Line: 11315 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_60 (copy), v0 (copy), v2 (copy)
+    local v1659 = l_v5_60.new();
+    local v1660 = 0;
+    while v1660 < buffer.len(v1658) do
+        local v1661 = nil;
+        local v1662 = nil;
+        local v1663, v1664, v1665 = v0.readTag(v1658, v1660);
+        v1661 = v1663;
+        v1662 = v1664;
+        v1660 = v1665;
+        if v1662 == v0.wireTypes.varint then
+            v1663 = nil;
+            v1664, v1665 = v0.readVarInt(v1658, v1660);
+            v1663 = v1664;
+            v1660 = v1665;
+        elseif v1662 == v0.wireTypes.lengthDelimited then
+            if v1661 == 1 then
+                v1663 = nil;
+                v1664, v1665 = v0.readBuffer(v1658, v1660);
+                v1663 = v1664;
+                v1660 = v1665;
+                v1659.kind = {
                     type = "literal", 
-                    value = v2.TemplateArg_LiteralValue.decode(v1566)
+                    value = v2.TemplateArg_LiteralValue.decode(v1663)
                 };
-            elseif v1564 == 2 then
-                v1566 = nil;
-                v1567, v1568 = v0.readBuffer(v1561, v1563);
-                v1566 = v1567;
-                v1563 = v1568;
-                v1562.kind = {
+            elseif v1661 == 2 then
+                v1663 = nil;
+                v1664, v1665 = v0.readBuffer(v1658, v1660);
+                v1663 = v1664;
+                v1660 = v1665;
+                v1659.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1566)
+                    value = buffer.tostring(v1663)
+                };
+            elseif v1661 == 3 then
+                v1663 = nil;
+                v1664, v1665 = v0.readBuffer(v1658, v1660);
+                v1663 = v1664;
+                v1660 = v1665;
+                v1659.kind = {
+                    type = "translation", 
+                    value = v2.TranslationRef.decode(v1663)
                 };
             else
-                v1566 = nil;
-                v1567, v1568 = v0.readVarInt(v1561, v1563);
-                v1563 = v1568 + v1567;
+                v1663 = nil;
+                v1664, v1665 = v0.readVarInt(v1658, v1660);
+                v1660 = v1665 + v1664;
             end;
-        elseif v1565 == v0.wireTypes.i32 then
-            v1566 = nil;
-            v1567, v1568 = v0.readFixed32(v1561, v1563);
-            v1566 = v1567;
-            v1563 = v1568;
-        elseif v1565 == v0.wireTypes.i64 then
-            v1566 = nil;
-            v1567, v1568 = v0.readFixed64(v1561, v1563);
-            v1566 = v1567;
-            v1563 = v1568;
+        elseif v1662 == v0.wireTypes.i32 then
+            v1663 = nil;
+            v1664, v1665 = v0.readFixed32(v1658, v1660);
+            v1663 = v1664;
+            v1660 = v1665;
+        elseif v1662 == v0.wireTypes.i64 then
+            v1663 = nil;
+            v1664, v1665 = v0.readFixed64(v1658, v1660);
+            v1663 = v1664;
+            v1660 = v1665;
         else
-            error("Unsupported wire type: " .. v1565);
+            error("Unsupported wire type: " .. v1662);
         end;
     end;
-    return v1562;
+    return v1659;
 end;
-v5.jsonEncode = function(v1569) --[[ Line: 10625 ]] --[[ Name: jsonEncode ]]
-    local v1570 = {};
-    if v1569.kind ~= nil then
-        if v1569.kind.type == "literal" then
-            v1570.literal = v1569.kind.value:jsonEncode();
-            return v1570;
-        elseif v1569.kind.type == "binding_path" then
-            v1570.bindingPath = v1569.kind.value;
+v5.jsonEncode = function(v1666) --[[ Line: 11368 ]] --[[ Name: jsonEncode ]]
+    local v1667 = {};
+    if v1666.kind ~= nil then
+        if v1666.kind.type == "literal" then
+            v1667.literal = v1666.kind.value:jsonEncode();
+            return v1667;
+        elseif v1666.kind.type == "binding_path" then
+            v1667.bindingPath = v1666.kind.value;
+            return v1667;
+        elseif v1666.kind.type == "translation" then
+            v1667.translation = v1666.kind.value:jsonEncode();
         end;
     end;
-    return v1570;
+    return v1667;
 end;
-v5.jsonDecode = function(v1571) --[[ Line: 10639 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_57 (copy), v2 (copy)
-    local v1572 = l_v5_57.new();
-    if v1571.literal ~= nil then
-        v1572.kind = {
+v5.jsonDecode = function(v1668) --[[ Line: 11384 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_60 (copy), v2 (copy)
+    local v1669 = l_v5_60.new();
+    if v1668.literal ~= nil then
+        v1669.kind = {
             type = "literal", 
-            value = v2.TemplateArg_LiteralValue.jsonDecode(v1571.literal)
+            value = v2.TemplateArg_LiteralValue.jsonDecode(v1668.literal)
         };
     end;
-    if v1571.binding_path ~= nil then
-        v1572.kind = {
+    if v1668.binding_path ~= nil then
+        v1669.kind = {
             type = "binding_path", 
-            value = v1571.binding_path
+            value = v1668.binding_path
         };
     end;
-    if v1571.bindingPath ~= nil then
-        v1572.kind = {
+    if v1668.bindingPath ~= nil then
+        v1669.kind = {
             type = "binding_path", 
-            value = v1571.bindingPath
+            value = v1668.bindingPath
         };
     end;
-    return v1572;
+    if v1668.translation ~= nil then
+        v1669.kind = {
+            type = "translation", 
+            value = v2.TranslationRef.jsonDecode(v1668.translation)
+        };
+    end;
+    return v1669;
 end;
 v5.descriptor = {
     name = "TemplateArg", 
@@ -8042,253 +8630,253 @@ v2.TemplateArg = v5;
 v1.default:register(v2.TemplateArg);
 v5 = {};
 v5.__index = v5;
-local l_v5_58 = v5 --[[ copy: 5 -> 64 ]];
-v5.new = function(v1574) --[[ Line: 10671 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_58 (copy)
+local l_v5_61 = v5 --[[ copy: 5 -> 67 ]];
+v5.new = function(v1671) --[[ Line: 11420 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_61 (copy)
     return (setmetatable({
-        kind = if not (v1574 ~= nil) or v1574.kind == nil then nil else v1574.kind
-    }, l_v5_58));
+        kind = if not (v1671 ~= nil) or v1671.kind == nil then nil else v1671.kind
+    }, l_v5_61));
 end;
-v5.encode = function(v1575) --[[ Line: 10677 ]] --[[ Name: encode ]]
+v5.encode = function(v1672) --[[ Line: 11426 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1576 = buffer.create(0);
-    local v1577 = 0;
-    if v1575.kind ~= nil then
-        if v1575.kind.type == "string_value" then
-            local v1578, v1579 = v0.writeTag(v1576, v1577, 1, v0.wireTypes.lengthDelimited);
-            v1578, v1579 = v0.writeString(v1578, v1579, v1575.kind.value);
-            v1576 = v1578;
-            v1577 = v1579;
-        elseif v1575.kind.type == "int32_value" then
-            local v1580, v1581 = v0.writeTag(v1576, v1577, 2, v0.wireTypes.varint);
-            v1580, v1581 = v0.writeVarInt(v1580, v1581, v1575.kind.value);
-            v1576 = v1580;
-            v1577 = v1581;
-        elseif v1575.kind.type == "int64_value" then
-            local v1582, v1583 = v0.writeTag(v1576, v1577, 3, v0.wireTypes.varint);
-            v1582, v1583 = v0.writeVarInt(v1582, v1583, v1575.kind.value);
-            v1576 = v1582;
-            v1577 = v1583;
-        elseif v1575.kind.type == "float_value" then
-            local v1584, v1585 = v0.writeTag(v1576, v1577, 4, v0.wireTypes.i32);
-            v1584, v1585 = v0.writeFloat(v1584, v1585, v1575.kind.value);
-            v1576 = v1584;
-            v1577 = v1585;
-        elseif v1575.kind.type == "double_value" then
-            local v1586, v1587 = v0.writeTag(v1576, v1577, 5, v0.wireTypes.i64);
-            v1586, v1587 = v0.writeDouble(v1586, v1587, v1575.kind.value);
-            v1576 = v1586;
-            v1577 = v1587;
-        elseif v1575.kind.type == "bool_value" then
-            local v1588, v1589 = v0.writeTag(v1576, v1577, 6, v0.wireTypes.varint);
-            v1588, v1589 = v0.writeVarInt(v1588, v1589, v1575.kind.value and 1 or 0);
-            v1576 = v1588;
-            v1577 = v1589;
+    local v1673 = buffer.create(0);
+    local v1674 = 0;
+    if v1672.kind ~= nil then
+        if v1672.kind.type == "string_value" then
+            local v1675, v1676 = v0.writeTag(v1673, v1674, 1, v0.wireTypes.lengthDelimited);
+            v1675, v1676 = v0.writeString(v1675, v1676, v1672.kind.value);
+            v1673 = v1675;
+            v1674 = v1676;
+        elseif v1672.kind.type == "int32_value" then
+            local v1677, v1678 = v0.writeTag(v1673, v1674, 2, v0.wireTypes.varint);
+            v1677, v1678 = v0.writeVarInt(v1677, v1678, v1672.kind.value);
+            v1673 = v1677;
+            v1674 = v1678;
+        elseif v1672.kind.type == "int64_value" then
+            local v1679, v1680 = v0.writeTag(v1673, v1674, 3, v0.wireTypes.varint);
+            v1679, v1680 = v0.writeVarInt(v1679, v1680, v1672.kind.value);
+            v1673 = v1679;
+            v1674 = v1680;
+        elseif v1672.kind.type == "float_value" then
+            local v1681, v1682 = v0.writeTag(v1673, v1674, 4, v0.wireTypes.i32);
+            v1681, v1682 = v0.writeFloat(v1681, v1682, v1672.kind.value);
+            v1673 = v1681;
+            v1674 = v1682;
+        elseif v1672.kind.type == "double_value" then
+            local v1683, v1684 = v0.writeTag(v1673, v1674, 5, v0.wireTypes.i64);
+            v1683, v1684 = v0.writeDouble(v1683, v1684, v1672.kind.value);
+            v1673 = v1683;
+            v1674 = v1684;
+        elseif v1672.kind.type == "bool_value" then
+            local v1685, v1686 = v0.writeTag(v1673, v1674, 6, v0.wireTypes.varint);
+            v1685, v1686 = v0.writeVarInt(v1685, v1686, v1672.kind.value and 1 or 0);
+            v1673 = v1685;
+            v1674 = v1686;
         end;
     end;
-    local v1590 = buffer.create(v1577);
-    buffer.copy(v1590, 0, v1576, 0, v1577);
-    return v1590;
+    local v1687 = buffer.create(v1674);
+    buffer.copy(v1687, 0, v1673, 0, v1674);
+    return v1687;
 end;
-v5.decode = function(v1591) --[[ Line: 10708 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_58 (copy), v0 (copy)
-    local v1592 = l_v5_58.new();
-    local v1593 = 0;
-    while v1593 < buffer.len(v1591) do
-        local v1594 = nil;
-        local v1595 = nil;
-        local v1596, v1597, v1598 = v0.readTag(v1591, v1593);
-        v1594 = v1596;
-        v1595 = v1597;
-        v1593 = v1598;
-        if v1595 == v0.wireTypes.varint then
-            if v1594 == 2 then
-                v1596 = nil;
-                v1597, v1598 = v0.readVarIntI32(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
-                v1592.kind = {
+v5.decode = function(v1688) --[[ Line: 11457 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_61 (copy), v0 (copy)
+    local v1689 = l_v5_61.new();
+    local v1690 = 0;
+    while v1690 < buffer.len(v1688) do
+        local v1691 = nil;
+        local v1692 = nil;
+        local v1693, v1694, v1695 = v0.readTag(v1688, v1690);
+        v1691 = v1693;
+        v1692 = v1694;
+        v1690 = v1695;
+        if v1692 == v0.wireTypes.varint then
+            if v1691 == 2 then
+                v1693 = nil;
+                v1694, v1695 = v0.readVarIntI32(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
+                v1689.kind = {
                     type = "int32_value", 
-                    value = v1596
+                    value = v1693
                 };
-            elseif v1594 == 3 then
-                v1596 = nil;
-                v1597, v1598 = v0.readVarIntI64(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
-                v1592.kind = {
+            elseif v1691 == 3 then
+                v1693 = nil;
+                v1694, v1695 = v0.readVarIntI64(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
+                v1689.kind = {
                     type = "int64_value", 
-                    value = v1596
+                    value = v1693
                 };
-            elseif v1594 == 6 then
-                v1596 = nil;
-                v1597, v1598 = v0.readVarInt(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
-                v1592.kind = {
+            elseif v1691 == 6 then
+                v1693 = nil;
+                v1694, v1695 = v0.readVarInt(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
+                v1689.kind = {
                     type = "bool_value", 
-                    value = v1596 ~= 0
+                    value = v1693 ~= 0
                 };
             else
-                v1596 = nil;
-                v1597, v1598 = v0.readVarInt(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
+                v1693 = nil;
+                v1694, v1695 = v0.readVarInt(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
             end;
-        elseif v1595 == v0.wireTypes.lengthDelimited then
-            if v1594 == 1 then
-                v1596 = nil;
-                v1597, v1598 = v0.readBuffer(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
-                v1592.kind = {
+        elseif v1692 == v0.wireTypes.lengthDelimited then
+            if v1691 == 1 then
+                v1693 = nil;
+                v1694, v1695 = v0.readBuffer(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
+                v1689.kind = {
                     type = "string_value", 
-                    value = buffer.tostring(v1596)
+                    value = buffer.tostring(v1693)
                 };
             else
-                v1596 = nil;
-                v1597, v1598 = v0.readVarInt(v1591, v1593);
-                v1593 = v1598 + v1597;
+                v1693 = nil;
+                v1694, v1695 = v0.readVarInt(v1688, v1690);
+                v1690 = v1695 + v1694;
             end;
-        elseif v1595 == v0.wireTypes.i32 then
-            if v1594 == 4 then
-                v1596 = nil;
-                v1597, v1598 = v0.readFloat(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
-                v1592.kind = {
+        elseif v1692 == v0.wireTypes.i32 then
+            if v1691 == 4 then
+                v1693 = nil;
+                v1694, v1695 = v0.readFloat(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
+                v1689.kind = {
                     type = "float_value", 
-                    value = v1596
+                    value = v1693
                 };
             else
-                v1596 = nil;
-                v1597, v1598 = v0.readFixed32(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
+                v1693 = nil;
+                v1694, v1695 = v0.readFixed32(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
             end;
-        elseif v1595 == v0.wireTypes.i64 then
-            if v1594 == 5 then
-                v1596 = nil;
-                v1597, v1598 = v0.readDouble(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
-                v1592.kind = {
+        elseif v1692 == v0.wireTypes.i64 then
+            if v1691 == 5 then
+                v1693 = nil;
+                v1694, v1695 = v0.readDouble(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
+                v1689.kind = {
                     type = "double_value", 
-                    value = v1596
+                    value = v1693
                 };
             else
-                v1596 = nil;
-                v1597, v1598 = v0.readFixed64(v1591, v1593);
-                v1596 = v1597;
-                v1593 = v1598;
+                v1693 = nil;
+                v1694, v1695 = v0.readFixed64(v1688, v1690);
+                v1693 = v1694;
+                v1690 = v1695;
             end;
         else
-            error("Unsupported wire type: " .. v1595);
+            error("Unsupported wire type: " .. v1692);
         end;
     end;
-    return v1592;
+    return v1689;
 end;
-v5.jsonEncode = function(v1599) --[[ Line: 10776 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1696) --[[ Line: 11525 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
-    local v1600 = {};
-    if v1599.kind ~= nil then
-        if v1599.kind.type == "string_value" then
-            v1600.stringValue = v1599.kind.value;
-            return v1600;
-        elseif v1599.kind.type == "int32_value" then
-            v1600.int32Value = v1599.kind.value;
-            return v1600;
-        elseif v1599.kind.type == "int64_value" then
-            v1600.int64Value = v1599.kind.value;
-            return v1600;
-        elseif v1599.kind.type == "float_value" then
-            v1600.floatValue = v0.json.serializeNumber(v1599.kind.value);
-            return v1600;
-        elseif v1599.kind.type == "double_value" then
-            v1600.doubleValue = v0.json.serializeNumber(v1599.kind.value);
-            return v1600;
-        elseif v1599.kind.type == "bool_value" then
-            v1600.boolValue = v1599.kind.value;
+    local v1697 = {};
+    if v1696.kind ~= nil then
+        if v1696.kind.type == "string_value" then
+            v1697.stringValue = v1696.kind.value;
+            return v1697;
+        elseif v1696.kind.type == "int32_value" then
+            v1697.int32Value = v1696.kind.value;
+            return v1697;
+        elseif v1696.kind.type == "int64_value" then
+            v1697.int64Value = v1696.kind.value;
+            return v1697;
+        elseif v1696.kind.type == "float_value" then
+            v1697.floatValue = v0.json.serializeNumber(v1696.kind.value);
+            return v1697;
+        elseif v1696.kind.type == "double_value" then
+            v1697.doubleValue = v0.json.serializeNumber(v1696.kind.value);
+            return v1697;
+        elseif v1696.kind.type == "bool_value" then
+            v1697.boolValue = v1696.kind.value;
         end;
     end;
-    return v1600;
+    return v1697;
 end;
-v5.jsonDecode = function(v1601) --[[ Line: 10798 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_58 (copy), v0 (copy)
-    local v1602 = l_v5_58.new();
-    if v1601.string_value ~= nil then
-        v1602.kind = {
+v5.jsonDecode = function(v1698) --[[ Line: 11547 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_61 (copy), v0 (copy)
+    local v1699 = l_v5_61.new();
+    if v1698.string_value ~= nil then
+        v1699.kind = {
             type = "string_value", 
-            value = v1601.string_value
+            value = v1698.string_value
         };
     end;
-    if v1601.stringValue ~= nil then
-        v1602.kind = {
+    if v1698.stringValue ~= nil then
+        v1699.kind = {
             type = "string_value", 
-            value = v1601.stringValue
+            value = v1698.stringValue
         };
     end;
-    if v1601.int32_value ~= nil then
-        v1602.kind = {
+    if v1698.int32_value ~= nil then
+        v1699.kind = {
             type = "int32_value", 
-            value = v1601.int32_value
+            value = v1698.int32_value
         };
     end;
-    if v1601.int32Value ~= nil then
-        v1602.kind = {
+    if v1698.int32Value ~= nil then
+        v1699.kind = {
             type = "int32_value", 
-            value = v1601.int32Value
+            value = v1698.int32Value
         };
     end;
-    if v1601.int64_value ~= nil then
-        v1602.kind = {
+    if v1698.int64_value ~= nil then
+        v1699.kind = {
             type = "int64_value", 
-            value = v1601.int64_value
+            value = v1698.int64_value
         };
     end;
-    if v1601.int64Value ~= nil then
-        v1602.kind = {
+    if v1698.int64Value ~= nil then
+        v1699.kind = {
             type = "int64_value", 
-            value = v1601.int64Value
+            value = v1698.int64Value
         };
     end;
-    if v1601.float_value ~= nil then
-        v1602.kind = {
+    if v1698.float_value ~= nil then
+        v1699.kind = {
             type = "float_value", 
-            value = v0.json.deserializeNumber(v1601.float_value)
+            value = v0.json.deserializeNumber(v1698.float_value)
         };
     end;
-    if v1601.floatValue ~= nil then
-        v1602.kind = {
+    if v1698.floatValue ~= nil then
+        v1699.kind = {
             type = "float_value", 
-            value = v0.json.deserializeNumber(v1601.floatValue)
+            value = v0.json.deserializeNumber(v1698.floatValue)
         };
     end;
-    if v1601.double_value ~= nil then
-        v1602.kind = {
+    if v1698.double_value ~= nil then
+        v1699.kind = {
             type = "double_value", 
-            value = v0.json.deserializeNumber(v1601.double_value)
+            value = v0.json.deserializeNumber(v1698.double_value)
         };
     end;
-    if v1601.doubleValue ~= nil then
-        v1602.kind = {
+    if v1698.doubleValue ~= nil then
+        v1699.kind = {
             type = "double_value", 
-            value = v0.json.deserializeNumber(v1601.doubleValue)
+            value = v0.json.deserializeNumber(v1698.doubleValue)
         };
     end;
-    if v1601.bool_value ~= nil then
-        v1602.kind = {
+    if v1698.bool_value ~= nil then
+        v1699.kind = {
             type = "bool_value", 
-            value = v1601.bool_value
+            value = v1698.bool_value
         };
     end;
-    if v1601.boolValue ~= nil then
-        v1602.kind = {
+    if v1698.boolValue ~= nil then
+        v1699.kind = {
             type = "bool_value", 
-            value = v1601.boolValue
+            value = v1698.boolValue
         };
     end;
-    return v1602;
+    return v1699;
 end;
 v5.descriptor = {
     name = "TemplateArg_LiteralValue", 
@@ -8298,120 +8886,120 @@ v2.TemplateArg_LiteralValue = v5;
 v1.default:register(v2.TemplateArg_LiteralValue);
 v5 = {};
 v5.__index = v5;
-local l_v5_59 = v5 --[[ copy: 5 -> 65 ]];
-v5.new = function(v1604) --[[ Line: 10866 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_59 (copy)
+local l_v5_62 = v5 --[[ copy: 5 -> 68 ]];
+v5.new = function(v1701) --[[ Line: 11615 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_62 (copy)
     return (setmetatable({
-        kind = if not (v1604 ~= nil) or v1604.kind == nil then nil else v1604.kind
-    }, l_v5_59));
+        kind = if not (v1701 ~= nil) or v1701.kind == nil then nil else v1701.kind
+    }, l_v5_62));
 end;
-v5.encode = function(v1605) --[[ Line: 10872 ]] --[[ Name: encode ]]
+v5.encode = function(v1702) --[[ Line: 11621 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1606 = buffer.create(0);
-    local v1607 = 0;
-    if v1605.kind ~= nil then
-        if v1605.kind.type == "literal" then
-            local v1608 = v1605.kind.value:encode();
-            local v1609, v1610 = v0.writeTag(v1606, v1607, 1, v0.wireTypes.lengthDelimited);
-            v1609, v1610 = v0.writeBuffer(v1609, v1610, v1608, buffer.len(v1608));
-            v1606 = v1609;
-            v1607 = v1610;
-        elseif v1605.kind.type == "conditional" then
-            local v1611 = v1605.kind.value:encode();
-            local v1612, v1613 = v0.writeTag(v1606, v1607, 2, v0.wireTypes.lengthDelimited);
-            v1612, v1613 = v0.writeBuffer(v1612, v1613, v1611, buffer.len(v1611));
-            v1606 = v1612;
-            v1607 = v1613;
+    local v1703 = buffer.create(0);
+    local v1704 = 0;
+    if v1702.kind ~= nil then
+        if v1702.kind.type == "literal" then
+            local v1705 = v1702.kind.value:encode();
+            local v1706, v1707 = v0.writeTag(v1703, v1704, 1, v0.wireTypes.lengthDelimited);
+            v1706, v1707 = v0.writeBuffer(v1706, v1707, v1705, buffer.len(v1705));
+            v1703 = v1706;
+            v1704 = v1707;
+        elseif v1702.kind.type == "conditional" then
+            local v1708 = v1702.kind.value:encode();
+            local v1709, v1710 = v0.writeTag(v1703, v1704, 2, v0.wireTypes.lengthDelimited);
+            v1709, v1710 = v0.writeBuffer(v1709, v1710, v1708, buffer.len(v1708));
+            v1703 = v1709;
+            v1704 = v1710;
         end;
     end;
-    local v1614 = buffer.create(v1607);
-    buffer.copy(v1614, 0, v1606, 0, v1607);
-    return v1614;
+    local v1711 = buffer.create(v1704);
+    buffer.copy(v1711, 0, v1703, 0, v1704);
+    return v1711;
 end;
-v5.decode = function(v1615) --[[ Line: 10893 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_59 (copy), v0 (copy), v2 (copy)
-    local v1616 = l_v5_59.new();
-    local v1617 = 0;
-    while v1617 < buffer.len(v1615) do
-        local v1618 = nil;
-        local v1619 = nil;
-        local v1620, v1621, v1622 = v0.readTag(v1615, v1617);
-        v1618 = v1620;
-        v1619 = v1621;
-        v1617 = v1622;
-        if v1619 == v0.wireTypes.varint then
-            v1620 = nil;
-            v1621, v1622 = v0.readVarInt(v1615, v1617);
-            v1620 = v1621;
-            v1617 = v1622;
-        elseif v1619 == v0.wireTypes.lengthDelimited then
-            if v1618 == 1 then
-                v1620 = nil;
-                v1621, v1622 = v0.readBuffer(v1615, v1617);
-                v1620 = v1621;
-                v1617 = v1622;
-                v1616.kind = {
+v5.decode = function(v1712) --[[ Line: 11642 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_62 (copy), v0 (copy), v2 (copy)
+    local v1713 = l_v5_62.new();
+    local v1714 = 0;
+    while v1714 < buffer.len(v1712) do
+        local v1715 = nil;
+        local v1716 = nil;
+        local v1717, v1718, v1719 = v0.readTag(v1712, v1714);
+        v1715 = v1717;
+        v1716 = v1718;
+        v1714 = v1719;
+        if v1716 == v0.wireTypes.varint then
+            v1717 = nil;
+            v1718, v1719 = v0.readVarInt(v1712, v1714);
+            v1717 = v1718;
+            v1714 = v1719;
+        elseif v1716 == v0.wireTypes.lengthDelimited then
+            if v1715 == 1 then
+                v1717 = nil;
+                v1718, v1719 = v0.readBuffer(v1712, v1714);
+                v1717 = v1718;
+                v1714 = v1719;
+                v1713.kind = {
                     type = "literal", 
-                    value = v2.NestedComponentProp_TemplateData.decode(v1620)
+                    value = v2.NestedComponentProp_TemplateData.decode(v1717)
                 };
-            elseif v1618 == 2 then
-                v1620 = nil;
-                v1621, v1622 = v0.readBuffer(v1615, v1617);
-                v1620 = v1621;
-                v1617 = v1622;
-                v1616.kind = {
+            elseif v1715 == 2 then
+                v1717 = nil;
+                v1718, v1719 = v0.readBuffer(v1712, v1714);
+                v1717 = v1718;
+                v1714 = v1719;
+                v1713.kind = {
                     type = "conditional", 
-                    value = v2.NestedComponentProp_ConditionalOptions.decode(v1620)
+                    value = v2.NestedComponentProp_ConditionalOptions.decode(v1717)
                 };
             else
-                v1620 = nil;
-                v1621, v1622 = v0.readVarInt(v1615, v1617);
-                v1617 = v1622 + v1621;
+                v1717 = nil;
+                v1718, v1719 = v0.readVarInt(v1712, v1714);
+                v1714 = v1719 + v1718;
             end;
-        elseif v1619 == v0.wireTypes.i32 then
-            v1620 = nil;
-            v1621, v1622 = v0.readFixed32(v1615, v1617);
-            v1620 = v1621;
-            v1617 = v1622;
-        elseif v1619 == v0.wireTypes.i64 then
-            v1620 = nil;
-            v1621, v1622 = v0.readFixed64(v1615, v1617);
-            v1620 = v1621;
-            v1617 = v1622;
+        elseif v1716 == v0.wireTypes.i32 then
+            v1717 = nil;
+            v1718, v1719 = v0.readFixed32(v1712, v1714);
+            v1717 = v1718;
+            v1714 = v1719;
+        elseif v1716 == v0.wireTypes.i64 then
+            v1717 = nil;
+            v1718, v1719 = v0.readFixed64(v1712, v1714);
+            v1717 = v1718;
+            v1714 = v1719;
         else
-            error("Unsupported wire type: " .. v1619);
+            error("Unsupported wire type: " .. v1716);
         end;
     end;
-    return v1616;
+    return v1713;
 end;
-v5.jsonEncode = function(v1623) --[[ Line: 10942 ]] --[[ Name: jsonEncode ]]
-    local v1624 = {};
-    if v1623.kind ~= nil then
-        if v1623.kind.type == "literal" then
-            v1624.literal = v1623.kind.value:jsonEncode();
-            return v1624;
-        elseif v1623.kind.type == "conditional" then
-            v1624.conditional = v1623.kind.value:jsonEncode();
+v5.jsonEncode = function(v1720) --[[ Line: 11691 ]] --[[ Name: jsonEncode ]]
+    local v1721 = {};
+    if v1720.kind ~= nil then
+        if v1720.kind.type == "literal" then
+            v1721.literal = v1720.kind.value:jsonEncode();
+            return v1721;
+        elseif v1720.kind.type == "conditional" then
+            v1721.conditional = v1720.kind.value:jsonEncode();
         end;
     end;
-    return v1624;
+    return v1721;
 end;
-v5.jsonDecode = function(v1625) --[[ Line: 10956 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_59 (copy), v2 (copy)
-    local v1626 = l_v5_59.new();
-    if v1625.literal ~= nil then
-        v1626.kind = {
+v5.jsonDecode = function(v1722) --[[ Line: 11705 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_62 (copy), v2 (copy)
+    local v1723 = l_v5_62.new();
+    if v1722.literal ~= nil then
+        v1723.kind = {
             type = "literal", 
-            value = v2.NestedComponentProp_TemplateData.jsonDecode(v1625.literal)
+            value = v2.NestedComponentProp_TemplateData.jsonDecode(v1722.literal)
         };
     end;
-    if v1625.conditional ~= nil then
-        v1626.kind = {
+    if v1722.conditional ~= nil then
+        v1723.kind = {
             type = "conditional", 
-            value = v2.NestedComponentProp_ConditionalOptions.jsonDecode(v1625.conditional)
+            value = v2.NestedComponentProp_ConditionalOptions.jsonDecode(v1722.conditional)
         };
     end;
-    return v1626;
+    return v1723;
 end;
 v5.descriptor = {
     name = "NestedComponentProp", 
@@ -8421,112 +9009,112 @@ v2.NestedComponentProp = v5;
 v1.default:register(v2.NestedComponentProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_60 = v5 --[[ copy: 5 -> 66 ]];
-v5.new = function(v1628) --[[ Line: 10988 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_60 (copy)
+local l_v5_63 = v5 --[[ copy: 5 -> 69 ]];
+v5.new = function(v1725) --[[ Line: 11737 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_63 (copy)
     return (setmetatable({
-        condition = if not (v1628 ~= nil) or v1628.condition == nil then nil else v1628.condition, 
-        kind = if not (v1628 ~= nil) or v1628.kind == nil then nil else v1628.kind
-    }, l_v5_60));
+        condition = if not (v1725 ~= nil) or v1725.condition == nil then nil else v1725.condition, 
+        kind = if not (v1725 ~= nil) or v1725.kind == nil then nil else v1725.kind
+    }, l_v5_63));
 end;
-v5.encode = function(v1629) --[[ Line: 10997 ]] --[[ Name: encode ]]
+v5.encode = function(v1726) --[[ Line: 11746 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1630 = buffer.create(0);
-    local v1631 = 0;
-    if v1629.condition ~= nil then
-        local v1632 = v1629.condition:encode();
-        local v1633, v1634 = v0.writeTag(v1630, v1631, 1, v0.wireTypes.lengthDelimited);
-        v1633, v1634 = v0.writeBuffer(v1633, v1634, v1632, buffer.len(v1632));
-        v1630 = v1633;
-        v1631 = v1634;
+    local v1727 = buffer.create(0);
+    local v1728 = 0;
+    if v1726.condition ~= nil then
+        local v1729 = v1726.condition:encode();
+        local v1730, v1731 = v0.writeTag(v1727, v1728, 1, v0.wireTypes.lengthDelimited);
+        v1730, v1731 = v0.writeBuffer(v1730, v1731, v1729, buffer.len(v1729));
+        v1727 = v1730;
+        v1728 = v1731;
     end;
-    if v1629.kind ~= nil and v1629.kind.type == "literal" then
-        local v1635 = v1629.kind.value:encode();
-        local v1636, v1637 = v0.writeTag(v1630, v1631, 2, v0.wireTypes.lengthDelimited);
-        v1636, v1637 = v0.writeBuffer(v1636, v1637, v1635, buffer.len(v1635));
-        v1630 = v1636;
-        v1631 = v1637;
+    if v1726.kind ~= nil and v1726.kind.type == "literal" then
+        local v1732 = v1726.kind.value:encode();
+        local v1733, v1734 = v0.writeTag(v1727, v1728, 2, v0.wireTypes.lengthDelimited);
+        v1733, v1734 = v0.writeBuffer(v1733, v1734, v1732, buffer.len(v1732));
+        v1727 = v1733;
+        v1728 = v1734;
     end;
-    local v1638 = buffer.create(v1631);
-    buffer.copy(v1638, 0, v1630, 0, v1631);
-    return v1638;
+    local v1735 = buffer.create(v1728);
+    buffer.copy(v1735, 0, v1727, 0, v1728);
+    return v1735;
 end;
-v5.decode = function(v1639) --[[ Line: 11020 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_60 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v1640 = l_v5_60.new();
-    local v1641 = 0;
-    while v1641 < buffer.len(v1639) do
-        local v1642 = nil;
-        local v1643 = nil;
-        local v1644, v1645, v1646 = v0.readTag(v1639, v1641);
-        v1642 = v1644;
-        v1643 = v1645;
-        v1641 = v1646;
-        if v1643 == v0.wireTypes.varint then
-            v1644 = nil;
-            v1645, v1646 = v0.readVarInt(v1639, v1641);
-            v1644 = v1645;
-            v1641 = v1646;
-        elseif v1643 == v0.wireTypes.lengthDelimited then
-            if v1642 == 1 then
-                v1644 = nil;
-                v1645, v1646 = v0.readBuffer(v1639, v1641);
-                v1644 = v1645;
-                v1641 = v1646;
-                v1640.condition = v4.PropCondition.decode(v1644);
-            elseif v1642 == 2 then
-                v1644 = nil;
-                v1645, v1646 = v0.readBuffer(v1639, v1641);
-                v1644 = v1645;
-                v1641 = v1646;
-                v1640.kind = {
+v5.decode = function(v1736) --[[ Line: 11769 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_63 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v1737 = l_v5_63.new();
+    local v1738 = 0;
+    while v1738 < buffer.len(v1736) do
+        local v1739 = nil;
+        local v1740 = nil;
+        local v1741, v1742, v1743 = v0.readTag(v1736, v1738);
+        v1739 = v1741;
+        v1740 = v1742;
+        v1738 = v1743;
+        if v1740 == v0.wireTypes.varint then
+            v1741 = nil;
+            v1742, v1743 = v0.readVarInt(v1736, v1738);
+            v1741 = v1742;
+            v1738 = v1743;
+        elseif v1740 == v0.wireTypes.lengthDelimited then
+            if v1739 == 1 then
+                v1741 = nil;
+                v1742, v1743 = v0.readBuffer(v1736, v1738);
+                v1741 = v1742;
+                v1738 = v1743;
+                v1737.condition = v4.PropCondition.decode(v1741);
+            elseif v1739 == 2 then
+                v1741 = nil;
+                v1742, v1743 = v0.readBuffer(v1736, v1738);
+                v1741 = v1742;
+                v1738 = v1743;
+                v1737.kind = {
                     type = "literal", 
-                    value = v2.NestedComponentProp_TemplateData.decode(v1644)
+                    value = v2.NestedComponentProp_TemplateData.decode(v1741)
                 };
             else
-                v1644 = nil;
-                v1645, v1646 = v0.readVarInt(v1639, v1641);
-                v1641 = v1646 + v1645;
+                v1741 = nil;
+                v1742, v1743 = v0.readVarInt(v1736, v1738);
+                v1738 = v1743 + v1742;
             end;
-        elseif v1643 == v0.wireTypes.i32 then
-            v1644 = nil;
-            v1645, v1646 = v0.readFixed32(v1639, v1641);
-            v1644 = v1645;
-            v1641 = v1646;
-        elseif v1643 == v0.wireTypes.i64 then
-            v1644 = nil;
-            v1645, v1646 = v0.readFixed64(v1639, v1641);
-            v1644 = v1645;
-            v1641 = v1646;
+        elseif v1740 == v0.wireTypes.i32 then
+            v1741 = nil;
+            v1742, v1743 = v0.readFixed32(v1736, v1738);
+            v1741 = v1742;
+            v1738 = v1743;
+        elseif v1740 == v0.wireTypes.i64 then
+            v1741 = nil;
+            v1742, v1743 = v0.readFixed64(v1736, v1738);
+            v1741 = v1742;
+            v1738 = v1743;
         else
-            error("Unsupported wire type: " .. v1643);
+            error("Unsupported wire type: " .. v1740);
         end;
     end;
-    return v1640;
+    return v1737;
 end;
-v5.jsonEncode = function(v1647) --[[ Line: 11068 ]] --[[ Name: jsonEncode ]]
-    local v1648 = {};
-    if v1647.condition ~= nil then
-        v1648.condition = v1647.condition:jsonEncode();
+v5.jsonEncode = function(v1744) --[[ Line: 11817 ]] --[[ Name: jsonEncode ]]
+    local v1745 = {};
+    if v1744.condition ~= nil then
+        v1745.condition = v1744.condition:jsonEncode();
     end;
-    if v1647.kind ~= nil and v1647.kind.type == "literal" then
-        v1648.literal = v1647.kind.value:jsonEncode();
+    if v1744.kind ~= nil and v1744.kind.type == "literal" then
+        v1745.literal = v1744.kind.value:jsonEncode();
     end;
-    return v1648;
+    return v1745;
 end;
-v5.jsonDecode = function(v1649) --[[ Line: 11084 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_60 (copy), v4 (copy), v2 (copy)
-    local v1650 = l_v5_60.new();
-    if v1649.condition ~= nil then
-        v1650.condition = v4.PropCondition.jsonDecode(v1649.condition);
+v5.jsonDecode = function(v1746) --[[ Line: 11833 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_63 (copy), v4 (copy), v2 (copy)
+    local v1747 = l_v5_63.new();
+    if v1746.condition ~= nil then
+        v1747.condition = v4.PropCondition.jsonDecode(v1746.condition);
     end;
-    if v1649.literal ~= nil then
-        v1650.kind = {
+    if v1746.literal ~= nil then
+        v1747.kind = {
             type = "literal", 
-            value = v2.NestedComponentProp_TemplateData.jsonDecode(v1649.literal)
+            value = v2.NestedComponentProp_TemplateData.jsonDecode(v1746.literal)
         };
     end;
-    return v1650;
+    return v1747;
 end;
 v5.descriptor = {
     name = "NestedComponentProp_ConditionalOption", 
@@ -8536,96 +9124,96 @@ v2.NestedComponentProp_ConditionalOption = v5;
 v1.default:register(v2.NestedComponentProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_61 = v5 --[[ copy: 5 -> 67 ]];
-v5.new = function(v1652) --[[ Line: 11116 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_61 (copy)
+local l_v5_64 = v5 --[[ copy: 5 -> 70 ]];
+v5.new = function(v1749) --[[ Line: 11865 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_64 (copy)
     return (setmetatable({
-        options = if not (v1652 ~= nil) or v1652.options == nil then {} else v1652.options
-    }, l_v5_61));
+        options = if not (v1749 ~= nil) or v1749.options == nil then {} else v1749.options
+    }, l_v5_64));
 end;
-v5.encode = function(v1653) --[[ Line: 11124 ]] --[[ Name: encode ]]
+v5.encode = function(v1750) --[[ Line: 11873 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1654 = buffer.create(0);
-    local v1655 = 0;
-    if v1653.options ~= nil and #v1653.options > 0 then
-        for _, v1657 in v1653.options do
-            local v1658 = v1657:encode();
-            local v1659, v1660 = v0.writeTag(v1654, v1655, 1, v0.wireTypes.lengthDelimited);
-            v1659, v1660 = v0.writeBuffer(v1659, v1660, v1658, buffer.len(v1658));
-            v1654 = v1659;
-            v1655 = v1660;
+    local v1751 = buffer.create(0);
+    local v1752 = 0;
+    if v1750.options ~= nil and #v1750.options > 0 then
+        for _, v1754 in v1750.options do
+            local v1755 = v1754:encode();
+            local v1756, v1757 = v0.writeTag(v1751, v1752, 1, v0.wireTypes.lengthDelimited);
+            v1756, v1757 = v0.writeBuffer(v1756, v1757, v1755, buffer.len(v1755));
+            v1751 = v1756;
+            v1752 = v1757;
         end;
     end;
-    local v1661 = buffer.create(v1655);
-    buffer.copy(v1661, 0, v1654, 0, v1655);
-    return v1661;
+    local v1758 = buffer.create(v1752);
+    buffer.copy(v1758, 0, v1751, 0, v1752);
+    return v1758;
 end;
-v5.decode = function(v1662) --[[ Line: 11141 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_61 (copy), v0 (copy), v2 (copy)
-    local v1663 = l_v5_61.new();
-    local v1664 = 0;
-    while v1664 < buffer.len(v1662) do
-        local v1665 = nil;
-        local v1666 = nil;
-        local v1667, v1668, v1669 = v0.readTag(v1662, v1664);
-        v1665 = v1667;
-        v1666 = v1668;
-        v1664 = v1669;
-        if v1666 == v0.wireTypes.varint then
-            v1667 = nil;
-            v1668, v1669 = v0.readVarInt(v1662, v1664);
-            v1667 = v1668;
-            v1664 = v1669;
-        elseif v1666 == v0.wireTypes.lengthDelimited then
-            if v1665 == 1 then
-                v1667 = nil;
-                v1668, v1669 = v0.readBuffer(v1662, v1664);
-                v1667 = v1668;
-                v1664 = v1669;
-                table.insert(v1663.options, v2.NestedComponentProp_ConditionalOption.decode(v1667));
+v5.decode = function(v1759) --[[ Line: 11890 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_64 (copy), v0 (copy), v2 (copy)
+    local v1760 = l_v5_64.new();
+    local v1761 = 0;
+    while v1761 < buffer.len(v1759) do
+        local v1762 = nil;
+        local v1763 = nil;
+        local v1764, v1765, v1766 = v0.readTag(v1759, v1761);
+        v1762 = v1764;
+        v1763 = v1765;
+        v1761 = v1766;
+        if v1763 == v0.wireTypes.varint then
+            v1764 = nil;
+            v1765, v1766 = v0.readVarInt(v1759, v1761);
+            v1764 = v1765;
+            v1761 = v1766;
+        elseif v1763 == v0.wireTypes.lengthDelimited then
+            if v1762 == 1 then
+                v1764 = nil;
+                v1765, v1766 = v0.readBuffer(v1759, v1761);
+                v1764 = v1765;
+                v1761 = v1766;
+                table.insert(v1760.options, v2.NestedComponentProp_ConditionalOption.decode(v1764));
             else
-                v1667 = nil;
-                v1668, v1669 = v0.readVarInt(v1662, v1664);
-                v1664 = v1669 + v1668;
+                v1764 = nil;
+                v1765, v1766 = v0.readVarInt(v1759, v1761);
+                v1761 = v1766 + v1765;
             end;
-        elseif v1666 == v0.wireTypes.i32 then
-            v1667 = nil;
-            v1668, v1669 = v0.readFixed32(v1662, v1664);
-            v1667 = v1668;
-            v1664 = v1669;
-        elseif v1666 == v0.wireTypes.i64 then
-            v1667 = nil;
-            v1668, v1669 = v0.readFixed64(v1662, v1664);
-            v1667 = v1668;
-            v1664 = v1669;
+        elseif v1763 == v0.wireTypes.i32 then
+            v1764 = nil;
+            v1765, v1766 = v0.readFixed32(v1759, v1761);
+            v1764 = v1765;
+            v1761 = v1766;
+        elseif v1763 == v0.wireTypes.i64 then
+            v1764 = nil;
+            v1765, v1766 = v0.readFixed64(v1759, v1761);
+            v1764 = v1765;
+            v1761 = v1766;
         else
-            error("Unsupported wire type: " .. v1666);
+            error("Unsupported wire type: " .. v1763);
         end;
     end;
-    return v1663;
+    return v1760;
 end;
-v5.jsonEncode = function(v1670) --[[ Line: 11184 ]] --[[ Name: jsonEncode ]]
-    local v1671 = {};
-    if v1670.options ~= nil and #v1670.options > 0 then
-        local v1672 = {};
-        for _, v1674 in v1670.options do
-            table.insert(v1672, v1674:jsonEncode());
+v5.jsonEncode = function(v1767) --[[ Line: 11933 ]] --[[ Name: jsonEncode ]]
+    local v1768 = {};
+    if v1767.options ~= nil and #v1767.options > 0 then
+        local v1769 = {};
+        for _, v1771 in v1767.options do
+            table.insert(v1769, v1771:jsonEncode());
         end;
-        v1671.options = v1672;
+        v1768.options = v1769;
     end;
-    return v1671;
+    return v1768;
 end;
-v5.jsonDecode = function(v1675) --[[ Line: 11198 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_61 (copy), v2 (copy)
-    local v1676 = l_v5_61.new();
-    if v1675.options ~= nil then
-        local v1677 = {};
-        for _, v1679 in v1675.options do
-            table.insert(v1677, v2.NestedComponentProp_ConditionalOption.jsonDecode(v1679));
+v5.jsonDecode = function(v1772) --[[ Line: 11947 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_64 (copy), v2 (copy)
+    local v1773 = l_v5_64.new();
+    if v1772.options ~= nil then
+        local v1774 = {};
+        for _, v1776 in v1772.options do
+            table.insert(v1774, v2.NestedComponentProp_ConditionalOption.jsonDecode(v1776));
         end;
-        v1676.options = v1677;
+        v1773.options = v1774;
     end;
-    return v1676;
+    return v1773;
 end;
 v5.descriptor = {
     name = "NestedComponentProp_ConditionalOptions", 
@@ -8635,130 +9223,130 @@ v2.NestedComponentProp_ConditionalOptions = v5;
 v1.default:register(v2.NestedComponentProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_62 = v5 --[[ copy: 5 -> 68 ]];
-v5.new = function(v1681) --[[ Line: 11229 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_62 (copy)
+local l_v5_65 = v5 --[[ copy: 5 -> 71 ]];
+v5.new = function(v1778) --[[ Line: 11978 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_65 (copy)
     return (setmetatable({
-        inputs = if not (v1681 ~= nil) or v1681.inputs == nil then {} else v1681.inputs, 
-        roblox_component = (not (v1681 ~= nil) or v1681.roblox_component == nil) and "" or v1681.roblox_component
-    }, l_v5_62));
+        inputs = if not (v1778 ~= nil) or v1778.inputs == nil then {} else v1778.inputs, 
+        roblox_component = (not (v1778 ~= nil) or v1778.roblox_component == nil) and "" or v1778.roblox_component
+    }, l_v5_65));
 end;
-v5.encode = function(v1682) --[[ Line: 11238 ]] --[[ Name: encode ]]
+v5.encode = function(v1779) --[[ Line: 11987 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1683 = buffer.create(0);
-    local v1684 = 0;
-    if v1682.inputs ~= nil and next(v1682.inputs) ~= nil then
-        for v1685, v1686 in v1682.inputs do
-            local v1687 = buffer.create(0);
-            local v1688, v1689 = v0.writeTag(v1687, 0, 1, v0.wireTypes.lengthDelimited);
-            v1688, v1689 = v0.writeString(v1688, v1689, v1685);
-            v1687 = v1688;
-            local l_v1689_0 = v1689;
-            v1688 = v1686:encode();
-            local v1691;
-            v1689, v1691 = v0.writeTag(v1687, l_v1689_0, 2, v0.wireTypes.lengthDelimited);
-            v1689, v1691 = v0.writeBuffer(v1689, v1691, v1688, buffer.len(v1688));
-            v1687 = v1689;
-            l_v1689_0 = v1691;
-            v1689, v1691 = v0.writeTag(v1683, v1684, 1, v0.wireTypes.lengthDelimited);
-            v1689, v1691 = v0.writeBuffer(v1689, v1691, v1687, l_v1689_0);
-            v1683 = v1689;
-            v1684 = v1691;
+    local v1780 = buffer.create(0);
+    local v1781 = 0;
+    if v1779.inputs ~= nil and next(v1779.inputs) ~= nil then
+        for v1782, v1783 in v1779.inputs do
+            local v1784 = buffer.create(0);
+            local v1785, v1786 = v0.writeTag(v1784, 0, 1, v0.wireTypes.lengthDelimited);
+            v1785, v1786 = v0.writeString(v1785, v1786, v1782);
+            v1784 = v1785;
+            local l_v1786_0 = v1786;
+            v1785 = v1783:encode();
+            local v1788;
+            v1786, v1788 = v0.writeTag(v1784, l_v1786_0, 2, v0.wireTypes.lengthDelimited);
+            v1786, v1788 = v0.writeBuffer(v1786, v1788, v1785, buffer.len(v1785));
+            v1784 = v1786;
+            l_v1786_0 = v1788;
+            v1786, v1788 = v0.writeTag(v1780, v1781, 1, v0.wireTypes.lengthDelimited);
+            v1786, v1788 = v0.writeBuffer(v1786, v1788, v1784, l_v1786_0);
+            v1780 = v1786;
+            v1781 = v1788;
         end;
     end;
-    if v1682.roblox_component ~= nil and v1682.roblox_component ~= "" then
-        local v1692, v1693 = v0.writeTag(v1683, v1684, 2, v0.wireTypes.lengthDelimited);
-        v1692, v1693 = v0.writeString(v1692, v1693, v1682.roblox_component);
-        v1683 = v1692;
-        v1684 = v1693;
+    if v1779.roblox_component ~= nil and v1779.roblox_component ~= "" then
+        local v1789, v1790 = v0.writeTag(v1780, v1781, 2, v0.wireTypes.lengthDelimited);
+        v1789, v1790 = v0.writeString(v1789, v1790, v1779.roblox_component);
+        v1780 = v1789;
+        v1781 = v1790;
     end;
-    local v1694 = buffer.create(v1684);
-    buffer.copy(v1694, 0, v1683, 0, v1684);
-    return v1694;
+    local v1791 = buffer.create(v1781);
+    buffer.copy(v1791, 0, v1780, 0, v1781);
+    return v1791;
 end;
-v5.decode = function(v1695) --[[ Line: 11266 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_62 (copy), v0 (copy), v2 (copy)
-    local v1696 = l_v5_62.new();
-    local v1697 = 0;
-    while v1697 < buffer.len(v1695) do
-        local v1698 = nil;
-        local v1699 = nil;
-        local v1700, v1701, v1702 = v0.readTag(v1695, v1697);
-        v1698 = v1700;
-        v1699 = v1701;
-        v1697 = v1702;
-        if v1699 == v0.wireTypes.varint then
-            v1700 = nil;
-            v1701, v1702 = v0.readVarInt(v1695, v1697);
-            v1700 = v1701;
-            v1697 = v1702;
-        elseif v1699 == v0.wireTypes.lengthDelimited then
-            if v1698 == 1 then
-                v1700 = nil;
-                v1701, v1702 = v0.readBuffer(v1695, v1697);
-                v1700 = v1701;
-                v1697 = v1702;
-                v1701 = v2.NestedComponentProp_TemplateData_InputsEntry.decode(v1700);
-                v1702 = v2.TemplateArg.new();
-                v1696.inputs[v1701.key or ""] = v1701.value or v1702;
-            elseif v1698 == 2 then
-                v1700 = nil;
-                v1701, v1702 = v0.readBuffer(v1695, v1697);
-                v1700 = v1701;
-                v1697 = v1702;
-                v1696.roblox_component = buffer.tostring(v1700);
+v5.decode = function(v1792) --[[ Line: 12015 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_65 (copy), v0 (copy), v2 (copy)
+    local v1793 = l_v5_65.new();
+    local v1794 = 0;
+    while v1794 < buffer.len(v1792) do
+        local v1795 = nil;
+        local v1796 = nil;
+        local v1797, v1798, v1799 = v0.readTag(v1792, v1794);
+        v1795 = v1797;
+        v1796 = v1798;
+        v1794 = v1799;
+        if v1796 == v0.wireTypes.varint then
+            v1797 = nil;
+            v1798, v1799 = v0.readVarInt(v1792, v1794);
+            v1797 = v1798;
+            v1794 = v1799;
+        elseif v1796 == v0.wireTypes.lengthDelimited then
+            if v1795 == 1 then
+                v1797 = nil;
+                v1798, v1799 = v0.readBuffer(v1792, v1794);
+                v1797 = v1798;
+                v1794 = v1799;
+                v1798 = v2.NestedComponentProp_TemplateData_InputsEntry.decode(v1797);
+                v1799 = v2.TemplateArg.new();
+                v1793.inputs[v1798.key or ""] = v1798.value or v1799;
+            elseif v1795 == 2 then
+                v1797 = nil;
+                v1798, v1799 = v0.readBuffer(v1792, v1794);
+                v1797 = v1798;
+                v1794 = v1799;
+                v1793.roblox_component = buffer.tostring(v1797);
             else
-                v1700 = nil;
-                v1701, v1702 = v0.readVarInt(v1695, v1697);
-                v1697 = v1702 + v1701;
+                v1797 = nil;
+                v1798, v1799 = v0.readVarInt(v1792, v1794);
+                v1794 = v1799 + v1798;
             end;
-        elseif v1699 == v0.wireTypes.i32 then
-            v1700 = nil;
-            v1701, v1702 = v0.readFixed32(v1695, v1697);
-            v1700 = v1701;
-            v1697 = v1702;
-        elseif v1699 == v0.wireTypes.i64 then
-            v1700 = nil;
-            v1701, v1702 = v0.readFixed64(v1695, v1697);
-            v1700 = v1701;
-            v1697 = v1702;
+        elseif v1796 == v0.wireTypes.i32 then
+            v1797 = nil;
+            v1798, v1799 = v0.readFixed32(v1792, v1794);
+            v1797 = v1798;
+            v1794 = v1799;
+        elseif v1796 == v0.wireTypes.i64 then
+            v1797 = nil;
+            v1798, v1799 = v0.readFixed64(v1792, v1794);
+            v1797 = v1798;
+            v1794 = v1799;
         else
-            error("Unsupported wire type: " .. v1699);
+            error("Unsupported wire type: " .. v1796);
         end;
     end;
-    return v1696;
+    return v1793;
 end;
-v5.jsonEncode = function(v1703) --[[ Line: 11321 ]] --[[ Name: jsonEncode ]]
-    local v1704 = {};
-    if v1703.inputs ~= nil and next(v1703.inputs) ~= nil then
-        local v1705 = {};
-        for v1706, v1707 in v1703.inputs do
-            v1705[v1706] = v1707:jsonEncode();
+v5.jsonEncode = function(v1800) --[[ Line: 12070 ]] --[[ Name: jsonEncode ]]
+    local v1801 = {};
+    if v1800.inputs ~= nil and next(v1800.inputs) ~= nil then
+        local v1802 = {};
+        for v1803, v1804 in v1800.inputs do
+            v1802[v1803] = v1804:jsonEncode();
         end;
-        v1704.inputs = v1705;
+        v1801.inputs = v1802;
     end;
-    if v1703.roblox_component ~= nil and v1703.roblox_component ~= "" then
-        v1704.robloxComponent = v1703.roblox_component;
+    if v1800.roblox_component ~= nil and v1800.roblox_component ~= "" then
+        v1801.robloxComponent = v1800.roblox_component;
     end;
-    return v1704;
+    return v1801;
 end;
-v5.jsonDecode = function(v1708) --[[ Line: 11339 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_62 (copy), v2 (copy)
-    local v1709 = l_v5_62.new();
-    if v1708.inputs ~= nil then
-        local v1710 = {};
-        for v1711, v1712 in v1708.inputs do
-            v1710[v1711] = v2.TemplateArg.jsonDecode(v1712);
+v5.jsonDecode = function(v1805) --[[ Line: 12088 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_65 (copy), v2 (copy)
+    local v1806 = l_v5_65.new();
+    if v1805.inputs ~= nil then
+        local v1807 = {};
+        for v1808, v1809 in v1805.inputs do
+            v1807[v1808] = v2.TemplateArg.jsonDecode(v1809);
         end;
-        v1709.inputs = v1710;
+        v1806.inputs = v1807;
     end;
-    if v1708.roblox_component ~= nil then
-        v1709.roblox_component = v1708.roblox_component;
+    if v1805.roblox_component ~= nil then
+        v1806.roblox_component = v1805.roblox_component;
     end;
-    if v1708.robloxComponent ~= nil then
-        v1709.roblox_component = v1708.robloxComponent;
+    if v1805.robloxComponent ~= nil then
+        v1806.roblox_component = v1805.robloxComponent;
     end;
-    return v1709;
+    return v1806;
 end;
 v5.descriptor = {
     name = "NestedComponentProp_TemplateData", 
@@ -8768,105 +9356,105 @@ v2.NestedComponentProp_TemplateData = v5;
 v1.default:register(v2.NestedComponentProp_TemplateData);
 v5 = {};
 v5.__index = v5;
-local l_v5_63 = v5 --[[ copy: 5 -> 69 ]];
-v5.new = function(v1714) --[[ Line: 11378 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_63 (copy)
+local l_v5_66 = v5 --[[ copy: 5 -> 72 ]];
+v5.new = function(v1811) --[[ Line: 12127 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_66 (copy)
     return (setmetatable({
-        key = (not (v1714 ~= nil) or v1714.key == nil) and "" or v1714.key, 
-        value = if not (v1714 ~= nil) or v1714.value == nil then nil else v1714.value
-    }, l_v5_63));
+        key = (not (v1811 ~= nil) or v1811.key == nil) and "" or v1811.key, 
+        value = if not (v1811 ~= nil) or v1811.value == nil then nil else v1811.value
+    }, l_v5_66));
 end;
-v5.encode = function(v1715) --[[ Line: 11387 ]] --[[ Name: encode ]]
+v5.encode = function(v1812) --[[ Line: 12136 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1716 = buffer.create(0);
-    local v1717 = 0;
-    if v1715.key ~= nil and v1715.key ~= "" then
-        local v1718, v1719 = v0.writeTag(v1716, v1717, 1, v0.wireTypes.lengthDelimited);
-        v1718, v1719 = v0.writeString(v1718, v1719, v1715.key);
-        v1716 = v1718;
-        v1717 = v1719;
+    local v1813 = buffer.create(0);
+    local v1814 = 0;
+    if v1812.key ~= nil and v1812.key ~= "" then
+        local v1815, v1816 = v0.writeTag(v1813, v1814, 1, v0.wireTypes.lengthDelimited);
+        v1815, v1816 = v0.writeString(v1815, v1816, v1812.key);
+        v1813 = v1815;
+        v1814 = v1816;
     end;
-    if v1715.value ~= nil then
-        local v1720 = v1715.value:encode();
-        local v1721, v1722 = v0.writeTag(v1716, v1717, 2, v0.wireTypes.lengthDelimited);
-        v1721, v1722 = v0.writeBuffer(v1721, v1722, v1720, buffer.len(v1720));
-        v1716 = v1721;
-        v1717 = v1722;
+    if v1812.value ~= nil then
+        local v1817 = v1812.value:encode();
+        local v1818, v1819 = v0.writeTag(v1813, v1814, 2, v0.wireTypes.lengthDelimited);
+        v1818, v1819 = v0.writeBuffer(v1818, v1819, v1817, buffer.len(v1817));
+        v1813 = v1818;
+        v1814 = v1819;
     end;
-    local v1723 = buffer.create(v1717);
-    buffer.copy(v1723, 0, v1716, 0, v1717);
-    return v1723;
+    local v1820 = buffer.create(v1814);
+    buffer.copy(v1820, 0, v1813, 0, v1814);
+    return v1820;
 end;
-v5.decode = function(v1724) --[[ Line: 11409 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_63 (copy), v0 (copy), v2 (copy)
-    local v1725 = l_v5_63.new();
-    local v1726 = 0;
-    while v1726 < buffer.len(v1724) do
-        local v1727 = nil;
-        local v1728 = nil;
-        local v1729, v1730, v1731 = v0.readTag(v1724, v1726);
-        v1727 = v1729;
-        v1728 = v1730;
-        v1726 = v1731;
-        if v1728 == v0.wireTypes.varint then
-            v1729 = nil;
-            v1730, v1731 = v0.readVarInt(v1724, v1726);
-            v1729 = v1730;
-            v1726 = v1731;
-        elseif v1728 == v0.wireTypes.lengthDelimited then
-            if v1727 == 1 then
-                v1729 = nil;
-                v1730, v1731 = v0.readBuffer(v1724, v1726);
-                v1729 = v1730;
-                v1726 = v1731;
-                v1725.key = buffer.tostring(v1729);
-            elseif v1727 == 2 then
-                v1729 = nil;
-                v1730, v1731 = v0.readBuffer(v1724, v1726);
-                v1729 = v1730;
-                v1726 = v1731;
-                v1725.value = v2.TemplateArg.decode(v1729);
+v5.decode = function(v1821) --[[ Line: 12158 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_66 (copy), v0 (copy), v2 (copy)
+    local v1822 = l_v5_66.new();
+    local v1823 = 0;
+    while v1823 < buffer.len(v1821) do
+        local v1824 = nil;
+        local v1825 = nil;
+        local v1826, v1827, v1828 = v0.readTag(v1821, v1823);
+        v1824 = v1826;
+        v1825 = v1827;
+        v1823 = v1828;
+        if v1825 == v0.wireTypes.varint then
+            v1826 = nil;
+            v1827, v1828 = v0.readVarInt(v1821, v1823);
+            v1826 = v1827;
+            v1823 = v1828;
+        elseif v1825 == v0.wireTypes.lengthDelimited then
+            if v1824 == 1 then
+                v1826 = nil;
+                v1827, v1828 = v0.readBuffer(v1821, v1823);
+                v1826 = v1827;
+                v1823 = v1828;
+                v1822.key = buffer.tostring(v1826);
+            elseif v1824 == 2 then
+                v1826 = nil;
+                v1827, v1828 = v0.readBuffer(v1821, v1823);
+                v1826 = v1827;
+                v1823 = v1828;
+                v1822.value = v2.TemplateArg.decode(v1826);
             else
-                v1729 = nil;
-                v1730, v1731 = v0.readVarInt(v1724, v1726);
-                v1726 = v1731 + v1730;
+                v1826 = nil;
+                v1827, v1828 = v0.readVarInt(v1821, v1823);
+                v1823 = v1828 + v1827;
             end;
-        elseif v1728 == v0.wireTypes.i32 then
-            v1729 = nil;
-            v1730, v1731 = v0.readFixed32(v1724, v1726);
-            v1729 = v1730;
-            v1726 = v1731;
-        elseif v1728 == v0.wireTypes.i64 then
-            v1729 = nil;
-            v1730, v1731 = v0.readFixed64(v1724, v1726);
-            v1729 = v1730;
-            v1726 = v1731;
+        elseif v1825 == v0.wireTypes.i32 then
+            v1826 = nil;
+            v1827, v1828 = v0.readFixed32(v1821, v1823);
+            v1826 = v1827;
+            v1823 = v1828;
+        elseif v1825 == v0.wireTypes.i64 then
+            v1826 = nil;
+            v1827, v1828 = v0.readFixed64(v1821, v1823);
+            v1826 = v1827;
+            v1823 = v1828;
         else
-            error("Unsupported wire type: " .. v1728);
+            error("Unsupported wire type: " .. v1825);
         end;
     end;
-    return v1725;
+    return v1822;
 end;
-v5.jsonEncode = function(v1732) --[[ Line: 11459 ]] --[[ Name: jsonEncode ]]
-    local v1733 = {};
-    if v1732.key ~= nil and v1732.key ~= "" then
-        v1733.key = v1732.key;
+v5.jsonEncode = function(v1829) --[[ Line: 12208 ]] --[[ Name: jsonEncode ]]
+    local v1830 = {};
+    if v1829.key ~= nil and v1829.key ~= "" then
+        v1830.key = v1829.key;
     end;
-    if v1732.value ~= nil then
-        v1733.value = v1732.value:jsonEncode();
+    if v1829.value ~= nil then
+        v1830.value = v1829.value:jsonEncode();
     end;
-    return v1733;
+    return v1830;
 end;
-v5.jsonDecode = function(v1734) --[[ Line: 11475 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_63 (copy), v2 (copy)
-    local v1735 = l_v5_63.new();
-    if v1734.key ~= nil then
-        v1735.key = v1734.key;
+v5.jsonDecode = function(v1831) --[[ Line: 12224 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_66 (copy), v2 (copy)
+    local v1832 = l_v5_66.new();
+    if v1831.key ~= nil then
+        v1832.key = v1831.key;
     end;
-    if v1734.value ~= nil then
-        v1735.value = v2.TemplateArg.jsonDecode(v1734.value);
+    if v1831.value ~= nil then
+        v1832.value = v2.TemplateArg.jsonDecode(v1831.value);
     end;
-    return v1735;
+    return v1832;
 end;
 v5.descriptor = {
     name = "NestedComponentProp_TemplateData_InputsEntry", 
@@ -8876,186 +9464,186 @@ v2.NestedComponentProp_TemplateData_InputsEntry = v5;
 v1.default:register(v2.NestedComponentProp_TemplateData_InputsEntry);
 v5 = {};
 v5.__index = v5;
-local l_v5_64 = v5 --[[ copy: 5 -> 70 ]];
-v5.new = function(v1737) --[[ Line: 11505 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_64 (copy)
+local l_v5_67 = v5 --[[ copy: 5 -> 73 ]];
+v5.new = function(v1834) --[[ Line: 12254 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_67 (copy)
     return (setmetatable({
-        kind = if not (v1737 ~= nil) or v1737.kind == nil then nil else v1737.kind
-    }, l_v5_64));
+        kind = if not (v1834 ~= nil) or v1834.kind == nil then nil else v1834.kind
+    }, l_v5_67));
 end;
-v5.encode = function(v1738) --[[ Line: 11513 ]] --[[ Name: encode ]]
+v5.encode = function(v1835) --[[ Line: 12262 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1739 = buffer.create(0);
-    local v1740 = 0;
-    if v1738.kind ~= nil then
-        if v1738.kind.type == "array_map" then
-            local v1741 = v1738.kind.value:encode();
-            local v1742, v1743 = v0.writeTag(v1739, v1740, 1, v0.wireTypes.lengthDelimited);
-            v1742, v1743 = v0.writeBuffer(v1742, v1743, v1741, buffer.len(v1741));
-            v1739 = v1742;
-            v1740 = v1743;
-        elseif v1738.kind.type == "item_list" then
-            local v1744 = v1738.kind.value:encode();
-            local v1745, v1746 = v0.writeTag(v1739, v1740, 2, v0.wireTypes.lengthDelimited);
-            v1745, v1746 = v0.writeBuffer(v1745, v1746, v1744, buffer.len(v1744));
-            v1739 = v1745;
-            v1740 = v1746;
-        elseif v1738.kind.type == "conditional" then
-            local v1747 = v1738.kind.value:encode();
-            local v1748, v1749 = v0.writeTag(v1739, v1740, 3, v0.wireTypes.lengthDelimited);
-            v1748, v1749 = v0.writeBuffer(v1748, v1749, v1747, buffer.len(v1747));
-            v1739 = v1748;
-            v1740 = v1749;
-        elseif v1738.kind.type == "ordered_template_data" then
-            local v1750 = v1738.kind.value:encode();
-            local v1751, v1752 = v0.writeTag(v1739, v1740, 4, v0.wireTypes.lengthDelimited);
-            v1751, v1752 = v0.writeBuffer(v1751, v1752, v1750, buffer.len(v1750));
-            v1739 = v1751;
-            v1740 = v1752;
+    local v1836 = buffer.create(0);
+    local v1837 = 0;
+    if v1835.kind ~= nil then
+        if v1835.kind.type == "array_map" then
+            local v1838 = v1835.kind.value:encode();
+            local v1839, v1840 = v0.writeTag(v1836, v1837, 1, v0.wireTypes.lengthDelimited);
+            v1839, v1840 = v0.writeBuffer(v1839, v1840, v1838, buffer.len(v1838));
+            v1836 = v1839;
+            v1837 = v1840;
+        elseif v1835.kind.type == "item_list" then
+            local v1841 = v1835.kind.value:encode();
+            local v1842, v1843 = v0.writeTag(v1836, v1837, 2, v0.wireTypes.lengthDelimited);
+            v1842, v1843 = v0.writeBuffer(v1842, v1843, v1841, buffer.len(v1841));
+            v1836 = v1842;
+            v1837 = v1843;
+        elseif v1835.kind.type == "conditional" then
+            local v1844 = v1835.kind.value:encode();
+            local v1845, v1846 = v0.writeTag(v1836, v1837, 3, v0.wireTypes.lengthDelimited);
+            v1845, v1846 = v0.writeBuffer(v1845, v1846, v1844, buffer.len(v1844));
+            v1836 = v1845;
+            v1837 = v1846;
+        elseif v1835.kind.type == "ordered_template_data" then
+            local v1847 = v1835.kind.value:encode();
+            local v1848, v1849 = v0.writeTag(v1836, v1837, 4, v0.wireTypes.lengthDelimited);
+            v1848, v1849 = v0.writeBuffer(v1848, v1849, v1847, buffer.len(v1847));
+            v1836 = v1848;
+            v1837 = v1849;
         end;
     end;
-    local v1753 = buffer.create(v1740);
-    buffer.copy(v1753, 0, v1739, 0, v1740);
-    return v1753;
+    local v1850 = buffer.create(v1837);
+    buffer.copy(v1850, 0, v1836, 0, v1837);
+    return v1850;
 end;
-v5.decode = function(v1754) --[[ Line: 11542 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_64 (copy), v0 (copy), v2 (copy)
-    local v1755 = l_v5_64.new();
-    local v1756 = 0;
-    while v1756 < buffer.len(v1754) do
-        local v1757 = nil;
-        local v1758 = nil;
-        local v1759, v1760, v1761 = v0.readTag(v1754, v1756);
-        v1757 = v1759;
-        v1758 = v1760;
-        v1756 = v1761;
-        if v1758 == v0.wireTypes.varint then
-            v1759 = nil;
-            v1760, v1761 = v0.readVarInt(v1754, v1756);
-            v1759 = v1760;
-            v1756 = v1761;
-        elseif v1758 == v0.wireTypes.lengthDelimited then
-            if v1757 == 1 then
-                v1759 = nil;
-                v1760, v1761 = v0.readBuffer(v1754, v1756);
-                v1759 = v1760;
-                v1756 = v1761;
-                v1755.kind = {
+v5.decode = function(v1851) --[[ Line: 12291 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_67 (copy), v0 (copy), v2 (copy)
+    local v1852 = l_v5_67.new();
+    local v1853 = 0;
+    while v1853 < buffer.len(v1851) do
+        local v1854 = nil;
+        local v1855 = nil;
+        local v1856, v1857, v1858 = v0.readTag(v1851, v1853);
+        v1854 = v1856;
+        v1855 = v1857;
+        v1853 = v1858;
+        if v1855 == v0.wireTypes.varint then
+            v1856 = nil;
+            v1857, v1858 = v0.readVarInt(v1851, v1853);
+            v1856 = v1857;
+            v1853 = v1858;
+        elseif v1855 == v0.wireTypes.lengthDelimited then
+            if v1854 == 1 then
+                v1856 = nil;
+                v1857, v1858 = v0.readBuffer(v1851, v1853);
+                v1856 = v1857;
+                v1853 = v1858;
+                v1852.kind = {
                     type = "array_map", 
-                    value = v2.LazyNestedComponentListProp_TemplateData.decode(v1759)
+                    value = v2.LazyNestedComponentListProp_TemplateData.decode(v1856)
                 };
-            elseif v1757 == 2 then
-                v1759 = nil;
-                v1760, v1761 = v0.readBuffer(v1754, v1756);
-                v1759 = v1760;
-                v1756 = v1761;
-                v1755.kind = {
+            elseif v1854 == 2 then
+                v1856 = nil;
+                v1857, v1858 = v0.readBuffer(v1851, v1853);
+                v1856 = v1857;
+                v1853 = v1858;
+                v1852.kind = {
                     type = "item_list", 
-                    value = v2.LazyNestedComponentListProp_TemplateDataList.decode(v1759)
+                    value = v2.LazyNestedComponentListProp_TemplateDataList.decode(v1856)
                 };
-            elseif v1757 == 3 then
-                v1759 = nil;
-                v1760, v1761 = v0.readBuffer(v1754, v1756);
-                v1759 = v1760;
-                v1756 = v1761;
-                v1755.kind = {
+            elseif v1854 == 3 then
+                v1856 = nil;
+                v1857, v1858 = v0.readBuffer(v1851, v1853);
+                v1856 = v1857;
+                v1853 = v1858;
+                v1852.kind = {
                     type = "conditional", 
-                    value = v2.LazyNestedComponentListProp_ConditionalOptions.decode(v1759)
+                    value = v2.LazyNestedComponentListProp_ConditionalOptions.decode(v1856)
                 };
-            elseif v1757 == 4 then
-                v1759 = nil;
-                v1760, v1761 = v0.readBuffer(v1754, v1756);
-                v1759 = v1760;
-                v1756 = v1761;
-                v1755.kind = {
+            elseif v1854 == 4 then
+                v1856 = nil;
+                v1857, v1858 = v0.readBuffer(v1851, v1853);
+                v1856 = v1857;
+                v1853 = v1858;
+                v1852.kind = {
                     type = "ordered_template_data", 
-                    value = v2.LazyNestedComponentListProp_OrderedTemplateData.decode(v1759)
+                    value = v2.LazyNestedComponentListProp_OrderedTemplateData.decode(v1856)
                 };
             else
-                v1759 = nil;
-                v1760, v1761 = v0.readVarInt(v1754, v1756);
-                v1756 = v1761 + v1760;
+                v1856 = nil;
+                v1857, v1858 = v0.readVarInt(v1851, v1853);
+                v1853 = v1858 + v1857;
             end;
-        elseif v1758 == v0.wireTypes.i32 then
-            v1759 = nil;
-            v1760, v1761 = v0.readFixed32(v1754, v1756);
-            v1759 = v1760;
-            v1756 = v1761;
-        elseif v1758 == v0.wireTypes.i64 then
-            v1759 = nil;
-            v1760, v1761 = v0.readFixed64(v1754, v1756);
-            v1759 = v1760;
-            v1756 = v1761;
+        elseif v1855 == v0.wireTypes.i32 then
+            v1856 = nil;
+            v1857, v1858 = v0.readFixed32(v1851, v1853);
+            v1856 = v1857;
+            v1853 = v1858;
+        elseif v1855 == v0.wireTypes.i64 then
+            v1856 = nil;
+            v1857, v1858 = v0.readFixed64(v1851, v1853);
+            v1856 = v1857;
+            v1853 = v1858;
         else
-            error("Unsupported wire type: " .. v1758);
+            error("Unsupported wire type: " .. v1855);
         end;
     end;
-    return v1755;
+    return v1852;
 end;
-v5.jsonEncode = function(v1762) --[[ Line: 11610 ]] --[[ Name: jsonEncode ]]
-    local v1763 = {};
-    if v1762.kind ~= nil then
-        if v1762.kind.type == "array_map" then
-            v1763.arrayMap = v1762.kind.value:jsonEncode();
-            return v1763;
-        elseif v1762.kind.type == "item_list" then
-            v1763.itemList = v1762.kind.value:jsonEncode();
-            return v1763;
-        elseif v1762.kind.type == "conditional" then
-            v1763.conditional = v1762.kind.value:jsonEncode();
-            return v1763;
-        elseif v1762.kind.type == "ordered_template_data" then
-            v1763.orderedTemplateData = v1762.kind.value:jsonEncode();
+v5.jsonEncode = function(v1859) --[[ Line: 12359 ]] --[[ Name: jsonEncode ]]
+    local v1860 = {};
+    if v1859.kind ~= nil then
+        if v1859.kind.type == "array_map" then
+            v1860.arrayMap = v1859.kind.value:jsonEncode();
+            return v1860;
+        elseif v1859.kind.type == "item_list" then
+            v1860.itemList = v1859.kind.value:jsonEncode();
+            return v1860;
+        elseif v1859.kind.type == "conditional" then
+            v1860.conditional = v1859.kind.value:jsonEncode();
+            return v1860;
+        elseif v1859.kind.type == "ordered_template_data" then
+            v1860.orderedTemplateData = v1859.kind.value:jsonEncode();
         end;
     end;
-    return v1763;
+    return v1860;
 end;
-v5.jsonDecode = function(v1764) --[[ Line: 11628 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_64 (copy), v2 (copy)
-    local v1765 = l_v5_64.new();
-    if v1764.array_map ~= nil then
-        v1765.kind = {
+v5.jsonDecode = function(v1861) --[[ Line: 12377 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_67 (copy), v2 (copy)
+    local v1862 = l_v5_67.new();
+    if v1861.array_map ~= nil then
+        v1862.kind = {
             type = "array_map", 
-            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1764.array_map)
+            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1861.array_map)
         };
     end;
-    if v1764.arrayMap ~= nil then
-        v1765.kind = {
+    if v1861.arrayMap ~= nil then
+        v1862.kind = {
             type = "array_map", 
-            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1764.arrayMap)
+            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1861.arrayMap)
         };
     end;
-    if v1764.item_list ~= nil then
-        v1765.kind = {
+    if v1861.item_list ~= nil then
+        v1862.kind = {
             type = "item_list", 
-            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1764.item_list)
+            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1861.item_list)
         };
     end;
-    if v1764.itemList ~= nil then
-        v1765.kind = {
+    if v1861.itemList ~= nil then
+        v1862.kind = {
             type = "item_list", 
-            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1764.itemList)
+            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1861.itemList)
         };
     end;
-    if v1764.conditional ~= nil then
-        v1765.kind = {
+    if v1861.conditional ~= nil then
+        v1862.kind = {
             type = "conditional", 
-            value = v2.LazyNestedComponentListProp_ConditionalOptions.jsonDecode(v1764.conditional)
+            value = v2.LazyNestedComponentListProp_ConditionalOptions.jsonDecode(v1861.conditional)
         };
     end;
-    if v1764.ordered_template_data ~= nil then
-        v1765.kind = {
+    if v1861.ordered_template_data ~= nil then
+        v1862.kind = {
             type = "ordered_template_data", 
-            value = v2.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(v1764.ordered_template_data)
+            value = v2.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(v1861.ordered_template_data)
         };
     end;
-    if v1764.orderedTemplateData ~= nil then
-        v1765.kind = {
+    if v1861.orderedTemplateData ~= nil then
+        v1862.kind = {
             type = "ordered_template_data", 
-            value = v2.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(v1764.orderedTemplateData)
+            value = v2.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(v1861.orderedTemplateData)
         };
     end;
-    return v1765;
+    return v1862;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp", 
@@ -9065,146 +9653,146 @@ v2.LazyNestedComponentListProp = v5;
 v1.default:register(v2.LazyNestedComponentListProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_65 = v5 --[[ copy: 5 -> 71 ]];
-v5.new = function(v1767) --[[ Line: 11699 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_65 (copy)
+local l_v5_68 = v5 --[[ copy: 5 -> 74 ]];
+v5.new = function(v1864) --[[ Line: 12448 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_68 (copy)
     return (setmetatable({
-        condition = if not (v1767 ~= nil) or v1767.condition == nil then nil else v1767.condition, 
-        kind = if not (v1767 ~= nil) or v1767.kind == nil then nil else v1767.kind
-    }, l_v5_65));
+        condition = if not (v1864 ~= nil) or v1864.condition == nil then nil else v1864.condition, 
+        kind = if not (v1864 ~= nil) or v1864.kind == nil then nil else v1864.kind
+    }, l_v5_68));
 end;
-v5.encode = function(v1768) --[[ Line: 11708 ]] --[[ Name: encode ]]
+v5.encode = function(v1865) --[[ Line: 12457 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1769 = buffer.create(0);
-    local v1770 = 0;
-    if v1768.condition ~= nil then
-        local v1771 = v1768.condition:encode();
-        local v1772, v1773 = v0.writeTag(v1769, v1770, 1, v0.wireTypes.lengthDelimited);
-        v1772, v1773 = v0.writeBuffer(v1772, v1773, v1771, buffer.len(v1771));
-        v1769 = v1772;
-        v1770 = v1773;
+    local v1866 = buffer.create(0);
+    local v1867 = 0;
+    if v1865.condition ~= nil then
+        local v1868 = v1865.condition:encode();
+        local v1869, v1870 = v0.writeTag(v1866, v1867, 1, v0.wireTypes.lengthDelimited);
+        v1869, v1870 = v0.writeBuffer(v1869, v1870, v1868, buffer.len(v1868));
+        v1866 = v1869;
+        v1867 = v1870;
     end;
-    if v1768.kind ~= nil then
-        if v1768.kind.type == "literal" then
-            local v1774 = v1768.kind.value:encode();
-            local v1775, v1776 = v0.writeTag(v1769, v1770, 2, v0.wireTypes.lengthDelimited);
-            v1775, v1776 = v0.writeBuffer(v1775, v1776, v1774, buffer.len(v1774));
-            v1769 = v1775;
-            v1770 = v1776;
-        elseif v1768.kind.type == "item_list" then
-            local v1777 = v1768.kind.value:encode();
-            local v1778, v1779 = v0.writeTag(v1769, v1770, 3, v0.wireTypes.lengthDelimited);
-            v1778, v1779 = v0.writeBuffer(v1778, v1779, v1777, buffer.len(v1777));
-            v1769 = v1778;
-            v1770 = v1779;
+    if v1865.kind ~= nil then
+        if v1865.kind.type == "literal" then
+            local v1871 = v1865.kind.value:encode();
+            local v1872, v1873 = v0.writeTag(v1866, v1867, 2, v0.wireTypes.lengthDelimited);
+            v1872, v1873 = v0.writeBuffer(v1872, v1873, v1871, buffer.len(v1871));
+            v1866 = v1872;
+            v1867 = v1873;
+        elseif v1865.kind.type == "item_list" then
+            local v1874 = v1865.kind.value:encode();
+            local v1875, v1876 = v0.writeTag(v1866, v1867, 3, v0.wireTypes.lengthDelimited);
+            v1875, v1876 = v0.writeBuffer(v1875, v1876, v1874, buffer.len(v1874));
+            v1866 = v1875;
+            v1867 = v1876;
         end;
     end;
-    local v1780 = buffer.create(v1770);
-    buffer.copy(v1780, 0, v1769, 0, v1770);
-    return v1780;
+    local v1877 = buffer.create(v1867);
+    buffer.copy(v1877, 0, v1866, 0, v1867);
+    return v1877;
 end;
-v5.decode = function(v1781) --[[ Line: 11737 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_65 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v1782 = l_v5_65.new();
-    local v1783 = 0;
-    while v1783 < buffer.len(v1781) do
-        local v1784 = nil;
-        local v1785 = nil;
-        local v1786, v1787, v1788 = v0.readTag(v1781, v1783);
-        v1784 = v1786;
-        v1785 = v1787;
-        v1783 = v1788;
-        if v1785 == v0.wireTypes.varint then
-            v1786 = nil;
-            v1787, v1788 = v0.readVarInt(v1781, v1783);
-            v1786 = v1787;
-            v1783 = v1788;
-        elseif v1785 == v0.wireTypes.lengthDelimited then
-            if v1784 == 1 then
-                v1786 = nil;
-                v1787, v1788 = v0.readBuffer(v1781, v1783);
-                v1786 = v1787;
-                v1783 = v1788;
-                v1782.condition = v4.PropCondition.decode(v1786);
-            elseif v1784 == 2 then
-                v1786 = nil;
-                v1787, v1788 = v0.readBuffer(v1781, v1783);
-                v1786 = v1787;
-                v1783 = v1788;
-                v1782.kind = {
+v5.decode = function(v1878) --[[ Line: 12486 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_68 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v1879 = l_v5_68.new();
+    local v1880 = 0;
+    while v1880 < buffer.len(v1878) do
+        local v1881 = nil;
+        local v1882 = nil;
+        local v1883, v1884, v1885 = v0.readTag(v1878, v1880);
+        v1881 = v1883;
+        v1882 = v1884;
+        v1880 = v1885;
+        if v1882 == v0.wireTypes.varint then
+            v1883 = nil;
+            v1884, v1885 = v0.readVarInt(v1878, v1880);
+            v1883 = v1884;
+            v1880 = v1885;
+        elseif v1882 == v0.wireTypes.lengthDelimited then
+            if v1881 == 1 then
+                v1883 = nil;
+                v1884, v1885 = v0.readBuffer(v1878, v1880);
+                v1883 = v1884;
+                v1880 = v1885;
+                v1879.condition = v4.PropCondition.decode(v1883);
+            elseif v1881 == 2 then
+                v1883 = nil;
+                v1884, v1885 = v0.readBuffer(v1878, v1880);
+                v1883 = v1884;
+                v1880 = v1885;
+                v1879.kind = {
                     type = "literal", 
-                    value = v2.LazyNestedComponentListProp_TemplateData.decode(v1786)
+                    value = v2.LazyNestedComponentListProp_TemplateData.decode(v1883)
                 };
-            elseif v1784 == 3 then
-                v1786 = nil;
-                v1787, v1788 = v0.readBuffer(v1781, v1783);
-                v1786 = v1787;
-                v1783 = v1788;
-                v1782.kind = {
+            elseif v1881 == 3 then
+                v1883 = nil;
+                v1884, v1885 = v0.readBuffer(v1878, v1880);
+                v1883 = v1884;
+                v1880 = v1885;
+                v1879.kind = {
                     type = "item_list", 
-                    value = v2.LazyNestedComponentListProp_TemplateDataList.decode(v1786)
+                    value = v2.LazyNestedComponentListProp_TemplateDataList.decode(v1883)
                 };
             else
-                v1786 = nil;
-                v1787, v1788 = v0.readVarInt(v1781, v1783);
-                v1783 = v1788 + v1787;
+                v1883 = nil;
+                v1884, v1885 = v0.readVarInt(v1878, v1880);
+                v1880 = v1885 + v1884;
             end;
-        elseif v1785 == v0.wireTypes.i32 then
-            v1786 = nil;
-            v1787, v1788 = v0.readFixed32(v1781, v1783);
-            v1786 = v1787;
-            v1783 = v1788;
-        elseif v1785 == v0.wireTypes.i64 then
-            v1786 = nil;
-            v1787, v1788 = v0.readFixed64(v1781, v1783);
-            v1786 = v1787;
-            v1783 = v1788;
+        elseif v1882 == v0.wireTypes.i32 then
+            v1883 = nil;
+            v1884, v1885 = v0.readFixed32(v1878, v1880);
+            v1883 = v1884;
+            v1880 = v1885;
+        elseif v1882 == v0.wireTypes.i64 then
+            v1883 = nil;
+            v1884, v1885 = v0.readFixed64(v1878, v1880);
+            v1883 = v1884;
+            v1880 = v1885;
         else
-            error("Unsupported wire type: " .. v1785);
+            error("Unsupported wire type: " .. v1882);
         end;
     end;
-    return v1782;
+    return v1879;
 end;
-v5.jsonEncode = function(v1789) --[[ Line: 11796 ]] --[[ Name: jsonEncode ]]
-    local v1790 = {};
-    if v1789.condition ~= nil then
-        v1790.condition = v1789.condition:jsonEncode();
+v5.jsonEncode = function(v1886) --[[ Line: 12545 ]] --[[ Name: jsonEncode ]]
+    local v1887 = {};
+    if v1886.condition ~= nil then
+        v1887.condition = v1886.condition:jsonEncode();
     end;
-    if v1789.kind ~= nil then
-        if v1789.kind.type == "literal" then
-            v1790.literal = v1789.kind.value:jsonEncode();
-            return v1790;
-        elseif v1789.kind.type == "item_list" then
-            v1790.itemList = v1789.kind.value:jsonEncode();
+    if v1886.kind ~= nil then
+        if v1886.kind.type == "literal" then
+            v1887.literal = v1886.kind.value:jsonEncode();
+            return v1887;
+        elseif v1886.kind.type == "item_list" then
+            v1887.itemList = v1886.kind.value:jsonEncode();
         end;
     end;
-    return v1790;
+    return v1887;
 end;
-v5.jsonDecode = function(v1791) --[[ Line: 11816 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_65 (copy), v4 (copy), v2 (copy)
-    local v1792 = l_v5_65.new();
-    if v1791.condition ~= nil then
-        v1792.condition = v4.PropCondition.jsonDecode(v1791.condition);
+v5.jsonDecode = function(v1888) --[[ Line: 12565 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_68 (copy), v4 (copy), v2 (copy)
+    local v1889 = l_v5_68.new();
+    if v1888.condition ~= nil then
+        v1889.condition = v4.PropCondition.jsonDecode(v1888.condition);
     end;
-    if v1791.literal ~= nil then
-        v1792.kind = {
+    if v1888.literal ~= nil then
+        v1889.kind = {
             type = "literal", 
-            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1791.literal)
+            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1888.literal)
         };
     end;
-    if v1791.item_list ~= nil then
-        v1792.kind = {
+    if v1888.item_list ~= nil then
+        v1889.kind = {
             type = "item_list", 
-            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1791.item_list)
+            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1888.item_list)
         };
     end;
-    if v1791.itemList ~= nil then
-        v1792.kind = {
+    if v1888.itemList ~= nil then
+        v1889.kind = {
             type = "item_list", 
-            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1791.itemList)
+            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v1888.itemList)
         };
     end;
-    return v1792;
+    return v1889;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_ConditionalOption", 
@@ -9214,96 +9802,96 @@ v2.LazyNestedComponentListProp_ConditionalOption = v5;
 v1.default:register(v2.LazyNestedComponentListProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_66 = v5 --[[ copy: 5 -> 72 ]];
-v5.new = function(v1794) --[[ Line: 11864 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_66 (copy)
+local l_v5_69 = v5 --[[ copy: 5 -> 75 ]];
+v5.new = function(v1891) --[[ Line: 12613 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_69 (copy)
     return (setmetatable({
-        options = if not (v1794 ~= nil) or v1794.options == nil then {} else v1794.options
-    }, l_v5_66));
+        options = if not (v1891 ~= nil) or v1891.options == nil then {} else v1891.options
+    }, l_v5_69));
 end;
-v5.encode = function(v1795) --[[ Line: 11872 ]] --[[ Name: encode ]]
+v5.encode = function(v1892) --[[ Line: 12621 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1796 = buffer.create(0);
-    local v1797 = 0;
-    if v1795.options ~= nil and #v1795.options > 0 then
-        for _, v1799 in v1795.options do
-            local v1800 = v1799:encode();
-            local v1801, v1802 = v0.writeTag(v1796, v1797, 1, v0.wireTypes.lengthDelimited);
-            v1801, v1802 = v0.writeBuffer(v1801, v1802, v1800, buffer.len(v1800));
-            v1796 = v1801;
-            v1797 = v1802;
+    local v1893 = buffer.create(0);
+    local v1894 = 0;
+    if v1892.options ~= nil and #v1892.options > 0 then
+        for _, v1896 in v1892.options do
+            local v1897 = v1896:encode();
+            local v1898, v1899 = v0.writeTag(v1893, v1894, 1, v0.wireTypes.lengthDelimited);
+            v1898, v1899 = v0.writeBuffer(v1898, v1899, v1897, buffer.len(v1897));
+            v1893 = v1898;
+            v1894 = v1899;
         end;
     end;
-    local v1803 = buffer.create(v1797);
-    buffer.copy(v1803, 0, v1796, 0, v1797);
-    return v1803;
+    local v1900 = buffer.create(v1894);
+    buffer.copy(v1900, 0, v1893, 0, v1894);
+    return v1900;
 end;
-v5.decode = function(v1804) --[[ Line: 11891 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_66 (copy), v0 (copy), v2 (copy)
-    local v1805 = l_v5_66.new();
-    local v1806 = 0;
-    while v1806 < buffer.len(v1804) do
-        local v1807 = nil;
-        local v1808 = nil;
-        local v1809, v1810, v1811 = v0.readTag(v1804, v1806);
-        v1807 = v1809;
-        v1808 = v1810;
-        v1806 = v1811;
-        if v1808 == v0.wireTypes.varint then
-            v1809 = nil;
-            v1810, v1811 = v0.readVarInt(v1804, v1806);
-            v1809 = v1810;
-            v1806 = v1811;
-        elseif v1808 == v0.wireTypes.lengthDelimited then
-            if v1807 == 1 then
-                v1809 = nil;
-                v1810, v1811 = v0.readBuffer(v1804, v1806);
-                v1809 = v1810;
-                v1806 = v1811;
-                table.insert(v1805.options, v2.LazyNestedComponentListProp_ConditionalOption.decode(v1809));
+v5.decode = function(v1901) --[[ Line: 12640 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_69 (copy), v0 (copy), v2 (copy)
+    local v1902 = l_v5_69.new();
+    local v1903 = 0;
+    while v1903 < buffer.len(v1901) do
+        local v1904 = nil;
+        local v1905 = nil;
+        local v1906, v1907, v1908 = v0.readTag(v1901, v1903);
+        v1904 = v1906;
+        v1905 = v1907;
+        v1903 = v1908;
+        if v1905 == v0.wireTypes.varint then
+            v1906 = nil;
+            v1907, v1908 = v0.readVarInt(v1901, v1903);
+            v1906 = v1907;
+            v1903 = v1908;
+        elseif v1905 == v0.wireTypes.lengthDelimited then
+            if v1904 == 1 then
+                v1906 = nil;
+                v1907, v1908 = v0.readBuffer(v1901, v1903);
+                v1906 = v1907;
+                v1903 = v1908;
+                table.insert(v1902.options, v2.LazyNestedComponentListProp_ConditionalOption.decode(v1906));
             else
-                v1809 = nil;
-                v1810, v1811 = v0.readVarInt(v1804, v1806);
-                v1806 = v1811 + v1810;
+                v1906 = nil;
+                v1907, v1908 = v0.readVarInt(v1901, v1903);
+                v1903 = v1908 + v1907;
             end;
-        elseif v1808 == v0.wireTypes.i32 then
-            v1809 = nil;
-            v1810, v1811 = v0.readFixed32(v1804, v1806);
-            v1809 = v1810;
-            v1806 = v1811;
-        elseif v1808 == v0.wireTypes.i64 then
-            v1809 = nil;
-            v1810, v1811 = v0.readFixed64(v1804, v1806);
-            v1809 = v1810;
-            v1806 = v1811;
+        elseif v1905 == v0.wireTypes.i32 then
+            v1906 = nil;
+            v1907, v1908 = v0.readFixed32(v1901, v1903);
+            v1906 = v1907;
+            v1903 = v1908;
+        elseif v1905 == v0.wireTypes.i64 then
+            v1906 = nil;
+            v1907, v1908 = v0.readFixed64(v1901, v1903);
+            v1906 = v1907;
+            v1903 = v1908;
         else
-            error("Unsupported wire type: " .. v1808);
+            error("Unsupported wire type: " .. v1905);
         end;
     end;
-    return v1805;
+    return v1902;
 end;
-v5.jsonEncode = function(v1812) --[[ Line: 11936 ]] --[[ Name: jsonEncode ]]
-    local v1813 = {};
-    if v1812.options ~= nil and #v1812.options > 0 then
-        local v1814 = {};
-        for _, v1816 in v1812.options do
-            table.insert(v1814, v1816:jsonEncode());
+v5.jsonEncode = function(v1909) --[[ Line: 12685 ]] --[[ Name: jsonEncode ]]
+    local v1910 = {};
+    if v1909.options ~= nil and #v1909.options > 0 then
+        local v1911 = {};
+        for _, v1913 in v1909.options do
+            table.insert(v1911, v1913:jsonEncode());
         end;
-        v1813.options = v1814;
+        v1910.options = v1911;
     end;
-    return v1813;
+    return v1910;
 end;
-v5.jsonDecode = function(v1817) --[[ Line: 11952 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_66 (copy), v2 (copy)
-    local v1818 = l_v5_66.new();
-    if v1817.options ~= nil then
-        local v1819 = {};
-        for _, v1821 in v1817.options do
-            table.insert(v1819, v2.LazyNestedComponentListProp_ConditionalOption.jsonDecode(v1821));
+v5.jsonDecode = function(v1914) --[[ Line: 12701 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_69 (copy), v2 (copy)
+    local v1915 = l_v5_69.new();
+    if v1914.options ~= nil then
+        local v1916 = {};
+        for _, v1918 in v1914.options do
+            table.insert(v1916, v2.LazyNestedComponentListProp_ConditionalOption.jsonDecode(v1918));
         end;
-        v1818.options = v1819;
+        v1915.options = v1916;
     end;
-    return v1818;
+    return v1915;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_ConditionalOptions", 
@@ -9313,152 +9901,152 @@ v2.LazyNestedComponentListProp_ConditionalOptions = v5;
 v1.default:register(v2.LazyNestedComponentListProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_67 = v5 --[[ copy: 5 -> 73 ]];
-v5.new = function(v1823) --[[ Line: 11983 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_67 (copy)
+local l_v5_70 = v5 --[[ copy: 5 -> 76 ]];
+v5.new = function(v1920) --[[ Line: 12732 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_70 (copy)
     return (setmetatable({
-        binding_path = (not (v1823 ~= nil) or v1823.binding_path == nil) and "" or v1823.binding_path, 
-        roblox_component = (not (v1823 ~= nil) or v1823.roblox_component == nil) and "" or v1823.roblox_component, 
-        inputs = if not (v1823 ~= nil) or v1823.inputs == nil then {} else v1823.inputs
-    }, l_v5_67));
+        binding_path = (not (v1920 ~= nil) or v1920.binding_path == nil) and "" or v1920.binding_path, 
+        roblox_component = (not (v1920 ~= nil) or v1920.roblox_component == nil) and "" or v1920.roblox_component, 
+        inputs = if not (v1920 ~= nil) or v1920.inputs == nil then {} else v1920.inputs
+    }, l_v5_70));
 end;
-v5.encode = function(v1824) --[[ Line: 11993 ]] --[[ Name: encode ]]
+v5.encode = function(v1921) --[[ Line: 12742 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1825 = buffer.create(0);
-    local v1826 = 0;
-    if v1824.binding_path ~= nil and v1824.binding_path ~= "" then
-        local v1827, v1828 = v0.writeTag(v1825, v1826, 1, v0.wireTypes.lengthDelimited);
-        v1827, v1828 = v0.writeString(v1827, v1828, v1824.binding_path);
-        v1825 = v1827;
-        v1826 = v1828;
+    local v1922 = buffer.create(0);
+    local v1923 = 0;
+    if v1921.binding_path ~= nil and v1921.binding_path ~= "" then
+        local v1924, v1925 = v0.writeTag(v1922, v1923, 1, v0.wireTypes.lengthDelimited);
+        v1924, v1925 = v0.writeString(v1924, v1925, v1921.binding_path);
+        v1922 = v1924;
+        v1923 = v1925;
     end;
-    if v1824.roblox_component ~= nil and v1824.roblox_component ~= "" then
-        local v1829, v1830 = v0.writeTag(v1825, v1826, 2, v0.wireTypes.lengthDelimited);
-        v1829, v1830 = v0.writeString(v1829, v1830, v1824.roblox_component);
-        v1825 = v1829;
-        v1826 = v1830;
+    if v1921.roblox_component ~= nil and v1921.roblox_component ~= "" then
+        local v1926, v1927 = v0.writeTag(v1922, v1923, 2, v0.wireTypes.lengthDelimited);
+        v1926, v1927 = v0.writeString(v1926, v1927, v1921.roblox_component);
+        v1922 = v1926;
+        v1923 = v1927;
     end;
-    if v1824.inputs ~= nil and next(v1824.inputs) ~= nil then
-        for v1831, v1832 in v1824.inputs do
-            local v1833 = buffer.create(0);
-            local v1834, v1835 = v0.writeTag(v1833, 0, 1, v0.wireTypes.lengthDelimited);
-            v1834, v1835 = v0.writeString(v1834, v1835, v1831);
-            v1833 = v1834;
-            local l_v1835_0 = v1835;
-            v1834 = v1832:encode();
-            local v1837;
-            v1835, v1837 = v0.writeTag(v1833, l_v1835_0, 2, v0.wireTypes.lengthDelimited);
-            v1835, v1837 = v0.writeBuffer(v1835, v1837, v1834, buffer.len(v1834));
-            v1833 = v1835;
-            l_v1835_0 = v1837;
-            v1835, v1837 = v0.writeTag(v1825, v1826, 3, v0.wireTypes.lengthDelimited);
-            v1835, v1837 = v0.writeBuffer(v1835, v1837, v1833, l_v1835_0);
-            v1825 = v1835;
-            v1826 = v1837;
+    if v1921.inputs ~= nil and next(v1921.inputs) ~= nil then
+        for v1928, v1929 in v1921.inputs do
+            local v1930 = buffer.create(0);
+            local v1931, v1932 = v0.writeTag(v1930, 0, 1, v0.wireTypes.lengthDelimited);
+            v1931, v1932 = v0.writeString(v1931, v1932, v1928);
+            v1930 = v1931;
+            local l_v1932_0 = v1932;
+            v1931 = v1929:encode();
+            local v1934;
+            v1932, v1934 = v0.writeTag(v1930, l_v1932_0, 2, v0.wireTypes.lengthDelimited);
+            v1932, v1934 = v0.writeBuffer(v1932, v1934, v1931, buffer.len(v1931));
+            v1930 = v1932;
+            l_v1932_0 = v1934;
+            v1932, v1934 = v0.writeTag(v1922, v1923, 3, v0.wireTypes.lengthDelimited);
+            v1932, v1934 = v0.writeBuffer(v1932, v1934, v1930, l_v1932_0);
+            v1922 = v1932;
+            v1923 = v1934;
         end;
     end;
-    local v1838 = buffer.create(v1826);
-    buffer.copy(v1838, 0, v1825, 0, v1826);
-    return v1838;
+    local v1935 = buffer.create(v1923);
+    buffer.copy(v1935, 0, v1922, 0, v1923);
+    return v1935;
 end;
-v5.decode = function(v1839) --[[ Line: 12028 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_67 (copy), v0 (copy), v2 (copy)
-    local v1840 = l_v5_67.new();
-    local v1841 = 0;
-    while v1841 < buffer.len(v1839) do
-        local v1842 = nil;
-        local v1843 = nil;
-        local v1844, v1845, v1846 = v0.readTag(v1839, v1841);
-        v1842 = v1844;
-        v1843 = v1845;
-        v1841 = v1846;
-        if v1843 == v0.wireTypes.varint then
-            v1844 = nil;
-            v1845, v1846 = v0.readVarInt(v1839, v1841);
-            v1844 = v1845;
-            v1841 = v1846;
-        elseif v1843 == v0.wireTypes.lengthDelimited then
-            if v1842 == 1 then
-                v1844 = nil;
-                v1845, v1846 = v0.readBuffer(v1839, v1841);
-                v1844 = v1845;
-                v1841 = v1846;
-                v1840.binding_path = buffer.tostring(v1844);
-            elseif v1842 == 2 then
-                v1844 = nil;
-                v1845, v1846 = v0.readBuffer(v1839, v1841);
-                v1844 = v1845;
-                v1841 = v1846;
-                v1840.roblox_component = buffer.tostring(v1844);
-            elseif v1842 == 3 then
-                v1844 = nil;
-                v1845, v1846 = v0.readBuffer(v1839, v1841);
-                v1844 = v1845;
-                v1841 = v1846;
-                v1845 = v2.LazyNestedComponentListProp_TemplateData_InputsEntry.decode(v1844);
-                v1846 = v2.TemplateArg.new();
-                v1840.inputs[v1845.key or ""] = v1845.value or v1846;
+v5.decode = function(v1936) --[[ Line: 12777 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_70 (copy), v0 (copy), v2 (copy)
+    local v1937 = l_v5_70.new();
+    local v1938 = 0;
+    while v1938 < buffer.len(v1936) do
+        local v1939 = nil;
+        local v1940 = nil;
+        local v1941, v1942, v1943 = v0.readTag(v1936, v1938);
+        v1939 = v1941;
+        v1940 = v1942;
+        v1938 = v1943;
+        if v1940 == v0.wireTypes.varint then
+            v1941 = nil;
+            v1942, v1943 = v0.readVarInt(v1936, v1938);
+            v1941 = v1942;
+            v1938 = v1943;
+        elseif v1940 == v0.wireTypes.lengthDelimited then
+            if v1939 == 1 then
+                v1941 = nil;
+                v1942, v1943 = v0.readBuffer(v1936, v1938);
+                v1941 = v1942;
+                v1938 = v1943;
+                v1937.binding_path = buffer.tostring(v1941);
+            elseif v1939 == 2 then
+                v1941 = nil;
+                v1942, v1943 = v0.readBuffer(v1936, v1938);
+                v1941 = v1942;
+                v1938 = v1943;
+                v1937.roblox_component = buffer.tostring(v1941);
+            elseif v1939 == 3 then
+                v1941 = nil;
+                v1942, v1943 = v0.readBuffer(v1936, v1938);
+                v1941 = v1942;
+                v1938 = v1943;
+                v1942 = v2.LazyNestedComponentListProp_TemplateData_InputsEntry.decode(v1941);
+                v1943 = v2.TemplateArg.new();
+                v1937.inputs[v1942.key or ""] = v1942.value or v1943;
             else
-                v1844 = nil;
-                v1845, v1846 = v0.readVarInt(v1839, v1841);
-                v1841 = v1846 + v1845;
+                v1941 = nil;
+                v1942, v1943 = v0.readVarInt(v1936, v1938);
+                v1938 = v1943 + v1942;
             end;
-        elseif v1843 == v0.wireTypes.i32 then
-            v1844 = nil;
-            v1845, v1846 = v0.readFixed32(v1839, v1841);
-            v1844 = v1845;
-            v1841 = v1846;
-        elseif v1843 == v0.wireTypes.i64 then
-            v1844 = nil;
-            v1845, v1846 = v0.readFixed64(v1839, v1841);
-            v1844 = v1845;
-            v1841 = v1846;
+        elseif v1940 == v0.wireTypes.i32 then
+            v1941 = nil;
+            v1942, v1943 = v0.readFixed32(v1936, v1938);
+            v1941 = v1942;
+            v1938 = v1943;
+        elseif v1940 == v0.wireTypes.i64 then
+            v1941 = nil;
+            v1942, v1943 = v0.readFixed64(v1936, v1938);
+            v1941 = v1942;
+            v1938 = v1943;
         else
-            error("Unsupported wire type: " .. v1843);
+            error("Unsupported wire type: " .. v1940);
         end;
     end;
-    return v1840;
+    return v1937;
 end;
-v5.jsonEncode = function(v1847) --[[ Line: 12090 ]] --[[ Name: jsonEncode ]]
-    local v1848 = {};
-    if v1847.binding_path ~= nil and v1847.binding_path ~= "" then
-        v1848.bindingPath = v1847.binding_path;
+v5.jsonEncode = function(v1944) --[[ Line: 12839 ]] --[[ Name: jsonEncode ]]
+    local v1945 = {};
+    if v1944.binding_path ~= nil and v1944.binding_path ~= "" then
+        v1945.bindingPath = v1944.binding_path;
     end;
-    if v1847.roblox_component ~= nil and v1847.roblox_component ~= "" then
-        v1848.robloxComponent = v1847.roblox_component;
+    if v1944.roblox_component ~= nil and v1944.roblox_component ~= "" then
+        v1945.robloxComponent = v1944.roblox_component;
     end;
-    if v1847.inputs ~= nil and next(v1847.inputs) ~= nil then
-        local v1849 = {};
-        for v1850, v1851 in v1847.inputs do
-            v1849[v1850] = v1851:jsonEncode();
+    if v1944.inputs ~= nil and next(v1944.inputs) ~= nil then
+        local v1946 = {};
+        for v1947, v1948 in v1944.inputs do
+            v1946[v1947] = v1948:jsonEncode();
         end;
-        v1848.inputs = v1849;
+        v1945.inputs = v1946;
     end;
-    return v1848;
+    return v1945;
 end;
-v5.jsonDecode = function(v1852) --[[ Line: 12114 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_67 (copy), v2 (copy)
-    local v1853 = l_v5_67.new();
-    if v1852.binding_path ~= nil then
-        v1853.binding_path = v1852.binding_path;
+v5.jsonDecode = function(v1949) --[[ Line: 12863 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_70 (copy), v2 (copy)
+    local v1950 = l_v5_70.new();
+    if v1949.binding_path ~= nil then
+        v1950.binding_path = v1949.binding_path;
     end;
-    if v1852.bindingPath ~= nil then
-        v1853.binding_path = v1852.bindingPath;
+    if v1949.bindingPath ~= nil then
+        v1950.binding_path = v1949.bindingPath;
     end;
-    if v1852.roblox_component ~= nil then
-        v1853.roblox_component = v1852.roblox_component;
+    if v1949.roblox_component ~= nil then
+        v1950.roblox_component = v1949.roblox_component;
     end;
-    if v1852.robloxComponent ~= nil then
-        v1853.roblox_component = v1852.robloxComponent;
+    if v1949.robloxComponent ~= nil then
+        v1950.roblox_component = v1949.robloxComponent;
     end;
-    if v1852.inputs ~= nil then
-        local v1854 = {};
-        for v1855, v1856 in v1852.inputs do
-            v1854[v1855] = v2.TemplateArg.jsonDecode(v1856);
+    if v1949.inputs ~= nil then
+        local v1951 = {};
+        for v1952, v1953 in v1949.inputs do
+            v1951[v1952] = v2.TemplateArg.jsonDecode(v1953);
         end;
-        v1853.inputs = v1854;
+        v1950.inputs = v1951;
     end;
-    return v1853;
+    return v1950;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_TemplateData", 
@@ -9468,105 +10056,105 @@ v2.LazyNestedComponentListProp_TemplateData = v5;
 v1.default:register(v2.LazyNestedComponentListProp_TemplateData);
 v5 = {};
 v5.__index = v5;
-local l_v5_68 = v5 --[[ copy: 5 -> 74 ]];
-v5.new = function(v1858) --[[ Line: 12162 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_68 (copy)
+local l_v5_71 = v5 --[[ copy: 5 -> 77 ]];
+v5.new = function(v1955) --[[ Line: 12911 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_71 (copy)
     return (setmetatable({
-        key = (not (v1858 ~= nil) or v1858.key == nil) and "" or v1858.key, 
-        value = if not (v1858 ~= nil) or v1858.value == nil then nil else v1858.value
-    }, l_v5_68));
+        key = (not (v1955 ~= nil) or v1955.key == nil) and "" or v1955.key, 
+        value = if not (v1955 ~= nil) or v1955.value == nil then nil else v1955.value
+    }, l_v5_71));
 end;
-v5.encode = function(v1859) --[[ Line: 12174 ]] --[[ Name: encode ]]
+v5.encode = function(v1956) --[[ Line: 12923 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1860 = buffer.create(0);
-    local v1861 = 0;
-    if v1859.key ~= nil and v1859.key ~= "" then
-        local v1862, v1863 = v0.writeTag(v1860, v1861, 1, v0.wireTypes.lengthDelimited);
-        v1862, v1863 = v0.writeString(v1862, v1863, v1859.key);
-        v1860 = v1862;
-        v1861 = v1863;
+    local v1957 = buffer.create(0);
+    local v1958 = 0;
+    if v1956.key ~= nil and v1956.key ~= "" then
+        local v1959, v1960 = v0.writeTag(v1957, v1958, 1, v0.wireTypes.lengthDelimited);
+        v1959, v1960 = v0.writeString(v1959, v1960, v1956.key);
+        v1957 = v1959;
+        v1958 = v1960;
     end;
-    if v1859.value ~= nil then
-        local v1864 = v1859.value:encode();
-        local v1865, v1866 = v0.writeTag(v1860, v1861, 2, v0.wireTypes.lengthDelimited);
-        v1865, v1866 = v0.writeBuffer(v1865, v1866, v1864, buffer.len(v1864));
-        v1860 = v1865;
-        v1861 = v1866;
+    if v1956.value ~= nil then
+        local v1961 = v1956.value:encode();
+        local v1962, v1963 = v0.writeTag(v1957, v1958, 2, v0.wireTypes.lengthDelimited);
+        v1962, v1963 = v0.writeBuffer(v1962, v1963, v1961, buffer.len(v1961));
+        v1957 = v1962;
+        v1958 = v1963;
     end;
-    local v1867 = buffer.create(v1861);
-    buffer.copy(v1867, 0, v1860, 0, v1861);
-    return v1867;
+    local v1964 = buffer.create(v1958);
+    buffer.copy(v1964, 0, v1957, 0, v1958);
+    return v1964;
 end;
-v5.decode = function(v1868) --[[ Line: 12196 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_68 (copy), v0 (copy), v2 (copy)
-    local v1869 = l_v5_68.new();
-    local v1870 = 0;
-    while v1870 < buffer.len(v1868) do
-        local v1871 = nil;
-        local v1872 = nil;
-        local v1873, v1874, v1875 = v0.readTag(v1868, v1870);
-        v1871 = v1873;
-        v1872 = v1874;
-        v1870 = v1875;
-        if v1872 == v0.wireTypes.varint then
-            v1873 = nil;
-            v1874, v1875 = v0.readVarInt(v1868, v1870);
-            v1873 = v1874;
-            v1870 = v1875;
-        elseif v1872 == v0.wireTypes.lengthDelimited then
-            if v1871 == 1 then
-                v1873 = nil;
-                v1874, v1875 = v0.readBuffer(v1868, v1870);
-                v1873 = v1874;
-                v1870 = v1875;
-                v1869.key = buffer.tostring(v1873);
-            elseif v1871 == 2 then
-                v1873 = nil;
-                v1874, v1875 = v0.readBuffer(v1868, v1870);
-                v1873 = v1874;
-                v1870 = v1875;
-                v1869.value = v2.TemplateArg.decode(v1873);
+v5.decode = function(v1965) --[[ Line: 12945 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_71 (copy), v0 (copy), v2 (copy)
+    local v1966 = l_v5_71.new();
+    local v1967 = 0;
+    while v1967 < buffer.len(v1965) do
+        local v1968 = nil;
+        local v1969 = nil;
+        local v1970, v1971, v1972 = v0.readTag(v1965, v1967);
+        v1968 = v1970;
+        v1969 = v1971;
+        v1967 = v1972;
+        if v1969 == v0.wireTypes.varint then
+            v1970 = nil;
+            v1971, v1972 = v0.readVarInt(v1965, v1967);
+            v1970 = v1971;
+            v1967 = v1972;
+        elseif v1969 == v0.wireTypes.lengthDelimited then
+            if v1968 == 1 then
+                v1970 = nil;
+                v1971, v1972 = v0.readBuffer(v1965, v1967);
+                v1970 = v1971;
+                v1967 = v1972;
+                v1966.key = buffer.tostring(v1970);
+            elseif v1968 == 2 then
+                v1970 = nil;
+                v1971, v1972 = v0.readBuffer(v1965, v1967);
+                v1970 = v1971;
+                v1967 = v1972;
+                v1966.value = v2.TemplateArg.decode(v1970);
             else
-                v1873 = nil;
-                v1874, v1875 = v0.readVarInt(v1868, v1870);
-                v1870 = v1875 + v1874;
+                v1970 = nil;
+                v1971, v1972 = v0.readVarInt(v1965, v1967);
+                v1967 = v1972 + v1971;
             end;
-        elseif v1872 == v0.wireTypes.i32 then
-            v1873 = nil;
-            v1874, v1875 = v0.readFixed32(v1868, v1870);
-            v1873 = v1874;
-            v1870 = v1875;
-        elseif v1872 == v0.wireTypes.i64 then
-            v1873 = nil;
-            v1874, v1875 = v0.readFixed64(v1868, v1870);
-            v1873 = v1874;
-            v1870 = v1875;
+        elseif v1969 == v0.wireTypes.i32 then
+            v1970 = nil;
+            v1971, v1972 = v0.readFixed32(v1965, v1967);
+            v1970 = v1971;
+            v1967 = v1972;
+        elseif v1969 == v0.wireTypes.i64 then
+            v1970 = nil;
+            v1971, v1972 = v0.readFixed64(v1965, v1967);
+            v1970 = v1971;
+            v1967 = v1972;
         else
-            error("Unsupported wire type: " .. v1872);
+            error("Unsupported wire type: " .. v1969);
         end;
     end;
-    return v1869;
+    return v1966;
 end;
-v5.jsonEncode = function(v1876) --[[ Line: 12246 ]] --[[ Name: jsonEncode ]]
-    local v1877 = {};
-    if v1876.key ~= nil and v1876.key ~= "" then
-        v1877.key = v1876.key;
+v5.jsonEncode = function(v1973) --[[ Line: 12995 ]] --[[ Name: jsonEncode ]]
+    local v1974 = {};
+    if v1973.key ~= nil and v1973.key ~= "" then
+        v1974.key = v1973.key;
     end;
-    if v1876.value ~= nil then
-        v1877.value = v1876.value:jsonEncode();
+    if v1973.value ~= nil then
+        v1974.value = v1973.value:jsonEncode();
     end;
-    return v1877;
+    return v1974;
 end;
-v5.jsonDecode = function(v1878) --[[ Line: 12262 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_68 (copy), v2 (copy)
-    local v1879 = l_v5_68.new();
-    if v1878.key ~= nil then
-        v1879.key = v1878.key;
+v5.jsonDecode = function(v1975) --[[ Line: 13011 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_71 (copy), v2 (copy)
+    local v1976 = l_v5_71.new();
+    if v1975.key ~= nil then
+        v1976.key = v1975.key;
     end;
-    if v1878.value ~= nil then
-        v1879.value = v2.TemplateArg.jsonDecode(v1878.value);
+    if v1975.value ~= nil then
+        v1976.value = v2.TemplateArg.jsonDecode(v1975.value);
     end;
-    return v1879;
+    return v1976;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_TemplateData_InputsEntry", 
@@ -9576,96 +10164,96 @@ v2.LazyNestedComponentListProp_TemplateData_InputsEntry = v5;
 v1.default:register(v2.LazyNestedComponentListProp_TemplateData_InputsEntry);
 v5 = {};
 v5.__index = v5;
-local l_v5_69 = v5 --[[ copy: 5 -> 75 ]];
-v5.new = function(v1881) --[[ Line: 12293 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_69 (copy)
+local l_v5_72 = v5 --[[ copy: 5 -> 78 ]];
+v5.new = function(v1978) --[[ Line: 13042 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_72 (copy)
     return (setmetatable({
-        items = if not (v1881 ~= nil) or v1881.items == nil then {} else v1881.items
-    }, l_v5_69));
+        items = if not (v1978 ~= nil) or v1978.items == nil then {} else v1978.items
+    }, l_v5_72));
 end;
-v5.encode = function(v1882) --[[ Line: 12301 ]] --[[ Name: encode ]]
+v5.encode = function(v1979) --[[ Line: 13050 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1883 = buffer.create(0);
-    local v1884 = 0;
-    if v1882.items ~= nil and #v1882.items > 0 then
-        for _, v1886 in v1882.items do
-            local v1887 = v1886:encode();
-            local v1888, v1889 = v0.writeTag(v1883, v1884, 1, v0.wireTypes.lengthDelimited);
-            v1888, v1889 = v0.writeBuffer(v1888, v1889, v1887, buffer.len(v1887));
-            v1883 = v1888;
-            v1884 = v1889;
+    local v1980 = buffer.create(0);
+    local v1981 = 0;
+    if v1979.items ~= nil and #v1979.items > 0 then
+        for _, v1983 in v1979.items do
+            local v1984 = v1983:encode();
+            local v1985, v1986 = v0.writeTag(v1980, v1981, 1, v0.wireTypes.lengthDelimited);
+            v1985, v1986 = v0.writeBuffer(v1985, v1986, v1984, buffer.len(v1984));
+            v1980 = v1985;
+            v1981 = v1986;
         end;
     end;
-    local v1890 = buffer.create(v1884);
-    buffer.copy(v1890, 0, v1883, 0, v1884);
-    return v1890;
+    local v1987 = buffer.create(v1981);
+    buffer.copy(v1987, 0, v1980, 0, v1981);
+    return v1987;
 end;
-v5.decode = function(v1891) --[[ Line: 12320 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_69 (copy), v0 (copy), v2 (copy)
-    local v1892 = l_v5_69.new();
-    local v1893 = 0;
-    while v1893 < buffer.len(v1891) do
-        local v1894 = nil;
-        local v1895 = nil;
-        local v1896, v1897, v1898 = v0.readTag(v1891, v1893);
-        v1894 = v1896;
-        v1895 = v1897;
-        v1893 = v1898;
-        if v1895 == v0.wireTypes.varint then
-            v1896 = nil;
-            v1897, v1898 = v0.readVarInt(v1891, v1893);
-            v1896 = v1897;
-            v1893 = v1898;
-        elseif v1895 == v0.wireTypes.lengthDelimited then
-            if v1894 == 1 then
-                v1896 = nil;
-                v1897, v1898 = v0.readBuffer(v1891, v1893);
-                v1896 = v1897;
-                v1893 = v1898;
-                table.insert(v1892.items, v2.LazyNestedComponentListProp_TemplateData.decode(v1896));
+v5.decode = function(v1988) --[[ Line: 13069 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_72 (copy), v0 (copy), v2 (copy)
+    local v1989 = l_v5_72.new();
+    local v1990 = 0;
+    while v1990 < buffer.len(v1988) do
+        local v1991 = nil;
+        local v1992 = nil;
+        local v1993, v1994, v1995 = v0.readTag(v1988, v1990);
+        v1991 = v1993;
+        v1992 = v1994;
+        v1990 = v1995;
+        if v1992 == v0.wireTypes.varint then
+            v1993 = nil;
+            v1994, v1995 = v0.readVarInt(v1988, v1990);
+            v1993 = v1994;
+            v1990 = v1995;
+        elseif v1992 == v0.wireTypes.lengthDelimited then
+            if v1991 == 1 then
+                v1993 = nil;
+                v1994, v1995 = v0.readBuffer(v1988, v1990);
+                v1993 = v1994;
+                v1990 = v1995;
+                table.insert(v1989.items, v2.LazyNestedComponentListProp_TemplateData.decode(v1993));
             else
-                v1896 = nil;
-                v1897, v1898 = v0.readVarInt(v1891, v1893);
-                v1893 = v1898 + v1897;
+                v1993 = nil;
+                v1994, v1995 = v0.readVarInt(v1988, v1990);
+                v1990 = v1995 + v1994;
             end;
-        elseif v1895 == v0.wireTypes.i32 then
-            v1896 = nil;
-            v1897, v1898 = v0.readFixed32(v1891, v1893);
-            v1896 = v1897;
-            v1893 = v1898;
-        elseif v1895 == v0.wireTypes.i64 then
-            v1896 = nil;
-            v1897, v1898 = v0.readFixed64(v1891, v1893);
-            v1896 = v1897;
-            v1893 = v1898;
+        elseif v1992 == v0.wireTypes.i32 then
+            v1993 = nil;
+            v1994, v1995 = v0.readFixed32(v1988, v1990);
+            v1993 = v1994;
+            v1990 = v1995;
+        elseif v1992 == v0.wireTypes.i64 then
+            v1993 = nil;
+            v1994, v1995 = v0.readFixed64(v1988, v1990);
+            v1993 = v1994;
+            v1990 = v1995;
         else
-            error("Unsupported wire type: " .. v1895);
+            error("Unsupported wire type: " .. v1992);
         end;
     end;
-    return v1892;
+    return v1989;
 end;
-v5.jsonEncode = function(v1899) --[[ Line: 12365 ]] --[[ Name: jsonEncode ]]
-    local v1900 = {};
-    if v1899.items ~= nil and #v1899.items > 0 then
-        local v1901 = {};
-        for _, v1903 in v1899.items do
-            table.insert(v1901, v1903:jsonEncode());
+v5.jsonEncode = function(v1996) --[[ Line: 13114 ]] --[[ Name: jsonEncode ]]
+    local v1997 = {};
+    if v1996.items ~= nil and #v1996.items > 0 then
+        local v1998 = {};
+        for _, v2000 in v1996.items do
+            table.insert(v1998, v2000:jsonEncode());
         end;
-        v1900.items = v1901;
+        v1997.items = v1998;
     end;
-    return v1900;
+    return v1997;
 end;
-v5.jsonDecode = function(v1904) --[[ Line: 12381 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_69 (copy), v2 (copy)
-    local v1905 = l_v5_69.new();
-    if v1904.items ~= nil then
-        local v1906 = {};
-        for _, v1908 in v1904.items do
-            table.insert(v1906, v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1908));
+v5.jsonDecode = function(v2001) --[[ Line: 13130 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_72 (copy), v2 (copy)
+    local v2002 = l_v5_72.new();
+    if v2001.items ~= nil then
+        local v2003 = {};
+        for _, v2005 in v2001.items do
+            table.insert(v2003, v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v2005));
         end;
-        v1905.items = v1906;
+        v2002.items = v2003;
     end;
-    return v1905;
+    return v2002;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_TemplateDataList", 
@@ -9675,160 +10263,160 @@ v2.LazyNestedComponentListProp_TemplateDataList = v5;
 v1.default:register(v2.LazyNestedComponentListProp_TemplateDataList);
 v5 = {};
 v5.__index = v5;
-local l_v5_70 = v5 --[[ copy: 5 -> 76 ]];
-v5.new = function(v1910) --[[ Line: 12412 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_70 (copy)
+local l_v5_73 = v5 --[[ copy: 5 -> 79 ]];
+v5.new = function(v2007) --[[ Line: 13161 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_73 (copy)
     return (setmetatable({
-        entry_map_path = (not (v1910 ~= nil) or v1910.entry_map_path == nil) and "" or v1910.entry_map_path, 
-        entry_order = if not (v1910 ~= nil) or v1910.entry_order == nil then nil else v1910.entry_order, 
-        template_data_map = if not (v1910 ~= nil) or v1910.template_data_map == nil then {} else v1910.template_data_map
-    }, l_v5_70));
+        entry_map_path = (not (v2007 ~= nil) or v2007.entry_map_path == nil) and "" or v2007.entry_map_path, 
+        entry_order = if not (v2007 ~= nil) or v2007.entry_order == nil then nil else v2007.entry_order, 
+        template_data_map = if not (v2007 ~= nil) or v2007.template_data_map == nil then {} else v2007.template_data_map
+    }, l_v5_73));
 end;
-v5.encode = function(v1911) --[[ Line: 12422 ]] --[[ Name: encode ]]
+v5.encode = function(v2008) --[[ Line: 13171 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1912 = buffer.create(0);
-    local v1913 = 0;
-    if v1911.entry_map_path ~= nil and v1911.entry_map_path ~= "" then
-        local v1914, v1915 = v0.writeTag(v1912, v1913, 1, v0.wireTypes.lengthDelimited);
-        v1914, v1915 = v0.writeString(v1914, v1915, v1911.entry_map_path);
-        v1912 = v1914;
-        v1913 = v1915;
+    local v2009 = buffer.create(0);
+    local v2010 = 0;
+    if v2008.entry_map_path ~= nil and v2008.entry_map_path ~= "" then
+        local v2011, v2012 = v0.writeTag(v2009, v2010, 1, v0.wireTypes.lengthDelimited);
+        v2011, v2012 = v0.writeString(v2011, v2012, v2008.entry_map_path);
+        v2009 = v2011;
+        v2010 = v2012;
     end;
-    if v1911.entry_order ~= nil then
-        local v1916 = v1911.entry_order:encode();
-        local v1917, v1918 = v0.writeTag(v1912, v1913, 2, v0.wireTypes.lengthDelimited);
-        v1917, v1918 = v0.writeBuffer(v1917, v1918, v1916, buffer.len(v1916));
-        v1912 = v1917;
-        v1913 = v1918;
+    if v2008.entry_order ~= nil then
+        local v2013 = v2008.entry_order:encode();
+        local v2014, v2015 = v0.writeTag(v2009, v2010, 2, v0.wireTypes.lengthDelimited);
+        v2014, v2015 = v0.writeBuffer(v2014, v2015, v2013, buffer.len(v2013));
+        v2009 = v2014;
+        v2010 = v2015;
     end;
-    if v1911.template_data_map ~= nil and next(v1911.template_data_map) ~= nil then
-        for v1919, v1920 in v1911.template_data_map do
-            local v1921 = buffer.create(0);
-            local v1922, v1923 = v0.writeTag(v1921, 0, 1, v0.wireTypes.lengthDelimited);
-            v1922, v1923 = v0.writeString(v1922, v1923, v1919);
-            v1921 = v1922;
-            local l_v1923_0 = v1923;
-            v1922 = v1920:encode();
-            local v1925;
-            v1923, v1925 = v0.writeTag(v1921, l_v1923_0, 2, v0.wireTypes.lengthDelimited);
-            v1923, v1925 = v0.writeBuffer(v1923, v1925, v1922, buffer.len(v1922));
-            v1921 = v1923;
-            l_v1923_0 = v1925;
-            v1923, v1925 = v0.writeTag(v1912, v1913, 3, v0.wireTypes.lengthDelimited);
-            v1923, v1925 = v0.writeBuffer(v1923, v1925, v1921, l_v1923_0);
-            v1912 = v1923;
-            v1913 = v1925;
+    if v2008.template_data_map ~= nil and next(v2008.template_data_map) ~= nil then
+        for v2016, v2017 in v2008.template_data_map do
+            local v2018 = buffer.create(0);
+            local v2019, v2020 = v0.writeTag(v2018, 0, 1, v0.wireTypes.lengthDelimited);
+            v2019, v2020 = v0.writeString(v2019, v2020, v2016);
+            v2018 = v2019;
+            local l_v2020_0 = v2020;
+            v2019 = v2017:encode();
+            local v2022;
+            v2020, v2022 = v0.writeTag(v2018, l_v2020_0, 2, v0.wireTypes.lengthDelimited);
+            v2020, v2022 = v0.writeBuffer(v2020, v2022, v2019, buffer.len(v2019));
+            v2018 = v2020;
+            l_v2020_0 = v2022;
+            v2020, v2022 = v0.writeTag(v2009, v2010, 3, v0.wireTypes.lengthDelimited);
+            v2020, v2022 = v0.writeBuffer(v2020, v2022, v2018, l_v2020_0);
+            v2009 = v2020;
+            v2010 = v2022;
         end;
     end;
-    local v1926 = buffer.create(v1913);
-    buffer.copy(v1926, 0, v1912, 0, v1913);
-    return v1926;
+    local v2023 = buffer.create(v2010);
+    buffer.copy(v2023, 0, v2009, 0, v2010);
+    return v2023;
 end;
-v5.decode = function(v1927) --[[ Line: 12458 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_70 (copy), v0 (copy), v2 (copy)
-    local v1928 = l_v5_70.new();
-    local v1929 = 0;
-    while v1929 < buffer.len(v1927) do
-        local v1930 = nil;
-        local v1931 = nil;
-        local v1932, v1933, v1934 = v0.readTag(v1927, v1929);
-        v1930 = v1932;
-        v1931 = v1933;
-        v1929 = v1934;
-        if v1931 == v0.wireTypes.varint then
-            v1932 = nil;
-            v1933, v1934 = v0.readVarInt(v1927, v1929);
-            v1932 = v1933;
-            v1929 = v1934;
-        elseif v1931 == v0.wireTypes.lengthDelimited then
-            if v1930 == 1 then
-                v1932 = nil;
-                v1933, v1934 = v0.readBuffer(v1927, v1929);
-                v1932 = v1933;
-                v1929 = v1934;
-                v1928.entry_map_path = buffer.tostring(v1932);
-            elseif v1930 == 2 then
-                v1932 = nil;
-                v1933, v1934 = v0.readBuffer(v1927, v1929);
-                v1932 = v1933;
-                v1929 = v1934;
-                v1928.entry_order = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.decode(v1932);
-            elseif v1930 == 3 then
-                v1932 = nil;
-                v1933, v1934 = v0.readBuffer(v1927, v1929);
-                v1932 = v1933;
-                v1929 = v1934;
-                v1933 = v2.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry.decode(v1932);
-                v1934 = v2.LazyNestedComponentListProp_TemplateData.new();
-                v1928.template_data_map[v1933.key or ""] = v1933.value or v1934;
+v5.decode = function(v2024) --[[ Line: 13207 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_73 (copy), v0 (copy), v2 (copy)
+    local v2025 = l_v5_73.new();
+    local v2026 = 0;
+    while v2026 < buffer.len(v2024) do
+        local v2027 = nil;
+        local v2028 = nil;
+        local v2029, v2030, v2031 = v0.readTag(v2024, v2026);
+        v2027 = v2029;
+        v2028 = v2030;
+        v2026 = v2031;
+        if v2028 == v0.wireTypes.varint then
+            v2029 = nil;
+            v2030, v2031 = v0.readVarInt(v2024, v2026);
+            v2029 = v2030;
+            v2026 = v2031;
+        elseif v2028 == v0.wireTypes.lengthDelimited then
+            if v2027 == 1 then
+                v2029 = nil;
+                v2030, v2031 = v0.readBuffer(v2024, v2026);
+                v2029 = v2030;
+                v2026 = v2031;
+                v2025.entry_map_path = buffer.tostring(v2029);
+            elseif v2027 == 2 then
+                v2029 = nil;
+                v2030, v2031 = v0.readBuffer(v2024, v2026);
+                v2029 = v2030;
+                v2026 = v2031;
+                v2025.entry_order = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.decode(v2029);
+            elseif v2027 == 3 then
+                v2029 = nil;
+                v2030, v2031 = v0.readBuffer(v2024, v2026);
+                v2029 = v2030;
+                v2026 = v2031;
+                v2030 = v2.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry.decode(v2029);
+                v2031 = v2.LazyNestedComponentListProp_TemplateData.new();
+                v2025.template_data_map[v2030.key or ""] = v2030.value or v2031;
             else
-                v1932 = nil;
-                v1933, v1934 = v0.readVarInt(v1927, v1929);
-                v1929 = v1934 + v1933;
+                v2029 = nil;
+                v2030, v2031 = v0.readVarInt(v2024, v2026);
+                v2026 = v2031 + v2030;
             end;
-        elseif v1931 == v0.wireTypes.i32 then
-            v1932 = nil;
-            v1933, v1934 = v0.readFixed32(v1927, v1929);
-            v1932 = v1933;
-            v1929 = v1934;
-        elseif v1931 == v0.wireTypes.i64 then
-            v1932 = nil;
-            v1933, v1934 = v0.readFixed64(v1927, v1929);
-            v1932 = v1933;
-            v1929 = v1934;
+        elseif v2028 == v0.wireTypes.i32 then
+            v2029 = nil;
+            v2030, v2031 = v0.readFixed32(v2024, v2026);
+            v2029 = v2030;
+            v2026 = v2031;
+        elseif v2028 == v0.wireTypes.i64 then
+            v2029 = nil;
+            v2030, v2031 = v0.readFixed64(v2024, v2026);
+            v2029 = v2030;
+            v2026 = v2031;
         else
-            error("Unsupported wire type: " .. v1931);
+            error("Unsupported wire type: " .. v2028);
         end;
     end;
-    return v1928;
+    return v2025;
 end;
-v5.jsonEncode = function(v1935) --[[ Line: 12522 ]] --[[ Name: jsonEncode ]]
-    local v1936 = {};
-    if v1935.entry_map_path ~= nil and v1935.entry_map_path ~= "" then
-        v1936.entryMapPath = v1935.entry_map_path;
+v5.jsonEncode = function(v2032) --[[ Line: 13271 ]] --[[ Name: jsonEncode ]]
+    local v2033 = {};
+    if v2032.entry_map_path ~= nil and v2032.entry_map_path ~= "" then
+        v2033.entryMapPath = v2032.entry_map_path;
     end;
-    if v1935.entry_order ~= nil then
-        v1936.entryOrder = v1935.entry_order:jsonEncode();
+    if v2032.entry_order ~= nil then
+        v2033.entryOrder = v2032.entry_order:jsonEncode();
     end;
-    if v1935.template_data_map ~= nil and next(v1935.template_data_map) ~= nil then
-        local v1937 = {};
-        for v1938, v1939 in v1935.template_data_map do
-            v1937[v1938] = v1939:jsonEncode();
+    if v2032.template_data_map ~= nil and next(v2032.template_data_map) ~= nil then
+        local v2034 = {};
+        for v2035, v2036 in v2032.template_data_map do
+            v2034[v2035] = v2036:jsonEncode();
         end;
-        v1936.templateDataMap = v1937;
+        v2033.templateDataMap = v2034;
     end;
-    return v1936;
+    return v2033;
 end;
-v5.jsonDecode = function(v1940) --[[ Line: 12546 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_70 (copy), v2 (copy)
-    local v1941 = l_v5_70.new();
-    if v1940.entry_map_path ~= nil then
-        v1941.entry_map_path = v1940.entry_map_path;
+v5.jsonDecode = function(v2037) --[[ Line: 13295 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_73 (copy), v2 (copy)
+    local v2038 = l_v5_73.new();
+    if v2037.entry_map_path ~= nil then
+        v2038.entry_map_path = v2037.entry_map_path;
     end;
-    if v1940.entryMapPath ~= nil then
-        v1941.entry_map_path = v1940.entryMapPath;
+    if v2037.entryMapPath ~= nil then
+        v2038.entry_map_path = v2037.entryMapPath;
     end;
-    if v1940.entry_order ~= nil then
-        v1941.entry_order = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(v1940.entry_order);
+    if v2037.entry_order ~= nil then
+        v2038.entry_order = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(v2037.entry_order);
     end;
-    if v1940.entryOrder ~= nil then
-        v1941.entry_order = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(v1940.entryOrder);
+    if v2037.entryOrder ~= nil then
+        v2038.entry_order = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(v2037.entryOrder);
     end;
-    if v1940.template_data_map ~= nil then
-        local v1942 = {};
-        for v1943, v1944 in v1940.template_data_map do
-            v1942[v1943] = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1944);
+    if v2037.template_data_map ~= nil then
+        local v2039 = {};
+        for v2040, v2041 in v2037.template_data_map do
+            v2039[v2040] = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v2041);
         end;
-        v1941.template_data_map = v1942;
+        v2038.template_data_map = v2039;
     end;
-    if v1940.templateDataMap ~= nil then
-        local v1945 = {};
-        for v1946, v1947 in v1940.templateDataMap do
-            v1945[v1946] = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v1947);
+    if v2037.templateDataMap ~= nil then
+        local v2042 = {};
+        for v2043, v2044 in v2037.templateDataMap do
+            v2042[v2043] = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v2044);
         end;
-        v1941.template_data_map = v1945;
+        v2038.template_data_map = v2042;
     end;
-    return v1941;
+    return v2038;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_OrderedTemplateData", 
@@ -9838,125 +10426,125 @@ v2.LazyNestedComponentListProp_OrderedTemplateData = v5;
 v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData);
 v5 = {};
 v5.__index = v5;
-local l_v5_71 = v5 --[[ copy: 5 -> 77 ]];
-v5.new = function(v1949) --[[ Line: 12606 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_71 (copy)
+local l_v5_74 = v5 --[[ copy: 5 -> 80 ]];
+v5.new = function(v2046) --[[ Line: 13355 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_74 (copy)
     return (setmetatable({
-        kind = if not (v1949 ~= nil) or v1949.kind == nil then nil else v1949.kind
-    }, l_v5_71));
+        kind = if not (v2046 ~= nil) or v2046.kind == nil then nil else v2046.kind
+    }, l_v5_74));
 end;
-v5.encode = function(v1950) --[[ Line: 12617 ]] --[[ Name: encode ]]
+v5.encode = function(v2047) --[[ Line: 13366 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1951 = buffer.create(0);
-    local v1952 = 0;
-    if v1950.kind ~= nil then
-        if v1950.kind.type == "literal" then
-            local v1953 = v1950.kind.value:encode();
-            local v1954, v1955 = v0.writeTag(v1951, v1952, 1, v0.wireTypes.lengthDelimited);
-            v1954, v1955 = v0.writeBuffer(v1954, v1955, v1953, buffer.len(v1953));
-            v1951 = v1954;
-            v1952 = v1955;
-        elseif v1950.kind.type == "binding_path" then
-            local v1956, v1957 = v0.writeTag(v1951, v1952, 2, v0.wireTypes.lengthDelimited);
-            v1956, v1957 = v0.writeString(v1956, v1957, v1950.kind.value);
-            v1951 = v1956;
-            v1952 = v1957;
+    local v2048 = buffer.create(0);
+    local v2049 = 0;
+    if v2047.kind ~= nil then
+        if v2047.kind.type == "literal" then
+            local v2050 = v2047.kind.value:encode();
+            local v2051, v2052 = v0.writeTag(v2048, v2049, 1, v0.wireTypes.lengthDelimited);
+            v2051, v2052 = v0.writeBuffer(v2051, v2052, v2050, buffer.len(v2050));
+            v2048 = v2051;
+            v2049 = v2052;
+        elseif v2047.kind.type == "binding_path" then
+            local v2053, v2054 = v0.writeTag(v2048, v2049, 2, v0.wireTypes.lengthDelimited);
+            v2053, v2054 = v0.writeString(v2053, v2054, v2047.kind.value);
+            v2048 = v2053;
+            v2049 = v2054;
         end;
     end;
-    local v1958 = buffer.create(v1952);
-    buffer.copy(v1958, 0, v1951, 0, v1952);
-    return v1958;
+    local v2055 = buffer.create(v2049);
+    buffer.copy(v2055, 0, v2048, 0, v2049);
+    return v2055;
 end;
-v5.decode = function(v1959) --[[ Line: 12639 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_71 (copy), v0 (copy), v2 (copy)
-    local v1960 = l_v5_71.new();
-    local v1961 = 0;
-    while v1961 < buffer.len(v1959) do
-        local v1962 = nil;
-        local v1963 = nil;
-        local v1964, v1965, v1966 = v0.readTag(v1959, v1961);
-        v1962 = v1964;
-        v1963 = v1965;
-        v1961 = v1966;
-        if v1963 == v0.wireTypes.varint then
-            v1964 = nil;
-            v1965, v1966 = v0.readVarInt(v1959, v1961);
-            v1964 = v1965;
-            v1961 = v1966;
-        elseif v1963 == v0.wireTypes.lengthDelimited then
-            if v1962 == 1 then
-                v1964 = nil;
-                v1965, v1966 = v0.readBuffer(v1959, v1961);
-                v1964 = v1965;
-                v1961 = v1966;
-                v1960.kind = {
+v5.decode = function(v2056) --[[ Line: 13388 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_74 (copy), v0 (copy), v2 (copy)
+    local v2057 = l_v5_74.new();
+    local v2058 = 0;
+    while v2058 < buffer.len(v2056) do
+        local v2059 = nil;
+        local v2060 = nil;
+        local v2061, v2062, v2063 = v0.readTag(v2056, v2058);
+        v2059 = v2061;
+        v2060 = v2062;
+        v2058 = v2063;
+        if v2060 == v0.wireTypes.varint then
+            v2061 = nil;
+            v2062, v2063 = v0.readVarInt(v2056, v2058);
+            v2061 = v2062;
+            v2058 = v2063;
+        elseif v2060 == v0.wireTypes.lengthDelimited then
+            if v2059 == 1 then
+                v2061 = nil;
+                v2062, v2063 = v0.readBuffer(v2056, v2058);
+                v2061 = v2062;
+                v2058 = v2063;
+                v2057.kind = {
                     type = "literal", 
-                    value = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.decode(v1964)
+                    value = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.decode(v2061)
                 };
-            elseif v1962 == 2 then
-                v1964 = nil;
-                v1965, v1966 = v0.readBuffer(v1959, v1961);
-                v1964 = v1965;
-                v1961 = v1966;
-                v1960.kind = {
+            elseif v2059 == 2 then
+                v2061 = nil;
+                v2062, v2063 = v0.readBuffer(v2056, v2058);
+                v2061 = v2062;
+                v2058 = v2063;
+                v2057.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v1964)
+                    value = buffer.tostring(v2061)
                 };
             else
-                v1964 = nil;
-                v1965, v1966 = v0.readVarInt(v1959, v1961);
-                v1961 = v1966 + v1965;
+                v2061 = nil;
+                v2062, v2063 = v0.readVarInt(v2056, v2058);
+                v2058 = v2063 + v2062;
             end;
-        elseif v1963 == v0.wireTypes.i32 then
-            v1964 = nil;
-            v1965, v1966 = v0.readFixed32(v1959, v1961);
-            v1964 = v1965;
-            v1961 = v1966;
-        elseif v1963 == v0.wireTypes.i64 then
-            v1964 = nil;
-            v1965, v1966 = v0.readFixed64(v1959, v1961);
-            v1964 = v1965;
-            v1961 = v1966;
+        elseif v2060 == v0.wireTypes.i32 then
+            v2061 = nil;
+            v2062, v2063 = v0.readFixed32(v2056, v2058);
+            v2061 = v2062;
+            v2058 = v2063;
+        elseif v2060 == v0.wireTypes.i64 then
+            v2061 = nil;
+            v2062, v2063 = v0.readFixed64(v2056, v2058);
+            v2061 = v2062;
+            v2058 = v2063;
         else
-            error("Unsupported wire type: " .. v1963);
+            error("Unsupported wire type: " .. v2060);
         end;
     end;
-    return v1960;
+    return v2057;
 end;
-v5.jsonEncode = function(v1967) --[[ Line: 12694 ]] --[[ Name: jsonEncode ]]
-    local v1968 = {};
-    if v1967.kind ~= nil then
-        if v1967.kind.type == "literal" then
-            v1968.literal = v1967.kind.value:jsonEncode();
-            return v1968;
-        elseif v1967.kind.type == "binding_path" then
-            v1968.bindingPath = v1967.kind.value;
+v5.jsonEncode = function(v2064) --[[ Line: 13443 ]] --[[ Name: jsonEncode ]]
+    local v2065 = {};
+    if v2064.kind ~= nil then
+        if v2064.kind.type == "literal" then
+            v2065.literal = v2064.kind.value:jsonEncode();
+            return v2065;
+        elseif v2064.kind.type == "binding_path" then
+            v2065.bindingPath = v2064.kind.value;
         end;
     end;
-    return v1968;
+    return v2065;
 end;
-v5.jsonDecode = function(v1969) --[[ Line: 12710 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_71 (copy), v2 (copy)
-    local v1970 = l_v5_71.new();
-    if v1969.literal ~= nil then
-        v1970.kind = {
+v5.jsonDecode = function(v2066) --[[ Line: 13459 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_74 (copy), v2 (copy)
+    local v2067 = l_v5_74.new();
+    if v2066.literal ~= nil then
+        v2067.kind = {
             type = "literal", 
-            value = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.jsonDecode(v1969.literal)
+            value = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.jsonDecode(v2066.literal)
         };
     end;
-    if v1969.binding_path ~= nil then
-        v1970.kind = {
+    if v2066.binding_path ~= nil then
+        v2067.kind = {
             type = "binding_path", 
-            value = v1969.binding_path
+            value = v2066.binding_path
         };
     end;
-    if v1969.bindingPath ~= nil then
-        v1970.kind = {
+    if v2066.bindingPath ~= nil then
+        v2067.kind = {
             type = "binding_path", 
-            value = v1969.bindingPath
+            value = v2066.bindingPath
         };
     end;
-    return v1970;
+    return v2067;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData", 
@@ -9966,95 +10554,95 @@ v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = v5;
 v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData);
 v5 = {};
 v5.__index = v5;
-local l_v5_72 = v5 --[[ copy: 5 -> 78 ]];
-v5.new = function(v1972) --[[ Line: 12751 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_72 (copy)
+local l_v5_75 = v5 --[[ copy: 5 -> 81 ]];
+v5.new = function(v2069) --[[ Line: 13500 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_75 (copy)
     return (setmetatable({
-        items = if not (v1972 ~= nil) or v1972.items == nil then {} else v1972.items
-    }, l_v5_72));
+        items = if not (v2069 ~= nil) or v2069.items == nil then {} else v2069.items
+    }, l_v5_75));
 end;
-v5.encode = function(v1973) --[[ Line: 12762 ]] --[[ Name: encode ]]
+v5.encode = function(v2070) --[[ Line: 13511 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1974 = buffer.create(0);
-    local v1975 = 0;
-    if v1973.items ~= nil and #v1973.items > 0 then
-        for _, v1977 in v1973.items do
-            local v1978, v1979 = v0.writeTag(v1974, v1975, 1, v0.wireTypes.lengthDelimited);
-            v1978, v1979 = v0.writeString(v1978, v1979, v1977);
-            v1974 = v1978;
-            v1975 = v1979;
+    local v2071 = buffer.create(0);
+    local v2072 = 0;
+    if v2070.items ~= nil and #v2070.items > 0 then
+        for _, v2074 in v2070.items do
+            local v2075, v2076 = v0.writeTag(v2071, v2072, 1, v0.wireTypes.lengthDelimited);
+            v2075, v2076 = v0.writeString(v2075, v2076, v2074);
+            v2071 = v2075;
+            v2072 = v2076;
         end;
     end;
-    local v1980 = buffer.create(v1975);
-    buffer.copy(v1980, 0, v1974, 0, v1975);
-    return v1980;
+    local v2077 = buffer.create(v2072);
+    buffer.copy(v2077, 0, v2071, 0, v2072);
+    return v2077;
 end;
-v5.decode = function(v1981) --[[ Line: 12780 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_72 (copy), v0 (copy)
-    local v1982 = l_v5_72.new();
-    local v1983 = 0;
-    while v1983 < buffer.len(v1981) do
-        local v1984 = nil;
-        local v1985 = nil;
-        local v1986, v1987, v1988 = v0.readTag(v1981, v1983);
-        v1984 = v1986;
-        v1985 = v1987;
-        v1983 = v1988;
-        if v1985 == v0.wireTypes.varint then
-            v1986 = nil;
-            v1987, v1988 = v0.readVarInt(v1981, v1983);
-            v1986 = v1987;
-            v1983 = v1988;
-        elseif v1985 == v0.wireTypes.lengthDelimited then
-            if v1984 == 1 then
-                v1986 = nil;
-                v1987, v1988 = v0.readBuffer(v1981, v1983);
-                v1986 = v1987;
-                v1983 = v1988;
-                table.insert(v1982.items, buffer.tostring(v1986));
+v5.decode = function(v2078) --[[ Line: 13529 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_75 (copy), v0 (copy)
+    local v2079 = l_v5_75.new();
+    local v2080 = 0;
+    while v2080 < buffer.len(v2078) do
+        local v2081 = nil;
+        local v2082 = nil;
+        local v2083, v2084, v2085 = v0.readTag(v2078, v2080);
+        v2081 = v2083;
+        v2082 = v2084;
+        v2080 = v2085;
+        if v2082 == v0.wireTypes.varint then
+            v2083 = nil;
+            v2084, v2085 = v0.readVarInt(v2078, v2080);
+            v2083 = v2084;
+            v2080 = v2085;
+        elseif v2082 == v0.wireTypes.lengthDelimited then
+            if v2081 == 1 then
+                v2083 = nil;
+                v2084, v2085 = v0.readBuffer(v2078, v2080);
+                v2083 = v2084;
+                v2080 = v2085;
+                table.insert(v2079.items, buffer.tostring(v2083));
             else
-                v1986 = nil;
-                v1987, v1988 = v0.readVarInt(v1981, v1983);
-                v1983 = v1988 + v1987;
+                v2083 = nil;
+                v2084, v2085 = v0.readVarInt(v2078, v2080);
+                v2080 = v2085 + v2084;
             end;
-        elseif v1985 == v0.wireTypes.i32 then
-            v1986 = nil;
-            v1987, v1988 = v0.readFixed32(v1981, v1983);
-            v1986 = v1987;
-            v1983 = v1988;
-        elseif v1985 == v0.wireTypes.i64 then
-            v1986 = nil;
-            v1987, v1988 = v0.readFixed64(v1981, v1983);
-            v1986 = v1987;
-            v1983 = v1988;
+        elseif v2082 == v0.wireTypes.i32 then
+            v2083 = nil;
+            v2084, v2085 = v0.readFixed32(v2078, v2080);
+            v2083 = v2084;
+            v2080 = v2085;
+        elseif v2082 == v0.wireTypes.i64 then
+            v2083 = nil;
+            v2084, v2085 = v0.readFixed64(v2078, v2080);
+            v2083 = v2084;
+            v2080 = v2085;
         else
-            error("Unsupported wire type: " .. v1985);
+            error("Unsupported wire type: " .. v2082);
         end;
     end;
-    return v1982;
+    return v2079;
 end;
-v5.jsonEncode = function(v1989) --[[ Line: 12825 ]] --[[ Name: jsonEncode ]]
-    local v1990 = {};
-    if v1989.items ~= nil and #v1989.items > 0 then
-        local v1991 = {};
-        for _, v1993 in v1989.items do
-            table.insert(v1991, v1993);
+v5.jsonEncode = function(v2086) --[[ Line: 13574 ]] --[[ Name: jsonEncode ]]
+    local v2087 = {};
+    if v2086.items ~= nil and #v2086.items > 0 then
+        local v2088 = {};
+        for _, v2090 in v2086.items do
+            table.insert(v2088, v2090);
         end;
-        v1990.items = v1991;
+        v2087.items = v2088;
     end;
-    return v1990;
+    return v2087;
 end;
-v5.jsonDecode = function(v1994) --[[ Line: 12841 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_72 (copy)
-    local v1995 = l_v5_72.new();
-    if v1994.items ~= nil then
-        local v1996 = {};
-        for _, v1998 in v1994.items do
-            table.insert(v1996, v1998);
+v5.jsonDecode = function(v2091) --[[ Line: 13590 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_75 (copy)
+    local v2092 = l_v5_75.new();
+    if v2091.items ~= nil then
+        local v2093 = {};
+        for _, v2095 in v2091.items do
+            table.insert(v2093, v2095);
         end;
-        v1995.items = v1996;
+        v2092.items = v2093;
     end;
-    return v1995;
+    return v2092;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue", 
@@ -10064,105 +10652,105 @@ v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue =
 v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue);
 v5 = {};
 v5.__index = v5;
-local l_v5_73 = v5 --[[ copy: 5 -> 79 ]];
-v5.new = function(v2000) --[[ Line: 12876 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_73 (copy)
+local l_v5_76 = v5 --[[ copy: 5 -> 82 ]];
+v5.new = function(v2097) --[[ Line: 13625 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_76 (copy)
     return (setmetatable({
-        key = (not (v2000 ~= nil) or v2000.key == nil) and "" or v2000.key, 
-        value = if not (v2000 ~= nil) or v2000.value == nil then nil else v2000.value
-    }, l_v5_73));
+        key = (not (v2097 ~= nil) or v2097.key == nil) and "" or v2097.key, 
+        value = if not (v2097 ~= nil) or v2097.value == nil then nil else v2097.value
+    }, l_v5_76));
 end;
-v5.encode = function(v2001) --[[ Line: 12888 ]] --[[ Name: encode ]]
+v5.encode = function(v2098) --[[ Line: 13637 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2002 = buffer.create(0);
-    local v2003 = 0;
-    if v2001.key ~= nil and v2001.key ~= "" then
-        local v2004, v2005 = v0.writeTag(v2002, v2003, 1, v0.wireTypes.lengthDelimited);
-        v2004, v2005 = v0.writeString(v2004, v2005, v2001.key);
-        v2002 = v2004;
-        v2003 = v2005;
+    local v2099 = buffer.create(0);
+    local v2100 = 0;
+    if v2098.key ~= nil and v2098.key ~= "" then
+        local v2101, v2102 = v0.writeTag(v2099, v2100, 1, v0.wireTypes.lengthDelimited);
+        v2101, v2102 = v0.writeString(v2101, v2102, v2098.key);
+        v2099 = v2101;
+        v2100 = v2102;
     end;
-    if v2001.value ~= nil then
-        local v2006 = v2001.value:encode();
-        local v2007, v2008 = v0.writeTag(v2002, v2003, 2, v0.wireTypes.lengthDelimited);
-        v2007, v2008 = v0.writeBuffer(v2007, v2008, v2006, buffer.len(v2006));
-        v2002 = v2007;
-        v2003 = v2008;
+    if v2098.value ~= nil then
+        local v2103 = v2098.value:encode();
+        local v2104, v2105 = v0.writeTag(v2099, v2100, 2, v0.wireTypes.lengthDelimited);
+        v2104, v2105 = v0.writeBuffer(v2104, v2105, v2103, buffer.len(v2103));
+        v2099 = v2104;
+        v2100 = v2105;
     end;
-    local v2009 = buffer.create(v2003);
-    buffer.copy(v2009, 0, v2002, 0, v2003);
-    return v2009;
+    local v2106 = buffer.create(v2100);
+    buffer.copy(v2106, 0, v2099, 0, v2100);
+    return v2106;
 end;
-v5.decode = function(v2010) --[[ Line: 12910 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_73 (copy), v0 (copy), v2 (copy)
-    local v2011 = l_v5_73.new();
-    local v2012 = 0;
-    while v2012 < buffer.len(v2010) do
-        local v2013 = nil;
-        local v2014 = nil;
-        local v2015, v2016, v2017 = v0.readTag(v2010, v2012);
-        v2013 = v2015;
-        v2014 = v2016;
-        v2012 = v2017;
-        if v2014 == v0.wireTypes.varint then
-            v2015 = nil;
-            v2016, v2017 = v0.readVarInt(v2010, v2012);
-            v2015 = v2016;
-            v2012 = v2017;
-        elseif v2014 == v0.wireTypes.lengthDelimited then
-            if v2013 == 1 then
-                v2015 = nil;
-                v2016, v2017 = v0.readBuffer(v2010, v2012);
-                v2015 = v2016;
-                v2012 = v2017;
-                v2011.key = buffer.tostring(v2015);
-            elseif v2013 == 2 then
-                v2015 = nil;
-                v2016, v2017 = v0.readBuffer(v2010, v2012);
-                v2015 = v2016;
-                v2012 = v2017;
-                v2011.value = v2.LazyNestedComponentListProp_TemplateData.decode(v2015);
+v5.decode = function(v2107) --[[ Line: 13659 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_76 (copy), v0 (copy), v2 (copy)
+    local v2108 = l_v5_76.new();
+    local v2109 = 0;
+    while v2109 < buffer.len(v2107) do
+        local v2110 = nil;
+        local v2111 = nil;
+        local v2112, v2113, v2114 = v0.readTag(v2107, v2109);
+        v2110 = v2112;
+        v2111 = v2113;
+        v2109 = v2114;
+        if v2111 == v0.wireTypes.varint then
+            v2112 = nil;
+            v2113, v2114 = v0.readVarInt(v2107, v2109);
+            v2112 = v2113;
+            v2109 = v2114;
+        elseif v2111 == v0.wireTypes.lengthDelimited then
+            if v2110 == 1 then
+                v2112 = nil;
+                v2113, v2114 = v0.readBuffer(v2107, v2109);
+                v2112 = v2113;
+                v2109 = v2114;
+                v2108.key = buffer.tostring(v2112);
+            elseif v2110 == 2 then
+                v2112 = nil;
+                v2113, v2114 = v0.readBuffer(v2107, v2109);
+                v2112 = v2113;
+                v2109 = v2114;
+                v2108.value = v2.LazyNestedComponentListProp_TemplateData.decode(v2112);
             else
-                v2015 = nil;
-                v2016, v2017 = v0.readVarInt(v2010, v2012);
-                v2012 = v2017 + v2016;
+                v2112 = nil;
+                v2113, v2114 = v0.readVarInt(v2107, v2109);
+                v2109 = v2114 + v2113;
             end;
-        elseif v2014 == v0.wireTypes.i32 then
-            v2015 = nil;
-            v2016, v2017 = v0.readFixed32(v2010, v2012);
-            v2015 = v2016;
-            v2012 = v2017;
-        elseif v2014 == v0.wireTypes.i64 then
-            v2015 = nil;
-            v2016, v2017 = v0.readFixed64(v2010, v2012);
-            v2015 = v2016;
-            v2012 = v2017;
+        elseif v2111 == v0.wireTypes.i32 then
+            v2112 = nil;
+            v2113, v2114 = v0.readFixed32(v2107, v2109);
+            v2112 = v2113;
+            v2109 = v2114;
+        elseif v2111 == v0.wireTypes.i64 then
+            v2112 = nil;
+            v2113, v2114 = v0.readFixed64(v2107, v2109);
+            v2112 = v2113;
+            v2109 = v2114;
         else
-            error("Unsupported wire type: " .. v2014);
+            error("Unsupported wire type: " .. v2111);
         end;
     end;
-    return v2011;
+    return v2108;
 end;
-v5.jsonEncode = function(v2018) --[[ Line: 12960 ]] --[[ Name: jsonEncode ]]
-    local v2019 = {};
-    if v2018.key ~= nil and v2018.key ~= "" then
-        v2019.key = v2018.key;
+v5.jsonEncode = function(v2115) --[[ Line: 13709 ]] --[[ Name: jsonEncode ]]
+    local v2116 = {};
+    if v2115.key ~= nil and v2115.key ~= "" then
+        v2116.key = v2115.key;
     end;
-    if v2018.value ~= nil then
-        v2019.value = v2018.value:jsonEncode();
+    if v2115.value ~= nil then
+        v2116.value = v2115.value:jsonEncode();
     end;
-    return v2019;
+    return v2116;
 end;
-v5.jsonDecode = function(v2020) --[[ Line: 12976 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_73 (copy), v2 (copy)
-    local v2021 = l_v5_73.new();
-    if v2020.key ~= nil then
-        v2021.key = v2020.key;
+v5.jsonDecode = function(v2117) --[[ Line: 13725 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_76 (copy), v2 (copy)
+    local v2118 = l_v5_76.new();
+    if v2117.key ~= nil then
+        v2118.key = v2117.key;
     end;
-    if v2020.value ~= nil then
-        v2021.value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v2020.value);
+    if v2117.value ~= nil then
+        v2118.value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v2117.value);
     end;
-    return v2021;
+    return v2118;
 end;
 v5.descriptor = {
     name = "LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry", 
@@ -10172,571 +10760,51 @@ v2.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry = v5;
 v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry);
 v5 = {};
 v5.__index = v5;
-local l_v5_74 = v5 --[[ copy: 5 -> 80 ]];
-v5.new = function(v2023) --[[ Line: 13007 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_74 (copy)
-    return (setmetatable({
-        kind = if not (v2023 ~= nil) or v2023.kind == nil then nil else v2023.kind
-    }, l_v5_74));
-end;
-v5.encode = function(v2024) --[[ Line: 13013 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v2025 = buffer.create(0);
-    local v2026 = 0;
-    if v2024.kind ~= nil then
-        if v2024.kind.type == "literal" then
-            local v2027, v2028 = v0.writeTag(v2025, v2026, 1, v0.wireTypes.lengthDelimited);
-            v2027, v2028 = v0.writeString(v2027, v2028, v2024.kind.value);
-            v2025 = v2027;
-            v2026 = v2028;
-        elseif v2024.kind.type == "binding_path" then
-            local v2029, v2030 = v0.writeTag(v2025, v2026, 2, v0.wireTypes.lengthDelimited);
-            v2029, v2030 = v0.writeString(v2029, v2030, v2024.kind.value);
-            v2025 = v2029;
-            v2026 = v2030;
-        elseif v2024.kind.type == "conditional" then
-            local v2031 = v2024.kind.value:encode();
-            local v2032, v2033 = v0.writeTag(v2025, v2026, 3, v0.wireTypes.lengthDelimited);
-            v2032, v2033 = v0.writeBuffer(v2032, v2033, v2031, buffer.len(v2031));
-            v2025 = v2032;
-            v2026 = v2033;
-        end;
-    end;
-    local v2034 = buffer.create(v2026);
-    buffer.copy(v2034, 0, v2025, 0, v2026);
-    return v2034;
-end;
-v5.decode = function(v2035) --[[ Line: 13036 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_74 (copy), v0 (copy), v2 (copy)
-    local v2036 = l_v5_74.new();
-    local v2037 = 0;
-    while v2037 < buffer.len(v2035) do
-        local v2038 = nil;
-        local v2039 = nil;
-        local v2040, v2041, v2042 = v0.readTag(v2035, v2037);
-        v2038 = v2040;
-        v2039 = v2041;
-        v2037 = v2042;
-        if v2039 == v0.wireTypes.varint then
-            v2040 = nil;
-            v2041, v2042 = v0.readVarInt(v2035, v2037);
-            v2040 = v2041;
-            v2037 = v2042;
-        elseif v2039 == v0.wireTypes.lengthDelimited then
-            if v2038 == 1 then
-                v2040 = nil;
-                v2041, v2042 = v0.readBuffer(v2035, v2037);
-                v2040 = v2041;
-                v2037 = v2042;
-                v2036.kind = {
-                    type = "literal", 
-                    value = buffer.tostring(v2040)
-                };
-            elseif v2038 == 2 then
-                v2040 = nil;
-                v2041, v2042 = v0.readBuffer(v2035, v2037);
-                v2040 = v2041;
-                v2037 = v2042;
-                v2036.kind = {
-                    type = "binding_path", 
-                    value = buffer.tostring(v2040)
-                };
-            elseif v2038 == 3 then
-                v2040 = nil;
-                v2041, v2042 = v0.readBuffer(v2035, v2037);
-                v2040 = v2041;
-                v2037 = v2042;
-                v2036.kind = {
-                    type = "conditional", 
-                    value = v2.IconProp_ConditionalOptions.decode(v2040)
-                };
-            else
-                v2040 = nil;
-                v2041, v2042 = v0.readVarInt(v2035, v2037);
-                v2037 = v2042 + v2041;
-            end;
-        elseif v2039 == v0.wireTypes.i32 then
-            v2040 = nil;
-            v2041, v2042 = v0.readFixed32(v2035, v2037);
-            v2040 = v2041;
-            v2037 = v2042;
-        elseif v2039 == v0.wireTypes.i64 then
-            v2040 = nil;
-            v2041, v2042 = v0.readFixed64(v2035, v2037);
-            v2040 = v2041;
-            v2037 = v2042;
-        else
-            error("Unsupported wire type: " .. v2039);
-        end;
-    end;
-    return v2036;
-end;
-v5.jsonEncode = function(v2043) --[[ Line: 13089 ]] --[[ Name: jsonEncode ]]
-    local v2044 = {};
-    if v2043.kind ~= nil then
-        if v2043.kind.type == "literal" then
-            v2044.literal = v2043.kind.value;
-            return v2044;
-        elseif v2043.kind.type == "binding_path" then
-            v2044.bindingPath = v2043.kind.value;
-            return v2044;
-        elseif v2043.kind.type == "conditional" then
-            v2044.conditional = v2043.kind.value:jsonEncode();
-        end;
-    end;
-    return v2044;
-end;
-v5.jsonDecode = function(v2045) --[[ Line: 13105 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_74 (copy), v2 (copy)
-    local v2046 = l_v5_74.new();
-    if v2045.literal ~= nil then
-        v2046.kind = {
-            type = "literal", 
-            value = v2045.literal
-        };
-    end;
-    if v2045.binding_path ~= nil then
-        v2046.kind = {
-            type = "binding_path", 
-            value = v2045.binding_path
-        };
-    end;
-    if v2045.bindingPath ~= nil then
-        v2046.kind = {
-            type = "binding_path", 
-            value = v2045.bindingPath
-        };
-    end;
-    if v2045.conditional ~= nil then
-        v2046.kind = {
-            type = "conditional", 
-            value = v2.IconProp_ConditionalOptions.jsonDecode(v2045.conditional)
-        };
-    end;
-    return v2046;
-end;
-v5.descriptor = {
-    name = "IconProp", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.IconProp"
-};
-v2.IconProp = v5;
-v1.default:register(v2.IconProp);
-v5 = {};
-v5.__index = v5;
-local l_v5_75 = v5 --[[ copy: 5 -> 81 ]];
-v5.new = function(v2048) --[[ Line: 13142 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_75 (copy)
-    return (setmetatable({
-        condition = if not (v2048 ~= nil) or v2048.condition == nil then nil else v2048.condition, 
-        kind = if not (v2048 ~= nil) or v2048.kind == nil then nil else v2048.kind
-    }, l_v5_75));
-end;
-v5.encode = function(v2049) --[[ Line: 13151 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v2050 = buffer.create(0);
-    local v2051 = 0;
-    if v2049.condition ~= nil then
-        local v2052 = v2049.condition:encode();
-        local v2053, v2054 = v0.writeTag(v2050, v2051, 1, v0.wireTypes.lengthDelimited);
-        v2053, v2054 = v0.writeBuffer(v2053, v2054, v2052, buffer.len(v2052));
-        v2050 = v2053;
-        v2051 = v2054;
-    end;
-    if v2049.kind ~= nil then
-        if v2049.kind.type == "literal" then
-            local v2055, v2056 = v0.writeTag(v2050, v2051, 2, v0.wireTypes.lengthDelimited);
-            v2055, v2056 = v0.writeString(v2055, v2056, v2049.kind.value);
-            v2050 = v2055;
-            v2051 = v2056;
-        elseif v2049.kind.type == "binding_path" then
-            local v2057, v2058 = v0.writeTag(v2050, v2051, 3, v0.wireTypes.lengthDelimited);
-            v2057, v2058 = v0.writeString(v2057, v2058, v2049.kind.value);
-            v2050 = v2057;
-            v2051 = v2058;
-        end;
-    end;
-    local v2059 = buffer.create(v2051);
-    buffer.copy(v2059, 0, v2050, 0, v2051);
-    return v2059;
-end;
-v5.decode = function(v2060) --[[ Line: 13176 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_75 (copy), v0 (copy), v4 (copy)
-    local v2061 = l_v5_75.new();
-    local v2062 = 0;
-    while v2062 < buffer.len(v2060) do
-        local v2063 = nil;
-        local v2064 = nil;
-        local v2065, v2066, v2067 = v0.readTag(v2060, v2062);
-        v2063 = v2065;
-        v2064 = v2066;
-        v2062 = v2067;
-        if v2064 == v0.wireTypes.varint then
-            v2065 = nil;
-            v2066, v2067 = v0.readVarInt(v2060, v2062);
-            v2065 = v2066;
-            v2062 = v2067;
-        elseif v2064 == v0.wireTypes.lengthDelimited then
-            if v2063 == 1 then
-                v2065 = nil;
-                v2066, v2067 = v0.readBuffer(v2060, v2062);
-                v2065 = v2066;
-                v2062 = v2067;
-                v2061.condition = v4.PropCondition.decode(v2065);
-            elseif v2063 == 2 then
-                v2065 = nil;
-                v2066, v2067 = v0.readBuffer(v2060, v2062);
-                v2065 = v2066;
-                v2062 = v2067;
-                v2061.kind = {
-                    type = "literal", 
-                    value = buffer.tostring(v2065)
-                };
-            elseif v2063 == 3 then
-                v2065 = nil;
-                v2066, v2067 = v0.readBuffer(v2060, v2062);
-                v2065 = v2066;
-                v2062 = v2067;
-                v2061.kind = {
-                    type = "binding_path", 
-                    value = buffer.tostring(v2065)
-                };
-            else
-                v2065 = nil;
-                v2066, v2067 = v0.readVarInt(v2060, v2062);
-                v2062 = v2067 + v2066;
-            end;
-        elseif v2064 == v0.wireTypes.i32 then
-            v2065 = nil;
-            v2066, v2067 = v0.readFixed32(v2060, v2062);
-            v2065 = v2066;
-            v2062 = v2067;
-        elseif v2064 == v0.wireTypes.i64 then
-            v2065 = nil;
-            v2066, v2067 = v0.readFixed64(v2060, v2062);
-            v2065 = v2066;
-            v2062 = v2067;
-        else
-            error("Unsupported wire type: " .. v2064);
-        end;
-    end;
-    return v2061;
-end;
-v5.jsonEncode = function(v2068) --[[ Line: 13229 ]] --[[ Name: jsonEncode ]]
-    local v2069 = {};
-    if v2068.condition ~= nil then
-        v2069.condition = v2068.condition:jsonEncode();
-    end;
-    if v2068.kind ~= nil then
-        if v2068.kind.type == "literal" then
-            v2069.literal = v2068.kind.value;
-            return v2069;
-        elseif v2068.kind.type == "binding_path" then
-            v2069.bindingPath = v2068.kind.value;
-        end;
-    end;
-    return v2069;
-end;
-v5.jsonDecode = function(v2070) --[[ Line: 13247 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_75 (copy), v4 (copy)
-    local v2071 = l_v5_75.new();
-    if v2070.condition ~= nil then
-        v2071.condition = v4.PropCondition.jsonDecode(v2070.condition);
-    end;
-    if v2070.literal ~= nil then
-        v2071.kind = {
-            type = "literal", 
-            value = v2070.literal
-        };
-    end;
-    if v2070.binding_path ~= nil then
-        v2071.kind = {
-            type = "binding_path", 
-            value = v2070.binding_path
-        };
-    end;
-    if v2070.bindingPath ~= nil then
-        v2071.kind = {
-            type = "binding_path", 
-            value = v2070.bindingPath
-        };
-    end;
-    return v2071;
-end;
-v5.descriptor = {
-    name = "IconProp_ConditionalOption", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption"
-};
-v2.IconProp_ConditionalOption = v5;
-v1.default:register(v2.IconProp_ConditionalOption);
-v5 = {};
-v5.__index = v5;
-local l_v5_76 = v5 --[[ copy: 5 -> 82 ]];
-v5.new = function(v2073) --[[ Line: 13284 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_76 (copy)
-    return (setmetatable({
-        options = if not (v2073 ~= nil) or v2073.options == nil then {} else v2073.options
-    }, l_v5_76));
-end;
-v5.encode = function(v2074) --[[ Line: 13292 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v2075 = buffer.create(0);
-    local v2076 = 0;
-    if v2074.options ~= nil and #v2074.options > 0 then
-        for _, v2078 in v2074.options do
-            local v2079 = v2078:encode();
-            local v2080, v2081 = v0.writeTag(v2075, v2076, 1, v0.wireTypes.lengthDelimited);
-            v2080, v2081 = v0.writeBuffer(v2080, v2081, v2079, buffer.len(v2079));
-            v2075 = v2080;
-            v2076 = v2081;
-        end;
-    end;
-    local v2082 = buffer.create(v2076);
-    buffer.copy(v2082, 0, v2075, 0, v2076);
-    return v2082;
-end;
-v5.decode = function(v2083) --[[ Line: 13309 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_76 (copy), v0 (copy), v2 (copy)
-    local v2084 = l_v5_76.new();
-    local v2085 = 0;
-    while v2085 < buffer.len(v2083) do
-        local v2086 = nil;
-        local v2087 = nil;
-        local v2088, v2089, v2090 = v0.readTag(v2083, v2085);
-        v2086 = v2088;
-        v2087 = v2089;
-        v2085 = v2090;
-        if v2087 == v0.wireTypes.varint then
-            v2088 = nil;
-            v2089, v2090 = v0.readVarInt(v2083, v2085);
-            v2088 = v2089;
-            v2085 = v2090;
-        elseif v2087 == v0.wireTypes.lengthDelimited then
-            if v2086 == 1 then
-                v2088 = nil;
-                v2089, v2090 = v0.readBuffer(v2083, v2085);
-                v2088 = v2089;
-                v2085 = v2090;
-                table.insert(v2084.options, v2.IconProp_ConditionalOption.decode(v2088));
-            else
-                v2088 = nil;
-                v2089, v2090 = v0.readVarInt(v2083, v2085);
-                v2085 = v2090 + v2089;
-            end;
-        elseif v2087 == v0.wireTypes.i32 then
-            v2088 = nil;
-            v2089, v2090 = v0.readFixed32(v2083, v2085);
-            v2088 = v2089;
-            v2085 = v2090;
-        elseif v2087 == v0.wireTypes.i64 then
-            v2088 = nil;
-            v2089, v2090 = v0.readFixed64(v2083, v2085);
-            v2088 = v2089;
-            v2085 = v2090;
-        else
-            error("Unsupported wire type: " .. v2087);
-        end;
-    end;
-    return v2084;
-end;
-v5.jsonEncode = function(v2091) --[[ Line: 13352 ]] --[[ Name: jsonEncode ]]
-    local v2092 = {};
-    if v2091.options ~= nil and #v2091.options > 0 then
-        local v2093 = {};
-        for _, v2095 in v2091.options do
-            table.insert(v2093, v2095:jsonEncode());
-        end;
-        v2092.options = v2093;
-    end;
-    return v2092;
-end;
-v5.jsonDecode = function(v2096) --[[ Line: 13366 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_76 (copy), v2 (copy)
-    local v2097 = l_v5_76.new();
-    if v2096.options ~= nil then
-        local v2098 = {};
-        for _, v2100 in v2096.options do
-            table.insert(v2098, v2.IconProp_ConditionalOption.jsonDecode(v2100));
-        end;
-        v2097.options = v2098;
-    end;
-    return v2097;
-end;
-v5.descriptor = {
-    name = "IconProp_ConditionalOptions", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions"
-};
-v2.IconProp_ConditionalOptions = v5;
-v1.default:register(v2.IconProp_ConditionalOptions);
-v5 = {};
-v5.__index = v5;
 local l_v5_77 = v5 --[[ copy: 5 -> 83 ]];
-v5.new = function(v2102) --[[ Line: 13395 ]] --[[ Name: new ]]
+v5.new = function(v2120) --[[ Line: 13756 ]] --[[ Name: new ]]
     -- upvalues: l_v5_77 (copy)
     return (setmetatable({
-        oneof_prop = if not (v2102 ~= nil) or v2102.oneof_prop == nil then nil else v2102.oneof_prop
+        kind = if not (v2120 ~= nil) or v2120.kind == nil then nil else v2120.kind
     }, l_v5_77));
 end;
-v5.encode = function(v2103) --[[ Line: 13401 ]] --[[ Name: encode ]]
+v5.encode = function(v2121) --[[ Line: 13762 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2104 = buffer.create(0);
-    local v2105 = 0;
-    if v2103.oneof_prop ~= nil then
-        if v2103.oneof_prop.type == "string_prop" then
-            local v2106 = v2103.oneof_prop.value:encode();
-            local v2107, v2108 = v0.writeTag(v2104, v2105, 1, v0.wireTypes.lengthDelimited);
-            v2107, v2108 = v0.writeBuffer(v2107, v2108, v2106, buffer.len(v2106));
-            v2104 = v2107;
-            v2105 = v2108;
-        elseif v2103.oneof_prop.type == "int32_prop" then
-            local v2109 = v2103.oneof_prop.value:encode();
-            local v2110, v2111 = v0.writeTag(v2104, v2105, 2, v0.wireTypes.lengthDelimited);
-            v2110, v2111 = v0.writeBuffer(v2110, v2111, v2109, buffer.len(v2109));
-            v2104 = v2110;
-            v2105 = v2111;
-        end;
-    end;
-    local v2112 = buffer.create(v2105);
-    buffer.copy(v2112, 0, v2104, 0, v2105);
-    return v2112;
-end;
-v5.decode = function(v2113) --[[ Line: 13422 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_77 (copy), v0 (copy), v2 (copy)
-    local v2114 = l_v5_77.new();
-    local v2115 = 0;
-    while v2115 < buffer.len(v2113) do
-        local v2116 = nil;
-        local v2117 = nil;
-        local v2118, v2119, v2120 = v0.readTag(v2113, v2115);
-        v2116 = v2118;
-        v2117 = v2119;
-        v2115 = v2120;
-        if v2117 == v0.wireTypes.varint then
-            v2118 = nil;
-            v2119, v2120 = v0.readVarInt(v2113, v2115);
-            v2118 = v2119;
-            v2115 = v2120;
-        elseif v2117 == v0.wireTypes.lengthDelimited then
-            if v2116 == 1 then
-                v2118 = nil;
-                v2119, v2120 = v0.readBuffer(v2113, v2115);
-                v2118 = v2119;
-                v2115 = v2120;
-                v2114.oneof_prop = {
-                    type = "string_prop", 
-                    value = v2.StringProp.decode(v2118)
-                };
-            elseif v2116 == 2 then
-                v2118 = nil;
-                v2119, v2120 = v0.readBuffer(v2113, v2115);
-                v2118 = v2119;
-                v2115 = v2120;
-                v2114.oneof_prop = {
-                    type = "int32_prop", 
-                    value = v2.Int32Prop.decode(v2118)
-                };
-            else
-                v2118 = nil;
-                v2119, v2120 = v0.readVarInt(v2113, v2115);
-                v2115 = v2120 + v2119;
-            end;
-        elseif v2117 == v0.wireTypes.i32 then
-            v2118 = nil;
-            v2119, v2120 = v0.readFixed32(v2113, v2115);
-            v2118 = v2119;
-            v2115 = v2120;
-        elseif v2117 == v0.wireTypes.i64 then
-            v2118 = nil;
-            v2119, v2120 = v0.readFixed64(v2113, v2115);
-            v2118 = v2119;
-            v2115 = v2120;
-        else
-            error("Unsupported wire type: " .. v2117);
-        end;
-    end;
-    return v2114;
-end;
-v5.jsonEncode = function(v2121) --[[ Line: 13470 ]] --[[ Name: jsonEncode ]]
-    local v2122 = {};
-    if v2121.oneof_prop ~= nil then
-        if v2121.oneof_prop.type == "string_prop" then
-            v2122.stringProp = v2121.oneof_prop.value:jsonEncode();
-            return v2122;
-        elseif v2121.oneof_prop.type == "int32_prop" then
-            v2122.int32Prop = v2121.oneof_prop.value:jsonEncode();
-        end;
-    end;
-    return v2122;
-end;
-v5.jsonDecode = function(v2123) --[[ Line: 13484 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_77 (copy), v2 (copy)
-    local v2124 = l_v5_77.new();
-    if v2123.string_prop ~= nil then
-        v2124.oneof_prop = {
-            type = "string_prop", 
-            value = v2.StringProp.jsonDecode(v2123.string_prop)
-        };
-    end;
-    if v2123.stringProp ~= nil then
-        v2124.oneof_prop = {
-            type = "string_prop", 
-            value = v2.StringProp.jsonDecode(v2123.stringProp)
-        };
-    end;
-    if v2123.int32_prop ~= nil then
-        v2124.oneof_prop = {
-            type = "int32_prop", 
-            value = v2.Int32Prop.jsonDecode(v2123.int32_prop)
-        };
-    end;
-    if v2123.int32Prop ~= nil then
-        v2124.oneof_prop = {
-            type = "int32_prop", 
-            value = v2.Int32Prop.jsonDecode(v2123.int32Prop)
-        };
-    end;
-    return v2124;
-end;
-v5.descriptor = {
-    name = "IconSizeProp", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.IconSizeProp"
-};
-v2.IconSizeProp = v5;
-v1.default:register(v2.IconSizeProp);
-v5 = {};
-v5.__index = v5;
-local l_v5_78 = v5 --[[ copy: 5 -> 84 ]];
-v5.new = function(v2126) --[[ Line: 13520 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_78 (copy)
-    return (setmetatable({
-        kind = if not (v2126 ~= nil) or v2126.kind == nil then nil else v2126.kind
-    }, l_v5_78));
-end;
-v5.encode = function(v2127) --[[ Line: 13526 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v2128 = buffer.create(0);
-    local v2129 = 0;
-    if v2127.kind ~= nil then
-        if v2127.kind.type == "literal" then
-            local v2130 = v2127.kind.value:encode();
-            local v2131, v2132 = v0.writeTag(v2128, v2129, 1, v0.wireTypes.lengthDelimited);
+    local v2122 = buffer.create(0);
+    local v2123 = 0;
+    if v2121.kind ~= nil then
+        if v2121.kind.type == "array_map" then
+            local v2124 = v2121.kind.value:encode();
+            local v2125, v2126 = v0.writeTag(v2122, v2123, 1, v0.wireTypes.lengthDelimited);
+            v2125, v2126 = v0.writeBuffer(v2125, v2126, v2124, buffer.len(v2124));
+            v2122 = v2125;
+            v2123 = v2126;
+        elseif v2121.kind.type == "item_list" then
+            local v2127 = v2121.kind.value:encode();
+            local v2128, v2129 = v0.writeTag(v2122, v2123, 2, v0.wireTypes.lengthDelimited);
+            v2128, v2129 = v0.writeBuffer(v2128, v2129, v2127, buffer.len(v2127));
+            v2122 = v2128;
+            v2123 = v2129;
+        elseif v2121.kind.type == "conditional" then
+            local v2130 = v2121.kind.value:encode();
+            local v2131, v2132 = v0.writeTag(v2122, v2123, 3, v0.wireTypes.lengthDelimited);
             v2131, v2132 = v0.writeBuffer(v2131, v2132, v2130, buffer.len(v2130));
-            v2128 = v2131;
-            v2129 = v2132;
-        elseif v2127.kind.type == "conditional" then
-            local v2133 = v2127.kind.value:encode();
-            local v2134, v2135 = v0.writeTag(v2128, v2129, 2, v0.wireTypes.lengthDelimited);
+            v2122 = v2131;
+            v2123 = v2132;
+        elseif v2121.kind.type == "ordered_template_data" then
+            local v2133 = v2121.kind.value:encode();
+            local v2134, v2135 = v0.writeTag(v2122, v2123, 4, v0.wireTypes.lengthDelimited);
             v2134, v2135 = v0.writeBuffer(v2134, v2135, v2133, buffer.len(v2133));
-            v2128 = v2134;
-            v2129 = v2135;
+            v2122 = v2134;
+            v2123 = v2135;
         end;
     end;
-    local v2136 = buffer.create(v2129);
-    buffer.copy(v2136, 0, v2128, 0, v2129);
+    local v2136 = buffer.create(v2123);
+    buffer.copy(v2136, 0, v2122, 0, v2123);
     return v2136;
 end;
-v5.decode = function(v2137) --[[ Line: 13547 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_78 (copy), v0 (copy), v2 (copy)
-    local v2138 = l_v5_78.new();
+v5.decode = function(v2137) --[[ Line: 13791 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_77 (copy), v0 (copy), v2 (copy)
+    local v2138 = l_v5_77.new();
     local v2139 = 0;
     while v2139 < buffer.len(v2137) do
         local v2140 = nil;
@@ -10757,8 +10825,8 @@ v5.decode = function(v2137) --[[ Line: 13547 ]] --[[ Name: decode ]]
                 v2142 = v2143;
                 v2139 = v2144;
                 v2138.kind = {
-                    type = "literal", 
-                    value = v2.GradientProp_GradientData.decode(v2142)
+                    type = "array_map", 
+                    value = v2.LazyNestedComponentListProp_TemplateData.decode(v2142)
                 };
             elseif v2140 == 2 then
                 v2142 = nil;
@@ -10766,8 +10834,26 @@ v5.decode = function(v2137) --[[ Line: 13547 ]] --[[ Name: decode ]]
                 v2142 = v2143;
                 v2139 = v2144;
                 v2138.kind = {
+                    type = "item_list", 
+                    value = v2.LazyNestedComponentListProp_TemplateDataList.decode(v2142)
+                };
+            elseif v2140 == 3 then
+                v2142 = nil;
+                v2143, v2144 = v0.readBuffer(v2137, v2139);
+                v2142 = v2143;
+                v2139 = v2144;
+                v2138.kind = {
                     type = "conditional", 
-                    value = v2.GradientProp_ConditionalOptions.decode(v2142)
+                    value = v2.LazyNestedComponentListProp_ConditionalOptions.decode(v2142)
+                };
+            elseif v2140 == 4 then
+                v2142 = nil;
+                v2143, v2144 = v0.readBuffer(v2137, v2139);
+                v2142 = v2143;
+                v2139 = v2144;
+                v2138.kind = {
+                    type = "ordered_template_data", 
+                    value = v2.LazyNestedComponentListProp_OrderedTemplateData.decode(v2142)
                 };
             else
                 v2142 = nil;
@@ -10790,34 +10876,725 @@ v5.decode = function(v2137) --[[ Line: 13547 ]] --[[ Name: decode ]]
     end;
     return v2138;
 end;
-v5.jsonEncode = function(v2145) --[[ Line: 13595 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2145) --[[ Line: 13859 ]] --[[ Name: jsonEncode ]]
     local v2146 = {};
     if v2145.kind ~= nil then
-        if v2145.kind.type == "literal" then
-            v2146.literal = v2145.kind.value:jsonEncode();
+        if v2145.kind.type == "array_map" then
+            v2146.arrayMap = v2145.kind.value:jsonEncode();
+            return v2146;
+        elseif v2145.kind.type == "item_list" then
+            v2146.itemList = v2145.kind.value:jsonEncode();
             return v2146;
         elseif v2145.kind.type == "conditional" then
             v2146.conditional = v2145.kind.value:jsonEncode();
+            return v2146;
+        elseif v2145.kind.type == "ordered_template_data" then
+            v2146.orderedTemplateData = v2145.kind.value:jsonEncode();
         end;
     end;
     return v2146;
 end;
-v5.jsonDecode = function(v2147) --[[ Line: 13609 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_78 (copy), v2 (copy)
-    local v2148 = l_v5_78.new();
-    if v2147.literal ~= nil then
+v5.jsonDecode = function(v2147) --[[ Line: 13877 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_77 (copy), v2 (copy)
+    local v2148 = l_v5_77.new();
+    if v2147.array_map ~= nil then
         v2148.kind = {
-            type = "literal", 
-            value = v2.GradientProp_GradientData.jsonDecode(v2147.literal)
+            type = "array_map", 
+            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v2147.array_map)
+        };
+    end;
+    if v2147.arrayMap ~= nil then
+        v2148.kind = {
+            type = "array_map", 
+            value = v2.LazyNestedComponentListProp_TemplateData.jsonDecode(v2147.arrayMap)
+        };
+    end;
+    if v2147.item_list ~= nil then
+        v2148.kind = {
+            type = "item_list", 
+            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v2147.item_list)
+        };
+    end;
+    if v2147.itemList ~= nil then
+        v2148.kind = {
+            type = "item_list", 
+            value = v2.LazyNestedComponentListProp_TemplateDataList.jsonDecode(v2147.itemList)
         };
     end;
     if v2147.conditional ~= nil then
         v2148.kind = {
             type = "conditional", 
-            value = v2.GradientProp_ConditionalOptions.jsonDecode(v2147.conditional)
+            value = v2.LazyNestedComponentListProp_ConditionalOptions.jsonDecode(v2147.conditional)
+        };
+    end;
+    if v2147.ordered_template_data ~= nil then
+        v2148.kind = {
+            type = "ordered_template_data", 
+            value = v2.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(v2147.ordered_template_data)
+        };
+    end;
+    if v2147.orderedTemplateData ~= nil then
+        v2148.kind = {
+            type = "ordered_template_data", 
+            value = v2.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(v2147.orderedTemplateData)
         };
     end;
     return v2148;
+end;
+v5.descriptor = {
+    name = "NestedComponentListProp", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.NestedComponentListProp"
+};
+v2.NestedComponentListProp = v5;
+v1.default:register(v2.NestedComponentListProp);
+v5 = {};
+v5.__index = v5;
+local l_v5_78 = v5 --[[ copy: 5 -> 84 ]];
+v5.new = function(v2150) --[[ Line: 13948 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_78 (copy)
+    return (setmetatable({
+        kind = if not (v2150 ~= nil) or v2150.kind == nil then nil else v2150.kind
+    }, l_v5_78));
+end;
+v5.encode = function(v2151) --[[ Line: 13954 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v2152 = buffer.create(0);
+    local v2153 = 0;
+    if v2151.kind ~= nil then
+        if v2151.kind.type == "literal" then
+            local v2154, v2155 = v0.writeTag(v2152, v2153, 1, v0.wireTypes.lengthDelimited);
+            v2154, v2155 = v0.writeString(v2154, v2155, v2151.kind.value);
+            v2152 = v2154;
+            v2153 = v2155;
+        elseif v2151.kind.type == "binding_path" then
+            local v2156, v2157 = v0.writeTag(v2152, v2153, 2, v0.wireTypes.lengthDelimited);
+            v2156, v2157 = v0.writeString(v2156, v2157, v2151.kind.value);
+            v2152 = v2156;
+            v2153 = v2157;
+        elseif v2151.kind.type == "conditional" then
+            local v2158 = v2151.kind.value:encode();
+            local v2159, v2160 = v0.writeTag(v2152, v2153, 3, v0.wireTypes.lengthDelimited);
+            v2159, v2160 = v0.writeBuffer(v2159, v2160, v2158, buffer.len(v2158));
+            v2152 = v2159;
+            v2153 = v2160;
+        end;
+    end;
+    local v2161 = buffer.create(v2153);
+    buffer.copy(v2161, 0, v2152, 0, v2153);
+    return v2161;
+end;
+v5.decode = function(v2162) --[[ Line: 13977 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_78 (copy), v0 (copy), v2 (copy)
+    local v2163 = l_v5_78.new();
+    local v2164 = 0;
+    while v2164 < buffer.len(v2162) do
+        local v2165 = nil;
+        local v2166 = nil;
+        local v2167, v2168, v2169 = v0.readTag(v2162, v2164);
+        v2165 = v2167;
+        v2166 = v2168;
+        v2164 = v2169;
+        if v2166 == v0.wireTypes.varint then
+            v2167 = nil;
+            v2168, v2169 = v0.readVarInt(v2162, v2164);
+            v2167 = v2168;
+            v2164 = v2169;
+        elseif v2166 == v0.wireTypes.lengthDelimited then
+            if v2165 == 1 then
+                v2167 = nil;
+                v2168, v2169 = v0.readBuffer(v2162, v2164);
+                v2167 = v2168;
+                v2164 = v2169;
+                v2163.kind = {
+                    type = "literal", 
+                    value = buffer.tostring(v2167)
+                };
+            elseif v2165 == 2 then
+                v2167 = nil;
+                v2168, v2169 = v0.readBuffer(v2162, v2164);
+                v2167 = v2168;
+                v2164 = v2169;
+                v2163.kind = {
+                    type = "binding_path", 
+                    value = buffer.tostring(v2167)
+                };
+            elseif v2165 == 3 then
+                v2167 = nil;
+                v2168, v2169 = v0.readBuffer(v2162, v2164);
+                v2167 = v2168;
+                v2164 = v2169;
+                v2163.kind = {
+                    type = "conditional", 
+                    value = v2.IconProp_ConditionalOptions.decode(v2167)
+                };
+            else
+                v2167 = nil;
+                v2168, v2169 = v0.readVarInt(v2162, v2164);
+                v2164 = v2169 + v2168;
+            end;
+        elseif v2166 == v0.wireTypes.i32 then
+            v2167 = nil;
+            v2168, v2169 = v0.readFixed32(v2162, v2164);
+            v2167 = v2168;
+            v2164 = v2169;
+        elseif v2166 == v0.wireTypes.i64 then
+            v2167 = nil;
+            v2168, v2169 = v0.readFixed64(v2162, v2164);
+            v2167 = v2168;
+            v2164 = v2169;
+        else
+            error("Unsupported wire type: " .. v2166);
+        end;
+    end;
+    return v2163;
+end;
+v5.jsonEncode = function(v2170) --[[ Line: 14030 ]] --[[ Name: jsonEncode ]]
+    local v2171 = {};
+    if v2170.kind ~= nil then
+        if v2170.kind.type == "literal" then
+            v2171.literal = v2170.kind.value;
+            return v2171;
+        elseif v2170.kind.type == "binding_path" then
+            v2171.bindingPath = v2170.kind.value;
+            return v2171;
+        elseif v2170.kind.type == "conditional" then
+            v2171.conditional = v2170.kind.value:jsonEncode();
+        end;
+    end;
+    return v2171;
+end;
+v5.jsonDecode = function(v2172) --[[ Line: 14046 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_78 (copy), v2 (copy)
+    local v2173 = l_v5_78.new();
+    if v2172.literal ~= nil then
+        v2173.kind = {
+            type = "literal", 
+            value = v2172.literal
+        };
+    end;
+    if v2172.binding_path ~= nil then
+        v2173.kind = {
+            type = "binding_path", 
+            value = v2172.binding_path
+        };
+    end;
+    if v2172.bindingPath ~= nil then
+        v2173.kind = {
+            type = "binding_path", 
+            value = v2172.bindingPath
+        };
+    end;
+    if v2172.conditional ~= nil then
+        v2173.kind = {
+            type = "conditional", 
+            value = v2.IconProp_ConditionalOptions.jsonDecode(v2172.conditional)
+        };
+    end;
+    return v2173;
+end;
+v5.descriptor = {
+    name = "IconProp", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.IconProp"
+};
+v2.IconProp = v5;
+v1.default:register(v2.IconProp);
+v5 = {};
+v5.__index = v5;
+local l_v5_79 = v5 --[[ copy: 5 -> 85 ]];
+v5.new = function(v2175) --[[ Line: 14083 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_79 (copy)
+    return (setmetatable({
+        condition = if not (v2175 ~= nil) or v2175.condition == nil then nil else v2175.condition, 
+        kind = if not (v2175 ~= nil) or v2175.kind == nil then nil else v2175.kind
+    }, l_v5_79));
+end;
+v5.encode = function(v2176) --[[ Line: 14092 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v2177 = buffer.create(0);
+    local v2178 = 0;
+    if v2176.condition ~= nil then
+        local v2179 = v2176.condition:encode();
+        local v2180, v2181 = v0.writeTag(v2177, v2178, 1, v0.wireTypes.lengthDelimited);
+        v2180, v2181 = v0.writeBuffer(v2180, v2181, v2179, buffer.len(v2179));
+        v2177 = v2180;
+        v2178 = v2181;
+    end;
+    if v2176.kind ~= nil then
+        if v2176.kind.type == "literal" then
+            local v2182, v2183 = v0.writeTag(v2177, v2178, 2, v0.wireTypes.lengthDelimited);
+            v2182, v2183 = v0.writeString(v2182, v2183, v2176.kind.value);
+            v2177 = v2182;
+            v2178 = v2183;
+        elseif v2176.kind.type == "binding_path" then
+            local v2184, v2185 = v0.writeTag(v2177, v2178, 3, v0.wireTypes.lengthDelimited);
+            v2184, v2185 = v0.writeString(v2184, v2185, v2176.kind.value);
+            v2177 = v2184;
+            v2178 = v2185;
+        end;
+    end;
+    local v2186 = buffer.create(v2178);
+    buffer.copy(v2186, 0, v2177, 0, v2178);
+    return v2186;
+end;
+v5.decode = function(v2187) --[[ Line: 14117 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_79 (copy), v0 (copy), v4 (copy)
+    local v2188 = l_v5_79.new();
+    local v2189 = 0;
+    while v2189 < buffer.len(v2187) do
+        local v2190 = nil;
+        local v2191 = nil;
+        local v2192, v2193, v2194 = v0.readTag(v2187, v2189);
+        v2190 = v2192;
+        v2191 = v2193;
+        v2189 = v2194;
+        if v2191 == v0.wireTypes.varint then
+            v2192 = nil;
+            v2193, v2194 = v0.readVarInt(v2187, v2189);
+            v2192 = v2193;
+            v2189 = v2194;
+        elseif v2191 == v0.wireTypes.lengthDelimited then
+            if v2190 == 1 then
+                v2192 = nil;
+                v2193, v2194 = v0.readBuffer(v2187, v2189);
+                v2192 = v2193;
+                v2189 = v2194;
+                v2188.condition = v4.PropCondition.decode(v2192);
+            elseif v2190 == 2 then
+                v2192 = nil;
+                v2193, v2194 = v0.readBuffer(v2187, v2189);
+                v2192 = v2193;
+                v2189 = v2194;
+                v2188.kind = {
+                    type = "literal", 
+                    value = buffer.tostring(v2192)
+                };
+            elseif v2190 == 3 then
+                v2192 = nil;
+                v2193, v2194 = v0.readBuffer(v2187, v2189);
+                v2192 = v2193;
+                v2189 = v2194;
+                v2188.kind = {
+                    type = "binding_path", 
+                    value = buffer.tostring(v2192)
+                };
+            else
+                v2192 = nil;
+                v2193, v2194 = v0.readVarInt(v2187, v2189);
+                v2189 = v2194 + v2193;
+            end;
+        elseif v2191 == v0.wireTypes.i32 then
+            v2192 = nil;
+            v2193, v2194 = v0.readFixed32(v2187, v2189);
+            v2192 = v2193;
+            v2189 = v2194;
+        elseif v2191 == v0.wireTypes.i64 then
+            v2192 = nil;
+            v2193, v2194 = v0.readFixed64(v2187, v2189);
+            v2192 = v2193;
+            v2189 = v2194;
+        else
+            error("Unsupported wire type: " .. v2191);
+        end;
+    end;
+    return v2188;
+end;
+v5.jsonEncode = function(v2195) --[[ Line: 14170 ]] --[[ Name: jsonEncode ]]
+    local v2196 = {};
+    if v2195.condition ~= nil then
+        v2196.condition = v2195.condition:jsonEncode();
+    end;
+    if v2195.kind ~= nil then
+        if v2195.kind.type == "literal" then
+            v2196.literal = v2195.kind.value;
+            return v2196;
+        elseif v2195.kind.type == "binding_path" then
+            v2196.bindingPath = v2195.kind.value;
+        end;
+    end;
+    return v2196;
+end;
+v5.jsonDecode = function(v2197) --[[ Line: 14188 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_79 (copy), v4 (copy)
+    local v2198 = l_v5_79.new();
+    if v2197.condition ~= nil then
+        v2198.condition = v4.PropCondition.jsonDecode(v2197.condition);
+    end;
+    if v2197.literal ~= nil then
+        v2198.kind = {
+            type = "literal", 
+            value = v2197.literal
+        };
+    end;
+    if v2197.binding_path ~= nil then
+        v2198.kind = {
+            type = "binding_path", 
+            value = v2197.binding_path
+        };
+    end;
+    if v2197.bindingPath ~= nil then
+        v2198.kind = {
+            type = "binding_path", 
+            value = v2197.bindingPath
+        };
+    end;
+    return v2198;
+end;
+v5.descriptor = {
+    name = "IconProp_ConditionalOption", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption"
+};
+v2.IconProp_ConditionalOption = v5;
+v1.default:register(v2.IconProp_ConditionalOption);
+v5 = {};
+v5.__index = v5;
+local l_v5_80 = v5 --[[ copy: 5 -> 86 ]];
+v5.new = function(v2200) --[[ Line: 14225 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_80 (copy)
+    return (setmetatable({
+        options = if not (v2200 ~= nil) or v2200.options == nil then {} else v2200.options
+    }, l_v5_80));
+end;
+v5.encode = function(v2201) --[[ Line: 14233 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v2202 = buffer.create(0);
+    local v2203 = 0;
+    if v2201.options ~= nil and #v2201.options > 0 then
+        for _, v2205 in v2201.options do
+            local v2206 = v2205:encode();
+            local v2207, v2208 = v0.writeTag(v2202, v2203, 1, v0.wireTypes.lengthDelimited);
+            v2207, v2208 = v0.writeBuffer(v2207, v2208, v2206, buffer.len(v2206));
+            v2202 = v2207;
+            v2203 = v2208;
+        end;
+    end;
+    local v2209 = buffer.create(v2203);
+    buffer.copy(v2209, 0, v2202, 0, v2203);
+    return v2209;
+end;
+v5.decode = function(v2210) --[[ Line: 14250 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_80 (copy), v0 (copy), v2 (copy)
+    local v2211 = l_v5_80.new();
+    local v2212 = 0;
+    while v2212 < buffer.len(v2210) do
+        local v2213 = nil;
+        local v2214 = nil;
+        local v2215, v2216, v2217 = v0.readTag(v2210, v2212);
+        v2213 = v2215;
+        v2214 = v2216;
+        v2212 = v2217;
+        if v2214 == v0.wireTypes.varint then
+            v2215 = nil;
+            v2216, v2217 = v0.readVarInt(v2210, v2212);
+            v2215 = v2216;
+            v2212 = v2217;
+        elseif v2214 == v0.wireTypes.lengthDelimited then
+            if v2213 == 1 then
+                v2215 = nil;
+                v2216, v2217 = v0.readBuffer(v2210, v2212);
+                v2215 = v2216;
+                v2212 = v2217;
+                table.insert(v2211.options, v2.IconProp_ConditionalOption.decode(v2215));
+            else
+                v2215 = nil;
+                v2216, v2217 = v0.readVarInt(v2210, v2212);
+                v2212 = v2217 + v2216;
+            end;
+        elseif v2214 == v0.wireTypes.i32 then
+            v2215 = nil;
+            v2216, v2217 = v0.readFixed32(v2210, v2212);
+            v2215 = v2216;
+            v2212 = v2217;
+        elseif v2214 == v0.wireTypes.i64 then
+            v2215 = nil;
+            v2216, v2217 = v0.readFixed64(v2210, v2212);
+            v2215 = v2216;
+            v2212 = v2217;
+        else
+            error("Unsupported wire type: " .. v2214);
+        end;
+    end;
+    return v2211;
+end;
+v5.jsonEncode = function(v2218) --[[ Line: 14293 ]] --[[ Name: jsonEncode ]]
+    local v2219 = {};
+    if v2218.options ~= nil and #v2218.options > 0 then
+        local v2220 = {};
+        for _, v2222 in v2218.options do
+            table.insert(v2220, v2222:jsonEncode());
+        end;
+        v2219.options = v2220;
+    end;
+    return v2219;
+end;
+v5.jsonDecode = function(v2223) --[[ Line: 14307 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_80 (copy), v2 (copy)
+    local v2224 = l_v5_80.new();
+    if v2223.options ~= nil then
+        local v2225 = {};
+        for _, v2227 in v2223.options do
+            table.insert(v2225, v2.IconProp_ConditionalOption.jsonDecode(v2227));
+        end;
+        v2224.options = v2225;
+    end;
+    return v2224;
+end;
+v5.descriptor = {
+    name = "IconProp_ConditionalOptions", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions"
+};
+v2.IconProp_ConditionalOptions = v5;
+v1.default:register(v2.IconProp_ConditionalOptions);
+v5 = {};
+v5.__index = v5;
+local l_v5_81 = v5 --[[ copy: 5 -> 87 ]];
+v5.new = function(v2229) --[[ Line: 14336 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_81 (copy)
+    return (setmetatable({
+        oneof_prop = if not (v2229 ~= nil) or v2229.oneof_prop == nil then nil else v2229.oneof_prop
+    }, l_v5_81));
+end;
+v5.encode = function(v2230) --[[ Line: 14342 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v2231 = buffer.create(0);
+    local v2232 = 0;
+    if v2230.oneof_prop ~= nil then
+        if v2230.oneof_prop.type == "string_prop" then
+            local v2233 = v2230.oneof_prop.value:encode();
+            local v2234, v2235 = v0.writeTag(v2231, v2232, 1, v0.wireTypes.lengthDelimited);
+            v2234, v2235 = v0.writeBuffer(v2234, v2235, v2233, buffer.len(v2233));
+            v2231 = v2234;
+            v2232 = v2235;
+        elseif v2230.oneof_prop.type == "int32_prop" then
+            local v2236 = v2230.oneof_prop.value:encode();
+            local v2237, v2238 = v0.writeTag(v2231, v2232, 2, v0.wireTypes.lengthDelimited);
+            v2237, v2238 = v0.writeBuffer(v2237, v2238, v2236, buffer.len(v2236));
+            v2231 = v2237;
+            v2232 = v2238;
+        end;
+    end;
+    local v2239 = buffer.create(v2232);
+    buffer.copy(v2239, 0, v2231, 0, v2232);
+    return v2239;
+end;
+v5.decode = function(v2240) --[[ Line: 14363 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_81 (copy), v0 (copy), v2 (copy)
+    local v2241 = l_v5_81.new();
+    local v2242 = 0;
+    while v2242 < buffer.len(v2240) do
+        local v2243 = nil;
+        local v2244 = nil;
+        local v2245, v2246, v2247 = v0.readTag(v2240, v2242);
+        v2243 = v2245;
+        v2244 = v2246;
+        v2242 = v2247;
+        if v2244 == v0.wireTypes.varint then
+            v2245 = nil;
+            v2246, v2247 = v0.readVarInt(v2240, v2242);
+            v2245 = v2246;
+            v2242 = v2247;
+        elseif v2244 == v0.wireTypes.lengthDelimited then
+            if v2243 == 1 then
+                v2245 = nil;
+                v2246, v2247 = v0.readBuffer(v2240, v2242);
+                v2245 = v2246;
+                v2242 = v2247;
+                v2241.oneof_prop = {
+                    type = "string_prop", 
+                    value = v2.StringProp.decode(v2245)
+                };
+            elseif v2243 == 2 then
+                v2245 = nil;
+                v2246, v2247 = v0.readBuffer(v2240, v2242);
+                v2245 = v2246;
+                v2242 = v2247;
+                v2241.oneof_prop = {
+                    type = "int32_prop", 
+                    value = v2.Int32Prop.decode(v2245)
+                };
+            else
+                v2245 = nil;
+                v2246, v2247 = v0.readVarInt(v2240, v2242);
+                v2242 = v2247 + v2246;
+            end;
+        elseif v2244 == v0.wireTypes.i32 then
+            v2245 = nil;
+            v2246, v2247 = v0.readFixed32(v2240, v2242);
+            v2245 = v2246;
+            v2242 = v2247;
+        elseif v2244 == v0.wireTypes.i64 then
+            v2245 = nil;
+            v2246, v2247 = v0.readFixed64(v2240, v2242);
+            v2245 = v2246;
+            v2242 = v2247;
+        else
+            error("Unsupported wire type: " .. v2244);
+        end;
+    end;
+    return v2241;
+end;
+v5.jsonEncode = function(v2248) --[[ Line: 14411 ]] --[[ Name: jsonEncode ]]
+    local v2249 = {};
+    if v2248.oneof_prop ~= nil then
+        if v2248.oneof_prop.type == "string_prop" then
+            v2249.stringProp = v2248.oneof_prop.value:jsonEncode();
+            return v2249;
+        elseif v2248.oneof_prop.type == "int32_prop" then
+            v2249.int32Prop = v2248.oneof_prop.value:jsonEncode();
+        end;
+    end;
+    return v2249;
+end;
+v5.jsonDecode = function(v2250) --[[ Line: 14425 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_81 (copy), v2 (copy)
+    local v2251 = l_v5_81.new();
+    if v2250.string_prop ~= nil then
+        v2251.oneof_prop = {
+            type = "string_prop", 
+            value = v2.StringProp.jsonDecode(v2250.string_prop)
+        };
+    end;
+    if v2250.stringProp ~= nil then
+        v2251.oneof_prop = {
+            type = "string_prop", 
+            value = v2.StringProp.jsonDecode(v2250.stringProp)
+        };
+    end;
+    if v2250.int32_prop ~= nil then
+        v2251.oneof_prop = {
+            type = "int32_prop", 
+            value = v2.Int32Prop.jsonDecode(v2250.int32_prop)
+        };
+    end;
+    if v2250.int32Prop ~= nil then
+        v2251.oneof_prop = {
+            type = "int32_prop", 
+            value = v2.Int32Prop.jsonDecode(v2250.int32Prop)
+        };
+    end;
+    return v2251;
+end;
+v5.descriptor = {
+    name = "IconSizeProp", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.IconSizeProp"
+};
+v2.IconSizeProp = v5;
+v1.default:register(v2.IconSizeProp);
+v5 = {};
+v5.__index = v5;
+local l_v5_82 = v5 --[[ copy: 5 -> 88 ]];
+v5.new = function(v2253) --[[ Line: 14461 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_82 (copy)
+    return (setmetatable({
+        kind = if not (v2253 ~= nil) or v2253.kind == nil then nil else v2253.kind
+    }, l_v5_82));
+end;
+v5.encode = function(v2254) --[[ Line: 14467 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v2255 = buffer.create(0);
+    local v2256 = 0;
+    if v2254.kind ~= nil then
+        if v2254.kind.type == "literal" then
+            local v2257 = v2254.kind.value:encode();
+            local v2258, v2259 = v0.writeTag(v2255, v2256, 1, v0.wireTypes.lengthDelimited);
+            v2258, v2259 = v0.writeBuffer(v2258, v2259, v2257, buffer.len(v2257));
+            v2255 = v2258;
+            v2256 = v2259;
+        elseif v2254.kind.type == "conditional" then
+            local v2260 = v2254.kind.value:encode();
+            local v2261, v2262 = v0.writeTag(v2255, v2256, 2, v0.wireTypes.lengthDelimited);
+            v2261, v2262 = v0.writeBuffer(v2261, v2262, v2260, buffer.len(v2260));
+            v2255 = v2261;
+            v2256 = v2262;
+        end;
+    end;
+    local v2263 = buffer.create(v2256);
+    buffer.copy(v2263, 0, v2255, 0, v2256);
+    return v2263;
+end;
+v5.decode = function(v2264) --[[ Line: 14488 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_82 (copy), v0 (copy), v2 (copy)
+    local v2265 = l_v5_82.new();
+    local v2266 = 0;
+    while v2266 < buffer.len(v2264) do
+        local v2267 = nil;
+        local v2268 = nil;
+        local v2269, v2270, v2271 = v0.readTag(v2264, v2266);
+        v2267 = v2269;
+        v2268 = v2270;
+        v2266 = v2271;
+        if v2268 == v0.wireTypes.varint then
+            v2269 = nil;
+            v2270, v2271 = v0.readVarInt(v2264, v2266);
+            v2269 = v2270;
+            v2266 = v2271;
+        elseif v2268 == v0.wireTypes.lengthDelimited then
+            if v2267 == 1 then
+                v2269 = nil;
+                v2270, v2271 = v0.readBuffer(v2264, v2266);
+                v2269 = v2270;
+                v2266 = v2271;
+                v2265.kind = {
+                    type = "literal", 
+                    value = v2.GradientProp_GradientData.decode(v2269)
+                };
+            elseif v2267 == 2 then
+                v2269 = nil;
+                v2270, v2271 = v0.readBuffer(v2264, v2266);
+                v2269 = v2270;
+                v2266 = v2271;
+                v2265.kind = {
+                    type = "conditional", 
+                    value = v2.GradientProp_ConditionalOptions.decode(v2269)
+                };
+            else
+                v2269 = nil;
+                v2270, v2271 = v0.readVarInt(v2264, v2266);
+                v2266 = v2271 + v2270;
+            end;
+        elseif v2268 == v0.wireTypes.i32 then
+            v2269 = nil;
+            v2270, v2271 = v0.readFixed32(v2264, v2266);
+            v2269 = v2270;
+            v2266 = v2271;
+        elseif v2268 == v0.wireTypes.i64 then
+            v2269 = nil;
+            v2270, v2271 = v0.readFixed64(v2264, v2266);
+            v2269 = v2270;
+            v2266 = v2271;
+        else
+            error("Unsupported wire type: " .. v2268);
+        end;
+    end;
+    return v2265;
+end;
+v5.jsonEncode = function(v2272) --[[ Line: 14536 ]] --[[ Name: jsonEncode ]]
+    local v2273 = {};
+    if v2272.kind ~= nil then
+        if v2272.kind.type == "literal" then
+            v2273.literal = v2272.kind.value:jsonEncode();
+            return v2273;
+        elseif v2272.kind.type == "conditional" then
+            v2273.conditional = v2272.kind.value:jsonEncode();
+        end;
+    end;
+    return v2273;
+end;
+v5.jsonDecode = function(v2274) --[[ Line: 14550 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_82 (copy), v2 (copy)
+    local v2275 = l_v5_82.new();
+    if v2274.literal ~= nil then
+        v2275.kind = {
+            type = "literal", 
+            value = v2.GradientProp_GradientData.jsonDecode(v2274.literal)
+        };
+    end;
+    if v2274.conditional ~= nil then
+        v2275.kind = {
+            type = "conditional", 
+            value = v2.GradientProp_ConditionalOptions.jsonDecode(v2274.conditional)
+        };
+    end;
+    return v2275;
 end;
 v5.descriptor = {
     name = "GradientProp", 
@@ -10827,112 +11604,112 @@ v2.GradientProp = v5;
 v1.default:register(v2.GradientProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_79 = v5 --[[ copy: 5 -> 85 ]];
-v5.new = function(v2150) --[[ Line: 13638 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_79 (copy)
+local l_v5_83 = v5 --[[ copy: 5 -> 89 ]];
+v5.new = function(v2277) --[[ Line: 14579 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_83 (copy)
     return (setmetatable({
-        condition = if not (v2150 ~= nil) or v2150.condition == nil then nil else v2150.condition, 
-        kind = if not (v2150 ~= nil) or v2150.kind == nil then nil else v2150.kind
-    }, l_v5_79));
+        condition = if not (v2277 ~= nil) or v2277.condition == nil then nil else v2277.condition, 
+        kind = if not (v2277 ~= nil) or v2277.kind == nil then nil else v2277.kind
+    }, l_v5_83));
 end;
-v5.encode = function(v2151) --[[ Line: 13647 ]] --[[ Name: encode ]]
+v5.encode = function(v2278) --[[ Line: 14588 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2152 = buffer.create(0);
-    local v2153 = 0;
-    if v2151.condition ~= nil then
-        local v2154 = v2151.condition:encode();
-        local v2155, v2156 = v0.writeTag(v2152, v2153, 1, v0.wireTypes.lengthDelimited);
-        v2155, v2156 = v0.writeBuffer(v2155, v2156, v2154, buffer.len(v2154));
-        v2152 = v2155;
-        v2153 = v2156;
+    local v2279 = buffer.create(0);
+    local v2280 = 0;
+    if v2278.condition ~= nil then
+        local v2281 = v2278.condition:encode();
+        local v2282, v2283 = v0.writeTag(v2279, v2280, 1, v0.wireTypes.lengthDelimited);
+        v2282, v2283 = v0.writeBuffer(v2282, v2283, v2281, buffer.len(v2281));
+        v2279 = v2282;
+        v2280 = v2283;
     end;
-    if v2151.kind ~= nil and v2151.kind.type == "literal" then
-        local v2157 = v2151.kind.value:encode();
-        local v2158, v2159 = v0.writeTag(v2152, v2153, 2, v0.wireTypes.lengthDelimited);
-        v2158, v2159 = v0.writeBuffer(v2158, v2159, v2157, buffer.len(v2157));
-        v2152 = v2158;
-        v2153 = v2159;
+    if v2278.kind ~= nil and v2278.kind.type == "literal" then
+        local v2284 = v2278.kind.value:encode();
+        local v2285, v2286 = v0.writeTag(v2279, v2280, 2, v0.wireTypes.lengthDelimited);
+        v2285, v2286 = v0.writeBuffer(v2285, v2286, v2284, buffer.len(v2284));
+        v2279 = v2285;
+        v2280 = v2286;
     end;
-    local v2160 = buffer.create(v2153);
-    buffer.copy(v2160, 0, v2152, 0, v2153);
-    return v2160;
+    local v2287 = buffer.create(v2280);
+    buffer.copy(v2287, 0, v2279, 0, v2280);
+    return v2287;
 end;
-v5.decode = function(v2161) --[[ Line: 13670 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_79 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v2162 = l_v5_79.new();
-    local v2163 = 0;
-    while v2163 < buffer.len(v2161) do
-        local v2164 = nil;
-        local v2165 = nil;
-        local v2166, v2167, v2168 = v0.readTag(v2161, v2163);
-        v2164 = v2166;
-        v2165 = v2167;
-        v2163 = v2168;
-        if v2165 == v0.wireTypes.varint then
-            v2166 = nil;
-            v2167, v2168 = v0.readVarInt(v2161, v2163);
-            v2166 = v2167;
-            v2163 = v2168;
-        elseif v2165 == v0.wireTypes.lengthDelimited then
-            if v2164 == 1 then
-                v2166 = nil;
-                v2167, v2168 = v0.readBuffer(v2161, v2163);
-                v2166 = v2167;
-                v2163 = v2168;
-                v2162.condition = v4.PropCondition.decode(v2166);
-            elseif v2164 == 2 then
-                v2166 = nil;
-                v2167, v2168 = v0.readBuffer(v2161, v2163);
-                v2166 = v2167;
-                v2163 = v2168;
-                v2162.kind = {
+v5.decode = function(v2288) --[[ Line: 14611 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_83 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v2289 = l_v5_83.new();
+    local v2290 = 0;
+    while v2290 < buffer.len(v2288) do
+        local v2291 = nil;
+        local v2292 = nil;
+        local v2293, v2294, v2295 = v0.readTag(v2288, v2290);
+        v2291 = v2293;
+        v2292 = v2294;
+        v2290 = v2295;
+        if v2292 == v0.wireTypes.varint then
+            v2293 = nil;
+            v2294, v2295 = v0.readVarInt(v2288, v2290);
+            v2293 = v2294;
+            v2290 = v2295;
+        elseif v2292 == v0.wireTypes.lengthDelimited then
+            if v2291 == 1 then
+                v2293 = nil;
+                v2294, v2295 = v0.readBuffer(v2288, v2290);
+                v2293 = v2294;
+                v2290 = v2295;
+                v2289.condition = v4.PropCondition.decode(v2293);
+            elseif v2291 == 2 then
+                v2293 = nil;
+                v2294, v2295 = v0.readBuffer(v2288, v2290);
+                v2293 = v2294;
+                v2290 = v2295;
+                v2289.kind = {
                     type = "literal", 
-                    value = v2.GradientProp_GradientData.decode(v2166)
+                    value = v2.GradientProp_GradientData.decode(v2293)
                 };
             else
-                v2166 = nil;
-                v2167, v2168 = v0.readVarInt(v2161, v2163);
-                v2163 = v2168 + v2167;
+                v2293 = nil;
+                v2294, v2295 = v0.readVarInt(v2288, v2290);
+                v2290 = v2295 + v2294;
             end;
-        elseif v2165 == v0.wireTypes.i32 then
-            v2166 = nil;
-            v2167, v2168 = v0.readFixed32(v2161, v2163);
-            v2166 = v2167;
-            v2163 = v2168;
-        elseif v2165 == v0.wireTypes.i64 then
-            v2166 = nil;
-            v2167, v2168 = v0.readFixed64(v2161, v2163);
-            v2166 = v2167;
-            v2163 = v2168;
+        elseif v2292 == v0.wireTypes.i32 then
+            v2293 = nil;
+            v2294, v2295 = v0.readFixed32(v2288, v2290);
+            v2293 = v2294;
+            v2290 = v2295;
+        elseif v2292 == v0.wireTypes.i64 then
+            v2293 = nil;
+            v2294, v2295 = v0.readFixed64(v2288, v2290);
+            v2293 = v2294;
+            v2290 = v2295;
         else
-            error("Unsupported wire type: " .. v2165);
+            error("Unsupported wire type: " .. v2292);
         end;
     end;
-    return v2162;
+    return v2289;
 end;
-v5.jsonEncode = function(v2169) --[[ Line: 13718 ]] --[[ Name: jsonEncode ]]
-    local v2170 = {};
-    if v2169.condition ~= nil then
-        v2170.condition = v2169.condition:jsonEncode();
+v5.jsonEncode = function(v2296) --[[ Line: 14659 ]] --[[ Name: jsonEncode ]]
+    local v2297 = {};
+    if v2296.condition ~= nil then
+        v2297.condition = v2296.condition:jsonEncode();
     end;
-    if v2169.kind ~= nil and v2169.kind.type == "literal" then
-        v2170.literal = v2169.kind.value:jsonEncode();
+    if v2296.kind ~= nil and v2296.kind.type == "literal" then
+        v2297.literal = v2296.kind.value:jsonEncode();
     end;
-    return v2170;
+    return v2297;
 end;
-v5.jsonDecode = function(v2171) --[[ Line: 13734 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_79 (copy), v4 (copy), v2 (copy)
-    local v2172 = l_v5_79.new();
-    if v2171.condition ~= nil then
-        v2172.condition = v4.PropCondition.jsonDecode(v2171.condition);
+v5.jsonDecode = function(v2298) --[[ Line: 14675 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_83 (copy), v4 (copy), v2 (copy)
+    local v2299 = l_v5_83.new();
+    if v2298.condition ~= nil then
+        v2299.condition = v4.PropCondition.jsonDecode(v2298.condition);
     end;
-    if v2171.literal ~= nil then
-        v2172.kind = {
+    if v2298.literal ~= nil then
+        v2299.kind = {
             type = "literal", 
-            value = v2.GradientProp_GradientData.jsonDecode(v2171.literal)
+            value = v2.GradientProp_GradientData.jsonDecode(v2298.literal)
         };
     end;
-    return v2172;
+    return v2299;
 end;
 v5.descriptor = {
     name = "GradientProp_ConditionalOption", 
@@ -10942,96 +11719,96 @@ v2.GradientProp_ConditionalOption = v5;
 v1.default:register(v2.GradientProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_80 = v5 --[[ copy: 5 -> 86 ]];
-v5.new = function(v2174) --[[ Line: 13763 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_80 (copy)
+local l_v5_84 = v5 --[[ copy: 5 -> 90 ]];
+v5.new = function(v2301) --[[ Line: 14704 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_84 (copy)
     return (setmetatable({
-        options = if not (v2174 ~= nil) or v2174.options == nil then {} else v2174.options
-    }, l_v5_80));
+        options = if not (v2301 ~= nil) or v2301.options == nil then {} else v2301.options
+    }, l_v5_84));
 end;
-v5.encode = function(v2175) --[[ Line: 13771 ]] --[[ Name: encode ]]
+v5.encode = function(v2302) --[[ Line: 14712 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2176 = buffer.create(0);
-    local v2177 = 0;
-    if v2175.options ~= nil and #v2175.options > 0 then
-        for _, v2179 in v2175.options do
-            local v2180 = v2179:encode();
-            local v2181, v2182 = v0.writeTag(v2176, v2177, 1, v0.wireTypes.lengthDelimited);
-            v2181, v2182 = v0.writeBuffer(v2181, v2182, v2180, buffer.len(v2180));
-            v2176 = v2181;
-            v2177 = v2182;
+    local v2303 = buffer.create(0);
+    local v2304 = 0;
+    if v2302.options ~= nil and #v2302.options > 0 then
+        for _, v2306 in v2302.options do
+            local v2307 = v2306:encode();
+            local v2308, v2309 = v0.writeTag(v2303, v2304, 1, v0.wireTypes.lengthDelimited);
+            v2308, v2309 = v0.writeBuffer(v2308, v2309, v2307, buffer.len(v2307));
+            v2303 = v2308;
+            v2304 = v2309;
         end;
     end;
-    local v2183 = buffer.create(v2177);
-    buffer.copy(v2183, 0, v2176, 0, v2177);
-    return v2183;
+    local v2310 = buffer.create(v2304);
+    buffer.copy(v2310, 0, v2303, 0, v2304);
+    return v2310;
 end;
-v5.decode = function(v2184) --[[ Line: 13788 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_80 (copy), v0 (copy), v2 (copy)
-    local v2185 = l_v5_80.new();
-    local v2186 = 0;
-    while v2186 < buffer.len(v2184) do
-        local v2187 = nil;
-        local v2188 = nil;
-        local v2189, v2190, v2191 = v0.readTag(v2184, v2186);
-        v2187 = v2189;
-        v2188 = v2190;
-        v2186 = v2191;
-        if v2188 == v0.wireTypes.varint then
-            v2189 = nil;
-            v2190, v2191 = v0.readVarInt(v2184, v2186);
-            v2189 = v2190;
-            v2186 = v2191;
-        elseif v2188 == v0.wireTypes.lengthDelimited then
-            if v2187 == 1 then
-                v2189 = nil;
-                v2190, v2191 = v0.readBuffer(v2184, v2186);
-                v2189 = v2190;
-                v2186 = v2191;
-                table.insert(v2185.options, v2.GradientProp_ConditionalOption.decode(v2189));
+v5.decode = function(v2311) --[[ Line: 14729 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_84 (copy), v0 (copy), v2 (copy)
+    local v2312 = l_v5_84.new();
+    local v2313 = 0;
+    while v2313 < buffer.len(v2311) do
+        local v2314 = nil;
+        local v2315 = nil;
+        local v2316, v2317, v2318 = v0.readTag(v2311, v2313);
+        v2314 = v2316;
+        v2315 = v2317;
+        v2313 = v2318;
+        if v2315 == v0.wireTypes.varint then
+            v2316 = nil;
+            v2317, v2318 = v0.readVarInt(v2311, v2313);
+            v2316 = v2317;
+            v2313 = v2318;
+        elseif v2315 == v0.wireTypes.lengthDelimited then
+            if v2314 == 1 then
+                v2316 = nil;
+                v2317, v2318 = v0.readBuffer(v2311, v2313);
+                v2316 = v2317;
+                v2313 = v2318;
+                table.insert(v2312.options, v2.GradientProp_ConditionalOption.decode(v2316));
             else
-                v2189 = nil;
-                v2190, v2191 = v0.readVarInt(v2184, v2186);
-                v2186 = v2191 + v2190;
+                v2316 = nil;
+                v2317, v2318 = v0.readVarInt(v2311, v2313);
+                v2313 = v2318 + v2317;
             end;
-        elseif v2188 == v0.wireTypes.i32 then
-            v2189 = nil;
-            v2190, v2191 = v0.readFixed32(v2184, v2186);
-            v2189 = v2190;
-            v2186 = v2191;
-        elseif v2188 == v0.wireTypes.i64 then
-            v2189 = nil;
-            v2190, v2191 = v0.readFixed64(v2184, v2186);
-            v2189 = v2190;
-            v2186 = v2191;
+        elseif v2315 == v0.wireTypes.i32 then
+            v2316 = nil;
+            v2317, v2318 = v0.readFixed32(v2311, v2313);
+            v2316 = v2317;
+            v2313 = v2318;
+        elseif v2315 == v0.wireTypes.i64 then
+            v2316 = nil;
+            v2317, v2318 = v0.readFixed64(v2311, v2313);
+            v2316 = v2317;
+            v2313 = v2318;
         else
-            error("Unsupported wire type: " .. v2188);
+            error("Unsupported wire type: " .. v2315);
         end;
     end;
-    return v2185;
+    return v2312;
 end;
-v5.jsonEncode = function(v2192) --[[ Line: 13831 ]] --[[ Name: jsonEncode ]]
-    local v2193 = {};
-    if v2192.options ~= nil and #v2192.options > 0 then
-        local v2194 = {};
-        for _, v2196 in v2192.options do
-            table.insert(v2194, v2196:jsonEncode());
+v5.jsonEncode = function(v2319) --[[ Line: 14772 ]] --[[ Name: jsonEncode ]]
+    local v2320 = {};
+    if v2319.options ~= nil and #v2319.options > 0 then
+        local v2321 = {};
+        for _, v2323 in v2319.options do
+            table.insert(v2321, v2323:jsonEncode());
         end;
-        v2193.options = v2194;
+        v2320.options = v2321;
     end;
-    return v2193;
+    return v2320;
 end;
-v5.jsonDecode = function(v2197) --[[ Line: 13845 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_80 (copy), v2 (copy)
-    local v2198 = l_v5_80.new();
-    if v2197.options ~= nil then
-        local v2199 = {};
-        for _, v2201 in v2197.options do
-            table.insert(v2199, v2.GradientProp_ConditionalOption.jsonDecode(v2201));
+v5.jsonDecode = function(v2324) --[[ Line: 14786 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_84 (copy), v2 (copy)
+    local v2325 = l_v5_84.new();
+    if v2324.options ~= nil then
+        local v2326 = {};
+        for _, v2328 in v2324.options do
+            table.insert(v2326, v2.GradientProp_ConditionalOption.jsonDecode(v2328));
         end;
-        v2198.options = v2199;
+        v2325.options = v2326;
     end;
-    return v2198;
+    return v2325;
 end;
 v5.descriptor = {
     name = "GradientProp_ConditionalOptions", 
@@ -11041,178 +11818,178 @@ v2.GradientProp_ConditionalOptions = v5;
 v1.default:register(v2.GradientProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_81 = v5 --[[ copy: 5 -> 87 ]];
-v5.new = function(v2203) --[[ Line: 13874 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_81 (copy)
+local l_v5_85 = v5 --[[ copy: 5 -> 91 ]];
+v5.new = function(v2330) --[[ Line: 14815 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_85 (copy)
     return (setmetatable({
-        start_color = (not (v2203 ~= nil) or v2203.start_color == nil) and "" or v2203.start_color, 
-        end_color = (not (v2203 ~= nil) or v2203.end_color == nil) and "" or v2203.end_color, 
-        start_opacity = (not (v2203 ~= nil) or v2203.start_opacity == nil) and 0 or v2203.start_opacity, 
-        end_opacity = (not (v2203 ~= nil) or v2203.end_opacity == nil) and 0 or v2203.end_opacity, 
-        degree = (not (v2203 ~= nil) or v2203.degree == nil) and 0 or v2203.degree
-    }, l_v5_81));
+        start_color = (not (v2330 ~= nil) or v2330.start_color == nil) and "" or v2330.start_color, 
+        end_color = (not (v2330 ~= nil) or v2330.end_color == nil) and "" or v2330.end_color, 
+        start_opacity = (not (v2330 ~= nil) or v2330.start_opacity == nil) and 0 or v2330.start_opacity, 
+        end_opacity = (not (v2330 ~= nil) or v2330.end_opacity == nil) and 0 or v2330.end_opacity, 
+        degree = (not (v2330 ~= nil) or v2330.degree == nil) and 0 or v2330.degree
+    }, l_v5_85));
 end;
-v5.encode = function(v2204) --[[ Line: 13886 ]] --[[ Name: encode ]]
+v5.encode = function(v2331) --[[ Line: 14827 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2205 = buffer.create(0);
-    local v2206 = 0;
-    if v2204.start_color ~= nil and v2204.start_color ~= "" then
-        local v2207, v2208 = v0.writeTag(v2205, v2206, 1, v0.wireTypes.lengthDelimited);
-        v2207, v2208 = v0.writeString(v2207, v2208, v2204.start_color);
-        v2205 = v2207;
-        v2206 = v2208;
+    local v2332 = buffer.create(0);
+    local v2333 = 0;
+    if v2331.start_color ~= nil and v2331.start_color ~= "" then
+        local v2334, v2335 = v0.writeTag(v2332, v2333, 1, v0.wireTypes.lengthDelimited);
+        v2334, v2335 = v0.writeString(v2334, v2335, v2331.start_color);
+        v2332 = v2334;
+        v2333 = v2335;
     end;
-    if v2204.end_color ~= nil and v2204.end_color ~= "" then
-        local v2209, v2210 = v0.writeTag(v2205, v2206, 2, v0.wireTypes.lengthDelimited);
-        v2209, v2210 = v0.writeString(v2209, v2210, v2204.end_color);
-        v2205 = v2209;
-        v2206 = v2210;
+    if v2331.end_color ~= nil and v2331.end_color ~= "" then
+        local v2336, v2337 = v0.writeTag(v2332, v2333, 2, v0.wireTypes.lengthDelimited);
+        v2336, v2337 = v0.writeString(v2336, v2337, v2331.end_color);
+        v2332 = v2336;
+        v2333 = v2337;
     end;
-    if v2204.start_opacity ~= nil and v2204.start_opacity ~= 0 then
-        local v2211, v2212 = v0.writeTag(v2205, v2206, 3, v0.wireTypes.i32);
-        v2211, v2212 = v0.writeFloat(v2211, v2212, v2204.start_opacity);
-        v2205 = v2211;
-        v2206 = v2212;
+    if v2331.start_opacity ~= nil and v2331.start_opacity ~= 0 then
+        local v2338, v2339 = v0.writeTag(v2332, v2333, 3, v0.wireTypes.i32);
+        v2338, v2339 = v0.writeFloat(v2338, v2339, v2331.start_opacity);
+        v2332 = v2338;
+        v2333 = v2339;
     end;
-    if v2204.end_opacity ~= nil and v2204.end_opacity ~= 0 then
-        local v2213, v2214 = v0.writeTag(v2205, v2206, 4, v0.wireTypes.i32);
-        v2213, v2214 = v0.writeFloat(v2213, v2214, v2204.end_opacity);
-        v2205 = v2213;
-        v2206 = v2214;
+    if v2331.end_opacity ~= nil and v2331.end_opacity ~= 0 then
+        local v2340, v2341 = v0.writeTag(v2332, v2333, 4, v0.wireTypes.i32);
+        v2340, v2341 = v0.writeFloat(v2340, v2341, v2331.end_opacity);
+        v2332 = v2340;
+        v2333 = v2341;
     end;
-    if v2204.degree ~= nil and v2204.degree ~= 0 then
-        local v2215, v2216 = v0.writeTag(v2205, v2206, 5, v0.wireTypes.varint);
-        v2215, v2216 = v0.writeVarInt(v2215, v2216, v2204.degree);
-        v2205 = v2215;
-        v2206 = v2216;
+    if v2331.degree ~= nil and v2331.degree ~= 0 then
+        local v2342, v2343 = v0.writeTag(v2332, v2333, 5, v0.wireTypes.varint);
+        v2342, v2343 = v0.writeVarInt(v2342, v2343, v2331.degree);
+        v2332 = v2342;
+        v2333 = v2343;
     end;
-    local v2217 = buffer.create(v2206);
-    buffer.copy(v2217, 0, v2205, 0, v2206);
-    return v2217;
+    local v2344 = buffer.create(v2333);
+    buffer.copy(v2344, 0, v2332, 0, v2333);
+    return v2344;
 end;
-v5.decode = function(v2218) --[[ Line: 13920 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_81 (copy), v0 (copy)
-    local v2219 = l_v5_81.new();
-    local v2220 = 0;
-    while v2220 < buffer.len(v2218) do
-        local v2221 = nil;
-        local v2222 = nil;
-        local v2223, v2224, v2225 = v0.readTag(v2218, v2220);
-        v2221 = v2223;
-        v2222 = v2224;
-        v2220 = v2225;
-        if v2222 == v0.wireTypes.varint then
-            if v2221 == 5 then
-                v2223 = nil;
-                v2224, v2225 = v0.readVarIntI32(v2218, v2220);
-                v2223 = v2224;
-                v2220 = v2225;
-                v2219.degree = v2223;
+v5.decode = function(v2345) --[[ Line: 14861 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_85 (copy), v0 (copy)
+    local v2346 = l_v5_85.new();
+    local v2347 = 0;
+    while v2347 < buffer.len(v2345) do
+        local v2348 = nil;
+        local v2349 = nil;
+        local v2350, v2351, v2352 = v0.readTag(v2345, v2347);
+        v2348 = v2350;
+        v2349 = v2351;
+        v2347 = v2352;
+        if v2349 == v0.wireTypes.varint then
+            if v2348 == 5 then
+                v2350 = nil;
+                v2351, v2352 = v0.readVarIntI32(v2345, v2347);
+                v2350 = v2351;
+                v2347 = v2352;
+                v2346.degree = v2350;
             else
-                v2223 = nil;
-                v2224, v2225 = v0.readVarInt(v2218, v2220);
-                v2223 = v2224;
-                v2220 = v2225;
+                v2350 = nil;
+                v2351, v2352 = v0.readVarInt(v2345, v2347);
+                v2350 = v2351;
+                v2347 = v2352;
             end;
-        elseif v2222 == v0.wireTypes.lengthDelimited then
-            if v2221 == 1 then
-                v2223 = nil;
-                v2224, v2225 = v0.readBuffer(v2218, v2220);
-                v2223 = v2224;
-                v2220 = v2225;
-                v2219.start_color = buffer.tostring(v2223);
-            elseif v2221 == 2 then
-                v2223 = nil;
-                v2224, v2225 = v0.readBuffer(v2218, v2220);
-                v2223 = v2224;
-                v2220 = v2225;
-                v2219.end_color = buffer.tostring(v2223);
+        elseif v2349 == v0.wireTypes.lengthDelimited then
+            if v2348 == 1 then
+                v2350 = nil;
+                v2351, v2352 = v0.readBuffer(v2345, v2347);
+                v2350 = v2351;
+                v2347 = v2352;
+                v2346.start_color = buffer.tostring(v2350);
+            elseif v2348 == 2 then
+                v2350 = nil;
+                v2351, v2352 = v0.readBuffer(v2345, v2347);
+                v2350 = v2351;
+                v2347 = v2352;
+                v2346.end_color = buffer.tostring(v2350);
             else
-                v2223 = nil;
-                v2224, v2225 = v0.readVarInt(v2218, v2220);
-                v2220 = v2225 + v2224;
+                v2350 = nil;
+                v2351, v2352 = v0.readVarInt(v2345, v2347);
+                v2347 = v2352 + v2351;
             end;
-        elseif v2222 == v0.wireTypes.i32 then
-            if v2221 == 3 then
-                v2223 = nil;
-                v2224, v2225 = v0.readFloat(v2218, v2220);
-                v2223 = v2224;
-                v2220 = v2225;
-                v2219.start_opacity = v2223;
-            elseif v2221 == 4 then
-                v2223 = nil;
-                v2224, v2225 = v0.readFloat(v2218, v2220);
-                v2223 = v2224;
-                v2220 = v2225;
-                v2219.end_opacity = v2223;
+        elseif v2349 == v0.wireTypes.i32 then
+            if v2348 == 3 then
+                v2350 = nil;
+                v2351, v2352 = v0.readFloat(v2345, v2347);
+                v2350 = v2351;
+                v2347 = v2352;
+                v2346.start_opacity = v2350;
+            elseif v2348 == 4 then
+                v2350 = nil;
+                v2351, v2352 = v0.readFloat(v2345, v2347);
+                v2350 = v2351;
+                v2347 = v2352;
+                v2346.end_opacity = v2350;
             else
-                v2223 = nil;
-                v2224, v2225 = v0.readFixed32(v2218, v2220);
-                v2223 = v2224;
-                v2220 = v2225;
+                v2350 = nil;
+                v2351, v2352 = v0.readFixed32(v2345, v2347);
+                v2350 = v2351;
+                v2347 = v2352;
             end;
-        elseif v2222 == v0.wireTypes.i64 then
-            v2223 = nil;
-            v2224, v2225 = v0.readFixed64(v2218, v2220);
-            v2223 = v2224;
-            v2220 = v2225;
+        elseif v2349 == v0.wireTypes.i64 then
+            v2350 = nil;
+            v2351, v2352 = v0.readFixed64(v2345, v2347);
+            v2350 = v2351;
+            v2347 = v2352;
         else
-            error("Unsupported wire type: " .. v2222);
+            error("Unsupported wire type: " .. v2349);
         end;
     end;
-    return v2219;
+    return v2346;
 end;
-v5.jsonEncode = function(v2226) --[[ Line: 13983 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2353) --[[ Line: 14924 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
-    local v2227 = {};
-    if v2226.start_color ~= nil and v2226.start_color ~= "" then
-        v2227.startColor = v2226.start_color;
+    local v2354 = {};
+    if v2353.start_color ~= nil and v2353.start_color ~= "" then
+        v2354.startColor = v2353.start_color;
     end;
-    if v2226.end_color ~= nil and v2226.end_color ~= "" then
-        v2227.endColor = v2226.end_color;
+    if v2353.end_color ~= nil and v2353.end_color ~= "" then
+        v2354.endColor = v2353.end_color;
     end;
-    if v2226.start_opacity ~= nil and v2226.start_opacity ~= 0 then
-        v2227.startOpacity = v0.json.serializeNumber(v2226.start_opacity);
+    if v2353.start_opacity ~= nil and v2353.start_opacity ~= 0 then
+        v2354.startOpacity = v0.json.serializeNumber(v2353.start_opacity);
     end;
-    if v2226.end_opacity ~= nil and v2226.end_opacity ~= 0 then
-        v2227.endOpacity = v0.json.serializeNumber(v2226.end_opacity);
+    if v2353.end_opacity ~= nil and v2353.end_opacity ~= 0 then
+        v2354.endOpacity = v0.json.serializeNumber(v2353.end_opacity);
     end;
-    if v2226.degree ~= nil and v2226.degree ~= 0 then
-        v2227.degree = v2226.degree;
+    if v2353.degree ~= nil and v2353.degree ~= 0 then
+        v2354.degree = v2353.degree;
     end;
-    return v2227;
+    return v2354;
 end;
-v5.jsonDecode = function(v2228) --[[ Line: 14009 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_81 (copy), v0 (copy)
-    local v2229 = l_v5_81.new();
-    if v2228.start_color ~= nil then
-        v2229.start_color = v2228.start_color;
+v5.jsonDecode = function(v2355) --[[ Line: 14950 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_85 (copy), v0 (copy)
+    local v2356 = l_v5_85.new();
+    if v2355.start_color ~= nil then
+        v2356.start_color = v2355.start_color;
     end;
-    if v2228.startColor ~= nil then
-        v2229.start_color = v2228.startColor;
+    if v2355.startColor ~= nil then
+        v2356.start_color = v2355.startColor;
     end;
-    if v2228.end_color ~= nil then
-        v2229.end_color = v2228.end_color;
+    if v2355.end_color ~= nil then
+        v2356.end_color = v2355.end_color;
     end;
-    if v2228.endColor ~= nil then
-        v2229.end_color = v2228.endColor;
+    if v2355.endColor ~= nil then
+        v2356.end_color = v2355.endColor;
     end;
-    if v2228.start_opacity ~= nil then
-        v2229.start_opacity = v0.json.deserializeNumber(v2228.start_opacity);
+    if v2355.start_opacity ~= nil then
+        v2356.start_opacity = v0.json.deserializeNumber(v2355.start_opacity);
     end;
-    if v2228.startOpacity ~= nil then
-        v2229.start_opacity = v0.json.deserializeNumber(v2228.startOpacity);
+    if v2355.startOpacity ~= nil then
+        v2356.start_opacity = v0.json.deserializeNumber(v2355.startOpacity);
     end;
-    if v2228.end_opacity ~= nil then
-        v2229.end_opacity = v0.json.deserializeNumber(v2228.end_opacity);
+    if v2355.end_opacity ~= nil then
+        v2356.end_opacity = v0.json.deserializeNumber(v2355.end_opacity);
     end;
-    if v2228.endOpacity ~= nil then
-        v2229.end_opacity = v0.json.deserializeNumber(v2228.endOpacity);
+    if v2355.endOpacity ~= nil then
+        v2356.end_opacity = v0.json.deserializeNumber(v2355.endOpacity);
     end;
-    if v2228.degree ~= nil then
-        v2229.degree = v2228.degree;
+    if v2355.degree ~= nil then
+        v2356.degree = v2355.degree;
     end;
-    return v2229;
+    return v2356;
 end;
 v5.descriptor = {
     name = "GradientProp_GradientData", 
@@ -11222,149 +11999,149 @@ v2.GradientProp_GradientData = v5;
 v1.default:register(v2.GradientProp_GradientData);
 v5 = {};
 v5.__index = v5;
-local l_v5_82 = v5 --[[ copy: 5 -> 88 ]];
-v5.new = function(v2231) --[[ Line: 14065 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_82 (copy)
+local l_v5_86 = v5 --[[ copy: 5 -> 92 ]];
+v5.new = function(v2358) --[[ Line: 15006 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_86 (copy)
     return (setmetatable({
-        kind = if not (v2231 ~= nil) or v2231.kind == nil then nil else v2231.kind
-    }, l_v5_82));
+        kind = if not (v2358 ~= nil) or v2358.kind == nil then nil else v2358.kind
+    }, l_v5_86));
 end;
-v5.encode = function(v2232) --[[ Line: 14071 ]] --[[ Name: encode ]]
+v5.encode = function(v2359) --[[ Line: 15012 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2233 = buffer.create(0);
-    local v2234 = 0;
-    if v2232.kind ~= nil then
-        if v2232.kind.type == "literal" then
-            local v2235 = v2232.kind.value:encode();
-            local v2236, v2237 = v0.writeTag(v2233, v2234, 1, v0.wireTypes.lengthDelimited);
-            v2236, v2237 = v0.writeBuffer(v2236, v2237, v2235, buffer.len(v2235));
-            v2233 = v2236;
-            v2234 = v2237;
-        elseif v2232.kind.type == "binding_path" then
-            local v2238, v2239 = v0.writeTag(v2233, v2234, 2, v0.wireTypes.lengthDelimited);
-            v2238, v2239 = v0.writeString(v2238, v2239, v2232.kind.value);
-            v2233 = v2238;
-            v2234 = v2239;
-        elseif v2232.kind.type == "conditional" then
-            local v2240 = v2232.kind.value:encode();
-            local v2241, v2242 = v0.writeTag(v2233, v2234, 3, v0.wireTypes.lengthDelimited);
-            v2241, v2242 = v0.writeBuffer(v2241, v2242, v2240, buffer.len(v2240));
-            v2233 = v2241;
-            v2234 = v2242;
+    local v2360 = buffer.create(0);
+    local v2361 = 0;
+    if v2359.kind ~= nil then
+        if v2359.kind.type == "literal" then
+            local v2362 = v2359.kind.value:encode();
+            local v2363, v2364 = v0.writeTag(v2360, v2361, 1, v0.wireTypes.lengthDelimited);
+            v2363, v2364 = v0.writeBuffer(v2363, v2364, v2362, buffer.len(v2362));
+            v2360 = v2363;
+            v2361 = v2364;
+        elseif v2359.kind.type == "binding_path" then
+            local v2365, v2366 = v0.writeTag(v2360, v2361, 2, v0.wireTypes.lengthDelimited);
+            v2365, v2366 = v0.writeString(v2365, v2366, v2359.kind.value);
+            v2360 = v2365;
+            v2361 = v2366;
+        elseif v2359.kind.type == "conditional" then
+            local v2367 = v2359.kind.value:encode();
+            local v2368, v2369 = v0.writeTag(v2360, v2361, 3, v0.wireTypes.lengthDelimited);
+            v2368, v2369 = v0.writeBuffer(v2368, v2369, v2367, buffer.len(v2367));
+            v2360 = v2368;
+            v2361 = v2369;
         end;
     end;
-    local v2243 = buffer.create(v2234);
-    buffer.copy(v2243, 0, v2233, 0, v2234);
-    return v2243;
+    local v2370 = buffer.create(v2361);
+    buffer.copy(v2370, 0, v2360, 0, v2361);
+    return v2370;
 end;
-v5.decode = function(v2244) --[[ Line: 14095 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_82 (copy), v0 (copy), v2 (copy)
-    local v2245 = l_v5_82.new();
-    local v2246 = 0;
-    while v2246 < buffer.len(v2244) do
-        local v2247 = nil;
-        local v2248 = nil;
-        local v2249, v2250, v2251 = v0.readTag(v2244, v2246);
-        v2247 = v2249;
-        v2248 = v2250;
-        v2246 = v2251;
-        if v2248 == v0.wireTypes.varint then
-            v2249 = nil;
-            v2250, v2251 = v0.readVarInt(v2244, v2246);
-            v2249 = v2250;
-            v2246 = v2251;
-        elseif v2248 == v0.wireTypes.lengthDelimited then
-            if v2247 == 1 then
-                v2249 = nil;
-                v2250, v2251 = v0.readBuffer(v2244, v2246);
-                v2249 = v2250;
-                v2246 = v2251;
-                v2245.kind = {
+v5.decode = function(v2371) --[[ Line: 15036 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_86 (copy), v0 (copy), v2 (copy)
+    local v2372 = l_v5_86.new();
+    local v2373 = 0;
+    while v2373 < buffer.len(v2371) do
+        local v2374 = nil;
+        local v2375 = nil;
+        local v2376, v2377, v2378 = v0.readTag(v2371, v2373);
+        v2374 = v2376;
+        v2375 = v2377;
+        v2373 = v2378;
+        if v2375 == v0.wireTypes.varint then
+            v2376 = nil;
+            v2377, v2378 = v0.readVarInt(v2371, v2373);
+            v2376 = v2377;
+            v2373 = v2378;
+        elseif v2375 == v0.wireTypes.lengthDelimited then
+            if v2374 == 1 then
+                v2376 = nil;
+                v2377, v2378 = v0.readBuffer(v2371, v2373);
+                v2376 = v2377;
+                v2373 = v2378;
+                v2372.kind = {
                     type = "literal", 
-                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2249)
+                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2376)
                 };
-            elseif v2247 == 2 then
-                v2249 = nil;
-                v2250, v2251 = v0.readBuffer(v2244, v2246);
-                v2249 = v2250;
-                v2246 = v2251;
-                v2245.kind = {
+            elseif v2374 == 2 then
+                v2376 = nil;
+                v2377, v2378 = v0.readBuffer(v2371, v2373);
+                v2376 = v2377;
+                v2373 = v2378;
+                v2372.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2249)
+                    value = buffer.tostring(v2376)
                 };
-            elseif v2247 == 3 then
-                v2249 = nil;
-                v2250, v2251 = v0.readBuffer(v2244, v2246);
-                v2249 = v2250;
-                v2246 = v2251;
-                v2245.kind = {
+            elseif v2374 == 3 then
+                v2376 = nil;
+                v2377, v2378 = v0.readBuffer(v2371, v2373);
+                v2376 = v2377;
+                v2373 = v2378;
+                v2372.kind = {
                     type = "conditional", 
-                    value = v2.ArrayOfStructProp_ConditionalOptions.decode(v2249)
+                    value = v2.ArrayOfStructProp_ConditionalOptions.decode(v2376)
                 };
             else
-                v2249 = nil;
-                v2250, v2251 = v0.readVarInt(v2244, v2246);
-                v2246 = v2251 + v2250;
+                v2376 = nil;
+                v2377, v2378 = v0.readVarInt(v2371, v2373);
+                v2373 = v2378 + v2377;
             end;
-        elseif v2248 == v0.wireTypes.i32 then
-            v2249 = nil;
-            v2250, v2251 = v0.readFixed32(v2244, v2246);
-            v2249 = v2250;
-            v2246 = v2251;
-        elseif v2248 == v0.wireTypes.i64 then
-            v2249 = nil;
-            v2250, v2251 = v0.readFixed64(v2244, v2246);
-            v2249 = v2250;
-            v2246 = v2251;
+        elseif v2375 == v0.wireTypes.i32 then
+            v2376 = nil;
+            v2377, v2378 = v0.readFixed32(v2371, v2373);
+            v2376 = v2377;
+            v2373 = v2378;
+        elseif v2375 == v0.wireTypes.i64 then
+            v2376 = nil;
+            v2377, v2378 = v0.readFixed64(v2371, v2373);
+            v2376 = v2377;
+            v2373 = v2378;
         else
-            error("Unsupported wire type: " .. v2248);
+            error("Unsupported wire type: " .. v2375);
         end;
     end;
-    return v2245;
+    return v2372;
 end;
-v5.jsonEncode = function(v2252) --[[ Line: 14149 ]] --[[ Name: jsonEncode ]]
-    local v2253 = {};
-    if v2252.kind ~= nil then
-        if v2252.kind.type == "literal" then
-            v2253.literal = v2252.kind.value:jsonEncode();
-            return v2253;
-        elseif v2252.kind.type == "binding_path" then
-            v2253.bindingPath = v2252.kind.value;
-            return v2253;
-        elseif v2252.kind.type == "conditional" then
-            v2253.conditional = v2252.kind.value:jsonEncode();
+v5.jsonEncode = function(v2379) --[[ Line: 15090 ]] --[[ Name: jsonEncode ]]
+    local v2380 = {};
+    if v2379.kind ~= nil then
+        if v2379.kind.type == "literal" then
+            v2380.literal = v2379.kind.value:jsonEncode();
+            return v2380;
+        elseif v2379.kind.type == "binding_path" then
+            v2380.bindingPath = v2379.kind.value;
+            return v2380;
+        elseif v2379.kind.type == "conditional" then
+            v2380.conditional = v2379.kind.value:jsonEncode();
         end;
     end;
-    return v2253;
+    return v2380;
 end;
-v5.jsonDecode = function(v2254) --[[ Line: 14165 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_82 (copy), v2 (copy)
-    local v2255 = l_v5_82.new();
-    if v2254.literal ~= nil then
-        v2255.kind = {
+v5.jsonDecode = function(v2381) --[[ Line: 15106 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_86 (copy), v2 (copy)
+    local v2382 = l_v5_86.new();
+    if v2381.literal ~= nil then
+        v2382.kind = {
             type = "literal", 
-            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2254.literal)
+            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2381.literal)
         };
     end;
-    if v2254.binding_path ~= nil then
-        v2255.kind = {
+    if v2381.binding_path ~= nil then
+        v2382.kind = {
             type = "binding_path", 
-            value = v2254.binding_path
+            value = v2381.binding_path
         };
     end;
-    if v2254.bindingPath ~= nil then
-        v2255.kind = {
+    if v2381.bindingPath ~= nil then
+        v2382.kind = {
             type = "binding_path", 
-            value = v2254.bindingPath
+            value = v2381.bindingPath
         };
     end;
-    if v2254.conditional ~= nil then
-        v2255.kind = {
+    if v2381.conditional ~= nil then
+        v2382.kind = {
             type = "conditional", 
-            value = v2.ArrayOfStructProp_ConditionalOptions.jsonDecode(v2254.conditional)
+            value = v2.ArrayOfStructProp_ConditionalOptions.jsonDecode(v2381.conditional)
         };
     end;
-    return v2255;
+    return v2382;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp", 
@@ -11374,145 +12151,145 @@ v2.ArrayOfStructProp = v5;
 v1.default:register(v2.ArrayOfStructProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_83 = v5 --[[ copy: 5 -> 89 ]];
-v5.new = function(v2257) --[[ Line: 14205 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_83 (copy)
+local l_v5_87 = v5 --[[ copy: 5 -> 93 ]];
+v5.new = function(v2384) --[[ Line: 15146 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_87 (copy)
     return (setmetatable({
-        condition = if not (v2257 ~= nil) or v2257.condition == nil then nil else v2257.condition, 
-        kind = if not (v2257 ~= nil) or v2257.kind == nil then nil else v2257.kind
-    }, l_v5_83));
+        condition = if not (v2384 ~= nil) or v2384.condition == nil then nil else v2384.condition, 
+        kind = if not (v2384 ~= nil) or v2384.kind == nil then nil else v2384.kind
+    }, l_v5_87));
 end;
-v5.encode = function(v2258) --[[ Line: 14214 ]] --[[ Name: encode ]]
+v5.encode = function(v2385) --[[ Line: 15155 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2259 = buffer.create(0);
-    local v2260 = 0;
-    if v2258.condition ~= nil then
-        local v2261 = v2258.condition:encode();
-        local v2262, v2263 = v0.writeTag(v2259, v2260, 1, v0.wireTypes.lengthDelimited);
-        v2262, v2263 = v0.writeBuffer(v2262, v2263, v2261, buffer.len(v2261));
-        v2259 = v2262;
-        v2260 = v2263;
+    local v2386 = buffer.create(0);
+    local v2387 = 0;
+    if v2385.condition ~= nil then
+        local v2388 = v2385.condition:encode();
+        local v2389, v2390 = v0.writeTag(v2386, v2387, 1, v0.wireTypes.lengthDelimited);
+        v2389, v2390 = v0.writeBuffer(v2389, v2390, v2388, buffer.len(v2388));
+        v2386 = v2389;
+        v2387 = v2390;
     end;
-    if v2258.kind ~= nil then
-        if v2258.kind.type == "literal" then
-            local v2264 = v2258.kind.value:encode();
-            local v2265, v2266 = v0.writeTag(v2259, v2260, 2, v0.wireTypes.lengthDelimited);
-            v2265, v2266 = v0.writeBuffer(v2265, v2266, v2264, buffer.len(v2264));
-            v2259 = v2265;
-            v2260 = v2266;
-        elseif v2258.kind.type == "binding_path" then
-            local v2267, v2268 = v0.writeTag(v2259, v2260, 3, v0.wireTypes.lengthDelimited);
-            v2267, v2268 = v0.writeString(v2267, v2268, v2258.kind.value);
-            v2259 = v2267;
-            v2260 = v2268;
+    if v2385.kind ~= nil then
+        if v2385.kind.type == "literal" then
+            local v2391 = v2385.kind.value:encode();
+            local v2392, v2393 = v0.writeTag(v2386, v2387, 2, v0.wireTypes.lengthDelimited);
+            v2392, v2393 = v0.writeBuffer(v2392, v2393, v2391, buffer.len(v2391));
+            v2386 = v2392;
+            v2387 = v2393;
+        elseif v2385.kind.type == "binding_path" then
+            local v2394, v2395 = v0.writeTag(v2386, v2387, 3, v0.wireTypes.lengthDelimited);
+            v2394, v2395 = v0.writeString(v2394, v2395, v2385.kind.value);
+            v2386 = v2394;
+            v2387 = v2395;
         end;
     end;
-    local v2269 = buffer.create(v2260);
-    buffer.copy(v2269, 0, v2259, 0, v2260);
-    return v2269;
+    local v2396 = buffer.create(v2387);
+    buffer.copy(v2396, 0, v2386, 0, v2387);
+    return v2396;
 end;
-v5.decode = function(v2270) --[[ Line: 14240 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_83 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v2271 = l_v5_83.new();
-    local v2272 = 0;
-    while v2272 < buffer.len(v2270) do
-        local v2273 = nil;
-        local v2274 = nil;
-        local v2275, v2276, v2277 = v0.readTag(v2270, v2272);
-        v2273 = v2275;
-        v2274 = v2276;
-        v2272 = v2277;
-        if v2274 == v0.wireTypes.varint then
-            v2275 = nil;
-            v2276, v2277 = v0.readVarInt(v2270, v2272);
-            v2275 = v2276;
-            v2272 = v2277;
-        elseif v2274 == v0.wireTypes.lengthDelimited then
-            if v2273 == 1 then
-                v2275 = nil;
-                v2276, v2277 = v0.readBuffer(v2270, v2272);
-                v2275 = v2276;
-                v2272 = v2277;
-                v2271.condition = v4.PropCondition.decode(v2275);
-            elseif v2273 == 2 then
-                v2275 = nil;
-                v2276, v2277 = v0.readBuffer(v2270, v2272);
-                v2275 = v2276;
-                v2272 = v2277;
-                v2271.kind = {
+v5.decode = function(v2397) --[[ Line: 15181 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_87 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v2398 = l_v5_87.new();
+    local v2399 = 0;
+    while v2399 < buffer.len(v2397) do
+        local v2400 = nil;
+        local v2401 = nil;
+        local v2402, v2403, v2404 = v0.readTag(v2397, v2399);
+        v2400 = v2402;
+        v2401 = v2403;
+        v2399 = v2404;
+        if v2401 == v0.wireTypes.varint then
+            v2402 = nil;
+            v2403, v2404 = v0.readVarInt(v2397, v2399);
+            v2402 = v2403;
+            v2399 = v2404;
+        elseif v2401 == v0.wireTypes.lengthDelimited then
+            if v2400 == 1 then
+                v2402 = nil;
+                v2403, v2404 = v0.readBuffer(v2397, v2399);
+                v2402 = v2403;
+                v2399 = v2404;
+                v2398.condition = v4.PropCondition.decode(v2402);
+            elseif v2400 == 2 then
+                v2402 = nil;
+                v2403, v2404 = v0.readBuffer(v2397, v2399);
+                v2402 = v2403;
+                v2399 = v2404;
+                v2398.kind = {
                     type = "literal", 
-                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2275)
+                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2402)
                 };
-            elseif v2273 == 3 then
-                v2275 = nil;
-                v2276, v2277 = v0.readBuffer(v2270, v2272);
-                v2275 = v2276;
-                v2272 = v2277;
-                v2271.kind = {
+            elseif v2400 == 3 then
+                v2402 = nil;
+                v2403, v2404 = v0.readBuffer(v2397, v2399);
+                v2402 = v2403;
+                v2399 = v2404;
+                v2398.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2275)
+                    value = buffer.tostring(v2402)
                 };
             else
-                v2275 = nil;
-                v2276, v2277 = v0.readVarInt(v2270, v2272);
-                v2272 = v2277 + v2276;
+                v2402 = nil;
+                v2403, v2404 = v0.readVarInt(v2397, v2399);
+                v2399 = v2404 + v2403;
             end;
-        elseif v2274 == v0.wireTypes.i32 then
-            v2275 = nil;
-            v2276, v2277 = v0.readFixed32(v2270, v2272);
-            v2275 = v2276;
-            v2272 = v2277;
-        elseif v2274 == v0.wireTypes.i64 then
-            v2275 = nil;
-            v2276, v2277 = v0.readFixed64(v2270, v2272);
-            v2275 = v2276;
-            v2272 = v2277;
+        elseif v2401 == v0.wireTypes.i32 then
+            v2402 = nil;
+            v2403, v2404 = v0.readFixed32(v2397, v2399);
+            v2402 = v2403;
+            v2399 = v2404;
+        elseif v2401 == v0.wireTypes.i64 then
+            v2402 = nil;
+            v2403, v2404 = v0.readFixed64(v2397, v2399);
+            v2402 = v2403;
+            v2399 = v2404;
         else
-            error("Unsupported wire type: " .. v2274);
+            error("Unsupported wire type: " .. v2401);
         end;
     end;
-    return v2271;
+    return v2398;
 end;
-v5.jsonEncode = function(v2278) --[[ Line: 14293 ]] --[[ Name: jsonEncode ]]
-    local v2279 = {};
-    if v2278.condition ~= nil then
-        v2279.condition = v2278.condition:jsonEncode();
+v5.jsonEncode = function(v2405) --[[ Line: 15234 ]] --[[ Name: jsonEncode ]]
+    local v2406 = {};
+    if v2405.condition ~= nil then
+        v2406.condition = v2405.condition:jsonEncode();
     end;
-    if v2278.kind ~= nil then
-        if v2278.kind.type == "literal" then
-            v2279.literal = v2278.kind.value:jsonEncode();
-            return v2279;
-        elseif v2278.kind.type == "binding_path" then
-            v2279.bindingPath = v2278.kind.value;
+    if v2405.kind ~= nil then
+        if v2405.kind.type == "literal" then
+            v2406.literal = v2405.kind.value:jsonEncode();
+            return v2406;
+        elseif v2405.kind.type == "binding_path" then
+            v2406.bindingPath = v2405.kind.value;
         end;
     end;
-    return v2279;
+    return v2406;
 end;
-v5.jsonDecode = function(v2280) --[[ Line: 14311 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_83 (copy), v4 (copy), v2 (copy)
-    local v2281 = l_v5_83.new();
-    if v2280.condition ~= nil then
-        v2281.condition = v4.PropCondition.jsonDecode(v2280.condition);
+v5.jsonDecode = function(v2407) --[[ Line: 15252 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_87 (copy), v4 (copy), v2 (copy)
+    local v2408 = l_v5_87.new();
+    if v2407.condition ~= nil then
+        v2408.condition = v4.PropCondition.jsonDecode(v2407.condition);
     end;
-    if v2280.literal ~= nil then
-        v2281.kind = {
+    if v2407.literal ~= nil then
+        v2408.kind = {
             type = "literal", 
-            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2280.literal)
+            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2407.literal)
         };
     end;
-    if v2280.binding_path ~= nil then
-        v2281.kind = {
+    if v2407.binding_path ~= nil then
+        v2408.kind = {
             type = "binding_path", 
-            value = v2280.binding_path
+            value = v2407.binding_path
         };
     end;
-    if v2280.bindingPath ~= nil then
-        v2281.kind = {
+    if v2407.bindingPath ~= nil then
+        v2408.kind = {
             type = "binding_path", 
-            value = v2280.bindingPath
+            value = v2407.bindingPath
         };
     end;
-    return v2281;
+    return v2408;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp_ConditionalOption", 
@@ -11522,96 +12299,96 @@ v2.ArrayOfStructProp_ConditionalOption = v5;
 v1.default:register(v2.ArrayOfStructProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_84 = v5 --[[ copy: 5 -> 90 ]];
-v5.new = function(v2283) --[[ Line: 14351 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_84 (copy)
+local l_v5_88 = v5 --[[ copy: 5 -> 94 ]];
+v5.new = function(v2410) --[[ Line: 15292 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_88 (copy)
     return (setmetatable({
-        options = if not (v2283 ~= nil) or v2283.options == nil then {} else v2283.options
-    }, l_v5_84));
+        options = if not (v2410 ~= nil) or v2410.options == nil then {} else v2410.options
+    }, l_v5_88));
 end;
-v5.encode = function(v2284) --[[ Line: 14359 ]] --[[ Name: encode ]]
+v5.encode = function(v2411) --[[ Line: 15300 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2285 = buffer.create(0);
-    local v2286 = 0;
-    if v2284.options ~= nil and #v2284.options > 0 then
-        for _, v2288 in v2284.options do
-            local v2289 = v2288:encode();
-            local v2290, v2291 = v0.writeTag(v2285, v2286, 1, v0.wireTypes.lengthDelimited);
-            v2290, v2291 = v0.writeBuffer(v2290, v2291, v2289, buffer.len(v2289));
-            v2285 = v2290;
-            v2286 = v2291;
+    local v2412 = buffer.create(0);
+    local v2413 = 0;
+    if v2411.options ~= nil and #v2411.options > 0 then
+        for _, v2415 in v2411.options do
+            local v2416 = v2415:encode();
+            local v2417, v2418 = v0.writeTag(v2412, v2413, 1, v0.wireTypes.lengthDelimited);
+            v2417, v2418 = v0.writeBuffer(v2417, v2418, v2416, buffer.len(v2416));
+            v2412 = v2417;
+            v2413 = v2418;
         end;
     end;
-    local v2292 = buffer.create(v2286);
-    buffer.copy(v2292, 0, v2285, 0, v2286);
-    return v2292;
+    local v2419 = buffer.create(v2413);
+    buffer.copy(v2419, 0, v2412, 0, v2413);
+    return v2419;
 end;
-v5.decode = function(v2293) --[[ Line: 14376 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_84 (copy), v0 (copy), v2 (copy)
-    local v2294 = l_v5_84.new();
-    local v2295 = 0;
-    while v2295 < buffer.len(v2293) do
-        local v2296 = nil;
-        local v2297 = nil;
-        local v2298, v2299, v2300 = v0.readTag(v2293, v2295);
-        v2296 = v2298;
-        v2297 = v2299;
-        v2295 = v2300;
-        if v2297 == v0.wireTypes.varint then
-            v2298 = nil;
-            v2299, v2300 = v0.readVarInt(v2293, v2295);
-            v2298 = v2299;
-            v2295 = v2300;
-        elseif v2297 == v0.wireTypes.lengthDelimited then
-            if v2296 == 1 then
-                v2298 = nil;
-                v2299, v2300 = v0.readBuffer(v2293, v2295);
-                v2298 = v2299;
-                v2295 = v2300;
-                table.insert(v2294.options, v2.ArrayOfStructProp_ConditionalOption.decode(v2298));
+v5.decode = function(v2420) --[[ Line: 15317 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_88 (copy), v0 (copy), v2 (copy)
+    local v2421 = l_v5_88.new();
+    local v2422 = 0;
+    while v2422 < buffer.len(v2420) do
+        local v2423 = nil;
+        local v2424 = nil;
+        local v2425, v2426, v2427 = v0.readTag(v2420, v2422);
+        v2423 = v2425;
+        v2424 = v2426;
+        v2422 = v2427;
+        if v2424 == v0.wireTypes.varint then
+            v2425 = nil;
+            v2426, v2427 = v0.readVarInt(v2420, v2422);
+            v2425 = v2426;
+            v2422 = v2427;
+        elseif v2424 == v0.wireTypes.lengthDelimited then
+            if v2423 == 1 then
+                v2425 = nil;
+                v2426, v2427 = v0.readBuffer(v2420, v2422);
+                v2425 = v2426;
+                v2422 = v2427;
+                table.insert(v2421.options, v2.ArrayOfStructProp_ConditionalOption.decode(v2425));
             else
-                v2298 = nil;
-                v2299, v2300 = v0.readVarInt(v2293, v2295);
-                v2295 = v2300 + v2299;
+                v2425 = nil;
+                v2426, v2427 = v0.readVarInt(v2420, v2422);
+                v2422 = v2427 + v2426;
             end;
-        elseif v2297 == v0.wireTypes.i32 then
-            v2298 = nil;
-            v2299, v2300 = v0.readFixed32(v2293, v2295);
-            v2298 = v2299;
-            v2295 = v2300;
-        elseif v2297 == v0.wireTypes.i64 then
-            v2298 = nil;
-            v2299, v2300 = v0.readFixed64(v2293, v2295);
-            v2298 = v2299;
-            v2295 = v2300;
+        elseif v2424 == v0.wireTypes.i32 then
+            v2425 = nil;
+            v2426, v2427 = v0.readFixed32(v2420, v2422);
+            v2425 = v2426;
+            v2422 = v2427;
+        elseif v2424 == v0.wireTypes.i64 then
+            v2425 = nil;
+            v2426, v2427 = v0.readFixed64(v2420, v2422);
+            v2425 = v2426;
+            v2422 = v2427;
         else
-            error("Unsupported wire type: " .. v2297);
+            error("Unsupported wire type: " .. v2424);
         end;
     end;
-    return v2294;
+    return v2421;
 end;
-v5.jsonEncode = function(v2301) --[[ Line: 14419 ]] --[[ Name: jsonEncode ]]
-    local v2302 = {};
-    if v2301.options ~= nil and #v2301.options > 0 then
-        local v2303 = {};
-        for _, v2305 in v2301.options do
-            table.insert(v2303, v2305:jsonEncode());
+v5.jsonEncode = function(v2428) --[[ Line: 15360 ]] --[[ Name: jsonEncode ]]
+    local v2429 = {};
+    if v2428.options ~= nil and #v2428.options > 0 then
+        local v2430 = {};
+        for _, v2432 in v2428.options do
+            table.insert(v2430, v2432:jsonEncode());
         end;
-        v2302.options = v2303;
+        v2429.options = v2430;
     end;
-    return v2302;
+    return v2429;
 end;
-v5.jsonDecode = function(v2306) --[[ Line: 14433 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_84 (copy), v2 (copy)
-    local v2307 = l_v5_84.new();
-    if v2306.options ~= nil then
-        local v2308 = {};
-        for _, v2310 in v2306.options do
-            table.insert(v2308, v2.ArrayOfStructProp_ConditionalOption.jsonDecode(v2310));
+v5.jsonDecode = function(v2433) --[[ Line: 15374 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_88 (copy), v2 (copy)
+    local v2434 = l_v5_88.new();
+    if v2433.options ~= nil then
+        local v2435 = {};
+        for _, v2437 in v2433.options do
+            table.insert(v2435, v2.ArrayOfStructProp_ConditionalOption.jsonDecode(v2437));
         end;
-        v2307.options = v2308;
+        v2434.options = v2435;
     end;
-    return v2307;
+    return v2434;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp_ConditionalOptions", 
@@ -11621,96 +12398,96 @@ v2.ArrayOfStructProp_ConditionalOptions = v5;
 v1.default:register(v2.ArrayOfStructProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_85 = v5 --[[ copy: 5 -> 91 ]];
-v5.new = function(v2312) --[[ Line: 14464 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_85 (copy)
+local l_v5_89 = v5 --[[ copy: 5 -> 95 ]];
+v5.new = function(v2439) --[[ Line: 15405 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_89 (copy)
     return (setmetatable({
-        entry = if not (v2312 ~= nil) or v2312.entry == nil then {} else v2312.entry
-    }, l_v5_85));
+        entry = if not (v2439 ~= nil) or v2439.entry == nil then {} else v2439.entry
+    }, l_v5_89));
 end;
-v5.encode = function(v2313) --[[ Line: 14472 ]] --[[ Name: encode ]]
+v5.encode = function(v2440) --[[ Line: 15413 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2314 = buffer.create(0);
-    local v2315 = 0;
-    if v2313.entry ~= nil and #v2313.entry > 0 then
-        for _, v2317 in v2313.entry do
-            local v2318 = v2317:encode();
-            local v2319, v2320 = v0.writeTag(v2314, v2315, 1, v0.wireTypes.lengthDelimited);
-            v2319, v2320 = v0.writeBuffer(v2319, v2320, v2318, buffer.len(v2318));
-            v2314 = v2319;
-            v2315 = v2320;
+    local v2441 = buffer.create(0);
+    local v2442 = 0;
+    if v2440.entry ~= nil and #v2440.entry > 0 then
+        for _, v2444 in v2440.entry do
+            local v2445 = v2444:encode();
+            local v2446, v2447 = v0.writeTag(v2441, v2442, 1, v0.wireTypes.lengthDelimited);
+            v2446, v2447 = v0.writeBuffer(v2446, v2447, v2445, buffer.len(v2445));
+            v2441 = v2446;
+            v2442 = v2447;
         end;
     end;
-    local v2321 = buffer.create(v2315);
-    buffer.copy(v2321, 0, v2314, 0, v2315);
-    return v2321;
+    local v2448 = buffer.create(v2442);
+    buffer.copy(v2448, 0, v2441, 0, v2442);
+    return v2448;
 end;
-v5.decode = function(v2322) --[[ Line: 14489 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_85 (copy), v0 (copy), v3 (copy)
-    local v2323 = l_v5_85.new();
-    local v2324 = 0;
-    while v2324 < buffer.len(v2322) do
-        local v2325 = nil;
-        local v2326 = nil;
-        local v2327, v2328, v2329 = v0.readTag(v2322, v2324);
-        v2325 = v2327;
-        v2326 = v2328;
-        v2324 = v2329;
-        if v2326 == v0.wireTypes.varint then
-            v2327 = nil;
-            v2328, v2329 = v0.readVarInt(v2322, v2324);
-            v2327 = v2328;
-            v2324 = v2329;
-        elseif v2326 == v0.wireTypes.lengthDelimited then
-            if v2325 == 1 then
-                v2327 = nil;
-                v2328, v2329 = v0.readBuffer(v2322, v2324);
-                v2327 = v2328;
-                v2324 = v2329;
-                table.insert(v2323.entry, v3.Struct.decode(v2327));
+v5.decode = function(v2449) --[[ Line: 15430 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_89 (copy), v0 (copy), v3 (copy)
+    local v2450 = l_v5_89.new();
+    local v2451 = 0;
+    while v2451 < buffer.len(v2449) do
+        local v2452 = nil;
+        local v2453 = nil;
+        local v2454, v2455, v2456 = v0.readTag(v2449, v2451);
+        v2452 = v2454;
+        v2453 = v2455;
+        v2451 = v2456;
+        if v2453 == v0.wireTypes.varint then
+            v2454 = nil;
+            v2455, v2456 = v0.readVarInt(v2449, v2451);
+            v2454 = v2455;
+            v2451 = v2456;
+        elseif v2453 == v0.wireTypes.lengthDelimited then
+            if v2452 == 1 then
+                v2454 = nil;
+                v2455, v2456 = v0.readBuffer(v2449, v2451);
+                v2454 = v2455;
+                v2451 = v2456;
+                table.insert(v2450.entry, v3.Struct.decode(v2454));
             else
-                v2327 = nil;
-                v2328, v2329 = v0.readVarInt(v2322, v2324);
-                v2324 = v2329 + v2328;
+                v2454 = nil;
+                v2455, v2456 = v0.readVarInt(v2449, v2451);
+                v2451 = v2456 + v2455;
             end;
-        elseif v2326 == v0.wireTypes.i32 then
-            v2327 = nil;
-            v2328, v2329 = v0.readFixed32(v2322, v2324);
-            v2327 = v2328;
-            v2324 = v2329;
-        elseif v2326 == v0.wireTypes.i64 then
-            v2327 = nil;
-            v2328, v2329 = v0.readFixed64(v2322, v2324);
-            v2327 = v2328;
-            v2324 = v2329;
+        elseif v2453 == v0.wireTypes.i32 then
+            v2454 = nil;
+            v2455, v2456 = v0.readFixed32(v2449, v2451);
+            v2454 = v2455;
+            v2451 = v2456;
+        elseif v2453 == v0.wireTypes.i64 then
+            v2454 = nil;
+            v2455, v2456 = v0.readFixed64(v2449, v2451);
+            v2454 = v2455;
+            v2451 = v2456;
         else
-            error("Unsupported wire type: " .. v2326);
+            error("Unsupported wire type: " .. v2453);
         end;
     end;
-    return v2323;
+    return v2450;
 end;
-v5.jsonEncode = function(v2330) --[[ Line: 14532 ]] --[[ Name: jsonEncode ]]
-    local v2331 = {};
-    if v2330.entry ~= nil and #v2330.entry > 0 then
-        local v2332 = {};
-        for _, v2334 in v2330.entry do
-            table.insert(v2332, v2334:jsonEncode());
+v5.jsonEncode = function(v2457) --[[ Line: 15473 ]] --[[ Name: jsonEncode ]]
+    local v2458 = {};
+    if v2457.entry ~= nil and #v2457.entry > 0 then
+        local v2459 = {};
+        for _, v2461 in v2457.entry do
+            table.insert(v2459, v2461:jsonEncode());
         end;
-        v2331.entry = v2332;
+        v2458.entry = v2459;
     end;
-    return v2331;
+    return v2458;
 end;
-v5.jsonDecode = function(v2335) --[[ Line: 14546 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_85 (copy), v3 (copy)
-    local v2336 = l_v5_85.new();
-    if v2335.entry ~= nil then
-        local v2337 = {};
-        for _, v2339 in v2335.entry do
-            table.insert(v2337, v3.Struct.jsonDecode(v2339));
+v5.jsonDecode = function(v2462) --[[ Line: 15487 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_89 (copy), v3 (copy)
+    local v2463 = l_v5_89.new();
+    if v2462.entry ~= nil then
+        local v2464 = {};
+        for _, v2466 in v2462.entry do
+            table.insert(v2464, v3.Struct.jsonDecode(v2466));
         end;
-        v2336.entry = v2337;
+        v2463.entry = v2464;
     end;
-    return v2336;
+    return v2463;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp_ArrayOfStructs", 
@@ -11720,171 +12497,171 @@ v2.ArrayOfStructProp_ArrayOfStructs = v5;
 v1.default:register(v2.ArrayOfStructProp_ArrayOfStructs);
 v5 = {};
 v5.__index = v5;
-local l_v5_86 = v5 --[[ copy: 5 -> 92 ]];
-v5.new = function(v2341) --[[ Line: 14577 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_86 (copy)
+local l_v5_90 = v5 --[[ copy: 5 -> 96 ]];
+v5.new = function(v2468) --[[ Line: 15518 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_90 (copy)
     return (setmetatable({
-        kind = if not (v2341 ~= nil) or v2341.kind == nil then nil else v2341.kind
-    }, l_v5_86));
+        kind = if not (v2468 ~= nil) or v2468.kind == nil then nil else v2468.kind
+    }, l_v5_90));
 end;
-v5.encode = function(v2342) --[[ Line: 14583 ]] --[[ Name: encode ]]
+v5.encode = function(v2469) --[[ Line: 15524 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2343 = buffer.create(0);
-    local v2344 = 0;
-    if v2342.kind ~= nil then
-        if v2342.kind.type == "literal" then
-            local v2345, v2346 = v0.writeTag(v2343, v2344, 1, v0.wireTypes.lengthDelimited);
-            v2345, v2346 = v0.writeString(v2345, v2346, v2342.kind.value);
-            v2343 = v2345;
-            v2344 = v2346;
-        elseif v2342.kind.type == "token" then
-            local v2347, v2348 = v0.writeTag(v2343, v2344, 2, v0.wireTypes.lengthDelimited);
-            v2347, v2348 = v0.writeString(v2347, v2348, v2342.kind.value);
-            v2343 = v2347;
-            v2344 = v2348;
-        elseif v2342.kind.type == "conditional" then
-            local v2349 = v2342.kind.value:encode();
-            local v2350, v2351 = v0.writeTag(v2343, v2344, 3, v0.wireTypes.lengthDelimited);
-            v2350, v2351 = v0.writeBuffer(v2350, v2351, v2349, buffer.len(v2349));
-            v2343 = v2350;
-            v2344 = v2351;
-        elseif v2342.kind.type == "binding_path" then
-            local v2352, v2353 = v0.writeTag(v2343, v2344, 4, v0.wireTypes.lengthDelimited);
-            v2352, v2353 = v0.writeString(v2352, v2353, v2342.kind.value);
-            v2343 = v2352;
-            v2344 = v2353;
+    local v2470 = buffer.create(0);
+    local v2471 = 0;
+    if v2469.kind ~= nil then
+        if v2469.kind.type == "literal" then
+            local v2472, v2473 = v0.writeTag(v2470, v2471, 1, v0.wireTypes.lengthDelimited);
+            v2472, v2473 = v0.writeString(v2472, v2473, v2469.kind.value);
+            v2470 = v2472;
+            v2471 = v2473;
+        elseif v2469.kind.type == "token" then
+            local v2474, v2475 = v0.writeTag(v2470, v2471, 2, v0.wireTypes.lengthDelimited);
+            v2474, v2475 = v0.writeString(v2474, v2475, v2469.kind.value);
+            v2470 = v2474;
+            v2471 = v2475;
+        elseif v2469.kind.type == "conditional" then
+            local v2476 = v2469.kind.value:encode();
+            local v2477, v2478 = v0.writeTag(v2470, v2471, 3, v0.wireTypes.lengthDelimited);
+            v2477, v2478 = v0.writeBuffer(v2477, v2478, v2476, buffer.len(v2476));
+            v2470 = v2477;
+            v2471 = v2478;
+        elseif v2469.kind.type == "binding_path" then
+            local v2479, v2480 = v0.writeTag(v2470, v2471, 4, v0.wireTypes.lengthDelimited);
+            v2479, v2480 = v0.writeString(v2479, v2480, v2469.kind.value);
+            v2470 = v2479;
+            v2471 = v2480;
         end;
     end;
-    local v2354 = buffer.create(v2344);
-    buffer.copy(v2354, 0, v2343, 0, v2344);
-    return v2354;
+    local v2481 = buffer.create(v2471);
+    buffer.copy(v2481, 0, v2470, 0, v2471);
+    return v2481;
 end;
-v5.decode = function(v2355) --[[ Line: 14609 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_86 (copy), v0 (copy), v2 (copy)
-    local v2356 = l_v5_86.new();
-    local v2357 = 0;
-    while v2357 < buffer.len(v2355) do
-        local v2358 = nil;
-        local v2359 = nil;
-        local v2360, v2361, v2362 = v0.readTag(v2355, v2357);
-        v2358 = v2360;
-        v2359 = v2361;
-        v2357 = v2362;
-        if v2359 == v0.wireTypes.varint then
-            v2360 = nil;
-            v2361, v2362 = v0.readVarInt(v2355, v2357);
-            v2360 = v2361;
-            v2357 = v2362;
-        elseif v2359 == v0.wireTypes.lengthDelimited then
-            if v2358 == 1 then
-                v2360 = nil;
-                v2361, v2362 = v0.readBuffer(v2355, v2357);
-                v2360 = v2361;
-                v2357 = v2362;
-                v2356.kind = {
+v5.decode = function(v2482) --[[ Line: 15550 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_90 (copy), v0 (copy), v2 (copy)
+    local v2483 = l_v5_90.new();
+    local v2484 = 0;
+    while v2484 < buffer.len(v2482) do
+        local v2485 = nil;
+        local v2486 = nil;
+        local v2487, v2488, v2489 = v0.readTag(v2482, v2484);
+        v2485 = v2487;
+        v2486 = v2488;
+        v2484 = v2489;
+        if v2486 == v0.wireTypes.varint then
+            v2487 = nil;
+            v2488, v2489 = v0.readVarInt(v2482, v2484);
+            v2487 = v2488;
+            v2484 = v2489;
+        elseif v2486 == v0.wireTypes.lengthDelimited then
+            if v2485 == 1 then
+                v2487 = nil;
+                v2488, v2489 = v0.readBuffer(v2482, v2484);
+                v2487 = v2488;
+                v2484 = v2489;
+                v2483.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2360)
+                    value = buffer.tostring(v2487)
                 };
-            elseif v2358 == 2 then
-                v2360 = nil;
-                v2361, v2362 = v0.readBuffer(v2355, v2357);
-                v2360 = v2361;
-                v2357 = v2362;
-                v2356.kind = {
+            elseif v2485 == 2 then
+                v2487 = nil;
+                v2488, v2489 = v0.readBuffer(v2482, v2484);
+                v2487 = v2488;
+                v2484 = v2489;
+                v2483.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2360)
+                    value = buffer.tostring(v2487)
                 };
-            elseif v2358 == 3 then
-                v2360 = nil;
-                v2361, v2362 = v0.readBuffer(v2355, v2357);
-                v2360 = v2361;
-                v2357 = v2362;
-                v2356.kind = {
+            elseif v2485 == 3 then
+                v2487 = nil;
+                v2488, v2489 = v0.readBuffer(v2482, v2484);
+                v2487 = v2488;
+                v2484 = v2489;
+                v2483.kind = {
                     type = "conditional", 
-                    value = v2.UiScaledFloatProp_ConditionalOptions.decode(v2360)
+                    value = v2.UiScaledFloatProp_ConditionalOptions.decode(v2487)
                 };
-            elseif v2358 == 4 then
-                v2360 = nil;
-                v2361, v2362 = v0.readBuffer(v2355, v2357);
-                v2360 = v2361;
-                v2357 = v2362;
-                v2356.kind = {
+            elseif v2485 == 4 then
+                v2487 = nil;
+                v2488, v2489 = v0.readBuffer(v2482, v2484);
+                v2487 = v2488;
+                v2484 = v2489;
+                v2483.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2360)
+                    value = buffer.tostring(v2487)
                 };
             else
-                v2360 = nil;
-                v2361, v2362 = v0.readVarInt(v2355, v2357);
-                v2357 = v2362 + v2361;
+                v2487 = nil;
+                v2488, v2489 = v0.readVarInt(v2482, v2484);
+                v2484 = v2489 + v2488;
             end;
-        elseif v2359 == v0.wireTypes.i32 then
-            v2360 = nil;
-            v2361, v2362 = v0.readFixed32(v2355, v2357);
-            v2360 = v2361;
-            v2357 = v2362;
-        elseif v2359 == v0.wireTypes.i64 then
-            v2360 = nil;
-            v2361, v2362 = v0.readFixed64(v2355, v2357);
-            v2360 = v2361;
-            v2357 = v2362;
+        elseif v2486 == v0.wireTypes.i32 then
+            v2487 = nil;
+            v2488, v2489 = v0.readFixed32(v2482, v2484);
+            v2487 = v2488;
+            v2484 = v2489;
+        elseif v2486 == v0.wireTypes.i64 then
+            v2487 = nil;
+            v2488, v2489 = v0.readFixed64(v2482, v2484);
+            v2487 = v2488;
+            v2484 = v2489;
         else
-            error("Unsupported wire type: " .. v2359);
+            error("Unsupported wire type: " .. v2486);
         end;
     end;
-    return v2356;
+    return v2483;
 end;
-v5.jsonEncode = function(v2363) --[[ Line: 14668 ]] --[[ Name: jsonEncode ]]
-    local v2364 = {};
-    if v2363.kind ~= nil then
-        if v2363.kind.type == "literal" then
-            v2364.literal = v2363.kind.value;
-            return v2364;
-        elseif v2363.kind.type == "token" then
-            v2364.token = v2363.kind.value;
-            return v2364;
-        elseif v2363.kind.type == "conditional" then
-            v2364.conditional = v2363.kind.value:jsonEncode();
-            return v2364;
-        elseif v2363.kind.type == "binding_path" then
-            v2364.bindingPath = v2363.kind.value;
+v5.jsonEncode = function(v2490) --[[ Line: 15609 ]] --[[ Name: jsonEncode ]]
+    local v2491 = {};
+    if v2490.kind ~= nil then
+        if v2490.kind.type == "literal" then
+            v2491.literal = v2490.kind.value;
+            return v2491;
+        elseif v2490.kind.type == "token" then
+            v2491.token = v2490.kind.value;
+            return v2491;
+        elseif v2490.kind.type == "conditional" then
+            v2491.conditional = v2490.kind.value:jsonEncode();
+            return v2491;
+        elseif v2490.kind.type == "binding_path" then
+            v2491.bindingPath = v2490.kind.value;
         end;
     end;
-    return v2364;
+    return v2491;
 end;
-v5.jsonDecode = function(v2365) --[[ Line: 14686 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_86 (copy), v2 (copy)
-    local v2366 = l_v5_86.new();
-    if v2365.literal ~= nil then
-        v2366.kind = {
+v5.jsonDecode = function(v2492) --[[ Line: 15627 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_90 (copy), v2 (copy)
+    local v2493 = l_v5_90.new();
+    if v2492.literal ~= nil then
+        v2493.kind = {
             type = "literal", 
-            value = v2365.literal
+            value = v2492.literal
         };
     end;
-    if v2365.token ~= nil then
-        v2366.kind = {
+    if v2492.token ~= nil then
+        v2493.kind = {
             type = "token", 
-            value = v2365.token
+            value = v2492.token
         };
     end;
-    if v2365.conditional ~= nil then
-        v2366.kind = {
+    if v2492.conditional ~= nil then
+        v2493.kind = {
             type = "conditional", 
-            value = v2.UiScaledFloatProp_ConditionalOptions.jsonDecode(v2365.conditional)
+            value = v2.UiScaledFloatProp_ConditionalOptions.jsonDecode(v2492.conditional)
         };
     end;
-    if v2365.binding_path ~= nil then
-        v2366.kind = {
+    if v2492.binding_path ~= nil then
+        v2493.kind = {
             type = "binding_path", 
-            value = v2365.binding_path
+            value = v2492.binding_path
         };
     end;
-    if v2365.bindingPath ~= nil then
-        v2366.kind = {
+    if v2492.bindingPath ~= nil then
+        v2493.kind = {
             type = "binding_path", 
-            value = v2365.bindingPath
+            value = v2492.bindingPath
         };
     end;
-    return v2366;
+    return v2493;
 end;
 v5.descriptor = {
     name = "UiScaledFloatProp", 
@@ -11894,167 +12671,167 @@ v2.UiScaledFloatProp = v5;
 v1.default:register(v2.UiScaledFloatProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_87 = v5 --[[ copy: 5 -> 93 ]];
-v5.new = function(v2368) --[[ Line: 14729 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_87 (copy)
+local l_v5_91 = v5 --[[ copy: 5 -> 97 ]];
+v5.new = function(v2495) --[[ Line: 15670 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_91 (copy)
     return (setmetatable({
-        condition = if not (v2368 ~= nil) or v2368.condition == nil then nil else v2368.condition, 
-        kind = if not (v2368 ~= nil) or v2368.kind == nil then nil else v2368.kind
-    }, l_v5_87));
+        condition = if not (v2495 ~= nil) or v2495.condition == nil then nil else v2495.condition, 
+        kind = if not (v2495 ~= nil) or v2495.kind == nil then nil else v2495.kind
+    }, l_v5_91));
 end;
-v5.encode = function(v2369) --[[ Line: 14738 ]] --[[ Name: encode ]]
+v5.encode = function(v2496) --[[ Line: 15679 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2370 = buffer.create(0);
-    local v2371 = 0;
-    if v2369.condition ~= nil then
-        local v2372 = v2369.condition:encode();
-        local v2373, v2374 = v0.writeTag(v2370, v2371, 1, v0.wireTypes.lengthDelimited);
-        v2373, v2374 = v0.writeBuffer(v2373, v2374, v2372, buffer.len(v2372));
-        v2370 = v2373;
-        v2371 = v2374;
+    local v2497 = buffer.create(0);
+    local v2498 = 0;
+    if v2496.condition ~= nil then
+        local v2499 = v2496.condition:encode();
+        local v2500, v2501 = v0.writeTag(v2497, v2498, 1, v0.wireTypes.lengthDelimited);
+        v2500, v2501 = v0.writeBuffer(v2500, v2501, v2499, buffer.len(v2499));
+        v2497 = v2500;
+        v2498 = v2501;
     end;
-    if v2369.kind ~= nil then
-        if v2369.kind.type == "literal" then
-            local v2375, v2376 = v0.writeTag(v2370, v2371, 2, v0.wireTypes.lengthDelimited);
-            v2375, v2376 = v0.writeString(v2375, v2376, v2369.kind.value);
-            v2370 = v2375;
-            v2371 = v2376;
-        elseif v2369.kind.type == "token" then
-            local v2377, v2378 = v0.writeTag(v2370, v2371, 3, v0.wireTypes.lengthDelimited);
-            v2377, v2378 = v0.writeString(v2377, v2378, v2369.kind.value);
-            v2370 = v2377;
-            v2371 = v2378;
-        elseif v2369.kind.type == "binding_path" then
-            local v2379, v2380 = v0.writeTag(v2370, v2371, 4, v0.wireTypes.lengthDelimited);
-            v2379, v2380 = v0.writeString(v2379, v2380, v2369.kind.value);
-            v2370 = v2379;
-            v2371 = v2380;
+    if v2496.kind ~= nil then
+        if v2496.kind.type == "literal" then
+            local v2502, v2503 = v0.writeTag(v2497, v2498, 2, v0.wireTypes.lengthDelimited);
+            v2502, v2503 = v0.writeString(v2502, v2503, v2496.kind.value);
+            v2497 = v2502;
+            v2498 = v2503;
+        elseif v2496.kind.type == "token" then
+            local v2504, v2505 = v0.writeTag(v2497, v2498, 3, v0.wireTypes.lengthDelimited);
+            v2504, v2505 = v0.writeString(v2504, v2505, v2496.kind.value);
+            v2497 = v2504;
+            v2498 = v2505;
+        elseif v2496.kind.type == "binding_path" then
+            local v2506, v2507 = v0.writeTag(v2497, v2498, 4, v0.wireTypes.lengthDelimited);
+            v2506, v2507 = v0.writeString(v2506, v2507, v2496.kind.value);
+            v2497 = v2506;
+            v2498 = v2507;
         end;
     end;
-    local v2381 = buffer.create(v2371);
-    buffer.copy(v2381, 0, v2370, 0, v2371);
-    return v2381;
+    local v2508 = buffer.create(v2498);
+    buffer.copy(v2508, 0, v2497, 0, v2498);
+    return v2508;
 end;
-v5.decode = function(v2382) --[[ Line: 14766 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_87 (copy), v0 (copy), v4 (copy)
-    local v2383 = l_v5_87.new();
-    local v2384 = 0;
-    while v2384 < buffer.len(v2382) do
-        local v2385 = nil;
-        local v2386 = nil;
-        local v2387, v2388, v2389 = v0.readTag(v2382, v2384);
-        v2385 = v2387;
-        v2386 = v2388;
-        v2384 = v2389;
-        if v2386 == v0.wireTypes.varint then
-            v2387 = nil;
-            v2388, v2389 = v0.readVarInt(v2382, v2384);
-            v2387 = v2388;
-            v2384 = v2389;
-        elseif v2386 == v0.wireTypes.lengthDelimited then
-            if v2385 == 1 then
-                v2387 = nil;
-                v2388, v2389 = v0.readBuffer(v2382, v2384);
-                v2387 = v2388;
-                v2384 = v2389;
-                v2383.condition = v4.PropCondition.decode(v2387);
-            elseif v2385 == 2 then
-                v2387 = nil;
-                v2388, v2389 = v0.readBuffer(v2382, v2384);
-                v2387 = v2388;
-                v2384 = v2389;
-                v2383.kind = {
+v5.decode = function(v2509) --[[ Line: 15707 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_91 (copy), v0 (copy), v4 (copy)
+    local v2510 = l_v5_91.new();
+    local v2511 = 0;
+    while v2511 < buffer.len(v2509) do
+        local v2512 = nil;
+        local v2513 = nil;
+        local v2514, v2515, v2516 = v0.readTag(v2509, v2511);
+        v2512 = v2514;
+        v2513 = v2515;
+        v2511 = v2516;
+        if v2513 == v0.wireTypes.varint then
+            v2514 = nil;
+            v2515, v2516 = v0.readVarInt(v2509, v2511);
+            v2514 = v2515;
+            v2511 = v2516;
+        elseif v2513 == v0.wireTypes.lengthDelimited then
+            if v2512 == 1 then
+                v2514 = nil;
+                v2515, v2516 = v0.readBuffer(v2509, v2511);
+                v2514 = v2515;
+                v2511 = v2516;
+                v2510.condition = v4.PropCondition.decode(v2514);
+            elseif v2512 == 2 then
+                v2514 = nil;
+                v2515, v2516 = v0.readBuffer(v2509, v2511);
+                v2514 = v2515;
+                v2511 = v2516;
+                v2510.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2387)
+                    value = buffer.tostring(v2514)
                 };
-            elseif v2385 == 3 then
-                v2387 = nil;
-                v2388, v2389 = v0.readBuffer(v2382, v2384);
-                v2387 = v2388;
-                v2384 = v2389;
-                v2383.kind = {
+            elseif v2512 == 3 then
+                v2514 = nil;
+                v2515, v2516 = v0.readBuffer(v2509, v2511);
+                v2514 = v2515;
+                v2511 = v2516;
+                v2510.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2387)
+                    value = buffer.tostring(v2514)
                 };
-            elseif v2385 == 4 then
-                v2387 = nil;
-                v2388, v2389 = v0.readBuffer(v2382, v2384);
-                v2387 = v2388;
-                v2384 = v2389;
-                v2383.kind = {
+            elseif v2512 == 4 then
+                v2514 = nil;
+                v2515, v2516 = v0.readBuffer(v2509, v2511);
+                v2514 = v2515;
+                v2511 = v2516;
+                v2510.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2387)
+                    value = buffer.tostring(v2514)
                 };
             else
-                v2387 = nil;
-                v2388, v2389 = v0.readVarInt(v2382, v2384);
-                v2384 = v2389 + v2388;
+                v2514 = nil;
+                v2515, v2516 = v0.readVarInt(v2509, v2511);
+                v2511 = v2516 + v2515;
             end;
-        elseif v2386 == v0.wireTypes.i32 then
-            v2387 = nil;
-            v2388, v2389 = v0.readFixed32(v2382, v2384);
-            v2387 = v2388;
-            v2384 = v2389;
-        elseif v2386 == v0.wireTypes.i64 then
-            v2387 = nil;
-            v2388, v2389 = v0.readFixed64(v2382, v2384);
-            v2387 = v2388;
-            v2384 = v2389;
+        elseif v2513 == v0.wireTypes.i32 then
+            v2514 = nil;
+            v2515, v2516 = v0.readFixed32(v2509, v2511);
+            v2514 = v2515;
+            v2511 = v2516;
+        elseif v2513 == v0.wireTypes.i64 then
+            v2514 = nil;
+            v2515, v2516 = v0.readFixed64(v2509, v2511);
+            v2514 = v2515;
+            v2511 = v2516;
         else
-            error("Unsupported wire type: " .. v2386);
+            error("Unsupported wire type: " .. v2513);
         end;
     end;
-    return v2383;
+    return v2510;
 end;
-v5.jsonEncode = function(v2390) --[[ Line: 14824 ]] --[[ Name: jsonEncode ]]
-    local v2391 = {};
-    if v2390.condition ~= nil then
-        v2391.condition = v2390.condition:jsonEncode();
+v5.jsonEncode = function(v2517) --[[ Line: 15765 ]] --[[ Name: jsonEncode ]]
+    local v2518 = {};
+    if v2517.condition ~= nil then
+        v2518.condition = v2517.condition:jsonEncode();
     end;
-    if v2390.kind ~= nil then
-        if v2390.kind.type == "literal" then
-            v2391.literal = v2390.kind.value;
-            return v2391;
-        elseif v2390.kind.type == "token" then
-            v2391.token = v2390.kind.value;
-            return v2391;
-        elseif v2390.kind.type == "binding_path" then
-            v2391.bindingPath = v2390.kind.value;
+    if v2517.kind ~= nil then
+        if v2517.kind.type == "literal" then
+            v2518.literal = v2517.kind.value;
+            return v2518;
+        elseif v2517.kind.type == "token" then
+            v2518.token = v2517.kind.value;
+            return v2518;
+        elseif v2517.kind.type == "binding_path" then
+            v2518.bindingPath = v2517.kind.value;
         end;
     end;
-    return v2391;
+    return v2518;
 end;
-v5.jsonDecode = function(v2392) --[[ Line: 14844 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_87 (copy), v4 (copy)
-    local v2393 = l_v5_87.new();
-    if v2392.condition ~= nil then
-        v2393.condition = v4.PropCondition.jsonDecode(v2392.condition);
+v5.jsonDecode = function(v2519) --[[ Line: 15785 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_91 (copy), v4 (copy)
+    local v2520 = l_v5_91.new();
+    if v2519.condition ~= nil then
+        v2520.condition = v4.PropCondition.jsonDecode(v2519.condition);
     end;
-    if v2392.literal ~= nil then
-        v2393.kind = {
+    if v2519.literal ~= nil then
+        v2520.kind = {
             type = "literal", 
-            value = v2392.literal
+            value = v2519.literal
         };
     end;
-    if v2392.token ~= nil then
-        v2393.kind = {
+    if v2519.token ~= nil then
+        v2520.kind = {
             type = "token", 
-            value = v2392.token
+            value = v2519.token
         };
     end;
-    if v2392.binding_path ~= nil then
-        v2393.kind = {
+    if v2519.binding_path ~= nil then
+        v2520.kind = {
             type = "binding_path", 
-            value = v2392.binding_path
+            value = v2519.binding_path
         };
     end;
-    if v2392.bindingPath ~= nil then
-        v2393.kind = {
+    if v2519.bindingPath ~= nil then
+        v2520.kind = {
             type = "binding_path", 
-            value = v2392.bindingPath
+            value = v2519.bindingPath
         };
     end;
-    return v2393;
+    return v2520;
 end;
 v5.descriptor = {
     name = "UiScaledFloatProp_ConditionalOption", 
@@ -12064,96 +12841,96 @@ v2.UiScaledFloatProp_ConditionalOption = v5;
 v1.default:register(v2.UiScaledFloatProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_88 = v5 --[[ copy: 5 -> 94 ]];
-v5.new = function(v2395) --[[ Line: 14887 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_88 (copy)
+local l_v5_92 = v5 --[[ copy: 5 -> 98 ]];
+v5.new = function(v2522) --[[ Line: 15828 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_92 (copy)
     return (setmetatable({
-        options = if not (v2395 ~= nil) or v2395.options == nil then {} else v2395.options
-    }, l_v5_88));
+        options = if not (v2522 ~= nil) or v2522.options == nil then {} else v2522.options
+    }, l_v5_92));
 end;
-v5.encode = function(v2396) --[[ Line: 14895 ]] --[[ Name: encode ]]
+v5.encode = function(v2523) --[[ Line: 15836 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2397 = buffer.create(0);
-    local v2398 = 0;
-    if v2396.options ~= nil and #v2396.options > 0 then
-        for _, v2400 in v2396.options do
-            local v2401 = v2400:encode();
-            local v2402, v2403 = v0.writeTag(v2397, v2398, 1, v0.wireTypes.lengthDelimited);
-            v2402, v2403 = v0.writeBuffer(v2402, v2403, v2401, buffer.len(v2401));
-            v2397 = v2402;
-            v2398 = v2403;
+    local v2524 = buffer.create(0);
+    local v2525 = 0;
+    if v2523.options ~= nil and #v2523.options > 0 then
+        for _, v2527 in v2523.options do
+            local v2528 = v2527:encode();
+            local v2529, v2530 = v0.writeTag(v2524, v2525, 1, v0.wireTypes.lengthDelimited);
+            v2529, v2530 = v0.writeBuffer(v2529, v2530, v2528, buffer.len(v2528));
+            v2524 = v2529;
+            v2525 = v2530;
         end;
     end;
-    local v2404 = buffer.create(v2398);
-    buffer.copy(v2404, 0, v2397, 0, v2398);
-    return v2404;
+    local v2531 = buffer.create(v2525);
+    buffer.copy(v2531, 0, v2524, 0, v2525);
+    return v2531;
 end;
-v5.decode = function(v2405) --[[ Line: 14912 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_88 (copy), v0 (copy), v2 (copy)
-    local v2406 = l_v5_88.new();
-    local v2407 = 0;
-    while v2407 < buffer.len(v2405) do
-        local v2408 = nil;
-        local v2409 = nil;
-        local v2410, v2411, v2412 = v0.readTag(v2405, v2407);
-        v2408 = v2410;
-        v2409 = v2411;
-        v2407 = v2412;
-        if v2409 == v0.wireTypes.varint then
-            v2410 = nil;
-            v2411, v2412 = v0.readVarInt(v2405, v2407);
-            v2410 = v2411;
-            v2407 = v2412;
-        elseif v2409 == v0.wireTypes.lengthDelimited then
-            if v2408 == 1 then
-                v2410 = nil;
-                v2411, v2412 = v0.readBuffer(v2405, v2407);
-                v2410 = v2411;
-                v2407 = v2412;
-                table.insert(v2406.options, v2.UiScaledFloatProp_ConditionalOption.decode(v2410));
+v5.decode = function(v2532) --[[ Line: 15853 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_92 (copy), v0 (copy), v2 (copy)
+    local v2533 = l_v5_92.new();
+    local v2534 = 0;
+    while v2534 < buffer.len(v2532) do
+        local v2535 = nil;
+        local v2536 = nil;
+        local v2537, v2538, v2539 = v0.readTag(v2532, v2534);
+        v2535 = v2537;
+        v2536 = v2538;
+        v2534 = v2539;
+        if v2536 == v0.wireTypes.varint then
+            v2537 = nil;
+            v2538, v2539 = v0.readVarInt(v2532, v2534);
+            v2537 = v2538;
+            v2534 = v2539;
+        elseif v2536 == v0.wireTypes.lengthDelimited then
+            if v2535 == 1 then
+                v2537 = nil;
+                v2538, v2539 = v0.readBuffer(v2532, v2534);
+                v2537 = v2538;
+                v2534 = v2539;
+                table.insert(v2533.options, v2.UiScaledFloatProp_ConditionalOption.decode(v2537));
             else
-                v2410 = nil;
-                v2411, v2412 = v0.readVarInt(v2405, v2407);
-                v2407 = v2412 + v2411;
+                v2537 = nil;
+                v2538, v2539 = v0.readVarInt(v2532, v2534);
+                v2534 = v2539 + v2538;
             end;
-        elseif v2409 == v0.wireTypes.i32 then
-            v2410 = nil;
-            v2411, v2412 = v0.readFixed32(v2405, v2407);
-            v2410 = v2411;
-            v2407 = v2412;
-        elseif v2409 == v0.wireTypes.i64 then
-            v2410 = nil;
-            v2411, v2412 = v0.readFixed64(v2405, v2407);
-            v2410 = v2411;
-            v2407 = v2412;
+        elseif v2536 == v0.wireTypes.i32 then
+            v2537 = nil;
+            v2538, v2539 = v0.readFixed32(v2532, v2534);
+            v2537 = v2538;
+            v2534 = v2539;
+        elseif v2536 == v0.wireTypes.i64 then
+            v2537 = nil;
+            v2538, v2539 = v0.readFixed64(v2532, v2534);
+            v2537 = v2538;
+            v2534 = v2539;
         else
-            error("Unsupported wire type: " .. v2409);
+            error("Unsupported wire type: " .. v2536);
         end;
     end;
-    return v2406;
+    return v2533;
 end;
-v5.jsonEncode = function(v2413) --[[ Line: 14955 ]] --[[ Name: jsonEncode ]]
-    local v2414 = {};
-    if v2413.options ~= nil and #v2413.options > 0 then
-        local v2415 = {};
-        for _, v2417 in v2413.options do
-            table.insert(v2415, v2417:jsonEncode());
+v5.jsonEncode = function(v2540) --[[ Line: 15896 ]] --[[ Name: jsonEncode ]]
+    local v2541 = {};
+    if v2540.options ~= nil and #v2540.options > 0 then
+        local v2542 = {};
+        for _, v2544 in v2540.options do
+            table.insert(v2542, v2544:jsonEncode());
         end;
-        v2414.options = v2415;
+        v2541.options = v2542;
     end;
-    return v2414;
+    return v2541;
 end;
-v5.jsonDecode = function(v2418) --[[ Line: 14969 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_88 (copy), v2 (copy)
-    local v2419 = l_v5_88.new();
-    if v2418.options ~= nil then
-        local v2420 = {};
-        for _, v2422 in v2418.options do
-            table.insert(v2420, v2.UiScaledFloatProp_ConditionalOption.jsonDecode(v2422));
+v5.jsonDecode = function(v2545) --[[ Line: 15910 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_92 (copy), v2 (copy)
+    local v2546 = l_v5_92.new();
+    if v2545.options ~= nil then
+        local v2547 = {};
+        for _, v2549 in v2545.options do
+            table.insert(v2547, v2.UiScaledFloatProp_ConditionalOption.jsonDecode(v2549));
         end;
-        v2419.options = v2420;
+        v2546.options = v2547;
     end;
-    return v2419;
+    return v2546;
 end;
 v5.descriptor = {
     name = "UiScaledFloatProp_ConditionalOptions", 
@@ -12163,171 +12940,171 @@ v2.UiScaledFloatProp_ConditionalOptions = v5;
 v1.default:register(v2.UiScaledFloatProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_89 = v5 --[[ copy: 5 -> 95 ]];
-v5.new = function(v2424) --[[ Line: 15000 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_89 (copy)
+local l_v5_93 = v5 --[[ copy: 5 -> 99 ]];
+v5.new = function(v2551) --[[ Line: 15941 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_93 (copy)
     return (setmetatable({
-        kind = if not (v2424 ~= nil) or v2424.kind == nil then nil else v2424.kind
-    }, l_v5_89));
+        kind = if not (v2551 ~= nil) or v2551.kind == nil then nil else v2551.kind
+    }, l_v5_93));
 end;
-v5.encode = function(v2425) --[[ Line: 15006 ]] --[[ Name: encode ]]
+v5.encode = function(v2552) --[[ Line: 15947 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2426 = buffer.create(0);
-    local v2427 = 0;
-    if v2425.kind ~= nil then
-        if v2425.kind.type == "literal" then
-            local v2428, v2429 = v0.writeTag(v2426, v2427, 1, v0.wireTypes.lengthDelimited);
-            v2428, v2429 = v0.writeString(v2428, v2429, v2425.kind.value);
-            v2426 = v2428;
-            v2427 = v2429;
-        elseif v2425.kind.type == "token" then
-            local v2430, v2431 = v0.writeTag(v2426, v2427, 2, v0.wireTypes.lengthDelimited);
-            v2430, v2431 = v0.writeString(v2430, v2431, v2425.kind.value);
-            v2426 = v2430;
-            v2427 = v2431;
-        elseif v2425.kind.type == "conditional" then
-            local v2432 = v2425.kind.value:encode();
-            local v2433, v2434 = v0.writeTag(v2426, v2427, 3, v0.wireTypes.lengthDelimited);
-            v2433, v2434 = v0.writeBuffer(v2433, v2434, v2432, buffer.len(v2432));
-            v2426 = v2433;
-            v2427 = v2434;
-        elseif v2425.kind.type == "binding_path" then
-            local v2435, v2436 = v0.writeTag(v2426, v2427, 4, v0.wireTypes.lengthDelimited);
-            v2435, v2436 = v0.writeString(v2435, v2436, v2425.kind.value);
-            v2426 = v2435;
-            v2427 = v2436;
+    local v2553 = buffer.create(0);
+    local v2554 = 0;
+    if v2552.kind ~= nil then
+        if v2552.kind.type == "literal" then
+            local v2555, v2556 = v0.writeTag(v2553, v2554, 1, v0.wireTypes.lengthDelimited);
+            v2555, v2556 = v0.writeString(v2555, v2556, v2552.kind.value);
+            v2553 = v2555;
+            v2554 = v2556;
+        elseif v2552.kind.type == "token" then
+            local v2557, v2558 = v0.writeTag(v2553, v2554, 2, v0.wireTypes.lengthDelimited);
+            v2557, v2558 = v0.writeString(v2557, v2558, v2552.kind.value);
+            v2553 = v2557;
+            v2554 = v2558;
+        elseif v2552.kind.type == "conditional" then
+            local v2559 = v2552.kind.value:encode();
+            local v2560, v2561 = v0.writeTag(v2553, v2554, 3, v0.wireTypes.lengthDelimited);
+            v2560, v2561 = v0.writeBuffer(v2560, v2561, v2559, buffer.len(v2559));
+            v2553 = v2560;
+            v2554 = v2561;
+        elseif v2552.kind.type == "binding_path" then
+            local v2562, v2563 = v0.writeTag(v2553, v2554, 4, v0.wireTypes.lengthDelimited);
+            v2562, v2563 = v0.writeString(v2562, v2563, v2552.kind.value);
+            v2553 = v2562;
+            v2554 = v2563;
         end;
     end;
-    local v2437 = buffer.create(v2427);
-    buffer.copy(v2437, 0, v2426, 0, v2427);
-    return v2437;
+    local v2564 = buffer.create(v2554);
+    buffer.copy(v2564, 0, v2553, 0, v2554);
+    return v2564;
 end;
-v5.decode = function(v2438) --[[ Line: 15032 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_89 (copy), v0 (copy), v2 (copy)
-    local v2439 = l_v5_89.new();
-    local v2440 = 0;
-    while v2440 < buffer.len(v2438) do
-        local v2441 = nil;
-        local v2442 = nil;
-        local v2443, v2444, v2445 = v0.readTag(v2438, v2440);
-        v2441 = v2443;
-        v2442 = v2444;
-        v2440 = v2445;
-        if v2442 == v0.wireTypes.varint then
-            v2443 = nil;
-            v2444, v2445 = v0.readVarInt(v2438, v2440);
-            v2443 = v2444;
-            v2440 = v2445;
-        elseif v2442 == v0.wireTypes.lengthDelimited then
-            if v2441 == 1 then
-                v2443 = nil;
-                v2444, v2445 = v0.readBuffer(v2438, v2440);
-                v2443 = v2444;
-                v2440 = v2445;
-                v2439.kind = {
+v5.decode = function(v2565) --[[ Line: 15973 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_93 (copy), v0 (copy), v2 (copy)
+    local v2566 = l_v5_93.new();
+    local v2567 = 0;
+    while v2567 < buffer.len(v2565) do
+        local v2568 = nil;
+        local v2569 = nil;
+        local v2570, v2571, v2572 = v0.readTag(v2565, v2567);
+        v2568 = v2570;
+        v2569 = v2571;
+        v2567 = v2572;
+        if v2569 == v0.wireTypes.varint then
+            v2570 = nil;
+            v2571, v2572 = v0.readVarInt(v2565, v2567);
+            v2570 = v2571;
+            v2567 = v2572;
+        elseif v2569 == v0.wireTypes.lengthDelimited then
+            if v2568 == 1 then
+                v2570 = nil;
+                v2571, v2572 = v0.readBuffer(v2565, v2567);
+                v2570 = v2571;
+                v2567 = v2572;
+                v2566.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2443)
+                    value = buffer.tostring(v2570)
                 };
-            elseif v2441 == 2 then
-                v2443 = nil;
-                v2444, v2445 = v0.readBuffer(v2438, v2440);
-                v2443 = v2444;
-                v2440 = v2445;
-                v2439.kind = {
+            elseif v2568 == 2 then
+                v2570 = nil;
+                v2571, v2572 = v0.readBuffer(v2565, v2567);
+                v2570 = v2571;
+                v2567 = v2572;
+                v2566.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2443)
+                    value = buffer.tostring(v2570)
                 };
-            elseif v2441 == 3 then
-                v2443 = nil;
-                v2444, v2445 = v0.readBuffer(v2438, v2440);
-                v2443 = v2444;
-                v2440 = v2445;
-                v2439.kind = {
+            elseif v2568 == 3 then
+                v2570 = nil;
+                v2571, v2572 = v0.readBuffer(v2565, v2567);
+                v2570 = v2571;
+                v2567 = v2572;
+                v2566.kind = {
                     type = "conditional", 
-                    value = v2.UiScaledUDimProp_ConditionalOptions.decode(v2443)
+                    value = v2.UiScaledUDimProp_ConditionalOptions.decode(v2570)
                 };
-            elseif v2441 == 4 then
-                v2443 = nil;
-                v2444, v2445 = v0.readBuffer(v2438, v2440);
-                v2443 = v2444;
-                v2440 = v2445;
-                v2439.kind = {
+            elseif v2568 == 4 then
+                v2570 = nil;
+                v2571, v2572 = v0.readBuffer(v2565, v2567);
+                v2570 = v2571;
+                v2567 = v2572;
+                v2566.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2443)
+                    value = buffer.tostring(v2570)
                 };
             else
-                v2443 = nil;
-                v2444, v2445 = v0.readVarInt(v2438, v2440);
-                v2440 = v2445 + v2444;
+                v2570 = nil;
+                v2571, v2572 = v0.readVarInt(v2565, v2567);
+                v2567 = v2572 + v2571;
             end;
-        elseif v2442 == v0.wireTypes.i32 then
-            v2443 = nil;
-            v2444, v2445 = v0.readFixed32(v2438, v2440);
-            v2443 = v2444;
-            v2440 = v2445;
-        elseif v2442 == v0.wireTypes.i64 then
-            v2443 = nil;
-            v2444, v2445 = v0.readFixed64(v2438, v2440);
-            v2443 = v2444;
-            v2440 = v2445;
+        elseif v2569 == v0.wireTypes.i32 then
+            v2570 = nil;
+            v2571, v2572 = v0.readFixed32(v2565, v2567);
+            v2570 = v2571;
+            v2567 = v2572;
+        elseif v2569 == v0.wireTypes.i64 then
+            v2570 = nil;
+            v2571, v2572 = v0.readFixed64(v2565, v2567);
+            v2570 = v2571;
+            v2567 = v2572;
         else
-            error("Unsupported wire type: " .. v2442);
+            error("Unsupported wire type: " .. v2569);
         end;
     end;
-    return v2439;
+    return v2566;
 end;
-v5.jsonEncode = function(v2446) --[[ Line: 15091 ]] --[[ Name: jsonEncode ]]
-    local v2447 = {};
-    if v2446.kind ~= nil then
-        if v2446.kind.type == "literal" then
-            v2447.literal = v2446.kind.value;
-            return v2447;
-        elseif v2446.kind.type == "token" then
-            v2447.token = v2446.kind.value;
-            return v2447;
-        elseif v2446.kind.type == "conditional" then
-            v2447.conditional = v2446.kind.value:jsonEncode();
-            return v2447;
-        elseif v2446.kind.type == "binding_path" then
-            v2447.bindingPath = v2446.kind.value;
+v5.jsonEncode = function(v2573) --[[ Line: 16032 ]] --[[ Name: jsonEncode ]]
+    local v2574 = {};
+    if v2573.kind ~= nil then
+        if v2573.kind.type == "literal" then
+            v2574.literal = v2573.kind.value;
+            return v2574;
+        elseif v2573.kind.type == "token" then
+            v2574.token = v2573.kind.value;
+            return v2574;
+        elseif v2573.kind.type == "conditional" then
+            v2574.conditional = v2573.kind.value:jsonEncode();
+            return v2574;
+        elseif v2573.kind.type == "binding_path" then
+            v2574.bindingPath = v2573.kind.value;
         end;
     end;
-    return v2447;
+    return v2574;
 end;
-v5.jsonDecode = function(v2448) --[[ Line: 15109 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_89 (copy), v2 (copy)
-    local v2449 = l_v5_89.new();
-    if v2448.literal ~= nil then
-        v2449.kind = {
+v5.jsonDecode = function(v2575) --[[ Line: 16050 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_93 (copy), v2 (copy)
+    local v2576 = l_v5_93.new();
+    if v2575.literal ~= nil then
+        v2576.kind = {
             type = "literal", 
-            value = v2448.literal
+            value = v2575.literal
         };
     end;
-    if v2448.token ~= nil then
-        v2449.kind = {
+    if v2575.token ~= nil then
+        v2576.kind = {
             type = "token", 
-            value = v2448.token
+            value = v2575.token
         };
     end;
-    if v2448.conditional ~= nil then
-        v2449.kind = {
+    if v2575.conditional ~= nil then
+        v2576.kind = {
             type = "conditional", 
-            value = v2.UiScaledUDimProp_ConditionalOptions.jsonDecode(v2448.conditional)
+            value = v2.UiScaledUDimProp_ConditionalOptions.jsonDecode(v2575.conditional)
         };
     end;
-    if v2448.binding_path ~= nil then
-        v2449.kind = {
+    if v2575.binding_path ~= nil then
+        v2576.kind = {
             type = "binding_path", 
-            value = v2448.binding_path
+            value = v2575.binding_path
         };
     end;
-    if v2448.bindingPath ~= nil then
-        v2449.kind = {
+    if v2575.bindingPath ~= nil then
+        v2576.kind = {
             type = "binding_path", 
-            value = v2448.bindingPath
+            value = v2575.bindingPath
         };
     end;
-    return v2449;
+    return v2576;
 end;
 v5.descriptor = {
     name = "UiScaledUDimProp", 
@@ -12337,167 +13114,167 @@ v2.UiScaledUDimProp = v5;
 v1.default:register(v2.UiScaledUDimProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_90 = v5 --[[ copy: 5 -> 96 ]];
-v5.new = function(v2451) --[[ Line: 15152 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_90 (copy)
+local l_v5_94 = v5 --[[ copy: 5 -> 100 ]];
+v5.new = function(v2578) --[[ Line: 16093 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_94 (copy)
     return (setmetatable({
-        condition = if not (v2451 ~= nil) or v2451.condition == nil then nil else v2451.condition, 
-        kind = if not (v2451 ~= nil) or v2451.kind == nil then nil else v2451.kind
-    }, l_v5_90));
+        condition = if not (v2578 ~= nil) or v2578.condition == nil then nil else v2578.condition, 
+        kind = if not (v2578 ~= nil) or v2578.kind == nil then nil else v2578.kind
+    }, l_v5_94));
 end;
-v5.encode = function(v2452) --[[ Line: 15161 ]] --[[ Name: encode ]]
+v5.encode = function(v2579) --[[ Line: 16102 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2453 = buffer.create(0);
-    local v2454 = 0;
-    if v2452.condition ~= nil then
-        local v2455 = v2452.condition:encode();
-        local v2456, v2457 = v0.writeTag(v2453, v2454, 1, v0.wireTypes.lengthDelimited);
-        v2456, v2457 = v0.writeBuffer(v2456, v2457, v2455, buffer.len(v2455));
-        v2453 = v2456;
-        v2454 = v2457;
+    local v2580 = buffer.create(0);
+    local v2581 = 0;
+    if v2579.condition ~= nil then
+        local v2582 = v2579.condition:encode();
+        local v2583, v2584 = v0.writeTag(v2580, v2581, 1, v0.wireTypes.lengthDelimited);
+        v2583, v2584 = v0.writeBuffer(v2583, v2584, v2582, buffer.len(v2582));
+        v2580 = v2583;
+        v2581 = v2584;
     end;
-    if v2452.kind ~= nil then
-        if v2452.kind.type == "literal" then
-            local v2458, v2459 = v0.writeTag(v2453, v2454, 2, v0.wireTypes.lengthDelimited);
-            v2458, v2459 = v0.writeString(v2458, v2459, v2452.kind.value);
-            v2453 = v2458;
-            v2454 = v2459;
-        elseif v2452.kind.type == "token" then
-            local v2460, v2461 = v0.writeTag(v2453, v2454, 3, v0.wireTypes.lengthDelimited);
-            v2460, v2461 = v0.writeString(v2460, v2461, v2452.kind.value);
-            v2453 = v2460;
-            v2454 = v2461;
-        elseif v2452.kind.type == "binding_path" then
-            local v2462, v2463 = v0.writeTag(v2453, v2454, 4, v0.wireTypes.lengthDelimited);
-            v2462, v2463 = v0.writeString(v2462, v2463, v2452.kind.value);
-            v2453 = v2462;
-            v2454 = v2463;
+    if v2579.kind ~= nil then
+        if v2579.kind.type == "literal" then
+            local v2585, v2586 = v0.writeTag(v2580, v2581, 2, v0.wireTypes.lengthDelimited);
+            v2585, v2586 = v0.writeString(v2585, v2586, v2579.kind.value);
+            v2580 = v2585;
+            v2581 = v2586;
+        elseif v2579.kind.type == "token" then
+            local v2587, v2588 = v0.writeTag(v2580, v2581, 3, v0.wireTypes.lengthDelimited);
+            v2587, v2588 = v0.writeString(v2587, v2588, v2579.kind.value);
+            v2580 = v2587;
+            v2581 = v2588;
+        elseif v2579.kind.type == "binding_path" then
+            local v2589, v2590 = v0.writeTag(v2580, v2581, 4, v0.wireTypes.lengthDelimited);
+            v2589, v2590 = v0.writeString(v2589, v2590, v2579.kind.value);
+            v2580 = v2589;
+            v2581 = v2590;
         end;
     end;
-    local v2464 = buffer.create(v2454);
-    buffer.copy(v2464, 0, v2453, 0, v2454);
-    return v2464;
+    local v2591 = buffer.create(v2581);
+    buffer.copy(v2591, 0, v2580, 0, v2581);
+    return v2591;
 end;
-v5.decode = function(v2465) --[[ Line: 15189 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_90 (copy), v0 (copy), v4 (copy)
-    local v2466 = l_v5_90.new();
-    local v2467 = 0;
-    while v2467 < buffer.len(v2465) do
-        local v2468 = nil;
-        local v2469 = nil;
-        local v2470, v2471, v2472 = v0.readTag(v2465, v2467);
-        v2468 = v2470;
-        v2469 = v2471;
-        v2467 = v2472;
-        if v2469 == v0.wireTypes.varint then
-            v2470 = nil;
-            v2471, v2472 = v0.readVarInt(v2465, v2467);
-            v2470 = v2471;
-            v2467 = v2472;
-        elseif v2469 == v0.wireTypes.lengthDelimited then
-            if v2468 == 1 then
-                v2470 = nil;
-                v2471, v2472 = v0.readBuffer(v2465, v2467);
-                v2470 = v2471;
-                v2467 = v2472;
-                v2466.condition = v4.PropCondition.decode(v2470);
-            elseif v2468 == 2 then
-                v2470 = nil;
-                v2471, v2472 = v0.readBuffer(v2465, v2467);
-                v2470 = v2471;
-                v2467 = v2472;
-                v2466.kind = {
+v5.decode = function(v2592) --[[ Line: 16130 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_94 (copy), v0 (copy), v4 (copy)
+    local v2593 = l_v5_94.new();
+    local v2594 = 0;
+    while v2594 < buffer.len(v2592) do
+        local v2595 = nil;
+        local v2596 = nil;
+        local v2597, v2598, v2599 = v0.readTag(v2592, v2594);
+        v2595 = v2597;
+        v2596 = v2598;
+        v2594 = v2599;
+        if v2596 == v0.wireTypes.varint then
+            v2597 = nil;
+            v2598, v2599 = v0.readVarInt(v2592, v2594);
+            v2597 = v2598;
+            v2594 = v2599;
+        elseif v2596 == v0.wireTypes.lengthDelimited then
+            if v2595 == 1 then
+                v2597 = nil;
+                v2598, v2599 = v0.readBuffer(v2592, v2594);
+                v2597 = v2598;
+                v2594 = v2599;
+                v2593.condition = v4.PropCondition.decode(v2597);
+            elseif v2595 == 2 then
+                v2597 = nil;
+                v2598, v2599 = v0.readBuffer(v2592, v2594);
+                v2597 = v2598;
+                v2594 = v2599;
+                v2593.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2470)
+                    value = buffer.tostring(v2597)
                 };
-            elseif v2468 == 3 then
-                v2470 = nil;
-                v2471, v2472 = v0.readBuffer(v2465, v2467);
-                v2470 = v2471;
-                v2467 = v2472;
-                v2466.kind = {
+            elseif v2595 == 3 then
+                v2597 = nil;
+                v2598, v2599 = v0.readBuffer(v2592, v2594);
+                v2597 = v2598;
+                v2594 = v2599;
+                v2593.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2470)
+                    value = buffer.tostring(v2597)
                 };
-            elseif v2468 == 4 then
-                v2470 = nil;
-                v2471, v2472 = v0.readBuffer(v2465, v2467);
-                v2470 = v2471;
-                v2467 = v2472;
-                v2466.kind = {
+            elseif v2595 == 4 then
+                v2597 = nil;
+                v2598, v2599 = v0.readBuffer(v2592, v2594);
+                v2597 = v2598;
+                v2594 = v2599;
+                v2593.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2470)
+                    value = buffer.tostring(v2597)
                 };
             else
-                v2470 = nil;
-                v2471, v2472 = v0.readVarInt(v2465, v2467);
-                v2467 = v2472 + v2471;
+                v2597 = nil;
+                v2598, v2599 = v0.readVarInt(v2592, v2594);
+                v2594 = v2599 + v2598;
             end;
-        elseif v2469 == v0.wireTypes.i32 then
-            v2470 = nil;
-            v2471, v2472 = v0.readFixed32(v2465, v2467);
-            v2470 = v2471;
-            v2467 = v2472;
-        elseif v2469 == v0.wireTypes.i64 then
-            v2470 = nil;
-            v2471, v2472 = v0.readFixed64(v2465, v2467);
-            v2470 = v2471;
-            v2467 = v2472;
+        elseif v2596 == v0.wireTypes.i32 then
+            v2597 = nil;
+            v2598, v2599 = v0.readFixed32(v2592, v2594);
+            v2597 = v2598;
+            v2594 = v2599;
+        elseif v2596 == v0.wireTypes.i64 then
+            v2597 = nil;
+            v2598, v2599 = v0.readFixed64(v2592, v2594);
+            v2597 = v2598;
+            v2594 = v2599;
         else
-            error("Unsupported wire type: " .. v2469);
+            error("Unsupported wire type: " .. v2596);
         end;
     end;
-    return v2466;
+    return v2593;
 end;
-v5.jsonEncode = function(v2473) --[[ Line: 15247 ]] --[[ Name: jsonEncode ]]
-    local v2474 = {};
-    if v2473.condition ~= nil then
-        v2474.condition = v2473.condition:jsonEncode();
+v5.jsonEncode = function(v2600) --[[ Line: 16188 ]] --[[ Name: jsonEncode ]]
+    local v2601 = {};
+    if v2600.condition ~= nil then
+        v2601.condition = v2600.condition:jsonEncode();
     end;
-    if v2473.kind ~= nil then
-        if v2473.kind.type == "literal" then
-            v2474.literal = v2473.kind.value;
-            return v2474;
-        elseif v2473.kind.type == "token" then
-            v2474.token = v2473.kind.value;
-            return v2474;
-        elseif v2473.kind.type == "binding_path" then
-            v2474.bindingPath = v2473.kind.value;
+    if v2600.kind ~= nil then
+        if v2600.kind.type == "literal" then
+            v2601.literal = v2600.kind.value;
+            return v2601;
+        elseif v2600.kind.type == "token" then
+            v2601.token = v2600.kind.value;
+            return v2601;
+        elseif v2600.kind.type == "binding_path" then
+            v2601.bindingPath = v2600.kind.value;
         end;
     end;
-    return v2474;
+    return v2601;
 end;
-v5.jsonDecode = function(v2475) --[[ Line: 15267 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_90 (copy), v4 (copy)
-    local v2476 = l_v5_90.new();
-    if v2475.condition ~= nil then
-        v2476.condition = v4.PropCondition.jsonDecode(v2475.condition);
+v5.jsonDecode = function(v2602) --[[ Line: 16208 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_94 (copy), v4 (copy)
+    local v2603 = l_v5_94.new();
+    if v2602.condition ~= nil then
+        v2603.condition = v4.PropCondition.jsonDecode(v2602.condition);
     end;
-    if v2475.literal ~= nil then
-        v2476.kind = {
+    if v2602.literal ~= nil then
+        v2603.kind = {
             type = "literal", 
-            value = v2475.literal
+            value = v2602.literal
         };
     end;
-    if v2475.token ~= nil then
-        v2476.kind = {
+    if v2602.token ~= nil then
+        v2603.kind = {
             type = "token", 
-            value = v2475.token
+            value = v2602.token
         };
     end;
-    if v2475.binding_path ~= nil then
-        v2476.kind = {
+    if v2602.binding_path ~= nil then
+        v2603.kind = {
             type = "binding_path", 
-            value = v2475.binding_path
+            value = v2602.binding_path
         };
     end;
-    if v2475.bindingPath ~= nil then
-        v2476.kind = {
+    if v2602.bindingPath ~= nil then
+        v2603.kind = {
             type = "binding_path", 
-            value = v2475.bindingPath
+            value = v2602.bindingPath
         };
     end;
-    return v2476;
+    return v2603;
 end;
 v5.descriptor = {
     name = "UiScaledUDimProp_ConditionalOption", 
@@ -12507,96 +13284,96 @@ v2.UiScaledUDimProp_ConditionalOption = v5;
 v1.default:register(v2.UiScaledUDimProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_91 = v5 --[[ copy: 5 -> 97 ]];
-v5.new = function(v2478) --[[ Line: 15310 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_91 (copy)
+local l_v5_95 = v5 --[[ copy: 5 -> 101 ]];
+v5.new = function(v2605) --[[ Line: 16251 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_95 (copy)
     return (setmetatable({
-        options = if not (v2478 ~= nil) or v2478.options == nil then {} else v2478.options
-    }, l_v5_91));
+        options = if not (v2605 ~= nil) or v2605.options == nil then {} else v2605.options
+    }, l_v5_95));
 end;
-v5.encode = function(v2479) --[[ Line: 15318 ]] --[[ Name: encode ]]
+v5.encode = function(v2606) --[[ Line: 16259 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2480 = buffer.create(0);
-    local v2481 = 0;
-    if v2479.options ~= nil and #v2479.options > 0 then
-        for _, v2483 in v2479.options do
-            local v2484 = v2483:encode();
-            local v2485, v2486 = v0.writeTag(v2480, v2481, 1, v0.wireTypes.lengthDelimited);
-            v2485, v2486 = v0.writeBuffer(v2485, v2486, v2484, buffer.len(v2484));
-            v2480 = v2485;
-            v2481 = v2486;
+    local v2607 = buffer.create(0);
+    local v2608 = 0;
+    if v2606.options ~= nil and #v2606.options > 0 then
+        for _, v2610 in v2606.options do
+            local v2611 = v2610:encode();
+            local v2612, v2613 = v0.writeTag(v2607, v2608, 1, v0.wireTypes.lengthDelimited);
+            v2612, v2613 = v0.writeBuffer(v2612, v2613, v2611, buffer.len(v2611));
+            v2607 = v2612;
+            v2608 = v2613;
         end;
     end;
-    local v2487 = buffer.create(v2481);
-    buffer.copy(v2487, 0, v2480, 0, v2481);
-    return v2487;
+    local v2614 = buffer.create(v2608);
+    buffer.copy(v2614, 0, v2607, 0, v2608);
+    return v2614;
 end;
-v5.decode = function(v2488) --[[ Line: 15335 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_91 (copy), v0 (copy), v2 (copy)
-    local v2489 = l_v5_91.new();
-    local v2490 = 0;
-    while v2490 < buffer.len(v2488) do
-        local v2491 = nil;
-        local v2492 = nil;
-        local v2493, v2494, v2495 = v0.readTag(v2488, v2490);
-        v2491 = v2493;
-        v2492 = v2494;
-        v2490 = v2495;
-        if v2492 == v0.wireTypes.varint then
-            v2493 = nil;
-            v2494, v2495 = v0.readVarInt(v2488, v2490);
-            v2493 = v2494;
-            v2490 = v2495;
-        elseif v2492 == v0.wireTypes.lengthDelimited then
-            if v2491 == 1 then
-                v2493 = nil;
-                v2494, v2495 = v0.readBuffer(v2488, v2490);
-                v2493 = v2494;
-                v2490 = v2495;
-                table.insert(v2489.options, v2.UiScaledUDimProp_ConditionalOption.decode(v2493));
+v5.decode = function(v2615) --[[ Line: 16276 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_95 (copy), v0 (copy), v2 (copy)
+    local v2616 = l_v5_95.new();
+    local v2617 = 0;
+    while v2617 < buffer.len(v2615) do
+        local v2618 = nil;
+        local v2619 = nil;
+        local v2620, v2621, v2622 = v0.readTag(v2615, v2617);
+        v2618 = v2620;
+        v2619 = v2621;
+        v2617 = v2622;
+        if v2619 == v0.wireTypes.varint then
+            v2620 = nil;
+            v2621, v2622 = v0.readVarInt(v2615, v2617);
+            v2620 = v2621;
+            v2617 = v2622;
+        elseif v2619 == v0.wireTypes.lengthDelimited then
+            if v2618 == 1 then
+                v2620 = nil;
+                v2621, v2622 = v0.readBuffer(v2615, v2617);
+                v2620 = v2621;
+                v2617 = v2622;
+                table.insert(v2616.options, v2.UiScaledUDimProp_ConditionalOption.decode(v2620));
             else
-                v2493 = nil;
-                v2494, v2495 = v0.readVarInt(v2488, v2490);
-                v2490 = v2495 + v2494;
+                v2620 = nil;
+                v2621, v2622 = v0.readVarInt(v2615, v2617);
+                v2617 = v2622 + v2621;
             end;
-        elseif v2492 == v0.wireTypes.i32 then
-            v2493 = nil;
-            v2494, v2495 = v0.readFixed32(v2488, v2490);
-            v2493 = v2494;
-            v2490 = v2495;
-        elseif v2492 == v0.wireTypes.i64 then
-            v2493 = nil;
-            v2494, v2495 = v0.readFixed64(v2488, v2490);
-            v2493 = v2494;
-            v2490 = v2495;
+        elseif v2619 == v0.wireTypes.i32 then
+            v2620 = nil;
+            v2621, v2622 = v0.readFixed32(v2615, v2617);
+            v2620 = v2621;
+            v2617 = v2622;
+        elseif v2619 == v0.wireTypes.i64 then
+            v2620 = nil;
+            v2621, v2622 = v0.readFixed64(v2615, v2617);
+            v2620 = v2621;
+            v2617 = v2622;
         else
-            error("Unsupported wire type: " .. v2492);
+            error("Unsupported wire type: " .. v2619);
         end;
     end;
-    return v2489;
+    return v2616;
 end;
-v5.jsonEncode = function(v2496) --[[ Line: 15378 ]] --[[ Name: jsonEncode ]]
-    local v2497 = {};
-    if v2496.options ~= nil and #v2496.options > 0 then
-        local v2498 = {};
-        for _, v2500 in v2496.options do
-            table.insert(v2498, v2500:jsonEncode());
+v5.jsonEncode = function(v2623) --[[ Line: 16319 ]] --[[ Name: jsonEncode ]]
+    local v2624 = {};
+    if v2623.options ~= nil and #v2623.options > 0 then
+        local v2625 = {};
+        for _, v2627 in v2623.options do
+            table.insert(v2625, v2627:jsonEncode());
         end;
-        v2497.options = v2498;
+        v2624.options = v2625;
     end;
-    return v2497;
+    return v2624;
 end;
-v5.jsonDecode = function(v2501) --[[ Line: 15392 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_91 (copy), v2 (copy)
-    local v2502 = l_v5_91.new();
-    if v2501.options ~= nil then
-        local v2503 = {};
-        for _, v2505 in v2501.options do
-            table.insert(v2503, v2.UiScaledUDimProp_ConditionalOption.jsonDecode(v2505));
+v5.jsonDecode = function(v2628) --[[ Line: 16333 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_95 (copy), v2 (copy)
+    local v2629 = l_v5_95.new();
+    if v2628.options ~= nil then
+        local v2630 = {};
+        for _, v2632 in v2628.options do
+            table.insert(v2630, v2.UiScaledUDimProp_ConditionalOption.jsonDecode(v2632));
         end;
-        v2502.options = v2503;
+        v2629.options = v2630;
     end;
-    return v2502;
+    return v2629;
 end;
 v5.descriptor = {
     name = "UiScaledUDimProp_ConditionalOptions", 
@@ -12606,171 +13383,171 @@ v2.UiScaledUDimProp_ConditionalOptions = v5;
 v1.default:register(v2.UiScaledUDimProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_92 = v5 --[[ copy: 5 -> 98 ]];
-v5.new = function(v2507) --[[ Line: 15423 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_92 (copy)
+local l_v5_96 = v5 --[[ copy: 5 -> 102 ]];
+v5.new = function(v2634) --[[ Line: 16364 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_96 (copy)
     return (setmetatable({
-        kind = if not (v2507 ~= nil) or v2507.kind == nil then nil else v2507.kind
-    }, l_v5_92));
+        kind = if not (v2634 ~= nil) or v2634.kind == nil then nil else v2634.kind
+    }, l_v5_96));
 end;
-v5.encode = function(v2508) --[[ Line: 15429 ]] --[[ Name: encode ]]
+v5.encode = function(v2635) --[[ Line: 16370 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2509 = buffer.create(0);
-    local v2510 = 0;
-    if v2508.kind ~= nil then
-        if v2508.kind.type == "literal" then
-            local v2511, v2512 = v0.writeTag(v2509, v2510, 1, v0.wireTypes.lengthDelimited);
-            v2511, v2512 = v0.writeString(v2511, v2512, v2508.kind.value);
-            v2509 = v2511;
-            v2510 = v2512;
-        elseif v2508.kind.type == "token" then
-            local v2513, v2514 = v0.writeTag(v2509, v2510, 2, v0.wireTypes.lengthDelimited);
-            v2513, v2514 = v0.writeString(v2513, v2514, v2508.kind.value);
-            v2509 = v2513;
-            v2510 = v2514;
-        elseif v2508.kind.type == "conditional" then
-            local v2515 = v2508.kind.value:encode();
-            local v2516, v2517 = v0.writeTag(v2509, v2510, 3, v0.wireTypes.lengthDelimited);
-            v2516, v2517 = v0.writeBuffer(v2516, v2517, v2515, buffer.len(v2515));
-            v2509 = v2516;
-            v2510 = v2517;
-        elseif v2508.kind.type == "binding_path" then
-            local v2518, v2519 = v0.writeTag(v2509, v2510, 4, v0.wireTypes.lengthDelimited);
-            v2518, v2519 = v0.writeString(v2518, v2519, v2508.kind.value);
-            v2509 = v2518;
-            v2510 = v2519;
+    local v2636 = buffer.create(0);
+    local v2637 = 0;
+    if v2635.kind ~= nil then
+        if v2635.kind.type == "literal" then
+            local v2638, v2639 = v0.writeTag(v2636, v2637, 1, v0.wireTypes.lengthDelimited);
+            v2638, v2639 = v0.writeString(v2638, v2639, v2635.kind.value);
+            v2636 = v2638;
+            v2637 = v2639;
+        elseif v2635.kind.type == "token" then
+            local v2640, v2641 = v0.writeTag(v2636, v2637, 2, v0.wireTypes.lengthDelimited);
+            v2640, v2641 = v0.writeString(v2640, v2641, v2635.kind.value);
+            v2636 = v2640;
+            v2637 = v2641;
+        elseif v2635.kind.type == "conditional" then
+            local v2642 = v2635.kind.value:encode();
+            local v2643, v2644 = v0.writeTag(v2636, v2637, 3, v0.wireTypes.lengthDelimited);
+            v2643, v2644 = v0.writeBuffer(v2643, v2644, v2642, buffer.len(v2642));
+            v2636 = v2643;
+            v2637 = v2644;
+        elseif v2635.kind.type == "binding_path" then
+            local v2645, v2646 = v0.writeTag(v2636, v2637, 4, v0.wireTypes.lengthDelimited);
+            v2645, v2646 = v0.writeString(v2645, v2646, v2635.kind.value);
+            v2636 = v2645;
+            v2637 = v2646;
         end;
     end;
-    local v2520 = buffer.create(v2510);
-    buffer.copy(v2520, 0, v2509, 0, v2510);
-    return v2520;
+    local v2647 = buffer.create(v2637);
+    buffer.copy(v2647, 0, v2636, 0, v2637);
+    return v2647;
 end;
-v5.decode = function(v2521) --[[ Line: 15455 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_92 (copy), v0 (copy), v2 (copy)
-    local v2522 = l_v5_92.new();
-    local v2523 = 0;
-    while v2523 < buffer.len(v2521) do
-        local v2524 = nil;
-        local v2525 = nil;
-        local v2526, v2527, v2528 = v0.readTag(v2521, v2523);
-        v2524 = v2526;
-        v2525 = v2527;
-        v2523 = v2528;
-        if v2525 == v0.wireTypes.varint then
-            v2526 = nil;
-            v2527, v2528 = v0.readVarInt(v2521, v2523);
-            v2526 = v2527;
-            v2523 = v2528;
-        elseif v2525 == v0.wireTypes.lengthDelimited then
-            if v2524 == 1 then
-                v2526 = nil;
-                v2527, v2528 = v0.readBuffer(v2521, v2523);
-                v2526 = v2527;
-                v2523 = v2528;
-                v2522.kind = {
+v5.decode = function(v2648) --[[ Line: 16396 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_96 (copy), v0 (copy), v2 (copy)
+    local v2649 = l_v5_96.new();
+    local v2650 = 0;
+    while v2650 < buffer.len(v2648) do
+        local v2651 = nil;
+        local v2652 = nil;
+        local v2653, v2654, v2655 = v0.readTag(v2648, v2650);
+        v2651 = v2653;
+        v2652 = v2654;
+        v2650 = v2655;
+        if v2652 == v0.wireTypes.varint then
+            v2653 = nil;
+            v2654, v2655 = v0.readVarInt(v2648, v2650);
+            v2653 = v2654;
+            v2650 = v2655;
+        elseif v2652 == v0.wireTypes.lengthDelimited then
+            if v2651 == 1 then
+                v2653 = nil;
+                v2654, v2655 = v0.readBuffer(v2648, v2650);
+                v2653 = v2654;
+                v2650 = v2655;
+                v2649.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2526)
+                    value = buffer.tostring(v2653)
                 };
-            elseif v2524 == 2 then
-                v2526 = nil;
-                v2527, v2528 = v0.readBuffer(v2521, v2523);
-                v2526 = v2527;
-                v2523 = v2528;
-                v2522.kind = {
+            elseif v2651 == 2 then
+                v2653 = nil;
+                v2654, v2655 = v0.readBuffer(v2648, v2650);
+                v2653 = v2654;
+                v2650 = v2655;
+                v2649.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2526)
+                    value = buffer.tostring(v2653)
                 };
-            elseif v2524 == 3 then
-                v2526 = nil;
-                v2527, v2528 = v0.readBuffer(v2521, v2523);
-                v2526 = v2527;
-                v2523 = v2528;
-                v2522.kind = {
+            elseif v2651 == 3 then
+                v2653 = nil;
+                v2654, v2655 = v0.readBuffer(v2648, v2650);
+                v2653 = v2654;
+                v2650 = v2655;
+                v2649.kind = {
                     type = "conditional", 
-                    value = v2.UiScaledUDim2Prop_ConditionalOptions.decode(v2526)
+                    value = v2.UiScaledUDim2Prop_ConditionalOptions.decode(v2653)
                 };
-            elseif v2524 == 4 then
-                v2526 = nil;
-                v2527, v2528 = v0.readBuffer(v2521, v2523);
-                v2526 = v2527;
-                v2523 = v2528;
-                v2522.kind = {
+            elseif v2651 == 4 then
+                v2653 = nil;
+                v2654, v2655 = v0.readBuffer(v2648, v2650);
+                v2653 = v2654;
+                v2650 = v2655;
+                v2649.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2526)
+                    value = buffer.tostring(v2653)
                 };
             else
-                v2526 = nil;
-                v2527, v2528 = v0.readVarInt(v2521, v2523);
-                v2523 = v2528 + v2527;
+                v2653 = nil;
+                v2654, v2655 = v0.readVarInt(v2648, v2650);
+                v2650 = v2655 + v2654;
             end;
-        elseif v2525 == v0.wireTypes.i32 then
-            v2526 = nil;
-            v2527, v2528 = v0.readFixed32(v2521, v2523);
-            v2526 = v2527;
-            v2523 = v2528;
-        elseif v2525 == v0.wireTypes.i64 then
-            v2526 = nil;
-            v2527, v2528 = v0.readFixed64(v2521, v2523);
-            v2526 = v2527;
-            v2523 = v2528;
+        elseif v2652 == v0.wireTypes.i32 then
+            v2653 = nil;
+            v2654, v2655 = v0.readFixed32(v2648, v2650);
+            v2653 = v2654;
+            v2650 = v2655;
+        elseif v2652 == v0.wireTypes.i64 then
+            v2653 = nil;
+            v2654, v2655 = v0.readFixed64(v2648, v2650);
+            v2653 = v2654;
+            v2650 = v2655;
         else
-            error("Unsupported wire type: " .. v2525);
+            error("Unsupported wire type: " .. v2652);
         end;
     end;
-    return v2522;
+    return v2649;
 end;
-v5.jsonEncode = function(v2529) --[[ Line: 15514 ]] --[[ Name: jsonEncode ]]
-    local v2530 = {};
-    if v2529.kind ~= nil then
-        if v2529.kind.type == "literal" then
-            v2530.literal = v2529.kind.value;
-            return v2530;
-        elseif v2529.kind.type == "token" then
-            v2530.token = v2529.kind.value;
-            return v2530;
-        elseif v2529.kind.type == "conditional" then
-            v2530.conditional = v2529.kind.value:jsonEncode();
-            return v2530;
-        elseif v2529.kind.type == "binding_path" then
-            v2530.bindingPath = v2529.kind.value;
+v5.jsonEncode = function(v2656) --[[ Line: 16455 ]] --[[ Name: jsonEncode ]]
+    local v2657 = {};
+    if v2656.kind ~= nil then
+        if v2656.kind.type == "literal" then
+            v2657.literal = v2656.kind.value;
+            return v2657;
+        elseif v2656.kind.type == "token" then
+            v2657.token = v2656.kind.value;
+            return v2657;
+        elseif v2656.kind.type == "conditional" then
+            v2657.conditional = v2656.kind.value:jsonEncode();
+            return v2657;
+        elseif v2656.kind.type == "binding_path" then
+            v2657.bindingPath = v2656.kind.value;
         end;
     end;
-    return v2530;
+    return v2657;
 end;
-v5.jsonDecode = function(v2531) --[[ Line: 15532 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_92 (copy), v2 (copy)
-    local v2532 = l_v5_92.new();
-    if v2531.literal ~= nil then
-        v2532.kind = {
+v5.jsonDecode = function(v2658) --[[ Line: 16473 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_96 (copy), v2 (copy)
+    local v2659 = l_v5_96.new();
+    if v2658.literal ~= nil then
+        v2659.kind = {
             type = "literal", 
-            value = v2531.literal
+            value = v2658.literal
         };
     end;
-    if v2531.token ~= nil then
-        v2532.kind = {
+    if v2658.token ~= nil then
+        v2659.kind = {
             type = "token", 
-            value = v2531.token
+            value = v2658.token
         };
     end;
-    if v2531.conditional ~= nil then
-        v2532.kind = {
+    if v2658.conditional ~= nil then
+        v2659.kind = {
             type = "conditional", 
-            value = v2.UiScaledUDim2Prop_ConditionalOptions.jsonDecode(v2531.conditional)
+            value = v2.UiScaledUDim2Prop_ConditionalOptions.jsonDecode(v2658.conditional)
         };
     end;
-    if v2531.binding_path ~= nil then
-        v2532.kind = {
+    if v2658.binding_path ~= nil then
+        v2659.kind = {
             type = "binding_path", 
-            value = v2531.binding_path
+            value = v2658.binding_path
         };
     end;
-    if v2531.bindingPath ~= nil then
-        v2532.kind = {
+    if v2658.bindingPath ~= nil then
+        v2659.kind = {
             type = "binding_path", 
-            value = v2531.bindingPath
+            value = v2658.bindingPath
         };
     end;
-    return v2532;
+    return v2659;
 end;
 v5.descriptor = {
     name = "UiScaledUDim2Prop", 
@@ -12780,167 +13557,167 @@ v2.UiScaledUDim2Prop = v5;
 v1.default:register(v2.UiScaledUDim2Prop);
 v5 = {};
 v5.__index = v5;
-local l_v5_93 = v5 --[[ copy: 5 -> 99 ]];
-v5.new = function(v2534) --[[ Line: 15575 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_93 (copy)
+local l_v5_97 = v5 --[[ copy: 5 -> 103 ]];
+v5.new = function(v2661) --[[ Line: 16516 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_97 (copy)
     return (setmetatable({
-        condition = if not (v2534 ~= nil) or v2534.condition == nil then nil else v2534.condition, 
-        kind = if not (v2534 ~= nil) or v2534.kind == nil then nil else v2534.kind
-    }, l_v5_93));
+        condition = if not (v2661 ~= nil) or v2661.condition == nil then nil else v2661.condition, 
+        kind = if not (v2661 ~= nil) or v2661.kind == nil then nil else v2661.kind
+    }, l_v5_97));
 end;
-v5.encode = function(v2535) --[[ Line: 15584 ]] --[[ Name: encode ]]
+v5.encode = function(v2662) --[[ Line: 16525 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2536 = buffer.create(0);
-    local v2537 = 0;
-    if v2535.condition ~= nil then
-        local v2538 = v2535.condition:encode();
-        local v2539, v2540 = v0.writeTag(v2536, v2537, 1, v0.wireTypes.lengthDelimited);
-        v2539, v2540 = v0.writeBuffer(v2539, v2540, v2538, buffer.len(v2538));
-        v2536 = v2539;
-        v2537 = v2540;
+    local v2663 = buffer.create(0);
+    local v2664 = 0;
+    if v2662.condition ~= nil then
+        local v2665 = v2662.condition:encode();
+        local v2666, v2667 = v0.writeTag(v2663, v2664, 1, v0.wireTypes.lengthDelimited);
+        v2666, v2667 = v0.writeBuffer(v2666, v2667, v2665, buffer.len(v2665));
+        v2663 = v2666;
+        v2664 = v2667;
     end;
-    if v2535.kind ~= nil then
-        if v2535.kind.type == "literal" then
-            local v2541, v2542 = v0.writeTag(v2536, v2537, 2, v0.wireTypes.lengthDelimited);
-            v2541, v2542 = v0.writeString(v2541, v2542, v2535.kind.value);
-            v2536 = v2541;
-            v2537 = v2542;
-        elseif v2535.kind.type == "token" then
-            local v2543, v2544 = v0.writeTag(v2536, v2537, 3, v0.wireTypes.lengthDelimited);
-            v2543, v2544 = v0.writeString(v2543, v2544, v2535.kind.value);
-            v2536 = v2543;
-            v2537 = v2544;
-        elseif v2535.kind.type == "binding_path" then
-            local v2545, v2546 = v0.writeTag(v2536, v2537, 4, v0.wireTypes.lengthDelimited);
-            v2545, v2546 = v0.writeString(v2545, v2546, v2535.kind.value);
-            v2536 = v2545;
-            v2537 = v2546;
+    if v2662.kind ~= nil then
+        if v2662.kind.type == "literal" then
+            local v2668, v2669 = v0.writeTag(v2663, v2664, 2, v0.wireTypes.lengthDelimited);
+            v2668, v2669 = v0.writeString(v2668, v2669, v2662.kind.value);
+            v2663 = v2668;
+            v2664 = v2669;
+        elseif v2662.kind.type == "token" then
+            local v2670, v2671 = v0.writeTag(v2663, v2664, 3, v0.wireTypes.lengthDelimited);
+            v2670, v2671 = v0.writeString(v2670, v2671, v2662.kind.value);
+            v2663 = v2670;
+            v2664 = v2671;
+        elseif v2662.kind.type == "binding_path" then
+            local v2672, v2673 = v0.writeTag(v2663, v2664, 4, v0.wireTypes.lengthDelimited);
+            v2672, v2673 = v0.writeString(v2672, v2673, v2662.kind.value);
+            v2663 = v2672;
+            v2664 = v2673;
         end;
     end;
-    local v2547 = buffer.create(v2537);
-    buffer.copy(v2547, 0, v2536, 0, v2537);
-    return v2547;
+    local v2674 = buffer.create(v2664);
+    buffer.copy(v2674, 0, v2663, 0, v2664);
+    return v2674;
 end;
-v5.decode = function(v2548) --[[ Line: 15612 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_93 (copy), v0 (copy), v4 (copy)
-    local v2549 = l_v5_93.new();
-    local v2550 = 0;
-    while v2550 < buffer.len(v2548) do
-        local v2551 = nil;
-        local v2552 = nil;
-        local v2553, v2554, v2555 = v0.readTag(v2548, v2550);
-        v2551 = v2553;
-        v2552 = v2554;
-        v2550 = v2555;
-        if v2552 == v0.wireTypes.varint then
-            v2553 = nil;
-            v2554, v2555 = v0.readVarInt(v2548, v2550);
-            v2553 = v2554;
-            v2550 = v2555;
-        elseif v2552 == v0.wireTypes.lengthDelimited then
-            if v2551 == 1 then
-                v2553 = nil;
-                v2554, v2555 = v0.readBuffer(v2548, v2550);
-                v2553 = v2554;
-                v2550 = v2555;
-                v2549.condition = v4.PropCondition.decode(v2553);
-            elseif v2551 == 2 then
-                v2553 = nil;
-                v2554, v2555 = v0.readBuffer(v2548, v2550);
-                v2553 = v2554;
-                v2550 = v2555;
-                v2549.kind = {
+v5.decode = function(v2675) --[[ Line: 16553 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_97 (copy), v0 (copy), v4 (copy)
+    local v2676 = l_v5_97.new();
+    local v2677 = 0;
+    while v2677 < buffer.len(v2675) do
+        local v2678 = nil;
+        local v2679 = nil;
+        local v2680, v2681, v2682 = v0.readTag(v2675, v2677);
+        v2678 = v2680;
+        v2679 = v2681;
+        v2677 = v2682;
+        if v2679 == v0.wireTypes.varint then
+            v2680 = nil;
+            v2681, v2682 = v0.readVarInt(v2675, v2677);
+            v2680 = v2681;
+            v2677 = v2682;
+        elseif v2679 == v0.wireTypes.lengthDelimited then
+            if v2678 == 1 then
+                v2680 = nil;
+                v2681, v2682 = v0.readBuffer(v2675, v2677);
+                v2680 = v2681;
+                v2677 = v2682;
+                v2676.condition = v4.PropCondition.decode(v2680);
+            elseif v2678 == 2 then
+                v2680 = nil;
+                v2681, v2682 = v0.readBuffer(v2675, v2677);
+                v2680 = v2681;
+                v2677 = v2682;
+                v2676.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2553)
+                    value = buffer.tostring(v2680)
                 };
-            elseif v2551 == 3 then
-                v2553 = nil;
-                v2554, v2555 = v0.readBuffer(v2548, v2550);
-                v2553 = v2554;
-                v2550 = v2555;
-                v2549.kind = {
+            elseif v2678 == 3 then
+                v2680 = nil;
+                v2681, v2682 = v0.readBuffer(v2675, v2677);
+                v2680 = v2681;
+                v2677 = v2682;
+                v2676.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2553)
+                    value = buffer.tostring(v2680)
                 };
-            elseif v2551 == 4 then
-                v2553 = nil;
-                v2554, v2555 = v0.readBuffer(v2548, v2550);
-                v2553 = v2554;
-                v2550 = v2555;
-                v2549.kind = {
+            elseif v2678 == 4 then
+                v2680 = nil;
+                v2681, v2682 = v0.readBuffer(v2675, v2677);
+                v2680 = v2681;
+                v2677 = v2682;
+                v2676.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2553)
+                    value = buffer.tostring(v2680)
                 };
             else
-                v2553 = nil;
-                v2554, v2555 = v0.readVarInt(v2548, v2550);
-                v2550 = v2555 + v2554;
+                v2680 = nil;
+                v2681, v2682 = v0.readVarInt(v2675, v2677);
+                v2677 = v2682 + v2681;
             end;
-        elseif v2552 == v0.wireTypes.i32 then
-            v2553 = nil;
-            v2554, v2555 = v0.readFixed32(v2548, v2550);
-            v2553 = v2554;
-            v2550 = v2555;
-        elseif v2552 == v0.wireTypes.i64 then
-            v2553 = nil;
-            v2554, v2555 = v0.readFixed64(v2548, v2550);
-            v2553 = v2554;
-            v2550 = v2555;
+        elseif v2679 == v0.wireTypes.i32 then
+            v2680 = nil;
+            v2681, v2682 = v0.readFixed32(v2675, v2677);
+            v2680 = v2681;
+            v2677 = v2682;
+        elseif v2679 == v0.wireTypes.i64 then
+            v2680 = nil;
+            v2681, v2682 = v0.readFixed64(v2675, v2677);
+            v2680 = v2681;
+            v2677 = v2682;
         else
-            error("Unsupported wire type: " .. v2552);
+            error("Unsupported wire type: " .. v2679);
         end;
     end;
-    return v2549;
+    return v2676;
 end;
-v5.jsonEncode = function(v2556) --[[ Line: 15670 ]] --[[ Name: jsonEncode ]]
-    local v2557 = {};
-    if v2556.condition ~= nil then
-        v2557.condition = v2556.condition:jsonEncode();
+v5.jsonEncode = function(v2683) --[[ Line: 16611 ]] --[[ Name: jsonEncode ]]
+    local v2684 = {};
+    if v2683.condition ~= nil then
+        v2684.condition = v2683.condition:jsonEncode();
     end;
-    if v2556.kind ~= nil then
-        if v2556.kind.type == "literal" then
-            v2557.literal = v2556.kind.value;
-            return v2557;
-        elseif v2556.kind.type == "token" then
-            v2557.token = v2556.kind.value;
-            return v2557;
-        elseif v2556.kind.type == "binding_path" then
-            v2557.bindingPath = v2556.kind.value;
+    if v2683.kind ~= nil then
+        if v2683.kind.type == "literal" then
+            v2684.literal = v2683.kind.value;
+            return v2684;
+        elseif v2683.kind.type == "token" then
+            v2684.token = v2683.kind.value;
+            return v2684;
+        elseif v2683.kind.type == "binding_path" then
+            v2684.bindingPath = v2683.kind.value;
         end;
     end;
-    return v2557;
+    return v2684;
 end;
-v5.jsonDecode = function(v2558) --[[ Line: 15690 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_93 (copy), v4 (copy)
-    local v2559 = l_v5_93.new();
-    if v2558.condition ~= nil then
-        v2559.condition = v4.PropCondition.jsonDecode(v2558.condition);
+v5.jsonDecode = function(v2685) --[[ Line: 16631 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_97 (copy), v4 (copy)
+    local v2686 = l_v5_97.new();
+    if v2685.condition ~= nil then
+        v2686.condition = v4.PropCondition.jsonDecode(v2685.condition);
     end;
-    if v2558.literal ~= nil then
-        v2559.kind = {
+    if v2685.literal ~= nil then
+        v2686.kind = {
             type = "literal", 
-            value = v2558.literal
+            value = v2685.literal
         };
     end;
-    if v2558.token ~= nil then
-        v2559.kind = {
+    if v2685.token ~= nil then
+        v2686.kind = {
             type = "token", 
-            value = v2558.token
+            value = v2685.token
         };
     end;
-    if v2558.binding_path ~= nil then
-        v2559.kind = {
+    if v2685.binding_path ~= nil then
+        v2686.kind = {
             type = "binding_path", 
-            value = v2558.binding_path
+            value = v2685.binding_path
         };
     end;
-    if v2558.bindingPath ~= nil then
-        v2559.kind = {
+    if v2685.bindingPath ~= nil then
+        v2686.kind = {
             type = "binding_path", 
-            value = v2558.bindingPath
+            value = v2685.bindingPath
         };
     end;
-    return v2559;
+    return v2686;
 end;
 v5.descriptor = {
     name = "UiScaledUDim2Prop_ConditionalOption", 
@@ -12950,95 +13727,95 @@ v2.UiScaledUDim2Prop_ConditionalOption = v5;
 v1.default:register(v2.UiScaledUDim2Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-v5.new = function(v2560) --[[ Line: 15733 ]] --[[ Name: new ]]
+v5.new = function(v2687) --[[ Line: 16674 ]] --[[ Name: new ]]
     -- upvalues: v5 (copy)
     return (setmetatable({
-        options = if not (v2560 ~= nil) or v2560.options == nil then {} else v2560.options
+        options = if not (v2687 ~= nil) or v2687.options == nil then {} else v2687.options
     }, v5));
 end;
-v5.encode = function(v2561) --[[ Line: 15741 ]] --[[ Name: encode ]]
+v5.encode = function(v2688) --[[ Line: 16682 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2562 = buffer.create(0);
-    local v2563 = 0;
-    if v2561.options ~= nil and #v2561.options > 0 then
-        for _, v2565 in v2561.options do
-            local v2566 = v2565:encode();
-            local v2567, v2568 = v0.writeTag(v2562, v2563, 1, v0.wireTypes.lengthDelimited);
-            v2567, v2568 = v0.writeBuffer(v2567, v2568, v2566, buffer.len(v2566));
-            v2562 = v2567;
-            v2563 = v2568;
+    local v2689 = buffer.create(0);
+    local v2690 = 0;
+    if v2688.options ~= nil and #v2688.options > 0 then
+        for _, v2692 in v2688.options do
+            local v2693 = v2692:encode();
+            local v2694, v2695 = v0.writeTag(v2689, v2690, 1, v0.wireTypes.lengthDelimited);
+            v2694, v2695 = v0.writeBuffer(v2694, v2695, v2693, buffer.len(v2693));
+            v2689 = v2694;
+            v2690 = v2695;
         end;
     end;
-    local v2569 = buffer.create(v2563);
-    buffer.copy(v2569, 0, v2562, 0, v2563);
-    return v2569;
+    local v2696 = buffer.create(v2690);
+    buffer.copy(v2696, 0, v2689, 0, v2690);
+    return v2696;
 end;
-v5.decode = function(v2570) --[[ Line: 15758 ]] --[[ Name: decode ]]
+v5.decode = function(v2697) --[[ Line: 16699 ]] --[[ Name: decode ]]
     -- upvalues: v5 (copy), v0 (copy), v2 (copy)
-    local v2571 = v5.new();
-    local v2572 = 0;
-    while v2572 < buffer.len(v2570) do
-        local v2573 = nil;
-        local v2574 = nil;
-        local v2575, v2576, v2577 = v0.readTag(v2570, v2572);
-        v2573 = v2575;
-        v2574 = v2576;
-        v2572 = v2577;
-        if v2574 == v0.wireTypes.varint then
-            v2575 = nil;
-            v2576, v2577 = v0.readVarInt(v2570, v2572);
-            v2575 = v2576;
-            v2572 = v2577;
-        elseif v2574 == v0.wireTypes.lengthDelimited then
-            if v2573 == 1 then
-                v2575 = nil;
-                v2576, v2577 = v0.readBuffer(v2570, v2572);
-                v2575 = v2576;
-                v2572 = v2577;
-                table.insert(v2571.options, v2.UiScaledUDim2Prop_ConditionalOption.decode(v2575));
+    local v2698 = v5.new();
+    local v2699 = 0;
+    while v2699 < buffer.len(v2697) do
+        local v2700 = nil;
+        local v2701 = nil;
+        local v2702, v2703, v2704 = v0.readTag(v2697, v2699);
+        v2700 = v2702;
+        v2701 = v2703;
+        v2699 = v2704;
+        if v2701 == v0.wireTypes.varint then
+            v2702 = nil;
+            v2703, v2704 = v0.readVarInt(v2697, v2699);
+            v2702 = v2703;
+            v2699 = v2704;
+        elseif v2701 == v0.wireTypes.lengthDelimited then
+            if v2700 == 1 then
+                v2702 = nil;
+                v2703, v2704 = v0.readBuffer(v2697, v2699);
+                v2702 = v2703;
+                v2699 = v2704;
+                table.insert(v2698.options, v2.UiScaledUDim2Prop_ConditionalOption.decode(v2702));
             else
-                v2575 = nil;
-                v2576, v2577 = v0.readVarInt(v2570, v2572);
-                v2572 = v2577 + v2576;
+                v2702 = nil;
+                v2703, v2704 = v0.readVarInt(v2697, v2699);
+                v2699 = v2704 + v2703;
             end;
-        elseif v2574 == v0.wireTypes.i32 then
-            v2575 = nil;
-            v2576, v2577 = v0.readFixed32(v2570, v2572);
-            v2575 = v2576;
-            v2572 = v2577;
-        elseif v2574 == v0.wireTypes.i64 then
-            v2575 = nil;
-            v2576, v2577 = v0.readFixed64(v2570, v2572);
-            v2575 = v2576;
-            v2572 = v2577;
+        elseif v2701 == v0.wireTypes.i32 then
+            v2702 = nil;
+            v2703, v2704 = v0.readFixed32(v2697, v2699);
+            v2702 = v2703;
+            v2699 = v2704;
+        elseif v2701 == v0.wireTypes.i64 then
+            v2702 = nil;
+            v2703, v2704 = v0.readFixed64(v2697, v2699);
+            v2702 = v2703;
+            v2699 = v2704;
         else
-            error("Unsupported wire type: " .. v2574);
+            error("Unsupported wire type: " .. v2701);
         end;
     end;
-    return v2571;
+    return v2698;
 end;
-v5.jsonEncode = function(v2578) --[[ Line: 15801 ]] --[[ Name: jsonEncode ]]
-    local v2579 = {};
-    if v2578.options ~= nil and #v2578.options > 0 then
-        local v2580 = {};
-        for _, v2582 in v2578.options do
-            table.insert(v2580, v2582:jsonEncode());
+v5.jsonEncode = function(v2705) --[[ Line: 16742 ]] --[[ Name: jsonEncode ]]
+    local v2706 = {};
+    if v2705.options ~= nil and #v2705.options > 0 then
+        local v2707 = {};
+        for _, v2709 in v2705.options do
+            table.insert(v2707, v2709:jsonEncode());
         end;
-        v2579.options = v2580;
+        v2706.options = v2707;
     end;
-    return v2579;
+    return v2706;
 end;
-v5.jsonDecode = function(v2583) --[[ Line: 15815 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v2710) --[[ Line: 16756 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v5 (copy), v2 (copy)
-    local v2584 = v5.new();
-    if v2583.options ~= nil then
-        local v2585 = {};
-        for _, v2587 in v2583.options do
-            table.insert(v2585, v2.UiScaledUDim2Prop_ConditionalOption.jsonDecode(v2587));
+    local v2711 = v5.new();
+    if v2710.options ~= nil then
+        local v2712 = {};
+        for _, v2714 in v2710.options do
+            table.insert(v2712, v2.UiScaledUDim2Prop_ConditionalOption.jsonDecode(v2714));
         end;
-        v2584.options = v2585;
+        v2711.options = v2712;
     end;
-    return v2584;
+    return v2711;
 end;
 v5.descriptor = {
     name = "UiScaledUDim2Prop_ConditionalOptions", 
@@ -13047,8 +13824,12 @@ v5.descriptor = {
 v2.UiScaledUDim2Prop_ConditionalOptions = v5;
 v1.default:register(v2.UiScaledUDim2Prop_ConditionalOptions);
 return {
+    TranslationRef = v2.TranslationRef, 
     StringFormat = v2.StringFormat, 
     StringFormat_FormatArg = v2.StringFormat_FormatArg, 
+    StringFormat_FormatArg_Formatter = v2.StringFormat_FormatArg_Formatter, 
+    StringFormat_FormatArg_Formatter_DateConfig = v2.StringFormat_FormatArg_Formatter_DateConfig, 
+    StringFormat_FormatArg_Formatter_Type = v2.StringFormat_FormatArg_Formatter_Type, 
     StringProp = v2.StringProp, 
     StringProp_ConditionalOption = v2.StringProp_ConditionalOption, 
     StringProp_ConditionalOptions = v2.StringProp_ConditionalOptions, 
@@ -13117,6 +13898,7 @@ return {
     LazyNestedComponentListProp_OrderedTemplateData = v2.LazyNestedComponentListProp_OrderedTemplateData, 
     LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData, 
     LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue, 
+    NestedComponentListProp = v2.NestedComponentListProp, 
     IconProp = v2.IconProp, 
     IconProp_ConditionalOption = v2.IconProp_ConditionalOption, 
     IconProp_ConditionalOptions = v2.IconProp_ConditionalOptions, 

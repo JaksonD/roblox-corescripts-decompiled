@@ -17,25 +17,25 @@ local l_default_0 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol)
 local v16 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
 local v17 = require(l_Modules_0.LuaApp.Enum.LoginStatus);
 local l_NavigateBack_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Thunks.NavigateBack;
-local v19 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateIntoAvatarExperience);
+local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
+local v20 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateIntoAvatarExperience);
 local l_NavigateIntoChat_0 = require(l_CorePackages_0.Workspace.Packages.AppChat).Conversations.Thunks.NavigateIntoChat;
 local l_ShowFAESocialUpsellOverlay_0 = require(l_CorePackages_0.Workspace.Packages.SocialUpsell).Thunks.ShowFAESocialUpsellOverlay;
 local l_startFacialAgeEstimation_0 = require(l_CorePackages_0.Workspace.Packages.SocialUpsell).Thunks.startFacialAgeEstimation;
 local l_NavigateIntoSquadLobbyIfExists_0 = require(l_CorePackages_0.Workspace.Packages.AppChat).Conversations.Thunks.NavigateIntoSquadLobbyIfExists;
-local v24 = require(l_Modules_0.LuaApp.Promise);
-local v25 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
-local v26 = require(l_Modules_0.LuaApp.Enum.RetrievalStatus);
-local v27 = require(l_Modules_0.LuaApp.Services.RoactAnalytics);
-local v28 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
+local v25 = require(l_Modules_0.LuaApp.Promise);
+local v26 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
+local v27 = require(l_Modules_0.LuaApp.Enum.RetrievalStatus);
+local v28 = require(l_Modules_0.LuaApp.Services.RoactAnalytics);
+local v29 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
 local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local v30 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsShareLinks);
-local v31 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsSocialProfileShare);
+local v31 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsShareLinks);
+local v32 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsSocialProfileShare);
 local l_EnteredChatFromEntryPoint_0 = require(l_CorePackages_0.Workspace.Packages.AppChat).Actions.EnteredChatFromEntryPoint;
 local l_QualifiedSignUpAttribution_0 = require(l_CorePackages_0.Workspace.Packages.AffiliateLinks).QualifiedSignUpAttribution;
 local l_AuthenticatedVisitAttribution_0 = require(l_CorePackages_0.Workspace.Packages.AffiliateLinks).AuthenticatedVisitAttribution;
 local l_SocialUpsellType_0 = require(l_CorePackages_0.Workspace.Packages.SocialUpsell).Enums.SocialUpsellType;
 local l_UpsellComponent_0 = require(l_CorePackages_0.Workspace.Packages.SocialUpsell).Analytics.Enum.UpsellComponent;
-local l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 = require(l_CorePackages_0.Workspace.Packages.SocialUpsell).Constants.DEFAULT_FAE_ENTRY_POINT_EVENT_CTX;
 local v38 = require(l_Modules_0.LuaApp.AppPage);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local v40 = require(l_Modules_0.LuaApp.DeepLinks.DeepLinkMap);
@@ -49,492 +49,483 @@ local l_GetFFlagEnableAffiliateLinksQualifiedSignUpTracking_0 = require(l_CorePa
 local v48 = game:DefineFastFlag("DeeplinkNavDurationLog", false);
 local l_GetFFlagEnableUnifiedWebViews_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableUnifiedWebViews;
 local l_FFlagTCUpdateProfileCTAButton_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagTCUpdateProfileCTAButton;
-local v51 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
+local v51 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.refreshProfilePlatformActionInfo);
 local v52 = game:DefineFastFlag("DeeplinkTelemetryCounters", false);
 local v53 = game:DefineFastFlag("EnableExperienceInviteLinkTypeAttribution", false);
 local v54 = game:DefineFastString("JoinCodePattern", ".*/join/([%w]+)");
 local l_FFlagEnableSquadDeeplinkWithChatId_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSquadDeeplinkWithChatId;
-local l_FFlagEnableCommsFAEUpsell_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableCommsFAEUpsell;
-local l_FFlagAddMinorFixesToUpsellAnalytics_0 = require(l_CorePackages_0.Workspace.Packages.SocialUpsell).Flags.FFlagAddMinorFixesToUpsellAnalytics;
 local l_FFlagEnableAuthDeepLinkReceiver_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableAuthDeepLinkReceiver;
 local l_FFlagEnableDeepLinkHistoryWithModalAPI_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableDeepLinkHistoryWithModalAPI;
-local v60 = game:DefineFastFlag("EnableJoinLinkAttribution", false);
+local l_FFlagUseNavigationSelectors_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors;
+local v59 = game:DefineFastFlag("EnableJoinLinkAttribution", false);
 local l_simpleUrlDecode_0 = require(l_CorePackages_0.Workspace.Packages.SocialCommon).Utils.simpleUrlDecode;
-local v62 = v41.new(v40);
+local v61 = v41.new(v40);
 local l_ParseQuery_0 = require(l_CorePackages_0.Packages.StringUtilities).ParseQuery;
-local v64 = game:DefineFastString("SocialCommsRestrictionsNamespace", "social/CommunicationRestrictions");
-local v65 = game:DefineFastString("EligibleForCommsAgeVerificationUpsellFeatureName", "EligibleForCommsAgeVerificationUpsell");
-local v66 = game:DefineFastFlag("EnableDeepLinkWaitForNavigationUnlock2", false);
-local v67 = require(l_Modules_0.LuaApp.Flags.FFlagEnableFlyoutSidePanel);
-local v68 = nil;
-if v67 then
-    v68 = require(l_CorePackages_0.Workspace.Packages.Drawer).Hooks.useSetDrawerVisible;
+local v63 = game:DefineFastString("SocialCommsRestrictionsNamespace", "social/CommunicationRestrictions");
+local v64 = game:DefineFastString("EligibleForCommsAgeVerificationUpsellFeatureName", "EligibleForCommsAgeVerificationUpsell");
+local v65 = game:DefineFastFlag("EnableDeepLinkWaitForNavigationUnlock2", false);
+local v66 = require(l_Modules_0.LuaApp.Flags.FFlagEnableFlyoutSidePanel);
+local v67 = nil;
+if v66 then
+    v67 = require(l_CorePackages_0.Workspace.Packages.Drawer).Hooks.useSetDrawerVisible;
 end;
 local l_PostAuthDeepLinkAvailableSignal_0 = require(l_CorePackages_0.Workspace.Packages.AuthCommon).EventReceivers.PostAuthDeepLinkAvailableSignal;
 local l_PostAuthPendingLuaUrlAvailableSignal_0 = require(l_CorePackages_0.Workspace.Packages.AuthCommon).EventReceivers.PostAuthPendingLuaUrlAvailableSignal;
-local _ = function(v71) --[[ Line: 114 ]] --[[ Name: getQueryParams ]]
+local _ = function(v70) --[[ Line: 111 ]] --[[ Name: getQueryParams ]]
     -- upvalues: l_simpleUrlDecode_0 (copy), l_ParseQuery_0 (copy)
-    local _, v73 = unpack(string.split(l_simpleUrlDecode_0(v71), "?"));
-    return (l_ParseQuery_0(v73));
+    local _, v72 = unpack(string.split(l_simpleUrlDecode_0(v70), "?"));
+    return (l_ParseQuery_0(v72));
 end;
-local function _(v75, v76) --[[ Line: 121 ]] --[[ Name: getFirstKeyValue ]]
-    if v75 and v75[v76] then
-        return v75[v76][1];
+local function _(v74, v75) --[[ Line: 118 ]] --[[ Name: getFirstKeyValue ]]
+    if v74 and v74[v75] then
+        return v74[v75][1];
     else
         return nil;
     end;
 end;
-getJoinCode = function(v78) --[[ Line: 125 ]] --[[ Name: getJoinCode ]]
+getJoinCode = function(v77) --[[ Line: 122 ]] --[[ Name: getJoinCode ]]
     -- upvalues: v54 (copy)
-    return (v78:match(v54));
+    return (v77:match(v54));
 end;
-local function v84(v79) --[[ Line: 130 ]] --[[ Name: getShareLinkType ]]
+local function v83(v78) --[[ Line: 127 ]] --[[ Name: getShareLinkType ]]
     -- upvalues: v45 (copy), l_HttpService_0 (copy)
-    local v80 = string.lower(v79);
-    for v81, v82 in pairs(v45) do
-        if v80:find("&type=" .. string.lower(v82)) then
-            return v81;
+    local v79 = string.lower(v78);
+    for v80, v81 in pairs(v45) do
+        if v79:find("&type=" .. string.lower(v81)) then
+            return v80;
         else
-            local v83 = l_HttpService_0:UrlEncode("&type=" .. v82);
-            v83 = string.gsub(v83, "%%", "%%%%");
-            if v80:find((string.lower(v83))) then
-                return v81;
+            local v82 = l_HttpService_0:UrlEncode("&type=" .. v81);
+            v82 = string.gsub(v82, "%%", "%%%%");
+            if v79:find((string.lower(v82))) then
+                return v80;
             end;
         end;
     end;
     return nil;
 end;
-local function v87(v85) --[[ Line: 150 ]] --[[ Name: getScreenAndParams ]]
+local function v86(v84) --[[ Line: 147 ]] --[[ Name: getScreenAndParams ]]
     -- upvalues: v11 (copy)
-    local v86 = v85[#v85];
-    return v86.name, (v11.Dictionary.join(v86.extraProps or {}, {
-        detail = v86.detail
+    local v85 = v84[#v84];
+    return v85.name, (v11.Dictionary.join(v85.extraProps or {}, {
+        detail = v85.detail
     }));
 end;
-local function _(v88, v89) --[[ Line: 159 ]] --[[ Name: isRouteMatchByName ]]
-    return v88 and #v88 > 0 and v89 and v88[1].name == v89;
+local function _(v87, v88) --[[ Line: 156 ]] --[[ Name: isRouteMatchByName ]]
+    return v87 and #v87 > 0 and v88 and v87[1].name == v88;
 end;
-local v91 = v13.Component:extend("DeepLinkEventReceiver");
-v91.UpdateConnection = function(v92) --[[ Line: 166 ]] --[[ Name: UpdateConnection ]]
-    -- upvalues: l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (copy), v12 (copy), v66 (copy), l_default_0 (copy), l_TelemetryConfigs_0 (copy), v48 (copy)
+local v90 = v13.Component:extend("DeepLinkEventReceiver");
+v90.UpdateConnection = function(v91) --[[ Line: 163 ]] --[[ Name: UpdateConnection ]]
+    -- upvalues: l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (copy), v12 (copy), v65 (copy), l_default_0 (copy), l_TelemetryConfigs_0 (copy), v48 (copy)
     if not l_FFlagEnableAuthDeepLinkReceiver_0 then
-        if v92.props.userLoggedOut or not v92.props.appLoadingStarted then
-            v92.props.linking:stopListeningForLuaURLs();
+        if v91.props.userLoggedOut or not v91.props.appLoadingStarted then
+            v91.props.linking:stopListeningForLuaURLs();
             if l_FFlagEnableDeepLinkHistoryWithModalAPI_0 then
-                v92.deepLinkLuaHandlerStatusStore.setDeepLinkLuaPostAuthReceiverStatus(v12.DeepLinkLuaPostAuthReceiverStatus.Disconnected, nil);
+                v91.deepLinkLuaHandlerStatusStore.setDeepLinkLuaPostAuthReceiverStatus(v12.DeepLinkLuaPostAuthReceiverStatus.Disconnected, nil);
             end;
         else
             if l_FFlagEnableDeepLinkHistoryWithModalAPI_0 then
-                local v93 = v92.props.linking:getLastLuaURL();
-                v92.deepLinkLuaHandlerStatusStore.setDeepLinkLuaPostAuthReceiverStatus(v12.DeepLinkLuaPostAuthReceiverStatus.Ready, v93);
+                local v92 = v91.props.linking:getLastLuaURL();
+                v91.deepLinkLuaHandlerStatusStore.setDeepLinkLuaPostAuthReceiverStatus(v12.DeepLinkLuaPostAuthReceiverStatus.Ready, v92);
             end;
-            v92.props.linking:getAndClearLastPendingURL():andThen(function(v94) --[[ Line: 186 ]]
-                -- upvalues: v92 (copy)
-                if not v94.hasPendingUrl then
+            v91.props.linking:getAndClearLastPendingURL():andThen(function(v93) --[[ Line: 183 ]]
+                -- upvalues: v91 (copy)
+                if not v93.hasPendingUrl then
                     return;
                 else
-                    local l_url_0 = v94.url;
-                    local l_attributionUrl_0 = v94.attributionUrl;
-                    v92:logPendingLink(l_url_0, l_attributionUrl_0);
+                    local l_url_0 = v93.url;
+                    local l_attributionUrl_0 = v93.attributionUrl;
+                    v91:logPendingLink(l_url_0, l_attributionUrl_0);
                     return;
                 end;
             end);
-            v92.props.linking:listenForLuaURLs(function(v97, v98) --[[ Line: 196 ]]
-                -- upvalues: l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (ref), v92 (copy), v66 (ref), l_default_0 (ref), l_TelemetryConfigs_0 (ref), v48 (ref)
+            v91.props.linking:listenForLuaURLs(function(v96, v97) --[[ Line: 193 ]]
+                -- upvalues: l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (ref), v91 (copy), v65 (ref), l_default_0 (ref), l_TelemetryConfigs_0 (ref), v48 (ref)
                 if l_FFlagEnableDeepLinkHistoryWithModalAPI_0 then
-                    v92.deepLinkLuaHandlerStatusStore.setLastDetectedPostAuthUrl(v97);
+                    v91.deepLinkLuaHandlerStatusStore.setLastDetectedPostAuthUrl(v96);
                 end;
-                v92:logProcessedLink(v97, v98);
-                if v66 and v92.props.navigationLocked then
-                    v92.pendingDeepLinkUrl = v97;
+                v91:logProcessedLink(v96, v97);
+                if v65 and v91.props.navigationLocked then
+                    v91.pendingDeepLinkUrl = v96;
                     l_default_0:logRobloxTelemetryCounter(l_TelemetryConfigs_0.DeepLinkPendingDueToNavigationLockConfig, 1);
                 else
-                    v92:navigate(v97);
+                    v91:navigate(v96);
                 end;
                 if v48 then
-                    v92.props.loggingProtocol:logEvent("deeplink_navigation_begin");
+                    v91.props.loggingProtocol:logEvent("deeplink_navigation_begin");
                 end;
             end);
         end;
     end;
-    if v92.props.userLoggedOut then
-        local v99 = v92.props.linking:getLastLuaURL();
-        if v99 then
-            local v100 = {};
-            for v101, v102 in v99:gmatch("([^&=?]-)=([^&=?]+)") do
-                v100[v101] = v102:gsub("+", " "):gsub("%%(%x%x)", function(v103) --[[ Line: 225 ]]
-                    return (string.char((tonumber(v103, 16))));
+    if v91.props.userLoggedOut then
+        local v98 = v91.props.linking:getLastLuaURL();
+        if v98 then
+            local v99 = {};
+            for v100, v101 in v98:gmatch("([^&=?]-)=([^&=?]+)") do
+                v99[v100] = v101:gsub("+", " "):gsub("%%(%x%x)", function(v102) --[[ Line: 222 ]]
+                    return (string.char((tonumber(v102, 16))));
                 end);
             end;
-            if v100.friendshipSourceType == "profileshare" then
-                v92.props.socialProfileShareAnalytics.inviteePageLoad(v100.userId, "appSignIn");
+            if v99.friendshipSourceType == "profileshare" then
+                v91.props.socialProfileShareAnalytics.inviteePageLoad(v99.userId, "appSignIn");
             end;
         end;
     end;
 end;
-v91.navigate = function(v104, v105) --[[ Line: 237 ]] --[[ Name: navigate ]]
-    -- upvalues: v67 (copy), v62 (copy), l_LaunchGame_0 (copy), l_FFlagTCUpdateProfileCTAButton_0 (copy), v24 (copy), l_GetFFlagEnableUnifiedWebViews_0 (copy), l_AvatarScreen_0 (copy), v87 (copy), v38 (copy), l_FFlagEnableCommsFAEUpsell_0 (copy)
-    if v67 then
-        v104.props.setDrawerVisible(false);
+v90.navigate = function(v103, v104) --[[ Line: 234 ]] --[[ Name: navigate ]]
+    -- upvalues: v66 (copy), v61 (copy), l_LaunchGame_0 (copy), l_FFlagTCUpdateProfileCTAButton_0 (copy), v25 (copy), l_GetFFlagEnableUnifiedWebViews_0 (copy), l_AvatarScreen_0 (copy), v86 (copy), v38 (copy)
+    if v66 then
+        v103.props.setDrawerVisible(false);
     end;
-    local l_currentHistory_0 = v104.props.currentHistory;
-    local l_networking_0 = v104.props.networking;
-    local v108 = {
-        socialProfileShareAnalytics = v104.props.socialProfileShareAnalytics, 
-        shareLinksAnalytics = v104.props.shareLinksAnalytics
+    local l_currentHistory_0 = v103.props.currentHistory;
+    local l_networking_0 = v103.props.networking;
+    local v107 = {
+        socialProfileShareAnalytics = v103.props.socialProfileShareAnalytics, 
+        shareLinksAnalytics = v103.props.shareLinksAnalytics
     };
-    local l_ResolveLinkFromLinkId_0 = v104.props.ResolveLinkFromLinkId;
-    local l_ResolveLinkFromLinkIdV2_0 = v104.props.ResolveLinkFromLinkIdV2;
-    local l_CloseCentralOverlay_0 = v104.props.CloseCentralOverlay;
-    local v112 = v62:resolve(v105, {
+    local l_ResolveLinkFromLinkId_0 = v103.props.ResolveLinkFromLinkId;
+    local l_ResolveLinkFromLinkIdV2_0 = v103.props.ResolveLinkFromLinkIdV2;
+    local l_CloseCentralOverlay_0 = v103.props.CloseCentralOverlay;
+    local v111 = v61:resolve(v104, {
         history = l_currentHistory_0, 
         network = l_networking_0, 
-        analyticsImpls = v108, 
+        analyticsImpls = v107, 
         resolveLinkFromLinkId = l_ResolveLinkFromLinkId_0, 
         resolveLinkFromLinkIdV2 = l_ResolveLinkFromLinkIdV2_0, 
         launchGame = l_LaunchGame_0, 
         closeCentralOverlay = l_CloseCentralOverlay_0, 
-        RefreshProfilePlatformActionInfo = if l_FFlagTCUpdateProfileCTAButton_0 then v104.props.RefreshProfilePlatformActionInfo else nil
+        RefreshProfilePlatformActionInfo = if l_FFlagTCUpdateProfileCTAButton_0 then v103.props.RefreshProfilePlatformActionInfo else nil
     });
-    return v24.resolve(v112):andThen(function(v113) --[[ Line: 263 ]]
-        -- upvalues: l_GetFFlagEnableUnifiedWebViews_0 (ref), v104 (copy), l_AvatarScreen_0 (ref), v87 (ref), v38 (ref), l_FFlagEnableCommsFAEUpsell_0 (ref)
-        if type(v113) == "table" and next(v113) then
-            local v114 = v113[#v113];
-            if not l_GetFFlagEnableUnifiedWebViews_0() and v104.props.browserService then
-                v104.props.browserService:CloseBrowserWindow();
+    return v25.resolve(v111):andThen(function(v112) --[[ Line: 260 ]]
+        -- upvalues: l_GetFFlagEnableUnifiedWebViews_0 (ref), v103 (copy), l_AvatarScreen_0 (ref), v86 (ref), v38 (ref)
+        if type(v112) == "table" and next(v112) then
+            local v113 = v112[#v112];
+            if not l_GetFFlagEnableUnifiedWebViews_0() and v103.props.browserService then
+                v103.props.browserService:CloseBrowserWindow();
             end;
             local l_AvatarExperienceLandingPage_0 = l_AvatarScreen_0.AvatarExperienceLandingPage;
-            if v114 and #v114 > 0 and l_AvatarExperienceLandingPage_0 and v114[1].name == l_AvatarExperienceLandingPage_0 then
-                local v116;
-                v116, l_AvatarExperienceLandingPage_0 = v87(v114);
-                v104.props.NavigateIntoAvatarExperience(v116, l_AvatarExperienceLandingPage_0, true);
+            if v113 and #v113 > 0 and l_AvatarExperienceLandingPage_0 and v113[1].name == l_AvatarExperienceLandingPage_0 then
+                local v115;
+                v115, l_AvatarExperienceLandingPage_0 = v86(v113);
+                v103.props.NavigateIntoAvatarExperience(v115, l_AvatarExperienceLandingPage_0, true);
                 return;
             else
                 l_AvatarExperienceLandingPage_0 = v38.Chat;
-                if v114 and #v114 > 0 and l_AvatarExperienceLandingPage_0 and v114[1].name == l_AvatarExperienceLandingPage_0 then
-                    v104.navigateIntoChat(v87(v114));
+                if v113 and #v113 > 0 and l_AvatarExperienceLandingPage_0 and v113[1].name == l_AvatarExperienceLandingPage_0 then
+                    v103.navigateIntoChat(v86(v113));
                     return;
                 else
                     l_AvatarExperienceLandingPage_0 = v38.SquadLobby;
-                    if v114 and #v114 > 0 and l_AvatarExperienceLandingPage_0 and v114[1].name == l_AvatarExperienceLandingPage_0 then
-                        v104.navigateIntoSquadLobbyIfExists(v87(v114));
+                    if v113 and #v113 > 0 and l_AvatarExperienceLandingPage_0 and v113[1].name == l_AvatarExperienceLandingPage_0 then
+                        v103.navigateIntoSquadLobbyIfExists(v86(v113));
                         return;
                     else
-                        if l_FFlagEnableCommsFAEUpsell_0 then
-                            l_AvatarExperienceLandingPage_0 = v38.FAE;
-                            if v114 and #v114 > 0 and l_AvatarExperienceLandingPage_0 and v114[1].name == l_AvatarExperienceLandingPage_0 then
-                                v104.navigateIntoFAE(v87(v114));
-                                return;
-                            end;
-                        end;
-                        if l_FFlagEnableCommsFAEUpsell_0 then
+                        l_AvatarExperienceLandingPage_0 = v38.FAE;
+                        if v113 and #v113 > 0 and l_AvatarExperienceLandingPage_0 and v113[1].name == l_AvatarExperienceLandingPage_0 then
+                            v103.navigateIntoFAE(v86(v113));
+                            return;
+                        else
                             l_AvatarExperienceLandingPage_0 = v38.FAEUpsellOverlay;
-                            if v114 and #v114 > 0 and l_AvatarExperienceLandingPage_0 and v114[1].name == l_AvatarExperienceLandingPage_0 then
-                                v104.showFAEUpsellOverlay(v87(v114));
+                            if v113 and #v113 > 0 and l_AvatarExperienceLandingPage_0 and v113[1].name == l_AvatarExperienceLandingPage_0 then
+                                v103.showFAEUpsellOverlay(v86(v113));
                                 return;
+                            else
+                                v103.props.ResetNavigationHistory(v112);
                             end;
                         end;
-                        v104.props.ResetNavigationHistory(v113);
                     end;
                 end;
             end;
         end;
     end);
 end;
-v91.logPendingLink = function(v117, v118, v119) --[[ Line: 290 ]] --[[ Name: logPendingLink ]]
-    -- upvalues: l_simpleUrlDecode_0 (copy), l_ParseQuery_0 (copy), v84 (copy), v60 (copy), v53 (copy), v45 (copy), l_GetFFlagEnableAffiliateLinksQualifiedSignUpTracking_0 (copy), l_QualifiedSignUpAttribution_0 (copy)
-    local l_appAnalytics_0 = v117.props.appAnalytics;
-    local v121, v122 = unpack(string.split(l_simpleUrlDecode_0(v118), "?"));
-    local v123 = l_ParseQuery_0(v122);
-    v121 = if v123 and v123.stamp then v123.stamp[1] else nil;
-    v122 = v84(v118);
-    local v124 = nil;
-    if v60 then
-        v124 = getJoinCode(v118);
+v90.logPendingLink = function(v116, v117, v118) --[[ Line: 287 ]] --[[ Name: logPendingLink ]]
+    -- upvalues: l_simpleUrlDecode_0 (copy), l_ParseQuery_0 (copy), v83 (copy), v59 (copy), v53 (copy), v45 (copy), l_GetFFlagEnableAffiliateLinksQualifiedSignUpTracking_0 (copy), l_QualifiedSignUpAttribution_0 (copy)
+    local l_appAnalytics_0 = v116.props.appAnalytics;
+    local v120, v121 = unpack(string.split(l_simpleUrlDecode_0(v117), "?"));
+    local v122 = l_ParseQuery_0(v121);
+    v120 = if v122 and v122.stamp then v122.stamp[1] else nil;
+    v121 = v83(v117);
+    local v123 = nil;
+    if v59 then
+        v123 = getJoinCode(v117);
     end;
     l_appAnalytics_0.EventStream:setRBXEventStream("deepLinkEventReceiver", "PendingDeepLinkProcessed", {
-        attributionUrl = v119, 
-        shareLinkType = v122, 
-        stamp = v121, 
-        url = v118, 
-        userDidLogIn = v117.loginTracking.userDidLogIn, 
-        userDidSignUp = v117.loginTracking.userDidSignUp
+        attributionUrl = v118, 
+        shareLinkType = v121, 
+        stamp = v120, 
+        url = v117, 
+        userDidLogIn = v116.loginTracking.userDidLogIn, 
+        userDidSignUp = v116.loginTracking.userDidSignUp
     });
-    local v125 = "PendingLink";
-    if v117.loginTracking.userDidLogIn then
-        v125 = "PendingLinkAfterLogin";
-    elseif v117.loginTracking.userDidSignUp then
-        v125 = "PendingLinkAfterSignUp";
+    local v124 = "PendingLink";
+    if v116.loginTracking.userDidLogIn then
+        v124 = "PendingLinkAfterLogin";
+    elseif v116.loginTracking.userDidSignUp then
+        v124 = "PendingLinkAfterSignUp";
     end;
-    local v126 = v53 and v122 == "ExperienceInviteLinkType";
-    if v122 ~= nil and v125 == "PendingLinkAfterSignUp" and (v122 == v45.ExperienceAffiliate or v126) and l_GetFFlagEnableAffiliateLinksQualifiedSignUpTracking_0() then
-        local l_networking_1 = v117.props.networking;
-        local v128 = if v123 and v123.code then v123.code[1] else nil;
+    local v125 = v53 and v121 == "ExperienceInviteLinkType";
+    if v121 ~= nil and v124 == "PendingLinkAfterSignUp" and (v121 == v45.ExperienceAffiliate or v125) and l_GetFFlagEnableAffiliateLinksQualifiedSignUpTracking_0() then
+        local l_networking_1 = v116.props.networking;
+        local v127 = if v122 and v122.code then v122.code[1] else nil;
         local l_ExperienceAffiliate_0 = v45.ExperienceAffiliate;
-        if v122 == "ExperienceInviteLinkType" then
+        if v121 == "ExperienceInviteLinkType" then
             l_ExperienceAffiliate_0 = v45.ExperienceInviteLinkType;
         end;
-        l_QualifiedSignUpAttribution_0.attribute(l_networking_1, v128, v118, l_ExperienceAffiliate_0);
+        l_QualifiedSignUpAttribution_0.attribute(l_networking_1, v127, v117, l_ExperienceAffiliate_0);
     end;
-    if v124 ~= nil and v125 == "PendingLinkAfterSignUp" and v60 then
-        local l_networking_2 = v117.props.networking;
-        l_QualifiedSignUpAttribution_0.attributeJoinLink(l_networking_2, v118, v124);
+    if v123 ~= nil and v124 == "PendingLinkAfterSignUp" and v59 then
+        local l_networking_2 = v116.props.networking;
+        l_QualifiedSignUpAttribution_0.attributeJoinLink(l_networking_2, v117, v123);
     end;
-    l_appAnalytics_0.Diag:reportCounter(v125, 1);
-    if v122 ~= nil then
-        local v131 = v125 .. v122;
-        l_appAnalytics_0.Diag:reportCounter(v131, 1);
+    l_appAnalytics_0.Diag:reportCounter(v124, 1);
+    if v121 ~= nil then
+        local v130 = v124 .. v121;
+        l_appAnalytics_0.Diag:reportCounter(v130, 1);
     end;
 end;
-v91.logProcessedLink = function(v132, v133, v134) --[[ Line: 348 ]] --[[ Name: logProcessedLink ]]
-    -- upvalues: l_simpleUrlDecode_0 (copy), l_ParseQuery_0 (copy), v84 (copy), v45 (copy), l_AuthenticatedVisitAttribution_0 (copy), v52 (copy), l_default_0 (copy)
-    local l_appAnalytics_1 = v132.props.appAnalytics;
-    local l_sessionService_0 = v132.props.sessionService;
-    local l_userDidLogIn_0 = v132.loginTracking.userDidLogIn;
-    local l_userDidSignUp_0 = v132.loginTracking.userDidSignUp;
-    local v139, v140 = unpack(string.split(l_simpleUrlDecode_0(v133), "?"));
-    local v141 = l_ParseQuery_0(v140);
-    v139 = v84(v133);
-    v140 = if v141 and v141.stamp then v141.stamp[1] else nil;
-    local v142 = if v141 and v141.utm then v141.utm[1] else nil;
-    local v143 = getJoinCode(v133);
+v90.logProcessedLink = function(v131, v132, v133) --[[ Line: 345 ]] --[[ Name: logProcessedLink ]]
+    -- upvalues: l_simpleUrlDecode_0 (copy), l_ParseQuery_0 (copy), v83 (copy), v45 (copy), l_AuthenticatedVisitAttribution_0 (copy), v52 (copy), l_default_0 (copy)
+    local l_appAnalytics_1 = v131.props.appAnalytics;
+    local l_sessionService_0 = v131.props.sessionService;
+    local l_userDidLogIn_0 = v131.loginTracking.userDidLogIn;
+    local l_userDidSignUp_0 = v131.loginTracking.userDidSignUp;
+    local v138, v139 = unpack(string.split(l_simpleUrlDecode_0(v132), "?"));
+    local v140 = l_ParseQuery_0(v139);
+    v138 = v83(v132);
+    v139 = if v140 and v140.stamp then v140.stamp[1] else nil;
+    local v141 = if v140 and v140.utm then v140.utm[1] else nil;
+    local v142 = getJoinCode(v132);
     local l_l_sessionService_0_RootSID_0 = l_sessionService_0:GetRootSID();
     l_appAnalytics_1.EventStream:setRBXEventStream("deepLinkEventReceiver", "DeepLinkProcessed", {
-        attributionUrl = v134, 
+        attributionUrl = v133, 
         sessionId = l_l_sessionService_0_RootSID_0, 
-        shareLinkType = v139, 
-        stamp = v140, 
-        url = v133, 
-        utm = v142, 
-        userDidLogIn = v132.loginTracking.userDidLogIn, 
-        userDidSignUp = v132.loginTracking.userDidSignUp
+        shareLinkType = v138, 
+        stamp = v139, 
+        url = v132, 
+        utm = v141, 
+        userDidLogIn = v131.loginTracking.userDidLogIn, 
+        userDidSignUp = v131.loginTracking.userDidSignUp
     });
-    if v139 == v45.ExperienceAffiliate and not l_userDidSignUp_0 then
-        local l_networking_3 = v132.props.networking;
-        local v146 = if v141 and v141.code then v141.code[1] else nil;
+    if v138 == v45.ExperienceAffiliate and not l_userDidSignUp_0 then
+        local l_networking_3 = v131.props.networking;
+        local v145 = if v140 and v140.code then v140.code[1] else nil;
         local l_ExperienceAffiliate_1 = v45.ExperienceAffiliate;
-        l_AuthenticatedVisitAttribution_0.attribute(l_networking_3, v146, v133, l_ExperienceAffiliate_1, l_userDidLogIn_0);
+        l_AuthenticatedVisitAttribution_0.attribute(l_networking_3, v145, v132, l_ExperienceAffiliate_1, l_userDidLogIn_0);
     end;
-    if v143 ~= nil and not l_userDidSignUp_0 then
-        local l_networking_4 = v132.props.networking;
-        l_AuthenticatedVisitAttribution_0.attributeJoinLink(l_networking_4, v133, v143, l_userDidLogIn_0);
+    if v142 ~= nil and not l_userDidSignUp_0 then
+        local l_networking_4 = v131.props.networking;
+        l_AuthenticatedVisitAttribution_0.attributeJoinLink(l_networking_4, v132, v142, l_userDidLogIn_0);
     end;
     if v52 then
-        local v149 = {
-            url = v133, 
-            attributionUrl = v134, 
-            shareLinkType = v139
+        local v148 = {
+            url = v132, 
+            attributionUrl = v133, 
+            shareLinkType = v138
         };
-        local v150 = {
+        local v149 = {
             eventName = "DeeplinkProcessed", 
             backends = {
                 l_default_0.TelemetryBackends.RobloxTelemetryCounter
             }
         };
-        l_default_0:logRobloxTelemetryCounter(v150, 1, v149);
+        l_default_0:logRobloxTelemetryCounter(v149, 1, v148);
     end;
 end;
-v91.init = function(v151) --[[ Line: 400 ]] --[[ Name: init ]]
-    -- upvalues: l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (copy), v12 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PostAuthDeepLinkAvailableSignal_0 (copy), v66 (copy), l_default_0 (copy), l_TelemetryConfigs_0 (copy), v48 (copy), l_PostAuthPendingLuaUrlAvailableSignal_0 (copy), l_FFlagEnableSquadDeeplinkWithChatId_0 (copy), l_FFlagEnableCommsFAEUpsell_0 (copy)
-    v151.loginTracking = {
+v90.init = function(v150) --[[ Line: 397 ]] --[[ Name: init ]]
+    -- upvalues: l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (copy), v12 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PostAuthDeepLinkAvailableSignal_0 (copy), v65 (copy), l_default_0 (copy), l_TelemetryConfigs_0 (copy), v48 (copy), l_PostAuthPendingLuaUrlAvailableSignal_0 (copy), l_FFlagEnableSquadDeeplinkWithChatId_0 (copy)
+    v150.loginTracking = {
         userDidLogIn = false, 
         userDidSignUp = false
     };
     if l_FFlagEnableDeepLinkHistoryWithModalAPI_0 then
-        v151.deepLinkLuaHandlerStatusStore = v12.DeepLinkLuaReceiverStatusStore(false);
+        v150.deepLinkLuaHandlerStatusStore = v12.DeepLinkLuaReceiverStatusStore(false);
     end;
-    v151:UpdateConnection();
+    v150:UpdateConnection();
     if l_FFlagEnableAuthDeepLinkReceiver_0 then
-        l_PostAuthDeepLinkAvailableSignal_0:connect(function(v152) --[[ Line: 413 ]]
-            -- upvalues: l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (ref), v151 (copy), v66 (ref), l_default_0 (ref), l_TelemetryConfigs_0 (ref), v48 (ref)
+        l_PostAuthDeepLinkAvailableSignal_0:connect(function(v151) --[[ Line: 410 ]]
+            -- upvalues: l_FFlagEnableDeepLinkHistoryWithModalAPI_0 (ref), v150 (copy), v65 (ref), l_default_0 (ref), l_TelemetryConfigs_0 (ref), v48 (ref)
             if l_FFlagEnableDeepLinkHistoryWithModalAPI_0 then
-                v151.deepLinkLuaHandlerStatusStore.setLastDetectedPostAuthUrl(v152.url);
+                v150.deepLinkLuaHandlerStatusStore.setLastDetectedPostAuthUrl(v151.url);
             end;
-            v151:logProcessedLink(v152.url, v152.attributionUrl);
-            if v66 and v151.props.navigationLocked then
-                v151.pendingDeepLinkUrl = v152.url;
+            v150:logProcessedLink(v151.url, v151.attributionUrl);
+            if v65 and v150.props.navigationLocked then
+                v150.pendingDeepLinkUrl = v151.url;
                 l_default_0:logRobloxTelemetryCounter(l_TelemetryConfigs_0.DeepLinkPendingDueToNavigationLockConfig, 1);
             else
-                v151:navigate(v152.url);
+                v150:navigate(v151.url);
             end;
             if v48 then
-                v151.props.loggingProtocol:logEvent("deeplink_navigation_begin");
+                v150.props.loggingProtocol:logEvent("deeplink_navigation_begin");
             end;
         end);
-        l_PostAuthPendingLuaUrlAvailableSignal_0:connect(function(v153) --[[ Line: 438 ]]
-            -- upvalues: v151 (copy)
-            local l_url_1 = v153.url;
-            local l_attributionUrl_1 = v153.attributionUrl;
-            v151:logPendingLink(l_url_1, l_attributionUrl_1);
+        l_PostAuthPendingLuaUrlAvailableSignal_0:connect(function(v152) --[[ Line: 435 ]]
+            -- upvalues: v150 (copy)
+            local l_url_1 = v152.url;
+            local l_attributionUrl_1 = v152.attributionUrl;
+            v150:logPendingLink(l_url_1, l_attributionUrl_1);
         end);
     end;
-    v151.navigateIntoChat = function(_, v157) --[[ Line: 445 ]]
-        -- upvalues: v151 (copy)
-        if not (v151.props.getCanSeeChatTab and v151.props.getCanSeeChatTab()) then
+    v150.navigateIntoChat = function(_, v156) --[[ Line: 442 ]]
+        -- upvalues: v150 (copy)
+        if not (v150.props.getCanSeeChatTab and v150.props.getCanSeeChatTab()) then
             return;
         else
-            local v158 = v157 and v157.entryPoint;
-            v151.props.EnteredChatFromEntryPoint(v158);
-            local v159 = v157 and v157.detail;
-            v151.props.NavigateIntoChat({
-                conversationId = v159
+            local v157 = v156 and v156.entryPoint;
+            v150.props.EnteredChatFromEntryPoint(v157);
+            local v158 = v156 and v156.detail;
+            v150.props.NavigateIntoChat({
+                conversationId = v158
             }, true);
             return;
         end;
     end;
-    v151.navigateIntoSquadLobbyIfExists = function(_, v161) --[[ Line: 460 ]]
-        -- upvalues: v151 (copy), l_FFlagEnableSquadDeeplinkWithChatId_0 (ref)
-        if not (v151.props.getCanSeeChatTab and v151.props.getCanSeeChatTab()) then
+    v150.navigateIntoSquadLobbyIfExists = function(_, v160) --[[ Line: 457 ]]
+        -- upvalues: v150 (copy), l_FFlagEnableSquadDeeplinkWithChatId_0 (ref)
+        if not (v150.props.getCanSeeChatTab and v150.props.getCanSeeChatTab()) then
             return;
         else
-            local v162 = v161 and v161.detail;
-            local v163 = if l_FFlagEnableSquadDeeplinkWithChatId_0 then v161 and v161.conversationId else nil;
-            v151.props.NavigateIntoSquadLobbyIfExists({
-                partyId = v162, 
-                conversationId = v163
+            local v161 = v160 and v160.detail;
+            local v162 = if l_FFlagEnableSquadDeeplinkWithChatId_0 then v160 and v160.conversationId else nil;
+            v150.props.NavigateIntoSquadLobbyIfExists({
+                partyId = v161, 
+                conversationId = v162
             }, true);
             return;
         end;
     end;
-    if l_FFlagEnableCommsFAEUpsell_0 then
-        v151.navigateIntoFAE = function(_, v165) --[[ Line: 475 ]]
-            -- upvalues: v151 (copy)
-            v151.props.NavigateIntoFAE(v165.source);
-        end;
-        v151.showFAEUpsellOverlay = function(_, v167) --[[ Line: 479 ]]
-            -- upvalues: v151 (copy)
-            v151.props.ShowFAEUpsellOverlay(v167.source, v167.isPhase2);
-        end;
+    v150.navigateIntoFAE = function(_, v164) --[[ Line: 470 ]]
+        -- upvalues: v150 (copy)
+        v150.props.NavigateIntoFAE(v164.source);
+    end;
+    v150.showFAEUpsellOverlay = function(_, v166) --[[ Line: 474 ]]
+        -- upvalues: v150 (copy)
+        v150.props.ShowFAEUpsellOverlay(v166.source, v166.isPhase2);
     end;
 end;
-v91.render = function(_) --[[ Line: 485 ]] --[[ Name: render ]]
+v90.render = function(_) --[[ Line: 479 ]] --[[ Name: render ]]
 
 end;
-v91.didUpdate = function(v169, v170) --[[ Line: 487 ]] --[[ Name: didUpdate ]]
-    -- upvalues: v43 (copy), v66 (copy), l_default_0 (copy), l_TelemetryConfigs_0 (copy)
-    if v170.userLoggedOut ~= v169.props.userLoggedOut and not v169.props.userLoggedOut then
-        v169.loginTracking.userDidLogIn = v169.props.launchContext == v43.Login;
-        v169.loginTracking.userDidSignUp = v169.props.launchContext == v43.SignUp;
+v90.didUpdate = function(v168, v169) --[[ Line: 481 ]] --[[ Name: didUpdate ]]
+    -- upvalues: v43 (copy), v65 (copy), l_default_0 (copy), l_TelemetryConfigs_0 (copy)
+    if v169.userLoggedOut ~= v168.props.userLoggedOut and not v168.props.userLoggedOut then
+        v168.loginTracking.userDidLogIn = v168.props.launchContext == v43.Login;
+        v168.loginTracking.userDidSignUp = v168.props.launchContext == v43.SignUp;
     end;
-    v169:UpdateConnection();
-    if v66 and v170.navigationLocked and not v169.props.navigationLocked and v169.pendingDeepLinkUrl then
-        local l_pendingDeepLinkUrl_0 = v169.pendingDeepLinkUrl;
-        v169.pendingDeepLinkUrl = nil;
+    v168:UpdateConnection();
+    if v65 and v169.navigationLocked and not v168.props.navigationLocked and v168.pendingDeepLinkUrl then
+        local l_pendingDeepLinkUrl_0 = v168.pendingDeepLinkUrl;
+        v168.pendingDeepLinkUrl = nil;
         l_default_0:logRobloxTelemetryCounter(l_TelemetryConfigs_0.DeepLinkProcessedAfterNavigationUnlockConfig, 1);
-        v169:navigate(l_pendingDeepLinkUrl_0);
+        v168:navigate(l_pendingDeepLinkUrl_0);
     end;
 end;
-v91.willUnmount = function(v172) --[[ Line: 513 ]] --[[ Name: willUnmount ]]
-    v172.props.linking:stopListeningForLuaURLs();
+v90.willUnmount = function(v171) --[[ Line: 507 ]] --[[ Name: willUnmount ]]
+    v171.props.linking:stopListeningForLuaURLs();
 end;
-v91 = v14.connect(function(v173, _) --[[ Line: 517 ]]
-    -- upvalues: v26 (copy), v17 (copy)
-    local v175 = v173.Startup.AppDataStatus ~= v26.NotStarted;
-    local v176 = if v173.Users[v173.LocalUserId] then v173.Users[v173.LocalUserId].name else nil;
+v90 = v14.connect(function(v172, _) --[[ Line: 511 ]]
+    -- upvalues: v27 (copy), l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), v17 (copy)
+    local v174 = v172.Startup.AppDataStatus ~= v27.NotStarted;
+    local v175 = if v172.Users[v172.LocalUserId] then v172.Users[v172.LocalUserId].name else nil;
     return {
-        currentHistory = v173.Navigation.history, 
-        launchContext = v173.LaunchContext, 
-        userLoggedOut = v173.AuthenticationStatus.status == v17.LOGGED_OUT, 
-        username = v176, 
-        appLoadingStarted = v175, 
-        navigationLocked = v173.Navigation.lockNavigationActions
+        currentHistory = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectLegacyHistory(v172) else v172.Navigation.history, 
+        launchContext = v172.LaunchContext, 
+        userLoggedOut = v172.AuthenticationStatus.status == v17.LOGGED_OUT, 
+        username = v175, 
+        appLoadingStarted = v174, 
+        navigationLocked = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectNavigationLocked(v172) else v172.Navigation.lockNavigationActions
     };
-end, function(v177) --[[ Line: 529 ]]
-    -- upvalues: l_FFlagTCUpdateProfileCTAButton_0 (copy), v51 (copy), v16 (copy), l_EnteredChatFromEntryPoint_0 (copy), v19 (copy), l_NavigateIntoChat_0 (copy), l_NavigateIntoSquadLobbyIfExists_0 (copy), l_FFlagEnableCommsFAEUpsell_0 (copy), l_startFacialAgeEstimation_0 (copy), l_FFlagAddMinorFixesToUpsellAnalytics_0 (copy), l_SocialUpsellType_0 (copy), l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 (copy), l_NavigateBack_0 (copy), l_AmpApiProvider_0 (copy), v65 (copy), v64 (copy), l_AccessResponseEnum_0 (copy), l_ShowFAESocialUpsellOverlay_0 (copy), l_UpsellComponent_0 (copy), v25 (copy), v42 (copy)
+end, function(v176) --[[ Line: 527 ]]
+    -- upvalues: l_FFlagTCUpdateProfileCTAButton_0 (copy), v51 (copy), v16 (copy), l_EnteredChatFromEntryPoint_0 (copy), v20 (copy), l_NavigateIntoChat_0 (copy), l_NavigateIntoSquadLobbyIfExists_0 (copy), l_startFacialAgeEstimation_0 (copy), l_SocialUpsellType_0 (copy), l_NavigateBack_0 (copy), l_AmpApiProvider_0 (copy), v64 (copy), v63 (copy), l_AccessResponseEnum_0 (copy), l_ShowFAESocialUpsellOverlay_0 (copy), l_UpsellComponent_0 (copy), v26 (copy), v42 (copy)
     return {
-        RefreshProfilePlatformActionInfo = l_FFlagTCUpdateProfileCTAButton_0 and function(v178) --[[ Line: 532 ]]
-            -- upvalues: v177 (copy), v51 (ref)
-            return v177(v51.refreshProfilePlatformActionInfo(v178));
+        RefreshProfilePlatformActionInfo = l_FFlagTCUpdateProfileCTAButton_0 and function(v177) --[[ Line: 530 ]]
+            -- upvalues: v176 (copy), v51 (ref)
+            return v176(v51(v177));
         end or nil, 
-        CloseCentralOverlay = function() --[[ Line: 536 ]] --[[ Name: CloseCentralOverlay ]]
-            -- upvalues: v177 (copy), v16 (ref)
-            return v177(v16());
+        CloseCentralOverlay = function() --[[ Line: 534 ]] --[[ Name: CloseCentralOverlay ]]
+            -- upvalues: v176 (copy), v16 (ref)
+            return v176(v16());
         end, 
-        EnteredChatFromEntryPoint = function(v179) --[[ Line: 539 ]] --[[ Name: EnteredChatFromEntryPoint ]]
-            -- upvalues: v177 (copy), l_EnteredChatFromEntryPoint_0 (ref)
-            return v177(l_EnteredChatFromEntryPoint_0(v179));
+        EnteredChatFromEntryPoint = function(v178) --[[ Line: 537 ]] --[[ Name: EnteredChatFromEntryPoint ]]
+            -- upvalues: v176 (copy), l_EnteredChatFromEntryPoint_0 (ref)
+            return v176(l_EnteredChatFromEntryPoint_0(v178));
         end, 
-        NavigateIntoAvatarExperience = function(v180, v181, v182) --[[ Line: 542 ]] --[[ Name: NavigateIntoAvatarExperience ]]
-            -- upvalues: v177 (copy), v19 (ref)
-            return v177(v19(v180, v181, v182));
+        NavigateIntoAvatarExperience = function(v179, v180, v181) --[[ Line: 540 ]] --[[ Name: NavigateIntoAvatarExperience ]]
+            -- upvalues: v176 (copy), v20 (ref)
+            return v176(v20(v179, v180, v181));
         end, 
-        NavigateIntoChat = function(v183, v184) --[[ Line: 547 ]] --[[ Name: NavigateIntoChat ]]
-            -- upvalues: v177 (copy), l_NavigateIntoChat_0 (ref)
-            return v177(l_NavigateIntoChat_0(v183, v184));
+        NavigateIntoChat = function(v182, v183) --[[ Line: 545 ]] --[[ Name: NavigateIntoChat ]]
+            -- upvalues: v176 (copy), l_NavigateIntoChat_0 (ref)
+            return v176(l_NavigateIntoChat_0(v182, v183));
         end, 
-        NavigateIntoSquadLobbyIfExists = function(v185, v186) --[[ Line: 550 ]] --[[ Name: NavigateIntoSquadLobbyIfExists ]]
-            -- upvalues: v177 (copy), l_NavigateIntoSquadLobbyIfExists_0 (ref)
-            return v177(l_NavigateIntoSquadLobbyIfExists_0(v185, v186));
+        NavigateIntoSquadLobbyIfExists = function(v184, v185) --[[ Line: 548 ]] --[[ Name: NavigateIntoSquadLobbyIfExists ]]
+            -- upvalues: v176 (copy), l_NavigateIntoSquadLobbyIfExists_0 (ref)
+            return v176(l_NavigateIntoSquadLobbyIfExists_0(v184, v185));
         end, 
-        NavigateIntoFAE = function(v187) --[[ Line: 553 ]] --[[ Name: NavigateIntoFAE ]]
-            -- upvalues: l_FFlagEnableCommsFAEUpsell_0 (ref), v177 (copy), l_startFacialAgeEstimation_0 (ref), l_FFlagAddMinorFixesToUpsellAnalytics_0 (ref), l_SocialUpsellType_0 (ref), l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 (ref), l_NavigateBack_0 (ref)
-            if l_FFlagEnableCommsFAEUpsell_0 then
-                return v177(l_startFacialAgeEstimation_0(if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_SocialUpsellType_0.FacialAgeEstimation .. (v187 or "") else l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 .. (v187 or ""), function() --[[ Line: 560 ]]
-                    -- upvalues: v177 (ref), l_NavigateBack_0 (ref)
-                    v177(l_NavigateBack_0());
-                end, function() --[[ Line: 563 ]]
-                    -- upvalues: v177 (ref), l_NavigateBack_0 (ref)
-                    v177(l_NavigateBack_0());
-                end, v187));
-            else
-                return;
-            end;
+        NavigateIntoFAE = function(v186) --[[ Line: 551 ]] --[[ Name: NavigateIntoFAE ]]
+            -- upvalues: v176 (copy), l_startFacialAgeEstimation_0 (ref), l_SocialUpsellType_0 (ref), l_NavigateBack_0 (ref)
+            return v176(l_startFacialAgeEstimation_0(l_SocialUpsellType_0.FacialAgeEstimation .. (v186 or ""), function() --[[ Line: 552 ]]
+                -- upvalues: v176 (ref), l_NavigateBack_0 (ref)
+                v176(l_NavigateBack_0());
+            end, function() --[[ Line: 554 ]]
+                -- upvalues: v176 (ref), l_NavigateBack_0 (ref)
+                v176(l_NavigateBack_0());
+            end, v186));
         end, 
-        ShowFAEUpsellOverlay = function(v188, v189) --[[ Line: 571 ]] --[[ Name: ShowFAEUpsellOverlay ]]
-            -- upvalues: l_AmpApiProvider_0 (ref), v65 (ref), v64 (ref), l_AccessResponseEnum_0 (ref), v177 (copy), l_ShowFAESocialUpsellOverlay_0 (ref), l_FFlagAddMinorFixesToUpsellAnalytics_0 (ref), l_SocialUpsellType_0 (ref), l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 (ref), l_UpsellComponent_0 (ref)
-            if l_AmpApiProvider_0.upsellFeatureAccess(v65, {}, v64).access == l_AccessResponseEnum_0.Granted then
-                v177(l_ShowFAESocialUpsellOverlay_0({
-                    entryPointEventCtx = if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_SocialUpsellType_0.FacialAgeEstimation .. (v188 or "") else l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 .. (v188 or ""), 
-                    upsellEntrySurface = v188 or "", 
-                    upsellEntryComponent = if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_UpsellComponent_0.PushNotifUI else nil; 
-                    v189
+        ShowFAEUpsellOverlay = function(v187, v188) --[[ Line: 558 ]] --[[ Name: ShowFAEUpsellOverlay ]]
+            -- upvalues: l_AmpApiProvider_0 (ref), v64 (ref), v63 (ref), l_AccessResponseEnum_0 (ref), v176 (copy), l_ShowFAESocialUpsellOverlay_0 (ref), l_SocialUpsellType_0 (ref), l_UpsellComponent_0 (ref)
+            if l_AmpApiProvider_0.upsellFeatureAccess(v64, {}, v63).access == l_AccessResponseEnum_0.Granted then
+                v176(l_ShowFAESocialUpsellOverlay_0({
+                    entryPointEventCtx = l_SocialUpsellType_0.FacialAgeEstimation .. (v187 or ""), 
+                    upsellEntrySurface = v187 or "", 
+                    upsellEntryComponent = l_UpsellComponent_0.PushNotifUI; 
+                    v188
                 }));
             end;
         end, 
-        ResetNavigationHistory = function(v190) --[[ Line: 590 ]] --[[ Name: ResetNavigationHistory ]]
-            -- upvalues: v177 (copy), v25 (ref)
-            return v177(v25(nil, v190));
+        ResetNavigationHistory = function(v189) --[[ Line: 573 ]] --[[ Name: ResetNavigationHistory ]]
+            -- upvalues: v176 (copy), v26 (ref)
+            return v176(v26(nil, v189));
         end, 
-        ResolveLinkFromLinkId = function(v191, v192) --[[ Line: 593 ]] --[[ Name: ResolveLinkFromLinkId ]]
-            -- upvalues: v177 (copy), v42 (ref)
-            return v177(v42.ShareLinksNetworking.ResolveLinkFromLinkId.API({
-                linkId = v191, 
-                linkType = v192
+        ResolveLinkFromLinkId = function(v190, v191) --[[ Line: 576 ]] --[[ Name: ResolveLinkFromLinkId ]]
+            -- upvalues: v176 (copy), v42 (ref)
+            return v176(v42.ShareLinksNetworking.ResolveLinkFromLinkId.API({
+                linkId = v190, 
+                linkType = v191
             }));
         end, 
-        ResolveLinkFromLinkIdV2 = function(v193) --[[ Line: 599 ]] --[[ Name: ResolveLinkFromLinkIdV2 ]]
-            -- upvalues: v177 (copy), v42 (ref)
-            return v177(v42.ShareLinksNetworking.ResolveLinkFromLinkIdV2.API({
-                linkId = v193
+        ResolveLinkFromLinkIdV2 = function(v192) --[[ Line: 582 ]] --[[ Name: ResolveLinkFromLinkIdV2 ]]
+            -- upvalues: v176 (copy), v42 (ref)
+            return v176(v42.ShareLinksNetworking.ResolveLinkFromLinkIdV2.API({
+                linkId = v192
             }));
         end
     };
-end)(v91);
-v91 = l_UniversalAppPolicy_0.connect(function(v194) --[[ Line: 606 ]]
+end)(v90);
+v90 = l_UniversalAppPolicy_0.connect(function(v193) --[[ Line: 589 ]]
     return {
-        getCanSeeChatTab = v194.getCanSeeChatTab
+        getCanSeeChatTab = v193.getCanSeeChatTab
     };
-end)(v91);
-v91 = l_RoactServices_0.connect({
-    appAnalytics = v27, 
+end)(v90);
+v90 = l_RoactServices_0.connect({
+    appAnalytics = v28, 
     browserService = if l_GetFFlagEnableUnifiedWebViews_0() then nil else l_AppBrowserService_0, 
     linking = l_AppLinking_0, 
     loggingProtocol = l_AppLogging_0, 
-    networking = v28, 
+    networking = v29, 
     sessionService = l_AppSessionService_0, 
-    shareLinksAnalytics = v30, 
-    socialProfileShareAnalytics = v31
-})(v91);
-local function v198(v195) --[[ Line: 623 ]]
-    -- upvalues: v68 (ref), v11 (copy), v13 (copy), v91 (ref)
-    local v196 = v68();
-    local v197 = v11.Dictionary.join(v195, {
-        setDrawerVisible = v196
+    shareLinksAnalytics = v31, 
+    socialProfileShareAnalytics = v32
+})(v90);
+local function v197(v194) --[[ Line: 606 ]]
+    -- upvalues: v67 (ref), v11 (copy), v13 (copy), v90 (ref)
+    local v195 = v67();
+    local v196 = v11.Dictionary.join(v194, {
+        setDrawerVisible = v195
     });
-    return v13.createElement(v91, v197);
+    return v13.createElement(v90, v196);
 end;
-if v67 then
-    return v198;
+if v66 then
+    return v197;
 else
-    return v91;
+    return v90;
 end;

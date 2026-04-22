@@ -19,182 +19,145 @@ local v17 = require(l_script_FirstAncestor_0.Hooks.useDisplayNameText);
 local l_getStandardSizeAvatarHeadShotRbxthumb_0 = v4.Utils.getStandardSizeAvatarHeadShotRbxthumb;
 local l_StyledTextLabel_0 = v3.App.Text.StyledTextLabel;
 local l_VerticalScrollView_0 = v3.App.Container.VerticalScrollView;
-local l_withHoverTooltip_0 = v3.App.Dialog.TooltipV2.withHoverTooltip;
-local l_TooltipOrientation_0 = v3.App.Dialog.Enum.TooltipOrientation;
-local l_Interactable_0 = v3.Core.Control.Interactable;
-local v24 = require(l_script_FirstAncestor_0.Networking.UserProfileSettingsNetworking);
+local v21 = require(l_script_FirstAncestor_0.Networking.UserProfileSettingsNetworking);
 local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local v26 = require(l_Parent_0.Foundation);
-local l_Button_0 = v26.Button;
-local l_ButtonSize_0 = v26.Enums.ButtonSize;
+local v23 = require(l_Parent_0.Foundation);
+local l_Button_0 = v23.Button;
+local l_ButtonSize_0 = v23.Enums.ButtonSize;
 local l_useLastInputMode_0 = v5.useLastInputMode;
 local l_useUserExperiment_0 = require(l_Parent_0.RoactAppExperiment).useUserExperiment;
 local l_FFlagEditProfileBackgroundEnabled_0 = require(l_Parent_0.SharedFlags).FFlagEditProfileBackgroundEnabled;
 local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
-local v33 = require(l_script_FirstAncestor_0.Components.EditProfileBackgroundViewport);
-local v34 = require(l_script_FirstAncestor_0.Flags.FFlagEditProfileFixFocusNavigation);
-local v35 = require(l_script_FirstAncestor_0.Flags.FFlagEditProfileNavigateToAvatar);
-local v36 = require(l_script_FirstAncestor_0.Flags.FStringEditProfileToAvatarLayerName);
-local v37 = require(l_script_FirstAncestor_0.Flags.SocialNetworksInEditProfileIXP);
-local v38 = game:DefineFastFlag("EditProfileScrollable", false);
+local v30 = require(l_script_FirstAncestor_0.Components.EditProfileBackgroundViewport);
+local v31 = require(l_script_FirstAncestor_0.Flags.FFlagEditProfileFixFocusNavigation);
+local v32 = require(l_script_FirstAncestor_0.Flags.FFlagEditProfileNavigateToAvatar);
+local v33 = require(l_script_FirstAncestor_0.Flags.FStringEditProfileToAvatarLayerName);
+local v34 = require(l_script_FirstAncestor_0.Flags.SocialNetworksInEditProfileIXP);
+local v35 = game:DefineFastFlag("EditProfileScrollable", false);
 local l_FFlagMoveInExperienceModeToEditProfile_0 = require(l_Parent_0.SharedFlags).FFlagMoveInExperienceModeToEditProfile;
-local l_FFlagEditProfileInExperiencePersonasV2_0 = require(l_Parent_0.SharedFlags).FFlagEditProfileInExperiencePersonasV2;
 local l_FFlagAuthSecExclusions_0 = require(l_Parent_0.SharedFlags).FFlagAuthSecExclusions;
-local v42 = require(l_Parent_0.UniversalAppPolicy);
-local l_Toggle_0 = v26.Toggle;
-local l_ToggleSize_0 = v26.Enums.ToggleSize;
-local v45 = require(l_script_FirstAncestor_0.Components.PersonaDetailBar);
-local v46 = utf8.char(57346);
-return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
-    -- upvalues: l_FFlagEditProfileBackgroundEnabled_0 (copy), l_useNavigation_0 (copy), l_useLastInputMode_0 (copy), l_useFocusGuiObject_0 (copy), l_useUserExperiment_0 (copy), v36 (copy), v37 (copy), l_FFlagAuthSecExclusions_0 (copy), v42 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), v14 (copy), l_FFlagMoveInExperienceModeToEditProfile_0 (copy), l_useDispatch_0 (copy), v46 (copy), l_FFlagEditProfileInExperiencePersonasV2_0 (copy), v17 (copy), v2 (copy), v24 (copy), v16 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v34 (copy), l_TooltipOrientation_0 (copy), v12 (copy), v38 (copy), v11 (copy), v35 (copy), v33 (copy), v26 (copy), l_Button_0 (copy), l_ButtonSize_0 (copy), l_LoadableImage_0 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (copy), l_StyledTextLabel_0 (copy), l_withHoverTooltip_0 (copy), l_Toggle_0 (copy), l_ToggleSize_0 (copy), l_Interactable_0 (copy), v45 (copy), l_VerticalScrollView_0 (copy)
-    local v48 = if l_FFlagEditProfileBackgroundEnabled_0 then l_useNavigation_0() else nil;
-    local v49 = l_useLastInputMode_0();
-    local v50 = l_useFocusGuiObject_0();
-    local v52 = l_useUserExperiment_0({
-        v36
-    }, function(v51) --[[ Line: 113 ]]
-        -- upvalues: v36 (ref)
-        return (v51[v36] or {}).profile_picture_on;
+local v38 = require(l_Parent_0.UniversalAppPolicy);
+local v39 = utf8.char(57346);
+return function(v40) --[[ Line: 93 ]] --[[ Name: EditProfileEntryPoint ]]
+    -- upvalues: l_FFlagEditProfileBackgroundEnabled_0 (copy), l_useNavigation_0 (copy), l_useLastInputMode_0 (copy), l_useFocusGuiObject_0 (copy), l_useUserExperiment_0 (copy), v33 (copy), v34 (copy), l_FFlagAuthSecExclusions_0 (copy), v38 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), v14 (copy), l_FFlagMoveInExperienceModeToEditProfile_0 (copy), l_useDispatch_0 (copy), v39 (copy), v17 (copy), v2 (copy), v21 (copy), v16 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v31 (copy), v12 (copy), v35 (copy), v11 (copy), v32 (copy), v30 (copy), v23 (copy), l_Button_0 (copy), l_ButtonSize_0 (copy), l_LoadableImage_0 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (copy), l_StyledTextLabel_0 (copy), l_VerticalScrollView_0 (copy)
+    local v41 = if l_FFlagEditProfileBackgroundEnabled_0 then l_useNavigation_0() else nil;
+    local v42 = l_useLastInputMode_0();
+    local v43 = l_useFocusGuiObject_0();
+    local v45 = l_useUserExperiment_0({
+        v33
+    }, function(v44) --[[ Line: 97 ]]
+        -- upvalues: v33 (ref)
+        return (v44[v33] or {}).profile_picture_on;
     end);
-    local v53 = v37.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled();
-    local v54 = v37.useGetExperimentVariant({
+    local v46 = v34.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled();
+    local v47 = v34.useGetExperimentVariant({
         isExposureEnabled = true
     });
-    local v55 = v54 and v54 ~= v37.Variants.Control;
-    local v57 = if l_FFlagAuthSecExclusions_0 then v42.useAppPolicy(function(v56) --[[ Line: 124 ]]
-        return v56.getExcludeUsernameUpdateModeration();
+    local v48 = v47 and v47 ~= v34.Variants.Control;
+    local v50 = if l_FFlagAuthSecExclusions_0 then v38.useAppPolicy(function(v49) --[[ Line: 108 ]]
+        return v49.getExcludeUsernameUpdateModeration();
     end) else nil;
-    local v58 = l_useStyle_0();
-    local l_Theme_0 = v58.Theme;
-    local l_Font_0 = v58.Font;
-    local v61 = l_useLocalization_0({
+    local v51 = l_useStyle_0();
+    local l_Theme_0 = v51.Theme;
+    local l_Font_0 = v51.Font;
+    local v54 = l_useLocalization_0({
         thousand = v14.UsernamePrice
     });
-    local v62 = if l_FFlagMoveInExperienceModeToEditProfile_0 then l_useDispatch_0() else nil;
-    local v63 = l_useLocalization_0({
+    local v55 = if l_FFlagMoveInExperienceModeToEditProfile_0 then l_useDispatch_0() else nil;
+    local v56 = l_useLocalization_0({
         About = v14.About, 
         AboutModalCaption = v14.AboutModalCaption, 
         AboutPlaceholder = v14.AboutPlaceholder, 
         Username = v14.Username, 
         UsernameCaption = {
             v14.UsernameDescription; 
-            icon = v46, 
-            price = v61.thousand
+            icon = v39, 
+            price = v54.thousand
         }, 
         EditBackground = if l_FFlagEditProfileBackgroundEnabled_0 then v14.EditBackground else nil, 
-        SocialNetworks = if v53 and v55 then v14.SocialNetworks else nil, 
-        SocialNetworksCaption = if v53 and v55 and v47.socialInfo and v47.socialInfo.visibility then v14[v47.socialInfo.visibility] else nil, 
-        TopBarTitle = if l_FFlagEditProfileInExperiencePersonasV2_0 then v14.Title else nil, 
-        PersonaTitle = if l_FFlagEditProfileInExperiencePersonasV2_0 then v14.PersonaTitle else nil, 
-        PersonaDescription = if l_FFlagEditProfileInExperiencePersonasV2_0 then v14.PersonaDescription else nil, 
-        PersonaEnable = if l_FFlagEditProfileInExperiencePersonasV2_0 then v14.PersonaEnable else nil, 
-        PersonaStepsToEnableHint = if l_FFlagEditProfileInExperiencePersonasV2_0 then v14.PersonaStepsToEnableHint else nil
+        SocialNetworks = if v46 and v48 then v14.SocialNetworks else nil, 
+        SocialNetworksCaption = if v46 and v48 and v40.socialInfo and v40.socialInfo.visibility then v14[v40.socialInfo.visibility] else nil
     });
-    local v64 = v17();
-    local v66 = if l_FFlagMoveInExperienceModeToEditProfile_0 then v2.useCallback(function() --[[ Line: 166 ]]
-        -- upvalues: v62 (copy), v24 (ref), v47 (copy)
-        v62(v24.SetUserProfileSettings.API({
-            isInExperienceNameEnabled = not v47.isInExperienceNameEnabled
-        })):andThen(function(v65) --[[ Line: 169 ]]
-            -- upvalues: v47 (ref)
-            if v65.responseBody.successfullyUpdated then
-                v47.onToggleInExperienceMode();
+    local v57 = v17();
+    local v59 = if l_FFlagMoveInExperienceModeToEditProfile_0 then v2.useCallback(function() --[[ Line: 143 ]]
+        -- upvalues: v55 (copy), v21 (ref), v40 (copy)
+        v55(v21.SetUserProfileSettings.API({
+            isInExperienceNameEnabled = not v40.isInExperienceNameEnabled
+        })):andThen(function(v58) --[[ Line: 146 ]]
+            -- upvalues: v40 (ref)
+            if v58.responseBody.successfullyUpdated then
+                v40.onToggleInExperienceMode();
             end;
         end);
     end, {
-        v47.onToggleInExperienceMode, 
-        v47.isInExperienceNameEnabled, 
-        v24.SetUserProfileSettings
+        v40.onToggleInExperienceMode, 
+        v40.isInExperienceNameEnabled, 
+        v21.SetUserProfileSettings
     }) else nil;
-    local v67 = false;
-    local v71 = if v53 then v2.useMemo(function() --[[ Line: 185 ]]
-        -- upvalues: v47 (copy), v16 (ref), v2 (ref), l_Theme_0 (copy), l_ImageSetLabel_0 (ref), l_Images_0 (ref), v67 (ref)
-        local v68 = {};
-        if v47.socialInfo and v47.socialInfo.socialLinks then
-            for v69, v70 in ipairs(v16.SocialMediaOrder) do
-                v68[v70] = v2.createElement("ImageButton", {
-                    LayoutOrder = v69, 
+    local v60 = false;
+    local v64 = if v46 then v2.useMemo(function() --[[ Line: 162 ]]
+        -- upvalues: v40 (copy), v16 (ref), v2 (ref), l_Theme_0 (copy), l_ImageSetLabel_0 (ref), l_Images_0 (ref), v60 (ref)
+        local v61 = {};
+        if v40.socialInfo and v40.socialInfo.socialLinks then
+            for v62, v63 in ipairs(v16.SocialMediaOrder) do
+                v61[v63] = v2.createElement("ImageButton", {
+                    LayoutOrder = v62, 
                     BackgroundTransparency = 0, 
                     Size = UDim2.new(0, 40, 0, 40), 
                     BackgroundColor3 = l_Theme_0.BackgroundUIDefault.Color, 
-                    [v2.Event.Activated] = v47.openEditSocialLinksModal and function() --[[ Line: 195 ]]
-                        -- upvalues: v47 (ref), v69 (copy)
-                        v47.openEditSocialLinksModal(v69);
+                    [v2.Event.Activated] = v40.openEditSocialLinksModal and function() --[[ Line: 172 ]]
+                        -- upvalues: v40 (ref), v62 (copy)
+                        v40.openEditSocialLinksModal(v62);
                     end or nil
                 }, {
                     UICorner = v2.createElement("UICorner", {
                         CornerRadius = UDim.new(0, 8)
                     }), 
                     Icon = v2.createElement(l_ImageSetLabel_0, {
-                        Image = l_Images_0[v16.SocialMediaIcons[v70]], 
+                        Image = l_Images_0[v16.SocialMediaIcons[v63]], 
                         ImageColor3 = l_Theme_0.IconEmphasis.Color, 
-                        ImageTransparency = v47.socialInfo.socialLinks[v70] and 0 or 0.5, 
+                        ImageTransparency = v40.socialInfo.socialLinks[v63] and 0 or 0.5, 
                         BackgroundTransparency = 1, 
                         Size = UDim2.new(0, 28, 0, 28), 
                         Position = UDim2.new(0, 6, 0, 6)
                     })
                 });
-                if v47.socialInfo.socialLinks[v70] then
-                    v67 = true;
+                if v40.socialInfo.socialLinks[v63] then
+                    v60 = true;
                 end;
             end;
         end;
-        return v68;
+        return v61;
     end, {
-        v47.socialInfo, 
+        v40.socialInfo, 
         l_Theme_0, 
-        v47.openEditSocialLinksModal
+        v40.openEditSocialLinksModal
     }) else nil;
-    local v72 = nil;
-    if v34 then
-        v72 = v2.useCallback(function(v73) --[[ Line: 224 ]]
-            -- upvalues: v49 (copy), v50 (copy)
-            if v73 and v49 == "Focus" then
-                v50(v73);
+    local v65 = nil;
+    if v31 then
+        v65 = v2.useCallback(function(v66) --[[ Line: 201 ]]
+            -- upvalues: v42 (copy), v43 (copy)
+            if v66 and v42 == "Focus" then
+                v43(v66);
             end;
         end, {});
     end;
-    local v74 = nil;
-    local v75 = nil;
-    local v76 = nil;
-    if l_FFlagEditProfileInExperiencePersonasV2_0 then
-        v74 = function() --[[ Line: 234 ]]
-            -- upvalues: v47 (copy)
-            local v77 = false;
-            if v47.personaName ~= "" then
-                v77 = v47.personaOutfit ~= -1;
-            end;
-            return v77;
-        end;
-        v75 = {
-            bodyText = v63.PersonaStepsToEnableHint, 
-            useLargeDropShadow = true
-        };
-        v76 = {
-            preferredOrientation = l_TooltipOrientation_0.Bottom, 
-            guiTarget = game:GetService("CoreGui"), 
-            DisplayOrder = 10, 
-            delayTime = 0, 
-            triggerPointName = "PersonaToggle", 
-            disabled = v74()
-        };
-    end;
-    local v78 = if v57 then nil else v2.createElement(v12, {
+    local v67 = if v50 then nil else v2.createElement(v12, {
         layoutOrder = 2, 
-        shouldShimmerName = v47.shouldShimmerName, 
-        title = v63.Username, 
-        description = v63.UsernameCaption, 
-        placeHolderText = "@" .. v47.username, 
-        localUserId = v47.localUserId, 
-        onActivated = v47.navigateToEditUsername, 
+        shouldShimmerName = v40.shouldShimmerName, 
+        title = v56.Username, 
+        description = v56.UsernameCaption, 
+        placeHolderText = "@" .. v40.username, 
+        localUserId = v40.localUserId, 
+        onActivated = v40.navigateToEditUsername, 
         expandSizing = false, 
         transparentText = false
     });
-    local v81 = v2.createElement("Frame", {
-        BackgroundColor3 = v58.Theme.BackgroundDefault.Color, 
-        BackgroundTransparency = v58.Theme.BackgroundDefault.Transparency, 
+    local v68 = v2.createElement("Frame", {
+        BackgroundColor3 = v51.Theme.BackgroundDefault.Color, 
+        BackgroundTransparency = v51.Theme.BackgroundDefault.Transparency, 
         Size = UDim2.new(1, 0, 1, 0), 
-        AutomaticSize = if v38 then Enum.AutomaticSize.Y else nil, 
+        AutomaticSize = if v35 then Enum.AutomaticSize.Y else nil, 
         Position = UDim2.fromScale(1, 0), 
         AnchorPoint = Vector2.new(1, 0)
     }, {
@@ -213,10 +176,9 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
         }), 
         TopBar = v2.createElement(v11, {
             layoutOrder = 1, 
-            onClose = v47.onClose, 
-            title = l_FFlagEditProfileInExperiencePersonasV2_0 and v63.TopBarTitle or nil
+            onClose = v40.onClose
         }), 
-        ProfilePicture = if not not v35 or v52 then if l_FFlagEditProfileBackgroundEnabled_0 then v2.createElement("Frame", {
+        ProfilePicture = if not not v32 or v45 then if l_FFlagEditProfileBackgroundEnabled_0 then v2.createElement("Frame", {
             AutomaticSize = Enum.AutomaticSize.X, 
             Size = UDim2.new(1, 0, 0, 200), 
             LayoutOrder = 2, 
@@ -228,20 +190,20 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                 ZIndex = 1, 
                 BackgroundTransparency = 1
             }, {
-                ProfileBackgroundBanner = v2.createElement(v33, {
+                ProfileBackgroundBanner = v2.createElement(v30, {
                     height = 150
                 }), 
-                EditBackgroundButton = v2.createElement(v26.View, {
+                EditBackgroundButton = v2.createElement(v23.View, {
                     tag = "position-center-center anchor-center-center auto-xy", 
                     ZIndex = 2
                 }, {
                     Button = v2.createElement(l_Button_0, {
-                        text = v63.EditBackground, 
-                        onActivated = function() --[[ Line: 318 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v48 (copy), v47 (copy)
-                            v48.navigate(v47.profileScreens.EditProfileBackground);
+                        text = v56.EditBackground, 
+                        onActivated = function() --[[ Line: 273 ]] --[[ Name: onActivated ]]
+                            -- upvalues: v41 (copy), v40 (copy)
+                            v41.navigate(v40.profileScreens.EditProfileBackground);
                         end, 
-                        variant = v26.Enums.ButtonVariant.SubEmphasis, 
+                        variant = v23.Enums.ButtonVariant.SubEmphasis, 
                         size = l_ButtonSize_0.Small
                     })
                 }), 
@@ -252,7 +214,7 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                     BackgroundTransparency = 0, 
                     BorderSizePixel = 10, 
                     ZIndex = 2, 
-                    [v2.Event.Activated] = v47.openEditProfilePicture
+                    [v2.Event.Activated] = v40.openEditProfilePicture
                 }, {
                     UICorner = v2.createElement("UICorner", {
                         CornerRadius = UDim.new(0.5, 0)
@@ -262,7 +224,7 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                         useShimmerAnimationWhileLoading = true, 
                         cornerRadius = UDim.new(0.5, 0), 
                         shouldHandleReloads = true, 
-                        Image = l_getStandardSizeAvatarHeadShotRbxthumb_0(v47.localUserId), 
+                        Image = l_getStandardSizeAvatarHeadShotRbxthumb_0(v40.localUserId), 
                         BackgroundColor3 = l_Theme_0.PlaceHolder.Color, 
                         BackgroundTransparency = l_Theme_0.PlaceHolder.Transparency, 
                         ZIndex = 2
@@ -274,7 +236,7 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                         BackgroundTransparency = 0, 
                         BackgroundColor3 = l_Theme_0.BackgroundUIDefault.Color, 
                         ZIndex = 3, 
-                        [v2.Event.Activated] = v47.openEditProfilePicture
+                        [v2.Event.Activated] = v40.openEditProfilePicture
                     }, {
                         UICorner = v2.createElement("UICorner", {
                             CornerRadius = UDim.new(0.5, 0)
@@ -304,7 +266,7 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                 Size = UDim2.new(0, 100, 0, 100), 
                 BackgroundTransparency = 1, 
                 BorderSizePixel = 10, 
-                [v2.Event.Activated] = v47.openEditProfilePicture
+                [v2.Event.Activated] = v40.openEditProfilePicture
             }, {
                 UICorner = v2.createElement("UICorner", {
                     CornerRadius = UDim.new(0.5, 0)
@@ -314,7 +276,7 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                     useShimmerAnimationWhileLoading = true, 
                     cornerRadius = UDim.new(0.5, 0), 
                     shouldHandleReloads = true, 
-                    Image = l_getStandardSizeAvatarHeadShotRbxthumb_0(v47.localUserId), 
+                    Image = l_getStandardSizeAvatarHeadShotRbxthumb_0(v40.localUserId), 
                     BackgroundColor3 = l_Theme_0.PlaceHolder.Color, 
                     BackgroundTransparency = l_Theme_0.PlaceHolder.Transparency
                 })
@@ -325,7 +287,7 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                 Position = UDim2.new(0.5, 80, 1, 0), 
                 BackgroundTransparency = l_Theme_0.UIMuted.Transparency, 
                 BackgroundColor3 = l_Theme_0.UIMuted.Color, 
-                [v2.Event.Activated] = v47.openEditProfilePicture
+                [v2.Event.Activated] = v40.openEditProfilePicture
             }, {
                 UICorner = v2.createElement("UICorner", {
                     CornerRadius = UDim.new(0, 4)
@@ -355,43 +317,43 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
             }), 
             DisplayNameButton = v2.createElement(v12, {
                 layoutOrder = 1, 
-                shouldShimmerName = v47.shouldShimmerName, 
-                title = v64.displayNameTitle, 
-                description = v64.displayNameCaption, 
-                placeHolderText = v47.displayName, 
-                localUserId = v47.localUserId, 
-                onActivated = v47.openDisplayNameModal, 
+                shouldShimmerName = v40.shouldShimmerName, 
+                title = v57.displayNameTitle, 
+                description = v57.displayNameCaption, 
+                placeHolderText = v40.displayName, 
+                localUserId = v40.localUserId, 
+                onActivated = v40.openDisplayNameModal, 
                 expandSizing = false, 
                 transparentText = false, 
-                forwardRef = v72
+                forwardRef = v65
             }), 
-            UsernameButton = v78, 
+            UsernameButton = v67, 
             Divider = v2.createElement("Frame", {
                 LayoutOrder = 3, 
-                BackgroundColor3 = v58.Theme.Divider.Color, 
-                BackgroundTransparency = v58.Theme.Divider.Transparency, 
+                BackgroundColor3 = v51.Theme.Divider.Color, 
+                BackgroundTransparency = v51.Theme.Divider.Transparency, 
                 BorderSizePixel = 0, 
                 Size = UDim2.new(1, 0, 0, 1)
             }), 
             AboutMeButton = v2.createElement(v12, {
                 layoutOrder = 4, 
-                title = v63.About, 
-                description = v63.AboutModalCaption, 
-                placeHolderText = if v47.description ~= nil and v47.description ~= "" then v47.description else v63.AboutPlaceholder, 
+                title = v56.About, 
+                description = v56.AboutModalCaption, 
+                placeHolderText = if v40.description ~= nil and v40.description ~= "" then v40.description else v56.AboutPlaceholder, 
                 shouldShimmerName = false, 
-                localUserId = v47.localUserId, 
+                localUserId = v40.localUserId, 
                 expandSizing = true, 
-                onActivated = v47.openEditDescription, 
-                transparentText = not v47.description or v47.description == ""
+                onActivated = v40.openEditDescription, 
+                transparentText = not v40.description or v40.description == ""
             }), 
-            Divider2 = if not (v53 and v55) or v47.isUnder13 then nil else v2.createElement("Frame", {
+            Divider2 = if not (v46 and v48) or v40.isUnder13 then nil else v2.createElement("Frame", {
                 LayoutOrder = l_FFlagMoveInExperienceModeToEditProfile_0 and 8 or 5, 
-                BackgroundColor3 = v58.Theme.Divider.Color, 
-                BackgroundTransparency = v58.Theme.Divider.Transparency, 
+                BackgroundColor3 = v51.Theme.Divider.Color, 
+                BackgroundTransparency = v51.Theme.Divider.Transparency, 
                 BorderSizePixel = 0, 
                 Size = UDim2.new(1, 0, 0, 1)
             }), 
-            SocialNetworksButton = if not (v53 and v55 and v47.socialInfo and v47.socialInfo.socialLinks) or v47.isUnder13 then nil else v2.createElement("Frame", {
+            SocialNetworksButton = if not (v46 and v48 and v40.socialInfo and v40.socialInfo.socialLinks) or v40.isUnder13 then nil else v2.createElement("Frame", {
                 LayoutOrder = l_FFlagMoveInExperienceModeToEditProfile_0 and 9 or 6, 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 BackgroundTransparency = 1, 
@@ -409,13 +371,13 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                 }), 
                 Title = v2.createElement(l_StyledTextLabel_0, {
                     layoutOrder = 1, 
-                    text = v63.SocialNetworks, 
+                    text = v56.SocialNetworks, 
                     fontStyle = l_Font_0.Header2, 
                     colorStyle = l_Theme_0.TextEmphasis
                 }), 
-                Description = if v67 then v2.createElement(l_StyledTextLabel_0, {
+                Description = if v60 then v2.createElement(l_StyledTextLabel_0, {
                     layoutOrder = 2, 
-                    text = v63.SocialNetworksCaption, 
+                    text = v56.SocialNetworksCaption, 
                     fontStyle = l_Font_0.CaptionBody, 
                     colorStyle = l_Theme_0.TextDefault, 
                     automaticSize = Enum.AutomaticSize.Y, 
@@ -432,7 +394,7 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                         SortOrder = Enum.SortOrder.LayoutOrder, 
                         Padding = UDim.new(0, 12)
                     }), 
-                    SocialNetworks = v2.createElement(v2.Fragment, {}, v71), 
+                    SocialNetworks = v2.createElement(v2.Fragment, {}, v64), 
                     Padding = v2.createElement("Frame", {
                         LayoutOrder = 6, 
                         Size = UDim2.new(1, -318, 0, 40), 
@@ -442,11 +404,11 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                         LayoutOrder = 7, 
                         BackgroundTransparency = 0, 
                         Size = UDim2.new(0, 40, 0, 40), 
-                        BackgroundColor3 = v58.Theme.BackgroundDefault.Color, 
+                        BackgroundColor3 = v51.Theme.BackgroundDefault.Color, 
                         BorderSizePixel = 0, 
-                        [v2.Event.Activated] = v47.openEditSocialLinksModal and function() --[[ Line: 554 ]]
-                            -- upvalues: v47 (copy)
-                            v47.openEditSocialLinksModal(-1);
+                        [v2.Event.Activated] = v40.openEditSocialLinksModal and function() --[[ Line: 509 ]]
+                            -- upvalues: v40 (copy)
+                            v40.openEditSocialLinksModal(-1);
                         end or nil
                     }, {
                         UICorner = v2.createElement("UICorner", {
@@ -462,14 +424,14 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                     })
                 })
             }), 
-            Divider3 = if l_FFlagMoveInExperienceModeToEditProfile_0 and v47.canSeeInExperienceMode then v2.createElement("Frame", {
+            Divider3 = if l_FFlagMoveInExperienceModeToEditProfile_0 and v40.canSeeInExperienceMode then v2.createElement("Frame", {
                 LayoutOrder = 5, 
-                BackgroundColor3 = v58.Theme.Divider.Color, 
-                BackgroundTransparency = v58.Theme.Divider.Transparency, 
+                BackgroundColor3 = v51.Theme.Divider.Color, 
+                BackgroundTransparency = v51.Theme.Divider.Transparency, 
                 BorderSizePixel = 0, 
                 Size = UDim2.new(1, 0, 0, 1)
             }) else nil, 
-            InExperienceModeSection = if l_FFlagMoveInExperienceModeToEditProfile_0 and v47.canSeeInExperienceMode then v2.createElement("Frame", {
+            InExperienceModeSection = if l_FFlagMoveInExperienceModeToEditProfile_0 and v40.canSeeInExperienceMode then v2.createElement("Frame", {
                 LayoutOrder = 6, 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 BackgroundTransparency = 1, 
@@ -507,16 +469,16 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                     }), 
                     InExperienceNameToggleButton = v2.createElement(l_Button_0, {
                         LayoutOrder = 2, 
-                        text = v47.isInExperienceNameEnabled and "Stop" or "Start", 
-                        onActivated = v66, 
+                        text = v40.isInExperienceNameEnabled and "Stop" or "Start", 
+                        onActivated = v59, 
                         size = l_ButtonSize_0.XSmall
                     })
                 }), 
                 InExperienceModeButton = v2.createElement(v12, {
                     layoutOrder = 2, 
                     description = "When in-experience mode is on, this temporary Name will replace your Name in most experiences.", 
-                    placeHolderText = v47.inExperienceName or "", 
-                    localUserId = v47.localUserId, 
+                    placeHolderText = v40.inExperienceName or "", 
+                    localUserId = v40.localUserId, 
                     transparentText = true, 
                     expandSizing = true, 
                     shouldShimmerName = false
@@ -524,105 +486,18 @@ return function(v47) --[[ Line: 109 ]] --[[ Name: EditProfileEntryPoint ]]
                 BottomPadding = v2.createElement("UIPadding", {
                     PaddingBottom = UDim.new(0, 24)
                 })
-            }) else nil, 
-            Divider4 = if l_FFlagEditProfileInExperiencePersonasV2_0 then v2.createElement("Frame", {
-                LayoutOrder = 5, 
-                BackgroundColor3 = v58.Theme.Divider.Color, 
-                BackgroundTransparency = v58.Theme.Divider.Transparency, 
-                BorderSizePixel = 0, 
-                Size = UDim2.new(1, 0, 0, 1)
-            }) else nil, 
-            InExperiencePersonasSection = if l_FFlagEditProfileInExperiencePersonasV2_0 then v2.createElement("Frame", {
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                LayoutOrder = 6, 
-                Size = UDim2.new(1, 0, 0, 0), 
-                BackgroundTransparency = 1
-            }, {
-                Layout = v2.createElement("UIListLayout", {
-                    FillDirection = Enum.FillDirection.Vertical, 
-                    HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-                    SortOrder = Enum.SortOrder.LayoutOrder, 
-                    Padding = UDim.new(0, 20)
-                }), 
-                TitleBar = v2.createElement("Frame", {
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    Size = UDim2.new(1, 0, 0, 0), 
-                    LayoutOrder = 1, 
-                    BackgroundTransparency = 1
-                }, {
-                    Layout = v2.createElement("UIListLayout", {
-                        FillDirection = Enum.FillDirection.Horizontal, 
-                        HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                        HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween, 
-                        SortOrder = Enum.SortOrder.LayoutOrder
-                    }), 
-                    TitleText = v2.createElement(l_StyledTextLabel_0, {
-                        layoutOrder = 1, 
-                        text = v63.PersonaTitle, 
-                        fontStyle = l_Font_0.Header2, 
-                        colorStyle = l_Theme_0.TextEmphasis, 
-                        size = UDim2.new(0.5, 0, 0, 0), 
-                        automaticSize = Enum.AutomaticSize.Y
-                    }), 
-                    Toggle = l_withHoverTooltip_0(v75, v76, function(v79, v80) --[[ Line: 697 ]]
-                        -- upvalues: v2 (ref), l_Toggle_0 (ref), v63 (copy), v74 (ref), v47 (copy), l_ToggleSize_0 (ref), l_Interactable_0 (ref)
-                        return v2.createElement("Frame", {
-                            AutomaticSize = Enum.AutomaticSize.XY, 
-                            BackgroundTransparency = 1, 
-                            Size = UDim2.new(0, 0, 0, 0), 
-                            LayoutOrder = 2, 
-                            [v2.Change.AbsoluteSize] = v79, 
-                            [v2.Change.AbsolutePosition] = v79
-                        }, {
-                            Toggle = v2.createElement(l_Toggle_0, {
-                                label = v63.PersonaEnable, 
-                                isDisabled = not v74(), 
-                                isChecked = v47.personaStatus and v74(), 
-                                onActivated = v47.onPersonaToggle, 
-                                size = l_ToggleSize_0.Medium
-                            }), 
-                            HoverHitbox = v2.createElement(l_Interactable_0, {
-                                Size = UDim2.new(1, 0, 1, 0), 
-                                onStateChanged = v80, 
-                                BackgroundTransparency = 1
-                            })
-                        });
-                    end)
-                }), 
-                DescriptionText = v2.createElement(l_StyledTextLabel_0, {
-                    layoutOrder = 2, 
-                    text = v63.PersonaDescription, 
-                    fontStyle = l_Font_0.CaptionBody, 
-                    colorStyle = l_Theme_0.TextDefault, 
-                    size = UDim2.new(1, 0, 0, 0), 
-                    automaticSize = Enum.AutomaticSize.Y, 
-                    lineHeight = 1
-                }), 
-                DetailBar = v2.createElement(v45, {
-                    layoutOrder = 3, 
-                    onChooseActivated = v47.onPersonaChoose, 
-                    onNameActivated = v47.onPersonaNameEdit, 
-                    visible = true, 
-                    personaName = v47.personaName or "", 
-                    personaOutfit = v47.personaOutfit or -1
-                }), 
-                BottomPadding = v2.createElement("Frame", {
-                    LayoutOrder = 4, 
-                    BackgroundTransparency = 1, 
-                    Size = UDim2.new(1, 0, 0, 20)
-                })
             }) else nil
         })
     });
-    if v38 then
+    if v35 then
         return v2.createElement(l_VerticalScrollView_0, {
             useAutomaticCanvasSize = true, 
             canvasSizeY = UDim.new(), 
             elasticBehavior = Enum.ElasticBehavior.Never
         }, {
-            v81
+            v68
         });
     else
-        return v81;
+        return v68;
     end;
 end;

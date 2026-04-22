@@ -7,7 +7,7 @@ local l_Image_0 = v2.Image;
 local l_Text_0 = v2.Text;
 local l_View_0 = v2.View;
 local _ = require(l_script_FirstAncestor_0.BeduiV2.Hooks.AbuseSheetFlow.AbuseSheetFlowTypes);
-local v9 = require(l_script_FirstAncestor_0.BeduiV2.Hooks.useExperienceDetails);
+local v9 = require(l_script_FirstAncestor_0.BeduiV2.Hooks.Enrichment.useExperienceDetails);
 local v10 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.TextWithTranslation);
 local function v18(v11) --[[ Line: 26 ]] --[[ Name: UserPreview ]]
     -- upvalues: v3 (copy), l_View_0 (copy), l_Avatar_0 (copy), l_Text_0 (copy)

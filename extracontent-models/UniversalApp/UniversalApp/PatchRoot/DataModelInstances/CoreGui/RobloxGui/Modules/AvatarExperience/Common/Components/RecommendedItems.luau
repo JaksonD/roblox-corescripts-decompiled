@@ -28,7 +28,7 @@ local l_AvatarRoute_0 = v24.AvatarRoute.AvatarRoute;
 local v27 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
 local v28 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withAvatarRoute);
 local v29 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.GetRecommendedItems);
-local v30 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local l_PerformFetch_0 = require(l_CorePackages_0.Workspace.Packages.Http).PerformFetch;
 local v32 = require(l_Modules_0.LuaApp.Enum.RetrievalStatus);
 local v33 = require(l_Modules_0.AvatarExperience.Common.Components.LoadableGridView);
@@ -37,7 +37,7 @@ local v35 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.Recomme
 local v36 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local v37 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.SetCategoryAndSubcategory);
 local v38 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local v39 = require(l_Modules_0.AvatarExperience.Common.ReducerUtils);
+local l_ReducerUtils_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux).Utils.ReducerUtils;
 local v40 = require(l_Modules_0.AvatarExperience.Experiments.AXEditorRecommendationCarousel);
 local v41 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableRecommendationTypeAllInCustomize);
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
@@ -85,23 +85,23 @@ v54.validateProps = v4.strictInterface({
     networking = v4.callback, 
     doesMatchingCatalogCategoryExist = if l_FFlagAXCatalogCategoriesSDUI_0 then v4.optional(v4.boolean) else nil
 });
-v54.init = function(v55) --[[ Line: 131 ]] --[[ Name: init ]]
+v54.init = function(v55) --[[ Line: 132 ]] --[[ Name: init ]]
     -- upvalues: v2 (copy), l_AvatarScreen_0 (copy), v45 (copy), v20 (copy), v19 (copy)
     v55.loadableGridViewRef = v2.createRef();
     v55.shopMoreRef = v2.createRef();
-    v55.onActivated = function() --[[ Line: 134 ]]
+    v55.onActivated = function() --[[ Line: 135 ]]
         -- upvalues: v55 (copy), l_AvatarScreen_0 (ref)
         local l_catalogAnalytics_0 = v55.props.catalogAnalytics;
         local l_categoryInfo_0 = v55.props.categoryInfo;
         v55.props.setCatalogIndicies(l_categoryInfo_0, l_catalogAnalytics_0);
-        local function v58() --[[ Line: 140 ]]
+        local function v58() --[[ Line: 141 ]]
             -- upvalues: v55 (ref), l_AvatarScreen_0 (ref)
             v55.props.navigation.navigate(l_AvatarScreen_0.Catalog);
             v55.props.sendShopForMoreAnalytics();
         end;
         v55.props.navigateWithLock(v58);
     end;
-    v55.getRecommendedItems = function() --[[ Line: 147 ]]
+    v55.getRecommendedItems = function() --[[ Line: 148 ]]
         -- upvalues: v45 (ref), v55 (copy), v20 (ref), v19 (ref)
         if v45() and not v55.props.categoryInfo.RecommendationsType or v55.props.categoryInfo.RecommendationsType == v20.RecommendationsType.None then
             return;
@@ -113,26 +113,26 @@ v54.init = function(v55) --[[ Line: 131 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v54.maybeFetchRecommendedItems = function(v61) --[[ Line: 163 ]] --[[ Name: maybeFetchRecommendedItems ]]
+v54.maybeFetchRecommendedItems = function(v61) --[[ Line: 164 ]] --[[ Name: maybeFetchRecommendedItems ]]
     -- upvalues: v32 (copy)
     if v61.props.dataStatus ~= v32.Fetching then
         v61.getRecommendedItems();
     end;
 end;
-v54.didMount = function(v62) --[[ Line: 170 ]] --[[ Name: didMount ]]
+v54.didMount = function(v62) --[[ Line: 171 ]] --[[ Name: didMount ]]
     -- upvalues: v50 (copy), v38 (copy), v40 (copy)
     v62:maybeFetchRecommendedItems();
     if v50 then
         v38.logExperimentExposure(v40);
     end;
 end;
-v54.didUpdate = function(v63, v64) --[[ Line: 178 ]] --[[ Name: didUpdate ]]
+v54.didUpdate = function(v63, v64) --[[ Line: 179 ]] --[[ Name: didUpdate ]]
     -- upvalues: l_AvatarScreen_0 (copy), v19 (copy)
     if v63.props.avatarRoute.current.name == l_AvatarScreen_0.AvatarEditor and v19.getRecommendedKey(v64.categoryInfo) ~= v19.getRecommendedKey(v63.props.categoryInfo) then
         v63:maybeFetchRecommendedItems();
     end;
 end;
-v54.renderWithProviders = function(v65, v66, v67) --[[ Line: 189 ]] --[[ Name: renderWithProviders ]]
+v54.renderWithProviders = function(v65, v66, v67) --[[ Line: 190 ]] --[[ Name: renderWithProviders ]]
     -- upvalues: l_FFlagAXRootSlotBasedEditorFlag_0 (copy), v36 (copy), v19 (copy), v2 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Button_0 (copy), l_Focusable_0 (copy), l_ButtonType_0 (copy), l_FFlagAXCatalogCategoriesSDUI_0 (copy), v41 (copy), v35 (copy), l_FitFrameVertical_0 (copy), l_RoactFitComponents_0 (copy), v51 (copy), v33 (copy)
     local l_items_0 = v65.props.items;
     local l_itemType_0 = v65.props.itemType;
@@ -156,7 +156,7 @@ v54.renderWithProviders = function(v65, v66, v67) --[[ Line: 189 ]] --[[ Name: r
         NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v71 and v65.props.NextSelectionUp or v65.loadableGridViewRef
     });
     local v81 = if l_FFlagAXCatalogCategoriesSDUI_0 then v65.props.doesMatchingCatalogCategoryExist else nil;
-    local v88 = v41() and function(v82, v83, v84) --[[ Line: 231 ]]
+    local v88 = v41() and function(v82, v83, v84) --[[ Line: 232 ]]
         -- upvalues: v2 (ref), v35 (ref), v65 (copy)
         return v2.createElement(v35, {
             itemId = v82.itemId, 
@@ -170,7 +170,7 @@ v54.renderWithProviders = function(v65, v66, v67) --[[ Line: 189 ]] --[[ Name: r
                 gridPositionColumn = v84.column
             } else nil
         });
-    end or function(v85, v86, v87) --[[ Line: 247 ]]
+    end or function(v85, v86, v87) --[[ Line: 248 ]]
         -- upvalues: v2 (ref), v35 (ref), l_itemType_0 (copy), v65 (copy)
         return v2.createElement(v35, {
             itemId = v85, 
@@ -228,12 +228,12 @@ v54.renderWithProviders = function(v65, v66, v67) --[[ Line: 189 ]] --[[ Name: r
         ShopForMoreButton = if not l_FFlagAXCatalogCategoriesSDUI_0 or v81 then v80 else nil
     });
 end;
-v54.renderCarouselWithProviders = function(v90, _, v92) --[[ Line: 325 ]] --[[ Name: renderCarouselWithProviders ]]
+v54.renderCarouselWithProviders = function(v90, _, v92) --[[ Line: 326 ]] --[[ Name: renderCarouselWithProviders ]]
     -- upvalues: v41 (copy), v2 (copy), v35 (copy), v53 (copy), v51 (copy), l_WidgetHeader_0 (copy), l_ScrollingAppCarousel_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), l_WidgetLayout_0 (copy)
     local l_items_1 = v90.props.items;
     local l_itemType_1 = v90.props.itemType;
     local v95 = #l_items_1 == 0;
-    local v100 = v41() and function(v96, v97) --[[ Line: 331 ]]
+    local v100 = v41() and function(v96, v97) --[[ Line: 332 ]]
         -- upvalues: v2 (ref), v35 (ref), v90 (copy)
         return v2.createElement(v35, {
             itemId = v96.itemId, 
@@ -243,7 +243,7 @@ v54.renderCarouselWithProviders = function(v90, _, v92) --[[ Line: 325 ]] --[[ N
             itemDetailsPeekViewRefs = v90.props.itemDetailsPeekViewRefs, 
             resultsListRef = v90.props.listFrameRef
         });
-    end or function(v98, v99) --[[ Line: 341 ]]
+    end or function(v98, v99) --[[ Line: 342 ]]
         -- upvalues: v2 (ref), v35 (ref), l_itemType_1 (copy), v90 (copy)
         return v2.createElement(v35, {
             itemId = v98, 
@@ -292,7 +292,7 @@ v54.renderCarouselWithProviders = function(v90, _, v92) --[[ Line: 325 ]] --[[ N
             carouselMargin = 0, 
             carouselHeight = v53.CAROUSEL_HEIGHT, 
             canvasWidth = (v53.TILE_WIDTH + v53.CAROUSEL_ITEM_PADDING) * #v101 - v53.CAROUSEL_ITEM_PADDING, 
-            onChangeCanvasPosition = function() --[[ Line: 399 ]] --[[ Name: onChangeCanvasPosition ]]
+            onChangeCanvasPosition = function() --[[ Line: 400 ]] --[[ Name: onChangeCanvasPosition ]]
 
             end
         });
@@ -316,15 +316,15 @@ v54.renderCarouselWithProviders = function(v90, _, v92) --[[ Line: 325 ]] --[[ N
         contentSlot = v105
     });
 end;
-v54.render = function(v106) --[[ Line: 424 ]] --[[ Name: render ]]
+v54.render = function(v106) --[[ Line: 425 ]] --[[ Name: render ]]
     -- upvalues: v40 (copy), v38 (copy), l_withStyle_0 (copy), l_withLocalization_0 (copy)
     local v107 = if v40.isEnabled() then v38.readTestVariable(v40.EnableAvatarEditorRecommendationCarousel) else nil;
-    return l_withStyle_0(function(v108) --[[ Line: 429 ]]
+    return l_withStyle_0(function(v108) --[[ Line: 430 ]]
         -- upvalues: l_withLocalization_0 (ref), v107 (copy), v106 (copy)
         return l_withLocalization_0({
             shopForMore = "Feature.Avatar.Action.ShopForMore", 
             youMayAlsoLike = "Feature.Catalog.Label.Recommendations"
-        })(function(v109) --[[ Line: 433 ]]
+        })(function(v109) --[[ Line: 434 ]]
             -- upvalues: v107 (ref), v106 (ref), v108 (copy)
             if v107 then
                 return v106:renderCarouselWithProviders(v108, v109);
@@ -338,12 +338,12 @@ v54 = l_RoactServices_0.connect({
     catalogAnalytics = v27, 
     networking = v18
 })(v54);
-local function v115(v110, v111) --[[ Line: 448 ]] --[[ Name: mapStateToProps ]]
-    -- upvalues: v19 (copy), v20 (copy), v36 (copy), v41 (copy), v39 (copy), l_PerformFetch_0 (copy)
+local function v115(v110, v111) --[[ Line: 449 ]] --[[ Name: mapStateToProps ]]
+    -- upvalues: v19 (copy), v20 (copy), v36 (copy), v41 (copy), l_ReducerUtils_0 (copy), l_PerformFetch_0 (copy)
     local v112 = v19.getRecommendedKey(v111.categoryInfo);
     local v113 = if not (v112 ~= v20.RecommendationsType.BodyParts and v112 ~= v20.RecommendationsType.AvatarAnimations and v112 ~= v20.RecommendationsType.Shoes) or v112 == v20.RecommendationsType.DynamicHeads then v36.ItemType.Bundle else v36.ItemType.Asset;
     if v41() then
-        v112 = v39.generateRecommendedItemsKey(v112, v111.categoryInfo.RecommendationsType);
+        v112 = l_ReducerUtils_0.generateRecommendedItemsKey(v112, v111.categoryInfo.RecommendationsType);
     end;
     local v114 = v110.AvatarExperience.AvatarEditor.RecommendedItems[v112] or {};
     return {
@@ -353,14 +353,14 @@ local function v115(v110, v111) --[[ Line: 448 ]] --[[ Name: mapStateToProps ]]
         items = v114
     };
 end;
-local function v131(v116) --[[ Line: 472 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v29 (copy), l_FFlagAXCatalogCategoriesSDUI_0 (copy), l_FFlagAXLogNilCategoryAndSubcategorySelection_0 (copy), v49 (copy), v37 (copy), l_FFlagAXRemoveCatalogCategoryNavKey_0 (copy), v19 (copy), v30 (copy)
+local function v131(v116) --[[ Line: 473 ]] --[[ Name: mapDispatchToProps ]]
+    -- upvalues: v29 (copy), l_FFlagAXCatalogCategoriesSDUI_0 (copy), l_FFlagAXLogNilCategoryAndSubcategorySelection_0 (copy), v49 (copy), v37 (copy), l_FFlagAXRemoveCatalogCategoryNavKey_0 (copy), v19 (copy), l_NavigateWithLock_0 (copy)
     return {
-        getRecommendedItems = function(v117, v118, v119) --[[ Line: 474 ]] --[[ Name: getRecommendedItems ]]
+        getRecommendedItems = function(v117, v118, v119) --[[ Line: 475 ]] --[[ Name: getRecommendedItems ]]
             -- upvalues: v116 (copy), v29 (ref)
             v116(v29(v117, v118, v119));
         end, 
-        setCatalogIndicies = function(v120, v121) --[[ Line: 477 ]] --[[ Name: setCatalogIndicies ]]
+        setCatalogIndicies = function(v120, v121) --[[ Line: 478 ]] --[[ Name: setCatalogIndicies ]]
             -- upvalues: l_FFlagAXCatalogCategoriesSDUI_0 (ref), l_FFlagAXLogNilCategoryAndSubcategorySelection_0 (ref), v49 (ref), v116 (copy), v37 (ref), l_FFlagAXRemoveCatalogCategoryNavKey_0 (ref), v19 (ref)
             if l_FFlagAXCatalogCategoriesSDUI_0 then
                 local l_CategoryId_0 = v120.MatchingCatalogPageIds.CategoryId;
@@ -391,16 +391,16 @@ local function v131(v116) --[[ Line: 472 ]] --[[ Name: mapDispatchToProps ]]
                 end;
             end;
         end, 
-        navigateWithLock = function(v130) --[[ Line: 505 ]] --[[ Name: navigateWithLock ]]
-            -- upvalues: v116 (copy), v30 (ref)
-            v116(v30(v130));
+        navigateWithLock = function(v130) --[[ Line: 506 ]] --[[ Name: navigateWithLock ]]
+            -- upvalues: v116 (copy), l_NavigateWithLock_0 (ref)
+            v116(l_NavigateWithLock_0(v130));
         end
     };
 end;
 v54 = v28((l_withNavigation_0(v54)));
 if l_FFlagAXCatalogCategoriesSDUI_0 then
     v54 = v6.connect(v115, v131)(v54);
-    return function(v132) --[[ Line: 517 ]] --[[ Name: RecommendedItemsWrapper ]]
+    return function(v132) --[[ Line: 518 ]] --[[ Name: RecommendedItemsWrapper ]]
         -- upvalues: v48 (copy), v3 (copy), v54 (ref)
         local v133 = v48.getCatalogCategoriesStore();
         local v134 = v132.categoryInfo and v132.categoryInfo.MatchingCatalogPageIds;

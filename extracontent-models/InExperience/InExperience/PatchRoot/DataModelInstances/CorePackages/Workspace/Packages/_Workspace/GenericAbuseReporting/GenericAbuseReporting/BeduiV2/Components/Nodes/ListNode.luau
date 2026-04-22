@@ -22,11 +22,11 @@ local l_useArTranslation_0 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Tran
 local l_TelemetryEventType_0 = v13.TelemetryEventType;
 local l_useAbuseReportAnalytics_0 = v12.useAbuseReportAnalytics;
 local l_useLayoutSlots_0 = v15.useLayoutSlots;
-local l_FFlagRemoveTitleAddEyebrowReport_0 = v5.FFlagRemoveTitleAddEyebrowReport;
 local l_FFlagSupportSubmissionOnAllReportNodes_0 = v5.FFlagSupportSubmissionOnAllReportNodes;
 local l_FFlagAddLayoutSlotsToReport_0 = v5.FFlagAddLayoutSlotsToReport;
+local l_FFlagRemoveHardcodedStringsInReportNodes_0 = v5.FFlagRemoveHardcodedStringsInReportNodes;
 return v4.memo(function(v27) --[[ Line: 55 ]] --[[ Name: ListNode ]]
-    -- upvalues: l_useTokens_0 (copy), v4 (copy), l_useArTranslation_0 (copy), l_useAbuseReportAnalytics_0 (copy), l_FFlagAddLayoutSlotsToReport_0 (copy), l_useLayoutSlots_0 (copy), v17 (copy), v2 (copy), l_TelemetryEventType_0 (copy), l_Sheet_0 (copy), l_FFlagRemoveTitleAddEyebrowReport_0 (copy), v14 (copy), v18 (copy), l_View_0 (copy), v16 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy), l_FFlagSupportSubmissionOnAllReportNodes_0 (copy)
+    -- upvalues: l_useTokens_0 (copy), v4 (copy), l_useArTranslation_0 (copy), l_useAbuseReportAnalytics_0 (copy), l_FFlagAddLayoutSlotsToReport_0 (copy), l_useLayoutSlots_0 (copy), v17 (copy), v2 (copy), l_TelemetryEventType_0 (copy), l_Sheet_0 (copy), v14 (copy), v18 (copy), l_View_0 (copy), v16 (copy), l_Button_0 (copy), l_FFlagRemoveHardcodedStringsInReportNodes_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy), l_FFlagSupportSubmissionOnAllReportNodes_0 (copy)
     local v28 = l_useTokens_0();
     local v29, v30 = v4.useState(v27.initialValue or nil);
     local l_translateIntoString_0 = l_useArTranslation_0().translateIntoString;
@@ -138,10 +138,10 @@ return v4.memo(function(v27) --[[ Line: 55 ]] --[[ Name: ListNode ]]
         Content = if v27.items ~= nil then v4.createElement(if l_FFlagAddLayoutSlotsToReport_0 then v39 else l_Sheet_0.Content, {
             ref = v33
         }, {
-            Eyebrow = if l_FFlagRemoveTitleAddEyebrowReport_0 then v4.createElement(v14, {
+            Eyebrow = v4.createElement(v14, {
                 eyebrow = v27.eyebrow, 
                 layoutOrder = 0
-            }) else nil, 
+            }), 
             Title = v4.createElement(v18, {
                 input = v27.title, 
                 tag = "size-full-0 auto-y text-heading-medium", 
@@ -159,7 +159,7 @@ return v4.memo(function(v27) --[[ Line: 55 ]] --[[ Name: ListNode ]]
                     value = v29, 
                     onValueChanged = v55
                 }, {
-                    v2.map(v27.items, function(v59, v60) --[[ Line: 180 ]]
+                    v2.map(v27.items, function(v59, v60) --[[ Line: 178 ]]
                         -- upvalues: v4 (ref), v16 (ref), l_translateIntoString_0 (copy), v27 (copy), v49 (copy)
                         return v4.createElement(v16.Item, {
                             value = v59.id, 
@@ -168,7 +168,7 @@ return v4.memo(function(v27) --[[ Line: 55 ]] --[[ Name: ListNode ]]
                             trailingAccessory = "Radio", 
                             hasDivider = v60 ~= #v27.items, 
                             hasMargin = true, 
-                            ref = function(v61) --[[ Line: 188 ]] --[[ Name: ref ]]
+                            ref = function(v61) --[[ Line: 186 ]] --[[ Name: ref ]]
                                 -- upvalues: v49 (ref), v59 (copy)
                                 v49.current[v59.id] = v61;
                             end
@@ -179,7 +179,7 @@ return v4.memo(function(v27) --[[ Line: 55 ]] --[[ Name: ListNode ]]
         }) else nil, 
         Actions = if v27.onNext and v29 ~= nil then v4.createElement(if l_FFlagAddLayoutSlotsToReport_0 then v40 else l_Sheet_0.Actions, nil, {
             Button = v4.createElement(l_Button_0, {
-                text = if v27.nextButtonText then l_translateIntoString_0(v27.nextButtonText) else "Continue", 
+                text = if l_FFlagRemoveHardcodedStringsInReportNodes_0 then l_translateIntoString_0(v27.nextButtonText) else if v27.nextButtonText then l_translateIntoString_0(v27.nextButtonText) else "Continue", 
                 variant = l_ButtonVariant_0.Emphasis, 
                 fillBehavior = l_FillBehavior_0.Fill, 
                 isLoading = if l_FFlagSupportSubmissionOnAllReportNodes_0 then v27.isSubmitting else false, 

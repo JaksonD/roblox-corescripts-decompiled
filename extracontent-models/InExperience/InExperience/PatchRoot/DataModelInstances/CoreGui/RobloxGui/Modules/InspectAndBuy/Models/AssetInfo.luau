@@ -2,317 +2,321 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local v1 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local l_CoreGui_0 = game:GetService("CoreGui");
 local v3 = require(l_CorePackages_0.Packages.Dash);
+local l_FFlagAXEnableIaBTimedOptionsBulkPurchase_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableIaBTimedOptionsBulkPurchase;
 local l_Parent_0 = script.Parent.Parent;
-local v5 = require(l_Parent_0.MockId);
-local v6 = require(l_Parent_0.Constants);
+local v6 = require(l_Parent_0.MockId);
+local v7 = require(l_Parent_0.Constants);
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceInspectAndBuy);
 local l_ItemRestrictions_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Enums.ItemRestrictions;
-local v9 = require(l_CoreGui_0.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy);
-local v10 = require(l_Parent_0.Flags.GetFFlagIBEnableCollectiblesSystemSupport);
-local v11 = require(l_Parent_0.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog);
+local v10 = require(l_CoreGui_0.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy);
+local v11 = require(l_Parent_0.Flags.GetFFlagIBEnableCollectiblesSystemSupport);
+local v12 = require(l_Parent_0.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog);
 local l_FFlagIBV2Attribution_0 = v1.FFlagIBV2Attribution;
-local v13 = {};
-local function _(v14) --[[ Line: 62 ]]
-    return math.round(v14 * 100) / 100;
+local v14 = {};
+local function _(v15) --[[ Line: 64 ]]
+    return math.round(v15 * 100) / 100;
 end;
-v13.new = function() --[[ Line: 66 ]] --[[ Name: new ]]
+v14.new = function() --[[ Line: 68 ]] --[[ Name: new ]]
     return {};
 end;
-v13.mock = function() --[[ Line: 72 ]] --[[ Name: mock ]]
-    -- upvalues: v13 (copy), v5 (copy), v10 (copy)
-    local v16 = v13.new();
-    v16.name = "";
-    v16.assetId = v5();
-    v16.assetTypeId = "";
-    v16.creatorId = "";
-    v16.creatorName = "";
-    v16.creatorHasVerifiedBadge = false;
-    v16.owned = false;
-    v16.isForSale = false;
-    v16.description = "";
-    v16.price = "";
-    v16.productId = "";
-    v16.isLimited = false;
-    v16.isLimitedUnique = not v10() and nil;
-    v16.collectibleIsLimited = not v10() and nil;
-    v16.bundlesAssetIsIn = {};
-    v16.parentBundleId = nil;
-    v16.numFavorites = 0;
-    v16.minimumMembershipLevel = 0;
-    v16.collectibleItemId = "";
-    v16.collectibleProductId = "";
-    v16.collectibleLowestResalePrice = 0;
-    v16.collectibleLowestAvailableResaleProductId = "";
-    v16.collectibleLowestAvailableResaleItemInstanceId = "";
-    v16.collectibleQuantityLimitPerUser = 0;
-    v16.remaining = 0;
-    v16.creatingUniverseId = nil;
-    return v16;
+v14.mock = function() --[[ Line: 74 ]] --[[ Name: mock ]]
+    -- upvalues: v14 (copy), v6 (copy), v11 (copy)
+    local v17 = v14.new();
+    v17.name = "";
+    v17.assetId = v6();
+    v17.assetTypeId = "";
+    v17.creatorId = "";
+    v17.creatorName = "";
+    v17.creatorHasVerifiedBadge = false;
+    v17.owned = false;
+    v17.isForSale = false;
+    v17.description = "";
+    v17.price = "";
+    v17.productId = "";
+    v17.isLimited = false;
+    v17.isLimitedUnique = not v11() and nil;
+    v17.collectibleIsLimited = not v11() and nil;
+    v17.bundlesAssetIsIn = {};
+    v17.parentBundleId = nil;
+    v17.numFavorites = 0;
+    v17.minimumMembershipLevel = 0;
+    v17.collectibleItemId = "";
+    v17.collectibleProductId = "";
+    v17.collectibleLowestResalePrice = 0;
+    v17.collectibleLowestAvailableResaleProductId = "";
+    v17.collectibleLowestAvailableResaleItemInstanceId = "";
+    v17.collectibleQuantityLimitPerUser = 0;
+    v17.remaining = 0;
+    v17.creatingUniverseId = nil;
+    return v17;
 end;
-v13.fromBulkPurchaseResult = function(v17, v18) --[[ Line: 114 ]] --[[ Name: fromBulkPurchaseResult ]]
-    -- upvalues: v13 (copy), l_ItemRestrictions_0 (copy)
-    local v19 = v13.new();
-    local v20 = if v18 and v18.itemRestrictions then v18.itemRestrictions else {};
-    v19.resellableCount = if v18 and v18.resellableCount then v18.resellableCount else 0;
-    if v17.status == Enum.MarketplaceItemPurchaseStatus.Success and v17.type == Enum.MarketplaceProductType.AvatarAsset then
-        v19.owned = true;
-        if v20[l_ItemRestrictions_0.Collectible] or v20[l_ItemRestrictions_0.Limited] or v20[l_ItemRestrictions_0.LimitedUnique] then
-            v19.resellableCount = v19.resellableCount + 1;
+v14.fromBulkPurchaseResult = function(v18, v19) --[[ Line: 116 ]] --[[ Name: fromBulkPurchaseResult ]]
+    -- upvalues: v14 (copy), l_ItemRestrictions_0 (copy)
+    local v20 = v14.new();
+    local v21 = if v19 and v19.itemRestrictions then v19.itemRestrictions else {};
+    v20.resellableCount = if v19 and v19.resellableCount then v19.resellableCount else 0;
+    if v18.status == Enum.MarketplaceItemPurchaseStatus.Success and v18.type == Enum.MarketplaceProductType.AvatarAsset then
+        v20.owned = true;
+        if v21[l_ItemRestrictions_0.Collectible] or v21[l_ItemRestrictions_0.Limited] or v21[l_ItemRestrictions_0.LimitedUnique] then
+            v20.resellableCount = v20.resellableCount + 1;
         end;
     end;
-    return v19;
+    return v20;
 end;
-v13.fromAvatarPreviewItem = function(v21) --[[ Line: 136 ]] --[[ Name: fromAvatarPreviewItem ]]
-    -- upvalues: v13 (copy)
-    local v22 = v13.new();
-    v22.name = v21.name;
-    v22.description = v21.description;
-    v22.price = v21.priceInRobux;
-    v22.productId = tostring(v21.productId);
-    v22.collectibleItemId = v21.collectibleItemId;
-    v22.owned = v21.quantityOwned > 0;
-    v22.resellableCount = v21.quantityOwned;
-    v22.creatorId = tostring(v21.creator.id);
-    v22.creatorName = v21.creator.name;
-    v22.creatorHasVerifiedBadge = v21.creator.hasVerifiedBadge;
-    v22.assetId = tostring(v21.id);
-    v22.assetTypeId = tostring(v21.assetType);
-    v22.productId = tostring(v21.productId);
-    v22.isForSale = v21.isPurchasable;
-    v22.noPriceStatus = v21.noPriceStatus;
-    v22.meta = v21.meta;
-    if v21.itemRestrictions then
-        local v23 = {};
-        for _, v25 in v21.itemRestrictions do
-            v23[v25] = true;
+v14.fromAvatarPreviewItem = function(v22) --[[ Line: 138 ]] --[[ Name: fromAvatarPreviewItem ]]
+    -- upvalues: v14 (copy)
+    local v23 = v14.new();
+    v23.name = v22.name;
+    v23.description = v22.description;
+    v23.price = v22.priceInRobux;
+    v23.productId = tostring(v22.productId);
+    v23.collectibleItemId = v22.collectibleItemId;
+    v23.owned = v22.quantityOwned > 0;
+    v23.resellableCount = v22.quantityOwned;
+    v23.creatorId = tostring(v22.creator.id);
+    v23.creatorName = v22.creator.name;
+    v23.creatorHasVerifiedBadge = v22.creator.hasVerifiedBadge;
+    v23.assetId = tostring(v22.id);
+    v23.assetTypeId = tostring(v22.assetType);
+    v23.productId = tostring(v22.productId);
+    v23.isForSale = v22.isPurchasable;
+    v23.noPriceStatus = v22.noPriceStatus;
+    v23.meta = v22.meta;
+    if v22.itemRestrictions then
+        local v24 = {};
+        for _, v26 in v22.itemRestrictions do
+            v24[v26] = true;
         end;
-        v22.itemRestrictions = v23;
+        v23.itemRestrictions = v24;
     end;
-    return v22;
+    return v23;
 end;
-v13.fromGetProductInfo = function(v26) --[[ Line: 167 ]] --[[ Name: fromGetProductInfo ]]
-    -- upvalues: v13 (copy), v6 (copy), v10 (copy)
-    local v27 = v13.new();
-    v27.name = v26.Name;
-    v27.description = v26.Description;
-    v27.price = v26.PriceInRobux;
-    v27.productType = v26.ProductType;
-    v27.remaining = v26.Remaining;
-    v27.creatorId = tostring(v26.Creator.Id);
-    v27.creatorName = v26.Creator.Name;
-    v27.assetId = tostring(v26.AssetId);
-    v27.assetTypeId = tostring(v26.AssetTypeId);
-    v27.productId = tostring(v26.ProductId);
-    v27.isForSale = v26.IsForSale;
-    v27.canBeSoldInThisGame = v26.CanBeSoldInThisGame;
-    v27.saleLocation = v26.SaleLocation;
-    v27.remaining = v26.Remaining or 0;
-    if v27.productType == v6.ProductType.CollectibleItem then
-        v27.collectibleItemId = v26.CollectibleItemId or "";
-        v27.collectibleProductId = v26.CollectibleProductId or "";
-        if v26.CollectiblesItemDetails then
-            v27.collectibleLowestResalePrice = v26.CollectiblesItemDetails.CollectibleLowestResalePrice or 0;
-            v27.collectibleLowestAvailableResaleProductId = v26.CollectiblesItemDetails.CollectibleLowestAvailableResaleProductId or "";
-            v27.collectibleLowestAvailableResaleItemInstanceId = v26.CollectiblesItemDetails.CollectibleLowestAvailableResaleItemInstanceId or "";
-            v27.collectibleQuantityLimitPerUser = v26.CollectiblesItemDetails.CollectibleQuantityLimitPerUser or 0;
-            v27.collectibleIsLimited = v26.CollectiblesItemDetails.IsLimited;
+v14.fromGetProductInfo = function(v27) --[[ Line: 169 ]] --[[ Name: fromGetProductInfo ]]
+    -- upvalues: v14 (copy), v7 (copy), v11 (copy)
+    local v28 = v14.new();
+    v28.name = v27.Name;
+    v28.description = v27.Description;
+    v28.price = v27.PriceInRobux;
+    v28.productType = v27.ProductType;
+    v28.remaining = v27.Remaining;
+    v28.creatorId = tostring(v27.Creator.Id);
+    v28.creatorName = v27.Creator.Name;
+    v28.assetId = tostring(v27.AssetId);
+    v28.assetTypeId = tostring(v27.AssetTypeId);
+    v28.productId = tostring(v27.ProductId);
+    v28.isForSale = v27.IsForSale;
+    v28.canBeSoldInThisGame = v27.CanBeSoldInThisGame;
+    v28.saleLocation = v27.SaleLocation;
+    v28.remaining = v27.Remaining or 0;
+    if v28.productType == v7.ProductType.CollectibleItem then
+        v28.collectibleItemId = v27.CollectibleItemId or "";
+        v28.collectibleProductId = v27.CollectibleProductId or "";
+        if v27.CollectiblesItemDetails then
+            v28.collectibleLowestResalePrice = v27.CollectiblesItemDetails.CollectibleLowestResalePrice or 0;
+            v28.collectibleLowestAvailableResaleProductId = v27.CollectiblesItemDetails.CollectibleLowestAvailableResaleProductId or "";
+            v28.collectibleLowestAvailableResaleItemInstanceId = v27.CollectiblesItemDetails.CollectibleLowestAvailableResaleItemInstanceId or "";
+            v28.collectibleQuantityLimitPerUser = v27.CollectiblesItemDetails.CollectibleQuantityLimitPerUser or 0;
+            v28.collectibleIsLimited = v27.CollectiblesItemDetails.IsLimited;
         end;
     end;
-    v27.creatorHasVerifiedBadge = v26.Creator.HasVerifiedBadge;
-    if v10() then
-        v27.isLimited = v26.IsLimited;
-        v27.isLimitedUnique = v26.IsLimitedUnique;
-        return v27;
+    v28.creatorHasVerifiedBadge = v27.Creator.HasVerifiedBadge;
+    if v11() then
+        v28.isLimited = v27.IsLimited;
+        v28.isLimitedUnique = v27.IsLimitedUnique;
+        return v28;
     else
-        v27.isLimited = v26.IsLimited or v26.IsLimitedUnique;
-        return v27;
+        v28.isLimited = v27.IsLimited or v27.IsLimitedUnique;
+        return v28;
     end;
 end;
-v13.fromHumanoidDescription = function(v28) --[[ Line: 212 ]] --[[ Name: fromHumanoidDescription ]]
-    -- upvalues: v13 (copy)
-    local v29 = v13.new();
-    v29.assetId = tostring(v28);
-    return v29;
+v14.fromHumanoidDescription = function(v29) --[[ Line: 214 ]] --[[ Name: fromHumanoidDescription ]]
+    -- upvalues: v14 (copy)
+    local v30 = v14.new();
+    v30.assetId = tostring(v29);
+    return v30;
 end;
-v13.fromHumanoidDescriptionAccessory = function(v30) --[[ Line: 220 ]] --[[ Name: fromHumanoidDescriptionAccessory ]]
-    -- upvalues: v13 (copy)
-    local v31 = v13.new();
-    v31.assetId = tostring(v30.AssetId);
-    v31.meta = {};
-    v31.meta.position = {
-        x = math.round(v30.Position.X * 100) / 100, 
-        y = math.round(v30.Position.Y * 100) / 100, 
-        z = math.round(v30.Position.Z * 100) / 100
+v14.fromHumanoidDescriptionAccessory = function(v31) --[[ Line: 222 ]] --[[ Name: fromHumanoidDescriptionAccessory ]]
+    -- upvalues: v14 (copy)
+    local v32 = v14.new();
+    v32.assetId = tostring(v31.AssetId);
+    v32.meta = {};
+    v32.meta.position = {
+        x = math.round(v31.Position.X * 100) / 100, 
+        y = math.round(v31.Position.Y * 100) / 100, 
+        z = math.round(v31.Position.Z * 100) / 100
     };
-    v31.meta.rotation = {
-        x = math.round(v30.Rotation.X * 100) / 100, 
-        y = math.round(v30.Rotation.Y * 100) / 100, 
-        z = math.round(v30.Rotation.Z * 100) / 100
+    v32.meta.rotation = {
+        x = math.round(v31.Rotation.X * 100) / 100, 
+        y = math.round(v31.Rotation.Y * 100) / 100, 
+        z = math.round(v31.Rotation.Z * 100) / 100
     };
-    v31.meta.scale = {
-        x = math.round(v30.Scale.X * 100) / 100, 
-        y = math.round(v30.Scale.Y * 100) / 100, 
-        z = math.round(v30.Scale.Z * 100) / 100
+    v32.meta.scale = {
+        x = math.round(v31.Scale.X * 100) / 100, 
+        y = math.round(v31.Scale.Y * 100) / 100, 
+        z = math.round(v31.Scale.Z * 100) / 100
     };
-    if v30.IsLayered then
-        v31.meta.order = v30.Order;
+    if v31.IsLayered then
+        v32.meta.order = v31.Order;
     end;
-    return v31;
+    return v32;
 end;
-v13.fromGetAssetBundles = function(v32, v33) --[[ Line: 250 ]] --[[ Name: fromGetAssetBundles ]]
-    -- upvalues: v13 (copy)
-    local v34 = v13.new();
-    v34.assetId = tostring(v32);
-    v34.bundlesAssetIsIn = v33;
-    return v34;
+v14.fromGetAssetBundles = function(v33, v34) --[[ Line: 252 ]] --[[ Name: fromGetAssetBundles ]]
+    -- upvalues: v14 (copy)
+    local v35 = v14.new();
+    v35.assetId = tostring(v33);
+    v35.bundlesAssetIsIn = v34;
+    return v35;
 end;
-v13.fromGetFavoriteForAsset = function(v35, v36) --[[ Line: 260 ]] --[[ Name: fromGetFavoriteForAsset ]]
-    -- upvalues: v13 (copy)
-    local v37 = v13.new();
-    v37.assetId = tostring(v35);
-    v37.isFavorited = v36;
-    return v37;
+v14.fromGetFavoriteForAsset = function(v36, v37) --[[ Line: 262 ]] --[[ Name: fromGetFavoriteForAsset ]]
+    -- upvalues: v14 (copy)
+    local v38 = v14.new();
+    v38.assetId = tostring(v36);
+    v38.isFavorited = v37;
+    return v38;
 end;
-v13.fromBundleInfo = function(v38, v39) --[[ Line: 267 ]] --[[ Name: fromBundleInfo ]]
-    -- upvalues: v13 (copy), v6 (copy)
-    local v40 = v13.new();
-    v40.assetId = tostring(v38);
-    v40.parentBundleId = v39.bundleId;
-    v40.bundlesAssetIsIn = {
-        v39.bundleId
+v14.fromBundleInfo = function(v39, v40) --[[ Line: 269 ]] --[[ Name: fromBundleInfo ]]
+    -- upvalues: v14 (copy), v7 (copy)
+    local v41 = v14.new();
+    v41.assetId = tostring(v39);
+    v41.parentBundleId = v40.bundleId;
+    v41.bundlesAssetIsIn = {
+        v40.bundleId
     };
-    v40.collectibleItemId = v39.collectibleItemId;
-    v40.collectibleProductId = v39.collectibleProductId;
-    v40.collectibleLowestResalePrice = v39.collectibleLowestResalePrice;
-    v40.collectibleLowestAvailableResaleProductId = v39.collectibleLowestAvailableResaleProductId;
-    v40.collectibleLowestAvailableResaleItemInstanceId = v39.collectibleLowestAvailableResaleItemInstanceId;
-    v40.collectibleQuantityLimitPerUser = v39.collectibleQuantityLimitPerUser;
-    v40.collectibleIsLimited = v39.collectibleIsLimited;
-    v40.isForSale = v39.isForSale;
-    v40.remaining = v39.remaining;
-    v40.owned = v39.owned;
-    if not v40.collectibleIsLimited then
-        v40.isForSale = v40.isForSale and not v40.owned;
+    v41.collectibleItemId = v40.collectibleItemId;
+    v41.collectibleProductId = v40.collectibleProductId;
+    v41.collectibleLowestResalePrice = v40.collectibleLowestResalePrice;
+    v41.collectibleLowestAvailableResaleProductId = v40.collectibleLowestAvailableResaleProductId;
+    v41.collectibleLowestAvailableResaleItemInstanceId = v40.collectibleLowestAvailableResaleItemInstanceId;
+    v41.collectibleQuantityLimitPerUser = v40.collectibleQuantityLimitPerUser;
+    v41.collectibleIsLimited = v40.collectibleIsLimited;
+    v41.isForSale = v40.isForSale;
+    v41.remaining = v40.remaining;
+    v41.owned = v40.owned;
+    if not v41.collectibleIsLimited then
+        v41.isForSale = v41.isForSale and not v41.owned;
     end;
-    v40.description = v39.description or "";
-    v40.productType = v6.ProductType.CollectibleItem;
-    if v39.price then
-        v40.price = v39.price;
+    v41.description = v40.description or "";
+    v41.productType = v7.ProductType.CollectibleItem;
+    if v40.price then
+        v41.price = v40.price;
     end;
-    return v40;
+    return v41;
 end;
-v13.fromGetAssetFavoriteCount = function(v41, v42) --[[ Line: 309 ]] --[[ Name: fromGetAssetFavoriteCount ]]
-    -- upvalues: v13 (copy)
-    local v43 = v13.new();
-    v43.assetId = tostring(v41);
-    v43.numFavorites = v42;
-    return v43;
+v14.fromGetAssetFavoriteCount = function(v42, v43) --[[ Line: 311 ]] --[[ Name: fromGetAssetFavoriteCount ]]
+    -- upvalues: v14 (copy)
+    local v44 = v14.new();
+    v44.assetId = tostring(v42);
+    v44.numFavorites = v43;
+    return v44;
 end;
-v13.fromGetEconomyProductInfo = function(v44, v45, v46, v47, v48) --[[ Line: 318 ]] --[[ Name: fromGetEconomyProductInfo ]]
-    -- upvalues: v13 (copy)
-    local v49 = v13.new();
-    v49.assetId = tostring(v44.assetId);
-    v49.owned = v45;
-    if v46 then
-        v49.price = v46;
+v14.fromGetEconomyProductInfo = function(v45, v46, v47, v48, v49) --[[ Line: 320 ]] --[[ Name: fromGetEconomyProductInfo ]]
+    -- upvalues: v14 (copy)
+    local v50 = v14.new();
+    v50.assetId = tostring(v45.assetId);
+    v50.owned = v46;
+    if v47 then
+        v50.price = v47;
     end;
-    v49.isForSale = v47;
-    v49.premiumPricing = v48;
-    return v49;
+    v50.isForSale = v48;
+    v50.premiumPricing = v49;
+    return v50;
 end;
-v13.fromGetItemDetailsV2 = function(v50) --[[ Line: 332 ]] --[[ Name: fromGetItemDetailsV2 ]]
-    -- upvalues: v13 (copy)
-    local v51 = v13.new();
-    v51.assetId = tostring(v50.id);
-    v51.isForSale = v50.isPurchasable;
-    v51.price = v50.price or 0;
-    v51.hasResellers = v50.hasResellers;
-    v51.collectibleItemId = v50.collectibleItemId;
-    local v52 = {};
-    if v50.itemRestrictions then
-        for _, v54 in v50.itemRestrictions do
-            v52[v54] = true;
+v14.fromGetItemDetailsV2 = function(v51) --[[ Line: 334 ]] --[[ Name: fromGetItemDetailsV2 ]]
+    -- upvalues: v14 (copy), l_FFlagAXEnableIaBTimedOptionsBulkPurchase_0 (copy)
+    local v52 = v14.new();
+    v52.assetId = tostring(v51.id);
+    v52.isForSale = v51.isPurchasable;
+    v52.price = v51.price or 0;
+    v52.hasResellers = v51.hasResellers;
+    v52.collectibleItemId = v51.collectibleItemId;
+    local v53 = {};
+    if v51.itemRestrictions then
+        for _, v55 in v51.itemRestrictions do
+            v53[v55] = true;
         end;
-        v51.itemRestrictions = v52;
+        v52.itemRestrictions = v53;
     end;
-    v51.saleLocationType = v50.saleLocationType;
-    v51.remaining = v50.unitsAvailableForConsumption;
-    v51.collectibleTotalQuantity = v50.totalQuantity;
-    v51.collectibleLowestResalePrice = v50.lowestResalePrice;
-    v51.isOffSale = v50.isOffSale;
-    v51.saleLocationType = v50.saleLocationType;
-    v51.numFavorites = v50.favoriteCount;
-    v51.catalogPriceStatus = v50.priceStatus;
-    return v51;
+    v52.saleLocationType = v51.saleLocationType;
+    v52.remaining = v51.unitsAvailableForConsumption;
+    v52.collectibleTotalQuantity = v51.totalQuantity;
+    v52.collectibleLowestResalePrice = v51.lowestResalePrice;
+    v52.isOffSale = v51.isOffSale;
+    v52.saleLocationType = v51.saleLocationType;
+    v52.numFavorites = v51.favoriteCount;
+    v52.catalogPriceStatus = v51.priceStatus;
+    if l_FFlagAXEnableIaBTimedOptionsBulkPurchase_0 then
+        v52.timedOptions = v51.timedOptions;
+    end;
+    return v52;
 end;
-v13.fromGetItemDetails = function(v55) --[[ Line: 361 ]] --[[ Name: fromGetItemDetails ]]
-    -- upvalues: v13 (copy), v11 (copy), l_FFlagIBV2Attribution_0 (copy)
-    local v56 = v13.new();
-    v56.assetId = tostring(v55.Id);
-    v56.owned = v55.Owned;
-    v56.isForSale = v55.IsPurchasable;
-    v56.price = v55.Price or 0;
-    v56.hasResellers = v55.HasResellers;
-    v56.collectibleItemId = v55.CollectibleItemId;
-    if v11 then
-        local v57 = {};
-        if v55.ItemRestrictions then
-            for _, v59 in v55.ItemRestrictions do
-                v57[v59] = true;
+v14.fromGetItemDetails = function(v56) --[[ Line: 367 ]] --[[ Name: fromGetItemDetails ]]
+    -- upvalues: v14 (copy), v12 (copy), l_FFlagIBV2Attribution_0 (copy)
+    local v57 = v14.new();
+    v57.assetId = tostring(v56.Id);
+    v57.owned = v56.Owned;
+    v57.isForSale = v56.IsPurchasable;
+    v57.price = v56.Price or 0;
+    v57.hasResellers = v56.HasResellers;
+    v57.collectibleItemId = v56.CollectibleItemId;
+    if v12 then
+        local v58 = {};
+        if v56.ItemRestrictions then
+            for _, v60 in v56.ItemRestrictions do
+                v58[v60] = true;
             end;
-            v56.itemRestrictions = v57;
+            v57.itemRestrictions = v58;
         end;
-        v56.saleLocationType = v55.SaleLocationType;
-        v56.remaining = v55.UnitsAvailableForConsumption;
-        v56.collectibleTotalQuantity = v55.TotalQuantity;
-        v56.collectibleLowestResalePrice = v55.LowestResalePrice;
-        v56.isOffSale = v55.IsOffSale;
-        v56.saleLocationType = v55.SaleLocationType;
-        v56.numFavorites = v55.FavoriteCount;
-        v56.catalogPriceStatus = v55.PriceStatus;
+        v57.saleLocationType = v56.SaleLocationType;
+        v57.remaining = v56.UnitsAvailableForConsumption;
+        v57.collectibleTotalQuantity = v56.TotalQuantity;
+        v57.collectibleLowestResalePrice = v56.LowestResalePrice;
+        v57.isOffSale = v56.IsOffSale;
+        v57.saleLocationType = v56.SaleLocationType;
+        v57.numFavorites = v56.FavoriteCount;
+        v57.catalogPriceStatus = v56.PriceStatus;
     end;
     if l_FFlagIBV2Attribution_0 then
-        v56.creatingUniverseId = v55.CreatingUniverseId;
+        v57.creatingUniverseId = v56.CreatingUniverseId;
     end;
-    return v56;
+    return v57;
 end;
-v13.fromPurchaseSuccess = function(v60) --[[ Line: 397 ]] --[[ Name: fromPurchaseSuccess ]]
-    -- upvalues: v13 (copy)
-    local v61 = v13.new();
-    v61.assetId = tostring(v60);
-    v61.owned = true;
-    return v61;
+v14.fromPurchaseSuccess = function(v61) --[[ Line: 403 ]] --[[ Name: fromPurchaseSuccess ]]
+    -- upvalues: v14 (copy)
+    local v62 = v14.new();
+    v62.assetId = tostring(v61);
+    v62.owned = true;
+    return v62;
 end;
-v13.fromGetVersionInfo = function(v62, v63) --[[ Line: 410 ]] --[[ Name: fromGetVersionInfo ]]
-    -- upvalues: v13 (copy)
-    local v64 = v13.new();
-    v64.assetId = tostring(v62);
-    v64.creatingUniverseId = if v63.creatingUniverseId then tostring(v63.creatingUniverseId) else nil;
-    return v64;
+v14.fromGetVersionInfo = function(v63, v64) --[[ Line: 416 ]] --[[ Name: fromGetVersionInfo ]]
+    -- upvalues: v14 (copy)
+    local v65 = v14.new();
+    v65.assetId = tostring(v63);
+    v65.creatingUniverseId = if v64.creatingUniverseId then tostring(v64.creatingUniverseId) else nil;
+    return v65;
 end;
-v13.getSaleDetailsForCollectibles = function(v65) --[[ Line: 421 ]] --[[ Name: getSaleDetailsForCollectibles ]]
-    -- upvalues: v3 (copy), v6 (copy), v9 (copy)
-    local v66 = v3.joinDeep({}, v65);
-    local l_saleLocation_0 = v65.saleLocation;
-    if v65.productType == v6.ProductType.CollectibleItem then
-        local v68 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType ~= v6.SaleLocationType.ShopOnly;
-        local v69 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType ~= v6.SaleLocationType.ShopAndExperiencesById;
-        local v70 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType == v6.SaleLocationType.ShopAndExperiencesById and type(l_saleLocation_0.UniverseIds) == "table" and table.find(l_saleLocation_0.UniverseIds, game.GameId) ~= nil;
-        local v71 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType ~= v6.SaleLocationType.ExperiencesDevApiOnly;
-        v66.isForSale = v65.isForSale and v65.canBeSoldInThisGame and v68 and (v69 or v70) and v71;
-        if not v65.collectibleIsLimited then
-            v66.isForSale = v66.isForSale and not v66.owned;
-            return v66;
+v14.getSaleDetailsForCollectibles = function(v66) --[[ Line: 427 ]] --[[ Name: getSaleDetailsForCollectibles ]]
+    -- upvalues: v3 (copy), v7 (copy), v10 (copy)
+    local v67 = v3.joinDeep({}, v66);
+    local l_saleLocation_0 = v66.saleLocation;
+    if v66.productType == v7.ProductType.CollectibleItem then
+        local v69 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType ~= v7.SaleLocationType.ShopOnly;
+        local v70 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType ~= v7.SaleLocationType.ShopAndExperiencesById;
+        local v71 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType == v7.SaleLocationType.ShopAndExperiencesById and type(l_saleLocation_0.UniverseIds) == "table" and table.find(l_saleLocation_0.UniverseIds, game.GameId) ~= nil;
+        local v72 = l_saleLocation_0 and l_saleLocation_0.SaleLocationType ~= v7.SaleLocationType.ExperiencesDevApiOnly;
+        v67.isForSale = v66.isForSale and v66.canBeSoldInThisGame and v69 and (v70 or v71) and v72;
+        if not v66.collectibleIsLimited then
+            v67.isForSale = v67.isForSale and not v67.owned;
+            return v67;
         end;
-    elseif v9 then
-        v66.isForSale = v65.isForSale and v65.canBeSoldInThisGame;
-        if v65.canBeSoldInThisGame == nil then
-            v66.isForSale = v65.isForSale;
-            return v66;
+    elseif v10 then
+        v67.isForSale = v66.isForSale and v66.canBeSoldInThisGame;
+        if v66.canBeSoldInThisGame == nil then
+            v67.isForSale = v66.isForSale;
+            return v67;
         end;
     else
-        v66.isForSale = v65.isForSale;
+        v67.isForSale = v66.isForSale;
     end;
-    return v66;
+    return v67;
 end;
-return v13;
+return v14;

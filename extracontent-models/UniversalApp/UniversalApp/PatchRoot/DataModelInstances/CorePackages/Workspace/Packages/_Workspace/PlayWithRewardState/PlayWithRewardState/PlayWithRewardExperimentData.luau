@@ -6,19 +6,21 @@ local v4 = v3.interface({
     layoutOrder = v3.number, 
     titleText = v3.string, 
     subtitleText = v3.string, 
-    buttonText = v3.string
+    buttonText = v3.string, 
+    showButton = v3.boolean
 });
 local v5 = {};
 local v6 = {
     layoutOrder = 0, 
     titleText = "", 
     subtitleText = "", 
-    buttonText = ""
+    buttonText = "", 
+    showButton = false
 };
-v5.fromJsonData = function(v7) --[[ Line: 30 ]] --[[ Name: fromJsonData ]]
+v5.fromJsonData = function(v7) --[[ Line: 33 ]] --[[ Name: fromJsonData ]]
     -- upvalues: v6 (copy), l_HttpService_0 (copy), v4 (copy), l_mutedError_0 (copy)
     local v8 = table.clone(v6);
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 33 ]]
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 36 ]]
         -- upvalues: l_HttpService_0 (ref), v7 (copy)
         return l_HttpService_0:JSONDecode(v7);
     end);
@@ -32,6 +34,7 @@ v5.fromJsonData = function(v7) --[[ Line: 30 ]] --[[ Name: fromJsonData ]]
             v8.titleText = l_result_0.titleText;
             v8.subtitleText = l_result_0.subtitleText;
             v8.buttonText = l_result_0.buttonText;
+            v8.showButton = l_result_0.showButton;
         end;
     end;
     return v8;

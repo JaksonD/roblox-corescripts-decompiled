@@ -12,226 +12,233 @@ local l_GetFFlagSimpleChatUnreadMessageCount_0 = v5.GetFFlagSimpleChatUnreadMess
 local l_FFlagAddUILessMode_0 = v5.FFlagAddUILessMode;
 local l_FIntAddUILessModeVariant_0 = v5.FIntAddUILessModeVariant;
 local l_FFlagEnableInExperienceAvatarSwitcher_0 = v5.FFlagEnableInExperienceAvatarSwitcher;
+local l_FFlagEnableSideSheet_0 = v5.FFlagEnableSideSheet;
+local l_FFlagAddIGMToSideSheet_0 = v5.FFlagAddIGMToSideSheet;
 local l_FFlagUnibarMenuOpenSubmenu_0 = require(script.Parent.Parent.Parent.Flags).FFlagUnibarMenuOpenSubmenu;
-local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_script_FirstAncestor_0.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
+local v17 = require(l_script_FirstAncestor_0.Flags);
+local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = v17.FFlagTokenizeUnibarConstantsWithStyleProvider;
+local l_FFlagFixSpatialSubMenuSizing_0 = v17.FFlagFixSpatialSubMenuSizing;
 local l_useStyle_0 = require(l_CorePackages_0.Packages.UIBlox).Core.Style.useStyle;
-local v17 = require(l_script_FirstAncestor_0.Service);
+local v21 = require(l_script_FirstAncestor_0.Service);
 local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
 local _ = if l_GetFFlagChromeCentralizedConfiguration_0() then nil else require(l_script_FirstAncestor_0.Parent.Integrations);
-local v20 = require(l_script_FirstAncestor_0.Unibar.SubMenu);
-local v21 = require(l_script_FirstAncestor_0.Unibar.WindowManager);
-local v22 = require(l_script_FirstAncestor_0.Shortcuts.ShortcutBar);
-local v23 = require(l_script_FirstAncestor_0.Unibar.Constants);
-local v24 = require(l_script_FirstAncestor_0.Hooks.useChromeMenuItems);
-local v25 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
-local v26 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValue);
-local v27 = require(l_script_FirstAncestor_0.Unibar.ComponentHosts.IconHost);
-local v28 = require(l_CorePackages_0.Packages.ReactOtter);
+local v24 = require(l_script_FirstAncestor_0.Unibar.SubMenu);
+local v25 = require(l_script_FirstAncestor_0.Unibar.WindowManager);
+local v26 = require(l_script_FirstAncestor_0.Shortcuts.ShortcutBar);
+local v27 = require(l_script_FirstAncestor_0.Unibar.Constants);
+local v28 = require(l_script_FirstAncestor_0.Hooks.useChromeMenuItems);
+local v29 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
+local v30 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValue);
+local v31 = require(l_script_FirstAncestor_0.Unibar.ComponentHosts.IconHost);
+local v32 = require(l_CorePackages_0.Packages.ReactOtter);
 local l_isSpatial_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
 local l_FFlagReduceTopBarInsetsWhileHidden_0 = v5.FFlagReduceTopBarInsetsWhileHidden;
 local l_Stores_0 = require(l_CorePackages_0.Workspace.Packages.CoreGuiCommon).Stores;
 local l_createEffect_0 = require(l_CorePackages_0.Packages.Signals).createEffect;
-local v33 = require(l_script_FirstAncestor_0.Parent.Integrations.Party.Constants);
-local v34 = require(l_script_FirstAncestor_0.Parent.Integrations.Connect.isConnectUnibarEnabled);
-local v35 = require(l_script_FirstAncestor_0.Parent.Integrations.Connect.isConnectDropdownEnabled);
-local v36 = if l_FFlagEnableConsoleExpControls_0 then require(l_script_FirstAncestor_0.Parent.Parent.TopBar.Components.GamepadConnector) else nil;
+local v37 = require(l_script_FirstAncestor_0.Parent.Integrations.Party.Constants);
+local v38 = require(l_script_FirstAncestor_0.Parent.Integrations.Connect.isConnectUnibarEnabled);
+local v39 = require(l_script_FirstAncestor_0.Parent.Integrations.Connect.isConnectDropdownEnabled);
+local v40 = if l_FFlagEnableConsoleExpControls_0 then require(l_script_FirstAncestor_0.Parent.Parent.TopBar.Components.GamepadConnector) else nil;
 local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
-local v38 = nil;
-local v39 = nil;
-local v40 = nil;
+local v42 = nil;
+local v43 = nil;
+local v44 = nil;
 if l_isInExperienceUIVREnabled_0 then
-    local v41 = require(l_CorePackages_0.Workspace.Packages.VrSpatialUi);
-    v38 = v41.Panel3DInSpatialUI;
-    v39 = v41.Constants.PanelType;
-    v40 = require(l_CorePackages_0.Workspace.Packages.Observable).ObservableValue.new(true);
+    local v45 = require(l_CorePackages_0.Workspace.Packages.VrSpatialUi);
+    v42 = v45.Panel3DInSpatialUI;
+    v43 = v45.Constants.PanelType;
+    v44 = require(l_CorePackages_0.Workspace.Packages.Observable).ObservableValue.new(true);
 end;
 if not l_GetFFlagChromeCentralizedConfiguration_0() then
-    configureUnibar = function() --[[ Line: 74 ]] --[[ Name: configureUnibar ]]
-        -- upvalues: v35 (copy), l_GetFFlagDebugEnableUnibarDummyIntegrations_0 (copy), v34 (copy), v33 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), v17 (copy), l_FFlagEnableInExperienceAvatarSwitcher_0 (copy), v23 (copy), l_GuiService_0 (copy)
-        local v42 = {
+    configureUnibar = function() --[[ Line: 77 ]] --[[ Name: configureUnibar ]]
+        -- upvalues: v39 (copy), l_GetFFlagDebugEnableUnibarDummyIntegrations_0 (copy), v38 (copy), v37 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), v21 (copy), l_FFlagEnableInExperienceAvatarSwitcher_0 (copy), v27 (copy), l_GuiService_0 (copy), l_FFlagEnableSideSheet_0 (copy), l_FFlagAddIGMToSideSheet_0 (copy)
+        local v46 = {
             "leaderboard", 
             "emotes", 
             "backpack"
         };
-        table.insert(v42, "respawn");
-        table.insert(v42, 1, "trust_and_safety");
-        if v35() then
-            table.insert(v42, 1, "connect_dropdown");
+        table.insert(v46, "respawn");
+        table.insert(v46, 1, "trust_and_safety");
+        if v39() then
+            table.insert(v46, 1, "connect_dropdown");
         end;
-        local v43 = {
+        local v47 = {
             "toggle_mic_mute", 
             "chat", 
             "nine_dot"
         };
-        table.insert(v43, 2, "join_voice");
+        table.insert(v47, 2, "join_voice");
         if l_GetFFlagDebugEnableUnibarDummyIntegrations_0() then
-            table.insert(v43, 1, "dummy_window");
-            table.insert(v43, 1, "dummy_window_2");
+            table.insert(v47, 1, "dummy_window");
+            table.insert(v47, 1, "dummy_window_2");
         end;
-        if v34() then
-            table.insert(v43, 1, "connect_unibar");
+        if v38() then
+            table.insert(v47, 1, "connect_unibar");
         end;
-        local v44 = table.find(v43, "toggle_mic_mute");
-        if v44 then
-            table.insert(v43, v44 + 1, v33.TOGGLE_MIC_INTEGRATION_ID);
+        local v48 = table.find(v47, "toggle_mic_mute");
+        if v48 then
+            table.insert(v47, v48 + 1, v37.TOGGLE_MIC_INTEGRATION_ID);
         end;
         if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then
-            v17:configureMenu({
+            v21:configureMenu({
                 {
                     "vr_toggle_button", 
                     "vr_safety_bubble"
                 }, 
-                v43
+                v47
             });
         else
-            v17:configureMenu({
-                v43
+            v21:configureMenu({
+                v47
             });
         end;
         if l_isInExperienceUIVREnabled_0 then
             if not l_isSpatial_0() then
-                table.insert(v42, 2, "camera_entrypoint");
-                table.insert(v42, 2, "selfie_view");
+                table.insert(v46, 2, "camera_entrypoint");
+                table.insert(v46, 2, "selfie_view");
             end;
         else
-            table.insert(v42, 2, "camera_entrypoint");
-            table.insert(v42, 2, "selfie_view");
+            table.insert(v46, 2, "camera_entrypoint");
+            table.insert(v46, 2, "selfie_view");
         end;
         if l_FFlagEnableInExperienceAvatarSwitcher_0 then
-            table.insert(v42, 3, v23.AVATAR_SWITCHER_ID);
+            table.insert(v46, 3, v27.AVATAR_SWITCHER_ID);
         end;
         if not l_isSpatial_0() and not l_GuiService_0:IsTenFootInterface() then
-            table.insert(v42, 4, "music_entrypoint");
+            table.insert(v46, 4, "music_entrypoint");
         end;
-        v17:configureSubMenu("nine_dot", v42);
+        if l_FFlagEnableSideSheet_0 and l_FFlagAddIGMToSideSheet_0 then
+            table.insert(v46, "people");
+        end;
+        v21:configureSubMenu("nine_dot", v46);
     end;
     configureUnibar();
     if l_FFlagEnableConsoleExpControls_0 then
         require(script.Parent.Parent.Shortcuts.ConfigureShortcuts)();
     end;
 end;
-IconDivider = function(v45) --[[ Line: 153 ]] --[[ Name: IconDivider ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v23 (copy), v4 (copy)
-    local v46 = l_useStyle_0();
+IconDivider = function(v49) --[[ Line: 160 ]] --[[ Name: IconDivider ]]
+    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), v4 (copy)
+    local v50 = l_useStyle_0();
     local _ = nil;
-    local v48 = nil;
-    v48 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_DIVIDER_POSITION else v23.ICON_DIVIDER_POSITION;
+    local v52 = nil;
+    v52 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_DIVIDER_POSITION else v27.ICON_DIVIDER_POSITION;
     return v4.createElement("Frame", {
-        Position = v45.position, 
-        Size = UDim2.new(0, v23.DIVIDER_CELL_WIDTH, 1, 0), 
+        Position = v49.position, 
+        Size = UDim2.new(0, v27.DIVIDER_CELL_WIDTH, 1, 0), 
         BorderSizePixel = 0, 
         BackgroundTransparency = 1
     }, {
         DividerBar = v4.createElement("Frame", {
-            Position = v48, 
+            Position = v52, 
             AnchorPoint = Vector2.new(0, 0.5), 
-            Size = v23.ICON_DIVIDER_SIZE, 
+            Size = v27.ICON_DIVIDER_SIZE, 
             BorderSizePixel = 0, 
-            BackgroundColor3 = v46.Theme.Divider.Color, 
-            BackgroundTransparency = if v45.toggleTransition then v45.toggleTransition:map(function(v49) --[[ Line: 177 ]]
-                -- upvalues: v46 (copy)
-                return v46.Theme.Divider.Transparency + (1 - v49) * (1 - v46.Theme.Divider.Transparency);
-            end) else v46.Theme.Divider.Transparency, 
-            Visible = v45.visible or true
+            BackgroundColor3 = v50.Theme.Divider.Color, 
+            BackgroundTransparency = if v49.toggleTransition then v49.toggleTransition:map(function(v53) --[[ Line: 184 ]]
+                -- upvalues: v50 (copy)
+                return v50.Theme.Divider.Transparency + (1 - v53) * (1 - v50.Theme.Divider.Transparency);
+            end) else v50.Theme.Divider.Transparency, 
+            Visible = v49.visible or true
         })
     });
 end;
-local function _(v50, v51) --[[ Line: 186 ]] --[[ Name: getSelectedChild ]]
-    -- upvalues: v23 (copy)
-    return v50.current:FindFirstChild(v23.ICON_NAME_PREFIX .. tostring(v51), true);
+local function _(v54, v55) --[[ Line: 193 ]] --[[ Name: getSelectedChild ]]
+    -- upvalues: v27 (copy)
+    return v54.current:FindFirstChild(v27.ICON_NAME_PREFIX .. tostring(v55), true);
 end;
-AnimationStateHelper = function(v53) --[[ Line: 192 ]] --[[ Name: AnimationStateHelper ]]
-    -- upvalues: v25 (copy), v17 (copy), v4 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_ContextActionService_0 (copy), l_GuiService_0 (copy), v23 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), v28 (copy), l_GetFIntIconSelectionTimeout_0 (copy)
-    local v54 = v25(v17:currentSubMenu());
-    local v55 = v25(v17:selectedItem());
-    local v56 = v25(v17:inFocusNav());
-    v4.useEffect(function() --[[ Line: 198 ]]
-        -- upvalues: v56 (copy), l_FFlagEnableConsoleExpControls_0 (ref), l_ContextActionService_0 (ref), v17 (ref), l_GuiService_0 (ref), v53 (copy), v55 (copy), v23 (ref), l_FFlagUnibarMenuOpenSubmenu_0 (ref)
-        if v56 then
+AnimationStateHelper = function(v57) --[[ Line: 199 ]] --[[ Name: AnimationStateHelper ]]
+    -- upvalues: v29 (copy), v21 (copy), v4 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_ContextActionService_0 (copy), l_GuiService_0 (copy), v27 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), v32 (copy), l_GetFIntIconSelectionTimeout_0 (copy)
+    local v58 = v29(v21:currentSubMenu());
+    local v59 = v29(v21:selectedItem());
+    local v60 = v29(v21:inFocusNav());
+    v4.useEffect(function() --[[ Line: 205 ]]
+        -- upvalues: v60 (copy), l_FFlagEnableConsoleExpControls_0 (ref), l_ContextActionService_0 (ref), v21 (ref), l_GuiService_0 (ref), v57 (copy), v59 (copy), v27 (ref), l_FFlagUnibarMenuOpenSubmenu_0 (ref)
+        if v60 then
             if not l_FFlagEnableConsoleExpControls_0 then
-                l_ContextActionService_0:BindCoreAction("RBXEscapeUnibar", function(_, v58, _) --[[ Line: 201 ]]
-                    -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v17 (ref), l_GuiService_0 (ref)
+                l_ContextActionService_0:BindCoreAction("RBXEscapeUnibar", function(_, v62, _) --[[ Line: 208 ]]
+                    -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v21 (ref), l_GuiService_0 (ref)
                     if l_FFlagEnableConsoleExpControls_0 then
-                        if v58 == Enum.UserInputState.End then
-                            v17:disableFocusNav();
+                        if v62 == Enum.UserInputState.End then
+                            v21:disableFocusNav();
                             l_GuiService_0.SelectedCoreObject = nil;
                             return;
                         end;
                     else
-                        v17:disableFocusNav();
+                        v21:disableFocusNav();
                     end;
                 end, false, Enum.KeyCode.ButtonB);
             end;
             if l_FFlagEnableConsoleExpControls_0 then
-                if v53.menuFrameRef.current then
-                    local l_menuFrameRef_0 = v53.menuFrameRef;
-                    local l_v55_0 = v55;
-                    local l_FirstChild_0 = l_menuFrameRef_0.current:FindFirstChild(v23.ICON_NAME_PREFIX .. tostring(l_v55_0), true);
+                if v57.menuFrameRef.current then
+                    local l_menuFrameRef_0 = v57.menuFrameRef;
+                    local l_v59_0 = v59;
+                    local l_FirstChild_0 = l_menuFrameRef_0.current:FindFirstChild(v27.ICON_NAME_PREFIX .. tostring(l_v59_0), true);
                     if l_FirstChild_0 then
                         l_GuiService_0.SelectedCoreObject = l_FirstChild_0;
                         return;
                     elseif l_FFlagUnibarMenuOpenSubmenu_0 then
                         if l_FFlagEnableConsoleExpControls_0 then
-                            v17:selectedItem():set("nine_dot");
+                            v21:selectedItem():set("nine_dot");
                         end;
-                        v17:toggleSubMenu("nine_dot");
+                        v21:toggleSubMenu("nine_dot");
                         return;
                     else
-                        l_GuiService_0:Select(v53.menuFrameRef.current);
+                        l_GuiService_0:Select(v57.menuFrameRef.current);
                         return;
                     end;
                 end;
-            elseif v53.menuFrameRef.current then
-                l_GuiService_0:Select(v53.menuFrameRef.current);
+            elseif v57.menuFrameRef.current then
+                l_GuiService_0:Select(v57.menuFrameRef.current);
                 return;
             end;
         else
             l_ContextActionService_0:UnbindCoreAction("RBXEscapeUnibar");
-            if l_GuiService_0.SelectedCoreObject and v53.menuFrameRef.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
+            if l_GuiService_0.SelectedCoreObject and v57.menuFrameRef.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
                 l_GuiService_0.SelectedCoreObject = nil;
             end;
         end;
     end, {
-        v56
+        v60
     });
-    v4.useEffect(function() --[[ Line: 246 ]]
-        -- upvalues: v54 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (ref), v56 (copy), l_GuiService_0 (ref), v53 (copy), v28 (ref), v23 (ref)
-        if v54 == "nine_dot" then
-            if l_FFlagUnibarMenuOpenSubmenu_0 and v56 then
-                l_GuiService_0:Select(v53.subMenuHostRef.current);
+    v4.useEffect(function() --[[ Line: 253 ]]
+        -- upvalues: v58 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (ref), v60 (copy), l_GuiService_0 (ref), v57 (copy), v32 (ref), v27 (ref)
+        if v58 == "nine_dot" then
+            if l_FFlagUnibarMenuOpenSubmenu_0 and v60 then
+                l_GuiService_0:Select(v57.subMenuHostRef.current);
             end;
-            v53.setToggleSubmenuTransition((v28.spring(1, v23.MENU_ANIMATION_SPRING)));
+            v57.setToggleSubmenuTransition((v32.spring(1, v27.MENU_ANIMATION_SPRING)));
             return;
         else
-            v53.setToggleSubmenuTransition((v28.spring(0, v23.MENU_ANIMATION_SPRING)));
+            v57.setToggleSubmenuTransition((v32.spring(0, v27.MENU_ANIMATION_SPRING)));
             return;
         end;
     end, {
-        v54
+        v58
     });
-    v4.useEffect(function() --[[ Line: 257 ]]
-        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v54 (copy), v55 (copy), l_GetFIntIconSelectionTimeout_0 (ref), v53 (copy), v23 (ref), l_GuiService_0 (ref)
-        if l_FFlagEnableConsoleExpControls_0 and v54 == v55 then
+    v4.useEffect(function() --[[ Line: 264 ]]
+        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v58 (copy), v59 (copy), l_GetFIntIconSelectionTimeout_0 (ref), v57 (copy), v27 (ref), l_GuiService_0 (ref)
+        if l_FFlagEnableConsoleExpControls_0 and v58 == v59 then
             return;
         else
-            local v67 = coroutine.create(function() --[[ Line: 262 ]]
-                -- upvalues: l_GetFIntIconSelectionTimeout_0 (ref), v53 (ref), v55 (ref), l_FFlagEnableConsoleExpControls_0 (ref), v23 (ref), l_GuiService_0 (ref)
-                local v63 = 0;
+            local v71 = coroutine.create(function() --[[ Line: 269 ]]
+                -- upvalues: l_GetFIntIconSelectionTimeout_0 (ref), v57 (ref), v59 (ref), l_FFlagEnableConsoleExpControls_0 (ref), v27 (ref), l_GuiService_0 (ref)
+                local v67 = 0;
                 while true do
-                    if v63 < l_GetFIntIconSelectionTimeout_0() then
-                        v63 = v63 + 1;
+                    if v67 < l_GetFIntIconSelectionTimeout_0() then
+                        v67 = v67 + 1;
                         task.wait();
-                        if v53.menuFrameRef.current and v55 then
-                            local v64 = nil;
+                        if v57.menuFrameRef.current and v59 then
+                            local v68 = nil;
                             if l_FFlagEnableConsoleExpControls_0 then
-                                local l_menuFrameRef_1 = v53.menuFrameRef;
-                                local l_v55_1 = v55;
-                                v64 = l_menuFrameRef_1.current:FindFirstChild(v23.ICON_NAME_PREFIX .. tostring(l_v55_1), true);
+                                local l_menuFrameRef_1 = v57.menuFrameRef;
+                                local l_v59_1 = v59;
+                                v68 = l_menuFrameRef_1.current:FindFirstChild(v27.ICON_NAME_PREFIX .. tostring(l_v59_1), true);
                             else
-                                v64 = v53.menuFrameRef.current:FindFirstChild("IconHitArea_" .. v55, true);
+                                v68 = v57.menuFrameRef.current:FindFirstChild("IconHitArea_" .. v59, true);
                             end;
-                            if v64 then
-                                l_GuiService_0.SelectedCoreObject = v64;
+                            if v68 then
+                                l_GuiService_0.SelectedCoreObject = v68;
                                 return;
                             end;
                         end;
@@ -240,309 +247,309 @@ AnimationStateHelper = function(v53) --[[ Line: 192 ]] --[[ Name: AnimationState
                     end;
                 end;
             end);
-            coroutine.resume(v67);
+            coroutine.resume(v71);
             return;
         end;
     end, {
-        v55, 
-        if l_FFlagEnableConsoleExpControls_0 then v54 else nil
+        v59, 
+        if l_FFlagEnableConsoleExpControls_0 then v58 else nil
     });
     return nil;
 end;
-linearInterpolation = function(v68, v69, v70) --[[ Line: 288 ]] --[[ Name: linearInterpolation ]]
-    return v68 * (1 - v70) + v69 * v70;
+linearInterpolation = function(v72, v73, v74) --[[ Line: 295 ]] --[[ Name: linearInterpolation ]]
+    return v72 * (1 - v74) + v73 * v74;
 end;
-IconPositionBinding = function(v71, v72, v73, v74, v75, v76, v77, v78, v79) --[[ Line: 292 ]] --[[ Name: IconPositionBinding ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v23 (copy), v4 (copy)
+IconPositionBinding = function(v75, v76, v77, v78, v79, v80, v81, v82, v83) --[[ Line: 299 ]] --[[ Name: IconPositionBinding ]]
+    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), v4 (copy)
     local _ = nil;
-    local v81 = nil;
-    v81 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().UNIBAR_END_PADDING else v23.UNIBAR_END_PADDING;
+    local v85 = nil;
+    v85 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().UNIBAR_END_PADDING else v27.UNIBAR_END_PADDING;
     return (v4.joinBindings({
-        v71, 
         v75, 
-        v76
-    }):map(function(v82) --[[ Line: 312 ]]
-        -- upvalues: v79 (copy), v73 (copy), v72 (copy), v74 (copy), v78 (copy), v77 (copy), v81 (ref)
-        local v83 = 0;
-        v83 = if v79.current then linearInterpolation(v73, v72, v82[2]) else linearInterpolation(v72, v73, v82[2]);
-        local l_v74_0 = v74;
-        if v78 and not v77 then
-            l_v74_0 = v74 - v82[3];
+        v79, 
+        v80
+    }):map(function(v86) --[[ Line: 319 ]]
+        -- upvalues: v83 (copy), v77 (copy), v76 (copy), v78 (copy), v82 (copy), v81 (copy), v85 (ref)
+        local v87 = 0;
+        v87 = if v83.current then linearInterpolation(v77, v76, v86[2]) else linearInterpolation(v76, v77, v86[2]);
+        local l_v78_0 = v78;
+        if v82 and not v81 then
+            l_v78_0 = v78 - v86[3];
         end;
-        local v85 = v83 - l_v74_0;
-        return UDim2.new(0, v81 + l_v74_0 + v85 * v82[1], 0, 0);
+        local v89 = v87 - l_v78_0;
+        return UDim2.new(0, v85 + l_v78_0 + v89 * v86[1], 0, 0);
     end));
 end;
-local function v90(v86, _, _, v89) --[[ Line: 330 ]] --[[ Name: onUnibarSelectionChanged ]]
-    -- upvalues: v17 (copy)
-    if not v86:IsAncestorOf(v89) then
-        v17:disableFocusNav();
+local function v94(v90, _, _, v93) --[[ Line: 337 ]] --[[ Name: onUnibarSelectionChanged ]]
+    -- upvalues: v21 (copy)
+    if not v90:IsAncestorOf(v93) then
+        v21:disableFocusNav();
     end;
 end;
-isLeft = function(v91) --[[ Line: 349 ]] --[[ Name: isLeft ]]
-    return v91 == Enum.HorizontalAlignment.Left;
+isLeft = function(v95) --[[ Line: 356 ]] --[[ Name: isLeft ]]
+    return v95 == Enum.HorizontalAlignment.Left;
 end;
-Unibar = function(v92) --[[ Line: 353 ]] --[[ Name: Unibar ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v23 (copy), v4 (copy), l_FFlagAddUILessMode_0 (copy), l_FIntAddUILessModeVariant_0 (copy), l_Stores_0 (copy), v24 (copy), v28 (copy), v17 (copy), l_FFlagReduceTopBarInsetsWhileHidden_0 (copy), v36 (copy), v26 (copy), v27 (copy), l_GetFFlagSimpleChatUnreadMessageCount_0 (copy), l_createEffect_0 (copy), l_useStyle_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy)
-    local v93 = nil;
-    local v94 = nil;
-    local v95 = nil;
+Unibar = function(v96) --[[ Line: 360 ]] --[[ Name: Unibar ]]
+    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), v4 (copy), l_FFlagAddUILessMode_0 (copy), l_FIntAddUILessModeVariant_0 (copy), l_Stores_0 (copy), v28 (copy), v32 (copy), v21 (copy), l_FFlagReduceTopBarInsetsWhileHidden_0 (copy), v40 (copy), v30 (copy), v31 (copy), l_GetFFlagSimpleChatUnreadMessageCount_0 (copy), l_createEffect_0 (copy), l_useStyle_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy)
+    local v97 = nil;
+    local v98 = nil;
+    local v99 = nil;
     if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v93 = l_UnibarStyle_0.use();
-        v94 = v93.ICON_CELL_WIDTH;
-        v95 = v93.UNIBAR_END_PADDING;
+        v97 = l_UnibarStyle_0.use();
+        v98 = v97.ICON_CELL_WIDTH;
+        v99 = v97.UNIBAR_END_PADDING;
     else
-        v94 = v23.ICON_CELL_WIDTH;
-        v95 = v23.UNIBAR_END_PADDING;
+        v98 = v27.ICON_CELL_WIDTH;
+        v99 = v27.UNIBAR_END_PADDING;
     end;
-    local v96 = {};
-    local v97 = v4.useRef({});
-    local v98 = v4.useRef(Vector2.zero);
-    local v99 = v4.useRef(Vector2.zero);
-    local v100 = nil;
+    local v100 = {};
+    local v101 = v4.useRef({});
+    local v102 = v4.useRef(Vector2.zero);
+    local v103 = v4.useRef(Vector2.zero);
+    local v104 = nil;
     if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and l_Stores_0.GetUILessStore then
-        v100 = v4.useRef(l_Stores_0.GetUILessStore(false));
+        v104 = v4.useRef(l_Stores_0.GetUILessStore(false));
     end;
-    local v101 = false;
-    local v102 = v97.current or {};
-    local v103 = v24();
-    local v104, v105 = v28.useAnimatedBinding(1);
-    local v106, v107 = v28.useAnimatedBinding(1);
-    local v108, v109 = v28.useAnimatedBinding(0);
-    local v110 = v4.useRef(0);
-    local v111, v112 = v28.useAnimatedBinding(1);
-    local v113 = v4.useRef(false);
+    local v105 = false;
+    local v106 = v101.current or {};
+    local v107 = v28();
+    local v108, v109 = v32.useAnimatedBinding(1);
+    local v110, v111 = v32.useAnimatedBinding(1);
+    local v112, v113 = v32.useAnimatedBinding(0);
     local v114 = v4.useRef(0);
-    local v115 = v17:currentSubMenu():get() == "nine_dot";
-    local v116, v117 = v28.useAnimatedBinding(v115 and 1 or 0);
-    local v118 = {};
-    local v119 = 0;
-    local v120 = 0;
-    local v121 = 0;
-    local v122 = 0;
+    local v115, v116 = v32.useAnimatedBinding(1);
+    local v117 = v4.useRef(false);
+    local v118 = v4.useRef(0);
+    local v119 = v21:currentSubMenu():get() == "nine_dot";
+    local v120, v121 = v32.useAnimatedBinding(v119 and 1 or 0);
+    local v122 = {};
     local v123 = 0;
-    local v127 = v4.useCallback(function(v124) --[[ Line: 401 ]]
-        -- upvalues: v98 (copy), v17 (ref), l_FFlagReduceTopBarInsetsWhileHidden_0 (ref), v99 (copy), l_FFlagAddUILessMode_0 (ref), l_FIntAddUILessModeVariant_0 (ref), v100 (ref), v36 (ref), v92 (copy), v23 (ref)
+    local v124 = 0;
+    local v125 = 0;
+    local v126 = 0;
+    local v127 = 0;
+    local v131 = v4.useCallback(function(v128) --[[ Line: 408 ]]
+        -- upvalues: v102 (copy), v21 (ref), l_FFlagReduceTopBarInsetsWhileHidden_0 (ref), v103 (copy), l_FFlagAddUILessMode_0 (ref), l_FIntAddUILessModeVariant_0 (ref), v104 (ref), v40 (ref), v96 (copy), v27 (ref)
         local l_zero_0 = Vector2.zero;
         local l_zero_1 = Vector2.zero;
-        if v124 then
-            l_zero_0 = v124.AbsolutePosition;
-            l_zero_1 = v124.AbsoluteSize;
-            if l_zero_0 ~= v98.current then
-                v98.current = l_zero_0;
-                v17:setMenuAbsolutePosition(l_zero_0);
+        if v128 then
+            l_zero_0 = v128.AbsolutePosition;
+            l_zero_1 = v128.AbsoluteSize;
+            if l_zero_0 ~= v102.current then
+                v102.current = l_zero_0;
+                v21:setMenuAbsolutePosition(l_zero_0);
             end;
-            if l_FFlagReduceTopBarInsetsWhileHidden_0 and l_zero_1 ~= v99.current then
-                v99.current = l_zero_1;
+            if l_FFlagReduceTopBarInsetsWhileHidden_0 and l_zero_1 ~= v103.current then
+                v103.current = l_zero_1;
             end;
-            if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v100.current.getUILessModeEnabled(false) then
-                if l_zero_0 ~= v98.current then
-                    v98.current = l_zero_0;
-                    v17:setMenuAbsolutePosition(l_zero_0);
+            if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v104.current.getUILessModeEnabled(false) then
+                if l_zero_0 ~= v102.current then
+                    v102.current = l_zero_0;
+                    v21:setMenuAbsolutePosition(l_zero_0);
                 end;
-                if l_zero_1 ~= v99.current then
-                    v99.current = l_zero_1;
+                if l_zero_1 ~= v103.current then
+                    v103.current = l_zero_1;
                 end;
             end;
         end;
-        if l_FFlagReduceTopBarInsetsWhileHidden_0 and v36 then
-            if v124 and v92.onAreaChanged and v36:getShowTopBar():get() then
-                v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, l_zero_0, l_zero_1);
+        if l_FFlagReduceTopBarInsetsWhileHidden_0 and v40 then
+            if v128 and v96.onAreaChanged and v40:getShowTopBar():get() then
+                v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, l_zero_0, l_zero_1);
                 return;
             end;
-        elseif l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v100.current.getUILessModeEnabled(false) then
-            if v124 and v92.onAreaChanged and v100.current.getUIVisible(false) then
-                v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, l_zero_0, l_zero_1);
+        elseif l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v104.current.getUILessModeEnabled(false) then
+            if v128 and v96.onAreaChanged and v104.current.getUIVisible(false) then
+                v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, l_zero_0, l_zero_1);
                 return;
             end;
-        elseif v124 and v92.onAreaChanged then
-            v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, l_zero_0, v124.AbsoluteSize);
+        elseif v128 and v96.onAreaChanged then
+            v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, l_zero_0, v128.AbsoluteSize);
         end;
     end, {});
-    local v129 = v4.joinBindings({
-        v106, 
-        v108
-    }):map(function(v128) --[[ Line: 450 ]]
-        -- upvalues: v122 (ref), v94 (ref)
-        return UDim2.new(0, linearInterpolation(v122, v128[2], v128[1]), 0, v94);
+    local v133 = v4.joinBindings({
+        v110, 
+        v112
+    }):map(function(v132) --[[ Line: 457 ]]
+        -- upvalues: v126 (ref), v98 (ref)
+        return UDim2.new(0, linearInterpolation(v126, v132[2], v132[1]), 0, v98);
     end);
-    local v130 = v26(v17:orderAlignment(), isLeft);
-    for _, v132 in v103 do
-        if v132.integration.availability:get() == v17.AvailabilitySignal.Pinned then
-            v119 = v119 + 1;
+    local v134 = v30(v21:orderAlignment(), isLeft);
+    for _, v136 in v107 do
+        if v136.integration.availability:get() == v21.AvailabilitySignal.Pinned then
+            v123 = v123 + 1;
         end;
     end;
-    local v133 = 0;
-    v133 = v130 and 1 or math.max(v119 - 1, 0);
-    for v134, v135 in v103 do
-        if v135.isDivider then
-            local v136 = v120 + v94 * v133;
-            local v137 = v102[v135.id] or v120;
-            v96[v135.id] = v120;
-            v101 = v101 or v137 ~= v120;
-            local v138 = IconPositionBinding(v104, v137, v120, v136, v111, v108, false, v130, v113);
-            local v139 = nil;
-            v139 = if v130 then v4.joinBindings({
-                v138, 
-                v129
-            }):map(function(v140) --[[ Line: 492 ]]
-                -- upvalues: v94 (ref)
-                return v140[1].X.Offset >= v94 * 0.5;
+    local v137 = 0;
+    v137 = v134 and 1 or math.max(v123 - 1, 0);
+    for v138, v139 in v107 do
+        if v139.isDivider then
+            local v140 = v124 + v98 * v137;
+            local v141 = v106[v139.id] or v124;
+            v100[v139.id] = v124;
+            v105 = v105 or v141 ~= v124;
+            local v142 = IconPositionBinding(v108, v141, v124, v140, v115, v112, false, v134, v117);
+            local v143 = nil;
+            v143 = if v134 then v4.joinBindings({
+                v142, 
+                v133
+            }):map(function(v144) --[[ Line: 499 ]]
+                -- upvalues: v98 (ref)
+                return v144[1].X.Offset >= v98 * 0.5;
             end) else v4.joinBindings({
-                v138, 
-                v129
-            }):map(function(v141) --[[ Line: 497 ]]
-                -- upvalues: v94 (ref)
-                local v142 = v141[1];
-                local v143 = v141[2];
-                return v142.X.Offset <= v143.X.Offset - v94;
+                v142, 
+                v133
+            }):map(function(v145) --[[ Line: 504 ]]
+                -- upvalues: v98 (ref)
+                local v146 = v145[1];
+                local v147 = v145[2];
+                return v146.X.Offset <= v147.X.Offset - v98;
             end);
-            v118[v135.id or "icon" .. v134] = v4.createElement(IconDivider, {
-                position = v138, 
-                visible = v139, 
-                toggleTransition = v106
+            v122[v139.id or "icon" .. v138] = v4.createElement(IconDivider, {
+                position = v142, 
+                visible = v143, 
+                toggleTransition = v110
             });
-            v120 = v120 + v23.DIVIDER_CELL_WIDTH;
-        elseif v135.integration then
-            local v144 = false;
-            local v145 = v120 + v94 * v133;
-            if v135.integration.availability:get() == v17.AvailabilitySignal.Pinned then
-                v144 = true;
-                v145 = v121;
+            v124 = v124 + v27.DIVIDER_CELL_WIDTH;
+        elseif v139.integration then
+            local v148 = false;
+            local v149 = v124 + v98 * v137;
+            if v139.integration.availability:get() == v21.AvailabilitySignal.Pinned then
+                v148 = true;
+                v149 = v125;
             end;
-            local v146 = if v102[v135.id] == nil then v120 else v102[v135.id];
-            v96[v135.id] = v120;
-            v101 = v101 or v146 ~= v120;
-            local v147 = IconPositionBinding(v104, v146, v120, v145, v111, v108, v144, v130, v113);
-            local v148 = nil;
-            v148 = if v130 then v4.joinBindings({
-                v147, 
-                v129
-            }):map(function(v149) --[[ Line: 536 ]]
-                -- upvalues: v94 (ref)
-                return v149[1].X.Offset >= v94 * 0.5;
+            local v150 = if v106[v139.id] == nil then v124 else v106[v139.id];
+            v100[v139.id] = v124;
+            v105 = v105 or v150 ~= v124;
+            local v151 = IconPositionBinding(v108, v150, v124, v149, v115, v112, v148, v134, v117);
+            local v152 = nil;
+            v152 = if v134 then v4.joinBindings({
+                v151, 
+                v133
+            }):map(function(v153) --[[ Line: 543 ]]
+                -- upvalues: v98 (ref)
+                return v153[1].X.Offset >= v98 * 0.5;
             end) else v4.joinBindings({
-                v147, 
-                v129
-            }):map(function(v150) --[[ Line: 541 ]]
-                -- upvalues: v94 (ref)
-                local v151 = v150[1];
-                local v152 = v150[2];
-                return v151.X.Offset <= v152.X.Offset - v94 * 1.5;
+                v151, 
+                v133
+            }):map(function(v154) --[[ Line: 548 ]]
+                -- upvalues: v98 (ref)
+                local v155 = v154[1];
+                local v156 = v154[2];
+                return v155.X.Offset <= v156.X.Offset - v98 * 1.5;
             end);
-            v118[v135.id or "icon" .. v134] = v4.createElement(v27, {
-                position = v147, 
-                visible = v144 or v148, 
-                toggleTransition = v116, 
-                integration = v135, 
-                disableBadgeNumber = if l_GetFFlagSimpleChatUnreadMessageCount_0() then v135.id == "chat" else false
+            v122[v139.id or "icon" .. v138] = v4.createElement(v31, {
+                position = v151, 
+                visible = v148 or v152, 
+                toggleTransition = v120, 
+                integration = v139, 
+                disableBadgeNumber = if l_GetFFlagSimpleChatUnreadMessageCount_0() then v139.id == "chat" else false
             });
-            v120 = v120 + v94;
-            if v144 then
-                v121 = v121 + v94;
+            v124 = v124 + v98;
+            if v148 then
+                v125 = v125 + v98;
             end;
         end;
     end;
-    v122 = v120;
-    if v92.onMinWidthChanged then
-        v92.onMinWidthChanged(v122);
+    v126 = v124;
+    if v96.onMinWidthChanged then
+        v96.onMinWidthChanged(v126);
     end;
-    v123 = v95 * 2 + v120;
-    v4.useEffect(function() --[[ Line: 570 ]]
-        -- upvalues: v110 (copy), v108 (copy), v109 (copy), v28 (ref), v123 (ref), v23 (ref), v17 (ref), v94 (ref)
-        local l_current_0 = v110.current;
-        if v108:getValue() == 0 then
-            v109((v28.instant(v123)));
-            v110.current = v123;
-        elseif l_current_0 ~= v123 then
-            v109(v28.spring(v123, v23.MENU_ANIMATION_SPRING));
-            v110.current = v123;
+    v127 = v99 * 2 + v124;
+    v4.useEffect(function() --[[ Line: 577 ]]
+        -- upvalues: v114 (copy), v112 (copy), v113 (copy), v32 (ref), v127 (ref), v27 (ref), v21 (ref), v98 (ref)
+        local l_current_0 = v114.current;
+        if v112:getValue() == 0 then
+            v113((v32.instant(v127)));
+            v114.current = v127;
+        elseif l_current_0 ~= v127 then
+            v113(v32.spring(v127, v27.MENU_ANIMATION_SPRING));
+            v114.current = v127;
         end;
-        v17:setMenuAbsoluteSize(Vector2.new(v123, v94));
+        v21:setMenuAbsoluteSize(Vector2.new(v127, v98));
     end, {
-        v123
+        v127
     });
-    if v101 then
-        v114.current = (v114.current or 0) + 1;
+    if v105 then
+        v118.current = (v118.current or 0) + 1;
     end;
-    v97.current = v96;
-    v4.useEffect(function() --[[ Line: 588 ]]
-        -- upvalues: v113 (copy), v112 (copy), v28 (ref), v23 (ref)
-        if not v113.current then
-            v112(v28.spring(0, v23.MENU_ANIMATION_SPRING));
-            v113.current = true;
+    v101.current = v100;
+    v4.useEffect(function() --[[ Line: 595 ]]
+        -- upvalues: v117 (copy), v116 (copy), v32 (ref), v27 (ref)
+        if not v117.current then
+            v116(v32.spring(0, v27.MENU_ANIMATION_SPRING));
+            v117.current = true;
             return;
         else
-            v112(v28.spring(1, v23.MENU_ANIMATION_SPRING));
-            v113.current = false;
+            v116(v32.spring(1, v27.MENU_ANIMATION_SPRING));
+            v117.current = false;
             return;
         end;
     end, {
-        v114.current, 
-        v113
+        v118.current, 
+        v117
     });
-    v4.useEffect(function() --[[ Line: 600 ]]
-        -- upvalues: l_FFlagReduceTopBarInsetsWhileHidden_0 (ref), v36 (ref), v92 (copy), v23 (ref), v98 (copy), v99 (copy)
-        if l_FFlagReduceTopBarInsetsWhileHidden_0 and v36 then
-            local v154 = v36:getShowTopBar();
-            v154:connect(function() --[[ Line: 603 ]]
-                -- upvalues: v154 (copy), v92 (ref), v23 (ref), v98 (ref), v99 (ref)
-                if v154:get() then
-                    v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, v98.current, v99.current);
+    v4.useEffect(function() --[[ Line: 607 ]]
+        -- upvalues: l_FFlagReduceTopBarInsetsWhileHidden_0 (ref), v40 (ref), v96 (copy), v27 (ref), v102 (copy), v103 (copy)
+        if l_FFlagReduceTopBarInsetsWhileHidden_0 and v40 then
+            local v158 = v40:getShowTopBar();
+            v158:connect(function() --[[ Line: 610 ]]
+                -- upvalues: v158 (copy), v96 (ref), v27 (ref), v102 (ref), v103 (ref)
+                if v158:get() then
+                    v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, v102.current, v103.current);
                     return;
                 else
-                    v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
+                    v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
                     return;
                 end;
             end);
-            v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
+            v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
         end;
     end, {});
-    v4.useEffect(function() --[[ Line: 618 ]]
-        -- upvalues: l_FFlagAddUILessMode_0 (ref), l_FIntAddUILessModeVariant_0 (ref), v100 (ref), l_createEffect_0 (ref), v92 (copy), v23 (ref), v98 (copy), v99 (copy)
-        local v155 = nil;
-        if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v100.current.getUILessModeEnabled(false) then
-            v155 = l_createEffect_0(function(v156) --[[ Line: 621 ]]
-                -- upvalues: v100 (ref), v92 (ref), v23 (ref), v98 (ref), v99 (ref)
-                if v100.current.getUIVisible(v156) then
-                    v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, v98.current, v99.current);
+    v4.useEffect(function() --[[ Line: 625 ]]
+        -- upvalues: l_FFlagAddUILessMode_0 (ref), l_FIntAddUILessModeVariant_0 (ref), v104 (ref), l_createEffect_0 (ref), v96 (copy), v27 (ref), v102 (copy), v103 (copy)
+        local v159 = nil;
+        if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v104.current.getUILessModeEnabled(false) then
+            v159 = l_createEffect_0(function(v160) --[[ Line: 628 ]]
+                -- upvalues: v104 (ref), v96 (ref), v27 (ref), v102 (ref), v103 (ref)
+                if v104.current.getUIVisible(v160) then
+                    v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, v102.current, v103.current);
                     return;
                 else
-                    v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
+                    v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
                     return;
                 end;
             end);
-            v92.onAreaChanged(v23.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
+            v96.onAreaChanged(v27.UNIBAR_KEEP_OUT_AREA_ID, Vector2.zero, Vector2.zero);
         end;
-        return function() --[[ Line: 635 ]]
-            -- upvalues: v155 (ref)
-            if v155 then
-                v155();
+        return function() --[[ Line: 642 ]]
+            -- upvalues: v159 (ref)
+            if v159 then
+                v159();
             end;
         end;
     end, {});
-    local v157 = l_useStyle_0();
+    local v161 = l_useStyle_0();
     return v4.createElement("Frame", {
-        Size = v129, 
+        Size = v133, 
         BorderSizePixel = 0, 
         BackgroundTransparency = 1, 
         SelectionGroup = true, 
-        ref = v92.menuFrameRef, 
-        [v4.Change.AbsoluteSize] = v127, 
-        [v4.Change.AbsolutePosition] = v127
+        ref = v96.menuFrameRef, 
+        [v4.Change.AbsoluteSize] = v131, 
+        [v4.Change.AbsolutePosition] = v131
     }, {
         v4.createElement(AnimationStateHelper, {
-            setToggleIconTransition = v105, 
-            setToggleWidthTransition = v107, 
-            setToggleSubmenuTransition = v117, 
-            menuFrameRef = v92.menuFrameRef, 
-            subMenuHostRef = if l_FFlagUnibarMenuOpenSubmenu_0 then v92.subMenuHostRef else nil
+            setToggleIconTransition = v109, 
+            setToggleWidthTransition = v111, 
+            setToggleSubmenuTransition = v121, 
+            menuFrameRef = v96.menuFrameRef, 
+            subMenuHostRef = if l_FFlagUnibarMenuOpenSubmenu_0 then v96.subMenuHostRef else nil
         }), 
         v4.createElement("Frame", {
             Size = UDim2.new(1, 0, 1, 0), 
             BorderSizePixel = 0, 
-            BackgroundColor3 = v157.Theme.BackgroundUIContrast.Color, 
-            BackgroundTransparency = v157.Theme.BackgroundUIContrast.Transparency * v157.Settings.PreferredTransparency
+            BackgroundColor3 = v161.Theme.BackgroundUIContrast.Color, 
+            BackgroundTransparency = v161.Theme.BackgroundUIContrast.Transparency * v161.Settings.PreferredTransparency
         }, {
             UICorner = v4.createElement("UICorner", {
                 CornerRadius = UDim.new(1, 0)
@@ -552,181 +559,182 @@ Unibar = function(v92) --[[ Line: 353 ]] --[[ Name: Unibar ]]
             Size = UDim2.new(1, 0, 1, 0), 
             BorderSizePixel = 0, 
             BackgroundTransparency = 1
-        }, v118)
+        }, v122)
     });
 end;
-local function v172(v158) --[[ Line: 690 ]] --[[ Name: UnibarPills ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v23 (copy), v24 (copy), v17 (copy), v28 (copy), v4 (copy), v27 (copy)
-    local v159 = l_useStyle_0();
-    local v160 = nil;
-    local v161 = nil;
-    local v162 = nil;
+local function v176(v162) --[[ Line: 697 ]] --[[ Name: UnibarPills ]]
+    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), v28 (copy), v21 (copy), v32 (copy), v4 (copy), v31 (copy)
+    local v163 = l_useStyle_0();
+    local v164 = nil;
+    local v165 = nil;
+    local v166 = nil;
     if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v160 = l_UnibarStyle_0.use();
-        v161 = v160.UNIBAR_END_PADDING;
-        v162 = v160.MENU_SUBMENU_PADDING;
+        v164 = l_UnibarStyle_0.use();
+        v165 = v164.UNIBAR_END_PADDING;
+        v166 = v164.MENU_SUBMENU_PADDING;
     else
-        v161 = v23.UNIBAR_END_PADDING;
-        v162 = v23.MENU_SUBMENU_PADDING;
+        v165 = v27.UNIBAR_END_PADDING;
+        v166 = v27.MENU_SUBMENU_PADDING;
     end;
-    local v163 = v24();
-    local v164 = v17:currentSubMenu():get() == "nine_dot";
-    local v165, v166 = v28.useAnimatedBinding(v164 and 1 or 0);
-    assert(v163 ~= nil, "Menu items should not be nil");
-    local v167 = {};
-    local v168 = {};
-    for v169, v170 in v163 do
-        if v170.integration and v170.isDivider == false then
-            v168["icon_host" .. v169] = v4.createElement(v27, {
-                toggleTransition = v165, 
-                integration = v170
+    local v167 = v28();
+    local v168 = v21:currentSubMenu():get() == "nine_dot";
+    local v169, v170 = v32.useAnimatedBinding(v168 and 1 or 0);
+    assert(v167 ~= nil, "Menu items should not be nil");
+    local v171 = {};
+    local v172 = {};
+    for v173, v174 in v167 do
+        if v174.integration and v174.isDivider == false then
+            v172["icon_host" .. v173] = v4.createElement(v31, {
+                toggleTransition = v169, 
+                integration = v174
             });
         end;
-        if v170.isDivider or v169 == #v163 then
-            local v171 = v4.createElement("Frame", {
+        if v174.isDivider or v173 == #v167 then
+            local v175 = v4.createElement("Frame", {
                 Size = UDim2.new(0, 0, 0, 0), 
                 AutomaticSize = Enum.AutomaticSize.XY, 
                 BorderSizePixel = 0, 
-                BackgroundColor3 = v159.Theme.BackgroundUIContrast.Color, 
-                BackgroundTransparency = v159.Theme.BackgroundUIContrast.Transparency * v159.Settings.PreferredTransparency
+                BackgroundColor3 = v163.Theme.BackgroundUIContrast.Color, 
+                BackgroundTransparency = v163.Theme.BackgroundUIContrast.Transparency * v163.Settings.PreferredTransparency
             }, {
                 UICorner = v4.createElement("UICorner", {
                     CornerRadius = UDim.new(1, 0)
                 }), 
                 Padding = v4.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, v161), 
-                    PaddingRight = UDim.new(0, v161)
+                    PaddingLeft = UDim.new(0, v165), 
+                    PaddingRight = UDim.new(0, v165)
                 }), 
                 PillsHorizontalList = v4.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Horizontal, 
                     HorizontalAlignment = Enum.HorizontalAlignment.Center, 
                     VerticalAlignment = Enum.VerticalAlignment.Center
                 })
-            }, v168);
-            v167["pill_" .. v169] = v171;
-            v168 = {};
+            }, v172);
+            v171["pill_" .. v173] = v175;
+            v172 = {};
         end;
     end;
     return v4.createElement("Frame", {
         BorderSizePixel = 0, 
         BackgroundTransparency = 1, 
         SelectionGroup = true, 
-        ref = v158.menuFrameRef, 
+        ref = v162.menuFrameRef, 
         AutomaticSize = Enum.AutomaticSize.XY
     }, {
         v4.createElement(AnimationStateHelper, {
-            setToggleSubmenuTransition = v166, 
-            menuFrameRef = v158.menuFrameRef, 
-            subMenuHostRef = v158.subMenuHostRef
+            setToggleSubmenuTransition = v170, 
+            menuFrameRef = v162.menuFrameRef, 
+            subMenuHostRef = v162.subMenuHostRef
         }), 
         v4.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal, 
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             VerticalAlignment = Enum.VerticalAlignment.Center, 
-            Padding = UDim.new(0, v162)
+            Padding = UDim.new(0, v166)
         })
-    }, v167);
+    }, v171);
 end;
-local function v176(v173) --[[ Line: 782 ]] --[[ Name: SubMenuWrapper ]]
-    -- upvalues: l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), v38 (ref), v25 (copy), v17 (copy), v40 (ref), v4 (copy), v20 (copy), v39 (ref)
-    if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and v38 then
-        local v174 = v25(v17:currentSubMenu());
-        v40:set(v174 ~= nil);
+local function v181(v177) --[[ Line: 789 ]] --[[ Name: SubMenuWrapper ]]
+    -- upvalues: l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), v42 (ref), v29 (copy), v21 (copy), v44 (ref), v4 (copy), v24 (copy), l_FFlagFixSpatialSubMenuSizing_0 (copy), v43 (ref)
+    if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and v42 then
+        local v178 = v29(v21:currentSubMenu());
+        v44:set(v178 ~= nil);
     end;
-    local v175 = v4.useCallback(function() --[[ Line: 787 ]]
-        -- upvalues: v4 (ref), v20 (ref), v173 (copy)
-        return (v4.createElement(v20, {
-            subMenuHostRef = v173.subMenuHostRef
+    local v180 = v4.useCallback(function(v179) --[[ Line: 794 ]]
+        -- upvalues: v4 (ref), v24 (ref), v177 (copy), l_FFlagFixSpatialSubMenuSizing_0 (ref)
+        return (v4.createElement(v24, {
+            subMenuHostRef = v177.subMenuHostRef, 
+            panelSize = if l_FFlagFixSpatialSubMenuSizing_0 then v179 else nil
         }));
     end, {
-        v173.subMenuHostRef
+        v177.subMenuHostRef
     });
-    if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and v38 then
-        return (v4.createElement(v38, {
-            panelType = v39.ChromeSubMenu, 
-            renderFunction = v175, 
-            visibilityObservable = v40
+    if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and v42 then
+        return (v4.createElement(v42, {
+            panelType = v43.ChromeSubMenu, 
+            renderFunction = v180, 
+            visibilityObservable = v44
         }));
     else
-        return (v4.createElement(v20, {
-            subMenuHostRef = v173.subMenuHostRef
+        return (v4.createElement(v24, {
+            subMenuHostRef = v177.subMenuHostRef
         }));
     end;
 end;
-return v4.memo(function(v177) --[[ Line: 803 ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v23 (copy), v4 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), v26 (copy), v17 (copy), v36 (copy), l_FFlagAddUILessMode_0 (copy), l_FIntAddUILessModeVariant_0 (copy), l_Stores_0 (copy), l_createEffect_0 (copy), v90 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), v172 (copy), v176 (copy), v20 (copy), v22 (copy), v21 (copy)
+return v4.memo(function(v182) --[[ Line: 813 ]]
+    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), v4 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), v30 (copy), v21 (copy), v40 (copy), l_FFlagAddUILessMode_0 (copy), l_FIntAddUILessModeVariant_0 (copy), l_Stores_0 (copy), l_createEffect_0 (copy), v94 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), v176 (copy), v181 (copy), v24 (copy), v26 (copy), v25 (copy)
     local _ = nil;
-    local v179 = nil;
-    v179 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().MENU_SUBMENU_PADDING else v23.MENU_SUBMENU_PADDING;
-    local v180 = v4.useRef(nil);
-    if l_FFlagEnableConsoleExpControls_0 and v177.menuRef then
-        v180 = v177.menuRef;
+    local v184 = nil;
+    v184 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().MENU_SUBMENU_PADDING else v27.MENU_SUBMENU_PADDING;
+    local v185 = v4.useRef(nil);
+    if l_FFlagEnableConsoleExpControls_0 and v182.menuRef then
+        v185 = v182.menuRef;
     end;
-    local v181 = v4.useRef(nil);
-    local v182 = nil;
-    if l_FFlagUnibarMenuOpenSubmenu_0 then
-        v182 = v4.useRef(nil);
-    end;
-    local function v183() --[[ Line: 825 ]] --[[ Name: updateSize ]]
-        -- upvalues: v181 (copy), v180 (ref)
-        if v181.current and v180.current then
-            v181.current.Size = v180.current.Size;
-        end;
-    end;
-    local v184 = v26(v17:orderAlignment(), isLeft);
-    local v185 = nil;
-    local v186 = nil;
+    local v186 = v4.useRef(nil);
     local v187 = nil;
-    if l_FFlagEnableConsoleExpControls_0 and v36 then
-        local v188, v189 = v4.useBinding(v36:getShowTopBar():get());
-        v185 = v188;
-        v186 = v189;
-        v187 = v36:getShowTopBar();
+    if l_FFlagUnibarMenuOpenSubmenu_0 then
+        v187 = v4.useRef(nil);
     end;
+    local function v188() --[[ Line: 835 ]] --[[ Name: updateSize ]]
+        -- upvalues: v186 (copy), v185 (ref)
+        if v186.current and v185.current then
+            v186.current.Size = v185.current.Size;
+        end;
+    end;
+    local v189 = v30(v21:orderAlignment(), isLeft);
     local v190 = nil;
+    local v191 = nil;
+    local v192 = nil;
+    if l_FFlagEnableConsoleExpControls_0 and v40 then
+        local v193, v194 = v4.useBinding(v40:getShowTopBar():get());
+        v190 = v193;
+        v191 = v194;
+        v192 = v40:getShowTopBar();
+    end;
+    local v195 = nil;
     if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and l_Stores_0.GetUILessStore then
-        v190 = v4.useRef(l_Stores_0.GetUILessStore(false));
-        if v190.current.getUILessModeEnabled(false) then
-            local v191, v192 = v4.useBinding(true);
-            v185 = v191;
-            v186 = v192;
+        v195 = v4.useRef(l_Stores_0.GetUILessStore(false));
+        if v195.current.getUILessModeEnabled(false) then
+            local v196, v197 = v4.useBinding(true);
+            v190 = v196;
+            v191 = v197;
         end;
     end;
-    v4.useEffect(function() --[[ Line: 850 ]]
-        -- upvalues: v180 (ref), v183 (copy), v181 (copy), l_FFlagEnableConsoleExpControls_0 (ref), v187 (ref), v186 (ref)
-        local v193 = nil;
-        if v180 and v180.current then
-            v193 = v180.current:GetPropertyChangedSignal("Size"):Connect(v183);
+    v4.useEffect(function() --[[ Line: 860 ]]
+        -- upvalues: v185 (ref), v188 (copy), v186 (copy), l_FFlagEnableConsoleExpControls_0 (ref), v192 (ref), v191 (ref)
+        local v198 = nil;
+        if v185 and v185.current then
+            v198 = v185.current:GetPropertyChangedSignal("Size"):Connect(v188);
         end;
-        if v181.current and v180.current then
-            v181.current.Size = v180.current.Size;
+        if v186.current and v185.current then
+            v186.current.Size = v185.current.Size;
         end;
         if l_FFlagEnableConsoleExpControls_0 then
-            v187:connect(function() --[[ Line: 859 ]]
-                -- upvalues: v186 (ref), v187 (ref)
-                v186(v187:get());
+            v192:connect(function() --[[ Line: 869 ]]
+                -- upvalues: v191 (ref), v192 (ref)
+                v191(v192:get());
             end);
         end;
-        return function() --[[ Line: 864 ]]
-            -- upvalues: v193 (ref)
-            if v193 then
-                v193:disconnect();
+        return function() --[[ Line: 874 ]]
+            -- upvalues: v198 (ref)
+            if v198 then
+                v198:disconnect();
             end;
         end;
     end);
-    v4.useEffect(function() --[[ Line: 871 ]]
-        -- upvalues: l_FFlagAddUILessMode_0 (ref), l_FIntAddUILessModeVariant_0 (ref), v190 (ref), l_createEffect_0 (ref), v186 (ref)
-        local v194 = nil;
-        if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v190.current.getUILessModeEnabled(false) then
-            v194 = l_createEffect_0(function(v195) --[[ Line: 874 ]]
-                -- upvalues: v186 (ref), v190 (ref)
-                v186(v190.current.getUIVisible(v195));
+    v4.useEffect(function() --[[ Line: 881 ]]
+        -- upvalues: l_FFlagAddUILessMode_0 (ref), l_FIntAddUILessModeVariant_0 (ref), v195 (ref), l_createEffect_0 (ref), v191 (ref)
+        local v199 = nil;
+        if l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v195.current.getUILessModeEnabled(false) then
+            v199 = l_createEffect_0(function(v200) --[[ Line: 884 ]]
+                -- upvalues: v191 (ref), v195 (ref)
+                v191(v195.current.getUIVisible(v200));
             end);
         end;
-        return function() --[[ Line: 879 ]]
-            -- upvalues: v194 (ref)
-            if v194 then
-                v194();
+        return function() --[[ Line: 889 ]]
+            -- upvalues: v199 (ref)
+            if v199 then
+                v199();
             end;
         end;
     end, {});
@@ -736,39 +744,39 @@ return v4.memo(function(v177) --[[ Line: 803 ]]
             AutomaticSize = Enum.AutomaticSize.Y, 
             BorderSizePixel = 0, 
             BackgroundTransparency = 1, 
-            LayoutOrder = v177.layoutOrder, 
+            LayoutOrder = v182.layoutOrder, 
             SelectionGroup = true, 
             SelectionBehaviorUp = Enum.SelectionBehavior.Stop, 
             SelectionBehaviorLeft = if l_FFlagEnableConsoleExpControls_0 then nil else Enum.SelectionBehavior.Stop, 
             SelectionBehaviorRight = Enum.SelectionBehavior.Stop, 
-            ref = v181, 
-            [v4.Event.SelectionChanged] = if l_FFlagEnableConsoleExpControls_0 then v90 else nil, 
-            Visible = if not not l_FFlagEnableConsoleExpControls_0 or l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v190.current.getUILessModeEnabled(false) then v185 else nil
+            ref = v186, 
+            [v4.Event.SelectionChanged] = if l_FFlagEnableConsoleExpControls_0 then v94 else nil, 
+            Visible = if not not l_FFlagEnableConsoleExpControls_0 or l_FFlagAddUILessMode_0 and l_FIntAddUILessModeVariant_0 ~= 0 and v195.current.getUILessModeEnabled(false) then v190 else nil
         }, {
             v4.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Vertical, 
-                HorizontalAlignment = if v184 then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Right, 
+                HorizontalAlignment = if v189 then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Right, 
                 VerticalAlignment = Enum.VerticalAlignment.Top, 
-                Padding = UDim.new(0, v179)
+                Padding = UDim.new(0, v184)
             }), 
-            if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then v4.createElement(v172, {
-                menuFrameRef = v180, 
-                subMenuHostRef = v182
+            if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then v4.createElement(v176, {
+                menuFrameRef = v185, 
+                subMenuHostRef = v187
             }) else v4.createElement(Unibar, {
-                menuFrameRef = v180, 
-                subMenuHostRef = if l_FFlagUnibarMenuOpenSubmenu_0 then v182 else nil, 
-                onAreaChanged = v177.onAreaChanged, 
-                onMinWidthChanged = v177.onMinWidthChanged
+                menuFrameRef = v185, 
+                subMenuHostRef = if l_FFlagUnibarMenuOpenSubmenu_0 then v187 else nil, 
+                onAreaChanged = v182.onAreaChanged, 
+                onMinWidthChanged = v182.onMinWidthChanged
             }), 
-            if l_isInExperienceUIVREnabled_0 then v4.createElement(v176, {
-                subMenuHostRef = v182
-            }) else v4.createElement(v20, {
-                subMenuHostRef = v182
+            if l_isInExperienceUIVREnabled_0 then v4.createElement(v181, {
+                subMenuHostRef = v187
+            }) else v4.createElement(v24, {
+                subMenuHostRef = v187
             }), 
-            if l_FFlagEnableConsoleExpControls_0 then v4.createElement(v22) else nil, 
-            (v4.createElement(v21))
+            if l_FFlagEnableConsoleExpControls_0 then v4.createElement(v26) else nil, 
+            (v4.createElement(v25))
         })
     };
-end, function(_, _) --[[ Line: 937 ]]
+end, function(_, _) --[[ Line: 947 ]]
     return true;
 end);

@@ -1,89 +1,85 @@
-local l_game_EngineFeature_0 = game:GetEngineFeature("TextBoundsRoundUp");
 local l_TextService_0 = game:GetService("TextService");
-local v2 = {
-    _TEMP_PATCHED_PADDING = Vector2.new(0, 0)
+local v1 = {
+    PADDING = Vector2.new(2, 2)
 };
-if not l_game_EngineFeature_0 then
-    v2._TEMP_PATCHED_PADDING = Vector2.new(2, 2);
+v1.GetTextBounds = function(v2, v3, v4, v5) --[[ Line: 12 ]] --[[ Name: GetTextBounds ]]
+    -- upvalues: l_TextService_0 (copy), v1 (copy)
+    return l_TextService_0:GetTextSize(v2, v4, v3, v5) + v1.PADDING;
 end;
-v2.GetTextBounds = function(v3, v4, v5, v6) --[[ Line: 19 ]] --[[ Name: GetTextBounds ]]
-    -- upvalues: l_TextService_0 (copy), v2 (copy)
-    return l_TextService_0:GetTextSize(v3, v5, v4, v6) + v2._TEMP_PATCHED_PADDING;
+v1.GetTextWidth = function(v6, v7, v8) --[[ Line: 16 ]] --[[ Name: GetTextWidth ]]
+    -- upvalues: v1 (copy)
+    return v1.GetTextBounds(v6, v7, v8, Vector2.new(10000, 10000)).X;
 end;
-v2.GetTextWidth = function(v7, v8, v9) --[[ Line: 23 ]] --[[ Name: GetTextWidth ]]
-    -- upvalues: v2 (copy)
-    return v2.GetTextBounds(v7, v8, v9, Vector2.new(10000, 10000)).X;
+v1.GetTextHeight = function(v9, v10, v11, v12) --[[ Line: 20 ]] --[[ Name: GetTextHeight ]]
+    -- upvalues: v1 (copy)
+    return v1.GetTextBounds(v9, v10, v11, Vector2.new(v12, 10000)).Y;
 end;
-v2.GetTextHeight = function(v10, v11, v12, v13) --[[ Line: 27 ]] --[[ Name: GetTextHeight ]]
-    -- upvalues: v2 (copy)
-    return v2.GetTextBounds(v10, v11, v12, Vector2.new(v13, 10000)).Y;
-end;
-v2.Truncate = function(v14, v15, v16, v17, v18) --[[ Line: 32 ]] --[[ Name: Truncate ]]
-    -- upvalues: v2 (copy)
-    v18 = v18 or "";
-    if v17 < v2.GetTextWidth(v14, v15, v16) then
-        local v19 = "";
-        for _, v21 in utf8.graphemes(v14) do
-            local v22 = string.sub(v14, 1, v21) .. v18;
-            if v17 < v2.GetTextWidth(v22, v15, v16) then
-                return v19;
+v1.Truncate = function(v13, v14, v15, v16, v17) --[[ Line: 25 ]] --[[ Name: Truncate ]]
+    -- upvalues: v1 (copy)
+    v17 = v17 or "";
+    if v16 < v1.GetTextWidth(v13, v14, v15) then
+        local v18 = "";
+        for _, v20 in utf8.graphemes(v13) do
+            local v21 = string.sub(v13, 1, v20) .. v17;
+            if v16 < v1.GetTextWidth(v21, v14, v15) then
+                return v18;
             else
-                v19 = v22;
+                v18 = v21;
             end;
         end;
         return "";
     else
-        return v14;
+        return v13;
     end;
 end;
-v2.TruncateTextLabel = function(v23, v24) --[[ Line: 52 ]] --[[ Name: TruncateTextLabel ]]
-    -- upvalues: v2 (copy)
-    v23.Text = v2.Truncate(v23.Text, v23.Font, v23.TextSize, v23.AbsoluteSize.X, v24);
+v1.TruncateTextLabel = function(v22, v23) --[[ Line: 45 ]] --[[ Name: TruncateTextLabel ]]
+    -- upvalues: v1 (copy)
+    v22.Text = v1.Truncate(v22.Text, v22.Font, v22.TextSize, v22.AbsoluteSize.X, v23);
 end;
-v2.Trim = function(v25) --[[ Line: 58 ]] --[[ Name: Trim ]]
+v1.Trim = function(v24) --[[ Line: 51 ]] --[[ Name: Trim ]]
+    if type(v24) ~= "string" then
+        error(string.format("Text.Trim called on non-string type %s.", (type(v24))), 2);
+    end;
+    return (v24:gsub("^%s*(.-)%s*$", "%1"));
+end;
+v1.RightTrim = function(v25) --[[ Line: 59 ]] --[[ Name: RightTrim ]]
     if type(v25) ~= "string" then
-        error(string.format("Text.Trim called on non-string type %s.", (type(v25))), 2);
+        error(string.format("Text.RightTrim called on non-string type %s.", (type(v25))), 2);
     end;
-    return (v25:gsub("^%s*(.-)%s*$", "%1"));
+    return (v25:gsub("%s+$", ""));
 end;
-v2.RightTrim = function(v26) --[[ Line: 66 ]] --[[ Name: RightTrim ]]
+v1.LeftTrim = function(v26) --[[ Line: 67 ]] --[[ Name: LeftTrim ]]
     if type(v26) ~= "string" then
-        error(string.format("Text.RightTrim called on non-string type %s.", (type(v26))), 2);
+        error(string.format("Text.LeftTrim called on non-string type %s.", (type(v26))), 2);
     end;
-    return (v26:gsub("%s+$", ""));
+    return (v26:gsub("^%s+", ""));
 end;
-v2.LeftTrim = function(v27) --[[ Line: 74 ]] --[[ Name: LeftTrim ]]
+v1.SpaceNormalize = function(v27) --[[ Line: 75 ]] --[[ Name: SpaceNormalize ]]
     if type(v27) ~= "string" then
-        error(string.format("Text.LeftTrim called on non-string type %s.", (type(v27))), 2);
+        error(string.format("Text.SpaceNormalize called on non-string type %s.", (type(v27))), 2);
     end;
-    return (v27:gsub("^%s+", ""));
+    return (v27:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", ""));
 end;
-v2.SpaceNormalize = function(v28) --[[ Line: 82 ]] --[[ Name: SpaceNormalize ]]
+v1.Split = function(v28, v29) --[[ Line: 83 ]] --[[ Name: Split ]]
     if type(v28) ~= "string" then
-        error(string.format("Text.SpaceNormalize called on non-string type %s.", (type(v28))), 2);
-    end;
-    return (v28:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", ""));
-end;
-v2.Split = function(v29, v30) --[[ Line: 90 ]] --[[ Name: Split ]]
-    if type(v29) ~= "string" then
-        error(string.format("Text.Split called on non-string type %s.", (type(v29))), 2);
-    elseif type(v30) ~= "string" then
-        error(string.format("Text.Split called with a pattern that is non-string type %s.", (type(v30))), 2);
-    elseif v30 == "" then
+        error(string.format("Text.Split called on non-string type %s.", (type(v28))), 2);
+    elseif type(v29) ~= "string" then
+        error(string.format("Text.Split called with a pattern that is non-string type %s.", (type(v29))), 2);
+    elseif v29 == "" then
         error("Text.Split called with an empty pattern.", 2);
     end;
-    local v31 = {};
-    local v32 = 1;
+    local v30 = {};
+    local v31 = 1;
     while true do
-        local v33, v34 = string.find(v29, v30, v32, true);
-        if v33 and v34 then
-            table.insert(v31, (string.sub(v29, v32, v33 - 1)));
-            v32 = v34 + 1;
+        local v32, v33 = string.find(v28, v29, v31, true);
+        if v32 and v33 then
+            table.insert(v30, (string.sub(v28, v31, v32 - 1)));
+            v31 = v33 + 1;
         else
             break;
         end;
     end;
-    table.insert(v31, (string.sub(v29, v32, (string.len(v29)))));
-    return v31;
+    table.insert(v30, (string.sub(v28, v31, (string.len(v28)))));
+    return v30;
 end;
-return v2;
+return v1;

@@ -9,168 +9,167 @@ local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).
 local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
 local l_NumberLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).NumberLocalization;
-local v11 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
-local l_ProfileTypes_0 = v11.ProfileTypes;
-local l_EnableCommunityProfilePageIXP_0 = v11.EnableCommunityProfilePageIXP;
-local v14 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
-local v15 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.ItemInfo.AttributionItemInfoRow);
-local v16 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.ItemInfo.ItemInfoRow);
-local v17 = require(l_Modules_0.AvatarExperience.Catalog.Hooks.useItemDataDigest);
-local v18 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
-local v19 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v20 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
-local v21 = require(l_Modules_0.AvatarExperience.Common.Utils);
+local l_ProfileTypes_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums).ProfileTypes;
+local v12 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EnableCommunityProfilePageIXP);
+local v13 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
+local v14 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.ItemInfo.AttributionItemInfoRow);
+local v15 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.ItemInfo.ItemInfoRow);
+local v16 = require(l_Modules_0.AvatarExperience.Catalog.Hooks.useItemDataDigest);
+local v17 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
+local v18 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v19 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
+local v20 = require(l_Modules_0.AvatarExperience.Common.Utils);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v23 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchAssetResaleData);
-local v24 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchAssetVersionData);
+local v22 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchAssetResaleData);
+local v23 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchAssetVersionData);
 local _ = require(l_Modules_0.AvatarExperience.Common.Models.CollectibleInfo);
-local v26 = require(l_Modules_0.LuaApp.Http.UrlBuilder);
-local v27 = require(l_Modules_0.LuaApp.AppPage);
-local v28 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
-local v29 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v30 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
-local v31 = require(l_Modules_0.LuaApp.Hooks.useLocalization);
-local v32 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
-local v33 = require(l_Modules_0.LuaApp.Hooks.useAppPolicy);
-local v34 = game:DefineFastFlag("UseItemDataHookRefactor", false);
+local v25 = require(l_Modules_0.LuaApp.Http.UrlBuilder);
+local v26 = require(l_Modules_0.LuaApp.AppPage);
+local v27 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
+local v28 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
+local v29 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
+local v30 = require(l_Modules_0.LuaApp.Hooks.useLocalization);
+local v31 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
+local v32 = require(l_Modules_0.LuaApp.Hooks.useAppPolicy);
+local v33 = game:DefineFastFlag("UseItemDataHookRefactor", false);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
 local l_getUseSelectorDeepEquals_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Utils.getUseSelectorDeepEquals;
-local v37 = game:DefineFastFlag("FixNavigationToCreatorProfileWebviewFromProfile", false);
-local v38 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXFixCollectibleOriginalPrice);
-local v39 = game:DefineFastFlag("AXFixMissingResalePrice", false);
+local v36 = game:DefineFastFlag("FixNavigationToCreatorProfileWebviewFromProfile", false);
+local v37 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXFixCollectibleOriginalPrice);
+local v38 = game:DefineFastFlag("AXFixMissingResalePrice", false);
 local l_FFlagAXUseTaxonomyInItemDetailsType_0 = v3.FFlagAXUseTaxonomyInItemDetailsType;
-local v41 = require(l_Modules_0.AvatarExperience.Common.Selectors.getTaxonomyName);
-local v42 = require(l_Modules_0.AvatarExperience.Common.Selectors.getEquipSlotForAssetType);
-local function _(v43, v44) --[[ Line: 76 ]] --[[ Name: getNumberLocalization ]]
+local v40 = require(l_Modules_0.AvatarExperience.Common.Selectors.getTaxonomyName);
+local v41 = require(l_Modules_0.AvatarExperience.Common.Selectors.getEquipSlotForAssetType);
+local function _(v42, v43) --[[ Line: 75 ]] --[[ Name: getNumberLocalization ]]
     -- upvalues: l_NumberLocalization_0 (copy)
-    if not v43 then
+    if not v42 then
         return nil;
     else
-        return l_NumberLocalization_0.localize(v43, v44:GetLocale());
+        return l_NumberLocalization_0.localize(v42, v43:GetLocale());
     end;
 end;
-local function _(v46, v47) --[[ Line: 84 ]] --[[ Name: getProductIdAndCreator ]]
-    local v48 = if v46 then v46.collectibleProductId else if v47 and v47.product then v47.product.id else nil;
-    if v46 then
-        return v48, v46.creator;
-    elseif v47 then
-        return v48, v47.creator;
+local function _(v45, v46) --[[ Line: 83 ]] --[[ Name: getProductIdAndCreator ]]
+    local v47 = if v45 then v45.collectibleProductId else if v46 and v46.product then v46.product.id else nil;
+    if v45 then
+        return v47, v45.creator;
+    elseif v46 then
+        return v47, v46.creator;
     else
-        return v48, nil;
+        return v47, nil;
     end;
 end;
-local function _(v50, v51) --[[ Line: 97 ]] --[[ Name: getCreatingUniverseId ]]
-    if v51 then
-        return v51.creatingUniverseId;
-    elseif v50 then
+local function _(v49, v50) --[[ Line: 96 ]] --[[ Name: getCreatingUniverseId ]]
+    if v50 then
         return v50.creatingUniverseId;
+    elseif v49 then
+        return v49.creatingUniverseId;
     else
         return nil;
     end;
 end;
-local function v57(v53, v54, v55, v56) --[[ Line: 107 ]] --[[ Name: getGameJoinContext ]]
-    -- upvalues: v19 (copy), v21 (copy)
-    if v56 then
+local function v56(v52, v53, v54, v55) --[[ Line: 106 ]] --[[ Name: getGameJoinContext ]]
+    -- upvalues: v18 (copy), v20 (copy)
+    if v55 then
         return {
-            outfitId = v56.outfitId, 
+            outfitId = v55.outfitId, 
             itemType = Enum.AvatarItemType.Bundle, 
             joinSource = Enum.JoinSource.CreatedItemAttribution
         };
     else
         return {
-            assetId = v54, 
-            itemType = if v53 then Enum.AvatarItemType[v53] else nil, 
-            assetType = if v53 == v19.ItemType.Asset and v55 then v21.AssetTypeIdStringToEnumValue(v55) else nil, 
+            assetId = v53, 
+            itemType = if v52 then Enum.AvatarItemType[v52] else nil, 
+            assetType = if v52 == v18.ItemType.Asset and v54 then v20.AssetTypeIdStringToEnumValue(v54) else nil, 
             joinSource = Enum.JoinSource.CreatedItemAttribution
         };
     end;
 end;
-local function _() --[[ Line: 131 ]] --[[ Name: getLocalPlayerName ]]
+local function _() --[[ Line: 130 ]] --[[ Name: getLocalPlayerName ]]
     -- upvalues: l_Players_0 (copy)
     local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
     return l_LocalPlayer_0 and l_LocalPlayer_0.Name or "";
 end;
-return (v5.forwardRef(function(v60, _) --[[ Line: 136 ]]
-    -- upvalues: l_useSelector_0 (copy), v14 (copy), l_getUseSelectorDeepEquals_0 (copy), v20 (copy), v39 (copy), v33 (copy), v5 (copy), v18 (copy), v34 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), v32 (copy), v29 (copy), l_EnableCommunityProfilePageIXP_0 (copy), v28 (copy), v27 (copy), l_ProfileTypes_0 (copy), v26 (copy), v37 (copy), l_AvatarScreen_0 (copy), v19 (copy), l_FFlagAXUseTaxonomyInItemDetailsType_0 (copy), v41 (copy), v42 (copy), v30 (copy), l_NumberLocalization_0 (copy), v31 (copy), v38 (copy), v17 (copy), v23 (copy), v24 (copy), v57 (copy), l_Players_0 (copy), l_FFlagDynamicHeadsMigration_0 (copy), v15 (copy), v16 (copy), l_Focusable_0 (copy)
+return (v5.forwardRef(function(v59, _) --[[ Line: 135 ]]
+    -- upvalues: l_useSelector_0 (copy), v13 (copy), l_getUseSelectorDeepEquals_0 (copy), v19 (copy), v38 (copy), v32 (copy), v5 (copy), v17 (copy), v33 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), v31 (copy), v28 (copy), v12 (copy), v27 (copy), v26 (copy), l_ProfileTypes_0 (copy), v25 (copy), v36 (copy), l_AvatarScreen_0 (copy), v18 (copy), l_FFlagAXUseTaxonomyInItemDetailsType_0 (copy), v40 (copy), v41 (copy), v29 (copy), l_NumberLocalization_0 (copy), v30 (copy), v37 (copy), v16 (copy), v22 (copy), v23 (copy), v56 (copy), l_Players_0 (copy), l_FFlagDynamicHeadsMigration_0 (copy), v14 (copy), v15 (copy), l_Focusable_0 (copy)
+    local v61 = nil;
     local v62 = nil;
     local v63 = nil;
     local v64 = nil;
     local v65 = nil;
     local v66 = nil;
     local v67 = nil;
-    local v68 = nil;
-    local v70 = l_useSelector_0(function(v69) --[[ Line: 150 ]]
-        -- upvalues: v14 (ref), v60 (copy)
-        return v14(v69.AvatarExperience.Common, v60.itemId, v60.itemType);
+    local v69 = l_useSelector_0(function(v68) --[[ Line: 149 ]]
+        -- upvalues: v13 (ref), v59 (copy)
+        return v13(v68.AvatarExperience.Common, v59.itemId, v59.itemType);
     end, l_getUseSelectorDeepEquals_0());
-    (function() --[[ Line: 155 ]]
-        -- upvalues: v70 (copy), v62 (ref), v63 (ref), v66 (ref), v67 (ref), v68 (ref), v20 (ref), v60 (copy), v64 (ref), v39 (ref), v65 (ref)
-        if v70 then
-            v62 = v70.collectibleItemId;
-            local l_resellerUserAssetIds_0 = v70.resellerUserAssetIds;
-            v63 = l_resellerUserAssetIds_0 and #l_resellerUserAssetIds_0 > 0 and l_resellerUserAssetIds_0[1];
-            v66 = if v70.creator then v70.creator.id else nil;
-            v67 = if v70.creator then v70.creator.type else nil;
-            v68 = v20.GetItemSubType(v60.itemType, v70);
-            v64 = if v39 then nil else v20.isLimitedCollectible(v70);
-            v65 = if v39 then v20.IsResellable(v70) else nil;
+    (function() --[[ Line: 154 ]]
+        -- upvalues: v69 (copy), v61 (ref), v62 (ref), v65 (ref), v66 (ref), v67 (ref), v19 (ref), v59 (copy), v63 (ref), v38 (ref), v64 (ref)
+        if v69 then
+            v61 = v69.collectibleItemId;
+            local l_resellerUserAssetIds_0 = v69.resellerUserAssetIds;
+            v62 = l_resellerUserAssetIds_0 and #l_resellerUserAssetIds_0 > 0 and l_resellerUserAssetIds_0[1];
+            v65 = if v69.creator then v69.creator.id else nil;
+            v66 = if v69.creator then v69.creator.type else nil;
+            v67 = v19.GetItemSubType(v59.itemType, v69);
+            v63 = if v38 then nil else v19.isLimitedCollectible(v69);
+            v64 = if v38 then v19.IsResellable(v69) else nil;
         end;
     end)();
-    local v73 = v33(function(v72) --[[ Line: 171 ]]
-        return v72.getWebViewSupport();
+    local v72 = v32(function(v71) --[[ Line: 170 ]]
+        return v71.getWebViewSupport();
     end);
-    local v75 = v5.useCallback(function(v74) --[[ Line: 175 ]]
-        -- upvalues: v62 (ref)
-        if v62 then
-            return v74.AvatarExperience.Common.Collectibles.CollectiblesItemInfo[v62];
+    local v74 = v5.useCallback(function(v73) --[[ Line: 174 ]]
+        -- upvalues: v61 (ref)
+        if v61 then
+            return v73.AvatarExperience.Common.Collectibles.CollectiblesItemInfo[v61];
         else
             return nil;
         end;
     end, {
-        v62
+        v61
     });
-    local v76 = l_useSelector_0(v75);
-    if v33(function(v77) --[[ Line: 182 ]]
-        return v77.getDisableResellingCollectiblesForCompliance();
-    end) and v76 then
-        v76.resaleRestriction = v18.ResaleRestriction.Disabled;
+    local v75 = l_useSelector_0(v74);
+    if v32(function(v76) --[[ Line: 181 ]]
+        return v76.getDisableResellingCollectiblesForCompliance();
+    end) and v75 then
+        v75.resaleRestriction = v17.ResaleRestriction.Disabled;
     end;
-    local v79 = v5.useCallback(function(v78) --[[ Line: 190 ]]
-        -- upvalues: v39 (ref), v65 (ref), v64 (ref), v62 (ref)
-        if not if v39 then v65 else v64 then
+    local v78 = v5.useCallback(function(v77) --[[ Line: 189 ]]
+        -- upvalues: v38 (ref), v64 (ref), v63 (ref), v61 (ref)
+        if not if v38 then v64 else v63 then
             return nil;
-        elseif v62 then
-            return v78.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances[v62];
+        elseif v61 then
+            return v77.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances[v61];
         else
             return nil;
         end;
     end, {
-        v62, 
-        if v39 then v65 else v64
+        v61, 
+        if v38 then v64 else v63
     });
-    local v80 = if not v34 then l_useSelector_0(v79, l_getUseSelectorDeepEquals_0()) else nil;
-    local v82 = l_useSelector_0(function(v81) --[[ Line: 205 ]]
-        return v81.UserRobux[v81.LocalUserId];
+    local v79 = if not v33 then l_useSelector_0(v78, l_getUseSelectorDeepEquals_0()) else nil;
+    local v81 = l_useSelector_0(function(v80) --[[ Line: 204 ]]
+        return v80.UserRobux[v80.LocalUserId];
     end, l_getUseSelectorDeepEquals_0());
-    local v88 = l_useSelector_0(function(v83) --[[ Line: 209 ]]
-        -- upvalues: v62 (ref), v39 (ref), v65 (ref), v64 (ref), v63 (ref)
-        if v62 then
-            if not if v39 then v65 else v64 then
+    local v87 = l_useSelector_0(function(v82) --[[ Line: 208 ]]
+        -- upvalues: v61 (ref), v38 (ref), v64 (ref), v63 (ref), v62 (ref)
+        if v61 then
+            if not if v38 then v64 else v63 then
                 return nil;
             else
-                local v84 = v83.AvatarExperience.Common.Collectibles.CollectiblesResellersInstances[v62];
-                local v85 = v84 and #v84.InstanceIdsList > 0 and v84.InstanceIdsList[1];
-                local v86 = if v85 then v84.Instances[v85] else nil;
-                if v86 then
-                    return v86.price;
+                local v83 = v82.AvatarExperience.Common.Collectibles.CollectiblesResellersInstances[v61];
+                local v84 = v83 and #v83.InstanceIdsList > 0 and v83.InstanceIdsList[1];
+                local v85 = if v84 then v83.Instances[v84] else nil;
+                if v85 then
+                    return v85.price;
                 else
                     return nil;
                 end;
             end;
-        elseif v63 then
-            local v87 = v83.AvatarExperience.Catalog.UserAssets[v63];
-            if v87 then
-                return v87.priceInRobux;
+        elseif v62 then
+            local v86 = v82.AvatarExperience.Catalog.UserAssets[v62];
+            if v86 then
+                return v86.priceInRobux;
             else
                 return nil;
             end;
@@ -178,33 +177,33 @@ return (v5.forwardRef(function(v60, _) --[[ Line: 136 ]]
             return nil;
         end;
     end, l_getUseSelectorDeepEquals_0());
-    local v89 = l_useDispatch_0();
-    local v90 = l_useNavigation_0();
-    local v91 = v32(v29);
-    local v92 = if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then l_EnableCommunityProfilePageIXP_0.useIsFeatureActive({
+    local v88 = l_useDispatch_0();
+    local v89 = l_useNavigation_0();
+    local v90 = v31(v28);
+    local v91 = if v12.FFlagIsSetupEnabled then v12.useIsFeatureActive({
         isExposureEnabled = false
     }) else nil;
-    local v94 = v5.useCallback(function() --[[ Line: 241 ]]
-        -- upvalues: v66 (ref), l_EnableCommunityProfilePageIXP_0 (ref), v67 (ref), v18 (ref), v92 (copy), v89 (copy), v28 (ref), v27 (ref), l_ProfileTypes_0 (ref), v26 (ref), v37 (ref), v90 (copy)
-        if v66 then
-            if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v67 == v18.CreatorType.Group then
-                l_EnableCommunityProfilePageIXP_0.logExposure();
+    local v93 = v5.useCallback(function() --[[ Line: 240 ]]
+        -- upvalues: v65 (ref), v12 (ref), v66 (ref), v17 (ref), v91 (copy), v88 (copy), v27 (ref), v26 (ref), l_ProfileTypes_0 (ref), v25 (ref), v36 (ref), v89 (copy)
+        if v65 then
+            if v12.FFlagIsSetupEnabled and v66 == v17.CreatorType.Group then
+                v12.logExposure();
             end;
-            if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v92 then
-                if v67 == v18.CreatorType.Group then
-                    v89(v28({
-                        name = v27.ProfilePlatform, 
-                        detail = v66, 
+            if v12.FFlagIsSetupEnabled and v91 then
+                if v66 == v17.CreatorType.Group then
+                    v88(v27({
+                        name = v26.ProfilePlatform, 
+                        detail = v65, 
                         extraProps = {
                             profileType = l_ProfileTypes_0.Community, 
                             source = "ItemDetailsPage"
                         }
                     }));
                     return;
-                elseif v67 == v18.CreatorType.User then
-                    v89(v28({
-                        name = v27.ProfilePlatform, 
-                        detail = v66, 
+                elseif v66 == v17.CreatorType.User then
+                    v88(v27({
+                        name = v26.ProfilePlatform, 
+                        detail = v65, 
                         extraProps = {
                             profileType = l_ProfileTypes_0.User, 
                             source = "ItemDetailsPage"
@@ -212,10 +211,10 @@ return (v5.forwardRef(function(v60, _) --[[ Line: 136 ]]
                     }));
                     return;
                 else
-                    v89(v28({
-                        name = v27.GenericWebPage, 
-                        detail = v26.user.profile({
-                            userId = v66
+                    v88(v27({
+                        name = v26.GenericWebPage, 
+                        detail = v25.user.profile({
+                            userId = v65
                         }), 
                         extraProps = {
                             titleKey = "CommonUI.Features.Label.Profile"
@@ -224,23 +223,23 @@ return (v5.forwardRef(function(v60, _) --[[ Line: 136 ]]
                     return;
                 end;
             else
-                local v93 = if v67 == v18.CreatorType.Group then v26.user.group({
-                    groupId = v66
-                }) else v26.user.profile({
-                    userId = v66
+                local v92 = if v66 == v17.CreatorType.Group then v25.user.group({
+                    groupId = v65
+                }) else v25.user.profile({
+                    userId = v65
                 });
-                if v37 then
-                    v89(v28({
-                        name = v27.GenericWebPage, 
-                        detail = v93, 
+                if v36 then
+                    v88(v27({
+                        name = v26.GenericWebPage, 
+                        detail = v92, 
                         extraProps = {
                             titleKey = "CommonUI.Features.Label.Profile"
                         }
                     }));
                     return;
                 else
-                    v90.navigate(v27.GenericWebPage, {
-                        detail = v93, 
+                    v89.navigate(v26.GenericWebPage, {
+                        detail = v92, 
                         extraProps = {
                             titleKey = "CommonUI.Features.Label.Profile"
                         }
@@ -249,42 +248,42 @@ return (v5.forwardRef(function(v60, _) --[[ Line: 136 ]]
             end;
         end;
     end, {
+        v65, 
         v66, 
-        v67, 
-        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then v92 else nil
+        if v12.FFlagIsSetupEnabled then v91 else nil
     });
-    local v95 = v5.useCallback(function() --[[ Line: 308 ]]
-        -- upvalues: v90 (copy), l_AvatarScreen_0 (ref), v60 (copy), v62 (ref)
-        v90.navigate(l_AvatarScreen_0.ResellersPage, {
-            itemId = v60.itemId, 
-            collectibleItemId = v62, 
-            itemType = v60.itemType, 
-            fromContentFeed = v90.getParam("fromContentFeed"), 
-            fromProfile = v90.getParam("fromProfile")
+    local v94 = v5.useCallback(function() --[[ Line: 307 ]]
+        -- upvalues: v89 (copy), l_AvatarScreen_0 (ref), v59 (copy), v61 (ref)
+        v89.navigate(l_AvatarScreen_0.ResellersPage, {
+            itemId = v59.itemId, 
+            collectibleItemId = v61, 
+            itemType = v59.itemType, 
+            fromContentFeed = v89.getParam("fromContentFeed"), 
+            fromProfile = v89.getParam("fromProfile")
         });
     end, {
-        v90, 
-        v60.itemId, 
-        v70, 
-        v60.itemType, 
-        v90.getParam("fromContentFeed"), 
-        v90.getParam("fromProfile")
+        v89, 
+        v59.itemId, 
+        v69, 
+        v59.itemType, 
+        v89.getParam("fromContentFeed"), 
+        v89.getParam("fromProfile")
     });
+    local v95 = nil;
     local v96 = nil;
-    local v97 = nil;
-    if v60.itemType == v19.ItemType.Asset then
-        local v98 = v19.AssetTypeIdToCategory[v68];
-        v96 = v19.AssetCategoriesLocalized[v98];
-        v97 = v19.AssetTypeLocalized[v68];
+    if v59.itemType == v18.ItemType.Asset then
+        local v97 = v18.AssetTypeIdToCategory[v67];
+        v95 = v18.AssetCategoriesLocalized[v97];
+        v96 = v18.AssetTypeLocalized[v67];
     end;
-    local v99 = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v70 then v41(v70.taxonomy) else nil;
-    local v100 = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v68 then v42(v60.itemType, v68) else nil;
-    local v101 = v32(v30);
-    local v102 = if v88 then l_NumberLocalization_0.localize(v88, v101:GetLocale()) else "";
-    local v103 = v31({
+    local v98 = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v69 then v40(v69.taxonomy) else nil;
+    local v99 = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v67 then v41(v59.itemType, v67) else nil;
+    local v100 = v31(v29);
+    local v101 = if v87 then l_NumberLocalization_0.localize(v87, v100:GetLocale()) else "";
+    local v102 = v30({
         bundle = "Feature.Catalog.Label.Bundle", 
-        category = v96, 
-        subType = v97, 
+        category = v95, 
+        subType = v96, 
         yesText = "Feature.Catalog.Label.Yes", 
         noText = "Feature.Catalog.Label.No", 
         isPBR = "Feature.Catalog.Label.PBR.true", 
@@ -292,22 +291,23 @@ return (v5.forwardRef(function(v60, _) --[[ Line: 136 ]]
         noneText = "Feature.Catalog.Label.None", 
         fromResalePrice = {
             "Feature.Catalog.Label.FromPrice"; 
-            itemPrice = v18.RobloxEmoji.Robux .. v102
+            itemPrice = v17.RobloxEmoji.Robux .. v101
         }, 
-        priceUnavailableText = v38 and "Feature.Catalog.Label.NA" or nil, 
-        placementCategory = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v100 then v100.categoryKey else nil, 
-        placementSlot = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v100 then v100.slotKey else nil
+        priceUnavailableText = v37 and "Feature.Catalog.Label.NA" or nil, 
+        placementCategory = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v99 then v99.categoryKey else nil, 
+        placementSlot = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v99 then v99.slotKey else nil
     });
-    local v104 = nil;
-    if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v100 then
-        if v103.placementCategory and v103.placementSlot then
-            v104 = ("%* | %*"):format(v103.placementCategory, v103.placementSlot);
-        elseif v103.placementCategory then
-            v104 = v103.placementCategory;
+    local v103 = nil;
+    if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v99 then
+        if v102.placementCategory and v102.placementSlot then
+            v103 = ("%* | %*"):format(v102.placementCategory, v102.placementSlot);
+        elseif v102.placementCategory then
+            v103 = v102.placementCategory;
         end;
     end;
+    local v104 = nil;
+    v104 = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v98 then v98 else if v59.itemType == v18.ItemType.Asset and v102.category and v102.subType then ("%* | %*"):format(v102.category, v102.subType) else if v59.itemType == v18.ItemType.Bundle then v102.bundle else "";
     local v105 = nil;
-    v105 = if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v99 then v99 else if v60.itemType == v19.ItemType.Asset and v103.category and v103.subType then ("%* | %*"):format(v103.category, v103.subType) else if v60.itemType == v19.ItemType.Bundle then v103.bundle else "";
     local v106 = nil;
     local v107 = nil;
     local v108 = nil;
@@ -319,266 +319,265 @@ return (v5.forwardRef(function(v60, _) --[[ Line: 136 ]]
     local v114 = nil;
     local v115 = nil;
     local v116 = nil;
-    local v117 = nil;
-    local v118 = false;
-    local v119 = nil;
-    (function() --[[ Line: 399 ]]
-        -- upvalues: v34 (ref), v17 (ref), v60 (copy), v65 (ref), v106 (ref), v107 (ref), v108 (ref), v109 (ref), v110 (ref), v112 (ref), v113 (ref), v114 (ref), v115 (ref), v116 (ref), v111 (ref), v117 (ref), v119 (ref), v39 (ref), v20 (ref), v70 (copy), v76 (copy), v18 (ref), v38 (ref), v80 (copy), v62 (ref), v118 (ref)
-        if v34 then
-            local v120 = v17(v60.itemId, v60.itemType);
-            v65 = v120.isResellable;
-            v106 = v120.isTradable;
-            v107 = v120.hasAttribution;
-            v108 = v120.shouldShowQuantityLimit;
-            v109 = v120.reachedQuantityLimit;
-            v110 = v120.hasResellers;
-            v112 = v120.soldCount;
-            v113 = v120.itemStock;
-            v114 = v120.originalPrice;
-            v115 = v120.averagePrice;
-            v116 = v120.quantityLimit;
-            v111 = v120.isStockAvailable;
-            v117 = v120.collectiblesResaleRestriction;
-            v119 = v120.isPBR;
+    local v117 = false;
+    local v118 = nil;
+    (function() --[[ Line: 398 ]]
+        -- upvalues: v33 (ref), v16 (ref), v59 (copy), v64 (ref), v105 (ref), v106 (ref), v107 (ref), v108 (ref), v109 (ref), v111 (ref), v112 (ref), v113 (ref), v114 (ref), v115 (ref), v110 (ref), v116 (ref), v118 (ref), v38 (ref), v19 (ref), v69 (copy), v75 (copy), v17 (ref), v37 (ref), v79 (copy), v61 (ref), v117 (ref)
+        if v33 then
+            local v119 = v16(v59.itemId, v59.itemType);
+            v64 = v119.isResellable;
+            v105 = v119.isTradable;
+            v106 = v119.hasAttribution;
+            v107 = v119.shouldShowQuantityLimit;
+            v108 = v119.reachedQuantityLimit;
+            v109 = v119.hasResellers;
+            v111 = v119.soldCount;
+            v112 = v119.itemStock;
+            v113 = v119.originalPrice;
+            v114 = v119.averagePrice;
+            v115 = v119.quantityLimit;
+            v110 = v119.isStockAvailable;
+            v116 = v119.collectiblesResaleRestriction;
+            v118 = v119.isPBR;
         else
-            if not v39 then
-                v65 = v20.IsResellable(v70);
+            if not v38 then
+                v64 = v19.IsResellable(v69);
             end;
-            v106 = v20.getIsTradable(v70);
-            v107 = v20.HasAttribution(v70);
-            v116 = 0;
+            v105 = v19.getIsTradable(v69);
+            v106 = v19.HasAttribution(v69);
+            v115 = 0;
+            v107 = false;
             v108 = false;
-            v109 = false;
-            v110 = if v70 and v70.resellerUserAssetIds then #v70.resellerUserAssetIds > 0 else false;
-            v112 = if v70 and v70.soldCount then v70.soldCount else 0;
-            v113 = if v70 and v70.totalQuantity then v70.totalQuantity else 0;
-            v114 = if v70 and v70.originalPrice then v70.originalPrice else 0;
-            v115 = if v70 and v70.averagePrice then v70.averagePrice else 0;
-            v119 = if v70 then v70.isPBR else nil;
-            if v76 then
-                v117 = if v76.resaleRestriction then v76.resaleRestriction else v18.ResaleRestriction.None;
-                v110 = if v76.hasResellers then v76.hasResellers else false;
-                local v121 = v76.assetStock or 0;
-                local v122 = v76.unitsAvailableForConsumption or 0;
-                v112 = if v121 and v122 then v121 - v122 else 0;
-                v114 = if v38 then v76.price else v76.price or 0;
-                v115 = v76.recentAveragePrice or 0;
-                v113 = v76.assetStock or 0;
-                v116 = v76.quantityLimitPerUser or 0;
-                v109 = v20.reachQuantityLimit(v76, v80);
-                v108 = v20.shouldShowQuantityLimit(v116);
+            v109 = if v69 and v69.resellerUserAssetIds then #v69.resellerUserAssetIds > 0 else false;
+            v111 = if v69 and v69.soldCount then v69.soldCount else 0;
+            v112 = if v69 and v69.totalQuantity then v69.totalQuantity else 0;
+            v113 = if v69 and v69.originalPrice then v69.originalPrice else 0;
+            v114 = if v69 and v69.averagePrice then v69.averagePrice else 0;
+            v118 = if v69 then v69.isPBR else nil;
+            if v75 then
+                v116 = if v75.resaleRestriction then v75.resaleRestriction else v17.ResaleRestriction.None;
+                v109 = if v75.hasResellers then v75.hasResellers else false;
+                local v120 = v75.assetStock or 0;
+                local v121 = v75.unitsAvailableForConsumption or 0;
+                v111 = if v120 and v121 then v120 - v121 else 0;
+                v113 = if v37 then v75.price else v75.price or 0;
+                v114 = v75.recentAveragePrice or 0;
+                v112 = v75.assetStock or 0;
+                v115 = v75.quantityLimitPerUser or 0;
+                v108 = v19.reachQuantityLimit(v75, v79);
+                v107 = v19.shouldShowQuantityLimit(v115);
             end;
-            v111 = v112 < v113;
-            v111 = v111 and v20.isOriginalStockSellableInShop(v76);
+            v110 = v111 < v112;
+            v110 = v110 and v19.isOriginalStockSellableInShop(v75);
         end;
-        if v65 and v70 and not v62 then
-            v118 = true;
+        if v64 and v69 and not v61 then
+            v117 = true;
         end;
     end)();
-    if v60.outfitInfo then
-        v107 = v60.outfitInfo.creatingUniverseId ~= nil;
+    if v59.outfitInfo then
+        v106 = v59.outfitInfo.creatingUniverseId ~= nil;
     end;
+    local l_v111_0 = v111;
+    local v123 = if not l_v111_0 then nil else l_NumberLocalization_0.localize(l_v111_0, v100:GetLocale());
     local l_v112_0 = v112;
-    local v124 = if not l_v112_0 then nil else l_NumberLocalization_0.localize(l_v112_0, v101:GetLocale());
+    l_v111_0 = if not l_v112_0 then nil else l_NumberLocalization_0.localize(l_v112_0, v100:GetLocale());
     local l_v113_0 = v113;
-    l_v112_0 = if not l_v113_0 then nil else l_NumberLocalization_0.localize(l_v113_0, v101:GetLocale());
-    local l_v114_0 = v114;
-    l_v113_0 = if not l_v114_0 then nil else l_NumberLocalization_0.localize(l_v114_0, v101:GetLocale());
-    local v127 = if v76 then v76.collectibleProductId else if v70 and v70.product then v70.product.id else nil;
-    local v128 = if v76 then v76.creator else if v70 then v70.creator else nil;
-    l_v114_0 = v127;
-    local l_v128_0 = v128;
-    v127 = v5.useCallback(function() --[[ Line: 471 ]]
-        -- upvalues: l_v128_0 (copy), v90 (copy), v114 (ref), v82 (copy), l_AvatarScreen_0 (ref), v60 (copy), l_v114_0 (copy)
-        local v130 = if l_v128_0 then l_v128_0.id else nil;
-        local v131 = if l_v128_0 then l_v128_0.name else nil;
-        local v132 = v90.getParam("fromContentFeed");
-        local v133 = v90.getParam("fromProfile");
-        if v114 and v82 and v114 <= v82 then
-            v90.navigate(l_AvatarScreen_0.PurchaseCatalogItem, {
-                itemId = v60.itemId, 
-                itemType = v60.itemType, 
-                productId = l_v114_0, 
-                priceInRobux = v114, 
-                sellerId = v130, 
-                sellerName = v131, 
+    l_v112_0 = if not l_v113_0 then nil else l_NumberLocalization_0.localize(l_v113_0, v100:GetLocale());
+    local v126 = if v75 then v75.collectibleProductId else if v69 and v69.product then v69.product.id else nil;
+    local v127 = if v75 then v75.creator else if v69 then v69.creator else nil;
+    l_v113_0 = v126;
+    local l_v127_0 = v127;
+    v126 = v5.useCallback(function() --[[ Line: 470 ]]
+        -- upvalues: l_v127_0 (copy), v89 (copy), v113 (ref), v81 (copy), l_AvatarScreen_0 (ref), v59 (copy), l_v113_0 (copy)
+        local v129 = if l_v127_0 then l_v127_0.id else nil;
+        local v130 = if l_v127_0 then l_v127_0.name else nil;
+        local v131 = v89.getParam("fromContentFeed");
+        local v132 = v89.getParam("fromProfile");
+        if v113 and v81 and v113 <= v81 then
+            v89.navigate(l_AvatarScreen_0.PurchaseCatalogItem, {
+                itemId = v59.itemId, 
+                itemType = v59.itemType, 
+                productId = l_v113_0, 
+                priceInRobux = v113, 
+                sellerId = v129, 
+                sellerName = v130, 
                 userAssetId = nil, 
                 collectibleInstanceId = nil, 
-                fromProfile = v133, 
-                fromContentFeed = v132
+                fromProfile = v132, 
+                fromContentFeed = v131
             });
             return;
         else
-            v90.navigate(l_AvatarScreen_0.InsufficientRobuxPrompt, {});
+            v89.navigate(l_AvatarScreen_0.InsufficientRobuxPrompt, {});
             return;
         end;
     end, {
-        l_v114_0, 
-        l_v128_0, 
-        v76, 
-        v90, 
-        v60.itemId, 
-        v60.itemType, 
-        v114
+        l_v113_0, 
+        l_v127_0, 
+        v75, 
+        v89, 
+        v59.itemId, 
+        v59.itemType, 
+        v113
     });
-    v5.useEffect(function() --[[ Line: 495 ]]
-        -- upvalues: v118 (ref), v89 (copy), v23 (ref), v91 (copy), v60 (copy), v19 (ref), v24 (ref)
-        if v118 then
-            v89(v23(v91, v60.itemId));
+    v5.useEffect(function() --[[ Line: 494 ]]
+        -- upvalues: v117 (ref), v88 (copy), v22 (ref), v90 (copy), v59 (copy), v18 (ref), v23 (ref)
+        if v117 then
+            v88(v22(v90, v59.itemId));
         end;
-        if v60.itemType == v19.ItemType.Asset then
-            v89(v24(v91, v60.itemId));
+        if v59.itemType == v18.ItemType.Asset then
+            v88(v23(v90, v59.itemId));
         end;
     end, {
-        v118, 
-        v91, 
-        v60.itemId
+        v117, 
+        v90, 
+        v59.itemId
     });
-    local l_outfitInfo_0 = v60.outfitInfo;
-    v128 = if l_outfitInfo_0 then l_outfitInfo_0.creatingUniverseId else if v70 then v70.creatingUniverseId else nil;
-    l_outfitInfo_0 = v57(v60.itemType, v60.itemId, v68, v60.outfitInfo);
-    local v135;
-    if l_v128_0 then
-        v135 = l_v128_0.name;
-    elseif v128 then
+    local l_outfitInfo_0 = v59.outfitInfo;
+    v127 = if l_outfitInfo_0 then l_outfitInfo_0.creatingUniverseId else if v69 then v69.creatingUniverseId else nil;
+    l_outfitInfo_0 = v56(v59.itemType, v59.itemId, v67, v59.outfitInfo);
+    local v134;
+    if l_v127_0 then
+        v134 = l_v127_0.name;
+    elseif v127 then
         local l_LocalPlayer_1 = l_Players_0.LocalPlayer;
-        v135 = l_LocalPlayer_1 and l_LocalPlayer_1.Name or "";
+        v134 = l_LocalPlayer_1 and l_LocalPlayer_1.Name or "";
     else
-        v135 = "";
+        v134 = "";
     end;
-    local v137 = if v73 and v66 then v94 else nil;
-    local v142 = (function() --[[ Line: 518 ]]
-        -- upvalues: v135 (copy), v137 (copy), l_v128_0 (copy), v107 (ref), v128 (copy), l_outfitInfo_0 (copy), v60 (copy), v65 (ref), v105 (ref), l_FFlagAXUseTaxonomyInItemDetailsType_0 (ref), v99 (copy), v104 (ref), v119 (ref), v103 (copy), v106 (ref), v108 (ref), v116 (ref), v117 (ref), v18 (ref), v110 (ref), v88 (copy), v95 (copy), v115 (ref), v113 (ref), v124 (copy), l_v112_0 (copy), l_v113_0 (copy), v38 (ref), v111 (ref), v109 (ref), v127 (copy), l_FFlagDynamicHeadsMigration_0 (ref)
-        local v138 = {};
-        table.insert(v138, {
+    local v136 = if v72 and v65 then v93 else nil;
+    local v141 = (function() --[[ Line: 517 ]]
+        -- upvalues: v134 (copy), v136 (copy), l_v127_0 (copy), v106 (ref), v127 (copy), l_outfitInfo_0 (copy), v59 (copy), v64 (ref), v104 (ref), l_FFlagAXUseTaxonomyInItemDetailsType_0 (ref), v98 (copy), v103 (ref), v118 (ref), v102 (copy), v105 (ref), v107 (ref), v115 (ref), v116 (ref), v17 (ref), v109 (ref), v87 (copy), v94 (copy), v114 (ref), v112 (ref), v123 (copy), l_v111_0 (copy), l_v112_0 (copy), v37 (ref), v110 (ref), v108 (ref), v126 (copy), l_FFlagDynamicHeadsMigration_0 (ref)
+        local v137 = {};
+        table.insert(v137, {
             key = "Creator", 
             infoName = "Feature.Catalog.Label.Filter.Creator", 
-            infoData = v135, 
-            onActivate = v137, 
-            hasVerifiedBadge = if l_v128_0 then l_v128_0.hasVerifiedBadge else false, 
+            infoData = v134, 
+            onActivate = v136, 
+            hasVerifiedBadge = if l_v127_0 then l_v127_0.hasVerifiedBadge else false, 
             LayoutOrder = 2
         });
-        if v107 then
-            table.insert(v138, {
+        if v106 then
+            table.insert(v137, {
                 key = "Attribution", 
                 isAttribution = true, 
                 infoName = "Feature.Catalog.Label.Attribution", 
-                creatingUniverseId = v128, 
+                creatingUniverseId = v127, 
                 gameJoinContext = l_outfitInfo_0, 
                 LayoutOrder = 3, 
-                attributionRef = v60.attributionRef, 
-                NextSelectionUp = if v65 then v60.resellerRef else v60.NextSelectionUp, 
-                NextSelectionDown = v60.NextSelectionDown
+                attributionRef = v59.attributionRef, 
+                NextSelectionUp = if v64 then v59.resellerRef else v59.NextSelectionUp, 
+                NextSelectionDown = v59.NextSelectionDown
             });
         end;
-        if v105 and v105 ~= "" then
-            table.insert(v138, {
+        if v104 and v104 ~= "" then
+            table.insert(v137, {
                 key = "CategoryType", 
                 infoName = "Feature.Catalog.Label.CategoryType", 
-                infoData = v105, 
-                infoNameDetails = l_FFlagAXUseTaxonomyInItemDetailsType_0 and v99 and "Feature.Catalog.Message.PriceCouldBeDifferent" or nil, 
+                infoData = v104, 
+                infoNameDetails = l_FFlagAXUseTaxonomyInItemDetailsType_0 and v98 and "Feature.Catalog.Message.PriceCouldBeDifferent" or nil, 
                 LayoutOrder = 4
             });
         end;
-        if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v104 then
-            table.insert(v138, {
+        if l_FFlagAXUseTaxonomyInItemDetailsType_0 and v103 then
+            table.insert(v137, {
                 key = "Placement", 
                 infoName = "Feature.Catalog.Label.Placement", 
-                infoData = v104, 
+                infoData = v103, 
                 LayoutOrder = 5
             });
         end;
-        if v119 ~= nil then
-            table.insert(v138, {
+        if v118 ~= nil then
+            table.insert(v137, {
                 key = "PBR", 
                 infoName = "Feature.Catalog.Label.PBR", 
-                infoData = if v119 then v103.isPBR else v103.notPBR, 
+                infoData = if v118 then v102.isPBR else v102.notPBR, 
                 infoNameDetails = "Feature.Catalog.Label.PBRInfo", 
                 LayoutOrder = l_FFlagAXUseTaxonomyInItemDetailsType_0 and 6 or 5
             });
         end;
-        if v106 ~= nil then
-            table.insert(v138, {
+        if v105 ~= nil then
+            table.insert(v137, {
                 key = "Tradeability", 
                 infoName = "Feature.Catalog.Label.Tradable", 
-                infoData = if v106 then v103.yesText else v103.noText, 
+                infoData = if v105 then v102.yesText else v102.noText, 
                 LayoutOrder = l_FFlagAXUseTaxonomyInItemDetailsType_0 and 7 or 6
             });
         end;
-        if v108 then
-            table.insert(v138, {
+        if v107 then
+            table.insert(v137, {
                 key = "QuantityLimit", 
                 infoName = "Feature.Catalog.Label.MaxPerUser", 
-                infoData = v116, 
+                infoData = v115, 
                 LayoutOrder = l_FFlagAXUseTaxonomyInItemDetailsType_0 and 9 or 8
             });
         end;
-        if v65 then
-            if v117 == v18.ResaleRestriction.Disabled then
-                table.insert(v138, {
+        if v64 then
+            if v116 == v17.ResaleRestriction.Disabled then
+                table.insert(v137, {
                     key = "Resellability", 
                     infoName = "Feature.Catalog.Label.Resellable", 
-                    infoData = v103.noText, 
+                    infoData = v102.noText, 
                     LayoutOrder = l_FFlagAXUseTaxonomyInItemDetailsType_0 and 8 or 7
                 });
             else
-                table.insert(v138, {
+                table.insert(v137, {
                     key = "Sellers", 
                     infoName = "Feature.Catalog.Heading.Resellers", 
-                    infoData = if not v110 then v103.noneText else if v88 then v103.fromResalePrice else "", 
-                    onActivate = if v110 then v95 else nil, 
+                    infoData = if not v109 then v102.noneText else if v87 then v102.fromResalePrice else "", 
+                    onActivate = if v109 then v94 else nil, 
                     TextScaled = true, 
                     LayoutOrder = 1, 
-                    ref = v60.resellerRef, 
-                    NextSelectionUp = v60.NextSelectionUp, 
-                    NextSelectionDown = if v107 then v60.attributionRef else v60.NextSelectionDown
+                    ref = v59.resellerRef, 
+                    NextSelectionUp = v59.NextSelectionUp, 
+                    NextSelectionDown = if v106 then v59.attributionRef else v59.NextSelectionDown
                 });
-                table.insert(v138, {
+                table.insert(v137, {
                     key = "AveragePrice", 
                     infoName = "Feature.Catalog.Label.AveragePrice", 
-                    infoData = tostring(v115), 
+                    infoData = tostring(v114), 
                     LayoutOrder = l_FFlagAXUseTaxonomyInItemDetailsType_0 and 12 or 11
                 });
             end;
-            table.insert(v138, {
+            table.insert(v137, {
                 key = "SoldCount", 
                 infoName = "Feature.Catalog.Label.QuantitySold", 
-                infoData = if v113 == 0 then v124 else ("%*/%*"):format(v124, l_v112_0), 
+                infoData = if v112 == 0 then v123 else ("%*/%*"):format(v123, l_v111_0), 
                 TextScaled = true, 
                 LayoutOrder = l_FFlagAXUseTaxonomyInItemDetailsType_0 and 10 or 9
             });
-            local v139 = if l_v113_0 then v18.RobloxEmoji.Robux .. l_v113_0 else "";
-            if v38 then
-                v139 = if l_v113_0 then v18.RobloxEmoji.Robux .. l_v113_0 else v103.priceUnavailableText;
+            local v138 = if l_v112_0 then v17.RobloxEmoji.Robux .. l_v112_0 else "";
+            if v37 then
+                v138 = if l_v112_0 then v17.RobloxEmoji.Robux .. l_v112_0 else v102.priceUnavailableText;
             end;
-            table.insert(v138, {
+            table.insert(v137, {
                 key = "Price", 
-                infoName = v117 == v18.ResaleRestriction.Disabled and "Feature.Catalog.Label.Price" or "Feature.Catalog.Label.OriginalPrice", 
-                infoData = v139, 
-                onActivate = if not v111 or v109 then nil else v127, 
-                LayoutOrder = (not not v111 or v117 == v18.ResaleRestriction.Disabled) and 0 or l_FFlagAXUseTaxonomyInItemDetailsType_0 and 11 or 10
+                infoName = v116 == v17.ResaleRestriction.Disabled and "Feature.Catalog.Label.Price" or "Feature.Catalog.Label.OriginalPrice", 
+                infoData = v138, 
+                onActivate = if not v110 or v108 then nil else v126, 
+                LayoutOrder = (not not v110 or v116 == v17.ResaleRestriction.Disabled) and 0 or l_FFlagAXUseTaxonomyInItemDetailsType_0 and 11 or 10
             });
         end;
-        table.sort(v138, function(v140, v141) --[[ Line: 661 ]]
-            return v140.LayoutOrder < v141.LayoutOrder;
+        table.sort(v137, function(v139, v140) --[[ Line: 660 ]]
+            return v139.LayoutOrder < v140.LayoutOrder;
         end);
-        if l_FFlagDynamicHeadsMigration_0 and #v138 > 0 then
-            v138[#v138].hideDivider = true;
+        if l_FFlagDynamicHeadsMigration_0 and #v137 > 0 then
+            v137[#v137].hideDivider = true;
         end;
-        return v138;
+        return v137;
     end)();
-    local v143 = {
+    local v142 = {
         UIListLayout = v5.createElement("UIListLayout", {
             SortOrder = Enum.SortOrder.LayoutOrder
         })
     };
-    for _, v145 in v142 do
-        v143[v145.key] = v5.createElement(if v145.isAttribution then v15 else v16, v145);
+    for _, v144 in v141 do
+        v142[v144.key] = v5.createElement(if v144.isAttribution then v14 else v15, v144);
     end;
     return v5.createElement(l_Focusable_0.Frame, {
         Size = UDim2.fromScale(1, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
-        LayoutOrder = v60.LayoutOrder
-    }, v143);
+        LayoutOrder = v59.LayoutOrder
+    }, v142);
 end));

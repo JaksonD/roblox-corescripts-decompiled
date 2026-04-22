@@ -1,4 +1,6 @@
-return {
+local l_Parent_0 = script:FindFirstAncestor("GenericAbuseReporting").Parent;
+local l_FFlagRemoveHardcodedStringsInReportNodes_0 = require(l_Parent_0.SharedFlags).FFlagRemoveHardcodedStringsInReportNodes;
+local v2 = {
     version = 1, 
     attributes = {
         isUkRegionUser = false, 
@@ -429,3 +431,20 @@ return {
         ["Title.ReportAPerson"] = "Report a person"
     }
 };
+if l_FFlagRemoveHardcodedStringsInReportNodes_0 then
+    v2.nodes.root.errorText = {
+        ["$translate"] = "Description.GeneralError"
+    };
+    v2.nodes.root.retryButtonText = {
+        ["$translate"] = "Action.Retry"
+    };
+    v2.nodes.abuseType.errorText = {
+        ["$translate"] = "Description.GeneralError"
+    };
+    v2.nodes.abuseType.retryButtonText = {
+        ["$translate"] = "Action.Retry"
+    };
+    v2.translations["Description.GeneralError"] = "Something went wrong. Please try again later.";
+    v2.translations["Action.Retry"] = "Retry";
+end;
+return v2;

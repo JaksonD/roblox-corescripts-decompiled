@@ -36,7 +36,7 @@ local l_useIsSpatial_0 = v31.useIsSpatial;
 local l_Input_0 = v31.Input;
 local v36 = require(l_Modules_0.LuaApp.Services.RoactAnalytics);
 local v37 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v38 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = v18.Debug.logOnOverlayClosed;
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
 local v40 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
 local v41 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics);
@@ -52,15 +52,15 @@ local v50 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
 local v51 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local v52 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
 local v53 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
-local v54 = require(l_Modules_0.AvatarExperience.Common.Enum.FullView);
+local l_FullView_0 = v25.Enums.FullView;
 local v55 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local v56 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v57 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenItemDetails);
 local v58 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
 local v59 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectIsPortrait);
-local v60 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.ImpressionsUtil);
-local v61 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.OrganicEventImpressionsSchema);
-local v62 = require(l_Modules_0.AvatarExperience.Common.Context.useAdaptiveScrolling);
+local l_ImpressionsUtil_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).ImpressionsReporter.ImpressionsUtil;
+local l_OrganicEventImpressionsSchema_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).ImpressionsReporter.OrganicEventImpressionsSchema;
+local l_useAdaptiveScrolling_0 = v25.Hooks.useAdaptiveScrolling;
 local v63 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectHasAvatarData);
 local v64 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
 local v65 = require(script.Parent.useItemCardFocusNavigationBindings);
@@ -70,13 +70,13 @@ local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace
 local l_FFlagAXModeratedItemsFlow_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXModeratedItemsFlow;
 local v70 = game:DefineFastFlag("AvatarEditorItemCardWaitForData", false);
 local v71 = game:DefineFastFlag("AXDoNotDoubleToggleEmoteWithGamepad", false);
-local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
-    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), v62 (copy), v5 (copy), l_useLastInput_0 (copy), l_useIsSpatial_0 (copy), l_useRoactService_0 (copy), v36 (copy), v41 (copy), v58 (copy), v42 (copy), v37 (copy), l_usePreferredInput_0 (copy), v64 (copy), l_useTokens_0 (copy), v48 (copy), v51 (copy), v50 (copy), l_Constants_0 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), v40 (copy), l_AvatarScreen_0 (copy), v54 (copy), v52 (copy), v63 (copy), v59 (copy), l_ItemTileEnums_0 (copy), v70 (copy), l_useSelector_0 (copy), v6 (copy), l_Input_0 (copy), v38 (copy), v56 (copy), v47 (copy), v45 (copy), l_Logging_0 (copy), v46 (copy), v53 (copy), v55 (copy), v49 (copy), v57 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), v61 (copy), v60 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXNegativeAvatarSequenceFeatures_0 (copy), l_UnifiedEventLogConstants_0 (copy), v44 (copy), v65 (copy), v71 (copy), l_useTableWrappedCallbackRef_0 (copy), v43 (copy), l_useLocalization_0 (copy), l_CatalogItemCardStatusIconTypeEnum_0 (copy), l_CatalogItemCard_0 (copy), l_CatalogItemCardItemInfoEnum_0 (copy), l_ItemCardThumbnail_0 (copy), l_ItemTile_0 (copy), l_Focusable_0 (copy)
+local v154 = v5.memo(function(v72) --[[ Line: 110 ]]
+    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), l_useAdaptiveScrolling_0 (copy), v5 (copy), l_useLastInput_0 (copy), l_useIsSpatial_0 (copy), l_useRoactService_0 (copy), v36 (copy), v41 (copy), v58 (copy), v42 (copy), v37 (copy), l_usePreferredInput_0 (copy), v64 (copy), l_useTokens_0 (copy), v48 (copy), v51 (copy), v50 (copy), l_Constants_0 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), v40 (copy), l_AvatarScreen_0 (copy), l_FullView_0 (copy), v52 (copy), v63 (copy), v59 (copy), l_ItemTileEnums_0 (copy), v70 (copy), l_useSelector_0 (copy), v6 (copy), l_Input_0 (copy), l_logOnOverlayClosed_0 (copy), l_NavigateWithLock_0 (copy), v47 (copy), v45 (copy), l_Logging_0 (copy), v46 (copy), v53 (copy), v55 (copy), v49 (copy), v57 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), l_OrganicEventImpressionsSchema_0 (copy), l_ImpressionsUtil_0 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXNegativeAvatarSequenceFeatures_0 (copy), l_UnifiedEventLogConstants_0 (copy), v44 (copy), v65 (copy), v71 (copy), l_useTableWrappedCallbackRef_0 (copy), v43 (copy), l_useLocalization_0 (copy), l_CatalogItemCardStatusIconTypeEnum_0 (copy), l_CatalogItemCard_0 (copy), l_CatalogItemCardItemInfoEnum_0 (copy), l_ItemCardThumbnail_0 (copy), l_ItemTile_0 (copy), l_Focusable_0 (copy)
     local v73 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v7.useFocusController();
     local v74 = l_useDispatch_0();
     local v75 = l_useNavigation_0();
     local v76 = l_useAvatarRoute_0();
-    local v77 = v62();
+    local v77 = l_useAdaptiveScrolling_0();
     local v78 = v5.useRef(nil);
     local v79 = v5.useRef(nil);
     local v80 = l_useLastInput_0();
@@ -91,8 +91,8 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
     local l_itemId_0 = v72.itemId;
     local l_isOutfit_0 = v72.isOutfit;
     local v91 = if v72.isWearingAssetOrOutfit then v72.isWearingAssetOrOutfit else false;
-    local v111 = v5.useCallback(function(v92) --[[ Line: 131 ]]
-        -- upvalues: v48 (ref), l_itemId_0 (copy), l_isOutfit_0 (copy), v51 (ref), v50 (ref), l_Constants_0 (ref), l_getRbxthumbWithTypeSizeAndOptions_0 (ref), v40 (ref), l_AvatarScreen_0 (ref), v54 (ref), v64 (ref), v76 (copy), v52 (ref), v72 (copy), v91 (copy), v63 (ref), v59 (ref), l_ItemTileEnums_0 (ref), v70 (ref)
+    local v111 = v5.useCallback(function(v92) --[[ Line: 132 ]]
+        -- upvalues: v48 (ref), l_itemId_0 (copy), l_isOutfit_0 (copy), v51 (ref), v50 (ref), l_Constants_0 (ref), l_getRbxthumbWithTypeSizeAndOptions_0 (ref), v40 (ref), l_AvatarScreen_0 (ref), l_FullView_0 (ref), v64 (ref), v76 (copy), v52 (ref), v72 (copy), v91 (copy), v63 (ref), v59 (ref), l_ItemTileEnums_0 (ref), v70 (ref)
         local v93 = v48.getAvatarEditorCategoryInfoFromState(v92);
         local v94 = v92.AvatarExperience.AvatarEditor.OutfitInfos[l_itemId_0];
         local v95 = nil;
@@ -125,9 +125,9 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
             end;
         end;
         local l_AvatarType_0 = v92.AvatarExperience.AvatarEditor.Character.AvatarType;
-        local v103 = v92.AvatarExperience.Common.FullView[l_AvatarScreen_0.AvatarEditor] == v54.UIFullView;
+        local v103 = v92.AvatarExperience.Common.FullView[l_AvatarScreen_0.AvatarEditor] == l_FullView_0.UIFullView;
         if v64() then
-            v103 = v92.AvatarExperience.Common.FullView[v76.opaque.name] == v54.UIFullView;
+            v103 = v92.AvatarExperience.Common.FullView[v76.opaque.name] == l_FullView_0.UIFullView;
         end;
         local v104 = if l_isOutfit_0 and v94 then v48.getItemStatusStyleFromOutfit(v94) else nil;
         local v105 = if l_isOutfit_0 and v94 then v48.getItemIconTypeFromOutfit(v94) else nil;
@@ -170,9 +170,9 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
     if v80 == l_Input_0.Directional then
         v118 = not v81;
     end;
-    local v119 = v5.useCallback(function() --[[ Line: 239 ]]
-        -- upvalues: v38 (ref), v118 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v73 (copy)
-        v38("ItemCard", v118);
+    local v119 = v5.useCallback(function() --[[ Line: 240 ]]
+        -- upvalues: l_logOnOverlayClosed_0 (ref), v118 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v73 (copy)
+        l_logOnOverlayClosed_0("ItemCard", v118);
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v118 then
             v73.captureFocus();
         end;
@@ -180,7 +180,7 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
         if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v73, 
         v118
     });
-    local v123 = v5.useCallback(function(v120, v121) --[[ Line: 246 ]]
+    local v123 = v5.useCallback(function(v120, v121) --[[ Line: 247 ]]
         -- upvalues: v77 (copy), v78 (copy)
         if not v77 then
             return;
@@ -197,8 +197,8 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
     end, {
         v77
     });
-    local v126 = v5.useCallback(function() --[[ Line: 267 ]]
-        -- upvalues: l_categoryInfo_0 (copy), v51 (ref), v74 (copy), v56 (ref), v75 (copy), l_AvatarScreen_0 (ref), v119 (copy)
+    local v126 = v5.useCallback(function() --[[ Line: 268 ]]
+        -- upvalues: l_categoryInfo_0 (copy), v51 (ref), v74 (copy), l_NavigateWithLock_0 (ref), v75 (copy), l_AvatarScreen_0 (ref), v119 (copy)
         local v124 = false;
         local v125 = nil;
         if l_categoryInfo_0.PageType == v51.PageType.Animation then
@@ -209,7 +209,7 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
             v125 = "Feature.Avatar.Message.R15EmotesPrompt";
         end;
         if v124 then
-            v74(v56(function() --[[ Line: 287 ]]
+            v74(l_NavigateWithLock_0(function() --[[ Line: 288 ]]
                 -- upvalues: v75 (ref), l_AvatarScreen_0 (ref), v119 (ref), v125 (ref)
                 v75.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
                     onOverlayClosed = v119, 
@@ -222,8 +222,8 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
         v74, 
         v119
     });
-    local v135 = v5.useCallback(function() --[[ Line: 297 ]]
-        -- upvalues: v70 (ref), v112 (copy), v126 (copy), v51 (ref), v91 (copy), v75 (copy), l_AvatarScreen_0 (ref), v119 (copy), v74 (copy), v47 (ref), l_itemId_0 (copy), v123 (copy), v56 (ref), l_isOutfit_0 (copy), v45 (ref), v83 (copy), l_Logging_0 (ref), v46 (ref), v64 (ref), v53 (ref), v85 (copy), v76 (copy), v54 (ref)
+    local v135 = v5.useCallback(function() --[[ Line: 298 ]]
+        -- upvalues: v70 (ref), v112 (copy), v126 (copy), v51 (ref), v91 (copy), v75 (copy), l_AvatarScreen_0 (ref), v119 (copy), v74 (copy), v47 (ref), l_itemId_0 (copy), v123 (copy), l_NavigateWithLock_0 (ref), l_isOutfit_0 (copy), v45 (ref), v83 (copy), l_Logging_0 (ref), v46 (ref), v64 (ref), v53 (ref), v85 (copy), v76 (copy), l_FullView_0 (ref)
         if v70 and not v112.dataLoaded then
             return;
         else
@@ -237,12 +237,12 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
                 v129 = not v128;
             end;
             if v112.avatarTypeIsR6 and not v91 and v129 then
-                v74(v56(function() --[[ Line: 318 ]]
+                v74(l_NavigateWithLock_0(function() --[[ Line: 319 ]]
                     -- upvalues: v75 (ref), l_AvatarScreen_0 (ref), v119 (ref), v74 (ref), v47 (ref), l_modifiedAssetType_0 (copy), l_itemId_0 (ref), v123 (ref), v91 (ref)
                     v75.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
                         onOverlayClosed = v119, 
                         bodyTextKey = "Feature.Avatar.Label.LayeredClothingR15Warning", 
-                        onSwitchSelected = function() --[[ Line: 322 ]] --[[ Name: onSwitchSelected ]]
+                        onSwitchSelected = function() --[[ Line: 323 ]] --[[ Name: onSwitchSelected ]]
                             -- upvalues: v74 (ref), v47 (ref), l_modifiedAssetType_0 (ref), l_itemId_0 (ref), v75 (ref), v123 (ref), v91 (ref)
                             local v130 = v74(v47(l_modifiedAssetType_0, l_itemId_0, v75));
                             v123(v91, v130);
@@ -255,12 +255,12 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
                     local l_outfitInfo_0 = v112.outfitInfo;
                     if l_outfitInfo_0 then
                         if v112.shouldConfirmEquip then
-                            v74(v56(function() --[[ Line: 336 ]]
+                            v74(l_NavigateWithLock_0(function() --[[ Line: 337 ]]
                                 -- upvalues: v75 (ref), l_AvatarScreen_0 (ref), v119 (ref), l_outfitInfo_0 (copy), v123 (ref), v91 (ref)
                                 v75.navigate(l_AvatarScreen_0.EquipOutfitConfirmation, {
                                     onOverlayClosed = v119, 
                                     outfitInfo = l_outfitInfo_0, 
-                                    onEquip = function(v132) --[[ Line: 340 ]] --[[ Name: onEquip ]]
+                                    onEquip = function(v132) --[[ Line: 341 ]] --[[ Name: onEquip ]]
                                         -- upvalues: v123 (ref), v91 (ref)
                                         v123(v91, v132);
                                     end
@@ -287,10 +287,10 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
                 end;
                 if not v91 and v112.isUIFullView then
                     if v64() then
-                        v74(v53(v85, v76.opaque.name, v54.None));
+                        v74(v53(v85, v76.opaque.name, l_FullView_0.None));
                         return;
                     else
-                        v74(v53(v85, l_AvatarScreen_0.AvatarEditor, v54.None));
+                        v74(v53(v85, l_AvatarScreen_0.AvatarEditor, l_FullView_0.None));
                     end;
                 end;
                 return;
@@ -314,8 +314,8 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
         if v70 then l_isOutfit_0 else nil, 
         if v70 then v112.dataLoaded else nil
     });
-    local v140 = v5.useCallback(function() --[[ Line: 402 ]]
-        -- upvalues: l_isOutfit_0 (copy), l_itemId_0 (copy), l_isPortrait_0 (copy), v72 (copy), v55 (ref), v75 (copy), l_AvatarScreen_0 (ref), v74 (copy), v56 (ref), v49 (ref), l_itemType_0 (copy), l_itemData_0 (copy), v84 (copy), v76 (copy), v57 (ref)
+    local v140 = v5.useCallback(function() --[[ Line: 403 ]]
+        -- upvalues: l_isOutfit_0 (copy), l_itemId_0 (copy), l_isPortrait_0 (copy), v72 (copy), v55 (ref), v75 (copy), l_AvatarScreen_0 (ref), v74 (copy), l_NavigateWithLock_0 (ref), v49 (ref), l_itemType_0 (copy), l_itemData_0 (copy), v84 (copy), v76 (copy), v57 (ref)
         if l_isOutfit_0 then
             local v136 = {
                 outfitId = l_itemId_0, 
@@ -325,7 +325,7 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
                 NextSelectionLeft = not l_isPortrait_0 and v72.resultsListRef or nil, 
                 outfitDetailsPeekViewRefs = v72.itemDetailsPeekViewRefs
             };
-            v74(v56(function() --[[ Line: 414 ]]
+            v74(l_NavigateWithLock_0(function() --[[ Line: 415 ]]
                 -- upvalues: v55 (ref), v75 (ref), l_AvatarScreen_0 (ref), v136 (copy)
                 v55.closeFiltersAndItemDetails(v75);
                 v55.closeTryOnManager(v75);
@@ -365,7 +365,7 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
         v72.itemDetailsPeekViewRefs, 
         v72.resultsListRef
     });
-    local v142 = v5.useCallback(function() --[[ Line: 460 ]]
+    local v142 = v5.useCallback(function() --[[ Line: 461 ]]
         -- upvalues: l_itemData_0 (copy), v48 (ref), l_FFlagAXModeratedItemsFlow_0 (ref), v116 (copy), v51 (ref), v75 (copy), l_AvatarScreen_0 (ref), l_itemType_0 (copy), v112 (copy), v135 (copy), v140 (copy)
         if l_itemData_0 and v48.isModerationPendingOrRejected(l_itemData_0.moderationStatus) then
             local v141 = nil;
@@ -396,13 +396,13 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
         v135
     });
     local v143 = v5.useRef(nil);
-    v5.useEffect(function() --[[ Line: 490 ]]
-        -- upvalues: v78 (copy), v72 (copy), l_itemId_0 (copy), v61 (ref), v60 (ref), l_categoryInfo_0 (copy), l_addUnifiedEventLogging_0 (ref), v79 (copy), v91 (copy), l_UnifiedEventLogEnums_0 (ref), l_itemType_0 (copy), v116 (copy), v48 (ref), l_FFlagAXNegativeAvatarSequenceFeatures_0 (ref), l_UnifiedEventLogConstants_0 (ref), l_isOutfit_0 (copy), v143 (copy), v52 (ref), v112 (copy), v74 (copy), v44 (ref), v86 (copy), v82 (copy), v51 (ref)
+    v5.useEffect(function() --[[ Line: 491 ]]
+        -- upvalues: v78 (copy), v72 (copy), l_itemId_0 (copy), l_OrganicEventImpressionsSchema_0 (ref), l_ImpressionsUtil_0 (ref), l_categoryInfo_0 (copy), l_addUnifiedEventLogging_0 (ref), v79 (copy), v91 (copy), l_UnifiedEventLogEnums_0 (ref), l_itemType_0 (copy), v116 (copy), v48 (ref), l_FFlagAXNegativeAvatarSequenceFeatures_0 (ref), l_UnifiedEventLogConstants_0 (ref), l_isOutfit_0 (copy), v143 (copy), v52 (ref), v112 (copy), v74 (copy), v44 (ref), v86 (copy), v82 (copy), v51 (ref)
         local l_current_1 = v78.current;
         if v72.impressionsTag and l_current_1 then
             l_current_1:SetAttribute(v72.impressionsTag, l_itemId_0);
-            local v145 = v61[v72.impressionsSchema];
-            v60.writeItemAttributes(v145, l_current_1, v72);
+            local v145 = l_OrganicEventImpressionsSchema_0[v72.impressionsSchema];
+            l_ImpressionsUtil_0.writeItemAttributes(v145, l_current_1, v72);
         end;
         local l_Category_0 = l_categoryInfo_0.Category;
         local l_Subcategory_0 = l_categoryInfo_0.Subcategory;
@@ -445,15 +445,15 @@ local v154 = v5.memo(function(v72) --[[ Line: 109 ]]
     local v148 = v65({
         onOpenEditorDetailsPage = if v112.canShowDetails then v140 else nil, 
         onSelectItem = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v142, 
-        onSlotEmote = if not (l_categoryInfo_0.PageType == v51.PageType.Emotes) or v91 then nil else v71 and function() --[[ Line: 554 ]]
+        onSlotEmote = if not (l_categoryInfo_0.PageType == v51.PageType.Emotes) or v91 then nil else v71 and function() --[[ Line: 555 ]]
 
         end or v142, 
-        onUnslotEmote = if l_categoryInfo_0.PageType == v51.PageType.Emotes and v91 then v71 and function() --[[ Line: 561 ]]
+        onUnslotEmote = if l_categoryInfo_0.PageType == v51.PageType.Emotes and v91 then v71 and function() --[[ Line: 562 ]]
 
         end or v142 else nil
     }, v78);
     local v149 = l_useTableWrappedCallbackRef_0(v148);
-    local v150 = v5.useCallback(function() --[[ Line: 569 ]]
+    local v150 = v5.useCallback(function() --[[ Line: 570 ]]
         -- upvalues: v112 (copy), v87 (copy), l_Input_0 (ref), v5 (ref), v43 (ref), v140 (copy)
         if v112.canShowDetails and v87 ~= l_Input_0.Directional then
             return v5.createElement(v43, {

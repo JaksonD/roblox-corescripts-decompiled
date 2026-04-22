@@ -2,7 +2,7 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local v2 = require(l_Modules_0.LuaApp.Models.GamesApi.GameSocialLink);
 local v3 = require(l_Modules_0.LuaApp.Enum.SocialMediaType);
-local l_EnableCommunityProfilePageIXP_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform).EnableCommunityProfilePageIXP;
+local v4 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EnableCommunityProfilePageIXP);
 local _ = function(v5) --[[ Line: 8 ]]
     -- upvalues: v3 (copy)
     for _, v7 in pairs(v3) do
@@ -13,7 +13,7 @@ local _ = function(v5) --[[ Line: 8 ]]
     return false;
 end;
 return function(v9, v10) --[[ Line: 17 ]] --[[ Name: ProcessGameSocialLinks ]]
-    -- upvalues: v2 (copy), v3 (copy), l_EnableCommunityProfilePageIXP_0 (copy)
+    -- upvalues: v2 (copy), v3 (copy), v4 (copy)
     local v11 = false;
     local v12 = {};
     local v13 = nil;
@@ -39,7 +39,7 @@ return function(v9, v10) --[[ Line: 17 ]] --[[ Name: ProcessGameSocialLinks ]]
         elseif v16.type == v3.RobloxGroup then
             if not v13 then
                 v13 = v16;
-                if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v13.url ~= nil then
+                if v4.FFlagIsSetupEnabled and v13.url ~= nil then
                     v18 = string.split(v13.url, "/");
                     l_type_0 = v18[#v18];
                     if tonumber(l_type_0) ~= nil then

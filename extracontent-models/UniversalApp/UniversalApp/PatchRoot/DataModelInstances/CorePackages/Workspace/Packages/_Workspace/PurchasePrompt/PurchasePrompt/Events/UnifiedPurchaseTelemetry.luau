@@ -1,5 +1,6 @@
 local l_Parent_0 = script:FindFirstAncestor("PurchasePrompt").Parent;
 local v1 = require(l_Parent_0.LoggingProtocol);
+local v2 = game:DefineFastInt("UnifiedPurchaseTelemetryEventIngestThrottleHundredthsPercent", 100);
 return {
     UnifiedProductPurchaseModalShownCounter = {
         eventName = "UnifiedProductPurchaseModalShownCounter", 
@@ -11,7 +12,7 @@ return {
             9, 
             22
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Purchase Modal is shown."
     }, 
     UnifiedProductPurchaseModalBuyItemButtonClickedCounter = {
@@ -24,7 +25,7 @@ return {
             9, 
             22
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Purchase Modal buy item button is clicked."
     }, 
     UnifiedProductPurchaseModalCancelButtonClickedCounter = {
@@ -37,7 +38,7 @@ return {
             9, 
             22
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Purchase Modal cancel button is clicked."
     }, 
     UnifiedProductPurchaseModalPurchaseAttemptedCounter = {
@@ -50,7 +51,7 @@ return {
             9, 
             22
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Purchase Modal purchase attempt is made."
     }, 
     UnifiedProductPurchaseModalPurchaseSuccessCounter = {
@@ -63,7 +64,7 @@ return {
             9, 
             22
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Purchase Modal purchase success occurs."
     }, 
     UnifiedProductPurchaseCompletionModalShownCounter = {
@@ -76,7 +77,7 @@ return {
             9, 
             22
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Purchase Modal purchase success occurs."
     }, 
     UnifiedRobuxUpsellModalShownCounter = {
@@ -89,7 +90,7 @@ return {
             10, 
             4
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Robux Upsell Modal is shown."
     }, 
     UnifiedRobuxUpsellModalBuyButtonClickedCounter = {
@@ -102,7 +103,7 @@ return {
             10, 
             4
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Unified Robux Upsell Modal buy button is clicked."
     }, 
     UnifiedRobuxUpsellRobuxPurchaseCompletedCounter = {
@@ -115,7 +116,7 @@ return {
             2, 
             9
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Robux was successfully purchased during the Unified Robux Upsell Flow.  Doesn't include successful item purchase after upsell."
     }, 
     UnifiedRobuxUpsellRobuxPurchaseFailedCounter = {
@@ -128,7 +129,7 @@ return {
             2, 
             9
         }, 
-        throttlingPercentage = 100, 
+        throttlingPercentage = v2, 
         description = "Counter fired when Robux upsell flow failed during balance polling retries in the Unified Robux Upsell Flow."
     }, 
     UnifiedProductPurchaseFlowEvent = {

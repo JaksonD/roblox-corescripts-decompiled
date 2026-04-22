@@ -6,84 +6,80 @@ local v4 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
 local v5 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
 local l_memoize_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).memoize;
 local l_getAppFeaturePolicies_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).getAppFeaturePolicies;
-local l_FFlagAXDurablesSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesSupport;
-local v31 = l_memoize_0(function(v9, v10, v11, v12, v13, v14) --[[ Line: 13 ]]
-    -- upvalues: v5 (copy), l_FFlagAXDurablesSupport_0 (copy), v3 (copy), v2 (copy)
+local v30 = l_memoize_0(function(v8, v9, v10, v11, v12, v13) --[[ Line: 12 ]]
+    -- upvalues: v5 (copy), v3 (copy), v2 (copy)
+    local v14 = nil;
     local v15 = nil;
     local v16 = nil;
     local v17 = nil;
     local v18 = nil;
     local v19 = nil;
-    local v20 = nil;
-    assert(v9, "silence type checker");
-    v15 = v9.isOwned;
-    v16 = v9.isPurchasable;
-    v17 = v5.IsResellable(v9);
-    v18 = v9.isForRent;
-    v19 = v9.collectibleItemId;
-    if l_FFlagAXDurablesSupport_0 then
-        v20 = v9.timedOptions and v9.isPurchasable;
-    end;
-    local v21 = v17 and v10 == nil;
+    assert(v8, "silence type checker");
+    v14 = v8.isOwned;
+    v15 = v8.isPurchasable;
+    v16 = v5.IsResellable(v8);
+    v17 = v8.isForRent;
+    v18 = v8.collectibleItemId;
+    v19 = v8.timedOptions and v8.isPurchasable;
+    local v20 = v16 and v9 == nil;
     local l_None_0 = v3.ResaleRestriction.None;
+    local v22 = true;
     local v23 = true;
-    local v24 = true;
-    local v25 = not v15 and not v16 or v21 or v18 or v11 == nil;
-    local v26 = nil;
-    if v19 then
-        local v27 = v12[v19];
-        if v17 then
-            if v14 and v27 then
-                v27.resaleRestriction = v3.ResaleRestriction.Disabled;
+    local v24 = not v14 and not v15 or v20 or v17 or v10 == nil;
+    local v25 = nil;
+    if v18 then
+        local v26 = v11[v18];
+        if v16 then
+            if v13 and v26 then
+                v26.resaleRestriction = v3.ResaleRestriction.Disabled;
             end;
-            local v28 = v27 and v27.hasResellers;
-            l_None_0 = if v27 then v27.resaleRestriction else v3.ResaleRestriction.None;
-            v24 = v27 and v27.unitsAvailableForConsumption and v27.unitsAvailableForConsumption > 0;
-            v23 = v5.isCollectibleSellableInShop(v27);
-            v26 = not v28 and v5.reachQuantityLimit(v27, v13);
-            v25 = not v23 or v18 or v11 == nil or v26;
-        elseif v27 then
-            v25 = v25 or not v5.isOriginalStockSellableInShop(v27);
+            local v27 = v26 and v26.hasResellers;
+            l_None_0 = if v26 then v26.resaleRestriction else v3.ResaleRestriction.None;
+            v23 = v26 and v26.unitsAvailableForConsumption and v26.unitsAvailableForConsumption > 0;
+            v22 = v5.isCollectibleSellableInShop(v26);
+            v25 = not v27 and v5.reachQuantityLimit(v26, v12);
+            v24 = not v22 or v17 or v10 == nil or v25;
+        elseif v26 then
+            v24 = v24 or not v5.isOriginalStockSellableInShop(v26);
         end;
     end;
-    local v29 = nil;
-    v29 = if l_FFlagAXDurablesSupport_0 then v15 and (not (v17 and v23) or v26) and not v20 else v15 and (not v17 or not v23 or v26);
-    local l_assetType_0 = v9.assetType;
-    if l_assetType_0 and v2.AssetTypeIdStringToName[l_assetType_0] == nil and v29 then
-        v25 = true;
-        v29 = false;
+    local v28 = v14 and (not (v16 and v22) or v25) and not v19;
+    local l_assetType_0 = v8.assetType;
+    if l_assetType_0 and v2.AssetTypeIdStringToName[l_assetType_0] == nil and v28 then
+        v24 = true;
+        v28 = false;
     end;
-    if v29 then
+    if v28 then
         return v2.ItemPromptType.OpenGoToAvatarEditorPrompt;
-    elseif v19 and l_None_0 == v3.ResaleRestriction.Disabled and not v24 then
+    elseif v18 and l_None_0 == v3.ResaleRestriction.Disabled and not v23 then
         return v2.ItemPromptType.SoldOut;
-    elseif v25 then
+    elseif v24 then
         return v2.ItemPromptType.Disabled;
     else
         return v2.ItemPromptType.OpenPurchasePrompt;
     end;
 end);
-return function(v32, v33, v34, v35) --[[ Line: 114 ]]
-    -- upvalues: v4 (copy), v2 (copy), l_getAppFeaturePolicies_0 (copy), v31 (copy)
-    local v36 = v4(v32.AvatarExperience.Common, v33, v34);
+return function(v31, v32, v33, v34) --[[ Line: 106 ]]
+    -- upvalues: v4 (copy), v2 (copy), l_getAppFeaturePolicies_0 (copy), v30 (copy)
+    local v35 = v4(v31.AvatarExperience.Common, v32, v33);
+    local v36 = nil;
     local v37 = nil;
-    local v38 = nil;
-    if not v36 then
+    if not v35 then
         return v2.ItemPromptType.Disabled;
     else
-        assert(v36, "silence type checker");
-        v37 = v36.resellerUserAssetIds;
-        v38 = v36.collectibleItemId;
-        local v39 = v37 and v37[1];
-        local v40 = v32.AvatarExperience.Catalog.UserAssets[v39];
-        local v41 = v32.UserRobux[v32.LocalUserId];
-        local l_CollectiblesItemInfo_0 = v32.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
-        local v43 = nil;
-        if v38 then
-            v43 = v32.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances[v38];
+        assert(v35, "silence type checker");
+        v36 = v35.resellerUserAssetIds;
+        v37 = v35.collectibleItemId;
+        local v38 = v36 and v36[1];
+        local v39 = v31.AvatarExperience.Catalog.UserAssets[v38];
+        local v40 = v31.UserRobux[v31.LocalUserId];
+        local l_CollectiblesItemInfo_0 = v31.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
+        local v42 = nil;
+        if v37 then
+            v42 = v31.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances[v37];
         end;
-        local v44 = nil;
-        v44 = if v35 and v35.DisableResellingCollectiblesForCompliance then v35.DisableResellingCollectiblesForCompliance else l_getAppFeaturePolicies_0().getDisableResellingCollectiblesForCompliance();
-        return v31(v36, v40, v41, l_CollectiblesItemInfo_0, v43, v44);
+        local v43 = nil;
+        v43 = if v34 and v34.DisableResellingCollectiblesForCompliance then v34.DisableResellingCollectiblesForCompliance else l_getAppFeaturePolicies_0().getDisableResellingCollectiblesForCompliance();
+        return v30(v35, v39, v40, l_CollectiblesItemInfo_0, v42, v43);
     end;
 end;

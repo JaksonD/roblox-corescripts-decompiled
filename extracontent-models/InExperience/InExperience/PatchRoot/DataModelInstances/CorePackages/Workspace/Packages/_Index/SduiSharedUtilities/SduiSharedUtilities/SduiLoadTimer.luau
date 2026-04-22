@@ -12,10 +12,11 @@ local v3 = {
     SduiTreeBuildBegin = "SduiTreeBuildBegin", 
     SduiTreeBuildEnd = "SduiTreeBuildEnd", 
     SduiComponentMounted = "SduiComponentMounted", 
-    SduiComponentReady = "SduiComponentReady"
+    SduiComponentReady = "SduiComponentReady", 
+    RefreshComplete = "RefreshComplete"
 };
 return {
-    createLoadTimer = function(v4, v5) --[[ Line: 71 ]] --[[ Name: createLoadTimer ]]
+    createLoadTimer = function(v4, v5) --[[ Line: 74 ]] --[[ Name: createLoadTimer ]]
         -- upvalues: v3 (copy), v1 (copy)
         local v6 = nil;
         local v7 = nil;
@@ -24,7 +25,7 @@ return {
         local v10 = "NotStarted";
         local v11 = nil;
         local v12 = nil;
-        local function _(v13, v14) --[[ Line: 85 ]] --[[ Name: calculateDuration ]]
+        local function _(v13, v14) --[[ Line: 88 ]] --[[ Name: calculateDuration ]]
             -- upvalues: v8 (copy)
             local v15 = v8[v13];
             local v16 = v8[v14];
@@ -34,13 +35,13 @@ return {
                 return nil;
             end;
         end;
-        local function v19(v18) --[[ Line: 95 ]] --[[ Name: start ]]
+        local function v19(v18) --[[ Line: 98 ]] --[[ Name: start ]]
             -- upvalues: v6 (ref), v10 (ref), v12 (ref)
             v6 = os.clock();
             v10 = "Running";
             v12 = v18;
         end;
-        local function v29() --[[ Line: 102 ]] --[[ Name: finish ]]
+        local function v29() --[[ Line: 105 ]] --[[ Name: finish ]]
             -- upvalues: v10 (ref), v6 (ref), v7 (ref), v3 (ref), v8 (copy), v9 (ref), v11 (ref), v4 (copy), v12 (ref), v5 (copy), v1 (ref)
             if v10 ~= "Running" or v6 == nil then
                 return;
@@ -91,15 +92,15 @@ return {
                 end;
             end;
         end;
-        local function _(v30) --[[ Line: 144 ]] --[[ Name: logTimestamp ]]
+        local function _(v30) --[[ Line: 147 ]] --[[ Name: logTimestamp ]]
             -- upvalues: v8 (copy)
             v8[v30] = os.clock();
         end;
-        local function v33(v32) --[[ Line: 149 ]] --[[ Name: logNetRequestStats ]]
+        local function v33(v32) --[[ Line: 152 ]] --[[ Name: logNetRequestStats ]]
             -- upvalues: v9 (ref)
             v9 = v32;
         end;
-        local function v35() --[[ Line: 154 ]] --[[ Name: logUiRequestQueued ]]
+        local function v35() --[[ Line: 157 ]] --[[ Name: logUiRequestQueued ]]
             -- upvalues: v10 (ref), v3 (ref), v6 (ref), v12 (ref), v8 (copy)
             if v10 == "NotStarted" then
                 local l_UiRequestQueued_1 = v3.UiRequestQueued;
@@ -109,7 +110,7 @@ return {
             end;
             v8[v3.UiRequestQueued] = os.clock();
         end;
-        local function v37() --[[ Line: 162 ]] --[[ Name: logUiRequestSent ]]
+        local function v37() --[[ Line: 165 ]] --[[ Name: logUiRequestSent ]]
             -- upvalues: v10 (ref), v3 (ref), v6 (ref), v12 (ref), v8 (copy)
             if v10 == "NotStarted" then
                 local l_UiRequestSent_0 = v3.UiRequestSent;
@@ -119,48 +120,55 @@ return {
             end;
             v8[v3.UiRequestSent] = os.clock();
         end;
-        local function v38() --[[ Line: 170 ]] --[[ Name: logUiResponseReceived ]]
+        local function v38() --[[ Line: 173 ]] --[[ Name: logUiResponseReceived ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.UiResponseReceived] = os.clock();
         end;
-        local function v39() --[[ Line: 175 ]] --[[ Name: logResponseDecodeBegin ]]
+        local function v39() --[[ Line: 178 ]] --[[ Name: logResponseDecodeBegin ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.ResponseDecodeBegin] = os.clock();
         end;
-        local function v40() --[[ Line: 180 ]] --[[ Name: logResponseDecodeEnd ]]
+        local function v40() --[[ Line: 183 ]] --[[ Name: logResponseDecodeEnd ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.ResponseDecodeEnd] = os.clock();
         end;
-        local function v41() --[[ Line: 185 ]] --[[ Name: logResponseDataUpdateBegin ]]
+        local function v41() --[[ Line: 188 ]] --[[ Name: logResponseDataUpdateBegin ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.ResponseDataUpdateBegin] = os.clock();
         end;
-        local function v42() --[[ Line: 190 ]] --[[ Name: logResponseDataUpdateEnd ]]
+        local function v42() --[[ Line: 193 ]] --[[ Name: logResponseDataUpdateEnd ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.ResponseDataUpdateEnd] = os.clock();
         end;
-        local function v43() --[[ Line: 195 ]] --[[ Name: logSduiTreeBuildBegin ]]
+        local function v43() --[[ Line: 198 ]] --[[ Name: logSduiTreeBuildBegin ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.SduiTreeBuildBegin] = os.clock();
         end;
-        local function v44() --[[ Line: 200 ]] --[[ Name: logSduiTreeBuildEnd ]]
+        local function v44() --[[ Line: 203 ]] --[[ Name: logSduiTreeBuildEnd ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.SduiTreeBuildEnd] = os.clock();
         end;
-        local function v45() --[[ Line: 205 ]] --[[ Name: logComponentMounted ]]
+        local function v45() --[[ Line: 208 ]] --[[ Name: logComponentMounted ]]
             -- upvalues: v3 (ref), v8 (copy)
             v8[v3.SduiComponentMounted] = os.clock();
         end;
-        local function v46() --[[ Line: 211 ]] --[[ Name: logComponentReady ]]
+        local function v46() --[[ Line: 214 ]] --[[ Name: logComponentReady ]]
             -- upvalues: v3 (ref), v8 (copy), v10 (ref), v29 (copy)
             v8[v3.SduiComponentReady] = os.clock();
             if v10 == "Running" then
                 v29();
             end;
         end;
-        local function v48(v47) --[[ Line: 219 ]] --[[ Name: updateRequestStatus ]]
+        local function v47() --[[ Line: 223 ]] --[[ Name: logRefreshComplete ]]
+            -- upvalues: v3 (ref), v8 (copy), v10 (ref), v29 (copy)
+            v8[v3.RefreshComplete] = os.clock();
+            if v10 == "Running" then
+                v29();
+            end;
+        end;
+        local function v49(v48) --[[ Line: 231 ]] --[[ Name: updateRequestStatus ]]
             -- upvalues: v11 (ref)
-            v11 = v47;
+            v11 = v48;
         end;
         return {
             start = v19, 
@@ -175,8 +183,9 @@ return {
             logSduiTreeBuildEnd = v44, 
             logComponentMounted = v45, 
             logComponentReady = v46, 
+            logRefreshComplete = v47, 
             logNetRequestStats = v33, 
-            updateRequestStatus = v48, 
+            updateRequestStatus = v49, 
             finish = v29
         };
     end

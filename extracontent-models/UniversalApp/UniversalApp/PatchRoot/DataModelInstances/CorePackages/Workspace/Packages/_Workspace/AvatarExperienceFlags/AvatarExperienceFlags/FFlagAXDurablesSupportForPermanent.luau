@@ -1,1 +1,1 @@
-return require(script.Parent.FFlagAXDurablesSupport) and game:DefineFastFlag("AXDurablesSupportForPermanent", false);
+return game:DefineFastFlag("AXDurablesSupportForPermanent", false);

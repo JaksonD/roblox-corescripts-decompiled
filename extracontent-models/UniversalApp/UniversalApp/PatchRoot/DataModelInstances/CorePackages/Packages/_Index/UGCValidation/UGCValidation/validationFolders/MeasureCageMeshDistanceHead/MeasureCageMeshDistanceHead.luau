@@ -2,8 +2,8 @@ local l_Parent_0 = script.Parent.Parent.Parent;
 local _ = require(l_Parent_0.util.Types);
 local v2 = require(l_Parent_0.validationSystem.ValidationEnums);
 local v3 = require(l_Parent_0.validationSystem.ErrorSourceStrings);
-local v4 = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxCageMeshDistance", 30);
-local v5 = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxNegativeSDFThreshold", 50);
+local v4 = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxCageMeshDistance", 60);
+local v5 = game:DefineFastInt("UGCValidationCageMeshDistanceHeadMaxNegativeSDFThreshold", 30);
 return {
     categories = {
         v2.UploadCategory.DYNAMIC_HEAD

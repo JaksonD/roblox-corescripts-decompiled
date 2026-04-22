@@ -3,7 +3,7 @@ local _ = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry);
 return {
     HydrationContentType = ({
         HydrationContentType = {
-            fromNumber = function(v2) --[[ Line: 36 ]] --[[ Name: fromNumber ]]
+            fromNumber = function(v2) --[[ Line: 40 ]] --[[ Name: fromNumber ]]
                 if v2 == 0 then
                     return "HYDRATION_CONTENT_TYPE_INVALID";
                 elseif v2 == 1 then
@@ -38,11 +38,19 @@ return {
                     return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT";
                 elseif v2 == 16 then
                     return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION";
+                elseif v2 == 17 then
+                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW";
+                elseif v2 == 18 then
+                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE";
+                elseif v2 == 19 then
+                    return "HYDRATION_CONTENT_TYPE_USER";
+                elseif v2 == 20 then
+                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE";
                 else
                     return nil;
                 end;
             end, 
-            toNumber = function(v3) --[[ Line: 76 ]] --[[ Name: toNumber ]]
+            toNumber = function(v3) --[[ Line: 88 ]] --[[ Name: toNumber ]]
                 if v3 == "HYDRATION_CONTENT_TYPE_INVALID" then
                     return 0;
                 elseif v3 == "HYDRATION_CONTENT_TYPE_BADGE" then
@@ -77,11 +85,19 @@ return {
                     return 15;
                 elseif v3 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
                     return 16;
+                elseif v3 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
+                    return 17;
+                elseif v3 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
+                    return 18;
+                elseif v3 == "HYDRATION_CONTENT_TYPE_USER" then
+                    return 19;
+                elseif v3 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
+                    return 20;
                 else
                     return v3;
                 end;
             end, 
-            fromName = function(v4) --[[ Line: 116 ]] --[[ Name: fromName ]]
+            fromName = function(v4) --[[ Line: 136 ]] --[[ Name: fromName ]]
                 if v4 == "HYDRATION_CONTENT_TYPE_INVALID" then
                     return "HYDRATION_CONTENT_TYPE_INVALID";
                 elseif v4 == "HYDRATION_CONTENT_TYPE_BADGE" then
@@ -116,6 +132,14 @@ return {
                     return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT";
                 elseif v4 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
                     return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION";
+                elseif v4 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
+                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW";
+                elseif v4 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
+                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE";
+                elseif v4 == "HYDRATION_CONTENT_TYPE_USER" then
+                    return "HYDRATION_CONTENT_TYPE_USER";
+                elseif v4 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
+                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE";
                 else
                     return nil;
                 end;

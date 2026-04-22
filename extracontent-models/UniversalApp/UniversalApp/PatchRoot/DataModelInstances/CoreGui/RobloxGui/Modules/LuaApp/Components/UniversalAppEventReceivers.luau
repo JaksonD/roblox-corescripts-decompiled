@@ -7,11 +7,11 @@ local v5 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local l_FFlagEnableAppRatingPromptLua_0 = v5.FFlagEnableAppRatingPromptLua;
 local l_FFlagEnableAndroidAppRatingPromptLua_0 = v5.FFlagEnableAndroidAppRatingPromptLua;
 local l_FFlagEnableUserAccessServiceIntegration_0 = v5.FFlagEnableUserAccessServiceIntegration;
-local l_FFlagInAppInterventionEnabled_0 = v5.FFlagInAppInterventionEnabled;
 local l_FFlagEnableMagicLogin_0 = v5.FFlagEnableMagicLogin;
 local l_GetFFlagIsSquadEnabled_0 = v5.GetFFlagIsSquadEnabled;
 local l_FFlagEnableAuthDeepLinkReceiver_0 = v5.FFlagEnableAuthDeepLinkReceiver;
 local l_FFlagTCStreamNotifEventReceiver_0 = v5.FFlagTCStreamNotifEventReceiver;
+local l_FFlagEnableRobloxSubscriptionEventListener_0 = v5.FFlagEnableRobloxSubscriptionEventListener;
 local v14 = require(l_Modules_0.LuaApp.Components.OnPlatformSurveys.IsCsatSurveyInterceptEnabled);
 local v15 = require(l_Modules_0.Luobu.Flags.FFlagLuobuCJVMorePageShowTencentNotice);
 local l_GetFFlagLuaAppChallengeDialogEventReceiverEnabled_0 = require(l_CorePackages_0.Workspace.Packages.ChallengeDialog).GetFFlagLuaAppChallengeDialogEventReceiverEnabled;
@@ -51,17 +51,18 @@ local l_InAppInterventionEventReceiver_0 = require(l_CorePackages_0.Workspace.Pa
 local v50 = require(l_Modules_0.Luobu.Components.EventReceivers.TencentNoticeEventReceiver);
 local v51 = require(l_Modules_0.LuaApp.Experiment.PerfInsights);
 local v52 = require(l_Modules_0.LuaApp.Components.EventReceivers.AccountLockEventReceiver);
+local v53 = require(l_Modules_0.LuaApp.Components.EventReceivers.RobloxSubscriptionEventReceiver);
 local l_RobloxEventReceiver_0 = require(l_CorePackages_0.Workspace.Packages.RealtimeDelivery).RobloxEventReceiver;
-local v54 = require(l_Modules_0.LuaApp.Components.EventReceiverLifecycleAdapter);
-local v55 = require(l_Modules_0.LuaApp.Components.Authentication.AuthDeeplinkEventReceiverMonoWrapper);
-return function() --[[ Line: 81 ]]
-    -- upvalues: v4 (copy), l_RobloxEventReceiver_0 (copy), l_NotificationService_0 (copy), v52 (copy), l_PersistentEventReceivers_0 (copy), l_FFlagEnableAppRatingPromptLua_0 (copy), l_FFlagEnableAndroidAppRatingPromptLua_0 (copy), v48 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_AppSquadEventReceiver_0 (copy), v28 (copy), v23 (copy), l_GetFFlagLuaAppChallengeDialogEventReceiverEnabled_0 (copy), l_ChallengeDialogEventReceiver_0 (copy), v14 (copy), v47 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), v55 (copy), v31 (copy), v21 (copy), v22 (copy), v34 (copy), v35 (copy), v25 (copy), v33 (copy), l_FFlagInAppInterventionEnabled_0 (copy), l_InAppInterventionEventReceiver_0 (copy), l_FFlagEnableUserAccessServiceIntegration_0 (copy), v45 (copy), v32 (copy), v37 (copy), v27 (copy), l_OnGameLeaveReceiver_0 (copy), l_GetFFlagEnableParentalControlsScreentimeEnforcement_0 (copy), v46 (copy), v51 (copy), v38 (copy), v44 (copy), v17 (copy), v39 (copy), v24 (copy), v36 (copy), v15 (copy), v18 (copy), v50 (copy), v30 (copy), v29 (copy), l_FFlagEnableMagicLogin_0 (copy), l_MagicLoginApprovePopupEventReceiver_0 (copy), l_FFlagTCStreamNotifEventReceiver_0 (copy), v26 (copy), v54 (copy)
-    local v56 = v4.useMemo(function() --[[ Line: 82 ]]
+local v55 = require(l_Modules_0.LuaApp.Components.EventReceiverLifecycleAdapter);
+local v56 = require(l_Modules_0.LuaApp.Components.Authentication.AuthDeeplinkEventReceiverMonoWrapper);
+return function() --[[ Line: 83 ]]
+    -- upvalues: v4 (copy), l_RobloxEventReceiver_0 (copy), l_NotificationService_0 (copy), v52 (copy), l_PersistentEventReceivers_0 (copy), l_FFlagEnableAppRatingPromptLua_0 (copy), l_FFlagEnableAndroidAppRatingPromptLua_0 (copy), v48 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_AppSquadEventReceiver_0 (copy), v28 (copy), v23 (copy), l_GetFFlagLuaAppChallengeDialogEventReceiverEnabled_0 (copy), l_ChallengeDialogEventReceiver_0 (copy), v14 (copy), v47 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), v56 (copy), v31 (copy), v21 (copy), v22 (copy), v34 (copy), v35 (copy), v25 (copy), v33 (copy), l_InAppInterventionEventReceiver_0 (copy), l_FFlagEnableUserAccessServiceIntegration_0 (copy), v45 (copy), v32 (copy), v37 (copy), v27 (copy), l_OnGameLeaveReceiver_0 (copy), l_GetFFlagEnableParentalControlsScreentimeEnforcement_0 (copy), v46 (copy), v51 (copy), v38 (copy), v44 (copy), v17 (copy), v39 (copy), v24 (copy), v36 (copy), v15 (copy), v18 (copy), v50 (copy), v30 (copy), v29 (copy), l_FFlagEnableMagicLogin_0 (copy), l_MagicLoginApprovePopupEventReceiver_0 (copy), l_FFlagTCStreamNotifEventReceiver_0 (copy), v26 (copy), l_FFlagEnableRobloxSubscriptionEventListener_0 (copy), v53 (copy), v55 (copy)
+    local v57 = v4.useMemo(function() --[[ Line: 84 ]]
         -- upvalues: l_RobloxEventReceiver_0 (ref), l_NotificationService_0 (ref)
         return l_RobloxEventReceiver_0.new(l_NotificationService_0);
     end, {});
-    local v57 = v4.useMemo(function() --[[ Line: 86 ]]
-        -- upvalues: v52 (ref), l_PersistentEventReceivers_0 (ref), l_FFlagEnableAppRatingPromptLua_0 (ref), l_FFlagEnableAndroidAppRatingPromptLua_0 (ref), v48 (ref), l_GetFFlagIsSquadEnabled_0 (ref), l_AppSquadEventReceiver_0 (ref), v28 (ref), v23 (ref), l_GetFFlagLuaAppChallengeDialogEventReceiverEnabled_0 (ref), l_ChallengeDialogEventReceiver_0 (ref), v14 (ref), v47 (ref), l_FFlagEnableAuthDeepLinkReceiver_0 (ref), v55 (ref), v31 (ref), v21 (ref), v22 (ref), v34 (ref), v35 (ref), v25 (ref), v33 (ref), l_FFlagInAppInterventionEnabled_0 (ref), l_InAppInterventionEventReceiver_0 (ref), l_FFlagEnableUserAccessServiceIntegration_0 (ref), v45 (ref), v32 (ref), v37 (ref), v27 (ref), l_OnGameLeaveReceiver_0 (ref), l_GetFFlagEnableParentalControlsScreentimeEnforcement_0 (ref), v46 (ref), v51 (ref), v38 (ref), v44 (ref), v17 (ref), v39 (ref), v24 (ref), v36 (ref), v15 (ref), v18 (ref), v50 (ref), v30 (ref), v29 (ref), l_FFlagEnableMagicLogin_0 (ref), l_MagicLoginApprovePopupEventReceiver_0 (ref), l_FFlagTCStreamNotifEventReceiver_0 (ref), v26 (ref)
+    local v58 = v4.useMemo(function() --[[ Line: 88 ]]
+        -- upvalues: v52 (ref), l_PersistentEventReceivers_0 (ref), l_FFlagEnableAppRatingPromptLua_0 (ref), l_FFlagEnableAndroidAppRatingPromptLua_0 (ref), v48 (ref), l_GetFFlagIsSquadEnabled_0 (ref), l_AppSquadEventReceiver_0 (ref), v28 (ref), v23 (ref), l_GetFFlagLuaAppChallengeDialogEventReceiverEnabled_0 (ref), l_ChallengeDialogEventReceiver_0 (ref), v14 (ref), v47 (ref), l_FFlagEnableAuthDeepLinkReceiver_0 (ref), v56 (ref), v31 (ref), v21 (ref), v22 (ref), v34 (ref), v35 (ref), v25 (ref), v33 (ref), l_InAppInterventionEventReceiver_0 (ref), l_FFlagEnableUserAccessServiceIntegration_0 (ref), v45 (ref), v32 (ref), v37 (ref), v27 (ref), l_OnGameLeaveReceiver_0 (ref), l_GetFFlagEnableParentalControlsScreentimeEnforcement_0 (ref), v46 (ref), v51 (ref), v38 (ref), v44 (ref), v17 (ref), v39 (ref), v24 (ref), v36 (ref), v15 (ref), v18 (ref), v50 (ref), v30 (ref), v29 (ref), l_FFlagEnableMagicLogin_0 (ref), l_MagicLoginApprovePopupEventReceiver_0 (ref), l_FFlagTCStreamNotifEventReceiver_0 (ref), v26 (ref), l_FFlagEnableRobloxSubscriptionEventListener_0 (ref), v53 (ref)
         return {
             v52, 
             l_PersistentEventReceivers_0, 
@@ -71,14 +72,14 @@ return function() --[[ Line: 81 ]]
             v23, 
             if l_GetFFlagLuaAppChallengeDialogEventReceiverEnabled_0() then l_ChallengeDialogEventReceiver_0 else nil, 
             if v14() then v47 else nil, 
-            if l_FFlagEnableAuthDeepLinkReceiver_0 then v55 else nil, 
+            if l_FFlagEnableAuthDeepLinkReceiver_0 then v56 else nil, 
             v31, 
             if v21 then v22 else nil, 
             v34, 
             v35, 
             v25, 
             v33, 
-            if l_FFlagInAppInterventionEnabled_0 then l_InAppInterventionEventReceiver_0 else nil, 
+            l_InAppInterventionEventReceiver_0, 
             if l_FFlagEnableUserAccessServiceIntegration_0 then v45 else nil, 
             v32, 
             v37, 
@@ -95,11 +96,12 @@ return function() --[[ Line: 81 ]]
             v30, 
             v29, 
             if l_FFlagEnableMagicLogin_0 then l_MagicLoginApprovePopupEventReceiver_0 else nil, 
-            if l_FFlagTCStreamNotifEventReceiver_0 then v26 else nil
+            if l_FFlagTCStreamNotifEventReceiver_0 then v26 else nil, 
+            if l_FFlagEnableRobloxSubscriptionEventListener_0 then v53 else nil
         };
     end, {});
-    return v4.createElement(v54, {
-        RobloxEventReceiver = v56, 
-        receiverComponents = v57
+    return v4.createElement(v55, {
+        RobloxEventReceiver = v57, 
+        receiverComponents = v58
     });
 end;

@@ -26,7 +26,9 @@ local v24 = require(l_Parent_0.SharedFlags);
 local l_FFlagLuaAppCompositionSupport_0 = v24.FFlagLuaAppCompositionSupport;
 local l_FFlagCollectionViewMathChanges_0 = v24.FFlagCollectionViewMathChanges;
 local l_FFlagLuaAppEnableVRCarouselScrolling_0 = v24.FFlagLuaAppEnableVRCarouselScrolling;
-local v28 = v10.strictInterface({
+local l_FFlagSduiCarouselHoverFixes_0 = v24.FFlagSduiCarouselHoverFixes;
+local l_FFlagLuaAppFixCarouselPeekInControl_0 = v24.FFlagLuaAppFixCarouselPeekInControl;
+local v30 = v10.strictInterface({
     testId = v10.optional(v10.string), 
     Position = v10.optional(v10.UDim2), 
     LayoutOrder = v10.optional(v10.number), 
@@ -67,229 +69,229 @@ local v28 = v10.strictInterface({
     collectionItemSize = if l_FFlagLuaAppCompositionSupport_0 then v10.optional(v10.string) else nil, 
     enableHoverOverflow = if l_FFlagLuaAppCompositionSupport_0 then v10.optional(v10.boolean) else nil
 });
-local v29 = {
+local v31 = {
     numColumns = 0, 
     fractionalItemAmount = 0, 
     columnGap = 0, 
     sideMargin = 0
 };
-local function _(v30, v31) --[[ Line: 215 ]] --[[ Name: isScrollingEnabled ]]
+local function _(v32, v33) --[[ Line: 217 ]] --[[ Name: isScrollingEnabled ]]
     -- upvalues: l_FFlagLuaAppEnableVRCarouselScrolling_0 (copy)
-    if v30 ~= nil then
-        return v30;
+    if v32 ~= nil then
+        return v32;
     elseif l_FFlagLuaAppEnableVRCarouselScrolling_0 then
         return true;
     else
-        return not v31;
+        return not v33;
     end;
 end;
-local _ = function(v33, _, v35, v36, v37) --[[ Line: 228 ]] --[[ Name: areScrollButtonsEnabled ]]
+local _ = function(v35, _, v37, v38, v39) --[[ Line: 230 ]] --[[ Name: areScrollButtonsEnabled ]]
     -- upvalues: v6 (copy), l_FFlagLuaAppEnableVRCarouselScrolling_0 (copy)
-    if not v35 then
+    if not v37 then
         return false;
-    elseif v36 ~= nil then
-        return v36;
-    else
-        local v38 = true;
-        if v33 ~= v6.Input.Pointer then
-            v38 = l_FFlagLuaAppEnableVRCarouselScrolling_0 and v37;
-        end;
+    elseif v38 ~= nil then
         return v38;
+    else
+        local v40 = true;
+        if v35 ~= v6.Input.Pointer then
+            v40 = l_FFlagLuaAppEnableVRCarouselScrolling_0 and v39;
+        end;
+        return v40;
     end;
 end;
-return (v2.memo(function(v40) --[[ Line: 248 ]] --[[ Name: CollectionCarousel ]]
-    -- upvalues: l_validateProps_0 (copy), v28 (copy), v3 (copy), v29 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), v21 (copy), v4 (copy), v2 (copy), l_FFlagCollectionViewMathChanges_0 (copy), l_useLastInput_0 (copy), l_usePreferredInput_0 (copy), l_useIsSpatial_0 (copy), v6 (copy), l_FFlagLuaAppEnableVRCarouselScrolling_0 (copy), v12 (copy), v23 (copy), v13 (copy), v14 (copy), l_useDesignTokens_0 (copy), v17 (copy), v15 (copy), v18 (copy), v16 (copy), l_CompositionTags_0 (copy), v19 (copy)
-    l_validateProps_0(v28, v40);
-    local v41 = v3.Dictionary.join(v29, v40);
-    local l_sideMargin_0 = v41.sideMargin;
-    local v43 = nil;
-    local v44 = nil;
+return (v2.memo(function(v42) --[[ Line: 250 ]] --[[ Name: CollectionCarousel ]]
+    -- upvalues: l_validateProps_0 (copy), v30 (copy), v3 (copy), v31 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), v21 (copy), l_FFlagLuaAppFixCarouselPeekInControl_0 (copy), v4 (copy), v2 (copy), l_FFlagCollectionViewMathChanges_0 (copy), l_useLastInput_0 (copy), l_usePreferredInput_0 (copy), l_useIsSpatial_0 (copy), v6 (copy), l_FFlagLuaAppEnableVRCarouselScrolling_0 (copy), v12 (copy), v23 (copy), v13 (copy), v14 (copy), l_FFlagSduiCarouselHoverFixes_0 (copy), l_useDesignTokens_0 (copy), v17 (copy), v15 (copy), v18 (copy), v16 (copy), l_CompositionTags_0 (copy), v19 (copy)
+    l_validateProps_0(v30, v42);
+    local v43 = v3.Dictionary.join(v31, v42);
+    local l_sideMargin_0 = v43.sideMargin;
     local v45 = nil;
+    local v46 = nil;
+    local v47 = nil;
     if l_FFlagLuaAppCompositionSupport_0 then
-        local v46 = v21(v40.collectionItemSize);
-        v43 = v40.numColumns or v46.itemsPerRow;
-        v44 = v40.columnGap or v46.gutter;
-        v45 = v46.carouselPeek or 0;
+        local v48 = v21(v42.collectionItemSize);
+        v45 = v42.numColumns or v48.itemsPerRow;
+        v46 = v42.columnGap or v48.gutter;
+        v47 = if l_FFlagLuaAppFixCarouselPeekInControl_0 then if v42.collectionItemSize then v48.carouselPeek or 0 else nil else v48.carouselPeek or 0;
     else
-        v43 = v41.numColumns;
-        v44 = v41.columnGap;
+        v45 = v43.numColumns;
+        v46 = v43.columnGap;
     end;
-    v4.assert(v43 >= 1);
+    v4.assert(v45 >= 1);
     v4.assert(l_sideMargin_0 >= 0);
-    v4.assert(v41.fractionalItemAmount >= 0);
-    v4.assert(v44 >= 0);
-    local v47 = v2.useRef(nil);
-    local v48 = nil;
-    local v49 = nil;
+    v4.assert(v43.fractionalItemAmount >= 0);
+    v4.assert(v46 >= 0);
+    local v49 = v2.useRef(nil);
     local v50 = nil;
+    local v51 = nil;
+    local v52 = nil;
     if l_FFlagCollectionViewMathChanges_0 then
-        local v51, v52 = v2.useBinding(0);
-        v48 = v51;
-        v49 = v52;
-        v50 = v2.useCallback(function(v53) --[[ Line: 276 ]]
-            -- upvalues: v49 (ref)
-            if v53 then
-                v49(v53.AbsoluteSize.X);
+        local v53, v54 = v2.useBinding(0);
+        v50 = v53;
+        v51 = v54;
+        v52 = v2.useCallback(function(v55) --[[ Line: 280 ]]
+            -- upvalues: v51 (ref)
+            if v55 then
+                v51(v55.AbsoluteSize.X);
             end;
         end, {});
     end;
-    local v55 = v2.useCallback(function(v54) --[[ Line: 283 ]]
-        -- upvalues: v47 (copy), l_FFlagCollectionViewMathChanges_0 (ref), v49 (ref), v41 (copy)
-        v47.current = v54;
-        if l_FFlagCollectionViewMathChanges_0 and v54 then
-            v49(v54.AbsoluteSize.X);
+    local v57 = v2.useCallback(function(v56) --[[ Line: 287 ]]
+        -- upvalues: v49 (copy), l_FFlagCollectionViewMathChanges_0 (ref), v51 (ref), v43 (copy)
+        v49.current = v56;
+        if l_FFlagCollectionViewMathChanges_0 and v56 then
+            v51(v56.AbsoluteSize.X);
         end;
-        if v41.onScrollingFrameRefCallback then
-            v41.onScrollingFrameRefCallback(v54);
+        if v43.onScrollingFrameRefCallback then
+            v43.onScrollingFrameRefCallback(v56);
         end;
-        if v41.scrollingFrameRef then
-            v41.scrollingFrameRef.current = v54;
+        if v43.scrollingFrameRef then
+            v43.scrollingFrameRef.current = v56;
         end;
     end, {
-        v41.onScrollingFrameRefCallback, 
-        v41.scrollingFrameRef
+        v43.onScrollingFrameRefCallback, 
+        v43.scrollingFrameRef
     });
-    local v56 = l_useLastInput_0();
-    local v57 = l_usePreferredInput_0();
-    local v58 = l_useIsSpatial_0();
-    local v59 = v41.hideHeaderButton or v57 == v6.Input.Directional;
-    local l_scrollingEnabledOverride_0 = v41.scrollingEnabledOverride;
-    local v61 = if l_scrollingEnabledOverride_0 ~= nil then l_scrollingEnabledOverride_0 else l_FFlagLuaAppEnableVRCarouselScrolling_0 and true or not v58;
-    l_scrollingEnabledOverride_0 = math.min(v41.maxItemsToShow or #v41.items, #v41.items);
-    if not v61 then
-        l_scrollingEnabledOverride_0 = math.min(v43, l_scrollingEnabledOverride_0);
+    local v58 = l_useLastInput_0();
+    local v59 = l_usePreferredInput_0();
+    local v60 = l_useIsSpatial_0();
+    local v61 = v43.hideHeaderButton or v59 == v6.Input.Directional;
+    local l_scrollingEnabledOverride_0 = v43.scrollingEnabledOverride;
+    local v63 = if l_scrollingEnabledOverride_0 ~= nil then l_scrollingEnabledOverride_0 else l_FFlagLuaAppEnableVRCarouselScrolling_0 and true or not v60;
+    l_scrollingEnabledOverride_0 = math.min(v43.maxItemsToShow or #v43.items, #v43.items);
+    if not v63 then
+        l_scrollingEnabledOverride_0 = math.min(v45, l_scrollingEnabledOverride_0);
     end;
     v4.assert(l_scrollingEnabledOverride_0 >= 0);
-    local v62 = if v61 and v43 < l_scrollingEnabledOverride_0 then v41.fractionalItemAmount else 0;
-    local v63, v64, v65, v66 = v12(v43, v44, l_sideMargin_0, v62, v41.getItemHeight, v41.onContainerSizeChanged, if l_FFlagLuaAppCompositionSupport_0 then v45 else nil);
-    local v67 = nil;
+    local v64 = if v63 and v45 < l_scrollingEnabledOverride_0 then v43.fractionalItemAmount else 0;
+    local v65, v66, v67, v68 = v12(v45, v46, l_sideMargin_0, v64, v43.getItemHeight, v43.onContainerSizeChanged, if l_FFlagLuaAppCompositionSupport_0 then v47 else nil);
+    local v69 = nil;
     if l_FFlagCollectionViewMathChanges_0 then
-        v67 = v2.useMemo(function() --[[ Line: 335 ]]
-            -- upvalues: v2 (ref), v48 (ref), v63 (copy), v23 (ref), v43 (ref), v44 (ref), v45 (ref), v62 (copy)
+        v69 = v2.useMemo(function() --[[ Line: 339 ]]
+            -- upvalues: v2 (ref), v50 (ref), v65 (copy), v23 (ref), v45 (ref), v46 (ref), v47 (ref), v64 (copy)
             return v2.joinBindings({
-                v48, 
-                v63
-            }):map(function(v68) --[[ Line: 336 ]]
-                -- upvalues: v23 (ref), v43 (ref), v44 (ref), v45 (ref), v62 (ref)
-                return v23(v68[1], v43, v44, v45 or 0, v62, v68[2].X);
+                v50, 
+                v65
+            }):map(function(v70) --[[ Line: 340 ]]
+                -- upvalues: v23 (ref), v45 (ref), v46 (ref), v47 (ref), v64 (ref)
+                return v23(v70[1], v45, v46, v47 or 0, v64, v70[2].X);
             end);
         end, {
-            v48, 
-            v63, 
-            v43, 
-            v44, 
+            v50, 
+            v65, 
             v45, 
-            v62
+            v46, 
+            v47, 
+            v64
         });
     end;
-    local l_shouldShowScrollButtonsOverride_0 = v41.shouldShowScrollButtonsOverride;
-    local v70 = if l_FFlagLuaAppEnableVRCarouselScrolling_0 then v58 else nil;
-    local v71 = not not v61 and if l_shouldShowScrollButtonsOverride_0 ~= nil then l_shouldShowScrollButtonsOverride_0 else v56 == v6.Input.Pointer or l_FFlagLuaAppEnableVRCarouselScrolling_0 and v70;
-    local v72, v73;
-    l_shouldShowScrollButtonsOverride_0, v70, v72, v73 = v13(v47, l_scrollingEnabledOverride_0, v71, v43, if l_FFlagCollectionViewMathChanges_0 then nil else v63, if l_FFlagCollectionViewMathChanges_0 then nil else v44, nil, if l_FFlagCollectionViewMathChanges_0 then v67 else nil);
-    local v74 = nil;
-    local v75 = nil;
+    local l_shouldShowScrollButtonsOverride_0 = v43.shouldShowScrollButtonsOverride;
+    local v72 = if l_FFlagLuaAppEnableVRCarouselScrolling_0 then v60 else nil;
+    local v73 = not not v63 and if l_shouldShowScrollButtonsOverride_0 ~= nil then l_shouldShowScrollButtonsOverride_0 else v58 == v6.Input.Pointer or l_FFlagLuaAppEnableVRCarouselScrolling_0 and v72;
+    local v74, v75;
+    l_shouldShowScrollButtonsOverride_0, v72, v74, v75 = v13(v49, l_scrollingEnabledOverride_0, v73, v45, if l_FFlagCollectionViewMathChanges_0 then nil else v65, if l_FFlagCollectionViewMathChanges_0 then nil else v46, nil, if l_FFlagCollectionViewMathChanges_0 then v69 else nil);
     local v76 = nil;
     local v77 = nil;
+    local v78 = nil;
+    local v79 = nil;
     if l_FFlagLuaAppCompositionSupport_0 then
-        v74 = v14(v47, v41.enableHoverOverflow == true);
-        v75 = v44 * 0.5 + 1;
-        v76 = v2.useMemo(function() --[[ Line: 379 ]]
-            -- upvalues: v41 (copy), v2 (ref), v63 (copy), v74 (ref), v75 (ref)
-            if not v41.enableHoverOverflow then
+        v76 = v14(v49, v43.enableHoverOverflow == true);
+        v77 = if l_FFlagSduiCarouselHoverFixes_0 then v46 * 0.5 else v46 * 0.5 + 1;
+        v78 = v2.useMemo(function() --[[ Line: 383 ]]
+            -- upvalues: v43 (copy), v2 (ref), v65 (copy), v76 (ref), v77 (ref)
+            if not v43.enableHoverOverflow then
                 return nil;
             else
                 return v2.joinBindings({
-                    v63, 
-                    v74
-                }):map(function(v78) --[[ Line: 383 ]]
-                    -- upvalues: v75 (ref)
-                    local v79 = v78[1];
-                    local v80 = v78[2];
-                    return UDim2.new(1, v80 and 0 or -v75 * 2, 0, v79.Y);
+                    v65, 
+                    v76
+                }):map(function(v80) --[[ Line: 387 ]]
+                    -- upvalues: v77 (ref)
+                    local v81 = v80[1];
+                    local v82 = v80[2];
+                    return UDim2.new(1, v82 and 0 or -v77 * 2, 0, v81.Y);
                 end);
             end;
         end, {
-            v63, 
-            v74, 
-            v75, 
-            v41.enableHoverOverflow
+            v65, 
+            v76, 
+            v77, 
+            v43.enableHoverOverflow
         });
-        v77 = v2.useMemo(function() --[[ Line: 389 ]]
-            -- upvalues: v41 (copy), v74 (ref), v75 (ref)
-            if not v41.enableHoverOverflow then
+        v79 = v2.useMemo(function() --[[ Line: 393 ]]
+            -- upvalues: v43 (copy), v76 (ref), v77 (ref)
+            if not v43.enableHoverOverflow then
                 return nil;
             else
-                return v74:map(function(v81) --[[ Line: 393 ]]
-                    -- upvalues: v75 (ref)
-                    return UDim2.new(0, v81 and 0 or v75, 0, 500);
+                return v76:map(function(v83) --[[ Line: 397 ]]
+                    -- upvalues: v77 (ref)
+                    return UDim2.new(0, v83 and 0 or v77, 0, 500);
                 end);
             end;
         end, {
-            v74, 
-            v75, 
-            v41.enableHoverOverflow
+            v76, 
+            v77, 
+            v43.enableHoverOverflow
         });
     end;
-    local v82 = l_useDesignTokens_0();
-    local l_Size_200_0 = v82.Global.Size_200;
-    local l_Size_250_0 = v82.Global.Size_250;
-    local l_White_0 = v82.Global.Color.White;
-    local v86 = v41.backgroundMuralUrl ~= nil;
-    local v87 = v41.title and v41.title ~= "";
-    local v88 = v2.createElement(v17, {
-        Position = if l_FFlagLuaAppCompositionSupport_0 then v77 else nil, 
-        Size = if l_FFlagLuaAppCompositionSupport_0 then v76 else nil, 
-        ScrollingEnabled = v61, 
-        onChangeCanvasPosition = v41.onChangeCanvasPosition, 
-        onScrollingFrameRefCallback = v55, 
-        itemSizeBinding = v63, 
-        items = v41.items, 
+    local v84 = l_useDesignTokens_0();
+    local l_Size_200_0 = v84.Global.Size_200;
+    local l_Size_250_0 = v84.Global.Size_250;
+    local l_White_0 = v84.Global.Color.White;
+    local v88 = v43.backgroundMuralUrl ~= nil;
+    local v89 = v43.title and v43.title ~= "";
+    local v90 = v2.createElement(v17, {
+        Position = if l_FFlagLuaAppCompositionSupport_0 then v79 else nil, 
+        Size = if l_FFlagLuaAppCompositionSupport_0 then v78 else nil, 
+        ScrollingEnabled = v63, 
+        onChangeCanvasPosition = v43.onChangeCanvasPosition, 
+        onScrollingFrameRefCallback = v57, 
+        itemSizeBinding = v65, 
+        items = v43.items, 
         totalItemsOnCanvas = l_scrollingEnabledOverride_0, 
-        numColumns = v43, 
-        columnGap = v44, 
-        renderItem = v41.renderItem, 
+        numColumns = v45, 
+        columnGap = v46, 
+        renderItem = v43.renderItem, 
         sideMargin = l_sideMargin_0, 
-        numItemsToRenderOffScreen = v41.numItemsToRenderOffScreen, 
-        onReachedThresholdFromEnd = v41.onReachedThresholdFromEnd, 
-        thresholdFromEnd = v41.thresholdFromEnd, 
-        onViewableItemsChanged = v41.onViewableItemsChanged, 
-        AutomaticSize = v41.AutomaticSize, 
-        spacingMetricsBinding = if l_FFlagCollectionViewMathChanges_0 then v67 else nil, 
-        onScrollingFrameAbsoluteSizeChanged = if l_FFlagCollectionViewMathChanges_0 then v50 else nil
+        numItemsToRenderOffScreen = v43.numItemsToRenderOffScreen, 
+        onReachedThresholdFromEnd = v43.onReachedThresholdFromEnd, 
+        thresholdFromEnd = v43.thresholdFromEnd, 
+        onViewableItemsChanged = v43.onViewableItemsChanged, 
+        AutomaticSize = v43.AutomaticSize, 
+        spacingMetricsBinding = if l_FFlagCollectionViewMathChanges_0 then v69 else nil, 
+        onScrollingFrameAbsoluteSizeChanged = if l_FFlagCollectionViewMathChanges_0 then v52 else nil
     });
     local l_createElement_0 = v2.createElement;
-    local v90 = "Frame";
-    local v91 = {
-        ref = v41.containerRef, 
+    local v92 = "Frame";
+    local v93 = {
+        ref = v43.containerRef, 
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
-        Position = v41.Position, 
+        Position = v43.Position, 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        LayoutOrder = v41.LayoutOrder, 
-        [v2.Tag] = if v41.testId then ("data-testid=%*"):format(v41.testId) else nil
+        LayoutOrder = v43.LayoutOrder, 
+        [v2.Tag] = if v43.testId then ("data-testid=%*"):format(v43.testId) else nil
     };
-    local v92 = {
-        BackgroundMural = v41.backgroundMuralUrl and v2.createElement(v15, {
-            backgroundMuralUrl = v41.backgroundMuralUrl, 
-            containerSizeBinding = v64, 
+    local v94 = {
+        BackgroundMural = v43.backgroundMuralUrl and v2.createElement(v15, {
+            backgroundMuralUrl = v43.backgroundMuralUrl, 
+            containerSizeBinding = v66, 
             ZIndex = -1
         }) or nil
     };
     local l_createElement_1 = v2.createElement;
-    local v94 = "Frame";
-    local v95 = {
+    local v96 = "Frame";
+    local v97 = {
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.new(1, 0, 0, 0), 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        [v2.Change.AbsoluteSize] = v65, 
-        ref = v66
+        [v2.Change.AbsoluteSize] = v67, 
+        ref = v68
     };
-    local v96 = {
+    local v98 = {
         UIPadding = v2.createElement("UIPadding", {
-            PaddingTop = if v41.backgroundMuralUrl ~= nil then UDim.new(0, l_Size_250_0) else nil, 
+            PaddingTop = if v43.backgroundMuralUrl ~= nil then UDim.new(0, l_Size_250_0) else nil, 
             PaddingLeft = if not l_FFlagLuaAppCompositionSupport_0 or l_sideMargin_0 > 0 then UDim.new(0, l_sideMargin_0) else nil, 
             PaddingRight = if not l_FFlagLuaAppCompositionSupport_0 or l_sideMargin_0 > 0 then UDim.new(0, l_sideMargin_0) else nil
         }), 
@@ -297,77 +299,77 @@ return (v2.memo(function(v40) --[[ Line: 248 ]] --[[ Name: CollectionCarousel ]]
             FillDirection = Enum.FillDirection.Vertical, 
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
-            Padding = UDim.new(0, if not not v87 or v41.headerComponent then l_Size_200_0 else 0)
+            Padding = UDim.new(0, if not not v89 or v43.headerComponent then l_Size_200_0 else 0)
         })
     };
-    local v97;
-    if v41.headerComponent then
-        v97 = v41.headerComponent;
+    local v99;
+    if v43.headerComponent then
+        v99 = v43.headerComponent;
     else
-        v97 = v18;
+        v99 = v18;
         local l_createElement_2 = v2.createElement;
         local l_v16_0 = v16;
-        local v100 = {
+        local v102 = {
             LayoutOrder = 1, 
-            title = v41.title, 
-            subtitle = v41.subtitle, 
-            tooltipInfoText = v41.tooltipInfoText, 
-            onActivateInfoIcon = v41.onActivateInfoIcon, 
-            tooltipSupportsVR = v41.tooltipSupportsVR, 
-            tooltipSupportsTenFootUi = v41.tooltipSupportsTenFootUi
+            title = v43.title, 
+            subtitle = v43.subtitle, 
+            tooltipInfoText = v43.tooltipInfoText, 
+            onActivateInfoIcon = v43.onActivateInfoIcon, 
+            tooltipSupportsVR = v43.tooltipSupportsVR, 
+            tooltipSupportsTenFootUi = v43.tooltipSupportsTenFootUi
         };
-        local v101 = true;
-        if #v41.items >= 1 then
-            v101 = v59 or not v87;
+        local v103 = true;
+        if #v43.items >= 1 then
+            v103 = v61 or not v89;
         end;
-        v100.hideButton = v101;
-        v100.onActivate = v41.onActivateHeader;
-        v100.onActivateSubtitle = v41.onActivateSubtitle;
-        v100.buttonText = v41.headerButtonText;
-        v100.titleColor = if v86 then l_White_0 else nil;
-        v100.subtitleColor = if v86 then l_White_0 else nil;
-        v97 = v97(l_createElement_2(l_v16_0, v100), v86);
+        v102.hideButton = v103;
+        v102.onActivate = v43.onActivateHeader;
+        v102.onActivateSubtitle = v43.onActivateSubtitle;
+        v102.buttonText = v43.headerButtonText;
+        v102.titleColor = if v88 then l_White_0 else nil;
+        v102.subtitleColor = if v88 then l_White_0 else nil;
+        v99 = v99(l_createElement_2(l_v16_0, v102), v88);
     end;
-    v96.CollectionHeader = v97;
-    v96.Items = v2.createElement("Frame", {
-        Size = if l_FFlagLuaAppCompositionSupport_0 and v41.enableHoverOverflow then v63:map(function(v102) --[[ Line: 487 ]]
-            return UDim2.new(1, 0, 0, v102.Y);
+    v98.CollectionHeader = v99;
+    v98.Items = v2.createElement("Frame", {
+        Size = if l_FFlagLuaAppCompositionSupport_0 and v43.enableHoverOverflow then v65:map(function(v104) --[[ Line: 491 ]]
+            return UDim2.new(1, 0, 0, v104.Y);
         end) else UDim2.new(1, 0, 0, 0), 
-        AutomaticSize = if l_FFlagLuaAppCompositionSupport_0 and v41.enableHoverOverflow then nil else Enum.AutomaticSize.Y, 
+        AutomaticSize = if l_FFlagLuaAppCompositionSupport_0 and v43.enableHoverOverflow then nil else Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
         LayoutOrder = 2, 
-        [v2.Tag] = if not (l_FFlagLuaAppCompositionSupport_0 and v41.collectionItemSize) or v41.enableHoverOverflow then nil else l_CompositionTags_0.Utility.ClipAtMaxWidth
+        [v2.Tag] = if not (l_FFlagLuaAppCompositionSupport_0 and v43.collectionItemSize) or v43.enableHoverOverflow then nil else l_CompositionTags_0.Utility.ClipAtMaxWidth
     }, {
-        CarouselClip = if l_FFlagLuaAppCompositionSupport_0 and v41.enableHoverOverflow then v2.createElement("Frame", {
-            Size = v74:map(function(v103) --[[ Line: 505 ]]
-                -- upvalues: v75 (ref)
-                return UDim2.new(1, v103 and 0 or v75 * 2, 1, 1000);
+        CarouselClip = if l_FFlagLuaAppCompositionSupport_0 and v43.enableHoverOverflow then v2.createElement("Frame", {
+            Size = v76:map(function(v105) --[[ Line: 509 ]]
+                -- upvalues: v77 (ref)
+                return UDim2.new(1, v105 and 0 or v77 * 2, 1, 1000);
             end), 
-            Position = v74:map(function(v104) --[[ Line: 513 ]]
-                -- upvalues: v75 (ref)
-                return UDim2.new(0, v104 and 0 or -v75, 0, -500);
+            Position = v76:map(function(v106) --[[ Line: 517 ]]
+                -- upvalues: v77 (ref)
+                return UDim2.new(0, v106 and 0 or -v77, 0, -500);
             end), 
             BackgroundTransparency = 1, 
-            [v2.Tag] = if v41.collectionItemSize then l_CompositionTags_0.Utility.ClipAtMaxWidth else nil
+            [v2.Tag] = if v43.collectionItemSize then l_CompositionTags_0.Utility.ClipAtMaxWidth else nil
         }, {
-            ScrollingItems = v88
+            ScrollingItems = v90
         }) else nil, 
-        ScrollingItems = if l_FFlagLuaAppCompositionSupport_0 and v41.enableHoverOverflow then nil else v88, 
-        ScrollButtons = if v71 then v2.createElement(v19, {
+        ScrollingItems = if l_FFlagLuaAppCompositionSupport_0 and v43.enableHoverOverflow then nil else v90, 
+        ScrollButtons = if v73 then v2.createElement(v19, {
             handleScrollLeft = l_shouldShowScrollButtonsOverride_0, 
-            handleScrollRight = v70, 
-            leftScrollingEnabled = v72, 
-            rightScrollingEnabled = v73, 
+            handleScrollRight = v72, 
+            leftScrollingEnabled = v74, 
+            rightScrollingEnabled = v75, 
             ZIndex = 10, 
             Size = UDim2.new(1, 2 * l_sideMargin_0, 1, 0), 
             Position = UDim2.new(0.5, 0, 0, 0), 
             AnchorPoint = Vector2.new(0.5, 0), 
-            buttonOffsetFromEdge = v82.Global.Size_100, 
-            onScrollButtonEnter = v41.onScrollButtonEnter, 
-            onScrollButtonLeave = v41.onScrollButtonLeave
+            buttonOffsetFromEdge = v84.Global.Size_100, 
+            onScrollButtonEnter = v43.onScrollButtonEnter, 
+            onScrollButtonLeave = v43.onScrollButtonLeave
         }) else nil
     });
-    v92.CollectionContent = l_createElement_1(v94, v95, v96);
-    return l_createElement_0(v90, v91, v92);
+    v94.CollectionContent = l_createElement_1(v96, v97, v98);
+    return l_createElement_0(v92, v93, v94);
 end));

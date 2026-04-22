@@ -14,7 +14,9 @@ return {
         FFlagEnableMobilePlayerListOnConsole = require(script.Flags.FFlagEnableMobilePlayerListOnConsole), 
         FFlagPlayerListUseMobileOnSmallDisplay = require(script.Flags.FFlagPlayerListUseMobileOnSmallDisplay), 
         FFlagPlayerListIgnoreDevGamepadBindings = require(script.Flags.FFlagPlayerListIgnoreDevGamepadBindings), 
-        FFlagPlayerListUseFocusNavHook = v3
+        FFlagPlayerListUseFocusNavHook = v3, 
+        FFlagPlayerListDropDownShowPlatformName = require(script.Flags.FFlagPlayerListDropDownShowPlatformName), 
+        FFlagPlayerListFoundationSubscriptionIcon = require(script.Flags.FFlagPlayerListFoundationSubscriptionIcon)
     }, 
     Hooks = {
         useLeaderboardStore = require(script.Hooks.useLeaderboardStore), 

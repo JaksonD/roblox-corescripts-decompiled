@@ -10,131 +10,256 @@ local l_LocalTextChannelParticipantRemoved_0 = v4.Actions.LocalTextChannelPartic
 local l_TextChannelRemoved_0 = v4.Actions.TextChannelRemoved;
 local l_TargetTextChannelPropertyChanged_0 = v4.Actions.TargetTextChannelPropertyChanged;
 local v11 = require(l_Actions_0.IncomingMessageReceived);
-local v12 = {
+local v12 = require(l_Actions_0.UniverseChatSystemMessageAdded);
+local v13 = require(l_Actions_0.UniverseChatChannelAdded);
+local l_UniverseChatChannelSelected_0 = v4.Actions.UniverseChatChannelSelected;
+local l_GetFFlagTextChatEnableUniverseChatTabs_0 = v4.Flags.GetFFlagTextChatEnableUniverseChatTabs;
+local v16 = require(l_Actions_0.ChannelTabsConfigurationEnabled);
+local v17 = {
     allChannelTabs = {}, 
-    selectedTabName = nil
+    selectedTabName = nil, 
+    channelTabsConfigurationEnabled = false
 };
-local function v19(v13, v14) --[[ Line: 30 ]] --[[ Name: insertTabAndReorder ]]
+local function v24(v18, v19) --[[ Line: 39 ]] --[[ Name: insertTabAndReorder ]]
     -- upvalues: l_Dictionary_0 (copy)
-    local v15 = {
-        [v14.Name] = v14
+    local v20 = {
+        [v19.Name] = v19
     };
-    for v16, v17 in v13 do
-        local v18 = v17.TabIndex < v14.TabIndex and v17.TabIndex or v17.TabIndex + 1;
-        v15 = l_Dictionary_0.join(v15, {
-            [v16] = l_Dictionary_0.set(v13[v16], "TabIndex", v18)
+    for v21, v22 in v18 do
+        local v23 = v22.TabIndex < v19.TabIndex and v22.TabIndex or v22.TabIndex + 1;
+        v20 = l_Dictionary_0.join(v20, {
+            [v21] = l_Dictionary_0.set(v18[v21], "TabIndex", v23)
         });
     end;
-    return v15;
+    return v20;
 end;
-local function v26(v20, v21) --[[ Line: 48 ]] --[[ Name: removeTabAndReorder ]]
+local function v31(v25, v26) --[[ Line: 57 ]] --[[ Name: removeTabAndReorder ]]
     -- upvalues: l_Dictionary_0 (copy)
-    if v21 == nil then
-        return v20;
+    if v26 == nil then
+        return v25;
     else
-        local v22 = {};
-        for v23, v24 in v20 do
-            if v23 ~= v21.Name then
-                local v25 = v24.TabIndex < v21.TabIndex and v24.TabIndex or v24.TabIndex - 1;
-                v22 = l_Dictionary_0.join(v22, {
-                    [v23] = l_Dictionary_0.set(v20[v23], "TabIndex", v25)
+        local v27 = {};
+        for v28, v29 in v25 do
+            if v28 ~= v26.Name then
+                local v30 = v29.TabIndex < v26.TabIndex and v29.TabIndex or v29.TabIndex - 1;
+                v27 = l_Dictionary_0.join(v27, {
+                    [v28] = l_Dictionary_0.set(v25[v28], "TabIndex", v30)
                 });
             end;
         end;
-        return v22;
+        return v27;
     end;
 end;
-local function v32(v27, v28) --[[ Line: 72 ]] --[[ Name: onChannelRemoved ]]
-    -- upvalues: v26 (copy), l_Dictionary_0 (copy)
-    local v29 = v27.allChannelTabs[v28.Name];
-    if v29 == nil then
-        return v27;
+local function v37(v32, v33) --[[ Line: 81 ]] --[[ Name: onChannelRemoved ]]
+    -- upvalues: v31 (copy), l_Dictionary_0 (copy)
+    local v34 = v32.allChannelTabs[v33.Name];
+    if v34 == nil then
+        return v32;
     else
-        local v30 = v26(v27.allChannelTabs, v29);
-        local v31 = if v29.Name == v27.selectedTabName then v30.RBXGeneral and "RBXGeneral" or nil else v27.selectedTabName;
+        local v35 = v31(v32.allChannelTabs, v34);
+        local v36 = if v34.Name == v32.selectedTabName then v35.RBXGeneral and "RBXGeneral" or nil else v32.selectedTabName;
         return {
-            allChannelTabs = if v31 and v30[v31] then l_Dictionary_0.join(v30, {
-                [v31] = l_Dictionary_0.join(v30[v31], {
+            allChannelTabs = if v36 and v35[v36] then l_Dictionary_0.join(v35, {
+                [v36] = l_Dictionary_0.join(v35[v36], {
                     HasUnreadMessages = false
                 })
-            }) else v30, 
-            selectedTabName = v31
+            }) else v35, 
+            selectedTabName = v36, 
+            channelTabsConfigurationEnabled = v32.channelTabsConfigurationEnabled
         };
     end;
 end;
-return v2.createReducer(v12, {
-    [v7.name] = function(v33, v34) --[[ Line: 97 ]]
-        -- upvalues: v5 (copy), l_Dictionary_0 (copy), v19 (copy)
-        local l_Name_0 = v34.textChannel.Name;
-        v5:trace("LocalTextChannelParticipantAdded dispatched: {}", l_Name_0);
-        if v33.allChannelTabs[l_Name_0] ~= nil or l_Name_0 == "RBXSystem" then
-            return v33;
+return v2.createReducer(v17, {
+    [v16.name] = function(v38, v39) --[[ Line: 107 ]]
+        -- upvalues: l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), l_Dictionary_0 (copy)
+        if not l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+            return v38;
         else
-            local v36 = {
-                Name = l_Name_0, 
-                HasUnreadMessages = false, 
-                TabIndex = v33.allChannelTabs.RBXGeneral ~= nil and l_Name_0 ~= "RBXGeneral" and 2 or 1
-            };
-            return l_Dictionary_0.join(v33, {
-                allChannelTabs = v19(v33.allChannelTabs, v36)
+            return l_Dictionary_0.join(v38, {
+                channelTabsConfigurationEnabled = v39.enabled
             });
         end;
     end, 
-    [l_LocalTextChannelParticipantRemoved_0.name] = function(v37, v38) --[[ Line: 117 ]]
-        -- upvalues: v5 (copy), v32 (copy)
-        v5:trace("LocalTextChannelParticipantRemoved dispatched: {}", v38.textChannel.Name);
-        return (v32(v37, v38.textChannel));
-    end, 
-    [l_TextChannelRemoved_0.name] = function(v39, v40) --[[ Line: 125 ]]
-        -- upvalues: v5 (copy), v32 (copy)
-        v5:trace("TextChannelRemoved dispatched: {}", v40.textChannel.Name);
-        return (v32(v39, v40.textChannel));
-    end, 
-    [l_TargetTextChannelPropertyChanged_0.name] = function(v41, v42) --[[ Line: 130 ]]
-        -- upvalues: v5 (copy), l_Dictionary_0 (copy), v19 (copy), v26 (copy)
-        v5:trace("TargetTextChannelPropertyChanged dispatched");
-        if v42.textChannel and v41.allChannelTabs[v42.textChannel.Name] then
-            local v43 = v41.allChannelTabs[v42.textChannel.Name];
-            local l_TabIndex_0 = v43.TabIndex;
-            if v42.shouldReorderTabs then
-                l_TabIndex_0 = v41.allChannelTabs.RBXGeneral ~= nil and v43.Name ~= "RBXGeneral" and 2 or 1;
+    [v7.name] = function(v40, v41) --[[ Line: 116 ]]
+        -- upvalues: v5 (copy), l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), v24 (copy), l_Dictionary_0 (copy)
+        local l_Name_0 = v41.textChannel.Name;
+        v5:trace("LocalTextChannelParticipantAdded dispatched: {}", l_Name_0);
+        if v40.allChannelTabs[l_Name_0] ~= nil or l_Name_0 == "RBXSystem" then
+            return v40;
+        elseif l_GetFFlagTextChatEnableUniverseChatTabs_0() and not v40.channelTabsConfigurationEnabled and l_Name_0 ~= "RBXGeneral" then
+            return v40;
+        else
+            local v43 = nil;
+            if l_Name_0 == "RBXGeneral" then
+                v43 = 1;
+            elseif l_GetFFlagTextChatEnableUniverseChatTabs_0() and l_Name_0 == "RBXGlobal" then
+                v43 = v40.allChannelTabs.RBXGeneral and 2 or 1;
+            else
+                local v44 = v40.allChannelTabs.RBXGeneral ~= nil;
+                local v45 = l_GetFFlagTextChatEnableUniverseChatTabs_0() and v40.allChannelTabs.RBXGlobal ~= nil;
+                v43 = (v44 and 1 or 0) + 1 + (v45 and 1 or 0);
             end;
-            local v45 = l_Dictionary_0.join(v43, {
+            local v46 = {
+                Name = l_Name_0, 
+                HasUnreadMessages = false, 
+                TabIndex = v43
+            };
+            local v47 = v24(v40.allChannelTabs, v46);
+            if l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+                local l_selectedTabName_0 = v40.selectedTabName;
+                if l_selectedTabName_0 == "RBXGlobal" and l_Name_0 == "RBXGeneral" then
+                    l_selectedTabName_0 = "RBXGeneral";
+                end;
+                return l_Dictionary_0.join(v40, {
+                    allChannelTabs = v47, 
+                    selectedTabName = l_selectedTabName_0
+                });
+            else
+                return l_Dictionary_0.join(v40, {
+                    allChannelTabs = v47
+                });
+            end;
+        end;
+    end, 
+    [l_LocalTextChannelParticipantRemoved_0.name] = function(v49, v50) --[[ Line: 167 ]]
+        -- upvalues: v5 (copy), v37 (copy)
+        v5:trace("LocalTextChannelParticipantRemoved dispatched: {}", v50.textChannel.Name);
+        return (v37(v49, v50.textChannel));
+    end, 
+    [l_TextChannelRemoved_0.name] = function(v51, v52) --[[ Line: 175 ]]
+        -- upvalues: v5 (copy), v37 (copy)
+        v5:trace("TextChannelRemoved dispatched: {}", v52.textChannel.Name);
+        return (v37(v51, v52.textChannel));
+    end, 
+    [l_TargetTextChannelPropertyChanged_0.name] = function(v53, v54) --[[ Line: 180 ]]
+        -- upvalues: v5 (copy), l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), l_Dictionary_0 (copy), v24 (copy), v31 (copy)
+        v5:trace("TargetTextChannelPropertyChanged dispatched");
+        if v54.textChannel and v53.allChannelTabs[v54.textChannel.Name] then
+            local v55 = v53.allChannelTabs[v54.textChannel.Name];
+            local l_TabIndex_0 = v55.TabIndex;
+            if v54.shouldReorderTabs then
+                if v55.Name == "RBXGeneral" then
+                    l_TabIndex_0 = 1;
+                elseif l_GetFFlagTextChatEnableUniverseChatTabs_0() and v55.Name == "RBXGlobal" then
+                    l_TabIndex_0 = v53.allChannelTabs.RBXGeneral and 2 or 1;
+                else
+                    local v57 = v53.allChannelTabs.RBXGeneral ~= nil;
+                    local v58 = l_GetFFlagTextChatEnableUniverseChatTabs_0() and v53.allChannelTabs.RBXGlobal ~= nil;
+                    l_TabIndex_0 = (v57 and 1 or 0) + 1 + (v58 and 1 or 0);
+                end;
+            end;
+            local v59 = l_Dictionary_0.join(v55, {
                 HasUnreadMessages = false, 
                 TabIndex = l_TabIndex_0
             });
-            return l_Dictionary_0.join(v41, {
-                allChannelTabs = v19(v26(v41.allChannelTabs, v43), v45), 
-                selectedTabName = v43.Name
+            return l_Dictionary_0.join(v53, {
+                allChannelTabs = v24(v31(v53.allChannelTabs, v55), v59), 
+                selectedTabName = v55.Name
             });
+        elseif l_GetFFlagTextChatEnableUniverseChatTabs_0() and not v53.channelTabsConfigurationEnabled then
+            return v53;
         else
-            return l_Dictionary_0.join(v41, {
-                selectedTabName = if v42.textChannel then v42.textChannel.Name else nil
+            return l_Dictionary_0.join(v53, {
+                selectedTabName = if v54.textChannel then v54.textChannel.Name else nil
             });
         end;
     end, 
-    [v11.name] = function(v46, v47) --[[ Line: 163 ]]
-        -- upvalues: v5 (copy), l_Dictionary_0 (copy)
+    [v11.name] = function(v60, v61) --[[ Line: 225 ]]
+        -- upvalues: v5 (copy), l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), l_Dictionary_0 (copy)
         v5:trace("IncomingMessageReceived dispatched");
-        local v48 = nil;
-        if v47.textChatMessage.TextChannel then
-            v48 = v47.textChatMessage.TextChannel.Name;
-            if v47.textChatMessage.TextChannel.Name == "RBXSystem" then
-                v48 = "RBXGeneral";
+        local v62 = nil;
+        if l_GetFFlagTextChatEnableUniverseChatTabs_0() and v61.channelNameOverride then
+            v62 = v61.channelNameOverride;
+        elseif v61.textChatMessage.TextChannel then
+            v62 = v61.textChatMessage.TextChannel.Name;
+            if v61.textChatMessage.TextChannel.Name == "RBXSystem" then
+                v62 = "RBXGeneral";
             end;
         end;
-        local v49 = v46.allChannelTabs[v48];
-        if v49 == nil then
-            return v46;
-        elseif v47.isSenderLocalPlayer or v49.Name == v46.selectedTabName then
-            return v46;
+        local v63 = v60.allChannelTabs[v62];
+        if v63 == nil then
+            return v60;
+        elseif v61.isSenderLocalPlayer or v63.Name == v60.selectedTabName then
+            return v60;
         else
-            return l_Dictionary_0.join(v46, {
-                allChannelTabs = l_Dictionary_0.join(v46.allChannelTabs, {
-                    [v49.Name] = l_Dictionary_0.join(v49, {
+            return l_Dictionary_0.join(v60, {
+                allChannelTabs = l_Dictionary_0.join(v60.allChannelTabs, {
+                    [v63.Name] = l_Dictionary_0.join(v63, {
                         HasUnreadMessages = true
                     })
                 })
+            });
+        end;
+    end, 
+    [v12.name] = function(v64, v65) --[[ Line: 259 ]]
+        -- upvalues: l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), l_Dictionary_0 (copy)
+        if not l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+            return v64;
+        else
+            local l_channelNameOverride_0 = v65.channelNameOverride;
+            local v67 = v64.allChannelTabs[l_channelNameOverride_0];
+            if v67 == nil then
+                return v64;
+            elseif v67.Name == v64.selectedTabName then
+                return v64;
+            else
+                return l_Dictionary_0.join(v64, {
+                    allChannelTabs = l_Dictionary_0.join(v64.allChannelTabs, {
+                        [v67.Name] = l_Dictionary_0.join(v67, {
+                            HasUnreadMessages = true
+                        })
+                    })
+                });
+            end;
+        end;
+    end, 
+    [v13.name] = function(v68, v69) --[[ Line: 283 ]]
+        -- upvalues: v5 (copy), l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), v24 (copy), l_Dictionary_0 (copy)
+        v5:trace("UniverseChatChannelAdded dispatched: {}", v69.channelName);
+        if v68.allChannelTabs[v69.channelName] ~= nil then
+            return v68;
+        else
+            local l_tabIndex_0 = v69.tabIndex;
+            if l_GetFFlagTextChatEnableUniverseChatTabs_0() and v69.channelName == "RBXGlobal" then
+                l_tabIndex_0 = v68.allChannelTabs.RBXGeneral and 2 or 1;
+            end;
+            local v71 = {
+                Name = v69.channelName, 
+                HasUnreadMessages = false, 
+                TabIndex = l_tabIndex_0
+            };
+            local v72 = v24(v68.allChannelTabs, v71);
+            local v73 = nil;
+            if l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+                v73 = v68.selectedTabName;
+                if v73 == nil then
+                    v73 = v72.RBXGeneral and "RBXGeneral" or v69.channelName;
+                end;
+            else
+                v73 = v68.selectedTabName or v69.channelName;
+            end;
+            return l_Dictionary_0.join(v68, {
+                allChannelTabs = v72, 
+                selectedTabName = v73
+            });
+        end;
+    end, 
+    [l_UniverseChatChannelSelected_0.name] = function(v74, v75) --[[ Line: 318 ]]
+        -- upvalues: v5 (copy), l_Dictionary_0 (copy)
+        v5:trace("UniverseChatChannelSelected dispatched: {}", v75.channelName);
+        local v76 = v74.allChannelTabs[v75.channelName];
+        if v76 == nil then
+            return l_Dictionary_0.join(v74, {
+                selectedTabName = v75.channelName
+            });
+        else
+            return l_Dictionary_0.join(v74, {
+                allChannelTabs = l_Dictionary_0.join(v74.allChannelTabs, {
+                    [v75.channelName] = l_Dictionary_0.join(v76, {
+                        HasUnreadMessages = false
+                    })
+                }), 
+                selectedTabName = v75.channelName
             });
         end;
     end

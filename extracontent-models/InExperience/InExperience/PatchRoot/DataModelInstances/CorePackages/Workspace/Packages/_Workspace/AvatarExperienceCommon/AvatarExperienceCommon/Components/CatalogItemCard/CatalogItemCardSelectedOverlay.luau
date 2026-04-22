@@ -16,18 +16,17 @@ local l_useLastInput_0 = v13.useLastInput;
 local l_useIsSpatial_0 = v13.useIsSpatial;
 local l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 = require(l_Parent_0.SharedFlags).FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation;
 local l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 = v8.FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark;
-local l_FFlagAXDurablesSupport_0 = v8.FFlagAXDurablesSupport;
 local l_FFlagAXInventoryDurablesSupport_0 = v8.FFlagAXInventoryDurablesSupport;
-return function(v20) --[[ Line: 41 ]] --[[ Name: CatalogItemCardSelectedOverlay ]]
-    -- upvalues: l_useTokens_0 (copy), l_useDesignTokens_0 (copy), l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 (copy), l_useLastInput_0 (copy), l_useIsSpatial_0 (copy), v13 (copy), v1 (copy), l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 (copy), l_ItemCardIcon_0 (copy), l_FFlagAXDurablesSupport_0 (copy), l_View_0 (copy), l_ItemCardBadge_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy)
-    local v21 = l_useTokens_0();
-    local v22 = l_useDesignTokens_0();
+return function(v19) --[[ Line: 40 ]] --[[ Name: CatalogItemCardSelectedOverlay ]]
+    -- upvalues: l_useTokens_0 (copy), l_useDesignTokens_0 (copy), l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 (copy), l_useLastInput_0 (copy), l_useIsSpatial_0 (copy), v13 (copy), v1 (copy), l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 (copy), l_ItemCardIcon_0 (copy), l_View_0 (copy), l_ItemCardBadge_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy)
+    local v20 = l_useTokens_0();
+    local v21 = l_useDesignTokens_0();
     if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then
-        local v23 = l_useLastInput_0();
-        local v24 = l_useIsSpatial_0();
-        local v25 = false;
-        if v23 == v13.Input.Directional then
-            v25 = not v24;
+        local v22 = l_useLastInput_0();
+        local v23 = l_useIsSpatial_0();
+        local v24 = false;
+        if v22 == v13.Input.Directional then
+            v24 = not v23;
         end;
         return v1.createElement("Frame", {
             BackgroundTransparency = 1, 
@@ -36,33 +35,33 @@ return function(v20) --[[ Line: 41 ]] --[[ Name: CatalogItemCardSelectedOverlay 
             ZIndex = 2
         }, {
             CatalogItemCardSelectedOverlayCornerRadius = if l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 then v1.createElement("UICorner", {
-                CornerRadius = UDim.new(0, v21.Radius.Medium)
+                CornerRadius = UDim.new(0, v20.Radius.Medium)
             }) else nil, 
             CatalogItemCardSelectedOverlayStroke = if l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 then v1.createElement("UIStroke", {
-                Color = v21.Color.Content.Emphasis.Color3, 
-                Transparency = v21.Color.Content.Emphasis.Transparency, 
-                Thickness = v21.Stroke.Standard, 
+                Color = v20.Color.Content.Emphasis.Color3, 
+                Transparency = v20.Color.Content.Emphasis.Transparency, 
+                Thickness = v20.Stroke.Standard, 
                 LineJoinMode = Enum.LineJoinMode.Round, 
                 [v1.Tag] = "data-testid=selection-stroke"
             }) else nil, 
             CatalogItemCardSelectedOverlayIcon = if l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 then nil else v1.createElement("Frame", {
-                BackgroundColor3 = v22.Semantic.Color.Icon.Emphasis.Color3, 
-                BackgroundTransparency = v22.Semantic.Color.Icon.Emphasis.Transparency, 
+                BackgroundColor3 = v21.Semantic.Color.Icon.Emphasis.Color3, 
+                BackgroundTransparency = v21.Semantic.Color.Icon.Emphasis.Transparency, 
                 AutomaticSize = Enum.AutomaticSize.XY, 
-                Position = UDim2.new(1, -v21.Gap.Small, 0, v21.Gap.Small), 
+                Position = UDim2.new(1, -v20.Gap.Small, 0, v20.Gap.Small), 
                 AnchorPoint = Vector2.new(1, 0)
             }, v1.createElement("UICorner", {
-                CornerRadius = UDim.new(0, v21.Radius.Medium)
+                CornerRadius = UDim.new(0, v20.Radius.Medium)
             }), v1.createElement(l_ItemCardIcon_0, {
                 icon = "icons/status/success_small", 
-                iconStyle = v21.Inverse.Content.Emphasis
+                iconStyle = v20.Inverse.Content.Emphasis
             }), v1.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, v21.Padding.XSmall), 
-                PaddingRight = UDim.new(0, v21.Padding.XSmall), 
-                PaddingTop = UDim.new(0, v21.Padding.XSmall), 
-                PaddingBottom = UDim.new(0, v21.Padding.XSmall)
+                PaddingLeft = UDim.new(0, v20.Padding.XSmall), 
+                PaddingRight = UDim.new(0, v20.Padding.XSmall), 
+                PaddingTop = UDim.new(0, v20.Padding.XSmall), 
+                PaddingBottom = UDim.new(0, v20.Padding.XSmall)
             })), 
-            CatalogItemCardSelectedOverlayBadge = if l_FFlagAXDurablesSupport_0 and v20.badge then v1.createElement(l_View_0, {
+            CatalogItemCardSelectedOverlayBadge = if v19.badge then v1.createElement(l_View_0, {
                 tag = "padding-top-small padding-left-small", 
                 Size = UDim2.fromScale(0, 0), 
                 AutomaticSize = Enum.AutomaticSize.XY
@@ -71,33 +70,33 @@ return function(v20) --[[ Line: 41 ]] --[[ Name: CatalogItemCardSelectedOverlay 
                     content = {
                         {
                             type = "icon", 
-                            icon = v20.badge.icon
+                            icon = v19.badge.icon
                         }, 
                         {
                             type = "text", 
-                            text = v20.badge.text
+                            text = v19.badge.text
                         }
                     }, 
                     displayBorder = true
                 })
             }) else nil, 
-            CatalogItemCardSelectedOverlayItemStatusIcon = if not (l_FFlagAXInventoryDurablesSupport_0 and v20.itemStatusIcon) or v20.badge then nil else v1.createElement(l_View_0, {
+            CatalogItemCardSelectedOverlayItemStatusIcon = if not (l_FFlagAXInventoryDurablesSupport_0 and v19.itemStatusIcon) or v19.badge then nil else v1.createElement(l_View_0, {
                 tag = "padding-top-small padding-left-small", 
                 Size = UDim2.fromScale(0, 0), 
                 AutomaticSize = Enum.AutomaticSize.XY
             }, {
                 Icon = v1.createElement(l_ItemCardIcon_0, {
-                    icon = v20.itemStatusIcon
+                    icon = v19.itemStatusIcon
                 })
             }), 
-            CatalogItemCardSelectedOverlayButton = if not v25 and v20.buttonText then v1.createElement(l_Button_0, {
-                text = v20.buttonText, 
+            CatalogItemCardSelectedOverlayButton = if not v24 and v19.buttonText then v1.createElement(l_Button_0, {
+                text = v19.buttonText, 
                 buttonType = l_ButtonType_0.PrimarySystem, 
-                onActivated = v20.onActivated, 
+                onActivated = v19.onActivated, 
                 isDisabled = false, 
                 anchorPoint = Vector2.new(0.5, 1), 
-                position = UDim2.new(0.5, 0, 1, -v21.Gap.XXSmall), 
-                size = UDim2.new(1, -(v21.Gap.XXSmall * 2), 0, v21.Size.Size_700), 
+                position = UDim2.new(0.5, 0, 1, -v20.Gap.XXSmall), 
+                size = UDim2.new(1, -(v20.Gap.XXSmall * 2), 0, v20.Size.Size_700), 
                 fontStyle = "CaptionHeader"
             }) else nil
         });
@@ -109,33 +108,33 @@ return function(v20) --[[ Line: 41 ]] --[[ Name: CatalogItemCardSelectedOverlay 
             ZIndex = 2
         }, {
             CatalogItemCardSelectedOverlayCornerRadius = if l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 then v1.createElement("UICorner", {
-                CornerRadius = UDim.new(0, v21.Radius.Medium)
+                CornerRadius = UDim.new(0, v20.Radius.Medium)
             }) else nil, 
             CatalogItemCardSelectedOverlayStroke = if l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 then v1.createElement("UIStroke", {
                 ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual, 
-                Color = v21.Color.Content.Emphasis.Color3, 
-                Transparency = v21.Color.Content.Emphasis.Transparency, 
-                Thickness = v21.Stroke.Standard, 
+                Color = v20.Color.Content.Emphasis.Color3, 
+                Transparency = v20.Color.Content.Emphasis.Transparency, 
+                Thickness = v20.Stroke.Standard, 
                 LineJoinMode = Enum.LineJoinMode.Round
             }) else nil, 
             CatalogItemCardSelectedOverlayIcon = if l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 then nil else v1.createElement("Frame", {
-                BackgroundColor3 = v22.Semantic.Color.Icon.Emphasis.Color3, 
-                BackgroundTransparency = v22.Semantic.Color.Icon.Emphasis.Transparency, 
+                BackgroundColor3 = v21.Semantic.Color.Icon.Emphasis.Color3, 
+                BackgroundTransparency = v21.Semantic.Color.Icon.Emphasis.Transparency, 
                 AutomaticSize = Enum.AutomaticSize.XY, 
-                Position = UDim2.new(1, -v21.Gap.Small, 0, v21.Gap.Small), 
+                Position = UDim2.new(1, -v20.Gap.Small, 0, v20.Gap.Small), 
                 AnchorPoint = Vector2.new(1, 0)
             }, v1.createElement("UICorner", {
-                CornerRadius = UDim.new(0, v21.Radius.Medium)
+                CornerRadius = UDim.new(0, v20.Radius.Medium)
             }), v1.createElement(l_ItemCardIcon_0, {
                 icon = "icons/status/success_small", 
-                iconStyle = v21.Inverse.Content.Emphasis
+                iconStyle = v20.Inverse.Content.Emphasis
             }), v1.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, v21.Padding.XSmall), 
-                PaddingRight = UDim.new(0, v21.Padding.XSmall), 
-                PaddingTop = UDim.new(0, v21.Padding.XSmall), 
-                PaddingBottom = UDim.new(0, v21.Padding.XSmall)
+                PaddingLeft = UDim.new(0, v20.Padding.XSmall), 
+                PaddingRight = UDim.new(0, v20.Padding.XSmall), 
+                PaddingTop = UDim.new(0, v20.Padding.XSmall), 
+                PaddingBottom = UDim.new(0, v20.Padding.XSmall)
             })), 
-            CatalogItemCardSelectedOverlayBadge = if l_FFlagAXDurablesSupport_0 and v20.badge then v1.createElement(l_View_0, {
+            CatalogItemCardSelectedOverlayBadge = if v19.badge then v1.createElement(l_View_0, {
                 tag = "padding-top-small padding-left-small", 
                 Size = UDim2.fromScale(0, 0), 
                 AutomaticSize = Enum.AutomaticSize.XY
@@ -144,33 +143,33 @@ return function(v20) --[[ Line: 41 ]] --[[ Name: CatalogItemCardSelectedOverlay 
                     content = {
                         {
                             type = "icon", 
-                            icon = v20.badge.icon
+                            icon = v19.badge.icon
                         }, 
                         {
                             type = "text", 
-                            text = v20.badge.text
+                            text = v19.badge.text
                         }
                     }, 
                     displayBorder = true
                 })
             }) else nil, 
-            CatalogItemCardSelectedOverlayItemStatusIcon = if not (l_FFlagAXInventoryDurablesSupport_0 and v20.itemStatusIcon) or v20.badge then nil else v1.createElement(l_View_0, {
+            CatalogItemCardSelectedOverlayItemStatusIcon = if not (l_FFlagAXInventoryDurablesSupport_0 and v19.itemStatusIcon) or v19.badge then nil else v1.createElement(l_View_0, {
                 tag = "padding-top-small padding-left-small", 
                 Size = UDim2.fromScale(0, 0), 
                 AutomaticSize = Enum.AutomaticSize.XY
             }, {
                 Icon = v1.createElement(l_ItemCardIcon_0, {
-                    icon = v20.itemStatusIcon
+                    icon = v19.itemStatusIcon
                 })
             }), 
-            CatalogItemCardSelectedOverlayButton = if v20.buttonText then v1.createElement(l_Button_0, {
-                text = v20.buttonText, 
+            CatalogItemCardSelectedOverlayButton = if v19.buttonText then v1.createElement(l_Button_0, {
+                text = v19.buttonText, 
                 buttonType = l_ButtonType_0.PrimarySystem, 
-                onActivated = v20.onActivated, 
+                onActivated = v19.onActivated, 
                 isDisabled = false, 
                 anchorPoint = Vector2.new(0.5, 1), 
-                position = UDim2.new(0.5, 0, 1, -v21.Gap.XXSmall), 
-                size = UDim2.new(1, -(v21.Gap.XXSmall * 2), 0, v21.Size.Size_700), 
+                position = UDim2.new(0.5, 0, 1, -v20.Gap.XXSmall), 
+                size = UDim2.new(1, -(v20.Gap.XXSmall * 2), 0, v20.Size.Size_700), 
                 fontStyle = "CaptionHeader"
             }) else nil
         });

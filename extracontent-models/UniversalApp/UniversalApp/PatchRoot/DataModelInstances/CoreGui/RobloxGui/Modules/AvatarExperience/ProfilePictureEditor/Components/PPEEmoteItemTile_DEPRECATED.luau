@@ -18,15 +18,15 @@ local l_Focusable_0 = v5.Focusable;
 local l_ItemTile_0 = v3.Tile.ItemTile;
 local v18 = require(l_Modules_0.AvatarExperience.ProfilePictureEditor.Thunks.SetEmoteAssetId);
 local v19 = require(l_Modules_0.LuaApp.Constants);
-local v20 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v21 = require(l_Modules_0.AvatarExperience.Common.Components.ItemTileDetailButton);
-local v22 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v23 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenItemDetails);
 local v24 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
 local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
 local l_wasLastInputGamepad_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).wasLastInputGamepad;
 local v27 = require(l_Modules_0.AvatarExperience.Common.Components.withLastInputGroup);
-local v28 = require(l_Modules_0.AvatarExperience.Common.Context.withAdaptiveScrolling);
+local l_withAdaptiveScrolling_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Hooks.withAdaptiveScrolling;
 local v29 = require(l_CorePackages_0.Workspace.Packages.UserLib);
 local l_Constants_0 = v29.Utils.Constants;
 local l_getRbxthumbWithTypeSizeAndOptions_0 = v29.Utils.getRbxthumbWithTypeSizeAndOptions;
@@ -53,10 +53,10 @@ v33.validateProps = v11.strictInterface({
     focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v11.table, 
     catalogAnalytics = v11.table
 });
-v33.init = function(v34) --[[ Line: 81 ]] --[[ Name: init ]]
-    -- upvalues: v10 (copy), v15 (copy), v14 (copy), l_AvatarScreen_0 (copy), l_wasLastInputGamepad_0 (copy), v20 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
+v33.init = function(v34) --[[ Line: 82 ]] --[[ Name: init ]]
+    -- upvalues: v10 (copy), v15 (copy), v14 (copy), l_AvatarScreen_0 (copy), l_wasLastInputGamepad_0 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
     v34.tileRef = v10.createRef();
-    v34.activateMoreButton = function() --[[ Line: 84 ]]
+    v34.activateMoreButton = function() --[[ Line: 85 ]]
         -- upvalues: v15 (ref), v34 (copy), v14 (ref)
         local v35 = v15.GetItemSubType(v34.props.itemType, v34.props.itemData);
         local v36 = if v34.props.itemData then v34.props.itemData.priceInRobux else nil;
@@ -75,7 +75,7 @@ v33.init = function(v34) --[[ Line: 81 ]] --[[ Name: init ]]
         };
         v34.props.openItemDetails(v37);
     end;
-    v34.toggleAdaptiveScrollingSelectedItem = function(v38) --[[ Line: 103 ]]
+    v34.toggleAdaptiveScrollingSelectedItem = function(v38) --[[ Line: 104 ]]
         -- upvalues: v34 (copy)
         local l_adaptiveScrolling_0 = v34.props.adaptiveScrolling;
         if not l_adaptiveScrolling_0 then
@@ -90,8 +90,8 @@ v33.init = function(v34) --[[ Line: 81 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v34.toggleSelectEmote = function() --[[ Line: 115 ]]
-        -- upvalues: v34 (copy), v14 (ref), l_AvatarScreen_0 (ref), l_wasLastInputGamepad_0 (ref), v20 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
+    v34.toggleSelectEmote = function() --[[ Line: 116 ]]
+        -- upvalues: v34 (copy), v14 (ref), l_AvatarScreen_0 (ref), l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
         local l_itemId_0 = v34.props.itemId;
         local l_navigation_0 = v34.props.navigation;
         if l_itemId_0 == v34.props.emoteAssetId then
@@ -101,15 +101,15 @@ v33.init = function(v34) --[[ Line: 81 ]] --[[ Name: init ]]
         elseif v34.props.avatarType == v14.AvatarType.R6 then
             v34.props.navigation.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
                 bodyTextKey = "Feature.Avatar.Label.PPEEmoteR15Warning", 
-                onSwitchSelected = function() --[[ Line: 128 ]] --[[ Name: onSwitchSelected ]]
+                onSwitchSelected = function() --[[ Line: 129 ]] --[[ Name: onSwitchSelected ]]
                     -- upvalues: v34 (ref), l_itemId_0 (copy), l_navigation_0 (copy)
                     v34.props.setEmoteAssetId(l_itemId_0, l_navigation_0);
                     v34.toggleAdaptiveScrollingSelectedItem(false);
                 end, 
-                onOverlayClosed = function() --[[ Line: 132 ]] --[[ Name: onOverlayClosed ]]
-                    -- upvalues: l_wasLastInputGamepad_0 (ref), v20 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v34 (ref)
+                onOverlayClosed = function() --[[ Line: 133 ]] --[[ Name: onOverlayClosed ]]
+                    -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v34 (ref)
                     local v42 = l_wasLastInputGamepad_0();
-                    v20("EmotesScrollView", v42);
+                    l_logOnOverlayClosed_0("EmotesScrollView", v42);
                     if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v42 then
                         v34.props.focusController.captureFocus();
                     end;
@@ -123,7 +123,7 @@ v33.init = function(v34) --[[ Line: 81 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v33.shouldProvideControlsToViewItemDetails = function(v43) --[[ Line: 151 ]] --[[ Name: shouldProvideControlsToViewItemDetails ]]
+v33.shouldProvideControlsToViewItemDetails = function(v43) --[[ Line: 152 ]] --[[ Name: shouldProvideControlsToViewItemDetails ]]
     if not v43.props.itemId then
         return false;
     elseif not v43.props.isSelected then
@@ -132,7 +132,7 @@ v33.shouldProvideControlsToViewItemDetails = function(v43) --[[ Line: 151 ]] --[
         return true;
     end;
 end;
-v33.renderMoreButton = function(v44) --[[ Line: 169 ]] --[[ Name: renderMoreButton ]]
+v33.renderMoreButton = function(v44) --[[ Line: 170 ]] --[[ Name: renderMoreButton ]]
     -- upvalues: v19 (copy), v10 (copy), v21 (copy)
     if not v44:shouldProvideControlsToViewItemDetails() then
         return nil;
@@ -144,7 +144,7 @@ v33.renderMoreButton = function(v44) --[[ Line: 169 ]] --[[ Name: renderMoreButt
         });
     end;
 end;
-v33.render = function(v45) --[[ Line: 186 ]] --[[ Name: render ]]
+v33.render = function(v45) --[[ Line: 187 ]] --[[ Name: render ]]
     -- upvalues: v14 (copy), v5 (copy), v10 (copy), l_Focusable_0 (copy), l_ItemTile_0 (copy)
     local l_ItemTileTitleMaxLines_0 = v14.ItemTileTitleMaxLines;
     local l_titleFontStyle_0 = v45.props.titleFontStyle;
@@ -163,14 +163,14 @@ v33.render = function(v45) --[[ Line: 186 ]] --[[ Name: render ]]
         titleFontStyle = l_titleFontStyle_0, 
         name = v45.props.name, 
         inputBindings = v49, 
-        renderTileInset = function() --[[ Line: 209 ]] --[[ Name: renderTileInset ]]
+        renderTileInset = function() --[[ Line: 210 ]] --[[ Name: renderTileInset ]]
             -- upvalues: v45 (copy)
             return v45:renderMoreButton();
         end, 
         [v10.Ref] = v45.tileRef
     });
 end;
-local function v58(v50, v51) --[[ Line: 216 ]] --[[ Name: mapStateToProps ]]
+local function v58(v50, v51) --[[ Line: 217 ]] --[[ Name: mapStateToProps ]]
     -- upvalues: v13 (copy), v14 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_Constants_0 (copy)
     local l_emoteAssetId_0 = v50.AvatarExperience.ProfilePictureEditor.ProfilePictureParams.emoteAssetId;
     local l_AvatarType_0 = v50.AvatarExperience.AvatarEditor.Character.AvatarType;
@@ -192,18 +192,18 @@ local function v58(v50, v51) --[[ Line: 216 ]] --[[ Name: mapStateToProps ]]
     };
 end;
 v33 = v27(v33);
-v33 = v28((v8((l_withNavigation_0(v2.connect(v58, function(v59) --[[ Line: 241 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v18 (copy), v22 (copy), v23 (copy)
+v33 = l_withAdaptiveScrolling_0((v8((l_withNavigation_0(v2.connect(v58, function(v59) --[[ Line: 242 ]] --[[ Name: mapDispatchToProps ]]
+    -- upvalues: v18 (copy), l_NavigateWithLock_0 (copy), v23 (copy)
     return {
-        setEmoteAssetId = function(v60, v61) --[[ Line: 243 ]] --[[ Name: setEmoteAssetId ]]
+        setEmoteAssetId = function(v60, v61) --[[ Line: 244 ]] --[[ Name: setEmoteAssetId ]]
             -- upvalues: v59 (copy), v18 (ref)
             return v59(v18(v60, v61));
         end, 
-        navigateWithLock = function(v62) --[[ Line: 246 ]] --[[ Name: navigateWithLock ]]
-            -- upvalues: v59 (copy), v22 (ref)
-            v59(v22(v62));
+        navigateWithLock = function(v62) --[[ Line: 247 ]] --[[ Name: navigateWithLock ]]
+            -- upvalues: v59 (copy), l_NavigateWithLock_0 (ref)
+            v59(l_NavigateWithLock_0(v62));
         end, 
-        openItemDetails = function(v63) --[[ Line: 249 ]] --[[ Name: openItemDetails ]]
+        openItemDetails = function(v63) --[[ Line: 250 ]] --[[ Name: openItemDetails ]]
             -- upvalues: v59 (copy), v23 (ref)
             v59(v23(v63));
         end
@@ -215,9 +215,9 @@ v33 = l_RoactServices_0.connect({
 if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
     return v33;
 else
-    return function(v64) --[[ Line: 268 ]]
+    return function(v64) --[[ Line: 269 ]]
         -- upvalues: v5 (copy), v10 (copy), v33 (ref), v6 (copy)
-        return v5.withFocusController(function(v65) --[[ Line: 269 ]]
+        return v5.withFocusController(function(v65) --[[ Line: 270 ]]
             -- upvalues: v10 (ref), v33 (ref), v6 (ref), v64 (copy)
             return v10.createElement(v33, v6.Dictionary.join(v64, {
                 focusController = v65

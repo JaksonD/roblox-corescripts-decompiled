@@ -17,26 +17,32 @@ v8.requiredData = {
     v2.SharedDataMember.renderMeshesData
 };
 v8.fflag = v5.checkFlagEnabledForAllowHrd;
-v8.run = function(v10, v11) --[[ Line: 21 ]]
-    -- upvalues: v9 (copy), v4 (copy), v6 (copy), v3 (copy), v7 (copy)
-    local l_rootInstance_0 = v11.rootInstance;
-    local v13 = v9 / 100;
-    for _, v15 in (v4(l_rootInstance_0, "MeshPart")) do
-        local v16 = v11.renderMeshesData[v15.Name];
-        if v16 then
-            local v17 = v16.originalSize * v16.scale * v13 / 2;
-            local v18 = v15.CFrame:Inverse();
-            for _, v20 in (v4(v15, "Bone")) do
-                local l_Position_0 = (v18 * v20.WorldCFrame).Position;
-                if not v6.isInRange(l_Position_0, -v17, v17) then
-                    v10:fail(v3.Keys.HrdBone_OutOfBounds, {
-                        bonePath = v20:GetFullName(), 
-                        partName = v15.Name
+local v10 = game:DefineFastInt("UGCValidationMinimumJointDistanceHundredths", 5) / 100;
+v8.run = function(v11, v12) --[[ Line: 22 ]]
+    -- upvalues: v9 (copy), v4 (copy), v6 (copy), v3 (copy), v7 (copy), v10 (copy)
+    local l_rootInstance_0 = v12.rootInstance;
+    local v14 = v9 / 100;
+    for _, v16 in (v4(l_rootInstance_0, "MeshPart")) do
+        local v17 = v12.renderMeshesData[v16.Name];
+        if v17 then
+            local v18 = v17.originalSize * v17.scale * v14 / 2;
+            local v19 = v16.CFrame:Inverse();
+            for _, v21 in (v4(v16, "Bone")) do
+                local l_Position_0 = (v19 * v21.WorldCFrame).Position;
+                if not v6.isInRange(l_Position_0, -v18, v18) then
+                    v11:fail(v3.Keys.HrdBone_OutOfBounds, {
+                        bonePath = v21:GetFullName(), 
+                        partName = v16.Name
                     });
                 end;
-                if not v7.fuzzyEq(v20.Transform, CFrame.identity) then
-                    v10:fail(v3.Keys.HrdBone_TransformNotIdentity, {
-                        bonePath = v20:GetFullName()
+                if not v7.fuzzyEq(v21.Transform, CFrame.identity) then
+                    v11:fail(v3.Keys.HrdBone_TransformNotIdentity, {
+                        bonePath = v21:GetFullName()
+                    });
+                end;
+                if v21.Parent:IsA("Bone") and v21.Position.Magnitude < v10 then
+                    v11:fail(v3.Keys.HrdBone_TooCloseToParent, {
+                        bonePath = v21:GetFullName()
                     });
                 end;
             end;

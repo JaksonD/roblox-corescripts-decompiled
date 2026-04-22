@@ -1,2 +1,2 @@
 local v0 = require(script.Parent.FFlagLuaAppUnifyPlayButtonAllSurfacesIxp);
-return game:DefineFastFlag("LuaAppUnifyPlayButtonMobileEdp2", false) or v0;
+return game:DefineFastFlag("LuaAppUnifyPlayButtonMobileEdp3", false) or v0;

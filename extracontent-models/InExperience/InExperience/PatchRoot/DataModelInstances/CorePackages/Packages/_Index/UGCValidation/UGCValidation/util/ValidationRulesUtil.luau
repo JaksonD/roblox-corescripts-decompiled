@@ -17,17 +17,17 @@ local v23 = {
         LeftLowerLeg = "LeftKneeRigAttachment", 
         LeftUpperLeg = "LeftHipRigAttachment"
     }, 
-    getRules = function(v1) --[[ Line: 35 ]] --[[ Name: getRules ]]
+    getRules = function(v1) --[[ Line: 36 ]] --[[ Name: getRules ]]
         -- upvalues: l_AvatarCreationService_0 (copy)
         if not v1.rules then
             v1.rules = l_AvatarCreationService_0:GetValidationRules();
         end;
         return v1.rules;
     end, 
-    getBodyPartMaxTrianglesRule = function(v2, v3) --[[ Line: 43 ]] --[[ Name: getBodyPartMaxTrianglesRule ]]
+    getBodyPartMaxTrianglesRule = function(v2, v3) --[[ Line: 44 ]] --[[ Name: getBodyPartMaxTrianglesRule ]]
         return v2:getRules().MeshRules.BodyPartMaxTriangles[v3];
     end, 
-    getMakeupRules = function(v4) --[[ Line: 47 ]] --[[ Name: getMakeupRules ]]
+    getMakeupRules = function(v4) --[[ Line: 48 ]] --[[ Name: getMakeupRules ]]
         local l_MakeupRules_0 = v4:getRules().MakeupRules;
         local v6 = {};
         for v7, v8 in l_MakeupRules_0 do
@@ -61,7 +61,7 @@ local v23 = {
         v6.AssetUVBounds = v9;
         return v6;
     end, 
-    getAccessoryRules = function(v16, v17) --[[ Line: 88 ]] --[[ Name: getAccessoryRules ]]
+    getAccessoryRules = function(v16, v17) --[[ Line: 89 ]] --[[ Name: getAccessoryRules ]]
         for v18, v19 in v16:getRules().AccessoryRules do
             local v20 = {
                 rigidAllowed = v19.RigidAllowed, 
@@ -79,7 +79,7 @@ local v23 = {
         end;
     end
 };
-v23.getBodyPartRules = function(v24, v25) --[[ Line: 106 ]] --[[ Name: getBodyPartRules ]]
+v23.getBodyPartRules = function(v24, v25) --[[ Line: 107 ]] --[[ Name: getBodyPartRules ]]
     -- upvalues: v23 (copy)
     for v26, v27 in v24:getRules().BodyPartRules do
         local v28 = {
@@ -122,7 +122,7 @@ v23.getBodyPartRules = function(v24, v25) --[[ Line: 106 ]] --[[ Name: getBodyPa
         v25[v26] = v28;
     end;
 end;
-v23.getFullBodyRulesBounds = function(v37) --[[ Line: 149 ]] --[[ Name: getFullBodyRulesBounds ]]
+v23.getFullBodyRulesBounds = function(v37) --[[ Line: 150 ]] --[[ Name: getFullBodyRulesBounds ]]
     local v38 = {};
     for v39, v40 in v37:getRules().FullBodyRules.Bounds do
         v38[v39] = {
@@ -131,5 +131,14 @@ v23.getFullBodyRulesBounds = function(v37) --[[ Line: 149 ]] --[[ Name: getFullB
         };
     end;
     return v38;
+end;
+v23.getLCSizeLimit = function(_, v42, v43) --[[ Line: 161 ]] --[[ Name: getLCSizeLimit ]]
+    -- upvalues: v23 (copy)
+    for _, v45 in v23:getRules().AccessoryRules[v42].Attachments do
+        if v43:FindFirstChild(v45.Name) then
+            return true, v45.Size;
+        end;
+    end;
+    return false, nil;
 end;
 return v23;

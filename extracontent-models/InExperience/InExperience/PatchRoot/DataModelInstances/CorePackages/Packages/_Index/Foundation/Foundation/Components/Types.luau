@@ -5,6 +5,8 @@ local _ = require(l_script_FirstAncestor_0.Enums.StateLayerMode);
 local _ = require(l_script_FirstAncestor_0.Enums.CursorType);
 local _ = require(l_script_FirstAncestor_0.Enums.ControlState);
 local _ = require(l_script_FirstAncestor_0.Enums.ButtonVariant);
+local _ = require(l_script_FirstAncestor_0.Enums.InputFocusBehavior);
 local _ = require(l_script_FirstAncestor_0.Enums.InputSize);
+local _ = require(l_script_FirstAncestor_0.Enums.InputVariant);
 local _ = require(l_Parent_0.React);
 return {};

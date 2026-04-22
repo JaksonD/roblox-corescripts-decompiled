@@ -1,7 +1,9 @@
 local l_CorePackages_0 = game:GetService("CorePackages");
 local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
 local l_isSpatial_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
-local l_FFlagEnableInExperienceAvatarSwitcher_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableInExperienceAvatarSwitcher;
+local v3 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_FFlagEnableInExperienceAvatarSwitcher_0 = v3.FFlagEnableInExperienceAvatarSwitcher;
+local l_FFlagAddIGMToSideSheet_0 = v3.FFlagAddIGMToSideSheet;
 return {
     OverflowMenu = require(script.OverflowMenu), 
     Chat = require(script.ExpChat.ChatChromeIntegration), 
@@ -18,5 +20,6 @@ return {
     MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint), 
     PartyMic = require(script.Party.PartyMic), 
     VRToggleButton = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then require(script.VRToggleButton) else nil, 
-    VRSafeBubble = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then require(script.VRSafeBubble) else nil
+    VRSafeBubble = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then require(script.VRSafeBubble) else nil, 
+    People = if l_FFlagAddIGMToSideSheet_0 then require(script.Pages.People) else nil
 };

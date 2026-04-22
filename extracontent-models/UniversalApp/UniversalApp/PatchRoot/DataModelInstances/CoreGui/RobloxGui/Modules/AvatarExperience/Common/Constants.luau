@@ -5,7 +5,7 @@ local l_Symbol_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Sym
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local v5 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
 local l_ItemTypeEnum_0 = v5.Enums.ItemTypeEnum;
-local v7 = require(l_Modules_0.AvatarExperience.Common.Enum.FullView);
+local l_FullView_0 = v5.Enums.FullView;
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
 local v9 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local l_Constants_0 = v5.Constants;
@@ -233,26 +233,15 @@ else
         [v38.BundleTypeIdStrings.Animations] = "4"
     };
 end;
-v38.AssetTypeIdStrings = {};
-v38.AssetTypeIdStringToName = {};
-for _, v43 in (Enum.AvatarAssetType:GetEnumItems()) do
-    v38.AssetTypeIdStrings[v43.Name] = tostring(v43.Value);
-    v38.AssetTypeIdStringToName[tostring(v43.Value)] = v43.Name;
-end;
+v38.AssetTypeIdStrings = l_Constants_0.ASSET_TYPE_NAME_TO_ID_STRING;
+v38.AssetTypeIdStringToName = l_Constants_0.ASSET_TYPE_ID_STRING_TO_NAME;
 v38.DynamicHeadAssetTypes = {
     [v38.AssetTypeIdStrings.EyebrowAccessory] = true, 
     [v38.AssetTypeIdStrings.EyelashAccessory] = true, 
     [v38.AssetTypeIdStrings.MoodAnimation] = true, 
     [v38.AssetTypeIdStrings.DynamicHead] = true
 };
-v38.OutfitTypes = {
-    Avatar = "Avatar", 
-    EditableAvatar = "EditableAvatar", 
-    DynamicHead = "DynamicHead", 
-    Shoes = "Shoes", 
-    Animations = v14() and "Animations" or nil, 
-    Makeup = l_FFlagAXCustomizeMakeupSupport_0 and "Makeup" or nil
-};
+v38.OutfitTypes = v5.Enums.OutfitTypes;
 v38.BundleTypeIdStringToOutfitType = {
     [v38.BundleTypeIdStrings.BodyParts] = v38.OutfitTypes.Avatar, 
     [v38.BundleTypeIdStrings.DynamicHead] = v38.OutfitTypes.DynamicHead, 
@@ -281,13 +270,13 @@ v38.LookType = {
     Outfit = "Outfit", 
     Makeup = "Makeup"
 };
-v38.confirmItemType = function(v44) --[[ Line: 403 ]]
+v38.confirmItemType = function(v42) --[[ Line: 387 ]]
     -- upvalues: v38 (copy)
-    if v44 == v38.ItemType.Asset then
+    if v42 == v38.ItemType.Asset then
         return v38.ItemType.Asset;
-    elseif v44 == v38.ItemType.Bundle then
+    elseif v42 == v38.ItemType.Bundle then
         return v38.ItemType.Bundle;
-    elseif v44 == v38.ItemType.Outfit then
+    elseif v42 == v38.ItemType.Outfit then
         return v38.ItemType.Asset;
     else
         return nil;
@@ -1187,8 +1176,8 @@ v38.AssetTypeIdToAccessoryTypeEnum = {
     [tostring(Enum.AssetType.EyelashAccessory.Value)] = Enum.AccessoryType.Eyelash
 };
 v38.AccessoryTypeEnumToAssetTypeId = {};
-for v45, v46 in v38.AssetTypeIdToAccessoryTypeEnum do
-    v38.AccessoryTypeEnumToAssetTypeId[v46] = v45;
+for v43, v44 in v38.AssetTypeIdToAccessoryTypeEnum do
+    v38.AccessoryTypeEnumToAssetTypeId[v44] = v43;
 end;
 v38.LayeredAssetTypes = {
     [tostring(Enum.AssetType.TShirtAccessory.Value)] = Enum.AccessoryType.TShirt, 
@@ -1208,18 +1197,6 @@ v38.AssetCategory = {
     LCTops = "LCTops", 
     LCBottoms = "LCBottoms"
 };
-v38.AssetCategoryToAssetTypes = {
-    [v38.AssetCategory.LCTops] = {
-        v38.AssetTypeIdStrings.ShirtAccessory, 
-        v38.AssetTypeIdStrings.TShirtAccessory, 
-        v38.AssetTypeIdStrings.SweaterAccessory
-    }, 
-    [v38.AssetCategory.LCBottoms] = {
-        v38.AssetTypeIdStrings.PantsAccessory, 
-        v38.AssetTypeIdStrings.ShortsAccessory, 
-        v38.AssetTypeIdStrings.DressSkirtAccessory
-    }
-};
 v38.NavOuterPadding = 6;
 v38.NavInnerPadding = 6;
 v38.NavButtonElementPadding = 4;
@@ -1227,62 +1204,56 @@ v38.NavButtonElementMargin = 4;
 v38.NavCornerSize = 8;
 v38.NavButtonBorderSize = 2;
 v38.NavSubButtonInnerPadding = 4;
-v38.AssetTypeToAssetCategory = {};
-for v47, v48 in v38.AssetCategoryToAssetTypes do
-    for _, v50 in v48 do
-        v38.AssetTypeToAssetCategory[v50] = v47;
-    end;
-end;
 v38.MinTileWidthToFontHeightRatio = 6;
 v38.SmallRadioButtonHeight = 56;
 v38.SortAndFiltersRowHeight = 45;
 v38.SortAndFiltersSmallRowHeight = 32;
 v38.SortAndFiltersSectionPadding = 8;
 v38.FullViewPageDefaults = {
-    [l_AvatarScreen_0.AccessoryAdjustment] = v7.None, 
-    [l_AvatarScreen_0.LayeredClothingSort] = v7.None, 
-    [l_AvatarScreen_0.LayeredMakeupSort] = if l_FFlagAXCustomizeMakeupSupport_0 then v7.None else nil, 
-    [l_AvatarScreen_0.AvatarEditor] = v7.None, 
-    [l_AvatarScreen_0.AvatarExperienceLandingPage] = v7.None, 
-    [l_AvatarScreen_0.Catalog] = v7.None, 
-    [l_AvatarScreen_0.CatalogSearch] = v7.None, 
-    [l_AvatarScreen_0.ProfilePictureEditorEmotes] = v7.None, 
-    [l_AvatarScreen_0.MySharedAvatars] = v7.None, 
-    [l_AvatarScreen_0.SearchLandingFocusedWidgetPage] = if v17 then v7.None else nil, 
-    [l_AvatarScreen_0.BodyShape] = if v14() then v7.None else nil, 
-    [l_AvatarScreen_0.AvatarSwitcher] = if v14() then v7.None else nil, 
-    [l_AvatarScreen_0.EditEmotes] = if v14() then v7.None else nil, 
-    [l_AvatarScreen_0.Photobooth] = if v18.FFlagAXPhotoboothFunctionality then v7.SceneFullView else nil
+    [l_AvatarScreen_0.AccessoryAdjustment] = l_FullView_0.None, 
+    [l_AvatarScreen_0.LayeredClothingSort] = l_FullView_0.None, 
+    [l_AvatarScreen_0.LayeredMakeupSort] = if l_FFlagAXCustomizeMakeupSupport_0 then l_FullView_0.None else nil, 
+    [l_AvatarScreen_0.AvatarEditor] = l_FullView_0.None, 
+    [l_AvatarScreen_0.AvatarExperienceLandingPage] = l_FullView_0.None, 
+    [l_AvatarScreen_0.Catalog] = l_FullView_0.None, 
+    [l_AvatarScreen_0.CatalogSearch] = l_FullView_0.None, 
+    [l_AvatarScreen_0.ProfilePictureEditorEmotes] = l_FullView_0.None, 
+    [l_AvatarScreen_0.MySharedAvatars] = l_FullView_0.None, 
+    [l_AvatarScreen_0.SearchLandingFocusedWidgetPage] = if v17 then l_FullView_0.None else nil, 
+    [l_AvatarScreen_0.BodyShape] = if v14() then l_FullView_0.None else nil, 
+    [l_AvatarScreen_0.AvatarSwitcher] = if v14() then l_FullView_0.None else nil, 
+    [l_AvatarScreen_0.EditEmotes] = if v14() then l_FullView_0.None else nil, 
+    [l_AvatarScreen_0.Photobooth] = if v18.FFlagAXPhotoboothFunctionality then l_FullView_0.SceneFullView else nil
 };
-local v51 = l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and 0.9 or nil;
-local v52 = l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and -1.2 or nil;
-local v53 = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then -2 * v35 + v52 else -2 * v35;
-local v54 = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then -4.4 * v35 + v52 else -4.4 * v35;
-local v55 = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then 3.2 * v35 * v51 else 3.2 * v35;
-local v56 = (3.52 * v35 - 3.52) / 2;
+local v45 = l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and 0.9 or nil;
+local v46 = l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and -1.2 or nil;
+local v47 = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then -2 * v35 + v46 else -2 * v35;
+local v48 = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then -4.4 * v35 + v46 else -4.4 * v35;
+local v49 = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then 3.2 * v35 * v45 else 3.2 * v35;
+local v50 = (3.52 * v35 - 3.52) / 2;
 v38.VR = {
     SPACE_BETWEEN_STACKED_PANELS = 0.01, 
     PANELS_HEIGHT_OFFSET = 4.6, 
     PanelInfo = {
         Left = {
             PartSize = Vector2.new(2.2, 3.52) * v35, 
-            Offset = CFrame.lookAt(Vector3.new(-v55, 4.6, v53), (Vector3.new(0, 4.599999904632568, 0, 0))), 
+            Offset = CFrame.lookAt(Vector3.new(-v49, 4.6, v47), (Vector3.new(0, 4.599999904632568, 0, 0))), 
             VirtualScreenSize = Vector2.new(360, 704)
         }, 
         Right = {
             PartSize = Vector2.new(2.2, 3.52) * v35, 
-            Offset = CFrame.lookAt(Vector3.new(v55, 4.6, v53), (Vector3.new(0, 4.599999904632568, 0, 0))), 
+            Offset = CFrame.lookAt(Vector3.new(v49, 4.6, v47), (Vector3.new(0, 4.599999904632568, 0, 0))), 
             VirtualScreenSize = Vector2.new(360, 704)
         }, 
         Center = {
             PartSize = Vector2.new(3, 3.52) * v35, 
-            Offset = CFrame.lookAt(Vector3.new(0, 4.6, v54), (Vector3.new(0, 4.599999904632568, 0, 0))), 
+            Offset = CFrame.lookAt(Vector3.new(0, 4.6, v48), (Vector3.new(0, 4.599999904632568, 0, 0))), 
             VirtualScreenSize = Vector2.new(600, 704)
         }
     }, 
     AvatarEditorNavBarSize = Vector2.new(2.5, 0.3) * v35, 
-    AvatarEditorNavBarPosition = Vector3.new(0, 6.9 + v56, v54), 
-    AvatarEditorNavBarOrientation = Vector3.new(0, 7 + v56, 0), 
+    AvatarEditorNavBarPosition = Vector3.new(0, 6.9 + v50, v48), 
+    AvatarEditorNavBarOrientation = Vector3.new(0, 7 + v50, 0), 
     AvatarEditorNavBarResolution = Vector2.new(650, 75)
 };
 v38.Counter = {

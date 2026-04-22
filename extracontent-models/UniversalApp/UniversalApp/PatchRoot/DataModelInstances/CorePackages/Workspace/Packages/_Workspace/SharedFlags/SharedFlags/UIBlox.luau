@@ -11,5 +11,7 @@ return {
     FFlagUIBloxFixCoplayFooterConditionalHooks = game:DefineFastFlag("UIBloxFixCoplayFooterConditionalHooks", false), 
     FFlagLuaAppUseFoundationCheckbox = game:DefineFastFlag("LuaAppUseFoundationCheckbox", false), 
     FFlagLuaAppUseFoundationLoading = game:DefineFastFlag("LuaAppUseFoundationLoading", false), 
-    FFlagUIBloxDisableTokenScaling = game:DefineFastFlag("UIBloxDisableTokenScaling", false)
+    FFlagUIBloxDisableTokenScaling = game:DefineFastFlag("UIBloxDisableTokenScaling", false), 
+    FFlagUIBloxEnableFoundationTokenMapping = game:DefineFastFlag("UIBloxEnableFoundationTokenMapping", false), 
+    FFlagUIBloxUseColorTokensForThemeMapping = game:DefineFastFlag("UIBloxUseColorTokensForThemeMapping", false)
 };

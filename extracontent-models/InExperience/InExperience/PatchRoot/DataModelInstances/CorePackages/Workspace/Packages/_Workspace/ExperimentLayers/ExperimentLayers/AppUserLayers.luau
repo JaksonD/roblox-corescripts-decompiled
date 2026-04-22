@@ -145,5 +145,6 @@ return {
     PartyToast = "Party.Toast", 
     PartyPush = "Party.Push", 
     PartySchedule = "Party.Schedule", 
-    ConnectionsHubExposureLayer = "Social.ConnectionsHub"
+    ConnectionsHubExposureLayer = "Social.ConnectionsHub", 
+    AdsPlayWithRewardBetaLayer = "Ads.RewardedAds.PlayWithRewardBeta"
 };

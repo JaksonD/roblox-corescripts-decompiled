@@ -1,1 +1,1 @@
-return game:DefineFastFlag("EnableSideSheet", false);
+return game:DefineFastFlag("EnableSideSheet3", false);

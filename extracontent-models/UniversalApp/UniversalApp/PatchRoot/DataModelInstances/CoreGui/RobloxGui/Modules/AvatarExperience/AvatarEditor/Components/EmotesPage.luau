@@ -16,14 +16,14 @@ local v14 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.EquipSl
 local v15 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.ItemsList);
 local v16 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetSelectedEmoteSlot);
 local v17 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v18 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = v7.Debug.logOnOverlayClosed;
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
 local function v22(v21) --[[ Line: 39 ]] --[[ Name: selectAvatarType ]]
     return v21.AvatarExperience.AvatarEditor.Character.AvatarType;
 end;
 return v2.memo(v2.forwardRef(function(v23, v24) --[[ Line: 43 ]] --[[ Name: EmotesPage ]]
-    -- upvalues: v2 (copy), v6 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), l_useSelector_0 (copy), v22 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v3 (copy), l_useTokens_0 (copy), l_AvatarScreen_0 (copy), v18 (copy), v17 (copy), v16 (copy), l_Focusable_0 (copy), v14 (copy), v15 (copy)
+    -- upvalues: v2 (copy), v6 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), l_useSelector_0 (copy), v22 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v3 (copy), l_useTokens_0 (copy), l_AvatarScreen_0 (copy), l_logOnOverlayClosed_0 (copy), v17 (copy), v16 (copy), l_Focusable_0 (copy), v14 (copy), v15 (copy)
     local v25 = v2.useRef(nil);
     local v26 = v2.useRef(nil);
     local v27, v28 = v2.useState(false);
@@ -46,10 +46,10 @@ return v2.memo(v2.forwardRef(function(v23, v24) --[[ Line: 43 ]] --[[ Name: Emot
         v30(v42);
     end, {});
     local v46 = v2.useCallback(function(v44) --[[ Line: 68 ]]
-        -- upvalues: v18 (ref), v38 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v36 (copy), v35 (copy), v17 (ref), v33 (copy), l_AvatarScreen_0 (ref), v32 (copy), v16 (ref)
+        -- upvalues: l_logOnOverlayClosed_0 (ref), v38 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v36 (copy), v35 (copy), v17 (ref), v33 (copy), l_AvatarScreen_0 (ref), v32 (copy), v16 (ref)
         local function v45() --[[ Line: 69 ]]
-            -- upvalues: v18 (ref), v38 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v36 (ref)
-            v18("EmotesPage", v38);
+            -- upvalues: l_logOnOverlayClosed_0 (ref), v38 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v36 (ref)
+            l_logOnOverlayClosed_0("EmotesPage", v38);
             if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v38 then
                 v36.captureFocus();
             end;

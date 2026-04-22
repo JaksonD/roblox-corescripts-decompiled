@@ -74,47 +74,5 @@ return {
         additionalInfo = {
             btn = v8.OpenAvatarMarketplace
         }
-    }, 
-    [v7.OpenPersonaOutfitSelect] = {
-        context = l_Contexts_0.EditProfile, 
-        eventType = l_EventTypes_0.ButtonClick, 
-        additionalInfo = {
-            btn = v8.OnPersonaChoose
-        }
-    }, 
-    [v7.OpenPersonaNameModal] = {
-        context = l_Contexts_0.EditProfile, 
-        eventType = l_EventTypes_0.ButtonClick, 
-        additionalInfo = {
-            btn = v8.OnPersonaNameEdit
-        }
-    }, 
-    [v7.TogglePersona] = {
-        context = l_Contexts_0.EditProfile, 
-        eventType = l_EventTypes_0.ButtonClick, 
-        additionalInfo = {
-            btn = v8.OnPersonaToggle
-        }
-    }, 
-    [v7.PersonaOutfitSelectLoaded] = {
-        context = l_Contexts_0.EditProfile, 
-        eventType = l_EventTypes_0.PageLoad, 
-        additionalInfo = {
-            page = v6.PersonaAvatarPage
-        }
-    }, 
-    [v7.PersonaToAvatarCreator] = {
-        context = l_Contexts_0.EditProfile, 
-        eventType = l_EventTypes_0.ButtonClick, 
-        additionalInfo = {
-            btn = v8.OnPersonaRedirect
-        }
-    }, 
-    [v7.PersonaNameSaved] = {
-        context = l_Contexts_0.EditProfile, 
-        eventType = l_EventTypes_0.ButtonClick, 
-        additionalInfo = {
-            btn = v8.SavePersonaName
-        }
     }
 };

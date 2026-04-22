@@ -10,57 +10,59 @@ local l_DefaultMetricsGridView_0 = v6.App.Grid.DefaultMetricsGridView;
 local v9 = require(l_Modules_0.LuaApp.Components.Subscription.SubscriptionTile);
 local _ = require(l_Modules_0.LuaApp.Models.SubscriptionApi.SubscriptionProductInfoModel);
 local v11 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableDevSubsInRobux);
-local function v25(v12, v13, v14, v15, v16) --[[ Line: 32 ]] --[[ Name: getTiles ]]
-    local v17 = {};
-    local v18 = v12.GameSubscriptionProducts[v13];
-    if v18 == nil then
-        return v17;
+local l_FFlagEnableDevSubsFastFollowFixes_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableDevSubsFastFollowFixes;
+local function v26(v13, v14, v15, v16, v17) --[[ Line: 34 ]] --[[ Name: getTiles ]]
+    local v18 = {};
+    local v19 = v13.GameSubscriptionProducts[v14];
+    if v19 == nil then
+        return v18;
     else
-        local l_SubscriptionProductsThumbnails_0 = v12.SubscriptionProductsThumbnails;
-        local l_SubscriptionStatuses_0 = v12.SubscriptionStatuses;
-        for _, v22 in v18 do
-            local v23 = "";
-            local v24 = false;
-            if l_SubscriptionProductsThumbnails_0[tostring(v22.iconImageAssetId)] then
-                v23 = l_SubscriptionProductsThumbnails_0[tostring(v22.iconImageAssetId)].url;
+        local l_SubscriptionProductsThumbnails_0 = v13.SubscriptionProductsThumbnails;
+        local l_SubscriptionStatuses_0 = v13.SubscriptionStatuses;
+        for _, v23 in v19 do
+            local v24 = "";
+            local v25 = false;
+            if l_SubscriptionProductsThumbnails_0[tostring(v23.iconImageAssetId)] then
+                v24 = l_SubscriptionProductsThumbnails_0[tostring(v23.iconImageAssetId)].url;
             end;
-            if v22.subscriptionTargetKey and l_SubscriptionStatuses_0[v22.subscriptionTargetKey] then
-                v24 = l_SubscriptionStatuses_0[v22.subscriptionTargetKey].isSubscribed;
+            if v23.subscriptionTargetKey and l_SubscriptionStatuses_0[v23.subscriptionTargetKey] then
+                v25 = l_SubscriptionStatuses_0[v23.subscriptionTargetKey].isSubscribed;
             end;
-            table.insert(v17, {
-                subscriptionProduct = v22, 
-                thumbnailString = v23, 
-                screenSize = v14, 
-                isSubscribed = v24, 
-                creatorName = v15, 
-                creatorVerified = v16
+            table.insert(v18, {
+                subscriptionProduct = v23, 
+                thumbnailString = v24, 
+                screenSize = v15, 
+                isSubscribed = v25, 
+                creatorName = v16, 
+                creatorVerified = v17
             });
         end;
-        return v17;
+        return v18;
     end;
 end;
-return function(v26) --[[ Line: 63 ]] --[[ Name: SubscriptionsGrid ]]
-    -- upvalues: l_useScreenSize_0 (copy), v2 (copy), v25 (copy), l_useSelector_0 (copy), l_useDesignTokens_0 (copy), l_DefaultMetricsGridView_0 (copy), v9 (copy), v11 (copy), l_GridMetrics_0 (copy)
-    local v27 = l_useScreenSize_0();
-    local l_creatorName_0 = v26.creatorName;
-    local l_creatorVerified_0 = v26.creatorVerified;
-    local v31 = v2.useCallback(function(v30) --[[ Line: 67 ]]
-        -- upvalues: v25 (ref), v26 (copy), v27 (copy), l_creatorName_0 (copy), l_creatorVerified_0 (copy)
-        return (v25(v30, v26.universeId, v27, l_creatorName_0, l_creatorVerified_0));
+return function(v27) --[[ Line: 65 ]] --[[ Name: SubscriptionsGrid ]]
+    -- upvalues: l_useScreenSize_0 (copy), v2 (copy), v26 (copy), l_useSelector_0 (copy), l_useDesignTokens_0 (copy), l_FFlagEnableDevSubsFastFollowFixes_0 (copy), l_DefaultMetricsGridView_0 (copy), v9 (copy), v11 (copy), l_GridMetrics_0 (copy)
+    local v28 = l_useScreenSize_0();
+    local l_creatorName_0 = v27.creatorName;
+    local l_creatorVerified_0 = v27.creatorVerified;
+    local v32 = v2.useCallback(function(v31) --[[ Line: 69 ]]
+        -- upvalues: v26 (ref), v27 (copy), v28 (copy), l_creatorName_0 (copy), l_creatorVerified_0 (copy)
+        return (v26(v31, v27.universeId, v28, l_creatorName_0, l_creatorVerified_0));
     end, {
-        v26.universeId, 
-        v27, 
+        v27.universeId, 
+        v28, 
         l_creatorName_0, 
         l_creatorVerified_0
     });
-    local v32 = l_useSelector_0(v31);
-    local l_Space_300_0 = l_useDesignTokens_0().Global.Space_300;
+    local v33 = l_useSelector_0(v32);
+    local v34 = l_useDesignTokens_0();
+    local v35 = if l_FFlagEnableDevSubsFastFollowFixes_0 then v34.Global.Space_200 else v34.Global.Space_300;
     return v2.createElement(l_DefaultMetricsGridView_0, {
-        renderItem = function(v34) --[[ Line: 75 ]] --[[ Name: renderItem ]]
+        renderItem = function(v36) --[[ Line: 79 ]] --[[ Name: renderItem ]]
             -- upvalues: v2 (ref), v9 (ref)
-            return v2.createElement(v9, v34);
+            return v2.createElement(v9, v36);
         end, 
-        getItemHeight = function() --[[ Line: 78 ]] --[[ Name: getItemHeight ]]
+        getItemHeight = function() --[[ Line: 82 ]] --[[ Name: getItemHeight ]]
             -- upvalues: v11 (ref)
             if v11() then
                 return 136;
@@ -69,8 +71,8 @@ return function(v26) --[[ Line: 63 ]] --[[ Name: SubscriptionsGrid ]]
             end;
         end, 
         getItemMetrics = l_GridMetrics_0.getLargeMetrics, 
-        itemPadding = Vector2.new(l_Space_300_0, l_Space_300_0), 
-        items = v32, 
-        LayoutOrder = v26.layoutOrder
+        itemPadding = Vector2.new(v35, v35), 
+        items = v33, 
+        LayoutOrder = v27.layoutOrder
     });
 end;

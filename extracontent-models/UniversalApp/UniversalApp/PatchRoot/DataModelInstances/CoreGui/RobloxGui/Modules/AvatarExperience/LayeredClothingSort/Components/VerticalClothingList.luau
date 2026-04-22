@@ -33,7 +33,7 @@ local v31 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.Set
 local v32 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Components.VerticalClothingListTile);
 local v33 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Components.VerticalClothingListTileContainer);
 local v34 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withAvatarRoute);
-local v35 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
 local v37 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Services.Analytics);
 local v38 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Thunks.SendRefinementAnalytics);
@@ -78,7 +78,7 @@ v47.isVisible = function(v48) --[[ Line: 121 ]] --[[ Name: isVisible ]]
     return v48.props.avatarRoute.opaque.name == l_AvatarScreen_0.LayeredClothingSort;
 end;
 v47.init = function(v49) --[[ Line: 128 ]] --[[ Name: init ]]
-    -- upvalues: v5 (copy), v9 (copy), v26 (copy), l_IsVRAppBuild_0 (copy), l_AppStorageService_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_AvatarScreen_0 (copy), v35 (copy), l_FFlagAXMigrateVerticalClothingListToFocusNavigation_0 (copy)
+    -- upvalues: v5 (copy), v9 (copy), v26 (copy), l_IsVRAppBuild_0 (copy), l_AppStorageService_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_AvatarScreen_0 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXMigrateVerticalClothingListToFocusNavigation_0 (copy)
     v49.listRef = v49.props.forwardRef or v5.createRef();
     v49.scrollingFrameRef = v5.createRef();
     v49.toolTipFrameRef = v5.createRef();
@@ -194,12 +194,12 @@ v47.init = function(v49) --[[ Line: 128 ]] --[[ Name: init ]]
         v49.resetSelectedTile();
     end;
     v49.onOverlayClosed = function(_) --[[ Line: 293 ]]
-        -- upvalues: v49 (copy), l_AvatarScreen_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v35 (ref)
+        -- upvalues: v49 (copy), l_AvatarScreen_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_logOnOverlayClosed_0 (ref)
         return function() --[[ Line: 294 ]]
-            -- upvalues: v49 (ref), l_AvatarScreen_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v35 (ref)
+            -- upvalues: v49 (ref), l_AvatarScreen_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_logOnOverlayClosed_0 (ref)
             local v73 = v49.props.lastInputIsGamepad and v49.props.avatarRoute.opaque.name == l_AvatarScreen_0.LayeredClothingSort;
             if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v73 then
-                v35("LayeredClothingSort");
+                l_logOnOverlayClosed_0("LayeredClothingSort");
                 v49.props.focusControllerProp.captureFocus();
             end;
         end;

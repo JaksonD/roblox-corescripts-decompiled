@@ -52,42 +52,42 @@ local v50 = require(l_Common_0.Thunks.ToggleTryOnThunk);
 local v51 = require(l_Common_0.Thunks.CloseMatchingScreens);
 local v52 = require(l_Common_0.Selectors.ItemData);
 local v53 = require(l_Common_0.Actions.SetItemDetailsExpanded);
-local v54 = require(l_Common_0.Actions.SetItemDetailsPeekViewState);
-local v55 = require(l_Common_0.Components.ItemDetails.ItemDetailsPeekView);
-local v56 = require(l_Common_0.Components.ItemDetails.ItemDetailsModal);
-local v57 = require(l_Common_0.Components.ItemDetails.ItemDetailsFull);
-local v58 = require(l_Common_0.Components.withLastInputGroup);
-local v59 = require(l_CorePackages_0.Workspace.Packages.AppDebug).LogTree.logger("ax.itemdetails");
-local v60 = require(l_Common_0.Thunks.OpenItemPrompt);
-local v61 = require(l_Common_0.Hooks.useAvatarExperienceFocusNavigationBindings);
-local v62 = require(l_Common_0.Hooks.useOverlayClosedCallback);
+local v54 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
+local l_SetItemDetailsPeekViewState_0 = v54.Actions.SetItemDetailsPeekViewState;
+local l_SetItemTryOnPeekViewState_0 = v54.Actions.SetItemTryOnPeekViewState;
+local v57 = require(l_Common_0.Components.ItemDetails.ItemDetailsPeekView);
+local v58 = require(l_Common_0.Components.ItemDetails.ItemDetailsModal);
+local v59 = require(l_Common_0.Components.ItemDetails.ItemDetailsFull);
+local v60 = require(l_Common_0.Components.withLastInputGroup);
+local v61 = require(l_CorePackages_0.Workspace.Packages.AppDebug).LogTree.logger("ax.itemdetails");
+local v62 = require(l_Common_0.Thunks.OpenItemPrompt);
+local v63 = require(l_Common_0.Hooks.useAvatarExperienceFocusNavigationBindings);
+local v64 = require(l_Common_0.Hooks.useOverlayClosedCallback);
 local l_getTryOnItemReducerKey_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Utils.getTryOnItemReducerKey;
 local l_Catalog_0 = l_Modules_0.AvatarExperience.Catalog;
-local v65 = require(l_Catalog_0.Services.Analytics);
-local v66 = require(l_Catalog_0.CatalogUtils);
-local v67 = require(l_Modules_0.AvatarExperience.Catalog.Components.ActionBar.BuyActionBar);
-local v68 = require(l_Catalog_0.CatalogConstants);
-local v69 = require(l_Catalog_0.Thunks.RedeemQRCodeItem);
-local v70 = require(l_Catalog_0.Actions.SetItemTryOnPeekViewState);
-local v71 = require(l_Catalog_0.Components.OnFocusExposureLogger);
+local v67 = require(l_Catalog_0.Services.Analytics);
+local v68 = require(l_Catalog_0.CatalogUtils);
+local v69 = require(l_Modules_0.AvatarExperience.Catalog.Components.ActionBar.BuyActionBar);
+local v70 = require(l_Catalog_0.CatalogConstants);
+local v71 = require(l_Catalog_0.Thunks.RedeemQRCodeItem);
+local v72 = require(l_Catalog_0.Components.OnFocusExposureLogger);
 local l_Flags_0 = l_Modules_0.AvatarExperience.Flags;
-local v73 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local v74 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local v75 = require(l_Flags_0.AvatarMarketplaceBackendIXPTests);
-local v76 = require(l_Flags_0.FFlagQRCodeItemRedemptionEnabled);
-local v77 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXDisableItemDetailsPageLayerExposure);
-local v78 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXItemDetailsScrollingEnabledCallback);
-local v79 = require(l_Modules_0.AvatarExperience.Experiments.AXItemDetails3DPreviewIXP);
-local l_FFlagAXEnableHomeTryOnComplexView_0 = v74.FFlagAXEnableHomeTryOnComplexView;
-local l_FFlagAXMISEnableMultiShopping_0 = v73.FFlagAXMISEnableMultiShopping;
+local v74 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local v75 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local v76 = require(l_Flags_0.AvatarMarketplaceBackendIXPTests);
+local v77 = require(l_Flags_0.FFlagQRCodeItemRedemptionEnabled);
+local v78 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXDisableItemDetailsPageLayerExposure);
+local v79 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXItemDetailsScrollingEnabledCallback);
+local v80 = require(l_Modules_0.AvatarExperience.Experiments.AXItemDetails3DPreviewIXP);
+local l_FFlagAXEnableHomeTryOnComplexView_0 = v75.FFlagAXEnableHomeTryOnComplexView;
+local l_FFlagAXMISEnableMultiShopping_0 = v74.FFlagAXMISEnableMultiShopping;
 local l_FFlagAXMigrateItemDetailsContainerInputBindingsToFocusNavigation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateItemDetailsContainerInputBindingsToFocusNavigation;
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
-local l_FFlagAXDurablesSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesSupport;
 local l_FFlagAXDurablesForMIS_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesForMIS;
 local l_FFlagAXDurablesSupportForRFYMigration_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesSupportForRFYMigration;
 local l_FFlagAXDurablesSupportWithPostPurchaseFix_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesSupportWithPostPurchaseFix;
-local l_FFlagAXTryOnScreenImprovements_0 = v74.FFlagAXTryOnScreenImprovements;
-local l_FFlagAXFixPurchaseSurfaceLogging_0 = v74.FFlagAXFixPurchaseSurfaceLogging;
+local l_FFlagAXTryOnScreenImprovements_0 = v75.FFlagAXTryOnScreenImprovements;
+local l_FFlagAXFixPurchaseSurfaceLogging_0 = v75.FFlagAXFixPurchaseSurfaceLogging;
 local v90 = nil;
 if l_FFlagAXMISEnableMultiShopping_0 then
     v90 = 4;
@@ -154,6 +154,7 @@ v93.validateProps = v19.strictInterface({
     setSelectedTimedOption = if l_FFlagAXDurablesForMIS_0 then v19.callback else nil, 
     toggleTryOnThunk = if l_FFlagAXDurablesForMIS_0 then v19.callback else nil, 
     closeMatchingScreens = if l_FFlagAXDurablesForMIS_0 then v19.callback else nil, 
+    isAvatarEditorOpaqueRoute = if l_FFlagAXDurablesForMIS_0 then v19.boolean else nil, 
     networking = v19.callback, 
     analytics = v19.table, 
     peekViewFullViewEnabled = v19.boolean, 
@@ -162,16 +163,16 @@ v93.validateProps = v19.strictInterface({
     focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v19.table, 
     localization = if l_FFlagAXDurablesForMIS_0 then v19.table else nil
 });
-v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
-    -- upvalues: v5 (copy), v78 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), v12 (copy), v40 (copy), v91 (copy), l_memoize_0 (copy), l_PeekViewState_0 (copy), v66 (copy), l_AvatarScreen_0 (copy)
+v93.init = function(v94) --[[ Line: 233 ]] --[[ Name: init ]]
+    -- upvalues: v5 (copy), v79 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), v12 (copy), v40 (copy), v91 (copy), l_memoize_0 (copy), l_PeekViewState_0 (copy), v68 (copy), l_AvatarScreen_0 (copy)
     v94.contentFrameRef = v5.createRef();
     v94.actionBarContainerRef = v5.createRef();
     v94.actionBarHeaderRef = v5.createRef();
     v94.backButtonRef = v5.createRef();
-    local v95 = if v78() then {
+    local v95 = if v79() then {
         scrollingEnabled = true
     } else nil;
-    if l_FFlagAXDurablesSupport_0 and v94.props.itemData and v94.props.itemData.timedOptions then
+    if v94.props.itemData and v94.props.itemData.timedOptions then
         for _, v97 in v94.props.itemData.timedOptions do
             if v97.selected then
                 local l_days_0 = v97.days;
@@ -189,7 +190,7 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
     end;
     if l_FFlagAXDurablesSupportForRFYMigration_0 then
         v94.timedOptionDeeplinkUpdated = false;
-        v94.onTimedOptionSelected = function(v99) --[[ Line: 264 ]]
+        v94.onTimedOptionSelected = function(v99) --[[ Line: 265 ]]
             -- upvalues: v94 (copy), v5 (ref), l_FFlagAXDurablesForMIS_0 (ref)
             local l_days_1 = v94.props.itemData.timedOptions[v99].days;
             if l_days_1 == 0 then
@@ -204,9 +205,9 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
         end;
     end;
     if l_FFlagAXDurablesForMIS_0 then
-        v94.updateTimedOptionSelection = function() --[[ Line: 280 ]]
+        v94.updateTimedOptionSelection = function() --[[ Line: 281 ]]
             -- upvalues: v12 (ref), v94 (copy), v40 (ref)
-            local v102 = v12.List.findWhere(v94.props.itemData.timedOptions, function(v101) --[[ Line: 281 ]]
+            local v102 = v12.List.findWhere(v94.props.itemData.timedOptions, function(v101) --[[ Line: 282 ]]
                 -- upvalues: v94 (ref)
                 return v101.days == v94.state.selectedTimedOptionDays;
             end) or #v94.props.itemData.timedOptions;
@@ -214,7 +215,7 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
             v40.closeFocusedScreen(v94.props.navigation);
         end;
     end;
-    v94.closeBriefView = function() --[[ Line: 294 ]]
+    v94.closeBriefView = function() --[[ Line: 295 ]]
         -- upvalues: v94 (copy)
         local l_analytics_0 = v94.props.analytics;
         local l_itemId_0 = v94.props.itemId;
@@ -222,32 +223,32 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
         l_analytics_0.closeItemDetailPage(l_itemId_0, l_itemType_0);
         v94.props.closeFiltersAndItemDetails(v94.props.navigation);
     end;
-    v94.onItemInvalid = function() --[[ Line: 305 ]]
+    v94.onItemInvalid = function() --[[ Line: 306 ]]
         -- upvalues: v94 (copy), v91 (ref)
         if v94.isMounted then
             v94.closeBriefView();
             v94.props.setCurrentToastMessage(v91);
         end;
     end;
-    v94.renderContentCallback = function() --[[ Line: 312 ]]
+    v94.renderContentCallback = function() --[[ Line: 313 ]]
         -- upvalues: v94 (copy)
         return v94:renderContent();
     end;
-    v94.getRenderTopBarCallback = l_memoize_0(function(v106) --[[ Line: 316 ]]
+    v94.getRenderTopBarCallback = l_memoize_0(function(v106) --[[ Line: 317 ]]
         -- upvalues: v94 (copy)
-        return function() --[[ Line: 317 ]]
+        return function() --[[ Line: 318 ]]
             -- upvalues: v94 (ref), v106 (copy)
             return v94:renderTopBar(v106);
         end;
     end);
-    v94.getRenderActionBarCallback = l_memoize_0(function(v107, v108, v109, v110, v111) --[[ Line: 323 ]]
+    v94.getRenderActionBarCallback = l_memoize_0(function(v107, v108, v109, v110, v111) --[[ Line: 324 ]]
         -- upvalues: v94 (copy)
-        return function() --[[ Line: 324 ]]
+        return function() --[[ Line: 325 ]]
             -- upvalues: v94 (ref), v107 (copy), v108 (copy), v109 (copy), v110 (copy), v111 (copy)
             return v94:renderActionBar(v107, v108, v109, v110, v111);
         end;
     end);
-    v94.setPeekViewState = function(v112) --[[ Line: 336 ]]
+    v94.setPeekViewState = function(v112) --[[ Line: 337 ]]
         -- upvalues: v94 (copy)
         if v94:getIsTryOnPage() then
             v94.props.setItemTryOnPeekViewState(v112);
@@ -257,16 +258,16 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v94.closePeekView = function() --[[ Line: 346 ]]
+    v94.closePeekView = function() --[[ Line: 347 ]]
         -- upvalues: v94 (copy), l_PeekViewState_0 (ref)
         v94.setPeekViewState(l_PeekViewState_0.Brief);
     end;
     if l_FFlagAXDurablesForMIS_0 then
-        v94.getShouldShowSecondaryButton = function() --[[ Line: 351 ]]
-            -- upvalues: v94 (copy), l_FFlagAXDurablesSupport_0 (ref)
-            if v94.props.fromProfile then
+        v94.getShouldShowSecondaryButton = function() --[[ Line: 352 ]]
+            -- upvalues: v94 (copy)
+            if v94.props.fromProfile or v94.props.isAvatarEditorOpaqueRoute then
                 return false;
-            elseif l_FFlagAXDurablesSupport_0 and v94.props.itemData and v94.props.itemData.timedOptions and v94.props.numberOfTryOnItems > 1 then
+            elseif v94.props.itemData and v94.props.itemData.timedOptions and v94.props.numberOfTryOnItems > 1 then
                 return true;
             elseif not v94.props.isCurrentItemInTryOns then
                 return true;
@@ -274,12 +275,12 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
                 return false;
             end;
         end;
-        v94.onTryOnSecondaryButtonActivated = function() --[[ Line: 369 ]]
-            -- upvalues: v66 (ref), v94 (copy), v12 (ref), l_AvatarScreen_0 (ref)
-            local v113 = v66.GetItemSubType(v94.props.itemType, v94.props.itemData);
+        v94.onTryOnSecondaryButtonActivated = function() --[[ Line: 365 ]]
+            -- upvalues: v68 (ref), v94 (copy), v12 (ref), l_AvatarScreen_0 (ref)
+            local v113 = v68.GetItemSubType(v94.props.itemType, v94.props.itemData);
             local v114 = nil;
             if v94.props.itemData.timedOptions then
-                v114 = v12.List.findWhere(v94.props.itemData.timedOptions, function(v115) --[[ Line: 374 ]]
+                v114 = v12.List.findWhere(v94.props.itemData.timedOptions, function(v115) --[[ Line: 370 ]]
                     -- upvalues: v94 (ref)
                     return v115.days == v94.state.selectedTimedOptionDays;
                 end) or #v94.props.itemData.timedOptions;
@@ -291,8 +292,8 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
             });
         end;
     end;
-    if v78() then
-        v94.setItemDetailsScrollingEnabled = function(v116) --[[ Line: 403 ]]
+    if v79() then
+        v94.setItemDetailsScrollingEnabled = function(v116) --[[ Line: 399 ]]
             -- upvalues: v94 (copy)
             v94:setState({
                 scrollingEnabled = v116
@@ -300,15 +301,15 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v93.getBriefViewHeight = function(v117) --[[ Line: 411 ]] --[[ Name: getBriefViewHeight ]]
-    -- upvalues: v20 (copy), v92 (copy), v68 (copy)
+v93.getBriefViewHeight = function(v117) --[[ Line: 407 ]] --[[ Name: getBriefViewHeight ]]
+    -- upvalues: v20 (copy), v92 (copy), v70 (copy)
     local v118 = 0;
     if v117.props.lastInputGroup == v20.InputType.Gamepad and v92 then
         v118 = v20.GAMEPAD_BOTTOM_BAR_SIZE;
     end;
-    return v68.ActionBar.ActionBarHeight + v68.ActionBar.ActionBarGradientHeight + v118 + 20;
+    return v70.ActionBar.ActionBarHeight + v70.ActionBar.ActionBarGradientHeight + v118 + 20;
 end;
-v93.renderTopBar = function(v119, v120) --[[ Line: 423 ]] --[[ Name: renderTopBar ]]
+v93.renderTopBar = function(v119, v120) --[[ Line: 419 ]] --[[ Name: renderTopBar ]]
     -- upvalues: l_PeekViewState_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), v5 (copy), l_IsVRAppBuild_0 (copy), v38 (copy), v37 (copy)
     local l_Theme_0 = v120.Theme;
     local l_fromProfile_0 = v119.props.fromProfile;
@@ -348,8 +349,8 @@ v93.renderTopBar = function(v119, v120) --[[ Line: 423 ]] --[[ Name: renderTopBa
         })
     });
 end;
-v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 484 ]] --[[ Name: renderActionBar ]]
-    -- upvalues: l_FFlagAXDurablesSupportWithPostPurchaseFix_0 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v6 (copy), v67 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v90 (ref), l_Skeleton_0 (copy)
+v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 480 ]] --[[ Name: renderActionBar ]]
+    -- upvalues: l_FFlagAXDurablesSupportWithPostPurchaseFix_0 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v6 (copy), v69 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v90 (ref), l_Skeleton_0 (copy)
     local l_itemId_1 = v127.props.itemId;
     local l_itemType_1 = v127.props.itemType;
     local l_Theme_1 = v129.Theme;
@@ -368,19 +369,19 @@ v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 484 ]
         [v5.Ref] = v127.actionBarContainerRef, 
         NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v127.contentFrameRef, 
         inputBindings = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else {
-            MoveToItemDetailsContainer = v6.Input.onBegin(Enum.KeyCode.ButtonL2, function() --[[ Line: 515 ]]
+            MoveToItemDetailsContainer = v6.Input.onBegin(Enum.KeyCode.ButtonL2, function() --[[ Line: 511 ]]
                 -- upvalues: v127 (copy)
                 v127:getFocusController().moveFocusUp();
             end)
         }
     }, {
-        BuyActionBar = v5.createElement(v67, {
+        BuyActionBar = v5.createElement(v69, {
             itemId = l_itemId_1, 
             itemType = l_itemType_1, 
-            showTimedOptionInBuyButton = l_FFlagAXDurablesSupport_0 and v131 and v131.timedOptions and true or nil, 
-            hidePrice = l_FFlagAXDurablesSupport_0 and v131 and v131.timedOptions and true or nil, 
-            selectedTimedOptionDays = if l_FFlagAXDurablesSupport_0 and v127.state then v140 else nil, 
-            setSelectedTimedOptionDays = if l_FFlagAXDurablesSupport_0 then v127.onTimedOptionSelected else nil, 
+            showTimedOptionInBuyButton = v131 and v131.timedOptions and true or nil, 
+            hidePrice = v131 and v131.timedOptions and true or nil, 
+            selectedTimedOptionDays = if v127.state then v140 else nil, 
+            setSelectedTimedOptionDays = v127.onTimedOptionSelected, 
             showSecondaryButton = if l_FFlagAXDurablesForMIS_0 then v127:getShouldShowSecondaryButton() else nil, 
             secondaryButtonText = if l_FFlagAXDurablesForMIS_0 then if v127.props.isCurrentItemInTryOns then v127.props.localization.updateSecondaryButtonText else v127.props.localization.tryOnSecondaryButtonText else nil, 
             onSecondaryButtonActivated = if l_FFlagAXDurablesForMIS_0 then if v127.props.isCurrentItemInTryOns then v127.updateTimedOptionSelection else v127.onTryOnSecondaryButtonActivated else nil, 
@@ -414,8 +415,8 @@ v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 484 ]
         })
     });
 end;
-v93.renderContent = function(v141) --[[ Line: 577 ]] --[[ Name: renderContent ]]
-    -- upvalues: l_FFlagAXMigrateItemDetailsContainerInputBindingsToFocusNavigation_0 (copy), v35 (copy), v36 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v78 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), l_FFlagAXDurablesSupport_0 (copy)
+v93.renderContent = function(v141) --[[ Line: 569 ]] --[[ Name: renderContent ]]
+    -- upvalues: l_FFlagAXMigrateItemDetailsContainerInputBindingsToFocusNavigation_0 (copy), v35 (copy), v36 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v79 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy)
     local l_itemId_2 = v141.props.itemId;
     local l_itemType_2 = v141.props.itemType;
     local l_itemSubType_0 = v141.props.itemSubType;
@@ -444,40 +445,40 @@ v93.renderContent = function(v141) --[[ Line: 577 ]] --[[ Name: renderContent ]]
             NextSelectionDown = v141.actionBarContainerRef, 
             NextSelectionUp = v141.backButtonRef, 
             ref = if v141.props.showFullWithNoPeekView then v141.contentFrameRef else nil, 
-            setItemDetailsScrollingEnabled = if v78() then v141.setItemDetailsScrollingEnabled else nil, 
+            setItemDetailsScrollingEnabled = if v79() then v141.setItemDetailsScrollingEnabled else nil, 
             simpleView = if l_FFlagAXTryOnScreenImprovements_0 then v141.props.simpleView else if l_FFlagAXEnableHomeTryOnComplexView_0 then v149 and not v141.props.fromHome else nil, 
-            onWearTimeSelection = if l_FFlagAXDurablesSupport_0 then v141.onTimedOptionSelected else nil
+            onWearTimeSelection = v141.onTimedOptionSelected
         });
     end;
 end;
-v93.getIsTryOnPage = function(v151) --[[ Line: 621 ]] --[[ Name: getIsTryOnPage ]]
+v93.getIsTryOnPage = function(v151) --[[ Line: 613 ]] --[[ Name: getIsTryOnPage ]]
     -- upvalues: l_AvatarScreen_0 (copy)
     return v151.props.navigation.state.routeName == l_AvatarScreen_0.TryOnItem;
 end;
-v93.getItemDetailsComponent = function(v152, v153) --[[ Line: 625 ]] --[[ Name: getItemDetailsComponent ]]
-    -- upvalues: l_IsVRAppBuild_0 (copy), v57 (copy), v56 (copy), v55 (copy)
+v93.getItemDetailsComponent = function(v152, v153) --[[ Line: 617 ]] --[[ Name: getItemDetailsComponent ]]
+    -- upvalues: l_IsVRAppBuild_0 (copy), v59 (copy), v58 (copy), v57 (copy)
     if l_IsVRAppBuild_0() then
-        return v57;
+        return v59;
     elseif v153 then
-        return v56;
+        return v58;
     elseif v152.props.showFullWithNoPeekView then
-        return v57;
+        return v59;
     else
-        return v55;
+        return v57;
     end;
 end;
-v93.render = function(v154) --[[ Line: 639 ]] --[[ Name: render ]]
+v93.render = function(v154) --[[ Line: 631 ]] --[[ Name: render ]]
     -- upvalues: l_withSelectionCursorProvider_0 (copy), l_withStyle_0 (copy)
-    return l_withSelectionCursorProvider_0(function(v155) --[[ Line: 640 ]]
+    return l_withSelectionCursorProvider_0(function(v155) --[[ Line: 632 ]]
         -- upvalues: l_withStyle_0 (ref), v154 (copy)
-        return l_withStyle_0(function(v156) --[[ Line: 641 ]]
+        return l_withStyle_0(function(v156) --[[ Line: 633 ]]
             -- upvalues: v154 (ref), v155 (copy)
             return v154:renderWithProviders(v155, v156);
         end);
     end);
 end;
-v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 647 ]] --[[ Name: renderWithProviders ]]
-    -- upvalues: l_getSafeAreaSize_0 (copy), v32 (copy), l_PeekViewState_0 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v6 (copy), v40 (copy), l_AvatarScreen_0 (copy), v39 (copy), v77 (copy), v71 (copy), v75 (copy), v79 (copy), v31 (copy), v34 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), v78 (copy)
+v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 639 ]] --[[ Name: renderWithProviders ]]
+    -- upvalues: l_getSafeAreaSize_0 (copy), v32 (copy), l_PeekViewState_0 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v6 (copy), v40 (copy), l_AvatarScreen_0 (copy), v39 (copy), v78 (copy), v72 (copy), v76 (copy), v80 (copy), v31 (copy), v34 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), v79 (copy)
     local l_isSceneFullView_0 = v157.props.isSceneFullView;
     local l_itemId_3 = v157.props.itemId;
     local l_itemType_3 = v157.props.itemType;
@@ -525,17 +526,17 @@ v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 647 ]] --[[ Name
             focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v157:getFocusController(), 
             defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v180 and v157.contentFrameRef or v157.actionBarContainerRef, 
             inputBindings = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else {
-                NavigateBack = v6.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 718 ]]
+                NavigateBack = v6.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 710 ]]
                     -- upvalues: v40 (ref), v157 (copy)
                     v40.closeFocusedScreen(v157.props.navigation);
                 end), 
-                OpenItemPrompt = v6.Input.onBegin(Enum.KeyCode.ButtonX, function() --[[ Line: 721 ]]
+                OpenItemPrompt = v6.Input.onBegin(Enum.KeyCode.ButtonX, function() --[[ Line: 713 ]]
                     -- upvalues: v157 (copy)
                     v157.props.openItemPrompt(v157.props.networking, v157.props.analytics, v157.props.overlayClosedCallback, v157.props.navigation, v157.props.avatarRoute);
                 end, {
                     key = "Feature.Catalog.Action.Buy"
                 }), 
-                OpenClosePeekView = if not not v170 or v157.props.showFullWithNoPeekView then nil else v6.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 733 ]]
+                OpenClosePeekView = if not not v170 or v157.props.showFullWithNoPeekView then nil else v6.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 725 ]]
                     -- upvalues: v157 (copy), l_PeekViewState_0 (ref)
                     if v157.props.itemDetailsExpanded then
                         v157.setPeekViewState(l_PeekViewState_0.Brief);
@@ -548,7 +549,7 @@ v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 647 ]] --[[ Name
                 end, {
                     key = v157.props.itemDetailsExpanded and "Feature.Catalog.Action.CloseDetails" or "Feature.Catalog.Action.OpenDetails"
                 }), 
-                OpenCatalogContextMenu = if not v157.props.showFullWithNoPeekView then v6.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 746 ]]
+                OpenCatalogContextMenu = if not v157.props.showFullWithNoPeekView then v6.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 738 ]]
                     -- upvalues: v157 (copy), l_AvatarScreen_0 (ref), l_itemId_3 (copy), l_itemType_3 (copy), l_fromProfile_1 (copy), v166 (copy)
                     v157.props.navigation.navigate(l_AvatarScreen_0.CatalogContextMenu, {
                         itemId = l_itemId_3, 
@@ -565,11 +566,11 @@ v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 647 ]] --[[ Name
             GamepadFocusHandlerForPage = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v5.createElement(v39, {
                 focusController = v157:getFocusController()
             }), 
-            ItemDetailsExposure = if v77() then nil else v5.createElement(v71, {
-                ixpTest = v75.ItemDetailsPage
+            ItemDetailsExposure = if v78() then nil else v5.createElement(v72, {
+                ixpTest = v76.ItemDetailsPage
             }), 
-            ItemDetails3DPreviewExposure = if v79.isEnabled() then v5.createElement(v71, {
-                ixpTest = v79
+            ItemDetails3DPreviewExposure = if v80.isEnabled() then v5.createElement(v72, {
+                ixpTest = v80
             }) else nil, 
             NavigationEventsLogger = v5.createElement(v31, {
                 pageName = "ItemDetails:" .. l_key_0
@@ -606,19 +607,19 @@ v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 647 ]] --[[ Name
                 peekViewShowing = v157.props.peekViewShowing, 
                 setItemDetailsExpanded = v157.props.setItemDetailsExpanded, 
                 topBarHeight = v157.props.topBarHeight, 
-                scrollingEnabled = if v78() then v157.state.scrollingEnabled else nil
+                scrollingEnabled = if v79() then v157.state.scrollingEnabled else nil
             })
         });
     end;
 end;
 if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-    v93.getFocusController = function(v182) --[[ Line: 830 ]] --[[ Name: getFocusController ]]
+    v93.getFocusController = function(v182) --[[ Line: 822 ]] --[[ Name: getFocusController ]]
         return v182.props.focusController;
     end;
 end;
 if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-    v93.didUpdate = function(v183, v184, _) --[[ Line: 835 ]] --[[ Name: didUpdate ]]
-        -- upvalues: v20 (copy), v59 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), l_FFlagAXDurablesForMIS_0 (copy)
+    v93.didUpdate = function(v183, v184, _) --[[ Line: 827 ]] --[[ Name: didUpdate ]]
+        -- upvalues: v20 (copy), v61 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), l_FFlagAXDurablesForMIS_0 (copy)
         local l_key_1 = v183.props.avatarRoute.current.key;
         local l_key_2 = v184.avatarRoute.current.key;
         local l_key_3 = v183.props.navigation.state.key;
@@ -627,7 +628,7 @@ if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
                 v183:getFocusController().captureFocus();
             end;
             if l_key_1 == l_key_3 and l_key_2 ~= l_key_3 then
-                v59:debug("gamepad captureFocus: ItemDetails, current pageKey changed: {}", l_key_3);
+                v61:debug("gamepad captureFocus: ItemDetails, current pageKey changed: {}", l_key_3);
                 v183:getFocusController().captureFocus();
             end;
         end;
@@ -649,7 +650,7 @@ if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
         end;
     end;
 else
-    v93.didUpdate = function(v192, v193, _) --[[ Line: 879 ]] --[[ Name: didUpdate ]]
+    v93.didUpdate = function(v192, v193, _) --[[ Line: 871 ]] --[[ Name: didUpdate ]]
         -- upvalues: l_FFlagAXDurablesSupportForRFYMigration_0 (copy), l_FFlagAXDurablesSupportWithPostPurchaseFix_0 (copy)
         if l_FFlagAXDurablesSupportForRFYMigration_0 and not v192.timedOptionDeeplinkUpdated and v192.props.itemData and v192.props.itemData.timedOptions then
             for v195, v196 in v192.props.itemData.timedOptions do
@@ -673,16 +674,16 @@ else
         end;
     end;
 end;
-v93.didMount = function(v200) --[[ Line: 916 ]] --[[ Name: didMount ]]
-    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v40 (copy), v20 (copy), v59 (copy), v76 (copy), l_PeekViewState_0 (copy)
+v93.didMount = function(v200) --[[ Line: 908 ]] --[[ Name: didMount ]]
+    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v40 (copy), v20 (copy), v61 (copy), v77 (copy), l_PeekViewState_0 (copy)
     if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
         local v201 = v40.isFirstItemDetailsPage(v200.props.navigation);
         if v200.props.lastInputGroup == v20.InputType.Gamepad and not v201 then
-            v59:debug("gamepad captureFocus: ItemDetails, didMount");
+            v61:debug("gamepad captureFocus: ItemDetails, didMount");
             v200:getFocusController().captureFocus();
         end;
     end;
-    if v200.props.redeemQRCodeItem and v76 then
+    if v200.props.redeemQRCodeItem and v77 then
         v200.props.redeemQRCodeItemPrompt(v200.props.networking, v200.props.analytics, v200.props.itemId, v200.props.itemType);
     end;
     if v200.props.showFullWithNoPeekView then
@@ -690,7 +691,7 @@ v93.didMount = function(v200) --[[ Line: 916 ]] --[[ Name: didMount ]]
     end;
     v200.isMounted = true;
 end;
-v93.willUnmount = function(v202) --[[ Line: 943 ]] --[[ Name: willUnmount ]]
+v93.willUnmount = function(v202) --[[ Line: 935 ]] --[[ Name: willUnmount ]]
     -- upvalues: l_AvatarScreen_0 (copy), v40 (copy), l_PeekViewState_0 (copy)
     v202.isMounted = false;
     local v203 = v202.props.avatarRoute.current.name == l_AvatarScreen_0.ItemDetails;
@@ -703,7 +704,7 @@ v93.willUnmount = function(v202) --[[ Line: 943 ]] --[[ Name: willUnmount ]]
         end;
     end;
 end;
-local function v217(v206, v207) --[[ Line: 965 ]] --[[ Name: mapStateToProps ]]
+local function v218(v206, v207) --[[ Line: 957 ]] --[[ Name: mapStateToProps ]]
     -- upvalues: v52 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_getTryOnItemReducerKey_0 (copy), l_AvatarScreen_0 (copy), v33 (copy), l_FormFactor_0 (copy), v47 (copy), v4 (copy)
     local l_itemId_4 = v207.itemId;
     local l_itemType_4 = v207.itemType;
@@ -714,6 +715,7 @@ local function v217(v206, v207) --[[ Line: 965 ]] --[[ Name: mapStateToProps ]]
     local l_avatarRoute_0 = v207.avatarRoute;
     local l_key_5 = l_avatarRoute_0.current.key;
     local v216 = v207.navigation.state.routeName == l_AvatarScreen_0.TryOnItem;
+    local v217 = l_FFlagAXDurablesForMIS_0 and v207.avatarRoute.opaque and v207.avatarRoute.opaque.name == l_AvatarScreen_0.AvatarEditor;
     if v216 and v210 ~= nil and v210.name == nil then
         v210 = nil;
     end;
@@ -731,102 +733,103 @@ local function v217(v206, v207) --[[ Line: 965 ]] --[[ Name: mapStateToProps ]]
         globalGuiInset = v206.GlobalGuiInset, 
         isPortrait = v47(v206), 
         numberOfTryOnItems = if l_FFlagAXDurablesForMIS_0 then v4.fieldCount(v211) else nil, 
-        isCurrentItemInTryOns = if l_FFlagAXDurablesForMIS_0 then v212 else nil
+        isCurrentItemInTryOns = if l_FFlagAXDurablesForMIS_0 then v212 else nil, 
+        isAvatarEditorOpaqueRoute = if l_FFlagAXDurablesForMIS_0 then v217 else nil
     };
 end;
-local function v249(v218) --[[ Line: 1008 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v48 (copy), v49 (copy), v29 (copy), v53 (copy), v24 (copy), v60 (copy), v69 (copy), v54 (copy), v70 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_SetSelectedTimedOption_0 (copy), v51 (copy), v50 (copy)
+local function v250(v219) --[[ Line: 1004 ]] --[[ Name: mapDispatchToProps ]]
+    -- upvalues: v48 (copy), v49 (copy), v29 (copy), v53 (copy), v24 (copy), v62 (copy), v71 (copy), l_SetItemDetailsPeekViewState_0 (copy), l_SetItemTryOnPeekViewState_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_SetSelectedTimedOption_0 (copy), v51 (copy), v50 (copy)
     return {
-        closeAllPeekViews = function(v219) --[[ Line: 1010 ]] --[[ Name: closeAllPeekViews ]]
-            -- upvalues: v218 (copy), v48 (ref)
-            v218(v48(v219));
+        closeAllPeekViews = function(v220) --[[ Line: 1006 ]] --[[ Name: closeAllPeekViews ]]
+            -- upvalues: v219 (copy), v48 (ref)
+            v219(v48(v220));
         end, 
-        closeFiltersAndItemDetails = function(v220) --[[ Line: 1014 ]] --[[ Name: closeFiltersAndItemDetails ]]
-            -- upvalues: v218 (copy), v49 (ref)
-            v218(v49(v220));
+        closeFiltersAndItemDetails = function(v221) --[[ Line: 1010 ]] --[[ Name: closeFiltersAndItemDetails ]]
+            -- upvalues: v219 (copy), v49 (ref)
+            v219(v49(v221));
         end, 
-        closeFocusedScreen = function(v221) --[[ Line: 1018 ]] --[[ Name: closeFocusedScreen ]]
-            -- upvalues: v218 (copy), v29 (ref)
-            v218(v29(v221));
+        closeFocusedScreen = function(v222) --[[ Line: 1014 ]] --[[ Name: closeFocusedScreen ]]
+            -- upvalues: v219 (copy), v29 (ref)
+            v219(v29(v222));
         end, 
-        setItemDetailsExpanded = function(v222) --[[ Line: 1022 ]] --[[ Name: setItemDetailsExpanded ]]
-            -- upvalues: v218 (copy), v53 (ref)
-            v218(v53(v222));
+        setItemDetailsExpanded = function(v223) --[[ Line: 1018 ]] --[[ Name: setItemDetailsExpanded ]]
+            -- upvalues: v219 (copy), v53 (ref)
+            v219(v53(v223));
         end, 
-        setCurrentToastMessage = function(v223) --[[ Line: 1026 ]] --[[ Name: setCurrentToastMessage ]]
-            -- upvalues: v218 (copy), v24 (ref)
-            v218(v24(v223));
+        setCurrentToastMessage = function(v224) --[[ Line: 1022 ]] --[[ Name: setCurrentToastMessage ]]
+            -- upvalues: v219 (copy), v24 (ref)
+            v219(v24(v224));
         end, 
-        openItemPrompt = function(v224, v225, v226, v227, v228) --[[ Line: 1030 ]] --[[ Name: openItemPrompt ]]
-            -- upvalues: v218 (copy), v60 (ref)
-            v218(v60(v224, v225, v226, v227, v228));
+        openItemPrompt = function(v225, v226, v227, v228, v229) --[[ Line: 1026 ]] --[[ Name: openItemPrompt ]]
+            -- upvalues: v219 (copy), v62 (ref)
+            v219(v62(v225, v226, v227, v228, v229));
         end, 
-        redeemQRCodeItemPrompt = function(v229, v230, v231, v232) --[[ Line: 1034 ]] --[[ Name: redeemQRCodeItemPrompt ]]
-            -- upvalues: v218 (copy), v69 (ref)
-            v218(v69(v229, v230, v231, v232));
+        redeemQRCodeItemPrompt = function(v230, v231, v232, v233) --[[ Line: 1030 ]] --[[ Name: redeemQRCodeItemPrompt ]]
+            -- upvalues: v219 (copy), v71 (ref)
+            v219(v71(v230, v231, v232, v233));
         end, 
-        setItemDetailsPeekViewState = function(v233) --[[ Line: 1038 ]] --[[ Name: setItemDetailsPeekViewState ]]
-            -- upvalues: v218 (copy), v54 (ref)
-            v218(v54(v233));
+        setItemDetailsPeekViewState = function(v234) --[[ Line: 1034 ]] --[[ Name: setItemDetailsPeekViewState ]]
+            -- upvalues: v219 (copy), l_SetItemDetailsPeekViewState_0 (ref)
+            v219(l_SetItemDetailsPeekViewState_0(v234));
         end, 
-        setItemTryOnPeekViewState = function(v234) --[[ Line: 1042 ]] --[[ Name: setItemTryOnPeekViewState ]]
-            -- upvalues: v218 (copy), v70 (ref)
-            v218(v70(v234));
+        setItemTryOnPeekViewState = function(v235) --[[ Line: 1038 ]] --[[ Name: setItemTryOnPeekViewState ]]
+            -- upvalues: v219 (copy), l_SetItemTryOnPeekViewState_0 (ref)
+            v219(l_SetItemTryOnPeekViewState_0(v235));
         end, 
-        setSelectedTimedOption = l_FFlagAXDurablesForMIS_0 and function(v235, v236, v237) --[[ Line: 1047 ]]
-            -- upvalues: v218 (copy), l_SetSelectedTimedOption_0 (ref)
-            v218(l_SetSelectedTimedOption_0({
-                itemId = v235, 
-                itemType = v236, 
-                selectedTimedOptionIndex = v237
+        setSelectedTimedOption = l_FFlagAXDurablesForMIS_0 and function(v236, v237, v238) --[[ Line: 1043 ]]
+            -- upvalues: v219 (copy), l_SetSelectedTimedOption_0 (ref)
+            v219(l_SetSelectedTimedOption_0({
+                itemId = v236, 
+                itemType = v237, 
+                selectedTimedOptionIndex = v238
             }));
         end or nil, 
-        closeMatchingScreens = l_FFlagAXDurablesForMIS_0 and function(v238, v239) --[[ Line: 1057 ]]
-            -- upvalues: v218 (copy), v51 (ref)
-            v218(v51(v238, v239));
+        closeMatchingScreens = l_FFlagAXDurablesForMIS_0 and function(v239, v240) --[[ Line: 1053 ]]
+            -- upvalues: v219 (copy), v51 (ref)
+            v219(v51(v239, v240));
         end or nil, 
-        toggleTryOnThunk = l_FFlagAXDurablesForMIS_0 and function(v240, v241, v242, v243, v244, v245, v246, v247, v248) --[[ Line: 1063 ]]
-            -- upvalues: v218 (copy), v50 (ref)
-            v218(v50(v240, v241, v242, v243, v244, v245, v246, v247, nil, false, false, v248));
+        toggleTryOnThunk = l_FFlagAXDurablesForMIS_0 and function(v241, v242, v243, v244, v245, v246, v247, v248, v249) --[[ Line: 1059 ]]
+            -- upvalues: v219 (copy), v50 (ref)
+            v219(v50(v241, v242, v243, v244, v245, v246, v247, v248, nil, false, false, v249));
         end or nil
     };
 end;
-v93 = v58(v93);
+v93 = v60(v93);
 v93 = l_RoactServices_0.connect({
     networking = v17, 
-    analytics = v65
+    analytics = v67
 })(v93);
-v93 = v45((v9.connect(v217, v249)(v93)));
-v93 = l_RoactAppPolicy_0.connect(function(v250, _) --[[ Line: 1106 ]]
+v93 = v45((v9.connect(v218, v250)(v93)));
+v93 = l_RoactAppPolicy_0.connect(function(v251, _) --[[ Line: 1102 ]]
     return {
-        peekViewFullViewEnabled = v250.getItemDetailsFullView(), 
-        showPremiumContent = v250.getShowCatalogPremiumContent()
+        peekViewFullViewEnabled = v251.getItemDetailsFullView(), 
+        showPremiumContent = v251.getShowCatalogPremiumContent()
     };
 end)(v93);
-return function(v252) --[[ Line: 1113 ]] --[[ Name: ItemDetailsPageContainer ]]
-    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), v6 (copy), l_FFlagAXDurablesForMIS_0 (copy), v16 (copy), v62 (copy), v61 (copy), v12 (copy), v5 (copy), v93 (ref)
-    local v253 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v7.useRef(v6.createFocusController()).current;
-    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v252.focusController then
-        v253 = v252.focusController;
+return function(v253) --[[ Line: 1109 ]] --[[ Name: ItemDetailsPageContainer ]]
+    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), v6 (copy), l_FFlagAXDurablesForMIS_0 (copy), v16 (copy), v64 (copy), v63 (copy), v12 (copy), v5 (copy), v93 (ref)
+    local v254 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v7.useRef(v6.createFocusController()).current;
+    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v253.focusController then
+        v254 = v253.focusController;
     end;
-    local v254 = if l_FFlagAXDurablesForMIS_0 then v16({
+    local v255 = if l_FFlagAXDurablesForMIS_0 then v16({
         updateSecondaryButtonText = "Feature.Avatar.Action.Update", 
         tryOnSecondaryButtonText = "Feature.Avatar.Action.TryOn"
     }) else nil;
-    local v255 = v62(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v253);
-    local v256 = v61({
-        overlayClosedCallback = v255
+    local v256 = v64(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v254);
+    local v257 = v63({
+        overlayClosedCallback = v256
     });
-    local v257 = v12.Dictionary.join(v252, {
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v253, 
-        overlayClosedCallback = v255, 
-        localization = if l_FFlagAXDurablesForMIS_0 then v254 else nil
+    local v258 = v12.Dictionary.join(v253, {
+        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v254, 
+        overlayClosedCallback = v256, 
+        localization = if l_FFlagAXDurablesForMIS_0 then v255 else nil
     });
     return v5.createElement("Frame", {
-        [v5.Ref] = v256, 
+        [v5.Ref] = v257, 
         BackgroundTransparency = 1, 
         Size = UDim2.fromScale(1, 1)
     }, {
-        ItemDetails = v7.createElement(v93, v257)
+        ItemDetails = v7.createElement(v93, v258)
     });
 end;

@@ -13,19 +13,21 @@ local l_withChatPlacementContext_0 = v10.withChatPlacementContext;
 local v12 = require(l_script_FirstAncestor_0.Flags.FFlagRenderSquadLobbyOnlyWhenVisible);
 local l_FFlagEnablePartyVoiceChangersInLua_0 = v3.FFlagEnablePartyVoiceChangersInLua;
 local l_FFlagEnableAppChatFocusableFixes_0 = v3.FFlagEnableAppChatFocusableFixes;
-local v15 = {
+local v15 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarConfigDriven);
+local v16 = require(l_script_FirstAncestor_0.Stores.GetTopBarStore);
+local v17 = {
     v1.SquadLobby, 
     v1.SquadInviteFriends, 
     v1.SquadVoiceReportAbuse
 };
 if l_FFlagEnablePartyVoiceChangersInLua_0 then
-    table.insert(v15, v1.SquadVoiceChangers);
+    table.insert(v17, v1.SquadVoiceChangers);
 end;
-local function v18(v16) --[[ Line: 34 ]]
+local function v20(v18) --[[ Line: 36 ]]
     -- upvalues: v5 (copy), v7 (copy)
-    local l_navigation_0 = v16.navigation;
+    local l_navigation_0 = v18.navigation;
     return {
-        renderRight = function() --[[ Line: 38 ]] --[[ Name: renderRight ]]
+        renderRight = function() --[[ Line: 40 ]] --[[ Name: renderRight ]]
             -- upvalues: v5 (ref), v7 (ref), l_navigation_0 (copy)
             return v5.createElement(v7, {
                 navigation = l_navigation_0
@@ -33,80 +35,85 @@ local function v18(v16) --[[ Line: 34 ]]
         end
     };
 end;
-v9.init = function(v19) --[[ Line: 46 ]] --[[ Name: init ]]
-    -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (copy), v8 (copy), v1 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v15 (copy)
-    local l_navigation_1 = v19.props.navigation;
+v9.init = function(v21) --[[ Line: 48 ]] --[[ Name: init ]]
+    -- upvalues: v15 (copy), v16 (copy), v1 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v8 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v17 (copy)
+    local l_navigation_1 = v21.props.navigation;
+    if v15() then
+        v16(false).setScreenTopBar(v1.SquadLobby, {
+            backButtonEnabled = true
+        });
+    end;
     if l_FFlagEnableAppChatFocusableFixes_0 then
-        v19.state = {
+        v21.state = {
             isFocused = l_navigation_1.isFocused()
         };
-        v19.willFocusSubscription = l_navigation_1.addListener(v8.Events.WillFocus, function() --[[ Line: 52 ]]
-            -- upvalues: v19 (copy)
-            v19:setState({
+        v21.willFocusSubscription = l_navigation_1.addListener(v8.Events.WillFocus, function() --[[ Line: 60 ]]
+            -- upvalues: v21 (copy)
+            v21:setState({
                 isFocused = true
             });
         end);
-        v19.didBlurSubscription = l_navigation_1.addListener(v8.Events.DidBlur, function() --[[ Line: 55 ]]
-            -- upvalues: v19 (copy)
-            v19:setState({
+        v21.didBlurSubscription = l_navigation_1.addListener(v8.Events.DidBlur, function() --[[ Line: 63 ]]
+            -- upvalues: v21 (copy)
+            v21:setState({
                 isFocused = false
             });
         end);
     end;
-    v19.hasNavigatedAwayFromSquad = false;
-    v19.navigateToHomePage = function(_) --[[ Line: 62 ]]
-        -- upvalues: v19 (copy), v1 (ref)
-        local v22 = v19.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v1.Home];
-        if v22 then
-            v22();
-        end;
-    end;
-    v19.openViewProfile = function(v23) --[[ Line: 72 ]]
-        -- upvalues: v19 (copy), v1 (ref)
-        local v24 = v19.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v1.ViewUserProfile];
+    v21.hasNavigatedAwayFromSquad = false;
+    v21.navigateToHomePage = function(_) --[[ Line: 70 ]]
+        -- upvalues: v21 (copy), v1 (ref)
+        local v24 = v21.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v1.Home];
         if v24 then
-            v24(v23, {});
+            v24();
         end;
     end;
-    v19.openSquadVoiceAbuseReport = function(v25) --[[ Line: 80 ]]
-        -- upvalues: v19 (copy), v1 (ref)
-        v19.props.navigation.navigate(v1.SquadVoiceReportAbuse, {
-            reportData = v25
+    v21.openViewProfile = function(v25) --[[ Line: 80 ]]
+        -- upvalues: v21 (copy), v1 (ref)
+        local v26 = v21.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v1.ViewUserProfile];
+        if v26 then
+            v26(v25, {});
+        end;
+    end;
+    v21.openSquadVoiceAbuseReport = function(v27) --[[ Line: 88 ]]
+        -- upvalues: v21 (copy), v1 (ref)
+        v21.props.navigation.navigate(v1.SquadVoiceReportAbuse, {
+            reportData = v27
         });
     end;
     if l_FFlagEnablePartyVoiceChangersInLua_0 then
-        v19.openSquadVoiceChangers = function() --[[ Line: 85 ]]
-            -- upvalues: v19 (copy), v1 (ref)
-            v19.props.navigation.navigate(v1.SquadVoiceChangers);
+        v21.openSquadVoiceChangers = function() --[[ Line: 93 ]]
+            -- upvalues: v21 (copy), v1 (ref)
+            v21.props.navigation.navigate(v1.SquadVoiceChangers);
         end;
     end;
-    v19.navigateToSquadInviteFriends = function(v26) --[[ Line: 90 ]]
-        -- upvalues: v19 (copy), v1 (ref)
-        v19.props.navigation.navigate(v1.SquadInviteFriends, {
-            conversationId = v26
+    v21.navigateToSquadInviteFriends = function(v28) --[[ Line: 98 ]]
+        -- upvalues: v21 (copy), v1 (ref)
+        v21.props.navigation.navigate(v1.SquadInviteFriends, {
+            conversationId = v28
         });
     end;
-    v19.navigateAwayFromSquad = function() --[[ Line: 94 ]]
-        -- upvalues: v19 (copy), v15 (ref)
-        if v19.hasNavigatedAwayFromSquad then
+    v21.navigateAwayFromSquad = function() --[[ Line: 102 ]]
+        -- upvalues: v21 (copy), v17 (ref)
+        if v21.hasNavigatedAwayFromSquad then
             return;
         else
-            local v27 = v19.props.navigation._dangerouslyGetParent();
-            if v27 then
-                local l_state_0 = v27.state;
+            local v29 = v21.props.navigation._dangerouslyGetParent();
+            if v29 then
+                local l_state_0 = v29.state;
                 if l_state_0 then
                     local l_index_0 = l_state_0.index;
-                    local v30 = nil;
-                    for v31 = l_index_0, 1, -1 do
-                        local v32 = l_state_0.routes[v31];
-                        if not table.find(v15, v32.routeName) then
-                            if v30 then
-                                v19.hasNavigatedAwayFromSquad = true;
-                                v19.props.navigation.goBack(v30);
+                    local v32 = nil;
+                    for v33 = l_index_0, 1, -1 do
+                        local v34 = l_state_0.routes[v33];
+                        if not table.find(v17, v34.routeName) then
+                            if v32 then
+                                v21.hasNavigatedAwayFromSquad = true;
+                                v21.props.navigation.goBack(v32);
                             end;
                             return;
                         else
-                            v30 = v32.key;
+                            v32 = v34.key;
                         end;
                     end;
                 end;
@@ -115,61 +122,61 @@ v9.init = function(v19) --[[ Line: 46 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v9.willUnmount = function(v33) --[[ Line: 122 ]] --[[ Name: willUnmount ]]
+v9.willUnmount = function(v35) --[[ Line: 130 ]] --[[ Name: willUnmount ]]
     -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (copy)
     if l_FFlagEnableAppChatFocusableFixes_0 then
-        if v33.willFocusSubscription then
-            v33.willFocusSubscription:remove();
+        if v35.willFocusSubscription then
+            v35.willFocusSubscription:remove();
         end;
-        if v33.didBlurSubscription then
-            v33.didBlurSubscription:remove();
+        if v35.didBlurSubscription then
+            v35.didBlurSubscription:remove();
         end;
     end;
 end;
-v9.render = function(v34) --[[ Line: 133 ]] --[[ Name: render ]]
+v9.render = function(v36) --[[ Line: 141 ]] --[[ Name: render ]]
     -- upvalues: l_withChatPlacementContext_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v12 (copy), v5 (copy), l_SquadLobby_0 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v10 (copy)
-    return l_withChatPlacementContext_0(function(v35) --[[ Line: 134 ]]
-        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v34 (copy), v12 (ref), v5 (ref), l_SquadLobby_0 (ref), l_FFlagEnablePartyVoiceChangersInLua_0 (ref), v10 (ref)
-        local v36 = if l_FFlagEnableAppChatFocusableFixes_0 then v34.state.isFocused else v34.props.navigation.isFocused();
-        if v12 and not v36 then
+    return l_withChatPlacementContext_0(function(v37) --[[ Line: 142 ]]
+        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v36 (copy), v12 (ref), v5 (ref), l_SquadLobby_0 (ref), l_FFlagEnablePartyVoiceChangersInLua_0 (ref), v10 (ref)
+        local v38 = if l_FFlagEnableAppChatFocusableFixes_0 then v36.state.isFocused else v36.props.navigation.isFocused();
+        if v12 and not v38 then
             return nil;
         else
             return v5.createElement(l_SquadLobby_0, {
-                navigateToHomePage = v34.navigateToHomePage, 
-                openViewProfile = v34.openViewProfile, 
-                openSquadVoiceAbuseReport = v34.openSquadVoiceAbuseReport, 
-                navigateAwayFromSquad = v34.navigateAwayFromSquad, 
-                navigateToSquadInviteFriends = v34.navigateToSquadInviteFriends, 
-                openSquadVoiceChangers = if l_FFlagEnablePartyVoiceChangersInLua_0 then v34.openSquadVoiceChangers else nil, 
-                isInExperience = v10.isPlacementInExperience(v35.chatPlacement), 
-                isWideMode = v34.props.isWideMode
+                navigateToHomePage = v36.navigateToHomePage, 
+                openViewProfile = v36.openViewProfile, 
+                openSquadVoiceAbuseReport = v36.openSquadVoiceAbuseReport, 
+                navigateAwayFromSquad = v36.navigateAwayFromSquad, 
+                navigateToSquadInviteFriends = v36.navigateToSquadInviteFriends, 
+                openSquadVoiceChangers = if l_FFlagEnablePartyVoiceChangersInLua_0 then v36.openSquadVoiceChangers else nil, 
+                isInExperience = v10.isPlacementInExperience(v37.chatPlacement), 
+                isWideMode = v36.props.isWideMode
             });
         end;
     end);
 end;
-local v37 = v5.PureComponent:extend("WideSquadLobbyScreen");
-v37.navigationOptions = v18;
-v37.init = function(_) --[[ Line: 160 ]] --[[ Name: init ]]
+local v39 = v5.PureComponent:extend("WideSquadLobbyScreen");
+v39.navigationOptions = v20;
+v39.init = function(_) --[[ Line: 168 ]] --[[ Name: init ]]
 
 end;
-v37.render = function(v39) --[[ Line: 162 ]] --[[ Name: render ]]
+v39.render = function(v41) --[[ Line: 170 ]] --[[ Name: render ]]
     -- upvalues: v5 (copy), v9 (copy), v4 (copy)
-    return v5.createElement(v9, v4.Dictionary.union(v39.props, {
+    return v5.createElement(v9, v4.Dictionary.union(v41.props, {
         isWideMode = true
     }));
 end;
-local v40 = v5.PureComponent:extend("CompactSquadLobbyScreen");
-v40.navigationOptions = v18;
-v40.init = function(_) --[[ Line: 168 ]] --[[ Name: init ]]
+local v42 = v5.PureComponent:extend("CompactSquadLobbyScreen");
+v42.navigationOptions = v20;
+v42.init = function(_) --[[ Line: 176 ]] --[[ Name: init ]]
 
 end;
-v40.render = function(v42) --[[ Line: 169 ]] --[[ Name: render ]]
+v42.render = function(v44) --[[ Line: 177 ]] --[[ Name: render ]]
     -- upvalues: v5 (copy), v9 (copy), v4 (copy)
-    return v5.createElement(v9, v4.Dictionary.union(v42.props, {
+    return v5.createElement(v9, v4.Dictionary.union(v44.props, {
         isWideMode = false
     }));
 end;
 return {
-    WideSquadLobbyScreen = v37, 
-    CompactSquadLobbyScreen = v40
+    WideSquadLobbyScreen = v39, 
+    CompactSquadLobbyScreen = v42
 };

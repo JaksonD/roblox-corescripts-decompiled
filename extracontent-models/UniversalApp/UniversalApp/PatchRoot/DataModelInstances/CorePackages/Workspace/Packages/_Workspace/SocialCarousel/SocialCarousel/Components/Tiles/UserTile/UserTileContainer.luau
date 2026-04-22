@@ -1,307 +1,334 @@
+local l_IXPService_0 = game:GetService("IXPService");
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("SocialCarousel");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Cryo);
-local v3 = require(l_Parent_0.Foundation);
-local v4 = require(l_Parent_0.GameJoinCard);
-local v5 = require(l_Parent_0.PlayerContextualMenu);
-local v6 = require(l_Parent_0.React);
-local v7 = require(l_Parent_0.Responsive);
-local v8 = require(l_Parent_0.RobloxAppEnums);
-local v9 = require(l_Parent_0.UserProfiles);
-local v10 = require(l_Parent_0.SocialCommon);
+local v3 = require(l_Parent_0.Cryo);
+local v4 = require(l_Parent_0.Foundation);
+local v5 = require(l_Parent_0.GameJoinCard);
+local v6 = require(l_Parent_0.PlayerContextualMenu);
+local v7 = require(l_Parent_0.React);
+local v8 = require(l_Parent_0.Responsive);
+local v9 = require(l_Parent_0.RobloxAppEnums);
+local v10 = require(l_Parent_0.UserProfiles);
+local v11 = require(l_Parent_0.SocialCommon);
 local l_Enums_0 = require(l_Parent_0.FriendsNetworking).Enums;
-local l_FFlagSocialCarouselUseProfileStore_0 = require(l_script_FirstAncestor_0.Flags).FFlagSocialCarouselUseProfileStore;
-local v13 = require(l_Parent_0.Signals);
-local v14 = require(l_Parent_0.SignalsReact);
-local v15 = v9.Stores.UserProfileStore.get();
-local l_PresenceTypes_0 = v10.Enums.PresenceTypes;
+local l_FFlagSocialCarouselUseProfileStore_0 = require(l_Parent_0.SharedFlags).FFlagSocialCarouselUseProfileStore;
+local l_FFlagUserTilePassOnStateChanged_0 = require(l_Parent_0.SharedFlags).FFlagUserTilePassOnStateChanged;
+local v15 = require(l_Parent_0.Signals);
+local v16 = require(l_Parent_0.SignalsReact);
+local v17 = v10.Stores.UserProfileStore.get();
+local l_PresenceTypes_0 = v11.Enums.PresenceTypes;
 local l_SetCentralOverlay_0 = require(l_Parent_0.CentralOverlay).Actions.SetCentralOverlay;
 local l_Enums_1 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums;
-local v19 = require(l_script_FirstAncestor_0.Common.Enums);
-local v20 = require(l_Parent_0.Localization);
-local v21 = require(l_script_FirstAncestor_0.Analytics.useSocialCarouselAnalytics);
-local l_usePreferredInput_0 = v7.usePreferredInput;
+local v21 = require(l_script_FirstAncestor_0.Common.Enums);
+local v22 = require(l_Parent_0.Localization);
+local v23 = require(l_script_FirstAncestor_0.Analytics.useSocialCarouselAnalytics);
+local l_usePreferredInput_0 = v8.usePreferredInput;
 local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
 local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_ControlState_0 = v3.Enums.ControlState;
-local l_View_0 = v3.View;
-local l_CentralOverlayType_0 = v8.CentralOverlayType;
-local l_AppPage_0 = v8.AppPage;
-local l_useLocalization_0 = v20.Hooks.useLocalization;
-local l_Tile_0 = v19.Tile;
-local v31 = require(script.Parent.UserTile);
-local v32 = require(l_script_FirstAncestor_0.Common.Constants);
-local v33 = require(l_script_FirstAncestor_0.Contexts.useSocialCarouselContext);
-local l_DesktopGameJoinCardContainer_0 = v4.DesktopGameJoinCardContainer;
-local v35 = game:DefineFastString("SocialCarouselVendorImagePath", "rbxasset://textures/ui/Shell/Icons/PlatformLogo.png");
+local l_ControlState_0 = v4.Enums.ControlState;
+local l_View_0 = v4.View;
+local l_CentralOverlayType_0 = v9.CentralOverlayType;
+local l_AppPage_0 = v9.AppPage;
+local l_useLocalization_0 = v22.Hooks.useLocalization;
+local l_Tile_0 = v21.Tile;
+local v33 = require(script.Parent.UserTile);
+local v34 = require(l_script_FirstAncestor_0.Common.Constants);
+local v35 = require(l_script_FirstAncestor_0.Contexts.useSocialCarouselContext);
+local l_DesktopGameJoinCardContainer_0 = v5.DesktopGameJoinCardContainer;
+local v37 = game:DefineFastString("SocialCarouselVendorImagePath", "rbxasset://textures/ui/Shell/Icons/PlatformLogo.png");
 local l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 = require(l_Parent_0.SharedFlags).FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel;
 local l_FFlagPPVEnabledOnConsole_0 = require(l_Parent_0.SharedFlags).FFlagPPVEnabledOnConsole;
-local v38 = require(l_script_FirstAncestor_0.Flags.FFlagSocialCarouselEnableUserSeenEvents);
+local v40 = require(l_script_FirstAncestor_0.Flags.FFlagSocialCarouselEnableUserSeenEvents);
 local l_FFlagEnableDesktopGameJoinCard_0 = require(l_Parent_0.SharedFlags).FFlagEnableDesktopGameJoinCard;
 local l_FFlagEnableMobileGameJoinCard_0 = require(l_Parent_0.SharedFlags).FFlagEnableMobileGameJoinCard;
-local function _(v41) --[[ Line: 79 ]]
+local v43 = game:DefineFastFlag("EnableFriendCarouselInGameFriendExposureLogging_v2", false) and l_FFlagUserTilePassOnStateChanged_0;
+local v44 = game:DefineFastString("SocialViewFriendSortInGameFriendsLayer", "Social.ViewFriendSortInGameFriends");
+local function _(v45) --[[ Line: 89 ]]
     -- upvalues: l_Tile_0 (copy)
-    if v41.tileType ~= l_Tile_0.Recommendation then
+    if v45.tileType ~= l_Tile_0.Recommendation then
         return Enum.FriendStatus.Friend;
-    elseif v41.isFriendWithUser then
+    elseif v45.isFriendWithUser then
         return Enum.FriendStatus.Friend;
-    elseif v41.hasIncomingFriendRequest then
+    elseif v45.hasIncomingFriendRequest then
         return Enum.FriendStatus.FriendRequestReceived;
-    elseif v41.hasPendingFriendRequest then
+    elseif v45.hasPendingFriendRequest then
         return Enum.FriendStatus.FriendRequestSent;
     else
         return Enum.FriendStatus.NotFriend;
     end;
 end;
-return function(v43) --[[ Line: 95 ]]
-    -- upvalues: v6 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_FFlagEnableMobileGameJoinCard_0 (copy), l_usePreferredInput_0 (copy), l_FFlagPPVEnabledOnConsole_0 (copy), v7 (copy), v33 (copy), v21 (copy), l_useLocalization_0 (copy), l_FFlagSocialCarouselUseProfileStore_0 (copy), v15 (copy), v13 (copy), v14 (copy), v9 (copy), v5 (copy), l_Tile_0 (copy), l_Enums_0 (copy), l_PresenceTypes_0 (copy), l_AppPage_0 (copy), l_FFlagEnableDesktopGameJoinCard_0 (copy), l_Enums_1 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), v19 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy), v32 (copy), v38 (copy), l_ControlState_0 (copy), v31 (copy), v2 (copy), v35 (copy), l_View_0 (copy), v3 (copy), l_DesktopGameJoinCardContainer_0 (copy)
-    local v44 = v6.useRef(nil);
-    local v45 = l_useDispatch_0();
-    local v46 = l_useNavigation_0();
-    local v47 = if l_FFlagEnableMobileGameJoinCard_0 then l_usePreferredInput_0() else nil;
-    local v48 = nil;
+return function(v47) --[[ Line: 105 ]]
+    -- upvalues: v7 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_FFlagEnableMobileGameJoinCard_0 (copy), l_FFlagEnableDesktopGameJoinCard_0 (copy), l_usePreferredInput_0 (copy), l_FFlagPPVEnabledOnConsole_0 (copy), v8 (copy), v35 (copy), v23 (copy), l_useLocalization_0 (copy), l_FFlagSocialCarouselUseProfileStore_0 (copy), v17 (copy), v15 (copy), v16 (copy), v10 (copy), v6 (copy), l_Tile_0 (copy), l_Enums_0 (copy), l_PresenceTypes_0 (copy), v43 (copy), l_IXPService_0 (copy), v44 (copy), l_AppPage_0 (copy), l_Enums_1 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), v21 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy), v34 (copy), v40 (copy), l_ControlState_0 (copy), v33 (copy), v3 (copy), l_FFlagUserTilePassOnStateChanged_0 (copy), v37 (copy), l_View_0 (copy), v4 (copy), l_DesktopGameJoinCardContainer_0 (copy)
+    local v48 = v7.useRef(nil);
+    local v49 = l_useDispatch_0();
+    local v50 = l_useNavigation_0();
+    local v51 = if not not l_FFlagEnableMobileGameJoinCard_0 or l_FFlagEnableDesktopGameJoinCard_0 then l_usePreferredInput_0() else nil;
+    local v52 = false;
     if not l_FFlagPPVEnabledOnConsole_0 then
-        v48 = (if l_FFlagEnableMobileGameJoinCard_0 then v47 else l_usePreferredInput_0()) == v7.Input.Directional;
+        v52 = (if not not l_FFlagEnableMobileGameJoinCard_0 or l_FFlagEnableDesktopGameJoinCard_0 then v51 else l_usePreferredInput_0()) == v8.Input.Directional;
     end;
-    local v49 = v33();
-    local v50 = v21();
-    local v51 = l_useLocalization_0({
+    local v53 = v35();
+    local v54 = v23();
+    local v55 = l_useLocalization_0({
         suggestedLabel = "Feature.Friends.Label.Suggested"
     });
-    local v52 = if v43.item.presence then {
-        locationString = v43.item.presence.lastLocation, 
-        locationPlaceId = v43.item.presence.placeId, 
-        locationRootPlaceId = v43.item.presence.rootPlaceId, 
-        locationUniverseId = v43.item.presence.universeId, 
-        status = v43.item.presence.userPresenceType
+    local v56 = if v47.item.presence then {
+        locationString = v47.item.presence.lastLocation, 
+        locationPlaceId = v47.item.presence.placeId, 
+        locationRootPlaceId = v47.item.presence.rootPlaceId, 
+        locationUniverseId = v47.item.presence.universeId, 
+        status = v47.item.presence.userPresenceType
     } else nil;
-    local v53 = nil;
-    local v54 = nil;
+    local v57 = nil;
+    local v58 = nil;
     if l_FFlagSocialCarouselUseProfileStore_0 then
-        local v55 = v6.useMemo(function() --[[ Line: 125 ]]
-            -- upvalues: v15 (ref), v43 (copy)
-            return v15.fetchNamesByUserIds({
-                v43.item.id
+        local v59 = v7.useMemo(function() --[[ Line: 141 ]]
+            -- upvalues: v17 (ref), v47 (copy)
+            return v17.fetchNamesByUserIds({
+                v47.item.id
             });
         end, {
-            v43.item.id
+            v47.item.id
         });
-        local l_v55_0 = v55 --[[ copy: 12 -> 27 ]];
-        local v60 = v6.useMemo(function() --[[ Line: 129 ]]
-            -- upvalues: v13 (ref), l_v55_0 (copy)
-            return v13.createComputed(function(v57) --[[ Line: 130 ]]
-                -- upvalues: l_v55_0 (ref)
-                local v58 = l_v55_0(v57);
-                local v59 = v58 and v58.data and v58.data[1];
-                if v59 and v59.names then
-                    return (v59.names.getCombinedName(v57));
-                else
-                    return nil;
-                end;
-            end);
-        end, {
-            v55
-        });
-        local v64 = v6.useMemo(function() --[[ Line: 137 ]]
-            -- upvalues: v13 (ref), l_v55_0 (copy)
-            return v13.createComputed(function(v61) --[[ Line: 138 ]]
-                -- upvalues: l_v55_0 (ref)
-                local v62 = l_v55_0(v61);
+        local l_v59_0 = v59 --[[ copy: 12 -> 26 ]];
+        local v64 = v7.useMemo(function() --[[ Line: 145 ]]
+            -- upvalues: v15 (ref), l_v59_0 (copy)
+            return v15.createComputed(function(v61) --[[ Line: 146 ]]
+                -- upvalues: l_v59_0 (ref)
+                local v62 = l_v59_0(v61);
                 local v63 = v62 and v62.data and v62.data[1];
                 if v63 and v63.names then
-                    return (v63.names.getPlatformName(v61));
+                    return (v63.names.getCombinedName(v61));
                 else
                     return nil;
                 end;
             end);
         end, {
-            v55
+            v59
         });
-        v53 = v14.useSignalState(v60);
-        v54 = v14.useSignalState(v64);
+        local v68 = v7.useMemo(function() --[[ Line: 153 ]]
+            -- upvalues: v15 (ref), l_v59_0 (copy)
+            return v15.createComputed(function(v65) --[[ Line: 154 ]]
+                -- upvalues: l_v59_0 (ref)
+                local v66 = l_v59_0(v65);
+                local v67 = v66 and v66.data and v66.data[1];
+                if v67 and v67.names then
+                    return (v67.names.getPlatformName(v65));
+                else
+                    return nil;
+                end;
+            end);
+        end, {
+            v59
+        });
+        v57 = v16.useSignalState(v64);
+        v58 = v16.useSignalState(v68);
     else
-        local v65 = v9.Hooks.useUserProfilesFetch({
+        local v69 = v10.Hooks.useUserProfilesFetch({
             userIds = {
-                v43.item.id
+                v47.item.id
             }, 
-            query = v9.Queries.userProfilesCombinedAndPlatformByUserIds
+            query = v10.Queries.userProfilesCombinedAndPlatformByUserIds
         });
-        local l_v65_0 = v65 --[[ copy: 12 -> 26 ]];
-        v53 = v6.useMemo(function() --[[ Line: 153 ]]
-            -- upvalues: l_v65_0 (copy), v9 (ref), v43 (copy)
-            if not l_v65_0.data then
+        local l_v69_0 = v69 --[[ copy: 12 -> 25 ]];
+        v57 = v7.useMemo(function() --[[ Line: 169 ]]
+            -- upvalues: l_v69_0 (copy), v10 (ref), v47 (copy)
+            if not l_v69_0.data then
                 return nil;
             else
-                return v9.Selectors.getCombinedNameFromId(l_v65_0.data, v43.item.id);
+                return v10.Selectors.getCombinedNameFromId(l_v69_0.data, v47.item.id);
             end;
         end, {
-            v65.data
+            v69.data
         });
-        v54 = v6.useMemo(function() --[[ Line: 161 ]]
-            -- upvalues: l_v65_0 (copy), v9 (ref), v43 (copy)
-            if not l_v65_0.data then
+        v58 = v7.useMemo(function() --[[ Line: 177 ]]
+            -- upvalues: l_v69_0 (copy), v10 (ref), v47 (copy)
+            if not l_v69_0.data then
                 return nil;
             else
-                return v9.Selectors.getPlatformNameFromId(l_v65_0.data, v43.item.id);
+                return v10.Selectors.getPlatformNameFromId(l_v69_0.data, v47.item.id);
             end;
         end, {
-            v65.data
+            v69.data
         });
     end;
-    local v72 = v6.useCallback(function(v67) --[[ Line: 170 ]]
-        -- upvalues: v43 (copy), l_FFlagPPVEnabledOnConsole_0 (ref), v48 (ref), v45 (copy), v5 (ref), v52 (copy), l_Tile_0 (ref), l_Enums_0 (ref), l_PresenceTypes_0 (ref), l_FFlagEnableMobileGameJoinCard_0 (ref), v47 (copy), v7 (ref), v46 (copy), l_AppPage_0 (ref), v53 (ref), l_FFlagEnableDesktopGameJoinCard_0 (ref), l_Enums_1 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), v19 (ref), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (ref), v50 (copy)
-        if v43.item.onActivated then
-            v43.item.onActivated(v43.item);
-        elseif not l_FFlagPPVEnabledOnConsole_0 and v48 then
-            local l_v45_0 = v45;
-            local l_openPlayerContextualMenu_0 = v5.openPlayerContextualMenu;
-            local v70 = {
-                subjectUserId = v43.item.id, 
-                subjectPresence = v52
+    local v76 = v7.useCallback(function(v71) --[[ Line: 186 ]]
+        -- upvalues: v47 (copy), l_FFlagPPVEnabledOnConsole_0 (ref), v52 (ref), v49 (copy), v6 (ref), v56 (copy), l_Tile_0 (ref), l_Enums_0 (ref), l_PresenceTypes_0 (ref), v43 (ref), l_IXPService_0 (ref), v44 (ref), l_FFlagEnableMobileGameJoinCard_0 (ref), v51 (copy), v8 (ref), v50 (copy), l_AppPage_0 (ref), l_FFlagEnableDesktopGameJoinCard_0 (ref), l_Enums_1 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), v57 (ref), v21 (ref), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (ref), v54 (copy)
+        if v47.item.onActivated then
+            v47.item.onActivated(v47.item);
+        elseif not l_FFlagPPVEnabledOnConsole_0 and v52 then
+            local l_v49_0 = v49;
+            local l_openPlayerContextualMenu_0 = v6.openPlayerContextualMenu;
+            local v74 = {
+                subjectUserId = v47.item.id, 
+                subjectPresence = v56
             };
-            local l_item_0 = v43.item;
-            v70.robloxFriendshipStatus = if l_item_0.tileType ~= l_Tile_0.Recommendation then Enum.FriendStatus.Friend else if l_item_0.isFriendWithUser then Enum.FriendStatus.Friend else if l_item_0.hasIncomingFriendRequest then Enum.FriendStatus.FriendRequestReceived else if l_item_0.hasPendingFriendRequest then Enum.FriendStatus.FriendRequestSent else Enum.FriendStatus.NotFriend;
-            v70.friendshipOriginSourceType = l_Enums_0.FriendshipOriginSourceType.FriendRecommendations.rawValue();
-            l_v45_0(l_openPlayerContextualMenu_0(v70));
-        elseif v43.item.presence and v43.item.presence.userPresenceType == l_PresenceTypes_0.InGame then
-            if l_FFlagEnableMobileGameJoinCard_0 and v47 == v7.Input.Touch then
-                v46.navigate(l_AppPage_0.GameJoinCard, {
-                    userId = v43.item.id, 
-                    universeId = v43.item.presence.universeId, 
-                    playerName = v53, 
-                    experienceName = v43.item.presence.lastLocation
+            local l_item_0 = v47.item;
+            v74.robloxFriendshipStatus = if l_item_0.tileType ~= l_Tile_0.Recommendation then Enum.FriendStatus.Friend else if l_item_0.isFriendWithUser then Enum.FriendStatus.Friend else if l_item_0.hasIncomingFriendRequest then Enum.FriendStatus.FriendRequestReceived else if l_item_0.hasPendingFriendRequest then Enum.FriendStatus.FriendRequestSent else Enum.FriendStatus.NotFriend;
+            v74.friendshipOriginSourceType = l_Enums_0.FriendshipOriginSourceType.FriendRecommendations.rawValue();
+            l_v49_0(l_openPlayerContextualMenu_0(v74));
+        elseif v47.item.presence and v47.item.presence.userPresenceType == l_PresenceTypes_0.InGame then
+            if v43 then
+                l_IXPService_0:LogFlagLinkedUserLayerExposure(v44);
+            end;
+            if l_FFlagEnableMobileGameJoinCard_0 and v51 == v8.Input.Touch then
+                v50.navigate(l_AppPage_0.GameJoinCard, {
+                    userId = v47.item.id, 
+                    homepageCarouselAbsolutePosition = v47.index
                 });
             elseif l_FFlagEnableDesktopGameJoinCard_0 then
-                v46.navigate(l_AppPage_0.ProfilePlatform, {
-                    detail = v43.item.id, 
+                v50.navigate(l_AppPage_0.ProfilePlatform, {
+                    detail = v47.item.id, 
                     extraProps = {
                         source = l_Enums_1.Sources.HomePageFriendsCarousel
                     }
                 });
             else
-                v45(l_SetCentralOverlay_0(l_CentralOverlayType_0.PeopleList, {
+                v49(l_SetCentralOverlay_0(l_CentralOverlayType_0.PeopleList, {
                     user = {
-                        id = v43.item.id, 
-                        combinedName = v53, 
-                        presence = v19.OldPresence.IN_GAME, 
-                        universeId = v43.item.presence.universeId, 
-                        rootPlaceId = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then v43.item.presence.rootPlaceId else nil, 
-                        placeId = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then v43.item.presence.placeId else nil, 
-                        gameInstanceId = v43.item.presence.gameId, 
-                        lastLocation = v43.item.presence.lastLocation
+                        id = v47.item.id, 
+                        combinedName = v57, 
+                        presence = v21.OldPresence.IN_GAME, 
+                        universeId = v47.item.presence.universeId, 
+                        rootPlaceId = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then v47.item.presence.rootPlaceId else nil, 
+                        placeId = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then v47.item.presence.placeId else nil, 
+                        gameInstanceId = v47.item.presence.gameId, 
+                        lastLocation = v47.item.presence.lastLocation
                     }, 
-                    positionIndex = v43.index, 
-                    absolutePosition = v43.index, 
-                    anchorSpaceSize = v67.AbsoluteSize, 
-                    anchorSpacePosition = v67.AbsolutePosition, 
+                    positionIndex = v47.index, 
+                    absolutePosition = v47.index, 
+                    anchorSpaceSize = v71.AbsoluteSize, 
+                    anchorSpacePosition = v71.AbsolutePosition, 
                     source = l_Enums_1.Sources.HomePageFriendsCarousel
                 }));
             end;
         else
-            v46.navigate(l_AppPage_0.ProfilePlatform, {
-                detail = v43.item.id, 
+            v50.navigate(l_AppPage_0.ProfilePlatform, {
+                detail = v47.item.id, 
                 extraProps = {
                     source = l_Enums_1.Sources.HomePageFriendsCarousel
                 }
             });
         end;
-        v50.userPressed(v43.item, {
-            absolutePosition = v43.index
+        v54.userPressed(v47.item, {
+            absolutePosition = v47.index
         });
     end, {
-        v43.item
+        v47.item
     });
-    local v73 = v6.useMemo(function() --[[ Line: 236 ]]
-        -- upvalues: v43 (copy), l_Tile_0 (ref), v51 (copy), l_PresenceTypes_0 (ref)
-        if v43.item.tileType == l_Tile_0.Recommendation then
-            return v51.suggestedLabel;
-        elseif v43.item.presence and v43.item.presence.userPresenceType == l_PresenceTypes_0.InGame then
-            return v43.item.presence.lastLocation;
+    local v77 = v7.useMemo(function() --[[ Line: 253 ]]
+        -- upvalues: v47 (copy), l_Tile_0 (ref), v55 (copy), l_PresenceTypes_0 (ref)
+        if v47.item.tileType == l_Tile_0.Recommendation then
+            return v55.suggestedLabel;
+        elseif v47.item.presence and v47.item.presence.userPresenceType == l_PresenceTypes_0.InGame then
+            return v47.item.presence.lastLocation;
         else
             return nil;
         end;
     end, {
-        v43.item
+        v47.item
     });
-    v6.useEffect(function() --[[ Line: 245 ]]
-        -- upvalues: v49 (copy), v44 (copy), v43 (copy)
-        if v49.unifiedLogging then
-            v49.unifiedLogging.tagTileForImpressions(v44, v43.index);
+    v7.useEffect(function() --[[ Line: 262 ]]
+        -- upvalues: v53 (copy), v48 (copy), v47 (copy)
+        if v53.unifiedLogging then
+            v53.unifiedLogging.tagTileForImpressions(v48, v47.index);
         end;
     end, {
-        v43.index
+        v47.index
     });
-    v6.useEffect(function() --[[ Line: 251 ]]
-        -- upvalues: v49 (copy), v32 (ref), v38 (ref), v50 (copy), v43 (copy)
-        v49.onSuccessfulRender(v32.ANALYTICS.UI_LOADING_EVENTS.CAROUSEL_FRIEND);
-        if v38 then
-            v50.userSeen(v43.item, {
-                absolutePosition = v43.index
+    v7.useEffect(function() --[[ Line: 268 ]]
+        -- upvalues: v53 (copy), v34 (ref), v40 (ref), v54 (copy), v47 (copy)
+        v53.onSuccessfulRender(v34.ANALYTICS.UI_LOADING_EVENTS.CAROUSEL_FRIEND);
+        if v40 then
+            v54.userSeen(v47.item, {
+                absolutePosition = v47.index
             });
         end;
     end, {});
-    v6.useEffect(function() --[[ Line: 260 ]]
-        -- upvalues: v43 (copy)
-        if v43.onTileContentChanged then
-            v43.onTileContentChanged(v43.item.id, v43.index);
+    v7.useEffect(function() --[[ Line: 277 ]]
+        -- upvalues: v47 (copy)
+        if v47.onTileContentChanged then
+            v47.onTileContentChanged(v47.item.id, v47.index);
         end;
     end, {
-        v43.item.id, 
-        v43.index
+        v47.item.id, 
+        v47.index
     });
-    if l_FFlagEnableDesktopGameJoinCard_0 then
-        local v74, v75 = v6.useState(false);
-        local v76, v77 = v6.useState(false);
-        local v79 = v6.useCallback(function(v78) --[[ Line: 269 ]]
-            -- upvalues: v75 (copy), l_ControlState_0 (ref)
-            v75(v78 == l_ControlState_0.Hover);
+    if l_FFlagEnableDesktopGameJoinCard_0 or v43 then
+        local v78, v79 = v7.useState(false);
+        local v80, v81 = v7.useState(false);
+        local v85 = v7.useCallback(function(v82) --[[ Line: 286 ]]
+            -- upvalues: v79 (copy), l_ControlState_0 (ref)
+            local l_v79_0 = v79;
+            local v84 = true;
+            if v82 ~= l_ControlState_0.Hover then
+                v84 = v82 == l_ControlState_0.Selected;
+            end;
+            l_v79_0(v84);
         end, {});
-        local v81 = v6.useCallback(function(v80) --[[ Line: 272 ]]
-            -- upvalues: v77 (copy), l_ControlState_0 (ref)
-            v77(v80 == l_ControlState_0.Hover);
+        local v89 = v7.useCallback(function(v86) --[[ Line: 289 ]]
+            -- upvalues: v81 (copy), l_ControlState_0 (ref)
+            local l_v81_0 = v81;
+            local v88 = true;
+            if v86 ~= l_ControlState_0.Hover then
+                v88 = v86 == l_ControlState_0.Selected;
+            end;
+            l_v81_0(v88);
         end, {});
-        local l_presence_0 = v43.item.presence;
-        local v83 = l_presence_0 and l_presence_0.userPresenceType == l_PresenceTypes_0.InGame;
-        local v84 = (not not v74 or v76) and v83 and v52 ~= nil;
-        local v85 = v6.createElement(v31, v2.Dictionary.join(v43, {
+        local l_presence_0 = v47.item.presence;
+        local v91 = l_presence_0 and l_presence_0.userPresenceType == l_PresenceTypes_0.InGame;
+        local v92 = (not not v78 or v80) and v91 and v56 ~= nil;
+        local v93 = v91 and v52;
+        v7.useEffect(function() --[[ Line: 297 ]]
+            -- upvalues: v43 (ref), v92 (copy), l_IXPService_0 (ref), v44 (ref)
+            if v43 and v92 then
+                l_IXPService_0:LogFlagLinkedUserLayerExposure(v44);
+            end;
+        end, {
+            v92
+        });
+        local v94 = v7.createElement(v33, v3.Dictionary.join(v47, {
             itemSize = UDim2.fromScale(1, 1), 
-            onActivated = v72, 
-            name = if v43.item.tileType == l_Tile_0.Recommendation then v54 else v53, 
-            contextualText = v73, 
-            tileRef = v44, 
-            titleIcon = if v43.item.tileType == l_Tile_0.Recommendation then v35 else nil
+            onActivated = v76, 
+            onStateChanged = if l_FFlagUserTilePassOnStateChanged_0 then v85 else nil, 
+            name = if v47.item.tileType == l_Tile_0.Recommendation then v58 else v57, 
+            contextualText = v77, 
+            tileRef = v48, 
+            titleIcon = if v47.item.tileType == l_Tile_0.Recommendation then v37 else nil
         }));
-        local v86 = l_presence_0 and l_presence_0.universeId or "";
-        local v87 = l_presence_0 and l_presence_0.lastLocation or "";
-        return v6.createElement(l_View_0, {
-            Size = v43.itemSize, 
-            LayoutOrder = v43.index, 
+        return v7.createElement(l_View_0, {
+            Size = v47.itemSize, 
+            LayoutOrder = v47.index, 
             BackgroundTransparency = 1, 
-            ref = v44, 
-            onStateChanged = v79, 
+            ref = v48, 
+            onStateChanged = if l_FFlagUserTilePassOnStateChanged_0 then nil else v85, 
             stateLayer = {
-                affordance = v3.Enums.StateLayerAffordance.None
+                affordance = v4.Enums.StateLayerAffordance.None
             }
         }, {
-            UserTile = v85, 
-            GameJoinCardPopover = if v52 then v6.createElement(l_DesktopGameJoinCardContainer_0, {
+            UserTile = v94, 
+            GameJoinCardPopover = if l_FFlagEnableDesktopGameJoinCard_0 and v56 and l_presence_0 then v7.createElement(l_DesktopGameJoinCardContainer_0, {
                 layoutOrder = 1, 
-                playerName = v53 or "", 
-                universeId = v86, 
-                experienceName = v87, 
-                userId = v43.item.id, 
-                anchorRef = v44, 
-                isOpen = v84 == true, 
-                onPopoverStateChanged = v81
+                playerName = v57 or "", 
+                platformName = v58 or "", 
+                universeId = tostring(l_presence_0.universeId), 
+                experienceName = l_presence_0.lastLocation, 
+                userId = v47.item.id, 
+                presence = l_presence_0, 
+                anchorRef = v48, 
+                isOpen = v92 == true, 
+                onPopoverStateChanged = v89, 
+                homepageCarouselAbsolutePosition = v47.index, 
+                showGamepadJoinFocus = v93 == true
             }) else nil
         });
     else
-        return v6.createElement(v31, v2.Dictionary.join(v43, {
-            onActivated = v72, 
-            name = if v43.item.tileType == l_Tile_0.Recommendation then v54 else v53, 
-            contextualText = v73, 
-            tileRef = v44, 
-            titleIcon = if v43.item.tileType == l_Tile_0.Recommendation then v35 else nil
+        return v7.createElement(v33, v3.Dictionary.join(v47, {
+            onActivated = v76, 
+            name = if v47.item.tileType == l_Tile_0.Recommendation then v58 else v57, 
+            contextualText = v77, 
+            tileRef = v48, 
+            titleIcon = if v47.item.tileType == l_Tile_0.Recommendation then v37 else nil
         }));
     end;
 end;

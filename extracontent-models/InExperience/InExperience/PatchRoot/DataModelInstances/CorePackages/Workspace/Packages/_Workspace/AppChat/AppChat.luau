@@ -18,6 +18,7 @@ return {
     }, 
     Http = require(script.Http), 
     installReducer = require(script.installReducer), 
+    Middleware = require(script.Middleware), 
     Models = require(script.Models), 
     Screens = require(script.EnumScreens), 
     Users = require(script.Users), 

@@ -15,14 +15,14 @@ local v13 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.ItemsLi
 local v14 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetSelectedEmoteSlot);
 local v15 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_withNavigation_0 = require(l_CorePackages_0.Packages.RoactNavigation).withNavigation;
-local v17 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
 local v19 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withAvatarRoute);
 local l_wasLastInputGamepad_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).wasLastInputGamepad;
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
 local v22 = v3.PureComponent:extend("EmotesPage");
 v22.init = function(v23) --[[ Line: 42 ]] --[[ Name: init ]]
-    -- upvalues: v3 (copy), l_UserInputService_0 (copy), l_wasLastInputGamepad_0 (copy), v17 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v15 (copy), l_AvatarScreen_0 (copy)
+    -- upvalues: v3 (copy), l_UserInputService_0 (copy), l_wasLastInputGamepad_0 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v15 (copy), l_AvatarScreen_0 (copy)
     v23.equipSlotsRef = v3.createRef();
     v23.itemsListRef = v3.createRef();
     v23:setState({
@@ -43,11 +43,11 @@ v22.init = function(v23) --[[ Line: 42 ]] --[[ Name: init ]]
         });
     end;
     v23.onSlotActivated = function(v26) --[[ Line: 63 ]]
-        -- upvalues: l_wasLastInputGamepad_0 (ref), v17 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v23 (copy), v15 (ref), l_AvatarScreen_0 (ref)
+        -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v23 (copy), v15 (ref), l_AvatarScreen_0 (ref)
         local function v28() --[[ Line: 64 ]]
-            -- upvalues: l_wasLastInputGamepad_0 (ref), v17 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v23 (ref)
+            -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v23 (ref)
             local v27 = l_wasLastInputGamepad_0();
-            v17("EmotesPage", v27);
+            l_logOnOverlayClosed_0("EmotesPage", v27);
             if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v27 then
                 v23.props.focusController.captureFocus();
             end;

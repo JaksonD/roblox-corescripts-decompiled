@@ -19,7 +19,7 @@ local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localiz
 local l_Text_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Text;
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local v20 = require(l_Modules_0.AvatarExperience.AvatarEditor.Utils);
-local v21 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local l_withNavigation_0 = v8.withNavigation;
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
 local l_wasLastInputGamepad_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).wasLastInputGamepad;
@@ -60,11 +60,11 @@ v36.resizeTextLabels = function(v41) --[[ Line: 69 ]] --[[ Name: resizeTextLabel
     end;
 end;
 v36.makeOnOverlayClosed = function(_, v46) --[[ Line: 89 ]] --[[ Name: makeOnOverlayClosed ]]
-    -- upvalues: l_wasLastInputGamepad_0 (copy), v21 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
+    -- upvalues: l_wasLastInputGamepad_0 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
     return function() --[[ Line: 90 ]]
-        -- upvalues: l_wasLastInputGamepad_0 (ref), v21 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v46 (copy)
+        -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v46 (copy)
         local v47 = l_wasLastInputGamepad_0();
-        v21("AvatarTypeSwitch");
+        l_logOnOverlayClosed_0("AvatarTypeSwitch");
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v47 then
             v46.captureFocus();
         end;

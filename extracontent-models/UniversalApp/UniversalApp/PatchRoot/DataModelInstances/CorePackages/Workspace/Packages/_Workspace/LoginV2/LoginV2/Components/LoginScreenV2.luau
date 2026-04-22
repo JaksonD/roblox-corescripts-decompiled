@@ -39,11 +39,13 @@ local l_FFlagEnableLastLoginMethodTracking_0 = v36.FFlagEnableLastLoginMethodTra
 local l_FFlagEnableLoginV2ForcedUsernameOverride_0 = v36.FFlagEnableLoginV2ForcedUsernameOverride;
 local l_FFlagAuthSecExclusions_0 = v36.FFlagAuthSecExclusions;
 local l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 = v36.FFlagEnableCredentialsV2InterfaceDetectionFix;
-local v41 = require(l_script_FirstAncestor_0.Components.NeedHelpButton);
-local v42 = require(l_script_FirstAncestor_0.Enums.LoginPageState);
-local v43 = require(l_script_FirstAncestor_0.Context.LoginContext);
-local v44 = require(l_script_FirstAncestor_0.Thunks.InitializeLogin);
-local v45 = require(l_script_FirstAncestor_0.Components.Constants);
+local l_FFlagFixLoginV2LandscapeLayout_0 = v36.FFlagFixLoginV2LandscapeLayout;
+local l_FFlagEnableNavigateToLoginAfterLogoutAll_0 = v36.FFlagEnableNavigateToLoginAfterLogoutAll;
+local v43 = require(l_script_FirstAncestor_0.Components.NeedHelpButton);
+local v44 = require(l_script_FirstAncestor_0.Enums.LoginPageState);
+local v45 = require(l_script_FirstAncestor_0.Context.LoginContext);
+local v46 = require(l_script_FirstAncestor_0.Thunks.InitializeLogin);
+local v47 = require(l_script_FirstAncestor_0.Components.Constants);
 local l_isStringEmail_0 = v7.Utils.isStringEmail;
 local l_isStringPhone_0 = v7.Utils.isStringPhone;
 local l_CrossDeviceLogin_0 = v7.Thunks.CrossDeviceLogin;
@@ -53,7 +55,7 @@ local l_LoginMethods_0 = v7.Enums.LoginMethods;
 local l_Logger_0 = require(l_Parent_0.Loggers).Logger;
 local l_default_1 = require(l_Parent_0.LoggingProtocol).default;
 local l_TelemetryConfigs_0 = require(l_Parent_0.AuthAnalytics).TelemetryConfigs;
-local v55 = {
+local v57 = {
     disableLoginForgotButton = false, 
     excludeUsernamePasswordSignIn = false, 
     excludeEmailPasswordSignIn = false, 
@@ -61,148 +63,157 @@ local v55 = {
     excludePasskeyLogin = false, 
     excludeCrossDeviceSignIn = false
 };
-getUserIdentifierType = function(v56) --[[ Line: 91 ]] --[[ Name: getUserIdentifierType ]]
+getUserIdentifierType = function(v58) --[[ Line: 93 ]] --[[ Name: getUserIdentifierType ]]
     -- upvalues: l_isStringEmail_0 (copy), v13 (copy), l_isStringPhone_0 (copy)
-    if l_isStringEmail_0(v56) then
+    if l_isStringEmail_0(v58) then
         return v13.Email;
-    elseif l_isStringPhone_0(v56) then
+    elseif l_isStringPhone_0(v58) then
         return v13.Phone;
     else
         return v13.Username;
     end;
 end;
-LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
-    -- upvalues: v3 (copy), v43 (copy), l_useStyle_0 (copy), l_useDesignTokens_0 (copy), l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_FFlagAuthSecExclusions_0 (copy), v14 (copy), v55 (copy), v12 (copy), v42 (copy), v44 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (copy), v4 (copy), v11 (copy), v13 (copy), l_Logger_0 (copy), l_HttpService_0 (copy), l_authClientError_0 (copy), l_EventStreamConstants_0 (copy), l_AppStorageUtilities_0 (copy), l_authButtonClick_0 (copy), l_FFlagEnableLastLoginMethodTracking_0 (copy), l_LoginMethods_0 (copy), l_default_1 (copy), l_TelemetryConfigs_0 (copy), l_ApiFetchAuthMetaData_0 (copy), l_authPageload_0 (copy), l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 (copy), l_default_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), l_useLocalization_0 (copy), l_ButtonType_0 (copy), l_CrossDeviceLogin_0 (copy), l_Images_0 (copy), l_StandardButtonSize_0 (copy), v41 (copy), l_FullscreenPageWithSafeArea_0 (copy), l_IconButton_0 (copy), l_StyledTextLabel_0 (copy), l_TextInput_0 (copy), l_authFormInteraction_0 (copy), l_Button_0 (copy), v45 (copy), l_ButtonStack_0 (copy)
-    local v58 = v3.useContext(v43);
-    local l_utils_0 = v58.utils;
-    local l_state_0 = v58.state;
-    local v61 = l_useStyle_0();
-    local v62 = l_useDesignTokens_0();
-    local v63 = l_useDispatch_0();
-    local v64 = l_useRoactService_0(l_RoactNetworking_0);
+LoginScreenV2 = function(v59) --[[ Line: 103 ]] --[[ Name: LoginScreenV2 ]]
+    -- upvalues: v3 (copy), v45 (copy), l_useStyle_0 (copy), l_useDesignTokens_0 (copy), l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_FFlagAuthSecExclusions_0 (copy), v14 (copy), v57 (copy), v12 (copy), v44 (copy), v46 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (copy), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (copy), v13 (copy), v4 (copy), v11 (copy), l_Logger_0 (copy), l_HttpService_0 (copy), l_authClientError_0 (copy), l_EventStreamConstants_0 (copy), l_AppStorageUtilities_0 (copy), l_authButtonClick_0 (copy), l_FFlagEnableLastLoginMethodTracking_0 (copy), l_LoginMethods_0 (copy), l_default_1 (copy), l_TelemetryConfigs_0 (copy), l_ApiFetchAuthMetaData_0 (copy), l_authPageload_0 (copy), l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 (copy), l_default_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), l_useLocalization_0 (copy), l_ButtonType_0 (copy), l_CrossDeviceLogin_0 (copy), l_Images_0 (copy), l_StandardButtonSize_0 (copy), v43 (copy), l_FullscreenPageWithSafeArea_0 (copy), l_FFlagFixLoginV2LandscapeLayout_0 (copy), l_IconButton_0 (copy), l_StyledTextLabel_0 (copy), v47 (copy), l_TextInput_0 (copy), l_authFormInteraction_0 (copy), l_Button_0 (copy), l_ButtonStack_0 (copy)
+    local v60 = v3.useContext(v45);
+    local l_utils_0 = v60.utils;
+    local l_state_0 = v60.state;
+    local v63 = l_useStyle_0();
+    local v64 = l_useDesignTokens_0();
+    local v65 = l_useDispatch_0();
+    local v66 = l_useRoactService_0(l_RoactNetworking_0);
     if l_FFlagAuthSecExclusions_0 then
-        v14.useAppPolicy(function(v65) --[[ Line: 112 ]]
-            -- upvalues: v55 (ref)
-            v55.disableLoginForgotButton = v65.getDisableLoginForgotButton();
-            v55.excludeUsernamePasswordSignIn = v65.getExcludeUsernamePasswordSignIn();
-            v55.excludeEmailPasswordSignIn = v65.getExcludeEmailPasswordSignIn();
-            v55.excludePhoneNumberPasswordSignIn = v65.getExcludePhoneNumberPasswordSignIn();
-            v55.excludePasskeyLogin = v65.getExcludePasskeyLogin();
-            v55.excludeCrossDeviceSignIn = v65.getExcludeCrossDeviceSignIn();
+        v14.useAppPolicy(function(v67) --[[ Line: 114 ]]
+            -- upvalues: v57 (ref)
+            v57.disableLoginForgotButton = v67.getDisableLoginForgotButton();
+            v57.excludeUsernamePasswordSignIn = v67.getExcludeUsernamePasswordSignIn();
+            v57.excludeEmailPasswordSignIn = v67.getExcludeEmailPasswordSignIn();
+            v57.excludePhoneNumberPasswordSignIn = v67.getExcludePhoneNumberPasswordSignIn();
+            v57.excludePasskeyLogin = v67.getExcludePasskeyLogin();
+            v57.excludeCrossDeviceSignIn = v67.getExcludeCrossDeviceSignIn();
         end);
     end;
-    local function v67(v66) --[[ Line: 122 ]]
-        -- upvalues: v58 (copy), v12 (ref), v42 (ref)
-        v58.dispatch({
+    local function v69(v68) --[[ Line: 124 ]]
+        -- upvalues: v60 (copy), v12 (ref), v44 (ref)
+        v60.dispatch({
             type = v12.SetComponentState, 
             data = {
-                component = v42.LoginScreenV2, 
-                payload = v66
+                component = v44.LoginScreenV2, 
+                payload = v68
             }
         });
     end;
-    local v68, v69 = v3.useState(false);
-    local v70 = l_state_0 and l_state_0.componentState[v42.LoginScreenV2].userIdentifier or "";
-    local function _(v71) --[[ Line: 138 ]]
-        -- upvalues: v67 (copy)
-        v67({
-            userIdentifier = v71
+    local v70, v71 = v3.useState(false);
+    local v72 = l_state_0 and l_state_0.componentState[v44.LoginScreenV2].userIdentifier or "";
+    local function _(v73) --[[ Line: 140 ]]
+        -- upvalues: v69 (copy)
+        v69({
+            userIdentifier = v73
         });
     end;
-    local v73, v74 = v3.useState(v70);
-    local v75 = l_state_0 and l_state_0.componentState[v42.LoginScreenV2].errorKey or "";
-    local function v77(v76) --[[ Line: 147 ]]
-        -- upvalues: v67 (copy)
-        v67({
-            errorKey = v76
+    local v75, v76 = v3.useState(v72);
+    local v77 = l_state_0 and l_state_0.componentState[v44.LoginScreenV2].errorKey or "";
+    local function v79(v78) --[[ Line: 149 ]]
+        -- upvalues: v69 (copy)
+        v69({
+            errorKey = v78
         });
     end;
-    local function _(v78) --[[ Line: 153 ]]
-        -- upvalues: v63 (copy), v44 (ref), v64 (copy)
-        return v63(v44(v64, {
-            cvalue = v78, 
-            ctype = getUserIdentifierType(v78)
+    local function _(v80) --[[ Line: 155 ]]
+        -- upvalues: v65 (copy), v46 (ref), v66 (copy)
+        return v65(v46(v66, {
+            cvalue = v80, 
+            ctype = getUserIdentifierType(v80)
         }));
     end;
-    local function v88(v80) --[[ Line: 160 ]]
-        -- upvalues: v73 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_state_0 (copy), v58 (copy), v12 (ref), v69 (copy), v67 (copy), v74 (copy), v63 (copy), v44 (ref), v64 (copy), v4 (ref), v11 (ref), v13 (ref), v57 (copy), v42 (ref), l_Logger_0 (ref), l_HttpService_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref)
-        local v81 = v80 or v73;
+    local function v90(v82) --[[ Line: 162 ]]
+        -- upvalues: v75 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_state_0 (copy), v60 (copy), v12 (ref), v71 (copy), v69 (copy), v76 (copy), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref), v13 (ref), v65 (copy), v46 (ref), v66 (copy), v4 (ref), v11 (ref), v59 (copy), v44 (ref), l_Logger_0 (ref), l_HttpService_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref)
+        local v83 = v82 or v75;
         if l_FFlagEnableLoginV2ForcedUsernameOverride_0 and l_state_0 and l_state_0.extraProps and l_state_0.extraProps.forcedUsernameOverride and l_state_0.extraProps.forcedUsernameOverride ~= "" then
-            v81 = l_state_0.extraProps.forcedUsernameOverride;
-            v58.dispatch({
+            v83 = l_state_0.extraProps.forcedUsernameOverride;
+            v60.dispatch({
                 type = v12.ClearForcedUsernameOverride
             });
         end;
-        v69(true);
-        v67({
-            userIdentifier = v81
+        v71(true);
+        v69({
+            userIdentifier = v83
         });
-        v74(v81);
-        local l_v81_0 = v81;
-        v63(v44(v64, {
-            cvalue = l_v81_0, 
-            ctype = getUserIdentifierType(l_v81_0)
-        })):andThen(function(v83) --[[ Line: 184 ]]
-            -- upvalues: v4 (ref), v11 (ref), v58 (ref), v12 (ref), v81 (ref), l_state_0 (ref), v13 (ref), v80 (copy), v67 (ref), v69 (ref), v57 (ref), v42 (ref)
-            local v85 = v4.List.map(v83.loginMethods, function(v84) --[[ Line: 185 ]]
-                -- upvalues: v11 (ref)
-                return v11[v84.method];
-            end);
-            v58.dispatch({
+        v76(v83);
+        if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 then
+            v60.dispatch({
                 type = v12.SetUserIdentifierAndType, 
                 data = {
-                    userIdentifier = v81, 
-                    userIdentifierType = if l_state_0.forceLoginByUsername then v13.Username else getUserIdentifierType(v81)
+                    userIdentifier = v83, 
+                    userIdentifierType = if l_state_0.forceLoginByUsername then v13.Username else getUserIdentifierType(v83)
                 }
             });
-            v58.dispatch({
-                type = v12.SetAvailableLoginMethods, 
-                data = v85
+        end;
+        local l_v83_0 = v83;
+        v65(v46(v66, {
+            cvalue = l_v83_0, 
+            ctype = getUserIdentifierType(l_v83_0)
+        })):andThen(function(v85) --[[ Line: 197 ]]
+            -- upvalues: v4 (ref), v11 (ref), v60 (ref), v12 (ref), v83 (ref), l_state_0 (ref), v13 (ref), v82 (copy), v69 (ref), v71 (ref), v59 (ref), v44 (ref)
+            local v87 = v4.List.map(v85.loginMethods, function(v86) --[[ Line: 198 ]]
+                -- upvalues: v11 (ref)
+                return v11[v86.method];
+            end);
+            v60.dispatch({
+                type = v12.SetUserIdentifierAndType, 
+                data = {
+                    userIdentifier = v83, 
+                    userIdentifierType = if l_state_0.forceLoginByUsername then v13.Username else getUserIdentifierType(v83)
+                }
             });
-            if v80 ~= nil then
-                v58.dispatch({
+            v60.dispatch({
+                type = v12.SetAvailableLoginMethods, 
+                data = v87
+            });
+            if v82 ~= nil then
+                v60.dispatch({
                     type = v12.UpdateCredentialsProtocolStatus, 
                     data = {
                         shouldShowAuthScreenCredentialsPopup = true
                     }
                 });
             else
-                v58.dispatch({
+                v60.dispatch({
                     type = v12.UpdateCredentialsProtocolStatus, 
                     data = {
                         shouldShowAuthScreenUserSpecificPasskeyPopup = true
                     }
                 });
             end;
-            v67({
+            v69({
                 errorKey = ""
             });
-            v69(false);
-            v57.navigation.navigate(v42.AuthenticationScreen);
-        end, function(v86) --[[ Line: 222 ]]
-            -- upvalues: l_Logger_0 (ref), l_HttpService_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref), v67 (ref), v69 (ref)
-            l_Logger_0:warning("Error initializing login: {}", l_HttpService_0:JSONEncode(v86));
-            l_authClientError_0(l_EventStreamConstants_0.Context.LoginFormV2Username, v86.errorCode);
-            local v87 = v86.errorKey or "Authentication.Login.Response.SomethingWentWrong";
-            v67({
-                errorKey = v87
+            v71(false);
+            v59.navigation.navigate(v44.AuthenticationScreen);
+        end, function(v88) --[[ Line: 235 ]]
+            -- upvalues: l_Logger_0 (ref), l_HttpService_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref), v69 (ref), v71 (ref)
+            l_Logger_0:warning("Error initializing login: {}", l_HttpService_0:JSONEncode(v88));
+            l_authClientError_0(l_EventStreamConstants_0.Context.LoginFormV2Username, v88.errorCode);
+            local v89 = v88.errorKey or "Authentication.Login.Response.SomethingWentWrong";
+            v69({
+                errorKey = v89
             });
-            v69(false);
+            v71(false);
         end);
     end;
-    local v89 = {
-        setInProgress = v69, 
-        setErrorKey = v77, 
-        navigation = v57.navigation, 
+    local v91 = {
+        setInProgress = v71, 
+        setErrorKey = v79, 
+        navigation = v59.navigation, 
         isLoginByOtp = false, 
         eventContext = l_EventStreamConstants_0.Context.LoginFormV2Username
     };
-    local function _() --[[ Line: 238 ]]
-        -- upvalues: l_AppStorageUtilities_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_state_0 (copy), v73 (copy)
-        local v90 = l_AppStorageUtilities_0.getAccountBlob();
-        local v91 = l_AppStorageUtilities_0.getDefaultUsername();
-        local v92 = v90 and v90 ~= "";
-        local v93 = v91 and v91 ~= "";
+    local function _() --[[ Line: 251 ]]
+        -- upvalues: l_AppStorageUtilities_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_state_0 (copy), v75 (copy)
+        local v92 = l_AppStorageUtilities_0.getAccountBlob();
+        local v93 = l_AppStorageUtilities_0.getDefaultUsername();
+        local v94 = v92 and v92 ~= "";
+        local v95 = v93 and v93 ~= "";
         if l_FFlagEnableLoginV2ForcedUsernameOverride_0 and l_state_0.extraProps and l_state_0.extraProps.forcedUsernameOverride then
             if l_state_0.extraProps.forcedUsernameOverride == "" then
                 return false;
@@ -210,130 +221,139 @@ LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
                 return true;
             end;
         else
-            return v93 and not (v92 or v73 ~= "");
+            return v95 and not (v94 or v75 ~= "");
         end;
     end;
-    v3.useEffect(function() --[[ Line: 261 ]]
-        -- upvalues: l_state_0 (copy), v42 (ref), l_AppStorageUtilities_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), v73 (copy), l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), l_FFlagEnableLastLoginMethodTracking_0 (ref), l_LoginMethods_0 (ref), v67 (copy), v74 (copy), v88 (copy)
-        if l_state_0 and l_state_0.componentState[v42.LoginScreenV2].shouldAttemptCredentialPrefill or false then
-            local v95 = l_AppStorageUtilities_0.getAccountBlob();
-            local v96 = l_AppStorageUtilities_0.getDefaultUsername();
-            local v97 = v95 and v95 ~= "";
-            local v98 = v96 and v96 ~= "";
-            if if l_FFlagEnableLoginV2ForcedUsernameOverride_0 and l_state_0.extraProps and l_state_0.extraProps.forcedUsernameOverride then l_state_0.extraProps.forcedUsernameOverride ~= "" else v98 and not (v97 or v73 ~= "") then
-                local v99 = l_AppStorageUtilities_0.getDefaultUsername();
+    v3.useEffect(function() --[[ Line: 277 ]]
+        -- upvalues: l_state_0 (copy), v44 (ref), l_AppStorageUtilities_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), v75 (copy), l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), l_FFlagEnableLastLoginMethodTracking_0 (ref), l_LoginMethods_0 (ref), v69 (copy), v76 (copy), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref), v60 (copy), v12 (ref), v90 (copy)
+        if l_state_0 and l_state_0.componentState[v44.LoginScreenV2].shouldAttemptCredentialPrefill or false then
+            local v97 = l_AppStorageUtilities_0.getAccountBlob();
+            local v98 = l_AppStorageUtilities_0.getDefaultUsername();
+            local v99 = v97 and v97 ~= "";
+            local v100 = v98 and v98 ~= "";
+            if if l_FFlagEnableLoginV2ForcedUsernameOverride_0 and l_state_0.extraProps and l_state_0.extraProps.forcedUsernameOverride then l_state_0.extraProps.forcedUsernameOverride ~= "" else v100 and not (v99 or v75 ~= "") then
+                local v101 = l_AppStorageUtilities_0.getDefaultUsername();
                 l_authButtonClick_0(l_EventStreamConstants_0.Context.LoginFormV2Username, l_EventStreamConstants_0.Button.PrefilledNext, nil, nil);
                 if l_FFlagEnableLastLoginMethodTracking_0 then
                     if l_AppStorageUtilities_0.getLastSuccessfulSignInMethod() == l_LoginMethods_0.QuickLogin then
-                        v67({
-                            userIdentifier = v99
+                        v69({
+                            userIdentifier = v101
                         });
-                        v74(v99);
-                        return;
+                        v76(v101);
+                        if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 then
+                            v60.dispatch({
+                                type = v12.SetUserIdentifierAndType, 
+                                data = {
+                                    userIdentifier = v101, 
+                                    userIdentifierType = getUserIdentifierType(v101)
+                                }
+                            });
+                            return;
+                        end;
                     else
-                        v88(v99);
+                        v90(v101);
                         return;
                     end;
                 else
-                    v88(v99);
-                    return;
+                    v90(v101);
                 end;
+                return;
             end;
         end;
     end, {});
-    v3.useEffect(function() --[[ Line: 294 ]]
-        -- upvalues: l_default_1 (ref), l_TelemetryConfigs_0 (ref), l_utils_0 (copy), l_HttpService_0 (ref), l_ApiFetchAuthMetaData_0 (ref), v64 (copy), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), l_Logger_0 (ref)
+    v3.useEffect(function() --[[ Line: 319 ]]
+        -- upvalues: l_default_1 (ref), l_TelemetryConfigs_0 (ref), l_utils_0 (copy), l_HttpService_0 (ref), l_ApiFetchAuthMetaData_0 (ref), v66 (copy), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), l_Logger_0 (ref)
         l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LoginPageMountTelemetryConfig, 1, {
             version = 2
         });
-        local v100 = {
+        local v102 = {
             isAuthenticated = l_utils_0.isUserAuthenticated()
         };
-        local v101 = l_HttpService_0:JSONEncode(v100);
-        l_ApiFetchAuthMetaData_0(v64):andThen(function(v102) --[[ Line: 306 ]]
-            -- upvalues: l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v101 (copy)
-            local v103 = v102 and v102.IsAltBrowserTracker;
-            l_authPageload_0(l_EventStreamConstants_0.Context.LoginFormV2Username, v101, v103);
-        end, function(v104) --[[ Line: 309 ]]
-            -- upvalues: l_Logger_0 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v101 (copy)
-            l_Logger_0:warning("Error auth metadata: {}", v104);
-            l_authPageload_0(l_EventStreamConstants_0.Context.LoginFormV2Username, v101, nil);
+        local v103 = l_HttpService_0:JSONEncode(v102);
+        l_ApiFetchAuthMetaData_0(v66):andThen(function(v104) --[[ Line: 331 ]]
+            -- upvalues: l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v103 (copy)
+            local v105 = v104 and v104.IsAltBrowserTracker;
+            l_authPageload_0(l_EventStreamConstants_0.Context.LoginFormV2Username, v103, v105);
+        end, function(v106) --[[ Line: 334 ]]
+            -- upvalues: l_Logger_0 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v103 (copy)
+            l_Logger_0:warning("Error auth metadata: {}", v106);
+            l_authPageload_0(l_EventStreamConstants_0.Context.LoginFormV2Username, v103, nil);
         end);
     end, {});
     local l_initialStateUpdated_0 = l_state_0.credentialsProtocolStatus.initialStateUpdated;
     local l_fido2Supported_0 = l_state_0.credentialsProtocolStatus.fido2Supported;
-    v3.useEffect(function() --[[ Line: 318 ]]
-        -- upvalues: l_initialStateUpdated_0 (copy), l_state_0 (copy), l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 (ref), l_FFlagAuthSecExclusions_0 (ref), v55 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v58 (copy), v12 (ref), l_AppStorageUtilities_0 (ref), l_LoginMethods_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), v73 (copy), l_utils_0 (copy), v89 (copy), l_Logger_0 (ref), l_HttpService_0 (ref), l_default_0 (ref), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (ref)
+    v3.useEffect(function() --[[ Line: 343 ]]
+        -- upvalues: l_initialStateUpdated_0 (copy), l_state_0 (copy), l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 (ref), l_FFlagAuthSecExclusions_0 (ref), v57 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v60 (copy), v12 (ref), l_AppStorageUtilities_0 (ref), l_LoginMethods_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), v75 (copy), l_utils_0 (copy), v91 (copy), l_Logger_0 (ref), l_HttpService_0 (ref), l_default_0 (ref), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (ref)
         if l_initialStateUpdated_0 or not l_state_0.shouldAutoShowCredentialPopup then
             return;
         else
-            local function v116(v107) --[[ Line: 324 ]]
-                -- upvalues: l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 (ref), l_FFlagAuthSecExclusions_0 (ref), v55 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v58 (ref), v12 (ref), l_AppStorageUtilities_0 (ref), l_LoginMethods_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_state_0 (ref), v73 (ref), l_utils_0 (ref), v89 (ref)
-                local v108 = false;
-                local v109 = false;
+            local function v118(v109) --[[ Line: 349 ]]
+                -- upvalues: l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 (ref), l_FFlagAuthSecExclusions_0 (ref), v57 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v60 (ref), v12 (ref), l_AppStorageUtilities_0 (ref), l_LoginMethods_0 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_state_0 (ref), v75 (ref), l_utils_0 (ref), v91 (ref)
                 local v110 = false;
                 local v111 = false;
-                if v107.FIDO2 ~= nil then
-                    v109 = v107.FIDO2.isAvailable and v107.FIDO2.supportsDeviceBoundOnly;
+                local v112 = false;
+                local v113 = false;
+                if v109.FIDO2 ~= nil then
+                    v111 = v109.FIDO2.isAvailable and v109.FIDO2.supportsDeviceBoundOnly;
                     if l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 then
-                        v110 = v107.password and v107.password.isAvailable;
-                        v111 = v107.password ~= nil;
+                        v112 = v109.password and v109.password.isAvailable;
+                        v113 = v109.password ~= nil;
                     else
-                        v111 = true;
+                        v113 = true;
                     end;
                 else
-                    v109 = v107.isAvailable and v107.supportsDeviceBoundOnly or false;
+                    v111 = v109.isAvailable and v109.supportsDeviceBoundOnly or false;
                 end;
-                if l_FFlagAuthSecExclusions_0 and v55.excludePasskeyLogin then
-                    v109 = false;
+                if l_FFlagAuthSecExclusions_0 and v57.excludePasskeyLogin then
+                    v111 = false;
                 end;
-                if not l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 and v107.password ~= nil then
-                    v110 = v107.password.isAvailable;
+                if not l_FFlagEnableCredentialsV2InterfaceDetectionFix_0 and v109.password ~= nil then
+                    v112 = v109.password.isAvailable;
                 end;
-                l_authPageload_0(l_EventStreamConstants_0.Context.PasskeyLoginV2, if v109 ~= nil then tostring(v109) else "timeout");
-                v58.dispatch({
+                l_authPageload_0(l_EventStreamConstants_0.Context.PasskeyLoginV2, if v111 ~= nil then tostring(v111) else "timeout");
+                v60.dispatch({
                     type = v12.UpdateCredentialsProtocolStatus, 
                     data = {
-                        fido2Supported = v109, 
-                        passwordsSupported = v110, 
-                        v2InterfaceSupported = v111
+                        fido2Supported = v111, 
+                        passwordsSupported = v112, 
+                        v2InterfaceSupported = v113
                     }
                 });
-                v58.dispatch({
+                v60.dispatch({
                     type = v12.SetCredentialAutoPopupShown
                 });
                 if l_AppStorageUtilities_0.getLastSuccessfulSignInMethod() ~= l_LoginMethods_0.QuickLogin then
-                    local v112 = l_AppStorageUtilities_0.getAccountBlob();
-                    local v113 = l_AppStorageUtilities_0.getDefaultUsername();
-                    local v114 = v112 and v112 ~= "";
-                    local v115 = v113 and v113 ~= "";
-                    v108 = if l_FFlagEnableLoginV2ForcedUsernameOverride_0 and l_state_0.extraProps and l_state_0.extraProps.forcedUsernameOverride then l_state_0.extraProps.forcedUsernameOverride ~= "" else v115 and not (v114 or v73 ~= "");
+                    local v114 = l_AppStorageUtilities_0.getAccountBlob();
+                    local v115 = l_AppStorageUtilities_0.getDefaultUsername();
+                    local v116 = v114 and v114 ~= "";
+                    local v117 = v115 and v115 ~= "";
+                    v110 = if l_FFlagEnableLoginV2ForcedUsernameOverride_0 and l_state_0.extraProps and l_state_0.extraProps.forcedUsernameOverride then l_state_0.extraProps.forcedUsernameOverride ~= "" else v117 and not (v116 or v75 ~= "");
                 end;
-                if not v108 then
-                    if v111 then
-                        l_utils_0.showGenericCredentialLoginPopup(v109, v110, false, v89);
+                if not v110 then
+                    if v113 then
+                        l_utils_0.showGenericCredentialLoginPopup(v111, v112, false, v91);
                         return;
-                    elseif v109 then
-                        l_utils_0.showPasskeyLoginPopup(v89, false, true);
+                    elseif v111 then
+                        l_utils_0.showPasskeyLoginPopup(v91, false, true);
                     end;
                 end;
-                v108 = false;
+                v110 = false;
             end;
             local l_extraProps_0 = l_state_0.extraProps;
             if l_extraProps_0.credProtocolIsAvailableResponse and l_extraProps_0.credProtocolIsAvailableResponse.isAvailable ~= nil then
                 l_Logger_0:info("Using prefetched credentials protocol response: {}", l_HttpService_0:JSONEncode(l_extraProps_0.credProtocolIsAvailableResponse));
                 l_authPageload_0(l_EventStreamConstants_0.Context.LoginRevampIsAvailableFetch, "0");
-                v116(l_extraProps_0.credProtocolIsAvailableResponse);
+                v118(l_extraProps_0.credProtocolIsAvailableResponse);
                 return;
             else
-                local v118 = os.clock();
-                l_default_0:isAvailable(l_default_0.CredentialsTypes.FIDO2, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v119) --[[ Line: 407 ]]
-                    -- upvalues: l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v118 (copy), v116 (copy)
-                    l_authPageload_0(l_EventStreamConstants_0.Context.LoginRevampIsAvailableFetch, (tostring(os.clock() - v118)));
-                    v116(v119);
-                end):catch(function(v120) --[[ Line: 414 ]]
-                    -- upvalues: v58 (ref), v12 (ref), l_Logger_0 (ref)
-                    v58.dispatch({
+                local v120 = os.clock();
+                l_default_0:isAvailable(l_default_0.CredentialsTypes.FIDO2, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v121) --[[ Line: 432 ]]
+                    -- upvalues: l_authPageload_0 (ref), l_EventStreamConstants_0 (ref), v120 (copy), v118 (copy)
+                    l_authPageload_0(l_EventStreamConstants_0.Context.LoginRevampIsAvailableFetch, (tostring(os.clock() - v120)));
+                    v118(v121);
+                end):catch(function(v122) --[[ Line: 439 ]]
+                    -- upvalues: v60 (ref), v12 (ref), l_Logger_0 (ref)
+                    v60.dispatch({
                         type = v12.UpdateCredentialsProtocolStatus, 
                         data = {
                             fido2Supported = false, 
@@ -341,107 +361,125 @@ LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
                             v2InterfaceSupported = false
                         }
                     });
-                    l_Logger_0:warning("Error checking for available credential types. Error: {}", v120);
+                    l_Logger_0:warning("Error checking for available credential types. Error: {}", v122);
                 end);
                 return;
             end;
         end;
     end, {});
-    local function _() --[[ Line: 429 ]]
-        -- upvalues: l_FFlagAuthSecExclusions_0 (ref), v55 (ref)
+    local function _() --[[ Line: 454 ]]
+        -- upvalues: l_FFlagAuthSecExclusions_0 (ref), v57 (ref)
         if l_FFlagAuthSecExclusions_0 then
-            if v55.excludeEmailPasswordSignIn and v55.excludePhoneNumberPasswordSignIn then
+            if v57.excludeEmailPasswordSignIn and v57.excludePhoneNumberPasswordSignIn then
                 return "Authentication.Login.Label.Username";
-            elseif v55.excludeEmailPasswordSignIn and v55.excludeUsernamePasswordSignIn then
+            elseif v57.excludeEmailPasswordSignIn and v57.excludeUsernamePasswordSignIn then
                 return "Authentication.Login.Label.Phone";
-            elseif v55.excludeUsernamePasswordSignIn and v55.excludePhoneNumberPasswordSignIn then
+            elseif v57.excludeUsernamePasswordSignIn and v57.excludePhoneNumberPasswordSignIn then
                 return "Authentication.Login.Label.Email";
-            elseif v55.excludeEmailPasswordSignIn then
+            elseif v57.excludeEmailPasswordSignIn then
                 return "Authentication.Login.Label.UsernameOrPhone";
-            elseif v55.excludeUsernamePasswordSignIn then
+            elseif v57.excludeUsernamePasswordSignIn then
                 return "Authentication.Login.Label.EmailOrPhone";
-            elseif v55.excludePhoneNumberPasswordSignIn then
+            elseif v57.excludePhoneNumberPasswordSignIn then
                 return "Authentication.Login.Label.UsernameOrEmail";
             end;
         end;
         return "Authentication.Login.Label.UsernameEmailOrPhoneNumber";
     end;
-    local v122 = l_useLocalization_0({
+    local v124 = l_useLocalization_0({
         signInHeadingText = "Authentication.Login.Heading.SignIn", 
-        identifierLabelText = if l_FFlagAuthSecExclusions_0 then v55.excludeEmailPasswordSignIn and v55.excludePhoneNumberPasswordSignIn and "Authentication.Login.Label.Username" or v55.excludeEmailPasswordSignIn and v55.excludeUsernamePasswordSignIn and "Authentication.Login.Label.Phone" or v55.excludeUsernamePasswordSignIn and v55.excludePhoneNumberPasswordSignIn and "Authentication.Login.Label.Email" or v55.excludeEmailPasswordSignIn and "Authentication.Login.Label.UsernameOrPhone" or v55.excludeUsernamePasswordSignIn and "Authentication.Login.Label.EmailOrPhone" or v55.excludePhoneNumberPasswordSignIn and "Authentication.Login.Label.UsernameOrEmail" or "Authentication.Login.Label.UsernameEmailOrPhoneNumber" else "Authentication.Login.Label.UsernameEmailOrPhoneNumber", 
+        identifierLabelText = if l_FFlagAuthSecExclusions_0 then v57.excludeEmailPasswordSignIn and v57.excludePhoneNumberPasswordSignIn and "Authentication.Login.Label.Username" or v57.excludeEmailPasswordSignIn and v57.excludeUsernamePasswordSignIn and "Authentication.Login.Label.Phone" or v57.excludeUsernamePasswordSignIn and v57.excludePhoneNumberPasswordSignIn and "Authentication.Login.Label.Email" or v57.excludeEmailPasswordSignIn and "Authentication.Login.Label.UsernameOrPhone" or v57.excludeUsernamePasswordSignIn and "Authentication.Login.Label.EmailOrPhone" or v57.excludePhoneNumberPasswordSignIn and "Authentication.Login.Label.UsernameOrEmail" or "Authentication.Login.Label.UsernameEmailOrPhoneNumber" else "Authentication.Login.Label.UsernameEmailOrPhoneNumber", 
         orText = "Authentication.SignUp.Description.Or", 
         nextActionText = "Authentication.Login.Action.Next", 
         quickSignInActionText = "Authentication.Login.Action.QuickSignIn", 
         usePasskeyActionText = "Authentication.Login.Action.UsePasskey", 
         passkeyIncompatibleText = "Authentication.Login.Label.PasskeyIncompatible", 
-        errorText = if v75 ~= "" then v75 else nil
+        errorText = if v77 ~= "" then v77 else nil
     });
-    local v123 = {};
-    if not v55.excludeCrossDeviceSignIn then
-        table.insert(v123, {
+    local v125 = {};
+    if not v57.excludeCrossDeviceSignIn then
+        table.insert(v125, {
             buttonType = l_ButtonType_0.Secondary, 
             props = {
-                onActivated = function() --[[ Line: 474 ]] --[[ Name: onActivated ]]
-                    -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v63 (copy), l_CrossDeviceLogin_0 (ref), l_utils_0 (copy), v89 (copy)
+                onActivated = function() --[[ Line: 499 ]] --[[ Name: onActivated ]]
+                    -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v65 (copy), l_CrossDeviceLogin_0 (ref), l_utils_0 (copy), v91 (copy)
                     l_authButtonClick_0(l_EventStreamConstants_0.Context.LoginFormV2Username, l_EventStreamConstants_0.Button.QuickLogin, nil, nil);
-                    v63(l_CrossDeviceLogin_0.OpenLoginCodePrompt({
-                        loginCallback = function(v124, v125, v126, v127) --[[ Line: 482 ]] --[[ Name: loginCallback ]]
-                            -- upvalues: l_utils_0 (ref), v89 (ref)
-                            l_utils_0.handleLoginWithCode(v124, v125, v126, v127, v89);
+                    v65(l_CrossDeviceLogin_0.OpenLoginCodePrompt({
+                        loginCallback = function(v126, v127, v128, v129) --[[ Line: 507 ]] --[[ Name: loginCallback ]]
+                            -- upvalues: l_utils_0 (ref), v91 (ref)
+                            l_utils_0.handleLoginWithCode(v126, v127, v128, v129, v91);
                         end, 
                         isOverlay = true
                     }));
                 end, 
-                text = v122.quickSignInActionText, 
+                text = v124.quickSignInActionText, 
                 icon = l_Images_0["icons/menu/scanqr"], 
                 standardSize = l_StandardButtonSize_0.Regular, 
-                isLoading = v68
+                isLoading = v70
             }
         });
     end;
-    local v128 = not l_FFlagAuthSecExclusions_0 or not v55.excludeEmailPasswordSignIn or not v55.excludePhoneNumberPasswordSignIn or not v55.excludeUsernamePasswordSignIn or false;
-    if (l_fido2Supported_0 or not l_initialStateUpdated_0) and not v55.excludePasskeyLogin then
-        table.insert(v123, {
+    local v130 = not l_FFlagAuthSecExclusions_0 or not v57.excludeEmailPasswordSignIn or not v57.excludePhoneNumberPasswordSignIn or not v57.excludeUsernamePasswordSignIn or false;
+    if (l_fido2Supported_0 or not l_initialStateUpdated_0) and not v57.excludePasskeyLogin then
+        table.insert(v125, {
             buttonType = l_ButtonType_0.Secondary, 
             props = {
-                onActivated = function() --[[ Line: 514 ]] --[[ Name: onActivated ]]
-                    -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), l_utils_0 (copy), v89 (copy)
+                onActivated = function() --[[ Line: 539 ]] --[[ Name: onActivated ]]
+                    -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref), v75 (copy), v60 (copy), v12 (ref), l_utils_0 (copy), v91 (copy)
                     l_authButtonClick_0(l_EventStreamConstants_0.Context.LoginFormV2Username, l_EventStreamConstants_0.Button.UsePasskey, nil, nil);
-                    l_utils_0.showPasskeyLoginPopup(v89, false, false);
+                    if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 and v75 ~= "" then
+                        v60.dispatch({
+                            type = v12.SetUserIdentifierAndType, 
+                            data = {
+                                userIdentifier = v75, 
+                                userIdentifierType = getUserIdentifierType(v75)
+                            }
+                        });
+                    end;
+                    l_utils_0.showPasskeyLoginPopup(v91, false, false);
                 end, 
-                text = v122.usePasskeyActionText, 
+                text = v124.usePasskeyActionText, 
                 icon = l_Images_0["icons/menu/passkey"], 
                 standardSize = l_StandardButtonSize_0.Regular, 
-                isLoading = not l_initialStateUpdated_0 or v68
+                isLoading = not l_initialStateUpdated_0 or v70
             }
         });
     end;
-    local v129 = if v55.disableLoginForgotButton then nil else v3.createElement(v41, {
+    local v131 = if v57.disableLoginForgotButton then nil else v3.createElement(v43, {
         layoutOrder = 10, 
-        isDisabled = v68, 
+        isDisabled = v70, 
         originPage = l_EventStreamConstants_0.Context.LoginFormV2Username, 
         textKey = "Authentication.Login.Action.ForgotUsername", 
-        identifierAutofill = v73
+        identifierAutofill = v75
     });
-    local v130 = #v123 > 0;
+    local v132 = #v125 > 0;
     return v3.createElement(l_FullscreenPageWithSafeArea_0, {
         includeStatusBar = true, 
-        BackgroundColor3 = v61.Theme.BackgroundDefault.Color
+        BackgroundColor3 = v63.Theme.BackgroundDefault.Color
     }, {
         UIPadding = v3.createElement("UIPadding", {
-            PaddingTop = UDim.new(0, v62.Global.Space_100), 
-            PaddingLeft = UDim.new(0, v62.Global.Space_100), 
-            PaddingRight = UDim.new(0, v62.Global.Space_100), 
-            PaddingBottom = UDim.new(0, v62.Global.Space_100)
+            PaddingTop = UDim.new(0, v64.Global.Space_100), 
+            PaddingLeft = UDim.new(0, v64.Global.Space_100), 
+            PaddingRight = UDim.new(0, v64.Global.Space_100), 
+            PaddingBottom = UDim.new(0, v64.Global.Space_100)
         }), 
-        Wrapper = v3.createElement("Frame", {
+        Wrapper = v3.createElement(l_FFlagFixLoginV2LandscapeLayout_0 and "ScrollingFrame" or "Frame", if l_FFlagFixLoginV2LandscapeLayout_0 then {
+            BackgroundTransparency = 1, 
+            Size = UDim2.new(1, 0, 1, 0), 
+            CanvasSize = UDim2.new(0, 0, 0, 0), 
+            AutomaticCanvasSize = Enum.AutomaticSize.XY, 
+            ScrollBarThickness = 0, 
+            ScrollingDirection = Enum.ScrollingDirection.Y, 
+            BorderSizePixel = 0
+        } else {
             BackgroundTransparency = 1, 
             AutomaticSize = Enum.AutomaticSize.Y, 
             Size = UDim2.new(1, 0, 0, 0)
         }, {
             UIListLayout = v3.createElement("UIListLayout", {
                 SortOrder = Enum.SortOrder.LayoutOrder, 
-                FillDirection = Enum.FillDirection.Vertical
+                FillDirection = Enum.FillDirection.Vertical, 
+                HorizontalAlignment = if l_FFlagFixLoginV2LandscapeLayout_0 then Enum.HorizontalAlignment.Center else nil
             }), 
             Header = v3.createElement("Frame", {
                 LayoutOrder = 1, 
@@ -451,13 +489,13 @@ LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
             }, {
                 BackButton = v3.createElement(l_IconButton_0, {
                     icon = l_Images_0["icons/navigation/close"], 
-                    onActivated = function() --[[ Line: 570 ]] --[[ Name: onActivated ]]
-                        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v58 (copy)
+                    onActivated = function() --[[ Line: 620 ]] --[[ Name: onActivated ]]
+                        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v60 (copy)
                         l_authButtonClick_0(l_EventStreamConstants_0.Context.LoginFormV2Username, l_EventStreamConstants_0.Button.Back);
-                        v58.parentNavigation.goBack();
+                        v60.parentNavigation.goBack();
                     end, 
                     size = UDim2.new(0, 36, 0, 36), 
-                    isDisabled = v68
+                    isDisabled = v70
                 }), 
                 SignInHeadingFrame = v3.createElement("Frame", {
                     Size = UDim2.new(0, 0, 1, 0), 
@@ -467,9 +505,9 @@ LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
                     AutomaticSize = Enum.AutomaticSize.X
                 }, {
                     SignInHeadingText = v3.createElement(l_StyledTextLabel_0, {
-                        text = v122.signInHeadingText, 
-                        fontStyle = v61.Font.Header1, 
-                        colorStyle = v61.Theme.TextEmphasis, 
+                        text = v124.signInHeadingText, 
+                        fontStyle = v63.Font.Header1, 
+                        colorStyle = v63.Theme.TextEmphasis, 
                         textXAlignment = Enum.TextXAlignment.Center
                     })
                 })
@@ -480,87 +518,91 @@ LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 Size = UDim2.new(1, 0, 0, 0)
             }, {
+                UISizeConstraint = l_FFlagFixLoginV2LandscapeLayout_0 and v3.createElement("UISizeConstraint", {
+                    MaxSize = Vector2.new(v47.CONTENT_MAX_WIDTH, 1e999)
+                }), 
                 UIPadding = v3.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, v62.Global.Space_100), 
-                    PaddingRight = UDim.new(0, v62.Global.Space_100)
+                    PaddingLeft = UDim.new(0, v64.Global.Space_100), 
+                    PaddingRight = UDim.new(0, v64.Global.Space_100), 
+                    PaddingBottom = if l_FFlagFixLoginV2LandscapeLayout_0 then UDim.new(0, v64.Global.Space_400) else nil
                 }), 
                 UIListLayout = v3.createElement("UIListLayout", {
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     FillDirection = Enum.FillDirection.Vertical, 
-                    Padding = UDim.new(0, v62.Global.Space_20)
+                    Padding = UDim.new(0, v64.Global.Space_20)
                 }), 
-                SignInHeadingSpacing = v128 and v3.createElement("Frame", {
+                SignInHeadingSpacing = v130 and v3.createElement("Frame", {
                     LayoutOrder = 2, 
-                    Size = UDim2.new(1, 0, 0, v62.Global.Space_400), 
+                    Size = UDim2.new(1, 0, 0, v64.Global.Space_400), 
                     BackgroundTransparency = 1
                 }), 
-                IdentifierLabel = v128 and v3.createElement(l_StyledTextLabel_0, {
+                IdentifierLabel = v130 and v3.createElement(l_StyledTextLabel_0, {
                     layoutOrder = 3, 
-                    text = v122.identifierLabelText, 
-                    fontStyle = v61.Font.Body, 
-                    colorStyle = v61.Theme.TextEmphasis, 
+                    text = v124.identifierLabelText, 
+                    fontStyle = v63.Font.Body, 
+                    colorStyle = v63.Theme.TextEmphasis, 
                     automaticSize = Enum.AutomaticSize.XY
                 }), 
-                IdentifierLabelSpacing = v128 and v3.createElement("Frame", {
+                IdentifierLabelSpacing = v130 and v3.createElement("Frame", {
                     LayoutOrder = 4, 
-                    Size = UDim2.new(1, 0, 0, v62.Global.Space_50), 
+                    Size = UDim2.new(1, 0, 0, v64.Global.Space_50), 
                     BackgroundTransparency = 1
                 }), 
-                UserIdentifierTextField = v128 and v3.createElement(l_TextInput_0, {
+                UserIdentifierTextField = v130 and v3.createElement(l_TextInput_0, {
                     LayoutOrder = 5, 
-                    text = v70, 
+                    text = v72, 
                     label = "", 
                     width = UDim.new(1, 0), 
                     textInputType = Enum.TextInputType.Username, 
-                    onChanged = function(v131) --[[ Line: 634 ]] --[[ Name: onChanged ]]
-                        -- upvalues: v75 (copy), v67 (copy), v74 (copy)
-                        if v75 ~= "" then
-                            v67({
+                    onChanged = function(v133) --[[ Line: 690 ]] --[[ Name: onChanged ]]
+                        -- upvalues: v77 (copy), v69 (copy), v76 (copy)
+                        if v77 ~= "" then
+                            v69({
                                 errorKey = ""
                             });
                         end;
-                        v74(v131);
+                        v76(v133);
                     end, 
-                    onFocusGained = function() --[[ Line: 641 ]] --[[ Name: onFocusGained ]]
-                        -- upvalues: l_authFormInteraction_0 (ref), l_EventStreamConstants_0 (ref), v73 (copy)
-                        l_authFormInteraction_0(l_EventStreamConstants_0.Context.LoginFormV2Username, l_EventStreamConstants_0.Field.Username, nil, nil, #v73 > 0);
+                    onFocusGained = function() --[[ Line: 697 ]] --[[ Name: onFocusGained ]]
+                        -- upvalues: l_authFormInteraction_0 (ref), l_EventStreamConstants_0 (ref), v75 (copy)
+                        l_authFormInteraction_0(l_EventStreamConstants_0.Context.LoginFormV2Username, l_EventStreamConstants_0.Field.Username, nil, nil, #v75 > 0);
                     end, 
-                    isDisabled = v68
+                    isDisabled = v70
                 }), 
-                ErrorTextSpacing = v128 and v122.errorText and v3.createElement("Frame", {
+                ErrorTextSpacing = v130 and v124.errorText and v3.createElement("Frame", {
                     LayoutOrder = 6, 
-                    Size = UDim2.new(1, 0, 0, v62.Global.Space_50), 
+                    Size = UDim2.new(1, 0, 0, v64.Global.Space_50), 
                     BackgroundTransparency = 1
                 }), 
-                ErrorTextLabel = v128 and v122.errorText and v3.createElement(l_StyledTextLabel_0, {
+                ErrorTextLabel = v130 and v124.errorText and v3.createElement(l_StyledTextLabel_0, {
                     layoutOrder = 7, 
-                    text = v122.errorText, 
-                    fontStyle = v61.Font.BodySmall, 
-                    colorStyle = v61.Theme.Alert, 
+                    text = v124.errorText, 
+                    fontStyle = v63.Font.BodySmall, 
+                    colorStyle = v63.Theme.Alert, 
                     automaticSize = Enum.AutomaticSize.XY, 
                     textWrapped = true
                 }), 
-                NextButtonSpacing = v128 and v3.createElement("Frame", {
+                NextButtonSpacing = v130 and v3.createElement("Frame", {
                     LayoutOrder = 8, 
-                    Size = UDim2.new(1, 0, 0, v62.Global.Space_200), 
+                    Size = UDim2.new(1, 0, 0, v64.Global.Space_200), 
                     BackgroundTransparency = 1
                 }), 
-                NextButton = v128 and v3.createElement(l_Button_0, {
+                NextButton = v130 and v3.createElement(l_Button_0, {
                     layoutOrder = 9, 
                     standardSize = l_StandardButtonSize_0.Regular, 
                     buttonType = l_ButtonType_0.PrimaryContextual, 
-                    text = v122.nextActionText, 
-                    buttonTextOverride = v45.getButtonTextOverrideConfig(), 
-                    onActivated = function() --[[ Line: 678 ]] --[[ Name: onActivated ]]
-                        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v88 (copy)
+                    text = v124.nextActionText, 
+                    buttonTextOverride = v47.getButtonTextOverrideConfig(), 
+                    onActivated = function() --[[ Line: 736 ]] --[[ Name: onActivated ]]
+                        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v90 (copy)
                         l_authButtonClick_0(l_EventStreamConstants_0.Context.LoginFormV2Username, l_EventStreamConstants_0.Button.Next, nil, nil);
-                        v88();
+                        v90();
                     end, 
-                    isDisabled = v73 == "", 
-                    isLoading = v68
+                    isDisabled = v75 == "", 
+                    isLoading = v70
                 }), 
-                HelpButton = v128 and v129, 
-                AlternativeLoginDivider = v130 and v128 and v3.createElement("Frame", {
+                HelpButton = v130 and v131, 
+                AlternativeLoginDivider = v132 and v130 and v3.createElement("Frame", {
                     LayoutOrder = 11, 
                     Size = UDim2.new(1, 0, 0, 0), 
                     AutomaticSize = Enum.AutomaticSize.Y, 
@@ -573,15 +615,15 @@ LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
                     }), 
                     DividerText = v3.createElement(l_StyledTextLabel_0, {
                         layoutOrder = 1, 
-                        text = v122.orText, 
-                        fontStyle = v61.Font.Header2, 
-                        colorStyle = v61.Theme.TextDefault, 
+                        text = v124.orText, 
+                        fontStyle = v63.Font.Header2, 
+                        colorStyle = v63.Theme.TextDefault, 
                         textXAlignment = Enum.TextXAlignment.Center
                     })
                 }), 
                 Spacing = v3.createElement("Frame", {
                     LayoutOrder = 12, 
-                    Size = UDim2.new(1, 0, 0, v62.Global.Space_200), 
+                    Size = UDim2.new(1, 0, 0, v64.Global.Space_200), 
                     BackgroundTransparency = 1
                 }), 
                 AlternativeLoginButtonFrame = v3.createElement("Frame", {
@@ -592,7 +634,7 @@ LoginScreenV2 = function(v57) --[[ Line: 101 ]] --[[ Name: LoginScreenV2 ]]
                 }, {
                     AlternativeLoginButtons = v3.createElement(l_ButtonStack_0, {
                         forcedFillDirection = Enum.FillDirection.Vertical, 
-                        buttons = v123
+                        buttons = v125
                     })
                 })
             })

@@ -6,35 +6,28 @@ local l_useSelector_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useSelec
 local v5 = require(l_script_FirstAncestor_0.getGameTileLayoutData);
 local v6 = require(l_script_FirstAncestor_0.Overlays.getValidTileBadges);
 local _ = require(l_script_FirstAncestor_0.GameTileTypes);
-local l_FFlagLuaAppTwoByOneTileExperimentVariants_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileExperimentVariants;
-return function(v9, v10, v11) --[[ Line: 16 ]] --[[ Name: useValidTileBadges ]]
-    -- upvalues: l_useSelector_0 (copy), l_GameInfosReducer_0 (copy), v5 (copy), v3 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (copy), v6 (copy)
-    local v13 = l_useSelector_0(function(v12) --[[ Line: 21 ]]
-        -- upvalues: l_GameInfosReducer_0 (ref), v9 (copy)
-        return v12.Personalization[l_GameInfosReducer_0.key][v9];
+return function(v8, v9, v10) --[[ Line: 13 ]] --[[ Name: useValidTileBadges ]]
+    -- upvalues: l_useSelector_0 (copy), l_GameInfosReducer_0 (copy), v5 (copy), v3 (copy), v6 (copy)
+    local v12 = l_useSelector_0(function(v11) --[[ Line: 18 ]]
+        -- upvalues: l_GameInfosReducer_0 (ref), v8 (copy)
+        return v11.Personalization[l_GameInfosReducer_0.key][v8];
     end);
-    local v14 = v5(v13, v10);
-    return (v3.useMemo(function() --[[ Line: 28 ]]
-        -- upvalues: l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (ref), v11 (copy), v14 (copy), v6 (ref)
-        if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then
-            local v15 = nil;
-            if v11 then
-                v15 = v11;
-            elseif v14 and v14.tileBadgesByPosition then
-                v15 = v14.tileBadgesByPosition;
-            end;
-            if v15 then
-                return v6(v15);
-            else
-                return nil;
-            end;
-        elseif v14 and v14.tileBadgesByPosition then
-            return v6(v14.tileBadgesByPosition);
+    local v13 = v5(v12, v9);
+    return (v3.useMemo(function() --[[ Line: 25 ]]
+        -- upvalues: v10 (copy), v13 (copy), v6 (ref)
+        local v14 = nil;
+        if v10 then
+            v14 = v10;
+        elseif v13 and v13.tileBadgesByPosition then
+            v14 = v13.tileBadgesByPosition;
+        end;
+        if v14 then
+            return v6(v14);
         else
             return nil;
         end;
     end, {
-        v14, 
-        if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v11 else nil
+        v13, 
+        v10
     }));
 end;

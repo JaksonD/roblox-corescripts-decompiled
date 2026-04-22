@@ -4,7 +4,8 @@ return {
         AddFriends = "AddFriends", 
         FriendsHint = "FriendsHint", 
         Recommendation = "Recommendation", 
-        StartSquad = "StartSquad"
+        StartSquad = "StartSquad", 
+        ShareQR = "ShareQR"
     }, 
     TileGroup = {
         FriendsList = "FriendsList", 

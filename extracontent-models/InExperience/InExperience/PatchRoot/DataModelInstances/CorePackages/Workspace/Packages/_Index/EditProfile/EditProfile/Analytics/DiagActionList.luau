@@ -32,23 +32,5 @@ return {
     [v2.OpenAvatarMarketplace] = {
         name = "OpenAvatarMarketplace", 
         platformSpecificity = v1.Analytics.Enums.PlatformSpecificity.BucketsOnly
-    }, 
-    [v2.OpenPersonaOutfitSelect] = {
-        name = game:DefineFastString("OpenPersonaOutfitSelect", "OpenPersonaOutfitSelect")
-    }, 
-    [v2.OpenPersonaNameModal] = {
-        name = game:DefineFastString("OpenPersonaNameModal", "OpenPersonaNameModal")
-    }, 
-    [v2.TogglePersona] = {
-        name = game:DefineFastString("TogglePersona", "TogglePersona")
-    }, 
-    [v2.PersonaOutfitSelectLoaded] = {
-        name = game:DefineFastString("PersonaOutfitSelectLoaded", "PersonaOutfitSelectLoaded")
-    }, 
-    [v2.PersonaToAvatarCreator] = {
-        name = game:DefineFastString("PersonaToAvatarCreator", "PersonaToAvatarCreator")
-    }, 
-    [v2.PersonaNameSaved] = {
-        name = game:DefineFastString("PersonaNameSaved", "PersonaNameSaved")
     }
 };

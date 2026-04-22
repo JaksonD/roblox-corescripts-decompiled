@@ -3,7 +3,7 @@ local _ = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry);
 return {
     UiComponentType = ({
         UiComponentType = {
-            fromNumber = function(v2) --[[ Line: 68 ]] --[[ Name: fromNumber ]]
+            fromNumber = function(v2) --[[ Line: 75 ]] --[[ Name: fromNumber ]]
                 if v2 == 0 then
                     return "UI_COMPONENT_TYPE_INVALID";
                 elseif v2 == 1 then
@@ -22,6 +22,8 @@ return {
                     return "UI_COMPONENT_TYPE_SEE_ALL_TILE";
                 elseif v2 == 103 then
                     return "UI_COMPONENT_TYPE_BADGE_TILE";
+                elseif v2 == 104 then
+                    return "UI_COMPONENT_TYPE_SONG_TILE";
                 elseif v2 == 200 then
                     return "UI_COMPONENT_TYPE_BUTTON";
                 elseif v2 == 201 then
@@ -85,7 +87,17 @@ return {
                 elseif v2 == 230 then
                     return "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL";
                 elseif v2 == 231 then
-                    return "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE";
+                    return "UI_COMPONENT_TYPE_PLAY_BUTTON_CONTEXTUAL_MESSAGE";
+                elseif v2 == 232 then
+                    return "UI_COMPONENT_TYPE_MEDIA_GALLERY";
+                elseif v2 == 233 then
+                    return "UI_COMPONENT_TYPE_CONTENT_ROW";
+                elseif v2 == 234 then
+                    return "UI_COMPONENT_TYPE_LINK_TEXT";
+                elseif v2 == 235 then
+                    return "UI_COMPONENT_TYPE_COACHMARK";
+                elseif v2 == 236 then
+                    return "UI_COMPONENT_TYPE_BADGE";
                 elseif v2 == 300 then
                     return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS";
                 elseif v2 == 400 then
@@ -100,13 +112,15 @@ return {
                     return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL";
                 elseif v2 == 603 then
                     return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU";
+                elseif v2 == 700 then
+                    return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL";
                 elseif v2 == 9999 then
                     return "UI_COMPONENT_TYPE_MOCK_COMPONENT";
                 else
                     return nil;
                 end;
             end, 
-            toNumber = function(v3) --[[ Line: 172 ]] --[[ Name: toNumber ]]
+            toNumber = function(v3) --[[ Line: 193 ]] --[[ Name: toNumber ]]
                 if v3 == "UI_COMPONENT_TYPE_INVALID" then
                     return 0;
                 elseif v3 == "UI_COMPONENT_TYPE_FEED" then
@@ -125,6 +139,8 @@ return {
                     return 102;
                 elseif v3 == "UI_COMPONENT_TYPE_BADGE_TILE" then
                     return 103;
+                elseif v3 == "UI_COMPONENT_TYPE_SONG_TILE" then
+                    return 104;
                 elseif v3 == "UI_COMPONENT_TYPE_BUTTON" then
                     return 200;
                 elseif v3 == "UI_COMPONENT_TYPE_IMAGE" then
@@ -187,8 +203,18 @@ return {
                     return 229;
                 elseif v3 == "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL" then
                     return 230;
-                elseif v3 == "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE" then
+                elseif v3 == "UI_COMPONENT_TYPE_PLAY_BUTTON_CONTEXTUAL_MESSAGE" then
                     return 231;
+                elseif v3 == "UI_COMPONENT_TYPE_MEDIA_GALLERY" then
+                    return 232;
+                elseif v3 == "UI_COMPONENT_TYPE_CONTENT_ROW" then
+                    return 233;
+                elseif v3 == "UI_COMPONENT_TYPE_LINK_TEXT" then
+                    return 234;
+                elseif v3 == "UI_COMPONENT_TYPE_COACHMARK" then
+                    return 235;
+                elseif v3 == "UI_COMPONENT_TYPE_BADGE" then
+                    return 236;
                 elseif v3 == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
                     return 300;
                 elseif v3 == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -203,13 +229,15 @@ return {
                     return 602;
                 elseif v3 == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
                     return 603;
+                elseif v3 == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
+                    return 700;
                 elseif v3 == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
                     return 9999;
                 else
                     return v3;
                 end;
             end, 
-            fromName = function(v4) --[[ Line: 276 ]] --[[ Name: fromName ]]
+            fromName = function(v4) --[[ Line: 311 ]] --[[ Name: fromName ]]
                 if v4 == "UI_COMPONENT_TYPE_INVALID" then
                     return "UI_COMPONENT_TYPE_INVALID";
                 elseif v4 == "UI_COMPONENT_TYPE_FEED" then
@@ -228,6 +256,8 @@ return {
                     return "UI_COMPONENT_TYPE_SEE_ALL_TILE";
                 elseif v4 == "UI_COMPONENT_TYPE_BADGE_TILE" then
                     return "UI_COMPONENT_TYPE_BADGE_TILE";
+                elseif v4 == "UI_COMPONENT_TYPE_SONG_TILE" then
+                    return "UI_COMPONENT_TYPE_SONG_TILE";
                 elseif v4 == "UI_COMPONENT_TYPE_BUTTON" then
                     return "UI_COMPONENT_TYPE_BUTTON";
                 elseif v4 == "UI_COMPONENT_TYPE_IMAGE" then
@@ -290,8 +320,18 @@ return {
                     return "UI_COMPONENT_TYPE_CIRCLE_ICON";
                 elseif v4 == "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL" then
                     return "UI_COMPONENT_TYPE_CONTENT_RATING_LABEL";
-                elseif v4 == "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE" then
-                    return "UI_COMPONENT_TYPE_PLAY_BUTTON_WITH_CONTEXTUAL_MESSAGE";
+                elseif v4 == "UI_COMPONENT_TYPE_PLAY_BUTTON_CONTEXTUAL_MESSAGE" then
+                    return "UI_COMPONENT_TYPE_PLAY_BUTTON_CONTEXTUAL_MESSAGE";
+                elseif v4 == "UI_COMPONENT_TYPE_MEDIA_GALLERY" then
+                    return "UI_COMPONENT_TYPE_MEDIA_GALLERY";
+                elseif v4 == "UI_COMPONENT_TYPE_CONTENT_ROW" then
+                    return "UI_COMPONENT_TYPE_CONTENT_ROW";
+                elseif v4 == "UI_COMPONENT_TYPE_LINK_TEXT" then
+                    return "UI_COMPONENT_TYPE_LINK_TEXT";
+                elseif v4 == "UI_COMPONENT_TYPE_COACHMARK" then
+                    return "UI_COMPONENT_TYPE_COACHMARK";
+                elseif v4 == "UI_COMPONENT_TYPE_BADGE" then
+                    return "UI_COMPONENT_TYPE_BADGE";
                 elseif v4 == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
                     return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS";
                 elseif v4 == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -306,6 +346,8 @@ return {
                     return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL";
                 elseif v4 == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
                     return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU";
+                elseif v4 == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
+                    return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL";
                 elseif v4 == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
                     return "UI_COMPONENT_TYPE_MOCK_COMPONENT";
                 else

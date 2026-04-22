@@ -12,9 +12,7 @@ return {
         Enum = require(script.Analytics.Enum)
     }, 
     Flags = {
-        FFlagEnableAEGIS1HomePageBanner = require(script.Flag.FFlagEnableAEGIS1HomePageBanner), 
         FFlagEnableAEGIS1AppChatBanner = require(script.Flag.FFlagEnableAEGIS1AppChatBanner), 
-        FFlagAddMinorFixesToUpsellAnalytics = require(script.Flag.FFlagAddMinorFixesToUpsellAnalytics), 
         FFlagAddAEGIS2Analytics = require(script.Flag.FFlagAddAEGIS2Analytics)
     }, 
     Enum = require(script.Enum), 

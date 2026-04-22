@@ -19,32 +19,30 @@ local v17 = require(l_Modules_0.AvatarExperience.Catalog.Analytics.purchaseAsset
 local v18 = require(l_Modules_0.AvatarExperience.Catalog.Analytics.purchaseBundle);
 local v19 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
 local v20 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v21 = require(l_Modules_0.AvatarExperience.Common.WidgetConstants);
+local l_WidgetConstants_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog).WidgetConstants;
 local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortType);
 local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortAggregation);
 local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SalesTypeFilter);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local v26 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.OrganicEventImpressionsSchema);
+local l_OrganicEventImpressionsSchema_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).ImpressionsReporter.OrganicEventImpressionsSchema;
 local l_ImpressionEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Enums.ImpressionEnums;
 local l_UserInputService_0 = game:GetService("UserInputService");
 local v29 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
 local l_AnalyticsService_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).AnalyticsService;
-local v31 = require(l_Modules_0.AvatarExperience.Common.Analytics.reportAvatarEventCounter);
-local v32 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v31 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v34 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics);
-local l_Constants_0 = v34.Constants;
-local v36 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local v37 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_reportAvatarEventCounterV1_0 = v34.reportAvatarEventCounterV1;
+local v33 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics);
+local l_Constants_0 = v33.Constants;
+local v35 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local v36 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_reportAvatarEventCounterV1_0 = v33.reportAvatarEventCounterV1;
 local l_Contexts_0 = require(l_CorePackages_0.Workspace.Packages.SocialLuaAnalytics).Analytics.Enums.Contexts;
-local l_Components_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform).Components;
+local l_Components_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums).Components;
 local l_FFlagProfilePlatformEnableStore_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagProfilePlatformEnableStore;
-local l_FFlagAXMigrateReportAvatarEventCounter_0 = v36.FFlagAXMigrateReportAvatarEventCounter;
-local l_FFlagAXAddLookTypeEnumForLogging_0 = v36.FFlagAXAddLookTypeEnumForLogging;
-local l_FFlagAXFixPurchaseSurfaceLogging_0 = v37.FFlagAXFixPurchaseSurfaceLogging;
+local l_FFlagAXAddLookTypeEnumForLogging_0 = v35.FFlagAXAddLookTypeEnumForLogging;
+local l_FFlagAXFixPurchaseSurfaceLogging_0 = v36.FFlagAXFixPurchaseSurfaceLogging;
 local l_isSpatial_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
-local v46 = {
+local v44 = {
     [l_AvatarScreen_0.Catalog] = l_ImpressionEnums_0.MarketplaceSurfaceType.HOMEPAGE, 
     [l_AvatarScreen_0.CatalogSearch] = l_ImpressionEnums_0.MarketplaceSurfaceType.SEARCH, 
     [l_AvatarScreen_0.ItemDetails] = l_ImpressionEnums_0.MarketplaceSurfaceType.ITEM_DETAIL, 
@@ -54,10 +52,10 @@ local v46 = {
     [l_Contexts_0.CommunityProfile] = l_ImpressionEnums_0.MarketplaceSurfaceType.COMMUNITY_PROFILE, 
     [l_Contexts_0.PlayerProfile] = l_ImpressionEnums_0.MarketplaceSurfaceType.USER_PROFILE
 };
-local v47 = {
+local v45 = {
     [l_Components_0.CurrentlyWearing] = l_ImpressionEnums_0.RecommendationSurfaceType.CURRENTLY_WEARING
 };
-local v48 = {
+local v46 = {
     ITEM_DETAIL_REFERRAL = "itemDetailReferral", 
     PURCHASE_ASSET = "purchaseAsset", 
     PURCHASE_BUNDLE = "purchaseBundle", 
@@ -81,145 +79,123 @@ local v48 = {
     CONFIRM_DELETE_AVATAR = "confirmDeleteAvatar", 
     CONFIRM_SHARE_COMMUNITY_AVATAR = "confirmShareCommunityAvatar"
 };
-local v49 = {};
-local v50 = nil;
-local function _(v51) --[[ Line: 118 ]] --[[ Name: getCategoryNameById ]]
+local v47 = {};
+local v48 = nil;
+local function _(v49) --[[ Line: 117 ]] --[[ Name: getCategoryNameById ]]
     -- upvalues: v29 (copy)
-    local v52 = nil;
-    if v51 then
-        v52 = v29.getCategoryNameById(v51);
+    local v50 = nil;
+    if v49 then
+        v50 = v29.getCategoryNameById(v49);
     end;
-    return v52 or "";
+    return v50 or "";
 end;
-local function _(v54, v55) --[[ Line: 126 ]] --[[ Name: getSubcategoryNameById ]]
+local function _(v52, v53) --[[ Line: 125 ]] --[[ Name: getSubcategoryNameById ]]
     -- upvalues: v29 (copy)
-    local v56 = nil;
-    if v54 and v55 then
-        v56 = v29.getSubcategoryNameById(v54, v55);
+    local v54 = nil;
+    if v52 and v53 then
+        v54 = v29.getSubcategoryNameById(v52, v53);
     end;
-    return v56 or "";
+    return v54 or "";
 end;
-local function v61(v58) --[[ Line: 134 ]] --[[ Name: getAXCounterV2Metadata ]]
+local function v59(v56) --[[ Line: 133 ]] --[[ Name: getAXCounterV2Metadata ]]
     -- upvalues: l_UserInputService_0 (copy), l_isSpatial_0 (copy), l_RunService_0 (copy), l_HttpService_0 (copy), v4 (copy)
     local l_l_UserInputService_0_Platform_0 = l_UserInputService_0:GetPlatform();
     if l_isSpatial_0() then
         l_l_UserInputService_0_Platform_0 = "VR";
     end;
-    local v60 = {
+    local v58 = {
         AppVersion = l_RunService_0:GetRobloxVersion(), 
         UserAgent = l_HttpService_0:GetUserAgent(), 
         CoreScriptVersion = l_RunService_0:GetCoreScriptVersion(), 
         Platform = l_l_UserInputService_0_Platform_0
     };
-    if v58 and next(v58) ~= nil then
-        v60 = v4.assign({}, v60, v58);
+    if v56 and next(v56) ~= nil then
+        v58 = v4.assign({}, v58, v56);
     end;
-    return v60;
+    return v58;
 end;
-v49.get = function(_) --[[ Line: 153 ]] --[[ Name: get ]]
-    -- upvalues: v50 (ref), l_AnalyticsService_0 (copy), v29 (copy), v13 (copy), v20 (copy), l_FFlagProfilePlatformEnableStore_0 (copy), v26 (copy), l_ImpressionEnums_0 (copy), v46 (copy), v47 (copy), v48 (copy), v17 (copy), l_FFlagAXMigrateReportAvatarEventCounter_0 (copy), l_reportAvatarEventCounterV1_0 (copy), l_Constants_0 (copy), v31 (copy), v18 (copy), v32 (copy), v61 (copy), l_default_0 (copy), v12 (copy), v10 (copy), v11 (copy), v14 (copy), v15 (copy), v8 (copy), v16 (copy), v9 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), l_RbxAnalyticsService_0 (copy), v19 (copy), v21 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (copy)
-    if v50 then
-        return v50;
+v47.get = function(_) --[[ Line: 152 ]] --[[ Name: get ]]
+    -- upvalues: v48 (ref), l_AnalyticsService_0 (copy), v29 (copy), v13 (copy), v20 (copy), l_FFlagProfilePlatformEnableStore_0 (copy), l_OrganicEventImpressionsSchema_0 (copy), l_ImpressionEnums_0 (copy), v44 (copy), v45 (copy), v46 (copy), v17 (copy), l_reportAvatarEventCounterV1_0 (copy), l_Constants_0 (copy), v18 (copy), v31 (copy), v59 (copy), l_default_0 (copy), v12 (copy), v10 (copy), v11 (copy), v14 (copy), v15 (copy), v8 (copy), v16 (copy), v9 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), l_RbxAnalyticsService_0 (copy), v19 (copy), l_WidgetConstants_0 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (copy)
+    if v48 then
+        return v48;
     else
         local l_l_AnalyticsService_0_0 = l_AnalyticsService_0;
-        local v105 = {
-            clickCatalogItem = function(v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76) --[[ Line: 163 ]] --[[ Name: clickCatalogItem ]]
+        local v103 = {
+            clickCatalogItem = function(v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74) --[[ Line: 162 ]] --[[ Name: clickCatalogItem ]]
                 -- upvalues: v29 (ref), v13 (ref), l_l_AnalyticsService_0_0 (copy)
+                local v75 = nil;
+                if v64 then
+                    v75 = v29.getCategoryNameById(v64);
+                end;
+                local v76 = v75 or "";
                 local v77 = nil;
-                if v66 then
-                    v77 = v29.getCategoryNameById(v66);
+                if v64 and v65 then
+                    v77 = v29.getSubcategoryNameById(v64, v65);
                 end;
-                local v78 = v77 or "";
-                local v79 = nil;
-                if v66 and v67 then
-                    v79 = v29.getSubcategoryNameById(v66, v67);
-                end;
-                v77 = v79 or "";
-                v13(l_l_AnalyticsService_0_0.EventStream, v64, v65, v78, v77, v68, v69, v70, v71, v72, v73, v74, v75, v76);
+                v75 = v77 or "";
+                v13(l_l_AnalyticsService_0_0.EventStream, v62, v63, v76, v75, v66, v67, v68, v69, v70, v71, v72, v73, v74);
             end, 
-            clickCatalogItemFromProfile = function(v80, v81, v82, v83, v84, _) --[[ Line: 198 ]] --[[ Name: clickCatalogItemFromProfile ]]
-                -- upvalues: v20 (ref), l_FFlagProfilePlatformEnableStore_0 (ref), v26 (ref), l_ImpressionEnums_0 (ref), v46 (ref), v47 (ref), l_l_AnalyticsService_0_0 (copy), v48 (ref)
-                local v86 = {
+            clickCatalogItemFromProfile = function(v78, v79, v80, v81, v82, _) --[[ Line: 197 ]] --[[ Name: clickCatalogItemFromProfile ]]
+                -- upvalues: v20 (ref), l_FFlagProfilePlatformEnableStore_0 (ref), l_OrganicEventImpressionsSchema_0 (ref), l_ImpressionEnums_0 (ref), v44 (ref), v45 (ref), l_l_AnalyticsService_0_0 (copy), v46 (ref)
+                local v84 = {
                     feature = v20.ProfileAnalyticsTag, 
-                    itemID = v81, 
-                    itemType = v82, 
-                    subpage = if l_FFlagProfilePlatformEnableStore_0 then v83 else "peekView", 
+                    itemID = v79, 
+                    itemType = v80, 
+                    subpage = if l_FFlagProfilePlatformEnableStore_0 then v81 else "peekView", 
                     page = "playerProfile"
                 };
-                local l_enumMap_0 = v26.defaultItem.enumMap;
-                local v88 = if l_enumMap_0 and l_enumMap_0.contentType then l_enumMap_0.contentType[v82] else nil;
-                local v89 = {
-                    itemId = v81, 
+                local l_enumMap_0 = l_OrganicEventImpressionsSchema_0.defaultItem.enumMap;
+                local v86 = if l_enumMap_0 and l_enumMap_0.contentType then l_enumMap_0.contentType[v80] else nil;
+                local v87 = {
+                    itemId = v79, 
                     actionType = l_ImpressionEnums_0.ActionType.CLICK_ITEM_DETAIL, 
-                    contentType = v88, 
+                    contentType = v86, 
                     price = 0, 
-                    surface = v46[v80], 
-                    recommendationSurface = v47[v83], 
-                    absPositions = v84
+                    surface = v44[v78], 
+                    recommendationSurface = v45[v81], 
+                    absPositions = v82
                 };
-                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(v80, v48.MARKETPLACE_ORGANIC_FE_LOG, v89);
-                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(v80, v48.ITEM_DETAIL_REFERRAL, v86);
+                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(v78, v46.MARKETPLACE_ORGANIC_FE_LOG, v87);
+                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(v78, v46.ITEM_DETAIL_REFERRAL, v84);
             end, 
-            purchaseAsset = function(v90, v91, v92, v93, v94, v95) --[[ Line: 235 ]] --[[ Name: purchaseAsset ]]
-                -- upvalues: v17 (ref), l_l_AnalyticsService_0_0 (copy), v48 (ref), l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref)
-                v17(l_l_AnalyticsService_0_0.EventStream, v48.PURCHASE_ASSET, v90, v91, v92, v93, v94, v95);
-                if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                    l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.AXPurchaseAsset);
-                    return;
-                else
-                    v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.AXPurchaseAsset);
-                    return;
-                end;
+            purchaseAsset = function(v88, v89, v90, v91, v92, v93) --[[ Line: 234 ]] --[[ Name: purchaseAsset ]]
+                -- upvalues: v17 (ref), l_l_AnalyticsService_0_0 (copy), v46 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+                v17(l_l_AnalyticsService_0_0.EventStream, v46.PURCHASE_ASSET, v88, v89, v90, v91, v92, v93);
+                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.AXPurchaseAsset);
             end, 
-            purchaseBundle = function(v96, v97, v98, v99, v100) --[[ Line: 256 ]] --[[ Name: purchaseBundle ]]
-                -- upvalues: v18 (ref), l_l_AnalyticsService_0_0 (copy), v48 (ref), l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref)
-                v18(l_l_AnalyticsService_0_0.EventStream, v48.PURCHASE_BUNDLE, v96, v97, v98, v99, v100);
-                if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                    l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.AXPurchaseBundle);
-                    return;
-                else
-                    v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.AXPurchaseBundle);
-                    return;
-                end;
+            purchaseBundle = function(v94, v95, v96, v97, v98) --[[ Line: 248 ]] --[[ Name: purchaseBundle ]]
+                -- upvalues: v18 (ref), l_l_AnalyticsService_0_0 (copy), v46 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+                v18(l_l_AnalyticsService_0_0.EventStream, v46.PURCHASE_BUNDLE, v94, v95, v96, v97, v98);
+                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.AXPurchaseBundle);
             end, 
-            homepageWidgetItemClick = function(v101, v102) --[[ Line: 276 ]] --[[ Name: homepageWidgetItemClick ]]
-                -- upvalues: l_ImpressionEnums_0 (ref), l_l_AnalyticsService_0_0 (copy), v48 (ref)
-                local v103 = {
+            homepageWidgetItemClick = function(v99, v100) --[[ Line: 261 ]] --[[ Name: homepageWidgetItemClick ]]
+                -- upvalues: l_ImpressionEnums_0 (ref), l_l_AnalyticsService_0_0 (copy), v46 (ref)
+                local v101 = {
                     actionType = l_ImpressionEnums_0.ActionType.UI_BUTTON_CLICK, 
                     group = "HomePageAvatarWidgetClick", 
                     surface = l_ImpressionEnums_0.MarketplaceSurfaceType.HOMEPAGE, 
-                    item_id = v101, 
-                    item_type = v102, 
+                    item_id = v99, 
+                    item_type = v100, 
                     event_sender_api = l_ImpressionEnums_0.MarketplaceEventSenderAPI.SEND_ROBLOX_TELEMETRY_EVENT
                 };
-                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("HomeTryOnScreen", v48.MARKETPLACE_ORGANIC_FE_LOG, v103);
+                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("HomeTryOnScreen", v46.MARKETPLACE_ORGANIC_FE_LOG, v101);
             end, 
-            sendCounter = function(v104) --[[ Line: 291 ]] --[[ Name: sendCounter ]]
-                -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-                if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                    l_reportAvatarEventCounterV1_0(v104);
-                    return;
-                else
-                    v31(l_l_AnalyticsService_0_0, v104);
-                    return;
-                end;
+            sendCounter = function(v102) --[[ Line: 276 ]] --[[ Name: sendCounter ]]
+                -- upvalues: l_reportAvatarEventCounterV1_0 (ref)
+                l_reportAvatarEventCounterV1_0(v102);
             end
         };
-        v105.sendAXCounter = function(v106, v107, v108) --[[ Line: 301 ]] --[[ Name: sendAXCounter ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), v32 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy), v105 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(v32.Counter.PREFIX .. v106);
-            else
-                v31(l_l_AnalyticsService_0_0, v32.Counter.PREFIX .. v106);
-            end;
-            if v107 then
-                v105.sendAXCounterV2(v106, v108);
+        v103.sendAXCounter = function(v104, v105, v106) --[[ Line: 282 ]] --[[ Name: sendAXCounter ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), v31 (ref), v103 (copy)
+            l_reportAvatarEventCounterV1_0(v31.Counter.PREFIX .. v104);
+            if v105 then
+                v103.sendAXCounterV2(v104, v106);
             end;
         end;
-        v105.sendAXCounterV2 = function(v109, v110) --[[ Line: 315 ]] --[[ Name: sendAXCounterV2 ]]
-            -- upvalues: v20 (ref), v61 (ref), l_default_0 (ref)
-            local v111 = {
-                eventName = v20.Counter.PREFIX .. v109, 
+        v103.sendAXCounterV2 = function(v107, v108) --[[ Line: 292 ]] --[[ Name: sendAXCounterV2 ]]
+            -- upvalues: v20 (ref), v59 (ref), l_default_0 (ref)
+            local v109 = {
+                eventName = v20.Counter.PREFIX .. v107, 
                 backends = {
                     "RobloxTelemetryCounter"
                 }, 
@@ -231,13 +207,13 @@ v49.get = function(_) --[[ Line: 153 ]] --[[ Name: get ]]
                 description = "Counter to track various Avatar Experience events.", 
                 links = "https://roblox.atlassian.net/wiki/spaces/AMSD/pages/2800779286/Tech+Spec+-+Q3+Grafana+Dashboard+Improvements"
             };
-            local v112 = v61(v110);
-            l_default_0:logRobloxTelemetryCounter(v111, 1, v112);
+            local v110 = v59(v108);
+            l_default_0:logRobloxTelemetryCounter(v109, 1, v110);
         end;
-        v105.sendAXStat = function(v113, v114, v115) --[[ Line: 329 ]] --[[ Name: sendAXStat ]]
-            -- upvalues: v61 (ref), l_default_0 (ref)
-            local v116 = {
-                eventName = "AXStat_" .. v113, 
+        v103.sendAXStat = function(v111, v112, v113) --[[ Line: 306 ]] --[[ Name: sendAXStat ]]
+            -- upvalues: v59 (ref), l_default_0 (ref)
+            local v114 = {
+                eventName = "AXStat_" .. v111, 
                 backends = {
                     "RobloxTelemetryStat"
                 }, 
@@ -249,413 +225,367 @@ v49.get = function(_) --[[ Line: 153 ]] --[[ Name: get ]]
                 description = "Stat to track various Avatar Experience events.", 
                 links = "https://roblox.atlassian.net/wiki/spaces/AMSD/pages/2800779286/Tech+Spec+-+Q3+Grafana+Dashboard+Improvements"
             };
-            local v117 = v61(v115);
-            l_default_0:logRobloxTelemetryStat(v116, v114, v117);
+            local v115 = v59(v113);
+            l_default_0:logRobloxTelemetryStat(v114, v112, v115);
         end;
-        v105.clickNavigationTab = function(v118, v119) --[[ Line: 341 ]] --[[ Name: clickNavigationTab ]]
+        v103.clickNavigationTab = function(v116, v117) --[[ Line: 318 ]] --[[ Name: clickNavigationTab ]]
             -- upvalues: v29 (ref), v12 (ref), l_l_AnalyticsService_0_0 (copy)
+            local v118 = nil;
+            if v116 then
+                v118 = v29.getCategoryNameById(v116);
+            end;
+            local v119 = v118 or "";
             local v120 = nil;
-            if v118 then
-                v120 = v29.getCategoryNameById(v118);
+            if v116 and v117 then
+                v120 = v29.getSubcategoryNameById(v116, v117);
             end;
-            local v121 = v120 or "";
-            local v122 = nil;
-            if v118 and v119 then
-                v122 = v29.getSubcategoryNameById(v118, v119);
-            end;
-            v120 = v122 or "";
-            v12(l_l_AnalyticsService_0_0.EventStream, "clickNavigationTab", v121, v120);
+            v118 = v120 or "";
+            v12(l_l_AnalyticsService_0_0.EventStream, "clickNavigationTab", v119, v118);
         end;
-        v105.catalogSearch = function(v123, v124, v125, v126, v127, v128) --[[ Line: 347 ]] --[[ Name: catalogSearch ]]
+        v103.catalogSearch = function(v121, v122, v123, v124, v125, v126) --[[ Line: 324 ]] --[[ Name: catalogSearch ]]
             -- upvalues: v10 (ref), l_l_AnalyticsService_0_0 (copy)
-            v10(l_l_AnalyticsService_0_0.EventStream, v123, v124, v128, v125, v126, v127);
+            v10(l_l_AnalyticsService_0_0.EventStream, v121, v122, v126, v123, v124, v125);
         end;
-        v105.clickCustomizeAvatarFromItemDetailPage = function() --[[ Line: 351 ]] --[[ Name: clickCustomizeAvatarFromItemDetailPage ]]
+        v103.clickCustomizeAvatarFromItemDetailPage = function() --[[ Line: 328 ]] --[[ Name: clickCustomizeAvatarFromItemDetailPage ]]
             -- upvalues: v11 (ref), l_l_AnalyticsService_0_0 (copy)
             v11(l_l_AnalyticsService_0_0.EventStream, "clickCustomizeAvatarFromItemDetailPage");
         end;
-        v105.closeItemDetailPage = function(v129, v130) --[[ Line: 355 ]] --[[ Name: closeItemDetailPage ]]
+        v103.closeItemDetailPage = function(v127, v128) --[[ Line: 332 ]] --[[ Name: closeItemDetailPage ]]
             -- upvalues: v14 (ref), l_l_AnalyticsService_0_0 (copy)
-            v14(l_l_AnalyticsService_0_0.EventStream, "closeItemDetailPage", v129, v130);
+            v14(l_l_AnalyticsService_0_0.EventStream, "closeItemDetailPage", v127, v128);
         end;
-        v105.expandItemDetailPage = function(v131, v132) --[[ Line: 359 ]] --[[ Name: expandItemDetailPage ]]
+        v103.expandItemDetailPage = function(v129, v130) --[[ Line: 336 ]] --[[ Name: expandItemDetailPage ]]
             -- upvalues: v15 (ref), l_l_AnalyticsService_0_0 (copy)
-            v15(l_l_AnalyticsService_0_0.EventStream, "expandItemDetailPage", v131, v132);
+            v15(l_l_AnalyticsService_0_0.EventStream, "expandItemDetailPage", v129, v130);
         end;
-        v105.avatarToCatalogButton = function() --[[ Line: 363 ]] --[[ Name: avatarToCatalogButton ]]
+        v103.avatarToCatalogButton = function() --[[ Line: 340 ]] --[[ Name: avatarToCatalogButton ]]
             -- upvalues: v8 (ref), l_l_AnalyticsService_0_0 (copy)
             v8(l_l_AnalyticsService_0_0.EventStream, "avatarToCatalogButton");
         end;
-        v105.moreMenuToCatalogButton = function() --[[ Line: 367 ]] --[[ Name: moreMenuToCatalogButton ]]
+        v103.moreMenuToCatalogButton = function() --[[ Line: 344 ]] --[[ Name: moreMenuToCatalogButton ]]
             -- upvalues: v16 (ref), l_l_AnalyticsService_0_0 (copy)
             v16(l_l_AnalyticsService_0_0.EventStream, "moreMenuToCatalogButton");
         end;
-        v105.catalogOpenedFromLandingPage = function() --[[ Line: 371 ]] --[[ Name: catalogOpenedFromLandingPage ]]
+        v103.catalogOpenedFromLandingPage = function() --[[ Line: 348 ]] --[[ Name: catalogOpenedFromLandingPage ]]
             -- upvalues: v9 (ref), l_l_AnalyticsService_0_0 (copy)
             v9(l_l_AnalyticsService_0_0.EventStream, "catalogOpenedFromLandingPage");
         end;
-        v105.clickPurchaseItemButton = function(v133, v134, v135, v136, v137, v138, v139, v140, v141, v142) --[[ Line: 376 ]] --[[ Name: clickPurchaseItemButton ]]
-            -- upvalues: v26 (ref), v20 (ref), l_ImpressionEnums_0 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v46 (ref), l_l_AnalyticsService_0_0 (copy), v48 (ref), l_RbxAnalyticsService_0 (ref)
-            local l_enumMap_1 = v26.defaultItem.enumMap;
-            local v144 = if l_enumMap_1 and l_enumMap_1.contentType then l_enumMap_1.contentType[v134] else nil;
+        v103.clickPurchaseItemButton = function(v131, v132, v133, v134, v135, v136, v137, v138, v139, v140) --[[ Line: 353 ]] --[[ Name: clickPurchaseItemButton ]]
+            -- upvalues: l_OrganicEventImpressionsSchema_0 (ref), v20 (ref), l_ImpressionEnums_0 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v44 (ref), l_l_AnalyticsService_0_0 (copy), v46 (ref), l_RbxAnalyticsService_0 (ref)
+            local l_enumMap_1 = l_OrganicEventImpressionsSchema_0.defaultItem.enumMap;
+            local v142 = if l_enumMap_1 and l_enumMap_1.contentType then l_enumMap_1.contentType[v132] else nil;
             local l_AnalyticsTag_0 = v20.AnalyticsTag;
-            local v146 = nil;
-            local v147 = nil;
-            if v135 then
+            local v144 = nil;
+            local v145 = nil;
+            if v133 then
                 l_AnalyticsTag_0 = v20.ProfileAnalyticsTag;
-                v146 = "playerProfile";
-                v147 = "peekView";
-            elseif v141 then
+                v144 = "playerProfile";
+                v145 = "peekView";
+            elseif v139 then
                 l_AnalyticsTag_0 = v20.ContentFeedAnalyticsTag;
-                v146 = "contentFeed";
+                v144 = "contentFeed";
             end;
-            local v148 = {
+            local v146 = {
                 feature = l_AnalyticsTag_0, 
                 btn = "PriceButton", 
-                itemId = v133, 
+                itemId = v131, 
                 actionType = l_ImpressionEnums_0.ActionType.PURCHASE_ATTEMPT, 
-                contentType = v144, 
-                requestId = v137, 
-                subpage = v147, 
-                page = v146, 
-                keyword = v138, 
-                surface = if l_FFlagAXFixPurchaseSurfaceLogging_0 then v142 or v46[v136] else v46[v136], 
-                sort = v140.sortEnumValue, 
-                filterSalesType = v140.filterSalesTypeEnumValue, 
-                filterCreators = v140.filterCreatorsTypeEnumValue, 
-                filterPrice = v140.filterPriceEnumValue, 
-                filterUnavailableItems = v140.filterUnavailableItemsEnumValue, 
-                filterCreatorsName = v140.filterCreatorsName, 
-                filterPriceMin = v140.filterPriceMin, 
-                filterPriceMax = v140.filterPriceMax
+                contentType = v142, 
+                requestId = v135, 
+                subpage = v145, 
+                page = v144, 
+                keyword = v136, 
+                surface = if l_FFlagAXFixPurchaseSurfaceLogging_0 then v140 or v44[v134] else v44[v134], 
+                sort = v138.sortEnumValue, 
+                filterSalesType = v138.filterSalesTypeEnumValue, 
+                filterCreators = v138.filterCreatorsTypeEnumValue, 
+                filterPrice = v138.filterPriceEnumValue, 
+                filterUnavailableItems = v138.filterUnavailableItemsEnumValue, 
+                filterCreatorsName = v138.filterCreatorsName, 
+                filterPriceMin = v138.filterPriceMin, 
+                filterPriceMax = v138.filterPriceMax
             };
-            local v149 = {
+            local v147 = {
                 feature = l_AnalyticsTag_0, 
                 btn = "PriceButton", 
-                itemID = v133, 
-                itemType = v134, 
-                subpage = v147, 
-                page = v146, 
-                fromScreen = v136
+                itemID = v131, 
+                itemType = v132, 
+                subpage = v145, 
+                page = v144, 
+                fromScreen = v134
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", v48.MARKETPLACE_ORGANIC_FE_LOG, v148);
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", "buttonClick", v149);
-            if v139 then
-                local v150 = {
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", v46.MARKETPLACE_ORGANIC_FE_LOG, v146);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", "buttonClick", v147);
+            if v137 then
+                local v148 = {
                     feature = l_AnalyticsTag_0, 
                     btn = "PriceButton", 
-                    itemID = v133, 
-                    itemType = v134, 
-                    subpage = v147, 
-                    page = v146, 
-                    fromScreen = v136, 
+                    itemID = v131, 
+                    itemType = v132, 
+                    subpage = v145, 
+                    page = v144, 
+                    fromScreen = v134, 
                     refineSessionId = l_RbxAnalyticsService_0:GetSessionId()
                 };
-                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", "buttonClickHasAccessoryAdjustment", v150);
+                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", "buttonClickHasAccessoryAdjustment", v148);
             end;
         end;
-        v105.shownEnableTwoStepAuthOnPurchase = function() --[[ Line: 464 ]] --[[ Name: shownEnableTwoStepAuthOnPurchase ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseShownEnableTwoStepAuth);
-                return;
-            else
-                v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseShownEnableTwoStepAuth);
-                return;
-            end;
+        v103.shownEnableTwoStepAuthOnPurchase = function() --[[ Line: 441 ]] --[[ Name: shownEnableTwoStepAuthOnPurchase ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+            l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseShownEnableTwoStepAuth);
         end;
-        v105.shownTwoStepAuthOnPurchase = function() --[[ Line: 477 ]] --[[ Name: shownTwoStepAuthOnPurchase ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseShownTwoStepAuth);
-                return;
-            else
-                v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseShownTwoStepAuth);
-                return;
-            end;
+        v103.shownTwoStepAuthOnPurchase = function() --[[ Line: 447 ]] --[[ Name: shownTwoStepAuthOnPurchase ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+            l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseShownTwoStepAuth);
         end;
-        v105.failedShowTwoStepAuthOnPurchase = function() --[[ Line: 490 ]] --[[ Name: failedShowTwoStepAuthOnPurchase ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseFailedShowTwoStepAuth);
-                return;
-            else
-                v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseFailedShowTwoStepAuth);
-                return;
-            end;
+        v103.failedShowTwoStepAuthOnPurchase = function() --[[ Line: 453 ]] --[[ Name: failedShowTwoStepAuthOnPurchase ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+            l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseFailedShowTwoStepAuth);
         end;
-        v105.completedTwoStepAuthOnPurchase = function() --[[ Line: 503 ]] --[[ Name: completedTwoStepAuthOnPurchase ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseCompletedTwoStepAuth);
-                return;
-            else
-                v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseCompletedTwoStepAuth);
-                return;
-            end;
+        v103.completedTwoStepAuthOnPurchase = function() --[[ Line: 459 ]] --[[ Name: completedTwoStepAuthOnPurchase ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+            l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseCompletedTwoStepAuth);
         end;
-        v105.invalidatedTwoStepAuthOnPurchase = function() --[[ Line: 516 ]] --[[ Name: invalidatedTwoStepAuthOnPurchase ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseInvalidatedTwoStepAuth);
-                return;
-            else
-                v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseInvalidatedTwoStepAuth);
-                return;
-            end;
+        v103.invalidatedTwoStepAuthOnPurchase = function() --[[ Line: 465 ]] --[[ Name: invalidatedTwoStepAuthOnPurchase ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+            l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseInvalidatedTwoStepAuth);
         end;
-        v105.abandonedTwoStepAuthOnPurchase = function() --[[ Line: 529 ]] --[[ Name: abandonedTwoStepAuthOnPurchase ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseAbandonedTwoStepAuth);
-                return;
-            else
-                v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseAbandonedTwoStepAuth);
-                return;
-            end;
+        v103.abandonedTwoStepAuthOnPurchase = function() --[[ Line: 471 ]] --[[ Name: abandonedTwoStepAuthOnPurchase ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+            l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseAbandonedTwoStepAuth);
         end;
-        v105.loadFailedTwoStepAuthOnPurchase = function() --[[ Line: 542 ]] --[[ Name: loadFailedTwoStepAuthOnPurchase ]]
-            -- upvalues: l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy)
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseLoadFailedTwoStepAuth);
-                return;
-            else
-                v31(l_l_AnalyticsService_0_0, l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseLoadFailedTwoStepAuth);
-                return;
-            end;
+        v103.loadFailedTwoStepAuthOnPurchase = function() --[[ Line: 477 ]] --[[ Name: loadFailedTwoStepAuthOnPurchase ]]
+            -- upvalues: l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
+            l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.CatalogPurchaseLoadFailedTwoStepAuth);
         end;
-        v105.clickCustomizeItemButton = function(v151, v152) --[[ Line: 556 ]] --[[ Name: clickCustomizeItemButton ]]
-            -- upvalues: v48 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
-            local l_BUTTON_CLICK_0 = v48.BUTTON_CLICK;
-            local v154 = {
+        v103.clickCustomizeItemButton = function(v149, v150) --[[ Line: 484 ]] --[[ Name: clickCustomizeItemButton ]]
+            -- upvalues: v46 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_BUTTON_CLICK_0 = v46.BUTTON_CLICK;
+            local v152 = {
                 feature = v20.AnalyticsTag, 
-                itemID = v151, 
-                itemType = v152, 
+                itemID = v149, 
+                itemType = v150, 
                 btn = "Customize", 
                 cstm = "Shop"
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", l_BUTTON_CLICK_0, v154);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", l_BUTTON_CLICK_0, v152);
         end;
-        v105.clickFavoriteItemButton = function(v155, v156, v157) --[[ Line: 571 ]] --[[ Name: clickFavoriteItemButton ]]
-            -- upvalues: v48 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
-            local l_BUTTON_CLICK_1 = v48.BUTTON_CLICK;
-            local v159 = {
+        v103.clickFavoriteItemButton = function(v153, v154, v155) --[[ Line: 499 ]] --[[ Name: clickFavoriteItemButton ]]
+            -- upvalues: v46 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_BUTTON_CLICK_1 = v46.BUTTON_CLICK;
+            local v157 = {
                 feature = v20.AnalyticsTag, 
-                itemID = v155, 
-                itemType = v156, 
+                itemID = v153, 
+                itemType = v154, 
                 btn = "Favorite", 
                 cstm = "Shop", 
-                checked = v157
+                checked = v155
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", l_BUTTON_CLICK_1, v159);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", l_BUTTON_CLICK_1, v157);
         end;
-        v105.clickShareItemButton = function(v160, v161) --[[ Line: 587 ]] --[[ Name: clickShareItemButton ]]
-            -- upvalues: v48 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
-            local l_BUTTON_CLICK_2 = v48.BUTTON_CLICK;
-            local v163 = {
+        v103.clickShareItemButton = function(v158, v159) --[[ Line: 515 ]] --[[ Name: clickShareItemButton ]]
+            -- upvalues: v46 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_BUTTON_CLICK_2 = v46.BUTTON_CLICK;
+            local v161 = {
                 feature = v20.AnalyticsTag, 
-                itemID = v160, 
-                itemType = v161, 
+                itemID = v158, 
+                itemType = v159, 
                 btn = "Share", 
                 cstm = "Shop"
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", l_BUTTON_CLICK_2, v163);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("itemDetailPageBottomButtonClick", l_BUTTON_CLICK_2, v161);
         end;
-        v105.applySortAndFilters = function(v164) --[[ Line: 601 ]] --[[ Name: applySortAndFilters ]]
-            -- upvalues: v48 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
-            local l_BUTTON_CLICK_3 = v48.BUTTON_CLICK;
-            local v166 = {
+        v103.applySortAndFilters = function(v162) --[[ Line: 529 ]] --[[ Name: applySortAndFilters ]]
+            -- upvalues: v46 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_BUTTON_CLICK_3 = v46.BUTTON_CLICK;
+            local v164 = {
                 feature = v20.AnalyticsTag, 
                 btn = "Apply", 
-                minPrice = v164.minPrice, 
-                maxPrice = v164.maxPrice, 
-                sortType = v164.sortType, 
-                sortAggregation = v164.sortAggregation, 
-                salesTypeFilter = v164.salesTypeFilter, 
-                creatorFilter = v164.creatorFilter, 
-                includeOffSale = v164.includeOffSale
+                minPrice = v162.minPrice, 
+                maxPrice = v162.maxPrice, 
+                sortType = v162.sortType, 
+                sortAggregation = v162.sortAggregation, 
+                salesTypeFilter = v162.salesTypeFilter, 
+                creatorFilter = v162.creatorFilter, 
+                includeOffSale = v162.includeOffSale
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("SortAndFilters", l_BUTTON_CLICK_3, v166);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("SortAndFilters", l_BUTTON_CLICK_3, v164);
         end;
-        v105.applyPriceFilter = function(v167, v168) --[[ Line: 620 ]] --[[ Name: applyPriceFilter ]]
-            -- upvalues: v48 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
-            local l_BUTTON_CLICK_4 = v48.BUTTON_CLICK;
-            local v170 = {
+        v103.applyPriceFilter = function(v165, v166) --[[ Line: 548 ]] --[[ Name: applyPriceFilter ]]
+            -- upvalues: v46 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_BUTTON_CLICK_4 = v46.BUTTON_CLICK;
+            local v168 = {
                 feature = v20.AnalyticsTag, 
                 btn = "Apply", 
-                PriceLowerBound = v167, 
-                PriceUpperBound = v168
+                PriceLowerBound = v165, 
+                PriceUpperBound = v166
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("PriceFilter", l_BUTTON_CLICK_4, v170);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("PriceFilter", l_BUTTON_CLICK_4, v168);
         end;
-        v105.navigateToProfile = function(v171) --[[ Line: 633 ]] --[[ Name: navigateToProfile ]]
-            -- upvalues: v48 (ref), l_FFlagAXMigrateReportAvatarEventCounter_0 (ref), l_reportAvatarEventCounterV1_0 (ref), v31 (ref), l_l_AnalyticsService_0_0 (copy), v20 (ref)
-            local l_BUTTON_CLICK_5 = v48.BUTTON_CLICK;
-            if l_FFlagAXMigrateReportAvatarEventCounter_0 then
-                l_reportAvatarEventCounterV1_0(v171 .. "LuaProfile");
-            else
-                v31(l_l_AnalyticsService_0_0, v171 .. "LuaProfile");
-            end;
-            local v173 = {
+        v103.navigateToProfile = function(v169) --[[ Line: 561 ]] --[[ Name: navigateToProfile ]]
+            -- upvalues: v46 (ref), l_reportAvatarEventCounterV1_0 (ref), v20 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_BUTTON_CLICK_5 = v46.BUTTON_CLICK;
+            l_reportAvatarEventCounterV1_0(v169 .. "LuaProfile");
+            local v171 = {
                 feature = v20.ProfileAnalyticsTag, 
                 btn = "creator", 
                 subpage = "peekView", 
                 page = "playerProfile"
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(v171, l_BUTTON_CLICK_5, v173);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(v169, l_BUTTON_CLICK_5, v171);
         end;
-        v105.selectTopic = function(v174, v175, v176, v177, v178, v179, v180) --[[ Line: 651 ]] --[[ Name: selectTopic ]]
-            -- upvalues: v19 (ref), v48 (ref), v29 (ref), l_l_AnalyticsService_0_0 (copy)
+        v103.selectTopic = function(v172, v173, v174, v175, v176, v177, v178) --[[ Line: 575 ]] --[[ Name: selectTopic ]]
+            -- upvalues: v19 (ref), v46 (ref), v29 (ref), l_l_AnalyticsService_0_0 (copy)
             local l_Catalog_0 = v19.AnalyticsContext.Catalog;
-            local l_SELECT_CATALOG_TOPIC_0 = v48.SELECT_CATALOG_TOPIC;
+            local l_SELECT_CATALOG_TOPIC_0 = v46.SELECT_CATALOG_TOPIC;
+            local v181 = nil;
+            if v174 then
+                v181 = v29.getCategoryNameById(v174);
+            end;
+            local v182 = v181 or "";
             local v183 = nil;
-            if v176 then
-                v183 = v29.getCategoryNameById(v176);
+            if v174 and v175 then
+                v183 = v29.getSubcategoryNameById(v174, v175);
             end;
-            local v184 = v183 or "";
-            local v185 = nil;
-            if v176 and v177 then
-                v185 = v29.getSubcategoryNameById(v176, v177);
-            end;
-            v183 = v185 or "";
-            v185 = {
-                topic = v174, 
-                allTopics = if v179 then table.concat(v179, ",") else nil, 
-                previousSelectedTopics = if v180 then table.concat(v180, ",") else nil, 
-                rank = v175, 
-                category = v184, 
-                subcategory = v183, 
-                query = v178
+            v181 = v183 or "";
+            v183 = {
+                topic = v172, 
+                allTopics = if v177 then table.concat(v177, ",") else nil, 
+                previousSelectedTopics = if v178 then table.concat(v178, ",") else nil, 
+                rank = v173, 
+                category = v182, 
+                subcategory = v181, 
+                query = v176
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_Catalog_0, l_SELECT_CATALOG_TOPIC_0, v185);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_Catalog_0, l_SELECT_CATALOG_TOPIC_0, v183);
         end;
-        v105.openItemDetails = function(v186, v187, v188, v189) --[[ Line: 679 ]] --[[ Name: openItemDetails ]]
-            -- upvalues: v19 (ref), v48 (ref), l_l_AnalyticsService_0_0 (copy)
+        v103.openItemDetails = function(v184, v185, v186, v187) --[[ Line: 603 ]] --[[ Name: openItemDetails ]]
+            -- upvalues: v19 (ref), v46 (ref), l_l_AnalyticsService_0_0 (copy)
             local l_AvatarShop_0 = v19.AnalyticsContext.AvatarShop;
-            local l_OPEN_ITEM_DETAILS_0 = v48.OPEN_ITEM_DETAILS;
-            local v192 = {
-                assetId = v186, 
-                assetType = v187, 
-                price = v188, 
-                entryPoint = v189
+            local l_OPEN_ITEM_DETAILS_0 = v46.OPEN_ITEM_DETAILS;
+            local v190 = {
+                assetId = v184, 
+                assetType = v185, 
+                price = v186, 
+                entryPoint = v187
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_AvatarShop_0, l_OPEN_ITEM_DETAILS_0, v192);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_AvatarShop_0, l_OPEN_ITEM_DETAILS_0, v190);
         end;
-        v105.openItemDetailsV2 = function(v193, v194, v195, v196, v197, v198, v199, v200, v201) --[[ Line: 692 ]] --[[ Name: openItemDetailsV2 ]]
-            -- upvalues: v19 (ref), v26 (ref), l_ImpressionEnums_0 (ref), v46 (ref), l_l_AnalyticsService_0_0 (copy), v48 (ref)
+        v103.openItemDetailsV2 = function(v191, v192, v193, v194, v195, v196, v197, v198, v199) --[[ Line: 616 ]] --[[ Name: openItemDetailsV2 ]]
+            -- upvalues: v19 (ref), l_OrganicEventImpressionsSchema_0 (ref), l_ImpressionEnums_0 (ref), v44 (ref), l_l_AnalyticsService_0_0 (copy), v46 (ref)
             local l_AvatarShop_1 = v19.AnalyticsContext.AvatarShop;
-            local l_enumMap_2 = v26.defaultItem.enumMap;
-            local v204 = if l_enumMap_2 and l_enumMap_2.contentType then l_enumMap_2.contentType[v194] else nil;
-            local v205 = {
-                itemId = v193, 
+            local l_enumMap_2 = l_OrganicEventImpressionsSchema_0.defaultItem.enumMap;
+            local v202 = if l_enumMap_2 and l_enumMap_2.contentType then l_enumMap_2.contentType[v192] else nil;
+            local v203 = {
+                itemId = v191, 
                 actionType = l_ImpressionEnums_0.ActionType.CLICK_ITEM_DETAIL, 
-                contentType = v204, 
-                price = v195, 
-                surface = v46[v196], 
-                requestId = v197, 
-                absPositions = v201.selectedItemIndex, 
-                keyword = v198, 
-                category = v199, 
-                subcategory = v200, 
-                sort = v201.sortEnumValue, 
-                filterSalesType = v201.filterSalesTypeEnumValue, 
-                filterCreators = v201.filterCreatorsTypeEnumValue, 
-                filterPrice = v201.filterPriceEnumValue, 
-                filterUnavailableItems = v201.filterUnavailableItemsEnumValue, 
-                filterCreatorsName = v201.filterCreatorsName, 
-                filterPriceMin = v201.filterPriceMin, 
-                filterPriceMax = v201.filterPriceMax
+                contentType = v202, 
+                price = v193, 
+                surface = v44[v194], 
+                requestId = v195, 
+                absPositions = v199.selectedItemIndex, 
+                keyword = v196, 
+                category = v197, 
+                subcategory = v198, 
+                sort = v199.sortEnumValue, 
+                filterSalesType = v199.filterSalesTypeEnumValue, 
+                filterCreators = v199.filterCreatorsTypeEnumValue, 
+                filterPrice = v199.filterPriceEnumValue, 
+                filterUnavailableItems = v199.filterUnavailableItemsEnumValue, 
+                filterCreatorsName = v199.filterCreatorsName, 
+                filterPriceMin = v199.filterPriceMin, 
+                filterPriceMax = v199.filterPriceMax
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_AvatarShop_1, v48.MARKETPLACE_ORGANIC_FE_LOG, v205);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_AvatarShop_1, v46.MARKETPLACE_ORGANIC_FE_LOG, v203);
         end;
-        v105.resizeOutfitScreen = function(v206) --[[ Line: 731 ]] --[[ Name: resizeOutfitScreen ]]
-            -- upvalues: v19 (ref), v48 (ref), l_l_AnalyticsService_0_0 (copy)
+        v103.resizeOutfitScreen = function(v204) --[[ Line: 655 ]] --[[ Name: resizeOutfitScreen ]]
+            -- upvalues: v19 (ref), v46 (ref), l_l_AnalyticsService_0_0 (copy)
             local l_AvatarShop_2 = v19.AnalyticsContext.AvatarShop;
-            local l_OPEN_OUTFIT_SCREEN_0 = v48.OPEN_OUTFIT_SCREEN;
-            local v209 = {
-                stateChange = v206
+            local l_OPEN_OUTFIT_SCREEN_0 = v46.OPEN_OUTFIT_SCREEN;
+            local v207 = {
+                stateChange = v204
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_AvatarShop_2, l_OPEN_OUTFIT_SCREEN_0, v209);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent(l_AvatarShop_2, l_OPEN_OUTFIT_SCREEN_0, v207);
         end;
-        v105.avatarShopBuyItem = function(v210, v211, v212, v213, v214, v215, v216, v217, v218, v219) --[[ Line: 741 ]] --[[ Name: avatarShopBuyItem ]]
-            -- upvalues: v19 (ref), v26 (ref), l_l_AnalyticsService_0_0 (copy), v48 (ref), l_ImpressionEnums_0 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v46 (ref)
+        v103.avatarShopBuyItem = function(v208, v209, v210, v211, v212, v213, v214, v215, v216, v217) --[[ Line: 665 ]] --[[ Name: avatarShopBuyItem ]]
+            -- upvalues: v19 (ref), l_OrganicEventImpressionsSchema_0 (ref), l_l_AnalyticsService_0_0 (copy), v46 (ref), l_ImpressionEnums_0 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v44 (ref)
             local l_AvatarShop_3 = v19.AnalyticsContext.AvatarShop;
-            local l_enumMap_3 = v26.defaultItem.enumMap;
-            local v222 = if l_enumMap_3 and l_enumMap_3.contentType then l_enumMap_3.contentType[v211] else nil;
-            l_l_AnalyticsService_0_0.EventStream:sendEventImmediately(l_AvatarShop_3, v48.MARKETPLACE_ORGANIC_FE_LOG, {
-                itemId = v210, 
+            local l_enumMap_3 = l_OrganicEventImpressionsSchema_0.defaultItem.enumMap;
+            local v220 = if l_enumMap_3 and l_enumMap_3.contentType then l_enumMap_3.contentType[v209] else nil;
+            l_l_AnalyticsService_0_0.EventStream:sendEventImmediately(l_AvatarShop_3, v46.MARKETPLACE_ORGANIC_FE_LOG, {
+                itemId = v208, 
                 actionType = l_ImpressionEnums_0.ActionType.PURCHASE_SUCCESS, 
-                contentType = v222, 
-                price = v212, 
-                surface = if l_FFlagAXFixPurchaseSurfaceLogging_0 then v219 or v46[v213] else v46[v213], 
-                requestId = v214, 
-                absPositions = v218.selectedItemIndex, 
-                sort = v218.sortEnumValue, 
-                filterSalesType = v218.filterSalesTypeEnumValue, 
-                filterCreators = v218.filterCreatorsTypeEnumValue, 
-                filterPrice = v218.filterPriceEnumValue, 
-                filterUnavailableItems = v218.filterUnavailableItemsEnumValue, 
-                filterCreatorsName = v218.filterCreatorsName, 
-                filterPriceMin = v218.filterPriceMin, 
-                filterPriceMax = v218.filterPriceMax, 
-                keyword = v215, 
-                category = v216, 
-                subcategory = v217
+                contentType = v220, 
+                price = v210, 
+                surface = if l_FFlagAXFixPurchaseSurfaceLogging_0 then v217 or v44[v211] else v44[v211], 
+                requestId = v212, 
+                absPositions = v216.selectedItemIndex, 
+                sort = v216.sortEnumValue, 
+                filterSalesType = v216.filterSalesTypeEnumValue, 
+                filterCreators = v216.filterCreatorsTypeEnumValue, 
+                filterPrice = v216.filterPriceEnumValue, 
+                filterUnavailableItems = v216.filterUnavailableItemsEnumValue, 
+                filterCreatorsName = v216.filterCreatorsName, 
+                filterPriceMin = v216.filterPriceMin, 
+                filterPriceMax = v216.filterPriceMax, 
+                keyword = v213, 
+                category = v214, 
+                subcategory = v215
             });
         end;
-        v105.widgetInteraction = function(v223, v224, v225, v226, v227, v228, v229) --[[ Line: 782 ]] --[[ Name: widgetInteraction ]]
-            -- upvalues: v48 (ref), l_l_AnalyticsService_0_0 (copy)
-            local l_WIDGET_API_FE_LOG_0 = v48.WIDGET_API_FE_LOG;
-            local v231 = {
-                request_id = v223, 
-                action_type = v224, 
-                item_position = v225, 
-                widget_position = v226, 
-                item_id = v227, 
-                item_type = v228, 
-                widget_id = v229
+        v103.widgetInteraction = function(v221, v222, v223, v224, v225, v226, v227) --[[ Line: 706 ]] --[[ Name: widgetInteraction ]]
+            -- upvalues: v46 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_WIDGET_API_FE_LOG_0 = v46.WIDGET_API_FE_LOG;
+            local v229 = {
+                request_id = v221, 
+                action_type = v222, 
+                item_position = v223, 
+                widget_position = v224, 
+                item_id = v225, 
+                item_type = v226, 
+                widget_id = v227
             };
-            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("catalog", l_WIDGET_API_FE_LOG_0, v231);
+            l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("catalog", l_WIDGET_API_FE_LOG_0, v229);
         end;
-        v105.widgetInteractionV2 = function(v232, v233) --[[ Line: 807 ]] --[[ Name: widgetInteractionV2 ]]
-            -- upvalues: v48 (ref), v21 (ref), l_FFlagAXAddLookTypeEnumForLogging_0 (ref), l_l_AnalyticsService_0_0 (copy)
-            local l_WIDGET_API_FE_LOG_1 = v48.WIDGET_API_FE_LOG;
-            local v235 = v233 == v21.ActionType.PURCHASE_SUCCESS;
-            local v236 = {
+        v103.widgetInteractionV2 = function(v230, v231) --[[ Line: 731 ]] --[[ Name: widgetInteractionV2 ]]
+            -- upvalues: v46 (ref), l_WidgetConstants_0 (ref), l_FFlagAXAddLookTypeEnumForLogging_0 (ref), l_l_AnalyticsService_0_0 (copy)
+            local l_WIDGET_API_FE_LOG_1 = v46.WIDGET_API_FE_LOG;
+            local v233 = v231 == l_WidgetConstants_0.ActionType.PURCHASE_SUCCESS;
+            local v234 = {
                 Outfit = "1", 
                 Avatar = "2", 
                 Makeup = "3"
             };
-            local v237 = {
-                action_type = v233, 
-                request_id = v232.requestId, 
-                item_position = v232.itemPosition, 
-                widget_position = v232.widgetPosition, 
-                item_id = v232.itemId, 
-                item_type = v232.itemType, 
-                look_type = if l_FFlagAXAddLookTypeEnumForLogging_0 and v232.lookType then v236[v232.lookType] else nil, 
-                widget_id = v232.widgetId, 
-                widget_type = v232.widgetType, 
-                widget_abs_position = v232.widgetAbsPosition, 
-                widget_item_ids = if v232.widgetItemIds then table.concat(v232.widgetItemIds, ",") else nil, 
-                kwd = v232.query, 
-                organic_result_ids = if v232.organicResultIds then table.concat(v232.organicResultIds, ",") else nil, 
-                time_spent_sec = v232.timeSpentSec, 
-                asset_ids = if v232.assetIds then table.concat(v232.assetIds, ",") else nil, 
-                bundle_ids = if v232.bundleIds then table.concat(v232.bundleIds, ",") else nil, 
-                total_robux = v232.totalRobux, 
-                ui_treatment_type = v232.uiTreatmentType
+            local v235 = {
+                action_type = v231, 
+                request_id = v230.requestId, 
+                item_position = v230.itemPosition, 
+                widget_position = v230.widgetPosition, 
+                item_id = v230.itemId, 
+                item_type = v230.itemType, 
+                look_type = if l_FFlagAXAddLookTypeEnumForLogging_0 and v230.lookType then v234[v230.lookType] else nil, 
+                widget_id = v230.widgetId, 
+                widget_type = v230.widgetType, 
+                widget_abs_position = v230.widgetAbsPosition, 
+                widget_item_ids = if v230.widgetItemIds then table.concat(v230.widgetItemIds, ",") else nil, 
+                kwd = v230.query, 
+                organic_result_ids = if v230.organicResultIds then table.concat(v230.organicResultIds, ",") else nil, 
+                time_spent_sec = v230.timeSpentSec, 
+                asset_ids = if v230.assetIds then table.concat(v230.assetIds, ",") else nil, 
+                bundle_ids = if v230.bundleIds then table.concat(v230.bundleIds, ",") else nil, 
+                total_robux = v230.totalRobux, 
+                ui_treatment_type = v230.uiTreatmentType
             };
-            if v235 then
-                l_l_AnalyticsService_0_0.EventStream:sendEventImmediately("catalog", l_WIDGET_API_FE_LOG_1, v237);
+            if v233 then
+                l_l_AnalyticsService_0_0.EventStream:sendEventImmediately("catalog", l_WIDGET_API_FE_LOG_1, v235);
                 return;
             else
-                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("catalog", l_WIDGET_API_FE_LOG_1, v237);
+                l_l_AnalyticsService_0_0.EventStream:sendTelemetryEvent("catalog", l_WIDGET_API_FE_LOG_1, v235);
                 return;
             end;
         end;
-        v50 = v105;
-        return v105;
+        v48 = v103;
+        return v103;
     end;
 end;
-return v49;
+return v47;

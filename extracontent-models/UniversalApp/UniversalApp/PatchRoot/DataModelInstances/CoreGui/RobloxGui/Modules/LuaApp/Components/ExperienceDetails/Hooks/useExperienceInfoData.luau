@@ -15,7 +15,7 @@ local l_getCommunityUrl_0 = require(l_CorePackages_0.Workspace.Packages.Communit
 local l_ApiFetchGameDetails_0 = require(l_CorePackages_0.Workspace.Packages.GameDetailRodux).GameDetails.ApiFetchGameDetails;
 local l_abbreviateCount_0 = require(l_CorePackages_0.Workspace.Packages.Localization).abbreviateCount;
 local l_clickCommunityLinkEvent_0 = require(l_CorePackages_0.Workspace.Packages.CommunityLinks).Analytics.Events.clickCommunityLinkEvent;
-local l_EnableCommunityProfilePageIXP_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform).EnableCommunityProfilePageIXP;
+local v17 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EnableCommunityProfilePageIXP);
 local v18 = require(script.Parent.useEdpServerIxpVariables);
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local v20 = require(l_Modules_0.LuaApp.AppPage);
@@ -47,90 +47,92 @@ local l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 = require(l_CorePackage
 local l_FFlagLuaAppBadgesSeeAllEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppBadgesSeeAllEnabled;
 local v47 = game:DefineFastFlag("LuaAppHideBadgesRowFix", false);
 local l_FFlagLuaAppHideEdpStoreForUnplayable_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppHideEdpStoreForUnplayable;
-return function(v49, v50, v51) --[[ Line: 96 ]]
-    -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_useNavigation_0 (copy), l_useSelector_0 (copy), v21 (copy), v37 (copy), v12 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v35 (copy), l_ApiFetchGameDetails_0 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (copy), l_useDispatch_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v18 (copy), v31 (copy), l_EnableCommunityProfilePageIXP_0 (copy), v1 (copy), l_FFlagHideCloseButtonEdp_0 (copy), v25 (copy), v26 (copy), v29 (copy), v27 (copy), v23 (copy), l_useLocalization_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_GuildedLogoWhiteAsset_0 (copy), l_getCommunityUrl_0 (copy), l_clickCommunityLinkEvent_0 (copy), l_Constants_0 (copy), v20 (copy), v22 (copy), v39 (copy), v24 (copy), v38 (copy), l_navigateToBadgesSeeAll_0 (copy), v47 (copy), v28 (copy), v32 (copy), l_abbreviateCount_0 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (copy), l_RetrievalStatus_0 (copy), v2 (copy)
-    local v52 = if l_FFlagLuaAppBadgesSeeAllEnabled_0 then l_useNavigation_0() else nil;
-    local v63 = l_useSelector_0(function(v53) --[[ Line: 98 ]]
-        -- upvalues: v49 (copy), v21 (ref), v37 (ref), v12 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v50 (copy), v35 (ref), l_ApiFetchGameDetails_0 (ref), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (ref)
-        local v54 = v53.GamePasses[v49];
-        local v55 = v53.GameBadges[v49];
-        local v56 = v53.VoiceChatOptInStatus.isUserOptIn or false;
-        local v57 = false;
-        local v58 = false;
-        if v53.ShowAgeVerificationOverlay[v49] then
-            v57 = v53.ShowAgeVerificationOverlay[v49].isUniverseEnabledForVoice;
-            v58 = v53.ShowAgeVerificationOverlay[v49].isUniverseEnabledForAvatarVideo;
+local l_FFlagEnableBlackbirdPageCloseCallback_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableBlackbirdPageCloseCallback;
+local l_getSubscriptionPurchaseCloseCallback_0 = require(l_CorePackages_0.Workspace.Packages.RobloxSubscriptionPurchaseApp).Utils.getSubscriptionPurchaseCloseCallback;
+return function(v51, v52, v53) --[[ Line: 101 ]]
+    -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_useNavigation_0 (copy), l_useSelector_0 (copy), v21 (copy), v37 (copy), v12 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v35 (copy), l_ApiFetchGameDetails_0 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (copy), l_useDispatch_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v18 (copy), v31 (copy), v17 (copy), v1 (copy), l_FFlagHideCloseButtonEdp_0 (copy), v25 (copy), v26 (copy), v29 (copy), v27 (copy), v23 (copy), l_useLocalization_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_GuildedLogoWhiteAsset_0 (copy), l_getCommunityUrl_0 (copy), l_clickCommunityLinkEvent_0 (copy), l_Constants_0 (copy), v20 (copy), v22 (copy), v39 (copy), v24 (copy), v38 (copy), l_FFlagEnableBlackbirdPageCloseCallback_0 (copy), l_getSubscriptionPurchaseCloseCallback_0 (copy), l_navigateToBadgesSeeAll_0 (copy), v47 (copy), v28 (copy), v32 (copy), l_abbreviateCount_0 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (copy), l_RetrievalStatus_0 (copy), v2 (copy)
+    local v54 = if l_FFlagLuaAppBadgesSeeAllEnabled_0 then l_useNavigation_0() else nil;
+    local v65 = l_useSelector_0(function(v55) --[[ Line: 103 ]]
+        -- upvalues: v51 (copy), v21 (ref), v37 (ref), v12 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v52 (copy), v35 (ref), l_ApiFetchGameDetails_0 (ref), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (ref)
+        local v56 = v55.GamePasses[v51];
+        local v57 = v55.GameBadges[v51];
+        local v58 = v55.VoiceChatOptInStatus.isUserOptIn or false;
+        local v59 = false;
+        local v60 = false;
+        if v55.ShowAgeVerificationOverlay[v51] then
+            v59 = v55.ShowAgeVerificationOverlay[v51].isUniverseEnabledForVoice;
+            v60 = v55.ShowAgeVerificationOverlay[v51].isUniverseEnabledForAvatarVideo;
         end;
-        local v59 = v21(v53.GameSocialLinks, v49, "groupLink");
-        local v60 = if v37() then nil else v12.isCreatorOfGameVerified(v53, {
-            universeId = v49, 
-            shouldUseV2GameDetails = not not l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v50 and true or nil
+        local v61 = v21(v55.GameSocialLinks, v51, "groupLink");
+        local v62 = if v37() then nil else v12.isCreatorOfGameVerified(v55, {
+            universeId = v51, 
+            shouldUseV2GameDetails = not not l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v52 and true or nil
         });
-        local v61 = if not not l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v50 then v35.GetFetchingStatus(v53, v49) else l_ApiFetchGameDetails_0.GetFetchingStatus(v53, v49);
-        local v62 = v53.CommunityLinks.ExperienceCommunityLinks[v49] or nil;
+        local v63 = if not not l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v52 then v35.GetFetchingStatus(v55, v51) else l_ApiFetchGameDetails_0.GetFetchingStatus(v55, v51);
+        local v64 = v55.CommunityLinks.ExperienceCommunityLinks[v51] or nil;
         return {
-            dataStatus = v61, 
-            gameDetail = if not not l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v50 then v53.GameDetailsV2[v49] or {} else v53.GameDetails[v49] or {}, 
-            creatorVerified = v60, 
-            showPasses = not v54 or #v54 > 0, 
-            showBadges = not v55 or #v55 > 0, 
-            userVoiceEnabled = v56, 
-            experienceVoiceEnabled = v57, 
-            experienceVideoEnabled = v58, 
-            groupLink = v59, 
-            communityLink = v62, 
-            isLocalUserUnder13 = v53.IsLocalUserUnder13, 
-            ageRecommendations = v53.AgeRecommendations[v49], 
-            ageRecommendationHeader = v53.AgeRecommendationHeaders.headerDisplayName, 
-            isPlayable = if l_FFlagLuaAppHideEdpStoreForUnplayable_0 then v53.PlayabilityStatus and v53.PlayabilityStatus[v49] and v53.PlayabilityStatus[v49].isPlayable else nil
+            dataStatus = v63, 
+            gameDetail = if not not l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v52 then v55.GameDetailsV2[v51] or {} else v55.GameDetails[v51] or {}, 
+            creatorVerified = v62, 
+            showPasses = not v56 or #v56 > 0, 
+            showBadges = not v57 or #v57 > 0, 
+            userVoiceEnabled = v58, 
+            experienceVoiceEnabled = v59, 
+            experienceVideoEnabled = v60, 
+            groupLink = v61, 
+            communityLink = v64, 
+            isLocalUserUnder13 = v55.IsLocalUserUnder13, 
+            ageRecommendations = v55.AgeRecommendations[v51], 
+            ageRecommendationHeader = v55.AgeRecommendationHeaders.headerDisplayName, 
+            isPlayable = if l_FFlagLuaAppHideEdpStoreForUnplayable_0 then v55.PlayabilityStatus and v55.PlayabilityStatus[v51] and v55.PlayabilityStatus[v51].isPlayable else nil
         };
     end);
-    local v64 = l_useDispatch_0();
-    local v65 = nil;
+    local v66 = l_useDispatch_0();
+    local v67 = nil;
     if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
-        v65 = v18();
+        v67 = v18();
     end;
-    local v66 = v31(if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v50 else nil);
-    local v67 = if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then l_EnableCommunityProfilePageIXP_0.useIsFeatureActive({
+    local v68 = v31(if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v52 else nil);
+    local v69 = if v17.FFlagIsSetupEnabled then v17.useIsFeatureActive({
         isExposureEnabled = false
     }) else nil;
-    local v68 = v1.useCallback(function() --[[ Line: 168 ]]
-        -- upvalues: v66 (copy), v49 (copy), l_FFlagHideCloseButtonEdp_0 (ref), v51 (copy)
-        v66.openExperienceGuidelinesExplained(v49, if l_FFlagHideCloseButtonEdp_0 then v51 else false);
+    local v70 = v1.useCallback(function() --[[ Line: 173 ]]
+        -- upvalues: v68 (copy), v51 (copy), l_FFlagHideCloseButtonEdp_0 (ref), v53 (copy)
+        v68.openExperienceGuidelinesExplained(v51, if l_FFlagHideCloseButtonEdp_0 then v53 else false);
     end, {
-        v64, 
-        v49, 
-        v66
+        v66, 
+        v51, 
+        v68
     });
-    local v69 = v25(v26);
-    local v70 = v1.useCallback(function() --[[ Line: 178 ]]
-        -- upvalues: v64 (copy), v29 (ref), v69 (copy), v49 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v50 (copy)
-        v64(v29(v69, v49, nil, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v50 else nil));
+    local v71 = v25(v26);
+    local v72 = v1.useCallback(function() --[[ Line: 183 ]]
+        -- upvalues: v66 (copy), v29 (ref), v71 (copy), v51 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v52 (copy)
+        v66(v29(v71, v51, nil, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v52 else nil));
     end, {
-        v64, 
-        v69, 
-        v49, 
-        if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v50 else nil
+        v66, 
+        v71, 
+        v51, 
+        if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v52 else nil
     });
-    local v71 = v25(v27);
-    local v73 = v23(function(v72) --[[ Line: 198 ]]
+    local v73 = v25(v27);
+    local v75 = v23(function(v74) --[[ Line: 203 ]]
         return {
-            showBadgesRow = v72.getGameInfoShowBadges(), 
-            showCreatedRow = v72.getGameInfoShowCreated(), 
-            showDeveloperRow = v72.getGameInfoListDeveloper(), 
-            showRNVDeveloper = v72.getGameInfoListShowRNVDeveloper(), 
-            showGamepassesRow = v72.getGameInfoShowGamepasses(), 
-            showGenreRow = v72.getGameInfoShowGenre(), 
-            showSubgenreRow = v72.getGameInfoShowSubgenre(), 
-            showMaxPlayersRow = v72.getGameInfoShowMaxPlayers(), 
-            showServersRow = v72.getGameInfoShowServers(), 
-            showUpdatedRow = v72.getGameInfoShowUpdated(), 
-            enableGroupLinks = v72.getSocialGroupLinks(), 
-            webViewSupport = v72.getWebViewSupport(), 
-            showAgeRecommendationRow = v72.getGameInfoShowAgeRecommendation()
+            showBadgesRow = v74.getGameInfoShowBadges(), 
+            showCreatedRow = v74.getGameInfoShowCreated(), 
+            showDeveloperRow = v74.getGameInfoListDeveloper(), 
+            showRNVDeveloper = v74.getGameInfoListShowRNVDeveloper(), 
+            showGamepassesRow = v74.getGameInfoShowGamepasses(), 
+            showGenreRow = v74.getGameInfoShowGenre(), 
+            showSubgenreRow = v74.getGameInfoShowSubgenre(), 
+            showMaxPlayersRow = v74.getGameInfoShowMaxPlayers(), 
+            showServersRow = v74.getGameInfoShowServers(), 
+            showUpdatedRow = v74.getGameInfoShowUpdated(), 
+            enableGroupLinks = v74.getSocialGroupLinks(), 
+            webViewSupport = v74.getWebViewSupport(), 
+            showAgeRecommendationRow = v74.getGameInfoShowAgeRecommendation()
         };
     end);
-    local v74 = l_useLocalization_0({
+    local v76 = l_useLocalization_0({
         yes = "Feature.GameDetails.Label.Yes", 
         no = "Feature.GameDetails.Label.No", 
         none = "Feature.GameDetails.Label.None", 
@@ -160,7 +162,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         strongLanguage = (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0) and "Feature.AgeGuidelines.DisplayName.StrongLanguage" or nil, 
         creatorEnabled = (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0) and "Feature.AgeGuidelines.Label.CreatorEnabled" or nil
     });
-    local v75 = l_useLocalization_0({
+    local v77 = l_useLocalization_0({
         All = "Feature.GameDetails.Label.GenreAll", 
         Adventure = "Feature.GameDetails.Label.GenreAdventure", 
         Building = "Feature.GameDetails.Label.GenreBuilding", 
@@ -177,27 +179,27 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         ["Town and City"] = "Feature.GameDetails.Label.LabelGenreTownAndCity", 
         Western = "Feature.GameDetails.Label.GenreWestern"
     });
-    local v77 = l_useUserExperiment_0({
+    local v79 = l_useUserExperiment_0({
         l_AppUserLayers_0.EDPCommunityLinksLayer
-    }, function(v76) --[[ Line: 275 ]]
+    }, function(v78) --[[ Line: 280 ]]
         -- upvalues: l_AppUserLayers_0 (ref)
-        return (v76[l_AppUserLayers_0.EDPCommunityLinksLayer] or {}).communityLinkDisplayConfig or {};
+        return (v78[l_AppUserLayers_0.EDPCommunityLinksLayer] or {}).communityLinkDisplayConfig or {};
     end, false);
-    local v80 = v1.useMemo(function() --[[ Line: 283 ]]
-        -- upvalues: v77 (copy), v63 (copy), v74 (copy), l_GuildedLogoWhiteAsset_0 (ref), l_getCommunityUrl_0 (ref), l_clickCommunityLinkEvent_0 (ref), v71 (copy), l_Constants_0 (ref), v49 (copy)
-        local l_inTreatment_0 = v77.inTreatment;
-        local l_linkVariant_0 = v77.linkVariant;
-        if l_inTreatment_0 and v63.communityLink and l_linkVariant_0 == "infolist" then
+    local v82 = v1.useMemo(function() --[[ Line: 288 ]]
+        -- upvalues: v79 (copy), v65 (copy), v76 (copy), l_GuildedLogoWhiteAsset_0 (ref), l_getCommunityUrl_0 (ref), l_clickCommunityLinkEvent_0 (ref), v73 (copy), l_Constants_0 (ref), v51 (copy)
+        local l_inTreatment_0 = v79.inTreatment;
+        local l_linkVariant_0 = v79.linkVariant;
+        if l_inTreatment_0 and v65.communityLink and l_linkVariant_0 == "infolist" then
             return {
-                infoName = v74.community, 
+                infoName = v76.community, 
                 infoIcon = l_GuildedLogoWhiteAsset_0, 
-                linkUrl = l_getCommunityUrl_0(v63.communityLink.communityId), 
-                linkClickCallback = function() --[[ Line: 292 ]] --[[ Name: linkClickCallback ]]
-                    -- upvalues: l_clickCommunityLinkEvent_0 (ref), v71 (ref), l_Constants_0 (ref), v63 (ref), v49 (ref)
-                    l_clickCommunityLinkEvent_0(v71, l_Constants_0.Context.ExperienceInfoList, {
-                        guildedServerId = v63.communityLink.communityId, 
+                linkUrl = l_getCommunityUrl_0(v65.communityLink.communityId), 
+                linkClickCallback = function() --[[ Line: 297 ]] --[[ Name: linkClickCallback ]]
+                    -- upvalues: l_clickCommunityLinkEvent_0 (ref), v73 (ref), l_Constants_0 (ref), v65 (ref), v51 (ref)
+                    l_clickCommunityLinkEvent_0(v73, l_Constants_0.Context.ExperienceInfoList, {
+                        guildedServerId = v65.communityLink.communityId, 
                         entityType = "universe", 
-                        entityId = v49
+                        entityId = v51
                     });
                 end, 
                 testId = "--community-row-tail"
@@ -206,95 +208,95 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             return;
         end;
     end, {
-        v74.community, 
-        v63.communityLink
+        v76.community, 
+        v65.communityLink
     });
-    local v82 = v1.useMemo(function() --[[ Line: 316 ]]
-        -- upvalues: v73 (copy), v21 (ref), v63 (copy), v74 (copy), v68 (copy), v20 (ref)
-        if v73.showAgeRecommendationRow then
-            local v81 = v21(v63.ageRecommendations, "summary", "ageRecommendation", "displayName");
+    local v84 = v1.useMemo(function() --[[ Line: 321 ]]
+        -- upvalues: v75 (copy), v21 (ref), v65 (copy), v76 (copy), v70 (copy), v20 (ref)
+        if v75.showAgeRecommendationRow then
+            local v83 = v21(v65.ageRecommendations, "summary", "ageRecommendation", "displayName");
             return {
-                infoName = if v63.ageRecommendationHeader then v63.ageRecommendationHeader else v74.contentMaturity, 
-                infoData = v81 or v74.unavailable, 
-                navigateOverride = if v81 then v68 else nil, 
-                analyticsSubPage = if v81 then v20.ExperienceGuidelinesExplained else nil, 
+                infoName = if v65.ageRecommendationHeader then v65.ageRecommendationHeader else v76.contentMaturity, 
+                infoData = v83 or v76.unavailable, 
+                navigateOverride = if v83 then v70 else nil, 
+                analyticsSubPage = if v83 then v20.ExperienceGuidelinesExplained else nil, 
                 testId = "--content-maturity-row-tail"
             };
         else
             return;
         end;
     end, {
-        v73.showAgeRecommendationRow, 
-        v74.contentMaturity, 
-        v74.unavailable, 
-        v63.ageRecommendations, 
-        v63.ageRecommendationHeader, 
-        v68
+        v75.showAgeRecommendationRow, 
+        v76.contentMaturity, 
+        v76.unavailable, 
+        v65.ageRecommendations, 
+        v65.ageRecommendationHeader, 
+        v70
     });
-    local v84 = v1.useMemo(function() --[[ Line: 342 ]]
-        -- upvalues: v73 (copy), v21 (ref), v63 (copy), v74 (copy)
-        if v73.showAgeRecommendationRow then
-            local v83 = v21(v63.ageRecommendations, "summary", "ageRecommendation", "minimumAgeDisplay");
-            if v83 and v83 ~= "" then
+    local v86 = v1.useMemo(function() --[[ Line: 347 ]]
+        -- upvalues: v75 (copy), v21 (ref), v65 (copy), v76 (copy)
+        if v75.showAgeRecommendationRow then
+            local v85 = v21(v65.ageRecommendations, "summary", "ageRecommendation", "minimumAgeDisplay");
+            if v85 and v85 ~= "" then
                 return {
-                    infoName = v74.age, 
-                    infoData = v83, 
+                    infoName = v76.age, 
+                    infoData = v85, 
                     testId = "--age-row-tail"
                 };
             end;
         end;
     end, {
-        v73.showAgeRecommendationRow, 
-        v74.age, 
-        v63.ageRecommendations
+        v75.showAgeRecommendationRow, 
+        v76.age, 
+        v65.ageRecommendations
     });
-    local v93 = v1.useMemo(function() --[[ Line: 364 ]]
-        -- upvalues: v63 (copy), v73 (copy), v37 (ref), l_EnableCommunityProfilePageIXP_0 (ref), v67 (copy), v74 (copy), v49 (copy), v66 (copy), v22 (ref)
-        local l_creator_0 = v63.gameDetail.creator;
-        if l_creator_0 and (v73.showDeveloperRow or v73.showRNVDeveloper and l_creator_0.isRNVAccount) then
+    local v95 = v1.useMemo(function() --[[ Line: 369 ]]
+        -- upvalues: v65 (copy), v75 (copy), v37 (ref), v17 (ref), v69 (copy), v76 (copy), v51 (copy), v68 (copy), v22 (ref)
+        local l_creator_0 = v65.gameDetail.creator;
+        if l_creator_0 and (v75.showDeveloperRow or v75.showRNVDeveloper and l_creator_0.isRNVAccount) then
             local l_id_0 = l_creator_0.id;
             local l_name_0 = l_creator_0.name;
             local l_type_0 = l_creator_0.type;
-            local v89 = if v37() then l_creator_0.hasVerifiedBadge or false else v63.creatorVerified or false;
-            if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v67 and l_type_0 == Enum.CreatorType.Group.Name then
+            local v91 = if v37() then l_creator_0.hasVerifiedBadge or false else v65.creatorVerified or false;
+            if v17.FFlagIsSetupEnabled and v69 and l_type_0 == Enum.CreatorType.Group.Name then
                 return {
-                    infoName = v74.developer, 
+                    infoName = v76.developer, 
                     infoData = l_name_0, 
-                    infoDataOverride = function(v90) --[[ Line: 381 ]] --[[ Name: infoDataOverride ]]
-                        -- upvalues: l_name_0 (copy), l_id_0 (copy), v49 (ref), v89 (copy)
-                        return v90(l_name_0, l_id_0, v49, v89);
+                    infoDataOverride = function(v92) --[[ Line: 386 ]] --[[ Name: infoDataOverride ]]
+                        -- upvalues: l_name_0 (copy), l_id_0 (copy), v51 (ref), v91 (copy)
+                        return v92(l_name_0, l_id_0, v51, v91);
                     end, 
-                    navigateOverride = function() --[[ Line: 384 ]] --[[ Name: navigateOverride ]]
-                        -- upvalues: v66 (ref), l_id_0 (copy)
-                        v66.openCommunityProfilePage(l_id_0, "ExperienceDetailsPage:Developer");
+                    navigateOverride = function() --[[ Line: 389 ]] --[[ Name: navigateOverride ]]
+                        -- upvalues: v68 (ref), l_id_0 (copy)
+                        v68.openCommunityProfilePage(l_id_0, "ExperienceDetailsPage:Developer");
                     end, 
                     analyticsSubPage = "Developer", 
                     testId = "--developer-row-tail"
                 };
             elseif l_type_0 == Enum.CreatorType.User.Name then
                 return {
-                    infoName = v74.developer, 
+                    infoName = v76.developer, 
                     infoData = l_name_0, 
-                    infoDataOverride = function(v91) --[[ Line: 398 ]] --[[ Name: infoDataOverride ]]
-                        -- upvalues: l_name_0 (copy), l_id_0 (copy), v49 (ref), v89 (copy)
-                        return v91(l_name_0, l_id_0, v49, v89);
+                    infoDataOverride = function(v93) --[[ Line: 403 ]] --[[ Name: infoDataOverride ]]
+                        -- upvalues: l_name_0 (copy), l_id_0 (copy), v51 (ref), v91 (copy)
+                        return v93(l_name_0, l_id_0, v51, v91);
                     end, 
-                    navigateOverride = function() --[[ Line: 401 ]] --[[ Name: navigateOverride ]]
-                        -- upvalues: v66 (ref), l_id_0 (copy)
-                        v66.openUserProfilePage(l_id_0, "ExperienceDetailsPage:Developer");
+                    navigateOverride = function() --[[ Line: 406 ]] --[[ Name: navigateOverride ]]
+                        -- upvalues: v68 (ref), l_id_0 (copy)
+                        v68.openUserProfilePage(l_id_0, "ExperienceDetailsPage:Developer");
                     end, 
                     analyticsSubPage = "Developer", 
                     testId = "--developer-row-tail"
                 };
             else
                 return {
-                    infoName = v74.developer, 
+                    infoName = v76.developer, 
                     infoData = l_name_0, 
-                    infoDataOverride = function(v92) --[[ Line: 414 ]] --[[ Name: infoDataOverride ]]
-                        -- upvalues: l_name_0 (copy), l_id_0 (copy), v49 (ref), v89 (copy)
-                        return v92(l_name_0, l_id_0, v49, v89);
+                    infoDataOverride = function(v94) --[[ Line: 419 ]] --[[ Name: infoDataOverride ]]
+                        -- upvalues: l_name_0 (copy), l_id_0 (copy), v51 (ref), v91 (copy)
+                        return v94(l_name_0, l_id_0, v51, v91);
                     end, 
-                    linkPage = if v73.webViewSupport then v22.game.info.creator({
+                    linkPage = if v75.webViewSupport then v22.game.info.creator({
                         creatorType = l_type_0, 
                         creatorId = l_id_0
                     }) else nil, 
@@ -306,200 +308,201 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             return;
         end;
     end, {
-        v74.developer, 
-        v73.showDeveloperRow, 
-        v73.showRNVDeveloper, 
-        v73.webViewSupport, 
-        v49, 
-        v63.gameDetail, 
-        v63.creatorVerified, 
-        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then v67 else nil
+        v76.developer, 
+        v75.showDeveloperRow, 
+        v75.showRNVDeveloper, 
+        v75.webViewSupport, 
+        v51, 
+        v65.gameDetail, 
+        v65.creatorVerified, 
+        if v17.FFlagIsSetupEnabled then v69 else nil
     });
-    local v94 = v1.useMemo(function() --[[ Line: 444 ]]
-        -- upvalues: v73 (copy), v74 (copy), v63 (copy)
-        if v73.showMaxPlayersRow then
+    local v96 = v1.useMemo(function() --[[ Line: 449 ]]
+        -- upvalues: v75 (copy), v76 (copy), v65 (copy)
+        if v75.showMaxPlayersRow then
             return {
-                infoName = v74.maxPlayers, 
-                infoData = tostring(v63.gameDetail.maxPlayers or "--"), 
+                infoName = v76.maxPlayers, 
+                infoData = tostring(v65.gameDetail.maxPlayers or "--"), 
                 testId = "--server-size-row-tail"
             };
         else
             return;
         end;
     end, {
-        v73.showMaxPlayersRow, 
-        v63.gameDetail
+        v75.showMaxPlayersRow, 
+        v65.gameDetail
     });
-    local v97 = v1.useMemo(function() --[[ Line: 461 ]]
-        -- upvalues: v63 (copy), v39 (ref), v74 (copy), v75 (copy), v73 (copy)
-        local v95 = nil;
-        if v63.gameDetail.genre_l1 and v63.gameDetail.genre_l1 ~= "" then
-            v95 = v63.gameDetail.genre_l1;
+    local v99 = v1.useMemo(function() --[[ Line: 466 ]]
+        -- upvalues: v65 (copy), v39 (ref), v76 (copy), v77 (copy), v75 (copy)
+        local v97 = nil;
+        if v65.gameDetail.genre_l1 and v65.gameDetail.genre_l1 ~= "" then
+            v97 = v65.gameDetail.genre_l1;
         elseif v39 == "N/A" then
-            v95 = v74.unavailable;
+            v97 = v76.unavailable;
         elseif v39 == "All" then
-            v95 = v75.All;
+            v97 = v77.All;
         end;
-        if v73.showGenreRow then
-            local v96 = if v95 then v95 else if v63.gameDetail.genre then v75[v63.gameDetail.genre] else nil;
+        if v75.showGenreRow then
+            local v98 = if v97 then v97 else if v65.gameDetail.genre then v77[v65.gameDetail.genre] else nil;
             return {
-                infoName = v74.genre, 
-                infoData = v96 or "--", 
+                infoName = v76.genre, 
+                infoData = v98 or "--", 
                 testId = "--genre-row-tail"
             };
         else
             return;
         end;
     end, {
-        v73.showGenreRow, 
-        v63.gameDetail
+        v75.showGenreRow, 
+        v65.gameDetail
     });
-    local v98 = v1.useMemo(function() --[[ Line: 490 ]]
-        -- upvalues: v73 (copy), v63 (copy), v74 (copy)
-        if v73.showSubgenreRow and v63.gameDetail.genre_l2 and v63.gameDetail.genre_l2 ~= "" then
+    local v100 = v1.useMemo(function() --[[ Line: 495 ]]
+        -- upvalues: v75 (copy), v65 (copy), v76 (copy)
+        if v75.showSubgenreRow and v65.gameDetail.genre_l2 and v65.gameDetail.genre_l2 ~= "" then
             return {
-                infoName = v74.subgenre, 
-                infoData = v63.gameDetail.genre_l2, 
+                infoName = v76.subgenre, 
+                infoData = v65.gameDetail.genre_l2, 
                 testId = "--subgenre-row-tail"
             };
         else
             return;
         end;
     end, {
-        v73.showSubgenreRow, 
-        v63.gameDetail
+        v75.showSubgenreRow, 
+        v65.gameDetail
     });
-    local v99 = v24(v63.gameDetail.created);
-    local v100 = v1.useMemo(function() --[[ Line: 509 ]]
-        -- upvalues: v73 (copy), v74 (copy), v99 (copy)
-        if v73.showCreatedRow then
+    local v101 = v24(v65.gameDetail.created);
+    local v102 = v1.useMemo(function() --[[ Line: 514 ]]
+        -- upvalues: v75 (copy), v76 (copy), v101 (copy)
+        if v75.showCreatedRow then
             return {
-                infoName = v74.created, 
-                infoData = v99 or "--", 
+                infoName = v76.created, 
+                infoData = v101 or "--", 
                 testId = "--created-row-tail"
             };
         else
             return;
         end;
     end, {
-        v73.showCreatedRow, 
-        v99
+        v75.showCreatedRow, 
+        v101
     });
-    local v101 = v24(v63.gameDetail.updated);
-    local v102 = v1.useMemo(function() --[[ Line: 527 ]]
-        -- upvalues: v73 (copy), v74 (copy), v101 (copy)
-        if v73.showUpdatedRow then
+    local v103 = v24(v65.gameDetail.updated);
+    local v104 = v1.useMemo(function() --[[ Line: 532 ]]
+        -- upvalues: v75 (copy), v76 (copy), v103 (copy)
+        if v75.showUpdatedRow then
             return {
-                infoName = v74.updated, 
-                infoData = v101 or "--", 
+                infoName = v76.updated, 
+                infoData = v103 or "--", 
                 testId = "--updated-row-tail"
             };
         else
             return;
         end;
     end, {
-        v73.showUpdatedRow, 
-        v101
+        v75.showUpdatedRow, 
+        v103
     });
-    local v103 = nil;
-    local v104 = nil;
     local v105 = nil;
+    local v106 = nil;
+    local v107 = nil;
     if v38() then
-        v104 = v1.useMemo(function() --[[ Line: 548 ]]
-            -- upvalues: v74 (copy), v63 (copy)
-            local l_notSupported_0 = v74.notSupported;
-            if v63.isLocalUserUnder13 then
+        v106 = v1.useMemo(function() --[[ Line: 553 ]]
+            -- upvalues: v76 (copy), v65 (copy)
+            local l_notSupported_0 = v76.notSupported;
+            if v65.isLocalUserUnder13 then
                 return nil;
             else
-                if v63.experienceVoiceEnabled then
-                    l_notSupported_0 = v74.supported;
+                if v65.experienceVoiceEnabled then
+                    l_notSupported_0 = v76.supported;
                 end;
                 return {
-                    infoName = v74.voiceChat, 
+                    infoName = v76.voiceChat, 
                     infoData = l_notSupported_0, 
                     testId = "--voice-chat-row-tail"
                 };
             end;
         end, {
-            v63.experienceVoiceEnabled, 
-            v63.isLocalUserUnder13
+            v65.experienceVoiceEnabled, 
+            v65.isLocalUserUnder13
         });
-        v105 = v1.useMemo(function() --[[ Line: 571 ]]
-            -- upvalues: v74 (copy), v63 (copy)
-            local l_notSupported_1 = v74.notSupported;
-            if v63.experienceVideoEnabled then
-                l_notSupported_1 = v74.supported;
+        v107 = v1.useMemo(function() --[[ Line: 576 ]]
+            -- upvalues: v76 (copy), v65 (copy)
+            local l_notSupported_1 = v76.notSupported;
+            if v65.experienceVideoEnabled then
+                l_notSupported_1 = v76.supported;
             end;
             return {
-                infoName = v74.camera, 
+                infoName = v76.camera, 
                 infoData = l_notSupported_1, 
                 testId = "--camera-row-tail"
             };
         end, {
-            v63.experienceVideoEnabled
+            v65.experienceVideoEnabled
         });
     else
-        v103 = v1.useMemo(function() --[[ Line: 590 ]]
-            -- upvalues: v63 (copy), v74 (copy)
-            local v108 = {};
-            if v63.experienceVoiceEnabled and not v63.isLocalUserUnder13 then
-                table.insert(v108, v74.microphone);
+        v105 = v1.useMemo(function() --[[ Line: 595 ]]
+            -- upvalues: v65 (copy), v76 (copy)
+            local v110 = {};
+            if v65.experienceVoiceEnabled and not v65.isLocalUserUnder13 then
+                table.insert(v110, v76.microphone);
             end;
-            if v63.experienceVideoEnabled then
-                table.insert(v108, v74.camera);
+            if v65.experienceVideoEnabled then
+                table.insert(v110, v76.camera);
             end;
-            if #v108 < 1 then
-                table.insert(v108, v74.none);
+            if #v110 < 1 then
+                table.insert(v110, v76.none);
             end;
             return {
-                infoName = v74.communication, 
-                infoData = table.concat(v108, ", "), 
+                infoName = v76.communication, 
+                infoData = table.concat(v110, ", "), 
                 testId = "--communication-row-tail"
             };
         end, {
-            v63.experienceVoiceEnabled, 
-            v63.experienceVideoEnabled, 
-            v63.isLocalUserUnder13
+            v65.experienceVoiceEnabled, 
+            v65.experienceVideoEnabled, 
+            v65.isLocalUserUnder13
         });
     end;
-    local v109 = v1.useMemo(function() --[[ Line: 617 ]]
-        -- upvalues: v73 (copy), v63 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (ref), v74 (copy), v22 (ref), v49 (copy)
-        if v73.webViewSupport and v73.showGamepassesRow and v63.showPasses and (not l_FFlagLuaAppHideEdpStoreForUnplayable_0 or v63.isPlayable) then
+    local v111 = v1.useMemo(function() --[[ Line: 622 ]]
+        -- upvalues: v75 (copy), v65 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (ref), v76 (copy), v22 (ref), v51 (copy), l_FFlagEnableBlackbirdPageCloseCallback_0 (ref), l_getSubscriptionPurchaseCloseCallback_0 (ref)
+        if v75.webViewSupport and v75.showGamepassesRow and v65.showPasses and (not l_FFlagLuaAppHideEdpStoreForUnplayable_0 or v65.isPlayable) then
             return {
-                infoName = v74.passesAndGear, 
+                infoName = v76.passesAndGear, 
                 linkPage = v22.game.info.store({
-                    universeId = v49
+                    universeId = v51
                 }), 
                 analyticsSubPage = "PassesAndGear", 
-                testId = "--store-row-tail"
+                testId = "--store-row-tail", 
+                onClose = if l_FFlagEnableBlackbirdPageCloseCallback_0 and l_getSubscriptionPurchaseCloseCallback_0 then l_getSubscriptionPurchaseCloseCallback_0() else nil
             };
         else
             return;
         end;
     end, {
-        v49, 
-        v73.webViewSupport, 
-        v73.showGamepassesRow, 
-        v63.showPasses, 
-        if l_FFlagLuaAppHideEdpStoreForUnplayable_0 then v63.isPlayable else nil
+        v51, 
+        v75.webViewSupport, 
+        v75.showGamepassesRow, 
+        v65.showPasses, 
+        if l_FFlagLuaAppHideEdpStoreForUnplayable_0 then v65.isPlayable else nil
     });
-    local v110 = v1.useMemo(function() --[[ Line: 645 ]]
-        -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (ref), v73 (copy), v63 (copy), v74 (copy), l_navigateToBadgesSeeAll_0 (ref), v52 (copy), v49 (copy), v22 (ref)
-        if l_FFlagLuaAppBadgesSeeAllEnabled_0 and v73.showBadgesRow and v63.showBadges then
+    local v112 = v1.useMemo(function() --[[ Line: 653 ]]
+        -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (ref), v75 (copy), v65 (copy), v76 (copy), l_navigateToBadgesSeeAll_0 (ref), v54 (copy), v51 (copy), v22 (ref)
+        if l_FFlagLuaAppBadgesSeeAllEnabled_0 and v75.showBadgesRow and v65.showBadges then
             return {
-                infoName = v74.badges, 
-                navigateOverride = function() --[[ Line: 649 ]] --[[ Name: navigateOverride ]]
-                    -- upvalues: l_navigateToBadgesSeeAll_0 (ref), v52 (ref), v49 (ref)
-                    l_navigateToBadgesSeeAll_0(v52, v49);
+                infoName = v76.badges, 
+                navigateOverride = function() --[[ Line: 657 ]] --[[ Name: navigateOverride ]]
+                    -- upvalues: l_navigateToBadgesSeeAll_0 (ref), v54 (ref), v51 (ref)
+                    l_navigateToBadgesSeeAll_0(v54, v51);
                 end, 
                 analyticsSubPage = "Badges", 
                 testId = "--badges-row-tail"
             };
-        elseif v73.webViewSupport and v73.showBadgesRow and v63.showBadges then
+        elseif v75.webViewSupport and v75.showBadgesRow and v65.showBadges then
             return {
-                infoName = v74.badges, 
+                infoName = v76.badges, 
                 linkPage = v22.game.info.badges({
-                    universeId = v49
+                    universeId = v51
                 }), 
                 analyticsSubPage = "Badges", 
                 testId = "--badges-row-tail"
@@ -508,104 +511,105 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             return;
         end;
     end, {
-        v49, 
-        v73.webViewSupport, 
-        v73.showBadgesRow, 
-        v63.showPasses, 
-        v52, 
-        if v47 then v63.showBadges else nil
+        v51, 
+        v75.webViewSupport, 
+        v75.showBadgesRow, 
+        v65.showPasses, 
+        v54, 
+        if v47 then v65.showBadges else nil
     });
-    local v111 = v1.useMemo(function() --[[ Line: 678 ]]
-        -- upvalues: v73 (copy), v74 (copy), v22 (ref), v49 (copy)
-        if v73.webViewSupport and v73.showServersRow then
+    local v113 = v1.useMemo(function() --[[ Line: 686 ]]
+        -- upvalues: v75 (copy), v76 (copy), v22 (ref), v51 (copy), l_FFlagEnableBlackbirdPageCloseCallback_0 (ref), l_getSubscriptionPurchaseCloseCallback_0 (ref)
+        if v75.webViewSupport and v75.showServersRow then
             return {
-                infoName = v74.servers, 
+                infoName = v76.servers, 
                 linkPage = v22.game.info.servers({
-                    universeId = v49
+                    universeId = v51
                 }), 
                 analyticsSubPage = "Servers", 
-                testId = "--servers-row-tail"
+                testId = "--servers-row-tail", 
+                onClose = if l_FFlagEnableBlackbirdPageCloseCallback_0 and l_getSubscriptionPurchaseCloseCallback_0 then l_getSubscriptionPurchaseCloseCallback_0() else nil
             };
         else
             return;
         end;
     end, {
-        v49, 
-        v73.webViewSupport, 
-        v73.showServersRow
+        v51, 
+        v75.webViewSupport, 
+        v75.showServersRow
     });
-    local v112 = v1.useMemo(function() --[[ Line: 699 ]]
-        -- upvalues: l_EnableCommunityProfilePageIXP_0 (ref), v67 (copy), v73 (copy), v63 (copy), v74 (copy), v66 (copy)
-        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v67 then
-            if v73.enableGroupLinks and v63.groupLink then
-                if v63.groupLink.communityId ~= nil then
+    local v114 = v1.useMemo(function() --[[ Line: 710 ]]
+        -- upvalues: v17 (ref), v69 (copy), v75 (copy), v65 (copy), v76 (copy), v68 (copy)
+        if v17.FFlagIsSetupEnabled and v69 then
+            if v75.enableGroupLinks and v65.groupLink then
+                if v65.groupLink.communityId ~= nil then
                     return {
-                        infoName = v74.group, 
-                        navigateOverride = function() --[[ Line: 705 ]] --[[ Name: navigateOverride ]]
-                            -- upvalues: v66 (ref), v63 (ref)
-                            v66.openCommunityProfilePage(v63.groupLink.communityId, "ExperienceDetailsPage:Group");
+                        infoName = v76.group, 
+                        navigateOverride = function() --[[ Line: 716 ]] --[[ Name: navigateOverride ]]
+                            -- upvalues: v68 (ref), v65 (ref)
+                            v68.openCommunityProfilePage(v65.groupLink.communityId, "ExperienceDetailsPage:Group");
                         end, 
                         analyticsSubPage = "Group", 
                         testId = "--group-row-tail"
                     };
-                elseif v73.webViewSupport then
+                elseif v75.webViewSupport then
                     return {
-                        infoName = v74.group, 
-                        linkPage = v63.groupLink.url, 
+                        infoName = v76.group, 
+                        linkPage = v65.groupLink.url, 
                         analyticsSubPage = "Group", 
                         testId = "--group-row-tail"
                     };
                 end;
             end;
-        elseif v73.webViewSupport and v73.enableGroupLinks and v63.groupLink then
+        elseif v75.webViewSupport and v75.enableGroupLinks and v65.groupLink then
             return {
-                infoName = v74.group, 
-                linkPage = v63.groupLink.url, 
+                infoName = v76.group, 
+                linkPage = v65.groupLink.url, 
                 analyticsSubPage = "Group", 
                 testId = "--group-row-tail"
             };
         end;
     end, {
-        v49, 
-        v73.webViewSupport, 
-        v73.enableGroupLinks, 
-        v63.groupLink, 
-        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then v67 else nil
+        v51, 
+        v75.webViewSupport, 
+        v75.enableGroupLinks, 
+        v65.groupLink, 
+        if v17.FFlagIsSetupEnabled then v69 else nil
     });
-    local v113 = nil;
-    local v114 = nil;
+    local v115 = nil;
+    local v116 = nil;
     if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
         local l_Locale_0 = v25(v28):GetLocale();
-        v114 = v1.useMemo(function() --[[ Line: 751 ]]
-            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v65 (ref), v63 (copy), l_abbreviateCount_0 (ref), l_Locale_0 (copy), v74 (copy)
-            if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v65 and v65.showVisitsInInfoList == true then
-                local l_gameDetail_0 = v63.gameDetail;
-                local v117 = l_gameDetail_0 and l_gameDetail_0.visits or 0;
-                local v118 = l_abbreviateCount_0(v117, l_Locale_0) or "--";
+        v116 = v1.useMemo(function() --[[ Line: 762 ]]
+            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v67 (ref), v65 (copy), l_abbreviateCount_0 (ref), l_Locale_0 (copy), v76 (copy)
+            if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v67 and v67.showVisitsInInfoList == true then
+                local l_gameDetail_0 = v65.gameDetail;
+                local v119 = l_gameDetail_0 and l_gameDetail_0.visits or 0;
+                local v120 = l_abbreviateCount_0(v119, l_Locale_0) or "--";
                 return {
-                    infoName = v74.visits, 
-                    infoData = v118, 
+                    infoName = v76.visits, 
+                    infoData = v120, 
                     testId = "--visits-row-tail"
                 };
             else
                 return;
             end;
         end, {
-            v65, 
-            v63.gameDetail, 
-            v74.visits, 
+            v67, 
+            v65.gameDetail, 
+            v76.visits, 
             l_Locale_0
         });
-        v113 = v1.useMemo(function() --[[ Line: 783 ]]
-            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v65 (ref), v63 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (ref), v74 (copy)
-            if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v65 and v65.showContentDescriptorsInInfoList == true and v63.ageRecommendations then
-                local l_descriptorUsages_0 = v63.ageRecommendations.descriptorUsages;
+        v115 = v1.useMemo(function() --[[ Line: 794 ]]
+            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v67 (ref), v65 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (ref), v76 (copy)
+            if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v67 and v67.showContentDescriptorsInInfoList == true and v65.ageRecommendations then
+                local l_descriptorUsages_0 = v65.ageRecommendations.descriptorUsages;
                 if l_descriptorUsages_0 and #l_descriptorUsages_0 > 0 then
-                    for _, v121 in ipairs(l_descriptorUsages_0) do
-                        if v121.name == "strong-language" and v121.contains then
+                    for _, v123 in ipairs(l_descriptorUsages_0) do
+                        if v123.name == "strong-language" and v123.contains then
                             return {
-                                infoName = if l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 then v74.creatorEnabled else v74.communication, 
-                                infoData = v74.strongLanguage, 
+                                infoName = if l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 then v76.creatorEnabled else v76.communication, 
+                                infoData = v76.strongLanguage, 
                                 testId = "--content-descriptors-row-tail"
                             };
                         end;
@@ -613,56 +617,56 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                 end;
             end;
         end, {
-            v65, 
-            v63.ageRecommendations, 
-            v74.contentDescriptors, 
-            v74.containsStrongLanguage
+            v67, 
+            v65.ageRecommendations, 
+            v76.contentDescriptors, 
+            v76.containsStrongLanguage
         });
     end;
-    v1.useEffect(function() --[[ Line: 823 ]]
-        -- upvalues: v63 (copy), l_RetrievalStatus_0 (ref), v70 (copy)
-        if v63.dataStatus == l_RetrievalStatus_0.NotStarted then
-            v70();
+    v1.useEffect(function() --[[ Line: 834 ]]
+        -- upvalues: v65 (copy), l_RetrievalStatus_0 (ref), v72 (copy)
+        if v65.dataStatus == l_RetrievalStatus_0.NotStarted then
+            v72();
         end;
     end);
     return {
-        rootPlaceId = tostring(v63.gameDetail.rootPlaceId), 
+        rootPlaceId = tostring(v65.gameDetail.rootPlaceId), 
         rows = v2.append({
-            v80
-        }, if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v65 and v65.showVisitsInInfoList == true and v114 then {
-            v114
-        } else nil, {
             v82
-        }, {
-            v84
-        }, if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v65 and v65.showContentDescriptorsInInfoList == true and v113 then {
-            v113
+        }, if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v67 and v67.showVisitsInInfoList == true and v116 then {
+            v116
         } else nil, {
-            v93
+            v84
         }, {
-            v94
+            v86
+        }, if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v67 and v67.showContentDescriptorsInInfoList == true and v115 then {
+            v115
+        } else nil, {
+            v95
         }, {
-            v97
+            v96
         }, {
-            v98
+            v99
         }, {
             v100
         }, {
             v102
-        }, if not v38() then {
-            v103
-        } else nil, if v38() then {
+        }, {
             v104
-        } else nil, if v38() then {
+        }, if not v38() then {
             v105
+        } else nil, if v38() then {
+            v106
+        } else nil, if v38() then {
+            v107
         } else nil, {
-            v109
-        }, {
-            v110
-        }, {
             v111
         }, {
             v112
+        }, {
+            v113
+        }, {
+            v114
         })
-    }, v63.dataStatus, v70;
+    }, v65.dataStatus, v72;
 end;

@@ -25,7 +25,7 @@ local l_ImageSetButton_0 = v9.Core.ImageSet.ImageSetButton;
 local v24 = require(l_Modules_0.LuaApp.AppPage);
 local v25 = require(l_Modules_0.LuaApp.Constants);
 local l_FitTextLabel_0 = l_RoactFitComponents_0.FitTextLabel;
-local v27 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v28 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
 local v29 = require(l_Modules_0.LuaApp.Http.UrlBuilder);
 local l_NumberLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).NumberLocalization;
@@ -47,7 +47,7 @@ v41 = l_Images_0["icons/common/robux"];
 v42 = l_Constants_0.RbxthumbTypes.AvatarHeadShot;
 local v43 = v3.PureComponent:extend("ResellerCard");
 v43.init = function(v44) --[[ Line: 95 ]] --[[ Name: init ]]
-    -- upvalues: v24 (copy), v29 (copy), l_AvatarScreen_0 (copy), v27 (copy), v34 (copy)
+    -- upvalues: v24 (copy), v29 (copy), l_AvatarScreen_0 (copy), l_logOnOverlayClosed_0 (copy), v34 (copy)
     v44.viewProfile = function() --[[ Line: 96 ]]
         -- upvalues: v44 (copy), v24 (ref), v29 (ref)
         v44.props.navigateDown({
@@ -98,10 +98,10 @@ v43.init = function(v44) --[[ Line: 95 ]] --[[ Name: init ]]
         end;
     end;
     v44.onOverlayClosed = function() --[[ Line: 144 ]]
-        -- upvalues: v27 (ref), v34 (ref), v44 (copy)
+        -- upvalues: l_logOnOverlayClosed_0 (ref), v34 (ref), v44 (copy)
         return function() --[[ Line: 145 ]]
-            -- upvalues: v27 (ref), v34 (ref), v44 (ref)
-            v27("ResellerCard");
+            -- upvalues: l_logOnOverlayClosed_0 (ref), v34 (ref), v44 (ref)
+            l_logOnOverlayClosed_0("ResellerCard");
             if not v34 then
                 v44.props.focusController.captureFocus();
             end;

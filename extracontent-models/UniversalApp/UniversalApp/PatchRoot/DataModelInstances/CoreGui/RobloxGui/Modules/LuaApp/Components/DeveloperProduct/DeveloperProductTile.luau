@@ -46,8 +46,11 @@ local l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 = require(l_CorePacka
 local l_FFlagUnifiedPurchaseAddSkeleton_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUnifiedPurchaseAddSkeleton;
 local v46 = game:DefineFastFlag("UnifiedPurchaseAddSkeletonLoadingForDeveloperProduct", false) and l_FFlagUnifiedPurchaseAddSkeleton_0;
 local l_FFlagIntegrateDiscountsWithEDP_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagIntegrateDiscountsWithEDP;
-local v48 = v2.PureComponent:extend("DeveloperProductTile");
-v48.validateProps = v11.strictInterface({
+local v48 = game:DefineFastFlag("ShipUnifiedPurchaseFlowToDeveloperProductEDP", false);
+local l_FFlagEnableBlackbirdPageCloseCallback_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableBlackbirdPageCloseCallback;
+local l_getSubscriptionPurchaseCloseCallback_0 = require(l_CorePackages_0.Workspace.Packages.RobloxSubscriptionPurchaseApp).Utils.getSubscriptionPurchaseCloseCallback;
+local v51 = v2.PureComponent:extend("DeveloperProductTile");
+v51.validateProps = v11.strictInterface({
     universeId = v11.string, 
     developerProduct = v11.table, 
     developerProductThumbnail = v11.string, 
@@ -68,238 +71,244 @@ v48.validateProps = v11.strictInterface({
     economicRestrictionErrorHandler = v11.callback, 
     fetchExperienceStoreProducts = v11.optional(v11.callback)
 });
-v48.init = function(v49) --[[ Line: 99 ]] --[[ Name: init ]]
-    -- upvalues: v43 (copy), v2 (copy), v32 (copy), v37 (copy), l_Constants_0 (copy), v9 (copy), v10 (copy), v8 (copy), v5 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy)
+v51.init = function(v52) --[[ Line: 106 ]] --[[ Name: init ]]
+    -- upvalues: v43 (copy), v2 (copy), l_FFlagEnableBlackbirdPageCloseCallback_0 (copy), l_getSubscriptionPurchaseCloseCallback_0 (copy), v32 (copy), v37 (copy), l_Constants_0 (copy), v9 (copy), v10 (copy), v8 (copy), v5 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (copy), v48 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy)
     if v43 then
-        v49.ref = v2.createRef();
+        v52.ref = v2.createRef();
     end;
-    v49.viewDeveloperProductDetails = function(v50) --[[ Line: 103 ]]
-        -- upvalues: v32 (ref), v37 (ref), l_Constants_0 (ref), v49 (copy), v9 (ref), v10 (ref), v8 (ref)
-        return function() --[[ Line: 104 ]]
-            -- upvalues: v32 (ref), v37 (ref), l_Constants_0 (ref), v49 (ref), v50 (copy), v9 (ref), v10 (ref), v8 (ref)
+    local v53 = if l_FFlagEnableBlackbirdPageCloseCallback_0 and l_getSubscriptionPurchaseCloseCallback_0 then l_getSubscriptionPurchaseCloseCallback_0() else nil;
+    v52.viewDeveloperProductDetails = function(v54) --[[ Line: 114 ]]
+        -- upvalues: v32 (ref), v37 (ref), l_Constants_0 (ref), v52 (copy), v9 (ref), v10 (ref), v8 (ref), l_FFlagEnableBlackbirdPageCloseCallback_0 (ref), v53 (copy)
+        return function() --[[ Line: 115 ]]
+            -- upvalues: v32 (ref), v37 (ref), l_Constants_0 (ref), v52 (ref), v54 (copy), v9 (ref), v10 (ref), v8 (ref), l_FFlagEnableBlackbirdPageCloseCallback_0 (ref), v53 (ref)
             if v32() then
-                v37.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.ItemClick, l_Constants_0.StoreEnums.ProductType.DeveloperProducts, l_Constants_0.StoreEnums.LocationType.Store, tonumber(v49.props.universeId), v50.productId, (tostring(v50.productId)));
+                v37.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.ItemClick, l_Constants_0.StoreEnums.ProductType.DeveloperProducts, l_Constants_0.StoreEnums.LocationType.Store, tonumber(v52.props.universeId), v54.productId, (tostring(v54.productId)));
             end;
-            if v49.isMounted then
-                v49.props.navigateDown({
+            if v52.isMounted then
+                v52.props.navigateDown({
                     name = v9.GenericWebPage, 
                     detail = v10.economy.info.developerProduct({
-                        universeId = v49.props.universeId, 
-                        productId = v50.productId
+                        universeId = v52.props.universeId, 
+                        productId = v54.productId
                     }), 
                     extraProps = {
-                        title = v50.name, 
-                        transitionAnimation = v8.SlideInFromRight
+                        title = v54.name, 
+                        transitionAnimation = v8.SlideInFromRight, 
+                        onClose = if l_FFlagEnableBlackbirdPageCloseCallback_0 then v53 else nil
                     }
                 });
             end;
         end;
     end;
-    v49.customPurchaseErrorHandler = function(v51) --[[ Line: 131 ]]
-        -- upvalues: v49 (copy)
-        if v51.errorCode == "PendingProductsLimitExceeded" then
-            v49.props.openPendingProductsLimitExceededPrompt();
+    v52.customPurchaseErrorHandler = function(v55) --[[ Line: 143 ]]
+        -- upvalues: v52 (copy)
+        if v55.errorCode == "PendingProductsLimitExceeded" then
+            v52.props.openPendingProductsLimitExceededPrompt();
         end;
     end;
-    v49.fetchGameDeveloperProducts = function(v52, v53, v54, v55) --[[ Line: 137 ]]
-        -- upvalues: v49 (copy)
-        v49.props.fetchGameDeveloperProducts(v52, v53, v54, v55);
+    v52.fetchGameDeveloperProducts = function(v56, v57, v58, v59) --[[ Line: 149 ]]
+        -- upvalues: v52 (copy)
+        v52.props.fetchGameDeveloperProducts(v56, v57, v58, v59);
     end;
-    v49.promptPurchase = function(v56, _) --[[ Line: 141 ]]
-        -- upvalues: v49 (copy), v5 (ref)
-        return function() --[[ Line: 142 ]]
-            -- upvalues: v49 (ref), v5 (ref), v56 (copy)
-            local l_networking_0 = v49.props.networking;
-            local l_userRobux_0 = v49.props.userRobux;
-            local l_universeId_0 = v49.props.universeId;
-            local l_rootPlaceId_0 = v49.props.rootPlaceId;
-            local l_localUserId_0 = v49.props.localUserId;
-            local v63 = {
+    v52.promptPurchase = function(v60, _) --[[ Line: 153 ]]
+        -- upvalues: v52 (copy), v5 (ref)
+        return function() --[[ Line: 154 ]]
+            -- upvalues: v52 (ref), v5 (ref), v60 (copy)
+            local l_networking_0 = v52.props.networking;
+            local l_userRobux_0 = v52.props.userRobux;
+            local l_universeId_0 = v52.props.universeId;
+            local l_rootPlaceId_0 = v52.props.rootPlaceId;
+            local l_localUserId_0 = v52.props.localUserId;
+            local v67 = {
                 expectedCurrency = v5.Currency.Robux, 
-                expectedPrice = v56.priceInRobux, 
+                expectedPrice = v60.priceInRobux, 
                 saleLocationId = l_universeId_0
             };
-            if l_userRobux_0 < v56.priceInRobux then
-                v49.props.navigateDownToRobuxUpsell(v56.priceInRobux, l_userRobux_0, v56.name, nil, function() --[[ Line: 159 ]]
-                    -- upvalues: v49 (ref), l_networking_0 (copy), v56 (ref), v63 (copy), l_universeId_0 (copy), l_rootPlaceId_0 (copy), l_localUserId_0 (copy)
-                    local v64 = v49.props.purchaseDeveloperProduct(l_networking_0, v56.productId, v63, v49.customPurchaseErrorHandler, v49.props.economicRestrictionErrorHandler);
-                    v64:andThen(function(_) --[[ Line: 167 ]]
-                        -- upvalues: v49 (ref), l_networking_0 (ref), l_universeId_0 (ref), l_rootPlaceId_0 (ref), l_localUserId_0 (ref)
-                        v49.fetchGameDeveloperProducts(l_networking_0, l_universeId_0, l_rootPlaceId_0, l_localUserId_0);
-                    end, function(_) --[[ Line: 169 ]]
+            if l_userRobux_0 < v60.priceInRobux then
+                v52.props.navigateDownToRobuxUpsell(v60.priceInRobux, l_userRobux_0, v60.name, nil, function() --[[ Line: 171 ]]
+                    -- upvalues: v52 (ref), l_networking_0 (copy), v60 (ref), v67 (copy), l_universeId_0 (copy), l_rootPlaceId_0 (copy), l_localUserId_0 (copy)
+                    local v68 = v52.props.purchaseDeveloperProduct(l_networking_0, v60.productId, v67, v52.customPurchaseErrorHandler, v52.props.economicRestrictionErrorHandler);
+                    v68:andThen(function(_) --[[ Line: 179 ]]
+                        -- upvalues: v52 (ref), l_networking_0 (ref), l_universeId_0 (ref), l_rootPlaceId_0 (ref), l_localUserId_0 (ref)
+                        v52.fetchGameDeveloperProducts(l_networking_0, l_universeId_0, l_rootPlaceId_0, l_localUserId_0);
+                    end, function(_) --[[ Line: 181 ]]
 
                     end);
-                    return v64;
-                end, v56.productId);
+                    return v68;
+                end, v60.productId);
                 return;
             else
-                v49.props.requestPurchaseDeveloperProduct(v56, l_universeId_0);
+                v52.props.requestPurchaseDeveloperProduct(v60, l_universeId_0);
                 return;
             end;
         end;
     end;
-    v49.promptPurchaseWithUnifiedPurchasePrompt = function(v67, v68) --[[ Line: 180 ]]
-        -- upvalues: v49 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (ref)
-        local l_networking_1 = v49.props.networking;
-        local l_rootPlaceId_1 = v49.props.rootPlaceId;
-        local l_localUserId_1 = v49.props.localUserId;
-        local function v72() --[[ Line: 184 ]] --[[ Name: onFlowComplete ]]
-            -- upvalues: v49 (ref)
-            v49.props.closeCentralOverlay();
+    v52.promptPurchaseWithUnifiedPurchasePrompt = function(v71, v72) --[[ Line: 192 ]]
+        -- upvalues: v52 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (ref)
+        local l_networking_1 = v52.props.networking;
+        local l_rootPlaceId_1 = v52.props.rootPlaceId;
+        local l_localUserId_1 = v52.props.localUserId;
+        local function v76() --[[ Line: 196 ]] --[[ Name: onFlowComplete ]]
+            -- upvalues: v52 (ref)
+            v52.props.closeCentralOverlay();
         end;
-        local function v74(v73) --[[ Line: 187 ]] --[[ Name: onPurchaseSuccess ]]
-            -- upvalues: v49 (ref), l_networking_1 (copy), v68 (copy), l_rootPlaceId_1 (copy), l_localUserId_1 (copy)
-            if v73 and v73.purchased then
-                v49.props.fetchGameDeveloperProducts(l_networking_1, v68, l_rootPlaceId_1, l_localUserId_1);
+        local function v78(v77) --[[ Line: 199 ]] --[[ Name: onPurchaseSuccess ]]
+            -- upvalues: v52 (ref), l_networking_1 (copy), v72 (copy), l_rootPlaceId_1 (copy), l_localUserId_1 (copy)
+            if v77 and v77.purchased then
+                v52.props.fetchGameDeveloperProducts(l_networking_1, v72, l_rootPlaceId_1, l_localUserId_1);
             end;
         end;
-        local function v75() --[[ Line: 192 ]] --[[ Name: onRobloxSubscriptionUpsellSuccess ]]
-            -- upvalues: v49 (ref), v68 (copy)
-            v49.props.fetchExperienceStoreProducts(v49.props.networking, v68);
+        local function v79() --[[ Line: 204 ]] --[[ Name: onRobloxSubscriptionUpsellSuccess ]]
+            -- upvalues: v52 (ref), v72 (copy)
+            v52.props.fetchExperienceStoreProducts(v52.props.networking, v72);
         end;
-        return function() --[[ Line: 195 ]]
-            -- upvalues: v49 (ref), v67 (copy), v68 (copy), v72 (copy), v74 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (ref), v75 (copy)
-            v49.props.requestPurchaseDeveloperProductWithUnifiedPurchasePrompt(v67, v68, v72, v74, if l_FFlagIntegrateDiscountsWithEDP_0 then v75 else nil);
+        return function() --[[ Line: 207 ]]
+            -- upvalues: v52 (ref), v71 (copy), v72 (copy), v76 (copy), v78 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (ref), v79 (copy)
+            v52.props.requestPurchaseDeveloperProductWithUnifiedPurchasePrompt(v71, v72, v76, v78, if l_FFlagIntegrateDiscountsWithEDP_0 then v79 else nil);
         end;
     end;
-    v49.onActivated = function() --[[ Line: 206 ]]
-        -- upvalues: v49 (copy), v32 (ref), v37 (ref), l_Constants_0 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref)
-        local l_developerProduct_0 = v49.props.developerProduct;
-        local l_universeId_1 = v49.props.universeId;
+    v52.onActivated = function() --[[ Line: 218 ]]
+        -- upvalues: v52 (copy), v32 (ref), v37 (ref), l_Constants_0 (ref), v48 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref)
+        local l_developerProduct_0 = v52.props.developerProduct;
+        local l_universeId_1 = v52.props.universeId;
         if v32() then
             v37.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.PurchaseAttemptClick, l_Constants_0.StoreEnums.ProductType.DeveloperProducts, l_Constants_0.StoreEnums.LocationType.Store, tonumber(l_universeId_1), l_developerProduct_0.productId, (tostring(l_developerProduct_0.productId)));
         end;
-        return l_getIsUserEligibleForUnifiedPurchaseFlow_0(v49.props.networking):andThen(function(v78) --[[ Line: 220 ]]
-            -- upvalues: v49 (ref), l_developerProduct_0 (copy), l_universeId_1 (copy)
-            if v78 then
-                return v49.promptPurchaseWithUnifiedPurchasePrompt(l_developerProduct_0, l_universeId_1)();
-            else
-                return v49.promptPurchase(l_developerProduct_0, l_universeId_1)();
-            end;
-        end):catch(function(_) --[[ Line: 227 ]]
-            -- upvalues: v49 (ref), l_developerProduct_0 (copy), l_universeId_1 (copy)
-            return v49.promptPurchase(l_developerProduct_0, l_universeId_1)();
-        end);
+        if v48 then
+            return v52.promptPurchaseWithUnifiedPurchasePrompt(l_developerProduct_0, l_universeId_1)();
+        else
+            return l_getIsUserEligibleForUnifiedPurchaseFlow_0(v52.props.networking):andThen(function(v82) --[[ Line: 235 ]]
+                -- upvalues: v52 (ref), l_developerProduct_0 (copy), l_universeId_1 (copy)
+                if v82 then
+                    return v52.promptPurchaseWithUnifiedPurchasePrompt(l_developerProduct_0, l_universeId_1)();
+                else
+                    return v52.promptPurchase(l_developerProduct_0, l_universeId_1)();
+                end;
+            end):catch(function(_) --[[ Line: 242 ]]
+                -- upvalues: v52 (ref), l_developerProduct_0 (copy), l_universeId_1 (copy)
+                return v52.promptPurchase(l_developerProduct_0, l_universeId_1)();
+            end);
+        end;
     end;
 end;
-v48.render = function(v80) --[[ Line: 234 ]] --[[ Name: render ]]
+v51.render = function(v84) --[[ Line: 249 ]] --[[ Name: render ]]
     -- upvalues: v2 (copy), l_ItemTile_0 (copy), v43 (copy), v19 (copy), l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy), l_ItemTileEnums_0 (copy)
-    local l_developerProduct_1 = v80.props.developerProduct;
-    local l_pendingReceipts_0 = v80.props.pendingReceipts;
-    local v83 = if l_pendingReceipts_0 == nil then nil else "x" .. tostring(#l_pendingReceipts_0);
+    local l_developerProduct_1 = v84.props.developerProduct;
+    local l_pendingReceipts_0 = v84.props.pendingReceipts;
+    local v87 = if l_pendingReceipts_0 == nil then nil else "x" .. tostring(#l_pendingReceipts_0);
     return v2.createElement(l_ItemTile_0, {
-        [v2.Ref] = if v43 then v80.ref else nil, 
+        [v2.Ref] = if v43 then v84.ref else nil, 
         name = l_developerProduct_1.name, 
         titleTextLineCount = 1, 
-        thumbnail = v80.props.developerProductThumbnail, 
-        onActivated = v80.viewDeveloperProductDetails(l_developerProduct_1), 
+        thumbnail = v84.props.developerProductThumbnail, 
+        onActivated = v84.viewDeveloperProductDetails(l_developerProduct_1), 
         footer = v2.createElement(v19, {
             price = l_developerProduct_1.priceInRobux, 
-            onActivated = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v80.onActivated else v80.promptPurchase(l_developerProduct_1, v80.props.universeId)
+            onActivated = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v84.onActivated else v84.promptPurchase(l_developerProduct_1, v84.props.universeId)
         }), 
-        statusText = v83, 
+        statusText = v87, 
         statusStyle = l_ItemTileEnums_0.StatusStyle.Info
     });
 end;
-v48.didMount = function(v84) --[[ Line: 255 ]] --[[ Name: didMount ]]
+v51.didMount = function(v88) --[[ Line: 270 ]] --[[ Name: didMount ]]
     -- upvalues: v43 (copy), l_UnifiedEventLogEnums_0 (copy), v33 (copy), l_addUnifiedEventLogging_0 (copy), l_SessionService_0 (copy)
-    v84.isMounted = true;
+    v88.isMounted = true;
     if v43 then
-        task.delay(0, function() --[[ Line: 258 ]]
-            -- upvalues: v84 (copy), l_UnifiedEventLogEnums_0 (ref), v33 (ref), l_addUnifiedEventLogging_0 (ref), l_SessionService_0 (ref)
-            local v85 = {
-                universeId = tonumber(v84.props.universeId), 
-                itemId = v84.props.developerProduct.productId, 
-                targetId = tonumber(v84.props.developerProduct.id), 
+        task.delay(0, function() --[[ Line: 273 ]]
+            -- upvalues: v88 (copy), l_UnifiedEventLogEnums_0 (ref), v33 (ref), l_addUnifiedEventLogging_0 (ref), l_SessionService_0 (ref)
+            local v89 = {
+                universeId = tonumber(v88.props.universeId), 
+                itemId = v88.props.developerProduct.productId, 
+                targetId = tonumber(v88.props.developerProduct.id), 
                 itemType = l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.DEVELOPER_PRODUCT
             };
             if v33() then
-                v85.gridPositionRow = v84.props.gridPositionRow;
-                v85.gridPositionColumn = v84.props.gridPositionColumn;
+                v89.gridPositionRow = v88.props.gridPositionRow;
+                v89.gridPositionColumn = v88.props.gridPositionColumn;
             end;
-            l_addUnifiedEventLogging_0(v84.ref, v85, {
+            l_addUnifiedEventLogging_0(v88.ref, v89, {
                 sessionTagName = l_SessionService_0:GetSessionTag("level2a")
             });
         end);
     end;
 end;
-v48.willUnmount = function(v86) --[[ Line: 276 ]] --[[ Name: willUnmount ]]
-    v86.isMounted = false;
+v51.willUnmount = function(v90) --[[ Line: 291 ]] --[[ Name: willUnmount ]]
+    v90.isMounted = false;
 end;
-v48 = v3.connect(function(v87, v88) --[[ Line: 280 ]]
-    local l_productId_0 = v88.developerProduct.productId;
+v51 = v3.connect(function(v91, v92) --[[ Line: 295 ]]
+    local l_productId_0 = v92.developerProduct.productId;
     return {
-        userRobux = v87.UserRobux[v87.LocalUserId], 
-        pendingReceipts = v87.DeveloperProductStatuses[v88.universeId][tostring(l_productId_0)], 
-        rootPlaceId = if v87.GameDetails and v87.GameDetails[v88.universeId] then v87.GameDetails[v88.universeId].rootPlaceId else nil, 
-        localUserId = v87.LocalUserId
+        userRobux = v91.UserRobux[v91.LocalUserId], 
+        pendingReceipts = v91.DeveloperProductStatuses[v92.universeId][tostring(l_productId_0)], 
+        rootPlaceId = if v91.GameDetails and v91.GameDetails[v92.universeId] then v91.GameDetails[v92.universeId].rootPlaceId else nil, 
+        localUserId = v91.LocalUserId
     };
-end, function(v90) --[[ Line: 290 ]]
+end, function(v94) --[[ Line: 305 ]]
     -- upvalues: l_CloseCentralOverlay_0 (copy), v22 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (copy), l_ProductPurchaseSurface_0 (copy), l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 (copy), v46 (copy), v16 (copy), v4 (copy), v17 (copy), v18 (copy), v20 (copy), v21 (copy), l_parseEconomicRestrictionsFailureReason_0 (copy), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (copy), l_default_0 (copy), l_UniversalEconomicRestrictionsCounter_0 (copy), l_EconomicRestrictionsSurface_0 (copy), v28 (copy), v27 (copy)
     return {
-        closeCentralOverlay = function() --[[ Line: 292 ]] --[[ Name: closeCentralOverlay ]]
-            -- upvalues: v90 (copy), l_CloseCentralOverlay_0 (ref)
-            return v90(l_CloseCentralOverlay_0());
+        closeCentralOverlay = function() --[[ Line: 307 ]] --[[ Name: closeCentralOverlay ]]
+            -- upvalues: v94 (copy), l_CloseCentralOverlay_0 (ref)
+            return v94(l_CloseCentralOverlay_0());
         end, 
-        requestPurchaseDeveloperProductWithUnifiedPurchasePrompt = function(v91, v92, v93, v94, v95) --[[ Line: 295 ]] --[[ Name: requestPurchaseDeveloperProductWithUnifiedPurchasePrompt ]]
-            -- upvalues: v90 (copy), v22 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref), l_ProductPurchaseSurface_0 (ref), l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 (ref), v46 (ref)
-            return v90(v22({
+        requestPurchaseDeveloperProductWithUnifiedPurchasePrompt = function(v95, v96, v97, v98, v99) --[[ Line: 310 ]] --[[ Name: requestPurchaseDeveloperProductWithUnifiedPurchasePrompt ]]
+            -- upvalues: v94 (copy), v22 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref), l_ProductPurchaseSurface_0 (ref), l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 (ref), v46 (ref)
+            return v94(v22({
                 productPayload = {
                     kind = "Product", 
-                    id = v91.productId, 
+                    id = v95.productId, 
                     equipIfPurchased = false, 
-                    universeId = v92
+                    universeId = v96
                 }, 
                 purchaseCallbacks = {
-                    onFlowComplete = v93, 
-                    onPurchaseSuccess = v94, 
-                    onRobloxSubscriptionUpsellSuccess = if l_FFlagIntegrateDiscountsWithEDP_0 then v95 else nil
+                    onFlowComplete = v97, 
+                    onPurchaseSuccess = v98, 
+                    onRobloxSubscriptionUpsellSuccess = if l_FFlagIntegrateDiscountsWithEDP_0 then v99 else nil
                 }, 
                 purchaseAnalyticsMetadata = {
                     surface = l_ProductPurchaseSurface_0.EDP, 
-                    productUniverseId = if l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 then v92 else nil
+                    productUniverseId = if l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 then v96 else nil
                 }, 
                 purchaseOptions = if v46 then {
                     enablePreloadedPurchaseUI = true
                 } else nil
             }));
         end, 
-        requestPurchaseDeveloperProduct = function(v96, v97) --[[ Line: 327 ]] --[[ Name: requestPurchaseDeveloperProduct ]]
-            -- upvalues: v90 (copy), v16 (ref)
-            return v90(v16(v96, v97));
+        requestPurchaseDeveloperProduct = function(v100, v101) --[[ Line: 342 ]] --[[ Name: requestPurchaseDeveloperProduct ]]
+            -- upvalues: v94 (copy), v16 (ref)
+            return v94(v16(v100, v101));
         end, 
-        navigateDown = function(v98) --[[ Line: 330 ]] --[[ Name: navigateDown ]]
-            -- upvalues: v90 (copy), v4 (ref)
-            return v90(v4(v98));
+        navigateDown = function(v102) --[[ Line: 345 ]] --[[ Name: navigateDown ]]
+            -- upvalues: v94 (copy), v4 (ref)
+            return v94(v4(v102));
         end, 
-        navigateDownToRobuxUpsell = function(v99, v100, v101, v102, v103, v104) --[[ Line: 333 ]] --[[ Name: navigateDownToRobuxUpsell ]]
-            -- upvalues: v90 (copy), v17 (ref), v18 (ref)
-            return v90(v17(v18.UADeveloperProduct, v99, v100, v101, v102, v103, v104));
+        navigateDownToRobuxUpsell = function(v103, v104, v105, v106, v107, v108) --[[ Line: 348 ]] --[[ Name: navigateDownToRobuxUpsell ]]
+            -- upvalues: v94 (copy), v17 (ref), v18 (ref)
+            return v94(v17(v18.UADeveloperProduct, v103, v104, v105, v106, v107, v108));
         end, 
-        purchaseDeveloperProduct = function(v105, v106, v107, v108, v109) --[[ Line: 353 ]] --[[ Name: purchaseDeveloperProduct ]]
-            -- upvalues: v90 (copy), v20 (ref)
-            return v90(v20.Post(v105, v106, v107, v108, v109));
+        purchaseDeveloperProduct = function(v109, v110, v111, v112, v113) --[[ Line: 368 ]] --[[ Name: purchaseDeveloperProduct ]]
+            -- upvalues: v94 (copy), v20 (ref)
+            return v94(v20.Post(v109, v110, v111, v112, v113));
         end, 
-        fetchGameDeveloperProducts = function(v110, v111, v112, v113) --[[ Line: 370 ]] --[[ Name: fetchGameDeveloperProducts ]]
-            -- upvalues: v90 (copy), v21 (ref)
-            return v90(v21(v110, v111, v112, v113));
+        fetchGameDeveloperProducts = function(v114, v115, v116, v117) --[[ Line: 385 ]] --[[ Name: fetchGameDeveloperProducts ]]
+            -- upvalues: v94 (copy), v21 (ref)
+            return v94(v21(v114, v115, v116, v117));
         end, 
-        economicRestrictionErrorHandler = function(v114) --[[ Line: 373 ]] --[[ Name: economicRestrictionErrorHandler ]]
-            -- upvalues: l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v90 (copy), v28 (ref)
-            local v115 = l_parseEconomicRestrictionsFailureReason_0(v114);
-            local v116 = l_parseEconomicRestrictionsExpirationTimeInMinutes_0(v114);
+        economicRestrictionErrorHandler = function(v118) --[[ Line: 388 ]] --[[ Name: economicRestrictionErrorHandler ]]
+            -- upvalues: l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v94 (copy), v28 (ref)
+            local v119 = l_parseEconomicRestrictionsFailureReason_0(v118);
+            local v120 = l_parseEconomicRestrictionsExpirationTimeInMinutes_0(v118);
             l_default_0:logRobloxTelemetryCounter(l_UniversalEconomicRestrictionsCounter_0, 1, {
                 surface = l_EconomicRestrictionsSurface_0.DeveloperProduct, 
-                failureReason = v115
+                failureReason = v119
             });
-            return v90(v28(v115, v116));
+            return v94(v28(v119, v120));
         end, 
-        fetchExperienceStoreProducts = function(v117, v118) --[[ Line: 382 ]] --[[ Name: fetchExperienceStoreProducts ]]
-            -- upvalues: v90 (copy), v27 (ref)
-            return v90(v27(v117, v118));
+        fetchExperienceStoreProducts = function(v121, v122) --[[ Line: 397 ]] --[[ Name: fetchExperienceStoreProducts ]]
+            -- upvalues: v94 (copy), v27 (ref)
+            return v94(v27(v121, v122));
         end
     };
-end)(v48);
+end)(v51);
 return (l_RoactServices_0.connect({
     networking = v7
-})(v48));
+})(v51));

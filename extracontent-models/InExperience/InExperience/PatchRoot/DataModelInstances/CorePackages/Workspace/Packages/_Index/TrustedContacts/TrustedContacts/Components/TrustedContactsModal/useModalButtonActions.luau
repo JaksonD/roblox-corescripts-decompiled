@@ -16,236 +16,292 @@ local v14 = require(script.Parent.Parent.Parent.Analytics);
 local l_useTCAnalytics_0 = v14.useTCAnalytics;
 local l_EventNames_0 = v14.EventNames;
 local l_FFlagTCShareLinkReceiverUI_0 = require(l_Parent_0.SharedFlags).FFlagTCShareLinkReceiverUI;
+local l_FFlagTCUnifyNavigationEntry_0 = require(l_Parent_0.SharedFlags).FFlagTCUnifyNavigationEntry;
 local l_FFlagTCVerifiedParentalControl_0 = require(l_Parent_0.SharedFlags).FFlagTCVerifiedParentalControl;
 local l_FFlagTCUpdateProfileCTAButton_0 = require(l_Parent_0.SharedFlags).FFlagTCUpdateProfileCTAButton;
+local l_FFlagTCModalUpdateButtons_0 = require(l_Parent_0.SharedFlags).FFlagTCModalUpdateButtons;
 local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
-local v21 = v3.TrustedConnections.TrustedConnectionsStore.get();
-return function(v22, v23, v24, v25) --[[ Line: 49 ]] --[[ Name: useModalButtonActions ]]
-    -- upvalues: l_FFlagTCVerifiedParentalControl_0 (copy), l_useNavigation_0 (copy), l_useAppPolicy_0 (copy), v12 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useTCAnalytics_0 (copy), v2 (copy), l_EventNames_0 (copy), l_FFlagTCUpdateProfileCTAButton_0 (copy), l_AppPage_0 (copy), v6 (copy), l_TrustedConnectionStatus_0 (copy), v21 (copy), l_FFlagTCShareLinkReceiverUI_0 (copy), l_Sources_0 (copy), l_default_0 (copy), l_Contexts_0 (copy)
-    local v26 = if l_FFlagTCVerifiedParentalControl_0 then l_useNavigation_0() else nil;
-    local v28 = l_useAppPolicy_0(function(v27) --[[ Line: 56 ]]
-        return v27.getShareSheetEnabled();
+local _ = require(l_script_FirstAncestor_0.Common.Types);
+local v24 = v3.TrustedConnections.TrustedConnectionsStore.get();
+return function(v25, v26, v27, v28) --[[ Line: 56 ]] --[[ Name: useModalButtonActions ]]
+    -- upvalues: l_FFlagTCVerifiedParentalControl_0 (copy), l_useNavigation_0 (copy), l_useAppPolicy_0 (copy), v12 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useTCAnalytics_0 (copy), l_FFlagTCModalUpdateButtons_0 (copy), v2 (copy), l_EventNames_0 (copy), l_FFlagTCUpdateProfileCTAButton_0 (copy), l_FFlagTCUnifyNavigationEntry_0 (copy), l_AppPage_0 (copy), v6 (copy), l_TrustedConnectionStatus_0 (copy), v24 (copy), l_FFlagTCShareLinkReceiverUI_0 (copy), l_Sources_0 (copy), l_Contexts_0 (copy), l_default_0 (copy)
+    local v29 = if l_FFlagTCVerifiedParentalControl_0 then l_useNavigation_0() else nil;
+    local v31 = l_useAppPolicy_0(function(v30) --[[ Line: 63 ]]
+        return v30.getShareSheetEnabled();
     end);
-    local v29 = "";
-    local v30 = v12.Hooks.useUserProfilesFetch({
+    local v32 = "";
+    local v33 = v12.Hooks.useUserProfilesFetch({
         userIds = {
-            v22
+            v25
         }, 
         query = v12.Queries.userProfilesCombinedNameByUserIds
     });
-    if v30 and v30.data then
-        v29 = v12.Selectors.getCombinedNameFromId(v30.data, v22) or "";
+    if v33 and v33.data then
+        v32 = v12.Selectors.getCombinedNameFromId(v33.data, v25) or "";
     end;
-    local v31 = l_useLocalization_0({
+    local v34 = l_useLocalization_0({
         somethingIsWrongToast = "Feature.Toast.NetworkingError.SomethingIsWrong", 
         trustedConnectionRequestSentToast = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.TrustedFriend.Toast.TrustedFriendRequestSent" or "Feature.Friends.TrustedConnection.Toast.TrustedConnectionRequestSent", 
         isATrustedConnectionNowToast = {
             l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.TrustedFriend.Toast.IsATrustedFriendNow" or "Feature.Friends.TrustedConnection.Toast.IsATrustedConnectionNow"; 
-            name = v29
+            name = v32
         }, 
         linkCopiedToast = "Feature.Catalog.Toast.LinkCopied"
     });
     local l_fireAnalyticsEvent_0 = l_useTCAnalytics_0({
-        friendId = v22, 
-        modalVariant = v24, 
-        source = v23
+        friendId = v25, 
+        modalVariant = v27, 
+        source = v26
     }).fireAnalyticsEvent;
-    local v33 = v2.useCallback(function() --[[ Line: 90 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v25 (copy)
+    local v36 = if l_FFlagTCModalUpdateButtons_0 then nil else v2.useCallback(function() --[[ Line: 99 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellGotItClicked);
-        if v25.onAcknowledged then
-            v25.onAcknowledged();
+        if v28.onAcknowledged then
+            v28.onAcknowledged();
         end;
-        v25.closeModal();
+        v28.closeModal();
     end, {
-        v25.closeModal, 
-        v25.onAcknowledged, 
+        v28.closeModal, 
+        v28.onAcknowledged, 
         l_fireAnalyticsEvent_0
     });
-    local v34 = v2.useCallback(function() --[[ Line: 98 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v25 (copy)
+    local v37 = if l_FFlagTCModalUpdateButtons_0 then v2.useCallback(function() --[[ Line: 108 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
+        l_fireAnalyticsEvent_0(l_EventNames_0.TrustedFriendsModalOkClicked);
+        if v28.onAcknowledged then
+            v28.onAcknowledged();
+        end;
+        v28.closeModal();
+    end, {
+        v28.closeModal, 
+        v28.onAcknowledged, 
+        l_fireAnalyticsEvent_0
+    }) else nil;
+    local v38 = if l_FFlagTCModalUpdateButtons_0 then nil else v2.useCallback(function() --[[ Line: 119 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellRemoveTrustedConnectionClicked);
-        if v25.onRemovedTrustedConnection then
-            v25.onRemovedTrustedConnection();
+        if v28.onRemovedTrustedConnection then
+            v28.onRemovedTrustedConnection();
         end;
-        v25.closeModal();
+        v28.closeModal();
     end, {
-        v25.closeModal, 
-        v25.onRemovedTrustedConnection, 
+        v28.closeModal, 
+        v28.onRemovedTrustedConnection, 
         l_fireAnalyticsEvent_0
     });
-    local v36 = if l_FFlagTCVerifiedParentalControl_0 then v2.useCallback(function() --[[ Line: 108 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), v25 (copy), v26 (copy), l_AppPage_0 (ref), v22 (copy)
+    local v40 = if l_FFlagTCVerifiedParentalControl_0 then v2.useCallback(function() --[[ Line: 129 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), v28 (copy), l_FFlagTCUnifyNavigationEntry_0 (ref), v29 (copy), l_AppPage_0 (ref), v25 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.TrustedFriendsVPCPrologueOpened);
-        local v35 = nil;
+        local v39 = nil;
         if l_FFlagTCUpdateProfileCTAButton_0 then
-            if v25.onRequestSent then
-                v35 = v25.onRequestSent;
-            elseif v25.onRequestAccepted then
-                v35 = v25.onRequestAccepted;
+            if v28.onRequestSent then
+                v39 = v28.onRequestSent;
+            elseif v28.onRequestAccepted then
+                v39 = v28.onRequestAccepted;
             end;
         end;
-        v25.closeModal();
-        v26.push(l_AppPage_0.TrustedFriendsVPCPrologue, {
-            userId = v22, 
-            completionCallback = v35
-        });
+        if l_FFlagTCUnifyNavigationEntry_0 then
+            v29.replace(l_AppPage_0.TrustedFriendsVPCPrologue, {
+                userId = v25, 
+                completionCallback = v39
+            });
+            return;
+        else
+            v28.closeModal();
+            v29.push(l_AppPage_0.TrustedFriendsVPCPrologue, {
+                userId = v25, 
+                completionCallback = v39
+            });
+            return;
+        end;
     end, {
-        v25.closeModal, 
+        v28.closeModal, 
         l_fireAnalyticsEvent_0, 
-        v26, 
-        v22, 
-        if l_FFlagTCUpdateProfileCTAButton_0 then v25.onRequestSent else nil, 
-        if l_FFlagTCUpdateProfileCTAButton_0 then v25.onRequestAccepted else nil
+        v29, 
+        v25, 
+        if l_FFlagTCUpdateProfileCTAButton_0 then v28.onRequestSent else nil, 
+        if l_FFlagTCUpdateProfileCTAButton_0 then v28.onRequestAccepted else nil
     }) else nil;
-    local v37 = v2.useCallback(function() --[[ Line: 137 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v6 (ref), v31 (copy)
+    local v41 = v2.useCallback(function() --[[ Line: 166 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (copy), v34 (copy), v6 (ref)
         l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellAcceptTrustedConnectionClicked);
-        v6.SetUIBloxToast({
-            sequenceNumber = DateTime.now().UnixTimestamp, 
-            toastTitle = v31.isATrustedConnectionNowToast
-        });
+        if l_FFlagTCUnifyNavigationEntry_0 then
+            v28.showToast(v34.isATrustedConnectionNowToast);
+            return;
+        else
+            v6.SetUIBloxToast({
+                sequenceNumber = DateTime.now().UnixTimestamp, 
+                toastTitle = v34.isATrustedConnectionNowToast
+            });
+            return;
+        end;
     end, {
-        v31.isATrustedConnectionNowToast, 
-        l_fireAnalyticsEvent_0
+        v34.isATrustedConnectionNowToast, 
+        l_fireAnalyticsEvent_0, 
+        if l_FFlagTCUnifyNavigationEntry_0 then v28.showToast else nil
     });
-    local v39 = v2.useCallback(function() --[[ Line: 148 ]]
-        -- upvalues: v24 (copy), l_TrustedConnectionStatus_0 (ref), v21 (ref), v22 (copy), v37 (copy), v25 (copy), l_FFlagTCShareLinkReceiverUI_0 (ref), l_Sources_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v6 (ref), v31 (copy)
-        if v24 == l_TrustedConnectionStatus_0.RequestReceived then
-            v21.acceptTrustedConnectionRequest(v22):andThen(function() --[[ Line: 151 ]]
-                -- upvalues: v37 (ref)
-                v37();
-            end):andThen(function() --[[ Line: 154 ]]
-                -- upvalues: v25 (ref)
-                return v25.onRequestAccepted and v25.onRequestAccepted();
-            end):andThen(function() --[[ Line: 157 ]]
-                -- upvalues: v25 (ref)
-                v25.closeModal();
-            end):catch(function() --[[ Line: 160 ]]
-                -- upvalues: v25 (ref)
-                v25.showGenericErrorModal();
+    local v43 = v2.useCallback(function() --[[ Line: 187 ]]
+        -- upvalues: v27 (copy), l_TrustedConnectionStatus_0 (ref), v24 (ref), v25 (copy), v41 (copy), v28 (copy), l_FFlagTCShareLinkReceiverUI_0 (ref), l_Sources_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v34 (copy), v6 (ref)
+        if v27 == l_TrustedConnectionStatus_0.RequestReceived then
+            v24.acceptTrustedConnectionRequest(v25):andThen(function() --[[ Line: 190 ]]
+                -- upvalues: v41 (ref)
+                v41();
+            end):andThen(function() --[[ Line: 193 ]]
+                -- upvalues: v28 (ref)
+                return v28.onRequestAccepted and v28.onRequestAccepted();
+            end):andThen(function() --[[ Line: 196 ]]
+                -- upvalues: v28 (ref)
+                v28.closeModal();
+            end):catch(function() --[[ Line: 199 ]]
+                -- upvalues: v28 (ref)
+                v28.showGenericErrorModal();
             end);
             return;
-        elseif l_FFlagTCShareLinkReceiverUI_0 and v24 == l_Sources_0.ShareLinkReceiver then
-            v21.addTrustedFriendFromLink(v22, v25.tokens or {}):andThen(function() --[[ Line: 165 ]]
-                -- upvalues: v37 (ref)
-                v37();
-            end):andThen(l_FFlagTCUpdateProfileCTAButton_0 and function() --[[ Line: 169 ]]
-                -- upvalues: v25 (ref)
-                return v25.onRequestAccepted and v25.onRequestAccepted();
-            end or nil):andThen(function() --[[ Line: 173 ]]
-                -- upvalues: v25 (ref)
-                v25.closeModal();
-            end):catch(function() --[[ Line: 176 ]]
-                -- upvalues: v25 (ref)
-                v25.showGenericErrorModal();
+        elseif l_FFlagTCShareLinkReceiverUI_0 and v27 == l_Sources_0.ShareLinkReceiver then
+            v24.addTrustedFriendFromLink(v25, v28.tokens or {}):andThen(function() --[[ Line: 204 ]]
+                -- upvalues: v41 (ref)
+                v41();
+            end):andThen(l_FFlagTCUpdateProfileCTAButton_0 and function() --[[ Line: 208 ]]
+                -- upvalues: v28 (ref)
+                return v28.onRequestAccepted and v28.onRequestAccepted();
+            end or nil):andThen(function() --[[ Line: 212 ]]
+                -- upvalues: v28 (ref)
+                v28.closeModal();
+            end):catch(function() --[[ Line: 215 ]]
+                -- upvalues: v28 (ref)
+                v28.showGenericErrorModal();
             end);
             return;
         else
-            v21.sendTrustedConnectionRequest(v22, v25.sentFromQrCode and "qr" or nil):andThen(function() --[[ Line: 184 ]]
-                -- upvalues: l_fireAnalyticsEvent_0 (ref), l_EventNames_0 (ref), v6 (ref), v31 (ref)
+            v24.sendTrustedConnectionRequest(v25, v28.sentFromQrCode and "qr" or nil):andThen(function() --[[ Line: 223 ]]
+                -- upvalues: l_fireAnalyticsEvent_0 (ref), l_EventNames_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (ref), v34 (ref), v6 (ref)
                 l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellAddTrustedConnectionClicked);
-                v6.SetUIBloxToast({
-                    sequenceNumber = DateTime.now().UnixTimestamp, 
-                    toastTitle = v31.trustedConnectionRequestSentToast
-                });
-            end):andThen(function() --[[ Line: 191 ]]
-                -- upvalues: v25 (ref)
-                return v25.onRequestSent and v25.onRequestSent();
-            end):andThen(function() --[[ Line: 194 ]]
-                -- upvalues: v25 (ref)
-                v25.closeModal();
-            end):catch(function(_) --[[ Line: 197 ]]
-                -- upvalues: v25 (ref)
-                v25.showGenericErrorModal();
+                if l_FFlagTCUnifyNavigationEntry_0 then
+                    v28.showToast(v34.trustedConnectionRequestSentToast);
+                    return;
+                else
+                    v6.SetUIBloxToast({
+                        sequenceNumber = DateTime.now().UnixTimestamp, 
+                        toastTitle = v34.trustedConnectionRequestSentToast
+                    });
+                    return;
+                end;
+            end):andThen(function() --[[ Line: 234 ]]
+                -- upvalues: v28 (ref)
+                return v28.onRequestSent and v28.onRequestSent();
+            end):andThen(function() --[[ Line: 237 ]]
+                -- upvalues: v28 (ref)
+                v28.closeModal();
+            end):catch(function(_) --[[ Line: 240 ]]
+                -- upvalues: v28 (ref)
+                v28.showGenericErrorModal();
             end);
             return;
         end;
     end, {
-        v25.closeModal, 
-        v22, 
-        v31, 
-        v25.onRequestSent, 
-        v25.onRequestAccepted, 
-        v25.tokens, 
-        if l_FFlagTCVerifiedParentalControl_0 then nil else v25.sentFromQrCode and "qr" or nil, 
-        l_fireAnalyticsEvent_0
+        v28.closeModal, 
+        v25, 
+        v34, 
+        v28.onRequestSent, 
+        v28.onRequestAccepted, 
+        v28.tokens, 
+        if l_FFlagTCVerifiedParentalControl_0 then nil else v28.sentFromQrCode and "qr" or nil, 
+        l_fireAnalyticsEvent_0, 
+        if l_FFlagTCUnifyNavigationEntry_0 then v28.showToast else nil
     });
-    local v40 = v2.useCallback(function() --[[ Line: 218 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v25 (copy)
+    local v44 = v2.useCallback(function() --[[ Line: 262 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellCancelClicked);
-        v25.closeModal();
+        v28.closeModal();
     end, {
-        v25.closeModal, 
+        v28.closeModal, 
         l_fireAnalyticsEvent_0
     });
-    local v42 = v2.useCallback(function() --[[ Line: 224 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v21 (ref), v22 (copy), l_default_0 (ref), l_Contexts_0 (ref), v25 (copy), v28 (copy), v6 (ref), v31 (copy)
+    local v46 = v2.useCallback(function() --[[ Line: 268 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v24 (ref), v25 (copy), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (copy), l_Contexts_0 (ref), l_default_0 (ref), v31 (copy), v34 (copy), v6 (ref)
         l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellAddViaLinkClicked);
-        v21.createTrustedFriendLink(v22):andThen(function(v41) --[[ Line: 227 ]]
-            -- upvalues: l_default_0 (ref), l_Contexts_0 (ref)
-            l_default_0:shareUrl({
-                url = v41.responseBody.link, 
-                context = l_Contexts_0.TCUpsellModal
-            });
-        end):andThen(function() --[[ Line: 233 ]]
-            -- upvalues: v25 (ref)
-            return v25.onRequestSent and v25.onRequestSent();
-        end):andThen(function() --[[ Line: 236 ]]
-            -- upvalues: v28 (ref), v6 (ref), v31 (ref), v25 (ref)
-            if not v28 then
-                v6.SetUIBloxToast({
-                    sequenceNumber = DateTime.now().UnixTimestamp, 
-                    toastTitle = v31.linkCopiedToast
+        v24.createTrustedFriendLink(v25):andThen(function(v45) --[[ Line: 271 ]]
+            -- upvalues: l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (ref), l_Contexts_0 (ref), l_default_0 (ref)
+            if l_FFlagTCUnifyNavigationEntry_0 then
+                v28.shareUrl({
+                    url = v45.responseBody.link, 
+                    context = l_Contexts_0.TCUpsellModal
                 });
+                return;
+            else
+                l_default_0:shareUrl({
+                    url = v45.responseBody.link, 
+                    context = l_Contexts_0.TCUpsellModal
+                });
+                return;
             end;
-            v25.closeModal();
-        end):catch(function() --[[ Line: 245 ]]
-            -- upvalues: v25 (ref)
-            v25.showGenericErrorModal();
-            v25.closeModal();
+        end):andThen(function() --[[ Line: 284 ]]
+            -- upvalues: v28 (ref)
+            return v28.onRequestSent and v28.onRequestSent();
+        end):andThen(function() --[[ Line: 287 ]]
+            -- upvalues: v31 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (ref), v34 (ref), v6 (ref)
+            if not v31 then
+                if l_FFlagTCUnifyNavigationEntry_0 then
+                    v28.showToast(v34.linkCopiedToast);
+                else
+                    v6.SetUIBloxToast({
+                        sequenceNumber = DateTime.now().UnixTimestamp, 
+                        toastTitle = v34.linkCopiedToast
+                    });
+                end;
+            end;
+            v28.closeModal();
+        end):catch(function() --[[ Line: 300 ]]
+            -- upvalues: v28 (ref)
+            v28.showGenericErrorModal();
+            v28.closeModal();
         end);
     end, {
-        v25.closeModal, 
-        v25.showGenericErrorModal, 
+        v28.closeModal, 
+        v28.showGenericErrorModal, 
         l_fireAnalyticsEvent_0, 
-        v22, 
+        v25, 
+        v34, 
         v31, 
-        v28
+        if l_FFlagTCUnifyNavigationEntry_0 then v28.shareUrl else nil, 
+        if l_FFlagTCUnifyNavigationEntry_0 then v28.showToast else nil
     });
-    local v43 = v2.useMemo(function() --[[ Line: 261 ]]
-        -- upvalues: l_TrustedConnectionStatus_0 (ref), v39 (copy), v40 (copy), v33 (copy), v34 (copy), l_Sources_0 (ref), v42 (copy), l_FFlagTCShareLinkReceiverUI_0 (ref)
+    local v47 = v2.useMemo(function() --[[ Line: 318 ]]
+        -- upvalues: l_TrustedConnectionStatus_0 (ref), v43 (copy), v44 (copy), l_FFlagTCModalUpdateButtons_0 (ref), v37 (copy), v36 (copy), v38 (copy), l_Sources_0 (ref), v46 (copy), l_FFlagTCShareLinkReceiverUI_0 (ref)
         return {
             [l_TrustedConnectionStatus_0.Friends] = {
-                primary = v39, 
-                secondary = v40
+                primary = v43, 
+                secondary = v44
             }, 
             [l_TrustedConnectionStatus_0.RequestReceived] = {
-                primary = v39, 
-                secondary = v40
+                primary = v43, 
+                secondary = v44
             }, 
-            [l_TrustedConnectionStatus_0.TrustedFriends] = {
-                primary = v33, 
-                secondary = v34
+            [l_TrustedConnectionStatus_0.TrustedFriends] = if l_FFlagTCModalUpdateButtons_0 then {
+                primary = v37
+            } else {
+                primary = v36, 
+                secondary = v38
             }, 
             [l_Sources_0.ShareLinkSender] = {
-                primary = v42
+                primary = v46
             }, 
             [l_Sources_0.ShareLinkReceiver] = if l_FFlagTCShareLinkReceiverUI_0 then {
-                primary = v39, 
-                secondary = v40
+                primary = v43, 
+                secondary = v44
             } else nil
         };
     end, {
-        v39, 
-        v40, 
-        v33, 
-        v34, 
-        v42, 
-        if l_FFlagTCVerifiedParentalControl_0 then v36 else nil
-    })[v24];
-    if l_FFlagTCVerifiedParentalControl_0 and v25.isVPCFlow and v43 then
-        v43.primary = v36;
+        v43, 
+        v44, 
+        if l_FFlagTCModalUpdateButtons_0 then nil else v36, 
+        if l_FFlagTCModalUpdateButtons_0 then v37 else nil, 
+        if l_FFlagTCModalUpdateButtons_0 then nil else v38, 
+        v46, 
+        if l_FFlagTCVerifiedParentalControl_0 then v40 else nil
+    })[v27];
+    if l_FFlagTCVerifiedParentalControl_0 and v28.isVPCFlow and v47 then
+        v47.primary = v40;
     end;
-    return v43;
+    return v47;
 end;

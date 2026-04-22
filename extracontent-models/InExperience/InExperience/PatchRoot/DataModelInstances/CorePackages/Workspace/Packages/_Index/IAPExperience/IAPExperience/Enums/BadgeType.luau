@@ -1,5 +1,6 @@
 return {
     Popular = "Popular", 
     LastPurchased = "LastPurchased", 
-    Recommended = "Recommended"
+    Recommended = "Recommended", 
+    ForYou = "ForYou"
 };

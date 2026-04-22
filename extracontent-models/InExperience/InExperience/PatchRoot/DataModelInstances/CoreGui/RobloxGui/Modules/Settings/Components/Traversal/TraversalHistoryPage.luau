@@ -27,127 +27,145 @@ local l_FIntMaximumTraversalHistoryItemsFetch_0 = l_Traversal_0.Flags.FIntMaximu
 local l_FFlagTraversalExpPagePaddingFixes_0 = l_Traversal_0.Flags.FFlagTraversalExpPagePaddingFixes;
 local l_FFlagTraversalPerfFixes_0 = l_Traversal_0.Flags.FFlagTraversalPerfFixes;
 local l_FFlagTraversalRemoveLastInput_0 = l_Traversal_0.Flags.FFlagTraversalRemoveLastInput;
-return v5.memo(v5.forwardRef(function(_, v30) --[[ Line: 38 ]] --[[ Name: TraversalHistoryPage ]]
-    -- upvalues: v5 (copy), l_FIntMaximumTraversalHistoryItemsFetch_0 (copy), l_useHistoryItems_0 (copy), l_Constants_0 (copy), v6 (copy), v11 (copy), l_FFlagTraversalRemoveLastInput_0 (copy), l_useLastInputMode_0 (copy), l_UserInputService_0 (copy), l_GetInputModeStore_0 (copy), l_Input_0 (copy), l_GuiService_0 (copy), v3 (copy), l_getRbxThumb_0 (copy), l_ThumbnailType_0 (copy), l_ThumbnailSize_0 (copy), l_FFlagTraversalPerfFixes_0 (copy), l_default_0 (copy), l_View_0 (copy), l_FFlagTraversalExpPagePaddingFixes_0 (copy), l_HistoryPage_0 (copy), v12 (copy)
-    local v31 = v5.useRef(nil);
-    v5.useImperativeHandle(v30, function() --[[ Line: 40 ]]
-        -- upvalues: v31 (copy)
-        return v31.current;
+local l_FFlagFixTraversalHistoryMenuFixesV3_0 = l_Traversal_0.Flags.FFlagFixTraversalHistoryMenuFixesV3;
+return v5.memo(v5.forwardRef(function(_, v31) --[[ Line: 39 ]] --[[ Name: TraversalHistoryPage ]]
+    -- upvalues: v5 (copy), l_FIntMaximumTraversalHistoryItemsFetch_0 (copy), l_useHistoryItems_0 (copy), l_Constants_0 (copy), v6 (copy), v11 (copy), l_FFlagTraversalRemoveLastInput_0 (copy), l_useLastInputMode_0 (copy), l_FFlagFixTraversalHistoryMenuFixesV3_0 (copy), l_UserInputService_0 (copy), l_GetInputModeStore_0 (copy), l_Input_0 (copy), l_GuiService_0 (copy), v3 (copy), l_getRbxThumb_0 (copy), l_ThumbnailType_0 (copy), l_ThumbnailSize_0 (copy), l_FFlagTraversalPerfFixes_0 (copy), l_default_0 (copy), l_View_0 (copy), l_FFlagTraversalExpPagePaddingFixes_0 (copy), l_HistoryPage_0 (copy), v12 (copy)
+    local v32 = v5.useRef(nil);
+    v5.useImperativeHandle(v31, function() --[[ Line: 41 ]]
+        -- upvalues: v32 (copy)
+        return v32.current;
     end, {});
-    local v32, v33 = v5.useState(l_FIntMaximumTraversalHistoryItemsFetch_0);
-    local v34 = l_useHistoryItems_0(v32);
-    local v35, v36 = v5.useState(l_Constants_0.NO_UNIVERSE_ID);
-    local v37 = v6.useSignalState(v11);
-    local v38 = nil;
+    local v33, v34 = v5.useState(l_FIntMaximumTraversalHistoryItemsFetch_0);
+    local v35 = l_useHistoryItems_0(v33);
+    local v36, v37 = v5.useState(l_Constants_0.NO_UNIVERSE_ID);
+    local v38 = v6.useSignalState(v11);
+    local v39 = nil;
     if not l_FFlagTraversalRemoveLastInput_0 then
-        v38 = l_useLastInputMode_0();
+        v39 = l_useLastInputMode_0();
     end;
-    local v40 = v5.useCallback(function(v39) --[[ Line: 52 ]]
-        -- upvalues: v36 (copy)
-        v36(v39);
-    end, {
-        v36
-    });
-    local v45 = v5.useCallback(function() --[[ Line: 56 ]]
-        -- upvalues: v36 (copy), l_Constants_0 (ref), l_FFlagTraversalRemoveLastInput_0 (ref), l_UserInputService_0 (ref), l_GetInputModeStore_0 (ref), l_Input_0 (ref), v38 (ref), v31 (copy), l_GuiService_0 (ref)
-        v36(l_Constants_0.NO_UNIVERSE_ID);
-        local v41 = nil;
-        if l_FFlagTraversalRemoveLastInput_0 then
+    if l_FFlagFixTraversalHistoryMenuFixesV3_0 then
+        v5.useEffect(function() --[[ Line: 54 ]]
+            -- upvalues: l_UserInputService_0 (ref), l_GetInputModeStore_0 (ref), l_Input_0 (ref), v32 (copy), l_GuiService_0 (ref)
             local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-            local v43 = l_GetInputModeStore_0().getLastInputType();
-            local v44 = true;
-            if v43 ~= l_Input_0.Directional then
-                v44 = false;
-                if v43 == l_Input_0.Pointer then
-                    v44 = l_l_UserInputService_0_LastInputType_0 == Enum.UserInputType.Keyboard;
+            local v41 = l_GetInputModeStore_0().getLastInputType();
+            local v42 = true;
+            if v41 ~= l_Input_0.Directional then
+                v42 = false;
+                if v41 == l_Input_0.Pointer then
+                    v42 = l_l_UserInputService_0_LastInputType_0 == Enum.UserInputType.Keyboard;
                 end;
             end;
-            v41 = v44;
+            if v42 and v32.current then
+                l_GuiService_0.SelectedCoreObject = v32.current;
+            end;
+        end, {});
+    end;
+    local v44 = v5.useCallback(function(v43) --[[ Line: 64 ]]
+        -- upvalues: v37 (copy)
+        v37(v43);
+    end, {
+        v37
+    });
+    local v49 = v5.useCallback(function() --[[ Line: 68 ]]
+        -- upvalues: v37 (copy), l_Constants_0 (ref), l_FFlagTraversalRemoveLastInput_0 (ref), l_UserInputService_0 (ref), l_GetInputModeStore_0 (ref), l_Input_0 (ref), v39 (ref), v32 (copy), l_GuiService_0 (ref)
+        v37(l_Constants_0.NO_UNIVERSE_ID);
+        local v45 = nil;
+        if l_FFlagTraversalRemoveLastInput_0 then
+            local l_l_UserInputService_0_LastInputType_1 = l_UserInputService_0:GetLastInputType();
+            local v47 = l_GetInputModeStore_0().getLastInputType();
+            local v48 = true;
+            if v47 ~= l_Input_0.Directional then
+                v48 = false;
+                if v47 == l_Input_0.Pointer then
+                    v48 = l_l_UserInputService_0_LastInputType_1 == Enum.UserInputType.Keyboard;
+                end;
+            end;
+            v45 = v48;
         else
-            v41 = v38 == "Focus";
+            v45 = v39 == "Focus";
         end;
-        if v41 and v31.current then
-            l_GuiService_0.SelectedCoreObject = v31.current;
+        if v45 and v32.current then
+            l_GuiService_0.SelectedCoreObject = v32.current;
         end;
     end, if l_FFlagTraversalRemoveLastInput_0 then {} else {
-        v36, 
-        v38
+        v37, 
+        v39
     });
-    local v47 = v5.useMemo(function() --[[ Line: 71 ]]
-        -- upvalues: v3 (ref), v34 (copy), l_getRbxThumb_0 (ref), l_ThumbnailType_0 (ref), l_ThumbnailSize_0 (ref)
-        return (v3.List.map(v34, function(v46) --[[ Line: 72 ]]
+    local v51 = v5.useMemo(function() --[[ Line: 83 ]]
+        -- upvalues: v3 (ref), v35 (copy), l_getRbxThumb_0 (ref), l_ThumbnailType_0 (ref), l_ThumbnailSize_0 (ref)
+        return (v3.List.map(v35, function(v50) --[[ Line: 84 ]]
             -- upvalues: l_getRbxThumb_0 (ref), l_ThumbnailType_0 (ref), l_ThumbnailSize_0 (ref)
             return {
-                placeId = v46.placeId, 
-                universeId = v46.universeId, 
-                name = v46.name, 
-                image = l_getRbxThumb_0(l_ThumbnailType_0.GameIcon, v46.universeId, l_ThumbnailSize_0.Medium), 
-                rating = v46.rating
+                placeId = v50.placeId, 
+                universeId = v50.universeId, 
+                name = v50.name, 
+                image = l_getRbxThumb_0(l_ThumbnailType_0.GameIcon, v50.universeId, l_ThumbnailSize_0.Medium), 
+                rating = v50.rating
             };
         end));
     end, {
-        v34
+        v35
     });
-    local v48 = nil;
-    local v49 = nil;
+    local v52 = nil;
+    local v53 = nil;
     if not l_FFlagTraversalPerfFixes_0 then
-        local v50, v51 = v5.useState(false);
-        v48 = v50;
-        v49 = v51;
-        v5.useEffect(function() --[[ Line: 87 ]]
-            -- upvalues: v34 (copy), v49 (ref)
-            if v34 ~= nil then
-                v49(false);
+        local v54, v55 = v5.useState(false);
+        v52 = v54;
+        v53 = v55;
+        v5.useEffect(function() --[[ Line: 99 ]]
+            -- upvalues: v35 (copy), v53 (ref)
+            if v35 ~= nil then
+                v53(false);
             end;
         end, {
-            v34, 
-            v49
+            v35, 
+            v53
         });
     end;
-    local v53 = v5.useCallback(function(v52) --[[ Line: 93 ]]
-        -- upvalues: l_FFlagTraversalPerfFixes_0 (ref), v32 (copy), l_default_0 (ref), v48 (ref), v49 (ref), v33 (copy)
+    local v57 = v5.useCallback(function(v56) --[[ Line: 105 ]]
+        -- upvalues: l_FFlagTraversalPerfFixes_0 (ref), v33 (copy), l_default_0 (ref), v52 (ref), v53 (ref), v34 (copy)
         if l_FFlagTraversalPerfFixes_0 then
-            if v32 >= #l_default_0:getUniverseHistory() then
+            if v33 >= #l_default_0:getUniverseHistory() then
                 return;
             end;
-        elseif v48 then
+        elseif v52 then
             return;
         else
-            v49(true);
+            v53(true);
         end;
-        v33(v32 + v52);
+        v34(v33 + v56);
     end, if l_FFlagTraversalPerfFixes_0 then {
-        v32
+        v33
     } else {
-        v32, 
         v33, 
-        v48, 
-        v49
+        v34, 
+        v52, 
+        v53
     });
-    local v54 = false;
-    if next(v47) ~= nil then
-        v54 = v5.createElement(l_View_0, {
+    local v58 = false;
+    if next(v51) ~= nil then
+        v58 = v5.createElement(l_View_0, {
             tag = "size-full " .. (l_FFlagTraversalExpPagePaddingFixes_0 and "padding-top-medium" or "padding-large")
         }, {
             HistoryPage = v5.createElement(l_HistoryPage_0, {
-                historyItems = v47, 
-                onHistoryClose = function() --[[ Line: 112 ]] --[[ Name: onHistoryClose ]]
-                    -- upvalues: v37 (copy)
-                    v37.setCurrentReactPage(nil);
+                historyItems = v51, 
+                onHistoryClose = function() --[[ Line: 124 ]] --[[ Name: onHistoryClose ]]
+                    -- upvalues: v38 (copy)
+                    v38.setCurrentReactPage(nil);
                 end, 
-                onCardItemActivated = v40, 
-                onLoadMoreHistory = v53, 
-                ref = v31
+                onCardItemActivated = v44, 
+                onLoadMoreHistory = v57, 
+                ref = v32
             })
         }, {
             Dialog = v5.createElement(v12, {
-                isDialogOpen = l_Constants_0.NO_UNIVERSE_ID < v35, 
-                onCancel = v45, 
-                onClose = v45, 
-                universeId = v35, 
+                isDialogOpen = l_Constants_0.NO_UNIVERSE_ID < v36, 
+                onCancel = v49, 
+                onClose = v49, 
+                universeId = v36, 
                 source = "history_landing_page"
             })
         });
     end;
-    return v54;
+    return v58;
 end));

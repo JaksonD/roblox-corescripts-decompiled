@@ -17,31 +17,34 @@ v9.render = function(v10) --[[ Line: 14 ]] --[[ Name: render ]]
     local l_isExpanded_0 = v10.props.isExpanded;
     local l_layoutOrder_0 = v10.props.layoutOrder;
     local v17 = v10.props.inset or 0;
+    local l_hideLines_0 = v10.props.hideLines;
     local l_onButtonPress_0 = v10.props.onButtonPress;
     local l_onMouseEnter_0 = v10.props.onMouseEnter;
     local l_onMouseLeave_0 = v10.props.onMouseLeave;
     local l_onMouseMove_0 = v10.props.onMouseMove;
     local l_onMouse2Click_0 = v10.props.onMouse2Click;
-    local v23 = {
+    local v24 = {
         BannerButtonArrow = l_onButtonPress_0 and v1.createElement("ImageLabel", {
             Visible = l_isExpandable_0, 
             Image = l_isExpanded_0 and l_DownArrow_0 or l_RightArrow_0, 
             BackgroundTransparency = 1, 
             Size = UDim2.new(0, l_ArrowWidth_0, 0, l_ArrowWidth_0), 
             Position = UDim2.new(0, v17, 0.5, -l_ArrowWidth_0 / 2)
-        }), 
-        HorizontalLineTop = v1.createElement("Frame", {
+        })
+    };
+    if not l_hideLines_0 then
+        v24.HorizontalLineTop = v1.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, l_LineWidth_0), 
             BackgroundColor3 = l_LineColor_0, 
             BorderSizePixel = 0
-        }), 
-        HorizontalLineBottom = v1.createElement("Frame", {
+        });
+        v24.HorizontalLineBottom = v1.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, l_LineWidth_0), 
             Position = UDim2.new(0, 0, 1, -l_LineWidth_0), 
             BackgroundColor3 = l_LineColor_0, 
             BorderSizePixel = 0
-        })
-    };
+        });
+    end;
     return v1.createElement("ImageButton", {
         Size = l_size_0, 
         Position = l_pos_0, 
@@ -52,6 +55,6 @@ v9.render = function(v10) --[[ Line: 14 ]] --[[ Name: render ]]
         [v1.Event.MouseLeave] = l_onMouseLeave_0, 
         [v1.Event.MouseMoved] = l_onMouseMove_0, 
         [v1.Event.MouseButton2Click] = l_onMouse2Click_0
-    }, v2.JoinDictionaries(v23, v11));
+    }, v2.JoinDictionaries(v24, v11));
 end;
 return v9;

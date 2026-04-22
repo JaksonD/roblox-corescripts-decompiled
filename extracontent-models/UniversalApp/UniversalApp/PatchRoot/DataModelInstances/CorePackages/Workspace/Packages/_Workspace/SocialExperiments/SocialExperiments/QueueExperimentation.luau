@@ -3,10 +3,10 @@ local l_ExperimentCacheManager_0 = require(l_Parent_0.ExperimentCacheManager).Ex
 local v2 = game:DefineFastString("FStringQueueExpLayer", "Party.Coordination.ExperienceJoin");
 local v3 = game:DefineFastString("QueueEnableAutoJoinNewServerVariant", "enableAutoJoinNewServer");
 local v4 = game:DefineFastString("QueueEnableJoinNewServerVariant", "enableJoinNewServerButton");
-local v5 = game:DefineFastFlag("ForceEnableQueueAutoJoinNewServer_dev", false);
-local v6 = game:DefineFastFlag("ForceEnableQueueJoinNewServerButton_dev", false);
-local v7 = game:DefineFastFlag("EnableQueueExperimentation_dev", false);
-local function _(v8) --[[ Line: 15 ]] --[[ Name: getIsUserInTreatment ]]
+local v5 = game:DefineFastFlag("ForceEnableQueueAutoJoinNewServer", false);
+local v6 = game:DefineFastFlag("ForceEnableQueueJoinNewServerButton", false);
+local v7 = game:DefineFastFlag("EnableQueueExperimentation", false) and game:GetEngineFeature("PlaceJoinStateEnabled");
+local function _(v8) --[[ Line: 17 ]] --[[ Name: getIsUserInTreatment ]]
     -- upvalues: l_ExperimentCacheManager_0 (copy), v2 (copy)
     local v9 = l_ExperimentCacheManager_0.default:getLayerVariables(v2);
     if v9 and v9[v8] ~= nil then
@@ -16,7 +16,7 @@ local function _(v8) --[[ Line: 15 ]] --[[ Name: getIsUserInTreatment ]]
     end;
 end;
 return {
-    getIsJoinNewServerButtonEnabled = function() --[[ Line: 30 ]] --[[ Name: getIsJoinNewServerButtonEnabled ]]
+    getIsJoinNewServerButtonEnabled = function() --[[ Line: 32 ]] --[[ Name: getIsJoinNewServerButtonEnabled ]]
         -- upvalues: v6 (copy), v7 (copy), v4 (copy), l_ExperimentCacheManager_0 (copy), v2 (copy)
         local l_v6_0 = v6;
         if not l_v6_0 then
@@ -33,7 +33,7 @@ return {
         end;
         return l_v6_0;
     end, 
-    getIsAutoJoinNewServerEnabled = function() --[[ Line: 25 ]] --[[ Name: getIsAutoJoinNewServerEnabled ]]
+    getIsAutoJoinNewServerEnabled = function() --[[ Line: 27 ]] --[[ Name: getIsAutoJoinNewServerEnabled ]]
         -- upvalues: v5 (copy), v7 (copy), v3 (copy), l_ExperimentCacheManager_0 (copy), v2 (copy)
         local l_v5_0 = v5;
         if not l_v5_0 then
@@ -50,7 +50,7 @@ return {
         end;
         return l_v5_0;
     end, 
-    logExposure = function() --[[ Line: 35 ]] --[[ Name: logExposure ]]
+    logExposure = function() --[[ Line: 37 ]] --[[ Name: logExposure ]]
         -- upvalues: v7 (copy), l_ExperimentCacheManager_0 (copy), v2 (copy)
         if v7 and l_ExperimentCacheManager_0.default:getLayerVariables(v2) ~= nil then
             l_ExperimentCacheManager_0.default:logLayerExposure(v2);

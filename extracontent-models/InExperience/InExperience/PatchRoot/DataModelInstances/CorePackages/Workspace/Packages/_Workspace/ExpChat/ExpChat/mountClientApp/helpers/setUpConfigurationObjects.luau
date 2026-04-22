@@ -24,91 +24,94 @@ local v22 = require(l_script_FirstAncestor_0.Flags.getFFlagExpChatEnableChannelT
 local v23 = require(l_script_FirstAncestor_0.Stores.GetTransparencyStore);
 local v24 = require(l_script_FirstAncestor_0.Stores.GetChannelTabsStore);
 local v25 = require(l_script_FirstAncestor_0.Stores.GetChatConfigurationStore);
+local v26 = require(l_script_FirstAncestor_0.Stores.GetMessagesStore);
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v27 = require(l_Parent_0.SharedFlags);
-local l_FFlagExpChatUseChannelTabsStore_0 = v27.FFlagExpChatUseChannelTabsStore;
-local l_FFlagExpChatUseChatConfigStore_0 = v27.FFlagExpChatUseChatConfigStore;
-local v30 = game:DefineFastFlag("ExpChatCheckTailVisibleInitValue", false);
-local function _(v31) --[[ Line: 40 ]] --[[ Name: isKeyboardKeyCodeSanitized ]]
+local l_GetFFlagTextChatEnableUniverseChatTabs_0 = require(l_Parent_0.ExpChatShared).Flags.GetFFlagTextChatEnableUniverseChatTabs;
+local v29 = require(l_Parent_0.SharedFlags);
+local l_FFlagExpChatUseChannelTabsStore_0 = v29.FFlagExpChatUseChannelTabsStore;
+local l_FFlagExpChatUseChatConfigStore_0 = v29.FFlagExpChatUseChatConfigStore;
+local l_FFlagExpChatUseMessagesStore_0 = v29.FFlagExpChatUseMessagesStore;
+local v33 = game:DefineFastFlag("ExpChatCheckTailVisibleInitValue", false);
+local function _(v34) --[[ Line: 45 ]] --[[ Name: isKeyboardKeyCodeSanitized ]]
     -- upvalues: l_UserInputService_0 (copy)
-    local l_l_UserInputService_0_StringForKeyCode_0 = l_UserInputService_0:GetStringForKeyCode(v31);
-    if l_l_UserInputService_0_StringForKeyCode_0 == nil or l_l_UserInputService_0_StringForKeyCode_0 == "" or v31 == Enum.KeyCode.Unknown then
-        warn("ChatInputBarConfiguration.KeyboardKeyCode has an unsupported keycode for rendering UI:" .. tostring(v31));
+    local l_l_UserInputService_0_StringForKeyCode_0 = l_UserInputService_0:GetStringForKeyCode(v34);
+    if l_l_UserInputService_0_StringForKeyCode_0 == nil or l_l_UserInputService_0_StringForKeyCode_0 == "" or v34 == Enum.KeyCode.Unknown then
+        warn("ChatInputBarConfiguration.KeyboardKeyCode has an unsupported keycode for rendering UI:" .. tostring(v34));
         return false;
     else
         return true;
     end;
 end;
-local function v40(v34, v35) --[[ Line: 53 ]] --[[ Name: shouldReorderTabs ]]
+local function v43(v37, v38) --[[ Line: 58 ]] --[[ Name: shouldReorderTabs ]]
     -- upvalues: l_TextChatService_0 (copy), v6 (copy)
-    if v35 == nil or v34[v35.Name] == nil then
+    if v38 == nil or v37[v38.Name] == nil then
         return false;
     else
-        local v36 = 0;
-        for _ in pairs(v34) do
-            v36 = v36 + 1;
+        local v39 = 0;
+        for _ in pairs(v37) do
+            v39 = v39 + 1;
         end;
         local l_ChannelTabsConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("ChannelTabsConfiguration");
         if not l_ChannelTabsConfiguration_0 then
             return false;
         else
             local l_X_0 = l_ChannelTabsConfiguration_0.AbsoluteSize.X;
-            return (not (l_X_0 < v36 * v6.ChannelTabsSettings.MinTabWidth) and v36 or math.floor((l_X_0 - v6.ChannelTabsSettings.DropdownIconContainerWidth) / v6.ChannelTabsSettings.MinTabWidth)) < v34[v35.Name].TabIndex;
+            return (not (l_X_0 < v39 * v6.ChannelTabsSettings.MinTabWidth) and v39 or math.floor((l_X_0 - v6.ChannelTabsSettings.DropdownIconContainerWidth) / v6.ChannelTabsSettings.MinTabWidth)) < v37[v38.Name].TabIndex;
         end;
     end;
 end;
-return function(v41, v42) --[[ Line: 79 ]]
-    -- upvalues: l_Analytics_0 (copy), l_TextChatService_0 (copy), v23 (copy), v9 (copy), v22 (copy), v40 (copy), l_TargetTextChannelPropertyChanged_0 (copy), l_FFlagExpChatUseChannelTabsStore_0 (copy), v24 (copy), v19 (copy), v21 (copy), l_UserInputService_0 (copy), l_GuiService_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (copy), v25 (copy), v17 (copy), v10 (copy), v15 (copy), v14 (copy), v16 (copy), v30 (copy), v13 (copy), v20 (copy), v11 (copy), v18 (copy), v8 (copy)
-    if v42.analytics then
-        l_Analytics_0.with(v42.analytics);
+return function(v44, v45) --[[ Line: 84 ]]
+    -- upvalues: l_Analytics_0 (copy), l_TextChatService_0 (copy), v23 (copy), v9 (copy), v22 (copy), v43 (copy), l_TargetTextChannelPropertyChanged_0 (copy), l_FFlagExpChatUseChannelTabsStore_0 (copy), v24 (copy), v19 (copy), v21 (copy), l_UserInputService_0 (copy), l_GuiService_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (copy), v25 (copy), v17 (copy), v10 (copy), v15 (copy), v14 (copy), v16 (copy), v33 (copy), v13 (copy), v20 (copy), v11 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), v26 (copy), v18 (copy), v8 (copy)
+    if v45.analytics then
+        l_Analytics_0.with(v45.analytics);
     end;
-    local function v47(v43, v44, v45) --[[ Line: 84 ]]
+    local function v50(v46, v47, v48) --[[ Line: 89 ]]
         -- upvalues: l_Analytics_0 (ref)
-        local v46 = nil;
-        if type(v45) == "number" or type(v45) == "boolean" or typeof(v45) == "EnumItem" then
-            v46 = tostring(v45);
-        elseif typeof(v45) == "Color3" then
-            v46 = v45:ToHex();
-        elseif typeof(v45) == "Font" then
-            v46 = tostring((string.gsub(v45.Family, "rbxasset://fonts/families/", ""))) .. " " .. tostring(v45.Weight) .. " " .. tostring(v45.Style);
+        local v49 = nil;
+        if type(v48) == "number" or type(v48) == "boolean" or typeof(v48) == "EnumItem" then
+            v49 = tostring(v48);
+        elseif typeof(v48) == "Color3" then
+            v49 = v48:ToHex();
+        elseif typeof(v48) == "Font" then
+            v49 = tostring((string.gsub(v48.Family, "rbxasset://fonts/families/", ""))) .. " " .. tostring(v48.Weight) .. " " .. tostring(v48.Style);
         else
             return;
         end;
-        assert(v46, "should exist");
-        l_Analytics_0.FireClientAnalyticsWithEventName(v43, {
-            [v44] = v46
+        assert(v49, "should exist");
+        l_Analytics_0.FireClientAnalyticsWithEventName(v46, {
+            [v47] = v49
         });
     end;
-    local function v66() --[[ Line: 103 ]]
-        -- upvalues: l_TextChatService_0 (ref), v23 (ref), v41 (copy), v9 (ref), v22 (ref), v40 (ref), l_TargetTextChannelPropertyChanged_0 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v24 (ref), v42 (copy), v19 (ref), v21 (ref), l_UserInputService_0 (ref), v47 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v17 (ref)
+    local function v69() --[[ Line: 108 ]]
+        -- upvalues: l_TextChatService_0 (ref), v23 (ref), v44 (copy), v9 (ref), v22 (ref), v43 (ref), l_TargetTextChannelPropertyChanged_0 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v24 (ref), v45 (copy), v19 (ref), v21 (ref), l_UserInputService_0 (ref), v50 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v17 (ref)
         local l_ChatInputBarConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("ChatInputBarConfiguration");
-        local v49 = {};
+        local v52 = {};
         if l_ChatInputBarConfiguration_0 then
-            local v50 = v23(false);
-            v41:dispatch(v9(l_ChatInputBarConfiguration_0.Enabled));
+            local v53 = v23(false);
+            v44:dispatch(v9(l_ChatInputBarConfiguration_0.Enabled));
             if l_ChatInputBarConfiguration_0.Enabled then
-                v50.resetAllTransparency();
+                v53.resetAllTransparency();
             end;
-            l_ChatInputBarConfiguration_0:GetPropertyChangedSignal("Enabled"):Connect(function() --[[ Line: 112 ]]
-                -- upvalues: v41 (ref), v9 (ref), l_ChatInputBarConfiguration_0 (copy), v50 (copy)
-                v41:dispatch(v9(l_ChatInputBarConfiguration_0.Enabled));
+            l_ChatInputBarConfiguration_0:GetPropertyChangedSignal("Enabled"):Connect(function() --[[ Line: 117 ]]
+                -- upvalues: v44 (ref), v9 (ref), l_ChatInputBarConfiguration_0 (copy), v53 (copy)
+                v44:dispatch(v9(l_ChatInputBarConfiguration_0.Enabled));
                 if l_ChatInputBarConfiguration_0.Enabled then
-                    v50.resetAllTransparency();
+                    v53.resetAllTransparency();
                 end;
             end);
-            l_ChatInputBarConfiguration_0:GetPropertyChangedSignal("TargetTextChannel"):Connect(function() --[[ Line: 119 ]]
-                -- upvalues: l_ChatInputBarConfiguration_0 (copy), v22 (ref), v40 (ref), v41 (ref), l_TargetTextChannelPropertyChanged_0 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v24 (ref)
+            l_ChatInputBarConfiguration_0:GetPropertyChangedSignal("TargetTextChannel"):Connect(function() --[[ Line: 124 ]]
+                -- upvalues: l_ChatInputBarConfiguration_0 (copy), v22 (ref), v43 (ref), v44 (ref), l_TargetTextChannelPropertyChanged_0 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v24 (ref)
                 local l_TargetTextChannel_0 = l_ChatInputBarConfiguration_0.TargetTextChannel;
-                local v52 = if v22() then v40(v41:getState().ChannelTabs.allChannelTabs, l_TargetTextChannel_0) else false;
-                v41:dispatch(l_TargetTextChannelPropertyChanged_0(l_TargetTextChannel_0, v52));
+                local v55 = if v22() then v43(v44:getState().ChannelTabs.allChannelTabs, l_TargetTextChannel_0) else false;
+                v44:dispatch(l_TargetTextChannelPropertyChanged_0(l_TargetTextChannel_0, v55));
                 if l_FFlagExpChatUseChannelTabsStore_0 then
-                    v24(false).setTargetChannel(l_TargetTextChannel_0, v52);
+                    v24(false).setTargetChannel(l_TargetTextChannel_0, v55);
                 end;
             end);
-            if v42.defaultTargetTextChannel then
-                l_ChatInputBarConfiguration_0.TargetTextChannel = v42.defaultTargetTextChannel;
+            if v45.defaultTargetTextChannel then
+                l_ChatInputBarConfiguration_0.TargetTextChannel = v45.defaultTargetTextChannel;
             elseif l_TextChatService_0.ChatVersion == Enum.ChatVersion.LegacyChatService then
-                game:GetService("Chat"):GetPropertyChangedSignal("IsAutoMigrated"):Once(function() --[[ Line: 136 ]]
+                game:GetService("Chat"):GetPropertyChangedSignal("IsAutoMigrated"):Once(function() --[[ Line: 141 ]]
                     -- upvalues: l_TextChatService_0 (ref), l_ChatInputBarConfiguration_0 (copy)
                     local l_l_TextChatService_0_FirstChild_0 = l_TextChatService_0:FindFirstChild("RBXGeneral", true);
                     if l_l_TextChatService_0_FirstChild_0 and l_l_TextChatService_0_FirstChild_0:IsA("TextChannel") then
@@ -116,18 +119,18 @@ return function(v41, v42) --[[ Line: 79 ]]
                     end;
                 end);
             end;
-            v41:dispatch(v19(l_ChatInputBarConfiguration_0.TextBox ~= nil));
-            l_ChatInputBarConfiguration_0:GetPropertyChangedSignal("TextBox"):Connect(function() --[[ Line: 145 ]]
-                -- upvalues: v41 (ref), v19 (ref), l_ChatInputBarConfiguration_0 (copy)
-                v41:dispatch(v19(l_ChatInputBarConfiguration_0.TextBox ~= nil));
+            v44:dispatch(v19(l_ChatInputBarConfiguration_0.TextBox ~= nil));
+            l_ChatInputBarConfiguration_0:GetPropertyChangedSignal("TextBox"):Connect(function() --[[ Line: 150 ]]
+                -- upvalues: v44 (ref), v19 (ref), l_ChatInputBarConfiguration_0 (copy)
+                v44:dispatch(v19(l_ChatInputBarConfiguration_0.TextBox ~= nil));
             end);
-            v41.changed:connect(function(v54, v55) --[[ Line: 150 ]]
+            v44.changed:connect(function(v57, v58) --[[ Line: 155 ]]
                 -- upvalues: l_ChatInputBarConfiguration_0 (copy)
-                if v54.TextChannels ~= v55.TextChannels and v54.TextChannels.targetTextChannel ~= v55.TextChannels.targetTextChannel then
-                    l_ChatInputBarConfiguration_0.TargetTextChannel = v54.TextChannels.targetTextChannel;
+                if v57.TextChannels ~= v58.TextChannels and v57.TextChannels.targetTextChannel ~= v58.TextChannels.targetTextChannel then
+                    l_ChatInputBarConfiguration_0.TargetTextChannel = v57.TextChannels.targetTextChannel;
                 end;
             end);
-            local v56 = {
+            local v59 = {
                 "BackgroundTransparency", 
                 "BackgroundColor3", 
                 "TextSize", 
@@ -139,83 +142,83 @@ return function(v41, v42) --[[ Line: 79 ]]
                 "KeyboardKeyCode"
             };
             if v21() and l_ChatInputBarConfiguration_0.AutocompleteEnabled ~= nil then
-                table.insert(v56, "AutocompleteEnabled");
+                table.insert(v59, "AutocompleteEnabled");
             end;
-            for _, v58 in ipairs(v56) do
-                if l_ChatInputBarConfiguration_0[v58] then
-                    local v59 = l_ChatInputBarConfiguration_0[v58];
-                    if v58 == "KeyboardKeyCode" then
-                        local l_l_UserInputService_0_StringForKeyCode_1 = l_UserInputService_0:GetStringForKeyCode(v59);
-                        local v61;
-                        if l_l_UserInputService_0_StringForKeyCode_1 == nil or l_l_UserInputService_0_StringForKeyCode_1 == "" or v59 == Enum.KeyCode.Unknown then
-                            warn("ChatInputBarConfiguration.KeyboardKeyCode has an unsupported keycode for rendering UI:" .. tostring(v59));
-                            v61 = false;
+            for _, v61 in ipairs(v59) do
+                if l_ChatInputBarConfiguration_0[v61] then
+                    local v62 = l_ChatInputBarConfiguration_0[v61];
+                    if v61 == "KeyboardKeyCode" then
+                        local l_l_UserInputService_0_StringForKeyCode_1 = l_UserInputService_0:GetStringForKeyCode(v62);
+                        local v64;
+                        if l_l_UserInputService_0_StringForKeyCode_1 == nil or l_l_UserInputService_0_StringForKeyCode_1 == "" or v62 == Enum.KeyCode.Unknown then
+                            warn("ChatInputBarConfiguration.KeyboardKeyCode has an unsupported keycode for rendering UI:" .. tostring(v62));
+                            v64 = false;
                         else
-                            v61 = true;
+                            v64 = true;
                         end;
-                        if not v61 then
+                        if not v64 then
                             l_ChatInputBarConfiguration_0.KeyboardKeyCode = Enum.KeyCode.Slash;
-                            v49[v58] = Enum.KeyCode.Slash;
+                            v52[v61] = Enum.KeyCode.Slash;
                             continue;
                         end;
                     end;
-                    v49[v58] = v59;
-                    v47("ChatInputBarConfigurationLoaded", v58, v59);
+                    v52[v61] = v62;
+                    v50("ChatInputBarConfigurationLoaded", v61, v62);
                 end;
             end;
             if l_GuiService_0:IsTenFootInterface() then
-                v49.TextSize = math.floor(0.5 + v49.TextSize * 1.5);
+                v52.TextSize = math.floor(0.5 + v52.TextSize * 1.5);
             end;
-            l_ChatInputBarConfiguration_0.Changed:Connect(function(v62) --[[ Line: 202 ]]
-                -- upvalues: l_ChatInputBarConfiguration_0 (copy), l_UserInputService_0 (ref), v41 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v17 (ref), v47 (ref)
-                local v63 = l_ChatInputBarConfiguration_0[v62];
-                if v62 == "KeyboardKeyCode" then
-                    local l_l_UserInputService_0_StringForKeyCode_2 = l_UserInputService_0:GetStringForKeyCode(v63);
-                    local v65;
-                    if l_l_UserInputService_0_StringForKeyCode_2 == nil or l_l_UserInputService_0_StringForKeyCode_2 == "" or v63 == Enum.KeyCode.Unknown then
-                        warn("ChatInputBarConfiguration.KeyboardKeyCode has an unsupported keycode for rendering UI:" .. tostring(v63));
-                        v65 = false;
+            l_ChatInputBarConfiguration_0.Changed:Connect(function(v65) --[[ Line: 207 ]]
+                -- upvalues: l_ChatInputBarConfiguration_0 (copy), l_UserInputService_0 (ref), v44 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v17 (ref), v50 (ref)
+                local v66 = l_ChatInputBarConfiguration_0[v65];
+                if v65 == "KeyboardKeyCode" then
+                    local l_l_UserInputService_0_StringForKeyCode_2 = l_UserInputService_0:GetStringForKeyCode(v66);
+                    local v68;
+                    if l_l_UserInputService_0_StringForKeyCode_2 == nil or l_l_UserInputService_0_StringForKeyCode_2 == "" or v66 == Enum.KeyCode.Unknown then
+                        warn("ChatInputBarConfiguration.KeyboardKeyCode has an unsupported keycode for rendering UI:" .. tostring(v66));
+                        v68 = false;
                     else
-                        v65 = true;
+                        v68 = true;
                     end;
-                    if not v65 then
-                        l_ChatInputBarConfiguration_0.KeyboardKeyCode = v41:getState().ChatLayout.ChatInputBarSettings.KeyboardKeyCode;
+                    if not v68 then
+                        l_ChatInputBarConfiguration_0.KeyboardKeyCode = v44:getState().ChatLayout.ChatInputBarSettings.KeyboardKeyCode;
                         return;
                     end;
                 end;
                 if l_FFlagExpChatUseChatConfigStore_0 then
-                    v25(false).setChatInputBarProperty(v62, v63);
+                    v25(false).setChatInputBarProperty(v65, v66);
                 else
-                    v41:dispatch(v17(v62, v63));
+                    v44:dispatch(v17(v65, v66));
                 end;
-                v47("ChatInputBarConfigurationChanged", v62, v63);
+                v50("ChatInputBarConfigurationChanged", v65, v66);
             end);
-            return v49;
+            return v52;
         else
             return {};
         end;
     end;
-    local function v74() --[[ Line: 227 ]]
-        -- upvalues: l_TextChatService_0 (ref), v41 (copy), v10 (ref), v15 (ref), v14 (ref), v47 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v16 (ref)
+    local function v77() --[[ Line: 232 ]]
+        -- upvalues: l_TextChatService_0 (ref), v44 (copy), v10 (ref), v15 (ref), v14 (ref), v50 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v16 (ref)
         local l_ChatWindowConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("ChatWindowConfiguration");
-        local v68 = {};
+        local v71 = {};
         if l_ChatWindowConfiguration_0 then
-            v41:dispatch(v10(l_ChatWindowConfiguration_0.Enabled));
-            l_ChatWindowConfiguration_0:GetPropertyChangedSignal("Enabled"):Connect(function() --[[ Line: 233 ]]
-                -- upvalues: v41 (ref), v10 (ref), l_ChatWindowConfiguration_0 (copy)
-                v41:dispatch(v10(l_ChatWindowConfiguration_0.Enabled));
+            v44:dispatch(v10(l_ChatWindowConfiguration_0.Enabled));
+            l_ChatWindowConfiguration_0:GetPropertyChangedSignal("Enabled"):Connect(function() --[[ Line: 238 ]]
+                -- upvalues: v44 (ref), v10 (ref), l_ChatWindowConfiguration_0 (copy)
+                v44:dispatch(v10(l_ChatWindowConfiguration_0.Enabled));
             end);
-            v41:dispatch(v15(l_ChatWindowConfiguration_0.HorizontalAlignment));
-            l_ChatWindowConfiguration_0:GetPropertyChangedSignal("HorizontalAlignment"):Connect(function() --[[ Line: 238 ]]
-                -- upvalues: v41 (ref), v15 (ref), l_ChatWindowConfiguration_0 (copy)
-                v41:dispatch(v15(l_ChatWindowConfiguration_0.HorizontalAlignment));
+            v44:dispatch(v15(l_ChatWindowConfiguration_0.HorizontalAlignment));
+            l_ChatWindowConfiguration_0:GetPropertyChangedSignal("HorizontalAlignment"):Connect(function() --[[ Line: 243 ]]
+                -- upvalues: v44 (ref), v15 (ref), l_ChatWindowConfiguration_0 (copy)
+                v44:dispatch(v15(l_ChatWindowConfiguration_0.HorizontalAlignment));
             end);
-            v41:dispatch(v14(l_ChatWindowConfiguration_0.VerticalAlignment));
-            l_ChatWindowConfiguration_0:GetPropertyChangedSignal("VerticalAlignment"):Connect(function() --[[ Line: 243 ]]
-                -- upvalues: v41 (ref), v14 (ref), l_ChatWindowConfiguration_0 (copy)
-                v41:dispatch(v14(l_ChatWindowConfiguration_0.VerticalAlignment));
+            v44:dispatch(v14(l_ChatWindowConfiguration_0.VerticalAlignment));
+            l_ChatWindowConfiguration_0:GetPropertyChangedSignal("VerticalAlignment"):Connect(function() --[[ Line: 248 ]]
+                -- upvalues: v44 (ref), v14 (ref), l_ChatWindowConfiguration_0 (copy)
+                v44:dispatch(v14(l_ChatWindowConfiguration_0.VerticalAlignment));
             end);
-            for _, v70 in ipairs({
+            for _, v73 in ipairs({
                 "BackgroundColor3", 
                 "BackgroundTransparency", 
                 "FontFace", 
@@ -228,36 +231,36 @@ return function(v41, v42) --[[ Line: 79 ]]
                 "HorizontalAlignment", 
                 "VerticalAlignment"
             }) do
-                if l_ChatWindowConfiguration_0[v70] then
-                    local v71 = l_ChatWindowConfiguration_0[v70];
-                    v68[v70] = v71;
-                    v47("ChatWindowConfigurationLoaded", v70, v71);
+                if l_ChatWindowConfiguration_0[v73] then
+                    local v74 = l_ChatWindowConfiguration_0[v73];
+                    v71[v73] = v74;
+                    v50("ChatWindowConfigurationLoaded", v73, v74);
                 end;
             end;
             if l_GuiService_0:IsTenFootInterface() then
-                v68.TextSize = math.floor(0.5 + v68.TextSize * 1.5);
+                v71.TextSize = math.floor(0.5 + v71.TextSize * 1.5);
             end;
-            l_ChatWindowConfiguration_0.Changed:Connect(function(v72) --[[ Line: 280 ]]
-                -- upvalues: l_ChatWindowConfiguration_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v41 (ref), v16 (ref), v47 (ref)
-                local v73 = l_ChatWindowConfiguration_0[v72];
+            l_ChatWindowConfiguration_0.Changed:Connect(function(v75) --[[ Line: 285 ]]
+                -- upvalues: l_ChatWindowConfiguration_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v44 (ref), v16 (ref), v50 (ref)
+                local v76 = l_ChatWindowConfiguration_0[v75];
                 if l_FFlagExpChatUseChatConfigStore_0 then
-                    v25(false).setChatWindowProperty(v72, v73);
+                    v25(false).setChatWindowProperty(v75, v76);
                 else
-                    v41:dispatch(v16(v72, v73));
+                    v44:dispatch(v16(v75, v76));
                 end;
-                v47("ChatWindowConfigurationChanged", v72, v73);
+                v50("ChatWindowConfigurationChanged", v75, v76);
             end);
-            return v68;
+            return v71;
         else
             return {};
         end;
     end;
-    local function v85() --[[ Line: 298 ]]
-        -- upvalues: l_TextChatService_0 (ref), v30 (ref), v47 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v41 (copy), v13 (ref), v20 (ref)
+    local function v88() --[[ Line: 303 ]]
+        -- upvalues: l_TextChatService_0 (ref), v33 (ref), v50 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v44 (copy), v13 (ref), v20 (ref)
         local l_BubbleChatConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("BubbleChatConfiguration");
-        local v76 = {};
+        local v79 = {};
         if l_BubbleChatConfiguration_0 then
-            for _, v78 in ipairs({
+            for _, v81 in ipairs({
                 "Enabled", 
                 "AdorneeName", 
                 "BubbleDuration", 
@@ -274,47 +277,59 @@ return function(v41, v42) --[[ Line: 79 ]]
                 "TailVisible", 
                 "BackgroundTransparency"
             }) do
-                if not v30 and l_BubbleChatConfiguration_0[v78] or v30 and l_BubbleChatConfiguration_0[v78] ~= nil then
-                    local v79 = l_BubbleChatConfiguration_0[v78];
-                    v76[v78] = v79;
-                    v47("BubbleChatConfigurationLoaded", v78, v79);
+                if not v33 and l_BubbleChatConfiguration_0[v81] or v33 and l_BubbleChatConfiguration_0[v81] ~= nil then
+                    local v82 = l_BubbleChatConfiguration_0[v81];
+                    v79[v81] = v82;
+                    v50("BubbleChatConfigurationLoaded", v81, v82);
                 end;
             end;
             if l_GuiService_0:IsTenFootInterface() then
-                v76.TextSize = math.floor(0.5 + v76.TextSize * 1.5);
+                v79.TextSize = math.floor(0.5 + v79.TextSize * 1.5);
             end;
-            l_BubbleChatConfiguration_0.Changed:Connect(function(v80) --[[ Line: 342 ]]
-                -- upvalues: l_BubbleChatConfiguration_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v41 (ref), v13 (ref), v47 (ref)
-                local v81 = l_BubbleChatConfiguration_0[v80];
+            l_BubbleChatConfiguration_0.Changed:Connect(function(v83) --[[ Line: 347 ]]
+                -- upvalues: l_BubbleChatConfiguration_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v44 (ref), v13 (ref), v50 (ref)
+                local v84 = l_BubbleChatConfiguration_0[v83];
                 if l_FFlagExpChatUseChatConfigStore_0 then
-                    v25(false).setBubbleChatProperty(v80, v81);
+                    v25(false).setBubbleChatProperty(v83, v84);
                 else
-                    v41:dispatch(v13(v80, v81));
+                    v44:dispatch(v13(v83, v84));
                 end;
-                v47("BubbleChatConfigurationChanged", v80, v81);
+                v50("BubbleChatConfigurationChanged", v83, v84);
             end);
-            local v82 = v20(v41);
-            for v83, v84 in pairs(v82) do
-                if v84 then
-                    v76[v83] = v82[v83];
+            local v85 = v20(v44);
+            for v86, v87 in pairs(v85) do
+                if v87 then
+                    v79[v86] = v85[v86];
                 end;
             end;
-            return v76;
+            return v79;
         else
             return {};
         end;
     end;
-    local function v93() --[[ Line: 367 ]]
-        -- upvalues: l_TextChatService_0 (ref), v41 (copy), v11 (ref), v47 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v18 (ref)
+    local function v98() --[[ Line: 372 ]]
+        -- upvalues: l_TextChatService_0 (ref), v44 (copy), v11 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), l_GetFFlagTextChatEnableUniverseChatTabs_0 (ref), v26 (ref), v50 (copy), l_GuiService_0 (ref), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v18 (ref)
         local l_ChannelTabsConfiguration_1 = l_TextChatService_0:FindFirstChildOfClass("ChannelTabsConfiguration");
-        local v87 = {};
+        local v90 = {};
         if l_ChannelTabsConfiguration_1 then
-            v41:dispatch(v11(l_ChannelTabsConfiguration_1.Enabled));
-            l_ChannelTabsConfiguration_1:GetPropertyChangedSignal("Enabled"):Connect(function() --[[ Line: 373 ]]
-                -- upvalues: v41 (ref), v11 (ref), l_ChannelTabsConfiguration_1 (copy)
-                v41:dispatch(v11(l_ChannelTabsConfiguration_1.Enabled));
+            v44:dispatch(v11(l_ChannelTabsConfiguration_1.Enabled));
+            if l_FFlagExpChatUseMessagesStore_0 and l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+                local v91 = v26(false);
+                if v91 then
+                    v91.setChannelTabsConfigurationEnabled(l_ChannelTabsConfiguration_1.Enabled);
+                end;
+            end;
+            l_ChannelTabsConfiguration_1:GetPropertyChangedSignal("Enabled"):Connect(function() --[[ Line: 384 ]]
+                -- upvalues: v44 (ref), v11 (ref), l_ChannelTabsConfiguration_1 (copy), l_FFlagExpChatUseMessagesStore_0 (ref), l_GetFFlagTextChatEnableUniverseChatTabs_0 (ref), v26 (ref)
+                v44:dispatch(v11(l_ChannelTabsConfiguration_1.Enabled));
+                if l_FFlagExpChatUseMessagesStore_0 and l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+                    local v92 = v26(false);
+                    if v92 then
+                        v92.setChannelTabsConfigurationEnabled(l_ChannelTabsConfiguration_1.Enabled);
+                    end;
+                end;
             end);
-            for _, v89 in ipairs({
+            for _, v94 in ipairs({
                 "BackgroundTransparency", 
                 "BackgroundColor3", 
                 "HoverBackgroundColor3", 
@@ -325,47 +340,47 @@ return function(v41, v42) --[[ Line: 79 ]]
                 "TextStrokeColor3", 
                 "TextStrokeTransparency"
             }) do
-                if l_ChannelTabsConfiguration_1[v89] then
-                    local v90 = l_ChannelTabsConfiguration_1[v89];
-                    v87[v89] = v90;
-                    v47("ChannelTabsConfigurationLoaded", v89, v90);
+                if l_ChannelTabsConfiguration_1[v94] then
+                    local v95 = l_ChannelTabsConfiguration_1[v94];
+                    v90[v94] = v95;
+                    v50("ChannelTabsConfigurationLoaded", v94, v95);
                 end;
             end;
             if l_GuiService_0:IsTenFootInterface() then
-                v87.TextSize = math.floor(0.5 + v87.TextSize * 1.5);
+                v90.TextSize = math.floor(0.5 + v90.TextSize * 1.5);
             end;
-            l_ChannelTabsConfiguration_1.Changed:Connect(function(v91) --[[ Line: 408 ]]
-                -- upvalues: l_ChannelTabsConfiguration_1 (copy), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v41 (ref), v18 (ref), v47 (ref)
-                local v92 = l_ChannelTabsConfiguration_1[v91];
+            l_ChannelTabsConfiguration_1.Changed:Connect(function(v96) --[[ Line: 425 ]]
+                -- upvalues: l_ChannelTabsConfiguration_1 (copy), l_FFlagExpChatUseChatConfigStore_0 (ref), v25 (ref), v44 (ref), v18 (ref), v50 (ref)
+                local v97 = l_ChannelTabsConfiguration_1[v96];
                 if l_FFlagExpChatUseChatConfigStore_0 then
-                    v25(false).setChannelTabsProperty(v91, v92);
+                    v25(false).setChannelTabsProperty(v96, v97);
                 else
-                    v41:dispatch(v18(v91, v92));
+                    v44:dispatch(v18(v96, v97));
                 end;
-                v47("ChannelTabsConfigurationChanged", v91, v92);
+                v50("ChannelTabsConfigurationChanged", v96, v97);
             end);
-            return v87;
+            return v90;
         else
             return {};
         end;
     end;
-    local v94 = v74();
-    local v95 = v85();
-    local v96 = v66();
-    local v97 = if v22() then v93() else {};
+    local v99 = v77();
+    local v100 = v88();
+    local v101 = v69();
+    local v102 = if v22() then v98() else {};
     if l_FFlagExpChatUseChatConfigStore_0 then
-        local v98 = v25(false);
-        v98.mergeBubbleChatSettings(v95);
-        v98.mergeChatWindowSettings(v94);
-        v98.mergeChatInputBarSettings(v96);
-        v98.mergeChannelTabsSettings(v97);
+        local v103 = v25(false);
+        v103.mergeBubbleChatSettings(v100);
+        v103.mergeChatWindowSettings(v99);
+        v103.mergeChatInputBarSettings(v101);
+        v103.mergeChannelTabsSettings(v102);
         return;
     else
-        v41:dispatch(v8({
-            bubbleChatSettings = v95, 
-            chatWindowSettings = v94, 
-            chatInputBarSettings = v96, 
-            channelTabsSettings = v97
+        v44:dispatch(v8({
+            bubbleChatSettings = v100, 
+            chatWindowSettings = v99, 
+            chatInputBarSettings = v101, 
+            channelTabsSettings = v102
         }));
         return;
     end;

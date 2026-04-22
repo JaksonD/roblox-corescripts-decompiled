@@ -9,5 +9,6 @@ return {
     FFlagAppChatSuppressGroupOSAContextCard = require(script.FFlagAppChatSuppressGroupOSAContextCard), 
     FFlagAppChatConversationHeaderTCIndicator = require(script.FFlagAppChatConversationHeaderTCIndicator), 
     FFlagAppChatExcludeSyntheticPreviewFromMessages = game:DefineFastFlag("AppChatExcludeSyntheticPreviewFromMessages", false), 
-    FFlagAppChatShowInvitedStatusInParticipantList = game:DefineFastFlag("AppChatShowInvitedStatusInParticipantList", false)
+    FFlagAppChatShowInvitedStatusInParticipantList = game:DefineFastFlag("AppChatShowInvitedStatusInParticipantList", false), 
+    FFlagAppChatSignalsMessageStore = require(script.FFlagAppChatSignalsMessageStore)
 };

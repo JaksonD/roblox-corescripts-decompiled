@@ -1,42 +1,34 @@
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("NavigationRodux");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.Navigation);
-local l_GetFFlagLuaAppRefactorSelectRoute_0 = require(l_Parent_0.SharedFlags).GetFFlagLuaAppRefactorSelectRoute;
-local l_getLegacyRouteFromRoactNavigationState_0 = require(l_script_FirstAncestor_0.Utils).getLegacyRouteFromRoactNavigationState;
+local _ = require(l_script_FirstAncestor_0.Parent.Navigation);
 local _ = require(l_script_FirstAncestor_0.types);
-local function _(v6) --[[ Line: 17 ]] --[[ Name: selectNavigationState ]]
-    return v6.Navigation;
-end;
-local function v9(v8) --[[ Line: 21 ]] --[[ Name: selectRoactNavigationState ]]
-    return v8.Navigation.roactNavigationState;
-end;
-local function v11(v10) --[[ Line: 25 ]] --[[ Name: selectCurrentRoactNavigationRoute ]]
-    return v10.Navigation.currentRoute;
-end;
-local function _(v12) --[[ Line: 29 ]] --[[ Name: selectLegacyHistory ]]
-    return v12.Navigation.history;
+local function _(v3) --[[ Line: 13 ]] --[[ Name: selectNavigationState ]]
+    return v3.Navigation;
 end;
 return {
-    selectRoactNavigationState = v9, 
-    selectCurrentRoactNavigationRoute = v11, 
-    selectCurrentLegacyRoute = function(v14) --[[ Line: 33 ]] --[[ Name: selectCurrentLegacyRoute ]]
-        -- upvalues: l_GetFFlagLuaAppRefactorSelectRoute_0 (copy), l_getLegacyRouteFromRoactNavigationState_0 (copy)
-        if l_GetFFlagLuaAppRefactorSelectRoute_0() then
-            return l_getLegacyRouteFromRoactNavigationState_0(v14.Navigation.roactNavigationState);
-        else
-            local l_history_0 = v14.Navigation.history;
-            return l_history_0[#l_history_0];
-        end;
+    selectCurrentRoactNavigationRoute = function(v5) --[[ Line: 17 ]] --[[ Name: selectCurrentRoactNavigationRoute ]]
+        return v5.Navigation.currentRoute;
     end, 
-    selectCurrentLegacyPage = function(v16) --[[ Line: 42 ]] --[[ Name: selectCurrentLegacyPage ]]
-        -- upvalues: l_GetFFlagLuaAppRefactorSelectRoute_0 (copy), l_getLegacyRouteFromRoactNavigationState_0 (copy)
-        local v17;
-        if l_GetFFlagLuaAppRefactorSelectRoute_0() then
-            v17 = l_getLegacyRouteFromRoactNavigationState_0(v16.Navigation.roactNavigationState);
-        else
-            local l_history_1 = v16.Navigation.history;
-            v17 = l_history_1[#l_history_1];
-        end;
-        return v17[#v17];
+    selectLegacyHistory = function(v6) --[[ Line: 21 ]] --[[ Name: selectLegacyHistory ]]
+        return v6.Navigation.history;
+    end, 
+    selectNavigationLocked = function(v7) --[[ Line: 35 ]] --[[ Name: selectNavigationLocked ]]
+        return v7.Navigation.lockNavigationActions;
+    end, 
+    selectBackNavigationDisableCounter = function(v8) --[[ Line: 39 ]] --[[ Name: selectBackNavigationDisableCounter ]]
+        return v8.Navigation.backNavigationDisableCounter;
+    end, 
+    selectCurrentPageName = function(v9) --[[ Line: 43 ]] --[[ Name: selectCurrentPageName ]]
+        local l_history_0 = v9.Navigation.history;
+        local v11 = l_history_0[#l_history_0];
+        return v11[#v11].name;
+    end, 
+    selectCurrentLegacyRoute = function(v12) --[[ Line: 25 ]] --[[ Name: selectCurrentLegacyRoute ]]
+        local l_history_1 = v12.Navigation.history;
+        return l_history_1[#l_history_1];
+    end, 
+    selectCurrentLegacyPage = function(v14) --[[ Line: 30 ]] --[[ Name: selectCurrentLegacyPage ]]
+        local l_history_2 = v14.Navigation.history;
+        local v16 = l_history_2[#l_history_2];
+        return v16[#v16];
     end
 };

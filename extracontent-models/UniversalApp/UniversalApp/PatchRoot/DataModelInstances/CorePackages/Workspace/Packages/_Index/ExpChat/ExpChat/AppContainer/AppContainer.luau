@@ -11,12 +11,11 @@ local v9 = require(script.Parent.Parent.AppLayout);
 local v10 = require(l_script_FirstAncestor_0.isChatRegionLocked);
 local l_TextChatService_0 = game:GetService("TextChatService");
 local v12 = require(l_script_FirstAncestor_0.Flags.getFFlagChatTranslationShowFTUX);
-local v13 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatRemoveMessagesFromAppContainer);
 local l_getFFlagExpChatAlwaysRunTCS_0 = v4.getFFlagExpChatAlwaysRunTCS;
 local l_FFlagExpChatUseMessagesStore_0 = v4.FFlagExpChatUseMessagesStore;
-getChatWindowEnabled = function() --[[ Line: 24 ]] --[[ Name: getChatWindowEnabled ]]
+getChatWindowEnabled = function() --[[ Line: 22 ]] --[[ Name: getChatWindowEnabled ]]
     -- upvalues: l_TextChatService_0 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 25 ]]
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 23 ]]
         -- upvalues: l_TextChatService_0 (ref)
         local l_ChatWindowConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("ChatWindowConfiguration");
         if l_ChatWindowConfiguration_0 ~= nil then
@@ -27,26 +26,26 @@ getChatWindowEnabled = function() --[[ Line: 24 ]] --[[ Name: getChatWindowEnabl
     end);
     return l_status_0 and l_result_0;
 end;
-getChatTranslationEnabled = function() --[[ Line: 37 ]] --[[ Name: getChatTranslationEnabled ]]
+getChatTranslationEnabled = function() --[[ Line: 35 ]] --[[ Name: getChatTranslationEnabled ]]
     -- upvalues: l_TextChatService_0 (copy)
-    local l_status_1, l_result_1 = pcall(function() --[[ Line: 38 ]]
+    local l_status_1, l_result_1 = pcall(function() --[[ Line: 36 ]]
         -- upvalues: l_TextChatService_0 (ref)
         return l_TextChatService_0.ChatTranslationEnabled;
     end);
     return l_status_1 and l_result_1;
 end;
-getChatTranslationToggleEnabled = function() --[[ Line: 45 ]] --[[ Name: getChatTranslationToggleEnabled ]]
+getChatTranslationToggleEnabled = function() --[[ Line: 43 ]] --[[ Name: getChatTranslationToggleEnabled ]]
     -- upvalues: l_TextChatService_0 (copy)
-    local l_status_2, l_result_2 = pcall(function() --[[ Line: 46 ]]
+    local l_status_2, l_result_2 = pcall(function() --[[ Line: 44 ]]
         -- upvalues: l_TextChatService_0 (ref)
         return l_TextChatService_0.ChatTranslationToggleEnabled;
     end);
     return l_status_2 and l_result_2;
 end;
-shouldShowChatTranslationFTUX = function() --[[ Line: 53 ]] --[[ Name: shouldShowChatTranslationFTUX ]]
+shouldShowChatTranslationFTUX = function() --[[ Line: 51 ]] --[[ Name: shouldShowChatTranslationFTUX ]]
     -- upvalues: l_TextChatService_0 (copy)
     if game:GetEngineFeature("TextChatServiceSettingsSaved") then
-        local l_status_3, l_result_3 = pcall(function() --[[ Line: 55 ]]
+        local l_status_3, l_result_3 = pcall(function() --[[ Line: 53 ]]
             -- upvalues: l_TextChatService_0 (ref)
             return l_TextChatService_0.ChatTranslationFTUXShown;
         end);
@@ -55,141 +54,141 @@ shouldShowChatTranslationFTUX = function() --[[ Line: 53 ]] --[[ Name: shouldSho
         return true;
     end;
 end;
-local v25 = shouldShowChatTranslationFTUX();
-local v26 = require(script.Parent.Parent.ChatTranslationFTUX);
-local v27 = v2.PureComponent:extend("AppContainer");
-v27.defaultProps = {
+local v24 = shouldShowChatTranslationFTUX();
+local v25 = require(script.Parent.Parent.ChatTranslationFTUX);
+local v26 = v2.PureComponent:extend("AppContainer");
+v26.defaultProps = {
     isChatInputBarVisible = true, 
     isChatWindowVisible = true, 
     isChannelBarVisible = false, 
     onSendChat = nil, 
-    messages = if v13 then nil else {}, 
+    onSendGlobalChat = nil, 
     mutedUserIds = nil, 
     textTimer = nil, 
     timer = nil, 
     textChatService = l_TextChatService_0, 
     chat = game:GetService("Chat")
 };
-local v28 = nil;
-v27.init = function(v29) --[[ Line: 85 ]] --[[ Name: init ]]
-    v29:setState({
+local v27 = nil;
+v26.init = function(v28) --[[ Line: 83 ]] --[[ Name: init ]]
+    v28:setState({
         showTranslationButton = false, 
         isTextChatServiceEnabled = false
     });
 end;
-v27.willUnmount = function(_) --[[ Line: 92 ]] --[[ Name: willUnmount ]]
-    -- upvalues: v28 (ref)
-    v28:Disconnect();
+v26.willUnmount = function(_) --[[ Line: 90 ]] --[[ Name: willUnmount ]]
+    -- upvalues: v27 (ref)
+    v27:Disconnect();
 end;
-v27.didMount = function(v31) --[[ Line: 96 ]] --[[ Name: didMount ]]
-    -- upvalues: l_TextChatService_0 (copy), v28 (ref), l_getFFlagExpChatAlwaysRunTCS_0 (copy)
-    v31.migrationConnection = v31.props.chat:GetPropertyChangedSignal("IsAutoMigrated"):Connect(function() --[[ Line: 97 ]]
-        -- upvalues: v31 (copy)
-        if v31.props.chat.IsAutoMigrated then
-            v31:setState({
+v26.didMount = function(v30) --[[ Line: 94 ]] --[[ Name: didMount ]]
+    -- upvalues: l_TextChatService_0 (copy), v27 (ref), l_getFFlagExpChatAlwaysRunTCS_0 (copy)
+    v30.migrationConnection = v30.props.chat:GetPropertyChangedSignal("IsAutoMigrated"):Connect(function() --[[ Line: 95 ]]
+        -- upvalues: v30 (copy)
+        if v30.props.chat.IsAutoMigrated then
+            v30:setState({
                 isTextChatServiceEnabled = true
             });
         end;
     end);
-    local function v39(v32) --[[ Line: 105 ]] --[[ Name: onTextChatServicePropertyChanged ]]
-        -- upvalues: l_TextChatService_0 (ref), v31 (copy)
-        if v32 == "ChatTranslationEnabled" then
-            local l_status_4, l_result_4 = pcall(function() --[[ Line: 107 ]]
+    local function v38(v31) --[[ Line: 103 ]] --[[ Name: onTextChatServicePropertyChanged ]]
+        -- upvalues: l_TextChatService_0 (ref), v30 (copy)
+        if v31 == "ChatTranslationEnabled" then
+            local l_status_4, l_result_4 = pcall(function() --[[ Line: 105 ]]
                 -- upvalues: l_TextChatService_0 (ref)
                 return l_TextChatService_0.ChatTranslationEnabled;
             end);
             if l_status_4 then
-                v31.props.onToggleTranslation(l_result_4);
-                v31:setState({
+                v30.props.onToggleTranslation(l_result_4);
+                v30:setState({
                     showTranslationButton = getChatTranslationEnabled() and getChatTranslationToggleEnabled()
                 });
                 return;
             end;
-        elseif v32 == "ChatTranslationToggleEnabled" then
-            local l_status_5, _ = pcall(function() --[[ Line: 119 ]]
+        elseif v31 == "ChatTranslationToggleEnabled" then
+            local l_status_5, _ = pcall(function() --[[ Line: 117 ]]
                 -- upvalues: l_TextChatService_0 (ref)
                 return l_TextChatService_0.ChatTranslationToggleEnabled;
             end);
-            local l_status_6, l_result_6 = pcall(function() --[[ Line: 123 ]]
+            local l_status_6, l_result_6 = pcall(function() --[[ Line: 121 ]]
                 -- upvalues: l_TextChatService_0 (ref)
                 return l_TextChatService_0.ChatTranslationEnabled;
             end);
             if l_status_5 then
                 if l_status_6 then
-                    v31.props.onToggleTranslation(l_result_6);
+                    v30.props.onToggleTranslation(l_result_6);
                 end;
-                v31:setState({
+                v30:setState({
                     showTranslationButton = getChatTranslationEnabled() and getChatTranslationToggleEnabled()
                 });
             end;
         end;
     end;
-    if not v28 then
-        v28 = l_TextChatService_0.Changed:Connect(v39);
+    if not v27 then
+        v27 = l_TextChatService_0.Changed:Connect(v38);
     end;
-    local v40 = {
+    local v39 = {
         showTranslationButton = getChatTranslationEnabled() and getChatTranslationToggleEnabled()
     };
-    local v41 = true;
-    if v31.props.textChatService.ChatVersion ~= Enum.ChatVersion.TextChatService then
-        v41 = l_getFFlagExpChatAlwaysRunTCS_0();
+    local v40 = true;
+    if v30.props.textChatService.ChatVersion ~= Enum.ChatVersion.TextChatService then
+        v40 = l_getFFlagExpChatAlwaysRunTCS_0();
     end;
-    v40.isTextChatServiceEnabled = v41;
-    v31:setState(v40);
+    v39.isTextChatServiceEnabled = v40;
+    v30:setState(v39);
 end;
-v27.render = function(v42) --[[ Line: 151 ]] --[[ Name: render ]]
-    -- upvalues: v2 (copy), v8 (copy), v5 (copy), v9 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), v10 (copy), v13 (copy), v12 (copy), v25 (copy), v26 (copy)
-    local l_isTextChatServiceEnabled_0 = v42.state.isTextChatServiceEnabled;
-    local v44 = v2.createElement(v8, {
-        getIconVoiceIndicator = v42.props.getIconVoiceIndicator, 
-        onClickedVoiceIndicator = v42.props.onClickedVoiceIndicator, 
-        onClickedCameraIndicator = v42.props.onClickedCameraIndicator, 
-        selfViewListenerChanged = v42.props.selfViewListenerChanged, 
-        getPermissions = v42.props.getPermissions, 
-        displayCameraDeniedToast = v42.props.displayCameraDeniedToast, 
-        isCamEnabledForUserAndPlace = v42.props.isCamEnabledForUserAndPlace, 
-        isCameraOnlyUser = v42.props.isCameraOnlyUser, 
+v26.render = function(v41) --[[ Line: 149 ]] --[[ Name: render ]]
+    -- upvalues: v2 (copy), v8 (copy), v5 (copy), v9 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), v10 (copy), v12 (copy), v24 (copy), v25 (copy)
+    local l_isTextChatServiceEnabled_0 = v41.state.isTextChatServiceEnabled;
+    local v43 = v2.createElement(v8, {
+        getIconVoiceIndicator = v41.props.getIconVoiceIndicator, 
+        onClickedVoiceIndicator = v41.props.onClickedVoiceIndicator, 
+        onClickedCameraIndicator = v41.props.onClickedCameraIndicator, 
+        selfViewListenerChanged = v41.props.selfViewListenerChanged, 
+        getPermissions = v41.props.getPermissions, 
+        displayCameraDeniedToast = v41.props.displayCameraDeniedToast, 
+        isCamEnabledForUserAndPlace = v41.props.isCamEnabledForUserAndPlace, 
+        isCameraOnlyUser = v41.props.isCameraOnlyUser, 
         isTextChatServiceOn = l_isTextChatServiceEnabled_0, 
-        isVoiceServiceInitialized = v42.props.isVoiceServiceInitialized, 
-        onClickedLikelySpeakingBubble = v42.props.onClickedLikelySpeakingBubble
+        isVoiceServiceInitialized = v41.props.isVoiceServiceInitialized, 
+        onClickedLikelySpeakingBubble = v41.props.onClickedLikelySpeakingBubble
     });
     if l_isTextChatServiceEnabled_0 then
         return v2.createElement(v5.Provider, {
-            value = v42.props.clientSettings
+            value = v41.props.clientSettings
         }, {
             app = v2.createFragment({
                 appLayout = v2.createElement(v9, {
-                    canLocalUserChat = if l_FFlagExpChatUseMessagesStore_0 then nil else v42.props.canLocalUserChat, 
-                    isChatInputBarVisible = not v10() and v42.props.isChatInputBarVisible, 
-                    isChatWindowVisible = v42.props.isChatWindowVisible, 
-                    isChannelBarVisible = v42.props.isChannelBarVisible, 
-                    chatTopBarVisibility = v42.props.chatTopBarVisibility, 
-                    messages = if v13 then nil else v42.props.messages, 
-                    mutedUserIds = v42.props.mutedUserIds, 
-                    onSendChat = v42.props.onSendChat, 
-                    timer = v42.props.timer, 
-                    textTimer = v42.props.textTimer, 
-                    activateWhisperMode = v42.props.activateWhisperMode, 
-                    resetTargetChannel = v42.props.resetTargetChannel, 
-                    isTextBoxFocused = v42.props.isTextBoxFocused, 
-                    onHovered = v42.props.onHovered, 
-                    onUnhovered = v42.props.onUnhovered, 
-                    chatLayoutAlignment = v42.props.chatLayoutAlignment, 
-                    chatWindowSettings = v42.props.chatWindowSettings, 
-                    clientSettings = v42.props.clientSettings, 
-                    showTranslationButton = v42.state.showTranslationButton, 
-                    isSpatialUIEnabled = v42.props.isSpatialUIEnabled
+                    canLocalUserChat = if l_FFlagExpChatUseMessagesStore_0 then nil else v41.props.canLocalUserChat, 
+                    isChatInputBarVisible = not v10() and v41.props.isChatInputBarVisible, 
+                    isChatWindowVisible = v41.props.isChatWindowVisible, 
+                    isChannelBarVisible = v41.props.isChannelBarVisible, 
+                    chatTopBarVisibility = v41.props.chatTopBarVisibility, 
+                    mutedUserIds = v41.props.mutedUserIds, 
+                    onSendChat = v41.props.onSendChat, 
+                    onSendGlobalChat = v41.props.onSendGlobalChat, 
+                    timer = v41.props.timer, 
+                    textTimer = v41.props.textTimer, 
+                    activateWhisperMode = v41.props.activateWhisperMode, 
+                    resetTargetChannel = v41.props.resetTargetChannel, 
+                    isTextBoxFocused = v41.props.isTextBoxFocused, 
+                    onHovered = v41.props.onHovered, 
+                    onUnhovered = v41.props.onUnhovered, 
+                    chatLayoutAlignment = v41.props.chatLayoutAlignment, 
+                    chatWindowSettings = v41.props.chatWindowSettings, 
+                    clientSettings = v41.props.clientSettings, 
+                    showTranslationButton = v41.state.showTranslationButton, 
+                    isSpatialUIEnabled = v41.props.isSpatialUIEnabled
                 }), 
-                bubbleChat = v44, 
-                ChatTranslationFTUX = if v12() and v25 and getChatTranslationEnabled() and getChatWindowEnabled() then v2.createElement(v26, {}) else nil
+                bubbleChat = v43, 
+                ChatTranslationFTUX = if v12() and v24 and getChatTranslationEnabled() and getChatWindowEnabled() then v2.createElement(v25, {}) else nil
             })
         });
     else
         return v2.createElement(v5.Provider, {
-            value = v42.props.clientSettings
+            value = v41.props.clientSettings
         }, {
-            bubbleChat = v44
+            bubbleChat = v43
         });
     end;
 end;
-return v3.connect(v6, v7)(v27);
+return v3.connect(v6, v7)(v26);

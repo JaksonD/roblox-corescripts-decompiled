@@ -28,87 +28,77 @@ local l_FormFactor_0 = require(l_CorePackages_0.Workspace.Packages.FormFactor).E
 local l_UpsellBanner_0 = v9.UpsellBanner;
 local l_createBannerConfigFromUpsellCardVariation_0 = v9.Utils.createBannerConfigFromUpsellCardVariation;
 local l_PostHomePageContactMethodModuleVariationDismiss_0 = l_Modules_1.LuaApp.Thunks.PostHomePageContactMethodModuleVariationDismiss;
-local l_FFlagEnableAEGIS1HomePageBanner_0 = v9.Flags.FFlagEnableAEGIS1HomePageBanner;
-local l_FFlagAddMinorFixesToUpsellAnalytics_0 = v9.Flags.FFlagAddMinorFixesToUpsellAnalytics;
 local l_UpsellEntrySurfaceType_0 = v9.Analytics.Enum.UpsellEntrySurfaceType;
 local l_SocialUpsellType_0 = v9.Enums.SocialUpsellType;
 local l_UpsellComponent_0 = v9.Analytics.Enum.UpsellComponent;
 local l_startFacialAgeEstimation_0 = v9.Thunks.startFacialAgeEstimation;
 local l_useSocialUpsellOverlayController_0 = v9.Hooks.useSocialUpsellOverlayController;
-local l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 = v9.Constants.DEFAULT_FAE_ENTRY_POINT_EVENT_CTX;
 local l_FFlagLuaAppCompositionSupport_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppCompositionSupport;
 local l_FFlagLuaAppCompositionAlways_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppCompositionAlways;
 local l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 = v15.Constants.GAME_CAROUSEL_SIDE_COMPACT_PADDING;
 local l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 = v15.Constants.GAME_CAROUSEL_SIDE_WIDE_PADDING;
-return function(v42) --[[ Line: 54 ]]
-    -- upvalues: l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_OmniFeedProps_0 (copy), l_useSelector_0 (copy), l_useAppPolicy_0 (copy), l_FFlagEnableSocialUpsellUIFixes_0 (copy), v3 (copy), l_FFlagEnableAEGIS1HomePageBanner_0 (copy), l_useDispatch_0 (copy), l_useSocialUpsellOverlayController_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_startFacialAgeEstimation_0 (copy), l_FFlagAddMinorFixesToUpsellAnalytics_0 (copy), l_SocialUpsellType_0 (copy), l_UpsellEntrySurfaceType_0 (copy), l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 (copy), v9 (copy), l_UpsellComponent_0 (copy), l_PostHomePageContactMethodModuleVariationDismiss_0 (copy), l_useStyle_0 (copy), l_useResponsiveLayout_0 (copy), l_FormFactor_0 (copy), l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 (copy), l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 (copy), l_usePageSideMargin_0 (copy), l_FFlagTestDeviceForFAEUpsell_0 (copy), l_deviceMeetsRequirementsForFAE_0 (copy), v4 (copy), v25 (copy), l_isSubjectToDesktopPolicies_0 (copy), l_IsVRAppBuild_0 (copy), l_UpsellBanner_0 (copy), l_createBannerConfigFromUpsellCardVariation_0 (copy)
-    local v43 = l_FFlagLuaAppCompositionAlways_0 and true or if l_FFlagLuaAppCompositionSupport_0 then v42[l_OmniFeedProps_0.key].appCompositionEnabled else nil;
-    local v45 = l_useSelector_0(function(v44) --[[ Line: 60 ]]
-        return v44.HomePageUpsellCardVariation;
+return function(v39) --[[ Line: 50 ]]
+    -- upvalues: l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_OmniFeedProps_0 (copy), l_useSelector_0 (copy), l_useAppPolicy_0 (copy), l_FFlagEnableSocialUpsellUIFixes_0 (copy), v3 (copy), l_useDispatch_0 (copy), l_useSocialUpsellOverlayController_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_startFacialAgeEstimation_0 (copy), l_SocialUpsellType_0 (copy), l_UpsellEntrySurfaceType_0 (copy), v9 (copy), l_UpsellComponent_0 (copy), l_PostHomePageContactMethodModuleVariationDismiss_0 (copy), l_useStyle_0 (copy), l_useResponsiveLayout_0 (copy), l_FormFactor_0 (copy), l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 (copy), l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 (copy), l_usePageSideMargin_0 (copy), l_FFlagTestDeviceForFAEUpsell_0 (copy), l_deviceMeetsRequirementsForFAE_0 (copy), v4 (copy), v25 (copy), l_isSubjectToDesktopPolicies_0 (copy), l_IsVRAppBuild_0 (copy), l_UpsellBanner_0 (copy), l_createBannerConfigFromUpsellCardVariation_0 (copy)
+    local v40 = l_FFlagLuaAppCompositionAlways_0 and true or if l_FFlagLuaAppCompositionSupport_0 then v39[l_OmniFeedProps_0.key].appCompositionEnabled else nil;
+    local v42 = l_useSelector_0(function(v41) --[[ Line: 56 ]]
+        return v41.HomePageUpsellCardVariation;
     end);
-    local v47 = l_useAppPolicy_0(function(v46) --[[ Line: 63 ]]
-        return v46.useGridPageLayout();
+    local v44 = l_useAppPolicy_0(function(v43) --[[ Line: 59 ]]
+        return v43.useGridPageLayout();
     end);
-    local v48 = nil;
+    local v45 = nil;
     if l_FFlagEnableSocialUpsellUIFixes_0 then
-        v48 = v3.useRef(nil);
+        v45 = v3.useRef(nil);
     end;
-    local v49 = nil;
-    local v50 = nil;
-    local v51 = nil;
-    local v52 = nil;
-    local v53 = l_FFlagEnableAEGIS1HomePageBanner_0 and v45 and v45.upsellCardType and v45.upsellCardV2Config;
-    if l_FFlagEnableAEGIS1HomePageBanner_0 then
-        v49 = l_useDispatch_0();
-        local v54 = l_useSocialUpsellOverlayController_0(false);
-        local v55 = l_useRoactService_0(l_RoactNetworking_0);
-        v50 = v3.useCallback(function(_) --[[ Line: 85 ]]
-            -- upvalues: v45 (copy), v49 (ref), l_startFacialAgeEstimation_0 (ref), l_FFlagAddMinorFixesToUpsellAnalytics_0 (ref), l_SocialUpsellType_0 (ref), l_UpsellEntrySurfaceType_0 (ref), l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 (ref)
-            if v45 and v45.upsellCardType == "Fae" then
-                v49(l_startFacialAgeEstimation_0(if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_SocialUpsellType_0.FacialAgeEstimation .. l_UpsellEntrySurfaceType_0.Homepage else l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 .. l_UpsellEntrySurfaceType_0.HomepageBanner, nil, nil, if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_UpsellEntrySurfaceType_0.Homepage else l_UpsellEntrySurfaceType_0.HomepageBanner));
-            end;
-        end, {
-            v49, 
-            v45
-        });
-        v51 = v3.useCallback(function(v57) --[[ Line: 101 ]]
-            -- upvalues: v45 (copy), v54 (copy), v9 (ref), l_FFlagAddMinorFixesToUpsellAnalytics_0 (ref), l_UpsellEntrySurfaceType_0 (ref), l_UpsellComponent_0 (ref)
-            if v45 and v45.upsellCardType == "Fae" then
-                v54.openSocialOverlay(v9.Enums.SocialUpsellType.FacialAgeEstimation, {
-                    upsellEntrySurface = if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_UpsellEntrySurfaceType_0.Homepage else l_UpsellEntrySurfaceType_0.HomepageBanner, 
-                    upsellEntryComponent = if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_UpsellComponent_0.Banner else nil, 
-                    impressionId = v57
-                });
-            end;
-        end, {
-            v45, 
-            v54.openSocialOverlay
-        });
-        local l_v55_0 = v55 --[[ copy: 11 -> 16 ]];
-        v52 = v3.useCallback(function(_) --[[ Line: 114 ]]
-            -- upvalues: v49 (ref), v45 (copy), l_PostHomePageContactMethodModuleVariationDismiss_0 (ref), l_v55_0 (copy)
-            if v49 and v45 then
-                v49(l_PostHomePageContactMethodModuleVariationDismiss_0(l_v55_0, v45.upsellCardType));
-            end;
-        end, {
-            v45, 
-            v55
-        });
-    end;
+    local v46 = v42 and v42.upsellCardType and v42.upsellCardV2Config;
+    local v47 = l_useDispatch_0();
+    local v48 = l_useSocialUpsellOverlayController_0(false);
+    local v49 = l_useRoactService_0(l_RoactNetworking_0);
+    local v51 = v3.useCallback(function(_) --[[ Line: 75 ]]
+        -- upvalues: v42 (copy), v47 (copy), l_startFacialAgeEstimation_0 (ref), l_SocialUpsellType_0 (ref), l_UpsellEntrySurfaceType_0 (ref)
+        if v42 and v42.upsellCardType == "Fae" then
+            v47(l_startFacialAgeEstimation_0(l_SocialUpsellType_0.FacialAgeEstimation .. l_UpsellEntrySurfaceType_0.Homepage, nil, nil, l_UpsellEntrySurfaceType_0.Homepage));
+        end;
+    end, {
+        v47, 
+        v42
+    });
+    local v53 = v3.useCallback(function(v52) --[[ Line: 87 ]]
+        -- upvalues: v42 (copy), v48 (copy), v9 (ref), l_UpsellEntrySurfaceType_0 (ref), l_UpsellComponent_0 (ref)
+        if v42 and v42.upsellCardType == "Fae" then
+            v48.openSocialOverlay(v9.Enums.SocialUpsellType.FacialAgeEstimation, {
+                upsellEntrySurface = l_UpsellEntrySurfaceType_0.Homepage, 
+                upsellEntryComponent = l_UpsellComponent_0.Banner, 
+                impressionId = v52
+            });
+        end;
+    end, {
+        v42, 
+        v48.openSocialOverlay
+    });
+    local v55 = v3.useCallback(function(_) --[[ Line: 96 ]]
+        -- upvalues: v47 (copy), v42 (copy), l_PostHomePageContactMethodModuleVariationDismiss_0 (ref), v49 (copy)
+        if v47 and v42 then
+            v47(l_PostHomePageContactMethodModuleVariationDismiss_0(v49, v42.upsellCardType));
+        end;
+    end, {
+        v42, 
+        v49
+    });
     local l_Theme_0 = l_useStyle_0().Theme;
-    local v62 = l_useSelector_0(function(v61) --[[ Line: 126 ]]
-        return v61.FormFactor;
+    local v58 = l_useSelector_0(function(v57) --[[ Line: 105 ]]
+        return v57.FormFactor;
     end);
-    local v63 = if not l_FFlagLuaAppCompositionAlways_0 then l_useResponsiveLayout_0("margin") else nil;
-    local v64 = nil;
-    v64 = if v43 then nil else if v47 then v63 else if v62 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0;
+    local v59 = if not l_FFlagLuaAppCompositionAlways_0 then l_useResponsiveLayout_0("margin") else nil;
+    local v60 = nil;
+    v60 = if v40 then nil else if v44 then v59 else if v58 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0;
     if not l_FFlagLuaAppCompositionAlways_0 and l_FFlagEnableSocialUpsellUIFixes_0 then
-        local v65 = l_usePageSideMargin_0(v48.current);
-        if v53 then
-            v64 = v65;
+        local v61 = l_usePageSideMargin_0(v45.current);
+        if v46 then
+            v60 = v61;
         end;
     end;
-    if l_FFlagTestDeviceForFAEUpsell_0 and v53 and not l_deviceMeetsRequirementsForFAE_0() then
+    if l_FFlagTestDeviceForFAEUpsell_0 and v46 and not l_deviceMeetsRequirementsForFAE_0() then
         return nil;
     else
         return v4.createElement("Frame", {
@@ -117,24 +107,24 @@ return function(v42) --[[ Line: 54 ]]
             Size = UDim2.new(1, 0, 0, 0), 
             BackgroundColor3 = l_Theme_0.BackgroundUIDefault.Color, 
             AutomaticSize = Enum.AutomaticSize.Y, 
-            ref = if l_FFlagEnableSocialUpsellUIFixes_0 then v48 else nil
+            ref = if l_FFlagEnableSocialUpsellUIFixes_0 then v45 else nil
         }, {
             UIPadding = v4.createElement("UIPadding", {
-                PaddingLeft = if v43 then nil else UDim.new(0, v64), 
-                PaddingRight = if v43 then nil else UDim.new(0, v64), 
+                PaddingLeft = if v40 then nil else UDim.new(0, v60), 
+                PaddingRight = if v40 then nil else UDim.new(0, v60), 
                 PaddingTop = UDim.new(0, 1)
             }), 
-            HomePageUpsellCard = if l_FFlagEnableAEGIS1HomePageBanner_0 and v53 then nil else v4.createElement(v25, {
-                upsellCardVariation = v45, 
+            HomePageUpsellCard = if not v46 then v4.createElement(v25, {
+                upsellCardVariation = v42, 
                 isCentered = l_isSubjectToDesktopPolicies_0() or l_IsVRAppBuild_0()
-            }), 
-            HomePageUpsellBannerV2 = if l_FFlagEnableAEGIS1HomePageBanner_0 and v53 and v45.upsellCardType ~= "" then v4.createElement(l_UpsellBanner_0, {
-                config = l_createBannerConfigFromUpsellCardVariation_0(v45), 
-                onPrimaryAction = v50, 
-                onSecondaryAction = v51, 
-                onDismiss = v52, 
-                upsellEntrySurface = if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_UpsellEntrySurfaceType_0.Homepage else l_UpsellEntrySurfaceType_0.HomepageBanner, 
-                upsellEntryComponent = if l_FFlagAddMinorFixesToUpsellAnalytics_0 then l_UpsellComponent_0.Banner else nil
+            }) else nil, 
+            HomePageUpsellBannerV2 = if v46 and v42.upsellCardType ~= "" then v4.createElement(l_UpsellBanner_0, {
+                config = l_createBannerConfigFromUpsellCardVariation_0(v42), 
+                onPrimaryAction = v51, 
+                onSecondaryAction = v53, 
+                onDismiss = v55, 
+                upsellEntrySurface = l_UpsellEntrySurfaceType_0.Homepage, 
+                upsellEntryComponent = l_UpsellComponent_0.Banner
             }) else nil
         });
     end;

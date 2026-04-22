@@ -3,10 +3,10 @@ local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local v2 = require(l_Parent_0.React);
 local _ = require(l_script_FirstAncestor_0.Analytics.AnalyticsTypes);
 return v2.createContext({
-    eventIngest = function() --[[ Line: 28 ]] --[[ Name: eventIngest ]]
+    eventIngest = function() --[[ Line: 29 ]] --[[ Name: eventIngest ]]
 
     end, 
-    appAnalytics = function() --[[ Line: 29 ]] --[[ Name: appAnalytics ]]
+    appAnalytics = function() --[[ Line: 30 ]] --[[ Name: appAnalytics ]]
 
     end, 
     hideCarouselHeader = false, 
@@ -16,9 +16,10 @@ return v2.createContext({
     friendRequestCount = 0, 
     friendCount = 0, 
     recommendationCount = 0, 
-    onSuccessfulRender = function() --[[ Line: 37 ]] --[[ Name: onSuccessfulRender ]]
+    onSuccessfulRender = function() --[[ Line: 38 ]] --[[ Name: onSuccessfulRender ]]
 
     end, 
     selectionOrderBase = nil, 
-    source = nil
+    source = nil, 
+    navigateToQRCodePage = nil
 });

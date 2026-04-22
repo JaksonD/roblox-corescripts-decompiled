@@ -140,7 +140,9 @@ return {
     DiscoverabilityOverlay = "DiscoverabilityOverlay", 
     TrustedContactsEducationModal = "TrustedContactsEducationModal", 
     TrustedContactsModal = "TrustedContactsModal", 
+    TrustedFriendsUserModal = "TrustedFriendsUserModal", 
     TrustedFriendsVPCPrologue = "TrustedFriendsVPCPrologue", 
+    TrustedFriendsShareLinkErrorModal = "TrustedFriendsShareLinkErrorModal", 
     SongDetail = "SongDetail", 
     SongList = "SongList", 
     FAE = "FAE", 
@@ -157,5 +159,8 @@ return {
     BadgesSeeAll = "BadgesSeeAll", 
     BadgeDetails = "BadgeDetails", 
     VideoServer = "VideoServer", 
-    GameJoinCard = "GameJoinCard"
+    GameJoinCard = "GameJoinCard", 
+    SocialTabsPage = "SocialTabsPage", 
+    SocialTabsMutuals = "SocialTabsMutuals", 
+    SocialTabsFriends = "SocialTabsFriends"
 };

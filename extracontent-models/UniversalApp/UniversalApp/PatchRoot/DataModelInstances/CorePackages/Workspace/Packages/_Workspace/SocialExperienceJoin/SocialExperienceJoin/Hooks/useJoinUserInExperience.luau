@@ -32,225 +32,281 @@ local l_AppGame_0 = v7.AppGame;
 local l_useLocalUserId_0 = v10.useLocalUserId;
 local l_getDeepValue_0 = v3.SocialLibraries.config({}).Dictionary.getDeepValue;
 local l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformImproveGameDetailsAnalytics;
-return function(v34, v35) --[[ Line: 46 ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_AppSessionService_0 (copy), l_AppGame_0 (copy), v6 (copy), v15 (copy), l_useLocalUserId_0 (copy), l_useSelector_0 (copy), l_getDeepValue_0 (copy), v16 (copy), v17 (copy), l_NetworkStatus_0 (copy), l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), v13 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (copy), v14 (copy), v5 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_PlayabilityStatus_0 (copy), l_LaunchGame_0 (copy)
-    local v36 = l_useDispatch_0();
-    local v37 = l_useRoactService_0(l_AppSessionService_0);
-    local v38 = l_useRoactService_0(l_AppGame_0);
-    local v39 = v6.useMemo(function() --[[ Line: 61 ]]
-        -- upvalues: v15 (ref), v35 (copy)
-        return v15(v35.analyticProps);
+local l_FFlagEnableMobileGameJoinCard_0 = require(l_Parent_0.SharedFlags).FFlagEnableMobileGameJoinCard;
+local l_FFlagEnableDesktopGameJoinCard_0 = require(l_Parent_0.SharedFlags).FFlagEnableDesktopGameJoinCard;
+local l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformPassPresenceToJoinUserInExperience;
+local v37 = require(l_Parent_0.CentralOverlay);
+local l_SetCentralOverlay_0 = v37.Actions.SetCentralOverlay;
+local l_CloseCentralOverlay_0 = v37.Thunks.CloseCentralOverlay;
+local l_CentralOverlayType_0 = v9.CentralOverlayType;
+local v41 = game:DefineFastFlag("SocialJoinUseUnifiedPurchaseFlow", false);
+local v42 = game:DefineFastFlag("GameJoinCardOnBeforeJoinCallback", false);
+return function(v43, v44) --[[ Line: 58 ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_AppSessionService_0 (copy), l_AppGame_0 (copy), v6 (copy), v15 (copy), l_useLocalUserId_0 (copy), l_useSelector_0 (copy), l_FFlagEnableDesktopGameJoinCard_0 (copy), l_FFlagEnableMobileGameJoinCard_0 (copy), l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0 (copy), l_getDeepValue_0 (copy), v16 (copy), v17 (copy), l_NetworkStatus_0 (copy), l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), v13 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (copy), v14 (copy), v5 (copy), v41 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), l_CloseCentralOverlay_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_PlayabilityStatus_0 (copy), v42 (copy), l_LaunchGame_0 (copy)
+    local v45 = l_useDispatch_0();
+    local v46 = l_useRoactService_0(l_AppSessionService_0);
+    local v47 = l_useRoactService_0(l_AppGame_0);
+    local v48 = v6.useMemo(function() --[[ Line: 75 ]]
+        -- upvalues: v15 (ref), v44 (copy)
+        return v15(v44.analyticProps);
     end, {});
-    local v40 = l_useLocalUserId_0();
-    local v46 = l_useSelector_0(function(v41) --[[ Line: 66 ]]
-        -- upvalues: l_getDeepValue_0 (ref), v16 (ref), v34 (copy), v17 (ref), l_NetworkStatus_0 (ref)
-        local v42 = l_getDeepValue_0(v41, (("%*.Presence.byUserId.%*"):format(v16.RODUX_KEY, v34)));
-        local v43 = if v42 and v42.universeId then tostring(v42.universeId) else "";
-        local v44 = false;
-        if v43 ~= "" then
-            local v45 = true;
-            if v17.GetExperiencesPlayabilityStatus.getStatus(v41, v43) ~= l_NetworkStatus_0.Fetching then
-                v45 = true;
-                if v17.GetExperiencesDetails.getStatus(v41, v43) ~= l_NetworkStatus_0.Fetching then
-                    v45 = v17.GetExperiencesProductInfo.getStatus(v41, v43) == l_NetworkStatus_0.Fetching;
+    local v49 = l_useLocalUserId_0();
+    local v55 = l_useSelector_0(function(v50) --[[ Line: 80 ]]
+        -- upvalues: l_FFlagEnableDesktopGameJoinCard_0 (ref), l_FFlagEnableMobileGameJoinCard_0 (ref), l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0 (ref), v44 (copy), l_getDeepValue_0 (ref), v16 (ref), v43 (copy), v17 (ref), l_NetworkStatus_0 (ref)
+        local v51 = if (not not l_FFlagEnableDesktopGameJoinCard_0 or l_FFlagEnableMobileGameJoinCard_0 or l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0) and v44.presence then v44.presence else l_getDeepValue_0(v50, (("%*.Presence.byUserId.%*"):format(v16.RODUX_KEY, v43)));
+        local v52 = if v51 and v51.universeId then tostring(v51.universeId) else "";
+        local v53 = false;
+        if v52 ~= "" then
+            local v54 = true;
+            if v17.GetExperiencesPlayabilityStatus.getStatus(v50, v52) ~= l_NetworkStatus_0.Fetching then
+                v54 = true;
+                if v17.GetExperiencesDetails.getStatus(v50, v52) ~= l_NetworkStatus_0.Fetching then
+                    v54 = v17.GetExperiencesProductInfo.getStatus(v50, v52) == l_NetworkStatus_0.Fetching;
                 end;
             end;
-            v44 = v45;
+            v53 = v54;
         end;
         return {
-            universeId = v43, 
-            presenceType = if v42 and v42.userPresenceType then v42.userPresenceType else "", 
-            lastLocation = if v42 and v42.lastLocation then v42.lastLocation else nil, 
-            placeId = if v42 and v42.placeId then tostring(v42.placeId) else "", 
-            rootPlaceId = if v42 and v42.rootPlaceId then tostring(v42.rootPlaceId) else "", 
-            gameId = if v42 and v42.gameId then tostring(v42.gameId) else "", 
-            isLoading = v44
+            universeId = v52, 
+            presenceType = if v51 and v51.userPresenceType then v51.userPresenceType else "", 
+            lastLocation = if v51 and v51.lastLocation then v51.lastLocation else nil, 
+            placeId = if v51 and v51.placeId then tostring(v51.placeId) else "", 
+            rootPlaceId = if v51 and v51.rootPlaceId then tostring(v51.rootPlaceId) else "", 
+            gameId = if v51 and v51.gameId then tostring(v51.gameId) else "", 
+            isLoading = v53
         };
     end);
-    local v69 = v6.useCallback(function() --[[ Line: 91 ]]
-        -- upvalues: v36 (copy), v17 (ref), l_SetGamePlaySession_0 (ref), v37 (copy), l_SessionType_0 (ref), v39 (copy), v13 (ref), v46 (copy), v34 (copy), v40 (copy), v35 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), v14 (ref), v5 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_PlayabilityStatus_0 (ref), l_LaunchGame_0 (ref), v38 (copy), v16 (ref)
-        local function _(v47) --[[ Line: 92 ]]
-            -- upvalues: v36 (ref), v17 (ref)
-            return v36(v17.GetExperiencesDetails.API({
-                v47
+    local v80 = v6.useCallback(function() --[[ Line: 111 ]]
+        -- upvalues: v45 (copy), v17 (ref), l_SetGamePlaySession_0 (ref), v46 (copy), l_SessionType_0 (ref), v48 (copy), v13 (ref), v55 (copy), v43 (copy), v49 (copy), v44 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), v14 (ref), v5 (ref), v41 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_CloseCentralOverlay_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_PlayabilityStatus_0 (ref), v42 (ref), l_LaunchGame_0 (ref), v47 (copy), v16 (ref)
+        local function _(v56) --[[ Line: 112 ]]
+            -- upvalues: v45 (ref), v17 (ref)
+            return v45(v17.GetExperiencesDetails.API({
+                v56
             }));
         end;
-        local function v50(v49) --[[ Line: 96 ]]
-            -- upvalues: v36 (ref), v17 (ref)
-            return v36(v17.GetExperiencesProductInfo.API({
-                v49
+        local function v59(v58) --[[ Line: 116 ]]
+            -- upvalues: v45 (ref), v17 (ref)
+            return v45(v17.GetExperiencesProductInfo.API({
+                v58
             }));
         end;
-        local function _(v51) --[[ Line: 100 ]]
-            -- upvalues: l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
-            return function(v52) --[[ Line: 101 ]]
-                -- upvalues: l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), v51 (copy), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
-                l_SetGamePlaySession_0(v37, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
-                v39.fireAnalyticsEvent(v13.JoinExperience, {
-                    placeId = v46.placeId, 
-                    rootPlaceId = v46.rootPlaceId, 
-                    gameInstanceId = v46.gameId, 
-                    profileUserId = v34, 
-                    uid = v40, 
-                    joinAttemptId = v52, 
-                    status = v51, 
-                    isHomePageCarousel = v35.isHomePageCarousel or false, 
-                    absolutePosition = v35.homepageCarouselAbsolutePosition, 
-                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v34 else nil
+        local function _(v60) --[[ Line: 120 ]]
+            -- upvalues: l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
+            return function(v61) --[[ Line: 121 ]]
+                -- upvalues: l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), v60 (copy), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
+                l_SetGamePlaySession_0(v46, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
+                v48.fireAnalyticsEvent(v13.JoinExperience, {
+                    placeId = v55.placeId, 
+                    rootPlaceId = v55.rootPlaceId, 
+                    gameInstanceId = v55.gameId, 
+                    profileUserId = v43, 
+                    uid = v49, 
+                    joinAttemptId = v61, 
+                    status = v60, 
+                    isHomePageCarousel = v44.isHomePageCarousel or false, 
+                    absolutePosition = v44.homepageCarouselAbsolutePosition, 
+                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v43 else nil
                 });
             end;
         end;
-        local function v57() --[[ Line: 120 ]]
-            -- upvalues: v14 (ref), l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), v5 (ref), v36 (ref), v17 (ref), v50 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
+        local function v68() --[[ Line: 140 ]]
+            -- upvalues: v14 (ref), l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), v5 (ref), v45 (ref), v17 (ref), v59 (copy), v41 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_CloseCentralOverlay_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
             local l_PurchaseRequired_0 = v14.PurchaseRequired;
-            l_PurchaseRequired_0 = function(v55) --[[ Line: 101 ]]
-                -- upvalues: l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), l_PurchaseRequired_0 (copy), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
-                l_SetGamePlaySession_0(v37, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
-                v39.fireAnalyticsEvent(v13.JoinExperience, {
-                    placeId = v46.placeId, 
-                    rootPlaceId = v46.rootPlaceId, 
-                    gameInstanceId = v46.gameId, 
-                    profileUserId = v34, 
-                    uid = v40, 
-                    joinAttemptId = v55, 
+            l_PurchaseRequired_0 = function(v64) --[[ Line: 121 ]]
+                -- upvalues: l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), l_PurchaseRequired_0 (copy), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
+                l_SetGamePlaySession_0(v46, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
+                v48.fireAnalyticsEvent(v13.JoinExperience, {
+                    placeId = v55.placeId, 
+                    rootPlaceId = v55.rootPlaceId, 
+                    gameInstanceId = v55.gameId, 
+                    profileUserId = v43, 
+                    uid = v49, 
+                    joinAttemptId = v64, 
                     status = l_PurchaseRequired_0, 
-                    isHomePageCarousel = v35.isHomePageCarousel or false, 
-                    absolutePosition = v35.homepageCarouselAbsolutePosition, 
-                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v34 else nil
+                    isHomePageCarousel = v44.isHomePageCarousel or false, 
+                    absolutePosition = v44.homepageCarouselAbsolutePosition, 
+                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v43 else nil
                 });
             end;
             l_PurchaseRequired_0();
             l_PurchaseRequired_0 = v5.all;
-            local l_universeId_0 = v46.universeId;
-            l_PurchaseRequired_0(v36(v17.GetExperiencesDetails.API({
+            local l_universeId_0 = v55.universeId;
+            l_PurchaseRequired_0(v45(v17.GetExperiencesDetails.API({
                 l_universeId_0
-            })), v50(v46.universeId)):andThen(function() --[[ Line: 128 ]]
-                -- upvalues: v36 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v46 (ref), v34 (ref), v35 (ref)
-                v36(l_NavigateDown_0({
-                    name = l_AppPage_0.SocialPurchaseExperience, 
-                    detail = v46.universeId, 
-                    extraProps = {
-                        userId = v34, 
-                        analyticProps = v35.analyticProps
-                    }
-                }));
+            })), v59(v55.universeId)):andThen(function() --[[ Line: 148 ]]
+                -- upvalues: v41 (ref), v55 (ref), v45 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_CloseCentralOverlay_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v43 (ref), v44 (ref)
+                if v41 then
+                    local v66 = v55.lastLocation or "";
+                    local v67 = string.format("rbxthumb://type=GameIcon&id=%s&w=150&h=150", v55.universeId);
+                    v45(l_SetCentralOverlay_0(l_CentralOverlayType_0.UnifiedProductPurchaseModal, {
+                        productPayload = {
+                            universeId = v55.universeId, 
+                            kind = "Experience", 
+                            experienceName = v66, 
+                            experienceIconUrl = v67
+                        }, 
+                        purchaseCallbacks = {
+                            onFlowComplete = function() --[[ Line: 162 ]] --[[ Name: onFlowComplete ]]
+                                -- upvalues: v45 (ref), l_CloseCentralOverlay_0 (ref)
+                                v45(l_CloseCentralOverlay_0());
+                            end
+                        }, 
+                        purchaseAnalyticsMetadata = {
+                            surface = "JoinUserInExperience"
+                        }
+                    }));
+                    return;
+                else
+                    v45(l_NavigateDown_0({
+                        name = l_AppPage_0.SocialPurchaseExperience, 
+                        detail = v55.universeId, 
+                        extraProps = {
+                            userId = v43, 
+                            analyticProps = v44.analyticProps
+                        }
+                    }));
+                    return;
+                end;
             end);
         end;
-        local function v60() --[[ Line: 140 ]]
-            -- upvalues: v14 (ref), l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), v36 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
-            local l_PurchaseRequired_1 = v14.PurchaseRequired;
-            l_PurchaseRequired_1 = function(v59) --[[ Line: 101 ]]
-                -- upvalues: l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), l_PurchaseRequired_1 (copy), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
-                l_SetGamePlaySession_0(v37, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
-                v39.fireAnalyticsEvent(v13.JoinExperience, {
-                    placeId = v46.placeId, 
-                    rootPlaceId = v46.rootPlaceId, 
-                    gameInstanceId = v46.gameId, 
-                    profileUserId = v34, 
-                    uid = v40, 
-                    joinAttemptId = v59, 
-                    status = l_PurchaseRequired_1, 
-                    isHomePageCarousel = v35.isHomePageCarousel or false, 
-                    absolutePosition = v35.homepageCarouselAbsolutePosition, 
-                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v34 else nil
+        local function v71() --[[ Line: 183 ]]
+            -- upvalues: v41 (ref), v14 (ref), l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), v45 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
+            local v69 = if v41 then v14.Unable else v14.PurchaseRequired;
+            (function(v70) --[[ Line: 121 ]]
+                -- upvalues: l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), v69 (copy), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
+                l_SetGamePlaySession_0(v46, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
+                v48.fireAnalyticsEvent(v13.JoinExperience, {
+                    placeId = v55.placeId, 
+                    rootPlaceId = v55.rootPlaceId, 
+                    gameInstanceId = v55.gameId, 
+                    profileUserId = v43, 
+                    uid = v49, 
+                    joinAttemptId = v70, 
+                    status = v69, 
+                    isHomePageCarousel = v44.isHomePageCarousel or false, 
+                    absolutePosition = v44.homepageCarouselAbsolutePosition, 
+                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v43 else nil
                 });
-            end;
-            l_PurchaseRequired_1(v14.Unable);
-            v36(l_NavigateDown_0({
+            end)(v14.Unable);
+            v45(l_NavigateDown_0({
                 name = l_AppPage_0.SocialUnableToJoinExperience, 
-                detail = v46.universeId, 
+                detail = v55.universeId, 
                 extraProps = {
-                    userId = v34, 
-                    analyticProps = v35.analyticProps, 
-                    openGameDetailsPeekViewClosed = v35.openGameDetailsPeekViewClosed
+                    userId = v43, 
+                    analyticProps = v44.analyticProps, 
+                    openGameDetailsPeekViewClosed = v44.openGameDetailsPeekViewClosed
                 }
             }));
         end;
-        (function(v61) --[[ Line: 157 ]]
-            -- upvalues: v36 (ref), v17 (ref)
-            return v36(v17.GetExperiencesPlayabilityStatus.API({
-                v61
-            })):andThen(function(v62) --[[ Line: 159 ]]
-                return v62.responseBody[1].playabilityStatus;
+        (function(v72) --[[ Line: 204 ]]
+            -- upvalues: v45 (ref), v17 (ref)
+            return v45(v17.GetExperiencesPlayabilityStatus.API({
+                v72
+            })):andThen(function(v73) --[[ Line: 206 ]]
+                return v73.responseBody[1].playabilityStatus;
             end);
-        end)(v46.universeId):andThen(function(v63) --[[ Line: 166 ]]
-            -- upvalues: l_PlayabilityStatus_0 (ref), v57 (copy), v14 (ref), l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), l_LaunchGame_0 (ref), v38 (ref), v16 (ref), v60 (copy)
-            if v63 == l_PlayabilityStatus_0.PurchaseRequired.rawValue() then
-                v57();
+        end)(v55.universeId):andThen(function(v74) --[[ Line: 213 ]]
+            -- upvalues: l_PlayabilityStatus_0 (ref), v68 (copy), v42 (ref), v44 (ref), v14 (ref), l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), l_LaunchGame_0 (ref), v47 (ref), v16 (ref), v71 (copy)
+            if v74 == l_PlayabilityStatus_0.PurchaseRequired.rawValue() then
+                v68();
                 return;
-            elseif v63 == l_PlayabilityStatus_0.Playable.rawValue() then
+            elseif v74 == l_PlayabilityStatus_0.Playable.rawValue() then
+                if v42 and v44.onBeforeJoin then
+                    v44.onBeforeJoin();
+                end;
                 local l_Success_0 = v14.Success;
-                local function v66(v65) --[[ Line: 101 ]]
-                    -- upvalues: l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), l_Success_0 (copy), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
-                    l_SetGamePlaySession_0(v37, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
-                    v39.fireAnalyticsEvent(v13.JoinExperience, {
-                        placeId = v46.placeId, 
-                        rootPlaceId = v46.rootPlaceId, 
-                        gameInstanceId = v46.gameId, 
-                        profileUserId = v34, 
-                        uid = v40, 
-                        joinAttemptId = v65, 
+                local function v77(v76) --[[ Line: 121 ]]
+                    -- upvalues: l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), l_Success_0 (copy), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
+                    l_SetGamePlaySession_0(v46, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
+                    v48.fireAnalyticsEvent(v13.JoinExperience, {
+                        placeId = v55.placeId, 
+                        rootPlaceId = v55.rootPlaceId, 
+                        gameInstanceId = v55.gameId, 
+                        profileUserId = v43, 
+                        uid = v49, 
+                        joinAttemptId = v76, 
                         status = l_Success_0, 
-                        isHomePageCarousel = v35.isHomePageCarousel or false, 
-                        absolutePosition = v35.homepageCarouselAbsolutePosition, 
-                        friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v34 else nil
+                        isHomePageCarousel = v44.isHomePageCarousel or false, 
+                        absolutePosition = v44.homepageCarouselAbsolutePosition, 
+                        friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v43 else nil
                     });
                 end;
                 l_LaunchGame_0(nil, nil, {
-                    userId = v34
-                }, v38, v16.AnalyticsContext.PeopleListInHomePage, v66);
+                    userId = v43
+                }, v47, v16.AnalyticsContext.PeopleListInHomePage, v77);
                 return;
             else
-                v60();
+                v71();
                 return;
             end;
-        end):catch(function() --[[ Line: 184 ]]
-            -- upvalues: v14 (ref), l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
+        end):catch(function() --[[ Line: 234 ]]
+            -- upvalues: v14 (ref), l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
             local l_Failure_0 = v14.Failure;
-            l_Failure_0 = function(v68) --[[ Line: 101 ]]
-                -- upvalues: l_SetGamePlaySession_0 (ref), v37 (ref), l_SessionType_0 (ref), v39 (ref), v13 (ref), v46 (ref), v34 (ref), v40 (ref), l_Failure_0 (copy), v35 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
-                l_SetGamePlaySession_0(v37, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
-                v39.fireAnalyticsEvent(v13.JoinExperience, {
-                    placeId = v46.placeId, 
-                    rootPlaceId = v46.rootPlaceId, 
-                    gameInstanceId = v46.gameId, 
-                    profileUserId = v34, 
-                    uid = v40, 
-                    joinAttemptId = v68, 
+            l_Failure_0 = function(v79) --[[ Line: 121 ]]
+                -- upvalues: l_SetGamePlaySession_0 (ref), v46 (ref), l_SessionType_0 (ref), v48 (ref), v13 (ref), v55 (ref), v43 (ref), v49 (ref), l_Failure_0 (copy), v44 (ref), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref)
+                l_SetGamePlaySession_0(v46, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
+                v48.fireAnalyticsEvent(v13.JoinExperience, {
+                    placeId = v55.placeId, 
+                    rootPlaceId = v55.rootPlaceId, 
+                    gameInstanceId = v55.gameId, 
+                    profileUserId = v43, 
+                    uid = v49, 
+                    joinAttemptId = v79, 
                     status = l_Failure_0, 
-                    isHomePageCarousel = v35.isHomePageCarousel or false, 
-                    absolutePosition = v35.homepageCarouselAbsolutePosition, 
-                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v34 else nil
+                    isHomePageCarousel = v44.isHomePageCarousel or false, 
+                    absolutePosition = v44.homepageCarouselAbsolutePosition, 
+                    friendId = if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then v43 else nil
                 });
             end;
             l_Failure_0();
         end);
-    end, {
-        v36, 
-        v46.universeId, 
-        v46.placeId, 
-        v46.rootPlaceId, 
-        v46.gameId, 
-        v34, 
-        v40, 
-        v39, 
-        v37, 
-        v38, 
-        v35.isHomePageCarousel, 
-        v35.homepageCarouselAbsolutePosition
+    end, if v41 then {
+        v45, 
+        v55.universeId, 
+        v55.placeId, 
+        v55.rootPlaceId, 
+        v55.gameId, 
+        v55.lastLocation, 
+        v43, 
+        v49, 
+        v48, 
+        v46, 
+        v47, 
+        v44.isHomePageCarousel, 
+        v44.homepageCarouselAbsolutePosition, 
+        v44.analyticProps, 
+        v44.openGameDetailsPeekViewClosed, 
+        v44.onBeforeJoin
+    } else {
+        v45, 
+        v55.universeId, 
+        v55.placeId, 
+        v55.rootPlaceId, 
+        v55.gameId, 
+        v43, 
+        v49, 
+        v48, 
+        v46, 
+        v47, 
+        v44.isHomePageCarousel, 
+        v44.homepageCarouselAbsolutePosition
     });
-    local v70 = if v46.presenceType and v46.lastLocation then v46.universeId ~= "" else false;
-    return v6.useMemo(function() --[[ Line: 211 ]]
-        -- upvalues: v69 (copy), v70 (copy), v46 (copy)
+    local v81 = if v55.presenceType and v55.lastLocation then v55.universeId ~= "" else false;
+    return v6.useMemo(function() --[[ Line: 281 ]]
+        -- upvalues: v80 (copy), v81 (copy), v55 (copy)
         return {
-            joinExperience = v69, 
-            isInExperience = v70, 
-            isLoading = v46.isLoading
+            joinExperience = v80, 
+            isInExperience = v81, 
+            isLoading = v55.isLoading
         };
-    end, {
-        v46.presenceType, 
-        v46.lastLocation, 
-        v69, 
-        v46.isLoading
+    end, if v41 then {
+        v80, 
+        v81, 
+        v55.isLoading
+    } else {
+        v55.presenceType, 
+        v55.lastLocation, 
+        v80, 
+        v55.isLoading
     });
 end;

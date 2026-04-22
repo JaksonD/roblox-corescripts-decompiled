@@ -78,7 +78,9 @@ return {
         AccountPickerSwipeRight = "accountPickerSwipeRight", 
         SignUpExitModalLeave = "signUpExitModalLeave", 
         SignUpExitModalCancel = "signUpExitModalCancel", 
-        SubmitEmail = "submitEmail"
+        SubmitEmail = "submitEmail", 
+        SetupLaterCornerButton = "setupLaterCornerButton", 
+        SetupLaterRowButton = "setupLaterRowButton"
     }, 
     Field = {
         Birthday = "birthday", 
@@ -194,7 +196,8 @@ return {
         SignUpExitModal = "signUpExitModal", 
         UnauthorizedError = "unauthorizedError", 
         InvoluntaryLogoutGracePeriod = "involuntaryLogoutGracePeriod", 
-        SignupEmailOnAddAuthMethod = "signupEmailOnAddAuthMethod"
+        SignupEmailOnAddAuthMethod = "signupEmailOnAddAuthMethod", 
+        AddAuthMethodPage = "addAuthMethodPage"
     }, 
     ActionType = {
         Submit = "submit", 
@@ -247,6 +250,9 @@ return {
         UpgradeFailure = "upgradeFailure", 
         FilteredByIXP = "filteredByIXP", 
         ShouldSeePasskeyUpsell = "shouldSeePasskeyUpsell", 
+        ALCheckSuccess = "alCheckSuccess", 
+        ALCheckFail = "alCheckFail", 
+        ALError = "alError", 
         BirthdayDropdownBirthdaySelected = "birthdayDropdownBirthdaySelected", 
         BirthdayDropdownInvalidBirthdayError = "birthdayDropdownInvalidBirthdayError", 
         GracePeriodApplied = "gracePeriodApplied", 

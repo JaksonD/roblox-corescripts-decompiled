@@ -10,9 +10,9 @@ local v8 = require(l_CorePackages_0.Packages.tutils);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
 local v10 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
 local l_FFlagAXHydrateAssetFromBundleItems_0 = v10.FFlagAXHydrateAssetFromBundleItems;
-local l_FFlagAXDurablesSupport_0 = v10.FFlagAXDurablesSupport;
 local l_FFlagAXDurablesSupportForPermanent_0 = v10.FFlagAXDurablesSupportForPermanent;
 local l_FFlagAXMISEnableMultiShopping_0 = v10.FFlagAXMISEnableMultiShopping;
+local l_FFlagAXBlackbirdRoot_0 = v10.FFlagAXBlackbirdRoot;
 local l_FFlagAXUseTaxonomyInItemDetailsType_0 = v10.FFlagAXUseTaxonomyInItemDetailsType;
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
 local v23 = {
@@ -38,7 +38,7 @@ local v23 = {
     end
 };
 v23.itemDataFromAssetInfo = function(v24, v25) --[[ Line: 63 ]] --[[ Name: itemDataFromAssetInfo ]]
-    -- upvalues: v8 (copy), v23 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXDurablesSupportForPermanent_0 (copy), v3 (copy), l_FFlagAXUseTaxonomyInItemDetailsType_0 (copy)
+    -- upvalues: v8 (copy), v23 (copy), l_FFlagAXDurablesSupportForPermanent_0 (copy), v3 (copy), l_FFlagAXBlackbirdRoot_0 (copy), l_FFlagAXUseTaxonomyInItemDetailsType_0 (copy)
     local v26 = v8.deepCopy(v25 or {});
     local v27, v28 = v23.CreateRestrictionInfo(v24.itemRestrictions);
     local v29 = if v24.productId then {
@@ -51,7 +51,7 @@ v23.itemDataFromAssetInfo = function(v24, v25) --[[ Line: 63 ]] --[[ Name: itemD
         hasVerifiedBadge = v24.creatorHasVerifiedBadge
     } else nil;
     local v31 = nil;
-    if l_FFlagAXDurablesSupport_0 and v24.timedOptions then
+    if v24.timedOptions then
         v31 = v24.timedOptions;
         local v32 = nil;
         if l_FFlagAXDurablesSupportForPermanent_0 then
@@ -80,6 +80,7 @@ v23.itemDataFromAssetInfo = function(v24, v25) --[[ Line: 63 ]] --[[ Name: itemD
         lowestPrice = v24.lowestPrice, 
         lowestResalePrice = v24.lowestResalePrice, 
         favoriteCount = v24.favoriteCount, 
+        discountInformation = if l_FFlagAXBlackbirdRoot_0 then v24.discountInformation else nil, 
         itemStatus = v24.itemStatus, 
         itemRestrictions = v27, 
         tileRestrictionsMap = v28, 
@@ -96,14 +97,14 @@ v23.itemDataFromAssetInfo = function(v24, v25) --[[ Line: 63 ]] --[[ Name: itemD
         hasResellers = v24.hasResellers, 
         isOffSale = v24.isOffSale, 
         isPBR = v24.isPBR, 
-        variantAttributes = if l_FFlagAXDurablesSupport_0 then v24.variantAttributes else nil, 
-        timedOptions = if l_FFlagAXDurablesSupport_0 then v31 else nil, 
+        variantAttributes = v24.variantAttributes, 
+        timedOptions = v31, 
         creatingUniverseId = if v24.creatingUniverseId then tostring(v24.creatingUniverseId) else nil, 
         taxonomy = if l_FFlagAXUseTaxonomyInItemDetailsType_0 then v24.taxonomy else nil
     }));
 end;
-v23.itemDataFromBundleInfo = function(v35, v36, v37) --[[ Line: 145 ]] --[[ Name: itemDataFromBundleInfo ]]
-    -- upvalues: v8 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v23 (copy), l_FFlagAXHydrateAssetFromBundleItems_0 (copy), v2 (copy), v3 (copy), l_FFlagAXUseTaxonomyInItemDetailsType_0 (copy)
+v23.itemDataFromBundleInfo = function(v35, v36, v37) --[[ Line: 146 ]] --[[ Name: itemDataFromBundleInfo ]]
+    -- upvalues: v8 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v23 (copy), l_FFlagAXHydrateAssetFromBundleItems_0 (copy), v2 (copy), v3 (copy), l_FFlagAXBlackbirdRoot_0 (copy), l_FFlagAXUseTaxonomyInItemDetailsType_0 (copy)
     local v38 = v8.deepCopy(v37 or {});
     local v39 = {};
     if l_FFlagAXMISEnableMultiShopping_0 and v38.items then
@@ -150,6 +151,7 @@ v23.itemDataFromBundleInfo = function(v35, v36, v37) --[[ Line: 145 ]] --[[ Name
         creator = v45, 
         priceInRobux = v35.price, 
         favoriteCount = v35.favoriteCount, 
+        discountInformation = if l_FFlagAXBlackbirdRoot_0 then v35.discountInformation else nil, 
         itemStatus = v35.itemStatus, 
         itemRestrictions = v42, 
         tileRestrictionsMap = v43, 

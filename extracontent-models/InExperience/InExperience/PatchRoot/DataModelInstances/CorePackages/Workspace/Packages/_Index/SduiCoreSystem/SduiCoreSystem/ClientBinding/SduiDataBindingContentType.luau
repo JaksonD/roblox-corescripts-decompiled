@@ -7,5 +7,12 @@ return {
     policy = "policy", 
     ageRecommendation = "ageRecommendation", 
     socialLink = "socialLink", 
-    event = "event"
+    event = "event", 
+    marketplaceCatalogCategory = "marketplaceCatalogCategory", 
+    marketplaceCatalogSort = "marketplaceCatalogSort", 
+    marketplaceAsset = "marketplaceAsset", 
+    marketplaceBundle = "marketplaceBundle", 
+    marketplaceLook = "marketplaceLook", 
+    song = "song", 
+    gamePass = "gamePass"
 };

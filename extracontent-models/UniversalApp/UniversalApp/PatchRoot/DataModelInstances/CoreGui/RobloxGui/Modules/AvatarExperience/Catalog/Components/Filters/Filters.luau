@@ -15,12 +15,12 @@ local v13 = require(l_Modules_0.AvatarExperience.Catalog.Components.Filters.Pric
 local v14 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local v15 = require(l_CorePackages_0.Packages.RoactGamepad);
 local v16 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local v17 = v16.FFlagAXDurablesSupport and game:DefineFastFlag("AXDurablesFilters", false);
+local v17 = game:DefineFastFlag("AXDurablesFilters", false);
 local l_FFlagAXTimedOptionsSalesTypeFilter_0 = v16.FFlagAXTimedOptionsSalesTypeFilter;
 local l_Focusable_0 = v15.Focusable;
 local v20 = UDim.new(0, 20);
 local v21 = UDim.new(0, 12);
-return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
+return function(v22) --[[ Line: 43 ]] --[[ Name: Filters ]]
     -- upvalues: v15 (copy), l_useLocalization_0 (copy), l_FFlagAXTimedOptionsSalesTypeFilter_0 (copy), v2 (copy), v17 (copy), v21 (copy), v20 (copy), l_Focusable_0 (copy), v3 (copy), v4 (copy), v7 (copy), v5 (copy), v12 (copy), v9 (copy), v6 (copy), v14 (copy), v13 (copy), v8 (copy)
     local v23 = v15.useRefCache();
     local l_filtersController_0 = v22.filtersController;
@@ -46,7 +46,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
     });
     local v26, v27 = v2.useBinding(0);
     local v28 = v15.useRefCache();
-    local function v31() --[[ Line: 78 ]] --[[ Name: updateTotalHeight ]]
+    local function v31() --[[ Line: 77 ]] --[[ Name: updateTotalHeight ]]
         -- upvalues: v17 (ref), v28 (copy), v21 (ref), v20 (ref), v27 (copy), v22 (copy)
         local v29 = nil;
         v29 = if v17 then v28.WearTime.current or 0 else 0;
@@ -106,7 +106,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
             setSelectedValue = l_filtersController_0.setSalesTypeFilter, 
             frameRef = v23.SalesType, 
             NextSelectionDown = v23.Creator, 
-            onHeightChanged = function(v32) --[[ Line: 136 ]] --[[ Name: onHeightChanged ]]
+            onHeightChanged = function(v32) --[[ Line: 135 ]] --[[ Name: onHeightChanged ]]
                 -- upvalues: v28 (copy), v31 (copy)
                 v28.SalesType.current = v32;
                 v31();
@@ -126,7 +126,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
                         text = l_filtersController_0.creatorUsername, 
                         placeholderText = v25.creatorName, 
                         onTextChanged = l_filtersController_0.setCreatorUsername, 
-                        onFocused = function() --[[ Line: 152 ]] --[[ Name: onFocused ]]
+                        onFocused = function() --[[ Line: 151 ]] --[[ Name: onFocused ]]
                             -- upvalues: l_filtersController_0 (copy), v5 (ref)
                             l_filtersController_0.setCreatorFilter(v5.Username);
                         end
@@ -138,7 +138,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
             frameRef = v23.Creator, 
             NextSelectionUp = v23.SalesType, 
             NextSelectionDown = v23.Price, 
-            onHeightChanged = function(v33) --[[ Line: 163 ]] --[[ Name: onHeightChanged ]]
+            onHeightChanged = function(v33) --[[ Line: 162 ]] --[[ Name: onHeightChanged ]]
                 -- upvalues: v28 (copy), v31 (copy)
                 v28.Creator.current = v33;
                 v31();
@@ -163,7 +163,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
             frameRef = v23.WearTime, 
             NextSelectionUp = v23.Creator, 
             NextSelectionDown = v23.Price, 
-            onHeightChanged = function(v34) --[[ Line: 182 ]] --[[ Name: onHeightChanged ]]
+            onHeightChanged = function(v34) --[[ Line: 181 ]] --[[ Name: onHeightChanged ]]
                 -- upvalues: v28 (copy), v31 (copy)
                 v28.WearTime.current = v34;
                 v31();
@@ -186,7 +186,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
                         maxPrice = l_filtersController_0.maxPrice, 
                         setMinPrice = l_filtersController_0.setMinPrice, 
                         setMaxPrice = l_filtersController_0.setMaxPrice, 
-                        onFocused = function() --[[ Line: 202 ]] --[[ Name: onFocused ]]
+                        onFocused = function() --[[ Line: 201 ]] --[[ Name: onFocused ]]
                             -- upvalues: l_filtersController_0 (copy), v6 (ref)
                             l_filtersController_0.setPriceFilter(v6.PriceRange);
                         end
@@ -198,7 +198,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
             frameRef = v23.Price, 
             NextSelectionUp = v23.Creator, 
             NextSelectionDown = v23.UnavailableItems, 
-            onHeightChanged = function(v35) --[[ Line: 213 ]] --[[ Name: onHeightChanged ]]
+            onHeightChanged = function(v35) --[[ Line: 212 ]] --[[ Name: onHeightChanged ]]
                 -- upvalues: v28 (copy), v31 (copy)
                 v28.Price.current = v35;
                 v31();
@@ -221,7 +221,7 @@ return function(v22) --[[ Line: 44 ]] --[[ Name: Filters ]]
             setSelectedValue = l_filtersController_0.setUnavailableItemFilter, 
             frameRef = v23.UnavailableItems, 
             NextSelectionUp = v23.Price, 
-            onHeightChanged = function(v36) --[[ Line: 229 ]] --[[ Name: onHeightChanged ]]
+            onHeightChanged = function(v36) --[[ Line: 228 ]] --[[ Name: onHeightChanged ]]
                 -- upvalues: v28 (copy), v31 (copy)
                 v28.UnavailableItems.current = v36;
                 v31();

@@ -1,42 +1,34 @@
 local l_HttpService_0 = game:GetService("HttpService");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("DiscoveryMonolith");
-local l_Modules_0 = l_script_FirstAncestor_0.Modules;
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v4 = require(l_Modules_0.LuaApp.Http.Requests.GetHomePageUpsellCardVariation);
-local v5 = require(l_Modules_0.LuaApp.Actions.SetHomePageUpsellCardVariation);
-local l_FFlagEnableAEGIS1HomePageBanner_0 = require(l_Parent_0.SocialUpsell).Flags.FFlagEnableAEGIS1HomePageBanner;
-local v7 = game:DefineFastString("DebugHomePageUpsellCardVariationResponseBody", "");
-return function(v8) --[[ Line: 16 ]]
-    -- upvalues: v4 (copy), l_FFlagEnableAEGIS1HomePageBanner_0 (copy), v7 (copy), l_HttpService_0 (copy), v5 (copy)
-    return function(v9) --[[ Line: 17 ]]
-        -- upvalues: v4 (ref), v8 (copy), l_FFlagEnableAEGIS1HomePageBanner_0 (ref), v7 (ref), l_HttpService_0 (ref), v5 (ref)
-        return v4(v8):andThen(function(v10) --[[ Line: 18 ]]
-            -- upvalues: l_FFlagEnableAEGIS1HomePageBanner_0 (ref), v7 (ref), l_HttpService_0 (ref), v9 (copy), v5 (ref)
-            if v10 and v10.responseBody then
-                local l_responseBody_0 = v10.responseBody;
-                if l_FFlagEnableAEGIS1HomePageBanner_0 then
-                    if v7 ~= "" then
-                        local _, l_result_0 = pcall(function() --[[ Line: 24 ]]
-                            -- upvalues: l_HttpService_0 (ref), v7 (ref)
-                            return l_HttpService_0:JSONDecode(v7);
-                        end);
-                        if l_result_0 then
-                            l_responseBody_0 = l_result_0;
-                        end;
+local l_Modules_0 = script:FindFirstAncestor("DiscoveryMonolith").Modules;
+local v2 = require(l_Modules_0.LuaApp.Http.Requests.GetHomePageUpsellCardVariation);
+local v3 = require(l_Modules_0.LuaApp.Actions.SetHomePageUpsellCardVariation);
+local v4 = game:DefineFastString("DebugHomePageUpsellCardVariationResponseBody", "");
+return function(v5) --[[ Line: 12 ]]
+    -- upvalues: v2 (copy), v4 (copy), l_HttpService_0 (copy), v3 (copy)
+    return function(v6) --[[ Line: 13 ]]
+        -- upvalues: v2 (ref), v5 (copy), v4 (ref), l_HttpService_0 (ref), v3 (ref)
+        return v2(v5):andThen(function(v7) --[[ Line: 14 ]]
+            -- upvalues: v4 (ref), l_HttpService_0 (ref), v6 (copy), v3 (ref)
+            if v7 and v7.responseBody then
+                local l_responseBody_0 = v7.responseBody;
+                if v4 ~= "" then
+                    local _, l_result_0 = pcall(function() --[[ Line: 19 ]]
+                        -- upvalues: l_HttpService_0 (ref), v4 (ref)
+                        return l_HttpService_0:JSONDecode(v4);
+                    end);
+                    if l_result_0 then
+                        l_responseBody_0 = l_result_0;
                     end;
-                    v9:dispatch(v5(l_responseBody_0.upsellCardType or "", l_responseBody_0.localizedTitleTextOverride or "", l_responseBody_0.localizedBodyTextOverride or "", l_responseBody_0.upsellCardV2Config or nil));
-                    return;
-                else
-                    v9:dispatch(v5(l_responseBody_0.upsellCardType or "", l_responseBody_0.localizedTitleTextOverride or "", l_responseBody_0.localizedBodyTextOverride or ""));
-                    return;
                 end;
+                v6:dispatch(v3(l_responseBody_0.upsellCardType or "", l_responseBody_0.localizedTitleTextOverride or "", l_responseBody_0.localizedBodyTextOverride or "", l_responseBody_0.upsellCardV2Config or nil));
+                return;
             else
-                v9:dispatch(v5("", "", ""));
+                v6:dispatch(v3("", "", ""));
                 return;
             end;
-        end, function(_) --[[ Line: 51 ]]
-            -- upvalues: v9 (copy), v5 (ref)
-            v9:dispatch(v5("", "", ""));
+        end, function(_) --[[ Line: 37 ]]
+            -- upvalues: v6 (copy), v3 (ref)
+            v6:dispatch(v3("", "", ""));
         end);
     end;
 end;

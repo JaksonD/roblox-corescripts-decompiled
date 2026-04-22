@@ -16,24 +16,24 @@ local v14 = require(l_CorePackages_0.Workspace.Packages.Responsive);
 local l_useBreakpointXOrLarger_0 = v14.useBreakpointXOrLarger;
 local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
 local v17 = require(l_CorePackages_0.Workspace.Packages.PeopleService);
-local v18 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
-local l_getProfilePlatform_0 = v18.getProfilePlatform;
-local l_useDynamicSizeMargin_0 = v18.useDynamicSizeMargin;
-local l_ProfileWrapperContext_0 = v18.ProfileWrapperContext;
-local l_CurrentlyWearing_0 = v18.CurrentlyWearing;
+local v18 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums);
+local v19 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.CurrentlyWearing);
+local v20 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.getProfilePlatform);
+local v21 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.useDynamicSizeMargin);
+local v22 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.ProfileWrapperContext);
 local v23 = require(script.Parent.AddConnectionButton);
 local v24 = require(script.Parent.ProfileHeader);
-return v2.memo(function(v25) --[[ Line: 42 ]]
-    -- upvalues: l_useTokens_0 (copy), v2 (copy), l_ProfileWrapperContext_0 (copy), v17 (copy), l_Players_0 (copy), v3 (copy), l_useDeviceOrientation_0 (copy), l_useBreakpointXOrLarger_0 (copy), v14 (copy), v12 (copy), l_useDynamicSizeMargin_0 (copy), l_useDispatch_0 (copy), l_getProfilePlatform_0 (copy), v18 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_IconName_0 (copy), l_Text_0 (copy), l_ScrollView_0 (copy), l_Visibility_0 (copy), v24 (copy), v23 (copy), l_CurrentlyWearing_0 (copy)
+return v2.memo(function(v25) --[[ Line: 41 ]]
+    -- upvalues: l_useTokens_0 (copy), v2 (copy), v22 (copy), v17 (copy), l_Players_0 (copy), v3 (copy), l_useDeviceOrientation_0 (copy), l_useBreakpointXOrLarger_0 (copy), v14 (copy), v12 (copy), v21 (copy), l_useDispatch_0 (copy), v20 (copy), v18 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_IconName_0 (copy), l_Text_0 (copy), l_ScrollView_0 (copy), l_Visibility_0 (copy), v24 (copy), v23 (copy), v19 (copy)
     local v26 = l_useTokens_0();
-    local v27 = v2.useContext(l_ProfileWrapperContext_0);
+    local v27 = v2.useContext(v22);
     local l_profileId_0 = v27.profileId;
     local l_profileType_0 = v27.profileType;
-    local v30 = v2.useMemo(function() --[[ Line: 49 ]]
+    local v30 = v2.useMemo(function() --[[ Line: 48 ]]
         -- upvalues: v17 (ref)
         return v17.getService("FriendStatusStore");
     end, {});
-    local v31 = v2.useMemo(function() --[[ Line: 53 ]]
+    local v31 = v2.useMemo(function() --[[ Line: 52 ]]
         -- upvalues: v25 (copy), l_Players_0 (ref)
         if v25.userId then
             return (l_Players_0:GetPlayerByUserId(v25.userId));
@@ -47,13 +47,13 @@ return v2.memo(function(v25) --[[ Line: 42 ]]
     local v33 = l_useDeviceOrientation_0();
     local v34 = l_useBreakpointXOrLarger_0(v14.Keys.Medium);
     local v35 = v33 == v12.DeviceOrientationMode.Portrait and not v34;
-    local v36, v37 = l_useDynamicSizeMargin_0();
+    local v36, v37 = v21();
     local v38, v39 = v2.useState(true);
     local v40, v41 = v2.useState(false);
     local v42 = l_useDispatch_0();
-    v2.useEffect(function() --[[ Line: 72 ]]
-        -- upvalues: v42 (copy), l_getProfilePlatform_0 (ref), l_profileId_0 (copy), l_profileType_0 (copy), v18 (ref), v39 (copy), v41 (copy)
-        v42(l_getProfilePlatform_0.API({
+    v2.useEffect(function() --[[ Line: 71 ]]
+        -- upvalues: v42 (copy), v20 (ref), l_profileId_0 (copy), l_profileType_0 (copy), v18 (ref), v39 (copy), v41 (copy)
+        v42(v20.API({
             profileId = l_profileId_0, 
             profileType = l_profileType_0, 
             components = {
@@ -66,11 +66,11 @@ return v2.memo(function(v25) --[[ Line: 42 ]]
             }, 
             includeComponentOrdering = false, 
             onlyEssentialComponents = true
-        })):andThen(function(_) --[[ Line: 87 ]]
+        })):andThen(function(_) --[[ Line: 86 ]]
             -- upvalues: v39 (ref), v41 (ref)
             v39(false);
             v41(false);
-        end):catch(function(_) --[[ Line: 91 ]]
+        end):catch(function(_) --[[ Line: 90 ]]
             -- upvalues: v39 (ref), v41 (ref)
             v39(false);
             v41(true);
@@ -164,7 +164,7 @@ return v2.memo(function(v25) --[[ Line: 42 ]]
                         })
                     }) else nil
                 }), 
-                CurrentlyWearingCarousel = v2.createElement(l_CurrentlyWearing_0, {
+                CurrentlyWearingCarousel = v2.createElement(v19, {
                     layoutOrder = 3
                 })
             })

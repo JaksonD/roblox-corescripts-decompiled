@@ -26,57 +26,60 @@ local l_VerticalEfficiencyExperimentation_0 = require(l_CorePackages_0.Workspace
 local v25 = require(l_CorePackages_0.Workspace.Packages.DiscoveryUtils);
 local l_SearchConstants_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryMonolith).Modules.Personalization.Search.SearchConstants;
 local v27 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux);
-local v28 = require(l_Modules_0.LuaApp.Thunks.ConfirmSearch);
-local v29 = require(l_Modules_0.LuaApp.AppPage);
-local v30 = require(l_Modules_0.LuaApp.AppPageProperties);
-local v31 = require(l_Modules_0.LuaApp.Actions.SetTopBarHeight);
-local v32 = require(l_CorePackages_0.Workspace.Packages.Display);
+local l_Selectors_0 = v27.Selectors;
+local v29 = require(l_Modules_0.LuaApp.Thunks.ConfirmSearch);
+local v30 = require(l_Modules_0.LuaApp.AppPage);
+local v31 = require(l_Modules_0.LuaApp.AppPageProperties);
+local v32 = require(l_Modules_0.LuaApp.Actions.SetTopBarHeight);
+local v33 = require(l_CorePackages_0.Workspace.Packages.Display);
 local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
 local l_FormFactor_0 = require(l_CorePackages_0.Workspace.Packages.FormFactor).Enums.FormFactor;
-local v35 = require(l_Modules_0.LuaApp.Constants);
-local v36 = require(l_Modules_0.LuaApp.AppPageLocalizationKeys);
-local v37 = require(l_Modules_0.LuaApp.Components.SearchBar);
+local v36 = require(l_Modules_0.LuaApp.Constants);
+local v37 = require(l_Modules_0.LuaApp.AppPageLocalizationKeys);
+local v38 = require(l_Modules_0.LuaApp.Components.SearchBar);
 local l_SessionType_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppSessionization).SessionType;
-local v39 = require(l_Modules_0.LuaApp.Analytics.Events.search);
-local v40 = require(l_Modules_0.LuaApp.Common.wrapComponent);
+local v40 = require(l_Modules_0.LuaApp.Analytics.Events.search);
+local v41 = require(l_Modules_0.LuaApp.Common.wrapComponent);
 local l_ExternalEventConnection_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).ExternalEventConnection;
 local l_SearchTypes_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).SearchTypes;
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v44 = require(l_Modules_0.LuaApp.Components.Banner.useBannerContainer);
-local v45 = require(l_Modules_0.LuaApp.Flags.UseGameDetailsPeekView);
-local v46 = require(l_Modules_0.LuaApp.Context.withTopBarSearchSignal);
-local v47 = require(l_Modules_0.LuaApp.Components.SignalConnection);
-local v48 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withAvatarRoute);
-local v49 = require(l_Modules_0.LuaApp.Components.TopBar.Utils.shouldShowProfileInHeaderBar);
+local v45 = require(l_Modules_0.LuaApp.Components.Banner.useBannerContainer);
+local v46 = require(l_Modules_0.LuaApp.Flags.UseGameDetailsPeekView);
+local v47 = require(l_Modules_0.LuaApp.Context.withTopBarSearchSignal);
+local v48 = require(l_Modules_0.LuaApp.Components.SignalConnection);
+local v49 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withAvatarRoute);
+local v50 = require(l_Modules_0.LuaApp.Components.TopBar.Utils.shouldShowProfileInHeaderBar);
 local l_useIsSpatial_0 = require(l_CorePackages_0.Workspace.Packages.Responsive).useIsSpatial;
-local v51 = require(script.Parent.Buttons.SearchButton);
+local v52 = require(script.Parent.Buttons.SearchButton);
 local l_LayoutConfig_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).LayoutConfig;
 local l_AppHeaderBar_0 = require(l_CorePackages_0.Workspace.Packages.AppHeaderBar).AppHeaderBar;
-local v54 = require(l_CorePackages_0.Workspace.Packages.AppNavBar);
-local l_VisibilityControl_0 = v54.VisibilityControl;
-local v56 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAvatarAutocompleteEnabledForAll);
+local v55 = require(l_CorePackages_0.Workspace.Packages.AppNavBar);
+local l_VisibilityControl_0 = v55.VisibilityControl;
+local v57 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAvatarAutocompleteEnabledForAll);
 local l_FFlagSearchOmniAutocompletePage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagSearchOmniAutocompletePage;
 local l_FFlagSearchOmniAutocompletePageIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagSearchOmniAutocompletePageIXP;
 local l_GetFFlagLuaAppFixAppNavHeaderIconsAlignment_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagLuaAppFixAppNavHeaderIconsAlignment;
 local l_FFlagLuaAppMoveProfileIntoTopBar_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppMoveProfileIntoTopBar;
 local l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppMoveProfileIntoTopBarIXP;
-local v62 = game:DefineFastString("LuaAppSlpIxpLayer", "Growth.Omnisearch.SearchLandingPage");
-local v63 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagLuaAppCompositionSupport_0 = v63.FFlagLuaAppCompositionSupport;
-local l_FFlagAppIaScrollAway_0 = v63.FFlagAppIaScrollAway;
-local l_FFlagAppIaHomeSubTab_0 = v63.FFlagAppIaHomeSubTab;
-local l_FFlagAppIaStatusBar_0 = v63.FFlagAppIaStatusBar;
-local l_FFlagEnableHeaderBarButtonsUpdate_0 = v63.FFlagEnableHeaderBarButtonsUpdate;
-local v69 = require(l_Modules_0.LuaApp.Flags.FFlagEnableFlyoutSidePanel);
+local v63 = game:DefineFastString("LuaAppSlpIxpLayer", "Growth.Omnisearch.SearchLandingPage");
+local v64 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_FFlagLuaAppCompositionSupport_0 = v64.FFlagLuaAppCompositionSupport;
+local l_FFlagAppIaScrollAway_0 = v64.FFlagAppIaScrollAway;
+local l_FFlagAppIaHomeSubTab_0 = v64.FFlagAppIaHomeSubTab;
+local l_FFlagAppIaStatusBar_0 = v64.FFlagAppIaStatusBar;
+local l_FFlagEnableHeaderBarButtonsUpdate_0 = v64.FFlagEnableHeaderBarButtonsUpdate;
+local l_FFlagUseNavigationSelectors_0 = v64.FFlagUseNavigationSelectors;
+local v71 = require(l_Modules_0.LuaApp.Flags.FFlagEnableFlyoutSidePanel);
+local l_FFlagEnableHomeRobloxLogo_0 = v64.FFlagEnableHomeRobloxLogo;
 local l_FlyoutSidePanelIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).FlyoutSidePanelIXP;
-local v71 = game:DefineFastFlag("LuaAppEnableSlpForVr", false);
-local v72 = nil;
-if v69 then
-    v72 = require(l_CorePackages_0.Workspace.Packages.FlyoutSidePanel).Utils.shouldShowLeftHeader;
+local v74 = game:DefineFastFlag("LuaAppEnableSlpForVr", false);
+local v75 = nil;
+if v71 or l_FFlagEnableHomeRobloxLogo_0 then
+    v75 = require(l_CorePackages_0.Workspace.Packages.FlyoutSidePanel).Utils.shouldShowLeftHeader;
 end;
-local l_NAV_BAR_SIZE_0 = v35.NAV_BAR_SIZE;
+local l_NAV_BAR_SIZE_0 = v36.NAV_BAR_SIZE;
 local l_NON_COMPACT_SEARCH_BAR_SIZE_0 = l_SearchConstants_0.NON_COMPACT_SEARCH_BAR_SIZE;
-local v75 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else {
+local v78 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else {
     [Enum.UserInputType.Gamepad1] = true, 
     [Enum.UserInputType.Gamepad2] = true, 
     [Enum.UserInputType.Gamepad3] = true, 
@@ -86,8 +89,8 @@ local v75 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else {
     [Enum.UserInputType.Gamepad7] = true, 
     [Enum.UserInputType.Gamepad8] = true
 };
-local v76 = v11.Component:extend("TopBarContainer");
-v76.validateProps = v7.strictInterface({
+local v79 = v11.Component:extend("TopBarContainer");
+v79.validateProps = v7.strictInterface({
     searchType = v7.string, 
     ZIndex = v7.number, 
     hideSiteMessageBanner = v7.boolean, 
@@ -134,7 +137,7 @@ v76.validateProps = v7.strictInterface({
     tag = if l_FFlagLuaAppCompositionSupport_0 then v7.optional(v7.string) else nil, 
     tokens = v7.table
 });
-v76.defaultProps = {
+v79.defaultProps = {
     searchType = l_SearchTypes_0.Games, 
     enableSearch = false, 
     ZIndex = 2, 
@@ -144,892 +147,892 @@ v76.defaultProps = {
     transparentBackground = false, 
     rightItems = {}
 };
-local function _(v77, v78) --[[ Line: 218 ]] --[[ Name: applyTokenScaling ]]
-    return v77 * v78.Config.UI.Scale;
+local function _(v80, v81) --[[ Line: 221 ]] --[[ Name: applyTokenScaling ]]
+    return v80 * v81.Config.UI.Scale;
 end;
-local function _(v80) --[[ Line: 222 ]] --[[ Name: calculateNavBarSize ]]
+local function _(v83) --[[ Line: 225 ]] --[[ Name: calculateNavBarSize ]]
     -- upvalues: l_NAV_BAR_SIZE_0 (copy)
-    return l_NAV_BAR_SIZE_0 * v80.Config.UI.Scale;
+    return l_NAV_BAR_SIZE_0 * v83.Config.UI.Scale;
 end;
-local _ = function(v82, _) --[[ Line: 226 ]] --[[ Name: calculateTopBarHeight ]]
+local _ = function(v85, _) --[[ Line: 229 ]] --[[ Name: calculateTopBarHeight ]]
     -- upvalues: l_NAV_BAR_SIZE_0 (copy), l_LayoutConfig_0 (copy)
-    local l_statusBarHeight_0 = v82.statusBarHeight;
+    local l_statusBarHeight_0 = v85.statusBarHeight;
     local _ = nil;
-    local l_tokens_0 = v82.tokens;
-    return l_statusBarHeight_0 + l_NAV_BAR_SIZE_0 * l_tokens_0.Config.UI.Scale + math.round(v82.totalBannerHeight) + 2 * v82.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
+    local l_tokens_0 = v85.tokens;
+    return l_statusBarHeight_0 + l_NAV_BAR_SIZE_0 * l_tokens_0.Config.UI.Scale + math.round(v85.totalBannerHeight) + 2 * v85.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
 end;
-local function _(v88) --[[ Line: 237 ]]
-    -- upvalues: l_SearchTypes_0 (copy), v56 (copy)
-    local v89 = true;
-    if v88 ~= l_SearchTypes_0.Games then
-        v89 = true;
-        if v88 ~= l_SearchTypes_0.Auto then
-            v89 = true;
-            if v88 ~= l_SearchTypes_0.TopResults then
-                v89 = v56() and v88 == l_SearchTypes_0.Catalog;
+local function _(v91) --[[ Line: 240 ]]
+    -- upvalues: l_SearchTypes_0 (copy), v57 (copy)
+    local v92 = true;
+    if v91 ~= l_SearchTypes_0.Games then
+        v92 = true;
+        if v91 ~= l_SearchTypes_0.Auto then
+            v92 = true;
+            if v91 ~= l_SearchTypes_0.TopResults then
+                v92 = v57() and v91 == l_SearchTypes_0.Catalog;
             end;
         end;
     end;
-    return v89;
+    return v92;
 end;
-v76.shouldUpdate = function(v91, v92, v93) --[[ Line: 243 ]] --[[ Name: shouldUpdate ]]
+v79.shouldUpdate = function(v94, v95, v96) --[[ Line: 246 ]] --[[ Name: shouldUpdate ]]
     -- upvalues: v9 (copy)
-    if v93 ~= v91.state then
+    if v96 ~= v94.state then
         return true;
-    elseif v92 == v91.props then
+    elseif v95 == v94.props then
         return false;
     else
-        for v94, v95 in pairs(v92) do
-            if v94 ~= "rightItems" and v91.props[v94] ~= v95 then
+        for v97, v98 in pairs(v95) do
+            if v97 ~= "rightItems" and v94.props[v97] ~= v98 then
                 return true;
             end;
         end;
-        for v96, v97 in pairs(v91.props) do
-            if v96 ~= "rightItems" and v92[v96] ~= v97 then
+        for v99, v100 in pairs(v94.props) do
+            if v99 ~= "rightItems" and v95[v99] ~= v100 then
                 return true;
             end;
         end;
-        return not v9.shallowEqual(v91.props.rightItems, v92.rightItems);
+        return not v9.shallowEqual(v94.props.rightItems, v95.rightItems);
     end;
 end;
-v76.getPageOwner = function(v98) --[[ Line: 267 ]] --[[ Name: getPageOwner ]]
-    return v98.props.navigation.state.routeName;
+v79.getPageOwner = function(v101) --[[ Line: 270 ]] --[[ Name: getPageOwner ]]
+    return v101.props.navigation.state.routeName;
 end;
-local function v105(v99) --[[ Line: 272 ]] --[[ Name: isTopPage ]]
-    -- upvalues: l_FFlagAppIaHomeSubTab_0 (copy), v27 (copy), v8 (copy), v54 (copy)
-    local l_currentRoute_0 = v99.currentRoute;
+local function v108(v102) --[[ Line: 275 ]] --[[ Name: isTopPage ]]
+    -- upvalues: l_FFlagAppIaHomeSubTab_0 (copy), v27 (copy), v8 (copy), v55 (copy)
+    local l_currentRoute_0 = v102.currentRoute;
     local l_name_0 = l_currentRoute_0[#l_currentRoute_0].name;
-    local v102 = nil;
-    v102 = if v99.avatarRoute then v99.avatarRoute.opaque.name else v99.opaquePage;
-    local l_routeName_0 = v99.navigation.state.routeName;
+    local v105 = nil;
+    v105 = if v102.avatarRoute then v102.avatarRoute.opaque.name else v102.opaquePage;
+    local l_routeName_0 = v102.navigation.state.routeName;
     if l_FFlagAppIaHomeSubTab_0 and l_routeName_0 == v27.Constants.HomeContainerName then
-        return v8.List.find(v54.Constants.HOME_CONTAINER_SUB_TAB_PAGES, l_name_0) ~= nil;
+        return v8.List.find(v55.Constants.HOME_CONTAINER_SUB_TAB_PAGES, l_name_0) ~= nil;
     else
-        local v104 = true;
+        local v107 = true;
         if l_routeName_0 ~= l_name_0 then
-            v104 = l_routeName_0 == v102;
+            v107 = l_routeName_0 == v105;
         end;
-        return v104;
+        return v107;
     end;
 end;
-v76.updateTopBarHeight = function(v106, v107, v108) --[[ Line: 294 ]] --[[ Name: updateTopBarHeight ]]
-    -- upvalues: l_NAV_BAR_SIZE_0 (copy), l_LayoutConfig_0 (copy), v105 (copy), v32 (copy), l_FFlagAppIaScrollAway_0 (copy), v54 (copy), l_VisibilityControl_0 (copy)
-    local l_props_0 = v106.props;
-    local l_state_0 = v106.state;
+v79.updateTopBarHeight = function(v109, v110, v111) --[[ Line: 297 ]] --[[ Name: updateTopBarHeight ]]
+    -- upvalues: l_NAV_BAR_SIZE_0 (copy), l_LayoutConfig_0 (copy), v108 (copy), v33 (copy), l_FFlagAppIaScrollAway_0 (copy), v55 (copy), l_VisibilityControl_0 (copy)
+    local l_props_0 = v109.props;
+    local l_state_0 = v109.state;
     local l_statusBarHeight_1 = l_props_0.statusBarHeight;
-    local v112 = nil;
+    local v115 = nil;
     local l_tokens_1 = l_props_0.tokens;
-    local v114 = l_statusBarHeight_1 + l_NAV_BAR_SIZE_0 * l_tokens_1.Config.UI.Scale + math.round(l_props_0.totalBannerHeight) + 2 * l_props_0.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
-    l_props_0 = v105(v106.props);
-    if v107 and v108 and v107.navigation == v106.props.navigation then
-        l_statusBarHeight_1 = v107.statusBarHeight;
-        v112 = nil;
-        l_tokens_1 = v107.tokens;
-        l_state_0 = l_statusBarHeight_1 + l_NAV_BAR_SIZE_0 * l_tokens_1.Config.UI.Scale + math.round(v107.totalBannerHeight) + 2 * v107.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
-        l_statusBarHeight_1 = v105(v107);
-        if l_state_0 == v114 and l_props_0 == l_statusBarHeight_1 then
+    local v117 = l_statusBarHeight_1 + l_NAV_BAR_SIZE_0 * l_tokens_1.Config.UI.Scale + math.round(l_props_0.totalBannerHeight) + 2 * l_props_0.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
+    l_props_0 = v108(v109.props);
+    if v110 and v111 and v110.navigation == v109.props.navigation then
+        l_statusBarHeight_1 = v110.statusBarHeight;
+        v115 = nil;
+        l_tokens_1 = v110.tokens;
+        l_state_0 = l_statusBarHeight_1 + l_NAV_BAR_SIZE_0 * l_tokens_1.Config.UI.Scale + math.round(v110.totalBannerHeight) + 2 * v110.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
+        l_statusBarHeight_1 = v108(v110);
+        if l_state_0 == v117 and l_props_0 == l_statusBarHeight_1 then
             return;
         end;
     end;
     if l_props_0 then
-        v32.GetDisplayStore().setTopBarHeight(v114);
-        v106.props.setTopBarHeight(v114);
-        if l_FFlagAppIaScrollAway_0 and v54.getScrollAwayEnabled() then
-            l_VisibilityControl_0.setScrollDistance(v114);
+        v33.GetDisplayStore().setTopBarHeight(v117);
+        v109.props.setTopBarHeight(v117);
+        if l_FFlagAppIaScrollAway_0 and v55.getScrollAwayEnabled() then
+            l_VisibilityControl_0.setScrollDistance(v117);
         end;
     end;
 end;
-v76.init = function(v115) --[[ Line: 315 ]] --[[ Name: init ]]
+v79.init = function(v118) --[[ Line: 318 ]] --[[ Name: init ]]
     -- upvalues: v11 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), v15 (copy), l_UserInputService_0 (copy)
-    v115.searchBarRef = v11.createRef();
-    v115.isMounted = false;
-    v115.rightItemRefs = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v15.createRefCache();
-    v115.itemDefaultChildRefs = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v15.createRefCache();
-    v115.leftItemRef = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v11.createRef();
-    v115.centerItemRef = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v11.createRef();
-    v115.buttonVisibilityCallbacks = {};
-    v115.state = {
+    v118.searchBarRef = v11.createRef();
+    v118.isMounted = false;
+    v118.rightItemRefs = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v15.createRefCache();
+    v118.itemDefaultChildRefs = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v15.createRefCache();
+    v118.leftItemRef = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v11.createRef();
+    v118.centerItemRef = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v11.createRef();
+    v118.buttonVisibilityCallbacks = {};
+    v118.state = {
         isSearching = false, 
         absolutePosition = Vector2.new(0, 0), 
         lastInputType = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else l_UserInputService_0:GetLastInputType(), 
         hiddenItems = {}
     };
-    v115:bindFunctions();
-    v115:updateTopBarHeight();
+    v118:bindFunctions();
+    v118:updateTopBarHeight();
 end;
-v76.bindFunctions = function(v116) --[[ Line: 339 ]] --[[ Name: bindFunctions ]]
-    -- upvalues: l_AvatarScreen_0 (copy), l_SearchTypes_0 (copy), v39 (copy), l_SessionType_0 (copy), v56 (copy), v25 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), v69 (copy)
-    local l_currentRoute_1 = v116.props.currentRoute;
+v79.bindFunctions = function(v119) --[[ Line: 342 ]] --[[ Name: bindFunctions ]]
+    -- upvalues: l_AvatarScreen_0 (copy), l_SearchTypes_0 (copy), v40 (copy), l_SessionType_0 (copy), v57 (copy), v25 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), v71 (copy), l_FFlagEnableHomeRobloxLogo_0 (copy)
+    local l_currentRoute_1 = v119.props.currentRoute;
     local l_name_1 = l_currentRoute_1[#l_currentRoute_1].name;
-    v116.onSearchButtonActivated = function() --[[ Line: 343 ]]
-        -- upvalues: v116 (copy), l_name_1 (copy), l_AvatarScreen_0 (ref)
-        if not v116.isMounted then
+    v119.onSearchButtonActivated = function() --[[ Line: 346 ]]
+        -- upvalues: v119 (copy), l_name_1 (copy), l_AvatarScreen_0 (ref)
+        if not v119.isMounted then
             return;
         else
-            v116:setIsSearching(true);
-            v116.props.analytics.reportSearchButtonClick(l_name_1);
-            if v116.props.shouldNavigateToSearchLandingPage then
-                v116:setIsSearching(false);
-                v116.props.navigation.navigate(l_AvatarScreen_0.CatalogSearchLanding);
+            v119:setIsSearching(true);
+            v119.props.analytics.reportSearchButtonClick(l_name_1);
+            if v119.props.shouldNavigateToSearchLandingPage then
+                v119:setIsSearching(false);
+                v119.props.navigation.navigate(l_AvatarScreen_0.CatalogSearchLanding);
             end;
             return;
         end;
     end;
-    v116.onExitSearch = function() --[[ Line: 358 ]]
-        -- upvalues: v116 (copy)
-        if not v116.isMounted then
+    v119.onExitSearch = function() --[[ Line: 361 ]]
+        -- upvalues: v119 (copy)
+        if not v119.isMounted then
             return;
         else
-            v116:setIsSearching(false);
+            v119:setIsSearching(false);
             return;
         end;
     end;
-    v116.cancelSearchCallback = function() --[[ Line: 366 ]]
-        -- upvalues: v116 (copy), l_SearchTypes_0 (ref), v39 (ref), l_name_1 (copy)
-        if not v116.isMounted then
+    v119.cancelSearchCallback = function() --[[ Line: 369 ]]
+        -- upvalues: v119 (copy), l_SearchTypes_0 (ref), v40 (ref), l_name_1 (copy)
+        if not v119.isMounted then
             return;
         else
-            local l_searchType_0 = v116.props.searchType;
-            local v120 = l_searchType_0 == l_SearchTypes_0.Auto;
-            if l_searchType_0 == l_SearchTypes_0.Games or v120 then
-                v39(v116.props.eventIngest, "games", "cancel", nil, v120, l_name_1);
+            local l_searchType_0 = v119.props.searchType;
+            local v123 = l_searchType_0 == l_SearchTypes_0.Auto;
+            if l_searchType_0 == l_SearchTypes_0.Games or v123 then
+                v40(v119.props.eventIngest, "games", "cancel", nil, v123, l_name_1);
             elseif l_searchType_0 == l_SearchTypes_0.TopResults then
-                v39(v116.props.eventIngest, l_SearchTypes_0.TopResults, "cancel", nil, nil, l_name_1);
+                v40(v119.props.eventIngest, l_SearchTypes_0.TopResults, "cancel", nil, nil, l_name_1);
             elseif l_searchType_0 == l_SearchTypes_0.Players then
-                v39(v116.props.eventIngest, "players", "cancel", nil, nil, l_name_1);
+                v40(v119.props.eventIngest, "players", "cancel", nil, nil, l_name_1);
             elseif l_searchType_0 == l_SearchTypes_0.Catalog then
-                v116.props.analytics.reportSearchCanceled("catalog");
+                v119.props.analytics.reportSearchCanceled("catalog");
             end;
-            v116.onExitSearch();
+            v119.onExitSearch();
             return;
         end;
     end;
-    v116.cancelSearchAndEndSession = function() --[[ Line: 391 ]]
-        -- upvalues: v116 (copy), l_SessionType_0 (ref)
-        v116.cancelSearchCallback();
-        if v116.props.sessionService:SessionExists(l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete) then
-            v116.props.sessionService:RemoveSession(l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete);
+    v119.cancelSearchAndEndSession = function() --[[ Line: 394 ]]
+        -- upvalues: v119 (copy), l_SessionType_0 (ref)
+        v119.cancelSearchCallback();
+        if v119.props.sessionService:SessionExists(l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete) then
+            v119.props.sessionService:RemoveSession(l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete);
         end;
     end;
-    v116.onSearchBarFocused = function() --[[ Line: 399 ]]
-        -- upvalues: v116 (copy), l_SearchTypes_0 (ref), l_SessionType_0 (ref), v39 (ref), l_name_1 (copy)
-        if not v116.isMounted then
+    v119.onSearchBarFocused = function() --[[ Line: 402 ]]
+        -- upvalues: v119 (copy), l_SearchTypes_0 (ref), l_SessionType_0 (ref), v40 (ref), l_name_1 (copy)
+        if not v119.isMounted then
             return;
         else
-            local l_searchType_1 = v116.props.searchType;
-            local v122 = l_searchType_1 == l_SearchTypes_0.Auto;
-            if l_searchType_1 == l_SearchTypes_0.Games or v122 or l_searchType_1 == l_SearchTypes_0.TopResults then
-                if v116.props.enableSearchAutoComplete then
-                    v116.props.sessionService:SetSession(l_SessionType_0.StructuralIdentifier.Level1, l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete, l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete);
+            local l_searchType_1 = v119.props.searchType;
+            local v125 = l_searchType_1 == l_SearchTypes_0.Auto;
+            if l_searchType_1 == l_SearchTypes_0.Games or v125 or l_searchType_1 == l_SearchTypes_0.TopResults then
+                if v119.props.enableSearchAutoComplete then
+                    v119.props.sessionService:SetSession(l_SessionType_0.StructuralIdentifier.Level1, l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete, l_SessionType_0.StructuralIdentifier.GameSearchAutocomplete);
                 end;
-                v39(v116.props.eventIngest, if l_searchType_1 == l_SearchTypes_0.TopResults then l_SearchTypes_0.TopResults else "games", "open", nil, v122, l_name_1);
+                v40(v119.props.eventIngest, if l_searchType_1 == l_SearchTypes_0.TopResults then l_SearchTypes_0.TopResults else "games", "open", nil, v125, l_name_1);
             elseif l_searchType_1 == l_SearchTypes_0.Players then
-                v39(v116.props.eventIngest, "players", "open", nil, nil, l_name_1);
+                v40(v119.props.eventIngest, "players", "open", nil, nil, l_name_1);
             elseif l_searchType_1 == l_SearchTypes_0.Catalog then
-                v116.props.analytics.reportSearchFocused("catalog");
+                v119.props.analytics.reportSearchFocused("catalog");
             end;
-            v116:setIsSearching(true);
+            v119:setIsSearching(true);
             return;
         end;
     end;
-    v116.onTextCleared = function() --[[ Line: 433 ]]
-        -- upvalues: v116 (copy)
-        if not v116.isMounted then
+    v119.onTextCleared = function() --[[ Line: 436 ]]
+        -- upvalues: v119 (copy)
+        if not v119.isMounted then
             return;
         else
             return;
         end;
     end;
-    v116.confirmSearchCallback = function(v123, v124, v125) --[[ Line: 439 ]]
-        -- upvalues: v116 (copy), v56 (ref), v25 (ref), l_SearchTypes_0 (ref)
-        if not v116.isMounted then
+    v119.confirmSearchCallback = function(v126, v127, v128) --[[ Line: 442 ]]
+        -- upvalues: v119 (copy), v57 (ref), v25 (ref), l_SearchTypes_0 (ref)
+        if not v119.isMounted then
             return;
         else
-            local l_searchType_2 = v116.props.searchType;
-            local v127 = {
-                isAutocompleteSuggestion = v124, 
-                allAutocompleteSuggestions = v125, 
+            local l_searchType_2 = v119.props.searchType;
+            local v130 = {
+                isAutocompleteSuggestion = v127, 
+                allAutocompleteSuggestions = v128, 
                 searchType = l_searchType_2, 
-                isAvatarAutocompleteEnabled = v56(), 
-                navigation = v116.props.navigation, 
-                pageOwner = v116:getPageOwner(), 
-                sessionService = v116.props.sessionService, 
-                eventIngest = v116.props.eventIngest, 
-                topBarAnalytics = v116.props.analytics
+                isAvatarAutocompleteEnabled = v57(), 
+                navigation = v119.props.navigation, 
+                pageOwner = v119:getPageOwner(), 
+                sessionService = v119.props.sessionService, 
+                eventIngest = v119.props.eventIngest, 
+                topBarAnalytics = v119.props.analytics
             };
-            v116.props.confirmSearch(v123, v127);
+            v119.props.confirmSearch(v126, v130);
             if v25.isSearchTypeInOmniSearch(l_searchType_2) or l_searchType_2 == l_SearchTypes_0.Catalog then
-                v116.onExitSearch();
+                v119.onExitSearch();
             end;
-            if v56() and v116.props.onConfirmSearchCallback then
-                v116.props.onConfirmSearchCallback();
+            if v57() and v119.props.onConfirmSearchCallback then
+                v119.props.onConfirmSearchCallback();
             end;
             return;
         end;
     end;
-    v116.absolutePositionChangedCallback = function(v128) --[[ Line: 467 ]]
-        -- upvalues: v116 (copy)
-        v116:setState({
-            absolutePosition = v128.AbsolutePosition
+    v119.absolutePositionChangedCallback = function(v131) --[[ Line: 470 ]]
+        -- upvalues: v119 (copy)
+        v119:setState({
+            absolutePosition = v131.AbsolutePosition
         });
     end;
-    v116.searchSignalCallback = function(v129) --[[ Line: 473 ]]
-        -- upvalues: v116 (copy)
-        if v116:getPageOwner() == v129 then
-            v116.onSearchButtonActivated();
+    v119.searchSignalCallback = function(v132) --[[ Line: 476 ]]
+        -- upvalues: v119 (copy)
+        if v119:getPageOwner() == v132 then
+            v119.onSearchButtonActivated();
         end;
     end;
-    v116.renderNavigation = function(v130) --[[ Line: 479 ]]
-        -- upvalues: l_FFlagEnableAppNavGamepadRemoval_0 (ref), v116 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (ref), v69 (ref)
-        local v131 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v116:shouldShowCenterItem() and v116.centerItemRef or v116:getFirstRightItemRef() or v116.props.NextSelectionRight;
-        return v116:renderTopBarItem(v116.props.leftItem, nil, v131, nil, nil, if not not l_FFlagLuaAppMoveProfileIntoTopBar_0 or v69 then v130 else nil, if v69 then v116.props.navigation.state.routeName else nil);
+    v119.renderNavigation = function(v133) --[[ Line: 482 ]]
+        -- upvalues: l_FFlagEnableAppNavGamepadRemoval_0 (ref), v119 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (ref), v71 (ref), l_FFlagEnableHomeRobloxLogo_0 (ref)
+        local v134 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v119:shouldShowCenterItem() and v119.centerItemRef or v119:getFirstRightItemRef() or v119.props.NextSelectionRight;
+        return v119:renderTopBarItem(v119.props.leftItem, nil, v134, nil, nil, if not not l_FFlagLuaAppMoveProfileIntoTopBar_0 or v71 or l_FFlagEnableHomeRobloxLogo_0 then v133 else nil, if not not v71 or l_FFlagEnableHomeRobloxLogo_0 then v119.props.navigation.state.routeName else nil);
     end;
-    v116.renderCenter = function() --[[ Line: 498 ]]
-        -- upvalues: v116 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (ref)
-        local v132 = v116:shouldShowLeftItem();
-        local l_centerItem_0 = v116.props.centerItem;
-        local v134 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v132 and v116.leftItemRef or nil;
-        local v135 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v116:getFirstRightItemRef() or v116.props.NextSelectionRight;
-        if v116.props.useParentSizeForCenterItem then
-            return v116:renderTopBarItem(l_centerItem_0, v134, v135, nil, true);
+    v119.renderCenter = function() --[[ Line: 507 ]]
+        -- upvalues: v119 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (ref)
+        local v135 = v119:shouldShowLeftItem();
+        local l_centerItem_0 = v119.props.centerItem;
+        local v137 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v135 and v119.leftItemRef or nil;
+        local v138 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v119:getFirstRightItemRef() or v119.props.NextSelectionRight;
+        if v119.props.useParentSizeForCenterItem then
+            return v119:renderTopBarItem(l_centerItem_0, v137, v138, nil, true);
         else
-            return v116:renderTopBarItem(l_centerItem_0, v134, v135);
+            return v119:renderTopBarItem(l_centerItem_0, v137, v138);
         end;
     end;
 end;
-v76.isSearchPageOverlayEnabled = function(v136) --[[ Line: 524 ]] --[[ Name: isSearchPageOverlayEnabled ]]
-    -- upvalues: v71 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy), l_FFlagSearchOmniAutocompletePageIXP_0 (copy)
-    if v71 then
+v79.isSearchPageOverlayEnabled = function(v139) --[[ Line: 533 ]] --[[ Name: isSearchPageOverlayEnabled ]]
+    -- upvalues: v74 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy), l_FFlagSearchOmniAutocompletePageIXP_0 (copy)
+    if v74 then
         return l_FFlagSearchOmniAutocompletePage_0;
     else
-        return not v136.props.isSpatial and l_FFlagSearchOmniAutocompletePage_0 and (not l_FFlagSearchOmniAutocompletePageIXP_0 or v136.props.shouldShowSearchLandingPage);
+        return not v139.props.isSpatial and l_FFlagSearchOmniAutocompletePage_0 and (not l_FFlagSearchOmniAutocompletePageIXP_0 or v139.props.shouldShowSearchLandingPage);
     end;
 end;
-v76.setIsSearching = function(v137, v138) --[[ Line: 534 ]] --[[ Name: setIsSearching ]]
-    v137:setState({
-        isSearching = v138
+v79.setIsSearching = function(v140, v141) --[[ Line: 543 ]] --[[ Name: setIsSearching ]]
+    v140:setState({
+        isSearching = v141
     });
-    if v137.props.setDefaultRefOverride then
-        local v139 = if v138 then v137.searchBarRef else nil;
-        v137.props.setDefaultRefOverride(v139);
+    if v140.props.setDefaultRefOverride then
+        local v142 = if v141 then v140.searchBarRef else nil;
+        v140.props.setDefaultRefOverride(v142);
     end;
 end;
-v76.didMount = function(v140) --[[ Line: 544 ]] --[[ Name: didMount ]]
-    v140.isMounted = true;
+v79.didMount = function(v143) --[[ Line: 553 ]] --[[ Name: didMount ]]
+    v143.isMounted = true;
 end;
-v76.willUnmount = function(v141) --[[ Line: 548 ]] --[[ Name: willUnmount ]]
-    v141.isMounted = false;
+v79.willUnmount = function(v144) --[[ Line: 557 ]] --[[ Name: willUnmount ]]
+    v144.isMounted = false;
 end;
-v76.isCompactViewMode = function(v142) --[[ Line: 552 ]] --[[ Name: isCompactViewMode ]]
+v79.isCompactViewMode = function(v145) --[[ Line: 561 ]] --[[ Name: isCompactViewMode ]]
     -- upvalues: l_FormFactor_0 (copy)
-    local l_formFactor_0 = v142.props.formFactor;
-    return v142.props.forceCompactMode or l_formFactor_0 == l_FormFactor_0.COMPACT;
+    local l_formFactor_0 = v145.props.formFactor;
+    return v145.props.forceCompactMode or l_formFactor_0 == l_FormFactor_0.COMPACT;
 end;
-v76.getPageNameLocalizationKey = function(v144) --[[ Line: 560 ]] --[[ Name: getPageNameLocalizationKey ]]
-    -- upvalues: v36 (copy)
-    local l_name_2 = v144.props.currentRoute[1].name;
-    return v36[v144.props.navigation.state.routeName] or v36[l_name_2];
+v79.getPageNameLocalizationKey = function(v147) --[[ Line: 569 ]] --[[ Name: getPageNameLocalizationKey ]]
+    -- upvalues: v37 (copy)
+    local l_name_2 = v147.props.currentRoute[1].name;
+    return v37[v147.props.navigation.state.routeName] or v37[l_name_2];
 end;
-v76.maybeRenderRightItems = function(v146, v147, v148, v149) --[[ Line: 569 ]] --[[ Name: maybeRenderRightItems ]]
+v79.maybeRenderRightItems = function(v149, v150, v151, v152) --[[ Line: 578 ]] --[[ Name: maybeRenderRightItems ]]
     -- upvalues: l_FFlagEnableAppNavGamepadRemoval_0 (copy)
-    if v148 then
+    if v151 then
         return {};
     elseif l_FFlagEnableAppNavGamepadRemoval_0 then
-        local l_rightItems_0 = v146.props.rightItems;
-        local v151 = {};
-        for v152, v153 in ipairs(l_rightItems_0) do
-            v151["topBarItem_" .. tostring(v152)] = v146:renderTopBarItem(v153, nil, nil, v152);
+        local l_rightItems_0 = v149.props.rightItems;
+        local v154 = {};
+        for v155, v156 in ipairs(l_rightItems_0) do
+            v154["topBarItem_" .. tostring(v155)] = v149:renderTopBarItem(v156, nil, nil, v155);
         end;
-        return v151;
+        return v154;
     else
-        return v146:renderRightItems(v147, if v146:shouldShowCenterItem() then v146.centerItemRef else if v149 then v146.leftItemRef else nil);
+        return v149:renderRightItems(v150, if v149:shouldShowCenterItem() then v149.centerItemRef else if v152 then v149.leftItemRef else nil);
     end;
 end;
 if not l_FFlagEnableAppNavGamepadRemoval_0 then
-    v76.renderRightItems = function(v154, _, v156) --[[ Line: 600 ]] --[[ Name: renderRightItems ]]
-        local v157 = {};
-        v157 = v154.props.rightItems;
-        local v158 = {};
-        local function v161(v159) --[[ Line: 607 ]] --[[ Name: nextRef ]]
-            -- upvalues: v157 (ref), v154 (copy)
+    v79.renderRightItems = function(v157, _, v159) --[[ Line: 609 ]] --[[ Name: renderRightItems ]]
+        local v160 = {};
+        v160 = v157.props.rightItems;
+        local v161 = {};
+        local function v164(v162) --[[ Line: 616 ]] --[[ Name: nextRef ]]
+            -- upvalues: v160 (ref), v157 (copy)
             while true do
-                if v159 < #v157 then
-                    v159 = v159 + 1;
-                    local v160 = v157[v159];
-                    if not v154.state.hiddenItems[v160] then
-                        return v154.rightItemRefs[v160];
+                if v162 < #v160 then
+                    v162 = v162 + 1;
+                    local v163 = v160[v162];
+                    if not v157.state.hiddenItems[v163] then
+                        return v157.rightItemRefs[v163];
                     end;
                 else
                     return nil;
                 end;
             end;
         end;
-        local function v164(v162) --[[ Line: 619 ]] --[[ Name: prevRef ]]
-            -- upvalues: v157 (ref), v154 (copy)
+        local function v167(v165) --[[ Line: 628 ]] --[[ Name: prevRef ]]
+            -- upvalues: v160 (ref), v157 (copy)
             while true do
-                if v162 > 1 then
-                    v162 = v162 - 1;
-                    local v163 = v157[v162];
-                    if not v154.state.hiddenItems[v163] then
-                        return v154.rightItemRefs[v163];
+                if v165 > 1 then
+                    v165 = v165 - 1;
+                    local v166 = v160[v165];
+                    if not v157.state.hiddenItems[v166] then
+                        return v157.rightItemRefs[v166];
                     end;
                 else
                     return nil;
                 end;
             end;
         end;
-        for v165, v166 in ipairs(v157) do
-            local v167 = v164(v165) or v156;
-            local v168 = v161(v165);
-            v158["topBarItem_" .. tostring(v165)] = v154:renderTopBarItem(v166, v167, v168, v165);
+        for v168, v169 in ipairs(v160) do
+            local v170 = v167(v168) or v159;
+            local v171 = v164(v168);
+            v161["topBarItem_" .. tostring(v168)] = v157:renderTopBarItem(v169, v170, v171, v168);
         end;
-        return v158;
+        return v161;
     end;
 end;
-v76.renderTopBarItem = function(v169, v170, v171, v172, v173, v174, v175, v176) --[[ Line: 641 ]] --[[ Name: renderTopBarItem ]]
-    -- upvalues: l_FFlagEnableAppNavGamepadRemoval_0 (copy), v11 (copy), l_Focusable_0 (copy), l_GetFFlagLuaAppFixAppNavHeaderIconsAlignment_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), v69 (copy)
-    local l_formFactor_1 = v169.props.formFactor;
-    local l_isSearching_0 = v169.state.isSearching;
-    local l_isSecondary_0 = v169.props.isSecondary;
-    local v180 = v169:isCompactViewMode();
-    local v181 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v169:getItemRef(v170);
-    local v182 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v169:getItemDefaultChildRef(v170);
-    local v183 = not v169.state.hiddenItems[v170];
+v79.renderTopBarItem = function(v172, v173, v174, v175, v176, v177, v178, v179) --[[ Line: 650 ]] --[[ Name: renderTopBarItem ]]
+    -- upvalues: l_FFlagEnableAppNavGamepadRemoval_0 (copy), v11 (copy), l_Focusable_0 (copy), l_GetFFlagLuaAppFixAppNavHeaderIconsAlignment_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), v71 (copy), l_FFlagEnableHomeRobloxLogo_0 (copy)
+    local l_formFactor_1 = v172.props.formFactor;
+    local l_isSearching_0 = v172.state.isSearching;
+    local l_isSecondary_0 = v172.props.isSecondary;
+    local v183 = v172:isCompactViewMode();
+    local v184 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v172:getItemRef(v173);
+    local v185 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v172:getItemDefaultChildRef(v173);
+    local v186 = not v172.state.hiddenItems[v173];
     return v11.createElement(l_FFlagEnableAppNavGamepadRemoval_0 and "Frame" or l_Focusable_0.Frame, {
-        AutomaticSize = if not v174 then if l_GetFFlagLuaAppFixAppNavHeaderIconsAlignment_0() then Enum.AutomaticSize.XY else Enum.AutomaticSize.X else nil, 
-        Size = if not v174 then if l_GetFFlagLuaAppFixAppNavHeaderIconsAlignment_0() then UDim2.fromScale(0, 0) else UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1), 
+        AutomaticSize = if not v177 then if l_GetFFlagLuaAppFixAppNavHeaderIconsAlignment_0() then Enum.AutomaticSize.XY else Enum.AutomaticSize.X else nil, 
+        Size = if not v177 then if l_GetFFlagLuaAppFixAppNavHeaderIconsAlignment_0() then UDim2.fromScale(0, 0) else UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1), 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        LayoutOrder = v173, 
-        NextSelectionLeft = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v171, 
-        NextSelectionRight = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v172, 
-        [v11.Ref] = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v181, 
-        defaultChild = v182, 
-        Visible = v183
+        LayoutOrder = v176, 
+        NextSelectionLeft = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v174, 
+        NextSelectionRight = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v175, 
+        [v11.Ref] = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v184, 
+        defaultChild = v185, 
+        Visible = v186
     }, {
-        Button = v11.createElement(v170, {
+        Button = v11.createElement(v173, {
             formFactor = l_formFactor_1, 
-            isCompactView = v180, 
+            isCompactView = v183, 
             isSearching = l_isSearching_0, 
             isSecondary = l_isSecondary_0, 
-            cancelSearch = v169.cancelSearchAndEndSession, 
-            activateSearch = v169.onSearchButtonActivated, 
-            setVisible = v169:getButtonVisibilityCallback(v170), 
-            buttonRef = v182, 
-            titleText = if not not l_FFlagLuaAppMoveProfileIntoTopBar_0 or v69 then v175 else nil, 
-            routeName = if v69 then v176 else nil
+            cancelSearch = v172.cancelSearchAndEndSession, 
+            activateSearch = v172.onSearchButtonActivated, 
+            setVisible = v172:getButtonVisibilityCallback(v173), 
+            buttonRef = v185, 
+            titleText = if not not l_FFlagLuaAppMoveProfileIntoTopBar_0 or v71 or l_FFlagEnableHomeRobloxLogo_0 then v178 else nil, 
+            routeName = if not not v71 or l_FFlagEnableHomeRobloxLogo_0 then v179 else nil
         })
     });
 end;
-v76.shouldShowLeftItem = function(v184) --[[ Line: 690 ]] --[[ Name: shouldShowLeftItem ]]
-    local l_leftItem_0 = v184.props.leftItem;
-    return if l_leftItem_0 then not v184.state.hiddenItems[l_leftItem_0] and (not v184.state.isSearching or false) else false;
+v79.shouldShowLeftItem = function(v187) --[[ Line: 703 ]] --[[ Name: shouldShowLeftItem ]]
+    local l_leftItem_0 = v187.props.leftItem;
+    return if l_leftItem_0 then not v187.state.hiddenItems[l_leftItem_0] and (not v187.state.isSearching or false) else false;
 end;
-v76.shouldShowCenterItem = function(v186) --[[ Line: 695 ]] --[[ Name: shouldShowCenterItem ]]
-    local l_centerItem_1 = v186.props.centerItem;
-    return l_centerItem_1 and not v186.state.hiddenItems[l_centerItem_1] or false;
+v79.shouldShowCenterItem = function(v189) --[[ Line: 708 ]] --[[ Name: shouldShowCenterItem ]]
+    local l_centerItem_1 = v189.props.centerItem;
+    return l_centerItem_1 and not v189.state.hiddenItems[l_centerItem_1] or false;
 end;
 if not l_FFlagEnableAppNavGamepadRemoval_0 then
-    v76.getItemRef = function(v188, v189) --[[ Line: 701 ]] --[[ Name: getItemRef ]]
-        if v189 == nil then
+    v79.getItemRef = function(v191, v192) --[[ Line: 714 ]] --[[ Name: getItemRef ]]
+        if v192 == nil then
             return nil;
-        elseif v189 == v188.props.leftItem then
-            return v188.leftItemRef;
-        elseif v189 == v188.props.centerItem then
-            return v188.centerItemRef;
+        elseif v192 == v191.props.leftItem then
+            return v191.leftItemRef;
+        elseif v192 == v191.props.centerItem then
+            return v191.centerItemRef;
         else
-            return v188.rightItemRefs[v189];
+            return v191.rightItemRefs[v192];
         end;
     end;
-    v76.getItemDefaultChildRef = function(v190, v191) --[[ Line: 708 ]] --[[ Name: getItemDefaultChildRef ]]
-        if v191 == nil then
+    v79.getItemDefaultChildRef = function(v193, v194) --[[ Line: 721 ]] --[[ Name: getItemDefaultChildRef ]]
+        if v194 == nil then
             return nil;
         else
-            return v190.itemDefaultChildRefs[v191];
+            return v193.itemDefaultChildRefs[v194];
         end;
     end;
 end;
-v76.hasSearchButton = function(v192) --[[ Line: 713 ]] --[[ Name: hasSearchButton ]]
-    -- upvalues: v51 (copy)
-    local l_rightItems_1 = v192.props.rightItems;
-    for _, v195 in ipairs(l_rightItems_1) do
-        if v195 == v51 then
+v79.hasSearchButton = function(v195) --[[ Line: 726 ]] --[[ Name: hasSearchButton ]]
+    -- upvalues: v52 (copy)
+    local l_rightItems_1 = v195.props.rightItems;
+    for _, v198 in ipairs(l_rightItems_1) do
+        if v198 == v52 then
             return true;
         end;
     end;
     return false;
 end;
 if not l_FFlagEnableAppNavGamepadRemoval_0 then
-    v76.getFirstRightItemRef = function(v196) --[[ Line: 724 ]] --[[ Name: getFirstRightItemRef ]]
-        local l_rightItems_2 = v196.props.rightItems;
-        for _, v199 in ipairs(l_rightItems_2) do
-            if not v196.state.hiddenItems[v199] then
-                return v196.rightItemRefs[v199];
+    v79.getFirstRightItemRef = function(v199) --[[ Line: 737 ]] --[[ Name: getFirstRightItemRef ]]
+        local l_rightItems_2 = v199.props.rightItems;
+        for _, v202 in ipairs(l_rightItems_2) do
+            if not v199.state.hiddenItems[v202] then
+                return v199.rightItemRefs[v202];
             end;
         end;
         return nil;
     end;
 end;
-v76.getButtonVisibilityCallback = function(v200, v201) --[[ Line: 735 ]] --[[ Name: getButtonVisibilityCallback ]]
+v79.getButtonVisibilityCallback = function(v203, v204) --[[ Line: 748 ]] --[[ Name: getButtonVisibilityCallback ]]
     -- upvalues: v8 (copy)
-    local v202 = v200.buttonVisibilityCallbacks[v201];
-    if not v202 then
-        v202 = function(v203) --[[ Line: 738 ]]
-            -- upvalues: v200 (copy), v8 (ref), v201 (copy)
-            v200:setState(function(v204) --[[ Line: 739 ]]
-                -- upvalues: v8 (ref), v201 (ref), v203 (copy)
+    local v205 = v203.buttonVisibilityCallbacks[v204];
+    if not v205 then
+        v205 = function(v206) --[[ Line: 751 ]]
+            -- upvalues: v203 (copy), v8 (ref), v204 (copy)
+            v203:setState(function(v207) --[[ Line: 752 ]]
+                -- upvalues: v8 (ref), v204 (ref), v206 (copy)
                 return {
-                    hiddenItems = v8.Dictionary.join(v204.hiddenItems, {
-                        [v201] = not v203 or v8.None
+                    hiddenItems = v8.Dictionary.join(v207.hiddenItems, {
+                        [v204] = not v206 or v8.None
                     })
                 };
             end);
         end;
-        v200.buttonVisibilityCallbacks[v201] = v202;
+        v203.buttonVisibilityCallbacks[v204] = v205;
     end;
-    return v202;
+    return v205;
 end;
-v76.getRenderSearchBar = function(v205, v206, v207, v208, v209, v210, v211, v212, _) --[[ Line: 752 ]] --[[ Name: getRenderSearchBar ]]
-    -- upvalues: v11 (copy), v37 (copy), l_SearchTypes_0 (copy), v56 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), v25 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy)
-    if v206 then
-        return function() --[[ Line: 763 ]]
-            -- upvalues: v11 (ref), v37 (ref), v205 (copy), v207 (copy), v208 (copy), v209 (copy), v210 (copy), l_SearchTypes_0 (ref), v56 (ref), l_FFlagEnableAppNavGamepadRemoval_0 (ref), v211 (copy), v212 (copy), v25 (ref), l_FFlagSearchOmniAutocompletePage_0 (ref)
+v79.getRenderSearchBar = function(v208, v209, v210, v211, v212, v213, v214, v215, _) --[[ Line: 765 ]] --[[ Name: getRenderSearchBar ]]
+    -- upvalues: v11 (copy), v38 (copy), l_SearchTypes_0 (copy), v57 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), v25 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy)
+    if v209 then
+        return function() --[[ Line: 776 ]]
+            -- upvalues: v11 (ref), v38 (ref), v208 (copy), v210 (copy), v211 (copy), v212 (copy), v213 (copy), l_SearchTypes_0 (ref), v57 (ref), l_FFlagEnableAppNavGamepadRemoval_0 (ref), v214 (copy), v215 (copy), v25 (ref), l_FFlagSearchOmniAutocompletePage_0 (ref)
             local l_createElement_0 = v11.createElement;
-            local l_v37_0 = v37;
-            local v216 = {
-                cancelSearch = v205.cancelSearchCallback, 
-                confirmSearch = v205.confirmSearchCallback, 
-                onFocused = v205.onSearchBarFocused, 
-                onTextCleared = v205.onTextCleared, 
-                isCompactView = v207, 
-                placeholderText = v208, 
-                searchType = v209
+            local l_v38_0 = v38;
+            local v219 = {
+                cancelSearch = v208.cancelSearchCallback, 
+                confirmSearch = v208.confirmSearchCallback, 
+                onFocused = v208.onSearchBarFocused, 
+                onTextCleared = v208.onTextCleared, 
+                isCompactView = v210, 
+                placeholderText = v211, 
+                searchType = v212
             };
-            local l_v210_0 = v210;
-            if l_v210_0 then
-                local l_v209_0 = v209;
-                l_v210_0 = true;
-                if l_v209_0 ~= l_SearchTypes_0.Games then
-                    l_v210_0 = true;
-                    if l_v209_0 ~= l_SearchTypes_0.Auto then
-                        l_v210_0 = true;
-                        if l_v209_0 ~= l_SearchTypes_0.TopResults then
-                            l_v210_0 = v56() and l_v209_0 == l_SearchTypes_0.Catalog;
+            local l_v213_0 = v213;
+            if l_v213_0 then
+                local l_v212_0 = v212;
+                l_v213_0 = true;
+                if l_v212_0 ~= l_SearchTypes_0.Games then
+                    l_v213_0 = true;
+                    if l_v212_0 ~= l_SearchTypes_0.Auto then
+                        l_v213_0 = true;
+                        if l_v212_0 ~= l_SearchTypes_0.TopResults then
+                            l_v213_0 = v57() and l_v212_0 == l_SearchTypes_0.Catalog;
                         end;
                     end;
                 end;
             end;
-            v216.autocomplete = l_v210_0;
-            v216[v11.Ref] = v205.searchBarRef;
-            v216.focusController = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v205.props.focusController;
-            v216.isSearching = v205.state.isSearching;
-            v216.animated = v211;
-            v216.initialSearchText = v205.props.searchParameters and v205.props.searchParameters.searchKeyword or "";
-            v216.searchBarPadding = v212 and 0 or nil;
-            v216.searchPageOverlayEnabled = if v205:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v209) else nil;
-            v216.disableListPicker = if v205:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v209) else nil;
-            v216.onExitSearch = if l_FFlagSearchOmniAutocompletePage_0 then v205.onExitSearch else nil;
-            return l_createElement_0(l_v37_0, v216);
+            v219.autocomplete = l_v213_0;
+            v219[v11.Ref] = v208.searchBarRef;
+            v219.focusController = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v208.props.focusController;
+            v219.isSearching = v208.state.isSearching;
+            v219.animated = v214;
+            v219.initialSearchText = v208.props.searchParameters and v208.props.searchParameters.searchKeyword or "";
+            v219.searchBarPadding = v215 and 0 or nil;
+            v219.searchPageOverlayEnabled = if v208:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v212) else nil;
+            v219.disableListPicker = if v208:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v212) else nil;
+            v219.onExitSearch = if l_FFlagSearchOmniAutocompletePage_0 then v208.onExitSearch else nil;
+            return l_createElement_0(l_v38_0, v219);
         end;
     else
         return nil;
     end;
 end;
-v76.getRenderRootSearchBar = function(v219, v220, v221, v222, v223, v224, v225, _) --[[ Line: 792 ]] --[[ Name: getRenderRootSearchBar ]]
-    -- upvalues: v11 (copy), v37 (copy), l_NON_COMPACT_SEARCH_BAR_SIZE_0 (copy), l_SearchTypes_0 (copy), v56 (copy), v25 (copy)
-    if not v220 and v221 and not v222 then
-        return function() --[[ Line: 802 ]]
-            -- upvalues: v11 (ref), v37 (ref), l_NON_COMPACT_SEARCH_BAR_SIZE_0 (ref), v219 (copy), v223 (copy), v222 (copy), v224 (copy), v225 (copy), l_SearchTypes_0 (ref), v56 (ref), v25 (ref)
+v79.getRenderRootSearchBar = function(v222, v223, v224, v225, v226, v227, v228, _) --[[ Line: 805 ]] --[[ Name: getRenderRootSearchBar ]]
+    -- upvalues: v11 (copy), v38 (copy), l_NON_COMPACT_SEARCH_BAR_SIZE_0 (copy), l_SearchTypes_0 (copy), v57 (copy), v25 (copy)
+    if not v223 and v224 and not v225 then
+        return function() --[[ Line: 815 ]]
+            -- upvalues: v11 (ref), v38 (ref), l_NON_COMPACT_SEARCH_BAR_SIZE_0 (ref), v222 (copy), v226 (copy), v225 (copy), v227 (copy), v228 (copy), l_SearchTypes_0 (ref), v57 (ref), v25 (ref)
             local l_createElement_1 = v11.createElement;
-            local l_v37_1 = v37;
-            local v229 = {
+            local l_v38_1 = v38;
+            local v232 = {
                 Size = UDim2.new(0, l_NON_COMPACT_SEARCH_BAR_SIZE_0, 1, 0), 
-                cancelSearch = v219.cancelSearchCallback, 
-                confirmSearch = v219.confirmSearchCallback, 
-                onFocused = v219.onSearchBarFocused, 
-                onTextCleared = v219.onTextCleared, 
-                placeholderText = v223, 
-                isCompactView = v222, 
+                cancelSearch = v222.cancelSearchCallback, 
+                confirmSearch = v222.confirmSearchCallback, 
+                onFocused = v222.onSearchBarFocused, 
+                onTextCleared = v222.onTextCleared, 
+                placeholderText = v226, 
+                isCompactView = v225, 
                 modernUI = true, 
-                searchType = v224
+                searchType = v227
             };
-            local l_v225_0 = v225;
-            if l_v225_0 then
-                local l_v224_0 = v224;
-                l_v225_0 = true;
-                if l_v224_0 ~= l_SearchTypes_0.Games then
-                    l_v225_0 = true;
-                    if l_v224_0 ~= l_SearchTypes_0.Auto then
-                        l_v225_0 = true;
-                        if l_v224_0 ~= l_SearchTypes_0.TopResults then
-                            l_v225_0 = v56() and l_v224_0 == l_SearchTypes_0.Catalog;
+            local l_v228_0 = v228;
+            if l_v228_0 then
+                local l_v227_0 = v227;
+                l_v228_0 = true;
+                if l_v227_0 ~= l_SearchTypes_0.Games then
+                    l_v228_0 = true;
+                    if l_v227_0 ~= l_SearchTypes_0.Auto then
+                        l_v228_0 = true;
+                        if l_v227_0 ~= l_SearchTypes_0.TopResults then
+                            l_v228_0 = v57() and l_v227_0 == l_SearchTypes_0.Catalog;
                         end;
                     end;
                 end;
             end;
-            v229.autocomplete = l_v225_0;
-            v229.isSearching = v219.state.isSearching;
-            v229.initialSearchText = v219.props.searchParameters and v219.props.searchParameters.searchKeyword or "";
-            v229[v11.Ref] = v219.searchBarRef;
-            v229.searchPageOverlayEnabled = if v219:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v224) else nil;
-            v229.disableListPicker = if v219:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v224) else nil;
-            return l_createElement_1(l_v37_1, v229);
+            v232.autocomplete = l_v228_0;
+            v232.isSearching = v222.state.isSearching;
+            v232.initialSearchText = v222.props.searchParameters and v222.props.searchParameters.searchKeyword or "";
+            v232[v11.Ref] = v222.searchBarRef;
+            v232.searchPageOverlayEnabled = if v222:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v227) else nil;
+            v232.disableListPicker = if v222:isSearchPageOverlayEnabled() then v25.isSearchTypeInOmniSearch(v227) else nil;
+            return l_createElement_1(l_v38_1, v232);
         end;
     else
         return nil;
     end;
 end;
-v76.renderAppHeaderBar = function(v232, v233, v234, v235, v236, v237, v238, v239) --[[ Line: 829 ]] --[[ Name: renderAppHeaderBar ]]
-    -- upvalues: l_NAV_BAR_SIZE_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), v69 (copy), l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 (copy), l_VerticalEfficiencyExperimentation_0 (copy), v49 (copy), v72 (ref), v11 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_LayoutConfig_0 (copy), l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), l_AppHeaderBar_0 (copy)
-    local l_Tokens_0 = v234.Tokens;
-    local v241 = {};
-    local l_tokens_2 = v232.props.tokens;
-    v241.barHeight = l_NAV_BAR_SIZE_0 * l_tokens_2.Config.UI.Scale;
-    local v243 = (not not l_FFlagLuaAppMoveProfileIntoTopBar_0 or v69) and function() --[[ Line: 843 ]]
-        -- upvalues: v232 (copy), v237 (copy), v233 (copy)
-        return v232.renderNavigation(v237 or v233.pageTitle);
-    end or v232.renderNavigation;
-    v241.renderNavigation = if v239 then v243 else nil;
-    l_tokens_2 = v232.props.centerItem;
-    v241.title = v237 or v233.pageTitle;
-    v241.isTitleCentered = v239 and not v232.props.isSecondary or false;
-    v241.titleFontStyle = if not not v239 or v232.props.isSecondary then l_Tokens_0.Semantic.Typography.Header else l_Tokens_0.Semantic.Typography.Title;
+v79.renderAppHeaderBar = function(v235, v236, v237, v238, v239, v240, v241, v242) --[[ Line: 842 ]] --[[ Name: renderAppHeaderBar ]]
+    -- upvalues: l_NAV_BAR_SIZE_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), v71 (copy), l_FFlagEnableHomeRobloxLogo_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 (copy), l_VerticalEfficiencyExperimentation_0 (copy), v50 (copy), v75 (ref), v11 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_LayoutConfig_0 (copy), l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), l_AppHeaderBar_0 (copy)
+    local l_Tokens_0 = v237.Tokens;
+    local v244 = {};
+    local l_tokens_2 = v235.props.tokens;
+    v244.barHeight = l_NAV_BAR_SIZE_0 * l_tokens_2.Config.UI.Scale;
+    local v246 = (not not l_FFlagLuaAppMoveProfileIntoTopBar_0 or v71 or l_FFlagEnableHomeRobloxLogo_0) and function() --[[ Line: 858 ]]
+        -- upvalues: v235 (copy), v240 (copy), v236 (copy)
+        return v235.renderNavigation(v240 or v236.pageTitle);
+    end or v235.renderNavigation;
+    v244.renderNavigation = if v242 then v246 else nil;
+    l_tokens_2 = v235.props.centerItem;
+    v244.title = v240 or v236.pageTitle;
+    v244.isTitleCentered = v242 and not v235.props.isSecondary or false;
+    v244.titleFontStyle = if not not v242 or v235.props.isSecondary then l_Tokens_0.Semantic.Typography.Header else l_Tokens_0.Semantic.Typography.Title;
     if l_tokens_2 then
-        v241.title = "";
-    elseif v232.state.isSearching then
-        v241.title = "";
-    elseif l_FFlagLuaAppMoveProfileIntoTopBar_0 and (not l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 or l_VerticalEfficiencyExperimentation_0.getIsProfileMovedToTopBar()) and v239 and v49(v232.props.currentRoute[1].name, v232.props.currentRoute[#v232.props.currentRoute].name, v232.props.formFactor, v232.state.isSearching) then
-        v241.title = "";
-    elseif v69 and v239 and v72(v232.props.navigation.state.routeName, v232.props.currentRoute[#v232.props.currentRoute].name, v232.state.isSearching) then
-        v241.title = "";
+        v244.title = "";
+    elseif v235.state.isSearching then
+        v244.title = "";
+    elseif l_FFlagLuaAppMoveProfileIntoTopBar_0 and (not l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 or l_VerticalEfficiencyExperimentation_0.getIsProfileMovedToTopBar()) and v242 and v50(v235.props.currentRoute[1].name, v235.props.currentRoute[#v235.props.currentRoute].name, v235.props.formFactor, v235.state.isSearching) then
+        v244.title = "";
+    elseif (v71 or l_FFlagEnableHomeRobloxLogo_0) and v242 and v75(v235.props.navigation.state.routeName, v235.props.currentRoute[#v235.props.currentRoute].name, v235.state.isSearching) then
+        v244.title = "";
     end;
-    v241.shouldRenderTitle = true;
-    v241.shouldRenderCenter = true;
-    if v235 or v236 then
-        v241.renderCenter = v235 or v236;
+    v244.shouldRenderTitle = true;
+    v244.shouldRenderCenter = true;
+    if v238 or v239 then
+        v244.renderCenter = v238 or v239;
     elseif l_tokens_2 then
-        v241.renderCenter = v232.renderCenter;
+        v244.renderCenter = v235.renderCenter;
     end;
-    v241.renderUtilities = if v235 then nil else function() --[[ Line: 895 ]]
-        -- upvalues: v11 (ref), v238 (copy)
-        return v11.createFragment(v238);
+    v244.renderUtilities = if v238 then nil else function() --[[ Line: 910 ]]
+        -- upvalues: v11 (ref), v241 (copy)
+        return v11.createFragment(v241);
     end;
-    local l_gridConfig_0 = v232.props.gridConfig;
-    local v245 = UDim.new(0, if l_FFlagLuaAppCompositionSupport_0 then v232.props.sideMarginOverride or l_gridConfig_0[l_LayoutConfig_0.Keys.PaddingHorizontal] else l_gridConfig_0[l_LayoutConfig_0.Keys.PaddingHorizontal]);
-    local v246 = UDim.new(0, l_gridConfig_0[l_LayoutConfig_0.Keys.PaddingRightItems]);
-    v241.utilitiesGap = if l_FFlagEnableHeaderBarButtonsUpdate_0 then UDim.new(0, v232.props.tokens.Size.Size_100) else v246;
-    v241.paddingLeft = v245;
-    v241.paddingRight = if l_FFlagEnableHeaderBarButtonsUpdate_0 then v245 - UDim.new(0, v232.props.tokens.Size.Size_100) else v245;
-    v241.paddingTop = UDim.new(0, 0);
-    v241.paddingBottom = UDim.new(0, 0);
-    v241.backgroundStyle = if v232.props.transparentBackground then {
+    local l_gridConfig_0 = v235.props.gridConfig;
+    local v248 = UDim.new(0, if l_FFlagLuaAppCompositionSupport_0 then v235.props.sideMarginOverride or l_gridConfig_0[l_LayoutConfig_0.Keys.PaddingHorizontal] else l_gridConfig_0[l_LayoutConfig_0.Keys.PaddingHorizontal]);
+    local v249 = UDim.new(0, l_gridConfig_0[l_LayoutConfig_0.Keys.PaddingRightItems]);
+    v244.utilitiesGap = if l_FFlagEnableHeaderBarButtonsUpdate_0 then UDim.new(0, v235.props.tokens.Size.Size_100) else v249;
+    v244.paddingLeft = v248;
+    v244.paddingRight = if l_FFlagEnableHeaderBarButtonsUpdate_0 then v248 - UDim.new(0, v235.props.tokens.Size.Size_100) else v248;
+    v244.paddingTop = UDim.new(0, 0);
+    v244.paddingBottom = UDim.new(0, 0);
+    v244.backgroundStyle = if v235.props.transparentBackground then {
         Color3 = Color3.new(0, 0, 0), 
         Transparency = 1
     } else nil;
-    v241.onMedia = false;
-    return v11.createElement(l_AppHeaderBar_0, v241);
+    v244.onMedia = false;
+    return v11.createElement(l_AppHeaderBar_0, v244);
 end;
-v76.renderWithProviders = function(v247, v248, v249, v250) --[[ Line: 927 ]] --[[ Name: renderWithProviders ]]
-    -- upvalues: l_LayoutConfig_0 (copy), l_NAV_BAR_SIZE_0 (copy), l_SearchTypes_0 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), l_FFlagAppIaScrollAway_0 (copy), v54 (copy), l_VisibilityControl_0 (copy), l_FFlagAppIaStatusBar_0 (copy), l_FFlagAppIaHomeSubTab_0 (copy), l_FlyoutSidePanelIXP_0 (copy), v11 (copy), v10 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_Focusable_0 (copy), l_ExternalEventConnection_0 (copy), l_UserInputService_0 (copy), v47 (copy)
-    local l_titleText_0 = v247.props.titleText;
-    local v252 = v247:shouldShowLeftItem();
-    local v253 = v247:hasSearchButton() and v247.props.enableSearch;
-    local l_searchType_3 = v247.props.searchType;
-    local l_enableSearchAutoComplete_0 = v247.props.enableSearchAutoComplete;
-    local l_ZIndex_0 = v247.props.ZIndex;
-    local v257 = v247.props.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
-    local l_statusBarHeight_2 = v247.props.statusBarHeight;
-    local l_tokens_3 = v247.props.tokens;
-    l_tokens_3 = l_statusBarHeight_2 + l_NAV_BAR_SIZE_0 * l_tokens_3.Config.UI.Scale + v257;
-    local v260 = l_tokens_3 + v247.props.totalBannerHeight;
-    local v261 = v247:isCompactViewMode();
-    local l_searchPlaceholderSearchGames_0 = v250.searchPlaceholderSearchGames;
+v79.renderWithProviders = function(v250, v251, v252, v253) --[[ Line: 942 ]] --[[ Name: renderWithProviders ]]
+    -- upvalues: l_LayoutConfig_0 (copy), l_NAV_BAR_SIZE_0 (copy), l_SearchTypes_0 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), l_FFlagAppIaScrollAway_0 (copy), v55 (copy), l_VisibilityControl_0 (copy), l_FFlagAppIaStatusBar_0 (copy), l_FFlagAppIaHomeSubTab_0 (copy), l_FlyoutSidePanelIXP_0 (copy), v11 (copy), v10 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_Focusable_0 (copy), l_ExternalEventConnection_0 (copy), l_UserInputService_0 (copy), v48 (copy)
+    local l_titleText_0 = v250.props.titleText;
+    local v255 = v250:shouldShowLeftItem();
+    local v256 = v250:hasSearchButton() and v250.props.enableSearch;
+    local l_searchType_3 = v250.props.searchType;
+    local l_enableSearchAutoComplete_0 = v250.props.enableSearchAutoComplete;
+    local l_ZIndex_0 = v250.props.ZIndex;
+    local v260 = v250.props.gridConfig[l_LayoutConfig_0.Keys.PaddingVertical];
+    local l_statusBarHeight_2 = v250.props.statusBarHeight;
+    local l_tokens_3 = v250.props.tokens;
+    l_tokens_3 = l_statusBarHeight_2 + l_NAV_BAR_SIZE_0 * l_tokens_3.Config.UI.Scale + v260;
+    local v263 = l_tokens_3 + v250.props.totalBannerHeight;
+    local v264 = v250:isCompactViewMode();
+    local l_searchPlaceholderSearchGames_0 = v253.searchPlaceholderSearchGames;
     if l_searchType_3 == l_SearchTypes_0.Catalog then
-        l_searchPlaceholderSearchGames_0 = v250.searchPlaceholderSearchMarketplace;
+        l_searchPlaceholderSearchGames_0 = v253.searchPlaceholderSearchMarketplace;
     end;
-    local v263 = v261 and (v247.state.isSearching or v247.props.showSearchBar);
-    local v264 = not v247.props.showSearchBar;
-    local v265 = v247:maybeRenderRightItems(v249, v263, v252);
-    local v266 = v247:getRenderSearchBar(v263, v261, l_searchPlaceholderSearchGames_0, l_searchType_3, l_enableSearchAutoComplete_0, v264, v252);
-    local v267 = v247:getRenderRootSearchBar(v263, v253, v261, l_searchPlaceholderSearchGames_0, l_searchType_3, l_enableSearchAutoComplete_0);
-    local v268 = {
+    local v266 = v264 and (v250.state.isSearching or v250.props.showSearchBar);
+    local v267 = not v250.props.showSearchBar;
+    local v268 = v250:maybeRenderRightItems(v252, v266, v255);
+    local v269 = v250:getRenderSearchBar(v266, v264, l_searchPlaceholderSearchGames_0, l_searchType_3, l_enableSearchAutoComplete_0, v267, v255);
+    local v270 = v250:getRenderRootSearchBar(v266, v256, v264, l_searchPlaceholderSearchGames_0, l_searchType_3, l_enableSearchAutoComplete_0);
+    local v271 = {
         Active = true, 
-        BackgroundColor3 = v249.Theme.BackgroundDefault.Color, 
-        BackgroundTransparency = v247.props.transparentBackground and 1 or v249.Theme.BackgroundDefault.Transparency, 
+        BackgroundColor3 = v252.Theme.BackgroundDefault.Color, 
+        BackgroundTransparency = v250.props.transparentBackground and 1 or v252.Theme.BackgroundDefault.Transparency, 
         BorderSizePixel = 0, 
         Position = UDim2.new(0, 0, 0, 0), 
         Size = UDim2.new(1, 0, 0, l_tokens_3), 
         ZIndex = 2
     };
-    local v269 = UDim2.new(0, v247.props.screenSize.X, 0, v247.props.screenSize.Y);
-    local v270 = UDim2.new(0, -v247.state.absolutePosition.X, 0, -v247.state.absolutePosition.Y);
-    local l_forwardRef_0 = v247.props.forwardRef;
-    local v272 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else if v267 or v261 and v247.state.isSearching then v247.searchBarRef else if v247:shouldShowLeftItem() then v247.leftItemRef else if v247:shouldShowCenterItem() then v247.centerItemRef else v247:getFirstRightItemRef();
-    local v275 = if l_FFlagAppIaScrollAway_0 and v54.getScrollAwayEnabled() then l_VisibilityControl_0.getHeaderBinding():map(function(v273) --[[ Line: 1006 ]]
-        -- upvalues: l_FFlagAppIaStatusBar_0 (ref), l_FFlagAppIaHomeSubTab_0 (ref), l_FlyoutSidePanelIXP_0 (ref), v260 (copy), l_statusBarHeight_2 (copy)
-        local v274 = if l_FFlagAppIaStatusBar_0 and l_FFlagAppIaHomeSubTab_0 and l_FlyoutSidePanelIXP_0.isHomeSubTabEnabled() then (v273 - 1) * (v260 - l_statusBarHeight_2) else (v273 - 1) * v260;
-        return UDim2.new(0, 0, 0, v274);
+    local v272 = UDim2.new(0, v250.props.screenSize.X, 0, v250.props.screenSize.Y);
+    local v273 = UDim2.new(0, -v250.state.absolutePosition.X, 0, -v250.state.absolutePosition.Y);
+    local l_forwardRef_0 = v250.props.forwardRef;
+    local v275 = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else if v270 or v264 and v250.state.isSearching then v250.searchBarRef else if v250:shouldShowLeftItem() then v250.leftItemRef else if v250:shouldShowCenterItem() then v250.centerItemRef else v250:getFirstRightItemRef();
+    local v278 = if l_FFlagAppIaScrollAway_0 and v55.getScrollAwayEnabled() then l_VisibilityControl_0.getHeaderBinding():map(function(v276) --[[ Line: 1021 ]]
+        -- upvalues: l_FFlagAppIaStatusBar_0 (ref), l_FFlagAppIaHomeSubTab_0 (ref), l_FlyoutSidePanelIXP_0 (ref), v263 (copy), l_statusBarHeight_2 (copy)
+        local v277 = if l_FFlagAppIaStatusBar_0 and l_FFlagAppIaHomeSubTab_0 and l_FlyoutSidePanelIXP_0.isHomeSubTabEnabled() then (v276 - 1) * (v263 - l_statusBarHeight_2) else (v276 - 1) * v263;
+        return UDim2.new(0, 0, 0, v277);
     end) else nil;
     local l_createElement_2 = v11.createElement;
-    local v277 = "Frame";
-    local v278 = {
+    local v280 = "Frame";
+    local v281 = {
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
         Size = UDim2.new(1, 0, 1, 0), 
         ZIndex = l_ZIndex_0, 
-        [v10.Tag] = if l_FFlagLuaAppCompositionSupport_0 then v247.props.tag else nil, 
-        [v11.Change.AbsolutePosition] = v247.absolutePositionChangedCallback
+        [v10.Tag] = if l_FFlagLuaAppCompositionSupport_0 then v250.props.tag else nil, 
+        [v11.Change.AbsolutePosition] = v250.absolutePositionChangedCallback
     };
-    local v279 = {};
+    local v282 = {};
     local l_createElement_3 = v11.createElement;
-    local v281 = "Frame";
-    local v282 = {
+    local v284 = "Frame";
+    local v285 = {
         BackgroundTransparency = 1, 
-        Size = UDim2.new(1, 0, 0, v260), 
-        Position = v275
+        Size = UDim2.new(1, 0, 0, v263), 
+        Position = v278
     };
-    local v283 = {};
+    local v286 = {};
     local l_createElement_4 = v11.createElement;
-    local v285 = "Frame";
-    local l_v268_0 = v268;
-    local v287 = {};
+    local v288 = "Frame";
+    local l_v271_0 = v271;
+    local v290 = {};
     local l_createElement_5 = v11.createElement;
-    local v289 = l_FFlagEnableAppNavGamepadRemoval_0 and "Frame" or l_Focusable_0.Frame;
-    local v290 = {
+    local v292 = l_FFlagEnableAppNavGamepadRemoval_0 and "Frame" or l_Focusable_0.Frame;
+    local v293 = {
         AnchorPoint = Vector2.new(0, 1), 
-        BackgroundColor3 = v249.Theme.BackgroundDefault.Color, 
-        BackgroundTransparency = v247.props.transparentBackground and 1 or v249.Theme.BackgroundDefault.Transparency, 
+        BackgroundColor3 = v252.Theme.BackgroundDefault.Color, 
+        BackgroundTransparency = v250.props.transparentBackground and 1 or v252.Theme.BackgroundDefault.Transparency, 
         BorderSizePixel = 0, 
         Position = UDim2.new(0, 0, 1, 0)
     };
     local l_new_0 = UDim2.new;
-    local v292 = 1;
-    local v293 = 0;
-    local v294 = 0;
-    local l_tokens_4 = v247.props.tokens;
-    v290.Size = l_new_0(v292, v293, v294, l_NAV_BAR_SIZE_0 * l_tokens_4.Config.UI.Scale);
-    v290[v11.Ref] = l_forwardRef_0;
-    v290.NextSelectionRight = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else not (v261 and v247.state.isSearching) and v247.props.NextSelectionRight or nil;
-    v290.NextSelectionDown = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else not (v261 and v247.state.isSearching) and v247.props.NextSelectionDown or nil;
-    v290.defaultChild = v272;
-    v287.NavBar = l_createElement_5(v289, v290, {
-        AppHeaderBar = v247:renderAppHeaderBar(v250, v249, v266, v267, l_titleText_0, v265, v252)
+    local v295 = 1;
+    local v296 = 0;
+    local v297 = 0;
+    local l_tokens_4 = v250.props.tokens;
+    v293.Size = l_new_0(v295, v296, v297, l_NAV_BAR_SIZE_0 * l_tokens_4.Config.UI.Scale);
+    v293[v11.Ref] = l_forwardRef_0;
+    v293.NextSelectionRight = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else not (v264 and v250.state.isSearching) and v250.props.NextSelectionRight or nil;
+    v293.NextSelectionDown = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else not (v264 and v250.state.isSearching) and v250.props.NextSelectionDown or nil;
+    v293.defaultChild = v275;
+    v290.NavBar = l_createElement_5(v292, v293, {
+        AppHeaderBar = v250:renderAppHeaderBar(v253, v252, v269, v270, l_titleText_0, v268, v255)
     });
-    v283.TopBar = l_createElement_4(v285, l_v268_0, v287);
-    v283.BannerContainer = v11.createElement("Frame", {
+    v286.TopBar = l_createElement_4(v288, l_v271_0, v290);
+    v286.BannerContainer = v11.createElement("Frame", {
         Size = UDim2.fromScale(1, 1), 
         Position = UDim2.new(0, 0, 0, l_tokens_3), 
         BackgroundTransparency = 1
-    }, v247.props.bannerContainer);
-    v279.TopBarContents = l_createElement_3(v281, v282, v283);
-    v279.DarkOverlay = v11.createElement("TextButton", {
-        Size = v269, 
-        Position = v270, 
+    }, v250.props.bannerContainer);
+    v282.TopBarContents = l_createElement_3(v284, v285, v286);
+    v282.DarkOverlay = v11.createElement("TextButton", {
+        Size = v272, 
+        Position = v273, 
         AutoButtonColor = false, 
-        BackgroundColor3 = v249.Theme.Overlay.Color, 
+        BackgroundColor3 = v252.Theme.Overlay.Color, 
         BackgroundTransparency = 1, 
         Text = "", 
-        Visible = v247.state.isSearching, 
-        [v11.Event.Activated] = v247.cancelSearchAndEndSession, 
+        Visible = v250.state.isSearching, 
+        [v11.Event.Activated] = v250.cancelSearchAndEndSession, 
         ZIndex = 1
     });
-    v279.LastInputChangedListener = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v11.createElement(l_ExternalEventConnection_0, {
+    v282.LastInputChangedListener = if l_FFlagEnableAppNavGamepadRemoval_0 then nil else v11.createElement(l_ExternalEventConnection_0, {
         event = l_UserInputService_0.LastInputTypeChanged, 
-        callback = function(v296) --[[ Line: 1080 ]] --[[ Name: callback ]]
-            -- upvalues: v247 (copy)
-            v247:setState({
-                lastInputType = v296
+        callback = function(v299) --[[ Line: 1095 ]] --[[ Name: callback ]]
+            -- upvalues: v250 (copy)
+            v250:setState({
+                lastInputType = v299
             });
         end
     });
-    v279.SignalConnection = v11.createElement(v47, {
-        signal = v248, 
-        callback = v247.searchSignalCallback
+    v282.SignalConnection = v11.createElement(v48, {
+        signal = v251, 
+        callback = v250.searchSignalCallback
     });
-    v279.HiddenItems = v247:renderHiddenItems();
-    return l_createElement_2(v277, v278, v279);
+    v282.HiddenItems = v250:renderHiddenItems();
+    return l_createElement_2(v280, v281, v282);
 end;
-v76.renderHiddenItems = function(v297) --[[ Line: 1096 ]] --[[ Name: renderHiddenItems ]]
+v79.renderHiddenItems = function(v300) --[[ Line: 1111 ]] --[[ Name: renderHiddenItems ]]
     -- upvalues: v11 (copy)
     return v11.createElement("Frame", {
         Visible = false
     }, {
-        leftItem = v297.props.leftItem and not v297:shouldShowLeftItem() and v297:renderTopBarItem(v297.props.leftItem), 
-        centerItem = v297.props.centerItem and not v297:shouldShowCenterItem() and v297:renderTopBarItem(v297.props.centerItem)
+        leftItem = v300.props.leftItem and not v300:shouldShowLeftItem() and v300:renderTopBarItem(v300.props.leftItem), 
+        centerItem = v300.props.centerItem and not v300:shouldShowCenterItem() and v300:renderTopBarItem(v300.props.centerItem)
     });
 end;
-v76.render = function(v298) --[[ Line: 1107 ]] --[[ Name: render ]]
-    -- upvalues: v46 (copy), l_withStyle_0 (copy), l_withLocalization_0 (copy)
-    return v46(function(v299) --[[ Line: 1108 ]]
-        -- upvalues: l_withStyle_0 (ref), v298 (copy), l_withLocalization_0 (ref)
-        return l_withStyle_0(function(v300) --[[ Line: 1109 ]]
-            -- upvalues: v298 (ref), l_withLocalization_0 (ref), v299 (copy)
-            local v301 = v298:getPageNameLocalizationKey();
+v79.render = function(v301) --[[ Line: 1122 ]] --[[ Name: render ]]
+    -- upvalues: v47 (copy), l_withStyle_0 (copy), l_withLocalization_0 (copy)
+    return v47(function(v302) --[[ Line: 1123 ]]
+        -- upvalues: l_withStyle_0 (ref), v301 (copy), l_withLocalization_0 (ref)
+        return l_withStyle_0(function(v303) --[[ Line: 1124 ]]
+            -- upvalues: v301 (ref), l_withLocalization_0 (ref), v302 (copy)
+            local v304 = v301:getPageNameLocalizationKey();
             return l_withLocalization_0({
-                pageTitle = v301, 
+                pageTitle = v304, 
                 searchPlaceholderSearchGames = "Search.GlobalSearch.Example.SearchGames", 
                 searchPlaceholderSearchMarketplace = "Search.GlobalSearch.Example.SearchMarketplace"
-            })(function(v302) --[[ Line: 1115 ]]
-                -- upvalues: v298 (ref), v299 (ref), v300 (copy)
-                return v298:renderWithProviders(v299, v300, v302);
+            })(function(v305) --[[ Line: 1130 ]]
+                -- upvalues: v301 (ref), v302 (ref), v303 (copy)
+                return v301:renderWithProviders(v302, v303, v305);
             end);
         end);
     end);
 end;
-v76.didUpdate = function(v303, v304, v305) --[[ Line: 1122 ]] --[[ Name: didUpdate ]]
-    -- upvalues: l_FFlagEnableAppNavGamepadRemoval_0 (copy), v75 (copy)
-    v303:updateTopBarHeight(v304, v305);
+v79.didUpdate = function(v306, v307, v308) --[[ Line: 1137 ]] --[[ Name: didUpdate ]]
+    -- upvalues: l_FFlagEnableAppNavGamepadRemoval_0 (copy), v78 (copy)
+    v306:updateTopBarHeight(v307, v308);
     if not l_FFlagEnableAppNavGamepadRemoval_0 then
-        local v306 = v75[v303.state.lastInputType];
-        local l_focusController_0 = v303.props.focusController;
-        if v303.state.isSearching and not v305.isSearching and v306 and l_focusController_0 then
-            l_focusController_0.moveFocusTo(v303.searchBarRef);
-        elseif not v303.state.isSearching and v305.isSearching and v306 and l_focusController_0 then
-            l_focusController_0.moveFocusTo(v303.searchButtonRef);
+        local v309 = v78[v306.state.lastInputType];
+        local l_focusController_0 = v306.props.focusController;
+        if v306.state.isSearching and not v308.isSearching and v309 and l_focusController_0 then
+            l_focusController_0.moveFocusTo(v306.searchBarRef);
+        elseif not v306.state.isSearching and v308.isSearching and v309 and l_focusController_0 then
+            l_focusController_0.moveFocusTo(v306.searchButtonRef);
         end;
     end;
-    v303:closeSearchBarIfLeavingPage(v304);
+    v306:closeSearchBarIfLeavingPage(v307);
 end;
-v76.closeSearchBarIfLeavingPage = function(v308, v309) --[[ Line: 1138 ]] --[[ Name: closeSearchBarIfLeavingPage ]]
-    local l_currentRoute_2 = v308.props.currentRoute;
-    local l_currentRoute_3 = v309.currentRoute;
-    if l_currentRoute_2[#l_currentRoute_2].name ~= l_currentRoute_3[#l_currentRoute_3].name and v308.state.isSearching == true then
-        v308.onExitSearch();
+v79.closeSearchBarIfLeavingPage = function(v311, v312) --[[ Line: 1153 ]] --[[ Name: closeSearchBarIfLeavingPage ]]
+    local l_currentRoute_2 = v311.props.currentRoute;
+    local l_currentRoute_3 = v312.currentRoute;
+    if l_currentRoute_2[#l_currentRoute_2].name ~= l_currentRoute_3[#l_currentRoute_3].name and v311.state.isSearching == true then
+        v311.onExitSearch();
     end;
-    if v308.props.avatarRoute and v309.avatarRoute and v308.props.avatarRoute.opaque.key ~= v309.avatarRoute.opaque.key and v308.state.isSearching == true then
-        v308.onExitSearch();
+    if v311.props.avatarRoute and v312.avatarRoute and v311.props.avatarRoute.opaque.key ~= v312.avatarRoute.opaque.key and v311.state.isSearching == true then
+        v311.onExitSearch();
     end;
 end;
-local function _(v312) --[[ Line: 1159 ]] --[[ Name: isInPeekViewFromSearch ]]
-    -- upvalues: v45 (copy), v29 (copy)
-    local l_name_3 = v312[#v312].name;
-    return (not (not v45() or l_name_3 ~= v29.GameDetail) or l_name_3 == v29.ProfilePlatform) and #v312 > 1 and v312[#v312 - 1].name == v29.SearchPage;
+local function _(v315) --[[ Line: 1174 ]] --[[ Name: isInPeekViewFromSearch ]]
+    -- upvalues: v46 (copy), v30 (copy)
+    local l_name_3 = v315[#v315].name;
+    return (not (not v46() or l_name_3 ~= v30.GameDetail) or l_name_3 == v30.ProfilePlatform) and #v315 > 1 and v315[#v315 - 1].name == v30.SearchPage;
 end;
-local function _(v315) --[[ Line: 1168 ]] --[[ Name: getShowSearchBar ]]
-    -- upvalues: v29 (copy), v45 (copy)
-    if v315[#v315].name == v29.SearchPage then
+local function _(v318) --[[ Line: 1183 ]] --[[ Name: getShowSearchBar ]]
+    -- upvalues: v30 (copy), v46 (copy)
+    if v318[#v318].name == v30.SearchPage then
         return true;
     else
-        local l_name_4 = v315[#v315].name;
-        if (not (not v45() or l_name_4 ~= v29.GameDetail) or l_name_4 == v29.ProfilePlatform) and #v315 > 1 and v315[#v315 - 1].name == v29.SearchPage then
+        local l_name_4 = v318[#v318].name;
+        if (not (not v46() or l_name_4 ~= v30.GameDetail) or l_name_4 == v30.ProfilePlatform) and #v318 > 1 and v318[#v318 - 1].name == v30.SearchPage then
             return true;
         else
             return false;
         end;
     end;
 end;
-local function v322(v318) --[[ Line: 1180 ]] --[[ Name: getCurrentOpaquePage ]]
-    -- upvalues: v30 (copy)
-    for v319 = #v318, 1, -1 do
-        local l_name_5 = v318[v319].name;
-        local v321 = v30[l_name_5];
-        if v321 == nil or not v321.renderUnderlyingPage then
+local function v325(v321) --[[ Line: 1195 ]] --[[ Name: getCurrentOpaquePage ]]
+    -- upvalues: v31 (copy)
+    for v322 = #v321, 1, -1 do
+        local l_name_5 = v321[v322].name;
+        local v324 = v31[l_name_5];
+        if v324 == nil or not v324.renderUnderlyingPage then
             return l_name_5;
         end;
     end;
     return nil;
 end;
-v76 = v40(function(v323, v324) --[[ Line: 1192 ]]
+v79 = v41(function(v326, v327) --[[ Line: 1207 ]]
     -- upvalues: l_FFlagLuaAppCompositionSupport_0 (copy), l_getPageMargin_0 (copy), l_withGridConfig_DEPRECATED_0 (copy), l_LayoutConfig_0 (copy), v11 (copy), v8 (copy)
-    local v325 = if l_FFlagLuaAppCompositionSupport_0 then v324.sideMarginOverride or l_getPageMargin_0(v324.screenSize.X) else l_getPageMargin_0(v324.screenSize.X);
+    local v328 = if l_FFlagLuaAppCompositionSupport_0 then v327.sideMarginOverride or l_getPageMargin_0(v327.screenSize.X) else l_getPageMargin_0(v327.screenSize.X);
     return l_withGridConfig_DEPRECATED_0({
         [l_LayoutConfig_0.Keys.PaddingRightItems] = 0, 
-        [l_LayoutConfig_0.Keys.PaddingHorizontal] = v325, 
+        [l_LayoutConfig_0.Keys.PaddingHorizontal] = v328, 
         [l_LayoutConfig_0.Keys.PaddingVertical] = 0
-    }, l_LayoutConfig_0.Kind)(function(v326) --[[ Line: 1201 ]]
-        -- upvalues: v11 (ref), v323 (copy), v8 (ref), v324 (copy)
-        return v11.createElement(v323, v8.Dictionary.join(v324, {
-            gridConfig = v326
+    }, l_LayoutConfig_0.Kind)(function(v329) --[[ Line: 1216 ]]
+        -- upvalues: v11 (ref), v326 (copy), v8 (ref), v327 (copy)
+        return v11.createElement(v326, v8.Dictionary.join(v327, {
+            gridConfig = v329
         }));
     end);
-end)(v76);
-v76 = v12.connect(function(v327, _) --[[ Line: 1211 ]]
-    -- upvalues: v29 (copy), v45 (copy), v322 (copy)
-    local v329 = v327.Navigation.history[#v327.Navigation.history];
-    local v330 = {
-        screenSize = v327.ScreenSize, 
-        formFactor = v327.FormFactor, 
-        currentRoute = v329
+end)(v79);
+v79 = v12.connect(function(v330, _) --[[ Line: 1226 ]]
+    -- upvalues: l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), v30 (copy), v46 (copy), v325 (copy)
+    local v332 = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectCurrentLegacyRoute(v330) else v330.Navigation.history[#v330.Navigation.history];
+    local v333 = {
+        screenSize = v330.ScreenSize, 
+        formFactor = v330.FormFactor, 
+        currentRoute = v332
     };
-    local v331;
-    if v329[#v329].name == v29.SearchPage then
-        v331 = true;
+    local v334;
+    if v332[#v332].name == v30.SearchPage then
+        v334 = true;
     else
-        local l_name_6 = v329[#v329].name;
-        v331 = (not (not v45() or l_name_6 ~= v29.GameDetail) or l_name_6 == v29.ProfilePlatform) and #v329 > 1 and v329[#v329 - 1].name == v29.SearchPage and true or false;
+        local l_name_6 = v332[#v332].name;
+        v334 = (not (not v46() or l_name_6 ~= v30.GameDetail) or l_name_6 == v30.ProfilePlatform) and #v332 > 1 and v332[#v332 - 1].name == v30.SearchPage and true or false;
     end;
-    v330.showSearchBar = v331;
-    v330.statusBarHeight = v327.TopBar.statusBarHeight;
-    v330.opaquePage = v322(v329);
-    return v330;
-end, function(v333) --[[ Line: 1222 ]]
-    -- upvalues: v28 (copy), v31 (copy)
+    v333.showSearchBar = v334;
+    v333.statusBarHeight = v330.TopBar.statusBarHeight;
+    v333.opaquePage = v325(v332);
+    return v333;
+end, function(v336) --[[ Line: 1239 ]]
+    -- upvalues: v29 (copy), v32 (copy)
     return {
-        confirmSearch = function(v334, v335) --[[ Line: 1224 ]] --[[ Name: confirmSearch ]]
-            -- upvalues: v333 (copy), v28 (ref)
-            return v333(v28(v334, v335));
+        confirmSearch = function(v337, v338) --[[ Line: 1241 ]] --[[ Name: confirmSearch ]]
+            -- upvalues: v336 (copy), v29 (ref)
+            return v336(v29(v337, v338));
         end, 
-        setTopBarHeight = function(v336) --[[ Line: 1227 ]] --[[ Name: setTopBarHeight ]]
-            -- upvalues: v333 (copy), v31 (ref)
-            return v333(v31(v336));
+        setTopBarHeight = function(v339) --[[ Line: 1244 ]] --[[ Name: setTopBarHeight ]]
+            -- upvalues: v336 (copy), v32 (ref)
+            return v336(v32(v339));
         end
     };
-end)(v76);
-v76 = l_RoactServices_0.connect({
+end)(v79);
+v79 = l_RoactServices_0.connect({
     analytics = v18, 
     sessionService = l_AppSessionService_0, 
     eventIngest = v21
-})(v76);
-v76 = l_RoactAppPolicy_0.connect(function(v337, _) --[[ Line: 1239 ]]
+})(v79);
+v79 = l_RoactAppPolicy_0.connect(function(v340, _) --[[ Line: 1256 ]]
     return {
-        enableNotifications = v337.getNotifications(), 
-        enableSearch = v337.getSearchBar(), 
-        enableSearchAutoComplete = v337.getSearchAutoComplete()
+        enableNotifications = v340.getNotifications(), 
+        enableSearch = v340.getSearchBar(), 
+        enableSearchAutoComplete = v340.getSearchAutoComplete()
     };
-end)(v76);
-v76 = v48(v16.withNavigation(v76), {
+end)(v79);
+v79 = v49(v16.withNavigation(v79), {
     required = false
 });
-if not v71 and l_FFlagSearchOmniAutocompletePageIXP_0 then
-    v76 = v23.connectUserLayer({
-        v62
-    }, function(v339, _) --[[ Line: 1253 ]]
-        -- upvalues: v62 (copy)
+if not v74 and l_FFlagSearchOmniAutocompletePageIXP_0 then
+    v79 = v23.connectUserLayer({
+        v63
+    }, function(v342, _) --[[ Line: 1270 ]]
+        -- upvalues: v63 (copy)
         return {
-            shouldShowSearchLandingPage = (v339[v62] or {}).shouldShowSearchLandingPage
+            shouldShowSearchLandingPage = (v342[v63] or {}).shouldShowSearchLandingPage
         };
-    end, false)(v76);
+    end, false)(v79);
 end;
-local l_v76_0 = v76;
-v76 = function(v342) --[[ Line: 1263 ]]
-    -- upvalues: v44 (copy), l_useIsSpatial_0 (copy), l_useTokens_0 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), v11 (copy), l_v76_0 (copy), v8 (copy), v15 (copy)
-    local l_hideSiteMessageBanner_0 = v342.hideSiteMessageBanner;
-    local v344, v345 = v44(l_hideSiteMessageBanner_0);
-    local v346 = l_useIsSpatial_0();
-    local v347 = l_useTokens_0();
+local l_v79_0 = v79;
+v79 = function(v345) --[[ Line: 1280 ]]
+    -- upvalues: v45 (copy), l_useIsSpatial_0 (copy), l_useTokens_0 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), v11 (copy), l_v79_0 (copy), v8 (copy), v15 (copy)
+    local l_hideSiteMessageBanner_0 = v345.hideSiteMessageBanner;
+    local v347, v348 = v45(l_hideSiteMessageBanner_0);
+    local v349 = l_useIsSpatial_0();
+    local v350 = l_useTokens_0();
     if l_FFlagEnableAppNavGamepadRemoval_0 then
-        return v11.createElement(l_v76_0, v8.Dictionary.join(v342, {
-            bannerContainer = v344, 
-            totalBannerHeight = v345, 
-            isSpatial = v346, 
-            tokens = v347
+        return v11.createElement(l_v79_0, v8.Dictionary.join(v345, {
+            bannerContainer = v347, 
+            totalBannerHeight = v348, 
+            isSpatial = v349, 
+            tokens = v350
         }));
     else
-        return v15.withFocusController(function(v348) --[[ Line: 1281 ]]
-            -- upvalues: v11 (ref), l_v76_0 (ref), v8 (ref), v342 (copy), v344 (copy), v345 (copy), v346 (copy), v347 (copy)
-            return v11.createElement(l_v76_0, v8.Dictionary.join(v342, {
-                focusController = v348, 
-                bannerContainer = v344, 
-                totalBannerHeight = v345, 
-                isSpatial = v346, 
-                tokens = v347
+        return v15.withFocusController(function(v351) --[[ Line: 1298 ]]
+            -- upvalues: v11 (ref), l_v79_0 (ref), v8 (ref), v345 (copy), v347 (copy), v348 (copy), v349 (copy), v350 (copy)
+            return v11.createElement(l_v79_0, v8.Dictionary.join(v345, {
+                focusController = v351, 
+                bannerContainer = v347, 
+                totalBannerHeight = v348, 
+                isSpatial = v349, 
+                tokens = v350
             }));
         end);
     end;
 end;
-return v11.forwardRef(function(v349, v350) --[[ Line: 1296 ]]
-    -- upvalues: v11 (copy), v76 (ref), v8 (copy)
-    return v11.createElement(v76, v8.Dictionary.join(v349, {
-        forwardRef = v350
+return v11.forwardRef(function(v352, v353) --[[ Line: 1313 ]]
+    -- upvalues: v11 (copy), v79 (ref), v8 (copy)
+    return v11.createElement(v79, v8.Dictionary.join(v352, {
+        forwardRef = v353
     }));
 end);

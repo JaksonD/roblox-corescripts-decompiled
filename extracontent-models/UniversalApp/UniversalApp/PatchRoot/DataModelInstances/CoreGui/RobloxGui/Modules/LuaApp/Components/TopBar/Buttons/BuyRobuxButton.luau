@@ -8,73 +8,76 @@ local v6 = require(l_CorePackages_0.Packages.t);
 local v7 = require(l_CorePackages_0.Packages.Roact);
 local v8 = require(l_CorePackages_0.Packages.RoactRodux);
 local v9 = require(l_CorePackages_0.Packages.React);
-local v10 = require(l_CorePackages_0.Packages.UIBlox);
-local l_Images_0 = v10.App.ImageSet.Images;
-local l_BadgeStates_0 = v10.App.Indicator.Enum.BadgeStates;
-local l_UtilityActionIcon_0 = v10.App.Button.UtilityActionIcon;
-local l_ImageSetLabel_0 = v10.Core.ImageSet.ImageSetLabel;
-local v15 = require(l_CorePackages_0.Packages.Foundation);
-local l_useTokens_0 = v15.Hooks.useTokens;
-local l_useIconSize_0 = v15.Hooks.useIconSize;
-local l_InputSize_0 = v15.Enums.InputSize;
-local v19 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsTopBar);
-local v20 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
+local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
+local v11 = require(l_CorePackages_0.Packages.UIBlox);
+local l_Images_0 = v11.App.ImageSet.Images;
+local l_BadgeStates_0 = v11.App.Indicator.Enum.BadgeStates;
+local l_UtilityActionIcon_0 = v11.App.Button.UtilityActionIcon;
+local l_ImageSetLabel_0 = v11.Core.ImageSet.ImageSetLabel;
+local v16 = require(l_CorePackages_0.Packages.Foundation);
+local l_useTokens_0 = v16.Hooks.useTokens;
+local l_useIconSize_0 = v16.Hooks.useIconSize;
+local l_InputSize_0 = v16.Enums.InputSize;
+local v20 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsTopBar);
+local v21 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
 local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local v22 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
-local v23 = require(l_Modules_0.LuaApp.Thunks.Economy.OpenPurchaseRobuxPage);
-local v24 = require(l_Modules_0.LuaApp.Actions.Economy.SetBuyRobuxButtonClicked);
-local v25 = require(l_Modules_0.LuaApp.Components.TopBar.Utils.useRobuxBadge);
-local v26 = require(l_Modules_0.LuaApp.Flags.FFlagRobuxBadgeEnabled);
-local v27 = require(l_Modules_0.LuaApp.Flags.FFlagEnableWhiteRobuxIcon);
-local v28 = require(l_Modules_0.LuaApp.Flags.FFlagRobuxIconColorHotfix);
-local l_FFlagEnableHeaderBarButtonsUpdate_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableHeaderBarButtonsUpdate;
-local v30 = game:DefineFastFlag("EnableWhiteOrGreyRobuxIcon", false);
-local v31 = if v27 then l_Images_0["icons/common/robux"] else l_Images_0["icons/common/goldrobux"];
-local v37 = if l_FFlagEnableHeaderBarButtonsUpdate_0 then v9.forwardRef(function(v32, v33) --[[ Line: 49 ]]
-    -- upvalues: l_useTokens_0 (copy), v30 (copy), l_useIconSize_0 (copy), l_InputSize_0 (copy), v9 (copy), v15 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v26 (copy)
-    local v34 = l_useTokens_0();
-    local v35 = if v30 then nil else l_useIconSize_0(l_InputSize_0.Medium, true, true);
-    local v36 = if v30 then nil else v9.useMemo(function() --[[ Line: 54 ]]
-        -- upvalues: v34 (copy)
+local v23 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
+local v24 = require(l_Modules_0.LuaApp.Thunks.Economy.OpenPurchaseRobuxPage);
+local v25 = require(l_Modules_0.LuaApp.Actions.Economy.SetBuyRobuxButtonClicked);
+local v26 = require(l_Modules_0.LuaApp.Components.TopBar.Utils.useRobuxBadge);
+local v27 = require(l_Modules_0.LuaApp.Flags.FFlagRobuxBadgeEnabled);
+local v28 = require(l_Modules_0.LuaApp.Flags.FFlagEnableWhiteRobuxIcon);
+local v29 = require(l_Modules_0.LuaApp.Flags.FFlagRobuxIconColorHotfix);
+local v30 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_FFlagEnableHeaderBarButtonsUpdate_0 = v30.FFlagEnableHeaderBarButtonsUpdate;
+local l_FFlagUseNavigationSelectors_0 = v30.FFlagUseNavigationSelectors;
+local v33 = game:DefineFastFlag("EnableWhiteOrGreyRobuxIcon", false);
+local v34 = if v28 then l_Images_0["icons/common/robux"] else l_Images_0["icons/common/goldrobux"];
+local v40 = if l_FFlagEnableHeaderBarButtonsUpdate_0 then v9.forwardRef(function(v35, v36) --[[ Line: 51 ]]
+    -- upvalues: l_useTokens_0 (copy), v33 (copy), l_useIconSize_0 (copy), l_InputSize_0 (copy), v9 (copy), v16 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v27 (copy)
+    local v37 = l_useTokens_0();
+    local v38 = if v33 then nil else l_useIconSize_0(l_InputSize_0.Medium, true, true);
+    local v39 = if v33 then nil else v9.useMemo(function() --[[ Line: 56 ]]
+        -- upvalues: v37 (copy)
         return {
-            radius = UDim.new(0, v34.Radius.Circle), 
-            offset = v34.Size.Size_150, 
-            borderWidth = v34.Stroke.Thicker
+            radius = UDim.new(0, v37.Radius.Circle), 
+            offset = v37.Size.Size_150, 
+            borderWidth = v37.Stroke.Thicker
         };
     end, {
-        v34
+        v37
     });
-    return v9.createElement(v15.View, {
-        tag = v30 and "auto-xy radius-circle" or "size-1000-1000 radius-circle", 
-        cursor = if v30 then nil else v36, 
-        ref = if v30 then nil else v33, 
-        onActivated = if v30 then nil else v32.onActivated
+    return v9.createElement(v16.View, {
+        tag = v33 and "auto-xy radius-circle" or "size-1000-1000 radius-circle", 
+        cursor = if v33 then nil else v39, 
+        ref = if v33 then nil else v36, 
+        onActivated = if v33 then nil else v35.onActivated
     }, {
-        Icon = if v30 then v9.createElement(v15.IconButton, {
+        Icon = if v33 then v9.createElement(v16.IconButton, {
             ZIndex = 1, 
             isCircular = true, 
-            icon = v15.Enums.IconName.Robux, 
-            onActivated = v32.onActivated, 
-            ref = v33
+            icon = v16.Enums.IconName.Robux, 
+            onActivated = v35.onActivated, 
+            ref = v36
         }) else v9.createElement(l_ImageSetLabel_0, {
             AnchorPoint = Vector2.new(0.5, 0.5), 
             BackgroundTransparency = 1, 
             Position = UDim2.fromScale(0.5, 0.5), 
             Selectable = false, 
-            Size = v35, 
+            Size = v38, 
             ZIndex = 1, 
             Image = l_Images_0["icons/common/goldrobux"]
         }), 
-        Badge = if v26 and v32.showBadge then v9.createElement(v15.StatusIndicator, {
+        Badge = if v27 and v35.showBadge then v9.createElement(v16.StatusIndicator, {
             AnchorPoint = Vector2.new(0, 1), 
-            Position = UDim2.new(0.5, v34.Size.Size_50, 0.5, -v34.Size.Size_50), 
+            Position = UDim2.new(0.5, v37.Size.Size_50, 0.5, -v37.Size.Size_50), 
             ZIndex = 2, 
-            variant = v15.Enums.StatusIndicatorVariant.Alert
+            variant = v16.Enums.StatusIndicatorVariant.Alert
         }) else nil
     });
 end) else nil;
-local v38 = v7.PureComponent:extend("BuyRobuxButton");
-v38.validateProps = v6.strictInterface({
+local v41 = v7.PureComponent:extend("BuyRobuxButton");
+v41.validateProps = v6.strictInterface({
     formFactor = v6.string, 
     isCompactView = v6.boolean, 
     isSearching = v6.boolean, 
@@ -84,100 +87,100 @@ v38.validateProps = v6.strictInterface({
     activateSearch = v5.isCallable, 
     buttonRef = v6.optional(v6.table), 
     currentRoute = v6.table, 
-    showBadge = if v26 then v6.boolean else nil, 
+    showBadge = if v27 then v6.boolean else nil, 
     openPurchaseRobuxPage = v5.isCallable, 
-    dispatchBuyRobuxButtonClicked = if v26 then v5.isCallable else nil, 
+    dispatchBuyRobuxButtonClicked = if v27 then v5.isCallable else nil, 
     analytics = v6.any, 
     disableIAPEntryPoint = v6.boolean, 
     networking = v6.callback
 });
-v38.init = function(v39) --[[ Line: 126 ]] --[[ Name: init ]]
-    -- upvalues: l_HttpService_0 (copy), v26 (copy)
-    v39.showBuyRobuxCallback = function() --[[ Line: 127 ]]
-        -- upvalues: v39 (copy), l_HttpService_0 (ref), v26 (ref)
-        local l_name_0 = v39.props.currentRoute[1].name;
-        local l_disableIAPEntryPoint_0 = v39.props.disableIAPEntryPoint;
-        local l_networking_0 = v39.props.networking;
-        local v43 = l_HttpService_0:GenerateGUID(false);
-        v39.props.openPurchaseRobuxPage(l_disableIAPEntryPoint_0, l_networking_0, v43);
-        if v26 then
-            v39.props.dispatchBuyRobuxButtonClicked();
+v41.init = function(v42) --[[ Line: 128 ]] --[[ Name: init ]]
+    -- upvalues: l_HttpService_0 (copy), v27 (copy)
+    v42.showBuyRobuxCallback = function() --[[ Line: 129 ]]
+        -- upvalues: v42 (copy), l_HttpService_0 (ref), v27 (ref)
+        local l_name_0 = v42.props.currentRoute[1].name;
+        local l_disableIAPEntryPoint_0 = v42.props.disableIAPEntryPoint;
+        local l_networking_0 = v42.props.networking;
+        local v46 = l_HttpService_0:GenerateGUID(false);
+        v42.props.openPurchaseRobuxPage(l_disableIAPEntryPoint_0, l_networking_0, v46);
+        if v27 then
+            v42.props.dispatchBuyRobuxButtonClicked();
         end;
-        v39.props.analytics.reportRobuxButtonClick(l_name_0);
+        v42.props.analytics.reportRobuxButtonClick(l_name_0);
     end;
 end;
-local function _(v44) --[[ Line: 146 ]] --[[ Name: isVisible ]]
-    return not v44.isSearching;
+local function _(v47) --[[ Line: 148 ]] --[[ Name: isVisible ]]
+    return not v47.isSearching;
 end;
-v38.updateVisibility = function(v46, v47) --[[ Line: 150 ]] --[[ Name: updateVisibility ]]
-    local v48 = not v46.props.isSearching;
-    if v48 ~= v47 then
-        v46.props.setVisible(v48);
+v41.updateVisibility = function(v49, v50) --[[ Line: 152 ]] --[[ Name: updateVisibility ]]
+    local v51 = not v49.props.isSearching;
+    if v51 ~= v50 then
+        v49.props.setVisible(v51);
     end;
 end;
-v38.didMount = function(v49) --[[ Line: 157 ]] --[[ Name: didMount ]]
-    v49:updateVisibility(nil);
+v41.didMount = function(v52) --[[ Line: 159 ]] --[[ Name: didMount ]]
+    v52:updateVisibility(nil);
 end;
-v38.didUpdate = function(v50, v51, _) --[[ Line: 161 ]] --[[ Name: didUpdate ]]
-    v50:updateVisibility(not v51.isSearching);
+v41.didUpdate = function(v53, v54, _) --[[ Line: 163 ]] --[[ Name: didUpdate ]]
+    v53:updateVisibility(not v54.isSearching);
 end;
-v38.render = function(v53) --[[ Line: 165 ]] --[[ Name: render ]]
-    -- upvalues: l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), v9 (copy), v37 (copy), v26 (copy), v7 (copy), l_UtilityActionIcon_0 (copy), v31 (copy), l_BadgeStates_0 (copy), v28 (copy), v27 (copy)
+v41.render = function(v56) --[[ Line: 167 ]] --[[ Name: render ]]
+    -- upvalues: l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), v9 (copy), v40 (copy), v27 (copy), v7 (copy), l_UtilityActionIcon_0 (copy), v34 (copy), l_BadgeStates_0 (copy), v29 (copy), v28 (copy)
     if l_FFlagEnableHeaderBarButtonsUpdate_0 then
-        return v9.createElement(v37, {
-            showBadge = if v26 then v53.props.showBadge else nil, 
-            onActivated = if v53.props.isSearching then v53.props.cancelSearch else v53.showBuyRobuxCallback, 
-            ref = v53.props.buttonRef
+        return v9.createElement(v40, {
+            showBadge = if v27 then v56.props.showBadge else nil, 
+            onActivated = if v56.props.isSearching then v56.props.cancelSearch else v56.showBuyRobuxCallback, 
+            ref = v56.props.buttonRef
         });
     else
         return v7.createElement(l_UtilityActionIcon_0, {
-            icon = v31, 
-            badgeValue = if v26 and v53.props.showBadge then l_BadgeStates_0.isEmpty else nil, 
-            iconColor = if v28 and v27 then nil else {}, 
-            onActivated = if v53.props.isSearching then v53.props.cancelSearch else v53.showBuyRobuxCallback, 
-            ref = v53.props.buttonRef
+            icon = v34, 
+            badgeValue = if v27 and v56.props.showBadge then l_BadgeStates_0.isEmpty else nil, 
+            iconColor = if v29 and v28 then nil else {}, 
+            onActivated = if v56.props.isSearching then v56.props.cancelSearch else v56.showBuyRobuxCallback, 
+            ref = v56.props.buttonRef
         });
     end;
 end;
-v38 = v8.connect(function(v54, _) --[[ Line: 183 ]]
-    -- upvalues: v26 (copy)
+v41 = v8.connect(function(v57, _) --[[ Line: 185 ]]
+    -- upvalues: l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), v27 (copy)
     return {
-        currentRoute = v54.Navigation.history[#v54.Navigation.history], 
-        showBadge = if v26 then v54.RobuxVirtualItem.showBuyRobuxButtonBadge else nil
+        currentRoute = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectCurrentLegacyRoute(v57) else v57.Navigation.history[#v57.Navigation.history], 
+        showBadge = if v27 then v57.RobuxVirtualItem.showBuyRobuxButtonBadge else nil
     };
-end, function(v56) --[[ Line: 188 ]]
-    -- upvalues: v22 (copy), v4 (copy), v23 (copy), v26 (copy), v24 (copy)
+end, function(v59) --[[ Line: 192 ]]
+    -- upvalues: v23 (copy), v4 (copy), v24 (copy), v27 (copy), v25 (copy)
     return {
-        openPurchaseRobuxPage = function(v57, v58, v59) --[[ Line: 190 ]] --[[ Name: openPurchaseRobuxPage ]]
-            -- upvalues: v56 (copy), v22 (ref), v4 (ref), v23 (ref)
-            if v57 then
-                v56(v22(v4.WEBVIEWS_UNAVAILABLE_TOAST));
+        openPurchaseRobuxPage = function(v60, v61, v62) --[[ Line: 194 ]] --[[ Name: openPurchaseRobuxPage ]]
+            -- upvalues: v59 (copy), v23 (ref), v4 (ref), v24 (ref)
+            if v60 then
+                v59(v23(v4.WEBVIEWS_UNAVAILABLE_TOAST));
                 return;
             else
-                return v56(v23(nil, v58, v59));
+                return v59(v24(nil, v61, v62));
             end;
         end, 
-        dispatchBuyRobuxButtonClicked = v26 and function() --[[ Line: 198 ]]
-            -- upvalues: v56 (copy), v24 (ref)
-            return v56(v24());
+        dispatchBuyRobuxButtonClicked = v27 and function() --[[ Line: 202 ]]
+            -- upvalues: v59 (copy), v25 (ref)
+            return v59(v25());
         end or nil
     };
-end)(v38);
-v38 = l_RoactServices_0.connect({
-    analytics = v19, 
-    networking = v20
-})(v38);
-v38 = l_RoactAppPolicy_0.connect(function(v60) --[[ Line: 210 ]]
+end)(v41);
+v41 = l_RoactServices_0.connect({
+    analytics = v20, 
+    networking = v21
+})(v41);
+v41 = l_RoactAppPolicy_0.connect(function(v63) --[[ Line: 214 ]]
     return {
-        disableIAPEntryPoint = v60.getDisableIAPEntryPoint()
+        disableIAPEntryPoint = v63.getDisableIAPEntryPoint()
     };
-end)(v38);
-if v26 then
-    local l_v38_0 = v38;
-    v38 = function(v62) --[[ Line: 219 ]]
-        -- upvalues: v25 (copy), v7 (copy), l_v38_0 (copy)
-        v25();
-        return v7.createElement(l_v38_0, v62);
+end)(v41);
+if v27 then
+    local l_v41_0 = v41;
+    v41 = function(v65) --[[ Line: 223 ]]
+        -- upvalues: v26 (copy), v7 (copy), l_v41_0 (copy)
+        v26();
+        return v7.createElement(l_v41_0, v65);
     end;
 end;
-return v38;
+return v41;

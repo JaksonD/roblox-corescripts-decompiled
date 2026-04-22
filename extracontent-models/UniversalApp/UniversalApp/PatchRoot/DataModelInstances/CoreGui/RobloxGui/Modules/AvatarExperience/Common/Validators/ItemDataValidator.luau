@@ -3,10 +3,10 @@ local v1 = require(l_CorePackages_0.Packages.t);
 local l_FFlagFixOffSaleCurrentlyWearingItemNavigation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagFixOffSaleCurrentlyWearingItemNavigation;
 local v3 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
 local l_FFlagAXHydrateAssetFromBundleItems_0 = v3.FFlagAXHydrateAssetFromBundleItems;
-local l_FFlagAXDurablesSupport_0 = v3.FFlagAXDurablesSupport;
 local l_FFlagAXInventoryDurablesSupport_0 = v3.FFlagAXInventoryDurablesSupport;
 local l_FFlagDynamicHeadsMigration_0 = v3.FFlagDynamicHeadsMigration;
 local l_FFlagAXUseTaxonomyInItemDetailsType_0 = v3.FFlagAXUseTaxonomyInItemDetailsType;
+local l_FFlagAXBlackbirdRoot_0 = v3.FFlagAXBlackbirdRoot;
 return v1.strictInterface({
     receivedCatalogData = v1.optional(v1.boolean), 
     receivedRecommendedData = v1.optional(v1.boolean), 
@@ -73,6 +73,7 @@ return v1.strictInterface({
     soldCount = v1.optional(v1.integer), 
     averagePrice = v1.optional(v1.integer), 
     originalPrice = v1.optional(v1.integer), 
+    discountInformation = if l_FFlagAXBlackbirdRoot_0 then v1.optional(v1.table) else nil, 
     isForRent = v1.optional(v1.boolean), 
     isOwned = v1.optional(v1.boolean), 
     supportsHeadShapes = if l_FFlagDynamicHeadsMigration_0 then v1.optional(v1.boolean) else nil, 
@@ -86,9 +87,9 @@ return v1.strictInterface({
     creatingUniverseId = v1.optional(v1.string), 
     isRecolorable = v1.optional(v1.boolean), 
     isOffSale = if l_FFlagFixOffSaleCurrentlyWearingItemNavigation_0 then v1.optional(v1.boolean) else nil, 
-    variantAttributes = if l_FFlagAXDurablesSupport_0 then v1.optional(v1.table) else nil, 
-    relatedVariants = if l_FFlagAXDurablesSupport_0 then v1.optional(v1.table) else nil, 
-    timedOptions = if l_FFlagAXDurablesSupport_0 then v1.optional(v1.table) else nil, 
+    variantAttributes = v1.optional(v1.table), 
+    relatedVariants = v1.optional(v1.table), 
+    timedOptions = v1.optional(v1.table), 
     taxonomy = if l_FFlagAXUseTaxonomyInItemDetailsType_0 then v1.optional(v1.table) else nil, 
     moderationStatus = v1.optional(v1.enum(Enum.ModerationStatus)), 
     updateCounter = v1.optional(v1.number), 

@@ -5,6 +5,7 @@ local v3 = game:DefineFastFlag("TopBarSignalizeHealthBar4", false);
 local v4 = game:DefineFastFlag("ClampHealthPercentage", false);
 local v5 = game:DefineFastFlag("UseNewHurtOverlayImage", false);
 local v6 = game:DefineFastFlag("UseNewHurtOverlayAnimation", false);
+local v7 = game:DefineFastFlag("EnableUISelector", false);
 return {
     FFlagTopBarSignalizeMenuOpen = v0, 
     FFlagTopBarSignalizeKeepOutAreas = v1, 
@@ -12,5 +13,6 @@ return {
     FFlagTopBarSignalizeHealthBar = v3, 
     FFlagClampHealthPercentage = v4, 
     FFlagUseNewHurtOverlayImage = v5, 
-    FFlagUseNewHurtOverlayAnimation = v6
+    FFlagUseNewHurtOverlayAnimation = v6, 
+    FFlagEnableUISelector = v7
 };

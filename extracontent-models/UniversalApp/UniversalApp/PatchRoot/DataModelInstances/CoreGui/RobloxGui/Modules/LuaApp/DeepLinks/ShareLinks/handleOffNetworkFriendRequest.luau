@@ -6,7 +6,7 @@ local l_getDeepValue_0 = l_SocialLibraries_0.Dictionary.getDeepValue;
 local _ = require(script.Parent.Types);
 local l_CorePackages_0 = game:GetService("CorePackages");
 local l_Enums_0 = require(l_CorePackages_0.Workspace.Packages.SocialCommon).Enums;
-local v8 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
+local v8 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums);
 return function(v9, v10) --[[ Line: 12 ]]
     -- upvalues: l_getDeepValue_0 (copy), v2 (copy), l_Enums_0 (copy), v8 (copy), v3 (copy)
     local v11 = l_getDeepValue_0(v9, "responseBody.friendInviteData") or {};

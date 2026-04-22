@@ -5,29 +5,38 @@ local v3 = require(l_Parent_0.SharedFlags);
 local v4 = game:DefineFastFlag("LuaAppCompressIgrsImages", false);
 local l_FFlagLuaAppAllowNoIgrsImage_0 = v3.FFlagLuaAppAllowNoIgrsImage;
 local l_FFlagLuaAppAddUnratedIgrsImage_0 = v3.FFlagLuaAppAddUnratedIgrsImage;
-local v7 = {
+local l_FFlagLuaAppAddIgrsImages_0 = v3.FFlagLuaAppAddIgrsImages;
+local v8 = {
     [l_EnumIgrsRating_0.IgrsThirteenPlus] = v4 and "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs-13.png" or "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs13.png", 
     [l_EnumIgrsRating_0.IgrsFifteenPlus] = v4 and "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs-15.png" or "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs15.png", 
     [l_EnumIgrsRating_0.IgrsEighteenPlus] = v4 and "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs-18.png" or "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs18.png"
 };
 if l_FFlagLuaAppAddUnratedIgrsImage_0 and l_EnumIgrsRating_0.IgrsUnrated then
-    v7[l_EnumIgrsRating_0.IgrsUnrated] = "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs-pending.png";
+    v8[l_EnumIgrsRating_0.IgrsUnrated] = "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs-pending.png";
+end;
+if l_FFlagLuaAppAddIgrsImages_0 then
+    if l_EnumIgrsRating_0.IgrsThreePlus then
+        v8[l_EnumIgrsRating_0.IgrsThreePlus] = "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs-3.png";
+    end;
+    if l_EnumIgrsRating_0.IgrsSevenPlus then
+        v8[l_EnumIgrsRating_0.IgrsSevenPlus] = "rbxasset://textures/ui/LuaApp/icons/GameDetails/contentRating/igrs-7.png";
+    end;
 end;
 return {
-    getIgrsImage = function(v8) --[[ Line: 32 ]] --[[ Name: getIgrsImage ]]
-        -- upvalues: v7 (copy), l_FFlagLuaAppAllowNoIgrsImage_0 (copy), l_FFlagLuaAppAddUnratedIgrsImage_0 (copy), l_EnumIgrsRating_0 (copy), l_DiscoveryEventErrorLogger_0 (copy)
-        if not v7[v8] then
+    getIgrsImage = function(v9) --[[ Line: 44 ]] --[[ Name: getIgrsImage ]]
+        -- upvalues: v8 (copy), l_FFlagLuaAppAllowNoIgrsImage_0 (copy), l_FFlagLuaAppAddUnratedIgrsImage_0 (copy), l_EnumIgrsRating_0 (copy), l_DiscoveryEventErrorLogger_0 (copy)
+        if not v8[v9] then
             if l_FFlagLuaAppAllowNoIgrsImage_0 then
-                if l_FFlagLuaAppAddUnratedIgrsImage_0 or v8 ~= l_EnumIgrsRating_0.IgrsUnrated then
-                    l_DiscoveryEventErrorLogger_0.reportError("getIgrsImage", (("Invalid IGRS rating: %*"):format(v8)));
+                if l_FFlagLuaAppAddUnratedIgrsImage_0 or v9 ~= l_EnumIgrsRating_0.IgrsUnrated then
+                    l_DiscoveryEventErrorLogger_0.reportError("getIgrsImage", (("Invalid IGRS rating: %*"):format(v9)));
                 end;
                 return nil;
             else
-                l_DiscoveryEventErrorLogger_0.reportError("getIgrsImage", (("Invalid IGRS rating: %*"):format(v8)));
-                return v7[l_EnumIgrsRating_0.IgrsThirteenPlus];
+                l_DiscoveryEventErrorLogger_0.reportError("getIgrsImage", (("Invalid IGRS rating: %*"):format(v9)));
+                return v8[l_EnumIgrsRating_0.IgrsThirteenPlus];
             end;
         else
-            return v7[v8];
+            return v8[v9];
         end;
     end
 };

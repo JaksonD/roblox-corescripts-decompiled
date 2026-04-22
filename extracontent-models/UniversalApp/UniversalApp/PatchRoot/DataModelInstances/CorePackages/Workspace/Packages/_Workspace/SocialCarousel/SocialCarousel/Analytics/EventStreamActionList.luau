@@ -9,8 +9,9 @@ local v7 = require(script.Parent.EventNames);
 local v8 = require(l_script_FirstAncestor_0.Common.Constants);
 local l_FIntSocialCarouselShowRecsLimit_0 = require(l_script_FirstAncestor_0.Flags).FIntSocialCarouselShowRecsLimit;
 local l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddSortDataToSocialCarouselClicks;
-local function v12(v11) --[[ Line: 16 ]]
-    return v11;
+local l_FFlagSocialCarouselShareQREnabled_0 = require(l_Parent_0.SharedFlags).FFlagSocialCarouselShareQREnabled;
+local function v13(v12) --[[ Line: 17 ]]
+    return v12;
 end;
 return {
     [v7.UserPressed] = {
@@ -22,32 +23,32 @@ return {
             actionType = if l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 then v8.ANALYTICS.ACTION_TYPES.OPEN_PROFILE else nil
         }, 
         formatRulesForAdditionalInfo = {
-            absolutePosition = v12, 
-            positionInRow = if l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 then v12 else nil, 
+            absolutePosition = v13, 
+            positionInRow = if l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 then v13 else nil, 
             recommendationContextType = l_formatRecommendationContextType_0, 
-            friendId = v12, 
-            friendStatus = v12, 
-            isRecommendation = v12, 
-            recommendationRank = v12, 
-            universeId = v12, 
-            presence = v12, 
-            source = v12, 
-            interactionUuid = v12
+            friendId = v13, 
+            friendStatus = v13, 
+            isRecommendation = v13, 
+            recommendationRank = v13, 
+            universeId = v13, 
+            presence = v13, 
+            source = v13, 
+            interactionUuid = v13
         }
     }, 
     [v7.UserSeen] = {
         context = l_Contexts_0.HomePage, 
         eventType = l_EventTypes_0.UserSeen, 
         formatRulesForAdditionalInfo = {
-            userId = v12, 
-            presence = v12, 
-            absolutePosition = v12, 
-            recommendationRank = v12, 
-            friendStatus = v12, 
+            userId = v13, 
+            presence = v13, 
+            absolutePosition = v13, 
+            recommendationRank = v13, 
+            friendStatus = v13, 
             recommendationContextType = l_formatRecommendationContextType_0, 
-            isRecommendation = v12, 
-            source = v12, 
-            universeId = v12
+            isRecommendation = v13, 
+            source = v13, 
+            universeId = v13
         }
     }, 
     [v7.ViewAddFriends] = {
@@ -55,18 +56,18 @@ return {
         eventType = l_EventTypes_0.ButtonClick, 
         additionalInfo = {
             btn = v8.ANALYTICS.BTN_VALUES.ADD_FRIENDS, 
-            absolutePosition = v12, 
-            positionInRow = v12, 
+            absolutePosition = v13, 
+            positionInRow = v13, 
             contentType = v8.ANALYTICS.CONTENT_TYPE, 
             actionType = v8.ANALYTICS.ACTION_TYPES.OPEN_ADD_FRIENDS
         }, 
         formatRulesForAdditionalInfo = {
-            friendCount = v12, 
+            friendCount = v13, 
             recommendationLimit = l_FIntSocialCarouselShowRecsLimit_0, 
-            recommendationCount = v12, 
-            requestCount = v12, 
-            source = v12, 
-            interactionUuid = v12
+            recommendationCount = v13, 
+            requestCount = v13, 
+            source = v13, 
+            interactionUuid = v13
         }
     }, 
     [v7.ViewAllFriends] = {
@@ -76,22 +77,22 @@ return {
             btn = v8.ANALYTICS.BTN_VALUES.VIEW_ALL_FRIENDS
         }, 
         formatRulesForAdditionalInfo = {
-            friendCount = v12, 
+            friendCount = v13, 
             recommendationLimit = l_FIntSocialCarouselShowRecsLimit_0, 
-            recommendationCount = v12, 
-            source = v12
+            recommendationCount = v13, 
+            source = v13
         }
     }, 
     [v7.FriendsCarouselUILoadingTime] = {
         context = l_Contexts_0.HomePage, 
         eventType = l_EventTypes_0.LoadingTime, 
         formatRulesForAdditionalInfo = {
-            status = v12, 
-            fetch = v12, 
-            loadingTime = v12, 
-            loadingThreshold = v12, 
-            nextPage = v12, 
-            source = v12
+            status = v13, 
+            fetch = v13, 
+            loadingTime = v13, 
+            loadingThreshold = v13, 
+            nextPage = v13, 
+            source = v13
         }, 
         additionalInfo = {}
     }, 
@@ -102,25 +103,36 @@ return {
             btn = v8.ANALYTICS.BTN_VALUES.START_SQUAD
         }, 
         formatRulesForAdditionalInfo = {
-            absolutePosition = v12, 
-            source = v12
+            absolutePosition = v13, 
+            source = v13
         }
     }, 
+    [v7.ShareQRPressed] = if l_FFlagSocialCarouselShareQREnabled_0 then {
+        context = l_Contexts_0.HomePage, 
+        eventType = l_EventTypes_0.ButtonClick, 
+        additionalInfo = {
+            btn = v8.ANALYTICS.BTN_VALUES.SHARE_QR
+        }, 
+        formatRulesForAdditionalInfo = {
+            absolutePosition = v13, 
+            source = v13
+        }
+    } else nil, 
     [v7.TilesSeenCollection] = {
         context = l_Contexts_0.HomePage, 
         eventType = l_EventTypes_0.UserSeenCollection, 
         formatRulesForAdditionalInfo = {
-            userId = v12, 
-            absolutePosition = v12, 
-            presence = v12, 
-            recommendationRank = v12, 
-            friendStatus = v12, 
-            recommendationContextType = v12, 
-            isRecommendation = v12, 
-            universeId = v12, 
-            tileCount = v12, 
-            source = v12, 
-            sessionEventCount = v12
+            userId = v13, 
+            absolutePosition = v13, 
+            presence = v13, 
+            recommendationRank = v13, 
+            friendStatus = v13, 
+            recommendationContextType = v13, 
+            isRecommendation = v13, 
+            universeId = v13, 
+            tileCount = v13, 
+            source = v13, 
+            sessionEventCount = v13
         }
     }
 };

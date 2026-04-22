@@ -11,12 +11,12 @@ local l_useIsSpatial_0 = require(l_CorePackages_0.Workspace.Packages.Responsive)
 local l_useIsGamepad_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.useIsGamepad;
 local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
 local v12 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
-local v13 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v14 = require(l_Modules_0.AvatarExperience.Common.Components.TopBar.makeAvatarBackButton);
 local v15 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.SetLastSavedSort);
 local v16 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.SetCurrentSort);
 local v17 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
-local v18 = require(l_Modules_0.AvatarExperience.Common.Enum.FullView);
+local l_FullView_0 = v6.Enums.FullView;
 local v19 = require(l_Modules_0.AvatarExperience.LayeredMakeupSort.Selectors.selectEquippedLayeredMakeupOrdered);
 local v20 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectIsPortrait);
 local l_selectEquippedAssets_0 = v6.State.Selectors.selectEquippedAssets;
@@ -28,7 +28,7 @@ local v26 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.Unl
 local v27 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Thunks.SendRefinementAnalytics);
 local _ = require(l_Modules_0.AvatarExperience.LayeredMakeupSort.Components.LayeredMakeupSortPage);
 return function(v29) --[[ Line: 39 ]]
-    -- upvalues: l_useIsSpatial_0 (copy), l_useDispatch_0 (copy), l_useIsGamepad_0 (copy), l_useAvatarRoute_0 (copy), v12 (copy), v24 (copy), v23 (copy), l_useLocalization_0 (copy), v2 (copy), l_useSelector_0 (copy), v19 (copy), v20 (copy), l_selectEquippedAssets_0 (copy), l_selectTopBarHeight_0 (copy), v26 (copy), v27 (copy), v25 (copy), l_AvatarScreen_0 (copy), v13 (copy), v14 (copy), v15 (copy), v16 (copy), v17 (copy), v18 (copy)
+    -- upvalues: l_useIsSpatial_0 (copy), l_useDispatch_0 (copy), l_useIsGamepad_0 (copy), l_useAvatarRoute_0 (copy), v12 (copy), v24 (copy), v23 (copy), l_useLocalization_0 (copy), v2 (copy), l_useSelector_0 (copy), v19 (copy), v20 (copy), l_selectEquippedAssets_0 (copy), l_selectTopBarHeight_0 (copy), v26 (copy), v27 (copy), v25 (copy), l_AvatarScreen_0 (copy), l_logOnOverlayClosed_0 (copy), v14 (copy), v15 (copy), v16 (copy), v17 (copy), l_FullView_0 (copy)
     local v30 = l_useIsSpatial_0();
     local v31 = l_useDispatch_0();
     local v32 = l_useIsGamepad_0();
@@ -64,11 +64,11 @@ return function(v29) --[[ Line: 39 ]]
         v34
     });
     local v48 = v2.useCallback(function() --[[ Line: 86 ]]
-        -- upvalues: v32 (copy), v33 (copy), l_AvatarScreen_0 (ref), v13 (ref), v29 (copy)
+        -- upvalues: v32 (copy), v33 (copy), l_AvatarScreen_0 (ref), l_logOnOverlayClosed_0 (ref), v29 (copy)
         local function v47() --[[ Line: 87 ]]
-            -- upvalues: v32 (ref), v33 (ref), l_AvatarScreen_0 (ref), v13 (ref)
+            -- upvalues: v32 (ref), v33 (ref), l_AvatarScreen_0 (ref), l_logOnOverlayClosed_0 (ref)
             if v32 and v33.opaque.name == l_AvatarScreen_0.LayeredMakeupSort then
-                v13("LayeredMakeupSort");
+                l_logOnOverlayClosed_0("LayeredMakeupSort");
             end;
         end;
         v29.navigation.navigate(l_AvatarScreen_0.ResetLayeredItemsSortPrompt, {
@@ -86,7 +86,7 @@ return function(v29) --[[ Line: 39 ]]
         v46
     });
     v2.useEffect(function() --[[ Line: 105 ]]
-        -- upvalues: v33 (copy), l_AvatarScreen_0 (ref), v39 (copy), v40 (copy), v42 (copy), v31 (copy), v15 (ref), v16 (ref), v17 (ref), v35 (copy), v18 (ref)
+        -- upvalues: v33 (copy), l_AvatarScreen_0 (ref), v39 (copy), v40 (copy), v42 (copy), v31 (copy), v15 (ref), v16 (ref), v17 (ref), v35 (copy), l_FullView_0 (ref)
         if v33.opaque.name == l_AvatarScreen_0.LayeredMakeupSort and v39.current ~= l_AvatarScreen_0.LayeredMakeupSort then
             local v50 = {};
             for _, v52 in v40 do
@@ -97,7 +97,7 @@ return function(v29) --[[ Line: 39 ]]
             end;
             v31(v15(v50));
             v31(v16(v40));
-            v31(v17(v35, l_AvatarScreen_0.LayeredMakeupSort, v18.SceneFullView));
+            v31(v17(v35, l_AvatarScreen_0.LayeredMakeupSort, l_FullView_0.SceneFullView));
         end;
     end, {
         v33, 

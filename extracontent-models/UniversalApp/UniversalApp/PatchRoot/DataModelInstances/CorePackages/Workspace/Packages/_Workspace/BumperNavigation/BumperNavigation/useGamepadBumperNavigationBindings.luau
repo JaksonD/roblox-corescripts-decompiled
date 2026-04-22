@@ -1,153 +1,159 @@
 local l_Parent_0 = script:FindFirstAncestor("BumperNavigation").Parent;
-local v1 = require(l_Parent_0.React);
+local l_FFlagUseNavigationSelectors_0 = require(l_Parent_0.SharedFlags).FFlagUseNavigationSelectors;
+local v2 = require(l_Parent_0.React);
 local _ = require(l_Parent_0.ReactFocusNavigation);
-local v3 = require(l_Parent_0.InputHandlers);
-local v4 = require(l_Parent_0.FocusNavigationUtils);
+local v4 = require(l_Parent_0.InputHandlers);
+local v5 = require(l_Parent_0.FocusNavigationUtils);
 local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
-local l_FocusNavigationEventNameEnum_0 = v4.FocusNavigationEventNameEnum;
+local l_Selectors_0 = require(l_Parent_0.NavigationRodux).Selectors;
+local l_FocusNavigationEventNameEnum_0 = v5.FocusNavigationEventNameEnum;
 local l_useRoactService_0 = require(l_Parent_0.RobloxAppHooks).useRoactService;
 local l_RoactAnalytics_0 = require(l_Parent_0.RoactServiceTags).RoactAnalytics;
 local l_useSelector_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useSelector;
-local v10 = require(l_Parent_0.Responsive);
-local l_usePreferredInput_0 = v10.usePreferredInput;
-local l_Input_0 = v10.Input;
-local v13 = require(l_Parent_0.AppNavBar);
-local l_useNavBarPlacement_0 = v13.useNavBarPlacement;
-local l_Placement_0 = v13.Placement;
-local function v19(v16) --[[ Line: 23 ]] --[[ Name: selectTopLevelRouteName ]]
-    local l_history_0 = v16.Navigation.history;
-    local v18 = l_history_0[#l_history_0][1];
-    return v18 and v18.name or "None";
+local v12 = require(l_Parent_0.Responsive);
+local l_usePreferredInput_0 = v12.usePreferredInput;
+local l_Input_0 = v12.Input;
+local l_useIsSpatial_0 = v12.useIsSpatial;
+local v16 = require(l_Parent_0.AppNavBar);
+local l_useNavBarPlacement_0 = v16.useNavBarPlacement;
+local l_Placement_0 = v16.Placement;
+local function v22(v19) --[[ Line: 26 ]] --[[ Name: selectTopLevelRouteName ]]
+    -- upvalues: l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy)
+    local v20 = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectLegacyHistory(v19) else v19.Navigation.history;
+    local v21 = v20[#v20][1];
+    return v21 and v21.name or "None";
 end;
-local function _(v20, v21) --[[ Line: 30 ]] --[[ Name: getNextTabFromRouteName ]]
-    for v22, v23 in v21 do
-        if v23.page == v20 then
-            local v24 = v21[v22 + 1];
-            if v24 ~= nil then
-                return v24.page;
+local function _(v23, v24) --[[ Line: 35 ]] --[[ Name: getNextTabFromRouteName ]]
+    for v25, v26 in v24 do
+        if v26.page == v23 then
+            local v27 = v24[v25 + 1];
+            if v27 ~= nil then
+                return v27.page;
             end;
         end;
     end;
     return nil;
 end;
-local function _(v26, v27) --[[ Line: 42 ]] --[[ Name: getPrevTabFromRouteName ]]
-    for v28, v29 in v27 do
-        if v29.page == v26 then
-            local v30 = v27[v28 - 1];
-            if v30 ~= nil then
-                return v30.page;
+local function _(v29, v30) --[[ Line: 47 ]] --[[ Name: getPrevTabFromRouteName ]]
+    for v31, v32 in v30 do
+        if v32.page == v29 then
+            local v33 = v30[v31 - 1];
+            if v33 ~= nil then
+                return v33.page;
             end;
         end;
     end;
     return nil;
 end;
-local function v37(v32, v33, v34, v35) --[[ Line: 54 ]] --[[ Name: buttonClick ]]
-    assert(type(v33) == "string", "Expected eventContext to be a string");
-    assert(type(v34) == "string", "Expected buttonName to be a string");
-    local v36 = {
-        btn = v34
+local function v40(v35, v36, v37, v38) --[[ Line: 59 ]] --[[ Name: buttonClick ]]
+    assert(type(v36) == "string", "Expected eventContext to be a string");
+    assert(type(v37) == "string", "Expected buttonName to be a string");
+    local v39 = {
+        btn = v37
     };
-    if v35 ~= nil then
-        assert(type(v35) == "string", "Expected extraData to be a string");
-        v36.cstm = v35;
+    if v38 ~= nil then
+        assert(type(v38) == "string", "Expected extraData to be a string");
+        v39.cstm = v38;
     end;
-    v32:setRBXEventStream(v33, "buttonClick", v36);
+    v35:setRBXEventStream(v36, "buttonClick", v39);
 end;
-local function _(v38) --[[ Line: 71 ]] --[[ Name: createNavigationBindingEventContext ]]
-    return (("GamepadBumperNavBinding%*"):format(v38));
+local function _(v41) --[[ Line: 76 ]] --[[ Name: createNavigationBindingEventContext ]]
+    return (("GamepadBumperNavBinding%*"):format(v41));
 end;
-local v40 = ("GamepadBumperNavBinding%*"):format(l_FocusNavigationEventNameEnum_0.TabForward);
-local v41 = ("GamepadBumperNavBinding%*"):format(l_FocusNavigationEventNameEnum_0.TabBackward);
-local v42 = {};
-useGamepadBumperNavigationBindings = function(v43) --[[ Line: 78 ]] --[[ Name: useGamepadBumperNavigationBindings ]]
-    -- upvalues: l_useNavigation_0 (copy), l_useRoactService_0 (copy), l_RoactAnalytics_0 (copy), l_useSelector_0 (copy), v19 (copy), l_usePreferredInput_0 (copy), l_Input_0 (copy), l_useNavBarPlacement_0 (copy), l_Placement_0 (copy), v1 (copy), l_FocusNavigationEventNameEnum_0 (copy), v3 (copy), v37 (copy), v40 (copy), v41 (copy), v42 (copy)
-    local v44 = false;
-    local v45 = false;
-    local v46 = l_useNavigation_0();
-    local v47 = v46.state.key or v46.state.routes[v46.state.index].key;
+local v43 = ("GamepadBumperNavBinding%*"):format(l_FocusNavigationEventNameEnum_0.TabForward);
+local v44 = ("GamepadBumperNavBinding%*"):format(l_FocusNavigationEventNameEnum_0.TabBackward);
+local v45 = {};
+useGamepadBumperNavigationBindings = function(v46) --[[ Line: 83 ]] --[[ Name: useGamepadBumperNavigationBindings ]]
+    -- upvalues: l_useNavigation_0 (copy), l_useRoactService_0 (copy), l_RoactAnalytics_0 (copy), l_useSelector_0 (copy), v22 (copy), l_usePreferredInput_0 (copy), l_Input_0 (copy), l_useNavBarPlacement_0 (copy), l_Placement_0 (copy), l_useIsSpatial_0 (copy), v2 (copy), l_FocusNavigationEventNameEnum_0 (copy), v4 (copy), v40 (copy), v43 (copy), v44 (copy), v45 (copy)
+    local v47 = false;
+    local v48 = false;
+    local v49 = l_useNavigation_0();
+    local v50 = v49.state.key or v49.state.routes[v49.state.index].key;
     local l_EventStream_0 = l_useRoactService_0(l_RoactAnalytics_0).EventStream;
-    local v49 = l_useSelector_0(v19);
-    local v50;
-    for v51, v52 in v43 do
-        if v52.page == v49 then
-            local v53 = v43[v51 - 1];
-            if v53 ~= nil then
-                v50 = v53.page;
-                v44 = true;
+    local v52 = l_useSelector_0(v22);
+    local v53;
+    for v54, v55 in v46 do
+        if v55.page == v52 then
+            local v56 = v46[v54 - 1];
+            if v56 ~= nil then
+                v53 = v56.page;
+                v47 = true;
             end;
         end;
-        if v44 then
+        if v47 then
             break;
         end;
     end;
-    if not v44 then
-        v50 = nil;
+    if not v47 then
+        v53 = nil;
     end;
-    v44 = false;
-    local v54;
-    for v55, v56 in v43 do
-        if v56.page == v49 then
-            local v57 = v43[v55 + 1];
-            if v57 ~= nil then
-                v54 = v57.page;
-                v45 = true;
+    v47 = false;
+    local v57;
+    for v58, v59 in v46 do
+        if v59.page == v52 then
+            local v60 = v46[v58 + 1];
+            if v60 ~= nil then
+                v57 = v60.page;
+                v48 = true;
             end;
         end;
-        if v45 then
+        if v48 then
             break;
         end;
     end;
-    if not v45 then
-        v54 = nil;
+    if not v48 then
+        v57 = nil;
     end;
-    v45 = false;
-    local v59 = l_useSelector_0(function(v58) --[[ Line: 85 ]]
-        return v58.TabBarVisible;
+    v48 = false;
+    local v62 = l_useSelector_0(function(v61) --[[ Line: 90 ]]
+        return v61.TabBarVisible;
     end);
-    local v60 = l_usePreferredInput_0() == l_Input_0.Directional;
-    local v61 = l_useNavBarPlacement_0() == l_Placement_0.Left;
-    local v62 = v59 and v60 and v61;
-    local v63 = v1.useMemo(function() --[[ Line: 92 ]]
+    local v63 = l_usePreferredInput_0() == l_Input_0.Directional;
+    local v64 = l_useNavBarPlacement_0() == l_Placement_0.Left;
+    local v65 = l_useIsSpatial_0();
+    local v66 = v62 and v63 and v64 and not v65;
+    local v67 = v2.useMemo(function() --[[ Line: 98 ]]
         -- upvalues: l_FocusNavigationEventNameEnum_0 (ref)
         return {
             [Enum.KeyCode.ButtonR1] = l_FocusNavigationEventNameEnum_0.TabForward, 
             [Enum.KeyCode.ButtonL1] = l_FocusNavigationEventNameEnum_0.TabBackward
         };
     end, {});
-    local v66 = v1.useMemo(function() --[[ Line: 101 ]]
-        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v3 (ref), v54 (copy), v46 (copy), v37 (ref), l_EventStream_0 (copy), v40 (ref), v47 (copy), v50 (copy), v41 (ref)
+    local v70 = v2.useMemo(function() --[[ Line: 107 ]]
+        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v4 (ref), v57 (copy), v49 (copy), v40 (ref), l_EventStream_0 (copy), v43 (ref), v50 (copy), v53 (copy), v44 (ref)
         return {
             [l_FocusNavigationEventNameEnum_0.TabForward] = {
-                handler = v3.onRelease(function(_) --[[ Line: 105 ]]
-                    -- upvalues: v54 (ref), v46 (ref), v37 (ref), l_EventStream_0 (ref), v40 (ref), v47 (ref)
-                    if v54 then
-                        v46.navigate(v54);
-                        v37(l_EventStream_0, v40, v54, v47);
+                handler = v4.onRelease(function(_) --[[ Line: 111 ]]
+                    -- upvalues: v57 (ref), v49 (ref), v40 (ref), l_EventStream_0 (ref), v43 (ref), v50 (ref)
+                    if v57 then
+                        v49.navigate(v57);
+                        v40(l_EventStream_0, v43, v57, v50);
                     end;
                 end)
             }, 
             [l_FocusNavigationEventNameEnum_0.TabBackward] = {
-                handler = v3.onRelease(function(_) --[[ Line: 113 ]]
-                    -- upvalues: v50 (ref), v46 (ref), v37 (ref), l_EventStream_0 (ref), v41 (ref), v47 (ref)
-                    if v50 then
-                        v46.navigate(v50);
-                        v37(l_EventStream_0, v41, v50, v47);
+                handler = v4.onRelease(function(_) --[[ Line: 119 ]]
+                    -- upvalues: v53 (ref), v49 (ref), v40 (ref), l_EventStream_0 (ref), v44 (ref), v50 (ref)
+                    if v53 then
+                        v49.navigate(v53);
+                        v40(l_EventStream_0, v44, v53, v50);
                     end;
                 end)
             }
         };
     end, {
-        v46, 
+        v49, 
         l_EventStream_0, 
-        v54, 
-        v50, 
-        v47
+        v57, 
+        v53, 
+        v50
     });
-    local v67 = if v62 then v63 else v42;
-    local v68 = if v62 then v66 else v42;
+    local v71 = if v66 then v67 else v45;
+    local v72 = if v66 then v70 else v45;
     return {
-        eventMap = v67, 
-        eventHandlerMap = v68
+        isBumperNavigationEnabled = v66, 
+        eventMap = v71, 
+        eventHandlerMap = v72
     };
 end;
 return useGamepadBumperNavigationBindings;

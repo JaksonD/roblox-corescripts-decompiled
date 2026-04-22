@@ -62,7 +62,7 @@ local l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 = require(l_CorePackages_0
 local l_FFlagLuaAppAddIgrsRatingToEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddIgrsRatingToEdp;
 local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnableCustomSpawnSponsored;
 local l_FFlagExtendScrollingFramesBySafeInsets_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagExtendScrollingFramesBySafeInsets;
-return (v39.connect(function(v64) --[[ Line: 549 ]]
+return (v39.connect(function(v64) --[[ Line: 550 ]]
     -- upvalues: l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy)
     return {
         universeId = v64.universeId, 
@@ -71,7 +71,7 @@ return (v39.connect(function(v64) --[[ Line: 549 ]]
         extraParams = if v64.experienceJoinData then v64.experienceJoinData else nil, 
         placeId = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v64.placeIdOverride else nil
     };
-end, function(v65, _) --[[ Line: 557 ]]
+end, function(v65, _) --[[ Line: 558 ]]
     -- upvalues: l_FFlagLuaAppEnablePlaySquadButton_0 (copy)
     return {
         playabilityStatus = v65.playabilityStatus, 
@@ -125,7 +125,7 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
     local v85 = nil;
     if v43() and v42() then
         local v86 = l_useUiModeInfo_0();
-        local l_v86_0 = v86 --[[ copy: 17 -> 43 ]];
+        local l_v86_0 = v86 --[[ copy: 17 -> 44 ]];
         v85 = v7.useCallback(function() --[[ Line: 184 ]]
             -- upvalues: v81 (copy), v70 (copy), v67 (copy), l_v86_0 (copy)
             return v81.fetchGameDetailsPageData(v70, v67.universeId, l_v86_0);
@@ -183,13 +183,17 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
         v95 = v100;
     end;
     local v101 = nil;
+    local v102 = nil;
     if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then
-        v101 = l_useUserExperiment_0({
+        local v105, v106 = l_useUserExperiment_0({
             l_AppUserLayers_0.PlayButtonUXExposureLayer
-        }, function(v102) --[[ Line: 240 ]]
+        }, function(v103) --[[ Line: 240 ]]
             -- upvalues: l_AppUserLayers_0 (ref)
-            return (v102[l_AppUserLayers_0.PlayButtonUXExposureLayer] or {}).HasUnifiedPlayButton;
+            local v104 = v103[l_AppUserLayers_0.PlayButtonUXExposureLayer] or {};
+            return v104.HasUnifiedPlayButton, v104.UnifyToUIBlox;
         end, true);
+        v101 = v105;
+        v102 = v106;
     end;
     v7.useEffect(function() --[[ Line: 248 ]]
         -- upvalues: v85 (ref)
@@ -197,16 +201,16 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
     end, {
         v67.universeId
     });
-    local v108 = v7.useCallback(function(v103, v104) --[[ Line: 252 ]]
+    local v112 = v7.useCallback(function(v107, v108) --[[ Line: 252 ]]
         -- upvalues: v79 (copy), v83 (copy), v40 (ref), v70 (copy), v91 (copy), l_Follow_0 (ref), v72 (copy)
-        local v105 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
-        if v105 == nil or v103 == nil then
+        local v109 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
+        if v109 == nil or v107 == nil then
             return;
         else
-            local v106 = v79.notificationsEnabled and v79.notificationsEnabled.count or 0;
-            local v107 = v79.notificationsEnabled and v79.notificationsEnabled.limit or 0;
-            v83(v40(v70, v103, v104, v91, v106, v107));
-            l_Follow_0(v72, "ExperienceDetailsActionBar", v105, not v104);
+            local v110 = v79.notificationsEnabled and v79.notificationsEnabled.count or 0;
+            local v111 = v79.notificationsEnabled and v79.notificationsEnabled.limit or 0;
+            v83(v40(v70, v107, v108, v91, v110, v111));
+            l_Follow_0(v72, "ExperienceDetailsActionBar", v109, not v108);
             return;
         end;
     end, {
@@ -216,15 +220,15 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
         v67.universeId, 
         v79
     });
-    local v109 = nil;
-    local v110 = nil;
+    local v113 = nil;
+    local v114 = nil;
     if l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 and not l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then
-        v109 = v7.useCallback(function(v111) --[[ Line: 282 ]]
+        v113 = v7.useCallback(function(v115) --[[ Line: 282 ]]
             -- upvalues: v79 (copy), l_MediaGalleryActivated_0 (ref), v72 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), v67 (copy)
-            local v112 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
-            if v112 then
-                l_MediaGalleryActivated_0(v72, "ExperienceDetailsPage", v112, {
-                    selectedIndex = v111, 
+            local v116 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
+            if v116 then
+                l_MediaGalleryActivated_0(v72, "ExperienceDetailsPage", v116, {
+                    selectedIndex = v115, 
                     universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
                 });
             end;
@@ -233,13 +237,13 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             v79, 
             if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
         });
-        v110 = v7.useCallback(function(v113, v114) --[[ Line: 301 ]]
+        v114 = v7.useCallback(function(v117, v118) --[[ Line: 301 ]]
             -- upvalues: v79 (copy), l_MediaGalleryMediaChanged_0 (ref), v72 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), v67 (copy)
-            local v115 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
-            if v115 and v113 ~= v114 then
-                l_MediaGalleryMediaChanged_0(v72, "ExperienceDetailsPage", v115, {
-                    previousIndex = v113, 
-                    selectedIndex = v114, 
+            local v119 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
+            if v119 and v117 ~= v118 then
+                l_MediaGalleryMediaChanged_0(v72, "ExperienceDetailsPage", v119, {
+                    previousIndex = v117, 
+                    selectedIndex = v118, 
                     universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
                 });
             end;
@@ -249,19 +253,19 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
         });
     end;
-    local v116 = nil;
-    local v117 = nil;
-    local v118 = nil;
+    local v120 = nil;
+    local v121 = nil;
+    local v122 = nil;
     if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then
-        v116 = v7.useCallback(function(v119, v120, v121, v122) --[[ Line: 327 ]]
+        v120 = v7.useCallback(function(v123, v124, v125, v126) --[[ Line: 327 ]]
             -- upvalues: v79 (copy), l_MediaGalleryMediaChanged_0 (ref), v72 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), v67 (copy)
-            local v123 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
-            if v123 then
-                l_MediaGalleryMediaChanged_0(v72, "ExperienceDetailsPage", v123, {
-                    imageAssetId = v119, 
-                    videoAssetId = v120, 
-                    isYouTubeVideo = v121, 
-                    autoAdvance = v122, 
+            local v127 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
+            if v127 then
+                l_MediaGalleryMediaChanged_0(v72, "ExperienceDetailsPage", v127, {
+                    imageAssetId = v123, 
+                    videoAssetId = v124, 
+                    isYouTubeVideo = v125, 
+                    autoAdvance = v126, 
                     universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
                 });
             end;
@@ -270,13 +274,13 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             v79, 
             if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
         });
-        v117 = v7.useCallback(function(v124, v125) --[[ Line: 349 ]]
+        v121 = v7.useCallback(function(v128, v129) --[[ Line: 349 ]]
             -- upvalues: v79 (copy), l_MediaGalleryEnterFullscreen_0 (ref), v72 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), v67 (copy)
-            local v126 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
-            if v126 then
-                l_MediaGalleryEnterFullscreen_0(v72, "ExperienceDetailsPage", v126, {
-                    selectedIndex = v124, 
-                    isVideo = v125, 
+            local v130 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
+            if v130 then
+                l_MediaGalleryEnterFullscreen_0(v72, "ExperienceDetailsPage", v130, {
+                    selectedIndex = v128, 
+                    isVideo = v129, 
                     universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
                 });
             end;
@@ -285,13 +289,13 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             v79, 
             if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
         });
-        v118 = v7.useCallback(function(v127, v128) --[[ Line: 369 ]]
+        v122 = v7.useCallback(function(v131, v132) --[[ Line: 369 ]]
             -- upvalues: v79 (copy), l_MediaGalleryExitFullscreen_0 (ref), v72 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), v67 (copy)
-            local v129 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
-            if v129 then
-                l_MediaGalleryExitFullscreen_0(v72, "ExperienceDetailsPage", v129, {
-                    selectedIndex = v127, 
-                    isVideo = v128, 
+            local v133 = v79.gameDetail and v79.gameDetail.rootPlaceId or v79.gameInfo and v79.gameInfo.placeId;
+            if v133 then
+                l_MediaGalleryExitFullscreen_0(v72, "ExperienceDetailsPage", v133, {
+                    selectedIndex = v131, 
+                    isVideo = v132, 
                     universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
                 });
             end;
@@ -301,7 +305,7 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v67.universeId else nil
         });
     end;
-    local v130 = v7.useCallback(function() --[[ Line: 389 ]]
+    local v134 = v7.useCallback(function() --[[ Line: 389 ]]
         -- upvalues: v80 (copy), l_hasPageInCurrentRoute_0 (ref), v76 (copy), l_AppPage_0 (ref), v73 (copy), l_SessionType_0 (ref)
         v80.navigateBack();
         if not (l_hasPageInCurrentRoute_0(v76, l_AppPage_0.GameDetail, true) or l_hasPageInCurrentRoute_0(v76, l_AppPage_0.ExperienceDetail, true)) then
@@ -314,33 +318,33 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
     local l_screenSize_0 = v75.screenSize;
     local l_l_GuiService_0_SafeZoneOffsets_0 = l_GuiService_0:GetSafeZoneOffsets();
     local l_Offset_0 = l_getSafeAreaSize_0(l_screenSize_0, l_l_GuiService_0_SafeZoneOffsets_0).Y.Offset;
-    local v134 = UDim2.new(1, 0, 1, 0);
+    local v138 = UDim2.new(1, 0, 1, 0);
     if v69.roundedCorners then
-        v134 = UDim2.new(1, 0, 1, 0);
+        v138 = UDim2.new(1, 0, 1, 0);
     end;
-    local v135 = v79.gameDetail and v79.gameDetail.creator;
-    local v136 = if v41() then v135 and v135.hasVerifiedBadge else v79.creatorVerified;
-    local v137 = v37();
+    local v139 = v79.gameDetail and v79.gameDetail.creator;
+    local v140 = if v41() then v139 and v139.hasVerifiedBadge else v79.creatorVerified;
+    local v141 = v37();
     v82 = v34();
-    local v138 = v7.useRef(nil);
-    local v139 = v7.useCallback(function() --[[ Line: 425 ]]
-        -- upvalues: v138 (copy), l_GuiService_0 (ref), l_getFirstFocusableDescendant_0 (ref)
-        if v138.current then
-            l_GuiService_0.SelectedCoreObject = l_getFirstFocusableDescendant_0(v138.current);
+    local v142 = v7.useRef(nil);
+    local v143 = v7.useCallback(function() --[[ Line: 425 ]]
+        -- upvalues: v142 (copy), l_GuiService_0 (ref), l_getFirstFocusableDescendant_0 (ref)
+        if v142.current then
+            l_GuiService_0.SelectedCoreObject = l_getFirstFocusableDescendant_0(v142.current);
         end;
     end, {});
-    local v141 = v7.useCallback(function(_) --[[ Line: 435 ]]
+    local v145 = v7.useCallback(function(_) --[[ Line: 435 ]]
         -- upvalues: v67 (copy)
         v67.onPlayButtonActivated();
     end, {
         v67.onPlayButtonActivated
     });
-    local v142, v143 = v36(v141, v139);
+    local v146, v147 = v36(v145, v143);
     return v7.createElement("Frame", {
-        ref = v142, 
+        ref = v146, 
         AnchorPoint = Vector2.new(0, 0), 
         Position = UDim2.new(0, 0, 0, l_l_GuiService_0_SafeZoneOffsets_0.top), 
-        Size = v134, 
+        Size = v138, 
         BackgroundTransparency = 1, 
         ClipsDescendants = not l_FFlagExtendScrollingFramesBySafeInsets_0 or false
     }, {
@@ -349,15 +353,15 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             referralSource = v67.referralSource, 
             experienceJoinData = if l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 then v67.experienceJoinData else nil, 
             placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v67.placeIdOverride else nil, 
-            onClose = v130, 
-            statsAndInfoRef = v138, 
+            onClose = v134, 
+            statsAndInfoRef = v142, 
             thumbnail = v79.thumbnail, 
             bannerImageId = v79.bannerImageId, 
             defaultBannerUrl = if l_FFlagLuaAppEdpFixDefaultBanner_0 then v79.defaultBannerUrl else nil, 
             gameInfo = v79.gameInfo, 
             gameDetail = v79.gameDetail, 
             gameDetailError = v79.gameDetailError, 
-            creatorVerified = v136, 
+            creatorVerified = v140, 
             gameDetailsPageDataStatus = v79.gameDetailsPageDataStatus, 
             gameProductInfo = v79.gameProductInfo, 
             socialLinks = v79.socialLinks, 
@@ -371,6 +375,7 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v95 else nil, 
             showSongCarousel = if l_FFlagSongEdpCarouselIxp_0 then v92 else nil, 
             hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v101 else nil, 
+            unifyToUIBloxIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v102 else nil, 
             fetchGameDetailsPageData = v85, 
             openLeaveRobloxAlertUIBlox = v80.openLeaveRobloxAlertUIBlox, 
             openVerifiedBadgeModal = v80.openVerifiedBadgeModal, 
@@ -381,24 +386,24 @@ end)(function(v67) --[[ Line: 116 ]] --[[ Name: ExperienceDetailsContainer ]]
             openCommunityProfilePage = if v56 then v80.openCommunityProfilePage else nil, 
             openUserProfilePage = if v56 then v80.openUserProfilePage else nil, 
             openExperienceGuidelinesExplained = v80.openExperienceGuidelinesExplained, 
-            setControllerBarNavigation = v143, 
+            setControllerBarNavigation = v147, 
             playabilityStatus = v67.playabilityStatus, 
             playButtonState = v67.playButtonState, 
             onPlayButtonActivated = v67.onPlayButtonActivated, 
             onPlaySquadButtonActivated = if l_FFlagLuaAppEnablePlaySquadButton_0 then v67.onPlaySquadButtonActivated else nil, 
             playButtonContextualMessage = v67.playButtonContextualMessage, 
-            toggleFollowExperience = if v91 then v108 else nil, 
-            onMediaGalleryPreviewActivated = if not l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 or l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v109, 
-            onMediaGalleryThumbnailActivated = if not l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 or l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v110, 
-            onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v116 else nil, 
-            onMediaGalleryEnterFullscreen = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v117 else nil, 
-            onMediaGalleryExitFullscreen = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v118 else nil, 
+            toggleFollowExperience = if v91 then v112 else nil, 
+            onMediaGalleryPreviewActivated = if not l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 or l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v113, 
+            onMediaGalleryThumbnailActivated = if not l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 or l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v114, 
+            onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v120 else nil, 
+            onMediaGalleryEnterFullscreen = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v121 else nil, 
+            onMediaGalleryExitFullscreen = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v122 else nil, 
             openRefundPolicyLearnMorePage = v80.openRefundPolicyLearnMorePage, 
             openWebview = if l_FFlagLuaAppAddIgrsRatingToEdp_0 then v80.openWebview else nil, 
             linking = v71, 
             deviceType = v84, 
             viewHeight = l_Offset_0, 
-            detailsPageConfiguration = v137, 
+            detailsPageConfiguration = v141, 
             tokens = v82, 
             webViewSupport = v69.webViewSupport, 
             notificationsCanEnableExperience = v69.notificationsCanEnableExperience, 

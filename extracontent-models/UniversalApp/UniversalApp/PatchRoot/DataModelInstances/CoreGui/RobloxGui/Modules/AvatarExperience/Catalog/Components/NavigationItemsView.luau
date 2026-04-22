@@ -40,25 +40,26 @@ local v38 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchWidgetInfo)
 local v39 = require(l_Modules_0.AvatarExperience.Common.Utils);
 local v40 = require(l_Modules_0.AvatarExperience.Common.Context.withNamedRefs);
 local v41 = require(l_Modules_0.AvatarExperience.Catalog.Actions.ResetSortAndFilters);
-local v42 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
-local v43 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v42 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.ResetSortAndFiltersThunk);
+local v43 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
+local v44 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_getAXMarketplaceWidgetStore_0 = v22.Stores.getAXMarketplaceWidgetStore;
-local v45 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v46 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXRemoveDupSearchCall);
-local v47 = require(l_Modules_0.AvatarExperience.Catalog.Actions.CatalogTilesLatencyTracker);
-local v48 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableCatalogTileLoadingLatency);
-local l_FFlagAXDurablesSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesSupport;
-local v50 = v3.PureComponent:extend("NavigationItemsView");
-local v51 = require(l_Modules_0.LuaApp.Flags.FFlagAXEnableCatalogCreatorHttpLink);
+local v46 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v47 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXRemoveDupSearchCall);
+local v48 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXResetAnalyticsMetadataOnFilterReset);
+local v49 = require(l_Modules_0.AvatarExperience.Catalog.Actions.CatalogTilesLatencyTracker);
+local v50 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableCatalogTileLoadingLatency);
+local v51 = v3.PureComponent:extend("NavigationItemsView");
+local v52 = require(l_Modules_0.LuaApp.Flags.FFlagAXEnableCatalogCreatorHttpLink);
 local l_FFlagAXEditorSubcategoryFilters_0 = v21.FFlagAXEditorSubcategoryFilters;
 local l_AXPrefetchMarketplaceIXP_0 = v23.AXPrefetchMarketplaceIXP;
-local v54 = require(l_Modules_0.AvatarExperience.Common.Components.WidgetList.Hooks.useMarketplaceResultsFetcher);
+local v55 = require(l_Modules_0.AvatarExperience.Common.Components.WidgetList.Hooks.useMarketplaceResultsFetcher);
 local l_FFlagAXUnifiedMarketplaceResultsFetcher_0 = v21.FFlagAXUnifiedMarketplaceResultsFetcher;
 local l_FFlagAXPrefetchOnlyWithinTTL_0 = v21.FFlagAXPrefetchOnlyWithinTTL;
 local l_FIntAXPrefetchTTL_0 = v21.FIntAXPrefetchTTL;
 local l_AXRecentlyViewedSearchItemsIXPTest_0 = v17.Experiments.AXRecentlyViewedSearchItemsIXPTest;
 local l_AXCatalogRealTimeRecommendationsIXP_0 = v23.AXCatalogRealTimeRecommendationsIXP;
-local v60 = game:DefineFastInt("AXCatalogExitReEnterRefreshInterval", 60);
+local v61 = game:DefineFastInt("AXCatalogExitReEnterRefreshInterval", 60);
 local l_FFlagAXCatalogCategoriesStore_0 = v21.FFlagAXCatalogCategoriesStore;
 local l_FFlagAXCatalogCategoriesSDUI_0 = v21.FFlagAXCatalogCategoriesSDUI;
 local l_FFlagAXPassScreenSizeToWidgetApi_0 = v21.FFlagAXPassScreenSizeToWidgetApi;
@@ -67,20 +68,22 @@ local l_FFlagAXDefaultCatalogCategoryId_0 = v21.FFlagAXDefaultCatalogCategoryId;
 local l_FFlagAXEnableTTIViaModule_0 = v21.FFlagAXEnableTTIViaModule;
 local l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 = v21.FFlagAXEnableMilestoneTrackingForAvatarExperience;
 local l_TimeToInteractiveTracker_0 = require(l_CorePackages_0.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker;
-local l_TTIPerformanceManager_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceTTIPerformance).TTIPerformanceManager;
+local v70 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceTTIPerformance);
+local l_TTIPerformanceManager_0 = v70.TTIPerformanceManager;
+local l_OrganicTTIMilestoneManager_0 = v70.OrganicTTIMilestoneManager;
 local l_CatalogCategories_0 = v17.Enums.CatalogCategories;
-local v71 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
-local v72 = require(l_CorePackages_0.Packages.SignalsReact);
-local l_useSignalState_0 = v72.useSignalState;
-local v74 = require(l_Modules_0.AvatarExperience.Catalog.Selectors.selectFilterCount);
+local v74 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
+local v75 = require(l_CorePackages_0.Packages.SignalsReact);
+local l_useSignalState_0 = v75.useSignalState;
+local v77 = require(l_Modules_0.AvatarExperience.Catalog.Selectors.selectFilterCount);
 local l_getShouldPageUseWidgetOnlyFetcher_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog).Utils.getShouldPageUseWidgetOnlyFetcher;
-local v76 = {
+local v79 = {
     [l_AvatarScreen_0.AvatarEditor] = true, 
     [l_AvatarScreen_0.ProfilePictureEditorEmotes] = true, 
     [l_AvatarScreen_0.MySharedAvatars] = true, 
     [l_AvatarScreen_0.SearchLandingFocusedWidgetPage] = l_AXRecentlyViewedSearchItemsIXPTest_0.isEnabled() and true or nil
 };
-v50.validateProps = v9.strictInterface({
+v51.validateProps = v9.strictInterface({
     defaultChildRef = v9.optional(v9.table), 
     NextSelectionUp = v9.optional(v9.table), 
     NextSelectionRight = v9.optional(v9.table), 
@@ -100,9 +103,9 @@ v50.validateProps = v9.strictInterface({
     creatorFilter = v9.string, 
     salesTypeFilter = v9.string, 
     unavailableItemFilter = v9.string, 
-    wearTimeFilter = if l_FFlagAXDurablesSupport_0 then v9.optional(v9.string) else nil, 
+    wearTimeFilter = v9.optional(v9.string), 
     widgetFetchTime = v9.optional(v9.number), 
-    externalNavigationRequest = if v51 then v9.table else nil, 
+    externalNavigationRequest = if v52 then v9.table else nil, 
     isRecentMarketplaceUser = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v9.optional(v9.boolean) else nil, 
     screenSize = if l_FFlagAXPassScreenSizeToWidgetApi_0 then v9.string else nil, 
     filterCount = if l_FFlagAXPassScreenSizeToWidgetApi_0 then v9.number else nil, 
@@ -113,7 +116,7 @@ v50.validateProps = v9.strictInterface({
     dispatchRemoveSearch = v9.callback, 
     clearSelectedTopics = v9.callback, 
     resetSortAndFilters = v9.callback, 
-    dispatchCatalogTilesLatencyStartTracker = if v48() then v9.callback else nil, 
+    dispatchCatalogTilesLatencyStartTracker = if v50() then v9.callback else nil, 
     pageObjectManager = v9.optional(v9.table), 
     avatarRoute = l_AvatarRoute_0.Interface, 
     namedRefs = v9.table, 
@@ -124,108 +127,108 @@ v50.validateProps = v9.strictInterface({
     fetchMarketplace = if not not l_AXPrefetchMarketplaceIXP_0.isEnabled() or l_FFlagAXUnifiedMarketplaceResultsFetcher_0 then v9.optional(v9.callback) else nil, 
     fetchedMarketplaceTimestamp = if l_FFlagAXPrefetchOnlyWithinTTL_0 then v9.optional(v9.number) else nil
 });
-local function _(v77) --[[ Line: 168 ]] --[[ Name: isCatalogPage ]]
+local function _(v80) --[[ Line: 171 ]] --[[ Name: isCatalogPage ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    return v77.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog;
+    return v80.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog;
 end;
-local function _(v79) --[[ Line: 172 ]] --[[ Name: isCatalogSearchPage ]]
+local function _(v82) --[[ Line: 175 ]] --[[ Name: isCatalogSearchPage ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    return v79.avatarRoute.opaque.name == l_AvatarScreen_0.CatalogSearch;
+    return v82.avatarRoute.opaque.name == l_AvatarScreen_0.CatalogSearch;
 end;
-local v83 = l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() and function(v81) --[[ Line: 177 ]]
-    -- upvalues: l_AvatarScreen_0 (copy), l_FFlagAXDefaultCatalogCategoryId_0 (copy), v45 (copy), l_CatalogCategories_0 (copy)
-    if not (v81.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) then
+local v86 = l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() and function(v84) --[[ Line: 180 ]]
+    -- upvalues: l_AvatarScreen_0 (copy), l_FFlagAXDefaultCatalogCategoryId_0 (copy), v46 (copy), l_CatalogCategories_0 (copy)
+    if not (v84.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) then
         return false;
     else
-        local l_categoryInfo_0 = v81.categoryInfo;
+        local l_categoryInfo_0 = v84.categoryInfo;
         if not l_categoryInfo_0 then
             return false;
         else
-            return l_categoryInfo_0.Id == if l_FFlagAXDefaultCatalogCategoryId_0 then v45.DefaultCatalogCategoryId else l_CatalogCategories_0.Recommended:rawValue();
+            return l_categoryInfo_0.Id == if l_FFlagAXDefaultCatalogCategoryId_0 then v46.DefaultCatalogCategoryId else l_CatalogCategories_0.Recommended:rawValue();
         end;
     end;
 end or nil;
-v50.init = function(v84) --[[ Line: 199 ]] --[[ Name: init ]]
+v51.init = function(v87) --[[ Line: 202 ]] --[[ Name: init ]]
     -- upvalues: l_AvatarScreen_0 (copy), v14 (copy), v3 (copy), l_Signal_0 (copy), l_AXPrefetchMarketplaceIXP_0 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy), v13 (copy), v12 (copy), l_FFlagAXCatalogCategoriesSDUI_0 (copy), l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (copy)
-    v84.itemsListRef = v84.props.namedRefs[l_AvatarScreen_0.Catalog .. v14.ItemsList];
-    v84.scrollingFrameRef = v3.createRef();
-    v84.navBarRef = v3.createRef();
-    v84.backToTopSignal = l_Signal_0.new();
-    v84:setState({
+    v87.itemsListRef = v87.props.namedRefs[l_AvatarScreen_0.Catalog .. v14.ItemsList];
+    v87.scrollingFrameRef = v3.createRef();
+    v87.navBarRef = v3.createRef();
+    v87.backToTopSignal = l_Signal_0.new();
+    v87:setState({
         restorePreviousChildFocus = true, 
-        isInitialPrefetch = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v84.props.isInitialPrefetch else nil, 
+        isInitialPrefetch = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v87.props.isInitialPrefetch else nil, 
         hasEnteredAvatarExperience = not l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() and nil
     });
     if l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() then
-        v84.lastMarketplaceFetchTime = 0;
+        v87.lastMarketplaceFetchTime = 0;
     end;
-    v84.dispatchInitialSearch = function() --[[ Line: 216 ]]
-        -- upvalues: v84 (copy), v13 (ref)
-        local l_dispatchSearch_0 = v84.props.dispatchSearch;
-        local l_setSearchParameters_0 = v84.props.setSearchParameters;
-        local l_categoryInfo_1 = v84.props.categoryInfo;
-        local l_searchUuid_0 = v84.props.searchUuid;
-        v84.props.setSearchType(l_searchUuid_0, v13.SearchTypes.Catalog);
-        l_setSearchParameters_0(l_searchUuid_0, l_categoryInfo_1, v84.props.catalogSort, v84.props.catalogSortAggregation, v84.props.minPrice, v84.props.maxPrice, v84.props.selectedTopics);
-        return l_dispatchSearch_0(v84.props.networking, l_searchUuid_0, l_categoryInfo_1);
+    v87.dispatchInitialSearch = function() --[[ Line: 219 ]]
+        -- upvalues: v87 (copy), v13 (ref)
+        local l_dispatchSearch_0 = v87.props.dispatchSearch;
+        local l_setSearchParameters_0 = v87.props.setSearchParameters;
+        local l_categoryInfo_1 = v87.props.categoryInfo;
+        local l_searchUuid_0 = v87.props.searchUuid;
+        v87.props.setSearchType(l_searchUuid_0, v13.SearchTypes.Catalog);
+        l_setSearchParameters_0(l_searchUuid_0, l_categoryInfo_1, v87.props.catalogSort, v87.props.catalogSortAggregation, v87.props.minPrice, v87.props.maxPrice, v87.props.selectedTopics);
+        return l_dispatchSearch_0(v87.props.networking, l_searchUuid_0, l_categoryInfo_1);
     end;
-    v84.fetchWidgetInfo = function(v89, v90) --[[ Line: 236 ]]
-        -- upvalues: v12 (ref), v84 (copy)
-        local v91 = nil;
-        if v89 then
-            v91 = v12.getContextForWidgetsById(v84.props.avatarRoute.opaque.name, v89, v90);
+    v87.fetchWidgetInfo = function(v92, v93) --[[ Line: 239 ]]
+        -- upvalues: v12 (ref), v87 (copy)
+        local v94 = nil;
+        if v92 then
+            v94 = v12.getContextForWidgetsById(v87.props.avatarRoute.opaque.name, v92, v93);
         end;
-        return v84.props.fetchWidgetInfo(v84.props.networking, nil, v91);
+        return v87.props.fetchWidgetInfo(v87.props.networking, nil, v94);
     end;
     if l_FFlagAXCatalogCategoriesSDUI_0 then
-        v84.initialSearch = function() --[[ Line: 250 ]]
-            -- upvalues: l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (ref), v84 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (ref)
+        v87.initialSearch = function() --[[ Line: 253 ]]
+            -- upvalues: l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (ref), v87 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (ref)
             if l_FFlagAXUnifiedMarketplaceResultsFetcher_0 then
-                v84.props.fetchMarketplace();
+                v87.props.fetchMarketplace();
                 if l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() then
-                    v84.lastMarketplaceFetchTime = os.time();
+                    v87.lastMarketplaceFetchTime = os.time();
                     return;
                 end;
             else
-                v84.dispatchInitialSearch();
+                v87.dispatchInitialSearch();
             end;
         end;
     end;
 end;
 if l_AXPrefetchMarketplaceIXP_0.isEnabled() then
-    v50.hasPrefetchedMarketplace = function(v92) --[[ Line: 267 ]] --[[ Name: hasPrefetchedMarketplace ]]
-        -- upvalues: v24 (copy), l_AXPrefetchMarketplaceIXP_0 (copy), l_sendAXCounterV2_0 (copy), v43 (copy), l_FFlagAXPrefetchOnlyWithinTTL_0 (copy), l_FIntAXPrefetchTTL_0 (copy), v48 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (copy), l_TTIPerformanceManager_0 (copy), l_TimeToInteractiveTracker_0 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy)
-        local v93 = v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.EnabledForUser);
-        local v94 = v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.UserIsInExperiment);
-        if not v92.props.isRecentMarketplaceUser then
+    v51.hasPrefetchedMarketplace = function(v95) --[[ Line: 270 ]] --[[ Name: hasPrefetchedMarketplace ]]
+        -- upvalues: v24 (copy), l_AXPrefetchMarketplaceIXP_0 (copy), l_sendAXCounterV2_0 (copy), v44 (copy), l_FFlagAXPrefetchOnlyWithinTTL_0 (copy), l_FIntAXPrefetchTTL_0 (copy), v50 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (copy), l_TTIPerformanceManager_0 (copy), l_TimeToInteractiveTracker_0 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy)
+        local v96 = v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.EnabledForUser);
+        local v97 = v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.UserIsInExperiment);
+        if not v95.props.isRecentMarketplaceUser then
             return false;
         else
-            l_sendAXCounterV2_0(v43.Counter.PrefetchMarketplace.enteredMarketplaceAndIsRecentUser);
-            if v94 then
-                local v95 = not l_FFlagAXPrefetchOnlyWithinTTL_0 or not v92.props.fetchedMarketplaceTimestamp or os.time() - v92.props.fetchedMarketplaceTimestamp <= l_FIntAXPrefetchTTL_0;
-                if not v95 then
+            l_sendAXCounterV2_0(v44.Counter.PrefetchMarketplace.enteredMarketplaceAndIsRecentUser);
+            if v97 then
+                local v98 = not l_FFlagAXPrefetchOnlyWithinTTL_0 or not v95.props.fetchedMarketplaceTimestamp or os.time() - v95.props.fetchedMarketplaceTimestamp <= l_FIntAXPrefetchTTL_0;
+                if not v98 then
                     return false;
                 else
-                    l_sendAXCounterV2_0(v43.Counter.PrefetchMarketplace.inExperimentAndIsRecentUserAndEnteredMarketplace);
+                    l_sendAXCounterV2_0(v44.Counter.PrefetchMarketplace.inExperimentAndIsRecentUserAndEnteredMarketplace);
                     v24.logExperimentExposure(l_AXPrefetchMarketplaceIXP_0);
-                    if v93 and v95 then
-                        if v48() then
+                    if v96 and v98 then
+                        if v50() then
                             if l_FFlagAXEnableTTIViaModule_0 then
                                 if l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 then
                                     l_TTIPerformanceManager_0.Surface.Marketplace.Root.startTracking();
                                 else
-                                    l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Organic.Tiles);
-                                    l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Organic.Thumbnails);
-                                    l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Widget.Tiles);
-                                    l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Widget.Thumbnails);
+                                    l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Organic.Tiles);
+                                    l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Organic.Thumbnails);
+                                    l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Widget.Tiles);
+                                    l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Widget.Thumbnails);
                                 end;
                             end;
-                            v92.props.dispatchCatalogTilesLatencyStartTracker(v92.props.searchUuid);
+                            v95.props.dispatchCatalogTilesLatencyStartTracker(v95.props.searchUuid);
                         end;
                         if l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() then
-                            v92.lastMarketplaceFetchTime = os.time();
+                            v95.lastMarketplaceFetchTime = os.time();
                         end;
-                        v92:setState({
+                        v95:setState({
                             isInitialPrefetch = true
                         });
                         return true;
@@ -236,139 +239,144 @@ if l_AXPrefetchMarketplaceIXP_0.isEnabled() then
         end;
     end;
 end;
-v50.didMount = function(v96) --[[ Line: 353 ]] --[[ Name: didMount ]]
+v51.didMount = function(v99) --[[ Line: 356 ]] --[[ Name: didMount ]]
     -- upvalues: l_AXPrefetchMarketplaceIXP_0 (copy), l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy)
-    if l_AXPrefetchMarketplaceIXP_0.isEnabled() and v96:hasPrefetchedMarketplace() then
+    if l_AXPrefetchMarketplaceIXP_0.isEnabled() and v99:hasPrefetchedMarketplace() then
         return;
     else
         if l_FFlagAXUnifiedMarketplaceResultsFetcher_0 then
-            v96.props.fetchMarketplace();
+            v99.props.fetchMarketplace();
             if l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() then
-                v96.lastMarketplaceFetchTime = os.time();
+                v99.lastMarketplaceFetchTime = os.time();
                 return;
             end;
         else
-            v96.dispatchInitialSearch();
-            v96.fetchWidgetInfo(v96.props.categoryId, v96.props.subcategoryId);
+            v99.dispatchInitialSearch();
+            v99.fetchWidgetInfo(v99.props.categoryId, v99.props.subcategoryId);
         end;
         return;
     end;
 end;
-v50.searchResultsAreOld = function(v97, _, v99, v100) --[[ Line: 378 ]] --[[ Name: searchResultsAreOld ]]
-    local v101 = if v100 then v100.searchTime else v97.props.searchTime;
-    if not v99.TimeToRefresh or v99.TimeToRefresh < 0 or not v101 then
+v51.searchResultsAreOld = function(v100, _, v102, v103) --[[ Line: 381 ]] --[[ Name: searchResultsAreOld ]]
+    local v104 = if v103 then v103.searchTime else v100.props.searchTime;
+    if not v102.TimeToRefresh or v102.TimeToRefresh < 0 or not v104 then
         return false;
     else
-        return tick() - v101 > v99.TimeToRefresh;
+        return tick() - v104 > v102.TimeToRefresh;
     end;
 end;
-v50.updateSearchParams = function(v102, v103) --[[ Line: 388 ]] --[[ Name: updateSearchParams ]]
-    -- upvalues: l_FFlagAXDurablesSupport_0 (copy), v48 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (copy), l_TTIPerformanceManager_0 (copy), l_TimeToInteractiveTracker_0 (copy), v43 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), l_getShouldPageUseWidgetOnlyFetcher_0 (copy)
-    local l_categoryInfo_2 = v103.categoryInfo;
-    local l_searchUuid_1 = v103.searchUuid;
-    local l_dispatchSearch_1 = v102.props.dispatchSearch;
-    local l_setSearchParameters_1 = v102.props.setSearchParameters;
-    local l_fetchWidgetInfo_0 = v102.fetchWidgetInfo;
-    local v109 = true;
-    if v103.categoryId == v102.props.categoryId then
-        v109 = v103.subcategoryId ~= v102.props.subcategoryId;
+v51.updateSearchParams = function(v105, v106) --[[ Line: 391 ]] --[[ Name: updateSearchParams ]]
+    -- upvalues: v50 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (copy), l_TTIPerformanceManager_0 (copy), l_OrganicTTIMilestoneManager_0 (copy), l_TimeToInteractiveTracker_0 (copy), v44 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), l_getShouldPageUseWidgetOnlyFetcher_0 (copy)
+    local l_categoryInfo_2 = v106.categoryInfo;
+    local l_searchUuid_1 = v106.searchUuid;
+    local l_dispatchSearch_1 = v105.props.dispatchSearch;
+    local l_setSearchParameters_1 = v105.props.setSearchParameters;
+    local l_fetchWidgetInfo_0 = v105.fetchWidgetInfo;
+    local v112 = true;
+    if v106.categoryId == v105.props.categoryId then
+        v112 = v106.subcategoryId ~= v105.props.subcategoryId;
     end;
-    local v110 = false;
-    if l_FFlagAXDurablesSupport_0 then
-        v110 = v103.wearTimeFilter ~= v102.props.wearTimeFilter;
-    end;
-    if v109 or v103.catalogSort ~= v102.props.catalogSort or v103.catalogSortAggregation ~= v102.props.catalogSortAggregation or v103.minPrice ~= v102.props.minPrice or v103.maxPrice ~= v102.props.maxPrice or v103.selectedTopics ~= v102.props.selectedTopics or v103.creatorFilter ~= v102.props.creatorFilter or v103.salesTypeFilter ~= v102.props.salesTypeFilter or v103.unavailableItemFilter ~= v102.props.unavailableItemFilter or v110 then
-        if v109 then
-            v102.props.clearSelectedTopics();
-            local v111 = v102.props.searchParameters[l_searchUuid_1];
-            if v111 == nil then
-                l_setSearchParameters_1(l_searchUuid_1, l_categoryInfo_2, v103.catalogSort, v103.catalogSortAggregation, v103.minPrice, v103.maxPrice, v103.selectedTopics, v103.creatorFilter, v103.salesTypeFilter, v103.unavailableItemFilter, if l_FFlagAXDurablesSupport_0 then v103.wearTimeFilter else nil);
-                if v48() then
+    local v113 = v106.wearTimeFilter ~= v105.props.wearTimeFilter;
+    if v112 or v106.catalogSort ~= v105.props.catalogSort or v106.catalogSortAggregation ~= v105.props.catalogSortAggregation or v106.minPrice ~= v105.props.minPrice or v106.maxPrice ~= v105.props.maxPrice or v106.selectedTopics ~= v105.props.selectedTopics or v106.creatorFilter ~= v105.props.creatorFilter or v106.salesTypeFilter ~= v105.props.salesTypeFilter or v106.unavailableItemFilter ~= v105.props.unavailableItemFilter or v113 then
+        if v112 then
+            v105.props.clearSelectedTopics();
+            local v114 = v105.props.searchParameters[l_searchUuid_1];
+            if v114 == nil then
+                l_setSearchParameters_1(l_searchUuid_1, l_categoryInfo_2, v106.catalogSort, v106.catalogSortAggregation, v106.minPrice, v106.maxPrice, v106.selectedTopics, v106.creatorFilter, v106.salesTypeFilter, v106.unavailableItemFilter, v106.wearTimeFilter);
+                if v50() then
                     if l_FFlagAXEnableTTIViaModule_0 then
                         if l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 then
                             l_TTIPerformanceManager_0.Surface.Marketplace.Root.startTracking();
+                            if l_OrganicTTIMilestoneManager_0 then
+                                l_OrganicTTIMilestoneManager_0.L2.primaryDataStarted();
+                                l_OrganicTTIMilestoneManager_0.L3.networkFetch();
+                            end;
                         else
-                            l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Organic.Tiles);
-                            l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Organic.Thumbnails);
-                            l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Widget.Tiles);
-                            l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Widget.Thumbnails);
+                            l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Organic.Tiles);
+                            l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Organic.Thumbnails);
+                            l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Widget.Tiles);
+                            l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Widget.Thumbnails);
                         end;
                     end;
-                    v102.props.dispatchCatalogTilesLatencyStartTracker(l_searchUuid_1);
+                    v105.props.dispatchCatalogTilesLatencyStartTracker(l_searchUuid_1);
                 end;
-                l_dispatchSearch_1(v102.props.networking, l_searchUuid_1, l_categoryInfo_2);
-                l_fetchWidgetInfo_0(v103.categoryId, v103.subcategoryId);
+                l_dispatchSearch_1(v105.props.networking, l_searchUuid_1, l_categoryInfo_2);
+                l_fetchWidgetInfo_0(v106.categoryId, v106.subcategoryId);
             else
-                local v112 = v102:searchResultsAreOld(l_searchUuid_1, l_categoryInfo_2, v103) or v111.catalogSort and v111.catalogSort ~= v103.catalogSort or v111.catalogSortAggregation and v111.catalogSortAggregation ~= v103.catalogSortAggregation or v111.minPrice and v111.minPrice ~= v103.minPrice or v111.maxPrice and v111.maxPrice ~= v103.maxPrice or v111.selectedTopics and v111.selectedTopics ~= v103.selectedTopics or v111.creatorFilter and v111.creatorFilter ~= v103.creatorFilter or v111.salesTypeFilter and v111.salesTypeFilter ~= v103.salesTypeFilter or v111.unavailableItemFilter and v111.unavailableItemFilter ~= v103.unavailableItemFilter;
-                local v113 = if l_FFlagAXPassScreenSizeToWidgetApi_0 then l_getShouldPageUseWidgetOnlyFetcher_0(v103.categoryInfo, v103.filterCount, v111 and v111.searchKeyword) else nil;
-                if l_FFlagAXPassScreenSizeToWidgetApi_0 and v113 then
-                    v112 = false;
+                local v115 = v105:searchResultsAreOld(l_searchUuid_1, l_categoryInfo_2, v106) or v114.catalogSort and v114.catalogSort ~= v106.catalogSort or v114.catalogSortAggregation and v114.catalogSortAggregation ~= v106.catalogSortAggregation or v114.minPrice and v114.minPrice ~= v106.minPrice or v114.maxPrice and v114.maxPrice ~= v106.maxPrice or v114.selectedTopics and v114.selectedTopics ~= v106.selectedTopics or v114.creatorFilter and v114.creatorFilter ~= v106.creatorFilter or v114.salesTypeFilter and v114.salesTypeFilter ~= v106.salesTypeFilter or v114.unavailableItemFilter and v114.unavailableItemFilter ~= v106.unavailableItemFilter;
+                local v116 = if l_FFlagAXPassScreenSizeToWidgetApi_0 then l_getShouldPageUseWidgetOnlyFetcher_0(v106.categoryInfo, v106.filterCount, v114 and v114.searchKeyword) else nil;
+                if l_FFlagAXPassScreenSizeToWidgetApi_0 and v116 then
+                    v115 = false;
                 end;
-                if v112 then
-                    if v102:searchResultsAreOld(l_searchUuid_1, l_categoryInfo_2, v103) then
-                        v102.props.catalogAnalytics.sendAXCounter(v43.Counter.CatalogRefresh.StaleResults);
+                if v115 then
+                    if v105:searchResultsAreOld(l_searchUuid_1, l_categoryInfo_2, v106) then
+                        v105.props.catalogAnalytics.sendAXCounter(v44.Counter.CatalogRefresh.StaleResults);
                     end;
-                    v102.props.pageObjectManager:storePageObject(l_searchUuid_1, nil);
-                    v102.props.dispatchRemoveSearch(l_searchUuid_1);
-                    if v48() then
+                    v105.props.pageObjectManager:storePageObject(l_searchUuid_1, nil);
+                    v105.props.dispatchRemoveSearch(l_searchUuid_1);
+                    if v50() then
                         if l_FFlagAXEnableTTIViaModule_0 then
                             if l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 then
                                 l_TTIPerformanceManager_0.Surface.Marketplace.Root.startTracking();
+                                if l_OrganicTTIMilestoneManager_0 then
+                                    l_OrganicTTIMilestoneManager_0.L2.primaryDataStarted();
+                                    l_OrganicTTIMilestoneManager_0.L3.networkFetch();
+                                end;
                             else
-                                l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Organic.Tiles);
-                                l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Organic.Thumbnails);
-                                l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Widget.Tiles);
-                                l_TimeToInteractiveTracker_0.trackStart(v43.Counter.PREFIX .. v43.Counter.Latency.Widget.Thumbnails);
+                                l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Organic.Tiles);
+                                l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Organic.Thumbnails);
+                                l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Widget.Tiles);
+                                l_TimeToInteractiveTracker_0.trackStart(v44.Counter.PREFIX .. v44.Counter.Latency.Widget.Thumbnails);
                             end;
                         end;
-                        v102.props.dispatchCatalogTilesLatencyStartTracker(l_searchUuid_1);
+                        v105.props.dispatchCatalogTilesLatencyStartTracker(l_searchUuid_1);
                     end;
-                    l_setSearchParameters_1(l_searchUuid_1, l_categoryInfo_2, v103.catalogSort, v103.catalogSortAggregation, v103.minPrice, v103.maxPrice, v103.selectedTopics, v103.creatorFilter, v103.salesTypeFilter, v103.unavailableItemFilter, if l_FFlagAXDurablesSupport_0 then v103.wearTimeFilter else nil);
-                    l_dispatchSearch_1(v102.props.networking, l_searchUuid_1, l_categoryInfo_2);
-                    l_fetchWidgetInfo_0(v103.categoryId, v103.subcategoryId);
+                    l_setSearchParameters_1(l_searchUuid_1, l_categoryInfo_2, v106.catalogSort, v106.catalogSortAggregation, v106.minPrice, v106.maxPrice, v106.selectedTopics, v106.creatorFilter, v106.salesTypeFilter, v106.unavailableItemFilter, v106.wearTimeFilter);
+                    l_dispatchSearch_1(v105.props.networking, l_searchUuid_1, l_categoryInfo_2);
+                    l_fetchWidgetInfo_0(v106.categoryId, v106.subcategoryId);
                 end;
             end;
         else
-            v102.props.pageObjectManager:storePageObject(l_searchUuid_1, nil);
-            v102.props.dispatchRemoveSearch(l_searchUuid_1);
-            l_setSearchParameters_1(l_searchUuid_1, l_categoryInfo_2, v103.catalogSort, v103.catalogSortAggregation, v103.minPrice, v103.maxPrice, v103.selectedTopics, v103.creatorFilter, v103.salesTypeFilter, v103.unavailableItemFilter, if l_FFlagAXDurablesSupport_0 then v103.wearTimeFilter else nil);
-            l_dispatchSearch_1(v102.props.networking, l_searchUuid_1, l_categoryInfo_2);
+            v105.props.pageObjectManager:storePageObject(l_searchUuid_1, nil);
+            v105.props.dispatchRemoveSearch(l_searchUuid_1);
+            l_setSearchParameters_1(l_searchUuid_1, l_categoryInfo_2, v106.catalogSort, v106.catalogSortAggregation, v106.minPrice, v106.maxPrice, v106.selectedTopics, v106.creatorFilter, v106.salesTypeFilter, v106.unavailableItemFilter, v106.wearTimeFilter);
+            l_dispatchSearch_1(v105.props.networking, l_searchUuid_1, l_categoryInfo_2);
         end;
-        if v102.scrollingFrameRef.current then
-            v102.scrollingFrameRef.current.CanvasPosition = Vector2.new();
+        if v105.scrollingFrameRef.current then
+            v105.scrollingFrameRef.current.CanvasPosition = Vector2.new();
         end;
     end;
 end;
-v50.willUpdate = function(v114, v115) --[[ Line: 591 ]] --[[ Name: willUpdate ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v46 (copy)
-    if v114.props.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog and not (v115.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) then
-        v114.props.clearSelectedTopics();
-        v114.props.resetSortAndFilters();
+v51.willUpdate = function(v117, v118) --[[ Line: 599 ]] --[[ Name: willUpdate ]]
+    -- upvalues: l_AvatarScreen_0 (copy), v47 (copy)
+    if v117.props.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog and not (v118.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) then
+        v117.props.clearSelectedTopics();
+        v117.props.resetSortAndFilters();
     end;
-    if not (v114.props.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) and v115.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog then
-        v114.props.clearSelectedTopics();
+    if not (v117.props.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) and v118.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog then
+        v117.props.clearSelectedTopics();
     end;
-    if v46 and not (v115.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) then
+    if v47 and not (v118.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog) then
         return;
     else
-        v114:updateSearchParams(v115);
+        v117:updateSearchParams(v118);
         return;
     end;
 end;
-v50.renderWithStyle = function(v116, v117) --[[ Line: 615 ]] --[[ Name: renderWithStyle ]]
+v51.renderWithStyle = function(v119, v120) --[[ Line: 623 ]] --[[ Name: renderWithStyle ]]
     -- upvalues: v3 (copy), l_Focusable_0 (copy), v26 (copy), v11 (copy), l_FFlagAXCatalogCategoriesSDUI_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), l_FFlagAXMoveAllTabToWidgetOnly_0 (copy)
-    local l_Theme_0 = v117.Theme;
-    local l_defaultChildRef_0 = v116.props.defaultChildRef;
-    local l_NextSelectionUp_0 = v116.props.NextSelectionUp;
+    local l_Theme_0 = v120.Theme;
+    local l_defaultChildRef_0 = v119.props.defaultChildRef;
+    local l_NextSelectionUp_0 = v119.props.NextSelectionUp;
     return v3.createElement(l_Focusable_0.Frame, {
         BackgroundTransparency = l_Theme_0.BackgroundDefault.Transparency or 1, 
         BackgroundColor3 = l_Theme_0.BackgroundDefault.Color, 
         BorderSizePixel = 0, 
         Size = UDim2.new(1, 0, 1, 0), 
         [v3.Ref] = l_defaultChildRef_0, 
-        restorePreviousChildFocus = v116.state.restorePreviousChildFocus, 
-        defaultChild = v116.navBarRef, 
-        NextSelectionRight = v116.props.NextSelectionRight
+        restorePreviousChildFocus = v119.state.restorePreviousChildFocus, 
+        defaultChild = v119.navBarRef, 
+        NextSelectionRight = v119.props.NextSelectionRight
     }, {
         ListLayout = v3.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
@@ -376,243 +384,249 @@ v50.renderWithStyle = function(v116, v117) --[[ Line: 615 ]] --[[ Name: renderWi
             Padding = UDim.new(0, 0)
         }), 
         ResultsList = v3.createElement(v26, {
-            frameRef = v116.itemsListRef, 
-            navBarRef = v116.navBarRef, 
+            frameRef = v119.itemsListRef, 
+            navBarRef = v119.navBarRef, 
             analyticsContext = v11.AnalyticsContext.Catalog, 
             fromSearch = false, 
-            searchUuid = v116.props.searchUuid, 
+            searchUuid = v119.props.searchUuid, 
             layoutOrder = 2, 
-            scrollingFrameRef = v116.scrollingFrameRef, 
-            onRetry = if l_FFlagAXCatalogCategoriesSDUI_0 then v116.initialSearch else v116.dispatchInitialSearch, 
+            scrollingFrameRef = v119.scrollingFrameRef, 
+            onRetry = if l_FFlagAXCatalogCategoriesSDUI_0 then v119.initialSearch else v119.dispatchInitialSearch, 
             NextSelectionUp = l_NextSelectionUp_0, 
-            backToTopSignal = v116.backToTopSignal, 
-            multiTryOnBottomBarRef = v116.props.multiTryOnBottomBarRef, 
-            itemDetailsPeekViewRefs = v116.props.itemDetailsPeekViewRefs, 
-            categoryInfo = if l_FFlagAXCatalogCategoriesStore_0 then nil else if l_FFlagAXMoveAllTabToWidgetOnly_0 then v116.props.categoryInfo else nil
+            backToTopSignal = v119.backToTopSignal, 
+            multiTryOnBottomBarRef = v119.props.multiTryOnBottomBarRef, 
+            itemDetailsPeekViewRefs = v119.props.itemDetailsPeekViewRefs, 
+            categoryInfo = if l_FFlagAXCatalogCategoriesStore_0 then nil else if l_FFlagAXMoveAllTabToWidgetOnly_0 then v119.props.categoryInfo else nil
         })
     });
 end;
-v50.render = function(v121) --[[ Line: 658 ]] --[[ Name: render ]]
+v51.render = function(v124) --[[ Line: 666 ]] --[[ Name: render ]]
     -- upvalues: l_withStyle_0 (copy)
-    return l_withStyle_0(function(v122) --[[ Line: 659 ]]
-        -- upvalues: v121 (copy)
-        return v121:renderWithStyle(v122);
+    return l_withStyle_0(function(v125) --[[ Line: 667 ]]
+        -- upvalues: v124 (copy)
+        return v124:renderWithStyle(v125);
     end);
 end;
 if l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() then
-    v50.handleExitAndReEnterAvatarExperience = function(v123, v124) --[[ Line: 665 ]] --[[ Name: handleExitAndReEnterAvatarExperience ]]
-        -- upvalues: v83 (copy), l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (copy), v60 (copy), v24 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy), l_sendAXCounterV2_0 (copy), v43 (copy)
-        local l_isVisible_0 = v123.props.avatarRoute.isVisible;
-        local l_isVisible_1 = v124.avatarRoute.isVisible;
-        if l_isVisible_0 and not v123.state.hasEnteredAvatarExperience then
-            v123:setState({
+    v51.handleExitAndReEnterAvatarExperience = function(v126, v127) --[[ Line: 673 ]] --[[ Name: handleExitAndReEnterAvatarExperience ]]
+        -- upvalues: v86 (copy), l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (copy), v61 (copy), v24 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy), l_sendAXCounterV2_0 (copy), v44 (copy)
+        local l_isVisible_0 = v126.props.avatarRoute.isVisible;
+        local l_isVisible_1 = v127.avatarRoute.isVisible;
+        if l_isVisible_0 and not v126.state.hasEnteredAvatarExperience then
+            v126:setState({
                 hasEnteredAvatarExperience = true
             });
         end;
-        if l_isVisible_0 and not l_isVisible_1 and v123.state.hasEnteredAvatarExperience and v83(v123.props) and l_FFlagAXUnifiedMarketplaceResultsFetcher_0 and v123.props.fetchMarketplace then
-            local v127 = os.time();
-            if v127 - v123.lastMarketplaceFetchTime >= v60 then
+        if l_isVisible_0 and not l_isVisible_1 and v126.state.hasEnteredAvatarExperience and v86(v126.props) and l_FFlagAXUnifiedMarketplaceResultsFetcher_0 and v126.props.fetchMarketplace then
+            local v130 = os.time();
+            if v130 - v126.lastMarketplaceFetchTime >= v61 then
                 if v24.readTestVariable(l_AXCatalogRealTimeRecommendationsIXP_0.UserIsInExperiment) then
                     v24.logExperimentExposure(l_AXCatalogRealTimeRecommendationsIXP_0);
                 end;
-                l_sendAXCounterV2_0(v43.Counter.FetchMarketplace.ExitAndReEnterRefreshCounter);
+                l_sendAXCounterV2_0(v44.Counter.FetchMarketplace.ExitAndReEnterRefreshCounter);
                 if v24.readTestVariable(l_AXCatalogRealTimeRecommendationsIXP_0.EnabledForUser) then
-                    l_sendAXCounterV2_0(v43.Counter.FetchMarketplace.ExitAndReEnterRefreshTreatment);
-                    v123.props.fetchMarketplace();
-                    v123.lastMarketplaceFetchTime = v127;
+                    l_sendAXCounterV2_0(v44.Counter.FetchMarketplace.ExitAndReEnterRefreshTreatment);
+                    v126.props.fetchMarketplace();
+                    v126.lastMarketplaceFetchTime = v130;
                     return;
                 end;
             end;
         end;
     end;
 end;
-v50.didUpdate = function(v128, v129) --[[ Line: 715 ]] --[[ Name: didUpdate ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v76 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), l_getShouldPageUseWidgetOnlyFetcher_0 (copy), v51 (copy), v34 (copy), l_AXPrefetchMarketplaceIXP_0 (copy), v24 (copy), l_sendAXCounterV2_0 (copy), v43 (copy)
-    local l_name_0 = v128.props.avatarRoute.current.name;
-    local l_name_1 = v129.avatarRoute.current.name;
+v51.didUpdate = function(v131, v132) --[[ Line: 723 ]] --[[ Name: didUpdate ]]
+    -- upvalues: l_AvatarScreen_0 (copy), v79 (copy), l_AXCatalogRealTimeRecommendationsIXP_0 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), l_getShouldPageUseWidgetOnlyFetcher_0 (copy), v52 (copy), v34 (copy), l_AXPrefetchMarketplaceIXP_0 (copy), v24 (copy), l_sendAXCounterV2_0 (copy), v44 (copy)
+    local l_name_0 = v131.props.avatarRoute.current.name;
+    local l_name_1 = v132.avatarRoute.current.name;
     if l_name_0 == l_AvatarScreen_0.Catalog then
-        if not v128.state.restorePreviousChildFocus then
-            v128:setState({
+        if not v131.state.restorePreviousChildFocus then
+            v131:setState({
                 restorePreviousChildFocus = true
             });
         end;
-    elseif v76[l_name_0] and l_name_1 == l_AvatarScreen_0.Catalog and v128.state.restorePreviousChildFocus then
-        v128:setState({
+    elseif v79[l_name_0] and l_name_1 == l_AvatarScreen_0.Catalog and v131.state.restorePreviousChildFocus then
+        v131:setState({
             restorePreviousChildFocus = false
         });
     end;
     if l_AXCatalogRealTimeRecommendationsIXP_0.isEnabled() then
-        v128:handleExitAndReEnterAvatarExperience(v129);
+        v131:handleExitAndReEnterAvatarExperience(v132);
     end;
-    local v132 = if l_FFlagAXPassScreenSizeToWidgetApi_0 and v128.props.searchParameters then v128.props.searchParameters[v128.props.searchUuid] else nil;
-    local v133 = if l_FFlagAXPassScreenSizeToWidgetApi_0 then l_getShouldPageUseWidgetOnlyFetcher_0(v128.props.categoryInfo, v128.props.filterCount, v132 and v132.searchKeyword) else nil;
-    if l_FFlagAXPassScreenSizeToWidgetApi_0 and v128.props.screenSize and v129.screenSize and v128.props.screenSize ~= v129.screenSize and v133 then
-        v128.props.fetchMarketplace();
+    local v135 = if l_FFlagAXPassScreenSizeToWidgetApi_0 and v131.props.searchParameters then v131.props.searchParameters[v131.props.searchUuid] else nil;
+    local v136 = if l_FFlagAXPassScreenSizeToWidgetApi_0 then l_getShouldPageUseWidgetOnlyFetcher_0(v131.props.categoryInfo, v131.props.filterCount, v135 and v135.searchKeyword) else nil;
+    if l_FFlagAXPassScreenSizeToWidgetApi_0 and v131.props.screenSize and v132.screenSize and v131.props.screenSize ~= v132.screenSize and v136 then
+        v131.props.fetchMarketplace();
     end;
-    if v129.avatarRoute.opaque.name == l_AvatarScreen_0.CatalogSearch and v128.props.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog then
-        if v51 then
-            if v128.props.externalNavigationRequest == v129.externalNavigationRequest and not v34.catalogDeepLinkExists(v128.props.externalNavigationRequest) then
-                v128.props.resetSortAndFilters();
+    if v132.avatarRoute.opaque.name == l_AvatarScreen_0.CatalogSearch and v131.props.avatarRoute.opaque.name == l_AvatarScreen_0.Catalog then
+        if v52 then
+            if v131.props.externalNavigationRequest == v132.externalNavigationRequest and not v34.catalogDeepLinkExists(v131.props.externalNavigationRequest) then
+                v131.props.resetSortAndFilters();
             end;
         else
-            v128.props.resetSortAndFilters();
+            v131.props.resetSortAndFilters();
         end;
     end;
-    local v134 = v128.props.categoryInfo and v128.props.categoryInfo.ShowWidgets;
-    local v135 = v129.categoryInfo and v129.categoryInfo.ShowWidgets;
-    local v136 = v134 and not v135;
-    local v137 = false;
+    local v137 = v131.props.categoryInfo and v131.props.categoryInfo.ShowWidgets;
+    local v138 = v132.categoryInfo and v132.categoryInfo.ShowWidgets;
+    local v139 = v137 and not v138;
+    local v140 = false;
     if l_name_0 == l_AvatarScreen_0.Catalog then
-        v137 = l_name_1 == l_AvatarScreen_0.AvatarExperienceLandingPage;
+        v140 = l_name_1 == l_AvatarScreen_0.AvatarExperienceLandingPage;
     end;
-    if v136 or v137 then
-        if l_FFlagAXPassScreenSizeToWidgetApi_0 and v133 then
-            v128.props.fetchMarketplace();
+    if v139 or v140 then
+        if l_FFlagAXPassScreenSizeToWidgetApi_0 and v136 then
+            v131.props.fetchMarketplace();
         else
-            v128.fetchWidgetInfo(v128.props.categoryId, v128.props.subcategoryId);
+            v131.fetchWidgetInfo(v131.props.categoryId, v131.props.subcategoryId);
         end;
     end;
-    local v138 = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.EnabledForUser) else nil;
-    local v139 = if v138 then v129.isPrefetchingMarketplace and not v129.hasPrefetchedMarketplace else nil;
-    local v140 = if v138 then not v128.props.isPrefetchingMarketplace and not v128.props.hasPrefetchedMarketplace else nil;
-    if v138 then
-        if v128.props.hasPrefetchedMarketplace and v128.state.isInitialPrefetch then
-            l_sendAXCounterV2_0(v43.Counter.PrefetchMarketplace.inTreatmentAndHasPrefetchedMarketplace);
-            v128:setState({
+    local v141 = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.EnabledForUser) else nil;
+    local v142 = if v141 then v132.isPrefetchingMarketplace and not v132.hasPrefetchedMarketplace else nil;
+    local v143 = if v141 then not v131.props.isPrefetchingMarketplace and not v131.props.hasPrefetchedMarketplace else nil;
+    if v141 then
+        if v131.props.hasPrefetchedMarketplace and v131.state.isInitialPrefetch then
+            l_sendAXCounterV2_0(v44.Counter.PrefetchMarketplace.inTreatmentAndHasPrefetchedMarketplace);
+            v131:setState({
                 isInitialPrefetch = false
             });
         end;
-        if v139 and v140 and v128.state.isInitialPrefetch then
-            l_sendAXCounterV2_0(v43.Counter.PrefetchMarketplace.enteredMarketplaceButPrefetchFailed);
-            v128.dispatchInitialSearch();
-            v128.fetchWidgetInfo(v128.props.categoryId, v128.props.subcategoryId);
-            v128:setState({
+        if v142 and v143 and v131.state.isInitialPrefetch then
+            l_sendAXCounterV2_0(v44.Counter.PrefetchMarketplace.enteredMarketplaceButPrefetchFailed);
+            v131.dispatchInitialSearch();
+            v131.fetchWidgetInfo(v131.props.categoryId, v131.props.subcategoryId);
+            v131:setState({
                 isInitialPrefetch = false
             });
         end;
     end;
 end;
-v50 = v40((v32((v30(v5.connect(function(v141, v142) --[[ Line: 835 ]] --[[ Name: mapStateToProps ]]
-    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v39 (copy), l_FFlagAXEditorSubcategoryFilters_0 (copy), v33 (copy), l_AXPrefetchMarketplaceIXP_0 (copy), l_FFlagAXDurablesSupport_0 (copy), v51 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), v74 (copy)
-    local v143 = nil;
-    local v144 = nil;
+v51 = v40((v32((v30(v5.connect(function(v144, v145) --[[ Line: 843 ]] --[[ Name: mapStateToProps ]]
+    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v39 (copy), l_FFlagAXEditorSubcategoryFilters_0 (copy), v33 (copy), l_AXPrefetchMarketplaceIXP_0 (copy), v52 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), v77 (copy)
+    local v146 = nil;
+    local v147 = nil;
     if l_FFlagAXCatalogCategoriesStore_0 then
-        v143 = v142.categoryId;
-        v144 = v142.subcategoryId;
+        v146 = v145.categoryId;
+        v147 = v145.subcategoryId;
     else
-        v143 = v141.AvatarExperience.Catalog.Categories.categoryId;
-        v144 = v141.AvatarExperience.Catalog.Categories.subcategoryId;
+        v146 = v144.AvatarExperience.Catalog.Categories.categoryId;
+        v147 = v144.AvatarExperience.Catalog.Categories.subcategoryId;
     end;
-    local v145 = nil;
-    v145 = if l_FFlagAXCatalogCategoriesStore_0 then v142.categoryInfo else v39.getCatalogCategoryInfoFromState(v141);
-    local l_subButton_0 = v141.AvatarExperience.AvatarEditor.Categories.subButton;
-    local v147 = if l_FFlagAXEditorSubcategoryFilters_0 then v141.AvatarExperience.AvatarEditor.Categories.subcategoryFilter else nil;
-    local v148, _ = v33.getSearchUuidAndAssetTypes(v145, l_subButton_0, if l_FFlagAXEditorSubcategoryFilters_0 then v147 else nil);
-    local v150 = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v141.AvatarExperience.Catalog.Metadata.isRecentMarketplaceUser else nil;
+    local v148 = nil;
+    v148 = if l_FFlagAXCatalogCategoriesStore_0 then v145.categoryInfo else v39.getCatalogCategoryInfoFromState(v144);
+    local l_subButton_0 = v144.AvatarExperience.AvatarEditor.Categories.subButton;
+    local v150 = if l_FFlagAXEditorSubcategoryFilters_0 then v144.AvatarExperience.AvatarEditor.Categories.subcategoryFilter else nil;
+    local v151, _ = v33.getSearchUuidAndAssetTypes(v148, l_subButton_0, if l_FFlagAXEditorSubcategoryFilters_0 then v150 else nil);
+    local v153 = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v144.AvatarExperience.Catalog.Metadata.isRecentMarketplaceUser else nil;
     return {
-        categoryInfo = v145, 
-        categoryId = v143, 
-        subcategoryId = v144, 
-        minPrice = v141.AvatarExperience.Catalog.SortAndFilters.PriceRange.minPrice, 
-        maxPrice = v141.AvatarExperience.Catalog.SortAndFilters.PriceRange.maxPrice, 
-        selectedTopics = if (not l_FFlagAXCatalogCategoriesStore_0 or v145 ~= nil) and v145.ShowTopics then v141.AvatarExperience.Catalog.SortAndFilters.SelectedTopics else nil, 
-        catalogSort = v141.AvatarExperience.Catalog.SortAndFilters.CatalogSort, 
-        catalogSortAggregation = v141.AvatarExperience.Catalog.SortAndFilters.CatalogSortAggregation, 
-        creatorFilter = v141.AvatarExperience.Catalog.SortAndFilters.CreatorFilter, 
-        salesTypeFilter = v141.AvatarExperience.Catalog.SortAndFilters.SalesTypeFilter, 
-        unavailableItemFilter = v141.AvatarExperience.Catalog.SortAndFilters.UnavailableItemFilter, 
-        wearTimeFilter = if l_FFlagAXDurablesSupport_0 then v141.AvatarExperience.Catalog.SortAndFilters.WearTimeFilter else nil, 
-        searchParameters = v141.SearchesParameters, 
-        searchTime = v141.SearchTimes and v141.SearchTimes[v148] or nil, 
-        searchUuid = v148, 
-        widgetFetchTime = v141.AvatarExperience.Common.Widgets.WidgetInfo.FetchTime, 
-        externalNavigationRequest = if v51 then v141.AvatarExperience.ExternalNavigationRequest else nil, 
-        isRecentMarketplaceUser = v150, 
-        filterCount = if l_FFlagAXPassScreenSizeToWidgetApi_0 then v74(v141) else nil
+        categoryInfo = v148, 
+        categoryId = v146, 
+        subcategoryId = v147, 
+        minPrice = v144.AvatarExperience.Catalog.SortAndFilters.PriceRange.minPrice, 
+        maxPrice = v144.AvatarExperience.Catalog.SortAndFilters.PriceRange.maxPrice, 
+        selectedTopics = if (not l_FFlagAXCatalogCategoriesStore_0 or v148 ~= nil) and v148.ShowTopics then v144.AvatarExperience.Catalog.SortAndFilters.SelectedTopics else nil, 
+        catalogSort = v144.AvatarExperience.Catalog.SortAndFilters.CatalogSort, 
+        catalogSortAggregation = v144.AvatarExperience.Catalog.SortAndFilters.CatalogSortAggregation, 
+        creatorFilter = v144.AvatarExperience.Catalog.SortAndFilters.CreatorFilter, 
+        salesTypeFilter = v144.AvatarExperience.Catalog.SortAndFilters.SalesTypeFilter, 
+        unavailableItemFilter = v144.AvatarExperience.Catalog.SortAndFilters.UnavailableItemFilter, 
+        wearTimeFilter = v144.AvatarExperience.Catalog.SortAndFilters.WearTimeFilter, 
+        searchParameters = v144.SearchesParameters, 
+        searchTime = v144.SearchTimes and v144.SearchTimes[v151] or nil, 
+        searchUuid = v151, 
+        widgetFetchTime = v144.AvatarExperience.Common.Widgets.WidgetInfo.FetchTime, 
+        externalNavigationRequest = if v52 then v144.AvatarExperience.ExternalNavigationRequest else nil, 
+        isRecentMarketplaceUser = v153, 
+        filterCount = if l_FFlagAXPassScreenSizeToWidgetApi_0 then v77(v144) else nil
     };
-end, function(v151) --[[ Line: 897 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v29 (copy), v28 (copy), l_FFlagAXDurablesSupport_0 (copy), v37 (copy), v38 (copy), v27 (copy), v35 (copy), v41 (copy), v48 (copy), v47 (copy)
+end, function(v154) --[[ Line: 903 ]] --[[ Name: mapDispatchToProps ]]
+    -- upvalues: v29 (copy), v28 (copy), v37 (copy), v38 (copy), v27 (copy), v35 (copy), v48 (copy), v42 (copy), v41 (copy), v50 (copy), v49 (copy)
     return {
-        setSearchType = function(v152, v153) --[[ Line: 899 ]] --[[ Name: setSearchType ]]
-            -- upvalues: v151 (copy), v29 (ref)
-            return v151(v29(v152, v153));
+        setSearchType = function(v155, v156) --[[ Line: 905 ]] --[[ Name: setSearchType ]]
+            -- upvalues: v154 (copy), v29 (ref)
+            return v154(v29(v155, v156));
         end, 
-        setSearchParameters = function(v154, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164) --[[ Line: 903 ]] --[[ Name: setSearchParameters ]]
-            -- upvalues: v151 (copy), v28 (ref), l_FFlagAXDurablesSupport_0 (ref)
-            return v151(v28(v154, {
-                categoryInfo = v155, 
-                catalogSort = v156, 
-                catalogSortAggregation = v157, 
-                minPrice = v158, 
-                maxPrice = v159, 
-                selectedTopics = v160, 
-                creatorFilter = v161, 
-                salesTypeFilter = v162, 
-                unavailableItemFilter = v163, 
-                wearTimeFilter = if l_FFlagAXDurablesSupport_0 then v164 else nil
+        setSearchParameters = function(v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167) --[[ Line: 909 ]] --[[ Name: setSearchParameters ]]
+            -- upvalues: v154 (copy), v28 (ref)
+            return v154(v28(v157, {
+                categoryInfo = v158, 
+                catalogSort = v159, 
+                catalogSortAggregation = v160, 
+                minPrice = v161, 
+                maxPrice = v162, 
+                selectedTopics = v163, 
+                creatorFilter = v164, 
+                salesTypeFilter = v165, 
+                unavailableItemFilter = v166, 
+                wearTimeFilter = v167
             }));
         end, 
-        dispatchSearch = function(v165, v166, v167) --[[ Line: 930 ]] --[[ Name: dispatchSearch ]]
-            -- upvalues: v151 (copy), v37 (ref)
-            return v151(v37(v165, {
-                searchUuid = v166, 
-                categoryInfo = v167, 
+        dispatchSearch = function(v168, v169, v170) --[[ Line: 936 ]] --[[ Name: dispatchSearch ]]
+            -- upvalues: v154 (copy), v37 (ref)
+            return v154(v37(v168, {
+                searchUuid = v169, 
+                categoryInfo = v170, 
                 recordSearchTime = true
             }));
         end, 
-        fetchWidgetInfo = function(v168, v169, v170) --[[ Line: 938 ]] --[[ Name: fetchWidgetInfo ]]
-            -- upvalues: v151 (copy), v38 (ref)
-            return v151(v38(v168, v169, v170));
+        fetchWidgetInfo = function(v171, v172, v173) --[[ Line: 944 ]] --[[ Name: fetchWidgetInfo ]]
+            -- upvalues: v154 (copy), v38 (ref)
+            return v154(v38(v171, v172, v173));
         end, 
-        dispatchRemoveSearch = function(v171) --[[ Line: 942 ]] --[[ Name: dispatchRemoveSearch ]]
-            -- upvalues: v151 (copy), v27 (ref)
-            v151(v27(v171));
+        dispatchRemoveSearch = function(v174) --[[ Line: 948 ]] --[[ Name: dispatchRemoveSearch ]]
+            -- upvalues: v154 (copy), v27 (ref)
+            v154(v27(v174));
         end, 
-        clearSelectedTopics = function() --[[ Line: 946 ]] --[[ Name: clearSelectedTopics ]]
-            -- upvalues: v151 (copy), v35 (ref)
-            v151(v35());
+        clearSelectedTopics = function() --[[ Line: 952 ]] --[[ Name: clearSelectedTopics ]]
+            -- upvalues: v154 (copy), v35 (ref)
+            v154(v35());
         end, 
-        resetSortAndFilters = function() --[[ Line: 950 ]] --[[ Name: resetSortAndFilters ]]
-            -- upvalues: v151 (copy), v41 (ref)
-            v151(v41());
+        resetSortAndFilters = function() --[[ Line: 956 ]] --[[ Name: resetSortAndFilters ]]
+            -- upvalues: v48 (ref), v154 (copy), v42 (ref), v41 (ref)
+            if v48 then
+                v154(v42());
+                return;
+            else
+                v154(v41());
+                return;
+            end;
         end, 
-        dispatchCatalogTilesLatencyStartTracker = v48() and function(v172) --[[ Line: 955 ]]
-            -- upvalues: v151 (copy), v47 (ref)
-            v151(v47.StartTracking(v172));
+        dispatchCatalogTilesLatencyStartTracker = v50() and function(v175) --[[ Line: 965 ]]
+            -- upvalues: v154 (copy), v49 (ref)
+            v154(v49.StartTracking(v175));
         end or nil
     };
-end)(v50), v31.Consumer, "pageObjectManager")))));
-v50 = l_RoactServices_0.connect({
+end)(v51), v31.Consumer, "pageObjectManager")))));
+v51 = l_RoactServices_0.connect({
     networking = v7, 
-    catalogAnalytics = v42
-})(v50);
+    catalogAnalytics = v43
+})(v51);
 if l_AXPrefetchMarketplaceIXP_0.isEnabled() or l_FFlagAXUnifiedMarketplaceResultsFetcher_0 or l_FFlagAXCatalogCategoriesStore_0 or l_FFlagAXPassScreenSizeToWidgetApi_0 then
-    return function(v173) --[[ Line: 978 ]] --[[ Name: NavigationItemsViewWrapper ]]
-        -- upvalues: l_AXPrefetchMarketplaceIXP_0 (copy), v24 (copy), l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (copy), v54 (copy), l_FFlagAXPrefetchOnlyWithinTTL_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v71 (copy), l_useSignalState_0 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), l_getAXMarketplaceWidgetStore_0 (copy), v72 (copy), v3 (copy), v50 (ref)
-        local v174 = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.EnabledForUser) else nil;
-        local v175 = if not not l_AXPrefetchMarketplaceIXP_0.isEnabled() or l_FFlagAXUnifiedMarketplaceResultsFetcher_0 then v54() else nil;
-        local v176 = table.clone(v173);
-        if (v174 or l_FFlagAXUnifiedMarketplaceResultsFetcher_0) and v175 then
-            v176.hasPrefetchedMarketplace = v175.hasFetched;
-            v176.isPrefetchingMarketplace = v175.isFetching;
-            v176.fetchMarketplace = v175.fetchMarketplace;
-            v176.fetchedMarketplaceTimestamp = if l_FFlagAXPrefetchOnlyWithinTTL_0 then v175.fetchedMarketplaceTimestamp else nil;
+    return function(v176) --[[ Line: 988 ]] --[[ Name: NavigationItemsViewWrapper ]]
+        -- upvalues: l_AXPrefetchMarketplaceIXP_0 (copy), v24 (copy), l_FFlagAXUnifiedMarketplaceResultsFetcher_0 (copy), v55 (copy), l_FFlagAXPrefetchOnlyWithinTTL_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v74 (copy), l_useSignalState_0 (copy), l_FFlagAXPassScreenSizeToWidgetApi_0 (copy), l_getAXMarketplaceWidgetStore_0 (copy), v75 (copy), v3 (copy), v51 (ref)
+        local v177 = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v24.readTestVariable(l_AXPrefetchMarketplaceIXP_0.EnabledForUser) else nil;
+        local v178 = if not not l_AXPrefetchMarketplaceIXP_0.isEnabled() or l_FFlagAXUnifiedMarketplaceResultsFetcher_0 then v55() else nil;
+        local v179 = table.clone(v176);
+        if (v177 or l_FFlagAXUnifiedMarketplaceResultsFetcher_0) and v178 then
+            v179.hasPrefetchedMarketplace = v178.hasFetched;
+            v179.isPrefetchingMarketplace = v178.isFetching;
+            v179.fetchMarketplace = v178.fetchMarketplace;
+            v179.fetchedMarketplaceTimestamp = if l_FFlagAXPrefetchOnlyWithinTTL_0 then v178.fetchedMarketplaceTimestamp else nil;
         end;
         if l_FFlagAXCatalogCategoriesStore_0 then
-            local v177 = v71.getCatalogSelectionStore();
-            local v178 = l_useSignalState_0(v177.selectedCategoryId);
-            local v179 = l_useSignalState_0(v177.selectedSubcategoryId);
-            local v180 = l_useSignalState_0(v177.selectedCategoryInfo);
-            v176.categoryId = v178;
-            v176.subcategoryId = v179;
-            v176.categoryInfo = v180;
+            local v180 = v74.getCatalogSelectionStore();
+            local v181 = l_useSignalState_0(v180.selectedCategoryId);
+            local v182 = l_useSignalState_0(v180.selectedSubcategoryId);
+            local v183 = l_useSignalState_0(v180.selectedCategoryInfo);
+            v179.categoryId = v181;
+            v179.subcategoryId = v182;
+            v179.categoryInfo = v183;
         end;
         if l_FFlagAXPassScreenSizeToWidgetApi_0 then
-            local v181 = l_getAXMarketplaceWidgetStore_0(false);
-            v176.screenSize = v72.useSignalState(v181.getDebouncedScreenSize);
+            local v184 = l_getAXMarketplaceWidgetStore_0(false);
+            v179.screenSize = v75.useSignalState(v184.getDebouncedScreenSize);
         end;
-        return v3.createElement(v50, v176);
+        return v3.createElement(v51, v179);
     end;
 else
-    return v50;
+    return v51;
 end;

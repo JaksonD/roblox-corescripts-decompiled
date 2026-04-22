@@ -1,58 +1,70 @@
 local l_HttpService_0 = game:GetService("HttpService");
+local l_Players_0 = game:GetService("Players");
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("ExpChat");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.ExpChatShared);
-local v4 = require(l_Parent_0.Rodux);
-local v5 = require(l_Parent_0.llama);
-local l_List_0 = v5.List;
-local l_Dictionary_0 = v5.Dictionary;
-local l_Set_0 = v5.Set;
-local l_None_0 = v5.None;
-local v10 = require(l_script_FirstAncestor_0.isWhiteSpaceOnly);
-local v11 = require(l_script_FirstAncestor_0.Config);
+local v4 = require(l_Parent_0.ExpChatShared);
+local v5 = require(l_Parent_0.Rodux);
+local v6 = require(l_Parent_0.llama);
+local l_List_0 = v6.List;
+local l_Dictionary_0 = v6.Dictionary;
+local l_Set_0 = v6.Set;
+local l_None_0 = v6.None;
+local v11 = require(l_script_FirstAncestor_0.isWhiteSpaceOnly);
+local v12 = require(l_script_FirstAncestor_0.sanitizeForRichText);
+local v13 = require(l_script_FirstAncestor_0.generateRichSystemMessageTextFormat);
+local v14 = require(l_script_FirstAncestor_0.Config);
+local _ = require(l_script_FirstAncestor_0.TextChatMessageChatActionType);
 local l_Actions_0 = l_script_FirstAncestor_0.Actions;
-local v13 = require(l_Actions_0.IncomingMessageReceived);
-local v14 = require(l_Actions_0.IncomingBubbleChatMessageReceived);
-local v15 = require(l_Actions_0.OutgoingMessageSent);
-local l_UserMuted_0 = v3.Actions.UserMuted;
-local l_UserUnmuted_0 = v3.Actions.UserUnmuted;
-local l_PlayerRemoved_0 = v3.Actions.PlayerRemoved;
-local v19 = require(l_Actions_0.ChatPrivacySettingsReceived);
-local v20 = require(l_Actions_0.ChatPrivacySettingsFetchFailed);
-local v21 = require(l_Actions_0.ConfigurationObjectsLoaded);
-local v22 = require(l_Actions_0.BubbleChatSettingsChanged);
-local l_ChatWindowMessagesCleared_0 = v3.Actions.ChatWindowMessagesCleared;
-local v24 = require(l_Actions_0.ChatTranslationGlobalToggled);
-local v25 = require(l_script_FirstAncestor_0.Actions.ChatTranslationMessageToggled);
-local v26 = require(l_script_FirstAncestor_0.Actions.LegacyBubbleCreated);
-local v27 = require(l_script_FirstAncestor_0.Actions.LegacyBubbleTextUpdated);
-local v28 = require(l_script_FirstAncestor_0.Actions.HiddenMessageReceived);
-local v29 = require(l_script_FirstAncestor_0.Actions.HiddenMessagesCleared);
-local v30 = require(l_script_FirstAncestor_0.Flags.getFFlagExpChatTelemetryEventTrigger);
-local v31 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatEnableFOMOUpsell);
-local v32 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatClearHiddenMessagesPostAgeCheck);
-local v33 = require(l_script_FirstAncestor_0.Flags.FIntExpChatRandomCharChangeLowerBound);
-local v34 = require(l_script_FirstAncestor_0.Flags.FIntExpChatRandomCharChangeUpperBound);
-local v35 = require(l_script_FirstAncestor_0.Flags.FFlagEnableInExpChatRewrite);
-local v36 = require(l_script_FirstAncestor_0.Flags.FIntExpChatHiddenMessageMaxLength);
+local v17 = require(l_Actions_0.IncomingMessageReceived);
+local v18 = require(l_Actions_0.UniverseChatSystemMessageAdded);
+local v19 = require(l_Actions_0.IncomingBubbleChatMessageReceived);
+local v20 = require(l_Actions_0.OutgoingMessageSent);
+local l_UserMuted_0 = v4.Actions.UserMuted;
+local l_UserUnmuted_0 = v4.Actions.UserUnmuted;
+local l_PlayerRemoved_0 = v4.Actions.PlayerRemoved;
+local v24 = require(l_Actions_0.ChatPrivacySettingsReceived);
+local v25 = require(l_Actions_0.ChatPrivacySettingsFetchFailed);
+local v26 = require(l_Actions_0.ConfigurationObjectsLoaded);
+local v27 = require(l_Actions_0.BubbleChatSettingsChanged);
+local l_ChatWindowMessagesCleared_0 = v4.Actions.ChatWindowMessagesCleared;
+local v29 = require(l_Actions_0.ChatTranslationGlobalToggled);
+local v30 = require(l_script_FirstAncestor_0.Actions.ChatTranslationMessageToggled);
+local v31 = require(l_script_FirstAncestor_0.Actions.LegacyBubbleCreated);
+local v32 = require(l_script_FirstAncestor_0.Actions.LegacyBubbleTextUpdated);
+local v33 = require(l_script_FirstAncestor_0.Actions.HiddenMessageReceived);
+local v34 = require(l_script_FirstAncestor_0.Actions.HiddenMessagesCleared);
+local v35 = require(l_script_FirstAncestor_0.Flags.getFFlagExpChatTelemetryEventTrigger);
+local v36 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatEnableFOMOUpsell);
+local v37 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatClearHiddenMessagesPostAgeCheck);
+local v38 = require(l_script_FirstAncestor_0.Flags.FIntExpChatRandomCharChangeLowerBound);
+local v39 = require(l_script_FirstAncestor_0.Flags.FIntExpChatRandomCharChangeUpperBound);
+local v40 = require(l_script_FirstAncestor_0.Flags.FFlagEnableInExpChatRewrite);
+local v41 = require(l_script_FirstAncestor_0.Flags.FFlagEnableInExpChatSummaryOnLua);
+local v42 = require(l_script_FirstAncestor_0.Flags.FIntExpChatHiddenMessageMaxLength);
 local l_FFlagExpChatUseChatConfigStore_0 = require(l_Parent_0.SharedFlags).FFlagExpChatUseChatConfigStore;
-local v38 = require(l_script_FirstAncestor_0.Stores.GetChatConfigurationStore);
-local v39 = require(l_script_FirstAncestor_0.Flags.getFFlagExpChatExcludeFOMORenders);
-local v40 = require(l_script_FirstAncestor_0.getTextAndTranslation);
+local v44 = require(l_script_FirstAncestor_0.Stores.GetChatConfigurationStore);
+local v45 = require(l_script_FirstAncestor_0.computeNameColor);
+local v46 = require(l_script_FirstAncestor_0.Flags.getFFlagExpChatExcludeFOMORenders);
+local l_GetFFlagTextChatEnableUniverseChatTabs_0 = v4.Flags.GetFFlagTextChatEnableUniverseChatTabs;
+local l_FFlagExpChatDisableUniverseBubbleChat_0 = v4.Flags.FFlagExpChatDisableUniverseBubbleChat;
+local l_GetFFlagExpChatSyntheticSystemMessageRichText_0 = v4.Flags.GetFFlagExpChatSyntheticSystemMessageRichText;
+local v50 = require(l_script_FirstAncestor_0.getTextAndTranslation);
+local v51 = require(l_Actions_0.ChannelTabsConfigurationEnabled);
 local l_ExpChatNewHiddenMessagesExperimentation_0 = require(l_Parent_0.SocialExperiments).ExpChatNewHiddenMessagesExperimentation;
 local l_TextChatService_0 = game:GetService("TextChatService");
-getChatTranslationEnabled = function() --[[ Line: 54 ]] --[[ Name: getChatTranslationEnabled ]]
+getChatTranslationEnabled = function() --[[ Line: 66 ]] --[[ Name: getChatTranslationEnabled ]]
     -- upvalues: l_TextChatService_0 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 55 ]]
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 67 ]]
         -- upvalues: l_TextChatService_0 (ref)
         return l_TextChatService_0.ChatTranslationEnabled;
     end);
     return l_status_0 and l_result_0;
 end;
-local v45 = {
+local v56 = {
     canLocalUserChat = false, 
     isBubbleChatEnabled = false, 
     _mutedUserIds = {}, 
+    channelTabsConfigurationEnabled = false, 
     messageLimit = 50, 
     windowMessagesInOrder = {}, 
     windowMessagesInOrderByTabId = {}, 
@@ -62,22 +74,46 @@ local v45 = {
     partOrModelToMockUserId = {}, 
     messagesBySenderId = {}
 };
-local function v76(v46, v47) --[[ Line: 112 ]] --[[ Name: mapByMessageIdInOrderHelper ]]
-    -- upvalues: v10 (copy), l_None_0 (copy), l_HttpService_0 (copy), l_Dictionary_0 (copy), v35 (copy), v30 (copy), l_List_0 (copy), v31 (copy), v39 (copy)
-    if v10(v47.text) and v47.status ~= Enum.TextChatMessageStatus.Floodchecked and v47.status ~= Enum.TextChatMessageStatus.MessageTooLong then
-        return v46;
+local function v60(v57, v58, v59) --[[ Line: 127 ]] --[[ Name: resolveChannelNameForMapOrder ]]
+    -- upvalues: l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), l_None_0 (copy)
+    if l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+        if v59 then
+            return v59;
+        elseif v58.textChannel then
+            if v58.textChannel.Name == "RBXSystem" or not v57.channelTabsConfigurationEnabled then
+                return "RBXGeneral";
+            else
+                return v58.textChannel.Name;
+            end;
+        else
+            return l_None_0;
+        end;
+    elseif v58.textChannel then
+        if v58.textChannel.Name == "RBXSystem" then
+            return "RBXGeneral";
+        else
+            return v58.textChannel.Name;
+        end;
     else
-        local l_partOrModel_0 = v47.partOrModel;
-        local l_userId_0 = v47.userId;
-        local l_messageId_0 = v47.messageId;
-        local v51 = if v47.textChannel then v47.textChannel.Name == "RBXSystem" and "RBXGeneral" or v47.textChannel.Name else l_None_0;
-        local l_windowMessagesInOrder_0 = v46.windowMessagesInOrder;
-        local v53 = v46.windowMessagesInOrderByTabId[v51] or {};
-        local l_byMessageId_0 = v46.byMessageId;
-        local l_bubbleMessagesInOrderBySenderId_0 = v46.bubbleMessagesInOrderBySenderId;
-        local l_mockUserIdToPartOrModel_0 = v46.mockUserIdToPartOrModel;
-        local l_partOrModelToMockUserId_0 = v46.partOrModelToMockUserId;
-        local l_messagesBySenderId_0 = v46.messagesBySenderId;
+        return l_None_0;
+    end;
+end;
+local function v92(v61, v62, v63) --[[ Line: 147 ]] --[[ Name: mapByMessageIdInOrderHelper ]]
+    -- upvalues: v11 (copy), v60 (copy), l_HttpService_0 (copy), l_Dictionary_0 (copy), v40 (copy), v35 (copy), v41 (copy), l_List_0 (copy), v36 (copy), v46 (copy)
+    if v11(v62.text) and v62.status ~= Enum.TextChatMessageStatus.Floodchecked and v62.status ~= Enum.TextChatMessageStatus.MessageTooLong then
+        return v61;
+    else
+        local l_partOrModel_0 = v62.partOrModel;
+        local l_userId_0 = v62.userId;
+        local l_messageId_0 = v62.messageId;
+        local v67 = v60(v61, v62, v63);
+        local l_windowMessagesInOrder_0 = v61.windowMessagesInOrder;
+        local v69 = v61.windowMessagesInOrderByTabId[v67] or {};
+        local l_byMessageId_0 = v61.byMessageId;
+        local l_bubbleMessagesInOrderBySenderId_0 = v61.bubbleMessagesInOrderBySenderId;
+        local l_mockUserIdToPartOrModel_0 = v61.mockUserIdToPartOrModel;
+        local l_partOrModelToMockUserId_0 = v61.partOrModelToMockUserId;
+        local l_messagesBySenderId_0 = v61.messagesBySenderId;
         if not l_userId_0 and l_partOrModel_0 then
             l_userId_0 = l_partOrModelToMockUserId_0[l_partOrModel_0];
             if not l_userId_0 then
@@ -90,151 +126,153 @@ local function v76(v46, v47) --[[ Line: 112 ]] --[[ Name: mapByMessageIdInOrderH
                 });
             end;
         end;
-        local v59 = nil;
-        local v60 = nil;
-        if v35 then
-            v59 = v47.wasRewritten;
-            v60 = v47.originalText;
+        local v75 = nil;
+        local v76 = nil;
+        if v40 then
+            v75 = v62.wasRewritten;
+            v76 = v62.originalText;
         end;
         if l_byMessageId_0[l_messageId_0] then
-            local v61 = {
+            local v77 = {
                 userId = l_userId_0, 
-                prefixText = v47.prefixText, 
-                text = v47.text, 
-                translation = v47.translation, 
-                useTranslation = v47.useTranslation, 
-                textChannel = v47.textChannel, 
+                prefixText = v62.prefixText, 
+                text = v62.text, 
+                translation = v62.translation, 
+                useTranslation = v62.useTranslation, 
+                textChannel = v62.textChannel, 
                 messageId = l_messageId_0, 
-                status = v47.status, 
-                timestamp = v47.timestamp, 
-                isVisibleInBubbleChat = v47.isVisibleInBubbleChat, 
-                isVisibleInChatWindow = v47.isVisibleInChatWindow, 
-                shouldOverrideBubbleChatSettings = v47.shouldOverrideBubbleChatSettings, 
-                bubbleChatMessageProperties = v47.bubbleChatMessageProperties, 
-                chatWindowMessageProperties = v47.chatWindowMessageProperties, 
-                textChatMessageInstance = if v30() then v47.textChatMessageInstance else nil, 
-                wasRewritten = v59, 
-                originalText = v60
+                status = v62.status, 
+                timestamp = v62.timestamp, 
+                isVisibleInBubbleChat = v62.isVisibleInBubbleChat, 
+                isVisibleInChatWindow = v62.isVisibleInChatWindow, 
+                shouldOverrideBubbleChatSettings = v62.shouldOverrideBubbleChatSettings, 
+                bubbleChatMessageProperties = v62.bubbleChatMessageProperties, 
+                chatWindowMessageProperties = v62.chatWindowMessageProperties, 
+                textChatMessageInstance = if v35() then v62.textChatMessageInstance else nil, 
+                wasRewritten = v75, 
+                originalText = v76, 
+                chatActionType = if v41 then v62.chatActionType else nil
             };
             l_byMessageId_0 = l_Dictionary_0.join(l_byMessageId_0, {
-                [l_messageId_0] = v61
+                [l_messageId_0] = v77
             });
             if l_userId_0 and l_messagesBySenderId_0[l_userId_0] then
-                local v64 = l_List_0.findWhere(l_messagesBySenderId_0[l_userId_0], function(v62, _) --[[ Line: 187 ]]
+                local v80 = l_List_0.findWhere(l_messagesBySenderId_0[l_userId_0], function(v78, _) --[[ Line: 222 ]]
                     -- upvalues: l_messageId_0 (copy)
-                    return v62.messageId == l_messageId_0;
+                    return v78.messageId == l_messageId_0;
                 end);
-                if v64 and v64 > 0 then
+                if v80 and v80 > 0 then
                     l_messagesBySenderId_0 = l_Dictionary_0.join(l_messagesBySenderId_0, {
-                        [l_userId_0] = l_List_0.set(l_messagesBySenderId_0[l_userId_0], v64, v61)
+                        [l_userId_0] = l_List_0.set(l_messagesBySenderId_0[l_userId_0], v80, v77)
                     });
                 end;
             end;
-            if v47.status == Enum.TextChatMessageStatus.Floodchecked or v47.status == Enum.TextChatMessageStatus.MessageTooLong then
+            if v62.status == Enum.TextChatMessageStatus.Floodchecked or v62.status == Enum.TextChatMessageStatus.MessageTooLong then
                 l_windowMessagesInOrder_0 = l_List_0.removeIndex(l_windowMessagesInOrder_0, l_List_0.count(l_windowMessagesInOrder_0));
-                v53 = l_List_0.removeIndex(v53, l_List_0.count(v53));
-                l_byMessageId_0 = l_Dictionary_0.removeKey(l_byMessageId_0, v47.messageId);
+                v69 = l_List_0.removeIndex(v69, l_List_0.count(v69));
+                l_byMessageId_0 = l_Dictionary_0.removeKey(l_byMessageId_0, v62.messageId);
                 if l_userId_0 then
-                    local v67 = l_List_0.findWhere(l_messagesBySenderId_0[l_userId_0], function(v65, _) --[[ Line: 207 ]]
+                    local v83 = l_List_0.findWhere(l_messagesBySenderId_0[l_userId_0], function(v81, _) --[[ Line: 242 ]]
                         -- upvalues: l_messageId_0 (copy)
-                        return v65.messageId == l_messageId_0;
+                        return v81.messageId == l_messageId_0;
                     end);
-                    if v67 and v67 > 0 then
+                    if v83 and v83 > 0 then
                         l_messagesBySenderId_0 = l_Dictionary_0.join(l_messagesBySenderId_0, {
-                            [l_userId_0] = l_List_0.removeIndex(l_messagesBySenderId_0[l_userId_0], v67)
+                            [l_userId_0] = l_List_0.removeIndex(l_messagesBySenderId_0[l_userId_0], v83)
                         });
                     end;
                 end;
             end;
-            return l_Dictionary_0.join(v46, {
+            return l_Dictionary_0.join(v61, {
                 windowMessagesInOrder = l_windowMessagesInOrder_0, 
-                windowMessagesInOrderByTabId = l_Dictionary_0.join(v46.windowMessagesInOrderByTabId, {
-                    [v51] = v53
+                windowMessagesInOrderByTabId = l_Dictionary_0.join(v61.windowMessagesInOrderByTabId, {
+                    [v67] = v69
                 }), 
                 byMessageId = l_byMessageId_0, 
                 messagesBySenderId = l_messagesBySenderId_0
             });
         else
-            if #l_windowMessagesInOrder_0 == v46.messageLimit and v47.isVisibleInChatWindow then
-                local v68 = l_windowMessagesInOrder_0[1];
-                local v69 = if l_byMessageId_0[v68] then l_byMessageId_0[v68].userId else nil;
+            if #l_windowMessagesInOrder_0 == v61.messageLimit and v62.isVisibleInChatWindow then
+                local v84 = l_windowMessagesInOrder_0[1];
+                local v85 = if l_byMessageId_0[v84] then l_byMessageId_0[v84].userId else nil;
                 l_windowMessagesInOrder_0 = l_List_0.removeIndex(l_windowMessagesInOrder_0, 1);
                 do
-                    local l_v68_0 = v68;
-                    if v69 then
-                        if l_messagesBySenderId_0 ~= nil and l_messagesBySenderId_0[v69] then
-                            local v73 = l_List_0.findWhere(l_messagesBySenderId_0[v69], function(v71, _) --[[ Line: 235 ]]
-                                -- upvalues: l_v68_0 (ref)
-                                return v71.messageId == l_v68_0;
+                    local l_v84_0 = v84;
+                    if v85 then
+                        if l_messagesBySenderId_0 ~= nil and l_messagesBySenderId_0[v85] then
+                            local v89 = l_List_0.findWhere(l_messagesBySenderId_0[v85], function(v87, _) --[[ Line: 270 ]]
+                                -- upvalues: l_v84_0 (ref)
+                                return v87.messageId == l_v84_0;
                             end);
-                            if v73 and v73 > 0 then
+                            if v89 and v89 > 0 then
                                 l_messagesBySenderId_0 = l_Dictionary_0.join(l_messagesBySenderId_0, {
-                                    [v69] = l_List_0.removeIndex(l_messagesBySenderId_0[v69], v73)
+                                    [v85] = l_List_0.removeIndex(l_messagesBySenderId_0[v85], v89)
                                 });
                             end;
-                            if l_Dictionary_0.count(l_messagesBySenderId_0[v69]) == 0 then
-                                l_messagesBySenderId_0 = l_Dictionary_0.removeKey(l_messagesBySenderId_0, v69);
-                                if l_mockUserIdToPartOrModel_0[v69] then
-                                    local v74 = l_mockUserIdToPartOrModel_0[v69];
-                                    if l_partOrModelToMockUserId_0[v74] then
-                                        l_partOrModelToMockUserId_0 = l_Dictionary_0.removeKey(l_partOrModelToMockUserId_0, v74);
+                            if l_Dictionary_0.count(l_messagesBySenderId_0[v85]) == 0 then
+                                l_messagesBySenderId_0 = l_Dictionary_0.removeKey(l_messagesBySenderId_0, v85);
+                                if l_mockUserIdToPartOrModel_0[v85] then
+                                    local v90 = l_mockUserIdToPartOrModel_0[v85];
+                                    if l_partOrModelToMockUserId_0[v90] then
+                                        l_partOrModelToMockUserId_0 = l_Dictionary_0.removeKey(l_partOrModelToMockUserId_0, v90);
                                     end;
-                                    l_mockUserIdToPartOrModel_0 = l_Dictionary_0.removeKey(l_mockUserIdToPartOrModel_0, v69);
+                                    l_mockUserIdToPartOrModel_0 = l_Dictionary_0.removeKey(l_mockUserIdToPartOrModel_0, v85);
                                 end;
                             end;
-                        elseif l_bubbleMessagesInOrderBySenderId_0 ~= nil and l_bubbleMessagesInOrderBySenderId_0[v69] then
+                        elseif l_bubbleMessagesInOrderBySenderId_0 ~= nil and l_bubbleMessagesInOrderBySenderId_0[v85] then
                             l_bubbleMessagesInOrderBySenderId_0 = l_Dictionary_0.join(l_bubbleMessagesInOrderBySenderId_0, {
-                                [v69] = l_List_0.removeValue(l_bubbleMessagesInOrderBySenderId_0[v69], l_v68_0)
+                                [v85] = l_List_0.removeValue(l_bubbleMessagesInOrderBySenderId_0[v85], l_v84_0)
                             });
-                            if l_Dictionary_0.count(l_bubbleMessagesInOrderBySenderId_0[v69]) == 0 then
-                                l_bubbleMessagesInOrderBySenderId_0 = l_Dictionary_0.removeKey(l_bubbleMessagesInOrderBySenderId_0, v69);
-                                if l_mockUserIdToPartOrModel_0[v69] then
-                                    local v75 = l_mockUserIdToPartOrModel_0[v69];
-                                    if l_partOrModelToMockUserId_0[v75] then
-                                        l_partOrModelToMockUserId_0 = l_Dictionary_0.removeKey(l_partOrModelToMockUserId_0, v75);
+                            if l_Dictionary_0.count(l_bubbleMessagesInOrderBySenderId_0[v85]) == 0 then
+                                l_bubbleMessagesInOrderBySenderId_0 = l_Dictionary_0.removeKey(l_bubbleMessagesInOrderBySenderId_0, v85);
+                                if l_mockUserIdToPartOrModel_0[v85] then
+                                    local v91 = l_mockUserIdToPartOrModel_0[v85];
+                                    if l_partOrModelToMockUserId_0[v91] then
+                                        l_partOrModelToMockUserId_0 = l_Dictionary_0.removeKey(l_partOrModelToMockUserId_0, v91);
                                     end;
-                                    l_mockUserIdToPartOrModel_0 = l_Dictionary_0.removeKey(l_mockUserIdToPartOrModel_0, v69);
+                                    l_mockUserIdToPartOrModel_0 = l_Dictionary_0.removeKey(l_mockUserIdToPartOrModel_0, v85);
                                 end;
                             end;
                         end;
                     end;
-                    if #v53 == v46.messageLimit then
-                        l_v68_0 = v53[1];
-                        v53 = l_List_0.removeIndex(v53, 1);
-                        l_byMessageId_0 = l_Dictionary_0.removeKey(l_byMessageId_0, l_v68_0);
+                    if #v69 == v61.messageLimit then
+                        l_v84_0 = v69[1];
+                        v69 = l_List_0.removeIndex(v69, 1);
+                        l_byMessageId_0 = l_Dictionary_0.removeKey(l_byMessageId_0, l_v84_0);
                     end;
                 end;
             end;
-            if v47.isVisibleInChatWindow then
+            if v62.isVisibleInChatWindow then
                 l_windowMessagesInOrder_0 = l_List_0.append(l_windowMessagesInOrder_0, l_messageId_0);
-                v53 = l_List_0.append(v53, l_messageId_0);
+                v69 = l_List_0.append(v69, l_messageId_0);
             end;
-            return l_Dictionary_0.join(v46, {
+            return l_Dictionary_0.join(v61, {
                 windowMessagesInOrder = l_windowMessagesInOrder_0, 
-                windowMessagesInOrderByTabId = l_Dictionary_0.join(v46.windowMessagesInOrderByTabId, {
-                    [v51] = v53
+                windowMessagesInOrderByTabId = l_Dictionary_0.join(v61.windowMessagesInOrderByTabId, {
+                    [v67] = v69
                 }), 
                 byMessageId = l_Dictionary_0.join(l_byMessageId_0, {
                     [l_messageId_0] = {
                         userId = l_userId_0, 
-                        prefixText = v47.prefixText, 
-                        text = v47.text, 
-                        translation = v47.translation, 
-                        useTranslation = v47.useTranslation, 
+                        prefixText = v62.prefixText, 
+                        text = v62.text, 
+                        translation = v62.translation, 
+                        useTranslation = v62.useTranslation, 
                         messageId = l_messageId_0, 
-                        status = v47.status, 
-                        timestamp = v47.timestamp, 
-                        isVisibleInBubbleChat = v47.isVisibleInBubbleChat, 
-                        isVisibleInChatWindow = v47.isVisibleInChatWindow, 
+                        status = v62.status, 
+                        timestamp = v62.timestamp, 
+                        isVisibleInBubbleChat = v62.isVisibleInBubbleChat, 
+                        isVisibleInChatWindow = v62.isVisibleInChatWindow, 
                         partOrModel = l_partOrModel_0, 
-                        shouldOverrideBubbleChatSettings = v47.shouldOverrideBubbleChatSettings, 
-                        bubbleChatMessageProperties = v47.bubbleChatMessageProperties, 
-                        chatWindowMessageProperties = v47.chatWindowMessageProperties, 
-                        textChannel = v47.textChannel, 
-                        textChatMessageInstance = if v30() then v47.textChatMessageInstance else nil, 
-                        isHiddenMessage = if not not v31 or v39() then v47.isHiddenMessage else nil, 
-                        wasRewritten = v59, 
-                        originalText = v60
+                        shouldOverrideBubbleChatSettings = v62.shouldOverrideBubbleChatSettings, 
+                        bubbleChatMessageProperties = v62.bubbleChatMessageProperties, 
+                        chatWindowMessageProperties = v62.chatWindowMessageProperties, 
+                        textChannel = v62.textChannel, 
+                        textChatMessageInstance = if v35() then v62.textChatMessageInstance else nil, 
+                        isHiddenMessage = if not not v36 or v46() then v62.isHiddenMessage else nil, 
+                        wasRewritten = v75, 
+                        originalText = v76, 
+                        chatActionType = if v41 then v62.chatActionType else nil
                     }
                 }), 
                 mockUserIdToPartOrModel = l_mockUserIdToPartOrModel_0, 
@@ -242,91 +280,94 @@ local function v76(v46, v47) --[[ Line: 112 ]] --[[ Name: mapByMessageIdInOrderH
                 messagesBySenderId = if l_userId_0 then l_Dictionary_0.join(l_messagesBySenderId_0, {
                     [l_userId_0] = l_List_0.append(l_messagesBySenderId_0[l_userId_0] or {}, {
                         userId = l_userId_0, 
-                        prefixText = v47.prefixText, 
-                        text = v47.text, 
-                        translation = v47.translation, 
-                        useTranslation = v47.useTranslation, 
+                        prefixText = v62.prefixText, 
+                        text = v62.text, 
+                        translation = v62.translation, 
+                        useTranslation = v62.useTranslation, 
                         messageId = l_messageId_0, 
-                        status = v47.status, 
-                        timestamp = v47.timestamp, 
-                        isVisibleInBubbleChat = v47.isVisibleInBubbleChat, 
-                        isVisibleInChatWindow = v47.isVisibleInChatWindow, 
+                        status = v62.status, 
+                        timestamp = v62.timestamp, 
+                        isVisibleInBubbleChat = v62.isVisibleInBubbleChat, 
+                        isVisibleInChatWindow = v62.isVisibleInChatWindow, 
                         partOrModel = l_partOrModel_0, 
-                        shouldOverrideBubbleChatSettings = v47.shouldOverrideBubbleChatSettings, 
-                        bubbleChatMessageProperties = v47.bubbleChatMessageProperties, 
-                        chatWindowMessageProperties = v47.chatWindowMessageProperties, 
-                        textChannel = v47.textChannel, 
-                        textChatMessageInstance = if v30() then v47.textChatMessageInstance else nil, 
-                        wasRewritten = v59, 
-                        originalText = v60
+                        shouldOverrideBubbleChatSettings = v62.shouldOverrideBubbleChatSettings, 
+                        bubbleChatMessageProperties = v62.bubbleChatMessageProperties, 
+                        chatWindowMessageProperties = v62.chatWindowMessageProperties, 
+                        textChannel = v62.textChannel, 
+                        textChatMessageInstance = if v35() then v62.textChatMessageInstance else nil, 
+                        wasRewritten = v75, 
+                        originalText = v76, 
+                        chatActionType = if v41 then v62.chatActionType else nil
                     })
                 }) else nil
             });
         end;
     end;
 end;
-local function v85(v77, v78) --[[ Line: 350 ]] --[[ Name: globalToggleTranslations ]]
-    -- upvalues: v30 (copy), v35 (copy), l_Dictionary_0 (copy)
-    local l_useTranslation_0 = v78.useTranslation;
-    local l_byMessageId_1 = v77.byMessageId;
-    local v81 = {};
-    for v82, _ in pairs(l_byMessageId_1) do
-        local v84 = l_byMessageId_1[v82];
-        if v84 ~= nil then
-            v81[v82] = {
-                prefixText = v84.prefixText, 
-                text = v84.text, 
-                translation = v84.translation, 
+local function v101(v93, v94) --[[ Line: 387 ]] --[[ Name: globalToggleTranslations ]]
+    -- upvalues: v35 (copy), v40 (copy), v41 (copy), l_Dictionary_0 (copy)
+    local l_useTranslation_0 = v94.useTranslation;
+    local l_byMessageId_1 = v93.byMessageId;
+    local v97 = {};
+    for v98, _ in pairs(l_byMessageId_1) do
+        local v100 = l_byMessageId_1[v98];
+        if v100 ~= nil then
+            v97[v98] = {
+                prefixText = v100.prefixText, 
+                text = v100.text, 
+                translation = v100.translation, 
                 useTranslation = l_useTranslation_0, 
-                messageId = v84.messageId, 
-                status = v84.status, 
-                timestamp = v84.timestamp, 
-                isVisibleInBubbleChat = v84.isVisibleInBubbleChat, 
-                isVisibleInChatWindow = v84.isVisibleInChatWindow, 
-                partOrModel = v84.partOrModel, 
-                shouldOverrideBubbleChatSettings = v84.shouldOverrideBubbleChatSettings, 
-                bubbleChatMessageProperties = v84.bubbleChatMessageProperties, 
-                chatWindowMessageProperties = v84.chatWindowMessageProperties, 
-                userId = v84.userId, 
-                textChannel = v84.textChannel, 
-                textChatMessageInstance = if v30() then v84.textChatMessageInstance else nil, 
-                wasRewritten = if v35 then v84.wasRewritten else nil, 
-                originalText = if v35 then v84.originalText else nil
+                messageId = v100.messageId, 
+                status = v100.status, 
+                timestamp = v100.timestamp, 
+                isVisibleInBubbleChat = v100.isVisibleInBubbleChat, 
+                isVisibleInChatWindow = v100.isVisibleInChatWindow, 
+                partOrModel = v100.partOrModel, 
+                shouldOverrideBubbleChatSettings = v100.shouldOverrideBubbleChatSettings, 
+                bubbleChatMessageProperties = v100.bubbleChatMessageProperties, 
+                chatWindowMessageProperties = v100.chatWindowMessageProperties, 
+                userId = v100.userId, 
+                textChannel = v100.textChannel, 
+                textChatMessageInstance = if v35() then v100.textChatMessageInstance else nil, 
+                wasRewritten = if v40 then v100.wasRewritten else nil, 
+                originalText = if v40 then v100.originalText else nil, 
+                chatActionType = if v41 then v100.chatActionType else nil
             };
         end;
     end;
-    return l_Dictionary_0.join(v77, {
-        byMessageId = l_Dictionary_0.join(l_byMessageId_1, v81)
+    return l_Dictionary_0.join(v93, {
+        byMessageId = l_Dictionary_0.join(l_byMessageId_1, v97)
     });
 end;
-local function v92(v86, v87) --[[ Line: 389 ]] --[[ Name: individualToggleTranslation ]]
-    -- upvalues: l_Dictionary_0 (copy), v30 (copy), v35 (copy)
-    local l_useTranslation_1 = v87.useTranslation;
-    local l_messageId_1 = v87.messageId;
-    local l_byMessageId_2 = v86.byMessageId;
-    local v91 = l_byMessageId_2[l_messageId_1];
-    if v91 ~= nil then
-        return l_Dictionary_0.join(v86, {
+local function v108(v102, v103) --[[ Line: 427 ]] --[[ Name: individualToggleTranslation ]]
+    -- upvalues: l_Dictionary_0 (copy), v35 (copy), v40 (copy), v41 (copy)
+    local l_useTranslation_1 = v103.useTranslation;
+    local l_messageId_1 = v103.messageId;
+    local l_byMessageId_2 = v102.byMessageId;
+    local v107 = l_byMessageId_2[l_messageId_1];
+    if v107 ~= nil then
+        return l_Dictionary_0.join(v102, {
             byMessageId = l_Dictionary_0.join(l_byMessageId_2, {
                 [l_messageId_1] = {
-                    prefixText = v91.prefixText, 
-                    text = v91.text, 
-                    translation = v91.translation, 
+                    prefixText = v107.prefixText, 
+                    text = v107.text, 
+                    translation = v107.translation, 
                     useTranslation = l_useTranslation_1, 
-                    messageId = v91.messageId, 
-                    status = v91.status, 
-                    timestamp = v91.timestamp, 
-                    isVisibleInBubbleChat = v91.isVisibleInBubbleChat, 
-                    isVisibleInChatWindow = v91.isVisibleInChatWindow, 
-                    partOrModel = v91.partOrModel, 
-                    shouldOverrideBubbleChatSettings = v91.shouldOverrideBubbleChatSettings, 
-                    bubbleChatMessageProperties = v91.bubbleChatMessageProperties, 
-                    chatWindowMessageProperties = v91.chatWindowMessageProperties, 
-                    userId = v91.userId, 
-                    textChannel = v91.textChannel, 
-                    textChatMessageInstance = if v30() then v91.textChatMessageInstance else nil, 
-                    wasRewritten = if v35 then v91.wasRewritten else nil, 
-                    originalText = if v35 then v91.originalText else nil
+                    messageId = v107.messageId, 
+                    status = v107.status, 
+                    timestamp = v107.timestamp, 
+                    isVisibleInBubbleChat = v107.isVisibleInBubbleChat, 
+                    isVisibleInChatWindow = v107.isVisibleInChatWindow, 
+                    partOrModel = v107.partOrModel, 
+                    shouldOverrideBubbleChatSettings = v107.shouldOverrideBubbleChatSettings, 
+                    bubbleChatMessageProperties = v107.bubbleChatMessageProperties, 
+                    chatWindowMessageProperties = v107.chatWindowMessageProperties, 
+                    userId = v107.userId, 
+                    textChannel = v107.textChannel, 
+                    textChatMessageInstance = if v35() then v107.textChatMessageInstance else nil, 
+                    wasRewritten = if v40 then v107.wasRewritten else nil, 
+                    originalText = if v40 then v107.originalText else nil, 
+                    chatActionType = if v41 then v107.chatActionType else nil
                 }
             })
         });
@@ -334,10 +375,10 @@ local function v92(v86, v87) --[[ Line: 389 ]] --[[ Name: individualToggleTransl
         return nil;
     end;
 end;
-local function v97(v93, v94) --[[ Line: 428 ]] --[[ Name: mapByMessageIdInOrderBubbleChat ]]
-    -- upvalues: v76 (copy)
-    local l_bubbleChatMessageTable_0 = v94.bubbleChatMessageTable;
-    local v96 = {
+local function v113(v109, v110) --[[ Line: 467 ]] --[[ Name: mapByMessageIdInOrderBubbleChat ]]
+    -- upvalues: v92 (copy)
+    local l_bubbleChatMessageTable_0 = v110.bubbleChatMessageTable;
+    local v112 = {
         userId = l_bubbleChatMessageTable_0.bubbleChatMessageUserId, 
         prefixText = "", 
         text = l_bubbleChatMessageTable_0.message, 
@@ -352,244 +393,287 @@ local function v97(v93, v94) --[[ Line: 428 ]] --[[ Name: mapByMessageIdInOrderB
         isVisibleInChatWindow = false, 
         bubbleChatMessageProperties = l_bubbleChatMessageTable_0.bubbleChatMessageProperties
     };
-    return v76(v93, v96);
+    return v92(v109, v112);
 end;
-local function v110(v98, v99) --[[ Line: 451 ]] --[[ Name: mapByMessageIdInOrder ]]
-    -- upvalues: v35 (copy), v40 (copy), l_Set_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (copy), v38 (copy), v30 (copy), v76 (copy)
-    local l_textChatMessage_0 = v99.textChatMessage;
-    local v101 = nil;
-    local v102 = nil;
-    if v35 then
-        local v103, v104 = v40(l_textChatMessage_0);
-        v101 = v103;
-        v102 = v104;
+local function v128(v114, v115) --[[ Line: 490 ]] --[[ Name: mapByMessageIdInOrder ]]
+    -- upvalues: v40 (copy), v50 (copy), l_Set_0 (copy), l_FFlagExpChatUseChatConfigStore_0 (copy), v44 (copy), v41 (copy), l_FFlagExpChatDisableUniverseBubbleChat_0 (copy), l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), v45 (copy), l_Players_0 (copy), v35 (copy), v92 (copy)
+    local l_textChatMessage_0 = v115.textChatMessage;
+    local v117 = nil;
+    local v118 = nil;
+    if v40 then
+        local v119, v120 = v50(l_textChatMessage_0);
+        v117 = v119;
+        v118 = v120;
     else
-        v101 = l_textChatMessage_0.Text;
-        v102 = l_textChatMessage_0.Translation;
+        v117 = l_textChatMessage_0.Text;
+        v118 = l_textChatMessage_0.Translation;
     end;
-    local v105 = if l_textChatMessage_0.TextSource then tostring(l_textChatMessage_0.TextSource.UserId) else nil;
-    local v106 = nil;
-    v106 = v105 == nil or if v98.canLocalUserChat then not (l_textChatMessage_0.Status ~= Enum.TextChatMessageStatus.Success) or l_textChatMessage_0.Status == Enum.TextChatMessageStatus.Sending else false;
-    local v107 = if v105 then l_Set_0.has(v98._mutedUserIds, v105) else false;
-    v106 = v106 and not v107;
-    local v108 = false;
-    if (if l_FFlagExpChatUseChatConfigStore_0 then v38(false).getIsBubbleChatEnabled(false) else v98.isBubbleChatEnabled) and v106 and (l_textChatMessage_0.Status == Enum.TextChatMessageStatus.Success or l_textChatMessage_0.Status == Enum.TextChatMessageStatus.Sending) then
-        v108 = true;
+    local v121 = if l_textChatMessage_0.TextSource then tostring(l_textChatMessage_0.TextSource.UserId) else nil;
+    local v122 = nil;
+    v122 = v121 == nil or if v114.canLocalUserChat then not (l_textChatMessage_0.Status ~= Enum.TextChatMessageStatus.Success) or l_textChatMessage_0.Status == Enum.TextChatMessageStatus.Sending else false;
+    local v123 = if v121 then l_Set_0.has(v114._mutedUserIds, v121) else false;
+    v122 = v122 and not v123;
+    local v124 = false;
+    if (if l_FFlagExpChatUseChatConfigStore_0 then v44(false).getIsBubbleChatEnabled(false) else v114.isBubbleChatEnabled) and v122 and (not v41 or v121 ~= nil) and (l_textChatMessage_0.Status == Enum.TextChatMessageStatus.Success or l_textChatMessage_0.Status == Enum.TextChatMessageStatus.Sending) then
+        v124 = true;
     end;
-    local v109 = {
-        userId = v105, 
-        prefixText = l_textChatMessage_0.PrefixText, 
-        text = v101, 
-        translation = v102, 
+    if l_FFlagExpChatDisableUniverseBubbleChat_0 and l_GetFFlagTextChatEnableUniverseChatTabs_0() and l_textChatMessage_0.TextChannel == nil then
+        v124 = false;
+    end;
+    local l_PrefixText_0 = l_textChatMessage_0.PrefixText;
+    if l_GetFFlagTextChatEnableUniverseChatTabs_0() and v115.channelNameOverride and #l_PrefixText_0 > 0 then
+        local _ = nil;
+        l_PrefixText_0 = ("<font color=\"#%*\">%*</font>"):format((if l_textChatMessage_0.TextSource then v45(l_textChatMessage_0.TextSource.Username) else v45(l_Players_0.LocalPlayer.Name)):ToHex(), l_PrefixText_0);
+    end;
+    local v127 = {
+        userId = v121, 
+        prefixText = l_PrefixText_0, 
+        text = v117, 
+        translation = v118, 
         useTranslation = getChatTranslationEnabled(), 
         textChannel = l_textChatMessage_0.TextChannel, 
         messageId = l_textChatMessage_0.MessageId, 
         status = l_textChatMessage_0.Status, 
         timestamp = l_textChatMessage_0.Timestamp, 
-        isVisibleInBubbleChat = v108, 
-        isVisibleInChatWindow = v106, 
+        isVisibleInBubbleChat = v124, 
+        isVisibleInChatWindow = v122, 
         bubbleChatMessageProperties = l_textChatMessage_0.BubbleChatMessageProperties, 
         chatWindowMessageProperties = l_textChatMessage_0.ChatWindowMessageProperties, 
-        textChatMessageInstance = if v30() then l_textChatMessage_0 else nil, 
-        wasRewritten = if v35 then l_textChatMessage_0.WasRewritten else nil, 
-        originalText = if v35 then l_textChatMessage_0.OriginalText else nil
+        textChatMessageInstance = if v35() then l_textChatMessage_0 else nil, 
+        wasRewritten = if v40 then l_textChatMessage_0.WasRewritten else nil, 
+        originalText = if v40 then l_textChatMessage_0.OriginalText else nil, 
+        chatActionType = if v41 then l_textChatMessage_0.ChatActionType else nil
     };
-    return v76(v98, v109);
+    return v92(v114, v127, if l_GetFFlagTextChatEnableUniverseChatTabs_0() then v115.channelNameOverride else nil);
 end;
-return v4.createReducer(v45, {
-    [v13.name] = v110, 
-    [v14.name] = v97, 
-    [v15.name] = v110, 
-    [l_UserMuted_0.name] = function(v111, v112) --[[ Line: 588 ]]
-        -- upvalues: l_Dictionary_0 (copy), l_Set_0 (copy)
-        return l_Dictionary_0.join(v111, {
-            _mutedUserIds = l_Set_0.add(v111._mutedUserIds, v112.userId)
-        });
-    end, 
-    [l_UserUnmuted_0.name] = function(v113, v114) --[[ Line: 593 ]]
-        -- upvalues: l_Dictionary_0 (copy), l_Set_0 (copy)
-        return l_Dictionary_0.join(v113, {
-            _mutedUserIds = l_Set_0.subtract(v113._mutedUserIds, v114.userId)
-        });
-    end, 
-    [l_PlayerRemoved_0.name] = function(v115, v116) --[[ Line: 598 ]]
-        -- upvalues: l_Dictionary_0 (copy), l_Set_0 (copy)
-        local v119 = l_Dictionary_0.filter(v115.bubbleMessagesInOrderBySenderId, function(_, v118) --[[ Line: 601 ]]
-            -- upvalues: v116 (copy)
-            return v118 ~= v116.userId;
-        end);
-        local v122 = l_Dictionary_0.filter(v115.messagesBySenderId, function(_, v121) --[[ Line: 605 ]]
-            -- upvalues: v116 (copy)
-            return v121 ~= v116.userId;
-        end);
-        local v123 = not l_Set_0.has(v115._mutedUserIds, v116.userId);
-        if #v119 == 0 and #v122 == 0 and v123 then
-            return v115;
+return v5.createReducer(v56, {
+    [v51.name] = function(v129, v130) --[[ Line: 683 ]]
+        -- upvalues: l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy), l_Dictionary_0 (copy)
+        if not l_GetFFlagTextChatEnableUniverseChatTabs_0() then
+            return v129;
         else
-            return l_Dictionary_0.join(v115, {
-                messagesBySenderId = v122, 
-                _mutedUserIds = l_Set_0.subtract(v115._mutedUserIds, v116.userId)
+            return l_Dictionary_0.join(v129, {
+                channelTabsConfigurationEnabled = v130.enabled
             });
         end;
     end, 
-    [v19.name] = function(v124, v125) --[[ Line: 618 ]]
-        -- upvalues: l_Dictionary_0 (copy)
-        return l_Dictionary_0.join(v124, {
-            canLocalUserChat = v125.canUserChat
+    [v17.name] = v128, 
+    [v19.name] = v113, 
+    [v20.name] = v128, 
+    [l_UserMuted_0.name] = function(v131, v132) --[[ Line: 695 ]]
+        -- upvalues: l_Dictionary_0 (copy), l_Set_0 (copy)
+        return l_Dictionary_0.join(v131, {
+            _mutedUserIds = l_Set_0.add(v131._mutedUserIds, v132.userId)
         });
     end, 
-    [v20.name] = function(v126, _) --[[ Line: 621 ]]
+    [l_UserUnmuted_0.name] = function(v133, v134) --[[ Line: 700 ]]
+        -- upvalues: l_Dictionary_0 (copy), l_Set_0 (copy)
+        return l_Dictionary_0.join(v133, {
+            _mutedUserIds = l_Set_0.subtract(v133._mutedUserIds, v134.userId)
+        });
+    end, 
+    [l_PlayerRemoved_0.name] = function(v135, v136) --[[ Line: 705 ]]
+        -- upvalues: l_Dictionary_0 (copy), l_Set_0 (copy)
+        local v139 = l_Dictionary_0.filter(v135.bubbleMessagesInOrderBySenderId, function(_, v138) --[[ Line: 708 ]]
+            -- upvalues: v136 (copy)
+            return v138 ~= v136.userId;
+        end);
+        local v142 = l_Dictionary_0.filter(v135.messagesBySenderId, function(_, v141) --[[ Line: 712 ]]
+            -- upvalues: v136 (copy)
+            return v141 ~= v136.userId;
+        end);
+        local v143 = not l_Set_0.has(v135._mutedUserIds, v136.userId);
+        if #v139 == 0 and #v142 == 0 and v143 then
+            return v135;
+        else
+            return l_Dictionary_0.join(v135, {
+                messagesBySenderId = v142, 
+                _mutedUserIds = l_Set_0.subtract(v135._mutedUserIds, v136.userId)
+            });
+        end;
+    end, 
+    [v24.name] = function(v144, v145) --[[ Line: 725 ]]
         -- upvalues: l_Dictionary_0 (copy)
-        return l_Dictionary_0.join(v126, {
+        return l_Dictionary_0.join(v144, {
+            canLocalUserChat = v145.canUserChat
+        });
+    end, 
+    [v25.name] = function(v146, _) --[[ Line: 728 ]]
+        -- upvalues: l_Dictionary_0 (copy)
+        return l_Dictionary_0.join(v146, {
             canLocalUserChat = false
         });
     end, 
-    [v21.name] = function(v128, v129) --[[ Line: 624 ]]
+    [v26.name] = function(v148, v149) --[[ Line: 731 ]]
         -- upvalues: l_Dictionary_0 (copy)
-        return l_Dictionary_0.join(v128, {
-            isBubbleChatEnabled = if v129.bubbleChatSettings.Enabled then v129.bubbleChatSettings.Enabled else false
+        return l_Dictionary_0.join(v148, {
+            isBubbleChatEnabled = if v149.bubbleChatSettings.Enabled then v149.bubbleChatSettings.Enabled else false
         });
     end, 
-    [v22.name] = function(v130, v131) --[[ Line: 631 ]]
+    [v27.name] = function(v150, v151) --[[ Line: 738 ]]
         -- upvalues: l_Dictionary_0 (copy)
-        if v131.property ~= "Enabled" then
-            return v130;
+        if v151.property ~= "Enabled" then
+            return v150;
         else
-            local v133 = l_Dictionary_0.map(v130.byMessageId, function(v132) --[[ Line: 636 ]]
-                -- upvalues: l_Dictionary_0 (ref), v131 (copy)
-                if v132.shouldOverrideBubbleChatSettings then
-                    return v132;
+            local v153 = l_Dictionary_0.map(v150.byMessageId, function(v152) --[[ Line: 743 ]]
+                -- upvalues: l_Dictionary_0 (ref), v151 (copy)
+                if v152.shouldOverrideBubbleChatSettings then
+                    return v152;
                 else
-                    return l_Dictionary_0.join(v132, {
-                        isVisibleInBubbleChat = v131.value and v132.isVisibleInChatWindow
+                    return l_Dictionary_0.join(v152, {
+                        isVisibleInBubbleChat = v151.value and v152.isVisibleInChatWindow
                     });
                 end;
             end);
-            return l_Dictionary_0.join(v130, {
-                byMessageId = v133, 
-                isBubbleChatEnabled = v131.value
+            return l_Dictionary_0.join(v150, {
+                byMessageId = v153, 
+                isBubbleChatEnabled = v151.value
             });
         end;
     end, 
-    [l_ChatWindowMessagesCleared_0.name] = function(v134, _) --[[ Line: 651 ]]
+    [l_ChatWindowMessagesCleared_0.name] = function(v154, _) --[[ Line: 758 ]]
         -- upvalues: l_Dictionary_0 (copy)
-        local v137 = l_Dictionary_0.map(v134.byMessageId, function(v136) --[[ Line: 652 ]]
+        local v157 = l_Dictionary_0.map(v154.byMessageId, function(v156) --[[ Line: 759 ]]
             -- upvalues: l_Dictionary_0 (ref)
-            return l_Dictionary_0.join(v136, {
+            return l_Dictionary_0.join(v156, {
                 isVisibleInChatWindow = false
             });
         end);
-        return l_Dictionary_0.join(v134, {
+        return l_Dictionary_0.join(v154, {
             windowMessagesInOrder = {}, 
             windowMessagesInOrderByTabId = {}, 
-            byMessageId = v137
+            byMessageId = v157
         });
     end, 
-    [v24.name] = v85, 
-    [v25.name] = v92, 
-    [v26.name] = function(v138, v139) --[[ Line: 522 ]] --[[ Name: mapByMessageIdInOrderLegacyBubbleChat ]]
-        -- upvalues: v76 (copy)
-        local l_messageData_0 = v139.messageData;
-        local v141 = if l_messageData_0.timestamp then DateTime.fromUnixTimestampMillis(l_messageData_0.timestamp) else DateTime.now();
-        local v142 = {
+    [v29.name] = v101, 
+    [v30.name] = v108, 
+    [v31.name] = function(v158, v159) --[[ Line: 589 ]] --[[ Name: mapByMessageIdInOrderLegacyBubbleChat ]]
+        -- upvalues: v92 (copy)
+        local l_messageData_0 = v159.messageData;
+        local v161 = if l_messageData_0.timestamp then DateTime.fromUnixTimestampMillis(l_messageData_0.timestamp) else DateTime.now();
+        local v162 = {
             userId = l_messageData_0.userId, 
             prefixText = "", 
             text = l_messageData_0.text, 
             messageId = l_messageData_0.id, 
             status = Enum.TextChatMessageStatus.Success, 
-            timestamp = v141, 
+            timestamp = v161, 
             partOrModel = l_messageData_0.adornee, 
             shouldOverrideBubbleChatSettings = true, 
             isVisibleInBubbleChat = true, 
             isVisibleInChatWindow = false
         };
-        return v76(v138, v142);
+        return v92(v158, v162);
     end, 
-    [v27.name] = function(v143, v144) --[[ Line: 666 ]]
+    [v32.name] = function(v163, v164) --[[ Line: 773 ]]
         -- upvalues: l_Dictionary_0 (copy), l_List_0 (copy)
-        local l_byMessageId_3 = v143.byMessageId;
-        local l_messagesBySenderId_1 = v143.messagesBySenderId;
-        local l_messageId_2 = v144.messageId;
-        local l_newText_0 = v144.newText;
+        local l_byMessageId_3 = v163.byMessageId;
+        local l_messagesBySenderId_1 = v163.messagesBySenderId;
+        local l_messageId_2 = v164.messageId;
+        local l_newText_0 = v164.newText;
         if l_byMessageId_3[l_messageId_2] then
-            local v149 = l_byMessageId_3[l_messageId_2];
-            v149.text = l_newText_0;
+            local v169 = l_byMessageId_3[l_messageId_2];
+            v169.text = l_newText_0;
             l_byMessageId_3 = l_Dictionary_0.join(l_byMessageId_3, {
-                [l_messageId_2] = v149
+                [l_messageId_2] = v169
             });
-            local l_userId_1 = v149.userId;
+            local l_userId_1 = v169.userId;
             if l_userId_1 and l_messagesBySenderId_1[l_userId_1] then
-                local v153 = l_List_0.findWhere(l_messagesBySenderId_1[l_userId_1], function(v151, _) --[[ Line: 680 ]]
+                local v173 = l_List_0.findWhere(l_messagesBySenderId_1[l_userId_1], function(v171, _) --[[ Line: 787 ]]
                     -- upvalues: l_messageId_2 (copy)
-                    return v151.messageId == l_messageId_2;
+                    return v171.messageId == l_messageId_2;
                 end);
-                if v153 and v153 > 0 then
+                if v173 and v173 > 0 then
                     l_messagesBySenderId_1 = l_Dictionary_0.join(l_messagesBySenderId_1, {
-                        [l_userId_1] = l_List_0.set(l_messagesBySenderId_1[l_userId_1], v153, v149)
+                        [l_userId_1] = l_List_0.set(l_messagesBySenderId_1[l_userId_1], v173, v169)
                     });
                 end;
             end;
         end;
-        return l_Dictionary_0.join(v143, {
+        return l_Dictionary_0.join(v163, {
             byMessageId = l_byMessageId_3, 
             messagesBySenderId = l_messagesBySenderId_1
         });
     end, 
-    [v28.name] = function(v154, v155) --[[ Line: 546 ]] --[[ Name: mapByMessageIdInOrderHiddenMessage ]]
-        -- upvalues: l_ExpChatNewHiddenMessagesExperimentation_0 (copy), v36 (copy), v33 (copy), v34 (copy), v11 (copy), v30 (copy), v76 (copy)
-        local l_userMessageIntent_0 = v155.userMessageIntent;
-        local v157 = if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatHiddenMessagesNewDesignEnabled() and string.len(l_userMessageIntent_0.Text) > v36 then v36 else string.len(l_userMessageIntent_0.Text);
-        local v158 = math.max(v33, -(v157 - 1));
-        local l_v34_0 = v34;
-        local v160 = math.random(v158, l_v34_0);
-        local v161 = string.rep(if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatHiddenMessagesNewDesignEnabled() then v11.INTERPUNCT_TEXT else v11.DOT_TEXT, v157 + v160);
-        local v162 = {
+    [v33.name] = function(v174, v175) --[[ Line: 613 ]] --[[ Name: mapByMessageIdInOrderHiddenMessage ]]
+        -- upvalues: l_ExpChatNewHiddenMessagesExperimentation_0 (copy), v42 (copy), v38 (copy), v39 (copy), v14 (copy), v35 (copy), v92 (copy)
+        local l_userMessageIntent_0 = v175.userMessageIntent;
+        local v177 = if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatHiddenMessagesNewDesignEnabled() and string.len(l_userMessageIntent_0.Text) > v42 then v42 else string.len(l_userMessageIntent_0.Text);
+        local v178 = math.max(v38, -(v177 - 1));
+        local l_v39_0 = v39;
+        local v180 = math.random(v178, l_v39_0);
+        local v181 = string.rep(if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatHiddenMessagesNewDesignEnabled() then v14.INTERPUNCT_TEXT else v14.DOT_TEXT, v177 + v180);
+        local v182 = {
             userId = nil, 
-            prefixText = v11.LOCK_EMOJI .. " :", 
-            text = v161, 
+            prefixText = v14.LOCK_EMOJI .. " :", 
+            text = v181, 
             textChannel = l_userMessageIntent_0.TextChannel, 
             messageId = l_userMessageIntent_0.MessageId, 
             status = l_userMessageIntent_0.Status, 
             timestamp = l_userMessageIntent_0.Timestamp, 
             isVisibleInBubbleChat = false, 
             isVisibleInChatWindow = true, 
-            textChatMessageInstance = if v30() then l_userMessageIntent_0 else nil, 
+            textChatMessageInstance = if v35() then l_userMessageIntent_0 else nil, 
             isHiddenMessage = true
         };
-        return v76(v154, v162);
+        return v92(v174, v182);
     end, 
-    [v29.name] = function(v163, _) --[[ Line: 697 ]]
-        -- upvalues: v32 (copy), l_Dictionary_0 (copy), l_List_0 (copy)
-        if not v32 then
-            return v163;
+    [v18.name] = function(v183, v184) --[[ Line: 651 ]] --[[ Name: mapUniverseChatSystemMessage ]]
+        -- upvalues: l_HttpService_0 (copy), v12 (copy), l_GetFFlagExpChatSyntheticSystemMessageRichText_0 (copy), v13 (copy), v92 (copy), l_GetFFlagTextChatEnableUniverseChatTabs_0 (copy)
+        local v185 = l_HttpService_0:GenerateGUID(false);
+        local v186 = v12(v184.text);
+        local v187 = if l_GetFFlagExpChatSyntheticSystemMessageRichText_0() then v13(v186, false) else v186;
+        local v188 = {
+            userId = nil, 
+            prefixText = "", 
+            text = v187, 
+            translation = nil, 
+            useTranslation = false, 
+            messageId = v185, 
+            timestamp = DateTime.fromUnixTimestampMillis(workspace:GetServerTimeNow() * 1000), 
+            status = Enum.TextChatMessageStatus.Success, 
+            isVisibleInChatWindow = true, 
+            isVisibleInBubbleChat = false, 
+            textChannel = nil, 
+            bubbleChatMessageProperties = nil, 
+            chatWindowMessageProperties = nil, 
+            textChatMessageInstance = nil, 
+            partOrModel = nil
+        };
+        return v92(v183, v188, if l_GetFFlagTextChatEnableUniverseChatTabs_0() then v184.channelNameOverride else nil);
+    end, 
+    [v34.name] = function(v189, _) --[[ Line: 805 ]]
+        -- upvalues: v37 (copy), l_Dictionary_0 (copy), l_List_0 (copy)
+        if not v37 then
+            return v189;
         else
-            local v166 = l_Dictionary_0.map(v163.byMessageId, function(v165) --[[ Line: 702 ]]
+            local v192 = l_Dictionary_0.map(v189.byMessageId, function(v191) --[[ Line: 810 ]]
                 -- upvalues: l_Dictionary_0 (ref)
-                if v165.isHiddenMessage then
-                    return l_Dictionary_0.join(v165, {
+                if v191.isHiddenMessage then
+                    return l_Dictionary_0.join(v191, {
                         isVisibleInChatWindow = false
                     });
                 else
-                    return v165;
+                    return v191;
                 end;
             end);
-            local v169 = l_List_0.filter(v163.windowMessagesInOrder, function(v167) --[[ Line: 712 ]]
-                -- upvalues: v166 (copy)
-                local v168 = v166[v167];
-                return v168 and not v168.isHiddenMessage;
+            local v195 = l_List_0.filter(v189.windowMessagesInOrder, function(v193) --[[ Line: 820 ]]
+                -- upvalues: v192 (copy)
+                local v194 = v192[v193];
+                return v194 and not v194.isHiddenMessage;
             end);
-            local v173 = l_Dictionary_0.map(v163.windowMessagesInOrderByTabId, function(v170) --[[ Line: 719 ]]
-                -- upvalues: l_List_0 (ref), v166 (copy)
-                return l_List_0.filter(v170, function(v171) --[[ Line: 720 ]]
-                    -- upvalues: v166 (ref)
-                    local v172 = v166[v171];
-                    return v172 and not v172.isHiddenMessage;
+            local v199 = l_Dictionary_0.map(v189.windowMessagesInOrderByTabId, function(v196) --[[ Line: 827 ]]
+                -- upvalues: l_List_0 (ref), v192 (copy)
+                return l_List_0.filter(v196, function(v197) --[[ Line: 828 ]]
+                    -- upvalues: v192 (ref)
+                    local v198 = v192[v197];
+                    return v198 and not v198.isHiddenMessage;
                 end);
             end);
-            return l_Dictionary_0.join(v163, {
-                windowMessagesInOrder = v169, 
-                windowMessagesInOrderByTabId = v173, 
-                byMessageId = v166
+            return l_Dictionary_0.join(v189, {
+                windowMessagesInOrder = v195, 
+                windowMessagesInOrderByTabId = v199, 
+                byMessageId = v192
             });
         end;
     end

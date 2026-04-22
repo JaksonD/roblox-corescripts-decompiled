@@ -2,14 +2,17 @@ return {
     HideProfileCompletion = "HideProfileCompletion", 
     Link = "Link", 
     LoadMoreFromApi = "LoadMoreFromApi", 
+    RefreshFromApi = "RefreshFromApi", 
     OpenAbuseReport = "OpenAbuseReport", 
     OpenBadgeDetails = "OpenBadgeDetails", 
     OpenProfile = "OpenProfile", 
     OpenGameDetails = "OpenGameDetails", 
     OpenJoinFriends = "OpenJoinFriends", 
+    OpenGameInvite = "OpenGameInvite", 
     OpenMarketplaceTryOn = "OpenMarketplaceTryOn", 
     OpenSeeAll = "OpenSeeAll", 
     OpenSocialLink = "OpenSocialLink", 
+    OpenSongDetail = "OpenSongDetail", 
     OpenSponsoredTooltip = "OpenSponsoredTooltip", 
     PlayButtonClick = "PlayButtonClick", 
     DismissDialog = "DismissDialog", 
@@ -19,5 +22,6 @@ return {
     Share = "Share", 
     OpenFacialAgeEstimation = "OpenFacialAgeEstimation", 
     OpenAddConnectionsPage = "OpenAddConnectionsPage", 
-    OpenMarketplace = "OpenMarketplace"
+    OpenMarketplace = "OpenMarketplace", 
+    RsvpToEvent = "RsvpToEvent"
 };

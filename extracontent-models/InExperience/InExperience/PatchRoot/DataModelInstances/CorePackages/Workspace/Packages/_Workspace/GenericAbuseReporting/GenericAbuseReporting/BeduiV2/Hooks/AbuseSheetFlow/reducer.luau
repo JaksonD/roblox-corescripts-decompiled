@@ -3,7 +3,7 @@ local l_HttpService_0 = game:GetService("HttpService");
 local l_LocalPlayer_0 = game:GetService("Players").LocalPlayer;
 local v3 = require(l_Parent_0.Dash);
 local _ = require(script.Parent.AbuseSheetFlowTypes);
-local function v7(v5, v6) --[[ Line: 31 ]] --[[ Name: getInitialState ]]
+local function v7(v5, v6) --[[ Line: 32 ]] --[[ Name: getInitialState ]]
     -- upvalues: l_LocalPlayer_0 (copy)
     return {
         runId = v5, 
@@ -23,11 +23,11 @@ local function v7(v5, v6) --[[ Line: 31 ]] --[[ Name: getInitialState ]]
 end;
 return {
     getInitialState = v7, 
-    getNewRunId = function() --[[ Line: 71 ]] --[[ Name: getNewRunId ]]
+    getNewRunId = function() --[[ Line: 78 ]] --[[ Name: getNewRunId ]]
         -- upvalues: l_HttpService_0 (copy)
         return l_HttpService_0:GenerateGUID(false);
     end, 
-    selectContext = function(v8) --[[ Line: 75 ]] --[[ Name: selectContext ]]
+    selectContext = function(v8) --[[ Line: 82 ]] --[[ Name: selectContext ]]
         local v9 = {};
         for _, v11 in v8.stack do
             if v11.context then
@@ -38,7 +38,7 @@ return {
         end;
         return v9;
     end, 
-    selectFormData = function(v14) --[[ Line: 87 ]] --[[ Name: selectFormData ]]
+    selectFormData = function(v14) --[[ Line: 94 ]] --[[ Name: selectFormData ]]
         local v15 = {};
         for _, v17 in v14.stack do
             if v17.data then
@@ -49,7 +49,7 @@ return {
         end;
         return v15;
     end, 
-    reducer = function(v20, v21) --[[ Line: 99 ]] --[[ Name: reducer ]]
+    reducer = function(v20, v21) --[[ Line: 106 ]] --[[ Name: reducer ]]
         -- upvalues: v3 (copy), v7 (copy)
         local v22 = nil;
         if v21.type == "gotoNode" then
@@ -68,7 +68,25 @@ return {
             table.insert(v24, v23);
             return (v3.join(v20, {
                 navigationState = "idle", 
+                lastNavigationDirection = "forward", 
                 stack = v24
+            }));
+        elseif v21.type == "replaceAndGotoNode" then
+            local v25 = v3.last(v20.stack);
+            if not v25 then
+                error("Stack is empty, cannot replace and go to node");
+            end;
+            local v26 = v3.slice(v20.stack, 1, #v20.stack - 1);
+            table.insert(v26, {
+                nodeId = v21.payload.nodeId, 
+                data = v25.data, 
+                context = v25.context, 
+                enterTime = v21.payload.enterTime
+            });
+            return (v3.join(v20, {
+                navigationState = "idle", 
+                lastNavigationDirection = "forward", 
+                stack = v26
             }));
         elseif v21.type == "goBack" then
             if #v20.stack <= 1 then
@@ -76,22 +94,23 @@ return {
                 return v20;
             else
                 return (v3.join(v20, {
+                    lastNavigationDirection = "back", 
                     stack = v3.slice(v20.stack, 1, #v20.stack - 1)
                 }));
             end;
         elseif v21.type == "updateDataAndNavigateNext" then
-            local v25 = v3.last(v20.stack);
-            if not v25 then
+            local v27 = v3.last(v20.stack);
+            if not v27 then
                 error("Stack is empty, cannot update data");
             end;
-            local v26 = v3.join(v25, {
-                data = v3.join(v25.data, v21.payload.data), 
-                context = v3.join(v25.context, v21.payload.context)
+            local v28 = v3.join(v27, {
+                data = v3.join(v27.data, v21.payload.data), 
+                context = v3.join(v27.context, v21.payload.context)
             });
-            local v27 = v3.slice(v20.stack, 1, #v20.stack - 1);
-            table.insert(v27, v26);
+            local v29 = v3.slice(v20.stack, 1, #v20.stack - 1);
+            table.insert(v29, v28);
             return (v3.join(v20, {
-                stack = v27, 
+                stack = v29, 
                 navigationState = "gotoNext"
             }));
         elseif v21.type == "startedSubmission" then

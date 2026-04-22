@@ -26,14 +26,14 @@ local l_useFocusOnMountEffect_0 = require(l_CorePackages_0.Workspace.Packages.Av
 local v25 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withStackVisibilityWrapper);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local v27 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics);
-local v28 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v29 = require(l_Modules_0.AvatarExperience.Common.Components.BoundInputsUpdater);
 local l_SlotBasedEditorAnalytics_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Surfaces.SlotBasedEditorAnalytics;
 local v31 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.AssetManagement.NavOverlayPageContainer);
 local v32 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.AssetManagement.OutfitSelectionGrid);
 local v33 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.AssetManagement.ManageActionBar);
 local v34 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local v35 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v36 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.AssetManagement.useManageOutfitPageFocusNavigationBindings);
 local v37 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = v37.FFlagAXMigrateAXToGlobalAutofocus;
@@ -74,7 +74,7 @@ v55.validateProps = v8.strictInterface({
     focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v8.table
 });
 v55.init = function(v56) --[[ Line: 115 ]] --[[ Name: init ]]
-    -- upvalues: v7 (copy), v12 (copy), l_withStyle_0 (copy), l_IconButton_0 (copy), v53 (copy), l_IconSize_0 (copy), l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 (copy), v34 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v28 (copy), l_FFlagAXAddManageOutfitClickTracking_0 (copy), l_SlotBasedEditorAnalytics_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixDeselectOutfitInManage_0 (copy), v45 (copy), l_UserInputService_0 (copy), l_isGamepadInput_0 (copy)
+    -- upvalues: v7 (copy), v12 (copy), l_withStyle_0 (copy), l_IconButton_0 (copy), v53 (copy), l_IconSize_0 (copy), l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 (copy), v34 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXAddManageOutfitClickTracking_0 (copy), l_SlotBasedEditorAnalytics_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixDeselectOutfitInManage_0 (copy), v45 (copy), l_UserInputService_0 (copy), l_isGamepadInput_0 (copy)
     v56.exitButtonRef = v7.createRef();
     v56.selectButtonRef = v7.createRef();
     v56.gridViewRef = v7.createRef();
@@ -141,9 +141,9 @@ v55.init = function(v56) --[[ Line: 115 ]] --[[ Name: init ]]
         end;
     end;
     v56.onOverlayClosed = function() --[[ Line: 183 ]]
-        -- upvalues: v56 (copy), v28 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
+        -- upvalues: v56 (copy), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
         local l_isGamepad_0 = v56.props.isGamepad;
-        v28("ManageOutfitPage", l_isGamepad_0);
+        l_logOnOverlayClosed_0("ManageOutfitPage", l_isGamepad_0);
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and l_isGamepad_0 then
             v56.props.focusController.captureFocus();
         end;
@@ -336,16 +336,16 @@ v55.didUpdate = function(v90, v91, _) --[[ Line: 393 ]] --[[ Name: didUpdate ]]
     end;
 end;
 v55 = v25((v5.connect(nil, function(v94) --[[ Line: 403 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v35 (copy)
+    -- upvalues: l_NavigateWithLock_0 (copy)
     return {
         navigateWithLock = function(v95) --[[ Line: 405 ]] --[[ Name: navigateWithLock ]]
-            -- upvalues: v94 (copy), v35 (ref)
-            v94(v35(v95));
+            -- upvalues: v94 (copy), l_NavigateWithLock_0 (ref)
+            v94(l_NavigateWithLock_0(v95));
         end
     };
 end)(v55)));
 return function(v96) --[[ Line: 415 ]]
-    -- upvalues: v18 (copy), v27 (copy), v17 (copy), l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v4 (copy), v12 (copy), l_FFlagAXFixManageOutfitPageFocusLostBehind_0 (copy), v44 (copy), l_FocusNavigationEventNameEnum_0 (copy), v34 (copy), v28 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixDeselectOutfitInManage_0 (copy), v45 (copy), v36 (copy), l_useFocusNavigableSurfaceRegistryConnection_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_useFocusOnMountEffect_0 (copy), v55 (ref), v6 (copy)
+    -- upvalues: v18 (copy), v27 (copy), v17 (copy), l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v4 (copy), v12 (copy), l_FFlagAXFixManageOutfitPageFocusLostBehind_0 (copy), v44 (copy), l_FocusNavigationEventNameEnum_0 (copy), v34 (copy), l_logOnOverlayClosed_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixDeselectOutfitInManage_0 (copy), v45 (copy), v36 (copy), l_useFocusNavigableSurfaceRegistryConnection_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_useFocusOnMountEffect_0 (copy), v55 (ref), v6 (copy)
     local v97 = v18(v27);
     local v99 = v17(function(v98) --[[ Line: 417 ]]
         return v98.getCustomOutfitNames();
@@ -398,14 +398,14 @@ return function(v96) --[[ Line: 415 ]]
         v96.navigation
     });
     local v120 = v4.useCallback(function() --[[ Line: 468 ]]
-        -- upvalues: v103 (copy), v104 (copy), v111 (copy), v28 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (copy), v96 (copy), l_AvatarScreen_0 (ref), v107 (copy)
+        -- upvalues: v103 (copy), v104 (copy), v111 (copy), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (copy), v96 (copy), l_AvatarScreen_0 (ref), v107 (copy)
         local function v119() --[[ Line: 469 ]] --[[ Name: onDeleteOverlayClosed ]]
-            -- upvalues: v103 (ref), v104 (ref), v111 (ref), v28 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (ref)
+            -- upvalues: v103 (ref), v104 (ref), v111 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (ref)
             if v103 then
                 v104(false);
             end;
             local l_v111_0 = v111;
-            v28("ManageOutfitPage", l_v111_0);
+            l_logOnOverlayClosed_0("ManageOutfitPage", l_v111_0);
             if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and l_v111_0 then
                 v102.captureFocus();
             end;
@@ -422,15 +422,15 @@ return function(v96) --[[ Line: 415 ]]
         if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v102
     });
     local v123 = v4.useCallback(function() --[[ Line: 498 ]]
-        -- upvalues: l_FFlagAXFixDeselectOutfitInManage_0 (ref), v107 (copy), v45 (ref), v111 (copy), v28 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (copy), v96 (copy), l_AvatarScreen_0 (ref)
+        -- upvalues: l_FFlagAXFixDeselectOutfitInManage_0 (ref), v107 (copy), v45 (ref), v111 (copy), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (copy), v96 (copy), l_AvatarScreen_0 (ref)
         if l_FFlagAXFixDeselectOutfitInManage_0 and (not v107 or not v107[1]) then
             v45("Tried to rename an outfit with no outfit selected", v107);
             return;
         else
             local function v122() --[[ Line: 503 ]]
-                -- upvalues: v111 (ref), v28 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (ref)
+                -- upvalues: v111 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v102 (ref)
                 local l_v111_1 = v111;
-                v28("ManageOutfitPage", l_v111_1);
+                l_logOnOverlayClosed_0("ManageOutfitPage", l_v111_1);
                 if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and l_v111_1 then
                     v102.captureFocus();
                 end;

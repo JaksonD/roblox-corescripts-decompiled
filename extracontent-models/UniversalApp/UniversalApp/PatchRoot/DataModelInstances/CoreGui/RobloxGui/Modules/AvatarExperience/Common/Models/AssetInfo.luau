@@ -13,8 +13,8 @@ local v11 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local v12 = require(script.Parent.ModelsUtils);
 local v13 = game:DefineFastFlag("FixEmptyLimitedBadges", false);
 local l_FFlagAXHydrateAssetFromBundleItems_0 = v6.FFlagAXHydrateAssetFromBundleItems;
-local l_FFlagAXDurablesSupport_0 = v6.FFlagAXDurablesSupport;
 local l_FFlagAXDurablesSupportForRFYMigration_0 = v6.FFlagAXDurablesSupportForRFYMigration;
+local l_FFlagAXBlackbirdRoot_0 = v6.FFlagAXBlackbirdRoot;
 local l_FFlagAXMISEnableMultiShopping_0 = v6.FFlagAXMISEnableMultiShopping;
 local l_FFlagAXInventoryDurablesSupport_0 = v6.FFlagAXInventoryDurablesSupport;
 local l_FFlagDynamicHeadsMigration_0 = v6.FFlagDynamicHeadsMigration;
@@ -161,17 +161,18 @@ local v52 = {
         return v39;
     end, 
     fromGetCatalogItemData = function(v40, v41) --[[ Line: 233 ]] --[[ Name: fromGetCatalogItemData ]]
-        -- upvalues: v12 (copy), l_FFlagAXInventoryDurablesExpiredFilter_0 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v11 (copy)
+        -- upvalues: v12 (copy), l_FFlagAXInventoryDurablesExpiredFilter_0 (copy), l_FFlagAXBlackbirdRoot_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v11 (copy)
         local v42 = v12.itemDataFromAssetInfo(v40, v41);
         if not l_FFlagAXInventoryDurablesExpiredFilter_0 or not v40.skipReceivedCatalogData then
             v42.receivedCatalogData = true;
         end;
-        if l_FFlagAXDurablesSupport_0 and v40.timedOptions then
+        if v40.timedOptions then
             local v43 = {};
             for _, v45 in v40.timedOptions do
                 table.insert(v43, {
                     days = v45.days, 
                     price = v45.price, 
+                    discountInformation = if l_FFlagAXBlackbirdRoot_0 and v45.days ~= 0 then v45.discountInformation else v40.discountInformation, 
                     selected = v45.selected
                 });
             end;
@@ -188,7 +189,7 @@ local v52 = {
             return v42;
         end;
     end, 
-    fromBundleItemData = function(v46, v47) --[[ Line: 273 ]] --[[ Name: fromBundleItemData ]]
+    fromBundleItemData = function(v46, v47) --[[ Line: 275 ]] --[[ Name: fromBundleItemData ]]
         -- upvalues: v5 (copy)
         local v48 = v5.deepCopy(v47 or {});
         v48.receivedFromBundleItemData = true;
@@ -197,7 +198,7 @@ local v52 = {
         v48.isOwned = v46.owned;
         return v48;
     end, 
-    fromSortResults = function(v49, v50) --[[ Line: 284 ]] --[[ Name: fromSortResults ]]
+    fromSortResults = function(v49, v50) --[[ Line: 286 ]] --[[ Name: fromSortResults ]]
         -- upvalues: v12 (copy)
         local v51 = v12.itemDataFromAssetInfo(v49, v50);
         v51.receivedFromSortResults = true;
@@ -205,12 +206,12 @@ local v52 = {
     end
 };
 if l_FFlagAXHydrateAssetFromBundleItems_0 then
-    v52.fromBundledItems = function(v53, v54) --[[ Line: 291 ]] --[[ Name: fromBundledItems ]]
+    v52.fromBundledItems = function(v53, v54) --[[ Line: 293 ]] --[[ Name: fromBundledItems ]]
         -- upvalues: v12 (copy)
         return v12.itemDataFromAssetInfo(v53, v54);
     end;
 end;
-v52.fromInventoryFetch = function(v55, v56) --[[ Line: 296 ]] --[[ Name: fromInventoryFetch ]]
+v52.fromInventoryFetch = function(v55, v56) --[[ Line: 298 ]] --[[ Name: fromInventoryFetch ]]
     -- upvalues: v5 (copy), v11 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy)
     local v57 = v5.deepCopy(v56 or {});
     v57.receivedFromInventoryFetch = true;
@@ -228,7 +229,7 @@ v52.fromInventoryFetch = function(v55, v56) --[[ Line: 296 ]] --[[ Name: fromInv
     end;
     return v57;
 end;
-v52.fromAssetGrant = function(v58, v59, v60) --[[ Line: 321 ]] --[[ Name: fromAssetGrant ]]
+v52.fromAssetGrant = function(v58, v59, v60) --[[ Line: 323 ]] --[[ Name: fromAssetGrant ]]
     -- upvalues: v5 (copy), v2 (copy)
     local v61 = v5.deepCopy(v60 or {});
     v2.isType(v58, "string", "AssetInfo.fromAssetGrant expects assetId to be a string");
@@ -238,7 +239,7 @@ v52.fromAssetGrant = function(v58, v59, v60) --[[ Line: 321 ]] --[[ Name: fromAs
     v61.moderationStatus = Enum.ModerationStatus.NotReviewed;
     return v61;
 end;
-v52.fromModerationStatusUpdate = function(v62, v63, v64, v65, v66, v67) --[[ Line: 338 ]] --[[ Name: fromModerationStatusUpdate ]]
+v52.fromModerationStatusUpdate = function(v62, v63, v64, v65, v66, v67) --[[ Line: 340 ]] --[[ Name: fromModerationStatusUpdate ]]
     -- upvalues: v5 (copy)
     local v68 = v5.deepCopy(v67 or {});
     v68.moderationStatus = v62;
@@ -248,7 +249,7 @@ v52.fromModerationStatusUpdate = function(v62, v63, v64, v65, v66, v67) --[[ Lin
     v68.creatingUniverseId = v66;
     return v68;
 end;
-v52.fromOutfitDetails = function(v69, v70, v71) --[[ Line: 356 ]] --[[ Name: fromOutfitDetails ]]
+v52.fromOutfitDetails = function(v69, v70, v71) --[[ Line: 358 ]] --[[ Name: fromOutfitDetails ]]
     -- upvalues: v5 (copy), l_FFlagDynamicHeadsMigration_0 (copy)
     local v72 = v5.deepCopy(v70 or {});
     v72.receivedFromOutfitDetails = true;
@@ -261,19 +262,19 @@ v52.fromOutfitDetails = function(v69, v70, v71) --[[ Line: 356 ]] --[[ Name: fro
     end;
     return v72;
 end;
-v52.fromGetResellers = function(v73, v74) --[[ Line: 380 ]] --[[ Name: fromGetResellers ]]
+v52.fromGetResellers = function(v73, v74) --[[ Line: 382 ]] --[[ Name: fromGetResellers ]]
     -- upvalues: v5 (copy)
     local v75 = v5.deepCopy(v74 or {});
     v75.resellerUserAssetIds = v73;
     return v75;
 end;
-v52.fromLowestPrice = function(v76, v77) --[[ Line: 388 ]] --[[ Name: fromLowestPrice ]]
+v52.fromLowestPrice = function(v76, v77) --[[ Line: 390 ]] --[[ Name: fromLowestPrice ]]
     -- upvalues: v5 (copy)
     local v78 = v5.deepCopy(v77 or {});
     v78.lowestPrice = v76;
     return v78;
 end;
-v52.fromResaleData = function(v79, v80) --[[ Line: 396 ]] --[[ Name: fromResaleData ]]
+v52.fromResaleData = function(v79, v80) --[[ Line: 398 ]] --[[ Name: fromResaleData ]]
     -- upvalues: v5 (copy)
     local v81 = v5.deepCopy(v80 or {});
     v81.receivedFromResaleData = true;
@@ -282,20 +283,20 @@ v52.fromResaleData = function(v79, v80) --[[ Line: 396 ]] --[[ Name: fromResaleD
     v81.originalPrice = v79.originalPrice;
     return v81;
 end;
-v52.fromIsOwned = function(v82, v83) --[[ Line: 407 ]] --[[ Name: fromIsOwned ]]
+v52.fromIsOwned = function(v82, v83) --[[ Line: 409 ]] --[[ Name: fromIsOwned ]]
     -- upvalues: v5 (copy)
     local v84 = v5.deepCopy(v83 or {});
     v84.isOwned = v82;
     return v84;
 end;
-v52.fromReceivedAvatarData = function(v85) --[[ Line: 414 ]] --[[ Name: fromReceivedAvatarData ]]
+v52.fromReceivedAvatarData = function(v85) --[[ Line: 416 ]] --[[ Name: fromReceivedAvatarData ]]
     return {
         id = tostring(v85.id), 
         name = v85.name, 
         assetType = tostring(v85.assetType.id)
     };
 end;
-v52.fromVersionData = function(v86, v87) --[[ Line: 434 ]] --[[ Name: fromVersionData ]]
+v52.fromVersionData = function(v86, v87) --[[ Line: 436 ]] --[[ Name: fromVersionData ]]
     -- upvalues: v5 (copy)
     local v88 = v5.deepCopy(v87 or {});
     local v89 = v86.data[1];

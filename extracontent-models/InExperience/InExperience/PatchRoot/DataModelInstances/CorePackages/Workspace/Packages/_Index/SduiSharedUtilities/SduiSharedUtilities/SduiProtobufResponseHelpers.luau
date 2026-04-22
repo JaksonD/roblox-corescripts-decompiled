@@ -5,86 +5,106 @@ local l_getProtoVariableMapper_0 = require(l_Parent_0.SduiCoreSystem).getProtoVa
 local _ = require(l_script_FirstAncestor_0.SduiIntegrationTypes);
 local l_FFlagSduiUniversalPageEntry_0 = require(l_Parent_0.SharedFlags).FFlagSduiUniversalPageEntry;
 local l_FFlagSduiHydrationDataCamelCaseTopLevelKeys_0 = require(l_Parent_0.SharedFlags).FFlagSduiHydrationDataCamelCaseTopLevelKeys;
-local function v10(v7, v8) --[[ Line: 20 ]] --[[ Name: decodeProto ]]
-    local v9 = if typeof(v8) == "string" then buffer.fromstring(v8) else v8;
-    return v7.decode(v9);
+local l_FFlagSduiHydrationDataCamelCasePropertyKeys_0 = require(l_Parent_0.SharedFlags).FFlagSduiHydrationDataCamelCasePropertyKeys;
+local l_FFlagSduiLocalizedLiterals_0 = require(l_Parent_0.SharedFlags).FFlagSduiLocalizedLiterals;
+local function v12(v9, v10) --[[ Line: 23 ]] --[[ Name: decodeProto ]]
+    local v11 = if typeof(v10) == "string" then buffer.fromstring(v10) else v10;
+    return v9.decode(v11);
 end;
-local function v14(v11, v12) --[[ Line: 32 ]] --[[ Name: decodeProtobufJson ]]
+local function v16(v13, v14) --[[ Line: 35 ]] --[[ Name: decodeProtobufJson ]]
     -- upvalues: l_HttpService_0 (copy)
-    local v13 = if typeof(v12) == "buffer" then buffer.tostring(v12) else v12;
-    return v11.jsonDecode(l_HttpService_0:JSONDecode(v13));
+    local v15 = if typeof(v14) == "buffer" then buffer.tostring(v14) else v14;
+    return v13.jsonDecode(l_HttpService_0:JSONDecode(v15));
 end;
 return {
-    decodeProto = v10, 
-    decodeProtobufJson = v14, 
-    makeProtoResponseDecoder = function(v15) --[[ Line: 40 ]] --[[ Name: makeProtoResponseDecoder ]]
-        -- upvalues: v10 (copy)
-        return function(v16) --[[ Line: 41 ]]
-            -- upvalues: v10 (ref), v15 (copy)
-            return v10(v15, v16);
+    decodeProto = v12, 
+    decodeProtobufJson = v16, 
+    makeProtoResponseDecoder = function(v17) --[[ Line: 43 ]] --[[ Name: makeProtoResponseDecoder ]]
+        -- upvalues: v12 (copy)
+        return function(v18) --[[ Line: 44 ]]
+            -- upvalues: v12 (ref), v17 (copy)
+            return v12(v17, v18);
         end;
     end, 
-    makeProtobufJsonResponseDecoder = function(v17) --[[ Line: 49 ]] --[[ Name: makeProtobufJsonResponseDecoder ]]
-        -- upvalues: v14 (copy)
-        return function(v18) --[[ Line: 50 ]]
-            -- upvalues: v14 (ref), v17 (copy)
-            return v14(v17, v18);
+    makeProtobufJsonResponseDecoder = function(v19) --[[ Line: 52 ]] --[[ Name: makeProtobufJsonResponseDecoder ]]
+        -- upvalues: v16 (copy)
+        return function(v20) --[[ Line: 53 ]]
+            -- upvalues: v16 (ref), v19 (copy)
+            return v16(v19, v20);
         end;
     end, 
-    parsePageEntriesFromResponse = function(v19) --[[ Line: 60 ]] --[[ Name: parsePageEntriesFromResponse ]]
+    parsePageEntriesFromResponse = function(v21) --[[ Line: 63 ]] --[[ Name: parsePageEntriesFromResponse ]]
         -- upvalues: l_FFlagSduiUniversalPageEntry_0 (copy)
-        local v20 = {};
-        if v19.page_entries then
-            for _, v22 in v19.page_entries do
-                local l_roblox_component_0 = v22.page_entry.roblox_component;
-                local v24 = if l_FFlagSduiUniversalPageEntry_0 then v22.input_data and v22.input_data.kind and v22.input_data.kind.value else v22.kind and v22.kind.value;
-                local l_identifier_0 = v22.page_entry.identifier;
-                local l_title_0 = v22.page_entry.title;
-                table.insert(v20, {
+        local v22 = {};
+        if v21.page_entries then
+            for _, v24 in v21.page_entries do
+                local l_roblox_component_0 = v24.page_entry.roblox_component;
+                local v26 = if l_FFlagSduiUniversalPageEntry_0 then v24.input_data and v24.input_data.kind and v24.input_data.kind.value else v24.kind and v24.kind.value;
+                local l_identifier_0 = v24.page_entry.identifier;
+                local l_title_0 = v24.page_entry.title;
+                table.insert(v22, {
                     robloxComponentType = l_roblox_component_0, 
                     identifier = if l_identifier_0 ~= "" then l_identifier_0 else nil, 
-                    componentInputData = v24, 
+                    componentInputData = v26, 
                     title = l_title_0
                 });
             end;
         end;
-        return v20;
+        return v22;
     end, 
-    parseHydrationDataFromResponse = function(v27) --[[ Line: 85 ]] --[[ Name: parseHydrationDataFromResponse ]]
-        -- upvalues: l_getProtoVariableMapper_0 (copy), l_FFlagSduiHydrationDataCamelCaseTopLevelKeys_0 (copy)
-        local l_hydration_data_0 = v27.hydration_data;
+    parseHydrationDataFromResponse = function(v29) --[[ Line: 89 ]] --[[ Name: parseHydrationDataFromResponse ]]
+        -- upvalues: l_FFlagSduiHydrationDataCamelCasePropertyKeys_0 (copy), l_getProtoVariableMapper_0 (copy), l_FFlagSduiHydrationDataCamelCaseTopLevelKeys_0 (copy)
+        local l_hydration_data_0 = v29.hydration_data;
         if l_hydration_data_0 then
-            for _, v30 in l_hydration_data_0 do
-                for _, v32 in v30 do
-                    for v33, v34 in v32 do
-                        v32[l_getProtoVariableMapper_0().mapPropName(v33)] = v34;
+            for _, v32 in l_hydration_data_0 do
+                for _, v34 in v32 do
+                    if l_FFlagSduiHydrationDataCamelCasePropertyKeys_0 then
+                        local v35 = {};
+                        for v36, v37 in v34 do
+                            v35[l_getProtoVariableMapper_0().mapPropName(v36)] = v37;
+                        end;
+                        for v38, v39 in v35 do
+                            v34[v38] = v39;
+                        end;
+                    else
+                        for v40, v41 in v34 do
+                            v34[l_getProtoVariableMapper_0().mapPropName(v40)] = v41;
+                        end;
                     end;
                 end;
             end;
             if l_FFlagSduiHydrationDataCamelCaseTopLevelKeys_0 then
-                local v35 = l_getProtoVariableMapper_0();
-                local v36 = {};
-                for v37, v38 in l_hydration_data_0 do
-                    if v38 then
-                        v36[v35.mapPropName(v37)] = v38;
+                local v42 = l_getProtoVariableMapper_0();
+                local v43 = {};
+                for v44, v45 in l_hydration_data_0 do
+                    if v45 then
+                        v43[v42.mapPropName(v44)] = v45;
                     end;
                 end;
-                for v39, v40 in v36 do
-                    l_hydration_data_0[v39] = v40;
+                for v46, v47 in v43 do
+                    l_hydration_data_0[v46] = v47;
                 end;
             end;
         end;
         return l_hydration_data_0;
     end, 
-    parseTemplateEntriesFromResponse = function(v41) --[[ Line: 123 ]] --[[ Name: parseTemplateEntriesFromResponse ]]
-        local v42 = {};
-        local v43 = {};
-        if v41.templates then
-            for v44, v45 in v41.templates do
-                v43[v45.roblox_component] = v45.template;
-                v42[v44] = v45.template;
+    parseLocalizedLiteralsFromResponse = function(v48) --[[ Line: 138 ]] --[[ Name: parseLocalizedLiteralsFromResponse ]]
+        -- upvalues: l_FFlagSduiLocalizedLiterals_0 (copy)
+        if l_FFlagSduiLocalizedLiterals_0 and v48.localized_literals then
+            return v48.localized_literals;
+        else
+            return nil;
+        end;
+    end, 
+    parseTemplateEntriesFromResponse = function(v49) --[[ Line: 149 ]] --[[ Name: parseTemplateEntriesFromResponse ]]
+        local v50 = {};
+        local v51 = {};
+        if v49.templates then
+            for v52, v53 in v49.templates do
+                v51[v53.roblox_component] = v53.template;
+                v50[v52] = v53.template;
             end;
         end;
-        return v42, v43;
+        return v50, v51;
     end
 };

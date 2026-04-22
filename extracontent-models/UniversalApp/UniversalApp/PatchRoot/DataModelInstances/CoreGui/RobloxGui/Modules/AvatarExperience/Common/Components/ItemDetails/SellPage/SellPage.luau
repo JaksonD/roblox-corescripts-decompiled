@@ -9,7 +9,7 @@ local v7 = require(l_CorePackages_0.Packages.RoactGamepad);
 local l_Focusable_0 = v7.Focusable;
 local v9 = require(l_Modules_0.AvatarExperience.Common.Components.CenteredModalView);
 local v10 = require(l_Modules_0.AvatarExperience.Common.Components.GamepadFocusHandlerForPage);
-local v11 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v12 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.SellPage.AvailableToSellList);
 local v13 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.SellPage.CurrentlySellingList);
 local v14 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
@@ -34,7 +34,7 @@ local l_FFlagUpdateNoInternetConnectionText_0 = require(l_CorePackages_0.Workspa
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
 local v34 = v3.PureComponent:extend("SellPage");
 v34.init = function(v35) --[[ Line: 64 ]] --[[ Name: init ]]
-    -- upvalues: l_UserInputService_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), v3 (copy), l_isGamepadInput_0 (copy), v11 (copy)
+    -- upvalues: l_UserInputService_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), v3 (copy), l_isGamepadInput_0 (copy), l_logOnOverlayClosed_0 (copy)
     v35.state = {
         isWearAfterPurchaseChecked = false, 
         canvasSizeY = 0, 
@@ -59,9 +59,9 @@ v34.init = function(v35) --[[ Line: 64 ]] --[[ Name: init ]]
     v35.topBarRef = v3.createRef();
     v35.emptyStateRef = v3.createRef();
     v35.onOverlayClosed = function() --[[ Line: 93 ]]
-        -- upvalues: l_isGamepadInput_0 (ref), v35 (copy), v11 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
+        -- upvalues: l_isGamepadInput_0 (ref), v35 (copy), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
         local v40 = l_isGamepadInput_0(v35.state.lastInputType);
-        v11("SellPage", v40);
+        l_logOnOverlayClosed_0("SellPage", v40);
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v40 then
             v35.focusController.captureFocus();
         end;

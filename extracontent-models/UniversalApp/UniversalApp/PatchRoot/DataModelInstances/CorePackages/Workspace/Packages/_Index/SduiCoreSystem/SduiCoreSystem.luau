@@ -7,12 +7,15 @@ local v5 = require(script.SduiContentTypes);
 local _ = require(script.SduiDataStoreTypes);
 local _ = require(script.SduiFocusNavigationTypes);
 local v8 = require(script.SduiErrors);
-local l_FFlagSduiImpressionHandlerRegistry_0 = require(script.Parent.SharedFlags).FFlagSduiImpressionHandlerRegistry;
+local v9 = require(script.Parent.SharedFlags);
+local l_FFlagSduiImpressionHandlerRegistry_0 = v9.FFlagSduiImpressionHandlerRegistry;
+local l_FFlagSduiActionTelemetryHandler_0 = v9.FFlagSduiActionTelemetryHandler;
 return {
     ["jest.config"] = script["jest.config"], 
     executeAction = require(script.executeAction), 
     findAnalyticsField = require(script.findAnalyticsField), 
     findAnalyticsFieldInAncestors = require(script.findAnalyticsFieldInAncestors), 
+    getActionTelemetryFieldValue = require(script.getActionTelemetryFieldValue), 
     getSduiComponentWrapper = require(script.getSduiComponentWrapper), 
     reportUnifiedLoggingAction = require(script.Analytics.reportUnifiedLoggingAction), 
     reportUnifiedLoggingImpressions = require(script.Analytics.reportUnifiedLoggingImpressions), 
@@ -37,31 +40,34 @@ return {
     useUidRefString = require(script.useUidRefString), 
     validateInterface = require(script.validateInterface), 
     validateSduiComponentConfig = require(script.validateSduiComponentConfig), 
-    getSduiClientBindingBuilder = function() --[[ Line: 90 ]] --[[ Name: getSduiClientBindingBuilder ]]
+    getSduiClientBindingBuilder = function() --[[ Line: 93 ]] --[[ Name: getSduiClientBindingBuilder ]]
         return require(script.ClientBinding.SduiClientBindingBuilder);
     end, 
-    getSduiDataBinder = function() --[[ Line: 93 ]] --[[ Name: getSduiDataBinder ]]
+    getSduiDataBinder = function() --[[ Line: 96 ]] --[[ Name: getSduiDataBinder ]]
         return require(script.ClientBinding.SduiDataBinder);
     end, 
-    getProtoVariableMapper = function() --[[ Line: 96 ]] --[[ Name: getProtoVariableMapper ]]
+    getProtoVariableMapper = function() --[[ Line: 99 ]] --[[ Name: getProtoVariableMapper ]]
         return require(script.ClientBinding.ProtoVariableMapper);
     end, 
-    createBuilderConfig = function(v10) --[[ Line: 99 ]] --[[ Name: createBuilderConfig ]]
-        return require(script.ClientBinding.createBuilderConfig)(v10);
+    createBuilderConfig = function(v12) --[[ Line: 102 ]] --[[ Name: createBuilderConfig ]]
+        return require(script.ClientBinding.createBuilderConfig)(v12);
     end, 
-    getSduiActionHandlerRegistry = function() --[[ Line: 103 ]] --[[ Name: getSduiActionHandlerRegistry ]]
+    getSduiActionHandlerRegistry = function() --[[ Line: 106 ]] --[[ Name: getSduiActionHandlerRegistry ]]
         return require(script.getSduiActionHandlerRegistry)();
     end, 
-    getSduiImpressionHandlerRegistry = l_FFlagSduiImpressionHandlerRegistry_0 and function() --[[ Line: 107 ]]
+    getSduiImpressionHandlerRegistry = l_FFlagSduiImpressionHandlerRegistry_0 and function() --[[ Line: 110 ]]
         return require(script.getSduiImpressionHandlerRegistry)();
     end or nil, 
-    getSduiServiceDependenciesStore = function() --[[ Line: 111 ]] --[[ Name: getSduiServiceDependenciesStore ]]
+    getSduiTelemetryHandlerNameRegistry = l_FFlagSduiActionTelemetryHandler_0 and function() --[[ Line: 115 ]]
+        return require(script.getSduiTelemetryHandlerNameRegistry)();
+    end or nil, 
+    getSduiServiceDependenciesStore = function() --[[ Line: 119 ]] --[[ Name: getSduiServiceDependenciesStore ]]
         return require(script.ClientBinding.getSduiServiceDependenciesStore)();
     end, 
-    getSduiTokensStore = function() --[[ Line: 114 ]] --[[ Name: getSduiTokensStore ]]
+    getSduiTokensStore = function() --[[ Line: 122 ]] --[[ Name: getSduiTokensStore ]]
         return require(script.ClientBinding.getSduiTokensStore)();
     end, 
-    getSduiPolicyStore = function() --[[ Line: 117 ]] --[[ Name: getSduiPolicyStore ]]
+    getSduiPolicyStore = function() --[[ Line: 125 ]] --[[ Name: getSduiPolicyStore ]]
         return require(script.ClientBinding.getSduiPolicyStore)();
     end, 
     getSduiComponentRegistry = require(script.getSduiComponentRegistry)

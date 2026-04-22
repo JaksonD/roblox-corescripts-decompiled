@@ -23,18 +23,18 @@ local v21 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics
 local v22 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
 local v23 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.SendAnalytics);
 local v24 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenItemDetails);
-local v25 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v26 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.NormalizeAvatar);
 local v27 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
 local v28 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v29 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.ImpressionsUtil);
+local l_ImpressionsUtil_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).ImpressionsReporter.ImpressionsUtil;
 local v30 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
-local v31 = require(l_Modules_0.AvatarExperience.Common.Enum.FullView);
+local l_FullView_0 = v10.Enums.FullView;
 local l_getRemainingTimeFromExpiration_0 = v9.Utils.getRemainingTimeFromExpiration;
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
 local v35 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectIsPortrait);
-local v36 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.OrganicEventImpressionsSchema);
+local l_OrganicEventImpressionsSchema_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).ImpressionsReporter.OrganicEventImpressionsSchema;
 local v37 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
 local l_useSlotBasedEditorContext_0 = v9.Context.useSlotBasedEditorContext;
 local l_SlotType_0 = v9.Enums.SlotType;
@@ -52,12 +52,12 @@ local l_useMakeupFtux_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExpe
 local l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 = v10.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE;
 local l_MAX_MAKEUP_LAYERS_0 = v10.Constants.MAX_MAKEUP_LAYERS;
 local l_selectEquippedLayeredMakeupAssets_0 = v10.State.Selectors.selectEquippedLayeredMakeupAssets;
-local function v55(v54) --[[ Line: 97 ]] --[[ Name: selectIsR6 ]]
+local function v55(v54) --[[ Line: 98 ]] --[[ Name: selectIsR6 ]]
     -- upvalues: v17 (copy)
     return v54.AvatarExperience.AvatarEditor.Character.AvatarType == v17.AvatarType.R6;
 end;
-return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
-    -- upvalues: v20 (copy), v21 (copy), v22 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), v2 (copy), l_InventoryItemType_0 (copy), v16 (copy), l_useSelector_0 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), l_useMakeupFtux_0 (copy), l_selectEquippedLayeredMakeupAssets_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_getRemainingTimeFromExpiration_0 (copy), l_useLocalization_0 (copy), v55 (copy), v35 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), l_FFlagAXFixStaleModerationStatusFromGrant_0 (copy), v28 (copy), l_FFlagAXRootSlotBasedEditorFlag_0 (copy), v17 (copy), v23 (copy), l_useSlotBasedEditorContext_0 (copy), l_SlotType_0 (copy), v18 (copy), v30 (copy), v31 (copy), v26 (copy), v19 (copy), l_FFlagAXBlockMakeupEquipR6_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), v40 (copy), l_AvatarScreen_0 (copy), v25 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_CatalogItemCardStatusIconTypeEnum_0 (copy), l_InventoryItemAvailability_0 (copy), v37 (copy), v27 (copy), v24 (copy), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (copy), v3 (copy), v36 (copy), v29 (copy)
+return function(v56) --[[ Line: 102 ]] --[[ Name: useInventoryItemCardProps ]]
+    -- upvalues: v20 (copy), v21 (copy), v22 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), v2 (copy), l_InventoryItemType_0 (copy), v16 (copy), l_useSelector_0 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), l_useMakeupFtux_0 (copy), l_selectEquippedLayeredMakeupAssets_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_getRemainingTimeFromExpiration_0 (copy), l_useLocalization_0 (copy), v55 (copy), v35 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), l_FFlagAXFixStaleModerationStatusFromGrant_0 (copy), v28 (copy), l_FFlagAXRootSlotBasedEditorFlag_0 (copy), v17 (copy), v23 (copy), l_useSlotBasedEditorContext_0 (copy), l_SlotType_0 (copy), v18 (copy), v30 (copy), l_FullView_0 (copy), v26 (copy), v19 (copy), l_FFlagAXBlockMakeupEquipR6_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), v40 (copy), l_AvatarScreen_0 (copy), l_NavigateWithLock_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_CatalogItemCardStatusIconTypeEnum_0 (copy), l_InventoryItemAvailability_0 (copy), v37 (copy), v27 (copy), v24 (copy), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (copy), v3 (copy), l_OrganicEventImpressionsSchema_0 (copy), l_ImpressionsUtil_0 (copy)
     local v57 = v20(v21);
     local v58 = v20(v22);
     local v59 = l_useDispatch_0();
@@ -66,7 +66,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
     local v62 = v2.useRef(nil);
     local v63 = v61 and v61.opaque and v61.opaque.name;
     local l_inventoryItemType_0 = v56.inventoryItemType;
-    local v66 = v2.useCallback(function(v65) --[[ Line: 112 ]]
+    local v66 = v2.useCallback(function(v65) --[[ Line: 113 ]]
         -- upvalues: l_inventoryItemType_0 (copy), l_InventoryItemType_0 (ref), v16 (ref), v56 (copy)
         if l_inventoryItemType_0 == l_InventoryItemType_0.Asset then
             return (v16(v65.AvatarExperience.Common, v56.itemId, l_inventoryItemType_0));
@@ -99,7 +99,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
         });
         v70 = if v71 then v72[v71.unit] else nil;
     end;
-    local v74 = v2.useCallback(function(v73) --[[ Line: 145 ]]
+    local v74 = v2.useCallback(function(v73) --[[ Line: 146 ]]
         -- upvalues: l_inventoryItemType_0 (copy), l_InventoryItemType_0 (ref), v56 (copy)
         if l_inventoryItemType_0 == l_InventoryItemType_0.Outfit then
             return v73.AvatarExperience.AvatarEditor.OutfitInfos[v56.itemId];
@@ -122,15 +122,15 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
     end;
     local v82 = if v67 then v67.updateCounter else nil;
     local v83 = if l_FFlagAXRootSlotBasedEditorFlag_0 then nil else v75 ~= nil and (v75.containsDynamicHead or v75.outfitType == v17.OutfitTypes.DynamicHead);
-    local v87 = v2.useCallback(function(v84, v85, v86) --[[ Line: 178 ]]
+    local v87 = v2.useCallback(function(v84, v85, v86) --[[ Line: 179 ]]
         -- upvalues: v59 (copy), v23 (ref)
         v59(v23(v84, v85, v86));
     end, {
         v59
     });
     local v88 = if l_FFlagAXCustomizeMakeupSupport_0 then l_useSlotBasedEditorContext_0() else nil;
-    local v96 = v2.useCallback(function() --[[ Line: 186 ]]
-        -- upvalues: v56 (copy), v79 (copy), v57 (copy), l_FFlagAXCustomizeMakeupSupport_0 (ref), v88 (copy), l_SlotType_0 (ref), v87 (copy), v59 (copy), v18 (ref), v60 (copy), v30 (ref), v63 (copy), v31 (ref), v26 (ref)
+    local v96 = v2.useCallback(function() --[[ Line: 187 ]]
+        -- upvalues: v56 (copy), v79 (copy), v57 (copy), l_FFlagAXCustomizeMakeupSupport_0 (ref), v88 (copy), l_SlotType_0 (ref), v87 (copy), v59 (copy), v18 (ref), v60 (copy), v30 (ref), v63 (copy), l_FullView_0 (ref), v26 (ref)
         if v56.itemId and v79 then
             local v89 = if v56.isSelected then v57.unequipAsset else v57.equipAsset;
             local v90 = nil;
@@ -149,7 +149,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
             end;
             v87(v89, v56.itemId, v79);
             v59(v18(v79, v56.itemId, v60, nil, v90, nil, if l_FFlagAXCustomizeMakeupSupport_0 then v91 else nil));
-            v59(v30(v57, v63, v31.None));
+            v59(v30(v57, v63, l_FullView_0.None));
             if l_FFlagAXCustomizeMakeupSupport_0 and v56.isSelected and v92 and v92.slotType ~= l_SlotType_0.LayeredSlot then
                 v59(v26());
             end;
@@ -174,8 +174,8 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
         v60, 
         v63
     });
-    local v98 = v2.useCallback(function() --[[ Line: 262 ]]
-        -- upvalues: v75 (copy), v57 (copy), v60 (copy), v56 (copy), v59 (copy), v30 (ref), v63 (copy), v31 (ref), v19 (ref)
+    local v98 = v2.useCallback(function() --[[ Line: 263 ]]
+        -- upvalues: v75 (copy), v57 (copy), v60 (copy), v56 (copy), v59 (copy), v30 (ref), v63 (copy), l_FullView_0 (ref), v19 (ref)
         if v75 then
             local v97 = {
                 outfitInfo = v75, 
@@ -183,7 +183,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
                 navigation = v60, 
                 isSelected = v56.isSelected
             };
-            v59(v30(v57, v63, v31.None));
+            v59(v30(v57, v63, l_FullView_0.None));
             v59(v19(v97));
         end;
     end, {
@@ -195,8 +195,8 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
         v59, 
         v63
     });
-    local v107 = v2.useCallback(function() --[[ Line: 281 ]]
-        -- upvalues: v56 (copy), v76 (copy), v79 (copy), v17 (ref), v75 (copy), l_FFlagAXBlockMakeupEquipR6_0 (ref), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (ref), v40 (ref), v60 (copy), l_AvatarScreen_0 (ref), v98 (copy), v96 (copy), v59 (copy), v25 (ref), v28 (ref)
+    local v107 = v2.useCallback(function() --[[ Line: 282 ]]
+        -- upvalues: v56 (copy), v76 (copy), v79 (copy), v17 (ref), v75 (copy), l_FFlagAXBlockMakeupEquipR6_0 (ref), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (ref), v40 (ref), v60 (copy), l_AvatarScreen_0 (ref), v98 (copy), v96 (copy), v59 (copy), l_NavigateWithLock_0 (ref), v28 (ref)
         if not v56.itemId or not v76 or v56.isSelected then
             return false;
         else
@@ -206,7 +206,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
             local v102 = if l_FFlagAXBlockMakeupEquipR6_0 then v79 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v79] else nil;
             local v103 = if v40 then v75 and v75.outfitType == v17.OutfitTypes.Avatar and v75.avatarType == v17.AvatarType.R15 else nil;
             if v101 and not v99 or v100 or v103 or v102 then
-                v59(v25(function() --[[ Line: 299 ]]
+                v59(l_NavigateWithLock_0(function() --[[ Line: 300 ]]
                     -- upvalues: v60 (ref), l_AvatarScreen_0 (ref), v100 (copy), v103 (copy), v98 (ref), v96 (ref)
                     v60.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
                         bodyTextKey = "Feature.Avatar.Label.LayeredClothingR15Warning", 
@@ -219,7 +219,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
                 local v105 = v28.isAnimationAssetType(v79);
                 if v104 or v105 then
                     local v106 = v104 and "Feature.Avatar.Message.R15EmotesPrompt" or "Feature.Avatar.Message.R15AnimationsPrompt";
-                    v59(v25(function() --[[ Line: 316 ]]
+                    v59(l_NavigateWithLock_0(function() --[[ Line: 317 ]]
                         -- upvalues: v60 (ref), l_AvatarScreen_0 (ref), v106 (copy)
                         v60.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
                             bodyTextKey = v106
@@ -242,7 +242,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
         v98, 
         v59
     });
-    local v114 = if l_FFlagAXCustomizeMakeupSupport_0 then v2.useCallback(function() --[[ Line: 341 ]]
+    local v114 = if l_FFlagAXCustomizeMakeupSupport_0 then v2.useCallback(function() --[[ Line: 342 ]]
         -- upvalues: v88 (copy), l_inventoryItemType_0 (copy), l_InventoryItemType_0 (ref), v79 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (ref), l_SlotType_0 (ref), v69 (copy), l_MAX_MAKEUP_LAYERS_0 (ref), v68 (copy), v56 (copy), v60 (copy), l_AvatarScreen_0 (ref), v96 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref)
         if not v88 then
             return false;
@@ -257,7 +257,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
             local v112 = v69 and #v69 == l_MAX_MAKEUP_LAYERS_0;
             if v68 and v68.shouldShowMakeupMax6LayersPrompt() and not v56.isSelected and v110 and v109 and not v111 and v112 then
                 v60.navigate(l_AvatarScreen_0.MakeupMax6LayersPrompt, {
-                    onConfirm = function(v113) --[[ Line: 368 ]] --[[ Name: onConfirm ]]
+                    onConfirm = function(v113) --[[ Line: 369 ]] --[[ Name: onConfirm ]]
                         -- upvalues: v68 (ref), v96 (ref)
                         if v113 then
                             v68.hideMakeupMax6LayersPrompt();
@@ -283,7 +283,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
         v96, 
         l_inventoryItemType_0
     }) else nil;
-    local v115 = v2.useCallback(function() --[[ Line: 399 ]]
+    local v115 = v2.useCallback(function() --[[ Line: 400 ]]
         -- upvalues: l_FFlagAXCustomizeMakeupSupport_0 (ref), v107 (copy), v114 (copy), l_inventoryItemType_0 (copy), l_InventoryItemType_0 (ref), v56 (copy), v96 (copy), v75 (copy), v98 (copy)
         if if l_FFlagAXCustomizeMakeupSupport_0 then v107() or v114() else v107() then
             return;
@@ -311,7 +311,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
         v98
     });
     local v116 = nil;
-    local v120 = v2.useCallback(function(v117) --[[ Line: 427 ]]
+    local v120 = v2.useCallback(function(v117) --[[ Line: 428 ]]
         -- upvalues: v79 (copy), v17 (ref), v80 (copy), l_FFlagAXModeratedItemsFlow_0 (ref), v60 (copy), l_AvatarScreen_0 (ref), l_inventoryItemType_0 (copy), v78 (copy)
         local v118 = if v79 then v17.AssetTypeIdStringToName[v79] else v80;
         local v119 = nil;
@@ -341,7 +341,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
             type = "placeholder", 
             iconType = v121
         };
-        v115 = function() --[[ Line: 459 ]]
+        v115 = function() --[[ Line: 460 ]]
             -- upvalues: v28 (ref), v81 (ref), v120 (copy)
             local v122 = v28.getMessageTypeFromModerationStatus(v81);
             if not v122 then
@@ -355,7 +355,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
             type = "placeholder", 
             iconType = "Error"
         };
-        v115 = function() --[[ Line: 474 ]]
+        v115 = function() --[[ Line: 475 ]]
             -- upvalues: v120 (copy)
             v120("UnavailableItems");
         end;
@@ -365,8 +365,8 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
     if l_inventoryItemType_0 ~= l_InventoryItemType_0.Asset then
         v124 = v123;
     end;
-    local v127 = v2.useCallback(function() --[[ Line: 486 ]]
-        -- upvalues: l_inventoryItemType_0 (copy), l_InventoryItemType_0 (ref), v56 (copy), v77 (copy), v37 (ref), v60 (copy), l_AvatarScreen_0 (ref), v59 (copy), v25 (ref), v17 (ref), v27 (ref), v67 (copy), v58 (copy), v61 (copy), v24 (ref)
+    local v127 = v2.useCallback(function() --[[ Line: 487 ]]
+        -- upvalues: l_inventoryItemType_0 (copy), l_InventoryItemType_0 (ref), v56 (copy), v77 (copy), v37 (ref), v60 (copy), l_AvatarScreen_0 (ref), v59 (copy), l_NavigateWithLock_0 (ref), v17 (ref), v27 (ref), v67 (copy), v58 (copy), v61 (copy), v24 (ref)
         if l_inventoryItemType_0 == l_InventoryItemType_0.Outfit then
             local v125 = {
                 outfitId = v56.itemId, 
@@ -375,7 +375,7 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
                 renderBottomBar = false, 
                 NextSelectionLeft = if v77 then v56.resultsListRef else nil
             };
-            v59(v25(function() --[[ Line: 497 ]]
+            v59(l_NavigateWithLock_0(function() --[[ Line: 498 ]]
                 -- upvalues: v37 (ref), v60 (ref), l_AvatarScreen_0 (ref), v125 (copy)
                 v37.closeFiltersAndItemDetails(v60);
                 v37.closeTryOnManager(v60);
@@ -433,15 +433,15 @@ return function(v56) --[[ Line: 101 ]] --[[ Name: useInventoryItemCardProps ]]
         itemStatus = v116, 
         expirationTime = if l_FFlagAXInventoryDurablesSupport_0 then v70 else nil
     };
-    v2.useEffect(function() --[[ Line: 561 ]]
-        -- upvalues: v62 (copy), v3 (ref), v128 (copy), l_InventoryItemType_0 (ref), v36 (ref), v56 (copy), v29 (ref)
+    v2.useEffect(function() --[[ Line: 562 ]]
+        -- upvalues: v62 (copy), v3 (ref), v128 (copy), l_InventoryItemType_0 (ref), l_OrganicEventImpressionsSchema_0 (ref), v56 (copy), l_ImpressionsUtil_0 (ref)
         if v62.current then
             local v129 = v3.Dictionary.join(v128, {
                 itemType = v128.inventoryItemType == l_InventoryItemType_0.Asset and "Asset" or v128.inventoryItemType == l_InventoryItemType_0.Outfit and "Bundle" or nil
             });
             v62.current:SetAttribute(v129.impressionsTag, v129.itemId);
-            local v130 = v36[v56.impressionsSchema];
-            v29.writeItemAttributes(v130, v62.current, v129);
+            local v130 = l_OrganicEventImpressionsSchema_0[v56.impressionsSchema];
+            l_ImpressionsUtil_0.writeItemAttributes(v130, v62.current, v129);
         end;
     end, {
         v128, 

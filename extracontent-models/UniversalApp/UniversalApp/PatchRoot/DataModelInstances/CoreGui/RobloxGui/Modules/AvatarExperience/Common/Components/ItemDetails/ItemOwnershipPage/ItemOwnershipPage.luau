@@ -34,7 +34,7 @@ local v32 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
 local v33 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local _ = require(l_Modules_0.AvatarExperience.Common.Models.CollectibleInstance);
-local v36 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v37 = require(l_Modules_0.Common.Text);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
 local v39 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils);
@@ -47,7 +47,7 @@ local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace
 local v46 = l_FFlagAXMigrateAXToGlobalAutofocus_0 and game:DefineFastFlag("AXMigrateItemOwnerShipPageToAutofocus", false);
 local v47 = l_Images_0["icons/actions/info_small"];
 return function(v48) --[[ Line: 79 ]] --[[ Name: ItemOwnershipPage ]]
-    -- upvalues: l_useStyle_0 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v33 (copy), v42 (copy), v2 (copy), v10 (copy), v25 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v8 (copy), v31 (copy), v32 (copy), l_useDispatch_0 (copy), v29 (copy), v28 (copy), l_AvatarScreen_0 (copy), l_wasLastInputGamepad_0 (copy), v36 (copy), v43 (copy), l_useNavigation_0 (copy), v30 (copy), v37 (copy), l_useProperty_0 (copy), v46 (copy), l_useFocusNavigableSurfaceRegistryConnection_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_useRedirectFocusIntoGuiObject_0 (copy), l_useMostRecentFocusBehavior_0 (copy), l_useTableWrappedCallbackRef_0 (copy), v22 (copy), l_Focusable_0 (copy), l_FFlagAXMigrateItemOwnershipSellPagesInputBindingsToFocusNavigation_0 (copy), v24 (copy), v23 (copy), v26 (copy), l_VerticalScrollViewWithMargin_0 (copy), v27 (copy), l_IconButton_0 (copy), v47 (copy), l_IconSize_0 (copy)
+    -- upvalues: l_useStyle_0 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v33 (copy), v42 (copy), v2 (copy), v10 (copy), v25 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v8 (copy), v31 (copy), v32 (copy), l_useDispatch_0 (copy), v29 (copy), v28 (copy), l_AvatarScreen_0 (copy), l_wasLastInputGamepad_0 (copy), l_logOnOverlayClosed_0 (copy), v43 (copy), l_useNavigation_0 (copy), v30 (copy), v37 (copy), l_useProperty_0 (copy), v46 (copy), l_useFocusNavigableSurfaceRegistryConnection_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_useRedirectFocusIntoGuiObject_0 (copy), l_useMostRecentFocusBehavior_0 (copy), l_useTableWrappedCallbackRef_0 (copy), v22 (copy), l_Focusable_0 (copy), l_FFlagAXMigrateItemOwnershipSellPagesInputBindingsToFocusNavigation_0 (copy), v24 (copy), v23 (copy), v26 (copy), l_VerticalScrollViewWithMargin_0 (copy), v27 (copy), l_IconButton_0 (copy), v47 (copy), l_IconSize_0 (copy)
     local l_params_0 = v48.navigation.state.params;
     local v50 = l_useStyle_0();
     local v52 = l_useSelector_0(function(v51) --[[ Line: 83 ]]
@@ -140,9 +140,9 @@ return function(v48) --[[ Line: 79 ]] --[[ Name: ItemOwnershipPage ]]
         l_collectibleItemId_0
     });
     local v81 = v2.useCallback(function() --[[ Line: 174 ]]
-        -- upvalues: l_wasLastInputGamepad_0 (ref), v36 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v74 (copy)
+        -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v74 (copy)
         local v80 = l_wasLastInputGamepad_0();
-        v36("ItemOwnershipPage", v80);
+        l_logOnOverlayClosed_0("ItemOwnershipPage", v80);
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v80 then
             v74.captureFocus();
         end;

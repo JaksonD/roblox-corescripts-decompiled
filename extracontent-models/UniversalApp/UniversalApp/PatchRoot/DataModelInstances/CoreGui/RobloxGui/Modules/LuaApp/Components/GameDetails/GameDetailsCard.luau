@@ -491,6 +491,7 @@ v91.renderOnLoaded = function(v117, v118, v119, v120, v121) --[[ Line: 317 ]] --
                 placeId = v125, 
                 flowId = if v117.props.playWithRewardData then v117.props.playWithRewardData.flowId else "", 
                 fetchedUniverseId = if v117.props.playWithRewardData then v117.props.playWithRewardData.universeId else nil, 
+                isAdDataExpected = if v117.props.playWithRewardData then v117.props.playWithRewardData.isAdDataExpected else false, 
                 playWithRewardAdData = if v117.props.playWithRewardData then v117.props.playWithRewardData.adData else nil
             }) else nil
         };
@@ -516,7 +517,7 @@ v91.renderOnLoaded = function(v117, v118, v119, v120, v121) --[[ Line: 317 ]] --
         }, v143);
     end);
 end;
-v91.renderOnFailed = function(v146, v147, v148, v149) --[[ Line: 724 ]] --[[ Name: renderOnFailed ]]
+v91.renderOnFailed = function(v146, v147, v148, v149) --[[ Line: 727 ]] --[[ Name: renderOnFailed ]]
     -- upvalues: v72 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_EnumGameDetailErrorTypes_0 (copy), v3 (copy), l_EmptyState_0 (copy)
     if v146.props.gameInfo then
         return v146:renderOnLoaded(v148, v149, nil, if not not v72 or l_FFlagLuaAppAddIgrsRatingToEdp_0 then v147 else nil);
@@ -541,14 +542,14 @@ v91.renderOnFailed = function(v146, v147, v148, v149) --[[ Line: 724 ]] --[[ Nam
         });
     end;
 end;
-v91.getImageSize = function(_, v152, v153, v154, v155) --[[ Line: 759 ]] --[[ Name: getImageSize ]]
+v91.getImageSize = function(_, v152, v153, v154, v155) --[[ Line: 762 ]] --[[ Name: getImageSize ]]
     local v156 = v153 * 1.8;
     local v157 = v155 / v154;
     local v158 = math.max(v156, v152 * v157);
     local v159 = v158 / v157;
     return Vector2.new(v159, v158);
 end;
-v91.render = function(v160) --[[ Line: 770 ]] --[[ Name: render ]]
+v91.render = function(v160) --[[ Line: 773 ]] --[[ Name: render ]]
     -- upvalues: l_getSafeAreaSize_0 (copy), v3 (copy), l_withLocalization_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_LoadingStateContainer_0 (copy), l_RetrievalStatus_1 (copy), l_FFlagEnablePlayWithRewardComponent_0 (copy), v21 (copy)
     local l_screenSize_0 = v160.props.screenSize;
     local l_globalGuiInset_0 = v160.props.globalGuiInset;
@@ -582,7 +583,7 @@ v91.render = function(v160) --[[ Line: 770 ]] --[[ Name: render ]]
                 noticeHeader = l_FFlagLuaAppShowNoticeOnEdp_0 and "Feature.ExperienceDetails.Body.NotesTitle" or nil, 
                 noticeText = l_FFlagLuaAppShowNoticeOnEdp_0 and "Feature.ExperienceDetails.Notes.InExperiencePurchase" or nil, 
                 contentMaturityHeader = l_FFlagLuaAppAddIgrsRatingToEdp_0 and "Feature.GameDetails.Label.ContentMaturity" or nil
-            })(function(v168) --[[ Line: 809 ]]
+            })(function(v168) --[[ Line: 812 ]]
                 -- upvalues: v3 (ref), l_LoadingStateContainer_0 (ref), l_RetrievalStatus_1 (ref), l_gameDetailsPageDataStatus_0 (copy), v160 (copy), v165 (copy), v167 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref)
                 return v3.createElement("Frame", {
                     Size = UDim2.fromScale(1, 0), 
@@ -593,15 +594,15 @@ v91.render = function(v160) --[[ Line: 770 ]] --[[ Name: render ]]
                 }, {
                     LoadingStateContainer = v3.createElement(l_LoadingStateContainer_0, {
                         dataStatus = l_RetrievalStatus_1.fromRawValue(l_gameDetailsPageDataStatus_0), 
-                        renderOnFailed = function() --[[ Line: 819 ]] --[[ Name: renderOnFailed ]]
+                        renderOnFailed = function() --[[ Line: 822 ]] --[[ Name: renderOnFailed ]]
                             -- upvalues: v160 (ref), v168 (copy), v165 (ref), v167 (ref)
                             return v160:renderOnFailed(v168, v165, v167);
                         end, 
-                        renderOnLoading = function() --[[ Line: 822 ]] --[[ Name: renderOnLoading ]]
+                        renderOnLoading = function() --[[ Line: 825 ]] --[[ Name: renderOnLoading ]]
                             -- upvalues: v160 (ref), v167 (ref)
                             return v160:renderOnLoading(v167);
                         end, 
-                        renderOnLoaded = function() --[[ Line: 825 ]] --[[ Name: renderOnLoaded ]]
+                        renderOnLoaded = function() --[[ Line: 828 ]] --[[ Name: renderOnLoaded ]]
                             -- upvalues: v160 (ref), v165 (ref), v167 (ref), l_gameDetailsPageDataStatus_0 (ref), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), v168 (copy)
                             return v160:renderOnLoaded(v165, v167, l_gameDetailsPageDataStatus_0, if not not l_FFlagLuaAppShowNoticeOnEdp_0 or l_FFlagLuaAppAddIgrsRatingToEdp_0 then v168 else nil);
                         end
@@ -621,20 +622,20 @@ v91.render = function(v160) --[[ Line: 770 ]] --[[ Name: render ]]
         return v169;
     end;
 end;
-v91.didMount = function(v170) --[[ Line: 851 ]] --[[ Name: didMount ]]
+v91.didMount = function(v170) --[[ Line: 854 ]] --[[ Name: didMount ]]
     -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy)
     v170.fetchGameDetailsPageData();
     if l_FFlagEnablePlayWithRewardComponent_0 then
         v170.maybeFetchPlayWithReward();
     end;
 end;
-v91.didUpdate = function(v171) --[[ Line: 858 ]] --[[ Name: didUpdate ]]
+v91.didUpdate = function(v171) --[[ Line: 861 ]] --[[ Name: didUpdate ]]
     -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy)
     if l_FFlagEnablePlayWithRewardComponent_0 then
         v171.maybeFetchPlayWithReward();
     end;
 end;
-v91.willUnmount = function(v172) --[[ Line: 864 ]] --[[ Name: willUnmount ]]
+v91.willUnmount = function(v172) --[[ Line: 867 ]] --[[ Name: willUnmount ]]
     -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy)
     local l_eventIngest_0 = v172.props.eventIngest;
     local l_universeId_3 = v172.props.universeId;
@@ -653,7 +654,7 @@ v91.willUnmount = function(v172) --[[ Line: 864 ]] --[[ Name: willUnmount ]]
         v172.props.clearPlayWithReward();
     end;
 end;
-local v180 = l_memoize_0(function(v178, v179) --[[ Line: 883 ]]
+local v180 = l_memoize_0(function(v178, v179) --[[ Line: 886 ]]
     -- upvalues: l_RetrievalStatus_0 (copy)
     if v178 == l_RetrievalStatus_0.Done and (v179 == nil or #v179 == 0) then
         return false;
@@ -661,7 +662,7 @@ local v180 = l_memoize_0(function(v178, v179) --[[ Line: 883 ]]
         return true;
     end;
 end);
-v91 = v5.connect(function(v181, v182) --[[ Line: 893 ]]
+v91 = v5.connect(function(v181, v182) --[[ Line: 896 ]]
     -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy), l_FetchGamePlayabilityAndProductInfo_0 (copy), l_RetrievalStatus_0 (copy), l_PlayabilityStatusEnum_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v43 (copy), l_ApiFetchGameDetails_0 (copy), v50 (copy), l_GameInfosReducer_0 (copy), v180 (copy)
     local v183 = nil;
     local v184 = nil;
@@ -695,26 +696,26 @@ v91 = v5.connect(function(v181, v182) --[[ Line: 893 ]]
         isPlayabilitySettledAndPlayable = if l_FFlagEnablePlayWithRewardComponent_0 then v187 else nil, 
         localUserId = if l_FFlagEnablePlayWithRewardComponent_0 then v181.LocalUserId else nil
     };
-end, function(v190) --[[ Line: 950 ]]
+end, function(v190) --[[ Line: 953 ]]
     -- upvalues: v49 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagEnablePlayWithRewardComponent_0 (copy), l_SetPlayWithRewardState_0 (copy), l_FetchPlayWithRewardState_0 (copy), l_AdService_0 (copy), v58 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), v59 (copy)
     return {
-        fetchGameDetailsPageData = function(v191, v192, v193, v194, v195) --[[ Line: 952 ]] --[[ Name: fetchGameDetailsPageData ]]
+        fetchGameDetailsPageData = function(v191, v192, v193, v194, v195) --[[ Line: 955 ]] --[[ Name: fetchGameDetailsPageData ]]
             -- upvalues: v190 (copy), v49 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref)
             return v190(v49(v191, v192, nil, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v193 else nil, if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v194 else nil, if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v194 then v195 else nil));
         end, 
-        clearPlayWithReward = l_FFlagEnablePlayWithRewardComponent_0 and function() --[[ Line: 974 ]]
+        clearPlayWithReward = l_FFlagEnablePlayWithRewardComponent_0 and function() --[[ Line: 977 ]]
             -- upvalues: v190 (copy), l_SetPlayWithRewardState_0 (ref)
-            return v190(l_SetPlayWithRewardState_0("", nil));
+            return v190(l_SetPlayWithRewardState_0("", "", false, nil));
         end or nil, 
-        fetchPlayWithReward = l_FFlagEnablePlayWithRewardComponent_0 and function(v196, v197) --[[ Line: 979 ]]
+        fetchPlayWithReward = l_FFlagEnablePlayWithRewardComponent_0 and function(v196, v197) --[[ Line: 982 ]]
             -- upvalues: v190 (copy), l_FetchPlayWithRewardState_0 (ref), l_AdService_0 (ref)
             return v190(l_FetchPlayWithRewardState_0(l_AdService_0, v196, v197));
         end or nil, 
-        openRefundPolicyLearnMorePage = function(v198) --[[ Line: 983 ]] --[[ Name: openRefundPolicyLearnMorePage ]]
+        openRefundPolicyLearnMorePage = function(v198) --[[ Line: 986 ]] --[[ Name: openRefundPolicyLearnMorePage ]]
             -- upvalues: v190 (copy), v58 (ref)
             return v190(v58(v198));
         end, 
-        openWebview = l_FFlagLuaAppAddIgrsRatingToEdp_0 and function(v199, v200) --[[ Line: 987 ]]
+        openWebview = l_FFlagLuaAppAddIgrsRatingToEdp_0 and function(v199, v200) --[[ Line: 990 ]]
             -- upvalues: v190 (copy), v59 (ref)
             return v190(v59(v199, v200));
         end or nil
@@ -724,7 +725,7 @@ v91 = l_RoactServices_0.connect({
     networking = l_RoactNetworking_0, 
     eventIngest = l_AppEventIngestService_0
 })(v91);
-v91 = l_RoactAppPolicy_0.connect(function(v201, _) --[[ Line: 999 ]]
+v91 = l_RoactAppPolicy_0.connect(function(v201, _) --[[ Line: 1002 ]]
     -- upvalues: l_FFlagLuaAppShowNoticeOnEdp_0 (copy)
     return {
         enableRecommendedGames = v201.getRecommendedGames(), 
@@ -742,7 +743,7 @@ end)(v91);
 if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
     local l_v91_0 = v91;
     local l_l_v91_0_0 = l_v91_0 --[[ copy: 91 -> 92 ]];
-    v91 = function(v205) --[[ Line: 1018 ]]
+    v91 = function(v205) --[[ Line: 1021 ]]
         -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v63 (copy), v62 (copy), v90 (copy), v44 (copy), v18 (copy), v17 (copy), v36 (copy), v3 (copy), l_l_v91_0_0 (copy), v4 (copy)
         local v206 = nil;
         local v207 = nil;
@@ -758,9 +759,9 @@ if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2
                 logLayoutConflictFn = v44.logSduiLayoutOrderConflict, 
                 shouldInterleaveSdui = l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v205.shouldInterleaveSduiIxp
             });
-            local v211 = v18.useMemo(function() --[[ Line: 1039 ]]
+            local v211 = v18.useMemo(function() --[[ Line: 1042 ]]
                 -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v205 (copy), v63 (ref), v62 (ref)
-                return function(v210) --[[ Line: 1040 ]]
+                return function(v210) --[[ Line: 1043 ]]
                     -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v205 (ref), v63 (ref), v62 (ref)
                     if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v205.shouldInterleaveSduiIxp) and v205.universeId then
                         return v63.getSduiFeedStore(v62.getEdpStoreKey((tostring(v205.universeId)))).getDataUpdatedTimestamp(v210);
@@ -785,7 +786,7 @@ end;
 if l_FFlagSongEdpCarouselIxp_0 or l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 or l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then
     v91 = v22.connectUserLayer({
         l_AppUserLayers_0.ExperienceDetailsPageExposureLayer
-    }, function(v212, _) --[[ Line: 1072 ]]
+    }, function(v212, _) --[[ Line: 1075 ]]
         -- upvalues: l_AppUserLayers_0 (copy), l_FFlagSongEdpCarouselIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (copy)
         local v214 = v212[l_AppUserLayers_0.ExperienceDetailsPageExposureLayer] or {};
         return {
@@ -797,7 +798,7 @@ if l_FFlagSongEdpCarouselIxp_0 or l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 or l
 end;
 if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 or l_FFlagEDPTTITrackingEnabled_0 then
     local l_v91_1 = v91;
-    v91 = function(v216) --[[ Line: 1095 ]]
+    v91 = function(v216) --[[ Line: 1098 ]]
         -- upvalues: l_FFlagEDPTTITrackingEnabled_0 (copy), l_useFirstMediaCarouselImageUri_0 (copy), v67 (copy), l_EDPTTIConstants_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v24 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v18 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), v3 (copy), l_v91_1 (copy), v4 (copy)
         if l_FFlagEDPTTITrackingEnabled_0 then
             local v217 = l_useFirstMediaCarouselImageUri_0(v216.universeId);
@@ -805,7 +806,7 @@ if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 or l_FFlagLuaAppEdpBackendV2SduiI
         end;
         local v218 = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v24.getShouldHydrateLegacy() else nil;
         local v219 = if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v24.getShouldInterleaveSdui() else nil;
-        v18.useEffect(function() --[[ Line: 1112 ]]
+        v18.useEffect(function() --[[ Line: 1115 ]]
             -- upvalues: l_IXPService_0 (ref), l_AppUserLayers_0 (ref)
             l_IXPService_0:LogUserLayerExposure(l_AppUserLayers_0.ExperienceDetailsPageExposureLayer);
         end, {});

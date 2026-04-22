@@ -41,7 +41,6 @@ local l_FFlagLuaAppEnableHomepageTwoByOneTile_0 = require(l_Parent_0.SharedFlags
 local l_FFlagLuaAppEnableSponsoredReportAd_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableSponsoredReportAd;
 local l_FFlagLuaAppAddTestIdsForGameCollections_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddTestIdsForGameCollections;
 local l_FFlagLuaAppSupportAdRatingFooter_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooter;
-local l_FFlagLuaAppFixGameSortAnalyticFromSearch_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppFixGameSortAnalyticFromSearch;
 local l_FFlagLuaAppSupportAdRatingFooterExperiment_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooterExperiment;
 local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
 local l_FFlagLuaAppCompositionAlways_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionAlways;
@@ -49,7 +48,9 @@ local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = require(l_Parent_0.
 local l_FFlagLuaAppNarrowTileSmallerFooterFont_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppNarrowTileSmallerFooterFont;
 local l_FFlagLuaAppNarrowTileHideRating_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppNarrowTileHideRating;
 local l_FFlagLuaAppNarrowTileHidePlayerCount_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppNarrowTileHidePlayerCount;
-local v51 = v16.strictInterface({
+local l_FFlagLuaAppFixSearchImpressions_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppFixSearchImpressions;
+local l_FFlagLuaAppFixCompositionSizeOverrideGap_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppFixCompositionSizeOverrideGap;
+local v52 = v16.strictInterface({
     entries = v16.optional(v16.table), 
     title = v16.optional(v16.string), 
     headerComponent = v16.optional(v16.table), 
@@ -85,158 +86,178 @@ local v51 = v16.strictInterface({
     searchParams = v16.optional(v16.table), 
     layoutOverrides = v16.optional(v16.table), 
     isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v16.optional(v16.boolean) else nil, 
-    launchExperienceEventContextOverride = if l_FFlagLuaAppFixGameSortAnalyticFromSearch_0 then v16.optional(v16.string) else nil, 
+    launchExperienceEventContextOverride = v16.optional(v16.string), 
     sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v16.optional(v16.string) else nil, 
     sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v16.optional(v16.boolean) else nil, 
     sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v16.optional(v16.boolean) else nil, 
     appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v16.optional(v16.boolean) else nil, 
     onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v16.optional(v16.callback) else nil
 });
-return v14.memo(function(v52) --[[ Line: 169 ]] --[[ Name: GameCollectionGrid ]]
-    -- upvalues: l_validateProps_0 (copy), v51 (copy), l_useAppPolicy_0 (copy), l_usePreferredInput_0 (copy), v23 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppNarrowTileSmallerFooterFont_0 (copy), l_FFlagLuaAppNarrowTileHideRating_0 (copy), l_FFlagLuaAppNarrowTileHidePlayerCount_0 (copy), l_useBreakpointXOrSmaller_0 (copy), l_getGameTileCollectionItemSize_0 (copy), v14 (copy), v8 (copy), v36 (copy), v5 (copy), v12 (copy), l_useCollectionLayout_0 (copy), v6 (copy), v10 (copy), v9 (copy), v3 (copy), l_useHoldToPlayStateAndCallbacks_0 (copy), l_useControllerBarFocusNavigationBindings_0 (copy), l_useTextSizeOffset_0 (copy), l_GameTileConstants_0 (copy), v2 (copy), l_getGameTileHiddenStore_0 (copy), v15 (copy), v4 (copy), l_AppPage_0 (copy), l_FFlagLuaAppFixGameSortAnalyticFromSearch_0 (copy), v30 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), v7 (copy), l_CollectionGrid_0 (copy), l_FFlagLuaAppAddTestIdsForGameCollections_0 (copy), v11 (copy), l_HoldToPlayLauncher_0 (copy)
-    l_validateProps_0(v51, v52);
-    local v54 = l_useAppPolicy_0(function(v53) --[[ Line: 173 ]]
-        return v53.useGridPageLayout();
+return v14.memo(function(v53) --[[ Line: 168 ]] --[[ Name: GameCollectionGrid ]]
+    -- upvalues: l_validateProps_0 (copy), v52 (copy), l_useAppPolicy_0 (copy), l_usePreferredInput_0 (copy), v23 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppNarrowTileSmallerFooterFont_0 (copy), l_FFlagLuaAppNarrowTileHideRating_0 (copy), l_FFlagLuaAppNarrowTileHidePlayerCount_0 (copy), l_useBreakpointXOrSmaller_0 (copy), l_getGameTileCollectionItemSize_0 (copy), v14 (copy), v8 (copy), v36 (copy), v5 (copy), l_FFlagLuaAppFixCompositionSizeOverrideGap_0 (copy), l_useCollectionLayout_0 (copy), v12 (copy), v6 (copy), v10 (copy), v9 (copy), l_FFlagLuaAppFixSearchImpressions_0 (copy), v3 (copy), l_useHoldToPlayStateAndCallbacks_0 (copy), l_useControllerBarFocusNavigationBindings_0 (copy), l_useTextSizeOffset_0 (copy), l_GameTileConstants_0 (copy), v2 (copy), l_getGameTileHiddenStore_0 (copy), v15 (copy), v4 (copy), l_AppPage_0 (copy), v30 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), v7 (copy), l_CollectionGrid_0 (copy), l_FFlagLuaAppAddTestIdsForGameCollections_0 (copy), v11 (copy), l_HoldToPlayLauncher_0 (copy)
+    l_validateProps_0(v52, v53);
+    local v55 = l_useAppPolicy_0(function(v54) --[[ Line: 172 ]]
+        return v54.useGridPageLayout();
     end);
-    local v55 = l_usePreferredInput_0();
-    local v56 = v55 == v23.Input.Directional and 4 or 2;
-    local v57 = v55 == v23.Input.Directional and 4 or 1;
-    local v58 = v52.isHoverSupportEnabled and v54 and v55 == v23.Input.Pointer;
-    local v59 = v52.gameTileLayoutType or "Narrow";
-    local v60 = l_FFlagLuaAppCompositionAlways_0 or l_FFlagLuaAppCompositionSupport_0 and v52.appCompositionEnabled;
-    local v61 = nil;
+    local v56 = l_usePreferredInput_0();
+    local v57 = v56 == v23.Input.Directional and 4 or 2;
+    local v58 = v56 == v23.Input.Directional and 4 or 1;
+    local v59 = v53.isHoverSupportEnabled and v55 and v56 == v23.Input.Pointer;
+    local v60 = v53.gameTileLayoutType or "Narrow";
+    local v61 = l_FFlagLuaAppCompositionAlways_0 or l_FFlagLuaAppCompositionSupport_0 and v53.appCompositionEnabled;
     local v62 = nil;
     local v63 = nil;
+    local v64 = nil;
     if l_FFlagLuaAppNarrowTileSmallerFooterFont_0 or l_FFlagLuaAppNarrowTileHideRating_0 or l_FFlagLuaAppNarrowTileHidePlayerCount_0 then
-        local v64 = l_useBreakpointXOrSmaller_0(v23.Keys.Small);
-        local v65 = v60 and v59 == "Narrow" and v64;
-        v61 = if l_FFlagLuaAppNarrowTileSmallerFooterFont_0 then v65 else nil;
-        v62 = if l_FFlagLuaAppNarrowTileHideRating_0 then v65 else nil;
-        v63 = if l_FFlagLuaAppNarrowTileHidePlayerCount_0 then v65 else nil;
+        local v65 = l_useBreakpointXOrSmaller_0(v23.Keys.Small);
+        local v66 = v61 and v60 == "Narrow" and v65;
+        v62 = if l_FFlagLuaAppNarrowTileSmallerFooterFont_0 then v66 else nil;
+        v63 = if l_FFlagLuaAppNarrowTileHideRating_0 then v66 else nil;
+        v64 = if l_FFlagLuaAppNarrowTileHidePlayerCount_0 then v66 else nil;
     end;
-    local v66 = if v60 then l_getGameTileCollectionItemSize_0(v59) else nil;
-    local v67, v68 = v14.useState(nil);
-    local v69 = v14.useRef(v67);
-    v69.current = v67;
-    local v70 = v8(v52.gameSortId, v52.pageContext, v52.searchParams and v52.searchParams.searchUuid);
-    local v72 = v14.useMemo(function() --[[ Line: 220 ]]
-        -- upvalues: v54 (copy), v52 (copy), v36 (ref)
-        local v71 = if v54 then nil else v52.sideMargin;
-        if not v52.layoutOverrides and not v71 then
+    local v67 = if v61 then l_getGameTileCollectionItemSize_0(v60) else nil;
+    local v68, v69 = v14.useState(nil);
+    local v70 = v14.useRef(v68);
+    v70.current = v68;
+    local v71 = v8(v53.gameSortId, v53.pageContext, v53.searchParams and v53.searchParams.searchUuid);
+    local v73 = v14.useMemo(function() --[[ Line: 219 ]]
+        -- upvalues: v55 (copy), v53 (copy), v36 (ref)
+        local v72 = if v55 then nil else v53.sideMargin;
+        if not v53.layoutOverrides and not v72 then
             return nil;
         else
-            return v36.Dictionary.join(v52.layoutOverrides or {}, {
-                sideMargin = if v52.layoutOverrides and v52.layoutOverrides.sideMargin then v52.layoutOverrides.sideMargin else v71
+            return v36.Dictionary.join(v53.layoutOverrides or {}, {
+                sideMargin = if v53.layoutOverrides and v53.layoutOverrides.sideMargin then v53.layoutOverrides.sideMargin else v72
             });
         end;
     end, {
-        v52.layoutOverrides, 
-        v54, 
-        v52.sideMargin
+        v53.layoutOverrides, 
+        v55, 
+        v53.sideMargin
     });
-    local v73 = v5(v59, v67, false, v72);
-    local v74 = v12(v52.entries, v73.columnGap, v73.verticalPadding);
+    local v74 = v5(v60, v68, false, v73);
     local v75 = nil;
-    if l_FFlagLuaAppCompositionSupport_0 then
-        v75 = l_useCollectionLayout_0(v66).itemsPerRow;
+    local v76 = nil;
+    if l_FFlagLuaAppFixCompositionSizeOverrideGap_0 and l_FFlagLuaAppCompositionSupport_0 then
+        local v77 = l_useCollectionLayout_0(v67);
+        v76 = v77.itemsPerRow;
+        v75 = v12(v53.entries, if v61 then v77.gutter else v74.columnGap, if v61 then v77.verticalGap else v74.verticalPadding);
+    else
+        v75 = v12(v53.entries, v74.columnGap, v74.verticalPadding);
+        if l_FFlagLuaAppCompositionSupport_0 then
+            v76 = l_useCollectionLayout_0(v67).itemsPerRow;
+        end;
     end;
-    local v76 = if v60 then v75 or 0 else v73.numColumns or 0;
-    local v77, v78 = v6(v70.sort, v70.isOmni, v52.sortIndex, v52.pageContext, nil, v74, v76, v52.startRow);
-    local v79, v80 = v10(v70.sort, v70.isOmni, v52.infoText);
-    local v81, v82, v83 = v9(v70.sort, v70.isOmni, v52.sortIndex, v52.pageContext, v52.useGridTiles, v52.componentType, v70.gamesApiSortPageId, v52.gameSortId, v52.scrollViewPositionChangedSignal, v76, v52.startRow, v74, v52.searchParams);
-    local v84 = ("GameGrid_%*_%*"):format(v52.gameSortId, v52.sortIndex);
-    local v85 = v3();
-    local v86 = l_useHoldToPlayStateAndCallbacks_0();
-    local v87 = l_useControllerBarFocusNavigationBindings_0(nil, if v85 then v86.holdToPlayEventHandler else nil);
-    v14.useEffect(function() --[[ Line: 287 ]]
-        -- upvalues: v87 (copy), v67 (copy)
-        if v87 then
-            v87(v67);
+    local v78 = if v61 then v76 or 0 else v74.numColumns or 0;
+    local v79, v80 = v6(v71.sort, v71.isOmni, v53.sortIndex, v53.pageContext, nil, v75, v78, v53.startRow);
+    local v81, v82 = v10(v71.sort, v71.isOmni, v53.infoText);
+    local v83, v84, v85 = v9(v71.sort, v71.isOmni, v53.sortIndex, v53.pageContext, v53.useGridTiles, v53.componentType, v71.gamesApiSortPageId, v53.gameSortId, v53.scrollViewPositionChangedSignal, v78, v53.startRow, v75, v53.searchParams);
+    local v86 = if l_FFlagLuaAppFixSearchImpressions_0 and v53.searchParams then v53.searchParams.searchUuid else nil;
+    local v88 = if l_FFlagLuaAppFixSearchImpressions_0 then v14.useMemo(function() --[[ Line: 293 ]]
+        -- upvalues: v53 (copy), v86 (copy)
+        local v87 = ("GameGrid_%*"):format(v53.pageContext);
+        if v86 then
+            v87 = v87 .. ("_%*"):format(v86);
+        end;
+        return v87 .. ("_%*_%*"):format(v53.gameSortId, v53.sortIndex);
+    end, {
+        v53.pageContext, 
+        v86, 
+        v53.gameSortId, 
+        v53.sortIndex
+    }) else ("GameGrid_%*_%*"):format(v53.gameSortId, v53.sortIndex);
+    local v89 = v3();
+    local v90 = l_useHoldToPlayStateAndCallbacks_0();
+    local v91 = l_useControllerBarFocusNavigationBindings_0(nil, if v89 then v90.holdToPlayEventHandler else nil);
+    v14.useEffect(function() --[[ Line: 320 ]]
+        -- upvalues: v91 (copy), v68 (copy)
+        if v91 then
+            v91(v68);
         end;
     end, {
-        v87, 
-        v67
+        v91, 
+        v68
     });
-    local v88 = v52.shouldHideTileTitle or false;
-    local v89 = v52.shouldHideTileMetadata or false;
-    local v90 = v52.containedTile or false;
-    local v91 = l_useTextSizeOffset_0();
-    local v92 = l_GameTileConstants_0.TileTextLines[v59] and l_GameTileConstants_0.TileTextLines[v59].titleTextLines;
-    local v93 = v2(v58, v59, v90, v89, v88, v91, nil, v92, if not not l_FFlagLuaAppNarrowTileHideRating_0 or l_FFlagLuaAppNarrowTileHidePlayerCount_0 then v62 or v63 else nil);
-    local v94 = l_getGameTileHiddenStore_0(v52.gameSortId);
-    local v95 = v15.useSignalState(v94.getHiddenGames);
-    local l_setGameHidden_0 = v94.setGameHidden;
-    local v97 = nil;
-    v97 = if not (v59 == "Narrow") or v52.playerCountStyle then v52.playerCountStyle else l_GameTileConstants_0.PlayerCountStyleValues.Footer;
-    local v98 = v4(v97, v52.isSponsoredFooterAllowed, v59, v52.friendFooterEnabled, v52.pageContext == l_AppPage_0.Home, v84, v58, v77, v78, if l_FFlagLuaAppFixGameSortAnalyticFromSearch_0 and v52.launchExperienceEventContextOverride then v52.launchExperienceEventContextOverride else v30.Constants.Context.ExperienceTile, nil, nil, nil, if v70.isOmni then v52.gameSortId else nil, nil, nil, v52.playButtonStyle, v90, v88, v89, if v85 then v86.onHoldableFocused else nil, if v85 then v86.onHoldableUnfocused else nil, if v85 then v86.shouldDisableHoldable else nil, v91, v92, nil, nil, nil, nil, v52.selectionOrderBase, v52.enableExplicitFeedback, v95, l_setGameHidden_0, v52.pageContext, if l_FFlagLuaAppEnableWhyThisAdModal_0 then v52.sponsoredUserCohort else nil, v52.enableSponsoredFeedback, if l_FFlagLuaAppEnableSponsoredReportAd_0 then v52.enableReportAd else nil, if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then #v74 else nil, if l_FFlagLuaAppSupportAdRatingFooter_0 then v52.isSponsoredRatingFooterAllowed else nil, if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v52.sponsoredFooterAdLabelText else nil, if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v52.sponsoredFooterAdLabelFirst else nil, if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v52.sponsoredFooterIncludeRatingContent else nil, if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v52.onTileImageLoaded else nil, if l_FFlagLuaAppNarrowTileSmallerFooterFont_0 then v61 else nil, if l_FFlagLuaAppNarrowTileHideRating_0 then v62 else nil, if l_FFlagLuaAppNarrowTileHidePlayerCount_0 then v63 else nil);
+    local v92 = v53.shouldHideTileTitle or false;
+    local v93 = v53.shouldHideTileMetadata or false;
+    local v94 = v53.containedTile or false;
+    local v95 = l_useTextSizeOffset_0();
+    local v96 = l_GameTileConstants_0.TileTextLines[v60] and l_GameTileConstants_0.TileTextLines[v60].titleTextLines;
+    local v97 = v2(v59, v60, v94, v93, v92, v95, nil, v96, if not not l_FFlagLuaAppNarrowTileHideRating_0 or l_FFlagLuaAppNarrowTileHidePlayerCount_0 then v63 or v64 else nil);
+    local v98 = l_getGameTileHiddenStore_0(v53.gameSortId);
+    local v99 = v15.useSignalState(v98.getHiddenGames);
+    local l_setGameHidden_0 = v98.setGameHidden;
+    local v101 = nil;
+    v101 = if not (v60 == "Narrow") or v53.playerCountStyle then v53.playerCountStyle else l_GameTileConstants_0.PlayerCountStyleValues.Footer;
+    local v102 = v4(v101, v53.isSponsoredFooterAllowed, v60, v53.friendFooterEnabled, v53.pageContext == l_AppPage_0.Home, v88, v59, v79, v80, if v53.launchExperienceEventContextOverride then v53.launchExperienceEventContextOverride else v30.Constants.Context.ExperienceTile, nil, nil, nil, if v71.isOmni then v53.gameSortId else nil, nil, nil, v53.playButtonStyle, v94, v92, v93, if v89 then v90.onHoldableFocused else nil, if v89 then v90.onHoldableUnfocused else nil, if v89 then v90.shouldDisableHoldable else nil, v95, v96, nil, nil, nil, nil, v53.selectionOrderBase, v53.enableExplicitFeedback, v99, l_setGameHidden_0, v53.pageContext, if l_FFlagLuaAppEnableWhyThisAdModal_0 then v53.sponsoredUserCohort else nil, v53.enableSponsoredFeedback, if l_FFlagLuaAppEnableSponsoredReportAd_0 then v53.enableReportAd else nil, if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then #v75 else nil, if l_FFlagLuaAppSupportAdRatingFooter_0 then v53.isSponsoredRatingFooterAllowed else nil, if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v53.sponsoredFooterAdLabelText else nil, if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v53.sponsoredFooterAdLabelFirst else nil, if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v53.sponsoredFooterIncludeRatingContent else nil, if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v53.onTileImageLoaded else nil, if l_FFlagLuaAppNarrowTileSmallerFooterFont_0 then v62 else nil, if l_FFlagLuaAppNarrowTileHideRating_0 then v63 else nil, if l_FFlagLuaAppNarrowTileHidePlayerCount_0 then v64 else nil);
     if not l_FFlagLuaAppCompositionAlways_0 then
-        local v99 = v14.useRef(0);
-        local l_v99_0 = v99 --[[ copy: 43 -> 44 ]];
-        v14.useEffect(function() --[[ Line: 385 ]]
-            -- upvalues: v60 (copy), v73 (copy), l_v99_0 (copy), v52 (copy)
-            if not v60 and v73.numColumns ~= l_v99_0.current then
-                l_v99_0.current = v73.numColumns;
-                if v52.onItemsPerRowChanged then
-                    v52.onItemsPerRowChanged(v73.numColumns);
+        local v103 = v14.useRef(0);
+        local l_v103_0 = v103 --[[ copy: 44 -> 45 ]];
+        v14.useEffect(function() --[[ Line: 418 ]]
+            -- upvalues: v61 (copy), v74 (copy), l_v103_0 (copy), v53 (copy)
+            if not v61 and v74.numColumns ~= l_v103_0.current then
+                l_v103_0.current = v74.numColumns;
+                if v53.onItemsPerRowChanged then
+                    v53.onItemsPerRowChanged(v74.numColumns);
                 end;
             end;
         end, {
-            v73.numColumns, 
-            v52.onItemsPerRowChanged, 
-            v99, 
-            if l_FFlagLuaAppCompositionSupport_0 then v60 else nil
+            v74.numColumns, 
+            v53.onItemsPerRowChanged, 
+            v103, 
+            if l_FFlagLuaAppCompositionSupport_0 then v61 else nil
         });
     end;
-    if not v70.gameSortDataFound then
+    if not v71.gameSortDataFound then
         return nil;
     else
-        local v101 = v14.createElement(v7, {
-            parentRef = v69, 
-            pageContext = v52.pageContext, 
-            impressionsTag = v84, 
-            scrollViewPositionChangedSignal = v82, 
-            sendGameImpressions = v81, 
-            dataUpdatedTimestamp = v70.gameSortContents and v70.gameSortContents.updatedTimestamp or nil
+        local v105 = v14.createElement(v7, {
+            parentRef = v70, 
+            pageContext = v53.pageContext, 
+            impressionsTag = v88, 
+            scrollViewPositionChangedSignal = v84, 
+            sendGameImpressions = v83, 
+            dataUpdatedTimestamp = v71.gameSortContents and v71.gameSortContents.updatedTimestamp or nil
         });
         return v14.createElement(v14.Fragment, nil, {
             GameGrid = v14.createElement(l_CollectionGrid_0, {
-                collectionItemSize = if v60 then v66 else nil, 
-                title = v52.title, 
-                subtitle = v70.sort and v70.sort.subtitle or nil, 
-                onViewableItemsChanged = v83, 
-                containerRef = v68, 
-                tooltipInfoText = v80, 
+                collectionItemSize = if v61 then v67 else nil, 
+                title = v53.title, 
+                subtitle = v71.sort and v71.sort.subtitle or nil, 
+                onViewableItemsChanged = v85, 
+                containerRef = v69, 
+                tooltipInfoText = v82, 
                 hideHeaderButton = true, 
-                items = v74, 
-                onActivateInfoIcon = v79, 
-                verticalScrollingFrameRef = v52.verticalScrollingFrameRef, 
-                renderItem = v98, 
-                getItemHeight = v93, 
-                numColumns = if v60 then nil else v73.numColumns, 
-                columnGap = if v60 then nil else v73.columnGap, 
-                sideMargin = if v60 then nil else v73.sideMargin, 
-                verticalPadding = if v60 then nil else v73.verticalPadding, 
-                maxNumRows = v52.maxNumRows, 
-                bufferRowsBelowScreen = v56, 
-                bufferRowsAboveScreen = v57, 
-                headerComponent = v52.headerComponent, 
-                testId = if l_FFlagLuaAppAddTestIdsForGameCollections_0 and v52.gameSortId then ("--%*-game-collection-grid"):format(v52.gameSortId) else nil
+                items = v75, 
+                onActivateInfoIcon = v81, 
+                verticalScrollingFrameRef = v53.verticalScrollingFrameRef, 
+                renderItem = v102, 
+                getItemHeight = v97, 
+                numColumns = if v61 then nil else v74.numColumns, 
+                columnGap = if v61 then nil else v74.columnGap, 
+                sideMargin = if v61 then nil else v74.sideMargin, 
+                verticalPadding = if v61 then nil else v74.verticalPadding, 
+                maxNumRows = v53.maxNumRows, 
+                bufferRowsBelowScreen = v57, 
+                bufferRowsAboveScreen = v58, 
+                headerComponent = v53.headerComponent, 
+                testId = if l_FFlagLuaAppAddTestIdsForGameCollections_0 and v53.gameSortId then ("--%*-game-collection-grid"):format(v53.gameSortId) else nil
             }), 
             GameSortImpressionsDetector = v14.createElement(v11, {
-                waitForProp = v52.startRow, 
-                maxUpdatesToDelay = v52.numUpdatesToDelayImpressions, 
-                wrappedComponent = v101
+                waitForProp = v53.startRow, 
+                maxUpdatesToDelay = v53.numUpdatesToDelayImpressions, 
+                wrappedComponent = v105
             }), 
-            HoldToPlayLauncher = if v85 and v86.shouldRenderHoldToPlayLauncher then v14.createElement(l_HoldToPlayLauncher_0, {
-                selectedIndex = v86.selectedIndex, 
-                selectedEntry = v86.selectedEntry, 
-                selectedNavigationUniverseId = v86.selectedNavigationUniverseId, 
-                holdState = v86.holdState, 
-                holdProgress = v86.holdProgress, 
-                cancelHold = v86.cancelHold, 
+            HoldToPlayLauncher = if v89 and v90.shouldRenderHoldToPlayLauncher then v14.createElement(l_HoldToPlayLauncher_0, {
+                selectedIndex = v90.selectedIndex, 
+                selectedEntry = v90.selectedEntry, 
+                selectedNavigationUniverseId = v90.selectedNavigationUniverseId, 
+                holdState = v90.holdState, 
+                holdProgress = v90.holdProgress, 
+                cancelHold = v90.cancelHold, 
                 launchContext = v30.Constants.Context.HoldToPlayLauncher, 
-                referralSource = v52.pageContext, 
-                reportExperienceLaunched = v78
+                referralSource = v53.pageContext, 
+                reportExperienceLaunched = v80
             }) else nil
         });
     end;

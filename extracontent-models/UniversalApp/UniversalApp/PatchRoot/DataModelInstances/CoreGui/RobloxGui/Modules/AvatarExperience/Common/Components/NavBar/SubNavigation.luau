@@ -17,55 +17,57 @@ local l_withStyle_0 = v10.Style.withStyle;
 local l_SpringAnimatedItem_0 = v10.Utility.SpringAnimatedItem;
 local l_useFocusGuiObject_0 = require(l_CorePackages_0.Packages.ReactFocusNavigation).useFocusGuiObject;
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v19 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local l_findValueKeyInRefCache_0 = v19.Utils.RoactGamepadMigration.findValueKeyInRefCache;
-local l_useTableWrappedCallbackRef_0 = v19.Utils.RoactGamepadMigration.useTableWrappedCallbackRef;
-local v22 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagAXMigrateMainNavigationInputBindings_0 = v22.FFlagAXMigrateMainNavigationInputBindings;
-local v24 = require(l_Modules_0.LuaApp.Constants);
-local v25 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v26 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
-local v27 = require(l_Modules_0.AvatarExperience.AvatarEditor.Utils);
-local v28 = require(l_Modules_0.AvatarExperience.Common.Components.NavBar.DEPRECATED_CategoryButton);
-local v29 = require(l_Modules_0.AvatarExperience.Common.Components.NavBar.NavHighlight);
+local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
+local v20 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
+local l_findValueKeyInRefCache_0 = v20.Utils.RoactGamepadMigration.findValueKeyInRefCache;
+local l_useTableWrappedCallbackRef_0 = v20.Utils.RoactGamepadMigration.useTableWrappedCallbackRef;
+local v23 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local l_FFlagAXMigrateMainNavigationInputBindings_0 = v23.FFlagAXMigrateMainNavigationInputBindings;
+local v25 = require(l_Modules_0.LuaApp.Constants);
+local v26 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v27 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
+local v28 = require(l_Modules_0.AvatarExperience.AvatarEditor.Utils);
+local v29 = require(l_Modules_0.AvatarExperience.Common.Components.NavBar.DEPRECATED_CategoryButton);
+local v30 = require(l_Modules_0.AvatarExperience.Common.Components.NavBar.NavHighlight);
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local v31 = require(l_Modules_0.AvatarExperience.Common.Components.withLastInputGroup);
+local v32 = require(l_Modules_0.AvatarExperience.Common.Components.withLastInputGroup);
 local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
-local v33 = require(l_Modules_0.AvatarExperience.Common.Util.HeadCategoryTooltipStorage);
-local v34 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local v35 = require(l_Modules_0.AvatarExperience.Experiments.AXCatalogHeadCategoryCombineIXP);
-local v36 = require(l_Modules_0.AvatarExperience.Common.Components.ScrollingListWithArrowsAndGradient);
-local v37 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
-local v38 = require(script.Parent.useTabNavigationFocusNavigationBindings);
+local v34 = require(l_Modules_0.AvatarExperience.Common.Util.HeadCategoryTooltipStorage);
+local v35 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
+local v36 = require(l_Modules_0.AvatarExperience.Experiments.AXCatalogHeadCategoryCombineIXP);
+local v37 = require(l_Modules_0.AvatarExperience.Common.Components.ScrollingListWithArrowsAndGradient);
+local v38 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
+local v39 = require(script.Parent.useTabNavigationFocusNavigationBindings);
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
-local l_FFlagAXCatalogCategoriesSDUI_0 = v22.FFlagAXCatalogCategoriesSDUI;
-local l_FFlagAXSubNavigationRefsById_0 = v22.FFlagAXSubNavigationRefsById;
-local l_FFlagAXCategoryUnifiedLogging_0 = v22.FFlagAXCategoryUnifiedLogging;
+local l_FFlagAXCatalogCategoriesSDUI_0 = v23.FFlagAXCatalogCategoriesSDUI;
+local l_FFlagAXSubNavigationRefsById_0 = v23.FFlagAXSubNavigationRefsById;
+local l_FFlagAXCategoryUnifiedLogging_0 = v23.FFlagAXCategoryUnifiedLogging;
+local l_FFlagUseNavigationSelectors_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors;
 local l_UnifiedEventLogEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogEnums;
 local l_sendUnifiedEventLogForInstance_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).sendUnifiedEventLogForInstance;
 local l_AvatarScreenProperties_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).AvatarRoute.AvatarScreenProperties;
-local v46 = v5.PureComponent:extend("SubNavigation");
-local v47 = {
+local v48 = v5.PureComponent:extend("SubNavigation");
+local v49 = {
     Style = true, 
-    Heads = not v35.isEnabled() or nil
+    Heads = not v36.isEnabled() or nil
 };
-local v48 = {
+local v50 = {
     dampingRatio = 1, 
     frequency = 3.5
 };
-local function _(v49, v50) --[[ Line: 86 ]] --[[ Name: findSubcategoryIndexById ]]
-    if not v49 or not v50 then
+local function _(v51, v52) --[[ Line: 88 ]] --[[ Name: findSubcategoryIndexById ]]
+    if not v51 or not v52 then
         return nil;
     else
-        for v51, v52 in v49 do
-            if v52.Id == v50 then
-                return v51;
+        for v53, v54 in v51 do
+            if v54.Id == v52 then
+                return v53;
             end;
         end;
         return nil;
     end;
 end;
-v46.validateProps = v4.strictInterface({
+v48.validateProps = v4.strictInterface({
     layoutOrder = v4.number, 
     navHeight = v4.number, 
     selectedCategoryIndex = v4.optional(v4.number), 
@@ -77,11 +79,11 @@ v46.validateProps = v4.strictInterface({
     shouldUseCategoryId = v4.optional(v4.boolean), 
     subcategories = v4.optional(v4.table), 
     onSubNavigationPropsDidUpdate = v4.callback, 
-    isHidden = if v35.isEnabled() then v4.optional(v4.boolean) else nil, 
+    isHidden = if v36.isEnabled() then v4.optional(v4.boolean) else nil, 
     NextSelectionUp = v4.optional(v4.table), 
     NextSelectionDown = v4.optional(v4.table), 
-    BackgroundColor3 = if v37() then v4.optional(v4.Color3) else nil, 
-    BackgroundTransparency = if v37() then v4.optional(v4.number) else nil, 
+    BackgroundColor3 = if v38() then v4.optional(v4.Color3) else nil, 
+    BackgroundTransparency = if v38() then v4.optional(v4.number) else nil, 
     subNavigationRef = v4.optional(v4.table), 
     lastInputGroup = v4.string, 
     newItemNotifications = v4.table, 
@@ -90,143 +92,143 @@ v46.validateProps = v4.strictInterface({
     frameRef = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v4.table else nil, 
     navButtonRefs = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v4.table else nil
 });
-local function v55(v54) --[[ Line: 138 ]] --[[ Name: animatedFrameMapValuesToProps ]]
+local function v57(v56) --[[ Line: 140 ]] --[[ Name: animatedFrameMapValuesToProps ]]
     return {
-        Size = UDim2.new(1, 0, 0, v54.height)
+        Size = UDim2.new(1, 0, 0, v56.height)
     };
 end;
-v46.init = function(v56) --[[ Line: 144 ]] --[[ Name: init ]]
+v48.init = function(v58) --[[ Line: 146 ]] --[[ Name: init ]]
     -- upvalues: v5 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (copy), v7 (copy)
-    v56.scrollingFrameRef = v5.createRef();
-    v56.navButtonRefs = if l_FFlagAXMigrateMainNavigationInputBindings_0 then nil else v7.createRefCache();
-    v56.categoryButtonRefs = {};
-    v56:setState({
+    v58.scrollingFrameRef = v5.createRef();
+    v58.navButtonRefs = if l_FFlagAXMigrateMainNavigationInputBindings_0 then nil else v7.createRefCache();
+    v58.categoryButtonRefs = {};
+    v58:setState({
         selectedCategoryButtonInstance = nil, 
         renderHighlight = false
     });
-    v56.onNavFrameSizeChanged = function(v57) --[[ Line: 156 ]]
-        -- upvalues: v56 (copy)
-        if v56.scrollingFrameRef.current then
-            v56.scrollingFrameRef.current.CanvasSize = UDim2.new(0, v57.AbsoluteSize.X, 1, 0);
+    v58.onNavFrameSizeChanged = function(v59) --[[ Line: 158 ]]
+        -- upvalues: v58 (copy)
+        if v58.scrollingFrameRef.current then
+            v58.scrollingFrameRef.current.CanvasSize = UDim2.new(0, v59.AbsoluteSize.X, 1, 0);
         end;
     end;
 end;
-v46.getCategoryButtonRef = function(v58, v59) --[[ Line: 163 ]] --[[ Name: getCategoryButtonRef ]]
+v48.getCategoryButtonRef = function(v60, v61) --[[ Line: 165 ]] --[[ Name: getCategoryButtonRef ]]
     -- upvalues: v5 (copy)
-    if not v58.categoryButtonRefs[v59] then
-        v58.categoryButtonRefs[v59] = v5.createRef();
+    if not v60.categoryButtonRefs[v61] then
+        v60.categoryButtonRefs[v61] = v5.createRef();
     end;
-    return v58.categoryButtonRefs[v59];
+    return v60.categoryButtonRefs[v61];
 end;
-v46.tryUpdateScrollingFramePosition = function(v60, v61, v62) --[[ Line: 171 ]] --[[ Name: tryUpdateScrollingFramePosition ]]
-    local v63 = v60.scrollingFrameRef and v60.scrollingFrameRef:getValue();
-    local v64 = (v61 or 0) - 50;
-    if v63 then
-        local l_X_0 = v63.AbsoluteWindowSize.X;
+v48.tryUpdateScrollingFramePosition = function(v62, v63, v64) --[[ Line: 173 ]] --[[ Name: tryUpdateScrollingFramePosition ]]
+    local v65 = v62.scrollingFrameRef and v62.scrollingFrameRef:getValue();
+    local v66 = (v63 or 0) - 50;
+    if v65 then
+        local l_X_0 = v65.AbsoluteWindowSize.X;
         if not l_X_0 or l_X_0 == 0 then
             return;
         else
-            local v66 = false;
-            if v61 + v62 > 0 then
-                v66 = v61 + v62 < l_X_0;
+            local v68 = false;
+            if v63 + v64 > 0 then
+                v68 = v63 + v64 < l_X_0;
             end;
-            local v67 = false;
-            if v61 > 0 then
-                v67 = v61 < l_X_0;
+            local v69 = false;
+            if v63 > 0 then
+                v69 = v63 < l_X_0;
             end;
-            if not v67 and not v66 then
-                v63.CanvasPosition = Vector2.new(v64, v63.CanvasPosition.Y);
+            if not v69 and not v68 then
+                v65.CanvasPosition = Vector2.new(v66, v65.CanvasPosition.Y);
             end;
         end;
     end;
 end;
-v46.setCategoryPositionAndWidthState = function(v68) --[[ Line: 194 ]] --[[ Name: setCategoryPositionAndWidthState ]]
-    if v68.props.shouldUseCategoryId then
-        if not v68.categoryButtonRefs or not v68.props.selectedSubcategoryId or not v68.categoryButtonRefs[v68.props.selectedSubcategoryId] then
-            v68:setState({
+v48.setCategoryPositionAndWidthState = function(v70) --[[ Line: 196 ]] --[[ Name: setCategoryPositionAndWidthState ]]
+    if v70.props.shouldUseCategoryId then
+        if not v70.categoryButtonRefs or not v70.props.selectedSubcategoryId or not v70.categoryButtonRefs[v70.props.selectedSubcategoryId] then
+            v70:setState({
                 renderHighlight = false
             });
             return false;
         end;
-    elseif not v68.categoryButtonRefs or not v68.props.selectedSubcategoryIndex or not v68.categoryButtonRefs[v68.props.selectedSubcategoryIndex] then
-        v68:setState({
+    elseif not v70.categoryButtonRefs or not v70.props.selectedSubcategoryIndex or not v70.categoryButtonRefs[v70.props.selectedSubcategoryIndex] then
+        v70:setState({
             renderHighlight = false
         });
         return false;
     end;
-    local v69 = v68.categoryButtonRefs[if v68.props.shouldUseCategoryId then v68.props.selectedSubcategoryId else v68.props.selectedSubcategoryIndex]:getValue();
-    if v69 == nil then
-        v68:setState({
+    local v71 = v70.categoryButtonRefs[if v70.props.shouldUseCategoryId then v70.props.selectedSubcategoryId else v70.props.selectedSubcategoryIndex]:getValue();
+    if v71 == nil then
+        v70:setState({
             renderHighlight = false
         });
         return false;
     else
-        v68:tryUpdateScrollingFramePosition(v69.AbsolutePosition.X, v69.AbsoluteSize.X);
-        v68:setState({
-            selectedCategoryButtonInstance = v69, 
+        v70:tryUpdateScrollingFramePosition(v71.AbsolutePosition.X, v71.AbsoluteSize.X);
+        v70:setState({
+            selectedCategoryButtonInstance = v71, 
             renderHighlight = true
         });
         return true;
     end;
 end;
-v46.didMount = function(v70) --[[ Line: 248 ]] --[[ Name: didMount ]]
-    v70:setCategoryPositionAndWidthState();
-    if v70.scrollingFrameRef.current then
-        v70.scrollingFrameRef.current:GetPropertyChangedSignal("AbsoluteWindowSize"):Once(function() --[[ Line: 259 ]]
-            -- upvalues: v70 (copy)
-            v70:setCategoryPositionAndWidthState();
+v48.didMount = function(v72) --[[ Line: 250 ]] --[[ Name: didMount ]]
+    v72:setCategoryPositionAndWidthState();
+    if v72.scrollingFrameRef.current then
+        v72.scrollingFrameRef.current:GetPropertyChangedSignal("AbsoluteWindowSize"):Once(function() --[[ Line: 261 ]]
+            -- upvalues: v72 (copy)
+            v72:setCategoryPositionAndWidthState();
         end);
     end;
 end;
-v46.didUpdate = function(v71, v72) --[[ Line: 265 ]] --[[ Name: didUpdate ]]
-    v71.props.onSubNavigationPropsDidUpdate(v72, v71.scrollingFrameRef);
-    if v71.props.shouldUseCategoryId then
-        if v71.props.selectedSubcategoryId ~= v72.selectedSubcategoryId or v71.props.selectedCategoryId ~= v72.selectedCategoryId then
-            v71:setCategoryPositionAndWidthState();
+v48.didUpdate = function(v73, v74) --[[ Line: 267 ]] --[[ Name: didUpdate ]]
+    v73.props.onSubNavigationPropsDidUpdate(v74, v73.scrollingFrameRef);
+    if v73.props.shouldUseCategoryId then
+        if v73.props.selectedSubcategoryId ~= v74.selectedSubcategoryId or v73.props.selectedCategoryId ~= v74.selectedCategoryId then
+            v73:setCategoryPositionAndWidthState();
             return;
         end;
-    elseif v71.props.selectedSubcategoryIndex ~= v72.selectedSubcategoryIndex or v71.props.selectedCategoryIndex ~= v72.selectedCategoryIndex then
-        v71:setCategoryPositionAndWidthState();
+    elseif v73.props.selectedSubcategoryIndex ~= v74.selectedSubcategoryIndex or v73.props.selectedCategoryIndex ~= v74.selectedCategoryIndex then
+        v73:setCategoryPositionAndWidthState();
     end;
 end;
-v46.getRouteName = function(v73) --[[ Line: 286 ]] --[[ Name: getRouteName ]]
-    return v73.props.navigation.state.routeName;
+v48.getRouteName = function(v75) --[[ Line: 288 ]] --[[ Name: getRouteName ]]
+    return v75.props.navigation.state.routeName;
 end;
-local function _(v74, v75) --[[ Line: 291 ]] --[[ Name: hasOutfitNotification ]]
-    -- upvalues: v26 (copy), v25 (copy)
-    local v76 = false;
-    if v74.SearchUuid == v26.PurchasedCharacterKey then
-        v76 = v75[v25.NewOutfitNotificationKey];
+local function _(v76, v77) --[[ Line: 293 ]] --[[ Name: hasOutfitNotification ]]
+    -- upvalues: v27 (copy), v26 (copy)
+    local v78 = false;
+    if v76.SearchUuid == v27.PurchasedCharacterKey then
+        v78 = v77[v26.NewOutfitNotificationKey];
     end;
-    local v77 = false;
-    if v74.OutfitType == v25.OutfitTypes.DynamicHead then
-        v77 = v75[v25.NewDHOutfitNotificationKey];
+    local v79 = false;
+    if v76.OutfitType == v26.OutfitTypes.DynamicHead then
+        v79 = v77[v26.NewDHOutfitNotificationKey];
     end;
-    return v76 or v77;
+    return v78 or v79;
 end;
-v46.hasNewItemNotification = function(v79, v80, v81) --[[ Line: 300 ]] --[[ Name: hasNewItemNotification ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v37 (copy), v27 (copy), v26 (copy), v25 (copy)
-    if v79:getRouteName() ~= l_AvatarScreen_0.AvatarEditor then
+v48.hasNewItemNotification = function(v81, v82, v83) --[[ Line: 302 ]] --[[ Name: hasNewItemNotification ]]
+    -- upvalues: l_AvatarScreen_0 (copy), v38 (copy), v28 (copy), v27 (copy), v26 (copy)
+    if v81:getRouteName() ~= l_AvatarScreen_0.AvatarEditor then
         return false;
     else
-        local l_newItemNotifications_0 = v79.props.newItemNotifications;
-        local v83 = v81[v80];
-        if v37() then
-            return v27.shouldNotifyCategory(v83, l_newItemNotifications_0);
+        local l_newItemNotifications_0 = v81.props.newItemNotifications;
+        local v85 = v83[v82];
+        if v38() then
+            return v28.shouldNotifyCategory(v85, l_newItemNotifications_0);
         else
-            local l_AssetTypeIdStrings_0 = v83.AssetTypeIdStrings;
-            if l_AssetTypeIdStrings_0 and v27.shouldNotifyAssetTypes(l_AssetTypeIdStrings_0, l_newItemNotifications_0) then
+            local l_AssetTypeIdStrings_0 = v85.AssetTypeIdStrings;
+            if l_AssetTypeIdStrings_0 and v28.shouldNotifyAssetTypes(l_AssetTypeIdStrings_0, l_newItemNotifications_0) then
                 return true;
             else
-                local v85 = false;
-                if v83.SearchUuid == v26.PurchasedCharacterKey then
-                    v85 = l_newItemNotifications_0[v25.NewOutfitNotificationKey];
+                local v87 = false;
+                if v85.SearchUuid == v27.PurchasedCharacterKey then
+                    v87 = l_newItemNotifications_0[v26.NewOutfitNotificationKey];
                 end;
-                local v86 = false;
-                if v83.OutfitType == v25.OutfitTypes.DynamicHead then
-                    v86 = l_newItemNotifications_0[v25.NewDHOutfitNotificationKey];
+                local v88 = false;
+                if v85.OutfitType == v26.OutfitTypes.DynamicHead then
+                    v88 = l_newItemNotifications_0[v26.NewDHOutfitNotificationKey];
                 end;
-                if v85 or v86 then
+                if v87 or v88 then
                     return true;
                 else
                     return false;
@@ -235,28 +237,28 @@ v46.hasNewItemNotification = function(v79, v80, v81) --[[ Line: 300 ]] --[[ Name
         end;
     end;
 end;
-v46.hasNewItemNotificationV2 = function(v87, v88) --[[ Line: 324 ]] --[[ Name: hasNewItemNotificationV2 ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v37 (copy), v27 (copy), v26 (copy), v25 (copy)
-    if v87:getRouteName() ~= l_AvatarScreen_0.AvatarEditor then
+v48.hasNewItemNotificationV2 = function(v89, v90) --[[ Line: 326 ]] --[[ Name: hasNewItemNotificationV2 ]]
+    -- upvalues: l_AvatarScreen_0 (copy), v38 (copy), v28 (copy), v27 (copy), v26 (copy)
+    if v89:getRouteName() ~= l_AvatarScreen_0.AvatarEditor then
         return false;
     else
-        local l_newItemNotifications_1 = v87.props.newItemNotifications;
-        if v37() then
-            return v27.shouldNotifyCategory(v88, l_newItemNotifications_1);
+        local l_newItemNotifications_1 = v89.props.newItemNotifications;
+        if v38() then
+            return v28.shouldNotifyCategory(v90, l_newItemNotifications_1);
         else
-            local l_AssetTypeIdStrings_1 = v88.AssetTypeIdStrings;
-            if l_AssetTypeIdStrings_1 and v27.shouldNotifyAssetTypes(l_AssetTypeIdStrings_1, l_newItemNotifications_1) then
+            local l_AssetTypeIdStrings_1 = v90.AssetTypeIdStrings;
+            if l_AssetTypeIdStrings_1 and v28.shouldNotifyAssetTypes(l_AssetTypeIdStrings_1, l_newItemNotifications_1) then
                 return true;
             else
-                local v91 = false;
-                if v88.SearchUuid == v26.PurchasedCharacterKey then
-                    v91 = l_newItemNotifications_1[v25.NewOutfitNotificationKey];
+                local v93 = false;
+                if v90.SearchUuid == v27.PurchasedCharacterKey then
+                    v93 = l_newItemNotifications_1[v26.NewOutfitNotificationKey];
                 end;
-                local v92 = false;
-                if v88.OutfitType == v25.OutfitTypes.DynamicHead then
-                    v92 = l_newItemNotifications_1[v25.NewDHOutfitNotificationKey];
+                local v94 = false;
+                if v90.OutfitType == v26.OutfitTypes.DynamicHead then
+                    v94 = l_newItemNotifications_1[v26.NewDHOutfitNotificationKey];
                 end;
-                if v91 or v92 then
+                if v93 or v94 then
                     return true;
                 else
                     return false;
@@ -265,406 +267,406 @@ v46.hasNewItemNotificationV2 = function(v87, v88) --[[ Line: 324 ]] --[[ Name: h
         end;
     end;
 end;
-v46.onTooltipDismiss = function(_, v94) --[[ Line: 347 ]] --[[ Name: onTooltipDismiss ]]
-    -- upvalues: v47 (copy), v33 (copy)
-    if v47[v94.Name] then
-        v33.setSeenTimestamp();
+v48.onTooltipDismiss = function(_, v96) --[[ Line: 349 ]] --[[ Name: onTooltipDismiss ]]
+    -- upvalues: v49 (copy), v34 (copy)
+    if v49[v96.Name] then
+        v34.setSeenTimestamp();
     end;
 end;
-v46.renderCategoryButton = function(v95, v96, v97, v98, v99, v100) --[[ Line: 353 ]] --[[ Name: renderCategoryButton ]]
-    -- upvalues: v35 (copy), v34 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (copy), l_withLocalization_0 (copy), v47 (copy), v33 (copy), v5 (copy), l_Focusable_0 (copy), v28 (copy), l_FFlagAXCatalogCategoriesSDUI_0 (copy), l_FFlagAXCategoryUnifiedLogging_0 (copy), l_FFlagAXSubNavigationRefsById_0 (copy), l_sendUnifiedEventLogForInstance_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy)
-    local v101 = v98 == v99;
-    if v95.props.shouldUseCategoryId then
-        v101 = v95.props.selectedSubcategoryId == v100.Id;
+v48.renderCategoryButton = function(v97, v98, v99, v100, v101, v102) --[[ Line: 355 ]] --[[ Name: renderCategoryButton ]]
+    -- upvalues: v36 (copy), v35 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (copy), l_withLocalization_0 (copy), v49 (copy), v34 (copy), v5 (copy), l_Focusable_0 (copy), v29 (copy), l_FFlagAXCatalogCategoriesSDUI_0 (copy), l_FFlagAXCategoryUnifiedLogging_0 (copy), l_FFlagAXSubNavigationRefsById_0 (copy), l_sendUnifiedEventLogForInstance_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy)
+    local v103 = v100 == v101;
+    if v97.props.shouldUseCategoryId then
+        v103 = v97.props.selectedSubcategoryId == v102.Id;
     end;
-    local l_subcategories_0 = v95.props.subcategories;
-    local l_selectSubcategory_0 = v95.props.selectSubcategory;
-    local l_selectSubcategoryId_0 = v95.props.selectSubcategoryId;
-    local v105 = nil;
-    if v35.isEnabled() then
-        v105 = v34.readTestVariable(v35.EnableHeadCategoryCombination);
+    local l_subcategories_0 = v97.props.subcategories;
+    local l_selectSubcategory_0 = v97.props.selectSubcategory;
+    local l_selectSubcategoryId_0 = v97.props.selectSubcategoryId;
+    local v107 = nil;
+    if v36.isEnabled() then
+        v107 = v35.readTestVariable(v36.EnableHeadCategoryCombination);
     end;
-    local v106 = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v95.props.navButtonRefs else v95.navButtonRefs;
-    if v35.isEnabled() and v105 then
+    local v108 = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v97.props.navButtonRefs else v97.navButtonRefs;
+    if v36.isEnabled() and v107 then
         return l_withLocalization_0({
             headCombineTooltipTitle = "Feature.Avatar.Label.HeadRefinement.CombinedCategories.Tooltip"
-        })(function(v107) --[[ Line: 380 ]]
-            -- upvalues: v47 (ref), v100 (copy), v33 (ref), v5 (ref), l_Focusable_0 (ref), v28 (ref), l_FFlagAXCatalogCategoriesSDUI_0 (ref), v99 (copy), v101 (ref), v95 (copy), l_subcategories_0 (copy), l_FFlagAXCategoryUnifiedLogging_0 (ref), v106 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), l_sendUnifiedEventLogForInstance_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_selectSubcategoryId_0 (copy), v97 (copy), l_selectSubcategory_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_FFlagAXMigrateMainNavigationInputBindings_0 (ref), v96 (copy), v7 (ref)
-            local v108 = nil;
-            if v47[v100.Name] and v33.shouldShowTooltip() then
-                v108 = v107.headCombineTooltipTitle;
+        })(function(v109) --[[ Line: 382 ]]
+            -- upvalues: v49 (ref), v102 (copy), v34 (ref), v5 (ref), l_Focusable_0 (ref), v29 (ref), l_FFlagAXCatalogCategoriesSDUI_0 (ref), v101 (copy), v103 (ref), v97 (copy), l_subcategories_0 (copy), l_FFlagAXCategoryUnifiedLogging_0 (ref), v108 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), l_sendUnifiedEventLogForInstance_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_selectSubcategoryId_0 (copy), v99 (copy), l_selectSubcategory_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_FFlagAXMigrateMainNavigationInputBindings_0 (ref), v98 (copy), v7 (ref)
+            local v110 = nil;
+            if v49[v102.Name] and v34.shouldShowTooltip() then
+                v110 = v109.headCombineTooltipTitle;
             end;
-            return v5.createElement(l_Focusable_0[v28], {
-                categoryTitle = v100.Title, 
-                localizedCategoryTitle = if l_FFlagAXCatalogCategoriesSDUI_0 then v100.LocalizedTitle else nil, 
-                layoutOrder = v99, 
-                isSelected = v101, 
-                shouldUseCategoryId = v95.props.shouldUseCategoryId, 
-                hasNewItemNotification = if v95.props.shouldUseCategoryId then v95:hasNewItemNotificationV2(v100) else v95:hasNewItemNotification(v99, l_subcategories_0), 
-                frameRef = v95:getCategoryButtonRef(if v95.props.shouldUseCategoryId then v100.Id else v99), 
-                onActivate = function() --[[ Line: 399 ]] --[[ Name: onActivate ]]
-                    -- upvalues: l_FFlagAXCategoryUnifiedLogging_0 (ref), v106 (ref), l_FFlagAXSubNavigationRefsById_0 (ref), v95 (ref), v100 (ref), v99 (ref), l_sendUnifiedEventLogForInstance_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_selectSubcategoryId_0 (ref), v97 (ref), l_selectSubcategory_0 (ref)
+            return v5.createElement(l_Focusable_0[v29], {
+                categoryTitle = v102.Title, 
+                localizedCategoryTitle = if l_FFlagAXCatalogCategoriesSDUI_0 then v102.LocalizedTitle else nil, 
+                layoutOrder = v101, 
+                isSelected = v103, 
+                shouldUseCategoryId = v97.props.shouldUseCategoryId, 
+                hasNewItemNotification = if v97.props.shouldUseCategoryId then v97:hasNewItemNotificationV2(v102) else v97:hasNewItemNotification(v101, l_subcategories_0), 
+                frameRef = v97:getCategoryButtonRef(if v97.props.shouldUseCategoryId then v102.Id else v101), 
+                onActivate = function() --[[ Line: 401 ]] --[[ Name: onActivate ]]
+                    -- upvalues: l_FFlagAXCategoryUnifiedLogging_0 (ref), v108 (ref), l_FFlagAXSubNavigationRefsById_0 (ref), v97 (ref), v102 (ref), v101 (ref), l_sendUnifiedEventLogForInstance_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_selectSubcategoryId_0 (ref), v99 (ref), l_selectSubcategory_0 (ref)
                     if l_FFlagAXCategoryUnifiedLogging_0 then
-                        local v109 = v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then v100.Id else v99];
-                        if v109 and v109.current then
-                            l_sendUnifiedEventLogForInstance_0(v109.current, {
+                        local v111 = v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then v102.Id else v101];
+                        if v111 and v111.current then
+                            l_sendUnifiedEventLogForInstance_0(v111.current, {
                                 action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.UI_ELEMENT_CLICK, 
-                                elementName = "SELECT_SUBCATEGORY_" .. string.upper(v100.Name), 
-                                surface = v95.props.unifiedLoggingSurface
+                                elementName = "SELECT_SUBCATEGORY_" .. string.upper(v102.Name), 
+                                surface = v97.props.unifiedLoggingSurface
                             });
                         end;
                     end;
-                    if v95.props.shouldUseCategoryId then
-                        l_selectSubcategoryId_0(v97, v100.Id);
+                    if v97.props.shouldUseCategoryId then
+                        l_selectSubcategoryId_0(v99, v102.Id);
                         return;
                     else
-                        l_selectSubcategory_0(v97, v99);
+                        l_selectSubcategory_0(v99, v101);
                         return;
                     end;
                 end, 
-                tooltipTitle = v108, 
-                isHidden = v95.props.isHidden, 
-                onTooltipDismiss = function() --[[ Line: 422 ]] --[[ Name: onTooltipDismiss ]]
-                    -- upvalues: v95 (ref), v100 (ref)
-                    v95:onTooltipDismiss(v100);
+                tooltipTitle = v110, 
+                isHidden = v97.props.isHidden, 
+                onTooltipDismiss = function() --[[ Line: 424 ]] --[[ Name: onTooltipDismiss ]]
+                    -- upvalues: v97 (ref), v102 (ref)
+                    v97:onTooltipDismiss(v102);
                 end, 
-                [v5.Ref] = v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then v100.Id else v99], 
-                NextSelectionLeft = if v99 > 1 then v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then l_subcategories_0[v99 - 1].Id else v99 - 1] else nil, 
-                NextSelectionRight = if v99 < #l_subcategories_0 then v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then l_subcategories_0[v99 + 1].Id else v99 + 1] else nil, 
-                inputBindings = if not not l_FFlagAXMigrateAXToGlobalAutofocus_0 or l_FFlagAXMigrateMainNavigationInputBindings_0 then nil else v96 ~= nil and {
-                    ShiftLeft = v7.Input.onBegin(Enum.KeyCode.ButtonL1, function() --[[ Line: 442 ]]
-                        -- upvalues: v99 (ref), v96 (ref)
-                        if v99 > 1 then
-                            v96.moveFocusLeft();
+                [v5.Ref] = v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then v102.Id else v101], 
+                NextSelectionLeft = if v101 > 1 then v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then l_subcategories_0[v101 - 1].Id else v101 - 1] else nil, 
+                NextSelectionRight = if v101 < #l_subcategories_0 then v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then l_subcategories_0[v101 + 1].Id else v101 + 1] else nil, 
+                inputBindings = if not not l_FFlagAXMigrateAXToGlobalAutofocus_0 or l_FFlagAXMigrateMainNavigationInputBindings_0 then nil else v98 ~= nil and {
+                    ShiftLeft = v7.Input.onBegin(Enum.KeyCode.ButtonL1, function() --[[ Line: 444 ]]
+                        -- upvalues: v101 (ref), v98 (ref)
+                        if v101 > 1 then
+                            v98.moveFocusLeft();
                         end;
                     end), 
-                    ShiftRight = v7.Input.onBegin(Enum.KeyCode.ButtonR1, function() --[[ Line: 447 ]]
-                        -- upvalues: v99 (ref), l_subcategories_0 (ref), v96 (ref)
-                        if v99 < #l_subcategories_0 then
-                            v96.moveFocusRight();
+                    ShiftRight = v7.Input.onBegin(Enum.KeyCode.ButtonR1, function() --[[ Line: 449 ]]
+                        -- upvalues: v101 (ref), l_subcategories_0 (ref), v98 (ref)
+                        if v101 < #l_subcategories_0 then
+                            v98.moveFocusRight();
                         end;
                     end)
                 } or nil
             });
         end);
     else
-        return v5.createElement(l_Focusable_0[v28], {
-            shouldUseCategoryId = v95.props.shouldUseCategoryId, 
-            categoryTitle = v100.Title, 
-            localizedCategoryTitle = if l_FFlagAXCatalogCategoriesSDUI_0 then v100.LocalizedTitle else nil, 
-            layoutOrder = v99, 
-            isSelected = v101, 
-            hasNewItemNotification = if v95.props.shouldUseCategoryId then v95:hasNewItemNotificationV2(v100) else v95:hasNewItemNotification(v99, l_subcategories_0), 
-            frameRef = v95:getCategoryButtonRef(if v95.props.shouldUseCategoryId then v100.Id else v99), 
-            onActivate = function() --[[ Line: 467 ]] --[[ Name: onActivate ]]
-                -- upvalues: l_FFlagAXCategoryUnifiedLogging_0 (ref), v106 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v95 (copy), v100 (copy), v99 (copy), l_sendUnifiedEventLogForInstance_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_selectSubcategoryId_0 (copy), v97 (copy), l_selectSubcategory_0 (copy)
+        return v5.createElement(l_Focusable_0[v29], {
+            shouldUseCategoryId = v97.props.shouldUseCategoryId, 
+            categoryTitle = v102.Title, 
+            localizedCategoryTitle = if l_FFlagAXCatalogCategoriesSDUI_0 then v102.LocalizedTitle else nil, 
+            layoutOrder = v101, 
+            isSelected = v103, 
+            hasNewItemNotification = if v97.props.shouldUseCategoryId then v97:hasNewItemNotificationV2(v102) else v97:hasNewItemNotification(v101, l_subcategories_0), 
+            frameRef = v97:getCategoryButtonRef(if v97.props.shouldUseCategoryId then v102.Id else v101), 
+            onActivate = function() --[[ Line: 469 ]] --[[ Name: onActivate ]]
+                -- upvalues: l_FFlagAXCategoryUnifiedLogging_0 (ref), v108 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v97 (copy), v102 (copy), v101 (copy), l_sendUnifiedEventLogForInstance_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_selectSubcategoryId_0 (copy), v99 (copy), l_selectSubcategory_0 (copy)
                 if l_FFlagAXCategoryUnifiedLogging_0 then
-                    local v110 = v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then v100.Id else v99];
-                    if v110 and v110.current then
-                        l_sendUnifiedEventLogForInstance_0(v110.current, {
+                    local v112 = v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then v102.Id else v101];
+                    if v112 and v112.current then
+                        l_sendUnifiedEventLogForInstance_0(v112.current, {
                             action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.UI_ELEMENT_CLICK, 
-                            elementName = "SELECT_SUBCATEGORY_" .. string.upper(v100.Name), 
-                            surface = v95.props.unifiedLoggingSurface
+                            elementName = "SELECT_SUBCATEGORY_" .. string.upper(v102.Name), 
+                            surface = v97.props.unifiedLoggingSurface
                         });
                     end;
                 end;
-                if v95.props.shouldUseCategoryId then
-                    l_selectSubcategoryId_0(v97, v100.Id);
+                if v97.props.shouldUseCategoryId then
+                    l_selectSubcategoryId_0(v99, v102.Id);
                     return;
                 else
-                    l_selectSubcategory_0(v97, v99);
+                    l_selectSubcategory_0(v99, v101);
                     return;
                 end;
             end, 
-            [v5.Ref] = v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then v100.Id else v99], 
-            NextSelectionLeft = if v99 > 1 then v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then l_subcategories_0[v99 - 1].Id else v99 - 1] else nil, 
-            NextSelectionRight = if v99 < #l_subcategories_0 then v106[if l_FFlagAXSubNavigationRefsById_0 and v95.props.shouldUseCategoryId then l_subcategories_0[v99 + 1].Id else v99 + 1] else nil, 
-            inputBindings = if l_FFlagAXMigrateMainNavigationInputBindings_0 then nil else v96 ~= nil and {
-                ShiftLeft = v7.Input.onBegin(Enum.KeyCode.ButtonL1, function() --[[ Line: 503 ]]
-                    -- upvalues: v99 (copy), v96 (copy)
-                    if v99 > 1 then
-                        v96.moveFocusLeft();
+            [v5.Ref] = v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then v102.Id else v101], 
+            NextSelectionLeft = if v101 > 1 then v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then l_subcategories_0[v101 - 1].Id else v101 - 1] else nil, 
+            NextSelectionRight = if v101 < #l_subcategories_0 then v108[if l_FFlagAXSubNavigationRefsById_0 and v97.props.shouldUseCategoryId then l_subcategories_0[v101 + 1].Id else v101 + 1] else nil, 
+            inputBindings = if l_FFlagAXMigrateMainNavigationInputBindings_0 then nil else v98 ~= nil and {
+                ShiftLeft = v7.Input.onBegin(Enum.KeyCode.ButtonL1, function() --[[ Line: 505 ]]
+                    -- upvalues: v101 (copy), v98 (copy)
+                    if v101 > 1 then
+                        v98.moveFocusLeft();
                     end;
                 end), 
-                ShiftRight = v7.Input.onBegin(Enum.KeyCode.ButtonR1, function() --[[ Line: 508 ]]
-                    -- upvalues: v99 (copy), l_subcategories_0 (copy), v96 (copy)
-                    if v99 < #l_subcategories_0 then
-                        v96.moveFocusRight();
+                ShiftRight = v7.Input.onBegin(Enum.KeyCode.ButtonR1, function() --[[ Line: 510 ]]
+                    -- upvalues: v101 (copy), l_subcategories_0 (copy), v98 (copy)
+                    if v101 < #l_subcategories_0 then
+                        v98.moveFocusRight();
                     end;
                 end)
             } or nil
         });
     end;
 end;
-v46.renderSubNavFrameChildren = function(v111, v112) --[[ Line: 517 ]] --[[ Name: renderSubNavFrameChildren ]]
+v48.renderSubNavFrameChildren = function(v113, v114) --[[ Line: 519 ]] --[[ Name: renderSubNavFrameChildren ]]
     -- upvalues: l_FFlagAXSubNavigationRefsById_0 (copy)
-    local l_subcategories_1 = v111.props.subcategories;
-    local l_selectedSubcategoryIndex_0 = v111.props.selectedSubcategoryIndex;
-    local l_selectedCategoryIndex_0 = v111.props.selectedCategoryIndex;
-    local v116 = {};
+    local l_subcategories_1 = v113.props.subcategories;
+    local l_selectedSubcategoryIndex_0 = v113.props.selectedSubcategoryIndex;
+    local l_selectedCategoryIndex_0 = v113.props.selectedCategoryIndex;
+    local v118 = {};
     if l_subcategories_1 then
-        for v117, v118 in l_subcategories_1 do
-            local v119 = nil;
+        for v119, v120 in l_subcategories_1 do
+            local v121 = nil;
             if l_FFlagAXSubNavigationRefsById_0 then
-                v119 = if v111.props.shouldUseCategoryId then tostring(v118.Id) else v118.Name;
+                v121 = if v113.props.shouldUseCategoryId then tostring(v120.Id) else v120.Name;
             end;
-            v116[if l_FFlagAXSubNavigationRefsById_0 then v119 else v118.Name] = v111:renderCategoryButton(v112, if v111.props.shouldUseCategoryId then v111.props.selectedCategoryId else l_selectedCategoryIndex_0, if v111.props.shouldUseCategoryId then v111.props.selectedSubcategoryId else l_selectedSubcategoryIndex_0, v117, v118);
+            v118[if l_FFlagAXSubNavigationRefsById_0 then v121 else v120.Name] = v113:renderCategoryButton(v114, if v113.props.shouldUseCategoryId then v113.props.selectedCategoryId else l_selectedCategoryIndex_0, if v113.props.shouldUseCategoryId then v113.props.selectedSubcategoryId else l_selectedSubcategoryIndex_0, v119, v120);
         end;
     end;
-    return v116;
+    return v118;
 end;
-v46.getScrollingListChildren = function(v120) --[[ Line: 548 ]] --[[ Name: getScrollingListChildren ]]
-    -- upvalues: v24 (copy), l_RoactFitComponents_0 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (copy), l_FFlagAXSubNavigationRefsById_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v5 (copy), l_Focusable_0 (copy), l_FitFrameHorizontal_0 (copy), v7 (copy), v29 (copy)
-    local l_subNavigationRef_0 = v120.props.subNavigationRef;
-    local v122 = not (v120.props.lastInputGroup == v24.InputType.Gamepad) and v120.state.renderHighlight;
-    local l_selectedSubcategoryIndex_1 = v120.props.selectedSubcategoryIndex;
-    local v124 = UDim.new(0, 15);
-    local v125 = l_RoactFitComponents_0.Rect.rectangle(10, 0);
-    local v126 = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v120.props.navButtonRefs else v120.navButtonRefs;
-    local v127 = (not (l_selectedSubcategoryIndex_1 ~= 0) or l_selectedSubcategoryIndex_1 == nil) and 1 or l_selectedSubcategoryIndex_1;
-    if l_FFlagAXSubNavigationRefsById_0 and v120.props.shouldUseCategoryId then
-        local l_subcategories_2 = v120.props.subcategories;
-        v127 = if v120.props.selectedSubcategoryId then v120.props.selectedSubcategoryId else if l_subcategories_2 and #l_subcategories_2 > 0 then l_subcategories_2[1].Id else nil;
+v48.getScrollingListChildren = function(v122) --[[ Line: 550 ]] --[[ Name: getScrollingListChildren ]]
+    -- upvalues: v25 (copy), l_RoactFitComponents_0 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (copy), l_FFlagAXSubNavigationRefsById_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v5 (copy), l_Focusable_0 (copy), l_FitFrameHorizontal_0 (copy), v7 (copy), v30 (copy)
+    local l_subNavigationRef_0 = v122.props.subNavigationRef;
+    local v124 = not (v122.props.lastInputGroup == v25.InputType.Gamepad) and v122.state.renderHighlight;
+    local l_selectedSubcategoryIndex_1 = v122.props.selectedSubcategoryIndex;
+    local v126 = UDim.new(0, 15);
+    local v127 = l_RoactFitComponents_0.Rect.rectangle(10, 0);
+    local v128 = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v122.props.navButtonRefs else v122.navButtonRefs;
+    local v129 = (not (l_selectedSubcategoryIndex_1 ~= 0) or l_selectedSubcategoryIndex_1 == nil) and 1 or l_selectedSubcategoryIndex_1;
+    if l_FFlagAXSubNavigationRefsById_0 and v122.props.shouldUseCategoryId then
+        local l_subcategories_2 = v122.props.subcategories;
+        v129 = if v122.props.selectedSubcategoryId then v122.props.selectedSubcategoryId else if l_subcategories_2 and #l_subcategories_2 > 0 then l_subcategories_2[1].Id else nil;
     end;
     return {
         SubNavFrame = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v5.createElement(l_Focusable_0[l_FitFrameHorizontal_0], {
             height = UDim.new(1, 0), 
-            contentPadding = v124, 
-            margin = v125, 
+            contentPadding = v126, 
+            margin = v127, 
             VerticalAlignment = Enum.VerticalAlignment.Center, 
             FillDirection = Enum.FillDirection.Horizontal, 
             BackgroundTransparency = 1, 
-            [v5.Change.AbsoluteSize] = v120.onNavFrameSizeChanged, 
+            [v5.Change.AbsoluteSize] = v122.onNavFrameSizeChanged, 
             [v5.Ref] = l_subNavigationRef_0, 
-            NextSelectionUp = v120.props.NextSelectionUp, 
-            NextSelectionDown = v120.props.NextSelectionDown, 
-            defaultChild = if not l_FFlagAXSubNavigationRefsById_0 then v126[v127] else if v127 then v126[v127] else nil
-        }, v120:renderSubNavFrameChildren()) else v7.withFocusController(function(v129) --[[ Line: 596 ]]
-            -- upvalues: v5 (ref), l_Focusable_0 (ref), l_FitFrameHorizontal_0 (ref), v124 (copy), v125 (copy), v120 (copy), l_subNavigationRef_0 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v126 (copy), v127 (ref), l_FFlagAXMigrateMainNavigationInputBindings_0 (ref), v7 (ref)
+            NextSelectionUp = v122.props.NextSelectionUp, 
+            NextSelectionDown = v122.props.NextSelectionDown, 
+            defaultChild = if not l_FFlagAXSubNavigationRefsById_0 then v128[v129] else if v129 then v128[v129] else nil
+        }, v122:renderSubNavFrameChildren()) else v7.withFocusController(function(v131) --[[ Line: 598 ]]
+            -- upvalues: v5 (ref), l_Focusable_0 (ref), l_FitFrameHorizontal_0 (ref), v126 (copy), v127 (copy), v122 (copy), l_subNavigationRef_0 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v128 (copy), v129 (ref), l_FFlagAXMigrateMainNavigationInputBindings_0 (ref), v7 (ref)
             return v5.createElement(l_Focusable_0[l_FitFrameHorizontal_0], {
                 height = UDim.new(1, 0), 
-                contentPadding = v124, 
-                margin = v125, 
+                contentPadding = v126, 
+                margin = v127, 
                 VerticalAlignment = Enum.VerticalAlignment.Center, 
                 FillDirection = Enum.FillDirection.Horizontal, 
                 BackgroundTransparency = 1, 
-                [v5.Change.AbsoluteSize] = v120.onNavFrameSizeChanged, 
+                [v5.Change.AbsoluteSize] = v122.onNavFrameSizeChanged, 
                 [v5.Ref] = l_subNavigationRef_0, 
-                NextSelectionUp = v120.props.NextSelectionUp, 
-                NextSelectionDown = v120.props.NextSelectionDown, 
-                defaultChild = if not l_FFlagAXSubNavigationRefsById_0 then v126[v127] else if v127 then v126[v127] else nil, 
+                NextSelectionUp = v122.props.NextSelectionUp, 
+                NextSelectionDown = v122.props.NextSelectionDown, 
+                defaultChild = if not l_FFlagAXSubNavigationRefsById_0 then v128[v129] else if v129 then v128[v129] else nil, 
                 inputBindings = if l_FFlagAXMigrateMainNavigationInputBindings_0 then nil else {
-                    ToMainNav = v7.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 615 ]]
-                        -- upvalues: v129 (copy)
-                        v129.moveFocusUp();
+                    ToMainNav = v7.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 617 ]]
+                        -- upvalues: v131 (copy)
+                        v131.moveFocusUp();
                     end)
                 }
-            }, v120:renderSubNavFrameChildren(v129));
+            }, v122:renderSubNavFrameChildren(v131));
         end), 
-        Highlight = v122 and v5.createElement(v29, {
-            scrollingFrameRef = v120.scrollingFrameRef, 
-            selectedCategoryButtonInstance = v120.state.selectedCategoryButtonInstance
+        Highlight = v124 and v5.createElement(v30, {
+            scrollingFrameRef = v122.scrollingFrameRef, 
+            selectedCategoryButtonInstance = v122.state.selectedCategoryButtonInstance
         })
     };
 end;
-v46.getSubNavigationChildren = function(v130, _, v132) --[[ Line: 629 ]] --[[ Name: getSubNavigationChildren ]]
-    -- upvalues: v5 (copy), v36 (copy)
-    local l_selectedCategoryIndex_1 = v130.props.selectedCategoryIndex;
-    local v134 = nil;
-    v134 = if v130.props.shouldUseCategoryId then v130.props.selectedCategoryId else tostring(l_selectedCategoryIndex_1);
+v48.getSubNavigationChildren = function(v132, _, v134) --[[ Line: 631 ]] --[[ Name: getSubNavigationChildren ]]
+    -- upvalues: v5 (copy), v37 (copy)
+    local l_selectedCategoryIndex_1 = v132.props.selectedCategoryIndex;
+    local v136 = nil;
+    v136 = if v132.props.shouldUseCategoryId then v132.props.selectedCategoryId else tostring(l_selectedCategoryIndex_1);
     return {
-        ScrollingListWithArrowsAndGradient = v5.createElement(v36, {
-            getScollingListContent = function() --[[ Line: 642 ]] --[[ Name: getScollingListContent ]]
-                -- upvalues: v130 (copy)
-                return v130:getScrollingListChildren();
+        ScrollingListWithArrowsAndGradient = v5.createElement(v37, {
+            getScollingListContent = function() --[[ Line: 644 ]] --[[ Name: getScollingListContent ]]
+                -- upvalues: v132 (copy)
+                return v132:getScrollingListChildren();
             end, 
-            listHeight = v132, 
-            scrollingFrameRef = v130.scrollingFrameRef, 
-            buttonRefs = v130.categoryButtonRefs, 
-            childWidgetIndex = v134, 
+            listHeight = v134, 
+            scrollingFrameRef = v132.scrollingFrameRef, 
+            buttonRefs = v132.categoryButtonRefs, 
+            childWidgetIndex = v136, 
             useIntroScroll = true, 
             buttonPadding = 15
         })
     };
 end;
-v46.render = function(v135) --[[ Line: 655 ]] --[[ Name: render ]]
-    -- upvalues: l_withStyle_0 (copy), v5 (copy), l_SpringAnimatedItem_0 (copy), v37 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (copy), v55 (copy), v48 (copy)
-    local l_layoutOrder_0 = v135.props.layoutOrder;
-    local l_navHeight_0 = v135.props.navHeight;
-    if not v135.props.subcategories then
+v48.render = function(v137) --[[ Line: 657 ]] --[[ Name: render ]]
+    -- upvalues: l_withStyle_0 (copy), v5 (copy), l_SpringAnimatedItem_0 (copy), v38 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (copy), v57 (copy), v50 (copy)
+    local l_layoutOrder_0 = v137.props.layoutOrder;
+    local l_navHeight_0 = v137.props.navHeight;
+    if not v137.props.subcategories then
         l_navHeight_0 = 0;
     end;
-    return (l_withStyle_0(function(v138) --[[ Line: 664 ]]
-        -- upvalues: v5 (ref), l_SpringAnimatedItem_0 (ref), v37 (ref), v135 (copy), l_layoutOrder_0 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (ref), l_navHeight_0 (ref), v55 (ref), v48 (ref)
-        local l_Theme_0 = v138.Theme;
+    return (l_withStyle_0(function(v140) --[[ Line: 666 ]]
+        -- upvalues: v5 (ref), l_SpringAnimatedItem_0 (ref), v38 (ref), v137 (copy), l_layoutOrder_0 (copy), l_FFlagAXMigrateMainNavigationInputBindings_0 (ref), l_navHeight_0 (ref), v57 (ref), v50 (ref)
+        local l_Theme_0 = v140.Theme;
         return v5.createElement(l_SpringAnimatedItem_0.AnimatedFrame, {
             regularProps = {
                 Size = UDim2.new(1, 0, 0, 0), 
-                BackgroundColor3 = if v37() and v135.props.BackgroundColor3 then v135.props.BackgroundColor3 else l_Theme_0.BackgroundContrast.Color, 
-                BackgroundTransparency = if v37() and v135.props.BackgroundTransparency then v135.props.BackgroundTransparency else l_Theme_0.BackgroundContrast.Transparency, 
+                BackgroundColor3 = if v38() and v137.props.BackgroundColor3 then v137.props.BackgroundColor3 else l_Theme_0.BackgroundContrast.Color, 
+                BackgroundTransparency = if v38() and v137.props.BackgroundTransparency then v137.props.BackgroundTransparency else l_Theme_0.BackgroundContrast.Transparency, 
                 BorderSizePixel = 0, 
                 LayoutOrder = l_layoutOrder_0, 
                 ClipsDescendants = true, 
-                [v5.Ref] = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v135.props.frameRef else nil
+                [v5.Ref] = if l_FFlagAXMigrateMainNavigationInputBindings_0 then v137.props.frameRef else nil
             }, 
             animatedValues = {
                 height = l_navHeight_0
             }, 
-            mapValuesToProps = v55, 
-            springOptions = v48
-        }, v135:getSubNavigationChildren(l_Theme_0, l_navHeight_0));
+            mapValuesToProps = v57, 
+            springOptions = v50
+        }, v137:getSubNavigationChildren(l_Theme_0, l_navHeight_0));
     end));
 end;
-v46 = v31((v9.connect(function(v140, _) --[[ Line: 692 ]]
-    -- upvalues: l_FFlagAXCategoryUnifiedLogging_0 (copy), l_AvatarScreenProperties_0 (copy)
-    local v142 = nil;
-    local v143 = nil;
+v48 = v32((v9.connect(function(v142, _) --[[ Line: 694 ]]
+    -- upvalues: l_FFlagAXCategoryUnifiedLogging_0 (copy), l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), l_AvatarScreenProperties_0 (copy)
+    local v144 = nil;
+    local v145 = nil;
     if l_FFlagAXCategoryUnifiedLogging_0 then
-        v142 = v140.Navigation and v140.Navigation.currentRoute;
-        v143 = v142 and l_AvatarScreenProperties_0[v142.routeName];
+        v144 = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectCurrentRoactNavigationRoute(v142) else v142.Navigation and v142.Navigation.currentRoute;
+        v145 = v144 and l_AvatarScreenProperties_0[v144.routeName];
     end;
     return {
-        newItemNotifications = v140.AvatarExperience.AvatarEditor.NewItemNotifications, 
-        unifiedLoggingSurface = if l_FFlagAXCategoryUnifiedLogging_0 and v143 and v143.analyticsData then v143.analyticsData.unifiedLoggingSurface else nil
+        newItemNotifications = v142.AvatarExperience.AvatarEditor.NewItemNotifications, 
+        unifiedLoggingSurface = if l_FFlagAXCategoryUnifiedLogging_0 and v145 and v145.analyticsData then v145.analyticsData.unifiedLoggingSurface else nil
     };
-end, nil)(v46)));
-v46 = v12.withNavigation(v46);
+end, nil)(v48)));
+v48 = v12.withNavigation(v48);
 if l_FFlagAXMigrateMainNavigationInputBindings_0 then
-    return function(v144) --[[ Line: 713 ]]
-        -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), l_useFocusGuiObject_0 (copy), v6 (copy), l_findValueKeyInRefCache_0 (copy), l_GuiService_0 (copy), l_FFlagAXSubNavigationRefsById_0 (copy), v38 (copy), l_useTableWrappedCallbackRef_0 (copy), v46 (ref)
-        local v145 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v7.useFocusController();
-        local v146 = v7.useRefCache();
-        local v147 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then l_useFocusGuiObject_0() else nil;
-        local v155 = v6.useCallback(function(v148) --[[ Line: 718 ]]
-            -- upvalues: l_findValueKeyInRefCache_0 (ref), l_GuiService_0 (ref), v146 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v144 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v147 (copy), v145 (copy)
-            local v149 = false;
-            v148.cancelled = true;
-            local v150 = l_findValueKeyInRefCache_0(l_GuiService_0.SelectedCoreObject, v146);
-            if l_FFlagAXSubNavigationRefsById_0 and v144.shouldUseCategoryId then
-                local l_subcategories_3 = v144.subcategories;
-                local v152;
-                if not l_subcategories_3 or not v150 then
-                    v152 = nil;
+    return function(v146) --[[ Line: 717 ]]
+        -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), l_useFocusGuiObject_0 (copy), v6 (copy), l_findValueKeyInRefCache_0 (copy), l_GuiService_0 (copy), l_FFlagAXSubNavigationRefsById_0 (copy), v39 (copy), l_useTableWrappedCallbackRef_0 (copy), v48 (ref)
+        local v147 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v7.useFocusController();
+        local v148 = v7.useRefCache();
+        local v149 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then l_useFocusGuiObject_0() else nil;
+        local v157 = v6.useCallback(function(v150) --[[ Line: 722 ]]
+            -- upvalues: l_findValueKeyInRefCache_0 (ref), l_GuiService_0 (ref), v148 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v146 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v149 (copy), v147 (copy)
+            local v151 = false;
+            v150.cancelled = true;
+            local v152 = l_findValueKeyInRefCache_0(l_GuiService_0.SelectedCoreObject, v148);
+            if l_FFlagAXSubNavigationRefsById_0 and v146.shouldUseCategoryId then
+                local l_subcategories_3 = v146.subcategories;
+                local v154;
+                if not l_subcategories_3 or not v152 then
+                    v154 = nil;
                 else
-                    for v153, v154 in l_subcategories_3 do
-                        if v154.Id == v150 then
-                            v152 = v153;
-                            v149 = true;
+                    for v155, v156 in l_subcategories_3 do
+                        if v156.Id == v152 then
+                            v154 = v155;
+                            v151 = true;
                         end;
-                        if v149 then
+                        if v151 then
                             break;
                         end;
                     end;
-                    if not v149 then
-                        v152 = nil;
+                    if not v151 then
+                        v154 = nil;
                     end;
                 end;
-                v149 = false;
-                if v152 and v152 > 1 then
-                    l_subcategories_3 = v144.subcategories[v152 - 1].Id;
+                v151 = false;
+                if v154 and v154 > 1 then
+                    l_subcategories_3 = v146.subcategories[v154 - 1].Id;
                     if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                        if v147 and v146[l_subcategories_3] then
-                            v147(v146[l_subcategories_3].current);
+                        if v149 and v148[l_subcategories_3] then
+                            v149(v148[l_subcategories_3].current);
                             return;
                         end;
                     else
-                        v145.moveFocusLeft();
+                        v147.moveFocusLeft();
                         return;
                     end;
                 end;
-            elseif v150 and v150 > 1 then
+            elseif v152 and v152 > 1 then
                 if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                    if v147 then
-                        v147(v146[v150 - 1].current);
+                    if v149 then
+                        v149(v148[v152 - 1].current);
                         return;
                     end;
                 else
-                    v145.moveFocusLeft();
+                    v147.moveFocusLeft();
                 end;
             end;
         end, {
-            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v147 else v145, 
-            if l_FFlagAXSubNavigationRefsById_0 then v144.shouldUseCategoryId else nil, 
-            if l_FFlagAXSubNavigationRefsById_0 then v144.subcategories else nil
+            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v149 else v147, 
+            if l_FFlagAXSubNavigationRefsById_0 then v146.shouldUseCategoryId else nil, 
+            if l_FFlagAXSubNavigationRefsById_0 then v146.subcategories else nil
         });
-        local v164 = v6.useCallback(function(v156) --[[ Line: 752 ]]
-            -- upvalues: l_findValueKeyInRefCache_0 (ref), l_GuiService_0 (ref), v146 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v144 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v147 (copy), v145 (copy)
-            local v157 = false;
-            v156.cancelled = true;
-            local v158 = l_findValueKeyInRefCache_0(l_GuiService_0.SelectedCoreObject, v146);
-            if l_FFlagAXSubNavigationRefsById_0 and v144.shouldUseCategoryId then
-                local l_subcategories_4 = v144.subcategories;
-                local v160;
-                if not l_subcategories_4 or not v158 then
-                    v160 = nil;
+        local v166 = v6.useCallback(function(v158) --[[ Line: 756 ]]
+            -- upvalues: l_findValueKeyInRefCache_0 (ref), l_GuiService_0 (ref), v148 (copy), l_FFlagAXSubNavigationRefsById_0 (ref), v146 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v149 (copy), v147 (copy)
+            local v159 = false;
+            v158.cancelled = true;
+            local v160 = l_findValueKeyInRefCache_0(l_GuiService_0.SelectedCoreObject, v148);
+            if l_FFlagAXSubNavigationRefsById_0 and v146.shouldUseCategoryId then
+                local l_subcategories_4 = v146.subcategories;
+                local v162;
+                if not l_subcategories_4 or not v160 then
+                    v162 = nil;
                 else
-                    for v161, v162 in l_subcategories_4 do
-                        if v162.Id == v158 then
-                            v160 = v161;
-                            v157 = true;
+                    for v163, v164 in l_subcategories_4 do
+                        if v164.Id == v160 then
+                            v162 = v163;
+                            v159 = true;
                         end;
-                        if v157 then
+                        if v159 then
                             break;
                         end;
                     end;
-                    if not v157 then
-                        v160 = nil;
+                    if not v159 then
+                        v162 = nil;
                     end;
                 end;
-                v157 = false;
-                if v160 and l_subcategories_4 and v160 < #l_subcategories_4 then
-                    local l_Id_0 = l_subcategories_4[v160 + 1].Id;
+                v159 = false;
+                if v162 and l_subcategories_4 and v162 < #l_subcategories_4 then
+                    local l_Id_0 = l_subcategories_4[v162 + 1].Id;
                     if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                        if v147 and v146[l_Id_0] then
-                            v147(v146[l_Id_0].current);
+                        if v149 and v148[l_Id_0] then
+                            v149(v148[l_Id_0].current);
                             return;
                         end;
                     else
-                        v145.moveFocusRight();
+                        v147.moveFocusRight();
                         return;
                     end;
                 end;
-            elseif v158 and v158 < #v146 then
+            elseif v160 and v160 < #v148 then
                 if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                    if v147 then
-                        v147(v146[v158 + 1].current);
+                    if v149 then
+                        v149(v148[v160 + 1].current);
                         return;
                     end;
                 else
-                    v145.moveFocusRight();
+                    v147.moveFocusRight();
                 end;
             end;
         end, {
-            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v147 else v145, 
-            if l_FFlagAXSubNavigationRefsById_0 then v144.shouldUseCategoryId else nil, 
-            if l_FFlagAXSubNavigationRefsById_0 then v144.subcategories else nil
+            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v149 else v147, 
+            if l_FFlagAXSubNavigationRefsById_0 then v146.shouldUseCategoryId else nil, 
+            if l_FFlagAXSubNavigationRefsById_0 then v146.subcategories else nil
         });
-        local v166 = v6.useCallback(function(v165) --[[ Line: 787 ]]
-            -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v147 (copy), v144 (copy), v145 (copy)
-            v165.cancelled = true;
+        local v168 = v6.useCallback(function(v167) --[[ Line: 791 ]]
+            -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v149 (copy), v146 (copy), v147 (copy)
+            v167.cancelled = true;
             if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                if v147 and v144.NextSelectionUp and v144.NextSelectionUp.current then
-                    v147(v144.NextSelectionUp.current);
+                if v149 and v146.NextSelectionUp and v146.NextSelectionUp.current then
+                    v149(v146.NextSelectionUp.current);
                     return;
                 end;
             else
-                v145.moveFocusUp();
+                v147.moveFocusUp();
             end;
         end, {
-            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v147 else v145, 
-            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v144.NextSelectionUp else nil
+            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v149 else v147, 
+            if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v146.NextSelectionUp else nil
         });
-        local v167 = v38({
-            onTabBackward = v155, 
-            onTabForward = v164, 
-            onNavigateBack = v166
+        local v169 = v39({
+            onTabBackward = v157, 
+            onTabForward = v166, 
+            onNavigateBack = v168
         });
-        local v168 = l_useTableWrappedCallbackRef_0(v167);
-        local v169 = table.clone(v144);
-        v169.frameRef = v168;
-        v169.navButtonRefs = v146;
-        return v6.createElement(v46, v169);
+        local v170 = l_useTableWrappedCallbackRef_0(v169);
+        local v171 = table.clone(v146);
+        v171.frameRef = v170;
+        v171.navButtonRefs = v148;
+        return v6.createElement(v48, v171);
     end;
 else
-    return v46;
+    return v48;
 end;

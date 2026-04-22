@@ -43,43 +43,47 @@ local v4 = {
     MessageReceiveToRender = {
         name = "AppChat_Message_ReceiveToRender", 
         parentTTI = v1.ChatConversationTTI
+    }, 
+    TopBarRenderInterval = {
+        name = "AppChat_TopBar_RenderInterval", 
+        parentTTI = v1.ChatLandingTTI
     }
 };
 return {
     Events = v1, 
     TTI_CATEGORY = "AppChat", 
-    isTTIEvent = function(v5) --[[ Line: 86 ]] --[[ Name: isTTIEvent ]]
+    isTTIEvent = function(v5) --[[ Line: 92 ]] --[[ Name: isTTIEvent ]]
         -- upvalues: v3 (copy)
         return v3[v5] ~= nil;
     end, 
-    isIntervalEvent = function(v6) --[[ Line: 90 ]] --[[ Name: isIntervalEvent ]]
+    isIntervalEvent = function(v6) --[[ Line: 96 ]] --[[ Name: isIntervalEvent ]]
         -- upvalues: v4 (copy)
         return v4[v6] ~= nil;
     end, 
-    getTTIBaseName = function(v7) --[[ Line: 98 ]] --[[ Name: getTTIBaseName ]]
+    getTTIBaseName = function(v7) --[[ Line: 104 ]] --[[ Name: getTTIBaseName ]]
         -- upvalues: v3 (copy)
         return v3[v7].baseName;
     end, 
-    getTTIPage = function(v8) --[[ Line: 102 ]] --[[ Name: getTTIPage ]]
+    getTTIPage = function(v8) --[[ Line: 108 ]] --[[ Name: getTTIPage ]]
         -- upvalues: v3 (copy)
         return v3[v8].page;
     end, 
-    getTTICategory = function() --[[ Line: 106 ]] --[[ Name: getTTICategory ]]
+    getTTICategory = function() --[[ Line: 112 ]] --[[ Name: getTTICategory ]]
         return "AppChat";
     end, 
-    buildTTIEventName = function(v9, v10, v11) --[[ Line: 111 ]] --[[ Name: buildTTIEventName ]]
+    buildTTIEventName = function(v9, v10, v11) --[[ Line: 117 ]] --[[ Name: buildTTIEventName ]]
         -- upvalues: v3 (copy), v2 (copy)
         return v3[v9].baseName .. (v2.isPlacementInExperience(v10) and "_InExp" or "_UA") .. (v11 and "_Cold" or "_Warm");
     end, 
-    getIntervalName = function(v12) --[[ Line: 127 ]] --[[ Name: getIntervalName ]]
+    getIntervalName = function(v12) --[[ Line: 133 ]] --[[ Name: getIntervalName ]]
         -- upvalues: v4 (copy)
         return v4[v12].name;
     end, 
-    getParentTTI = function(v13) --[[ Line: 131 ]] --[[ Name: getParentTTI ]]
+    getParentTTI = function(v13) --[[ Line: 137 ]] --[[ Name: getParentTTI ]]
         -- upvalues: v4 (copy)
         return v4[v13].parentTTI;
     end, 
-    getIntervalsForTTI = function(v14) --[[ Line: 136 ]] --[[ Name: getIntervalsForTTI ]]
+    getIntervalsForTTI = function(v14) --[[ Line: 142 ]] --[[ Name: getIntervalsForTTI ]]
         -- upvalues: v4 (copy)
         local v15 = {};
         for v16, v17 in v4 do

@@ -6,194 +6,210 @@ local v4 = require(l_Parent_0.Signals);
 local v5 = require(l_Parent_0.SignalsExperimental);
 local l_DataStatus_0 = require(l_script_FirstAncestor_0.DataHydrationTypes).DataStatus;
 local l_getLocalPlayerUserId_0 = require(l_script_FirstAncestor_0.DataHydrationUtils).getLocalPlayerUserId;
-local v8 = require(l_Parent_0.SharedFlags);
-local l_FFlagLuaAppDataHydrationDataCacheUpdateItem_0 = v8.FFlagLuaAppDataHydrationDataCacheUpdateItem;
-local l_FFlagLuaAppDataHydrationDataCacheReplaceItem_0 = v8.FFlagLuaAppDataHydrationDataCacheReplaceItem;
-local v11 = game:DefineFastFlag("LuaAppDataCacheBatch", false);
-local v12 = game:DefineFastInt("LuaAppDefaultDataTtlSec", 3600);
-local v13 = game:DefineFastInt("LuaAppDefaultFailedDataTtlSec", 60);
-return function(v14, v15) --[[ Line: 28 ]] --[[ Name: createDataCache ]]
-    -- upvalues: v12 (copy), v13 (copy), v4 (copy), l_DataStatus_0 (copy), v11 (copy), v5 (copy), v3 (copy), l_getLocalPlayerUserId_0 (copy), l_Players_0 (copy), l_FFlagLuaAppDataHydrationDataCacheUpdateItem_0 (copy), l_FFlagLuaAppDataHydrationDataCacheReplaceItem_0 (copy)
-    local v16 = v14 or v12;
-    local v17 = v15 or v13;
+local l_FFlagLuaAppDataHydrationDataCacheReplaceItem_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppDataHydrationDataCacheReplaceItem;
+local v9 = game:DefineFastFlag("LuaAppDataCacheBatch", false);
+local v10 = game:DefineFastInt("LuaAppDefaultDataTtlSec", 3600);
+local v11 = game:DefineFastInt("LuaAppDefaultFailedDataTtlSec", 60);
+return function(v12, v13) --[[ Line: 27 ]] --[[ Name: createDataCache ]]
+    -- upvalues: v10 (copy), v11 (copy), v4 (copy), l_DataStatus_0 (copy), v9 (copy), v5 (copy), v3 (copy), l_getLocalPlayerUserId_0 (copy), l_Players_0 (copy), l_FFlagLuaAppDataHydrationDataCacheReplaceItem_0 (copy)
+    local v14 = v12 or v10;
+    local v15 = v13 or v11;
+    local v16 = {};
+    local v17 = {};
     local v18 = {};
     local v19 = {};
-    local v20 = {};
-    local v21 = {};
-    local function v27(v22) --[[ Line: 39 ]] --[[ Name: getOrCreateSignals ]]
-        -- upvalues: v18 (ref), v19 (ref), v4 (ref), v20 (ref), l_DataStatus_0 (ref)
-        if v18[v22] == nil or v19[v22] == nil then
-            v18[v22] = {};
-            local v23 = v18[v22];
-            local l_v19_0 = v19;
-            local v25, v26 = v4.createSignal(nil);
-            v23.data = v25;
-            l_v19_0[v22] = v26;
-            v23 = v18[v22];
-            l_v19_0 = v20;
-            v25, v26 = v4.createSignal(l_DataStatus_0.NotReady);
-            v23.status = v25;
-            l_v19_0[v22] = v26;
+    local function v25(v20) --[[ Line: 38 ]] --[[ Name: getOrCreateSignals ]]
+        -- upvalues: v16 (ref), v17 (ref), v4 (ref), v18 (ref), l_DataStatus_0 (ref)
+        if v16[v20] == nil or v17[v20] == nil then
+            v16[v20] = {};
+            local v21 = v16[v20];
+            local l_v17_0 = v17;
+            local v23, v24 = v4.createSignal(nil);
+            v21.data = v23;
+            l_v17_0[v20] = v24;
+            v21 = v16[v20];
+            l_v17_0 = v18;
+            v23, v24 = v4.createSignal(l_DataStatus_0.NotReady);
+            v21.status = v23;
+            l_v17_0[v20] = v24;
         end;
-        return v18[v22], v19[v22];
+        return v16[v20], v17[v20];
     end;
-    local function v34(v28, v29) --[[ Line: 51 ]] --[[ Name: getItem ]]
-        -- upvalues: v27 (copy), v21 (ref), l_DataStatus_0 (ref)
-        local v30 = v27(v28);
-        local v31 = true;
-        if v21[v28] and os.clock() < v21[v28] then
-            local v32 = v30.data(false);
-            local v33 = v30.status(false);
-            if v32 ~= nil or v33 == l_DataStatus_0.Failed then
-                if v29 then
-                    return v30, (v29(v32));
+    local function v32(v26, v27) --[[ Line: 50 ]] --[[ Name: getItem ]]
+        -- upvalues: v25 (copy), v19 (ref), l_DataStatus_0 (ref)
+        local v28 = v25(v26);
+        local v29 = true;
+        if v19[v26] and os.clock() < v19[v26] then
+            local v30 = v28.data(false);
+            local v31 = v28.status(false);
+            if v30 ~= nil or v31 == l_DataStatus_0.Failed then
+                if v27 then
+                    return v28, (v27(v30));
                 else
-                    v31 = false;
+                    v29 = false;
                 end;
             end;
         end;
-        return v30, v31;
+        return v28, v29;
     end;
-    local function v43(v35, v36) --[[ Line: 73 ]] --[[ Name: getItems ]]
-        -- upvalues: v34 (copy)
-        local v37 = {};
-        local v38 = {};
-        if not v35 then
-            return v37, v38;
+    local function v41(v33, v34) --[[ Line: 72 ]] --[[ Name: getItems ]]
+        -- upvalues: v32 (copy)
+        local v35 = {};
+        local v36 = {};
+        if not v33 then
+            return v35, v36;
         else
-            for _, v40 in v35 do
-                local v41, v42 = v34(v40, v36);
-                v37[v40] = v41;
-                v38[v40] = v42;
+            for _, v38 in v33 do
+                local v39, v40 = v32(v38, v34);
+                v35[v38] = v39;
+                v36[v38] = v40;
             end;
-            return v37, v38;
+            return v35, v36;
         end;
     end;
-    local function v55(v44) --[[ Line: 92 ]] --[[ Name: replaceItems ]]
-        -- upvalues: v16 (copy), v11 (ref), v27 (copy), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v5 (ref)
-        local v45 = os.clock() + v16;
-        if v11 then
-            local function v50() --[[ Line: 96 ]] --[[ Name: batchUpdate ]]
-                -- upvalues: v44 (copy), v27 (ref), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v45 (copy)
-                for v46, v47 in v44 do
-                    local _, v49 = v27(v46);
-                    v49(v47);
-                    v20[v46](l_DataStatus_0.Ready);
-                    v21[v46] = v45;
+    local function v53(v42) --[[ Line: 91 ]] --[[ Name: replaceItems ]]
+        -- upvalues: v14 (copy), v9 (ref), v25 (copy), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v5 (ref)
+        local v43 = os.clock() + v14;
+        if v9 then
+            local function v48() --[[ Line: 95 ]] --[[ Name: batchUpdate ]]
+                -- upvalues: v42 (copy), v25 (ref), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v43 (copy)
+                for v44, v45 in v42 do
+                    local _, v47 = v25(v44);
+                    v47(v45);
+                    v18[v44](l_DataStatus_0.Ready);
+                    v19[v44] = v43;
                 end;
             end;
-            v5.batch(v50);
+            v5.batch(v48);
             return;
         else
-            for v51, v52 in v44 do
-                local _, v54 = v27(v51);
-                v54(v52);
-                v20[v51](l_DataStatus_0.Ready);
-                v21[v51] = v45;
+            for v49, v50 in v42 do
+                local _, v52 = v25(v49);
+                v52(v50);
+                v18[v49](l_DataStatus_0.Ready);
+                v19[v49] = v43;
             end;
             return;
         end;
     end;
-    local function v69(v56) --[[ Line: 115 ]] --[[ Name: updateItems ]]
-        -- upvalues: v16 (copy), v11 (ref), v27 (copy), v3 (ref), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v5 (ref)
-        local v57 = os.clock() + v16;
-        if v11 then
-            local function v63() --[[ Line: 119 ]] --[[ Name: batchUpdate ]]
-                -- upvalues: v56 (copy), v27 (ref), v3 (ref), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v57 (copy)
-                for v58, v59 in v56 do
-                    local v60, v61 = v27(v58);
-                    local v62 = v60.data(false);
-                    v61(if v62 and type(v62) == "table" and type(v59) == "table" then v3.Dictionary.union(v62, v59) else v59);
-                    v20[v58](l_DataStatus_0.Ready);
-                    v21[v58] = v57;
+    local function v67(v54) --[[ Line: 114 ]] --[[ Name: updateItems ]]
+        -- upvalues: v14 (copy), v9 (ref), v25 (copy), v3 (ref), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v5 (ref)
+        local v55 = os.clock() + v14;
+        if v9 then
+            local function v61() --[[ Line: 118 ]] --[[ Name: batchUpdate ]]
+                -- upvalues: v54 (copy), v25 (ref), v3 (ref), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v55 (copy)
+                for v56, v57 in v54 do
+                    local v58, v59 = v25(v56);
+                    local v60 = v58.data(false);
+                    v59(if v60 and type(v60) == "table" and type(v57) == "table" then v3.Dictionary.union(v60, v57) else v57);
+                    v18[v56](l_DataStatus_0.Ready);
+                    v19[v56] = v55;
                 end;
             end;
-            v5.batch(v63);
+            v5.batch(v61);
             return;
         else
-            for v64, v65 in v56 do
-                local v66, v67 = v27(v64);
-                local v68 = v66.data(false);
-                v67(if v68 and type(v68) == "table" and type(v65) == "table" then v3.Dictionary.union(v68, v65) else v65);
-                v20[v64](l_DataStatus_0.Ready);
-                v21[v64] = v57;
+            for v62, v63 in v54 do
+                local v64, v65 = v25(v62);
+                local v66 = v64.data(false);
+                v65(if v66 and type(v66) == "table" and type(v63) == "table" then v3.Dictionary.union(v66, v63) else v63);
+                v18[v62](l_DataStatus_0.Ready);
+                v19[v62] = v55;
             end;
             return;
         end;
     end;
-    local function v75(v70, v71) --[[ Line: 153 ]] --[[ Name: updateItem ]]
-        -- upvalues: v27 (copy), v3 (ref), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v16 (copy)
-        local v72, v73 = v27(v70);
-        local v74 = v72.data(false);
-        v73(if v74 and type(v74) == "table" and type(v71) == "table" then v3.Dictionary.union(v74, v71) else v71);
-        v20[v70](l_DataStatus_0.Ready);
-        v21[v70] = os.clock() + v16;
+    local function v73(v68, v69) --[[ Line: 152 ]] --[[ Name: updateItem ]]
+        -- upvalues: v25 (copy), v3 (ref), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v14 (copy)
+        local v70, v71 = v25(v68);
+        local v72 = v70.data(false);
+        v71(if v72 and type(v72) == "table" and type(v69) == "table" then v3.Dictionary.union(v72, v69) else v69);
+        v18[v68](l_DataStatus_0.Ready);
+        v19[v68] = os.clock() + v14;
     end;
-    local function v80(v76, v77) --[[ Line: 167 ]] --[[ Name: replaceItem ]]
-        -- upvalues: v27 (copy), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v16 (copy)
-        local _, v79 = v27(v76);
-        v79(v77);
-        v20[v76](l_DataStatus_0.Ready);
-        v21[v76] = os.clock() + v16;
+    local function v78(v74, v75) --[[ Line: 166 ]] --[[ Name: replaceItem ]]
+        -- upvalues: v25 (copy), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v14 (copy)
+        local _, v77 = v25(v74);
+        v77(v75);
+        v18[v74](l_DataStatus_0.Ready);
+        v19[v74] = os.clock() + v14;
     end;
-    local function v88(v81) --[[ Line: 175 ]] --[[ Name: markItemsAsFailed ]]
-        -- upvalues: v17 (copy), v11 (ref), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v5 (ref)
-        local v82 = os.clock() + v17;
-        if v11 then
-            local function v85() --[[ Line: 178 ]] --[[ Name: batchUpdate ]]
-                -- upvalues: v81 (copy), v20 (ref), l_DataStatus_0 (ref), v21 (ref), v82 (copy)
-                for _, v84 in v81 do
-                    if v20[v84] then
-                        v20[v84](l_DataStatus_0.Failed);
+    local function v81(v79) --[[ Line: 177 ]] --[[ Name: resetFailedItem ]]
+        -- upvalues: v16 (ref), l_DataStatus_0 (ref), v18 (ref)
+        local v80 = v16[v79];
+        if v80 and v80.status(false) == l_DataStatus_0.Failed then
+            v18[v79](l_DataStatus_0.NotReady);
+        end;
+    end;
+    local function v86(v82) --[[ Line: 184 ]] --[[ Name: resetFailedItems ]]
+        -- upvalues: v16 (ref), l_DataStatus_0 (ref), v18 (ref)
+        for _, v84 in v82 do
+            local v85 = v16[v84];
+            if v85 and v85.status(false) == l_DataStatus_0.Failed then
+                v18[v84](l_DataStatus_0.NotReady);
+            end;
+        end;
+    end;
+    local function v94(v87) --[[ Line: 190 ]] --[[ Name: markItemsAsFailed ]]
+        -- upvalues: v15 (copy), v9 (ref), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v5 (ref)
+        local v88 = os.clock() + v15;
+        if v9 then
+            local function v91() --[[ Line: 193 ]] --[[ Name: batchUpdate ]]
+                -- upvalues: v87 (copy), v18 (ref), l_DataStatus_0 (ref), v19 (ref), v88 (copy)
+                for _, v90 in v87 do
+                    if v18[v90] then
+                        v18[v90](l_DataStatus_0.Failed);
                     end;
-                    v21[v84] = v82;
+                    v19[v90] = v88;
                 end;
             end;
-            v5.batch(v85);
+            v5.batch(v91);
             return;
         else
-            for _, v87 in v81 do
-                if v20[v87] then
-                    v20[v87](l_DataStatus_0.Failed);
+            for _, v93 in v87 do
+                if v18[v93] then
+                    v18[v93](l_DataStatus_0.Failed);
                 end;
-                v21[v87] = v82;
+                v19[v93] = v88;
             end;
             return;
         end;
     end;
-    local function v89() --[[ Line: 197 ]] --[[ Name: clear ]]
-        -- upvalues: v21 (ref), v18 (ref), v19 (ref), v20 (ref)
-        v21 = {};
-        v18 = {};
+    local function v95() --[[ Line: 212 ]] --[[ Name: clear ]]
+        -- upvalues: v19 (ref), v16 (ref), v17 (ref), v18 (ref)
         v19 = {};
-        v20 = {};
+        v16 = {};
+        v17 = {};
+        v18 = {};
     end;
-    local v90 = l_getLocalPlayerUserId_0();
-    local v92 = l_Players_0:GetPropertyChangedSignal("LocalPlayer"):Connect(function() --[[ Line: 205 ]]
-        -- upvalues: l_getLocalPlayerUserId_0 (ref), v90 (ref), v89 (copy)
-        local v91 = l_getLocalPlayerUserId_0();
-        if v91 ~= v90 then
-            v90 = v91;
-            v89();
+    local v96 = l_getLocalPlayerUserId_0();
+    local v98 = l_Players_0:GetPropertyChangedSignal("LocalPlayer"):Connect(function() --[[ Line: 220 ]]
+        -- upvalues: l_getLocalPlayerUserId_0 (ref), v96 (ref), v95 (copy)
+        local v97 = l_getLocalPlayerUserId_0();
+        if v97 ~= v96 then
+            v96 = v97;
+            v95();
         end;
     end);
-    local function v93() --[[ Line: 213 ]] --[[ Name: dispose ]]
-        -- upvalues: v92 (ref), v89 (copy)
-        if v92 then
-            v92:Disconnect();
-            v92 = nil;
+    local function v99() --[[ Line: 228 ]] --[[ Name: dispose ]]
+        -- upvalues: v98 (ref), v95 (copy)
+        if v98 then
+            v98:Disconnect();
+            v98 = nil;
         end;
-        v89();
+        v95();
     end;
     return {
-        getItem = v34, 
-        getItems = v43, 
-        updateItems = v69, 
-        updateItem = if l_FFlagLuaAppDataHydrationDataCacheUpdateItem_0 then v75 else nil, 
-        replaceItems = v55, 
-        replaceItem = if l_FFlagLuaAppDataHydrationDataCacheReplaceItem_0 then v80 else nil, 
-        markItemsAsFailed = v88, 
-        clear = v89, 
-        dispose = v93
+        getItem = v32, 
+        getItems = v41, 
+        updateItems = v67, 
+        updateItem = v73, 
+        replaceItems = v53, 
+        replaceItem = if l_FFlagLuaAppDataHydrationDataCacheReplaceItem_0 then v78 else nil, 
+        markItemsAsFailed = v94, 
+        resetFailedItem = v81, 
+        resetFailedItems = v86, 
+        clear = v95, 
+        dispose = v99
     };
 end;

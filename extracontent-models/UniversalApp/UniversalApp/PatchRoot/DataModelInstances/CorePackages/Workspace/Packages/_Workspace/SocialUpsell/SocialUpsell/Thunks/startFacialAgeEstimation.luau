@@ -5,58 +5,55 @@ local l_AccessResponseEnum_0 = v2.AmpEnums.AccessResponseEnum;
 local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
 local l_NavigateBack_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateBack;
 local l_NavigateDown_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateDown;
-local v7 = require(l_script_FirstAncestor_0.Constants);
-local v8 = require(l_script_FirstAncestor_0.Enum.SocialUpsellType);
+local v7 = require(l_script_FirstAncestor_0.Enum.SocialUpsellType);
 local l_FFlagEnableAEGIS2CommsFAEUpsell_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2CommsFAEUpsell;
-local v10 = game:DefineFastFlag("ManuallyInvokeAmpUpsell2", false);
-local v11 = require(l_script_FirstAncestor_0.Utils.manuallyInvokeAmpUpsell);
+local v9 = game:DefineFastFlag("ManuallyInvokeAmpUpsell2", false);
+local v10 = require(l_script_FirstAncestor_0.Utils.manuallyInvokeAmpUpsell);
 local l_InExpAmpWizardController_0 = v2.InExpAmpWizardController;
-local v13 = if v10 then require(l_script_FirstAncestor_0.Flag.FStringCommsFAEFeatureName) else game:DefineFastString("CommsFAEFeatureName", "TriggerAgeVerifyRecourse");
-local v14 = if v10 then require(l_script_FirstAncestor_0.Flag.FStringCommsFAENamespace) else game:DefineFastString("CommsFAENamespace", "social/Upsells");
-local v15 = require(l_script_FirstAncestor_0.Flag.FFlagAddMinorFixesToUpsellAnalytics);
-local l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 = v7.DEFAULT_FAE_ENTRY_POINT_EVENT_CTX;
-return function(v17, v18, v19, v20, v21) --[[ Line: 28 ]]
-    -- upvalues: l_FFlagEnableAEGIS2CommsFAEUpsell_0 (copy), v15 (copy), v8 (copy), l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 (copy), v10 (copy), v11 (copy), l_InExpAmpWizardController_0 (copy), v13 (copy), l_AccessResponseEnum_0 (copy), v14 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_NavigateBack_0 (copy)
-    return function(v22) --[[ Line: 35 ]]
-        -- upvalues: l_FFlagEnableAEGIS2CommsFAEUpsell_0 (ref), v21 (copy), v17 (copy), v15 (ref), v8 (ref), l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0 (ref), v10 (ref), v11 (ref), v18 (copy), v19 (copy), l_InExpAmpWizardController_0 (ref), v13 (ref), l_AccessResponseEnum_0 (ref), v14 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v20 (copy), l_NavigateBack_0 (ref)
-        if l_FFlagEnableAEGIS2CommsFAEUpsell_0 and v21 then
-            local v23 = v17 or if v15 then v8.FacialAgeEstimation else l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0;
-            if v10 then
-                return (v11(v23, v18, v19));
+local v12 = if v9 then require(l_script_FirstAncestor_0.Flag.FStringCommsFAEFeatureName) else game:DefineFastString("CommsFAEFeatureName", "TriggerAgeVerifyRecourse");
+local v13 = if v9 then require(l_script_FirstAncestor_0.Flag.FStringCommsFAENamespace) else game:DefineFastString("CommsFAENamespace", "social/Upsells");
+return function(v14, v15, v16, v17, v18) --[[ Line: 23 ]]
+    -- upvalues: l_FFlagEnableAEGIS2CommsFAEUpsell_0 (copy), v7 (copy), v9 (copy), v10 (copy), l_InExpAmpWizardController_0 (copy), v12 (copy), l_AccessResponseEnum_0 (copy), v13 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_NavigateBack_0 (copy)
+    return function(v19) --[[ Line: 30 ]]
+        -- upvalues: l_FFlagEnableAEGIS2CommsFAEUpsell_0 (ref), v18 (copy), v14 (copy), v7 (ref), v9 (ref), v10 (ref), v15 (copy), v16 (copy), l_InExpAmpWizardController_0 (ref), v12 (ref), l_AccessResponseEnum_0 (ref), v13 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v17 (copy), l_NavigateBack_0 (ref)
+        if l_FFlagEnableAEGIS2CommsFAEUpsell_0 and v18 then
+            local v20 = v14 or v7.FacialAgeEstimation;
+            if v9 then
+                return (v10(v20, v15, v16));
             else
-                return (l_InExpAmpWizardController_0.OpenAmpWizardContainerInExp(v13, function(v24, _) --[[ Line: 47 ]]
-                    -- upvalues: l_AccessResponseEnum_0 (ref), v18 (ref), v19 (ref)
-                    if v24 == l_AccessResponseEnum_0.Granted then
-                        if v18 then
-                            v18();
+                return (l_InExpAmpWizardController_0.OpenAmpWizardContainerInExp(v12, function(v21, _) --[[ Line: 37 ]]
+                    -- upvalues: l_AccessResponseEnum_0 (ref), v15 (ref), v16 (ref)
+                    if v21 == l_AccessResponseEnum_0.Granted then
+                        if v15 then
+                            v15();
                             return;
                         end;
-                    elseif v19 then
-                        v19();
+                    elseif v16 then
+                        v16();
                     end;
-                end, nil, v23, nil, v14));
+                end, nil, v20, nil, v13));
             end;
         else
-            return v22:dispatch(l_NavigateDown_0({
+            return v19:dispatch(l_NavigateDown_0({
                 name = l_AppPage_0.AmpWizardContainer, 
                 extraProps = {
-                    featureName = v13, 
-                    nameSpace = v14, 
-                    entryPointEventCtx = v17 or if v15 then v8.FacialAgeEstimation else l_DEFAULT_FAE_ENTRY_POINT_EVENT_CTX_0, 
+                    featureName = v12, 
+                    nameSpace = v13, 
+                    entryPointEventCtx = v14 or v7.FacialAgeEstimation, 
                     metadata = {
-                        source = v20
+                        source = v17
                     }, 
                     skipFacialAgeEstimationWebLinkModal = true, 
-                    completionCallback = function(v26, _) --[[ Line: 77 ]] --[[ Name: completionCallback ]]
-                        -- upvalues: v22 (copy), l_NavigateBack_0 (ref), l_AccessResponseEnum_0 (ref), v18 (ref), v19 (ref)
-                        v22:dispatch(l_NavigateBack_0(true));
-                        if v26 == l_AccessResponseEnum_0.Granted then
-                            if v18 then
-                                v18();
+                    completionCallback = function(v23, _) --[[ Line: 65 ]] --[[ Name: completionCallback ]]
+                        -- upvalues: v19 (copy), l_NavigateBack_0 (ref), l_AccessResponseEnum_0 (ref), v15 (ref), v16 (ref)
+                        v19:dispatch(l_NavigateBack_0(true));
+                        if v23 == l_AccessResponseEnum_0.Granted then
+                            if v15 then
+                                v15();
                                 return;
                             end;
-                        elseif v19 then
-                            v19();
+                        elseif v16 then
+                            v16();
                         end;
                     end
                 }

@@ -77,7 +77,7 @@ end);
 l_pcall_0 = v45 and v43 or "We're sorry, Roblox is temporarily unavailable.  Please try again later.";
 v45 = tick();
 v43 = game:DefineFastFlag("UpdateConnectionLocWarning", false);
-v48 = game:DefineFastFlag("AddPlacelaunchDeviceBlock", false);
+v48 = game:DefineFastFlag("AddPlacelaunchDeviceBlock2", false);
 local function v56(v50, v51) --[[ Line: 96 ]] --[[ Name: translateString ]]
     -- upvalues: l_LocalizationService_0 (copy), l_Localization_0 (copy), v43 (copy), l_Logging_0 (copy)
     local l_RobloxLocaleId_0 = l_LocalizationService_0.RobloxLocaleId;
@@ -257,7 +257,7 @@ if v21 then
     v74[Enum.ConnectionError.DisconnectCollaboratorUnderage] = true;
 end;
 if v48 then
-    v74[Enum.ConnectionError.PlacelaunchDeviceBlocked] = true;
+    v74[Enum.ConnectionError.PlacelaunchDeviceBlock] = true;
 end;
 local v75 = {
     [v61.RECONNECT_PLACELAUNCH] = {
@@ -753,7 +753,7 @@ if v21 then
     v101[Enum.ConnectionError.PlacelaunchCreatorBan] = "InGame.ConnectionError.CreatorBanNoTime";
 end;
 if v48 then
-    v101[Enum.ConnectionError.PlacelaunchDeviceBlocked] = "InGame.ConnectionError.PlacelaunchDeviceBlocked";
+    v101[Enum.ConnectionError.PlacelaunchDeviceBlock] = "InGame.ConnectionError.PlacelaunchDeviceBlock";
 end;
 local function v109(v102, v103, v104) --[[ Line: 769 ]] --[[ Name: getErrorString ]]
     -- upvalues: v56 (copy), v25 (copy), v19 (copy), v101 (copy), l_mutedError_0 (copy), v18 (copy)

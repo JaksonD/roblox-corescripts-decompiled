@@ -4,11 +4,13 @@ local v2 = require(l_Parent_0.t);
 local v3 = require(l_Parent_0.Cryo);
 local _ = require(l_script_FirstAncestor_0.SduiComponentType);
 local l_ConditionalPropsInterface_0 = require(l_script_FirstAncestor_0.ConditionalProps.SduiConditionalPropTypes).ConditionalPropsInterface;
-local v6 = {
-    actionType = v2.string, 
-    actionParams = v2.optional(v2.table)
-};
+local l_FFlagSduiActionTelemetryHandler_0 = require(l_Parent_0.SharedFlags).FFlagSduiActionTelemetryHandler;
 local v7 = {
+    actionType = v2.string, 
+    actionParams = v2.optional(v2.table), 
+    telemetryHandler = if l_FFlagSduiActionTelemetryHandler_0 then v2.optional(v2.string) else nil
+};
+local v8 = {
     componentType = v2.string, 
     props = v2.optional(v2.table), 
     templateKey = v2.optional(v2.string), 
@@ -19,11 +21,11 @@ local v7 = {
     __processed = v2.optional(v2.boolean), 
     __isClientBinding = v2.optional(v2.boolean)
 };
-local v8 = v3.Dictionary.join(v7, {
+local v9 = v3.Dictionary.join(v8, {
     componentType = v2.optional(v2.string)
 });
 return {
-    ActionInterface = v6, 
-    UiComponentInterface = v7, 
-    SduiTemplateInterface = v8
+    ActionInterface = v7, 
+    UiComponentInterface = v8, 
+    SduiTemplateInterface = v9
 };

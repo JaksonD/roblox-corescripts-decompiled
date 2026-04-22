@@ -60,40 +60,42 @@ else
     local v14 = require(l_Modules_0.Common.LuaErrorReporter);
     local v15 = require(l_Modules_0.Common.LuaErrorSeverity);
     local v16 = require(l_Modules_0.LuaApp.LuaAppSentryReporter);
-    local v17 = require(l_Modules_0.Common.FFlagEnableSentryMigration);
-    local v18 = require(l_Modules_0.LuaApp.LuaAppBacktraceReporter);
-    local v19 = require(l_Modules_0.LuaApp.Components.UniversalApp);
-    local v20 = require(l_Modules_0.LuaApp.Util.targetFramerateSetup);
-    local v21 = require(l_Modules_0.LuaApp.Util.setUpVRRecenterOnResume);
-    local v22 = require(l_Modules_0.LuaApp.Flags.GetIsClientEnrolledInBacktraceRollout);
+    local v17 = require(l_Modules_0.LuaApp.LuaAppBacktraceReporter);
+    local v18 = require(l_Modules_0.LuaApp.Components.UniversalApp);
+    local v19 = require(l_Modules_0.LuaApp.Util.targetFramerateSetup);
+    local v20 = require(l_Modules_0.LuaApp.Util.setUpVRRecenterOnResume);
+    local v21 = require(l_Modules_0.LuaApp.Flags.GetIsClientEnrolledInBacktraceRollout);
     local l_FFlagDisableGoogleAnalyticsErrorReporting_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagDisableGoogleAnalyticsErrorReporting;
     local l_IXPService_0 = game:GetService("IXPService");
     local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
     local l_GetDefaultQualityLevel_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel;
-    local v27 = game:DefineFastFlag("DebugLuaAppThrowErrorInStarterScript", false);
+    local v26 = game:DefineFastInt("EnableSentryUARolloutPercentage", 0);
+    local v27 = math.random(1, 100) <= math.clamp(v26, 0, 100);
+    local v28 = game:DefineFastFlag("DebugLuaAppThrowErrorInStarterScript", false);
     v6.default:logEventOnce("lua_app_starter_script_requires_end");
     if not UserSettings().GameSettings:InStudioMode() then
-        local v28 = nil;
         local v29 = nil;
         local v30 = nil;
-        if v22() then
-            v28 = v18;
-            v29 = l_ScriptContext_0.ErrorDetailed;
+        local v31 = nil;
+        if v21() then
+            v29 = v17;
+            v30 = l_ScriptContext_0.ErrorDetailed;
         end;
-        if v17 then
-            v30 = v16;
+        if v27 then
+            v31 = v16;
+            v30 = l_ScriptContext_0.ErrorDetailed;
         end;
-        local v31 = v14.new(v29, nil, v28, v15.ERROR, v30);
-        v31:setCurrentApp("LuaApp");
+        local v32 = v14.new(v30, nil, v29, v15.ERROR, v31);
+        v32:setCurrentApp("LuaApp");
         if not l_FFlagDisableGoogleAnalyticsErrorReporting_0 then
-            v31:startQueueTimers();
+            v32:startQueueTimers();
         end;
     end;
-    local v32 = require(l_Modules_0.LuaApp.Flags.FFlagLuaAppEnableEarlyDataModelStream);
-    if v32 then
+    local v33 = require(l_Modules_0.LuaApp.Flags.FFlagLuaAppEnableEarlyDataModelStream);
+    if v33 then
         require(l_CorePackages_0.Workspace.Packages.DataModelStreaming).initDataModelStreamWsClient();
     end;
-    if v27 then
+    if v28 then
         error("This is a test error raised by FFlagDebugLuaAppThrowErrorInStarterScript");
     end;
     v6.default:logEventOnce("lua_app_starter_script_wait_for_player_begin");
@@ -101,40 +103,52 @@ else
         game.Players.PlayerAdded:Wait();
     end;
     v6.default:logEventOnce("lua_app_starter_script_wait_for_player_end");
-    local v33 = nil;
-    v33 = game:GetService("RunService").RenderStepped:Connect(function() --[[ Line: 158 ]]
-        -- upvalues: v33 (ref), l_GetDefaultQualityLevel_0 (copy)
-        if v33 then
-            v33:Disconnect();
+    local v34 = nil;
+    v34 = game:GetService("RunService").RenderStepped:Connect(function() --[[ Line: 161 ]]
+        -- upvalues: v34 (ref), l_GetDefaultQualityLevel_0 (copy)
+        if v34 then
+            v34:Disconnect();
         end;
         settings().Rendering.QualityLevel = l_GetDefaultQualityLevel_0();
     end);
     v13.startup();
-    local v34 = v12.createElement(v19, {
+    local v35 = v12.createElement(v18, {
         appName = "LuaApp"
     });
-    local _ = v12.mount(v34, l_CoreGui_0, "App");
+    local _ = v12.mount(v35, l_CoreGui_0, "App");
     if UserSettings().GameSettings:InStudioMode() then
         local l_l_IXPService_0_RegisteredUserLayersToStatus_0 = l_IXPService_0:GetRegisteredUserLayersToStatus();
-        for v37 in l_AppUserLayers_0 do
-            if not l_l_IXPService_0_RegisteredUserLayersToStatus_0[l_AppUserLayers_0[v37]] then
-                warn("IXP layer has not been registered: " .. l_AppUserLayers_0[v37]);
+        for v38 in l_AppUserLayers_0 do
+            if not l_l_IXPService_0_RegisteredUserLayersToStatus_0[l_AppUserLayers_0[v38]] then
+                warn("IXP layer has not been registered: " .. l_AppUserLayers_0[v38]);
             end;
         end;
     end;
     if l_IsVRAppBuild_0() then
+        v19();
         v20();
-        v21();
     end;
-    if not v32 then
+    if not v33 then
         require(l_CorePackages_0.Workspace.Packages.DataModelStreaming).initDataModelStreamWsClient();
     end;
     l_SoundManager_0.init();
     if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagDebugForceConsoleSafeInsets and UserSettings().GameSettings:InStudioMode() then
         require(l_CorePackages_0.Workspace.Packages.Display).GetDisplayStore().forceConsoleSafeInsets();
     end;
+    if not require(l_Modules_0.LuaApp.Flags.FFlagProfilePlatformGranularExports) then
+        require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
+    end;
     if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAvatarJointUpgradeInUA and require(l_CorePackages_0.Packages.Thumbnailing).EmoteUtility.EmoteUtilitySupportAJU then
         game:GetService("StarterPlayer").AvatarJointUpgrade = Enum.RolloutState.Enabled;
+    end;
+    local v39 = game:DefineFastFlag("EnableCorescriptTrackerForLuaApp", false);
+    if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableMemoryTrackerUnification then
+        local v40 = require(l_CorePackages_0.Workspace.Packages.Memory);
+        if v39 then
+            v40.start(true, nil, v40.MemoryScope.UniversalApp);
+        else
+            v40.start(false);
+        end;
     end;
     v6.default:logEventOnce("lua_app_starter_script_end");
     return;

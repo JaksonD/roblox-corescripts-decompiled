@@ -2,30 +2,40 @@ local l_Parent_0 = script:FindFirstAncestor("ExpChat").Parent;
 local l_List_0 = require(l_Parent_0.llama).List;
 local v2 = require(l_Parent_0.ExpChatShared).Logger:new("ExpChat/" .. script.Name);
 local v3 = require(script.Parent.sanitizeForRichText);
-return function(v4, v5, v6, v7, v8, v9) --[[ Line: 9 ]] --[[ Name: displaySystemMessage ]]
-    -- upvalues: v2 (copy), l_List_0 (copy), v3 (copy)
-    v2:debug("Display system message: {}", v6);
-    local v10 = nil;
-    if type(v4) == "string" then
-        if v4 ~= "" then
-            local v11 = nil;
-            local l_status_0, l_result_0 = pcall(function() --[[ Line: 23 ]]
-                -- upvalues: v7 (copy), v4 (copy), v5 (copy)
-                return v7:FormatByKey(v4, v5);
+local l_FFlagEnableSummarySystemMessageOnLua_0 = require(l_Parent_0.SharedFlags).FFlagEnableSummarySystemMessageOnLua;
+return function(v5, v6, v7, v8, v9, v10, v11) --[[ Line: 11 ]] --[[ Name: displaySystemMessage ]]
+    -- upvalues: v2 (copy), l_List_0 (copy), l_FFlagEnableSummarySystemMessageOnLua_0 (copy), v3 (copy)
+    v2:debug("Display system message: {}", v7);
+    local v12 = nil;
+    if type(v5) == "string" then
+        if v5 ~= "" then
+            local v13 = nil;
+            local l_status_0, l_result_0 = pcall(function() --[[ Line: 26 ]]
+                -- upvalues: v8 (copy), v5 (copy), v6 (copy)
+                return v8:FormatByKey(v5, v6);
             end);
-            v11 = l_status_0;
-            v10 = l_result_0;
-            if not v11 then
-                v10 = v9;
+            v13 = l_status_0;
+            v12 = l_result_0;
+            if not v13 then
+                v12 = v10;
             end;
         end;
     else
-        v10 = table.concat(l_List_0.map(v4, function(v14) --[[ Line: 34 ]]
-            -- upvalues: v7 (copy), v5 (copy)
-            return v7:FormatByKey(v14, v5);
+        v12 = table.concat(l_List_0.map(v5, function(v16) --[[ Line: 37 ]]
+            -- upvalues: v8 (copy), v6 (copy)
+            return v8:FormatByKey(v16, v6);
         end), "\n");
     end;
-    if v8 and v10 then
-        v8:DisplaySystemMessage(v3(v10), v6);
+    if v9 and v12 then
+        if l_FFlagEnableSummarySystemMessageOnLua_0 then
+            v12 = v3(v12);
+            if v11 then
+                v12 = v11(v12);
+            end;
+            v9:DisplaySystemMessage(v12, v7);
+            return;
+        else
+            v9:DisplaySystemMessage(v3(v12), v7);
+        end;
     end;
 end;

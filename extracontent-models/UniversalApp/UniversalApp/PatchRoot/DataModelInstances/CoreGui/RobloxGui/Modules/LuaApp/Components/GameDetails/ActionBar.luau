@@ -42,15 +42,16 @@ v26.validateProps = v3.strictInterface({
     showMorePage = v3.optional(v3.boolean), 
     shouldShowPlayWithFriendsPolicy = v3.optional(v3.boolean), 
     contextualMessage = v3.optional(v3.string), 
-    hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v3.optional(v3.boolean) else nil
+    hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v3.optional(v3.boolean) else nil, 
+    unifyToUIBloxIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v3.optional(v3.boolean) else nil
 });
-v26.init = function(_) --[[ Line: 70 ]] --[[ Name: init ]]
+v26.init = function(_) --[[ Line: 71 ]] --[[ Name: init ]]
 
 end;
-v26.willUnmount = function(_) --[[ Line: 72 ]] --[[ Name: willUnmount ]]
+v26.willUnmount = function(_) --[[ Line: 73 ]] --[[ Name: willUnmount ]]
 
 end;
-v26.render = function(v29) --[[ Line: 74 ]] --[[ Name: render ]]
+v26.render = function(v29) --[[ Line: 75 ]] --[[ Name: render ]]
     -- upvalues: l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 (copy), l_withStyle_0 (copy), v2 (copy), l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 (copy), l_GetFFlagUIBloxUseFoundationButton_0 (copy), l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 (copy), v18 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v19 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), v17 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_PlayButton_0 (copy), l_ButtonSize_0 (copy)
     local l_leftPadding_0 = v29.props.leftPadding;
     local l_rightPadding_0 = v29.props.rightPadding;
@@ -65,7 +66,7 @@ v26.render = function(v29) --[[ Line: 74 ]] --[[ Name: render ]]
     if l_shouldShowPlayWithFriendsPolicy_0 then
         v39 = 2 * v39;
     end;
-    return l_withStyle_0(function(v40) --[[ Line: 94 ]]
+    return l_withStyle_0(function(v40) --[[ Line: 95 ]]
         -- upvalues: v2 (ref), v29 (copy), l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 (ref), l_GetFFlagUIBloxUseFoundationButton_0 (ref), l_leftPadding_0 (copy), l_rightPadding_0 (copy), l_bottomPadding_0 (copy), l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 (ref), v38 (copy), l_showMorePage_0 (copy), v18 (ref), l_universeId_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_shouldShowPlayWithFriendsPolicy_0 (copy), v19 (ref), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (ref), v17 (ref), v39 (ref), l_experienceJoinData_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), l_PlayButton_0 (ref), l_ButtonSize_0 (ref)
         return v2.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 0), 
@@ -148,6 +149,7 @@ v26.render = function(v29) --[[ Line: 74 ]] --[[ Name: render ]]
                         placeId = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v29.props.placeIdOverride else nil, 
                         buttonSize = l_ButtonSize_0.Large, 
                         width = UDim.new(1, v39), 
+                        useUIBloxButton = v29.props.unifyToUIBloxIxp, 
                         LayoutOrder = 4, 
                         testId = "--experience-details--play-button"
                     }) else nil
@@ -169,29 +171,34 @@ v26.render = function(v29) --[[ Line: 74 ]] --[[ Name: render ]]
         });
     end);
 end;
-local v43 = l_RoactAppPolicy_0.connect(function(v41, _) --[[ Line: 220 ]]
+local v43 = l_RoactAppPolicy_0.connect(function(v41, _) --[[ Line: 222 ]]
     return {
         showMorePage = v41.getGameDetailsMorePage(), 
         shouldShowPlayWithFriendsPolicy = v41.getGameDetailsPlayWithFriends()
     };
 end)(v26);
-return function(v44) --[[ Line: 228 ]]
+return function(v44) --[[ Line: 230 ]]
     -- upvalues: l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_usePlayButtonState_0 (copy), l_usePlayButtonContextualMessage_0 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), v1 (copy), v2 (copy), v43 (copy)
     local v45 = l_useRoactService_0(l_RoactNetworking_0);
     local v46 = l_usePlayButtonState_0(v45, v44.universeId, nil);
     local v47 = l_usePlayButtonContextualMessage_0(v44.universeId, v46.playButtonState, v46.playabilityStatus);
     local v48 = nil;
+    local v49 = nil;
     if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then
-        v48 = l_useUserExperiment_0({
+        local v52, v53 = l_useUserExperiment_0({
             l_AppUserLayers_0.PlayButtonUXExposureLayer
-        }, function(v49) --[[ Line: 242 ]]
+        }, function(v50) --[[ Line: 244 ]]
             -- upvalues: l_AppUserLayers_0 (ref)
-            return (v49[l_AppUserLayers_0.PlayButtonUXExposureLayer] or {}).HasUnifiedPlayButton;
+            local v51 = v50[l_AppUserLayers_0.PlayButtonUXExposureLayer] or {};
+            return v51.HasUnifiedPlayButton, v51.UnifyToUIBlox;
         end, true);
+        v48 = v52;
+        v49 = v53;
     end;
-    local v50 = v1.Dictionary.join(v44, {
+    local v54 = v1.Dictionary.join(v44, {
         contextualMessage = v47, 
-        hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v48 else nil
+        hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v48 else nil, 
+        unifyToUIBloxIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v49 else nil
     });
-    return v2.createElement(v43, v50);
+    return v2.createElement(v43, v54);
 end;

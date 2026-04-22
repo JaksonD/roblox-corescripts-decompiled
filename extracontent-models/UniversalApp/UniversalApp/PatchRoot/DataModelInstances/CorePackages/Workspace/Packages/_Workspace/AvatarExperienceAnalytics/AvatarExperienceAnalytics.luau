@@ -5,8 +5,9 @@ local v3 = require(script.sendUnifiedEventLog);
 local v4 = require(script.sendUnifiedEventLogForInstance);
 local v5 = require(script.logWidgetLoaded);
 local v6 = require(script.sendUnifiedEventForDeferredAction);
-local v7 = require(script.UnifiedEventLogConstants);
-local v8 = require(script.UnifiedEventLogEnums);
+local v7 = require(script.sendUnifiedEventsForMultiItemShopping);
+local v8 = require(script.UnifiedEventLogConstants);
+local v9 = require(script.UnifiedEventLogEnums);
 return {
     AnalyticsService = v0, 
     addUnifiedEventLogging = v1, 
@@ -15,8 +16,9 @@ return {
     sendUnifiedEventLogForInstance = v4, 
     logWidgetLoaded = v5, 
     sendUnifiedEventForDeferredAction = v6, 
-    UnifiedEventLogConstants = v7, 
-    UnifiedEventLogEnums = v8, 
+    sendUnifiedEventsForMultiItemShopping = v7, 
+    UnifiedEventLogConstants = v8, 
+    UnifiedEventLogEnums = v9, 
     useUnifiedEventImpressionsReporter = require(script.useUnifiedEventImpressionsReporter), 
     TagBasedImpressionsDetector = require(script.TagBasedImpressionsDetector), 
     AvatarExperienceImpressionsDetector = require(script.AvatarExperienceImpressionsDetector), 
@@ -30,13 +32,24 @@ return {
     Enums = {
         ImpressionEnums = require(script.Enums.ImpressionEnums)
     }, 
+    Lib = {
+        CartIdService = require(script.Lib.CartIdService)
+    }, 
+    Store = {
+        UnifiedSelectionListStore = require(script.Store.UnifiedSelectionListStore)
+    }, 
     Surfaces = {
         SlotBasedEditorAnalytics = require(script.Surfaces.SlotBasedEditorAnalytics)
     }, 
     Utils = {
         UnifiedEventLoggingUtils = require(script.Utils.UnifiedEventLoggingUtils), 
-        getTimedOptionForItemData = require(script.Utils.getTimedOptionForItemData)
+        getTimedOptionForItemData = require(script.Utils.getTimedOptionForItemData), 
+        getUnifiedEventsForMIS = require(script.Utils.getUnifiedEventsForMIS)
     }, 
     Constants = require(script.Constants), 
+    ImpressionsReporter = {
+        ImpressionsUtil = require(script.ImpressionsReporter.ImpressionsUtil), 
+        OrganicEventImpressionsSchema = require(script.ImpressionsReporter.OrganicEventImpressionsSchema)
+    }, 
     ["jest.config"] = script["jest.config"]
 };

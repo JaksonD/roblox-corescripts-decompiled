@@ -1,6 +1,7 @@
 local l_Parent_0 = script:FindFirstAncestor("SocialCarousel").Parent;
 local l_SupportedTelemetryBackends_0 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums.SupportedTelemetryBackends;
 local v2 = require(script.Parent.EventNames);
+local l_FFlagSocialCarouselShareQREnabled_0 = require(l_Parent_0.SharedFlags).FFlagSocialCarouselShareQREnabled;
 return {
     defaults = {
         throttlingThousandths = game:DefineFastInt("SocialCarouselAnalyticsThrottlingThousandths", 10000), 
@@ -70,5 +71,18 @@ return {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter
             }
         }
-    }
+    }, 
+    [v2.ShareQRPressed] = if l_FFlagSocialCarouselShareQREnabled_0 then {
+        description = "User pressed on the share QR tile", 
+        lastUpdated = {
+            26, 
+            4, 
+            14
+        }, 
+        backendsList = {
+            {
+                type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter
+            }
+        }
+    } else nil
 };

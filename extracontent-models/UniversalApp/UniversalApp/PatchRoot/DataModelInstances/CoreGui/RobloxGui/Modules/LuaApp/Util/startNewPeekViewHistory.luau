@@ -1,47 +1,51 @@
+local l_CorePackages_0 = game:GetService("CorePackages");
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("Modules");
-local v1 = require(l_script_FirstAncestor_0.LuaApp.AppPage);
-local v2 = require(l_script_FirstAncestor_0.LuaApp.AppPageProperties);
-local function _() --[[ Line: 5 ]] --[[ Name: getDefaultRoute ]]
-    -- upvalues: v1 (copy)
+local v2 = require(l_script_FirstAncestor_0.LuaApp.AppPage);
+local l_FFlagUseNavigationSelectors_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors;
+local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
+local v5 = require(l_script_FirstAncestor_0.LuaApp.AppPageProperties);
+local function _() --[[ Line: 10 ]] --[[ Name: getDefaultRoute ]]
+    -- upvalues: v2 (copy)
     return {
         {
-            name = v1.Home
+            name = v2.Home
         }
     };
 end;
-return function(v4, v5) --[[ Line: 9 ]]
-    -- upvalues: v1 (copy), v2 (copy)
-    local l_history_0 = v4:getState().Navigation.history;
-    local v7 = l_history_0[#l_history_0] or {
+return function(v7, v8) --[[ Line: 14 ]]
+    -- upvalues: l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), v2 (copy), v5 (copy)
+    local v9 = v7:getState();
+    local v10 = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectLegacyHistory(v9) else v9.Navigation.history;
+    local v11 = v10[#v10] or {
         {
-            name = v1.Home
+            name = v2.Home
         }
     };
-    local v8 = {};
-    for v9 = 1, #v7 do
-        local l_name_0 = v7[v9].name;
-        if not v2[l_name_0] or not v2[l_name_0].isPeekView then
-            v8[#v8 + 1] = v7[v9];
+    local v12 = {};
+    for v13 = 1, #v11 do
+        local l_name_0 = v11[v13].name;
+        if not v5[l_name_0] or not v5[l_name_0].isPeekView then
+            v12[#v12 + 1] = v11[v13];
         end;
     end;
-    v8[#v8 + 1] = v5;
-    if #v8 == 0 then
-        v8 = {
+    v12[#v12 + 1] = v8;
+    if #v12 == 0 then
+        v12 = {
             {
-                name = v1.Home
+                name = v2.Home
             }
         };
     end;
-    local v11 = {};
-    for v12 = 1, #v8 do
-        local v13 = {};
-        for v14 = 1, v12 do
-            v13[#v13 + 1] = v8[v14];
+    local v15 = {};
+    for v16 = 1, #v12 do
+        local v17 = {};
+        for v18 = 1, v16 do
+            v17[#v17 + 1] = v12[v18];
         end;
-        v11[#v11 + 1] = v13;
+        v15[#v15 + 1] = v17;
     end;
     return {
-        newRoute = v8, 
-        newHistory = v11
+        newRoute = v12, 
+        newHistory = v15
     };
 end;

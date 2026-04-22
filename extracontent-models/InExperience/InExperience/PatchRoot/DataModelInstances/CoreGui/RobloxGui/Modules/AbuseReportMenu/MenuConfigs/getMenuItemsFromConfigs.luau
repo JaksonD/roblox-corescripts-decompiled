@@ -13,114 +13,143 @@ local v11 = require(l_script_FirstAncestor_0.Components.Constants);
 local l_ButtonVariant_0 = v2.Enums.ButtonVariant;
 local v13 = require(l_script_FirstAncestor_0.Flags.FFlagHideShortcutsOnReportDropdown);
 local l_FFlagInGameMenuAddChatLineReporting_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagInGameMenuAddChatLineReporting;
-return function(v15, v16, v17, v18, v19) --[[ Line: 21 ]] --[[ Name: getMenuItemsFromConfigs ]]
-    -- upvalues: l_useLocalization_0 (copy), v11 (copy), v13 (copy), v3 (copy), v7 (copy), v6 (copy), v2 (copy), l_ButtonVariant_0 (copy), v5 (copy), v8 (copy), l_FFlagInGameMenuAddChatLineReporting_0 (copy), v9 (copy)
-    local v20 = {};
-    local v21 = l_useLocalization_0(v11.localizationKeys);
-    local v22 = nil;
+local v15 = require(l_script_FirstAncestor_0.Flags.FFlagReportFocusNavIEMButtons);
+return function(v16, v17, v18, v19, v20) --[[ Line: 22 ]] --[[ Name: getMenuItemsFromConfigs ]]
+    -- upvalues: l_useLocalization_0 (copy), v11 (copy), v13 (copy), v3 (copy), v15 (copy), v7 (copy), v6 (copy), v2 (copy), l_ButtonVariant_0 (copy), v5 (copy), v8 (copy), l_FFlagInGameMenuAddChatLineReporting_0 (copy), v9 (copy)
+    local v21 = {};
+    local v22 = l_useLocalization_0(v11.localizationKeys);
+    local v23 = nil;
     if v13 then
-        v22 = v3.useCallback(function(v23) --[[ Line: 33 ]]
-            -- upvalues: v17 (copy)
-            if v17.onDropdownMenuOpenChange then
-                v17.onDropdownMenuOpenChange(v23);
+        v23 = v3.useCallback(function(v24) --[[ Line: 34 ]]
+            -- upvalues: v18 (copy)
+            if v18.onDropdownMenuOpenChange then
+                v18.onDropdownMenuOpenChange(v24);
             end;
         end, {
-            v17.onDropdownMenuOpenChange
+            v18.onDropdownMenuOpenChange
         });
     end;
-    for v24, v25 in v18 do
-        if v25.getIsVisible(v15) then
-            local l_componentType_0 = v25.componentType;
-            local l_componentName_0 = v25.componentName;
+    local v25 = if v15 then v3.useRef(nil) else nil;
+    if v15 then
+        v3.useEffect(function() --[[ Line: 45 ]]
+            -- upvalues: v18 (copy), v25 (copy)
+            if v18.setLastSelectableObjects and v25.current then
+                v18.setLastSelectableObjects({
+                    v25.current
+                });
+            end;
+        end, {
+            v25, 
+            v18.setLastSelectableObjects
+        });
+    end;
+    local l_v19_0 = v19;
+    if v15 then
+        l_v19_0 = {};
+        for _, v28 in v19 do
+            if v28.getIsVisible(v16) then
+                table.insert(l_v19_0, v28);
+            end;
+        end;
+    end;
+    for v29, v30 in l_v19_0 do
+        if v15 or v30.getIsVisible(v16) then
+            local l_componentType_0 = v30.componentType;
+            local l_componentName_0 = v30.componentName;
             if l_componentType_0 ~= "generic" then
                 if l_componentType_0 == "freeComments" then
-                    v20[l_componentName_0] = v3.createElement(v7, {
-                        layoutOrder = v24, 
-                        comment = v15.comment, 
-                        placeholderText = v21.ReportCommentPlaceholder, 
-                        menuContainerWidth = v17.menuWidth, 
-                        isSmallPortraitViewport = v19, 
-                        onUpdate = function(v28) --[[ Line: 53 ]] --[[ Name: onUpdate ]]
-                            -- upvalues: v25 (copy), v15 (copy), v16 (copy), v17 (copy)
-                            v25.onUpdate(v28, v15, v16, v17);
-                        end
+                    v21[l_componentName_0] = v3.createElement(v7, {
+                        layoutOrder = v29, 
+                        comment = v16.comment, 
+                        placeholderText = v22.ReportCommentPlaceholder, 
+                        menuContainerWidth = v18.menuWidth, 
+                        isSmallPortraitViewport = v20, 
+                        onUpdate = function(v33) --[[ Line: 75 ]] --[[ Name: onUpdate ]]
+                            -- upvalues: v30 (copy), v16 (copy), v17 (copy), v18 (copy)
+                            v30.onUpdate(v33, v16, v17, v18);
+                        end, 
+                        ref = if v15 and v29 == #l_v19_0 then v25 else nil
                     });
                 elseif l_componentType_0 == "button" then
-                    local v29 = v25.getIconSrc(v17);
-                    v20[l_componentName_0] = v3.createElement(v6, {
-                        label = if v25.fieldLabel == "" then v25.fieldLabel else v21[v25.fieldLabel], 
+                    local v34 = v30.getIconSrc(v18);
+                    v21[l_componentName_0] = v3.createElement(v6, {
+                        label = if v30.fieldLabel == "" then v30.fieldLabel else v22[v30.fieldLabel], 
                         button = v3.createElement(v2.Button, {
-                            variant = if v25.variant == "primary" then l_ButtonVariant_0.SubEmphasis else l_ButtonVariant_0.Subtle, 
-                            text = v21[v25.getButtonLabel(v17)], 
-                            icon = if v29 ~= "" then v29 else nil, 
+                            variant = if v30.variant == "primary" then l_ButtonVariant_0.SubEmphasis else l_ButtonVariant_0.Subtle, 
+                            text = v22[v30.getButtonLabel(v18)], 
+                            icon = if v34 ~= "" then v34 else nil, 
                             width = UDim.new(1, 0), 
-                            isDisabled = v25.getIsDisabled ~= nil and v25.getIsDisabled(v15, v17), 
-                            onActivated = function() --[[ Line: 71 ]] --[[ Name: onActivated ]]
-                                -- upvalues: v25 (copy), v15 (copy), v16 (copy), v17 (copy)
-                                v25.onClick(v15, v16, v17);
-                            end
+                            isDisabled = v30.getIsDisabled ~= nil and v30.getIsDisabled(v16, v18), 
+                            onActivated = function() --[[ Line: 96 ]] --[[ Name: onActivated ]]
+                                -- upvalues: v30 (copy), v16 (copy), v17 (copy), v18 (copy)
+                                v30.onClick(v16, v17, v18);
+                            end, 
+                            ref = if v15 and v29 == #l_v19_0 then v25 else nil
                         }), 
-                        menuContainerWidth = v17.menuWidth, 
-                        layoutOrder = v24, 
-                        isSmallPortraitViewport = v19
+                        menuContainerWidth = v18.menuWidth, 
+                        layoutOrder = v29, 
+                        isSmallPortraitViewport = v20
                     });
                 elseif l_componentType_0 == "dropdown" then
-                    v20[l_componentName_0] = v3.createElement(v5, {
-                        label = v21[v25.fieldLabel], 
-                        placeholderText = v21.ChooseOne, 
-                        layoutOrder = v24, 
-                        onSelect = function(v30) --[[ Line: 84 ]] --[[ Name: onSelect ]]
-                            -- upvalues: v25 (copy), v15 (copy), v16 (copy), v17 (copy)
-                            v25.onUpdateSelectedOption(v30, v15, v16, v17);
+                    v21[l_componentName_0] = v3.createElement(v5, {
+                        label = v22[v30.fieldLabel], 
+                        placeholderText = v22.ChooseOne, 
+                        layoutOrder = v29, 
+                        onSelect = function(v35) --[[ Line: 112 ]] --[[ Name: onSelect ]]
+                            -- upvalues: v30 (copy), v16 (copy), v17 (copy), v18 (copy)
+                            v30.onUpdateSelectedOption(v35, v16, v17, v18);
                         end, 
-                        onMenuOpenChange = v22, 
-                        menuContainerWidth = v17.menuWidth, 
-                        readonlyValue = v21[v25.readonlyValue], 
-                        selections = v25.getMenuItems(v15), 
-                        isSmallPortraitViewport = v19, 
-                        minHeight = v19 and 0 or v11.MenuItemHeight
+                        onMenuOpenChange = v23, 
+                        menuContainerWidth = v18.menuWidth, 
+                        readonlyValue = v22[v30.readonlyValue], 
+                        selections = v30.getMenuItems(v16), 
+                        isSmallPortraitViewport = v20, 
+                        minHeight = v20 and 0 or v11.MenuItemHeight, 
+                        ref = if v15 and v29 == #l_v19_0 then v25 else nil
                     });
                 elseif l_componentType_0 == "modalSelector" then
-                    v20[l_componentName_0] = v3.createElement(v8, {
-                        label = v21[v25.fieldLabel], 
-                        layoutOrder = v24, 
-                        onSelect = function(v31, v32, v33) --[[ Line: 98 ]] --[[ Name: onSelect ]]
-                            -- upvalues: v25 (copy), v15 (copy), v16 (copy), v17 (copy)
-                            local v34 = {
-                                label = v31, 
-                                subLabel = v32, 
-                                identifier = v33
+                    v21[l_componentName_0] = v3.createElement(v8, {
+                        label = v22[v30.fieldLabel], 
+                        layoutOrder = v29, 
+                        onSelect = function(v36, v37, v38) --[[ Line: 129 ]] --[[ Name: onSelect ]]
+                            -- upvalues: v30 (copy), v16 (copy), v17 (copy), v18 (copy)
+                            local v39 = {
+                                label = v36, 
+                                subLabel = v37, 
+                                identifier = v38
                             };
-                            v25.onUpdateSelectedOption(v34, v15, v16, v17);
+                            v30.onUpdateSelectedOption(v39, v16, v17, v18);
                         end, 
-                        onMenuOpenChange = v22, 
-                        menuContainerWidth = v17.menuWidth, 
+                        onMenuOpenChange = v23, 
+                        menuContainerWidth = v18.menuWidth, 
                         selectorHeight = v11.MenuItemHeight, 
-                        selectedValue = if v25.getSelectedValue then v21[v25.getSelectedValue(v15)] or v25.getSelectedValue(v15) or nil else nil, 
-                        selections = v25.getMenuItems(v15, v21), 
-                        viewportHeight = v17.viewportDimension.height, 
-                        viewportWidth = v17.viewportDimension.width, 
-                        isSmallPortraitViewport = v19, 
-                        placeholderText = v21.ChooseOne
+                        selectedValue = if v30.getSelectedValue then v22[v30.getSelectedValue(v16)] or v30.getSelectedValue(v16) or nil else nil, 
+                        selections = v30.getMenuItems(v16, v22), 
+                        viewportHeight = v18.viewportDimension.height, 
+                        viewportWidth = v18.viewportDimension.width, 
+                        isSmallPortraitViewport = v20, 
+                        placeholderText = v22.ChooseOne, 
+                        ref = if v15 and v29 == #l_v19_0 then v25 else nil
                     });
                 elseif l_FFlagInGameMenuAddChatLineReporting_0 and l_componentType_0 == "chatModalSelector" then
-                    v20[l_componentName_0] = v3.createElement(v9, {
-                        label = v21[v25.fieldLabel], 
-                        layoutOrder = v24, 
-                        onSelect = function(v35, v36) --[[ Line: 124 ]] --[[ Name: onSelect ]]
-                            -- upvalues: v25 (copy), v15 (copy), v16 (copy), v17 (copy)
-                            v25.onUpdateSelectedOption(v35, v36, v15, v16, v17);
+                    v21[l_componentName_0] = v3.createElement(v9, {
+                        label = v22[v30.fieldLabel], 
+                        layoutOrder = v29, 
+                        onSelect = function(v40, v41) --[[ Line: 158 ]] --[[ Name: onSelect ]]
+                            -- upvalues: v30 (copy), v16 (copy), v17 (copy), v18 (copy)
+                            v30.onUpdateSelectedOption(v40, v41, v16, v17, v18);
                         end, 
-                        onMenuOpenChange = v22, 
-                        menuContainerWidth = v17.menuWidth, 
+                        onMenuOpenChange = v23, 
+                        menuContainerWidth = v18.menuWidth, 
                         selectorHeight = v11.MenuItemHeight, 
-                        selectedValue = if v25.getSelectedValue then v25.getSelectedValue(v15) or nil else nil, 
-                        isSmallPortraitViewport = v19, 
-                        placeholderText = v21.ChooseOne
+                        selectedValue = if v30.getSelectedValue then v30.getSelectedValue(v16) or nil else nil, 
+                        isSmallPortraitViewport = v20, 
+                        placeholderText = v22.ChooseOne, 
+                        ref = if v15 and v29 == #l_v19_0 then v25 else nil
                     });
                 end;
             end;
         end;
     end;
-    return v20;
+    return v21;
 end;

@@ -7,22 +7,20 @@ local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SalesTypeFilter);
 local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortType);
 local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortAggregation);
 local _ = require(l_Modules_0.AvatarExperience.Common.Enum.WearTimeFilter);
-local v9 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagAXDurablesSupport_0 = v9.FFlagAXDurablesSupport;
-local l_FFlagAXHandleTaxonomyIdsDeepLinks_0 = v9.FFlagAXHandleTaxonomyIdsDeepLinks;
-return v2.makeActionCreator(script.Name, function(v12) --[[ Line: 29 ]]
-    -- upvalues: l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXHandleTaxonomyIdsDeepLinks_0 (copy)
+local l_FFlagAXHandleTaxonomyIdsDeepLinks_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXHandleTaxonomyIdsDeepLinks;
+return v2.makeActionCreator(script.Name, function(v10) --[[ Line: 28 ]]
+    -- upvalues: l_FFlagAXHandleTaxonomyIdsDeepLinks_0 (copy)
     return {
-        creatorFilter = v12.creatorFilter, 
-        priceRange = v12.priceRange, 
-        salesTypeFilter = v12.salesTypeFilter, 
-        unavailableItemFilter = v12.unavailableItemFilter, 
-        sortType = v12.sortType, 
-        sortAggregation = v12.sortAggregation, 
-        category = v12.category, 
-        subcategory = v12.subcategory, 
-        topics = v12.topics, 
-        wearTimeFilter = if l_FFlagAXDurablesSupport_0 then v12.wearTimeFilter else nil, 
-        taxonomy = if l_FFlagAXHandleTaxonomyIdsDeepLinks_0 then v12.taxonomy else nil
+        creatorFilter = v10.creatorFilter, 
+        priceRange = v10.priceRange, 
+        salesTypeFilter = v10.salesTypeFilter, 
+        unavailableItemFilter = v10.unavailableItemFilter, 
+        sortType = v10.sortType, 
+        sortAggregation = v10.sortAggregation, 
+        category = v10.category, 
+        subcategory = v10.subcategory, 
+        topics = v10.topics, 
+        wearTimeFilter = v10.wearTimeFilter, 
+        taxonomy = if l_FFlagAXHandleTaxonomyIdsDeepLinks_0 then v10.taxonomy else nil
     };
 end);

@@ -1,78 +1,88 @@
-local function v6(v0, v1) --[[ Line: 19 ]] --[[ Name: splitStringWithMarks ]]
-    if type(v0) ~= "string" or type(v1) ~= "table" then
-        return v0, "";
+local v0 = require(script.Parent.FFlagErrorStackFixDebugTracebackProcessing);
+local function v7(v1, v2) --[[ Line: 21 ]] --[[ Name: splitStringWithMarks ]]
+    if type(v1) ~= "string" or type(v2) ~= "table" then
+        return v1, "";
     else
-        for _, v3 in ipairs(v1) do
-            local v4, v5 = v0:find(v3, nil, true);
-            if v4 ~= nil then
-                return v0:sub(1, v4 - 1), (v0:sub(v5 + 1));
+        for _, v4 in ipairs(v2) do
+            local v5, v6 = v1:find(v4, nil, true);
+            if v5 ~= nil then
+                return v1:sub(1, v5 - 1), (v1:sub(v6 + 1));
             end;
         end;
-        return v0, "";
+        return v1, "";
     end;
 end;
-local function _(v7) --[[ Line: 37 ]] --[[ Name: findFileNameFromPath ]]
-    if type(v7) ~= "string" then
+local function _(v8) --[[ Line: 39 ]] --[[ Name: findFileNameFromPath ]]
+    if type(v8) ~= "string" then
         return "";
     else
-        return string.match(v7, "([^.]*)$");
+        return string.match(v8, "([^.]*)$");
     end;
 end;
-return function(v9, v10) --[[ Line: 45 ]] --[[ Name: ProcessErrorStack ]]
-    -- upvalues: v6 (copy)
-    local v11 = {};
+return function(v10, v11) --[[ Line: 47 ]] --[[ Name: ProcessErrorStack ]]
+    -- upvalues: v7 (copy), v0 (copy)
     local v12 = {};
-    if not v10 then
-        v10 = 0;
+    local v13 = {};
+    if not v11 then
+        v11 = 0;
     end;
-    if type(v9) ~= "string" then
-        return v11, v12;
+    if type(v10) ~= "string" then
+        return v12, v13;
     else
-        for v13 in v9:gmatch("[^\r\n]+") do
+        for v14 in v10:gmatch("[^\r\n]+") do
             local _ = nil;
-            local v15 = nil;
             local v16 = nil;
             local v17 = nil;
-            local v18, v19 = v6(v13, {
+            local v18 = nil;
+            local v19, v20 = v7(v14, {
                 ", line ", 
                 ", Line ", 
                 ":"
             });
-            v15 = v18;
-            v18, v19 = v6(v19, {
+            v16 = v19;
+            v19, v20 = v7(v20, {
                 " - "
             });
-            v17 = v18;
-            v16 = v19;
-            if v17 ~= "" and v15 ~= "" then
-                local v20;
-                v18, v19, v20 = string.find(v15, "Script '(.*)'");
-                if v20 ~= nil then
-                    v15 = v20;
+            v18 = v19;
+            v17 = v20;
+            if v0 and v17 == "" and v18 ~= "" then
+                v19, v20 = string.match(v18, "^(%d+)%s*(.*)");
+                if v19 then
+                    v18 = v19;
+                    if v20 ~= "" then
+                        v17 = v20;
+                    end;
                 end;
-                local v21 = v12[v15];
-                if v21 == nil then
-                    v10 = v10 + 1;
-                    v21 = v10;
-                    v12[v15] = v21;
+            end;
+            if v18 ~= "" and v16 ~= "" then
+                local v21;
+                v19, v20, v21 = string.find(v16, "Script '(.*)'");
+                if v21 ~= nil then
+                    v16 = v21;
                 end;
-                if v16 == "" then
-                    local l_v15_0 = v15;
-                    v16 = type(l_v15_0) ~= "string" and "" or string.match(l_v15_0, "([^.]*)$");
+                local v22 = v13[v16];
+                if v22 == nil then
+                    v11 = v11 + 1;
+                    v22 = v11;
+                    v13[v16] = v22;
                 end;
-                table.insert(v11, {
-                    line = v17, 
-                    funcName = v16, 
-                    sourceCode = tostring(v21)
+                if v17 == "" then
+                    local l_v16_0 = v16;
+                    v17 = type(l_v16_0) ~= "string" and "" or string.match(l_v16_0, "([^.]*)$");
+                end;
+                table.insert(v12, {
+                    line = v18, 
+                    funcName = v17, 
+                    sourceCode = tostring(v22)
                 });
             end;
         end;
-        local v23 = {};
-        for v24, v25 in pairs(v12) do
-            v23[tostring(v25)] = {
-                path = v24
+        local v24 = {};
+        for v25, v26 in pairs(v13) do
+            v24[tostring(v26)] = {
+                path = v25
             };
         end;
-        return v11, v23, v10;
+        return v12, v24, v11;
     end;
 end;

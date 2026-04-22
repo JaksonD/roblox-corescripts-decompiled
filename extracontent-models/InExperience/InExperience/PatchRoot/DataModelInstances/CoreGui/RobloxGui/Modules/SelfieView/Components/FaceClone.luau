@@ -8,10 +8,10 @@ local l_game_EngineFeature_0 = game:GetEngineFeature("AnimatorAndADFRefactor");
 local l_game_EngineFeature_1 = game:GetEngineFeature("PlayerViewRemoteEventSupport");
 local v8 = nil;
 local v9 = nil;
-local v10 = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false);
+local v10 = game:DefineFastFlag("SelfViewNewPoseSynchronization", false);
+local v11 = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false);
+local v12 = game:DefineFastFlag("SelfViewFixAnimTrackLeaks", false);
 local l_GetFFlagSelfViewVisibilityFix_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix;
-local l_game_EngineFeature_2 = game:GetEngineFeature("EnableFacsDisableOverride2");
-local v13 = game:DefineFastFlag("SelfViewRespectFacsDisableOverride", false) and l_game_EngineFeature_2;
 local l_RunService_0 = game:GetService("RunService");
 local v15 = 1.31;
 local v16 = 0;
@@ -57,7 +57,7 @@ if not l_Players_0.LocalPlayer then
 end;
 local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
 local v44 = false;
-setCloneDirty = function(v45) --[[ Line: 96 ]] --[[ Name: setCloneDirty ]]
+setCloneDirty = function(v45) --[[ Line: 94 ]] --[[ Name: setCloneDirty ]]
     -- upvalues: v16 (ref)
     if v45 then
         v16 = 0.35;
@@ -67,7 +67,7 @@ setCloneDirty = function(v45) --[[ Line: 96 ]] --[[ Name: setCloneDirty ]]
         return;
     end;
 end;
-createCloneAnchor = function() --[[ Line: 104 ]] --[[ Name: createCloneAnchor ]]
+createCloneAnchor = function() --[[ Line: 102 ]] --[[ Name: createCloneAnchor ]]
     -- upvalues: v29 (ref), v26 (ref)
     if v29 ~= nil then
         v29:Destroy();
@@ -77,14 +77,14 @@ createCloneAnchor = function() --[[ Line: 104 ]] --[[ Name: createCloneAnchor ]]
     l_WorldModel_0.Parent = v26;
     v29 = l_WorldModel_0;
 end;
-local function _(v47) --[[ Line: 116 ]] --[[ Name: clearObserver ]]
+local function _(v47) --[[ Line: 114 ]] --[[ Name: clearObserver ]]
     -- upvalues: v40 (copy)
     if v40[v47] then
         v40[v47]:Disconnect();
         v40[v47] = nil;
     end;
 end;
-clearCloneCharacter = function() --[[ Line: 123 ]] --[[ Name: clearCloneCharacter ]]
+clearCloneCharacter = function() --[[ Line: 121 ]] --[[ Name: clearCloneCharacter ]]
     -- upvalues: v30 (ref), v29 (ref)
     if v30 then
         v30:Destroy();
@@ -103,8 +103,8 @@ clearCloneCharacter = function() --[[ Line: 123 ]] --[[ Name: clearCloneCharacte
         return;
     end;
 end;
-local function v51() --[[ Line: 142 ]] --[[ Name: clearClone ]]
-    -- upvalues: v41 (copy), v40 (copy), v21 (ref), v22 (ref)
+local function v53() --[[ Line: 140 ]] --[[ Name: clearClone ]]
+    -- upvalues: v41 (copy), v40 (copy), v12 (copy), v22 (ref), v9 (ref), v21 (ref)
     stopRenderStepped();
     local l_AnimationPlayed_0 = v41.AnimationPlayed;
     if v40[l_AnimationPlayed_0] then
@@ -116,83 +116,84 @@ local function v51() --[[ Line: 142 ]] --[[ Name: clearClone ]]
         v40[l_AnimationPlayed_0]:Disconnect();
         v40[l_AnimationPlayed_0] = nil;
     end;
+    if v12 then
+        for _, v52 in v22 do
+            if v52 then
+                v52:Stop(0);
+            end;
+        end;
+        if v9 then
+            v9:Stop(0);
+            v9 = nil;
+        end;
+    end;
     v21 = nil;
     v22 = {};
     clearCloneCharacter();
 end;
-local function v55(v52, v53) --[[ Line: 154 ]] --[[ Name: syncTrack ]]
-    -- upvalues: v8 (ref), v9 (ref), l_LocalPlayer_0 (copy), v19 (copy)
-    if not v52 or not v53.Animation then
+local function v57(v54, v55) --[[ Line: 164 ]] --[[ Name: syncTrack ]]
+    -- upvalues: v12 (copy), v9 (ref), v8 (ref), l_LocalPlayer_0 (copy), v19 (copy)
+    if not v54 or not v55.Animation then
         return;
     else
-        local v54 = nil;
-        if not v53.Animation or not v53.Animation:IsA("Animation") then
-            if v53.Animation and v53.Animation:IsA("TrackerStreamAnimation") then
+        local v56 = nil;
+        if not v55.Animation or not v55.Animation:IsA("Animation") then
+            if v55.Animation and v55.Animation:IsA("TrackerStreamAnimation") then
+                if v12 and v9 then
+                    v9:Stop(0);
+                end;
                 v8 = Instance.new("TrackerStreamAnimation");
                 assert(v8 ~= nil);
                 if game:GetEngineFeature("UseNewLoadStreamAnimationAPI") then
-                    v9 = v52:LoadStreamAnimationV2(v8, l_LocalPlayer_0, false, false);
+                    v9 = v54:LoadStreamAnimationV2(v8, l_LocalPlayer_0, false, false);
                 else
-                    v9 = v52:LoadStreamAnimationForSelfieView_deprecated(v8, l_LocalPlayer_0);
+                    v9 = v54:LoadStreamAnimationForSelfieView_deprecated(v8, l_LocalPlayer_0);
                 end;
-                v54 = v9;
+                v56 = v9;
             else
                 warn("No animation to clone in SelfView");
             end;
         end;
-        if v54 then
-            v54:Play();
-            v54.Priority = v53.Priority;
-            v19[v53] = v53.Stopped:Connect(function() --[[ Line: 183 ]]
-                -- upvalues: v54 (ref), v19 (ref), v53 (copy)
-                v54:Stop(0);
-                if v19[v53] then
-                    v19[v53]:Disconnect();
+        if v56 then
+            v56:Play();
+            v56.Priority = v55.Priority;
+            v19[v55] = v55.Stopped:Connect(function() --[[ Line: 196 ]]
+                -- upvalues: v56 (ref), v19 (ref), v55 (copy)
+                v56:Stop(0);
+                if v19[v55] then
+                    v19[v55]:Disconnect();
                 end;
             end);
         end;
         return;
     end;
 end;
-local function v81(v56) --[[ Line: 192 ]] --[[ Name: updateClone ]]
-    -- upvalues: v41 (copy), v40 (copy), v21 (ref), v22 (ref), v1 (copy), v30 (ref), v20 (copy), v29 (ref), v27 (ref), l_CFrameUtility_0 (copy), l_CharacterUtility_0 (copy), v28 (ref), v15 (ref), v32 (ref), v33 (ref), v34 (ref), l_game_EngineFeature_0 (copy), v8 (ref), v55 (copy)
-    stopRenderStepped();
-    local l_AnimationPlayed_1 = v41.AnimationPlayed;
-    if v40[l_AnimationPlayed_1] then
-        v40[l_AnimationPlayed_1]:Disconnect();
-        v40[l_AnimationPlayed_1] = nil;
-    end;
-    l_AnimationPlayed_1 = v41.AnimationPlayedCoreScript;
-    if v40[l_AnimationPlayed_1] then
-        v40[l_AnimationPlayed_1]:Disconnect();
-        v40[l_AnimationPlayed_1] = nil;
-    end;
-    v21 = nil;
-    v22 = {};
-    clearCloneCharacter();
-    if not v56 then
+local function v83(v58) --[[ Line: 205 ]] --[[ Name: updateClone ]]
+    -- upvalues: v53 (copy), v1 (copy), v30 (ref), v20 (copy), v29 (ref), v27 (ref), l_CFrameUtility_0 (copy), l_CharacterUtility_0 (copy), v28 (ref), v15 (ref), v32 (ref), v33 (ref), v34 (ref), v21 (ref), l_game_EngineFeature_0 (copy), v10 (copy), v8 (ref), v57 (copy), v40 (copy), v41 (copy)
+    v53();
+    if not v58 then
         return;
     else
-        assert(v56 ~= nil);
-        startRenderStepped(v56);
-        l_AnimationPlayed_1 = v56.Character;
-        if not v56 or not v56.Character then
+        assert(v58 ~= nil);
+        startRenderStepped(v58);
+        local l_Character_0 = v58.Character;
+        if not v58 or not v58.Character then
             return;
         else
-            l_AnimationPlayed_1 = v56.Character;
-            if not l_AnimationPlayed_1 then
+            l_Character_0 = v58.Character;
+            if not l_Character_0 then
                 return;
             else
-                assert(l_AnimationPlayed_1 ~= nil);
-                local v58 = v1.getAnimator(l_AnimationPlayed_1, 10);
+                assert(l_Character_0 ~= nil);
+                local v60 = v1.getAnimator(l_Character_0, 10);
                 clearCloneCharacter();
-                local l_Archivable_0 = l_AnimationPlayed_1.Archivable;
-                l_AnimationPlayed_1.Archivable = true;
-                local v60 = v1.getHead(l_AnimationPlayed_1);
-                if not v60 then
+                local l_Archivable_0 = l_Character_0.Archivable;
+                l_Character_0.Archivable = true;
+                local v62 = v1.getHead(l_Character_0);
+                if not v62 then
                     return;
                 else
-                    v30 = l_AnimationPlayed_1:Clone();
+                    v30 = l_Character_0:Clone();
                     if v30 == nil then
                         return;
                     else
@@ -203,29 +204,29 @@ local function v81(v56) --[[ Line: 192 ]] --[[ Name: updateClone ]]
                         v30.Name = "SelfAvatar";
                         v1.removeScripts(v30);
                         v1.sanitizeCharacter(v30);
-                        l_AnimationPlayed_1.Archivable = l_Archivable_0;
+                        l_Character_0.Archivable = l_Archivable_0;
                         v30.Parent = v29;
                         local l_HumanoidRootPart_0 = v30:FindFirstChild("HumanoidRootPart");
                         if l_HumanoidRootPart_0 then
                             l_HumanoidRootPart_0.CFrame = CFrame.new((Vector3.new(0, 0, 0, 0)));
                             assert(v27 ~= nil);
-                            if v60 then
-                                local v62 = v1.getHead(v30);
-                                if v62 then
-                                    assert(v62 ~= nil);
-                                    local v63 = l_CFrameUtility_0.CalculateTargetCFrame(v62.CFrame);
-                                    local v64, v65 = l_CharacterUtility_0.CalculateHeadExtents(v30, v63);
-                                    local v66 = Vector3.new(v64.X, v64.Y, v64.Z);
-                                    v28 = Vector3.new(v65.X, v65.Y, v65.Z) - v66;
+                            if v62 then
+                                local v64 = v1.getHead(v30);
+                                if v64 then
+                                    assert(v64 ~= nil);
+                                    local v65 = l_CFrameUtility_0.CalculateTargetCFrame(v64.CFrame);
+                                    local v66, v67 = l_CharacterUtility_0.CalculateHeadExtents(v30, v65);
+                                    local v68 = Vector3.new(v66.X, v66.Y, v66.Z);
+                                    v28 = Vector3.new(v67.X, v67.Y, v67.Z) - v68;
                                     assert(v28 ~= nil);
-                                    v15 = v62.Size.Y;
-                                    local v67 = math.min(v28.X, v28.Y);
-                                    v67 = math.min(v28.X, v28.Z);
+                                    v15 = v64.Size.Y;
+                                    local v69 = math.min(v28.X, v28.Y);
+                                    v69 = math.min(v28.X, v28.Z);
                                     local l_Model_0 = Instance.new("Model");
                                     l_Model_0.Parent = v30;
-                                    v62 = v1.getHead(v30);
-                                    l_AnimationPlayed_1.Archivable = true;
-                                    v32 = v62:Clone();
+                                    v64 = v1.getHead(v30);
+                                    l_Character_0.Archivable = true;
+                                    v32 = v64:Clone();
                                     assert(v32 ~= nil);
                                     v32.CanCollide = false;
                                     v32.Parent = l_Model_0;
@@ -233,41 +234,41 @@ local function v81(v56) --[[ Line: 192 ]] --[[ Name: updateClone ]]
                                     v34 = v32.CFrame;
                                     v32:Destroy();
                                     assert(v34 ~= nil);
-                                    local v69 = v34.Position + v34.LookVector * (v67 * 2);
-                                    v27.CFrame = CFrame.lookAt(v69 + Vector3.new(0, 0.10499999672174454, -0.25, 0), v34.Position);
+                                    local v71 = v34.Position + v34.LookVector * (v69 * 2);
+                                    v27.CFrame = CFrame.lookAt(v71 + Vector3.new(0, 0.10499999672174454, -0.25, 0), v34.Position);
                                     v27.Focus = v34;
-                                    l_AnimationPlayed_1.Archivable = l_Archivable_0;
+                                    l_Character_0.Archivable = l_Archivable_0;
                                     l_Model_0:Destroy();
                                 end;
                             else
-                                local v70 = l_HumanoidRootPart_0.Position + l_HumanoidRootPart_0.CFrame.LookVector * 2.5;
-                                v27.CFrame = CFrame.lookAt(v70 + Vector3.new(0, 1.5, 0, 0), l_HumanoidRootPart_0.Position);
+                                local v72 = l_HumanoidRootPart_0.Position + l_HumanoidRootPart_0.CFrame.LookVector * 2.5;
+                                v27.CFrame = CFrame.lookAt(v72 + Vector3.new(0, 1.5, 0, 0), l_HumanoidRootPart_0.Position);
                                 v27.CFrame = CFrame.new(v27.CFrame.Position) * CFrame.Angles(-6.981317007977319E-4, 3.141592653589793, 0);
                             end;
                         end;
                         if v30 == nil then
                             return;
                         else
-                            local v71 = nil;
-                            v71 = v30:FindFirstChildWhichIsA("Humanoid");
-                            if v71 then
-                                v71.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None;
+                            local v73 = nil;
+                            v73 = v30:FindFirstChildWhichIsA("Humanoid");
+                            if v73 then
+                                v73.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None;
                             end;
                             v21 = v1.getAnimator(v30, 0);
                             if v21 then
-                                if not l_game_EngineFeature_0 then
+                                if not l_game_EngineFeature_0 or not v10 then
                                     local l_v21_PlayingAnimationTracks_0 = v21:GetPlayingAnimationTracks();
                                     local l_v21_PlayingAnimationTracksCoreScript_0 = v21:GetPlayingAnimationTracksCoreScript();
-                                    for _, v75 in ipairs(l_v21_PlayingAnimationTracks_0) do
-                                        if v75 ~= nil then
-                                            v75:Stop(0);
-                                            v75:Destroy();
-                                        end;
-                                    end;
-                                    for _, v77 in ipairs(l_v21_PlayingAnimationTracksCoreScript_0) do
+                                    for _, v77 in ipairs(l_v21_PlayingAnimationTracks_0) do
                                         if v77 ~= nil then
                                             v77:Stop(0);
                                             v77:Destroy();
+                                        end;
+                                    end;
+                                    for _, v79 in ipairs(l_v21_PlayingAnimationTracksCoreScript_0) do
+                                        if v79 ~= nil then
+                                            v79:Stop(0);
+                                            v79:Destroy();
                                         end;
                                     end;
                                     if v8 then
@@ -275,16 +276,16 @@ local function v81(v56) --[[ Line: 192 ]] --[[ Name: updateClone ]]
                                         v8 = nil;
                                     end;
                                 end;
-                                if v58 then
-                                    if l_game_EngineFeature_0 then
-                                        v21:SynchronizeWith(v58);
+                                if v60 then
+                                    if l_game_EngineFeature_0 and v10 then
+                                        v21:SynchronizeWith(v60);
                                     else
-                                        for _, v79 in ipairs(v58:GetPlayingAnimationTracksCoreScript()) do
-                                            v55(v21, v79);
+                                        for _, v81 in ipairs(v60:GetPlayingAnimationTracksCoreScript()) do
+                                            v57(v21, v81);
                                         end;
-                                        v40[v41.AnimationPlayedCoreScript] = v58.AnimationPlayedCoreScript:Connect(function(v80) --[[ Line: 380 ]]
-                                            -- upvalues: v55 (ref), v21 (ref)
-                                            v55(v21, v80);
+                                        v40[v41.AnimationPlayedCoreScript] = v60.AnimationPlayedCoreScript:Connect(function(v82) --[[ Line: 393 ]]
+                                            -- upvalues: v57 (ref), v21 (ref)
+                                            v57(v21, v82);
                                         end);
                                     end;
                                     setCloneDirty(false);
@@ -299,41 +300,41 @@ local function v81(v56) --[[ Line: 192 ]] --[[ Name: updateClone ]]
         end;
     end;
 end;
-local _ = function(v82, v83) --[[ Line: 396 ]] --[[ Name: hasProperty ]]
-    local _ = v82[v83];
+local _ = function(v84, v85) --[[ Line: 409 ]] --[[ Name: hasProperty ]]
+    local _ = v84[v85];
 end;
-updateCachedHeadColor = function(v86) --[[ Line: 403 ]] --[[ Name: updateCachedHeadColor ]]
+updateCachedHeadColor = function(v88) --[[ Line: 416 ]] --[[ Name: updateCachedHeadColor ]]
     -- upvalues: v24 (ref), v25 (ref)
-    if v86 == nil then
+    if v88 == nil then
         return;
     else
-        assert(v86 ~= nil);
-        if pcall(function() --[[ Line: 409 ]]
-            -- upvalues: v86 (copy)
-            local _ = v86.Color;
+        assert(v88 ~= nil);
+        if pcall(function() --[[ Line: 422 ]]
+            -- upvalues: v88 (copy)
+            local _ = v88.Color;
         end) then
-            v24 = v86.Color;
-            if pcall(function() --[[ Line: 415 ]]
-                -- upvalues: v86 (copy)
-                local _ = v86.Size;
+            v24 = v88.Color;
+            if pcall(function() --[[ Line: 428 ]]
+                -- upvalues: v88 (copy)
+                local _ = v88.Size;
             end) then
-                v25 = v86.Size;
+                v25 = v88.Size;
             end;
         end;
         return;
     end;
 end;
-local function _(v89) --[[ Line: 426 ]] --[[ Name: addHumanoidStateChangedObserver ]]
+local function _(v91) --[[ Line: 439 ]] --[[ Name: addHumanoidStateChangedObserver ]]
     -- upvalues: v40 (copy), v41 (copy)
-    if not v89 then
+    if not v91 then
         return;
     else
         if not v40[v41.HumanoidStateChanged] then
-            v40[v41.HumanoidStateChanged] = v89.StateChanged:Connect(function(v90, v91) --[[ Line: 431 ]]
-                if v90 == Enum.HumanoidStateType.PlatformStanding and v91 == Enum.HumanoidStateType.Running then
+            v40[v41.HumanoidStateChanged] = v91.StateChanged:Connect(function(v92, v93) --[[ Line: 444 ]]
+                if v92 == Enum.HumanoidStateType.PlatformStanding and v93 == Enum.HumanoidStateType.Running then
                     setCloneDirty(true);
                 end;
-                if v91 == Enum.HumanoidStateType.GettingUp then
+                if v93 == Enum.HumanoidStateType.GettingUp then
                     setCloneDirty(true);
                 end;
             end);
@@ -341,22 +342,22 @@ local function _(v89) --[[ Line: 426 ]] --[[ Name: addHumanoidStateChangedObserv
         return;
     end;
 end;
-local function _(v93) --[[ Line: 444 ]] --[[ Name: addFaceControlsObserver ]]
+local function _(v95) --[[ Line: 457 ]] --[[ Name: addFaceControlsObserver ]]
     -- upvalues: v40 (copy), v41 (copy)
     if not v40[v41.FaceControlsChanged] then
-        v40[v41.FaceControlsChanged] = v93.InternalFacsOverrideChanged:Connect(function() --[[ Line: 448 ]]
+        v40[v41.FaceControlsChanged] = v95.InternalFacsOverrideChanged:Connect(function() --[[ Line: 459 ]]
             setCloneDirty(true);
         end);
     end;
 end;
-local function v105(v95) --[[ Line: 455 ]] --[[ Name: characterAdded ]]
-    -- upvalues: v26 (ref), v35 (ref), v31 (ref), v1 (copy), v41 (copy), v40 (copy), v13 (copy), v38 (ref)
+local function v107(v97) --[[ Line: 465 ]] --[[ Name: characterAdded ]]
+    -- upvalues: v26 (ref), v35 (ref), v31 (ref), v1 (copy), v41 (copy), v40 (copy), v38 (ref)
     if v26 == nil or v35 == nil then
         return;
-    elseif not v95 then
+    elseif not v97 then
         return;
     else
-        v31 = v1.getHead(v95);
+        v31 = v1.getHead(v97);
         updateCachedHeadColor(v31);
         local l_DescendantAdded_0 = v41.DescendantAdded;
         if v40[l_DescendantAdded_0] then
@@ -379,67 +380,65 @@ local function v105(v95) --[[ Line: 455 ]] --[[ Name: characterAdded ]]
             v40[l_DescendantAdded_0] = nil;
         end;
         l_DescendantAdded_0 = nil;
-        l_DescendantAdded_0 = v95:FindFirstChildWhichIsA("Humanoid");
+        l_DescendantAdded_0 = v97:FindFirstChildWhichIsA("Humanoid");
         if l_DescendantAdded_0 then
             local l_l_DescendantAdded_0_0 = l_DescendantAdded_0;
             if l_l_DescendantAdded_0_0 and not v40[v41.HumanoidStateChanged] then
-                v40[v41.HumanoidStateChanged] = l_l_DescendantAdded_0_0.StateChanged:Connect(function(v98, v99) --[[ Line: 431 ]]
-                    if v98 == Enum.HumanoidStateType.PlatformStanding and v99 == Enum.HumanoidStateType.Running then
+                v40[v41.HumanoidStateChanged] = l_l_DescendantAdded_0_0.StateChanged:Connect(function(v100, v101) --[[ Line: 444 ]]
+                    if v100 == Enum.HumanoidStateType.PlatformStanding and v101 == Enum.HumanoidStateType.Running then
                         setCloneDirty(true);
                     end;
-                    if v99 == Enum.HumanoidStateType.GettingUp then
+                    if v101 == Enum.HumanoidStateType.GettingUp then
                         setCloneDirty(true);
                     end;
                 end);
             end;
         end;
-        if v13 then
-            local l_v95_FirstChildWhichIsA_0 = v95:FindFirstChildWhichIsA("FaceControls", true);
-            if l_v95_FirstChildWhichIsA_0 and not v40[v41.FaceControlsChanged] then
-                v40[v41.FaceControlsChanged] = l_v95_FirstChildWhichIsA_0.InternalFacsOverrideChanged:Connect(function() --[[ Line: 448 ]]
-                    setCloneDirty(true);
-                end);
-            end;
+        local l_v97_FirstChildWhichIsA_0 = v97:FindFirstChildWhichIsA("FaceControls", true);
+        if l_v97_FirstChildWhichIsA_0 and not v40[v41.FaceControlsChanged] then
+            v40[v41.FaceControlsChanged] = l_v97_FirstChildWhichIsA_0.InternalFacsOverrideChanged:Connect(function() --[[ Line: 459 ]]
+                setCloneDirty(true);
+            end);
         end;
-        v40[v41.DescendantAdded] = v95.DescendantAdded:Connect(function(v101) --[[ Line: 487 ]]
-            -- upvalues: v26 (ref), v35 (ref), v31 (ref), v1 (ref), v95 (copy), v40 (ref), v41 (ref), v13 (ref)
+        v40[v41.DescendantAdded] = v97.DescendantAdded:Connect(function(v103) --[[ Line: 495 ]]
+            -- upvalues: v26 (ref), v35 (ref), v31 (ref), v1 (ref), v97 (copy), v40 (ref), v41 (ref)
             if v26 == nil or v35 == nil then
                 return;
             else
-                if v101.Name == "Head" then
-                    v31 = v1.getHead(v95);
+                if v103.Name == "Head" then
+                    v31 = v1.getHead(v97);
                     updateCachedHeadColor(v31);
                 end;
-                if v101:IsA("Humanoid") and v101 and not v40[v41.HumanoidStateChanged] then
-                    v40[v41.HumanoidStateChanged] = v101.StateChanged:Connect(function(v102, v103) --[[ Line: 431 ]]
-                        if v102 == Enum.HumanoidStateType.PlatformStanding and v103 == Enum.HumanoidStateType.Running then
+                if v103:IsA("Humanoid") and v103 and not v40[v41.HumanoidStateChanged] then
+                    v40[v41.HumanoidStateChanged] = v103.StateChanged:Connect(function(v104, v105) --[[ Line: 444 ]]
+                        if v104 == Enum.HumanoidStateType.PlatformStanding and v105 == Enum.HumanoidStateType.Running then
                             setCloneDirty(true);
                         end;
-                        if v103 == Enum.HumanoidStateType.GettingUp then
+                        if v105 == Enum.HumanoidStateType.GettingUp then
                             setCloneDirty(true);
                         end;
                     end);
                 end;
-                if v13 and v101:IsA("FaceControls") and not v40[v41.FaceControlsChanged] then
-                    v40[v41.FaceControlsChanged] = v101.InternalFacsOverrideChanged:Connect(function() --[[ Line: 448 ]]
+                if v103:IsA("FaceControls") and not v40[v41.FaceControlsChanged] then
+                    v40[v41.FaceControlsChanged] = v103.InternalFacsOverrideChanged:Connect(function() --[[ Line: 459 ]]
                         setCloneDirty(true);
                     end);
                 end;
-                if v1.shouldMarkCloneDirtyForDescendant(v101) then
+                if v1.shouldMarkCloneDirtyForDescendant(v103) then
                     setCloneDirty(true);
                 end;
                 return;
             end;
         end);
-        v40[v41.DescendantRemoving] = v95.DescendantRemoving:Connect(function(v104) --[[ Line: 512 ]]
+        v40[v41.DescendantRemoving] = v97.DescendantRemoving:Connect(function(v106) --[[ Line: 518 ]]
             -- upvalues: v26 (ref), v35 (ref), v1 (ref)
             if v26 == nil or v35 == nil then
                 return;
             else
-                if v104 and (v104:IsA("MeshPart") or v104:IsA("Accessory")) then
-                    if v104:IsA("MeshPart") and v104.MeshId == "" then
+                if v106 and (v106:IsA("MeshPart") or v106:IsA("Accessory")) then
+                    if v106:IsA("MeshPart") and v106.MeshId == "" then
                         return;
-                    elseif v1.shouldMarkCloneDirtyForDescendant(v104) then
+                    elseif v1.shouldMarkCloneDirtyForDescendant(v106) then
                         setCloneDirty(true);
                     end;
                 end;
@@ -451,7 +450,7 @@ local function v105(v95) --[[ Line: 455 ]] --[[ Name: characterAdded ]]
         return;
     end;
 end;
-local function v107() --[[ Line: 534 ]] --[[ Name: createViewport ]]
+local function v109() --[[ Line: 540 ]] --[[ Name: createViewport ]]
     -- upvalues: v26 (ref), v35 (ref), v27 (ref)
     if v26 then
         v26:Destroy();
@@ -477,14 +476,14 @@ local function v107() --[[ Line: 534 ]] --[[ Name: createViewport ]]
     v26.CurrentCamera = v27;
     v27.Parent = v26;
 end;
-ReInit = function(v108) --[[ Line: 568 ]] --[[ Name: ReInit ]]
-    -- upvalues: l_GetFFlagSelfViewVisibilityFix_0 (copy), v37 (ref), v44 (ref), v31 (ref), v1 (copy), v41 (copy), v40 (copy), v21 (ref), v22 (ref), v107 (copy)
-    assert(v108.Character ~= nil);
+ReInit = function(v110) --[[ Line: 574 ]] --[[ Name: ReInit ]]
+    -- upvalues: l_GetFFlagSelfViewVisibilityFix_0 (copy), v37 (ref), v44 (ref), v31 (ref), v1 (copy), v41 (copy), v40 (copy), v53 (copy), v109 (copy)
+    assert(v110.Character ~= nil);
     if l_GetFFlagSelfViewVisibilityFix_0() and v37 and not v37.Visible then
         v44 = false;
         return;
     else
-        v31 = v1.getHead(v108.Character);
+        v31 = v1.getHead(v110.Character);
         updateCachedHeadColor(v31);
         setCloneDirty(false);
         local l_CharacterAdded_0 = v41.CharacterAdded;
@@ -497,33 +496,20 @@ ReInit = function(v108) --[[ Line: 568 ]] --[[ Name: ReInit ]]
             v40[l_CharacterAdded_0]:Disconnect();
             v40[l_CharacterAdded_0] = nil;
         end;
-        stopRenderStepped();
-        l_CharacterAdded_0 = v41.AnimationPlayed;
-        if v40[l_CharacterAdded_0] then
-            v40[l_CharacterAdded_0]:Disconnect();
-            v40[l_CharacterAdded_0] = nil;
-        end;
-        l_CharacterAdded_0 = v41.AnimationPlayedCoreScript;
-        if v40[l_CharacterAdded_0] then
-            v40[l_CharacterAdded_0]:Disconnect();
-            v40[l_CharacterAdded_0] = nil;
-        end;
-        v21 = nil;
-        v22 = {};
-        clearCloneCharacter();
-        v107();
-        playerAdded(v108);
-        startRenderStepped(v108);
+        v53();
+        v109();
+        playerAdded(v110);
+        startRenderStepped(v110);
         return;
     end;
 end;
-local function v115(v110) --[[ Line: 590 ]] --[[ Name: onCharacterAdded ]]
-    -- upvalues: v18 (ref), v38 (ref), v105 (copy), l_LocalPlayer_0 (copy), v41 (copy), v40 (copy)
+local function v117(v112) --[[ Line: 596 ]] --[[ Name: onCharacterAdded ]]
+    -- upvalues: v18 (ref), v38 (ref), v107 (copy), l_LocalPlayer_0 (copy), v41 (copy), v40 (copy)
     if v18 then
         v18:Disconnect();
     end;
     if not v38 then
-        v105(v110);
+        v107(v112);
     else
         ReInit(l_LocalPlayer_0);
     end;
@@ -533,36 +519,36 @@ local function v115(v110) --[[ Line: 590 ]] --[[ Name: onCharacterAdded ]]
         v40[l_HumanoidStateChanged_0] = nil;
     end;
     l_HumanoidStateChanged_0 = nil;
-    l_HumanoidStateChanged_0 = v110:FindFirstChildWhichIsA("Humanoid");
+    l_HumanoidStateChanged_0 = v112:FindFirstChildWhichIsA("Humanoid");
     if l_HumanoidStateChanged_0 then
         local l_l_HumanoidStateChanged_0_0 = l_HumanoidStateChanged_0;
         if not l_l_HumanoidStateChanged_0_0 then
             return;
         elseif not v40[v41.HumanoidStateChanged] then
-            v40[v41.HumanoidStateChanged] = l_l_HumanoidStateChanged_0_0.StateChanged:Connect(function(v113, v114) --[[ Line: 431 ]]
-                if v113 == Enum.HumanoidStateType.PlatformStanding and v114 == Enum.HumanoidStateType.Running then
+            v40[v41.HumanoidStateChanged] = l_l_HumanoidStateChanged_0_0.StateChanged:Connect(function(v115, v116) --[[ Line: 444 ]]
+                if v115 == Enum.HumanoidStateType.PlatformStanding and v116 == Enum.HumanoidStateType.Running then
                     setCloneDirty(true);
                 end;
-                if v114 == Enum.HumanoidStateType.GettingUp then
+                if v116 == Enum.HumanoidStateType.GettingUp then
                     setCloneDirty(true);
                 end;
             end);
         end;
     end;
 end;
-local function _(v116) --[[ Line: 608 ]] --[[ Name: FindInParents ]]
+local function _(v118) --[[ Line: 614 ]] --[[ Name: FindInParents ]]
     -- upvalues: v35 (ref)
-    if not v116 then
+    if not v118 then
         return nil;
     elseif not v35 then
         return nil;
     else
         assert(v35 ~= nil, "Wrapper Frame cannot be nil");
-        assert(v116 ~= nil, "Frame name cannot be nil ");
-        return v35:FindFirstAncestor(v116);
+        assert(v118 ~= nil, "Frame name cannot be nil ");
+        return v35:FindFirstAncestor(v118);
     end;
 end;
-clearViewportFrame = function() --[[ Line: 623 ]] --[[ Name: clearViewportFrame ]]
+clearViewportFrame = function() --[[ Line: 629 ]] --[[ Name: clearViewportFrame ]]
     -- upvalues: v26 (ref), v35 (ref)
     if v26 then
         v26:Destroy();
@@ -570,7 +556,7 @@ clearViewportFrame = function() --[[ Line: 623 ]] --[[ Name: clearViewportFrame 
     v35 = nil;
     stopRenderStepped();
 end;
-local function v118() --[[ Line: 631 ]] --[[ Name: onOuterContainerVisibilityChanged ]]
+local function v120() --[[ Line: 637 ]] --[[ Name: onOuterContainerVisibilityChanged ]]
     -- upvalues: v37 (ref), v38 (ref), v44 (ref)
     if v37 then
         if v37.Visible then
@@ -585,9 +571,9 @@ local function v118() --[[ Line: 631 ]] --[[ Name: onOuterContainerVisibilityCha
         end;
     end;
 end;
-playerAdded = function(v119) --[[ Line: 650 ]] --[[ Name: playerAdded ]]
-    -- upvalues: l_LocalPlayer_0 (copy), v18 (ref), v41 (copy), v40 (copy), v115 (copy), v105 (copy), v21 (ref), v22 (ref)
-    if v119 ~= nil and v119 == l_LocalPlayer_0 then
+playerAdded = function(v121) --[[ Line: 656 ]] --[[ Name: playerAdded ]]
+    -- upvalues: l_LocalPlayer_0 (copy), v18 (ref), v41 (copy), v40 (copy), v117 (copy), v107 (copy), v53 (copy)
+    if v121 ~= nil and v121 == l_LocalPlayer_0 then
         if v18 ~= nil then
             v18:Disconnect();
             v18 = nil;
@@ -597,15 +583,15 @@ playerAdded = function(v119) --[[ Line: 650 ]] --[[ Name: playerAdded ]]
                 v40[l_CharacterAdded_1] = nil;
             end;
         end;
-        local l_Character_0 = v119.Character;
-        l_Character_0 = v119.Character;
-        v18 = v119.CharacterAdded:Connect(v115);
-        if l_Character_0 then
-            v105(l_Character_0);
+        local l_Character_1 = v121.Character;
+        l_Character_1 = v121.Character;
+        v18 = v121.CharacterAdded:Connect(v117);
+        if l_Character_1 then
+            v107(l_Character_1);
         end;
-        v40[v41.CharacterAdded] = v119.CharacterAdded:Connect(v105);
-        v40[v41.CharacterRemoving] = v119.CharacterRemoving:Connect(function() --[[ Line: 669 ]]
-            -- upvalues: v41 (ref), v40 (ref), v21 (ref), v22 (ref)
+        v40[v41.CharacterAdded] = v121.CharacterAdded:Connect(v107);
+        v40[v41.CharacterRemoving] = v121.CharacterRemoving:Connect(function() --[[ Line: 675 ]]
+            -- upvalues: v41 (ref), v40 (ref), v53 (ref)
             local l_DescendantAdded_1 = v41.DescendantAdded;
             if v40[l_DescendantAdded_1] then
                 v40[l_DescendantAdded_1]:Disconnect();
@@ -626,20 +612,7 @@ playerAdded = function(v119) --[[ Line: 650 ]] --[[ Name: playerAdded ]]
                 v40[l_DescendantAdded_1]:Disconnect();
                 v40[l_DescendantAdded_1] = nil;
             end;
-            stopRenderStepped();
-            l_DescendantAdded_1 = v41.AnimationPlayed;
-            if v40[l_DescendantAdded_1] then
-                v40[l_DescendantAdded_1]:Disconnect();
-                v40[l_DescendantAdded_1] = nil;
-            end;
-            l_DescendantAdded_1 = v41.AnimationPlayedCoreScript;
-            if v40[l_DescendantAdded_1] then
-                v40[l_DescendantAdded_1]:Disconnect();
-                v40[l_DescendantAdded_1] = nil;
-            end;
-            v21 = nil;
-            v22 = {};
-            clearCloneCharacter();
+            v53();
             l_DescendantAdded_1 = v41.CharacterRemoving;
             if v40[l_DescendantAdded_1] then
                 v40[l_DescendantAdded_1]:Disconnect();
@@ -648,130 +621,132 @@ playerAdded = function(v119) --[[ Line: 650 ]] --[[ Name: playerAdded ]]
         end);
     end;
 end;
-stopRenderStepped = function() --[[ Line: 680 ]] --[[ Name: stopRenderStepped ]]
+stopRenderStepped = function() --[[ Line: 686 ]] --[[ Name: stopRenderStepped ]]
     -- upvalues: v17 (ref)
     if v17 then
         v17:Disconnect();
         v17 = nil;
     end;
 end;
-updateClonePartsColor = function(v123) --[[ Line: 687 ]] --[[ Name: updateClonePartsColor ]]
+updateClonePartsColor = function(v125) --[[ Line: 693 ]] --[[ Name: updateClonePartsColor ]]
     -- upvalues: v31 (ref), v24 (ref), l_LocalPlayer_0 (copy), v30 (ref)
-    if pcall(function() --[[ Line: 688 ]]
+    if pcall(function() --[[ Line: 694 ]]
         -- upvalues: v31 (ref)
         local _ = v31.Color;
     end) and v31 and v31.Color ~= v24 then
-        local l_Character_1 = l_LocalPlayer_0.Character;
-        if not l_Character_1 then
+        local l_Character_2 = l_LocalPlayer_0.Character;
+        if not l_Character_2 then
             return;
         else
-            assert(l_Character_1 ~= nil);
+            assert(l_Character_2 ~= nil);
             if not v30 then
                 return;
             else
                 assert(v30 ~= nil);
-                for _, v127 in pairs(l_Character_1:GetChildren()) do
-                    if v127:IsA("MeshPart") then
-                        local l_v30_FirstChild_0 = v30:FindFirstChild(v127.Name);
-                        if l_v30_FirstChild_0 and l_v30_FirstChild_0:IsA("MeshPart") and l_v30_FirstChild_0.Color and v127.Color then
-                            l_v30_FirstChild_0.Color = v127.Color;
+                for _, v129 in pairs(l_Character_2:GetChildren()) do
+                    if v129:IsA("MeshPart") then
+                        local l_v30_FirstChild_0 = v30:FindFirstChild(v129.Name);
+                        if l_v30_FirstChild_0 and l_v30_FirstChild_0:IsA("MeshPart") and l_v30_FirstChild_0.Color and v129.Color then
+                            l_v30_FirstChild_0.Color = v129.Color;
                         end;
                     end;
                 end;
             end;
         end;
     end;
-    v24 = v123;
+    v24 = v125;
 end;
-startRenderStepped = function(v129) --[[ Line: 720 ]] --[[ Name: startRenderStepped ]]
-    -- upvalues: v10 (copy), l_RunService_0 (copy), v17 (ref), l_GetFFlagSelfViewVisibilityFix_0 (copy), v30 (ref), v37 (ref), v44 (ref), v21 (ref), l_LocalPlayer_0 (copy), v31 (ref), v1 (copy), v23 (ref), v22 (ref), l_UserInputService_0 (copy), v39 (ref), v32 (ref), v33 (ref), v34 (ref), v27 (ref), v28 (ref), l_game_Service_0 (copy), l_game_EngineFeature_1 (copy), v15 (ref), v25 (ref), v24 (ref), v16 (ref), v81 (copy)
+startRenderStepped = function(v131) --[[ Line: 726 ]] --[[ Name: startRenderStepped ]]
+    -- upvalues: v11 (copy), l_RunService_0 (copy), v17 (ref), l_GetFFlagSelfViewVisibilityFix_0 (copy), v30 (ref), v37 (ref), v44 (ref), v21 (ref), l_LocalPlayer_0 (copy), v31 (ref), v1 (copy), v23 (ref), v22 (ref), l_UserInputService_0 (copy), v39 (ref), v32 (ref), v33 (ref), v34 (ref), v27 (ref), v28 (ref), l_game_Service_0 (copy), l_game_EngineFeature_1 (copy), v15 (ref), v25 (ref), v24 (ref), v16 (ref), v83 (copy)
     stopRenderStepped();
-    v17 = (if v10 then l_RunService_0.Heartbeat else l_RunService_0.RenderStepped):Connect(function(v130) --[[ Line: 727 ]]
-        -- upvalues: v10 (ref), l_GetFFlagSelfViewVisibilityFix_0 (ref), v30 (ref), v37 (ref), v44 (ref), v21 (ref), l_LocalPlayer_0 (ref), v31 (ref), v1 (ref), v23 (ref), v22 (ref), l_UserInputService_0 (ref), v39 (ref), v32 (ref), v33 (ref), v34 (ref), v27 (ref), v28 (ref), l_game_Service_0 (ref), l_game_EngineFeature_1 (ref), v15 (ref), v25 (ref), v24 (ref), v16 (ref), v81 (ref), v129 (copy)
-        if v10 then
+    v17 = (if v11 then l_RunService_0.Heartbeat else l_RunService_0.RenderStepped):Connect(function(v132) --[[ Line: 733 ]]
+        -- upvalues: v11 (ref), l_GetFFlagSelfViewVisibilityFix_0 (ref), v30 (ref), v37 (ref), v44 (ref), v21 (ref), l_LocalPlayer_0 (ref), v31 (ref), v1 (ref), v23 (ref), v22 (ref), l_UserInputService_0 (ref), v39 (ref), v32 (ref), v33 (ref), v34 (ref), v27 (ref), v28 (ref), l_game_Service_0 (ref), l_game_EngineFeature_1 (ref), v15 (ref), v25 (ref), v24 (ref), v16 (ref), v83 (ref), v131 (copy)
+        if v11 then
             debug.profilebegin("faceclone");
         end;
         if l_GetFFlagSelfViewVisibilityFix_0() and v30 and v37 and not v44 then
             if v21 ~= nil then
                 local l_v21_PlayingAnimationTracks_1 = v21:GetPlayingAnimationTracks();
-                for _, v133 in pairs(l_v21_PlayingAnimationTracks_1) do
-                    if v133 ~= nil then
-                        v133:Stop(0);
+                for _, v135 in pairs(l_v21_PlayingAnimationTracks_1) do
+                    if v135 ~= nil then
+                        v135:Stop(0);
                     end;
                 end;
             end;
             return;
         else
             if l_LocalPlayer_0 then
-                local l_Character_2 = l_LocalPlayer_0.Character;
-                if not l_Character_2 or l_Character_2.Parent == nil then
+                local l_Character_3 = l_LocalPlayer_0.Character;
+                if not l_Character_3 or l_Character_3.Parent == nil then
                     return;
                 else
-                    assert(l_Character_2 ~= nil);
-                    if v31 == nil or v31.Parent ~= l_Character_2 then
-                        v31 = v1.getHead(l_Character_2);
+                    assert(l_Character_3 ~= nil);
+                    if v31 == nil or v31.Parent ~= l_Character_3 then
+                        v31 = v1.getHead(l_Character_3);
                     end;
                     if v31 then
-                        local v135 = v1.getAnimator(l_Character_2, 0);
-                        if v21 ~= nil and v135 ~= nil then
+                        local v137 = v1.getAnimator(l_Character_3, 0);
+                        if v21 ~= nil and v137 ~= nil then
                             assert(v21 ~= nil);
                             local l_v21_PlayingAnimationTracks_2 = v21:GetPlayingAnimationTracks();
-                            for _, v138 in pairs(l_v21_PlayingAnimationTracks_2) do
-                                if v138 ~= nil then
-                                    v138:Stop(0);
+                            for _, v140 in pairs(l_v21_PlayingAnimationTracks_2) do
+                                if v140 ~= nil then
+                                    v140:Stop(0);
                                 end;
                             end;
-                            local l_v135_PlayingAnimationTracks_0 = v135:GetPlayingAnimationTracks();
-                            local v140 = nil;
+                            local l_v137_PlayingAnimationTracks_0 = v137:GetPlayingAnimationTracks();
+                            local v142 = nil;
                             v23 = {};
-                            for _, v142 in ipairs(l_v135_PlayingAnimationTracks_0) do
-                                v140 = v142.Animation;
-                                if v140 and v140:IsA("Animation") and v140.AnimationId ~= "" then
-                                    v23[v140.AnimationId] = v142;
-                                    if not v22[v140.AnimationId] then
-                                        v22[v140.AnimationId] = v21:LoadAnimation(v140);
+                            for _, v144 in ipairs(l_v137_PlayingAnimationTracks_0) do
+                                v142 = v144.Animation;
+                                if v142 and v142:IsA("Animation") and v142.AnimationId ~= "" then
+                                    v23[v142.AnimationId] = v144;
+                                    if not v22[v142.AnimationId] then
+                                        v22[v142.AnimationId] = v21:LoadAnimation(v142);
                                     end;
-                                    local v143 = v22[v140.AnimationId];
-                                    v143:Play();
-                                    v143.TimePosition = v142.TimePosition;
-                                    v143.Priority = v142.Priority;
-                                    v143:AdjustWeight(v142.WeightCurrent, 0.1);
+                                    local v145 = v22[v142.AnimationId];
+                                    assert(v145 ~= nil);
+                                    v145:Play();
+                                    v145.TimePosition = v144.TimePosition;
+                                    v145.Priority = v144.Priority;
+                                    v145:AdjustWeight(v144.WeightCurrent, 0.1);
                                 end;
                             end;
-                            for v144 in v22 do
-                                local v145 = v22[v144];
-                                if v145 then
-                                    v140 = v145.Animation;
-                                    if v140 and not v23[v140.AnimationId] then
-                                        if v22[v140.AnimationId] ~= nil then
-                                            v22[v140.AnimationId]:Stop(0);
+                            for v146 in v22 do
+                                local v147 = v22[v146];
+                                if v147 then
+                                    v142 = v147.Animation;
+                                    if v142 and not v23[v142.AnimationId] then
+                                        local v148 = v22[v142.AnimationId];
+                                        if v148 ~= nil then
+                                            v148:Stop(0);
                                         end;
-                                        v22[v140.AnimationId] = nil;
+                                        v22[v142.AnimationId] = nil;
                                     end;
                                 end;
                             end;
-                            for _, v147 in ipairs(v135:GetPlayingAnimationTracksCoreScript()) do
+                            for _, v150 in ipairs(v137:GetPlayingAnimationTracksCoreScript()) do
                                 l_v21_PlayingAnimationTracks_2 = v21:GetPlayingAnimationTracksCoreScript();
-                                for _, v149 in pairs(l_v21_PlayingAnimationTracks_2) do
-                                    if v149.Animation:IsA("TrackerStreamAnimation") then
-                                        v149.Priority = v147.Priority;
-                                        v149:AdjustWeight(v147.WeightCurrent, 0);
+                                for _, v152 in pairs(l_v21_PlayingAnimationTracks_2) do
+                                    if v152.Animation:IsA("TrackerStreamAnimation") then
+                                        v152.Priority = v150.Priority;
+                                        v152:AdjustWeight(v150.WeightCurrent, 0);
                                     end;
                                 end;
                             end;
                         end;
                     end;
-                    local v150 = nil;
+                    local v153 = nil;
                     local l_l_UserInputService_0_Platform_0 = l_UserInputService_0:GetPlatform();
                     if (l_l_UserInputService_0_Platform_0 == Enum.Platform.IOS or l_l_UserInputService_0_Platform_0 == Enum.Platform.Android) and v21 ~= nil then
                         local l_v21_PlayingAnimationTracksCoreScript_1 = v21:GetPlayingAnimationTracksCoreScript();
-                        for _, v154 in pairs(l_v21_PlayingAnimationTracksCoreScript_1) do
-                            if v154.Animation:IsA("TrackerStreamAnimation") then
-                                local v155 = nil;
-                                local l_v154_TrackerData_0, v157, v158 = v154:GetTrackerData();
-                                v155 = l_v154_TrackerData_0;
-                                v150 = v157;
-                                v155 = v158;
+                        for _, v157 in pairs(l_v21_PlayingAnimationTracksCoreScript_1) do
+                            if v157.Animation:IsA("TrackerStreamAnimation") then
+                                local v158 = nil;
+                                local l_v157_TrackerData_0, v160, v161 = v157:GetTrackerData();
+                                v158 = l_v157_TrackerData_0;
+                                v153 = v160;
+                                v158 = v161;
                             end;
                         end;
                     end;
@@ -809,35 +784,35 @@ startRenderStepped = function(v129) --[[ Line: 720 ]] --[[ Name: startRenderStep
                                 warn("boundsSize is nil, this shouldn't be possible");
                             end;
                             assert(v28 ~= nil);
-                            if l_game_Service_0 and l_game_Service_0.VideoAnimationEnabled and (v150 ~= nil or l_game_EngineFeature_1) then
+                            if l_game_Service_0 and l_game_Service_0.VideoAnimationEnabled and (v153 ~= nil or l_game_EngineFeature_1) then
                                 if l_game_EngineFeature_1 then
                                     local l_DeviceCameraCFrameForSelfView_0 = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView();
                                     local l_Position_2 = l_DeviceCameraCFrameForSelfView_0.Position;
-                                    local v169, v170, v171 = l_DeviceCameraCFrameForSelfView_0:ToEulerAnglesYXZ();
-                                    local v172 = CFrame.fromEulerAnglesYXZ(v169, v170, v171);
-                                    local v173 = 0;
+                                    local v172, v173, v174 = l_DeviceCameraCFrameForSelfView_0:ToEulerAnglesYXZ();
+                                    local v175 = CFrame.fromEulerAnglesYXZ(v172, v173, v174);
+                                    local v176 = 0;
                                     if l_Position_2.Z > 0 then
-                                        v173 = math.clamp(0.5 - l_Position_2.Z * 3, -0.5, 0.5);
+                                        v176 = math.clamp(0.5 - l_Position_2.Z * 3, -0.5, 0.5);
                                     end;
-                                    local v174 = -(v28.Z + 1);
-                                    local v175 = Vector3.new(0, 0.105, math.floor((v174 + v173 * v174) * 100) / 100);
-                                    v27.CFrame = v27.CFrame:Lerp(CFrame.lookAt(v172 * (l_Position_0 + v175), l_Position_1), 0.5);
-                                elseif v150 then
-                                    local v176 = Vector3.new(0, 0.105, -(v28.Z + 1));
-                                    local v177, v178, v179 = v150:ToEulerAnglesXYZ();
-                                    local v180 = CFrame.Angles(-v177 * 0.5, -v178 * 0.5, -v179 * 0.5);
-                                    v27.CFrame = CFrame.lookAt(v180 * (l_Position_0 + v176), l_Position_1);
+                                    local v177 = -(v28.Z + 1);
+                                    local v178 = Vector3.new(0, 0.105, math.floor((v177 + v176 * v177) * 100) / 100);
+                                    v27.CFrame = v27.CFrame:Lerp(CFrame.lookAt(v175 * (l_Position_0 + v178), l_Position_1), 0.5);
+                                elseif v153 then
+                                    local v179 = Vector3.new(0, 0.105, -(v28.Z + 1));
+                                    local v180, v181, v182 = v153:ToEulerAnglesXYZ();
+                                    local v183 = CFrame.Angles(-v180 * 0.5, -v181 * 0.5, -v182 * 0.5);
+                                    v27.CFrame = CFrame.lookAt(v183 * (l_Position_0 + v179), l_Position_1);
                                 end;
                             else
-                                local v181 = Vector3.new(0, v15 * 0.25 - 1.25, -(v28.Z + 1) + 0.125);
-                                if l_Character_2 then
-                                    local l_Head_0 = l_Character_2:FindFirstChild("Head");
+                                local v184 = Vector3.new(0, v15 * 0.25 - 1.25, -(v28.Z + 1) + 0.125);
+                                if l_Character_3 then
+                                    local l_Head_0 = l_Character_3:FindFirstChild("Head");
                                     if l_Head_0 then
-                                        local l_HumanoidRootPart_1 = l_Character_2:FindFirstChild("HumanoidRootPart");
+                                        local l_HumanoidRootPart_1 = l_Character_3:FindFirstChild("HumanoidRootPart");
                                         if l_HumanoidRootPart_1 then
-                                            local v184 = l_HumanoidRootPart_1.CFrame:Inverse() * l_Head_0.CFrame;
-                                            local v185 = Vector3.new(v184.Position.X * 0.15 + 0.125, v184.Position.Y, v184.Position.Z * 0.05);
-                                            v27.CFrame = CFrame.lookAt(l_Position_0 + v181 + v185, l_Position_1);
+                                            local v187 = l_HumanoidRootPart_1.CFrame:Inverse() * l_Head_0.CFrame;
+                                            local v188 = Vector3.new(v187.Position.X * 0.15 + 0.125, v187.Position.Y, v187.Position.Z * 0.05);
+                                            v27.CFrame = CFrame.lookAt(l_Position_0 + v184 + v188, l_Position_1);
                                             v27.Focus = v32.CFrame;
                                         end;
                                     end;
@@ -850,7 +825,7 @@ startRenderStepped = function(v129) --[[ Line: 720 ]] --[[ Name: startRenderStep
                             v25 = v31.Size;
                             setCloneDirty(true);
                         end;
-                        if pcall(function() --[[ Line: 980 ]]
+                        if pcall(function() --[[ Line: 987 ]]
                             -- upvalues: v31 (ref)
                             local _ = v31.Color;
                         end) and v31.Color ~= v24 then
@@ -860,47 +835,47 @@ startRenderStepped = function(v129) --[[ Line: 720 ]] --[[ Name: startRenderStep
                 end;
             end;
             if v16 > 0 then
-                v16 = v16 - v130;
+                v16 = v16 - v132;
                 if v16 <= 0 then
-                    v81(v129);
+                    v83(v131);
                     v16 = 0;
                 end;
             end;
-            if v10 then
+            if v11 then
                 debug.profileend();
             end;
             return;
         end;
     end);
 end;
-return function(v187, v188, v189) --[[ Line: 1004 ]] --[[ Name: Initialize ]]
-    -- upvalues: v35 (ref), l_GetFFlagSelfViewVisibilityFix_0 (copy), v36 (ref), v37 (ref), v118 (copy), v107 (copy), l_Players_0 (copy), l_LocalPlayer_0 (copy), v41 (copy), v40 (copy), v13 (copy), v21 (ref), v22 (ref), v51 (copy)
-    if v188 then
-        v35 = v188;
-        if l_GetFFlagSelfViewVisibilityFix_0() and v189 then
-            v36 = v189;
+return function(v190, v191, v192) --[[ Line: 1011 ]] --[[ Name: Initialize ]]
+    -- upvalues: v35 (ref), l_GetFFlagSelfViewVisibilityFix_0 (copy), v36 (ref), v37 (ref), v120 (copy), v109 (copy), l_Players_0 (copy), l_LocalPlayer_0 (copy), v41 (copy), v40 (copy), v53 (copy)
+    if v191 then
+        v35 = v191;
+        if l_GetFFlagSelfViewVisibilityFix_0() and v192 then
+            v36 = v192;
             local l_v36_0 = v36;
-            local v191;
+            local v194;
             if not l_v36_0 then
-                v191 = nil;
+                v194 = nil;
             elseif not v35 then
-                v191 = nil;
+                v194 = nil;
             else
                 assert(v35 ~= nil, "Wrapper Frame cannot be nil");
                 assert(l_v36_0 ~= nil, "Frame name cannot be nil ");
-                v191 = v35:FindFirstAncestor(l_v36_0);
+                v194 = v35:FindFirstAncestor(l_v36_0);
             end;
-            v37 = v191;
+            v37 = v194;
             if v37 then
-                v37:GetPropertyChangedSignal("Visible"):Connect(v118);
+                v37:GetPropertyChangedSignal("Visible"):Connect(v120);
             end;
         end;
-        v107();
-        playerAdded(v187);
+        v109();
+        playerAdded(v190);
         l_Players_0.PlayerAdded:Connect(playerAdded);
-        l_Players_0.PlayerRemoving:Connect(function(v192) --[[ Line: 1032 ]]
-            -- upvalues: l_LocalPlayer_0 (ref), v41 (ref), v40 (ref), v13 (ref), v21 (ref), v22 (ref)
-            if v192 == l_LocalPlayer_0 then
+        l_Players_0.PlayerRemoving:Connect(function(v195) --[[ Line: 1039 ]]
+            -- upvalues: l_LocalPlayer_0 (ref), v41 (ref), v40 (ref), v53 (ref)
+            if v195 == l_LocalPlayer_0 then
                 local l_HumanoidStateChanged_1 = v41.HumanoidStateChanged;
                 if v40[l_HumanoidStateChanged_1] then
                     v40[l_HumanoidStateChanged_1]:Disconnect();
@@ -916,31 +891,16 @@ return function(v187, v188, v189) --[[ Line: 1004 ]] --[[ Name: Initialize ]]
                     v40[l_HumanoidStateChanged_1]:Disconnect();
                     v40[l_HumanoidStateChanged_1] = nil;
                 end;
-                if v13 then
-                    l_HumanoidStateChanged_1 = v41.FaceControlsChanged;
-                    if v40[l_HumanoidStateChanged_1] then
-                        v40[l_HumanoidStateChanged_1]:Disconnect();
-                        v40[l_HumanoidStateChanged_1] = nil;
-                    end;
-                end;
-                stopRenderStepped();
-                l_HumanoidStateChanged_1 = v41.AnimationPlayed;
+                l_HumanoidStateChanged_1 = v41.FaceControlsChanged;
                 if v40[l_HumanoidStateChanged_1] then
                     v40[l_HumanoidStateChanged_1]:Disconnect();
                     v40[l_HumanoidStateChanged_1] = nil;
                 end;
-                l_HumanoidStateChanged_1 = v41.AnimationPlayedCoreScript;
-                if v40[l_HumanoidStateChanged_1] then
-                    v40[l_HumanoidStateChanged_1]:Disconnect();
-                    v40[l_HumanoidStateChanged_1] = nil;
-                end;
-                v21 = nil;
-                v22 = {};
-                clearCloneCharacter();
+                v53();
             end;
         end);
-        startRenderStepped(v187);
-        return v51;
+        startRenderStepped(v190);
+        return v53;
     else
         return;
     end;

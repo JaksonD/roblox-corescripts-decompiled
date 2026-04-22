@@ -4,15 +4,17 @@ local _ = require(l_script_FirstAncestor_0.PlayWithRewardAdData);
 local v3 = {
     flowId = "", 
     universeId = "", 
+    isAdDataExpected = false, 
     adData = nil
 };
-return function(v4, v5) --[[ Line: 22 ]]
+return function(v4, v5) --[[ Line: 24 ]]
     -- upvalues: v3 (copy), v1 (copy)
     local v6 = v4 or table.clone(v3);
     if v5.type == v1.name then
         return {
             flowId = v5.flowId, 
             universeId = v5.universeId, 
+            isAdDataExpected = v5.isAdDataExpected, 
             adData = v5.adData
         };
     else

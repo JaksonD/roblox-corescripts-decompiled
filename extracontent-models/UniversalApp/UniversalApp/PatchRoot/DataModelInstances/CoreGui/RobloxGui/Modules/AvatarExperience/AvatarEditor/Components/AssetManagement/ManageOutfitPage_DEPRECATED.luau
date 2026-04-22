@@ -18,14 +18,14 @@ local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.Universal
 local v17 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withStackVisibilityWrapper);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local v19 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics);
-local v20 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v21 = require(l_Modules_0.AvatarExperience.Common.Components.BoundInputsUpdater);
 local l_SlotBasedEditorAnalytics_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Surfaces.SlotBasedEditorAnalytics;
 local v23 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.AssetManagement.NavOverlayPageContainer);
 local v24 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.AssetManagement.OutfitSelectionGrid);
 local v25 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.AssetManagement.ManageActionBar);
 local v26 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local v27 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v28 = require(l_Modules_0.LuaApp.mutedError);
 local l_FFlagAXAddManageOutfitClickTracking_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXAddManageOutfitClickTracking;
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
@@ -48,7 +48,7 @@ v41.validateProps = v6.strictInterface({
     avatarEditorAnalytics = v6.table
 });
 v41.init = function(v42) --[[ Line: 82 ]] --[[ Name: init ]]
-    -- upvalues: l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v10 (copy), v5 (copy), l_withStyle_0 (copy), l_IconButton_0 (copy), v39 (copy), l_IconSize_0 (copy), v26 (copy), v20 (copy), l_FFlagAXAddManageOutfitClickTracking_0 (copy), l_SlotBasedEditorAnalytics_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixDeselectOutfitInManage_0 (copy), v28 (copy)
+    -- upvalues: l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v10 (copy), v5 (copy), l_withStyle_0 (copy), l_IconButton_0 (copy), v39 (copy), l_IconSize_0 (copy), v26 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXAddManageOutfitClickTracking_0 (copy), l_SlotBasedEditorAnalytics_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixDeselectOutfitInManage_0 (copy), v28 (copy)
     local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
     local v44 = l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_0);
     v42:setState({
@@ -137,9 +137,9 @@ v41.init = function(v42) --[[ Line: 82 ]] --[[ Name: init ]]
         end;
     end;
     v42.onOverlayClosed = function() --[[ Line: 174 ]]
-        -- upvalues: v42 (copy), v20 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
+        -- upvalues: v42 (copy), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
         local l_isGamepad_0 = v42.state.isGamepad;
-        v20("ManageOutfitPage", l_isGamepad_0);
+        l_logOnOverlayClosed_0("ManageOutfitPage", l_isGamepad_0);
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and l_isGamepad_0 then
             v42.focusController.captureFocus();
         end;
@@ -348,11 +348,11 @@ v41.didUpdate = function(v79, _, v81) --[[ Line: 408 ]] --[[ Name: didUpdate ]]
     end;
 end;
 v41 = v4.connect(nil, function(v83) --[[ Line: 418 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v27 (copy)
+    -- upvalues: l_NavigateWithLock_0 (copy)
     return {
         navigateWithLock = function(v84) --[[ Line: 420 ]] --[[ Name: navigateWithLock ]]
-            -- upvalues: v83 (copy), v27 (ref)
-            v83(v27(v84));
+            -- upvalues: v83 (copy), l_NavigateWithLock_0 (ref)
+            v83(l_NavigateWithLock_0(v84));
         end
     };
 end)(v41);

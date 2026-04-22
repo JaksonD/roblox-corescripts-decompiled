@@ -67,7 +67,7 @@ v8.run = function(v12, v13) --[[ Line: 36 ]]
                 end;
                 if (l_CFrame_0.Position - Vector3.new(0, 0, 0, 0)).Magnitude > v9 / 100 then
                     v12:fail(v3.Keys.JointRotAtt_Moved, {
-                        jointPath = v17:GetFullName(), 
+                        instPath = v17:GetFullName(), 
                         expectedPosition = v5((Vector3.new(0, 0, 0, 0)))
                     });
                 end;

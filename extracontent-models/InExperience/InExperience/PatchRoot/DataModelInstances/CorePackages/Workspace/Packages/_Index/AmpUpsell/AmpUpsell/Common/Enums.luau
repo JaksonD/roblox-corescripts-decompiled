@@ -6,7 +6,12 @@ local v0 = {
     ParentConsent = "ParentConsent", 
     ParentLink = "ParentLink", 
     AgeEstimation = "AgeEstimation", 
-    Subscription = "Subscription"
+    Subscription = "Subscription", 
+    CardVerification = "CardVerification", 
+    Wait = "Wait", 
+    UserAgreement = "UserAgreement", 
+    UserSettings = "UserSettings", 
+    Invalid = "Invalid"
 };
 local v1 = {
     Granted = "Granted", 
@@ -23,6 +28,9 @@ local v2 = {
     RetryRequested = "RetryRequested"
 };
 local v3 = {
+    AllowFacialAgeEstimation = "allowFacialAgeEstimation"
+};
+local v4 = {
     ChargebackReenableAccount = "ChargebackReenableAccount", 
     SavePaymentMethods = "SavePaymentMethods", 
     UpdateUserSetting = "UpdateUserSetting", 
@@ -36,13 +44,13 @@ local v3 = {
     ReceiveTransfer = "ReceiveTransfer", 
     Unknown = "Unknown"
 };
-local v4 = {
+local v5 = {
     ConnectedMobile = 1, 
     Verified = 2, 
     GotResults = 3, 
     UpdatedRobloxProfile = 4
 };
-local v5 = {
+local v6 = {
     Error = 1, 
     RequestSent = 2, 
     AlreadyLinkedSendRequest = 3, 
@@ -50,7 +58,7 @@ local v5 = {
     NewParentSendRequest = 5, 
     NewParentLoading = 6
 };
-local v6 = {
+local v7 = {
     InternalVPCError = "InternalVPCError", 
     InvalidEmail = "InvalidEmail", 
     Flooded = "Flooded", 
@@ -62,13 +70,13 @@ local v6 = {
     GenericError = "GenericError", 
     ConflictingPendingConsent = "ConflictingPendingConsent"
 };
-local v7 = {
+local v8 = {
     RetryVPC = "RetryVPC", 
     RetryAMP = "RetryAMP", 
     NoRetry = "NoRetry", 
     Success = "Success"
 };
-local v8 = {
+local v9 = {
     InvalidEmailAddress = "InvalidEmailAddress", 
     EmailNotUnique = "EmailNotUnique", 
     LinkingIneligible = "LinkingIneligible", 
@@ -99,10 +107,11 @@ return {
     ActionTypeEnum = v0, 
     AccessResponseEnum = v1, 
     ActionStatusEnum = v2, 
-    VPCRequestTypeEnum = v3, 
-    IDVStep = v4, 
-    VPCStepEnum = v5, 
-    VPCErrorCategoriesEnum = v6, 
-    VPCRetryBehaviorEnum = v7, 
-    VPCErrorCodesEnum = v8
+    VPCRequestTypeEnum = v4, 
+    IDVStep = v5, 
+    VPCStepEnum = v6, 
+    VPCErrorCategoriesEnum = v7, 
+    VPCRetryBehaviorEnum = v8, 
+    UserSettingsSettingNameEnum = v3, 
+    VPCErrorCodesEnum = v9
 };

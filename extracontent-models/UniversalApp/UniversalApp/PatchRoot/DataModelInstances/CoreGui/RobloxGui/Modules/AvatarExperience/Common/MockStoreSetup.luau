@@ -6,39 +6,40 @@ local v4 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.OutfitTryOn);
 local v6 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v8 = require(l_Modules_0.AvatarExperience.ProfilePictureEditor.PPEThumbnailType);
-local v9 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
-local v10 = require(l_Modules_0.AvatarExperience.AvatarEditor.GetAvatarEditorCategories);
-local v11 = require(l_Modules_0.AvatarExperience.Catalog.Reducers.SortAndFilters);
-local v12 = require(l_Modules_0.AvatarExperience.Common.Models.AssetInfo);
+local l_createMockNavigationState_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).TestUtils.createMockNavigationState;
+local v9 = require(l_Modules_0.AvatarExperience.ProfilePictureEditor.PPEThumbnailType);
+local v10 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
+local v11 = require(l_Modules_0.AvatarExperience.AvatarEditor.GetAvatarEditorCategories);
+local v12 = require(l_Modules_0.AvatarExperience.Catalog.Reducers.SortAndFilters);
+local v13 = require(l_Modules_0.AvatarExperience.Common.Models.AssetInfo);
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local v15 = {};
-v15.__index = v15;
-v15.DynamicHeadMoodAnimationAssetId = "10687293613";
-v15.DylanDefaultHeadAssetId = "10687288296";
-v15.DylanDefaultOutfitId = "11164330909";
-v15.GeckoMoodAnimationAssetId = "10647852134";
-v15.GeckoBundleId = "965";
-v15.GeckoOutfitId = "11625687672";
-v15.DylanDefaultBundleId = "945";
-v15.YellowSciFiJacketAssetId = "11449307353";
-v15.NinjaIdleAnimationAssetId = "658832408";
-v15.DefaultLocalUserId = "129687796";
-v15.BodybuilderEmoteAssetId = "3994130516";
-v15.BodybuilderKeyframeSequenceAssetId = "10713990381";
-v15.PirateAnimationBundleId = "55";
-v15.PirateIdleAnimationAssetId = "837024662";
-v15.PirateRunAnimationAssetId = "837023444";
-v15.PirateJumpAnimationAssetId = "837024350";
-v15.DummySearchUid = "test_uuid";
-v15.DummyKeyword = "test";
-v15.DunceHatAssetId = "12536385254";
-v15.PirateOutfitId = "132923221";
-v15.NumPirateAnimations = 0;
-v15.UnusedItemId = "1011011010";
-local v16 = {
-    [v15.PirateRunAnimationAssetId] = {
+local v16 = {};
+v16.__index = v16;
+v16.DynamicHeadMoodAnimationAssetId = "10687293613";
+v16.DylanDefaultHeadAssetId = "10687288296";
+v16.DylanDefaultOutfitId = "11164330909";
+v16.GeckoMoodAnimationAssetId = "10647852134";
+v16.GeckoBundleId = "965";
+v16.GeckoOutfitId = "11625687672";
+v16.DylanDefaultBundleId = "945";
+v16.YellowSciFiJacketAssetId = "11449307353";
+v16.NinjaIdleAnimationAssetId = "658832408";
+v16.DefaultLocalUserId = "129687796";
+v16.BodybuilderEmoteAssetId = "3994130516";
+v16.BodybuilderKeyframeSequenceAssetId = "10713990381";
+v16.PirateAnimationBundleId = "55";
+v16.PirateIdleAnimationAssetId = "837024662";
+v16.PirateRunAnimationAssetId = "837023444";
+v16.PirateJumpAnimationAssetId = "837024350";
+v16.DummySearchUid = "test_uuid";
+v16.DummyKeyword = "test";
+v16.DunceHatAssetId = "12536385254";
+v16.PirateOutfitId = "132923221";
+v16.NumPirateAnimations = 0;
+v16.UnusedItemId = "1011011010";
+local v17 = {
+    [v16.PirateRunAnimationAssetId] = {
         assetType = "53"
     }, 
     ["837023892"] = {
@@ -47,10 +48,10 @@ local v16 = {
     ["837024147"] = {
         assetType = "50"
     }, 
-    [v15.PirateJumpAnimationAssetId] = {
+    [v16.PirateJumpAnimationAssetId] = {
         assetType = "52"
     }, 
-    [v15.PirateIdleAnimationAssetId] = {
+    [v16.PirateIdleAnimationAssetId] = {
         assetType = "51"
     }, 
     ["837025054"] = {
@@ -60,29 +61,29 @@ local v16 = {
         assetType = "48"
     }
 };
-for _, _ in v16 do
-    v15.NumPirateAnimations = v15.NumPirateAnimations + 1;
+for _, _ in v17 do
+    v16.NumPirateAnimations = v16.NumPirateAnimations + 1;
 end;
-local v19 = {};
-for v20, _ in v16 do
-    table.insert(v19, {
-        id = v20, 
+local v20 = {};
+for v21, _ in v17 do
+    table.insert(v20, {
+        id = v21, 
         type = v4.ItemType.Asset
     });
 end;
-table.insert(v19, {
-    id = v15.PirateOutfitId, 
+table.insert(v20, {
+    id = v16.PirateOutfitId, 
     type = v4.ItemType.Outfit
 });
-v15.new = function(v22) --[[ Line: 222 ]] --[[ Name: new ]]
-    -- upvalues: v15 (copy)
-    local v23 = {};
-    setmetatable(v23, v15);
-    v23.state = v22 or {};
-    v23.itemRecency = 0;
-    return v23;
+v16.new = function(v23) --[[ Line: 224 ]] --[[ Name: new ]]
+    -- upvalues: v16 (copy)
+    local v24 = {};
+    setmetatable(v24, v16);
+    v24.state = v23 or {};
+    v24.itemRecency = 0;
+    return v24;
 end;
-v15.basicScales = {
+v16.basicScales = {
     bodyType = 1, 
     depth = 1, 
     head = 1, 
@@ -90,28 +91,28 @@ v15.basicScales = {
     proportion = 0, 
     width = 1
 };
-v15.makeBodyColors = function(v24) --[[ Line: 241 ]] --[[ Name: makeBodyColors ]]
+v16.makeBodyColors = function(v25) --[[ Line: 243 ]] --[[ Name: makeBodyColors ]]
     return {
-        headColorId = v24, 
-        leftArmColorId = v24, 
-        leftLegColorId = v24, 
-        rightArmColorId = v24, 
-        rightLegColorId = v24, 
-        torsoColorId = v24
+        headColorId = v25, 
+        leftArmColorId = v25, 
+        leftLegColorId = v25, 
+        rightArmColorId = v25, 
+        rightLegColorId = v25, 
+        torsoColorId = v25
     };
 end;
-v15.makeBodyColor3s = function(v25) --[[ Line: 252 ]] --[[ Name: makeBodyColor3s ]]
+v16.makeBodyColor3s = function(v26) --[[ Line: 254 ]] --[[ Name: makeBodyColor3s ]]
     return {
-        headColor3 = v25, 
-        torsoColor3 = v25, 
-        rightArmColor3 = v25, 
-        leftArmColor3 = v25, 
-        rightLegColor3 = v25, 
-        leftLegColor3 = v25
+        headColor3 = v26, 
+        torsoColor3 = v26, 
+        rightArmColor3 = v26, 
+        leftArmColor3 = v26, 
+        rightLegColor3 = v26, 
+        leftLegColor3 = v26
     };
 end;
-v15.makeSkeletonOutfitInfo = function() --[[ Line: 263 ]] --[[ Name: makeSkeletonOutfitInfo ]]
-    -- upvalues: v4 (copy), v15 (copy)
+v16.makeSkeletonOutfitInfo = function() --[[ Line: 265 ]] --[[ Name: makeSkeletonOutfitInfo ]]
+    -- upvalues: v4 (copy), v16 (copy)
     return {
         assets = {}, 
         avatarType = "R15", 
@@ -121,12 +122,12 @@ v15.makeSkeletonOutfitInfo = function() --[[ Line: 263 ]] --[[ Name: makeSkeleto
         outfitId = "1234", 
         outfitType = v4.OutfitTypes.Avatar, 
         updateCounter = 0, 
-        bodyColor3s = v15.basicBodyColor3s, 
-        bodyColors = v15.basicBodyColors, 
-        scales = v15.basicScales
+        bodyColor3s = v16.basicBodyColor3s, 
+        bodyColors = v16.basicBodyColors, 
+        scales = v16.basicScales
     };
 end;
-v15.makeSkeletonTryOnItem = function() --[[ Line: 279 ]] --[[ Name: makeSkeletonTryOnItem ]]
+v16.makeSkeletonTryOnItem = function() --[[ Line: 281 ]] --[[ Name: makeSkeletonTryOnItem ]]
     -- upvalues: v4 (copy)
     return {
         version = "1", 
@@ -139,134 +140,134 @@ v15.makeSkeletonTryOnItem = function() --[[ Line: 279 ]] --[[ Name: makeSkeleton
         itemRecency = 0
     };
 end;
-v15.basicBodyColors = v15.makeBodyColors(v6.DefaultBodyColorBrickId);
-v15.basicBodyColor3s = v15.makeBodyColor3s(v6.DefaultBodyColor3);
-v15.getState = function(v26) --[[ Line: 295 ]] --[[ Name: getState ]]
-    return v26.state;
+v16.basicBodyColors = v16.makeBodyColors(v6.DefaultBodyColorBrickId);
+v16.basicBodyColor3s = v16.makeBodyColor3s(v6.DefaultBodyColor3);
+v16.getState = function(v27) --[[ Line: 297 ]] --[[ Name: getState ]]
+    return v27.state;
 end;
-v15.addCameraButtonStatus = function(v27, v28) --[[ Line: 299 ]] --[[ Name: addCameraButtonStatus ]]
+v16.addCameraButtonStatus = function(v28, v29) --[[ Line: 301 ]] --[[ Name: addCameraButtonStatus ]]
     -- upvalues: v1 (copy)
-    local v29 = {
+    local v30 = {
         AvatarExperience = {
             CameraButton = {
-                enabled = v28
+                enabled = v29
             }
         }
     };
-    v27.state = v1.joinDeep(v29, v27.state);
-    return v27;
+    v28.state = v1.joinDeep(v30, v28.state);
+    return v28;
 end;
-v15.addCameraButtonErrorOccurred = function(v30, v31) --[[ Line: 312 ]] --[[ Name: addCameraButtonErrorOccurred ]]
+v16.addCameraButtonErrorOccurred = function(v31, v32) --[[ Line: 314 ]] --[[ Name: addCameraButtonErrorOccurred ]]
     -- upvalues: v1 (copy)
-    local v32 = {
+    local v33 = {
         AvatarExperience = {
             CameraButton = {
-                errorOccurred = v31
+                errorOccurred = v32
             }
         }
     };
-    v30.state = v1.joinDeep(v32, v30.state);
-    return v30;
+    v31.state = v1.joinDeep(v33, v31.state);
+    return v31;
 end;
-v15.addFetchStatus = function(v33, v34, v35) --[[ Line: 325 ]] --[[ Name: addFetchStatus ]]
+v16.addFetchStatus = function(v34, v35, v36) --[[ Line: 327 ]] --[[ Name: addFetchStatus ]]
     -- upvalues: v1 (copy)
-    local v36 = {
+    local v37 = {
         AvatarExperience = {
             AvatarEditor = {
                 UserInventoryRecommendationsFetchStatus = {
-                    [v34] = v35
+                    [v35] = v36
                 }
             }
         }
     };
-    v33.state = v1.joinDeep(v36, v33.state);
-    return v33;
+    v34.state = v1.joinDeep(v37, v34.state);
+    return v34;
 end;
-v15.addCurrentCharacter = function(v37, v38, v39) --[[ Line: 339 ]] --[[ Name: addCurrentCharacter ]]
-    -- upvalues: v9 (copy), v1 (copy)
-    if not v38 then
+v16.addCurrentCharacter = function(v38, v39, v40) --[[ Line: 341 ]] --[[ Name: addCurrentCharacter ]]
+    -- upvalues: v10 (copy), v1 (copy)
+    if not v39 then
         local l_Players_0 = game:GetService("Players");
-        local v41 = nil;
-        v41 = if v39 then Enum.HumanoidRigType.R6 else Enum.HumanoidRigType.R15;
-        v38 = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then l_Players_0:CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), v41) else l_Players_0:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), v41);
+        local v42 = nil;
+        v42 = if v40 then Enum.HumanoidRigType.R6 else Enum.HumanoidRigType.R15;
+        v39 = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then l_Players_0:CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), v42) else l_Players_0:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), v42);
     end;
-    assert(v38, "character is not nil.");
-    v38.Parent = workspace;
-    local v42 = {
+    assert(v39, "character is not nil.");
+    v39.Parent = workspace;
+    local v43 = {
         AvatarExperience = {
             AvatarEditor = {
                 Character = {
-                    AvatarType = if v39 then v9.AvatarType.R6 else v9.AvatarType.R15
+                    AvatarType = if v40 then v10.AvatarType.R6 else v10.AvatarType.R15
                 }
             }, 
             AvatarScene = {
                 Character = {
-                    CurrentCharacter = v38
+                    CurrentCharacter = v39
                 }
             }
         }
     };
-    v37.state = v1.joinDeep(v42, v37.state);
-    return v37;
+    v38.state = v1.joinDeep(v43, v38.state);
+    return v38;
 end;
-v15.addPPEStartState = function(v43) --[[ Line: 382 ]] --[[ Name: addPPEStartState ]]
-    -- upvalues: v8 (copy), v1 (copy)
-    local v44 = {
+v16.addPPEStartState = function(v44) --[[ Line: 384 ]] --[[ Name: addPPEStartState ]]
+    -- upvalues: v9 (copy), v1 (copy)
+    local v45 = {
         AvatarExperience = {
             ProfilePictureEditor = {
                 ProfilePictureParams = {
                     ppeVersion = {
-                        [v8.Closeup] = 0, 
-                        [v8.FullBody] = 0
+                        [v9.Closeup] = 0, 
+                        [v9.FullBody] = 0
                     }, 
                     ppeEmoteLoadingCount = 0
                 }
             }
         }
     };
-    v43.state = v1.joinDeep(v44, v43.state);
-    return v43;
+    v44.state = v1.joinDeep(v45, v44.state);
+    return v44;
 end;
-v15.addLocalUserId = function(v45, v46) --[[ Line: 400 ]] --[[ Name: addLocalUserId ]]
-    -- upvalues: v15 (copy), v1 (copy)
-    if not v46 then
-        v46 = v15.DefaultLocalUserId;
+v16.addLocalUserId = function(v46, v47) --[[ Line: 402 ]] --[[ Name: addLocalUserId ]]
+    -- upvalues: v16 (copy), v1 (copy)
+    if not v47 then
+        v47 = v16.DefaultLocalUserId;
     end;
-    local v47 = {
-        LocalUserId = v46
+    local v48 = {
+        LocalUserId = v47
     };
-    v45.state = v1.joinDeep(v47, v45.state);
-    return v45;
+    v46.state = v1.joinDeep(v48, v46.state);
+    return v46;
 end;
-v15.addEquippedItem = function(v48, v49, v50) --[[ Line: 413 ]] --[[ Name: addEquippedItem ]]
+v16.addEquippedItem = function(v49, v50, v51) --[[ Line: 415 ]] --[[ Name: addEquippedItem ]]
     -- upvalues: v1 (copy)
-    local v51 = {
+    local v52 = {
         AvatarExperience = {
             AvatarEditor = {
                 Character = {
                     EquippedAssets = {
-                        [v49] = v50
+                        [v50] = v51
                     }
                 }
             }
         }
     };
-    v48.state = v1.joinDeep(v51, v48.state);
-    return v48;
+    v49.state = v1.joinDeep(v52, v49.state);
+    return v49;
 end;
-v15.addEquippedNinjaIdleAnimation = function(v52) --[[ Line: 433 ]] --[[ Name: addEquippedNinjaIdleAnimation ]]
-    -- upvalues: v4 (copy), v15 (copy)
-    return v52:addEquippedItem(v4.AssetTypeIdStrings.IdleAnimation, {
-        [v15.NinjaIdleAnimationAssetId] = {
+v16.addEquippedNinjaIdleAnimation = function(v53) --[[ Line: 435 ]] --[[ Name: addEquippedNinjaIdleAnimation ]]
+    -- upvalues: v4 (copy), v16 (copy)
+    return v53:addEquippedItem(v4.AssetTypeIdStrings.IdleAnimation, {
+        [v16.NinjaIdleAnimationAssetId] = {
             isLayered = false, 
             version = "nil"
         }
     });
 end;
-v15.addEquippedYellowSciFiJacket = function(v53) --[[ Line: 442 ]] --[[ Name: addEquippedYellowSciFiJacket ]]
-    -- upvalues: v4 (copy), v15 (copy)
-    return v53:addEquippedItem(v4.AssetTypeIdStrings.JacketAccessory, {
-        [v15.YellowSciFiJacketAssetId] = {
+v16.addEquippedYellowSciFiJacket = function(v54) --[[ Line: 444 ]] --[[ Name: addEquippedYellowSciFiJacket ]]
+    -- upvalues: v4 (copy), v16 (copy)
+    return v54:addEquippedItem(v4.AssetTypeIdStrings.JacketAccessory, {
+        [v16.YellowSciFiJacketAssetId] = {
             isLayered = true, 
             order = 12, 
             type = Enum.AccessoryType.Jacket, 
@@ -274,19 +275,19 @@ v15.addEquippedYellowSciFiJacket = function(v53) --[[ Line: 442 ]] --[[ Name: ad
         }
     });
 end;
-v15.addEquippedHat = function(v54) --[[ Line: 453 ]] --[[ Name: addEquippedHat ]]
-    -- upvalues: v4 (copy), v15 (copy)
-    return v54:addEquippedItem(v4.AssetTypeIdStrings.Hat, {
-        [v15.DunceHatAssetId] = {
+v16.addEquippedHat = function(v55) --[[ Line: 455 ]] --[[ Name: addEquippedHat ]]
+    -- upvalues: v4 (copy), v16 (copy)
+    return v55:addEquippedItem(v4.AssetTypeIdStrings.Hat, {
+        [v16.DunceHatAssetId] = {
             isLayered = false, 
             type = Enum.AccessoryType.Hat, 
             version = "1"
         }
     });
 end;
-v15.addEquippedShirt = function(v55) --[[ Line: 463 ]] --[[ Name: addEquippedShirt ]]
+v16.addEquippedShirt = function(v56) --[[ Line: 465 ]] --[[ Name: addEquippedShirt ]]
     -- upvalues: v4 (copy)
-    return v55:addEquippedItem(v4.AssetTypeIdStrings.ShirtAccessory, {
+    return v56:addEquippedItem(v4.AssetTypeIdStrings.ShirtAccessory, {
         ["9512497883"] = {
             isLayered = true, 
             order = 10, 
@@ -295,126 +296,126 @@ v15.addEquippedShirt = function(v55) --[[ Line: 463 ]] --[[ Name: addEquippedShi
         }
     });
 end;
-v15.addEquippedGear = function(v56) --[[ Line: 474 ]] --[[ Name: addEquippedGear ]]
+v16.addEquippedGear = function(v57) --[[ Line: 476 ]] --[[ Name: addEquippedGear ]]
     -- upvalues: v4 (copy)
-    return v56:addEquippedItem(v4.AssetTypeIdStrings.Gear, {
+    return v57:addEquippedItem(v4.AssetTypeIdStrings.Gear, {
         ["1132887630"] = {
             version = "1"
         }
     });
 end;
-v15.addEquippedDynamicHead = function(v57) --[[ Line: 482 ]] --[[ Name: addEquippedDynamicHead ]]
-    -- upvalues: v4 (copy), v15 (copy)
-    return v57:addEquippedItem(v4.AssetTypeIdStrings.DynamicHead, {
-        [v15.DylanDefaultHeadAssetId] = {
+v16.addEquippedDynamicHead = function(v58) --[[ Line: 484 ]] --[[ Name: addEquippedDynamicHead ]]
+    -- upvalues: v4 (copy), v16 (copy)
+    return v58:addEquippedItem(v4.AssetTypeIdStrings.DynamicHead, {
+        [v16.DylanDefaultHeadAssetId] = {
             isLayered = false, 
             version = "nil"
         }
     });
 end;
-v15.addEquippedMoodAnimation = function(v58) --[[ Line: 491 ]] --[[ Name: addEquippedMoodAnimation ]]
-    -- upvalues: v4 (copy), v15 (copy)
-    return v58:addEquippedItem(v4.AssetTypeIdStrings.MoodAnimation, {
-        [v15.DynamicHeadMoodAnimationAssetId] = {
+v16.addEquippedMoodAnimation = function(v59) --[[ Line: 493 ]] --[[ Name: addEquippedMoodAnimation ]]
+    -- upvalues: v4 (copy), v16 (copy)
+    return v59:addEquippedItem(v4.AssetTypeIdStrings.MoodAnimation, {
+        [v16.DynamicHeadMoodAnimationAssetId] = {
             isLayered = false, 
             version = "nil"
         }
     });
 end;
-v15.addOutfitTryOnItem = function(v59, v60, v61) --[[ Line: 500 ]] --[[ Name: addOutfitTryOnItem ]]
+v16.addOutfitTryOnItem = function(v60, v61, v62) --[[ Line: 502 ]] --[[ Name: addOutfitTryOnItem ]]
     -- upvalues: v1 (copy)
-    v61.itemRecency = v59.itemRecency;
-    v59.itemRecency = v59.itemRecency + 1;
-    local v62 = {
+    v62.itemRecency = v60.itemRecency;
+    v60.itemRecency = v60.itemRecency + 1;
+    local v63 = {
         AvatarExperience = {
             AvatarScene = {
                 OutfitTryOn = {
                     TryOnItems = {
-                        [("%*-%*"):format(v60, v61.itemType)] = v61
+                        [("%*-%*"):format(v61, v62.itemType)] = v62
                     }
                 }
             }
         }
     };
-    v59.state = v1.joinDeep(v62, v59.state);
-    return v59;
+    v60.state = v1.joinDeep(v63, v60.state);
+    return v60;
 end;
-v15.addOutfitTryOnLastToggledItem = function(v63, v64) --[[ Line: 520 ]] --[[ Name: addOutfitTryOnLastToggledItem ]]
+v16.addOutfitTryOnLastToggledItem = function(v64, v65) --[[ Line: 522 ]] --[[ Name: addOutfitTryOnLastToggledItem ]]
     -- upvalues: v1 (copy)
-    local v65 = {
+    local v66 = {
         AvatarExperience = {
             AvatarScene = {
                 OutfitTryOn = {
-                    LastToggledItem = v64
+                    LastToggledItem = v65
                 }
             }
         }
     };
-    v63.state = v1.joinDeep(v65, v63.state);
-    return v63;
+    v64.state = v1.joinDeep(v66, v64.state);
+    return v64;
 end;
-v15.addOutfitTryOnItemAsAsset = function(v66, v67, v68) --[[ Line: 535 ]] --[[ Name: addOutfitTryOnItemAsAsset ]]
-    -- upvalues: v15 (copy), v4 (copy), v1 (copy)
-    local v69 = v15.makeSkeletonTryOnItem();
-    v69.itemId = v67;
-    v69.itemType = v4.ItemType.Asset;
-    v69.itemSubType = v68;
-    v69.itemRecency = v66.itemRecency;
-    v66.itemRecency = v66.itemRecency + 1;
-    local v70 = {
+v16.addOutfitTryOnItemAsAsset = function(v67, v68, v69) --[[ Line: 537 ]] --[[ Name: addOutfitTryOnItemAsAsset ]]
+    -- upvalues: v16 (copy), v4 (copy), v1 (copy)
+    local v70 = v16.makeSkeletonTryOnItem();
+    v70.itemId = v68;
+    v70.itemType = v4.ItemType.Asset;
+    v70.itemSubType = v69;
+    v70.itemRecency = v67.itemRecency;
+    v67.itemRecency = v67.itemRecency + 1;
+    local v71 = {
         AvatarExperience = {
             AvatarScene = {
                 OutfitTryOn = {
                     TryOnItems = {
-                        [v67] = v69
+                        [v68] = v70
                     }
                 }
             }
         }
     };
-    v66.state = v1.joinDeep(v70, v66.state);
-    return v66;
+    v67.state = v1.joinDeep(v71, v67.state);
+    return v67;
 end;
-v15.addOutfitTryOnItemAsPartsBundleAsset = function(v71, v72, v73, v74) --[[ Line: 563 ]] --[[ Name: addOutfitTryOnItemAsPartsBundleAsset ]]
-    -- upvalues: v15 (copy), v4 (copy), v1 (copy)
-    local v75 = v15.makeSkeletonTryOnItem();
-    v75.itemId = v72;
-    v75.itemType = v4.ItemType.Bundle;
-    v75.itemSubType = v4.BundleTypeIdStrings.BodyParts;
-    v75.itemRecency = v71.itemRecency;
-    v75.bundleInfo = {
-        [v73] = {
-            assetType = v74
+v16.addOutfitTryOnItemAsPartsBundleAsset = function(v72, v73, v74, v75) --[[ Line: 565 ]] --[[ Name: addOutfitTryOnItemAsPartsBundleAsset ]]
+    -- upvalues: v16 (copy), v4 (copy), v1 (copy)
+    local v76 = v16.makeSkeletonTryOnItem();
+    v76.itemId = v73;
+    v76.itemType = v4.ItemType.Bundle;
+    v76.itemSubType = v4.BundleTypeIdStrings.BodyParts;
+    v76.itemRecency = v72.itemRecency;
+    v76.bundleInfo = {
+        [v74] = {
+            assetType = v75
         }
     };
-    v71.itemRecency = v71.itemRecency + 1;
-    local v76 = {
+    v72.itemRecency = v72.itemRecency + 1;
+    local v77 = {
         AvatarExperience = {
             AvatarScene = {
                 OutfitTryOn = {
                     TryOnItems = {
-                        [v73] = v75
+                        [v74] = v76
                     }
                 }
             }
         }
     };
-    v71.state = v1.joinDeep(v76, v71.state);
-    return v71;
+    v72.state = v1.joinDeep(v77, v72.state);
+    return v72;
 end;
-v15.addDylanDefaultOutfitTryOnItem = function(v77) --[[ Line: 597 ]] --[[ Name: addDylanDefaultOutfitTryOnItem ]]
-    -- upvalues: v15 (copy), v4 (copy)
-    return v77:addOutfitTryOnItem(v15.DylanDefaultBundleId, {
+v16.addDylanDefaultOutfitTryOnItem = function(v78) --[[ Line: 599 ]] --[[ Name: addDylanDefaultOutfitTryOnItem ]]
+    -- upvalues: v16 (copy), v4 (copy)
+    return v78:addOutfitTryOnItem(v16.DylanDefaultBundleId, {
         bundleInfo = {
-            [v15.DylanDefaultHeadAssetId] = {
+            [v16.DylanDefaultHeadAssetId] = {
                 assetType = v4.AssetTypeIdStrings.DynamicHead
             }, 
-            [v15.DynamicHeadMoodAnimationAssetId] = {
+            [v16.DynamicHeadMoodAnimationAssetId] = {
                 assetType = v4.AssetTypeIdStrings.MoodAnimation
             }
         }, 
         isUnequipped = false, 
-        itemId = v15.DylanDefaultBundleId, 
+        itemId = v16.DylanDefaultBundleId, 
         itemRecency = 0, 
         itemSubType = v4.BundleTypeIdStrings.DynamicHead, 
         itemType = v4.ItemType.Bundle, 
@@ -423,14 +424,14 @@ v15.addDylanDefaultOutfitTryOnItem = function(v77) --[[ Line: 597 ]] --[[ Name: 
         version = "1"
     });
 end;
-v15.addGeckoOutfitTryOnItem = function(v78) --[[ Line: 618 ]] --[[ Name: addGeckoOutfitTryOnItem ]]
-    -- upvalues: v15 (copy), v4 (copy)
-    return v78:addOutfitTryOnItem(v15.GeckoBundleId, {
+v16.addGeckoOutfitTryOnItem = function(v79) --[[ Line: 620 ]] --[[ Name: addGeckoOutfitTryOnItem ]]
+    -- upvalues: v16 (copy), v4 (copy)
+    return v79:addOutfitTryOnItem(v16.GeckoBundleId, {
         bundleInfo = {
             ["10407915508"] = {
                 assetType = v4.AssetTypeIdStrings.DynamicHead
             }, 
-            [v15.GeckoMoodAnimationAssetId] = {
+            [v16.GeckoMoodAnimationAssetId] = {
                 assetType = v4.AssetTypeIdStrings.MoodAnimation
             }, 
             ["2510230574"] = {
@@ -474,7 +475,7 @@ v15.addGeckoOutfitTryOnItem = function(v78) --[[ Line: 618 ]] --[[ Name: addGeck
             }
         }, 
         isUnequipped = false, 
-        itemId = v15.GeckoBundleId, 
+        itemId = v16.GeckoBundleId, 
         itemRecency = 7, 
         itemSubType = v4.BundleTypeIdStrings.BodyParts, 
         itemType = v4.ItemType.Bundle, 
@@ -483,12 +484,12 @@ v15.addGeckoOutfitTryOnItem = function(v78) --[[ Line: 618 ]] --[[ Name: addGeck
         version = "1"
     });
 end;
-v15.addPirateAnimationOutfitTryOnItem = function(v79) --[[ Line: 678 ]] --[[ Name: addPirateAnimationOutfitTryOnItem ]]
-    -- upvalues: v15 (copy), v16 (copy), v4 (copy)
-    return v79:addOutfitTryOnItem(v15.PirateAnimationBundleId, {
-        bundleInfo = v16, 
+v16.addPirateAnimationOutfitTryOnItem = function(v80) --[[ Line: 680 ]] --[[ Name: addPirateAnimationOutfitTryOnItem ]]
+    -- upvalues: v16 (copy), v17 (copy), v4 (copy)
+    return v80:addOutfitTryOnItem(v16.PirateAnimationBundleId, {
+        bundleInfo = v17, 
         isUnequipped = false, 
-        itemId = v15.PirateAnimationBundleId, 
+        itemId = v16.PirateAnimationBundleId, 
         itemRecency = 0, 
         itemSubType = v4.BundleTypeIdStrings.Animations, 
         itemType = v4.ItemType.Bundle, 
@@ -497,16 +498,16 @@ v15.addPirateAnimationOutfitTryOnItem = function(v79) --[[ Line: 678 ]] --[[ Nam
         version = "1"
     });
 end;
-v15.addPirateAnimationOutfitTryOnLastToggledItem = function(v80) --[[ Line: 692 ]] --[[ Name: addPirateAnimationOutfitTryOnLastToggledItem ]]
-    -- upvalues: v15 (copy), v4 (copy)
-    local v81 = v15.makeSkeletonTryOnItem();
-    v81.itemId = v15.PirateAnimationBundleId;
-    v81.itemType = v4.ItemType.Bundle;
-    return v80:addOutfitTryOnLastToggledItem(v81);
+v16.addPirateAnimationOutfitTryOnLastToggledItem = function(v81) --[[ Line: 694 ]] --[[ Name: addPirateAnimationOutfitTryOnLastToggledItem ]]
+    -- upvalues: v16 (copy), v4 (copy)
+    local v82 = v16.makeSkeletonTryOnItem();
+    v82.itemId = v16.PirateAnimationBundleId;
+    v82.itemType = v4.ItemType.Bundle;
+    return v81:addOutfitTryOnLastToggledItem(v82);
 end;
-v15.addDHWithNoMoodOutfitTryOnItem = function(v82) --[[ Line: 704 ]] --[[ Name: addDHWithNoMoodOutfitTryOnItem ]]
-    -- upvalues: v15 (copy), v4 (copy)
-    return v82:addOutfitTryOnItem(v15.GeckoBundleId, {
+v16.addDHWithNoMoodOutfitTryOnItem = function(v83) --[[ Line: 706 ]] --[[ Name: addDHWithNoMoodOutfitTryOnItem ]]
+    -- upvalues: v16 (copy), v4 (copy)
+    return v83:addOutfitTryOnItem(v16.GeckoBundleId, {
         bundleInfo = {
             ["10407915508"] = {
                 assetType = v4.AssetTypeIdStrings.DynamicHead
@@ -552,7 +553,7 @@ v15.addDHWithNoMoodOutfitTryOnItem = function(v82) --[[ Line: 704 ]] --[[ Name: 
             }
         }, 
         isUnequipped = false, 
-        itemId = v15.GeckoBundleId, 
+        itemId = v16.GeckoBundleId, 
         itemRecency = 7, 
         itemSubType = "1", 
         itemType = v4.ItemType.Bundle, 
@@ -561,71 +562,71 @@ v15.addDHWithNoMoodOutfitTryOnItem = function(v82) --[[ Line: 704 ]] --[[ Name: 
         version = "1"
     });
 end;
-v15.addTryOnAnimation = function(v83, v84) --[[ Line: 761 ]] --[[ Name: addTryOnAnimation ]]
+v16.addTryOnAnimation = function(v84, v85) --[[ Line: 763 ]] --[[ Name: addTryOnAnimation ]]
     -- upvalues: v1 (copy)
-    local v85 = {
+    local v86 = {
         AvatarExperience = {
             AvatarScene = {
                 TryOn = {
-                    AnimationPreview = v84
+                    AnimationPreview = v85
                 }
             }
         }
     };
-    v83.state = v1.joinDeep(v85, v83.state);
-    return v83;
+    v84.state = v1.joinDeep(v86, v84.state);
+    return v84;
 end;
-v15.addPirateTryOnAnimation = function(v86) --[[ Line: 776 ]] --[[ Name: addPirateTryOnAnimation ]]
-    -- upvalues: v15 (copy)
-    return v86:addTryOnAnimation(v15.PirateIdleAnimationAssetId);
+v16.addPirateTryOnAnimation = function(v87) --[[ Line: 778 ]] --[[ Name: addPirateTryOnAnimation ]]
+    -- upvalues: v16 (copy)
+    return v87:addTryOnAnimation(v16.PirateIdleAnimationAssetId);
 end;
-v15.addAssetInfo = function(v87, v88) --[[ Line: 780 ]] --[[ Name: addAssetInfo ]]
+v16.addAssetInfo = function(v88, v89) --[[ Line: 782 ]] --[[ Name: addAssetInfo ]]
     -- upvalues: v1 (copy)
-    local l_id_0 = v88.id;
+    local l_id_0 = v89.id;
     assert(l_id_0 ~= nil, "assetInfo should have an id");
-    local v90 = {
+    local v91 = {
         AvatarExperience = {
             Common = {
                 AssetInfos = {
-                    [l_id_0] = v88
+                    [l_id_0] = v89
                 }
             }
         }
     };
-    v87.state = v1.joinDeep(v90, v87.state);
-    return v87;
+    v88.state = v1.joinDeep(v91, v88.state);
+    return v88;
 end;
-v15.addBundleInfo = function(v91, v92) --[[ Line: 797 ]] --[[ Name: addBundleInfo ]]
+v16.addBundleInfo = function(v92, v93) --[[ Line: 799 ]] --[[ Name: addBundleInfo ]]
     -- upvalues: v1 (copy)
-    local l_id_1 = v92.id;
+    local l_id_1 = v93.id;
     assert(l_id_1 ~= nil, "bundleInfo should have an id");
-    local v94 = {
+    local v95 = {
         AvatarExperience = {
             Common = {
                 BundleInfos = {
-                    [l_id_1] = v92
+                    [l_id_1] = v93
                 }
             }
         }
     };
-    v91.state = v1.joinDeep(v94, v91.state);
-    return v91;
+    v92.state = v1.joinDeep(v95, v92.state);
+    return v92;
 end;
-v15.addPirateAnimationAssetInfos = function(v95) --[[ Line: 814 ]] --[[ Name: addPirateAnimationAssetInfos ]]
-    -- upvalues: v16 (copy), v12 (copy)
-    for v96, v97 in v16 do
-        local v98 = v12.mock();
-        v98.id = v96;
-        v98.assetType = v97.assetType;
-        v95 = v95:addAssetInfo(v98);
+v16.addPirateAnimationAssetInfos = function(v96) --[[ Line: 816 ]] --[[ Name: addPirateAnimationAssetInfos ]]
+    -- upvalues: v17 (copy), v13 (copy)
+    for v97, v98 in v17 do
+        local v99 = v13.mock();
+        v99.id = v97;
+        v99.assetType = v98.assetType;
+        v96 = v96:addAssetInfo(v99);
     end;
-    return v95;
+    return v96;
 end;
-v15.addDunceHatAssetInfo = function(v99) --[[ Line: 824 ]] --[[ Name: addDunceHatAssetInfo ]]
-    -- upvalues: v12 (copy), v15 (copy)
-    return v99:addAssetInfo((v12.fromGetCatalogItemData({
+v16.addDunceHatAssetInfo = function(v100) --[[ Line: 826 ]] --[[ Name: addDunceHatAssetInfo ]]
+    -- upvalues: v13 (copy), v16 (copy)
+    return v100:addAssetInfo((v13.fromGetCatalogItemData({
         receivedCatalogData = true, 
-        id = v15.DunceHatAssetId, 
+        id = v16.DunceHatAssetId, 
         assetType = Enum.AvatarAssetType.Hat.Name, 
         name = "Dunce Hat", 
         description = "Go sit in the corner", 
@@ -646,14 +647,14 @@ v15.addDunceHatAssetInfo = function(v99) --[[ Line: 824 ]] --[[ Name: addDunceHa
         itemRestrictions = {}
     })));
 end;
-v15.addDylanDefaultBundleInfo = function(v100) --[[ Line: 850 ]] --[[ Name: addDylanDefaultBundleInfo ]]
-    -- upvalues: v15 (copy), v4 (copy)
-    return v100:addBundleInfo({
+v16.addDylanDefaultBundleInfo = function(v101) --[[ Line: 852 ]] --[[ Name: addDylanDefaultBundleInfo ]]
+    -- upvalues: v16 (copy), v4 (copy)
+    return v101:addBundleInfo({
         bundleType = tostring(Enum.BundleType.DynamicHead.Value), 
         description = "A look that never goes out of style.", 
         expectedSellerId = "1", 
         favoriteCount = 196358, 
-        id = v15.DylanDefaultBundleId, 
+        id = v16.DylanDefaultBundleId, 
         isOwned = true, 
         isPublicDomain = true, 
         isPurchasable = false, 
@@ -661,15 +662,15 @@ v15.addDylanDefaultBundleInfo = function(v100) --[[ Line: 850 ]] --[[ Name: addD
         itemType = v4.ItemType.Bundle, 
         items = {
             [1] = {
-                id = v15.DylanDefaultHeadAssetId, 
+                id = v16.DylanDefaultHeadAssetId, 
                 type = v4.ItemType.Asset
             }, 
             [2] = {
-                id = v15.DynamicHeadMoodAnimationAssetId, 
+                id = v16.DynamicHeadMoodAnimationAssetId, 
                 type = v4.ItemType.Asset
             }, 
             [3] = {
-                id = v15.DylanDefaultOutfitId, 
+                id = v16.DylanDefaultOutfitId, 
                 type = v4.ItemType.Outfit
             }
         }, 
@@ -681,9 +682,9 @@ v15.addDylanDefaultBundleInfo = function(v100) --[[ Line: 850 ]] --[[ Name: addD
         receivedFromSortResults = true
     });
 end;
-v15.addGeckoBundleInfo = function(v101) --[[ Line: 885 ]] --[[ Name: addGeckoBundleInfo ]]
-    -- upvalues: v4 (copy), v15 (copy)
-    return v101:addBundleInfo({
+v16.addGeckoBundleInfo = function(v102) --[[ Line: 887 ]] --[[ Name: addGeckoBundleInfo ]]
+    -- upvalues: v4 (copy), v16 (copy)
+    return v102:addBundleInfo({
         bundleType = v4.BundleTypeIdStrings.BodyParts, 
         creator = {
             hasVerifiedBadge = true, 
@@ -694,7 +695,7 @@ v15.addGeckoBundleInfo = function(v101) --[[ Line: 885 ]] --[[ Name: addGeckoBun
         description = "Some geckos have been seen running across the surface of water. Other geckos refer to them as \"overachievers.\"", 
         expectedSellerId = "1", 
         favoriteCount = 24889, 
-        id = v15.GeckoBundleId, 
+        id = v16.GeckoBundleId, 
         isOwned = false, 
         isPublicDomain = false, 
         isPurchasable = true, 
@@ -759,11 +760,11 @@ v15.addGeckoBundleInfo = function(v101) --[[ Line: 885 ]] --[[ Name: addGeckoBun
                 type = v4.ItemType.Asset
             }, 
             [15] = {
-                id = v15.GeckoMoodAnimationAssetId, 
+                id = v16.GeckoMoodAnimationAssetId, 
                 type = v4.ItemType.Asset
             }, 
             [16] = {
-                id = v15.GeckoOutfitId, 
+                id = v16.GeckoOutfitId, 
                 type = v4.ItemType.Outfit
             }, 
             [17] = {
@@ -783,9 +784,9 @@ v15.addGeckoBundleInfo = function(v101) --[[ Line: 885 ]] --[[ Name: addGeckoBun
         receivedFromSortResults = true
     });
 end;
-v15.addPirateAnimationBundleInfo = function(v102) --[[ Line: 987 ]] --[[ Name: addPirateAnimationBundleInfo ]]
-    -- upvalues: v4 (copy), v19 (copy)
-    return v102:addBundleInfo({
+v16.addPirateAnimationBundleInfo = function(v103) --[[ Line: 989 ]] --[[ Name: addPirateAnimationBundleInfo ]]
+    -- upvalues: v4 (copy), v20 (copy)
+    return v103:addBundleInfo({
         bundleType = "2", 
         creator = {
             hasVerifiedBadge = true, 
@@ -803,7 +804,7 @@ v15.addPirateAnimationBundleInfo = function(v102) --[[ Line: 987 ]] --[[ Name: a
         itemRestrictions = {}, 
         itemStatus = {}, 
         itemType = v4.ItemType.Bundle, 
-        items = v19, 
+        items = v20, 
         name = "Pirate Animation Package", 
         priceInRobux = 750, 
         product = {
@@ -816,47 +817,47 @@ v15.addPirateAnimationBundleInfo = function(v102) --[[ Line: 987 ]] --[[ Name: a
         receivedFromSortResults = true
     });
 end;
-v15.addOutfitInfo = function(v103, v104, v105) --[[ Line: 1020 ]] --[[ Name: addOutfitInfo ]]
+v16.addOutfitInfo = function(v104, v105, v106) --[[ Line: 1022 ]] --[[ Name: addOutfitInfo ]]
     -- upvalues: v1 (copy)
-    local v106 = {
+    local v107 = {
         AvatarExperience = {
             AvatarEditor = {
                 OutfitInfos = {
-                    [v104] = v105
+                    [v105] = v106
                 }
             }
         }
     };
-    v103.state = v1.joinDeep(v106, v103.state);
-    return v103;
+    v104.state = v1.joinDeep(v107, v104.state);
+    return v104;
 end;
-v15.addDylanDefaultOutfitInfo = function(v107) --[[ Line: 1035 ]] --[[ Name: addDylanDefaultOutfitInfo ]]
-    -- upvalues: v15 (copy), v4 (copy)
-    local v108 = v15.makeSkeletonOutfitInfo();
-    v108.assets = {
+v16.addDylanDefaultOutfitInfo = function(v108) --[[ Line: 1037 ]] --[[ Name: addDylanDefaultOutfitInfo ]]
+    -- upvalues: v16 (copy), v4 (copy)
+    local v109 = v16.makeSkeletonOutfitInfo();
+    v109.assets = {
         [v4.AssetTypeIdStrings.MoodAnimation] = {
-            [v15.DynamicHeadMoodAnimationAssetId] = {
+            [v16.DynamicHeadMoodAnimationAssetId] = {
                 isLayered = false, 
                 version = "nil"
             }
         }, 
         [v4.AssetTypeIdStrings.DynamicHead] = {
-            [v15.DylanDefaultHeadAssetId] = {
+            [v16.DylanDefaultHeadAssetId] = {
                 isLayered = false, 
                 version = "nil"
             }
         }
     };
-    v108.containsDynamicHead = true;
-    v108.name = "Dylan Default";
-    v108.outfitId = v15.DylanDefaultOutfitId;
-    v108.outfitType = v4.OutfitTypes.DynamicHead;
-    return v107:addOutfitInfo(v15.DylanDefaultOutfitId, v108);
+    v109.containsDynamicHead = true;
+    v109.name = "Dylan Default";
+    v109.outfitId = v16.DylanDefaultOutfitId;
+    v109.outfitType = v4.OutfitTypes.DynamicHead;
+    return v108:addOutfitInfo(v16.DylanDefaultOutfitId, v109);
 end;
-v15.addGeckoOutfitInfo = function(v109) --[[ Line: 1059 ]] --[[ Name: addGeckoOutfitInfo ]]
-    -- upvalues: v15 (copy), v4 (copy)
-    local v110 = v15.makeSkeletonOutfitInfo();
-    v110.assets = {
+v16.addGeckoOutfitInfo = function(v110) --[[ Line: 1061 ]] --[[ Name: addGeckoOutfitInfo ]]
+    -- upvalues: v16 (copy), v4 (copy)
+    local v111 = v16.makeSkeletonOutfitInfo();
+    v111.assets = {
         ["27"] = {
             ["7200824885"] = {
                 isLayered = false, 
@@ -936,7 +937,7 @@ v15.addGeckoOutfitInfo = function(v109) --[[ Line: 1059 ]] --[[ Name: addGeckoOu
             }
         }, 
         [v4.AssetTypeIdStrings.MoodAnimation] = {
-            [v15.GeckoMoodAnimationAssetId] = {
+            [v16.GeckoMoodAnimationAssetId] = {
                 isLayered = false, 
                 version = "nil"
             }
@@ -948,16 +949,16 @@ v15.addGeckoOutfitInfo = function(v109) --[[ Line: 1059 ]] --[[ Name: addGeckoOu
             }
         }
     };
-    v110.outfitType = v4.OutfitTypes.Avatar;
-    v110.name = "Galloping Gecko";
-    v110.outfitId = v15.GeckoOutfitId;
-    v110.containsDynamicHead = true;
-    return v109:addOutfitInfo(v15.GeckoOutfitId, v110);
+    v111.outfitType = v4.OutfitTypes.Avatar;
+    v111.name = "Galloping Gecko";
+    v111.outfitId = v16.GeckoOutfitId;
+    v111.containsDynamicHead = true;
+    return v110:addOutfitInfo(v16.GeckoOutfitId, v111);
 end;
-v15.addPirateAnimationOutfitInfo = function(v111) --[[ Line: 1160 ]] --[[ Name: addPirateAnimationOutfitInfo ]]
-    -- upvalues: v15 (copy)
-    local v112 = v15.makeSkeletonOutfitInfo();
-    v112.assets = {
+v16.addPirateAnimationOutfitInfo = function(v112) --[[ Line: 1162 ]] --[[ Name: addPirateAnimationOutfitInfo ]]
+    -- upvalues: v16 (copy)
+    local v113 = v16.makeSkeletonOutfitInfo();
+    v113.assets = {
         ["48"] = {
             ["837025325"] = {
                 isLayered = false, 
@@ -971,19 +972,19 @@ v15.addPirateAnimationOutfitInfo = function(v111) --[[ Line: 1160 ]] --[[ Name: 
             }
         }, 
         ["51"] = {
-            [v15.PirateIdleAnimationAssetId] = {
+            [v16.PirateIdleAnimationAssetId] = {
                 isLayered = false, 
                 version = "nil"
             }
         }, 
         ["52"] = {
-            [v15.PirateJumpAnimationAssetId] = {
+            [v16.PirateJumpAnimationAssetId] = {
                 isLayered = false, 
                 version = "nil"
             }
         }, 
         ["53"] = {
-            [v15.PirateRunAnimationAssetId] = {
+            [v16.PirateRunAnimationAssetId] = {
                 isLayered = false, 
                 version = "nil"
             }
@@ -1001,198 +1002,190 @@ v15.addPirateAnimationOutfitInfo = function(v111) --[[ Line: 1160 ]] --[[ Name: 
             }
         }
     };
-    v112.name = "Pirate Animation Package";
-    v112.outfitId = v15.PirateOutfitId;
-    return v111:addOutfitInfo(v15.PirateOutfitId, v112);
+    v113.name = "Pirate Animation Package";
+    v113.outfitId = v16.PirateOutfitId;
+    return v112:addOutfitInfo(v16.PirateOutfitId, v113);
 end;
-v15.addCategory = function(v113, v114) --[[ Line: 1212 ]] --[[ Name: addCategory ]]
+v16.addCategory = function(v114, v115) --[[ Line: 1214 ]] --[[ Name: addCategory ]]
     -- upvalues: v1 (copy)
-    local v115 = {
+    local v116 = {
         AvatarExperience = {
             AvatarEditor = {
                 Categories = {
-                    category = v114
+                    category = v115
                 }
             }
         }
     };
-    v113.state = v1.joinDeep(v115, v113.state);
-    return v113;
+    v114.state = v1.joinDeep(v116, v114.state);
+    return v114;
 end;
-v15.addEquippedEmote = function(v116, v117, v118) --[[ Line: 1226 ]] --[[ Name: addEquippedEmote ]]
+v16.addEquippedEmote = function(v117, v118, v119) --[[ Line: 1228 ]] --[[ Name: addEquippedEmote ]]
     -- upvalues: v1 (copy)
-    local v119 = {
+    local v120 = {
         AvatarExperience = {
             AvatarEditor = {
                 EquippedEmotes = {
-                    selectedSlot = v117, 
+                    selectedSlot = v118, 
                     slotInfo = {
                         {
-                            assetId = v118
+                            assetId = v119
                         }
                     }
                 }
             }
         }
     };
-    v116.state = v1.joinDeep(v119, v116.state);
-    return v116;
+    v117.state = v1.joinDeep(v120, v117.state);
+    return v117;
 end;
-v15.addBodybuilderEquippedEmote = function(v120) --[[ Line: 1245 ]] --[[ Name: addBodybuilderEquippedEmote ]]
-    -- upvalues: v15 (copy)
-    return v120:addEquippedEmote(1, v15.BodybuilderEmoteAssetId);
+v16.addBodybuilderEquippedEmote = function(v121) --[[ Line: 1247 ]] --[[ Name: addBodybuilderEquippedEmote ]]
+    -- upvalues: v16 (copy)
+    return v121:addEquippedEmote(1, v16.BodybuilderEmoteAssetId);
 end;
-v15.addIsInAx = function(v121) --[[ Line: 1249 ]] --[[ Name: addIsInAx ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v1 (copy)
-    local v122 = {
-        Navigation = {
-            history = {
-                {
-                    {
-                        name = l_AvatarScreen_0.AvatarExperienceRoot
-                    }
-                }
-            }
-        }
+v16.addIsInAx = function(v122) --[[ Line: 1251 ]] --[[ Name: addIsInAx ]]
+    -- upvalues: l_createMockNavigationState_0 (copy), l_AvatarScreen_0 (copy), v1 (copy)
+    local v123 = {
+        Navigation = l_createMockNavigationState_0(l_AvatarScreen_0.AvatarExperienceRoot)
     };
-    v121.state = v1.joinDeep(v122, v121.state);
-    return v121;
+    v122.state = v1.joinDeep(v123, v122.state);
+    return v122;
 end;
-v15.addPPEFinalPageFullView = function(v123) --[[ Line: 1263 ]] --[[ Name: addPPEFinalPageFullView ]]
-    -- upvalues: v8 (copy), v1 (copy)
-    local v124 = {
+v16.addPPEFinalPageFullView = function(v124) --[[ Line: 1259 ]] --[[ Name: addPPEFinalPageFullView ]]
+    -- upvalues: v9 (copy), v1 (copy)
+    local v125 = {
         AvatarExperience = {
             ProfilePictureEditor = {
                 FinalPageViewMode = {
-                    finalPageViewMode = v8.FullBody
+                    finalPageViewMode = v9.FullBody
                 }
             }
         }
     };
-    v123.state = v1.joinDeep(v124, v123.state);
-    return v123;
+    v124.state = v1.joinDeep(v125, v124.state);
+    return v124;
 end;
-v15.addSelectedPPEEmote = function(v125, v126) --[[ Line: 1277 ]] --[[ Name: addSelectedPPEEmote ]]
+v16.addSelectedPPEEmote = function(v126, v127) --[[ Line: 1273 ]] --[[ Name: addSelectedPPEEmote ]]
     -- upvalues: v1 (copy)
-    local v127 = {
+    local v128 = {
         AvatarExperience = {
             ProfilePictureEditor = {
                 ProfilePictureParams = {
-                    emoteAssetId = v126
+                    emoteAssetId = v127
                 }
             }
         }
     };
-    v125.state = v1.joinDeep(v127, v125.state);
-    return v125;
+    v126.state = v1.joinDeep(v128, v126.state);
+    return v126;
 end;
-v15.addBodyBuilderSelectedPPEEmote = function(v128) --[[ Line: 1291 ]] --[[ Name: addBodyBuilderSelectedPPEEmote ]]
-    -- upvalues: v15 (copy)
-    return v128:addSelectedPPEEmote(v15.BodybuilderEmoteAssetId);
+v16.addBodyBuilderSelectedPPEEmote = function(v129) --[[ Line: 1287 ]] --[[ Name: addBodyBuilderSelectedPPEEmote ]]
+    -- upvalues: v16 (copy)
+    return v129:addSelectedPPEEmote(v16.BodybuilderEmoteAssetId);
 end;
-v15.addAvatarEditorCategoryAndSubcategory = function(v129, v130, v131) --[[ Line: 1295 ]] --[[ Name: addAvatarEditorCategoryAndSubcategory ]]
+v16.addAvatarEditorCategoryAndSubcategory = function(v130, v131, v132) --[[ Line: 1291 ]] --[[ Name: addAvatarEditorCategoryAndSubcategory ]]
     -- upvalues: v1 (copy)
-    local v132 = {
+    local v133 = {
         AvatarExperience = {
             AvatarEditor = {
                 Categories = {
-                    category = v130, 
-                    subcategory = v131
+                    category = v131, 
+                    subcategory = v132
                 }
             }
         }
     };
-    v129.state = v1.joinDeep(v132, v129.state);
-    return v129;
+    v130.state = v1.joinDeep(v133, v130.state);
+    return v130;
 end;
-v15.addAvatarEditorCategoryAndSubcategoryByName = function(v133, v134, v135) --[[ Line: 1313 ]] --[[ Name: addAvatarEditorCategoryAndSubcategoryByName ]]
-    -- upvalues: v10 (copy)
-    local v136 = false;
-    local v137 = nil;
+v16.addAvatarEditorCategoryAndSubcategoryByName = function(v134, v135, v136) --[[ Line: 1309 ]] --[[ Name: addAvatarEditorCategoryAndSubcategoryByName ]]
+    -- upvalues: v11 (copy)
+    local v137 = false;
     local v138 = nil;
-    for v139, v140 in (v10()) do
-        if v140.Name == v134 then
-            v137 = v139;
-            if v135 then
-                assert(v140.Subcategories, "category.Subcategories should be non-nil");
-                for v141, v142 in v140.Subcategories do
-                    if v142.Name == v135 then
-                        v138 = v141;
-                        v136 = true;
+    local v139 = nil;
+    for v140, v141 in (v11()) do
+        if v141.Name == v135 then
+            v138 = v140;
+            if v136 then
+                assert(v141.Subcategories, "category.Subcategories should be non-nil");
+                for v142, v143 in v141.Subcategories do
+                    if v143.Name == v136 then
+                        v139 = v142;
+                        v137 = true;
                     end;
-                    if v136 then
+                    if v137 then
                         break;
                     end;
                 end;
-                if not v136 then
+                if not v137 then
                     break;
                 end;
             else
                 break;
             end;
         end;
-        if v136 then
+        if v137 then
             break;
         end;
     end;
-    v136 = false;
-    assert(v137, "categoryIndex should be non-nil");
-    if v135 then
-        assert(v138, "subcategoryIndex should be non-nil");
+    v137 = false;
+    assert(v138, "categoryIndex should be non-nil");
+    if v136 then
+        assert(v139, "subcategoryIndex should be non-nil");
     end;
-    return v133:addAvatarEditorCategoryAndSubcategory(v137, v138);
+    return v134:addAvatarEditorCategoryAndSubcategory(v138, v139);
 end;
-v15.addSortAndFilters = function(v143) --[[ Line: 1343 ]] --[[ Name: addSortAndFilters ]]
-    -- upvalues: v11 (copy), v1 (copy)
-    local v144 = {
+v16.addSortAndFilters = function(v144) --[[ Line: 1339 ]] --[[ Name: addSortAndFilters ]]
+    -- upvalues: v12 (copy), v1 (copy)
+    local v145 = {
         AvatarExperience = {
             Catalog = {
-                SortAndFilters = v11(nil, {})
+                SortAndFilters = v12(nil, {})
             }
         }
     };
-    v143.state = v1.joinDeep(v144, v143.state);
-    return v143;
+    v144.state = v1.joinDeep(v145, v144.state);
+    return v144;
 end;
-v15.addSearchInCatalog = function(v145, v146) --[[ Line: 1355 ]] --[[ Name: addSearchInCatalog ]]
-    -- upvalues: v15 (copy), v1 (copy)
-    local v147 = {
+v16.addSearchInCatalog = function(v146, v147) --[[ Line: 1351 ]] --[[ Name: addSearchInCatalog ]]
+    -- upvalues: v16 (copy), v1 (copy)
+    local v148 = {
         AvatarExperience = {
             Search = {
                 SearchesInCatalog = {
-                    [v15.DummySearchUid] = {
-                        keyword = v15.DummyKeyword, 
-                        items = v146
+                    [v16.DummySearchUid] = {
+                        keyword = v16.DummyKeyword, 
+                        items = v147
                     }
                 }
             }
         }
     };
-    v145.state = v1.joinDeep(v147, v145.state);
-    return v145;
+    v146.state = v1.joinDeep(v148, v146.state);
+    return v146;
 end;
-v15.addItemDetailsPeekViewState = function(v148, v149) --[[ Line: 1373 ]] --[[ Name: addItemDetailsPeekViewState ]]
+v16.addItemDetailsPeekViewState = function(v149, v150) --[[ Line: 1369 ]] --[[ Name: addItemDetailsPeekViewState ]]
     -- upvalues: v1 (copy)
-    local v150 = {
+    local v151 = {
         AvatarExperience = {
             Common = {
                 ItemDetailsPeekView = {
-                    viewState = v149
+                    viewState = v150
                 }
             }
         }
     };
-    v148.state = v1.joinDeep(v150, v148.state);
-    return v148;
+    v149.state = v1.joinDeep(v151, v149.state);
+    return v149;
 end;
-v15.addFetchingStatus = function(v151, v152, v153) --[[ Line: 1388 ]] --[[ Name: addFetchingStatus ]]
+v16.addFetchingStatus = function(v152, v153, v154) --[[ Line: 1384 ]] --[[ Name: addFetchingStatus ]]
     -- upvalues: v1 (copy)
-    local v154 = {
+    local v155 = {
         FetchingStatus = {
-            [v152] = v153
+            [v153] = v154
         }
     };
-    v151.state = v1.joinDeep(v154, v151.state);
-    return v151;
+    v152.state = v1.joinDeep(v155, v152.state);
+    return v152;
 end;
-return v15;
+return v16;

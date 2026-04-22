@@ -20,7 +20,7 @@ local function v14(v7) --[[ Line: 15 ]] --[[ Name: TopBarFromStore ]]
                 if v13 == l_screenName_0 then
                     return v12;
                 else
-                    return v10.getScreenTopBar(v13)(false) or {};
+                    return v10.getScreenTopBar(v13)(false);
                 end;
             end, 
             setScreenTopBar = v10.setScreenTopBar

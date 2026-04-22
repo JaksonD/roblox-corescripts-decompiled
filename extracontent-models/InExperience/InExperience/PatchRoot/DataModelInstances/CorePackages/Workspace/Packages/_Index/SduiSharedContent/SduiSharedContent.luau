@@ -1,6 +1,8 @@
 return {
     ["jest.config"] = script["jest.config"], 
+    SduiBadge = require(script.Components.SduiBadge), 
     SduiButton = require(script.Components.SduiButton), 
+    SduiContentRow = require(script.Components.SduiContentRow), 
     SduiAttributionRow = require(script.Components.SduiAttributionRow), 
     SduiActionBar = require(script.Components.SduiActionBar), 
     SduiDetailsPageImageHeader = require(script.Components.SduiDetailsPageImageHeader), 
@@ -13,6 +15,7 @@ return {
     SduiPlayButton = require(script.Components.SduiPlayButton), 
     SduiPlayButtonContextualMessage = require(script.Components.SduiPlayButtonContextualMessage), 
     SduiVerticalFeed = require(script.Components.SduiVerticalFeed), 
+    PullToRefreshSpinner = require(script.Components.PullToRefreshSpinner), 
     useSduiReportExperienceLaunched = require(script.Components.useSduiReportExperienceLaunched), 
     SduiImage = require(script.Components.SduiImage), 
     SduiView = require(script.Components.SduiView), 
@@ -20,5 +23,7 @@ return {
     SduiCircleIcon = require(script.Components.SduiCircleIcon), 
     SduiIcon = require(script.Components.SduiIcon), 
     SduiTextAccessoryRow = require(script.Components.SduiTextAccessoryRow), 
-    SduiSharedRegister = require(script.SduiSharedRegister)
+    SduiMediaGallery = require(script.Components.SduiMediaGallery), 
+    SduiSharedRegister = require(script.SduiSharedRegister), 
+    useCollectionAnalyticsContext = require(script.Components.useCollectionAnalyticsContext)
 };

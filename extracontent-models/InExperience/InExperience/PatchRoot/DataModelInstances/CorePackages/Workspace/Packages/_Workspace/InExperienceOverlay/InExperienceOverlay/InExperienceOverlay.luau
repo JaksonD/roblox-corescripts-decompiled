@@ -10,8 +10,9 @@ local v8 = require(l_Parent_0.ReactRoblox);
 local v9 = require(l_Parent_0.Songbird);
 local l_Components_0 = v3.Components;
 local l_View_0 = v4.View;
-return function() --[[ Line: 21 ]] --[[ Name: renderInExperienceOverlay ]]
-    -- upvalues: l_CoreGui_0 (copy), v7 (copy), v4 (copy), v6 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_View_0 (copy), l_Components_0 (copy), v9 (copy), v8 (copy)
+local l_FFlagEnableUISelector_0 = v3.Flags.FFlagEnableUISelector;
+return function() --[[ Line: 24 ]] --[[ Name: renderInExperienceOverlay ]]
+    -- upvalues: l_CoreGui_0 (copy), v7 (copy), v4 (copy), v6 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_View_0 (copy), l_Components_0 (copy), l_FFlagEnableUISelector_0 (copy), v9 (copy), v8 (copy)
     local l_ScreenGui_0 = Instance.new("ScreenGui");
     l_ScreenGui_0.Name = "InExperienceOverlay";
     l_ScreenGui_0.DisplayOrder = 6;
@@ -21,7 +22,7 @@ return function() --[[ Line: 21 ]] --[[ Name: renderInExperienceOverlay ]]
     l_ScreenGui_0.ScreenInsets = Enum.ScreenInsets.None;
     l_ScreenGui_0.SafeAreaCompatibility = Enum.SafeAreaCompatibility.None;
     l_ScreenGui_0.Parent = l_CoreGui_0;
-    local v13 = v7.createElement(v4.FoundationProvider, {
+    local v14 = v7.createElement(v4.FoundationProvider, {
         theme = v4.Enums.Theme.Dark
     }, {
         LocalizationProvider = v7.createElement(v6.LocalizationProvider, {
@@ -31,14 +32,15 @@ return function() --[[ Line: 21 ]] --[[ Name: renderInExperienceOverlay ]]
                 tag = "size-full"
             }, {
                 HeadsetDisconnectDialog = v7.createElement(l_Components_0.HeadsetDisconnectDialog), 
-                HurtOverlay = v7.createElement(l_Components_0.HurtOverlay)
+                HurtOverlay = v7.createElement(l_Components_0.HurtOverlay), 
+                InExperienceUiSelector = if l_FFlagEnableUISelector_0 then v7.createElement(l_Components_0.InExperienceUiSelector) else nil
             }), 
             Binders = v7.createElement(v7.Fragment, {}, {
                 SongbirdDebugAudio = v7.createElement(v9.DebugAudioEmitters)
             })
         })
     });
-    local v14 = v8.createRoot(l_ScreenGui_0);
-    v14:render(v13);
-    return v14;
+    local v15 = v8.createRoot(l_ScreenGui_0);
+    v15:render(v14);
+    return v15;
 end;

@@ -13,104 +13,79 @@ local v11 = require(l_script_FirstAncestor_0.Hooks.useDynamicSizeMargin);
 local v12 = require(l_script_FirstAncestor_0.Hooks.useProfileFormFactor);
 local l_VideoPlaybackCoordinator_0 = require(l_Parent_0.VideoUtils).VideoPlaybackCoordinator;
 local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local v15 = require(l_script_FirstAncestor_0.Contexts.useProfileWrapperContext);
-local l_VideoSources_0 = require(l_Parent_0.VideoUtils).AnalyticsEnums.VideoSources;
 local l_CollectionCarousel_0 = v3.CollectionCarousel;
 local l_useCollectionLayoutParams_0 = v3.useCollectionLayoutParams;
 local l_CollectionItemSize_0 = v3.CollectionViewTypes.CollectionItemSize;
-local l_FFlagBrandVideosEnableActionAnalytics_0 = require(l_Parent_0.SharedFlags).FFlagBrandVideosEnableActionAnalytics;
-return function(v21) --[[ Line: 49 ]] --[[ Name: VideoTile ]]
-    -- upvalues: v2 (copy), v12 (copy), v9 (copy), l_useLocalization_0 (copy), v6 (copy), v11 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (copy), v15 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), l_VideoPlaybackCoordinator_0 (copy), l_useDispatch_0 (copy), l_VideoSources_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v5 (copy), v4 (copy), l_CollectionCarousel_0 (copy)
-    local v22, v23 = v2.useState(true);
-    local v24 = v12().formFactor == v9.ProfileFormFactor.Wide;
-    local v25 = l_useLocalization_0({
+return function(v18) --[[ Line: 40 ]] --[[ Name: VideoTile ]]
+    -- upvalues: v2 (copy), v12 (copy), v9 (copy), l_useLocalization_0 (copy), v6 (copy), v11 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), l_VideoPlaybackCoordinator_0 (copy), l_useDispatch_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v5 (copy), v4 (copy), l_CollectionCarousel_0 (copy)
+    local v19, v20 = v2.useState(true);
+    local v21 = v12().formFactor == v9.ProfileFormFactor.Wide;
+    local v22 = l_useLocalization_0({
         title = v6.Videos
     });
-    local v26, v27 = v2.useState(nil);
-    local v28, v29 = v11();
-    local v30 = if l_FFlagBrandVideosEnableActionAnalytics_0 then v15() else nil;
-    local v31 = l_useCollectionLayoutParams_0(l_CollectionItemSize_0.Large, v26, true, {
-        sideMargin = v28
+    local v23, v24 = v2.useState(nil);
+    local v25, v26 = v11();
+    local v27 = l_useCollectionLayoutParams_0(l_CollectionItemSize_0.Large, v23, true, {
+        sideMargin = v25
     });
-    local v32 = v2.useMemo(function() --[[ Line: 66 ]]
+    local v28 = v2.useMemo(function() --[[ Line: 56 ]]
         -- upvalues: l_VideoPlaybackCoordinator_0 (ref)
         return l_VideoPlaybackCoordinator_0.new();
     end, {});
-    local v33 = v2.useCallback(function() --[[ Line: 70 ]]
-        -- upvalues: v26 (copy), v31 (copy)
-        return (if v26 then v26.AbsoluteSize.X else 300) - v31.sideMargin - 60;
+    local v29 = v2.useCallback(function() --[[ Line: 60 ]]
+        -- upvalues: v23 (copy), v27 (copy)
+        return (if v23 then v23.AbsoluteSize.X else 300) - v27.sideMargin - 60;
     end, {
-        v26
+        v23
     });
-    local v35 = v2.useCallback(function(v34) --[[ Line: 76 ]]
-        -- upvalues: v24 (copy), v33 (copy)
-        return (if v24 then v34 else v33()) * 0.5625 + 32 + 8;
+    local v31 = v2.useCallback(function(v30) --[[ Line: 66 ]]
+        -- upvalues: v21 (copy), v29 (copy)
+        return (if v21 then v30 else v29()) * 0.5625 + 32 + 8;
     end, {
-        v24, 
-        v33
+        v21, 
+        v29
     });
-    local v36 = l_useDispatch_0();
-    local v37, v38 = v2.useState(0);
-    local v40 = v2.useCallback(function(v39) --[[ Line: 85 ]]
-        -- upvalues: v38 (copy)
-        v38(v39);
+    local v32 = l_useDispatch_0();
+    local v33, v34 = v2.useState(0);
+    local v36 = v2.useCallback(function(v35) --[[ Line: 75 ]]
+        -- upvalues: v34 (copy)
+        v34(v35);
     end, {});
-    local v47 = v2.useCallback(function(v41, v42, v43) --[[ Line: 90 ]]
-        -- upvalues: v32 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (ref), l_VideoSources_0 (ref), v30 (copy), v36 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v37 (copy), v22 (copy), v23 (copy)
-        if v41 then
-            if v32 then
-                v32:reset("expanding_to_fullscreen");
+    local v39 = v2.useCallback(function(v37, v38) --[[ Line: 80 ]]
+        -- upvalues: v28 (copy), v32 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v33 (copy), v19 (copy), v20 (copy)
+        if v37 then
+            if v28 then
+                v28:reset("expanding_to_fullscreen");
             end;
-            local v44 = if l_FFlagBrandVideosEnableActionAnalytics_0 then ("%*_fullscreen"):format(v41.videoId) else nil;
-            local v45 = if l_FFlagBrandVideosEnableActionAnalytics_0 and v32 then v32:getVideoMetadata(v41.videoId) else nil;
-            if l_FFlagBrandVideosEnableActionAnalytics_0 and v45 then
-                v32:setVideoMetadata(v44, v45);
-            end;
-            local v46 = if l_FFlagBrandVideosEnableActionAnalytics_0 then {
-                videoAssetId = v41.videoId, 
-                source = l_VideoSources_0.community, 
-                sourceId = v30.profileId
-            } else nil;
-            v36(l_NavigateDown_0({
+            v32(l_NavigateDown_0({
                 name = l_AppPage_0.VideoFullscreen, 
-                detail = v41.videoId, 
+                detail = v37.videoId, 
                 extraProps = {
-                    videoId = v41.videoId, 
-                    videoKey = if l_FFlagBrandVideosEnableActionAnalytics_0 then v44 else nil, 
-                    title = v41.title, 
-                    initialTimePosition = v42 or v37, 
-                    isMuted = v22, 
-                    onMuteUpdate = v23, 
-                    videoPlaybackCoordinator = if l_FFlagBrandVideosEnableActionAnalytics_0 then v32 else nil, 
-                    videoAnalyticsMetadata = if l_FFlagBrandVideosEnableActionAnalytics_0 then v46 else nil, 
-                    onFullscreenClose = if l_FFlagBrandVideosEnableActionAnalytics_0 then v43 else nil
+                    videoId = v37.videoId, 
+                    title = v37.title, 
+                    initialTimePosition = v38 or v33, 
+                    isMuted = v19, 
+                    onMuteUpdate = v20
                 }
             }));
         end;
     end, {
-        v37, 
-        v32, 
-        v22, 
-        if l_FFlagBrandVideosEnableActionAnalytics_0 then v30 else nil
+        v33, 
+        v28, 
+        v19
     });
-    local v49 = v2.useCallback(function(v48) --[[ Line: 145 ]]
-        if v48 then
-            v48.ClipsDescendants = true;
+    local v41 = v2.useCallback(function(v40) --[[ Line: 106 ]]
+        if v40 then
+            v40.ClipsDescendants = true;
         end;
     end, {});
-    local v59 = v2.useCallback(function(v50, v51, v52) --[[ Line: 152 ]]
-        -- upvalues: v24 (copy), v33 (copy), v35 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (ref), l_VideoSources_0 (ref), v30 (copy), v2 (ref), v5 (ref), v47 (copy), v40 (copy), v32 (copy), v4 (ref)
-        local v53 = if v24 then v52 else UDim2.new(0, v33(), 0, v35(v33()));
-        local v54 = if l_FFlagBrandVideosEnableActionAnalytics_0 then v50.videoId else nil;
-        local v55 = if l_FFlagBrandVideosEnableActionAnalytics_0 then {
-            videoAssetId = v50.videoId, 
-            source = l_VideoSources_0.community, 
-            sourceId = v30.profileId
-        } else nil;
-        local v58 = v2.createElement("Frame", {
+    local v47 = v2.useCallback(function(v42, v43, v44) --[[ Line: 113 ]]
+        -- upvalues: v21 (copy), v29 (copy), v31 (copy), v2 (ref), v5 (ref), v39 (copy), v36 (copy), v28 (copy), v4 (ref)
+        local v45 = if v21 then v44 else UDim2.new(0, v29(), 0, v31(v29()));
+        return v2.createElement("Frame", {
             BackgroundTransparency = 1, 
-            LayoutOrder = v51, 
-            Size = v53
+            LayoutOrder = v43, 
+            Size = v45
         }, {
             Layout = v2.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Vertical, 
@@ -126,22 +101,14 @@ return function(v21) --[[ Line: 49 ]] --[[ Name: VideoTile ]]
                     cornerRadius = 8, 
                     isFullscreen = false, 
                     looped = false, 
-                    onExpandCallback = function(v56, v57) --[[ Line: 184 ]] --[[ Name: onExpandCallback ]]
-                        -- upvalues: l_FFlagBrandVideosEnableActionAnalytics_0 (ref), v47 (ref), v50 (copy)
-                        if l_FFlagBrandVideosEnableActionAnalytics_0 then
-                            v47(v50, v56, v57);
-                            return;
-                        else
-                            v47(v50, v56);
-                            return;
-                        end;
+                    onExpandCallback = function(v46) --[[ Line: 137 ]] --[[ Name: onExpandCallback ]]
+                        -- upvalues: v39 (ref), v42 (copy)
+                        v39(v42, v46);
                     end, 
-                    onTimeUpdate = v40, 
-                    thumbnailImage = v50.thumbnailImage, 
-                    videoId = v50.videoId, 
-                    videoKey = if l_FFlagBrandVideosEnableActionAnalytics_0 then v54 else nil, 
-                    videoPlaybackCoordinator = v32, 
-                    videoAnalyticsMetadata = if l_FFlagBrandVideosEnableActionAnalytics_0 then v55 else nil
+                    onTimeUpdate = v36, 
+                    thumbnailImage = v42.thumbnailImage, 
+                    videoId = v42.videoId, 
+                    videoPlaybackCoordinator = v28
                 })
             }), 
             PaddingBelowVideo = v2.createElement("Frame", {
@@ -151,43 +118,36 @@ return function(v21) --[[ Line: 49 ]] --[[ Name: VideoTile ]]
             }), 
             Footer = v2.createElement(v4, {
                 LayoutOrder = 3, 
-                text = v50.title
+                text = v42.title
             })
-        });
-        if l_FFlagBrandVideosEnableActionAnalytics_0 then
-            return v58, v54;
-        else
-            return v58, v50.videoId;
-        end;
+        }), v42.videoId;
     end, {
-        v47, 
-        v24, 
-        v33, 
-        v35, 
-        if l_FFlagBrandVideosEnableActionAnalytics_0 then v32 else nil, 
-        if l_FFlagBrandVideosEnableActionAnalytics_0 then v30 else nil
+        v39, 
+        v21, 
+        v29, 
+        v31
     });
     return v2.createElement("Frame", {
         AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
-        LayoutOrder = v21.layoutOrder, 
+        LayoutOrder = v18.layoutOrder, 
         Size = UDim2.new(1, 0, 0, 0), 
         ClipsDescendants = true, 
-        ref = v27, 
-        [v2.Change.AbsoluteSize] = v29
+        ref = v24, 
+        [v2.Change.AbsoluteSize] = v26
     }, {
         CollectionCarousel = v2.createElement(l_CollectionCarousel_0, {
             columnGap = 12, 
-            fractionalItemAmount = v24 and 0 or nil, 
-            getItemHeight = v35, 
+            fractionalItemAmount = v21 and 0 or nil, 
+            getItemHeight = v31, 
             hideHeaderButton = true, 
-            items = v21.videos or {}, 
+            items = v18.videos or {}, 
             LayoutOrder = 1, 
-            numColumns = v24 and 3 or 1, 
-            onScrollingFrameRefCallback = if v24 then v49 else nil, 
-            renderItem = v59, 
-            sideMargin = v31.sideMargin, 
-            title = v25.title
+            numColumns = v21 and 3 or 1, 
+            onScrollingFrameRefCallback = if v21 then v41 else nil, 
+            renderItem = v47, 
+            sideMargin = v27.sideMargin, 
+            title = v22.title
         })
     });
 end;

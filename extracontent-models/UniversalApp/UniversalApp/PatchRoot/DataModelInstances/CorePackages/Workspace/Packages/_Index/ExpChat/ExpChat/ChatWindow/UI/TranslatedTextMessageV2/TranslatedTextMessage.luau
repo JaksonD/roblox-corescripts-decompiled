@@ -1,241 +1,260 @@
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("ExpChat");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local v2 = require(l_Parent_0.Foundation);
-local v3 = require(l_Parent_0.SignalsReact);
-local v4 = require(l_Parent_0.React);
-local v5 = require(l_Parent_0.UIBlox);
-local v6 = require(l_script_FirstAncestor_0.Localization);
-local v7 = require(l_script_FirstAncestor_0.isChatRegionLocked);
-local v8 = require(l_script_FirstAncestor_0.showChatEnabledUI);
+local v3 = require(l_Parent_0.React);
+local v4 = require(l_Parent_0.UIBlox);
+local v5 = require(l_script_FirstAncestor_0.Localization);
 local l_Flags_0 = l_script_FirstAncestor_0.Flags;
-local v10 = require(l_Flags_0.FFlagExpChatEnableFocusNavigation);
-local v11 = require(l_Flags_0.FFlagDebugMessageProfiling);
-local v12 = require(l_Flags_0.FFlagExpChatTcIndicator);
-local v13 = require(l_Flags_0.FIntExpChatVisibleARButtonPadding);
-local v14 = require(l_Flags_0.FIntExpChatDefaultARButtonPadding);
-local v15 = require(l_script_FirstAncestor_0.Stores.GetChatStatusStore);
-local v16 = require(l_script_FirstAncestor_0.Stores.GetMessagesStore);
-local v17 = game:DefineFastFlag("ExpChatMessageV2PerfTracking2", false);
-local v18 = require(l_script_FirstAncestor_0.Telemetry.ExpChatPerfTracker);
-local l_useCursor_0 = v5.App.SelectionCursor.useCursor;
-local v20 = require(l_script_FirstAncestor_0.Config);
+local v7 = require(l_Flags_0.FFlagExpChatEnableFocusNavigation);
+local v8 = require(l_Flags_0.FFlagDebugMessageProfiling);
+local v9 = require(l_Flags_0.FFlagEnableInExpChatRewrite);
+local v10 = require(l_Flags_0.FFlagExpChatRewriteInline);
+local v11 = require(l_Flags_0.FStringInExpChatRewriteLabelKey);
+local v12 = require(l_Flags_0.FIntExpChatWindowTransparencyRewriteInteractableThreshold);
+local v13 = require(l_Flags_0.FFlagEnableInExpChatSummaryOnLuaForTranslatedMessageV2);
+local v14 = require(l_Flags_0.FStringExpChatSummaryPrefixText);
+local v15 = require(l_script_FirstAncestor_0.TextChatMessageChatActionType);
+local v16 = require(script.Parent.RewriteToggle);
+local v17 = require(l_script_FirstAncestor_0.Stores.GetMessagesStore);
+local v18 = require(l_script_FirstAncestor_0.Stores.GetRewriteDropdownStore);
+local v19 = game:DefineFastFlag("ExpChatMessageV2PerfTracking2", false);
+local v20 = require(l_script_FirstAncestor_0.Telemetry.ExpChatPerfTracker);
+local l_useCursor_0 = v4.App.SelectionCursor.useCursor;
+local v22 = require(l_script_FirstAncestor_0.Config);
 local l_Helpers_0 = l_script_FirstAncestor_0.ChatWindow.Helpers;
-local v22 = require(l_Helpers_0.duplicateInvisibleText);
-local function _(v23) --[[ Line: 33 ]] --[[ Name: appendVerifiedBadge ]]
-    -- upvalues: v20 (copy)
-    return string.gsub(v23, ":(%S-)$", v20.VERIFIED_EMOJI .. ":%1");
+local v24 = require(l_Helpers_0.duplicateInvisibleText);
+local v25 = require(l_Helpers_0.mergeBindableScalar);
+local function _(v26, v27) --[[ Line: 39 ]] --[[ Name: calculateTransparency ]]
+    return v26 + v27 * (1 - v26);
 end;
-local function v26(v25) --[[ Line: 37 ]] --[[ Name: trim ]]
-    if v25:match("^()%s*$") then
+local function _(v29) --[[ Line: 43 ]] --[[ Name: appendVerifiedBadge ]]
+    -- upvalues: v22 (copy)
+    return string.gsub(v29, ":(%S-)$", v22.VERIFIED_EMOJI .. ":%1");
+end;
+local function v32(v31) --[[ Line: 47 ]] --[[ Name: trim ]]
+    if v31:match("^()%s*$") then
         return "";
     else
-        return (v25:match("^%s*(.*%S)"));
+        return (v31:match("^%s*(.*%S)"));
     end;
 end;
-local function _(v27, v28) --[[ Line: 41 ]] --[[ Name: calculateTransparency ]]
-    return v27 + v28 * (1 - v27);
-end;
-local function v35(v30, v31) --[[ Line: 45 ]] --[[ Name: mergeTransparency ]]
-    -- upvalues: v4 (copy)
-    return v4.joinBindings(if typeof(v30) == "number" then {
-        v31
-    } else {
-        v31, 
-        v30
-    }):map(function(v32) --[[ Line: 52 ]]
-        -- upvalues: v30 (copy)
-        local v33 = v32[1];
-        local v34 = v32[2] or v30;
-        if v34 == nil then
-            return 1;
-        else
-            return v34 + v33 * (1 - v34);
-        end;
-    end);
-end;
-local function _(v36, v37) --[[ Line: 60 ]] --[[ Name: getPropertyFromObjBinding ]]
-    return v36:map(function(v38) --[[ Line: 64 ]]
-        -- upvalues: v37 (copy)
-        if v38 then
-            return v38[v37];
+local function _(v33, v34) --[[ Line: 51 ]] --[[ Name: getPropertyFromObjBinding ]]
+    return v33:map(function(v35) --[[ Line: 55 ]]
+        -- upvalues: v34 (copy)
+        if v35 then
+            return v35[v34];
         else
             return nil;
         end;
     end);
 end;
-local function v51(v40, v41, v42, v43, v44) --[[ Line: 69 ]] --[[ Name: appendTrustedIndicator ]]
-    local v45 = v44.Color.Shift.Shift_300.Color3:ToHex();
-    local l_Transparency_0 = v44.Color.Shift.Shift_300.Transparency;
-    local v47 = l_Transparency_0 + v42 * (1 - l_Transparency_0);
-    l_Transparency_0 = v44.Color.Content.Emphasis.Color3:ToHex();
-    local l_Transparency_1 = v44.Color.Content.Emphasis.Transparency;
-    local v49 = l_Transparency_1 + v42 * (1 - l_Transparency_1);
-    l_Transparency_1 = v43 - 4;
-    local v50 = ("%*</mark>"):format((("%*_</stroke></font>"):format((("%*<font color='#%*' transparency='%*'>%*</font>"):format(("%*<font transparency='1' weight='%*' size='%*'><stroke transparency='1'>_"):format(("<mark color='#%*' transparency='%*'>"):format(v45, v47), 600, l_Transparency_1), l_Transparency_0, v49, v41)))));
-    if string.find(v40, ":([%S:]-)$") then
-        return string.gsub(v40, ":([%S:]-)$", ((" %* :%%1"):format(v50)));
+local function _(v37, v38, v39) --[[ Line: 60 ]] --[[ Name: tryToGenerateRawPrefixTextWithActionType ]]
+    -- upvalues: v15 (copy), v2 (copy), v14 (copy)
+    local v40 = "";
+    if v39 == v15.Summary then
+        return (("<font color='#%*'><font weight='600' family='rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json'>%*</font>%*</font>"):format(v37.Color.Content.Muted.Color3:ToHex(), v2.Enums.IconName.Nebula, v14));
     else
-        return (("%* %*"):format(v40, v50));
+        if v38 then
+            v40 = v38;
+        end;
+        return v40;
     end;
 end;
-return v4.memo(function(v52) --[[ Line: 122 ]] --[[ Name: TranslatedTextMessage ]]
-    -- upvalues: v11 (copy), v15 (copy), v3 (copy), v12 (copy), v6 (copy), v2 (copy), v17 (copy), v4 (copy), v18 (copy), v16 (copy), v20 (copy), v51 (copy), v26 (copy), v22 (copy), v7 (copy), v8 (copy), v13 (copy), v14 (copy), v10 (copy), l_useCursor_0 (copy), v35 (copy)
-    if v11 then
+local function v53(v42, v43, v44, v45, v46) --[[ Line: 72 ]] --[[ Name: appendTrustedIndicator ]]
+    local v47 = v46.Color.Shift.Shift_300.Color3:ToHex();
+    local l_Transparency_0 = v46.Color.Shift.Shift_300.Transparency;
+    local v49 = l_Transparency_0 + v44 * (1 - l_Transparency_0);
+    l_Transparency_0 = v46.Color.Content.Emphasis.Color3:ToHex();
+    local l_Transparency_1 = v46.Color.Content.Emphasis.Transparency;
+    local v51 = l_Transparency_1 + v44 * (1 - l_Transparency_1);
+    l_Transparency_1 = v45 - 4;
+    local v52 = ("%*</mark>"):format((("%*_</stroke></font>"):format((("%*<font color='#%*' transparency='%*'>%*</font>"):format(("%*<font transparency='1' weight='%*' size='%*'><stroke transparency='1'>_"):format(("<mark color='#%*' transparency='%*'>"):format(v47, v49), 600, l_Transparency_1), l_Transparency_0, v51, v43)))));
+    if string.find(v42, ":([%S:]-)$") then
+        return string.gsub(v42, ":([%S:]-)$", ((" %* :%%1"):format(v52)));
+    else
+        return (("%* %*"):format(v42, v52));
+    end;
+end;
+return v3.memo(function(v54) --[[ Line: 130 ]] --[[ Name: TranslatedTextMessage ]]
+    -- upvalues: v8 (copy), v5 (copy), v10 (copy), v9 (copy), v11 (copy), v2 (copy), v19 (copy), v3 (copy), v20 (copy), v17 (copy), v18 (copy), v13 (copy), v15 (copy), v14 (copy), v22 (copy), v53 (copy), v32 (copy), v24 (copy), v12 (copy), v7 (copy), l_useCursor_0 (copy), v25 (copy), v16 (copy)
+    if v8 then
         debug.profilebegin("TranslatedTextMessage");
     end;
-    local v53 = v15(false);
-    local v54 = v3.useSignalBinding(v53.getChatStatus);
-    local l_isSpatialUIEnabled_0 = v52.isSpatialUIEnabled;
-    local v56 = if l_isSpatialUIEnabled_0 then v52.chatWindowSettings.SpatialPanelTextSize else v52.chatWindowSettings.TextSize;
-    local v57 = if v12 then v6.useLocalization({
-        trustedLabelText = "CoreScripts.TextChat.ChatWindow.TrustedLabel"
-    }) else nil;
-    local v58 = if v12 then v2.Hooks.useTokens() else nil;
-    local v60 = if v17 then v4.useCallback(function() --[[ Line: 142 ]]
-        -- upvalues: v52 (copy), v18 (ref)
-        local v59 = v52.message.current.messageId or "UNKNOWN_MESSAGE_ID";
-        v18.finish(v18.Events.MessageReceiveToWindowRenderInterval, {
-            messageId = v59
-        });
-        v18.finish(v18.Events.MessageSendToWindowRenderInterval, {
-            messageId = v59
-        });
-    end, {
-        v52.message
-    }) else nil;
-    local v62 = if v17 then v4.useCallback(function(v61) --[[ Line: 153 ]]
-        -- upvalues: v60 (copy)
-        if v61 and v61.Text and v61.Text ~= "" then
-            v60();
-        end;
-    end, {
-        v60
-    }) else nil;
-    local v63 = v4.useCallback(function() --[[ Line: 160 ]]
-        -- upvalues: v52 (copy)
-        v52.onTextMessageLabelButtonActivated(v52.message.current);
-    end, {
-        v52.onTextMessageLabelButtonActivated
+    local l_isSpatialUIEnabled_0 = v54.isSpatialUIEnabled;
+    local v56 = if l_isSpatialUIEnabled_0 then v54.chatWindowSettings.SpatialPanelTextSize else v54.chatWindowSettings.TextSize;
+    local v57 = v5.useLocalization({
+        trustedLabelText = "CoreScripts.TextChat.ChatWindow.TrustedLabel", 
+        rewrittenLabelText = if v10 and v9 then v11 else nil, 
+        defaultRewrittenLabelText = v10 and v9 and "CoreScripts.TextChat.ChatWindow.RewrittenLabel" or nil
     });
-    local v65 = v4.useCallback(function() --[[ Line: 164 ]]
-        -- upvalues: v52 (copy), v16 (ref)
-        local l_current_0 = v52.message.current;
-        v16(false).toggleMessageTranslation(not l_current_0.useTranslation, l_current_0.messageId);
-    end, {});
-    local v66 = {
-        v52.originalPrefixText, 
-        v52.isUserVerified
-    };
-    if v12 then
-        table.insert(v66, v52.isTrustedConnection);
-        table.insert(v66, v52.textTransparency);
-        table.insert(v66, v52.prefixTextProperties);
+    local v58 = nil;
+    if v10 and v9 then
+        v58 = if v57.rewrittenLabelText and v57.rewrittenLabelText ~= "" then v57.rewrittenLabelText else v57.defaultRewrittenLabelText;
     end;
-    local v74 = v4.joinBindings(v66):map(function(v67) --[[ Line: 177 ]]
-        -- upvalues: v20 (ref), v12 (ref), v51 (ref), v57 (copy), v58 (copy)
-        local v68 = v67[1];
-        local v69 = v67[2];
-        local l_v68_0 = v68;
-        if string.len(v68) > 0 then
-            if v69 then
-                l_v68_0 = string.gsub(l_v68_0, ":(%S-)$", v20.VERIFIED_EMOJI .. ":%1");
-            end;
-            if v12 then
-                local v71 = v67[3] or false;
-                local v72 = v67[4] == nil and 1 or v67[4];
-                local v73 = v67[5];
-                if v71 then
-                    l_v68_0 = v51(l_v68_0, v57.trustedLabelText, v72, v73.TextSize, v58);
-                end;
-            end;
+    local v59 = v2.Hooks.useTokens();
+    local v61 = if v19 then v3.useCallback(function() --[[ Line: 160 ]]
+        -- upvalues: v54 (copy), v20 (ref)
+        local v60 = v54.message.current.messageId or "UNKNOWN_MESSAGE_ID";
+        v20.finish(v20.Events.MessageReceiveToWindowRenderInterval, {
+            messageId = v60
+        });
+        v20.finish(v20.Events.MessageSendToWindowRenderInterval, {
+            messageId = v60
+        });
+    end, {
+        v54.message
+    }) else nil;
+    local v63 = if v19 then v3.useCallback(function(v62) --[[ Line: 171 ]]
+        -- upvalues: v61 (copy)
+        if v62 and v62.Text and v62.Text ~= "" then
+            v61();
         end;
-        return l_v68_0;
-    end);
-    local v75 = v74:map(v26);
-    local v82 = v4.joinBindings({
-        v74, 
-        v52.shouldShowTranslationToggle, 
-        v52.originalBodyText, 
-        v52.prefixTextProperties
-    }):map(function(v76) --[[ Line: 214 ]]
-        -- upvalues: v22 (ref)
-        local v77 = v76[1];
-        local v78 = v76[2];
-        local v79 = v76[3];
-        local v80 = v76[4];
-        if string.len(v77) == 0 then
-            return v79;
+    end, {
+        v61
+    }) else nil;
+    local v64 = v3.useCallback(function() --[[ Line: 178 ]]
+        -- upvalues: v54 (copy)
+        v54.onTextMessageLabelButtonActivated(v54.message.current);
+    end, {
+        v54.onTextMessageLabelButtonActivated
+    });
+    local v66 = v3.useCallback(function() --[[ Line: 182 ]]
+        -- upvalues: v54 (copy), v17 (ref)
+        local l_current_0 = v54.message.current;
+        v17(false).toggleMessageTranslation(not l_current_0.useTranslation, l_current_0.messageId);
+    end, {});
+    local v67 = nil;
+    if v9 then
+        v67 = v3.useCallback(function() --[[ Line: 190 ]]
+            -- upvalues: v54 (copy), v18 (ref)
+            local l_current_1 = v54.message.current;
+            if l_current_1 and l_current_1.messageId then
+                v18(false).toggleDropdown(l_current_1.messageId);
+            end;
+        end, {
+            v54.message
+        });
+    end;
+    local v69 = {
+        v54.originalPrefixText, 
+        v54.isUserVerified
+    };
+    table.insert(v69, v54.isTrustedConnection);
+    table.insert(v69, v54.textTransparency);
+    table.insert(v69, v54.prefixTextProperties);
+    local v70 = 0;
+    if v13 then
+        v70 = #v69 + 1;
+        table.insert(v69, v54.chatActionType);
+    end;
+    local v82 = v3.joinBindings(v69):map(function(v71) --[[ Line: 209 ]]
+        -- upvalues: v13 (ref), v59 (copy), v70 (ref), v15 (ref), v2 (ref), v14 (ref), v22 (ref), v53 (ref), v57 (copy)
+        local v72;
+        if v13 then
+            local l_v59_0 = v59;
+            local v74 = v71[1];
+            local v75 = v71[v70];
+            local v76 = "";
+            if v75 == v15.Summary then
+                v76 = ("<font color='#%*'><font weight='600' family='rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json'>%*</font>%*</font>"):format(l_v59_0.Color.Content.Muted.Color3:ToHex(), v2.Enums.IconName.Nebula, v14);
+            elseif v74 then
+                v76 = v74;
+            end;
+            v72 = v76;
         else
-            local l_v79_0 = v79;
-            if v78 then
-                l_v79_0 = "     " .. l_v79_0;
-            end;
-            return v22(v77, v80.FontFace, v80.TextSize) .. " " .. l_v79_0;
+            v72 = v71[1];
         end;
+        local v77 = v71[2];
+        local l_v72_0 = v72;
+        if string.len(v72) > 0 then
+            if v77 then
+                l_v72_0 = string.gsub(l_v72_0, ":(%S-)$", v22.VERIFIED_EMOJI .. ":%1");
+            end;
+            local v79 = v71[3] or false;
+            local v80 = v71[4] == nil and 1 or v71[4];
+            local v81 = v71[5];
+            if v79 then
+                l_v72_0 = v53(l_v72_0, v57.trustedLabelText, v80, v81.TextSize, v59);
+            end;
+        end;
+        return l_v72_0;
     end);
-    local v84 = v52.bodyTextProperties:map(function(v83) --[[ Line: 236 ]]
+    local v83 = v82:map(v32);
+    local v84 = {
+        v82, 
+        v54.shouldShowTranslationToggle, 
+        v54.originalBodyText, 
+        v54.prefixTextProperties
+    };
+    if v10 and v9 then
+        table.insert(v84, v54.wasRewritten);
+        table.insert(v84, v54.isRewriteWindowOpen);
+    end;
+    local v85 = nil;
+    if v13 then
+        v85 = #v84 + 1;
+        table.insert(v84, v54.chatActionType);
+    end;
+    local v95 = v3.joinBindings(v84):map(function(v86) --[[ Line: 256 ]]
+        -- upvalues: v13 (ref), v85 (ref), v15 (ref), v59 (copy), v24 (ref), v10 (ref), v9 (ref), v2 (ref), v58 (ref)
+        local v87 = v86[1];
+        local v88 = v86[2];
+        local v89 = v86[3];
+        local v90 = v86[4];
+        local l_v89_0 = v89;
+        if v13 and v86[v85] == v15.Summary then
+            l_v89_0 = ("<font color='#%*'>%*</font>"):format(v59.Color.Content.Muted.Color3:ToHex(), l_v89_0);
+        end;
+        if string.len(v87) > 0 then
+            if v88 then
+                l_v89_0 = "     " .. l_v89_0;
+            end;
+            l_v89_0 = v24(v87, v90.FontFace, v90.TextSize) .. " " .. l_v89_0;
+        end;
+        if v10 and v9 then
+            local v92 = v86[5];
+            local v93 = v86[6];
+            if v92 then
+                local v94 = if v93 then v2.Enums.IconName.ChevronLargeUp else v2.Enums.IconName.ChevronLargeDown;
+                l_v89_0 = ("%* <font size='%*' color='#%*'>%*<font transparency='1'><stroke transparency='1'>_</stroke></font>%*</font>"):format(l_v89_0, v90.TextSize - 4, v59.Color.Content.Muted.Color3:ToHex(), ("(%*)"):format(v58), (("<font weight='600' family='rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json'>%*</font>"):format(v94)));
+            end;
+        end;
+        return l_v89_0;
+    end);
+    local v97 = v54.bodyTextProperties:map(function(v96) --[[ Line: 301 ]]
         -- upvalues: l_isSpatialUIEnabled_0 (copy), v56 (copy)
         if l_isSpatialUIEnabled_0 then
             return v56;
         else
-            return v83.TextSize;
+            return v96.TextSize;
         end;
     end);
-    local v86 = v84:map(function(v85) --[[ Line: 239 ]]
-        return UDim2.new(0, v85 - 2, 0, v85 - 2);
+    local v99 = v97:map(function(v98) --[[ Line: 304 ]]
+        return UDim2.new(0, v98 - 2, 0, v98 - 2);
     end);
-    local v88 = v52.originalPrefixText:map(function(v87) --[[ Line: 242 ]]
-        return string.len(v87) > 0;
-    end);
-    local l_prefixTextProperties_0 = v52.prefixTextProperties;
-    local v90 = "UIGradient";
-    local l_v90_0 = v90 --[[ copy: 23 -> 42 ]];
-    local v93 = l_prefixTextProperties_0:map(function(v92) --[[ Line: 64 ]]
-        -- upvalues: l_v90_0 (copy)
-        if v92 then
-            return v92[l_v90_0];
-        else
-            return nil;
+    local v100 = nil;
+    v100 = if v13 then v3.joinBindings({
+        v54.originalPrefixText, 
+        v54.chatActionType
+    }):map(function(v101) --[[ Line: 310 ]]
+        -- upvalues: v59 (copy), v15 (ref), v2 (ref), v14 (ref)
+        local l_v59_1 = v59;
+        local v103 = v101[1];
+        local v104 = v101[2];
+        local v105 = "";
+        if v104 == v15.Summary then
+            v105 = ("<font color='#%*'><font weight='600' family='rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json'>%*</font>%*</font>"):format(l_v59_1.Color.Content.Muted.Color3:ToHex(), v2.Enums.IconName.Nebula, v14);
+        elseif v103 then
+            v105 = v103;
         end;
+        return string.len(v105) > 0;
+    end) else v54.originalPrefixText:map(function(v106) --[[ Line: 315 ]]
+        return string.len(v106) > 0;
     end);
-    l_prefixTextProperties_0 = v54:map(function(v94) --[[ Line: 246 ]]
-        -- upvalues: v7 (ref), v8 (ref), v13 (ref), v14 (ref)
-        local v95 = not v7() and v8(v94);
-        return UDim.new(0, if v95 then v13 else v14);
-    end);
-    local v96 = if v10 then l_useCursor_0() else nil;
-    local l_createElement_0 = v4.createElement;
-    local v98 = "Frame";
-    v90 = {
-        BackgroundTransparency = 1, 
-        AutomaticSize = Enum.AutomaticSize.XY, 
-        Size = UDim2.new(1, 0, 0, 0), 
-        LayoutOrder = v52.layoutOrder, 
-        Visible = v52.visible
-    };
-    local v99 = {
-        UIPadding = v4.createElement("UIPadding", {
-            PaddingRight = l_prefixTextProperties_0
-        })
-    };
-    local l_createElement_1 = v4.createElement;
-    local v101 = "Frame";
-    local v102 = {
-        AutomaticSize = Enum.AutomaticSize.XY, 
-        Size = UDim2.new(1, 0, 0, 0), 
-        BackgroundTransparency = 1
-    };
-    local v103 = {};
-    local l_createElement_2 = v4.createElement;
-    local v105 = "TextLabel";
-    local v106 = {
-        AutomaticSize = Enum.AutomaticSize.XY, 
-        BackgroundTransparency = 1
-    };
-    local l_prefixTextProperties_1 = v52.prefixTextProperties;
-    local v108 = "FontFace";
-    local l_v108_0 = v108 --[[ copy: 37 -> 43 ]];
-    v106.FontFace = l_prefixTextProperties_1:map(function(v110) --[[ Line: 64 ]]
+    local l_prefixTextProperties_0 = v54.prefixTextProperties;
+    local v108 = "UIGradient";
+    local l_v108_0 = v108 --[[ copy: 26 -> 46 ]];
+    local v111 = l_prefixTextProperties_0:map(function(v110) --[[ Line: 55 ]]
         -- upvalues: l_v108_0 (copy)
         if v110 then
             return v110[l_v108_0];
@@ -243,243 +262,327 @@ return v4.memo(function(v52) --[[ Line: 122 ]] --[[ Name: TranslatedTextMessage 
             return nil;
         end;
     end);
-    v106.RichText = true;
-    v106.Text = v74;
-    l_prefixTextProperties_1 = v52.prefixTextProperties;
-    v108 = "TextColor3";
-    local l_v108_1 = v108 --[[ copy: 37 -> 44 ]];
-    v106.TextColor3 = l_prefixTextProperties_1:map(function(v112) --[[ Line: 64 ]]
-        -- upvalues: l_v108_1 (copy)
-        if v112 then
-            return v112[l_v108_1];
-        else
-            return nil;
+    l_prefixTextProperties_0 = nil;
+    local v112 = nil;
+    if v9 then
+        local l_wasRewritten_0 = v54.wasRewritten;
+        l_prefixTextProperties_0 = l_wasRewritten_0:map(function(v114) --[[ Line: 326 ]]
+            -- upvalues: v10 (ref)
+            return v114 and not v10;
+        end);
+        if v10 then
+            local l_chatWindowTransparencyBindable_0 = v54.chatWindowTransparencyBindable;
+            if l_chatWindowTransparencyBindable_0 == nil then
+                v112 = l_wasRewritten_0;
+            elseif typeof(l_chatWindowTransparencyBindable_0) == "number" then
+                v108 = l_chatWindowTransparencyBindable_0 < v12;
+                local l_v108_1 = v108 --[[ copy: 26 -> 60 ]];
+                v112 = l_wasRewritten_0:map(function(v117) --[[ Line: 337 ]]
+                    -- upvalues: l_v108_1 (copy)
+                    return v117 and l_v108_1;
+                end);
+            else
+                v112 = v3.joinBindings({
+                    l_wasRewritten_0, 
+                    l_chatWindowTransparencyBindable_0
+                }):map(function(v118) --[[ Line: 344 ]]
+                    -- upvalues: v12 (ref)
+                    return v118[1] and v118[2] < v12;
+                end);
+            end;
         end;
-    end);
-    l_prefixTextProperties_1 = v52.prefixTextProperties;
-    v108 = "TextSize";
-    local l_v108_2 = v108 --[[ copy: 37 -> 45 ]];
-    v106.TextSize = l_prefixTextProperties_1:map(function(v114) --[[ Line: 64 ]]
-        -- upvalues: l_v108_2 (copy)
-        if v114 then
-            return v114[l_v108_2];
-        else
-            return nil;
-        end;
-    end);
-    l_prefixTextProperties_1 = v52.prefixTextProperties;
-    v108 = "TextStrokeColor3";
-    local l_v108_3 = v108 --[[ copy: 37 -> 46 ]];
-    v106.TextStrokeColor3 = l_prefixTextProperties_1:map(function(v116) --[[ Line: 64 ]]
-        -- upvalues: l_v108_3 (copy)
-        if v116 then
-            return v116[l_v108_3];
-        else
-            return nil;
-        end;
-    end);
-    local l_v35_0 = v35;
-    local l_prefixTextProperties_2 = v52.prefixTextProperties;
-    local v119 = "TextStrokeTransparency";
-    local l_v119_0 = v119 --[[ copy: 38 -> 47 ]];
-    v106.TextStrokeTransparency = l_v35_0(l_prefixTextProperties_2:map(function(v121) --[[ Line: 64 ]]
-        -- upvalues: l_v119_0 (copy)
-        if v121 then
-            return v121[l_v119_0];
-        else
-            return nil;
-        end;
-    end), v52.textTransparency);
-    v106.TextTransparency = v35(0, v52.textTransparency);
-    v106.TextWrapped = true;
-    v106.TextXAlignment = Enum.TextXAlignment.Left;
-    v106.TextYAlignment = Enum.TextYAlignment.Top;
-    v106.Visible = v88;
-    l_v35_0 = {};
-    l_prefixTextProperties_1 = v4.createElement;
-    l_prefixTextProperties_2 = "UIGradient";
-    local v122 = {};
-    local v123 = "Enabled";
-    local l_v123_0 = v123 --[[ copy: 39 -> 48 ]];
-    v122.Enabled = v93:map(function(v125) --[[ Line: 64 ]]
-        -- upvalues: l_v123_0 (copy)
-        if v125 then
-            return v125[l_v123_0];
-        else
-            return nil;
-        end;
-    end);
-    v123 = "Color";
-    local l_v123_1 = v123 --[[ copy: 39 -> 49 ]];
-    v122.Color = v93:map(function(v127) --[[ Line: 64 ]]
-        -- upvalues: l_v123_1 (copy)
-        if v127 then
-            return v127[l_v123_1];
-        else
-            return nil;
-        end;
-    end);
-    v123 = "Offset";
-    local l_v123_2 = v123 --[[ copy: 39 -> 50 ]];
-    v122.Offset = v93:map(function(v129) --[[ Line: 64 ]]
-        -- upvalues: l_v123_2 (copy)
-        if v129 then
-            return v129[l_v123_2];
-        else
-            return nil;
-        end;
-    end);
-    v123 = "Rotation";
-    local l_v123_3 = v123 --[[ copy: 39 -> 51 ]];
-    v122.Rotation = v93:map(function(v131) --[[ Line: 64 ]]
-        -- upvalues: l_v123_3 (copy)
-        if v131 then
-            return v131[l_v123_3];
-        else
-            return nil;
-        end;
-    end);
-    v123 = "Transparency";
-    v122.Transparency = v93:map(function(v132) --[[ Line: 64 ]]
-        -- upvalues: v123 (copy)
-        if v132 then
-            return v132[v123];
-        else
-            return nil;
-        end;
-    end);
-    l_v35_0.UIGradient = l_prefixTextProperties_1(l_prefixTextProperties_2, v122);
-    v103.PrefixText = l_createElement_2(v105, v106, l_v35_0);
-    l_createElement_2 = v4.createElement;
-    v105 = "TextLabel";
-    v106 = {
-        AutomaticSize = Enum.AutomaticSize.XY, 
-        BackgroundTransparency = 1
-    };
-    l_prefixTextProperties_1 = v52.bodyTextProperties;
-    v108 = "FontFace";
-    local l_v108_4 = v108 --[[ copy: 37 -> 52 ]];
-    v106.FontFace = l_prefixTextProperties_1:map(function(v134) --[[ Line: 64 ]]
-        -- upvalues: l_v108_4 (copy)
-        if v134 then
-            return v134[l_v108_4];
-        else
-            return nil;
-        end;
-    end);
-    v106.RichText = true;
-    v106.Size = UDim2.new(1, 0, 0, 0);
-    v106.Text = v82;
-    l_prefixTextProperties_1 = v52.bodyTextProperties;
-    v108 = "TextColor3";
-    local l_v108_5 = v108 --[[ copy: 37 -> 53 ]];
-    v106.TextColor3 = l_prefixTextProperties_1:map(function(v136) --[[ Line: 64 ]]
-        -- upvalues: l_v108_5 (copy)
-        if v136 then
-            return v136[l_v108_5];
-        else
-            return nil;
-        end;
-    end);
-    v106.TextSize = v84;
-    l_prefixTextProperties_1 = v52.bodyTextProperties;
-    v108 = "TextStrokeColor3";
-    local l_v108_6 = v108 --[[ copy: 37 -> 54 ]];
-    v106.TextStrokeColor3 = l_prefixTextProperties_1:map(function(v138) --[[ Line: 64 ]]
-        -- upvalues: l_v108_6 (copy)
-        if v138 then
-            return v138[l_v108_6];
-        else
-            return nil;
-        end;
-    end);
-    l_v35_0 = v35;
-    l_prefixTextProperties_2 = v52.bodyTextProperties;
-    v119 = "TextStrokeTransparency";
-    v106.TextStrokeTransparency = l_v35_0(l_prefixTextProperties_2:map(function(v139) --[[ Line: 64 ]]
-        -- upvalues: v119 (copy)
-        if v139 then
-            return v139[v119];
-        else
-            return nil;
-        end;
-    end), v52.textTransparency);
-    v106.TextTransparency = v35(0, v52.textTransparency);
-    v106.TextWrapped = true;
-    v106.TextXAlignment = Enum.TextXAlignment.Left;
-    v106.TextYAlignment = Enum.TextYAlignment.Top;
-    v106[v4.Change.Text] = if v17 then v62 else nil;
-    v103.BodyText = l_createElement_2(v105, v106);
-    l_createElement_2 = v4.createElement;
-    v105 = "Frame";
-    v106 = {
+    end;
+    local v119 = if v7 then l_useCursor_0() else nil;
+    local l_createElement_0 = v3.createElement;
+    v108 = "Frame";
+    local v121 = {
         BackgroundTransparency = 1, 
         AutomaticSize = Enum.AutomaticSize.XY, 
         Size = UDim2.new(1, 0, 0, 0), 
-        Visible = v88
+        LayoutOrder = v54.layoutOrder, 
+        Visible = v54.visible
     };
-    l_v35_0 = {
-        Layout = v4.createElement("UIListLayout", {
+    local v122 = {
+        UIPadding = v3.createElement("UIPadding", {
+            PaddingRight = v54.arButtonPadding
+        }), 
+        ColumnLayout = if not v9 or v10 then nil else v3.createElement("UIListLayout", {
+            FillDirection = Enum.FillDirection.Vertical, 
+            SortOrder = Enum.SortOrder.LayoutOrder
+        })
+    };
+    local l_createElement_1 = v3.createElement;
+    local v124 = "Frame";
+    local v125 = {
+        AutomaticSize = Enum.AutomaticSize.XY, 
+        Size = UDim2.new(1, 0, 0, 0), 
+        BackgroundTransparency = 1, 
+        LayoutOrder = v9 and 1 or nil
+    };
+    local v126 = {};
+    local l_createElement_2 = v3.createElement;
+    local v128 = "TextLabel";
+    local v129 = {
+        AutomaticSize = Enum.AutomaticSize.XY, 
+        BackgroundTransparency = 1
+    };
+    local l_prefixTextProperties_1 = v54.prefixTextProperties;
+    local v131 = "FontFace";
+    local l_v131_0 = v131 --[[ copy: 41 -> 47 ]];
+    v129.FontFace = l_prefixTextProperties_1:map(function(v133) --[[ Line: 55 ]]
+        -- upvalues: l_v131_0 (copy)
+        if v133 then
+            return v133[l_v131_0];
+        else
+            return nil;
+        end;
+    end);
+    v129.RichText = true;
+    v129.Text = v82;
+    l_prefixTextProperties_1 = v54.prefixTextProperties;
+    v131 = "TextColor3";
+    local l_v131_1 = v131 --[[ copy: 41 -> 48 ]];
+    v129.TextColor3 = l_prefixTextProperties_1:map(function(v135) --[[ Line: 55 ]]
+        -- upvalues: l_v131_1 (copy)
+        if v135 then
+            return v135[l_v131_1];
+        else
+            return nil;
+        end;
+    end);
+    l_prefixTextProperties_1 = v54.prefixTextProperties;
+    v131 = "TextSize";
+    local l_v131_2 = v131 --[[ copy: 41 -> 49 ]];
+    v129.TextSize = l_prefixTextProperties_1:map(function(v137) --[[ Line: 55 ]]
+        -- upvalues: l_v131_2 (copy)
+        if v137 then
+            return v137[l_v131_2];
+        else
+            return nil;
+        end;
+    end);
+    l_prefixTextProperties_1 = v54.prefixTextProperties;
+    v131 = "TextStrokeColor3";
+    local l_v131_3 = v131 --[[ copy: 41 -> 50 ]];
+    v129.TextStrokeColor3 = l_prefixTextProperties_1:map(function(v139) --[[ Line: 55 ]]
+        -- upvalues: l_v131_3 (copy)
+        if v139 then
+            return v139[l_v131_3];
+        else
+            return nil;
+        end;
+    end);
+    local l_v25_0 = v25;
+    local l_prefixTextProperties_2 = v54.prefixTextProperties;
+    local v142 = "TextStrokeTransparency";
+    local l_v142_0 = v142 --[[ copy: 42 -> 51 ]];
+    v129.TextStrokeTransparency = l_v25_0(l_prefixTextProperties_2:map(function(v144) --[[ Line: 55 ]]
+        -- upvalues: l_v142_0 (copy)
+        if v144 then
+            return v144[l_v142_0];
+        else
+            return nil;
+        end;
+    end), v54.textTransparency);
+    v129.TextTransparency = v25(0, v54.textTransparency);
+    v129.TextWrapped = true;
+    v129.TextXAlignment = Enum.TextXAlignment.Left;
+    v129.TextYAlignment = Enum.TextYAlignment.Top;
+    v129.Visible = v100;
+    l_v25_0 = {};
+    l_prefixTextProperties_1 = v3.createElement;
+    l_prefixTextProperties_2 = "UIGradient";
+    local v145 = {};
+    local v146 = "Enabled";
+    local l_v146_0 = v146 --[[ copy: 43 -> 52 ]];
+    v145.Enabled = v111:map(function(v148) --[[ Line: 55 ]]
+        -- upvalues: l_v146_0 (copy)
+        if v148 then
+            return v148[l_v146_0];
+        else
+            return nil;
+        end;
+    end);
+    v146 = "Color";
+    local l_v146_1 = v146 --[[ copy: 43 -> 53 ]];
+    v145.Color = v111:map(function(v150) --[[ Line: 55 ]]
+        -- upvalues: l_v146_1 (copy)
+        if v150 then
+            return v150[l_v146_1];
+        else
+            return nil;
+        end;
+    end);
+    v146 = "Offset";
+    local l_v146_2 = v146 --[[ copy: 43 -> 54 ]];
+    v145.Offset = v111:map(function(v152) --[[ Line: 55 ]]
+        -- upvalues: l_v146_2 (copy)
+        if v152 then
+            return v152[l_v146_2];
+        else
+            return nil;
+        end;
+    end);
+    v146 = "Rotation";
+    local l_v146_3 = v146 --[[ copy: 43 -> 55 ]];
+    v145.Rotation = v111:map(function(v154) --[[ Line: 55 ]]
+        -- upvalues: l_v146_3 (copy)
+        if v154 then
+            return v154[l_v146_3];
+        else
+            return nil;
+        end;
+    end);
+    v146 = "Transparency";
+    v145.Transparency = v111:map(function(v155) --[[ Line: 55 ]]
+        -- upvalues: v146 (copy)
+        if v155 then
+            return v155[v146];
+        else
+            return nil;
+        end;
+    end);
+    l_v25_0.UIGradient = l_prefixTextProperties_1(l_prefixTextProperties_2, v145);
+    v126.PrefixText = l_createElement_2(v128, v129, l_v25_0);
+    l_createElement_2 = v3.createElement;
+    v128 = v10 and v9 and "TextButton" or "TextLabel";
+    v129 = {
+        AutomaticSize = Enum.AutomaticSize.XY, 
+        BackgroundTransparency = 1
+    };
+    l_prefixTextProperties_1 = v54.bodyTextProperties;
+    v131 = "FontFace";
+    local l_v131_4 = v131 --[[ copy: 41 -> 56 ]];
+    v129.FontFace = l_prefixTextProperties_1:map(function(v157) --[[ Line: 55 ]]
+        -- upvalues: l_v131_4 (copy)
+        if v157 then
+            return v157[l_v131_4];
+        else
+            return nil;
+        end;
+    end);
+    v129.RichText = true;
+    v129.Size = UDim2.new(1, 0, 0, 0);
+    v129.Text = v95;
+    l_prefixTextProperties_1 = v54.bodyTextProperties;
+    v131 = "TextColor3";
+    local l_v131_5 = v131 --[[ copy: 41 -> 57 ]];
+    v129.TextColor3 = l_prefixTextProperties_1:map(function(v159) --[[ Line: 55 ]]
+        -- upvalues: l_v131_5 (copy)
+        if v159 then
+            return v159[l_v131_5];
+        else
+            return nil;
+        end;
+    end);
+    v129.TextSize = v97;
+    l_prefixTextProperties_1 = v54.bodyTextProperties;
+    v131 = "TextStrokeColor3";
+    local l_v131_6 = v131 --[[ copy: 41 -> 58 ]];
+    v129.TextStrokeColor3 = l_prefixTextProperties_1:map(function(v161) --[[ Line: 55 ]]
+        -- upvalues: l_v131_6 (copy)
+        if v161 then
+            return v161[l_v131_6];
+        else
+            return nil;
+        end;
+    end);
+    l_v25_0 = v25;
+    l_prefixTextProperties_2 = v54.bodyTextProperties;
+    v142 = "TextStrokeTransparency";
+    v129.TextStrokeTransparency = l_v25_0(l_prefixTextProperties_2:map(function(v162) --[[ Line: 55 ]]
+        -- upvalues: v142 (copy)
+        if v162 then
+            return v162[v142];
+        else
+            return nil;
+        end;
+    end), v54.textTransparency);
+    v129.TextTransparency = v25(0, v54.textTransparency);
+    v129.TextWrapped = true;
+    v129.TextXAlignment = Enum.TextXAlignment.Left;
+    v129.TextYAlignment = Enum.TextYAlignment.Top;
+    v129[v3.Change.Text] = if v19 then v63 else nil;
+    v129[v3.Event.Activated] = if v10 and v9 then v67 else nil;
+    v129.Interactable = if v10 and v9 then v112 else nil;
+    v126.BodyText = l_createElement_2(v128, v129);
+    l_createElement_2 = v3.createElement;
+    v128 = "Frame";
+    v129 = {
+        BackgroundTransparency = 1, 
+        AutomaticSize = Enum.AutomaticSize.XY, 
+        Size = UDim2.new(1, 0, 0, 0), 
+        Visible = v100
+    };
+    l_v25_0 = {
+        Layout = v3.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
             Padding = UDim.new(0, 4)
         })
     };
-    l_prefixTextProperties_1 = v4.createElement;
+    l_prefixTextProperties_1 = v3.createElement;
     l_prefixTextProperties_2 = "TextButton";
-    v122 = {
+    v145 = {
         AutomaticSize = Enum.AutomaticSize.XY, 
         BackgroundTransparency = 1
     };
-    v108 = v52.prefixTextProperties;
-    local v140 = "FontFace";
-    local l_v140_0 = v140 --[[ copy: 41 -> 55 ]];
-    v122.FontFace = v108:map(function(v142) --[[ Line: 64 ]]
-        -- upvalues: l_v140_0 (copy)
-        if v142 then
-            return v142[l_v140_0];
+    v131 = v54.prefixTextProperties;
+    local v163 = "FontFace";
+    local l_v163_0 = v163 --[[ copy: 45 -> 59 ]];
+    v145.FontFace = v131:map(function(v165) --[[ Line: 55 ]]
+        -- upvalues: l_v163_0 (copy)
+        if v165 then
+            return v165[l_v163_0];
         else
             return nil;
         end;
     end);
-    v122.RichText = true;
-    v122.SelectionImageObject = v96;
-    v122.Size = UDim2.new(0, 0, 0, 0);
-    v122.Text = v75;
-    v108 = v52.prefixTextProperties;
-    v140 = "TextSize";
-    v122.TextSize = v108:map(function(v143) --[[ Line: 64 ]]
-        -- upvalues: v140 (copy)
-        if v143 then
-            return v143[v140];
+    v145.RichText = true;
+    v145.SelectionImageObject = v119;
+    v145.Size = UDim2.new(0, 0, 0, 0);
+    v145.Text = v83;
+    v131 = v54.prefixTextProperties;
+    v163 = "TextSize";
+    v145.TextSize = v131:map(function(v166) --[[ Line: 55 ]]
+        -- upvalues: v163 (copy)
+        if v166 then
+            return v166[v163];
         else
             return nil;
         end;
     end);
-    v122.TextStrokeTransparency = 1;
-    v122.TextTransparency = 1;
-    v122.TextWrapped = true;
-    v122.TextXAlignment = Enum.TextXAlignment.Left;
-    v122.TextYAlignment = Enum.TextYAlignment.Top;
-    v122.LayoutOrder = 1;
-    v122[v4.Event.Activated] = v63;
-    l_v35_0.TextButton = l_prefixTextProperties_1(l_prefixTextProperties_2, v122);
-    l_v35_0.TranslationButton = v4.createElement("ImageButton", {
+    v145.TextStrokeTransparency = 1;
+    v145.TextTransparency = 1;
+    v145.TextWrapped = true;
+    v145.TextXAlignment = Enum.TextXAlignment.Left;
+    v145.TextYAlignment = Enum.TextYAlignment.Top;
+    v145.LayoutOrder = 1;
+    v145[v3.Event.Activated] = v64;
+    l_v25_0.TextButton = l_prefixTextProperties_1(l_prefixTextProperties_2, v145);
+    l_v25_0.TranslationButton = v3.createElement("ImageButton", {
         BackgroundTransparency = 1, 
         HoverImage = "rbxasset://textures/translateIconDark.png", 
         Image = "rbxasset://textures/translateIcon.png", 
-        ImageTransparency = v35(0, v52.textTransparency), 
+        ImageTransparency = v25(0, v54.textTransparency), 
         LayoutOrder = 2, 
         PressedImage = "rbxasset://textures/translateIconDark.png", 
-        SelectionImageObject = v96, 
-        Size = v86, 
-        Visible = v52.shouldShowTranslationToggle, 
-        [v4.Event.Activated] = v65
+        SelectionImageObject = v119, 
+        Size = v99, 
+        Visible = v54.shouldShowTranslationToggle, 
+        [v3.Event.Activated] = v66
     });
-    v103.TextMessageButton = l_createElement_2(v105, v106, l_v35_0);
-    v99.TextMessage = l_createElement_1(v101, v102, v103);
-    l_createElement_0 = l_createElement_0(v98, v90, v99);
-    if v11 then
+    v126.TextMessageButton = l_createElement_2(v128, v129, l_v25_0);
+    v122.TextMessage = l_createElement_1(v124, v125, v126);
+    v122.RewriteToggle = if not v9 or v10 then nil else v3.createElement(v16, {
+        isRewriteMenuOpen = v54.isRewriteWindowOpen, 
+        textTransparency = v54.textTransparency, 
+        onActivated = v67, 
+        LayoutOrder = 2, 
+        Visible = l_prefixTextProperties_0
+    });
+    l_createElement_0 = l_createElement_0(v108, v121, v122);
+    if v8 then
         debug.profileend();
     end;
     return l_createElement_0;

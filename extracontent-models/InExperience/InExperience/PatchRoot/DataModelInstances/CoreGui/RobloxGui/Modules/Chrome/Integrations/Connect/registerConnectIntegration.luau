@@ -9,31 +9,32 @@ local l_InExperienceAppChatModal_0 = v5.App.InExperienceAppChatModal;
 local v8 = require(l_script_FirstAncestor_0.Integrations.ChromeIntegrationUtils);
 local v9 = require(l_script_FirstAncestor_0.ChromeShared.Service.LocalStore);
 local v10 = require(l_script_FirstAncestor_0.Flags.GetFStringConnectTooltipLocalStorageKey);
-local l_FFlagEnableUnibarFtuxTooltips_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips;
 local l_MouseIconOverrideService_0 = require(l_CorePackages_0.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService;
 local l_Symbol_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Symbol;
 local l_FocusUtils_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).FocusUtils;
+local l_SideSheetPlacement_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).Enums.SideSheetPlacement;
 local v15 = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false);
 local v16 = game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false);
 local l_FFlagEnableAppChatFocusableFixes_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes;
 local l_GetFFlagIsSquadEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled;
 local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-return function(v20, v21) --[[ Line: 32 ]]
-    -- upvalues: l_GetFFlagIsSquadEnabled_0 (copy), v3 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_InExperienceAppChatModal_0 (copy), v8 (copy), v16 (copy), v6 (copy), l_FocusUtils_0 (copy), l_FFlagEnableUnibarFtuxTooltips_0 (copy), v9 (copy), v10 (copy), v2 (copy), v4 (copy), v15 (copy), l_Symbol_0 (copy), l_MouseIconOverrideService_0 (copy)
+return function(v20, v21) --[[ Line: 34 ]]
+    -- upvalues: l_GetFFlagIsSquadEnabled_0 (copy), v3 (copy), l_SideSheetPlacement_0 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_InExperienceAppChatModal_0 (copy), v8 (copy), v16 (copy), v6 (copy), l_FocusUtils_0 (copy), v9 (copy), v10 (copy), v2 (copy), v4 (copy), v15 (copy), l_Symbol_0 (copy), l_MouseIconOverrideService_0 (copy)
     local v22 = false;
     if v20 == "connect_unibar" then
         v22 = l_GetFFlagIsSquadEnabled_0();
     end;
     local v24 = v3:register({
         id = v20, 
+        sideSheetPlacement = if v20 == "connect_unibar" then l_SideSheetPlacement_0.Unibar else l_SideSheetPlacement_0.Vertical, 
         label = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Squads.Label.Party" or "Feature.Chat.Label.RobloxChat", 
-        activated = function() --[[ Line: 40 ]] --[[ Name: activated ]]
-            -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), l_InExperienceAppChatModal_0 (ref), v8 (ref), v16 (ref), v6 (ref), l_FocusUtils_0 (ref), l_FFlagEnableUnibarFtuxTooltips_0 (ref), v9 (ref), v10 (ref)
+        activated = function() --[[ Line: 43 ]] --[[ Name: activated ]]
+            -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), l_InExperienceAppChatModal_0 (ref), v8 (ref), v16 (ref), v6 (ref), l_FocusUtils_0 (ref), v9 (ref), v10 (ref)
             if l_FFlagEnableAppChatFocusableFixes_0 then
                 if l_InExperienceAppChatModal_0:getVisible() then
                     l_InExperienceAppChatModal_0.default:setVisible(false);
                 else
-                    v8.dismissRobloxMenuAndRun(function() --[[ Line: 45 ]]
+                    v8.dismissRobloxMenuAndRun(function() --[[ Line: 48 ]]
                         -- upvalues: v16 (ref), v6 (ref), l_FocusUtils_0 (ref), l_InExperienceAppChatModal_0 (ref)
                         if v16 then
                             if v6.GetInputModeStore(false).getLastInputType(false) == v6.Input.Directional then
@@ -42,7 +43,7 @@ return function(v20, v21) --[[ Line: 32 ]]
                             l_InExperienceAppChatModal_0.default:setVisible(true);
                             return;
                         else
-                            l_FocusUtils_0.FocusOffChrome(function() --[[ Line: 53 ]]
+                            l_FocusUtils_0.FocusOffChrome(function() --[[ Line: 56 ]]
                                 -- upvalues: l_InExperienceAppChatModal_0 (ref)
                                 l_InExperienceAppChatModal_0.default:setVisible(true);
                             end);
@@ -53,9 +54,7 @@ return function(v20, v21) --[[ Line: 32 ]]
             else
                 l_InExperienceAppChatModal_0:toggleVisibility();
             end;
-            if l_FFlagEnableUnibarFtuxTooltips_0 then
-                v9.storeForLocalPlayer(v10(), true);
-            end;
+            v9.storeForLocalPlayer(v10(), true);
         end, 
         isActivated = function() --[[ Line: 67 ]] --[[ Name: isActivated ]]
             -- upvalues: l_InExperienceAppChatModal_0 (ref)

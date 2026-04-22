@@ -14,103 +14,107 @@ local v6 = {
     }, 
     fflag = v5.checkFlagEnabledForAllowHrd
 };
-local function v7(v8, v9, v10) --[[ Line: 15 ]] --[[ Name: fillBoneTreeFlatList ]]
-    -- upvalues: v7 (copy)
-    for _, v12 in v8:GetChildren() do
-        local l_v9_0 = v9;
-        if v12:IsA("Bone") then
-            l_v9_0 = true;
+local v7 = game:DefineFastFlag("UGCValidationRemoveHRDBlocker", false);
+local function v8(v9, v10, v11) --[[ Line: 16 ]] --[[ Name: fillBoneTreeFlatList ]]
+    -- upvalues: v8 (copy)
+    for _, v13 in v9:GetChildren() do
+        local l_v10_0 = v10;
+        if v13:IsA("Bone") then
+            l_v10_0 = true;
         end;
-        if l_v9_0 then
-            table.insert(v10, v12);
+        if l_v10_0 then
+            table.insert(v11, v13);
         end;
-        v7(v12, l_v9_0, v10);
+        v8(v13, l_v10_0, v11);
     end;
 end;
-local function v23(v14, v15, v16) --[[ Line: 30 ]] --[[ Name: nameIsMappedInRigDescriptions ]]
+local function v24(v15, v16, v17) --[[ Line: 31 ]] --[[ Name: nameIsMappedInRigDescriptions ]]
     -- upvalues: v5 (copy)
-    for _, v18 in v5.getHrdJointLabels() do
-        if v14.Name == v18.Name then
-            local l_v15_Joint_0 = v15:GetJoint(v18);
-            return l_v15_Joint_0 and l_v15_Joint_0.UniqueId == v14.UniqueId;
+    for _, v19 in v5.getHrdJointLabels() do
+        if v15.Name == v19.Name then
+            local l_v16_Joint_0 = v16:GetJoint(v19);
+            return l_v16_Joint_0 and l_v16_Joint_0.UniqueId == v15.UniqueId;
         end;
     end;
-    if v16 then
-        for _, v21 in v5.getDrdJointLabels() do
-            if ("%*Hand%*"):format(v16.Side.Name, v21.Name) == v14.Name then
-                local l_v16_Joint_0 = v16:GetJoint(v21);
-                return l_v16_Joint_0 and l_v16_Joint_0.UniqueId == v14.UniqueId;
+    if v17 then
+        for _, v22 in v5.getDrdJointLabels() do
+            if ("%*Hand%*"):format(v17.Side.Name, v22.Name) == v15.Name then
+                local l_v17_Joint_0 = v17:GetJoint(v22);
+                return l_v17_Joint_0 and l_v17_Joint_0.UniqueId == v15.UniqueId;
             end;
         end;
     end;
     return false;
 end;
-v6.run = function(v24, v25) --[[ Line: 56 ]]
-    -- upvalues: v4 (copy), v3 (copy), v5 (copy), v7 (copy), v23 (copy)
-    local l_rootInstance_0 = v25.rootInstance;
-    for _, v28 in v4(l_rootInstance_0, "MeshPart") do
-        local l_Name_0 = v28.Name;
-        local l_HumanoidRigDescription_0 = v28:FindFirstChildWhichIsA("HumanoidRigDescription");
-        local l_DigitsRigDescription_0 = v28:FindFirstChildWhichIsA("DigitsRigDescription");
+v6.run = function(v25, v26) --[[ Line: 57 ]]
+    -- upvalues: v4 (copy), v7 (copy), v3 (copy), v5 (copy), v8 (copy), v24 (copy)
+    local l_rootInstance_0 = v26.rootInstance;
+    for _, v29 in v4(l_rootInstance_0, "MeshPart") do
+        local l_Name_0 = v29.Name;
+        local l_HumanoidRigDescription_0 = v29:FindFirstChildWhichIsA("HumanoidRigDescription");
+        local l_DigitsRigDescription_0 = v29:FindFirstChildWhichIsA("DigitsRigDescription");
+        if l_HumanoidRigDescription_0 ~= nil and not v7 then
+            v25:fail(v3.Keys.HrdCheck_TempR15BonesUploadNotAllowed);
+        end;
         if l_HumanoidRigDescription_0 == nil then
-            for _, v33 in (v4(v28, "Bone")) do
-                v24:fail(v3.Keys.HrdCheck_BoneWithoutHrd, {
-                    bonePath = v33:GetFullName()
+            for _, v34 in (v4(v29, "Bone")) do
+                v25:fail(v3.Keys.HrdCheck_BoneWithoutHrd, {
+                    bonePath = v34:GetFullName()
                 });
             end;
             if l_DigitsRigDescription_0 ~= nil then
-                v24:fail(v3.Keys.HrdCheck_DrdWithoutHrd);
+                v25:fail(v3.Keys.HrdCheck_DrdWithoutHrd);
             end;
         else
-            local v34 = v5.getAvatarBoneSchema(l_Name_0);
-            local v35 = v5.getSchemaFlatHierarchyList(v34, {
+            local v35 = v5.getAvatarBoneSchema(l_Name_0);
+            local v36 = v5.getSchemaFlatHierarchyList(v35, {
                 l_Name_0
             });
-            local v36 = {};
-            v7(v28, false, v36);
-            local v37 = {
+            local v37 = {};
+            v8(v29, false, v37);
+            local v38 = {
                 [l_Name_0] = true
             };
-            for _, v39 in v36 do
-                local l_Name_1 = v39.Name;
-                local v41 = v35[l_Name_1];
+            for _, v40 in v37 do
+                local l_Name_1 = v40.Name;
+                local v42 = v36[l_Name_1];
                 if l_Name_1 ~= v5.JointRotationName then
-                    if v41 == nil or v41.ClassName ~= v39.ClassName then
-                        v24:fail(v3.Keys.HrdCheck_UndefinedInstanceInBoneTree, {
+                    if v42 == nil or v42.ClassName ~= v40.ClassName then
+                        v25:fail(v3.Keys.HrdCheck_UndefinedInstanceInBoneTree, {
                             instName = l_Name_1, 
-                            className = v39.ClassName
+                            className = v40.ClassName
                         });
-                    elseif v37[l_Name_1] then
-                        v24:fail(v3.Keys.HrdCheck_DuplicateInstance, {
+                    elseif v38[l_Name_1] then
+                        v25:fail(v3.Keys.HrdCheck_DuplicateInstance, {
                             instName = l_Name_1
                         });
                     else
-                        v37[l_Name_1] = true;
-                        if v41.ClassName == "Bone" and not v23(v39, l_HumanoidRigDescription_0, l_DigitsRigDescription_0) then
-                            v24:fail(v3.Keys.HrdCheck_BoneNotMappedInHRD, {
+                        v38[l_Name_1] = true;
+                        if v42.ClassName == "Bone" and not v24(v40, l_HumanoidRigDescription_0, l_DigitsRigDescription_0) then
+                            v25:fail(v3.Keys.HrdCheck_BoneNotMappedInHRD, {
                                 boneName = l_Name_1
                             });
                         end;
                     end;
                 end;
             end;
-            for _, v43 in v28:GetDescendants() do
-                local v44 = v35[v43.Name];
-                if v44 and v43:IsA("Attachment") and v43.Name ~= v5.JointRotationName then
-                    local l_path_0 = v44.path;
-                    local v46 = #l_path_0 - 1;
-                    if v43.ClassName == "Attachment" then
-                        while v46 > 1 and not v37[l_path_0[v46]] do
-                            v46 = v46 - 1;
+            for _, v44 in v29:GetDescendants() do
+                local v45 = v36[v44.Name];
+                if v45 and v44:IsA("Attachment") and v44.Name ~= v5.JointRotationName then
+                    local l_path_0 = v45.path;
+                    local v47 = #l_path_0 - 1;
+                    if v44.ClassName == "Attachment" then
+                        while v47 > 1 and not v38[l_path_0[v47]] do
+                            v47 = v47 - 1;
                         end;
                     end;
-                    local v47 = v44.path[v46];
-                    local l_Name_2 = v43.Parent.Name;
-                    if l_Name_2 ~= v47 then
-                        v24:fail(v3.Keys.HrdCheck_ImproperParent, {
-                            instName = v43.Name, 
+                    local v48 = v45.path[v47];
+                    local l_Name_2 = v44.Parent.Name;
+                    if l_Name_2 ~= v48 then
+                        v25:fail(v3.Keys.HrdCheck_ImproperParent, {
+                            instName = v44.Name, 
                             parentName = l_Name_2, 
-                            expectedParentName = v47
+                            expectedParentName = v48
                         });
                     end;
                 end;

@@ -45,10 +45,9 @@ local v43 = require(l_Modules_0.LuaApp.Flags.GetFIntLuaLoginGenderSelector);
 local v44 = UDim2.new(0, 36, 0, 36);
 local v45 = Vector2.new(540, 1080);
 local v46 = Vector2.new(850, 1080);
-game:DefineFastFlag("EnableSignupPlaceholderText", false);
 local v47 = game:DefineFastFlag("EnableUsernameNextSelectionDown", false);
 local v48 = game:DefineFastFlag("AuthRefactorConsoleDisclaimerText", false);
-return function(v49) --[[ Line: 169 ]]
+return function(v49) --[[ Line: 168 ]]
     -- upvalues: l_useStyle_0 (copy), l_useUiModeInfo_0 (copy), v41 (copy), l_UiMode_0 (copy), l_GetFFlagLuaAppEnable10ftSignUpView_0 (copy), l_useDesignTokens_0 (copy), v37 (copy), v18 (copy), l_useSelector_0 (copy), l_FormFactor_0 (copy), v2 (copy), v3 (copy), l_useSignUpPageNavigationBindings_0 (copy), l_BackgroundFill_0 (copy), l_GetFFlagEnableTextFieldContentType_0 (copy), v48 (copy), l_useTextSizeOffset_0 (copy), l_useAnimatedScrollToSelection_0 (copy), v36 (copy), l_ImageSetLabel_0 (copy), l_GetImageData_0 (copy), v46 (copy), v45 (copy), l_ImageSetButton_0 (copy), v44 (copy), l_Images_0 (copy), v16 (copy), v15 (copy), v25 (copy), v27 (copy), v26 (copy), v34 (copy), l_DateHelper_0 (copy), v28 (copy), v23 (copy), v47 (copy), v29 (copy), v30 (copy), v43 (copy), v31 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), v32 (copy), v33 (copy)
     local v50 = l_useStyle_0();
     local v51 = l_useUiModeInfo_0();
@@ -56,7 +55,7 @@ return function(v49) --[[ Line: 169 ]]
     local v53 = l_GetFFlagLuaAppEnable10ftSignUpView_0() or v51.uiMode == l_UiMode_0.VR;
     local v54 = if v53 then l_useDesignTokens_0() else nil;
     local v55 = if v53 and v54 then v54.LuaApps.SignUpView else nil;
-    local v57 = v37(function(v56) --[[ Line: 177 ]]
+    local v57 = v37(function(v56) --[[ Line: 176 ]]
         return v56.getPlatformAccountName();
     end);
     local v58 = v18({
@@ -65,7 +64,7 @@ return function(v49) --[[ Line: 169 ]]
         passwordPlaceholder = "Authentication.SignUp.Label.PasswordPlaceholder", 
         unknownError = "Feature.Reauthentication.Message.Error.Default"
     });
-    local v60 = l_useSelector_0(function(v59) --[[ Line: 188 ]]
+    local v60 = l_useSelector_0(function(v59) --[[ Line: 187 ]]
         return v59.FormFactor;
     end) == l_FormFactor_0.WIDE;
     local v61 = v2.useRef(nil);
@@ -84,15 +83,15 @@ return function(v49) --[[ Line: 169 ]]
         v66 = v70;
     end;
     local v71, v72 = v2.useState(false);
-    local v73 = v2.useCallback(function() --[[ Line: 205 ]]
+    local v73 = v2.useCallback(function() --[[ Line: 204 ]]
         -- upvalues: v72 (copy)
         v72(true);
     end);
-    local v74 = v2.useCallback(function() --[[ Line: 208 ]]
+    local v74 = v2.useCallback(function() --[[ Line: 207 ]]
         -- upvalues: v72 (copy)
         v72(false);
     end);
-    local v75 = v2.useCallback(function() --[[ Line: 211 ]]
+    local v75 = v2.useCallback(function() --[[ Line: 210 ]]
         -- upvalues: v2 (ref), v60 (copy), v50 (copy), l_BackgroundFill_0 (ref)
         return v2.createElement("Frame", {
             Size = UDim2.new(1, 0, 1, 0), 
@@ -115,61 +114,60 @@ return function(v49) --[[ Line: 169 ]]
     });
     local v76 = v49.useUsernameSuggestions();
     local l_birthday_0 = v49.birthday;
-    local l_EnableSignupPlaceholderText_0 = game:GetFastFlag("EnableSignupPlaceholderText");
+    local v78 = 0;
     local v79 = 0;
-    local v80 = 0;
-    local v81 = v49.onScreenKeyboardHeight > 0;
-    local v82 = v49.useVerifiedSignup();
-    local v83 = v60 and v82 and 12 or 0;
+    local v80 = v49.onScreenKeyboardHeight > 0;
+    local v81 = v49.useVerifiedSignup();
+    local v82 = v60 and v81 and 12 or 0;
+    local v83 = true;
     local v84 = true;
-    local v85 = true;
-    local v86 = not v49.validUsernameEntered();
-    local v87 = "Authentication.SignUp.Label.ErrorsWithUsername";
-    local v88 = "Authentication.SignUp.Label.ErrorsWithPassword";
+    local v85 = not v49.validUsernameEntered();
+    local v86 = "Authentication.SignUp.Label.ErrorsWithUsername";
+    local v87 = "Authentication.SignUp.Label.ErrorsWithPassword";
     if not l_birthday_0 then
-        v87 = "Authentication.SignUp.Response.BirthdayMustBeSetFirst";
-        v88 = v87;
-        v86 = true;
+        v86 = "Authentication.SignUp.Response.BirthdayMustBeSetFirst";
+        v87 = v86;
+        v85 = true;
+        v83 = false;
+    elseif v85 then
+        v87 = "Authentication.SignUp.Response.UsernameMustBeSetFirst";
         v84 = false;
-    elseif v86 then
-        v88 = "Authentication.SignUp.Response.UsernameMustBeSetFirst";
-        v85 = false;
     end;
     if v60 then
-        if v81 then
-            v79 = v49.onScreenKeyboardHeight + 10;
+        if v80 then
+            v78 = v49.onScreenKeyboardHeight + 10;
         else
-            v79 = 48;
-            v80 = 24;
+            v78 = 48;
+            v79 = 24;
         end;
     end;
-    local v89 = l_birthday_0 and true or false;
-    local v90 = l_GetFFlagEnableTextFieldContentType_0() and Enum.TextInputType.Username or Enum.TextInputType.NoSuggestions;
-    local v91 = 36;
-    local v92 = v50.Font.BaseSize * v50.Font.Header1.RelativeSize;
-    local v93 = v50.Font.BaseSize * v50.Font.CaptionBody.RelativeSize;
-    local v94 = 5;
-    local v95 = 1;
-    local v96 = nil;
-    local v97 = {
+    local v88 = l_birthday_0 and true or false;
+    local v89 = l_GetFFlagEnableTextFieldContentType_0() and Enum.TextInputType.Username or Enum.TextInputType.NoSuggestions;
+    local v90 = 36;
+    local v91 = v50.Font.BaseSize * v50.Font.Header1.RelativeSize;
+    local v92 = v50.Font.BaseSize * v50.Font.CaptionBody.RelativeSize;
+    local v93 = 5;
+    local v94 = 1;
+    local v95 = nil;
+    local v96 = {
         "Authentication.SignUp.Description.VerificationPage"
     };
-    local v98 = {
+    local v97 = {
         {}
     };
     if v52 and v57 then
         if v48 then
-            v97 = {
+            v96 = {
                 {
                     "Authentication.SignUp.Description.VerificationLinkingText"; 
                     platform = v57
                 }
             };
         else
-            v97 = {
+            v96 = {
                 "Authentication.SignUp.Description.VerificationLinkingText"
             };
-            v98 = {
+            v97 = {
                 {
                     platform = v57
                 }
@@ -177,18 +175,18 @@ return function(v49) --[[ Line: 169 ]]
         end;
     end;
     if v53 and v55 then
-        v80 = v55.marginTop;
-        v93 = v55.textCaptionHeaderSize;
-        v92 = v55.textHeaderSize;
-        v91 = v55.buttonHeight;
-        v94 = v55.contentPadding;
-        v95 = v55.headerPadding;
-        v96 = {
+        v79 = v55.marginTop;
+        v92 = v55.textCaptionHeaderSize;
+        v91 = v55.textHeaderSize;
+        v90 = v55.buttonHeight;
+        v93 = v55.contentPadding;
+        v94 = v55.headerPadding;
+        v95 = {
             Size = UDim2.fromScale(1, 1), 
             TextSize = v55.buttonTextSize
         };
     end;
-    v2.useEffect(function() --[[ Line: 316 ]]
+    v2.useEffect(function() --[[ Line: 314 ]]
         -- upvalues: v62 (copy), v61 (copy), v63 (copy)
         if v62 and v61.current then
             v63(v61.current);
@@ -196,21 +194,21 @@ return function(v49) --[[ Line: 169 ]]
     end, {});
     local _ = nil;
     local _ = nil;
-    local v101 = nil;
-    v101 = l_useTextSizeOffset_0();
-    local v102, v103 = l_useAnimatedScrollToSelection_0(Enum.ScrollingDirection.Y, v79 + 49 + v101);
-    v102 = {
+    local v100 = nil;
+    v100 = l_useTextSizeOffset_0();
+    local v101, v102 = l_useAnimatedScrollToSelection_0(Enum.ScrollingDirection.Y, v78 + 49 + v100);
+    v101 = {
         BorderSizePixel = 0, 
         CanvasSize = UDim2.new(1, 0, 0, 0), 
         AutomaticCanvasSize = Enum.AutomaticSize.Y, 
-        CanvasPosition = v102, 
+        CanvasPosition = v101, 
         ScrollingDirection = Enum.ScrollingDirection.Y, 
         ScrollBarImageTransparency = 1, 
         Position = UDim2.new(0.5, 0, 0, 49), 
         AnchorPoint = Vector2.new(0.5, 0), 
-        Size = UDim2.new(1, 0, 1, -(49 + v83 + v80 + v101)), 
+        Size = UDim2.new(1, 0, 1, -(49 + v82 + v79 + v100)), 
         [v2.Change.CanvasSize] = v49.onSignUpContentFrameCanvasSizeChange, 
-        [v2.Event.SelectionChanged] = v103, 
+        [v2.Event.SelectionChanged] = v102, 
         ref = v49.signUpContentFrameRef, 
         LayoutOrder = 3, 
         Selectable = false, 
@@ -229,8 +227,8 @@ return function(v49) --[[ Line: 169 ]]
             Image = ""
         }), 
         Container = v2.createElement(l_ImageSetLabel_0, {
-            Size = UDim2.new(1, 0, 1, -v79), 
-            Position = UDim2.new(0.5, 0, 0, v80), 
+            Size = UDim2.new(1, 0, 1, -v78), 
+            Position = UDim2.new(0.5, 0, 0, v79), 
             AnchorPoint = Vector2.new(0.5, 0), 
             BackgroundTransparency = 1, 
             ScaleType = Enum.ScaleType.Slice, 
@@ -245,7 +243,7 @@ return function(v49) --[[ Line: 169 ]]
                 SortOrder = Enum.SortOrder.LayoutOrder, 
                 HorizontalAlignment = Enum.HorizontalAlignment.Center, 
                 VerticalAlignment = Enum.VerticalAlignment.Top, 
-                Padding = UDim.new(0, v95)
+                Padding = UDim.new(0, v94)
             }) else nil, 
             SizeConstraint = v2.createElement("UISizeConstraint", {
                 MaxSize = if v52 then v46 else v45
@@ -281,7 +279,7 @@ return function(v49) --[[ Line: 169 ]]
                     Text = v58.signUpText or "", 
                     TextWrapped = true, 
                     Font = v50.Font.CaptionHeader.Font, 
-                    TextSize = v92, 
+                    TextSize = v91, 
                     TextColor3 = v50.Theme.TextEmphasis.Color, 
                     TextTransparency = v50.Theme.TextEmphasis.Transparency, 
                     TextXAlignment = Enum.TextXAlignment.Center
@@ -295,7 +293,7 @@ return function(v49) --[[ Line: 169 ]]
                 BackgroundColor3 = v50.Theme.UIEmphasis.Color, 
                 LayoutOrder = 2
             }) else nil, 
-            SignUpContentFrame = v2.createElement("ScrollingFrame", v102, {
+            SignUpContentFrame = v2.createElement("ScrollingFrame", v101, {
                 ContentPadding = v2.createElement("UIPadding", {
                     PaddingLeft = UDim.new(0, 24), 
                     PaddingRight = UDim.new(0, 24), 
@@ -304,13 +302,13 @@ return function(v49) --[[ Line: 169 ]]
                 ListLayout = v2.createElement("UIListLayout", {
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                    Padding = UDim.new(0, v94)
+                    Padding = UDim.new(0, v93)
                 }), 
                 BirthdayBar = if v52 then nil else v2.createElement(v25, {
                     layoutOrder = 1, 
                     onBirthdaySelected = v49.onBirthdaySelected, 
                     onBirthdayFocused = v49.onBirthdayFocused, 
-                    autoFocusOnMount = v82, 
+                    autoFocusOnMount = v81, 
                     buttonRef = v65
                 }), 
                 BirthdayGenderPicker = if v52 then v2.createElement("Frame", {
@@ -332,7 +330,7 @@ return function(v49) --[[ Line: 169 ]]
                         layoutOrder = 2
                     })
                 }) else nil, 
-                ContactInfoField = v82 and v2.createElement(v34, {
+                ContactInfoField = v81 and v2.createElement(v34, {
                     layoutOrder = 2, 
                     Under13 = l_birthday_0 and l_DateHelper_0:isRecentOrFutureDate(l_birthday_0.Month, l_birthday_0.Day, l_birthday_0.Year + 13), 
                     SetContactMethod = v49.SetContactMethod, 
@@ -341,7 +339,7 @@ return function(v49) --[[ Line: 169 ]]
                     contactMethod = v49.contactMethod, 
                     phoneCountryCodeSelectorCallback = v49.phoneCountryCodeSelectorCallback
                 }), 
-                BackgroundPanel = v82 and v2.createElement("Frame", {
+                BackgroundPanel = v81 and v2.createElement("Frame", {
                     Size = UDim2.new(0, 0, 0, 6), 
                     LayoutOrder = 3, 
                     BackgroundTransparency = 1
@@ -357,13 +355,13 @@ return function(v49) --[[ Line: 169 ]]
                 UsernameValidator = v2.createElement(v28, {
                     layoutOrder = 4, 
                     titleTextKey = "Authentication.Login.Label.Username", 
-                    summaryErrorTextKey = v87, 
-                    prerequisiteMet = v89, 
-                    textInputType = v90, 
+                    summaryErrorTextKey = v86, 
+                    prerequisiteMet = v88, 
+                    textInputType = v89, 
                     onInputTextChanged = v49.onUsernameTextChanged, 
                     onInputTextValidated = v76 and v49.onUsernameTextValidated or v49.onUsernameTextChanged, 
                     validator = v49.UsernameValidator, 
-                    placeholderText = l_EnableSignupPlaceholderText_0 and v58.usernamePlaceholder or nil, 
+                    placeholderText = v58.usernamePlaceholder, 
                     validatorAdditionalProps = {
                         birthday = l_birthday_0 and l_birthday_0:FormatForEndpoint() or "", 
                         context = v23.Signup
@@ -382,7 +380,7 @@ return function(v49) --[[ Line: 169 ]]
                     updateIssueCondition = v49.updateIssueCondition, 
                     loadingSuggestions = v49.loadingSuggestions, 
                     tokens = v55, 
-                    showDetailedError = v84, 
+                    showDetailedError = v83, 
                     NextSelectionDown = if not v47 or v76 then nil else v49.passwordTextFieldRef
                 }), 
                 SuggestionsFrame = v76 and v2.createElement(v29, {
@@ -410,13 +408,13 @@ return function(v49) --[[ Line: 169 ]]
                     disabled = v49.birthdayFocused, 
                     layoutOrder = 5, 
                     titleTextKey = "CommonUI.Messages.Label.Password", 
-                    summaryErrorTextKey = v88, 
-                    prerequisiteMet = not v86, 
+                    summaryErrorTextKey = v87, 
+                    prerequisiteMet = not v85, 
                     textInputType = Enum.TextInputType.Password, 
                     onInputTextChanged = v49.onPasswordTextChanged, 
                     onInputTextValidated = v49.onPasswordTextChanged, 
                     validator = v49.PasswordValidator, 
-                    placeholderText = l_EnableSignupPlaceholderText_0 and v58.passwordPlaceholder or nil, 
+                    placeholderText = v58.passwordPlaceholder, 
                     validatorAdditionalProps = {
                         username = v49.username
                     }, 
@@ -427,10 +425,10 @@ return function(v49) --[[ Line: 169 ]]
                     onReturnPressedFromOnScreenKeyboard = v49.onPasswordTextChangeCompletedFromKeyboard, 
                     onAnimationStateChangeCallback = v49.onAnimationStateChangeCallback, 
                     textBoxRef = v49.passwordTextFieldRef, 
-                    centralOverlayBlocksInput = v82, 
+                    centralOverlayBlocksInput = v81, 
                     captureFocusOnTapStart = not v49.isCountryCodeSearchVisible, 
                     tokens = v55, 
-                    showDetailedError = v85, 
+                    showDetailedError = v84, 
                     IsKeyboardOverlayUsed = not (v51.uiMode == l_UiMode_0.VR)
                 }), 
                 GenderSelector = if v52 then nil else v43() ~= 2 and v2.createElement(v31, {
@@ -450,7 +448,7 @@ return function(v49) --[[ Line: 169 ]]
                     Text = v58.unknownError, 
                     TextWrapped = true, 
                     Font = v50.Font.CaptionBody.Font, 
-                    TextSize = v93, 
+                    TextSize = v92, 
                     TextColor3 = v50.Theme.Alert.Color, 
                     TextTransparency = v50.Theme.TextDefault.Transparency, 
                     TextXAlignment = Enum.TextXAlignment.Left
@@ -458,31 +456,31 @@ return function(v49) --[[ Line: 169 ]]
                 SignUpPageButton = v2.createElement(l_Button_0, {
                     buttonType = l_ButtonType_0.PrimaryContextual, 
                     layoutOrder = 10, 
-                    size = UDim2.new(1, 0, 0, v91), 
+                    size = UDim2.new(1, 0, 0, v90), 
                     text = v58.signUpText, 
                     isDisabled = not v49.isSignUpButtonEnabled, 
                     isLoading = v49.isSignUpInProgress, 
                     onActivated = v49.onSignUpClick, 
-                    buttonTextOverride = v96
+                    buttonTextOverride = v95
                 }), 
                 DisclaimerText = v2.createElement(v32, {
                     layoutOrder = 11, 
                     textXAlignment = Enum.TextXAlignment.Center, 
-                    paragraphTextKeys = v97, 
-                    paragraphTextArgs = v98
+                    paragraphTextKeys = v96, 
+                    paragraphTextArgs = v97
                 }), 
                 DisclaimerLinks = v2.createElement(v33, {
                     isDualLayout = v53, 
                     fillDirection = Enum.FillDirection.Horizontal, 
                     LayoutOrder = 12
                 }), 
-                ScrollPadding = v81 and v2.createElement("Frame", {
+                ScrollPadding = v80 and v2.createElement("Frame", {
                     LayoutOrder = 13, 
                     BackgroundTransparency = 1, 
                     Size = UDim2.new(1, 0, 0, v49.onScreenKeyboardHeight * 2)
                 })
             }), 
-            Footer = v82 and v60 and v2.createElement("Frame", {
+            Footer = v81 and v60 and v2.createElement("Frame", {
                 Size = UDim2.new(1, 0, 0, 12), 
                 Position = UDim2.new(0, 0, 1, -12), 
                 BackgroundTransparency = 1, 

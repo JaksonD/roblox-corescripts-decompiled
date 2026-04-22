@@ -17,9 +17,9 @@ local v15 = require(l_Modules_0.LuaApp.withLocalization);
 local l_ApiFetchGamesDataByPlaceIds_0 = require(l_CorePackages_0.Workspace.Packages.GameDetailRodux).GamesByPlaceId.ApiFetchGamesDataByPlaceIds;
 local l_ConvertUniverseIdToString_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).ConvertUniverseIdToString;
 local v18 = require(l_CorePackages_0.Workspace.Packages.SocialLuaAnalytics);
-local v19 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
-local l_initializeProfileAnalytics_0 = v19.initializeProfileAnalytics;
-local l_EventNames_0 = v19.EventNames;
+local v19 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums);
+local v20 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.initializeProfileAnalytics);
+local v21 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EventNames);
 local l_FormFactor_0 = require(l_CorePackages_0.Workspace.Packages.FormFactor).Enums.FormFactor;
 local v23 = require(l_Modules_0.LuaApp.Enum.FeatureContext);
 local v24 = require(l_Modules_0.LuaApp.Enum.NotificationType);
@@ -44,7 +44,7 @@ v39.defaultProps = {
     absolutePosition = 0
 };
 v39.init = function(v41) --[[ Line: 70 ]] --[[ Name: init ]]
-    -- upvalues: l_initializeProfileAnalytics_0 (copy), l_ChatEntryPointNames_0 (copy), v24 (copy), v37 (copy), l_IXPService_0 (copy), v38 (copy), v36 (copy), v12 (copy), v19 (copy), v27 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy)
+    -- upvalues: v20 (copy), l_ChatEntryPointNames_0 (copy), v24 (copy), v37 (copy), l_IXPService_0 (copy), v38 (copy), v36 (copy), v12 (copy), v19 (copy), v27 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy)
     local l_analytics_0 = v41.props.analytics;
     local l_guiService_0 = v41.props.guiService;
     local l_closeCentralOverlay_0 = v41.props.closeCentralOverlay;
@@ -53,7 +53,7 @@ v39.init = function(v41) --[[ Line: 70 ]] --[[ Name: init ]]
     local l_positionIndex_0 = v41.props.positionIndex;
     local l_absolutePosition_0 = v41.props.absolutePosition;
     local l_source_0 = v41.props.source;
-    v41.profileAnalytics = if v41.props.mockProfileAnalytics_dev then v41.props.mockProfileAnalytics_dev else l_initializeProfileAnalytics_0();
+    v41.profileAnalytics = if v41.props.mockProfileAnalytics_dev then v41.props.mockProfileAnalytics_dev else v20();
     v41.chatWithUser = function(v50) --[[ Line: 84 ]]
         -- upvalues: l_analytics_0 (copy), l_positionIndex_0 (copy), l_absolutePosition_0 (copy), v41 (copy), l_source_0 (copy), l_ChatEntryPointNames_0 (ref), l_guiService_0 (copy), v24 (ref)
         l_analytics_0.reportPeopleListInteraction("ChatDropdown", v50, l_positionIndex_0, l_absolutePosition_0, v41.props.analyticContext, {
@@ -104,10 +104,10 @@ v39.init = function(v41) --[[ Line: 70 ]] --[[ Name: init ]]
     end;
 end;
 v39.didMount = function(v53) --[[ Line: 163 ]] --[[ Name: didMount ]]
-    -- upvalues: v34 (copy), l_EventNames_0 (copy), v18 (copy)
+    -- upvalues: v34 (copy), v21 (copy), v18 (copy)
     local l_onOpen_0 = v53.props.onOpen;
     local v55 = v34.Stopwatch.stop(v34.Events.JoinGameCardOpened);
-    v53.profileAnalytics.fireAnalyticsEvent(l_EventNames_0.ProfileInExperienceUserLoadingStage, {
+    v53.profileAnalytics.fireAnalyticsEvent(v21.ProfileInExperienceUserLoadingStage, {
         status = v18.Analytics.Enums.LoadingStages.Done, 
         statValue = v55 and v55.timeElapsed or nil
     });

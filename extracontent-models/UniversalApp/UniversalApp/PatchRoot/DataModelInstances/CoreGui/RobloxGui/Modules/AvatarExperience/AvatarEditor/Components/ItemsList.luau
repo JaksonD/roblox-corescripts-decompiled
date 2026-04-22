@@ -16,7 +16,7 @@ local l_ItemCard_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienc
 local l_useTokens_0 = require(l_CorePackages_0.Packages.Foundation).Hooks.useTokens;
 local v16 = require(l_CorePackages_0.Packages.ReactFocusNavigation);
 local l_useFocusGuiObject_0 = v16.useFocusGuiObject;
-local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
+local v18 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
 local v19 = require(l_Modules_0.AvatarExperience.Common.Hooks.useRequest);
 local v20 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
 local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
@@ -39,7 +39,7 @@ local v37 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetOwnedIt
 local l_withNavigation_0 = require(l_CorePackages_0.Packages.RoactNavigation).withNavigation;
 local v39 = require(l_Modules_0.LuaApp.Constants);
 local v40 = require(l_Modules_0.LuaApp.Components.LoadingBarWithTheme);
-local v41 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
 local v43 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
 local l_GridMetrics_0 = v22.App.Grid.GridMetrics;
@@ -68,7 +68,7 @@ local v66 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics
 local v67 = require(l_Modules_0.LuaApp.Components.SignalConnection);
 local l_wasLastInputGamepad_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).wasLastInputGamepad;
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local v70 = require(l_Modules_0.AvatarExperience.Common.Context.withAdaptiveScrolling);
+local l_withAdaptiveScrolling_0 = v18.Hooks.withAdaptiveScrolling;
 local l_ImpressionEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Enums.ImpressionEnums;
 local v72 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.OrganicEventImpressionsReporter);
 local l_TagBasedImpressionsDetector_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).TagBasedImpressionsDetector;
@@ -920,7 +920,7 @@ local function v310(v289, v290) --[[ Line: 1085 ]] --[[ Name: mapStateToProps ]]
     };
 end;
 local function v324(v311) --[[ Line: 1192 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v60 (copy), v61 (copy), v62 (copy), v65 (copy), l_FFlagAXMigrateAvatarEditorItemCardInputBindingsToFocusNavigation_0 (copy), v41 (copy), v37 (copy)
+    -- upvalues: v60 (copy), v61 (copy), v62 (copy), v65 (copy), l_FFlagAXMigrateAvatarEditorItemCardInputBindingsToFocusNavigation_0 (copy), l_NavigateWithLock_0 (copy), v37 (copy)
     return {
         getUserInventory = function(v312) --[[ Line: 1194 ]] --[[ Name: getUserInventory ]]
             -- upvalues: v311 (copy), v60 (ref)
@@ -939,8 +939,8 @@ local function v324(v311) --[[ Line: 1192 ]] --[[ Name: mapDispatchToProps ]]
             v311(v65(v320));
         end, 
         navigateWithLock = l_FFlagAXMigrateAvatarEditorItemCardInputBindingsToFocusNavigation_0 and function(v321) --[[ Line: 1211 ]]
-            -- upvalues: v311 (copy), v41 (ref)
-            v311(v41(v321));
+            -- upvalues: v311 (copy), l_NavigateWithLock_0 (ref)
+            v311(l_NavigateWithLock_0(v321));
         end or nil, 
         dispatchSetOwnedItemIdsBySubtype = function(v322, v323) --[[ Line: 1216 ]] --[[ Name: dispatchSetOwnedItemIdsBySubtype ]]
             -- upvalues: v311 (copy), v37 (ref)
@@ -952,7 +952,7 @@ v114 = l_RoactServices_0.connect({
     networking = v43, 
     avatarEditorAnalytics = v66
 })(v114);
-v114 = v70((l_withNavigation_0((v63((v7.connect(v310, v324)(v114)))))));
+v114 = l_withAdaptiveScrolling_0((l_withNavigation_0((v63((v7.connect(v310, v324)(v114)))))));
 if v75.isEnabled() then
     v114 = v45.connectTestVariables({
         enableHeadCategoryCombine = v75.EnableHeadCategoryCombination

@@ -31,165 +31,164 @@ local v29 = require(script.Parent.getActionButtonType);
 local v30 = require(script.Parent.getExperienceCount);
 local v31 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXDisableActionButtonOnOwnedItemInCustomize);
 local l_FFlagAXMISEnableMultiShopping_0 = v6.FFlagAXMISEnableMultiShopping;
-local l_FFlagAXDurablesSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesSupport;
 local l_FFlagPurchasePromptSubtitleForTimedOptions_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagPurchasePromptSubtitleForTimedOptions;
-local v35 = l_Images_0["icons/menu/avatar_on"];
-local v36 = l_Images_0["icons/common/robux"];
-local v37 = l_Images_0["icons/actions/block"];
-local function _(v38) --[[ Line: 50 ]] --[[ Name: selectUserRobux ]]
-    local l_LocalUserId_0 = v38.LocalUserId;
-    return v38.UserRobux[l_LocalUserId_0];
+local v34 = l_Images_0["icons/menu/avatar_on"];
+local v35 = l_Images_0["icons/common/robux"];
+local v36 = l_Images_0["icons/actions/block"];
+local function _(v37) --[[ Line: 49 ]] --[[ Name: selectUserRobux ]]
+    local l_LocalUserId_0 = v37.LocalUserId;
+    return v37.UserRobux[l_LocalUserId_0];
 end;
-local function _(v41) --[[ Line: 55 ]] --[[ Name: useLocalizedPrice ]]
+local function _(v40) --[[ Line: 54 ]] --[[ Name: useLocalizedPrice ]]
     -- upvalues: v23 (copy), v24 (copy), l_NumberLocalization_0 (copy)
-    local v42 = v41 and string.format("%.0f", v41);
-    local v43 = v23(v24);
-    if v41 then
-        return (l_NumberLocalization_0.localize(v42, v43:GetLocale()));
+    local v41 = v40 and string.format("%.0f", v40);
+    local v42 = v23(v24);
+    if v40 then
+        return (l_NumberLocalization_0.localize(v41, v42:GetLocale()));
     else
         return nil;
     end;
 end;
-local function _(v45, v46) --[[ Line: 61 ]] --[[ Name: selectCollectibleItemInfo ]]
-    local l_CollectiblesItemInfo_0 = v45.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
-    if v46 then
-        return l_CollectiblesItemInfo_0[v46];
+local function _(v44, v45) --[[ Line: 60 ]] --[[ Name: selectCollectibleItemInfo ]]
+    local l_CollectiblesItemInfo_0 = v44.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
+    if v45 then
+        return l_CollectiblesItemInfo_0[v45];
     else
         return nil;
     end;
 end;
-local function v63(v49, v50, v51) --[[ Line: 67 ]] --[[ Name: selectIsLoadingState ]]
+local function v62(v48, v49, v50) --[[ Line: 66 ]] --[[ Name: selectIsLoadingState ]]
     -- upvalues: v18 (copy), l_PerformFetch_0 (copy), v19 (copy), v17 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v25 (copy)
-    if not v50 then
+    if not v49 then
         return true;
     else
-        local v52 = v18(v49.AvatarExperience.Common, v50, v51);
-        local v53 = if v52 then v52.collectibleItemId else nil;
-        local l_CollectiblesItemInfo_1 = v49.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
-        local v55 = if v53 then l_CollectiblesItemInfo_1[v53] else nil;
+        local v51 = v18(v48.AvatarExperience.Common, v49, v50);
+        local v52 = if v51 then v51.collectibleItemId else nil;
+        local l_CollectiblesItemInfo_1 = v48.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
+        local v54 = if v52 then l_CollectiblesItemInfo_1[v52] else nil;
         l_CollectiblesItemInfo_1 = false;
-        if v53 ~= nil then
-            l_CollectiblesItemInfo_1 = v53 ~= "";
+        if v52 ~= nil then
+            l_CollectiblesItemInfo_1 = v52 ~= "";
         end;
-        local v56 = l_PerformFetch_0.GetStatus(v49, v19.GetItemDetailsKey(v50, v51));
-        local v57 = true;
-        if v56 ~= v17.Fetching then
-            v57 = v56 == v17.NotStarted;
+        local v55 = l_PerformFetch_0.GetStatus(v48, v19.GetItemDetailsKey(v49, v50));
+        local v56 = true;
+        if v55 ~= v17.Fetching then
+            v56 = v55 == v17.NotStarted;
         end;
         if l_FFlagAXMISEnableMultiShopping_0 then
-            local v58 = v52 and v52.receivedCatalogData;
-            v57 = (not (v56 ~= v17.Fetching) or v56 == v17.NotStarted) and not v58;
+            local v57 = v51 and v51.receivedCatalogData;
+            v56 = (not (v55 ~= v17.Fetching) or v55 == v17.NotStarted) and not v57;
         end;
-        local v59 = l_CollectiblesItemInfo_1 and not v55;
-        local l_LocalUserId_1 = v49.LocalUserId;
-        local v61 = v49.UserRobux[l_LocalUserId_1];
-        l_LocalUserId_1 = if v53 then l_PerformFetch_0.GetStatus(v49, v25.FetchCollectibleResellableInstancesKey .. tostring(v53)) else nil;
-        local v62 = if l_LocalUserId_1 then l_LocalUserId_1 == v17.Fetching or l_LocalUserId_1 == v17.NotStarted else nil;
-        return v57 or v59 or v62 or v61 == nil;
+        local v58 = l_CollectiblesItemInfo_1 and not v54;
+        local l_LocalUserId_1 = v48.LocalUserId;
+        local v60 = v48.UserRobux[l_LocalUserId_1];
+        l_LocalUserId_1 = if v52 then l_PerformFetch_0.GetStatus(v48, v25.FetchCollectibleResellableInstancesKey .. tostring(v52)) else nil;
+        local v61 = if l_LocalUserId_1 then l_LocalUserId_1 == v17.Fetching or l_LocalUserId_1 == v17.NotStarted else nil;
+        return v56 or v58 or v61 or v60 == nil;
     end;
 end;
-local function v76(v64, v65, v66, v67) --[[ Line: 104 ]] --[[ Name: selectBuyActionBarStateWithItemIdAndType ]]
-    -- upvalues: v18 (copy), v16 (copy), v63 (copy), v29 (copy)
-    local v68 = v18(v64.AvatarExperience.Common, v65, v66);
-    local v69 = if v68 then v68.collectibleItemId else nil;
-    local l_CollectiblesItemInfo_2 = v64.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
-    local v71 = if v69 then l_CollectiblesItemInfo_2[v69] else nil;
-    l_CollectiblesItemInfo_2 = v64.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances[v69];
-    local v72 = if l_CollectiblesItemInfo_2 then v16.fieldCount(l_CollectiblesItemInfo_2) else 0;
-    local v73 = v63(v64, v65, v66);
-    local v74 = not (v67 and v69);
-    local v75 = v29(v68, v71, v72, v73, v74);
+local function v75(v63, v64, v65, v66) --[[ Line: 103 ]] --[[ Name: selectBuyActionBarStateWithItemIdAndType ]]
+    -- upvalues: v18 (copy), v16 (copy), v62 (copy), v29 (copy)
+    local v67 = v18(v63.AvatarExperience.Common, v64, v65);
+    local v68 = if v67 then v67.collectibleItemId else nil;
+    local l_CollectiblesItemInfo_2 = v63.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
+    local v70 = if v68 then l_CollectiblesItemInfo_2[v68] else nil;
+    l_CollectiblesItemInfo_2 = v63.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances[v68];
+    local v71 = if l_CollectiblesItemInfo_2 then v16.fieldCount(l_CollectiblesItemInfo_2) else 0;
+    local v72 = v62(v63, v64, v65);
+    local v73 = not (v66 and v68);
+    local v74 = v29(v67, v70, v71, v72, v73);
     return {
-        itemData = v68, 
-        buttonType = v75, 
-        collectibleItemInfo = v71, 
-        localUserId = v64.LocalUserId
+        itemData = v67, 
+        buttonType = v74, 
+        collectibleItemInfo = v70, 
+        localUserId = v63.LocalUserId
     };
 end;
-return function(v77, v78, v79, v80, v81, v82) --[[ Line: 145 ]] --[[ Name: useBuyActionBarButtonProps ]]
-    -- upvalues: l_useDispatch_0 (copy), v23 (copy), v26 (copy), l_useAppPolicy_0 (copy), v3 (copy), v76 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v28 (copy), v24 (copy), l_NumberLocalization_0 (copy), l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), v21 (copy), l_useLocalization_0 (copy), l_FFlagAXDurablesSupport_0 (copy), l_useTokens_0 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (copy), v22 (copy), v20 (copy), l_AvatarScreen_0 (copy), v19 (copy), v30 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v31 (copy), v35 (copy), v36 (copy), v37 (copy)
-    local v83 = l_useDispatch_0();
-    local v84 = v23(v26);
-    local v86, v87 = l_useAppPolicy_0(function(v85) --[[ Line: 156 ]]
-        return v85.getDisableIAPEntryPoint(), v85.getDisableResellingCollectiblesForCompliance();
+return function(v76, v77, v78, v79, v80, v81) --[[ Line: 144 ]] --[[ Name: useBuyActionBarButtonProps ]]
+    -- upvalues: l_useDispatch_0 (copy), v23 (copy), v26 (copy), l_useAppPolicy_0 (copy), v3 (copy), v75 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v28 (copy), v24 (copy), l_NumberLocalization_0 (copy), l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), v21 (copy), l_useLocalization_0 (copy), l_useTokens_0 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (copy), v22 (copy), v20 (copy), l_AvatarScreen_0 (copy), v19 (copy), v30 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v31 (copy), v34 (copy), v35 (copy), v36 (copy)
+    local v82 = l_useDispatch_0();
+    local v83 = v23(v26);
+    local v85, v86 = l_useAppPolicy_0(function(v84) --[[ Line: 155 ]]
+        return v84.getDisableIAPEntryPoint(), v84.getDisableResellingCollectiblesForCompliance();
     end);
-    local v89 = v3.useCallback(function(v88) --[[ Line: 160 ]]
-        -- upvalues: v76 (ref), v78 (copy), v79 (copy), v87 (copy)
-        return (v76(v88, v78, v79, v87));
+    local v88 = v3.useCallback(function(v87) --[[ Line: 159 ]]
+        -- upvalues: v75 (ref), v77 (copy), v78 (copy), v86 (copy)
+        return (v75(v87, v77, v78, v86));
     end, {
+        v77, 
         v78, 
-        v79, 
-        v87
+        v86
     });
-    local v90 = l_useSelector_0(v89, l_getUseSelectorDeepEquals_0());
-    local l_buttonType_0 = v90.buttonType;
-    local l_itemData_0 = v90.itemData;
-    local v93 = if l_itemData_0 then if l_buttonType_0 == v28.PurchaseFromResale then l_itemData_0.lowestResalePrice else l_itemData_0.priceInRobux else 0;
-    local v94 = v93 and string.format("%.0f", v93);
-    local v95 = v23(v24);
-    local v96 = if v93 then l_NumberLocalization_0.localize(v94, v95:GetLocale()) else nil;
-    v94 = l_useAvatarRoute_0();
-    v95 = l_useNavigation_0();
-    local v97 = v23(v21);
-    local v98 = l_useLocalization_0({
+    local v89 = l_useSelector_0(v88, l_getUseSelectorDeepEquals_0());
+    local l_buttonType_0 = v89.buttonType;
+    local l_itemData_0 = v89.itemData;
+    local v92 = if l_itemData_0 then if l_buttonType_0 == v28.PurchaseFromResale then l_itemData_0.lowestResalePrice else l_itemData_0.priceInRobux else 0;
+    local v93 = v92 and string.format("%.0f", v92);
+    local v94 = v23(v24);
+    local v95 = if v92 then l_NumberLocalization_0.localize(v93, v94:GetLocale()) else nil;
+    v93 = l_useAvatarRoute_0();
+    v94 = l_useNavigation_0();
+    local v96 = v23(v21);
+    local v97 = l_useLocalization_0({
         freeText = "Feature.Catalog.LabelFree", 
         soldOut = "Feature.Catalog.Label.SoldOut", 
         fromResale = "Feature.Catalog.Label.PriceFromResale", 
         inMultipleExperiences = "Feature.Catalog.Label.InMultipleExperiences", 
         inSingleExperience = "Feature.Catalog.Label.InSingleExperience", 
         purchaseNotAvailableOnHeadSet = "IAPExperience.RobuxUpsell.Text.PurchaseNotAvailableOnHeadSet", 
-        buyButtonTextForRentalItem = l_FFlagAXDurablesSupport_0 and "Feature.Durables.BottomBar.BuyButton" or nil, 
+        buyButtonTextForRentalItem = "Feature.Durables.BottomBar.BuyButton", 
         buyButtonWithTimedOptionDays = {
             "Feature.Durables.ItemDetails.BottomBar.BuyButton.Days"; 
-            num = v80
+            num = v79
         }, 
         buyButtonWithTimedOptionPermanent = "Feature.Durables.ItemDetails.BottomBar.BuyButton.Permanent"
     });
-    local v99 = l_useTokens_0();
-    local v100 = nil;
-    if l_FFlagAXDurablesSupport_0 and l_FFlagPurchasePromptSubtitleForTimedOptions_0 then
-        v100 = {
+    local v98 = l_useTokens_0();
+    local v99 = nil;
+    if l_FFlagPurchasePromptSubtitleForTimedOptions_0 then
+        v99 = {
             componentName = "TIMED_OPTIONS_SUBTITLE", 
             props = {
-                timedOptionDays = v80
+                timedOptionDays = v79
             }
         };
     end;
-    local v102 = v3.useCallback(function() --[[ Line: 207 ]]
-        -- upvalues: v98 (copy), v22 (ref), v83 (copy), v20 (ref), v84 (copy), v97 (copy), v77 (copy), v95 (copy), v94 (copy), v78 (copy), v79 (copy), v86 (copy), l_FFlagAXDurablesSupport_0 (ref), v80 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (ref), v100 (ref)
-        local v101 = {
-            toastMessage = v98.purchaseNotAvailableOnHeadSet, 
+    local v101 = v3.useCallback(function() --[[ Line: 206 ]]
+        -- upvalues: v97 (copy), v22 (ref), v82 (copy), v20 (ref), v83 (copy), v96 (copy), v76 (copy), v94 (copy), v93 (copy), v77 (copy), v78 (copy), v85 (copy), v79 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (ref), v99 (ref)
+        local v100 = {
+            toastMessage = v97.purchaseNotAvailableOnHeadSet, 
             isLocalized = true, 
             toastType = v22.InformationMessage
         };
-        return v83(v20(v84, v97, v77, v95, v94, v78, v79, v86, v101, if l_FFlagAXDurablesSupport_0 then v80 else nil, if l_FFlagAXDurablesSupport_0 and l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v100 else nil));
+        return v82(v20(v83, v96, v76, v94, v93, v77, v78, v85, v100, v79, if l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v99 else nil));
     end, {
-        v98, 
-        v84, 
         v97, 
-        v77, 
-        v95, 
+        v83, 
+        v96, 
+        v76, 
         v94, 
+        v93, 
+        v77, 
         v78, 
+        v85, 
         v79, 
-        v86, 
-        if l_FFlagAXDurablesSupport_0 then v80 else nil, 
-        if l_FFlagAXDurablesSupport_0 and l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v100 else nil
+        if l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v99 else nil
     });
-    local l_collectibleItemInfo_0 = v90.collectibleItemInfo;
-    local v104 = v3.useCallback(function() --[[ Line: 244 ]]
-        -- upvalues: v95 (copy), l_AvatarScreen_0 (ref), l_collectibleItemInfo_0 (copy), v19 (ref), l_itemData_0 (copy)
-        v95.navigate(l_AvatarScreen_0.ItemExperiencesMenu, {
+    local l_collectibleItemInfo_0 = v89.collectibleItemInfo;
+    local v103 = v3.useCallback(function() --[[ Line: 243 ]]
+        -- upvalues: v94 (copy), l_AvatarScreen_0 (ref), l_collectibleItemInfo_0 (copy), v19 (ref), l_itemData_0 (copy)
+        v94.navigate(l_AvatarScreen_0.ItemExperiencesMenu, {
             collectibleData = l_collectibleItemInfo_0, 
             isLimited = v19.isLimitedCollectible(l_itemData_0)
         });
     end, {
-        v95, 
+        v94, 
         l_collectibleItemInfo_0
     });
-    local v105 = v30(l_collectibleItemInfo_0);
-    return v3.useMemo(function() --[[ Line: 253 ]]
-        -- upvalues: l_buttonType_0 (copy), v28 (ref), v99 (copy), v105 (copy), v98 (copy), v104 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref), v31 (ref), v94 (copy), l_AvatarScreen_0 (ref), v35 (ref), v102 (copy), l_FFlagAXDurablesSupport_0 (ref), v82 (copy), v80 (copy), v81 (copy), v96 (copy), v36 (ref), v37 (ref)
+    local v104 = v30(l_collectibleItemInfo_0);
+    return v3.useMemo(function() --[[ Line: 252 ]]
+        -- upvalues: l_buttonType_0 (copy), v28 (ref), v98 (copy), v104 (copy), v97 (copy), v103 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref), v31 (ref), v93 (copy), l_AvatarScreen_0 (ref), v34 (ref), v101 (copy), v81 (copy), v79 (copy), v80 (copy), v95 (copy), v35 (ref), v36 (ref)
         if l_buttonType_0 == v28.Loading then
             return {
                 buttonText = "", 
@@ -198,113 +197,113 @@ return function(v77, v78, v79, v80, v81, v82) --[[ Line: 145 ]] --[[ Name: useBu
                 buttonIconSize = 0, 
                 buttonIsDisabled = true, 
                 buttonIsLoading = true, 
-                buttonColor = v99.Color.ActionEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionEmphasis.Foreground.Color3, 
-                onActivated = function() --[[ Line: 264 ]] --[[ Name: onActivated ]]
+                buttonColor = v98.Color.ActionEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionEmphasis.Foreground.Color3, 
+                onActivated = function() --[[ Line: 263 ]] --[[ Name: onActivated ]]
 
                 end
             };
         elseif l_buttonType_0 == v28.ExperienceLink then
             return {
-                buttonText = if v105 > 1 then v98.inMultipleExperiences:gsub("{NUM_EXPERIENCES}", v105) else v98.inSingleExperience, 
+                buttonText = if v104 > 1 then v97.inMultipleExperiences:gsub("{NUM_EXPERIENCES}", v104) else v97.inSingleExperience, 
                 buttonIcon = nil, 
                 buttonIconPadding = 0, 
                 buttonIconSize = 0, 
                 buttonIsDisabled = false, 
                 buttonIsLoading = false, 
-                buttonColor = v99.Color.ActionSubEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionSubEmphasis.Foreground.Color3, 
-                onActivated = v104
+                buttonColor = v98.Color.ActionSubEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionSubEmphasis.Foreground.Color3, 
+                onActivated = v103
             };
         elseif l_buttonType_0 == v28.SoldOut then
             return {
-                buttonText = v98.soldOut, 
+                buttonText = v97.soldOut, 
                 buttonIcon = nil, 
                 buttonIconPadding = 0, 
                 buttonIconSize = 0, 
                 buttonIsDisabled = true, 
                 buttonIsLoading = false, 
-                buttonColor = v99.Color.ActionEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionEmphasis.Foreground.Color3, 
-                onActivated = function() --[[ Line: 290 ]] --[[ Name: onActivated ]]
+                buttonColor = v98.Color.ActionEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionEmphasis.Foreground.Color3, 
+                onActivated = function() --[[ Line: 289 ]] --[[ Name: onActivated ]]
 
                 end
             };
         elseif l_buttonType_0 == v28.CustomizeLink then
             return {
                 buttonActionType = if l_FFlagAXMISEnableMultiShopping_0 then l_buttonType_0 else nil, 
-                buttonIsDisabled = if v31() then v94.opaque.name == l_AvatarScreen_0.AvatarEditor else false, 
+                buttonIsDisabled = if v31() then v93.opaque.name == l_AvatarScreen_0.AvatarEditor else false, 
                 buttonText = "", 
-                buttonIcon = v35, 
-                buttonIconPadding = v99.Gap.XSmall, 
-                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v99.Size.Size_500 else v99.Size.Size_800, 
+                buttonIcon = v34, 
+                buttonIconPadding = v98.Gap.XSmall, 
+                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v98.Size.Size_500 else v98.Size.Size_800, 
                 buttonIsLoading = false, 
-                buttonColor = if v31() and v94.opaque.name == l_AvatarScreen_0.AvatarEditor then v99.Color.ActionSubEmphasis.Background.Color3 else v99.Color.ActionEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionEmphasis.Foreground.Color3, 
-                onActivated = v31() and v94.opaque.name == l_AvatarScreen_0.AvatarEditor and function() --[[ Line: 312 ]]
+                buttonColor = if v31() and v93.opaque.name == l_AvatarScreen_0.AvatarEditor then v98.Color.ActionSubEmphasis.Background.Color3 else v98.Color.ActionEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionEmphasis.Foreground.Color3, 
+                onActivated = v31() and v93.opaque.name == l_AvatarScreen_0.AvatarEditor and function() --[[ Line: 311 ]]
 
-                end or v102
+                end or v101
             };
         elseif l_buttonType_0 == v28.PurchaseFromRoblox then
-            local v106 = nil;
-            v106 = if l_FFlagAXDurablesSupport_0 then if v82 then if v80 then v98.buyButtonWithTimedOptionDays else v98.buyButtonWithTimedOptionPermanent else if v80 or v81 then v98.buyButtonTextForRentalItem else v96 else v96;
+            local v105 = nil;
+            v105 = if v81 then if v79 then v97.buyButtonWithTimedOptionDays else v97.buyButtonWithTimedOptionPermanent else if v79 or v80 then v97.buyButtonTextForRentalItem else v95;
             return {
                 buttonIsDisabled = false, 
-                buttonText = v106, 
-                buttonIcon = if l_FFlagAXDurablesSupport_0 and (v80 or v81) then nil else v36, 
-                buttonIconPadding = v99.Gap.XSmall, 
-                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v99.Size.Size_500 else v99.Size.Size_800, 
+                buttonText = v105, 
+                buttonIcon = if not not v79 or v80 then nil else v35, 
+                buttonIconPadding = v98.Gap.XSmall, 
+                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v98.Size.Size_500 else v98.Size.Size_800, 
                 buttonIsLoading = false, 
-                buttonColor = v99.Color.ActionEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionEmphasis.Foreground.Color3, 
-                onActivated = v102
+                buttonColor = v98.Color.ActionEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionEmphasis.Foreground.Color3, 
+                onActivated = v101
             };
         elseif l_buttonType_0 == v28.Free then
             return {
-                buttonText = v98.freeText, 
+                buttonText = v97.freeText, 
                 buttonIcon = nil, 
                 buttonIconPadding = 0, 
                 buttonIconSize = 0, 
                 buttonIsDisabled = false, 
                 buttonIsLoading = false, 
-                buttonColor = v99.Color.ActionEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionEmphasis.Foreground.Color3, 
-                onActivated = v102
+                buttonColor = v98.Color.ActionEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionEmphasis.Foreground.Color3, 
+                onActivated = v101
             };
         elseif l_buttonType_0 == v28.PurchaseFromResale then
             return {
-                buttonText = string.gsub(v98.fromResale, "{itemPrice}", v96), 
+                buttonText = string.gsub(v97.fromResale, "{itemPrice}", v95), 
                 buttonIsDisabled = false, 
-                buttonIcon = v36, 
-                buttonIconPadding = v99.Gap.XSmall, 
-                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v99.Size.Size_500 else v99.Size.Size_800, 
+                buttonIcon = v35, 
+                buttonIconPadding = v98.Gap.XSmall, 
+                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v98.Size.Size_500 else v98.Size.Size_800, 
                 buttonIsLoading = false, 
-                buttonColor = v99.Color.ActionEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionEmphasis.Foreground.Color3, 
-                onActivated = v102
+                buttonColor = v98.Color.ActionEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionEmphasis.Foreground.Color3, 
+                onActivated = v101
             };
         else
             return {
                 buttonIsDisabled = true, 
                 buttonText = "", 
-                buttonIcon = v37, 
-                buttonIconPadding = v99.Gap.XSmall, 
-                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v99.Size.Size_500 else v99.Size.Size_800, 
+                buttonIcon = v36, 
+                buttonIconPadding = v98.Gap.XSmall, 
+                buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v98.Size.Size_500 else v98.Size.Size_800, 
                 buttonIsLoading = false, 
-                buttonColor = v99.Color.ActionSubEmphasis.Background.Color3, 
-                buttonTextColor = v99.Color.ActionSubEmphasis.Foreground.Color3, 
-                onActivated = function() --[[ Line: 385 ]] --[[ Name: onActivated ]]
+                buttonColor = v98.Color.ActionSubEmphasis.Background.Color3, 
+                buttonTextColor = v98.Color.ActionSubEmphasis.Foreground.Color3, 
+                onActivated = function() --[[ Line: 380 ]] --[[ Name: onActivated ]]
 
                 end
             };
         end;
     end, {
         l_buttonType_0, 
-        v99, 
-        v102, 
         v98, 
-        v96, 
-        v104, 
-        v105
+        v101, 
+        v97, 
+        v95, 
+        v103, 
+        v104
     });
 end;

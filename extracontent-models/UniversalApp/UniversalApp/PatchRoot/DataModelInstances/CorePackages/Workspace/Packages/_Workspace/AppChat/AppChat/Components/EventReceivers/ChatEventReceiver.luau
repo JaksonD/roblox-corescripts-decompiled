@@ -56,9 +56,9 @@ local l_FFlagAppChatEnableDoubleOptIn_0 = require(l_Parent_0.SharedFlags).FFlagA
 local l_FFlagEnableAEGIS1AppChatBanner_0 = v8.Flags.FFlagEnableAEGIS1AppChatBanner;
 local l_FFlagEnableAEGIS2AppChatBanner_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2AppChatBanner;
 local l_FFlagEnableAEGIS2AppChatConversationBanner_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2AppChatConversationBanner;
-local v58 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatReloadMessagesOnTrustedConnectionRTN);
+local v58 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableHiddenMessages);
 local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
-local function v65(v60) --[[ Line: 75 ]] --[[ Name: chunkAndLogString ]]
+local function v65(v60) --[[ Line: 74 ]] --[[ Name: chunkAndLogString ]]
     -- upvalues: v18 (copy)
     local v61 = {};
     for v62 = 1, #v60, 800 do
@@ -71,26 +71,26 @@ end;
 local v66 = {
     handlesAppShellNotifications = true
 };
-ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver ]]
+ChatEventReceiver = function(v67) --[[ Line: 97 ]] --[[ Name: ChatEventReceiver ]]
     -- upvalues: l_useEffect_0 (copy), v18 (copy), l_useSelector_0 (copy), l_useCallback_0 (copy), v6 (copy), l_useLocalUserId_0 (copy), v30 (copy), v31 (copy), v32 (copy), l_useDispatch_0 (copy), v21 (copy), v40 (copy), v42 (copy), v43 (copy), v41 (copy), l_getNewMessages_0 (copy), v37 (copy), v38 (copy), v22 (copy), v23 (copy), v39 (copy), v24 (copy), v25 (copy), v26 (copy), v66 (copy), l_useRef_0 (copy), l_useLocalization_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v4 (copy), v35 (copy), l_FormFactor_0 (copy), v28 (copy), v19 (copy), v47 (copy), v20 (copy), v27 (copy), l_useMemo_0 (copy), l_getFFlagDebugUnfilteredThreads_0 (copy), v65 (copy), v45 (copy), v7 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy), v46 (copy), v33 (copy), l_FFlagEnableAEGIS1AppChatBanner_0 (copy), v3 (copy), l_FFlagEnableAEGIS2CommsFAEUpsell_0 (copy), v29 (copy), v8 (copy), l_FFlagEnableAEGIS2AppChatBanner_0 (copy), l_FFlagEnableAEGIS2AppChatConversationBanner_0 (copy), v53 (copy), v58 (copy), v50 (copy)
-    l_useEffect_0(function() --[[ Line: 99 ]]
+    l_useEffect_0(function() --[[ Line: 98 ]]
         -- upvalues: v18 (ref)
         v18:info("ChatEventReceiver mounted");
-        return function() --[[ Line: 101 ]]
+        return function() --[[ Line: 100 ]]
             -- upvalues: v18 (ref)
             v18:info("ChatEventReceiver unmounted");
         end;
     end, {});
-    local v69 = l_useSelector_0(l_useCallback_0(function(v68) --[[ Line: 107 ]]
+    local v69 = l_useSelector_0(l_useCallback_0(function(v68) --[[ Line: 106 ]]
         return v68.ChatAppReducer.AppLoaded;
     end, {}));
-    local v71 = l_useSelector_0(l_useCallback_0(function(v70) --[[ Line: 110 ]]
+    local v71 = l_useSelector_0(l_useCallback_0(function(v70) --[[ Line: 109 ]]
         return v70.ChatAppReducer.Conversations;
     end, {}));
-    local v73 = l_useSelector_0(l_useCallback_0(function(v72) --[[ Line: 113 ]]
+    local v73 = l_useSelector_0(l_useCallback_0(function(v72) --[[ Line: 112 ]]
         return v72.FormFactor;
     end, {}));
-    local v75 = l_useSelector_0(l_useCallback_0(function(v74) --[[ Line: 116 ]]
+    local v75 = l_useSelector_0(l_useCallback_0(function(v74) --[[ Line: 115 ]]
         return v74.Users;
     end, {}));
     local v76 = v6.isEmpty(v71);
@@ -99,34 +99,34 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
     local v79 = v31();
     local v80 = v32();
     local v81 = l_useDispatch_0();
-    local function v86(v82, v83, v84, v85) --[[ Line: 127 ]]
+    local function v86(v82, v83, v84, v85) --[[ Line: 126 ]]
         -- upvalues: v81 (copy), v21 (ref)
         v81(v21(v82, v83, v84, v85));
     end;
-    local function v87() --[[ Line: 130 ]]
+    local function v87() --[[ Line: 129 ]]
         -- upvalues: v81 (copy), v40 (ref)
         return v81(v40());
     end;
-    local function v89(v88) --[[ Line: 134 ]]
+    local function v89(v88) --[[ Line: 133 ]]
         -- upvalues: v81 (copy), v42 (ref)
         return v81(v42(v88));
     end;
-    local function v90() --[[ Line: 137 ]]
+    local function v90() --[[ Line: 136 ]]
         -- upvalues: v81 (copy), v43 (ref)
         v81(v43());
     end;
-    local function v91() --[[ Line: 140 ]]
+    local function v91() --[[ Line: 139 ]]
         -- upvalues: v81 (copy), v41 (ref)
-        spawn(function() --[[ Line: 141 ]]
+        spawn(function() --[[ Line: 140 ]]
             -- upvalues: v81 (ref), v41 (ref)
             v81(v41());
         end);
     end;
-    local function v95(v92, v93, v94) --[[ Line: 145 ]]
+    local function v95(v92, v93, v94) --[[ Line: 144 ]]
         -- upvalues: v81 (copy), l_getNewMessages_0 (ref)
         return v81(l_getNewMessages_0(v92, v93, v94));
     end;
-    local function v97(v96) --[[ Line: 149 ]] --[[ Name: restartMessageReceiveToRender ]]
+    local function v97(v96) --[[ Line: 148 ]] --[[ Name: restartMessageReceiveToRender ]]
         -- upvalues: v37 (ref), v38 (ref)
         if not v37 then
             return;
@@ -140,27 +140,27 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
             return;
         end;
     end;
-    local function _(v98, v99) --[[ Line: 162 ]]
+    local function _(v98, v99) --[[ Line: 161 ]]
         -- upvalues: v81 (copy), v22 (ref)
         v81(v22.Actions.AliasUpdated(v98, v99));
     end;
-    local function v103(v101, v102) --[[ Line: 165 ]]
+    local function v103(v101, v102) --[[ Line: 164 ]]
         -- upvalues: v81 (copy), v23 (ref)
         v81(v23(v101, v102));
     end;
-    local function v104() --[[ Line: 169 ]]
+    local function v104() --[[ Line: 168 ]]
         -- upvalues: v81 (copy), v39 (ref)
         v81(v39());
     end;
-    local function v106(v105) --[[ Line: 173 ]]
+    local function v106(v105) --[[ Line: 172 ]]
         -- upvalues: v81 (copy), v24 (ref)
         v81(v24(v105));
     end;
-    local function v111(v107, v108, v109, v110) --[[ Line: 176 ]]
+    local function v111(v107, v108, v109, v110) --[[ Line: 175 ]]
         -- upvalues: v81 (copy), v25 (ref)
         v81(v25(v107, v108, v109, v110));
     end;
-    local function _(v112) --[[ Line: 179 ]]
+    local function _(v112) --[[ Line: 178 ]]
         -- upvalues: v81 (copy), v26 (ref)
         v81(v26(v112));
     end;
@@ -174,14 +174,14 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
     });
     local l_networkErrorText_0 = v118.networkErrorText;
     local l_removedFromConversationToastTitle_0 = v118.removedFromConversationToastTitle;
-    local v123 = l_useCallback_0(function(v121, v122) --[[ Line: 197 ]]
+    local v123 = l_useCallback_0(function(v121, v122) --[[ Line: 196 ]]
         -- upvalues: v116 (copy)
         assert(v116.current, "table");
         v116.current[v121] = v122;
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
         v116.current
     } else l_dependencyArray_0(v116.current));
-    local v124 = l_useCallback_0(function() --[[ Line: 207 ]]
+    local v124 = l_useCallback_0(function() --[[ Line: 206 ]]
         -- upvalues: v114 (copy), v4 (ref), v35 (ref), l_networkErrorText_0 (copy)
         if v114.rnBypassActionSignal then
             v114.rnBypassActionSignal:fire(v4.Actions.navigate({
@@ -199,9 +199,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v114.rnBypassActionSignal, 
         l_networkErrorText_0
     } else l_dependencyArray_0(v114.rnBypassActionSignal, l_networkErrorText_0));
-    l_useEffect_0(function() --[[ Line: 227 ]]
+    l_useEffect_0(function() --[[ Line: 226 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v123 (copy), v18 (ref), v81 (copy), v24 (ref), v114 (copy), v4 (ref), v73 (copy), l_FormFactor_0 (ref), v35 (ref), l_removedFromConversationToastTitle_0 (copy), v42 (ref), v25 (ref), v21 (ref), v76 (copy), v37 (ref), v97 (copy), l_getNewMessages_0 (ref), v23 (ref)
-        local v145 = l_robloxEventReceiver_0:observeEvent("ChatNotifications", function(v125, v126, _) --[[ Line: 230 ]]
+        local v145 = l_robloxEventReceiver_0:observeEvent("ChatNotifications", function(v125, v126, _) --[[ Line: 229 ]]
             -- upvalues: v123 (ref), v18 (ref), v81 (ref), v24 (ref), v114 (ref), v4 (ref), v73 (ref), l_FormFactor_0 (ref), v35 (ref), l_removedFromConversationToastTitle_0 (ref), v42 (ref), v25 (ref), v21 (ref), v76 (ref), v37 (ref), v97 (ref), l_getNewMessages_0 (ref), v23 (ref)
             v123("ChatNotifications", v125.SequenceNumber);
             local v128 = v125.Type or v126;
@@ -229,9 +229,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                     return;
                 end;
             elseif v128 == "ConversationTitleChanged" or v128 == "ParticipantAdded" or v128 == "ParticipantLeft" then
-                task.spawn(function() --[[ Line: 268 ]]
+                task.spawn(function() --[[ Line: 267 ]]
                     -- upvalues: v129 (copy), v81 (ref), v42 (ref), v128 (copy), v25 (ref), v21 (ref), v18 (ref)
-                    v81(v42(v129)):andThen(function(v131) --[[ Line: 270 ]]
+                    v81(v42(v129)):andThen(function(v131) --[[ Line: 269 ]]
                         -- upvalues: v128 (ref), v129 (ref), v81 (ref), v25 (ref), v21 (ref)
                         local l_title_0 = v131.title;
                         local l_lastUpdated_0 = v131.lastUpdated;
@@ -246,7 +246,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                             v81(v21(l_v129_1, l_participants_0, l_title_0, l_lastUpdated_0));
                             return;
                         end;
-                    end):catch(function(v138) --[[ Line: 291 ]]
+                    end):catch(function(v138) --[[ Line: 290 ]]
                         -- upvalues: v18 (ref), v128 (ref)
                         v18:warning((("NetworkingChat failure in RobloxEventReceiver->%*, Status: %*"):format(v128, (tostring(v138)))));
                     end);
@@ -257,9 +257,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                     v18:debug((("Received %* event while loading conversation data"):format(v128)));
                     return;
                 else
-                    task.spawn(function() --[[ Line: 305 ]]
+                    task.spawn(function() --[[ Line: 304 ]]
                         -- upvalues: v129 (copy), v81 (ref), v42 (ref), v18 (ref), v128 (copy)
-                        v81(v42(v129)):catch(function(v139) --[[ Line: 306 ]]
+                        v81(v42(v129)):catch(function(v139) --[[ Line: 305 ]]
                             -- upvalues: v18 (ref), v128 (ref)
                             v18:warning((("NetworkingChat failure in RobloxEventReceiver->%*, Status: %*"):format(v128, (tostring(v139)))));
                         end);
@@ -282,7 +282,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 v81(v23(v129, v144));
             end;
         end);
-        return function() --[[ Line: 333 ]]
+        return function() --[[ Line: 332 ]]
             -- upvalues: v145 (copy)
             if v145 and v145.disconnect then
                 v145:disconnect();
@@ -297,7 +297,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v73, 
         v75
     } else l_dependencyArray_0(v81, v123, v114.activeConversationId, v114.rnBypassActionSignal, v76, v73, v75));
-    l_useEffect_0(function() --[[ Line: 360 ]]
+    l_useEffect_0(function() --[[ Line: 359 ]]
         -- upvalues: v78 (copy), v114 (copy), v18 (ref), v4 (ref), v73 (copy), l_FormFactor_0 (ref), v35 (ref)
         if not v78 and v114.activeConversationId and v114.rnBypassActionSignal then
             v18:debug("Chat is disabled for our user, navigating away from active conversation");
@@ -309,7 +309,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v78
     });
     local v146 = if v114.activeConversationId then v71[v114.activeConversationId] else nil;
-    l_useEffect_0(function() --[[ Line: 374 ]]
+    l_useEffect_0(function() --[[ Line: 373 ]]
         -- upvalues: v79 (copy), v146 (copy), v114 (copy), v18 (ref), v4 (ref), v73 (copy), l_FormFactor_0 (ref), v35 (ref)
         if not v79 and v146 and v114.rnBypassActionSignal and v146.type == "group" then
             v18:debug("Group chats are disabled and we are navigated to a group chat. Navigating to ChatLanding");
@@ -321,9 +321,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v79, 
         v146
     } else l_dependencyArray_0(v79, v146));
-    l_useEffect_0(function() --[[ Line: 394 ]]
+    l_useEffect_0(function() --[[ Line: 393 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v81 (copy), v22 (ref)
-        local v151 = l_robloxEventReceiver_0:observeEvent("UserTagChangeNotification", function(v147, _) --[[ Line: 395 ]]
+        local v151 = l_robloxEventReceiver_0:observeEvent("UserTagChangeNotification", function(v147, _) --[[ Line: 394 ]]
             -- upvalues: v81 (ref), v22 (ref)
             if v147.Type == "UserTagUpdate" then
                 local v149 = tostring(v147.UserId);
@@ -331,7 +331,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 v81(v22.Actions.AliasUpdated(v149, l_NewAlias_0));
             end;
         end);
-        return function() --[[ Line: 401 ]]
+        return function() --[[ Line: 400 ]]
             -- upvalues: v151 (copy)
             if v151 and v151.disconnect then
                 v151:disconnect();
@@ -340,9 +340,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
         v81
     } else l_dependencyArray_0(v81));
-    l_useEffect_0(function() --[[ Line: 409 ]]
+    l_useEffect_0(function() --[[ Line: 408 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v18 (ref), v81 (copy), v39 (ref), v77 (copy), v28 (ref), v146 (copy), v19 (ref), v6 (ref), v73 (copy), l_FormFactor_0 (ref), v35 (ref), v114 (copy), v4 (ref)
-        local v161 = l_robloxEventReceiver_0:observeEvent("FriendshipNotifications", function(v152, _) --[[ Line: 410 ]]
+        local v161 = l_robloxEventReceiver_0:observeEvent("FriendshipNotifications", function(v152, _) --[[ Line: 409 ]]
             -- upvalues: v18 (ref), v81 (ref), v39 (ref), v77 (ref), v28 (ref), v146 (ref), v19 (ref), v6 (ref), v73 (ref), l_FormFactor_0 (ref), v35 (ref), v114 (ref), v4 (ref)
             local l_Type_0 = v152.Type;
             v18:info("Received friendship notification: {}", l_Type_0);
@@ -370,7 +370,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                     end;
                     do
                         local l_v155_0 = v155;
-                        if v146 and v146.source == "friends" and v146.conversationType == v19.Type.ONE_TO_ONE_CONVERSATION and v6.List.findWhere(v146.participants, function(v159) --[[ Line: 442 ]]
+                        if v146 and v146.source == "friends" and v146.conversationType == v19.Type.ONE_TO_ONE_CONVERSATION and v6.List.findWhere(v146.participants, function(v159) --[[ Line: 441 ]]
                             -- upvalues: l_v155_0 (ref)
                             return v159 == l_v155_0;
                         end) then
@@ -384,7 +384,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 return;
             end;
         end);
-        return function() --[[ Line: 456 ]]
+        return function() --[[ Line: 455 ]]
             -- upvalues: v161 (copy)
             if v161 and v161.disconnect then
                 v161:disconnect();
@@ -398,9 +398,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v146, 
         v114.rnBypassActionSignal
     } else l_dependencyArray_0(v81, v104, v77, v73, v146, v114.rnBypassActionSignal));
-    l_useEffect_0(function() --[[ Line: 482 ]]
+    l_useEffect_0(function() --[[ Line: 481 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v18 (ref), v81 (copy), v24 (ref), v42 (ref), v114 (copy), v4 (ref), v35 (ref)
-        local v168 = l_robloxEventReceiver_0:observeEvent("ChatMigration", function(v162, _) --[[ Line: 485 ]]
+        local v168 = l_robloxEventReceiver_0:observeEvent("ChatMigration", function(v162, _) --[[ Line: 484 ]]
             -- upvalues: v18 (ref), v81 (ref), v24 (ref), v42 (ref), v114 (ref), v4 (ref), v35 (ref)
             local l_Type_1 = v162.Type;
             v18:info("Received chat migration notification: {}", l_Type_1);
@@ -417,7 +417,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 return;
             end;
             v81(v24(v165));
-            v81(v42(v166)):catch(function(v167) --[[ Line: 503 ]]
+            v81(v42(v166)):catch(function(v167) --[[ Line: 502 ]]
                 -- upvalues: v18 (ref), l_Type_1 (copy)
                 v18:warning((("NetworkingChat failure in RobloxEventReceiver->%*, Status: %*"):format(l_Type_1, (tostring(v167)))));
             end);
@@ -430,7 +430,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 }));
             end;
         end);
-        return function() --[[ Line: 525 ]]
+        return function() --[[ Line: 524 ]]
             -- upvalues: v168 (copy)
             if v168 and v168.disconnect then
                 v168:disconnect();
@@ -442,19 +442,19 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v114.rnBypassActionSignal, 
         v89
     } else l_dependencyArray_0(v81, v114.activeConversationId, v114.rnBypassActionSignal, v89));
-    local v170 = l_useCallback_0(function() --[[ Line: 547 ]]
+    local v170 = l_useCallback_0(function() --[[ Line: 546 ]]
         -- upvalues: v69 (copy), v81 (copy), v40 (ref), v18 (ref), v39 (ref), v43 (ref), v41 (ref)
         if v69 then
-            v81(v40()):andThen(function(v169) --[[ Line: 549 ]]
+            v81(v40()):andThen(function(v169) --[[ Line: 548 ]]
                 -- upvalues: v18 (ref), v81 (ref), v39 (ref), v43 (ref), v41 (ref)
                 if v169 then
                     v18:trace("Chat is enabled for our user, refreshing conversations");
                     v81(v39());
-                    task.spawn(function() --[[ Line: 554 ]]
+                    task.spawn(function() --[[ Line: 553 ]]
                         -- upvalues: v81 (ref), v43 (ref)
                         v81(v43());
                     end);
-                    spawn(function() --[[ Line: 141 ]]
+                    spawn(function() --[[ Line: 140 ]]
                         -- upvalues: v81 (ref), v41 (ref)
                         v81(v41());
                     end);
@@ -472,9 +472,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v91, 
         v87
     } else l_dependencyArray_0(v69, v104, v90, v91, v87));
-    l_useEffect_0(function() --[[ Line: 576 ]]
+    l_useEffect_0(function() --[[ Line: 575 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v18 (ref), v81 (copy), v26 (ref), v117 (copy), v116 (copy), v69 (copy), v170 (copy)
-        local v174 = l_robloxEventReceiver_0:observeEvent("signalR", function(v171, _, v173) --[[ Line: 579 ]]
+        local v174 = l_robloxEventReceiver_0:observeEvent("signalR", function(v171, _, v173) --[[ Line: 578 ]]
             -- upvalues: v18 (ref), v81 (ref), v26 (ref), v117 (ref), v116 (ref), v69 (ref), v170 (ref)
             v18:info("SignalR connection state transitioned to {}", (tostring(v171)));
             v81(v26(v171));
@@ -484,7 +484,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 v170();
             end;
         end);
-        return function() --[[ Line: 602 ]]
+        return function() --[[ Line: 601 ]]
             -- upvalues: v174 (copy)
             if v174 and v174.disconnect then
                 v174:disconnect();
@@ -497,9 +497,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v124, 
         v69
     } else l_dependencyArray_0(v81, v117, v116, v124, v69));
-    l_useEffect_0(function() --[[ Line: 620 ]]
+    l_useEffect_0(function() --[[ Line: 619 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v47 (ref), v18 (ref), v123 (copy), v81 (copy), v24 (ref), v114 (copy), v73 (copy), l_FormFactor_0 (ref), v35 (ref), v4 (ref), v77 (copy), l_removedFromConversationToastTitle_0 (copy), v42 (ref), v25 (ref), v21 (ref), v76 (copy), v20 (ref), v27 (ref), v37 (ref), v97 (copy), l_getNewMessages_0 (ref), v23 (ref)
-        local v198 = l_robloxEventReceiver_0:observeEvent("CommunicationChannels", function(v175, _) --[[ Line: 623 ]]
+        local v198 = l_robloxEventReceiver_0:observeEvent("CommunicationChannels", function(v175, _) --[[ Line: 622 ]]
             -- upvalues: v47 (ref), v18 (ref), v123 (ref), v81 (ref), v24 (ref), v114 (ref), v73 (ref), l_FormFactor_0 (ref), v35 (ref), v4 (ref), v77 (ref), l_removedFromConversationToastTitle_0 (ref), v42 (ref), v25 (ref), v21 (ref), v76 (ref), v20 (ref), v27 (ref), v37 (ref), v97 (ref), l_getNewMessages_0 (ref), v23 (ref)
             if v175.ChannelVertical ~= "PlatformChat" then
                 return;
@@ -532,9 +532,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                         return;
                     end;
                 elseif v175.Type == "ChannelUpdated" or v175.Type == "ParticipantsAdded" or v175.Type == "ParticipantsRemoved" then
-                    task.spawn(function() --[[ Line: 676 ]]
+                    task.spawn(function() --[[ Line: 675 ]]
                         -- upvalues: l_ChannelId_0 (copy), v81 (ref), v42 (ref), v175 (copy), v25 (ref), v21 (ref), v18 (ref)
-                        v81(v42(l_ChannelId_0)):andThen(function(v180) --[[ Line: 678 ]]
+                        v81(v42(l_ChannelId_0)):andThen(function(v180) --[[ Line: 677 ]]
                             -- upvalues: v175 (ref), l_ChannelId_0 (ref), v81 (ref), v25 (ref), v21 (ref)
                             local l_title_1 = v180.title;
                             local l_lastUpdated_1 = v180.lastUpdated;
@@ -549,7 +549,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                                 v81(v21(l_l_ChannelId_0_1, l_participants_1, l_title_1, l_lastUpdated_1));
                                 return;
                             end;
-                        end):catch(function(v187) --[[ Line: 694 ]]
+                        end):catch(function(v187) --[[ Line: 693 ]]
                             -- upvalues: v18 (ref), v175 (ref)
                             v18:warning((("Failure in RobloxEventReceiver->%*, Status: %*"):format(v175.Type, (tostring(v187)))));
                         end);
@@ -560,9 +560,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                         v18:debug("Received {} event while loading conversation data", v175.Type);
                         return;
                     else
-                        task.spawn(function() --[[ Line: 712 ]]
+                        task.spawn(function() --[[ Line: 711 ]]
                             -- upvalues: l_ChannelId_0 (copy), v81 (ref), v42 (ref), v175 (copy), v20 (ref), v27 (ref), v114 (ref), v4 (ref), v35 (ref), v18 (ref)
-                            v81(v42(l_ChannelId_0)):andThen(function(v188) --[[ Line: 714 ]]
+                            v81(v42(l_ChannelId_0)):andThen(function(v188) --[[ Line: 713 ]]
                                 -- upvalues: v175 (ref), v20 (ref), v81 (ref), v27 (ref), v114 (ref), v4 (ref), v35 (ref)
                                 if (v175.Type == "ChannelCreated" or v175.Type == "ChannelUnarchived") and v188.type == "one_to_one" then
                                     local v189 = v20.getFriendConversationId(v188.participants);
@@ -581,7 +581,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                                         end;
                                     end;
                                 end;
-                            end):catch(function(v190) --[[ Line: 738 ]]
+                            end):catch(function(v190) --[[ Line: 737 ]]
                                 -- upvalues: v18 (ref), v175 (ref)
                                 v18:warning("Failure in RobloxEventReceiver->{}, Status: {}", v175.Type, (tostring(v190)));
                             end);
@@ -610,7 +610,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 return;
             end;
         end);
-        return function() --[[ Line: 767 ]]
+        return function() --[[ Line: 766 ]]
             -- upvalues: v198 (copy)
             if v198 and v198.disconnect then
                 v198:disconnect();
@@ -632,12 +632,12 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v103, 
         v170
     } else l_dependencyArray_0(v77, l_robloxEventReceiver_0, v123, v106, v114.activeConversationId, v114.rnBypassActionSignal, l_removedFromConversationToastTitle_0, v89, v111, v86, v76, v95, v103, v170));
-    local v200 = l_useMemo_0(function() --[[ Line: 808 ]]
+    local v200 = l_useMemo_0(function() --[[ Line: 807 ]]
         -- upvalues: v71 (copy), v6 (ref)
         if not v71 then
             return {};
         else
-            return (v6.List.filterMap(v6.Dictionary.values(v71), function(v199) --[[ Line: 813 ]]
+            return (v6.List.filterMap(v6.Dictionary.values(v71), function(v199) --[[ Line: 812 ]]
                 if v199 and v199.id and v199.source ~= "friends" then
                     return v199.id;
                 else
@@ -648,9 +648,9 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
         v71
     } else l_dependencyArray_0(v71));
-    l_useEffect_0(function() --[[ Line: 824 ]]
+    l_useEffect_0(function() --[[ Line: 823 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v18 (ref), l_getFFlagDebugUnfilteredThreads_0 (ref), v65 (ref), v6 (ref), v200 (copy), v81 (copy), v45 (ref), v114 (copy), v7 (ref), l_FFlagAppChatEnableDoubleOptIn_0 (ref), v46 (ref), v80 (copy)
-        local v215 = l_robloxEventReceiver_0:observeEvent("ChatModerationTypeEligibility", function(v201, _) --[[ Line: 827 ]]
+        local v215 = l_robloxEventReceiver_0:observeEvent("ChatModerationTypeEligibility", function(v201, _) --[[ Line: 826 ]]
             -- upvalues: v18 (ref), l_getFFlagDebugUnfilteredThreads_0 (ref), v65 (ref), v6 (ref), v200 (ref), v81 (ref), v45 (ref), v114 (ref), v7 (ref), l_FFlagAppChatEnableDoubleOptIn_0 (ref), v46 (ref), v80 (ref)
             v18:debug("Received ChatModerationTypeEligibility notification");
             local l_channels_inspected_0 = v201.channels_inspected;
@@ -664,7 +664,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                     end;
                     v65((("RTN CONVERSATIONS INSPECTED%*"):format(v204)));
                 end;
-                local v208 = v6.List.filter(l_channels_inspected_0, function(v207) --[[ Line: 841 ]]
+                local v208 = v6.List.filter(l_channels_inspected_0, function(v207) --[[ Line: 840 ]]
                     -- upvalues: v200 (ref)
                     return table.find(v200, v207);
                 end);
@@ -679,7 +679,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                         end;
                         v65((("RTN FILTERED CONVERSATIONS%*"):format(v209)));
                     end;
-                    v81(v45(v208)):catch(function(v212) --[[ Line: 857 ]]
+                    v81(v45(v208)):catch(function(v212) --[[ Line: 856 ]]
                         -- upvalues: v18 (ref)
                         v18:warning("NetworkingChat failure in " .. "ChatEventReceiver->ChatModerationTypeEligibility->MultiGetConversationDetails, Status: " .. tostring(v212));
                     end);
@@ -689,7 +689,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                         if table.find(l_channels_inspected_0, v114.activeConversationId) then
                             v81(v7.rodux.GetConversationsParticipantsMetadata.API({
                                 v114.activeConversationId
-                            })):catch(function(v213) --[[ Line: 871 ]]
+                            })):catch(function(v213) --[[ Line: 870 ]]
                                 -- upvalues: v18 (ref)
                                 v18:warning("NetworkingChat failure in " .. "ChatEventReceiver->ChatModerationTypeEligibility->GetConversationsParticipantsMetadata, Status: " .. tostring(v213));
                             end);
@@ -697,7 +697,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                                 v81(v46(v114.activeConversationId, v80));
                                 return;
                             else
-                                v81(v7.rodux.GetConversationTopModal.API(v114.activeConversationId, v80)):catch(function(v214) --[[ Line: 888 ]]
+                                v81(v7.rodux.GetConversationTopModal.API(v114.activeConversationId, v80)):catch(function(v214) --[[ Line: 887 ]]
                                     -- upvalues: v18 (ref)
                                     v18:warning("NetworkingChat failure in " .. "ChatEventReceiver->ChatModerationTypeEligibility->GetConversationTopModal, Status: " .. tostring(v214));
                                 end);
@@ -708,7 +708,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                 end;
             end;
         end);
-        return function() --[[ Line: 900 ]]
+        return function() --[[ Line: 899 ]]
             -- upvalues: v215 (copy)
             if v215 and v215.disconnect then
                 v215:disconnect();
@@ -719,17 +719,17 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
         v114.activeConversationId, 
         v200
     } else l_dependencyArray_0(v81, v114.activeConversationId, v200));
-    l_useEffect_0(function() --[[ Line: 911 ]]
+    l_useEffect_0(function() --[[ Line: 910 ]]
         -- upvalues: l_robloxEventReceiver_0 (copy), v18 (ref), v81 (copy), v7 (ref), v80 (copy)
-        local v219 = l_robloxEventReceiver_0:observeEvent("EligibilityStatusChanged", function(_, _) --[[ Line: 914 ]]
+        local v219 = l_robloxEventReceiver_0:observeEvent("EligibilityStatusChanged", function(_, _) --[[ Line: 913 ]]
             -- upvalues: v18 (ref), v81 (ref), v7 (ref), v80 (ref)
             v18:info("Received EligibilityStatusChanged notification");
-            v81(v7.rodux.GetChatLandingModal.API(v80)):catch(function(v218) --[[ Line: 917 ]]
+            v81(v7.rodux.GetChatLandingModal.API(v80)):catch(function(v218) --[[ Line: 916 ]]
                 -- upvalues: v18 (ref)
                 v18:warning("Error in GetChatLandingModal request. Error: {}", (tostring(v218)));
             end);
         end);
-        return function() --[[ Line: 923 ]]
+        return function() --[[ Line: 922 ]]
             -- upvalues: v219 (copy)
             if v219 and v219.disconnect then
                 v219:disconnect();
@@ -740,19 +740,19 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
     } else l_dependencyArray_0(v81));
     local v220 = v33(v114.activeConversationId) or "";
     if l_FFlagEnableAEGIS1AppChatBanner_0 then
-        v3.useEffect(function() --[[ Line: 932 ]]
+        v3.useEffect(function() --[[ Line: 931 ]]
             -- upvalues: v80 (copy), l_FFlagEnableAEGIS2CommsFAEUpsell_0 (ref), v81 (copy), v29 (ref), v8 (ref), l_FFlagEnableAEGIS1AppChatBanner_0 (ref), l_FFlagEnableAEGIS2AppChatBanner_0 (ref), v7 (ref), v18 (ref), l_FFlagEnableAEGIS2AppChatConversationBanner_0 (ref), v146 (copy), v220 (copy), v53 (ref), v40 (ref)
             if v80 and not l_FFlagEnableAEGIS2CommsFAEUpsell_0 then
                 return;
             else
-                local function _(v221) --[[ Line: 937 ]]
+                local function _(v221) --[[ Line: 936 ]]
                     -- upvalues: v81 (ref), v29 (ref)
                     v81(v29(v221));
                 end;
-                local v227 = v8.Signals.GetAgeVerifiedChangedSignal():connect(function() --[[ Line: 941 ]]
+                local v227 = v8.Signals.GetAgeVerifiedChangedSignal():connect(function() --[[ Line: 940 ]]
                     -- upvalues: l_FFlagEnableAEGIS1AppChatBanner_0 (ref), l_FFlagEnableAEGIS2AppChatBanner_0 (ref), v81 (ref), v7 (ref), v80 (ref), v18 (ref), l_FFlagEnableAEGIS2AppChatConversationBanner_0 (ref), v29 (ref), v146 (ref), v220 (ref), v53 (ref), v40 (ref)
                     if l_FFlagEnableAEGIS1AppChatBanner_0 or l_FFlagEnableAEGIS2AppChatBanner_0 then
-                        v81(v7.rodux.GetChatLandingModal.API(v80)):catch(function(v223) --[[ Line: 943 ]]
+                        v81(v7.rodux.GetChatLandingModal.API(v80)):catch(function(v223) --[[ Line: 942 ]]
                             -- upvalues: v18 (ref)
                             v18:warning("Error in GetChatLandingModal request. Error: {}", (tostring(v223)));
                         end);
@@ -766,7 +766,7 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                                 isInExperience = v80, 
                                 conversationId = if v146.source == "channels" then v146.id else nil, 
                                 friendId = if v146.source == "friends" then v220 else nil
-                            })):catch(function(v225) --[[ Line: 962 ]]
+                            })):catch(function(v225) --[[ Line: 961 ]]
                                 -- upvalues: v18 (ref)
                                 v18:warning((("Error in GetModalSequence -> conversationBottomModal request after age verification status changes. Error: %*"):format((tostring(v225)))));
                             end);
@@ -774,13 +774,13 @@ ChatEventReceiver = function(v67) --[[ Line: 98 ]] --[[ Name: ChatEventReceiver 
                     end;
                     if v53 then
                         v18:debug("AgeVerifiedChangedSignal Received, fetching chat metadata");
-                        v81(v40()):catch(function(v226) --[[ Line: 974 ]]
+                        v81(v40()):catch(function(v226) --[[ Line: 973 ]]
                             -- upvalues: v18 (ref)
                             v18:warning("Error in fetchChatMetadata request after age verification status changes. Error: {}", (tostring(v226)));
                         end);
                     end;
                 end);
-                return function() --[[ Line: 983 ]]
+                return function() --[[ Line: 982 ]]
                     -- upvalues: v227 (copy)
                     if v227 and v227.disconnect then
                         v227:disconnect();

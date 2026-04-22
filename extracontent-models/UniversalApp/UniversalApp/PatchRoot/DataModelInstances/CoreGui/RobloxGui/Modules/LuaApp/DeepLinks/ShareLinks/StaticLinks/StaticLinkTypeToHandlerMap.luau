@@ -7,8 +7,8 @@ local l_GamesMultigetPlaceDetails_0 = require(l_CorePackages_0.Workspace.Package
 local l_IXPServiceWrapper_0 = require(l_CorePackages_0.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper;
 local l_LaunchGame_0 = require(l_CorePackages_0.Workspace.Packages.GameLaunch).LaunchGame;
 local l_UrlBuilder_0 = require(l_CorePackages_0.Packages.UrlBuilder).UrlBuilder;
-local v9 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
-local l_EnableCommunityProfilePageIXP_0 = v9.EnableCommunityProfilePageIXP;
+local v9 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums);
+local v10 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EnableCommunityProfilePageIXP);
 local l_Sources_0 = v9.Sources;
 local l_ProfileTypes_0 = v9.ProfileTypes;
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
@@ -93,17 +93,17 @@ return {
         return v37;
     end, 
     [v19.Group] = function(v38, v39, _) --[[ Line: 94 ]]
-        -- upvalues: l_EnableCommunityProfilePageIXP_0 (copy), l_IXPServiceWrapper_0 (copy), l_AppPage_0 (copy), v3 (copy), l_ProfileTypes_0 (copy), l_Sources_0 (copy), l_UrlBuilder_0 (copy), v16 (copy)
+        -- upvalues: v10 (copy), l_IXPServiceWrapper_0 (copy), l_AppPage_0 (copy), v3 (copy), l_ProfileTypes_0 (copy), l_Sources_0 (copy), l_UrlBuilder_0 (copy), v16 (copy)
         local v41 = nil;
-        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then
+        if v10.FFlagIsSetupEnabled then
             l_IXPServiceWrapper_0:WaitForInitialization();
-            l_EnableCommunityProfilePageIXP_0.logExposure();
-            local v42 = l_IXPServiceWrapper_0:GetLayerData(l_EnableCommunityProfilePageIXP_0.EnableCommunityProfilePageExperimentLayer) or {};
-            v41 = l_EnableCommunityProfilePageIXP_0.isFeatureActive({
-                [l_EnableCommunityProfilePageIXP_0.EnableCommunityProfilePageExperimentLayer] = v42
+            v10.logExposure();
+            local v42 = l_IXPServiceWrapper_0:GetLayerData(v10.EnableCommunityProfilePageExperimentLayer) or {};
+            v41 = v10.isFeatureActive({
+                [v10.EnableCommunityProfilePageExperimentLayer] = v42
             });
         end;
-        if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v41 then
+        if v10.FFlagIsSetupEnabled and v41 then
             return {
                 {
                     {

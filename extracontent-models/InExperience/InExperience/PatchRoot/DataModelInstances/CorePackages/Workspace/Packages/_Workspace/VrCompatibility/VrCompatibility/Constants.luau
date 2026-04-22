@@ -12,7 +12,6 @@ return {
     AppSystemBarSize = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then Vector2.new(0.495, 2.16) * v4 else Vector2.new(0.495, 2.7) * v4, 
     AppSystemBarResolution = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then Vector2.new(64, 288) else Vector2.new(64, 360), 
     CentralOverlayPosition = Vector3.new(0, 4.8, -3.5 * v4), 
-    FoundationOverlayPosition = Vector3.new(0, 4.8, -3.9 * v4), 
     ToastSize = Vector2.new(2.5, 1.5), 
     ToastPosition = Vector3.new(0, 3.299999952316284, -2.799999952316284, 0), 
     ToastResolution = Vector2.new(650, 382), 

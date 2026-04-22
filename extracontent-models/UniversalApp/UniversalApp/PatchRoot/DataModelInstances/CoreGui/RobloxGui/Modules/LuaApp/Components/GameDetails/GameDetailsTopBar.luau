@@ -1,106 +1,108 @@
 local l_CorePackages_0 = game:GetService("CorePackages");
-local v1 = require(l_CorePackages_0.Packages.Roact);
-local v2 = require(l_CorePackages_0.Packages.RoactRodux);
+local l_FFlagUseNavigationSelectors_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors;
+local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
+local v3 = require(l_CorePackages_0.Packages.Roact);
+local v4 = require(l_CorePackages_0.Packages.RoactRodux);
 local l_AppPage_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).AppPage;
 local l_NavigateBack_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Thunks.NavigateBack;
-local v5 = require(l_CorePackages_0.Packages.UIBlox);
-local l_withStyle_0 = v5.Style.withStyle;
-local l_ImageSetLabel_0 = v5.Core.ImageSet.ImageSetLabel;
+local v7 = require(l_CorePackages_0.Packages.UIBlox);
+local l_withStyle_0 = v7.Style.withStyle;
+local l_ImageSetLabel_0 = v7.Core.ImageSet.ImageSetLabel;
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v9 = require(l_Modules_0.LuaApp.Constants);
-local l_Images_0 = v5.App.ImageSet.Images;
-local v11 = v1.PureComponent:extend("GameDetailsTopBar");
-local v12 = game:DefineFastFlag("GameDetailsTopBarInputSinkFix", false);
-local function v17(v13) --[[ Line: 27 ]] --[[ Name: getNumberOfGameDetailsPages ]]
+local v11 = require(l_Modules_0.LuaApp.Constants);
+local l_Images_0 = v7.App.ImageSet.Images;
+local v13 = v3.PureComponent:extend("GameDetailsTopBar");
+local v14 = game:DefineFastFlag("GameDetailsTopBarInputSinkFix", false);
+local function v19(v15) --[[ Line: 29 ]] --[[ Name: getNumberOfGameDetailsPages ]]
     -- upvalues: l_AppPage_0 (copy)
-    local v14 = v13[#v13];
-    local v15 = 0;
-    for v16 = 1, #v14 do
-        if v14[v16].name == l_AppPage_0.GameDetail then
-            v15 = v15 + 1;
-            if v15 > 1 then
+    local v16 = v15[#v15];
+    local v17 = 0;
+    for v18 = 1, #v16 do
+        if v16[v18].name == l_AppPage_0.GameDetail then
+            v17 = v17 + 1;
+            if v17 > 1 then
                 break;
             end;
         end;
     end;
-    return v15;
+    return v17;
 end;
-v11.init = function(v18) --[[ Line: 44 ]] --[[ Name: init ]]
-    -- upvalues: v17 (copy)
-    v18.onNavigationButtonActivated = function() --[[ Line: 45 ]]
-        -- upvalues: v18 (copy), v17 (ref)
-        if v18.isMounted then
-            if v17(v18.props.history) <= 1 and v18.props.onCloseButtonActivated ~= nil then
-                v18.props.onCloseButtonActivated({
+v13.init = function(v20) --[[ Line: 46 ]] --[[ Name: init ]]
+    -- upvalues: v19 (copy)
+    v20.onNavigationButtonActivated = function() --[[ Line: 47 ]]
+        -- upvalues: v20 (copy), v19 (ref)
+        if v20.isMounted then
+            if v19(v20.props.history) <= 1 and v20.props.onCloseButtonActivated ~= nil then
+                v20.props.onCloseButtonActivated({
                     backButtonNavigation = true
                 });
                 return;
             else
-                v18.props.navigateBack();
+                v20.props.navigateBack();
             end;
         end;
     end;
-    v18.onCloseButtonActivated = function() --[[ Line: 55 ]]
-        -- upvalues: v18 (copy)
-        if v18.isMounted and v18.props.onCloseButtonActivated ~= nil then
-            v18.props.onCloseButtonActivated();
+    v20.onCloseButtonActivated = function() --[[ Line: 57 ]]
+        -- upvalues: v20 (copy)
+        if v20.isMounted and v20.props.onCloseButtonActivated ~= nil then
+            v20.props.onCloseButtonActivated();
         end;
     end;
 end;
-v11.didMount = function(v19) --[[ Line: 62 ]] --[[ Name: didMount ]]
-    v19.isMounted = true;
+v13.didMount = function(v21) --[[ Line: 64 ]] --[[ Name: didMount ]]
+    v21.isMounted = true;
 end;
-v11.willUnmount = function(v20) --[[ Line: 66 ]] --[[ Name: willUnmount ]]
-    v20.isMounted = false;
+v13.willUnmount = function(v22) --[[ Line: 68 ]] --[[ Name: willUnmount ]]
+    v22.isMounted = false;
 end;
-v11.render = function(v21) --[[ Line: 70 ]] --[[ Name: render ]]
-    -- upvalues: v9 (copy), v1 (copy), l_withStyle_0 (copy), v12 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy)
-    local l_statusBarHeight_0 = v21.props.statusBarHeight;
-    local v23 = l_statusBarHeight_0 + v9.NAV_BAR_SIZE;
-    local l_showCloseIcon_0 = v21.props.showCloseIcon;
-    local v25 = v21.props.transitionPercentBinding or v1.createBinding(1);
-    return l_withStyle_0(function(v26) --[[ Line: 80 ]]
-        -- upvalues: v1 (ref), v23 (copy), v12 (ref), l_statusBarHeight_0 (copy), v25 (copy), v21 (copy), l_showCloseIcon_0 (copy), l_ImageSetLabel_0 (ref), l_Images_0 (ref)
-        return v1.createElement("Frame", {
+v13.render = function(v23) --[[ Line: 72 ]] --[[ Name: render ]]
+    -- upvalues: v11 (copy), v3 (copy), l_withStyle_0 (copy), v14 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy)
+    local l_statusBarHeight_0 = v23.props.statusBarHeight;
+    local v25 = l_statusBarHeight_0 + v11.NAV_BAR_SIZE;
+    local l_showCloseIcon_0 = v23.props.showCloseIcon;
+    local v27 = v23.props.transitionPercentBinding or v3.createBinding(1);
+    return l_withStyle_0(function(v28) --[[ Line: 82 ]]
+        -- upvalues: v3 (ref), v25 (copy), v14 (ref), l_statusBarHeight_0 (copy), v27 (copy), v23 (copy), l_showCloseIcon_0 (copy), l_ImageSetLabel_0 (ref), l_Images_0 (ref)
+        return v3.createElement("Frame", {
             Position = UDim2.new(0, 0, 0, 0), 
-            Size = UDim2.new(1, 0, 0, v23), 
+            Size = UDim2.new(1, 0, 0, v25), 
             BackgroundTransparency = 1, 
-            Active = v12 and true or false, 
+            Active = v14 and true or false, 
             BorderSizePixel = 0
         }, {
-            LeftNavigationButton = v1.createElement("TextButton", {
+            LeftNavigationButton = v3.createElement("TextButton", {
                 Position = UDim2.new(0, 15, 0, l_statusBarHeight_0), 
                 Size = UDim2.new(0, 40, 0, 40), 
                 BorderSizePixel = 0, 
-                BackgroundTransparency = v25:map(function(v27) --[[ Line: 92 ]]
-                    return 1 - v27 + 0.3;
+                BackgroundTransparency = v27:map(function(v29) --[[ Line: 94 ]]
+                    return 1 - v29 + 0.3;
                 end), 
-                BackgroundColor3 = v26.Tokens.Semantic.Color.Background.Default.Color3, 
+                BackgroundColor3 = v28.Tokens.Semantic.Color.Background.Default.Color3, 
                 Text = "", 
-                [v1.Event.Activated] = v21.onNavigationButtonActivated
+                [v3.Event.Activated] = v23.onNavigationButtonActivated
             }, {
-                UICorner = v1.createElement("UICorner", {
+                UICorner = v3.createElement("UICorner", {
                     CornerRadius = UDim.new(1, 0)
                 }), 
-                LeftCloseButton = l_showCloseIcon_0 and v1.createElement(l_ImageSetLabel_0, {
+                LeftCloseButton = l_showCloseIcon_0 and v3.createElement(l_ImageSetLabel_0, {
                     Size = UDim2.new(0, 24, 0, 24), 
                     Position = UDim2.new(0.5, 0, 0.5, 0), 
                     AnchorPoint = Vector2.new(0.5, 0.5), 
                     Image = l_Images_0["icons/navigation/close"], 
-                    ImageColor3 = v26.Theme.IconEmphasis.Color, 
-                    ImageTransparency = v25:map(function(v28) --[[ Line: 109 ]]
-                        return 1 - v28;
+                    ImageColor3 = v28.Theme.IconEmphasis.Color, 
+                    ImageTransparency = v27:map(function(v30) --[[ Line: 111 ]]
+                        return 1 - v30;
                     end), 
                     BackgroundTransparency = 1
                 }) or nil, 
-                LeftNavigationButton = not l_showCloseIcon_0 and v1.createElement(l_ImageSetLabel_0, {
+                LeftNavigationButton = not l_showCloseIcon_0 and v3.createElement(l_ImageSetLabel_0, {
                     Size = UDim2.new(0, 30, 0, 30), 
                     Position = UDim2.new(0.5, 0, 0.5, 0), 
                     AnchorPoint = Vector2.new(0.5, 0.5), 
                     Image = l_Images_0["icons/actions/cycleLeft"], 
-                    ImageColor3 = v26.Theme.SystemPrimaryDefault.Color, 
-                    ImageTransparency = v25:map(function(v29) --[[ Line: 120 ]]
-                        return 1 - v29;
+                    ImageColor3 = v28.Theme.SystemPrimaryDefault.Color, 
+                    ImageTransparency = v27:map(function(v31) --[[ Line: 122 ]]
+                        return 1 - v31;
                     end), 
                     BackgroundTransparency = 1
                 }) or nil
@@ -108,28 +110,28 @@ v11.render = function(v21) --[[ Line: 70 ]] --[[ Name: render ]]
         });
     end);
 end;
-local function _(v30) --[[ Line: 130 ]] --[[ Name: selectShowCloseIcon ]]
-    -- upvalues: v17 (copy)
-    return v17(v30) <= 1;
+local function _(v32) --[[ Line: 132 ]] --[[ Name: selectShowCloseIcon ]]
+    -- upvalues: v19 (copy)
+    return v19(v32) <= 1;
 end;
-return (v2.connect(function(v32, v33) --[[ Line: 137 ]]
-    -- upvalues: v17 (copy)
-    local l_history_0 = v32.Navigation.history;
-    local v35 = v17(l_history_0) <= 1;
-    if v33.showCloseIcon ~= nil then
-        v35 = v33.showCloseIcon;
+return (v4.connect(function(v34, v35) --[[ Line: 139 ]]
+    -- upvalues: l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), v19 (copy)
+    local v36 = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectLegacyHistory(v34) else v34.Navigation.history;
+    local v37 = v19(v36) <= 1;
+    if v35.showCloseIcon ~= nil then
+        v37 = v35.showCloseIcon;
     end;
     return {
-        statusBarHeight = v32.TopBar.statusBarHeight, 
-        showCloseIcon = v35, 
-        history = v32.Navigation.history
+        statusBarHeight = v34.TopBar.statusBarHeight, 
+        showCloseIcon = v37, 
+        history = v36
     };
-end, function(v36) --[[ Line: 151 ]]
+end, function(v38) --[[ Line: 156 ]]
     -- upvalues: l_NavigateBack_0 (copy)
     return {
-        navigateBack = function() --[[ Line: 153 ]] --[[ Name: navigateBack ]]
-            -- upvalues: v36 (copy), l_NavigateBack_0 (ref)
-            return v36(l_NavigateBack_0());
+        navigateBack = function() --[[ Line: 158 ]] --[[ Name: navigateBack ]]
+            -- upvalues: v38 (copy), l_NavigateBack_0 (ref)
+            return v38(l_NavigateBack_0());
         end
     };
-end)(v11));
+end)(v13));

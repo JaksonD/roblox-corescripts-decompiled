@@ -1,166 +1,168 @@
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local v3 = require(l_CorePackages_0.Packages.React);
-local v4 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
-local v5 = require(l_CorePackages_0.Workspace.Packages.Responsive);
-local v6 = require(l_CorePackages_0.Packages.ReactFocusNavigation);
-local v7 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
-local v8 = require(l_CorePackages_0.Packages.Cryo);
-local l_useSelector_0 = v4.Hooks.RoactRodux.useSelector;
+local v2 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
+local v3 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local v4 = require(l_CorePackages_0.Packages.React);
+local v5 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
+local v6 = require(l_CorePackages_0.Workspace.Packages.Responsive);
+local v7 = require(l_CorePackages_0.Packages.ReactFocusNavigation);
+local v8 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
+local v9 = require(l_CorePackages_0.Packages.Cryo);
+local l_useSelector_0 = v5.Hooks.RoactRodux.useSelector;
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
-local l_useDispatch_0 = v4.Hooks.RoactRodux.useDispatch;
-local v12 = require(l_Modules_0.AvatarExperience.Common.Context.useAdaptiveScrolling);
-local v13 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
-local l_useAvatarRoute_0 = v7.AvatarRoute.Hooks.useAvatarRoute;
-local l_AvatarScreen_0 = v7.Enums.AvatarScreen;
-local v16 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v17 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics);
-local v18 = require(l_Modules_0.AvatarExperience.Common.Services.Analytics);
-local v19 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
-local v20 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.ToggleEquipAsset);
-local v21 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
-local v22 = require(l_Modules_0.AvatarExperience.Common.Enum.FullView);
-local v23 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
-local v24 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.SendAnalytics);
+local l_useDispatch_0 = v5.Hooks.RoactRodux.useDispatch;
+local l_useAdaptiveScrolling_0 = v2.Hooks.useAdaptiveScrolling;
+local v14 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
+local l_useAvatarRoute_0 = v8.AvatarRoute.Hooks.useAvatarRoute;
+local l_AvatarScreen_0 = v8.Enums.AvatarScreen;
+local v17 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v18 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics);
+local v19 = require(l_Modules_0.AvatarExperience.Common.Services.Analytics);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
+local v21 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.ToggleEquipAsset);
+local v22 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
+local l_FullView_0 = v2.Enums.FullView;
+local v24 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
+local v25 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.SendAnalytics);
 local l_ImpressionEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Enums.ImpressionEnums;
-local v26 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.ImpressionsUtil);
-local v27 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.OrganicEventImpressionsSchema);
+local l_ImpressionsUtil_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).ImpressionsReporter.ImpressionsUtil;
+local l_OrganicEventImpressionsSchema_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).ImpressionsReporter.OrganicEventImpressionsSchema;
 local l_addUnifiedEventLogging_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).addUnifiedEventLogging;
 local l_UnifiedEventLogEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogEnums;
 local l_UnifiedEventLogConstants_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogConstants;
-local l_FFlagAXFixFocusGuiObjectFocusRef_0 = v2.FFlagAXFixFocusGuiObjectFocusRef;
-local function v33(v32) --[[ Line: 42 ]] --[[ Name: selectEquippedEmotes ]]
-    return v32.AvatarExperience.AvatarEditor.EquippedEmotes;
+local l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXMISEnableMultiShoppingUnifiedEvents;
+local l_FFlagAXFixFocusGuiObjectFocusRef_0 = v3.FFlagAXFixFocusGuiObjectFocusRef;
+local function v35(v34) --[[ Line: 46 ]] --[[ Name: selectEquippedEmotes ]]
+    return v34.AvatarExperience.AvatarEditor.EquippedEmotes;
 end;
-local function v35(v34) --[[ Line: 46 ]] --[[ Name: selectAvatarType ]]
-    return v34.AvatarExperience.AvatarEditor.Character.AvatarType;
+local function v37(v36) --[[ Line: 50 ]] --[[ Name: selectAvatarType ]]
+    return v36.AvatarExperience.AvatarEditor.Character.AvatarType;
 end;
-return function(v36, v37) --[[ Line: 65 ]] --[[ Name: useEmoteTileProps ]]
-    -- upvalues: l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), v12 (copy), l_useDispatch_0 (copy), v13 (copy), v17 (copy), v18 (copy), v6 (copy), v5 (copy), l_useSelector_0 (copy), v35 (copy), v33 (copy), v3 (copy), v23 (copy), v16 (copy), v21 (copy), v22 (copy), v24 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (copy), l_AvatarScreen_0 (copy), v19 (copy), v20 (copy), v8 (copy), l_ImpressionEnums_0 (copy), v27 (copy), v26 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_UnifiedEventLogConstants_0 (copy)
-    local v38 = l_useAvatarRoute_0();
-    local v39 = l_useNavigation_0();
-    local v40 = v12();
-    local v41 = l_useDispatch_0();
-    local v42 = v13(v17);
-    local v43 = v13(v18);
-    local v44 = v6.useFocusGuiObject();
-    local v45 = v5.usePreferredInput();
-    local v46 = l_useSelector_0(v35);
-    local v47 = l_useSelector_0(v33);
-    local l_selectedSlot_0 = v47.selectedSlot;
-    local l_slotInfo_0 = v47.slotInfo;
-    local v50 = l_slotInfo_0 and l_slotInfo_0[l_selectedSlot_0];
-    local v51 = v50 and v50.assetId == v36.itemId;
-    local v53 = v3.useCallback(function(v52) --[[ Line: 82 ]]
-        -- upvalues: v23 (ref), v36 (copy), v16 (ref)
-        return v23(v52.AvatarExperience.Common, v36.itemId, v16.ItemType.Asset);
+return function(v38, v39) --[[ Line: 69 ]] --[[ Name: useEmoteTileProps ]]
+    -- upvalues: l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), l_useAdaptiveScrolling_0 (copy), l_useDispatch_0 (copy), v14 (copy), v18 (copy), v19 (copy), v7 (copy), v6 (copy), l_useSelector_0 (copy), v37 (copy), v35 (copy), v4 (copy), v24 (copy), v17 (copy), v22 (copy), l_FullView_0 (copy), v25 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (copy), l_AvatarScreen_0 (copy), l_NavigateWithLock_0 (copy), v21 (copy), v9 (copy), l_ImpressionEnums_0 (copy), l_OrganicEventImpressionsSchema_0 (copy), l_ImpressionsUtil_0 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (copy), l_UnifiedEventLogConstants_0 (copy)
+    local v40 = l_useAvatarRoute_0();
+    local v41 = l_useNavigation_0();
+    local v42 = l_useAdaptiveScrolling_0();
+    local v43 = l_useDispatch_0();
+    local v44 = v14(v18);
+    local v45 = v14(v19);
+    local v46 = v7.useFocusGuiObject();
+    local v47 = v6.usePreferredInput();
+    local v48 = l_useSelector_0(v37);
+    local v49 = l_useSelector_0(v35);
+    local l_selectedSlot_0 = v49.selectedSlot;
+    local l_slotInfo_0 = v49.slotInfo;
+    local v52 = l_slotInfo_0 and l_slotInfo_0[l_selectedSlot_0];
+    local v53 = v52 and v52.assetId == v38.itemId;
+    local v55 = v4.useCallback(function(v54) --[[ Line: 86 ]]
+        -- upvalues: v24 (ref), v38 (copy), v17 (ref)
+        return v24(v54.AvatarExperience.Common, v38.itemId, v17.ItemType.Asset);
     end, {
-        v36.itemId
+        v38.itemId
     });
-    local v54 = l_useSelector_0(v53);
-    local v59 = v3.useCallback(function(v55, v56) --[[ Line: 88 ]]
-        -- upvalues: v40 (copy), v37 (copy), v41 (copy), v21 (ref), v43 (copy), v38 (copy), v22 (ref), v42 (copy), v24 (ref), v36 (copy), v16 (ref)
-        if v40 then
-            if v55 then
-                v40.setSelectedItemInstance(nil);
+    local v56 = l_useSelector_0(v55);
+    local v61 = v4.useCallback(function(v57, v58) --[[ Line: 92 ]]
+        -- upvalues: v42 (copy), v39 (copy), v43 (copy), v22 (ref), v45 (copy), v40 (copy), l_FullView_0 (ref), v44 (copy), v25 (ref), v38 (copy), v17 (ref)
+        if v42 then
+            if v57 then
+                v42.setSelectedItemInstance(nil);
             else
-                local l_current_0 = v37.current;
-                if l_current_0 and v56 then
-                    v40.setSelectedItemInstance(l_current_0);
+                local l_current_0 = v39.current;
+                if l_current_0 and v58 then
+                    v42.setSelectedItemInstance(l_current_0);
                 end;
             end;
         end;
-        if not v55 and v56 then
-            v41(v21(v43, v38.opaque.name, v22.None));
+        if not v57 and v58 then
+            v43(v22(v45, v40.opaque.name, l_FullView_0.None));
         end;
-        local v58 = if v56 then v42.equipAsset else v42.unequipAsset;
-        v41(v24(v58, v36.itemId, v16.AssetTypeIdStrings.EmoteAnimation));
+        local v60 = if v58 then v44.equipAsset else v44.unequipAsset;
+        v43(v25(v60, v38.itemId, v17.AssetTypeIdStrings.EmoteAnimation));
     end, {
-        v40, 
-        v41, 
+        v42, 
         v43, 
-        v38, 
-        v36.itemId
+        v45, 
+        v40, 
+        v38.itemId
     });
-    local v60 = v3.useCallback(function() --[[ Line: 109 ]]
-        -- upvalues: v45 (copy), v5 (ref), v44 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (ref), v37 (copy)
-        if v45 == v5.Input.Directional then
-            v44(if l_FFlagAXFixFocusGuiObjectFocusRef_0 then v37.current else v37);
+    local v62 = v4.useCallback(function() --[[ Line: 113 ]]
+        -- upvalues: v47 (copy), v6 (ref), v46 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (ref), v39 (copy)
+        if v47 == v6.Input.Directional then
+            v46(if l_FFlagAXFixFocusGuiObjectFocusRef_0 then v39.current else v39);
         end;
     end, {
-        v45, 
-        v44
+        v47, 
+        v46
     });
-    local v61 = v3.useCallback(function() --[[ Line: 115 ]]
-        -- upvalues: v46 (copy), v16 (ref), v39 (copy), l_AvatarScreen_0 (ref), v60 (copy)
-        if v46 == v16.AvatarType.R6 then
-            v39.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
-                onOverlayClosed = v60, 
+    local v63 = v4.useCallback(function() --[[ Line: 119 ]]
+        -- upvalues: v48 (copy), v17 (ref), v41 (copy), l_AvatarScreen_0 (ref), v62 (copy)
+        if v48 == v17.AvatarType.R6 then
+            v41.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
+                onOverlayClosed = v62, 
                 bodyTextKey = "Feature.Avatar.Message.R15EmotesPrompt"
             });
         end;
     end, {
-        v46, 
-        v39, 
-        v60
+        v48, 
+        v41, 
+        v62
     });
-    local v63 = v3.useCallback(function() --[[ Line: 125 ]]
-        -- upvalues: v46 (copy), v16 (ref), v41 (copy), v19 (ref), v61 (copy), v20 (ref), v36 (copy), v39 (copy), v59 (copy), v51 (copy)
-        if v46 == v16.AvatarType.R6 then
-            v41(v19(v61));
+    local v65 = v4.useCallback(function() --[[ Line: 129 ]]
+        -- upvalues: v48 (copy), v17 (ref), v43 (copy), l_NavigateWithLock_0 (ref), v63 (copy), v21 (ref), v38 (copy), v41 (copy), v61 (copy), v53 (copy)
+        if v48 == v17.AvatarType.R6 then
+            v43(l_NavigateWithLock_0(v63));
         end;
-        local v62 = v41(v20(v16.AssetTypeIdStrings.EmoteAnimation, v36.itemId, v39));
-        v59(v51, v62 or false);
+        local v64 = v43(v21(v17.AssetTypeIdStrings.EmoteAnimation, v38.itemId, v41));
+        v61(v53, v64 or false);
     end, {
-        v46, 
-        v36.itemId, 
-        v51, 
-        v42, 
-        v39, 
-        v59, 
+        v48, 
+        v38.itemId, 
+        v53, 
+        v44, 
+        v41, 
         v61, 
-        v41
+        v63, 
+        v43
     });
-    v3.useEffect(function() --[[ Line: 147 ]]
-        -- upvalues: v37 (copy), v54 (copy), v8 (ref), v36 (copy), l_ImpressionEnums_0 (ref), l_FFlagAXFixFocusGuiObjectFocusRef_0 (ref), v27 (ref), v26 (ref), l_addUnifiedEventLogging_0 (ref), v51 (copy), l_UnifiedEventLogEnums_0 (ref), l_UnifiedEventLogConstants_0 (ref)
-        if v37.current and v54 and not v8.isEmpty(v54) then
-            local v64 = {
-                itemId = v36.itemId, 
+    v4.useEffect(function() --[[ Line: 151 ]]
+        -- upvalues: v39 (copy), v56 (copy), v9 (ref), v38 (copy), l_ImpressionEnums_0 (ref), l_FFlagAXFixFocusGuiObjectFocusRef_0 (ref), l_OrganicEventImpressionsSchema_0 (ref), l_ImpressionsUtil_0 (ref), l_addUnifiedEventLogging_0 (ref), v53 (copy), l_UnifiedEventLogEnums_0 (ref), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (ref), l_UnifiedEventLogConstants_0 (ref)
+        if v39.current and v56 and not v9.isEmpty(v56) then
+            local v66 = {
+                itemId = v38.itemId, 
                 itemType = "Asset", 
                 surface = l_ImpressionEnums_0.MarketplaceSurfaceType.MARKETPLACE_USER_INVENTORY
             };
-            if l_FFlagAXFixFocusGuiObjectFocusRef_0 and v36.impressionsTag then
-                v37.current:SetAttribute(v36.impressionsTag, v36.itemId);
+            if l_FFlagAXFixFocusGuiObjectFocusRef_0 and v38.impressionsTag then
+                v39.current:SetAttribute(v38.impressionsTag, v38.itemId);
             else
-                v37.current:SetAttribute(v36.impressionsTag, v36.itemId);
+                v39.current:SetAttribute(v38.impressionsTag, v38.itemId);
             end;
-            local v65 = v27[v36.impressionsSchema];
-            v26.writeItemAttributes(v65, v37.current, v64);
-            l_addUnifiedEventLogging_0(v37, {
-                action = if v51 then l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.ITEM_DESELECTED else l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.ITEM_SELECTED, 
+            local v67 = l_OrganicEventImpressionsSchema_0[v38.impressionsSchema];
+            l_ImpressionsUtil_0.writeItemAttributes(v67, v39.current, v66);
+            l_addUnifiedEventLogging_0(v39, {
+                action = if v53 then l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.ITEM_DESELECTED else l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.ITEM_SELECTED, 
                 itemType = l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.ASSET, 
-                itemId = v36.itemId, 
-                gridPositionRow = if v36.gridInformation then v36.gridInformation.row else nil, 
-                gridPositionColumn = if v36.gridInformation then v36.gridInformation.column else nil
+                itemId = v38.itemId, 
+                gridPositionRow = if v38.gridInformation then v38.gridInformation.row else nil, 
+                gridPositionColumn = if v38.gridInformation then v38.gridInformation.column else nil
             }, {
-                hasDeferredActions = true, 
+                hasDeferredActions = not l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 or nil, 
                 sessionTagName = l_UnifiedEventLogConstants_0.L2_SESSION_TAG_NAME
             });
         end;
     end, {
-        v36.itemId, 
-        v54, 
-        v51, 
-        v36.gridInformation
+        v38.itemId, 
+        v56, 
+        v53, 
+        v38.gridInformation
     });
     return {
-        item = v54, 
-        onActivated = v63, 
-        isSelected = v51, 
-        itemId = v36.itemId, 
-        index = v36.index, 
-        itemWidth = v36.itemWidth, 
-        impressionsTag = v36.impressionsTag
+        item = v56, 
+        onActivated = v65, 
+        isSelected = v53, 
+        itemId = v38.itemId, 
+        index = v38.index, 
+        itemWidth = v38.itemWidth, 
+        impressionsTag = v38.impressionsTag
     };
 end;

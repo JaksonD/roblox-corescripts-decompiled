@@ -30,102 +30,93 @@ local l_SetNetworkingErrorToast_0 = v12.Thunks.SetNetworkingErrorToast;
 local l_PostSendUserSignal_0 = v14.PostSendUserSignal;
 local l_UserSignalTypes_0 = v14.UserSignalTypes;
 local v31 = require(l_script_FirstAncestor_0.NotInterestedUserSignalTelemetryEventConfigs);
-local l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 = v13.FFlagExplicitFeedbackAddNetworkingErrorToast;
-local v33 = game:DefineFastFlag("UpdateHiddenGameTileText", false);
+local v32 = game:DefineFastFlag("UpdateHiddenGameTileText", false);
 local l_FFlagLuaAppEnableSponsoredReportAd_0 = v13.FFlagLuaAppEnableSponsoredReportAd;
-local l_FFlagLuaAppExplicitFeedbackSmallGeneralFixes_0 = v13.FFlagLuaAppExplicitFeedbackSmallGeneralFixes;
 local l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 = v13.FFlagLuaAppSupportSponsoredExplicitFeedback;
-return v7.memo(function(v37) --[[ Line: 53 ]] --[[ Name: HiddenTileContent ]]
-    -- upvalues: l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 (copy), l_useDispatch_0 (copy), v7 (copy), l_useTokens_0 (copy), l_useFocusGuiObject_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useLocalization_0 (copy), v33 (copy), l_FFlagLuaAppExplicitFeedbackSmallGeneralFixes_0 (copy), l_default_0 (copy), v31 (copy), l_SetNetworkingErrorToast_0 (copy), l_GuiService_0 (copy), l_PostSendUserSignal_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_UserSignalTypes_0 (copy), l_mutedError_0 (copy), l_View_0 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_Text_0 (copy), l_Button_0 (copy), l_InputSize_0 (copy), l_ButtonVariant_0 (copy)
-    local v38 = if l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 then l_useDispatch_0() else nil;
-    local v39 = v7.useRef(nil);
-    local v40 = l_useTokens_0();
-    local v41 = l_useFocusGuiObject_0();
-    local v42 = l_useRoactService_0(l_RoactNetworking_0);
-    local v43 = l_useLocalization_0({
+return v7.memo(function(v35) --[[ Line: 51 ]] --[[ Name: HiddenTileContent ]]
+    -- upvalues: l_useDispatch_0 (copy), v7 (copy), l_useTokens_0 (copy), l_useFocusGuiObject_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useLocalization_0 (copy), v32 (copy), l_default_0 (copy), v31 (copy), l_SetNetworkingErrorToast_0 (copy), l_GuiService_0 (copy), l_PostSendUserSignal_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_UserSignalTypes_0 (copy), l_mutedError_0 (copy), l_View_0 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_Text_0 (copy), l_Button_0 (copy), l_InputSize_0 (copy), l_ButtonVariant_0 (copy)
+    local v36 = l_useDispatch_0();
+    local v37 = v7.useRef(nil);
+    local v38 = l_useTokens_0();
+    local v39 = l_useFocusGuiObject_0();
+    local v40 = l_useRoactService_0(l_RoactNetworking_0);
+    local v41 = l_useLocalization_0({
         undoLabel = "Feature.GameDetails.Action.Undo", 
-        hiddenTileMessage = v33 and "Feature.GameDetails.Message.SuggestLessOften" or "Feature.GameDetails.Message.SuggestLessExperiences"
+        hiddenTileMessage = v32 and "Feature.GameDetails.Message.SuggestLessOften" or "Feature.GameDetails.Message.SuggestLessExperiences"
     });
-    local v47 = v7.useCallback(function() --[[ Line: 67 ]]
-        -- upvalues: l_FFlagLuaAppExplicitFeedbackSmallGeneralFixes_0 (ref), v37 (copy), l_default_0 (ref), v31 (ref), v38 (copy), l_SetNetworkingErrorToast_0 (ref), l_GuiService_0 (ref), v39 (copy), v41 (copy), l_PostSendUserSignal_0 (ref), v42 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (ref), l_UserSignalTypes_0 (ref), l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 (ref), l_mutedError_0 (ref)
-        if l_FFlagLuaAppExplicitFeedbackSmallGeneralFixes_0 and not v37.appPage then
+    local v45 = v7.useCallback(function() --[[ Line: 65 ]]
+        -- upvalues: v35 (copy), l_default_0 (ref), v31 (ref), v36 (copy), l_SetNetworkingErrorToast_0 (ref), l_GuiService_0 (ref), v37 (copy), v39 (copy), l_PostSendUserSignal_0 (ref), v40 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (ref), l_UserSignalTypes_0 (ref), l_mutedError_0 (ref)
+        if not v35.appPage then
             l_default_0:logRobloxTelemetryCounter(v31.NotInterestedMissingAppPage, 1);
-            v38(l_SetNetworkingErrorToast_0());
+            v36(l_SetNetworkingErrorToast_0());
             return;
         else
-            v37.setGameHidden(v37.universeId, false);
-            if l_GuiService_0.SelectedCoreObject == v39.current then
-                task.delay(0, function() --[[ Line: 80 ]]
-                    -- upvalues: v37 (ref), v41 (ref)
-                    if v37.parentRef then
-                        v41(v37.parentRef.current);
+            v35.setGameHidden(v35.universeId, false);
+            if l_GuiService_0.SelectedCoreObject == v37.current then
+                task.delay(0, function() --[[ Line: 78 ]]
+                    -- upvalues: v35 (ref), v39 (ref)
+                    if v35.parentRef then
+                        v39(v35.parentRef.current);
                     end;
                 end);
             end;
-            if not l_FFlagLuaAppExplicitFeedbackSmallGeneralFixes_0 and not v37.appPage then
-                l_default_0:logRobloxTelemetryCounter(v31.NotInterestedMissingAppPage, 1);
-                return;
-            else
-                local l_status_0, l_result_0 = pcall(function() --[[ Line: 95 ]]
-                    -- upvalues: l_PostSendUserSignal_0 (ref), v42 (ref), v37 (ref), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (ref), l_UserSignalTypes_0 (ref), l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 (ref), v38 (ref), l_SetNetworkingErrorToast_0 (ref), l_default_0 (ref), v31 (ref)
-                    l_PostSendUserSignal_0(v42, {
-                        boolValue = false
-                    }, {
-                        id = v37.universeId, 
-                        assetType = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 and v37.isSponsored then l_UserSignalTypes_0.AssetType.SponsoredGame else l_UserSignalTypes_0.AssetType.Game, 
-                        signalOrigin = {
-                            productSurface = v37.appPage, 
-                            topicId = v37.collectionId or "", 
-                            subIds = {
-                                v37.collectionId or ""
-                            }
+            local l_status_0, l_result_0 = pcall(function() --[[ Line: 85 ]]
+                -- upvalues: l_PostSendUserSignal_0 (ref), v40 (ref), v35 (ref), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (ref), l_UserSignalTypes_0 (ref), v36 (ref), l_SetNetworkingErrorToast_0 (ref), l_default_0 (ref), v31 (ref)
+                l_PostSendUserSignal_0(v40, {
+                    boolValue = false
+                }, {
+                    id = v35.universeId, 
+                    assetType = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 and v35.isSponsored then l_UserSignalTypes_0.AssetType.SponsoredGame else l_UserSignalTypes_0.AssetType.Game, 
+                    signalOrigin = {
+                        productSurface = v35.appPage, 
+                        topicId = v35.collectionId or "", 
+                        subIds = {
+                            v35.collectionId or ""
                         }
-                    }, l_UserSignalTypes_0.SignalValueType.Bool, l_UserSignalTypes_0.SignalType.NotInterested):catch(function(v44) --[[ Line: 109 ]]
-                        -- upvalues: v37 (ref), l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 (ref), v38 (ref), l_SetNetworkingErrorToast_0 (ref), l_default_0 (ref), v31 (ref)
-                        v37.setGameHidden(v37.universeId, true);
-                        if l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 then
-                            v38(l_SetNetworkingErrorToast_0(v44));
-                        end;
-                        l_default_0:logRobloxTelemetryCounter(v31.NotInterestedUserSignalFailed, 1);
-                    end);
+                    }
+                }, l_UserSignalTypes_0.SignalValueType.Bool, l_UserSignalTypes_0.SignalType.NotInterested):catch(function(v42) --[[ Line: 99 ]]
+                    -- upvalues: v35 (ref), v36 (ref), l_SetNetworkingErrorToast_0 (ref), l_default_0 (ref), v31 (ref)
+                    v35.setGameHidden(v35.universeId, true);
+                    v36(l_SetNetworkingErrorToast_0(v42));
+                    l_default_0:logRobloxTelemetryCounter(v31.NotInterestedUserSignalFailed, 1);
                 end);
-                if not l_status_0 then
-                    v37.setGameHidden(v37.universeId, true);
-                    l_mutedError_0(l_result_0);
-                end;
-                return;
+            end);
+            if not l_status_0 then
+                v35.setGameHidden(v35.universeId, true);
+                l_mutedError_0(l_result_0);
             end;
+            return;
         end;
     end, {
-        v42, 
-        v41, 
-        v37.setGameHidden, 
-        v37.universeId, 
-        v37.collectionId, 
-        v37.appPage, 
-        v37.parentRef, 
-        if l_FFlagExplicitFeedbackAddNetworkingErrorToast_0 then v38 else nil, 
-        if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v37.isSponsored else nil
+        v40, 
+        v39, 
+        v35.setGameHidden, 
+        v35.universeId, 
+        v35.collectionId, 
+        v35.appPage, 
+        v35.parentRef, 
+        v36, 
+        if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v35.isSponsored else nil
     });
     return v7.createElement(l_View_0, {
         tag = l_FFlagLuaAppEnableSponsoredReportAd_0 and "size-full gap-small col align-x-center align-y-center bg-surface-100 radius-medium padding-medium" or "size-full gap-small col align-x-center align-y-center bg-surface-100 radius-medium"
     }, {
         Message = v7.createElement(l_Text_0, {
             AutomaticSize = Enum.AutomaticSize.Y, 
-            fontStyle = v40.Typography.BodySmall, 
+            fontStyle = v38.Typography.BodySmall, 
             LayoutOrder = 1, 
             Size = UDim2.fromScale(1, 0), 
-            Text = v43.hiddenTileMessage, 
-            textStyle = v40.Color.Content.Default, 
+            Text = v41.hiddenTileMessage, 
+            textStyle = v38.Color.Content.Default, 
             TextWrapped = true
         }), 
         UndoButton = v7.createElement(l_Button_0, {
             LayoutOrder = 2, 
-            onActivated = v47, 
+            onActivated = v45, 
             size = l_InputSize_0.XSmall, 
-            text = v43.undoLabel, 
-            variant = if l_FFlagLuaAppExplicitFeedbackSmallGeneralFixes_0 then l_ButtonVariant_0.Standard else l_ButtonVariant_0.Utility, 
-            ref = v39
+            text = v41.undoLabel, 
+            variant = l_ButtonVariant_0.Standard, 
+            ref = v37
         })
     });
 end);

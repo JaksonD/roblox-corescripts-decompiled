@@ -1,6 +1,4 @@
 return {
-    HomepageBanner = "HomepageBanner", 
-    HomepageBottomSheet = "HomepageBottomSheet", 
     NotifPush = "NotifPush", 
     NotifStream = "NotifStream", 
     PartyTabBanner = "PartyTabBanner", 

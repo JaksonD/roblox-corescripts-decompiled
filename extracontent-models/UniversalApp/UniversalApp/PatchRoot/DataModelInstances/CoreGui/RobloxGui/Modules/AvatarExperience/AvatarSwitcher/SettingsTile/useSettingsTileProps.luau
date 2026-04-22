@@ -1,64 +1,63 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local v3 = require(l_CorePackages_0.Packages.React);
-local v4 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
-local v5 = require(l_CorePackages_0.Workspace.Packages.Responsive);
-local v6 = require(l_CorePackages_0.Packages.ReactFocusNavigation);
-local v7 = game:DefineFastFlag("AXSettingsTileFocusRefFix", false);
-local l_FFlagAXFixFocusGuiObjectFocusRef_0 = v2.FFlagAXFixFocusGuiObjectFocusRef;
+local v1 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local v2 = require(l_CorePackages_0.Packages.React);
+local v3 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
+local v4 = require(l_CorePackages_0.Workspace.Packages.Responsive);
+local v5 = require(l_CorePackages_0.Packages.ReactFocusNavigation);
+local v6 = game:DefineFastFlag("AXSettingsTileFocusRefFix", false);
+local l_FFlagAXFixFocusGuiObjectFocusRef_0 = v1.FFlagAXFixFocusGuiObjectFocusRef;
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
-local l_useDispatch_0 = v4.Hooks.RoactRodux.useDispatch;
+local l_useDispatch_0 = v3.Hooks.RoactRodux.useDispatch;
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v12 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local l_SlotBasedEditorAnalytics_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Surfaces.SlotBasedEditorAnalytics;
-return function(v14, v15) --[[ Line: 29 ]] --[[ Name: useSettingsTileProps ]]
-    -- upvalues: l_useNavigation_0 (copy), l_useDispatch_0 (copy), v6 (copy), v5 (copy), v3 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (copy), v7 (copy), l_SlotBasedEditorAnalytics_0 (copy), l_AvatarScreen_0 (copy), v12 (copy)
-    local v16 = l_useNavigation_0();
-    local v17 = l_useDispatch_0();
-    local v18 = v6.useFocusGuiObject();
-    local v19 = v5.usePreferredInput();
-    local v20 = v3.useCallback(function() --[[ Line: 35 ]]
-        -- upvalues: v19 (copy), v5 (ref), l_FFlagAXFixFocusGuiObjectFocusRef_0 (ref), v18 (copy), v15 (copy), v7 (ref)
-        if v19 == v5.Input.Directional then
+return function(v13, v14) --[[ Line: 28 ]] --[[ Name: useSettingsTileProps ]]
+    -- upvalues: l_useNavigation_0 (copy), l_useDispatch_0 (copy), v5 (copy), v4 (copy), v2 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (copy), v6 (copy), l_SlotBasedEditorAnalytics_0 (copy), l_AvatarScreen_0 (copy), l_NavigateWithLock_0 (copy)
+    local v15 = l_useNavigation_0();
+    local v16 = l_useDispatch_0();
+    local v17 = v5.useFocusGuiObject();
+    local v18 = v4.usePreferredInput();
+    local v19 = v2.useCallback(function() --[[ Line: 34 ]]
+        -- upvalues: v18 (copy), v4 (ref), l_FFlagAXFixFocusGuiObjectFocusRef_0 (ref), v17 (copy), v14 (copy), v6 (ref)
+        if v18 == v4.Input.Directional then
             if l_FFlagAXFixFocusGuiObjectFocusRef_0 then
-                v18(v15.current);
+                v17(v14.current);
                 return;
             else
-                v18(if v7 then v15.current else v15);
+                v17(if v6 then v14.current else v14);
             end;
         end;
     end, {
-        v19, 
-        v18
+        v18, 
+        v17
     });
-    local v22 = v3.useCallback(function() --[[ Line: 45 ]]
-        -- upvalues: l_SlotBasedEditorAnalytics_0 (ref), v15 (copy), v16 (copy), l_AvatarScreen_0 (ref), v20 (copy)
+    local v21 = v2.useCallback(function() --[[ Line: 44 ]]
+        -- upvalues: l_SlotBasedEditorAnalytics_0 (ref), v14 (copy), v15 (copy), l_AvatarScreen_0 (ref), v19 (copy)
         l_SlotBasedEditorAnalytics_0.trackSettingsTileClick();
-        if v15.current then
-            local v21 = v15.current.AbsolutePosition + v15.current.AbsoluteSize * Vector2.new(0.5, 0.5);
-            v16.navigate(l_AvatarScreen_0.CreateOrUpdateOutfitMenu, {
-                saveTilePosition = v21, 
-                onOverlayClosed = v20
+        if v14.current then
+            local v20 = v14.current.AbsolutePosition + v14.current.AbsoluteSize * Vector2.new(0.5, 0.5);
+            v15.navigate(l_AvatarScreen_0.CreateOrUpdateOutfitMenu, {
+                saveTilePosition = v20, 
+                onOverlayClosed = v19
             });
         end;
     end, {
-        v16, 
-        v20
+        v15, 
+        v19
     });
-    local v23 = v3.useCallback(function() --[[ Line: 56 ]]
-        -- upvalues: v15 (copy), v17 (copy), v12 (ref), v22 (copy)
-        if v15.current then
-            v17(v12(v22));
+    local v22 = v2.useCallback(function() --[[ Line: 55 ]]
+        -- upvalues: v14 (copy), v16 (copy), l_NavigateWithLock_0 (ref), v21 (copy)
+        if v14.current then
+            v16(l_NavigateWithLock_0(v21));
         end;
     end, {
-        v17, 
-        v22
+        v16, 
+        v21
     });
     return {
-        index = v14.index, 
-        itemWidth = v14.itemWidth, 
-        onActivated = v23, 
-        squareAspectRatio = v14.squareAspectRatio
+        index = v13.index, 
+        itemWidth = v13.itemWidth, 
+        onActivated = v22, 
+        squareAspectRatio = v13.squareAspectRatio
     };
 end;

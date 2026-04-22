@@ -8,7 +8,7 @@ local v6 = require(l_Parent_0.flags.getFFlagUGCValidateCheckHSROwner);
 local v7 = require(l_Parent_0.flags.getFFlagUGCValidateCheckTexturePackOwner);
 local v8 = require(l_Parent_0.flags.getFFlagUGCValidationMakeupSupport);
 local v9 = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false);
-local _ = function(v10) --[[ Line: 18 ]] --[[ Name: convertArrayToTable ]]
+local _ = function(v10) --[[ Line: 17 ]] --[[ Name: convertArrayToTable ]]
     local v11 = {};
     for _, v13 in pairs(v10) do
         v11[v13] = true;
@@ -60,13 +60,30 @@ v15.R15_BODY_PARTS = {
     "RightLowerArm", 
     "RightHand"
 };
+v15.R15_CAGE_PARTS = {
+    "Head_OuterCage", 
+    "UpperTorso_OuterCage", 
+    "LowerTorso_OuterCage", 
+    "LeftUpperLeg_OuterCage", 
+    "LeftLowerLeg_OuterCage", 
+    "LeftFoot_OuterCage", 
+    "RightUpperLeg_OuterCage", 
+    "RightLowerLeg_OuterCage", 
+    "RightFoot_OuterCage", 
+    "LeftUpperArm_OuterCage", 
+    "LeftLowerArm_OuterCage", 
+    "LeftHand_OuterCage", 
+    "RightUpperArm_OuterCage", 
+    "RightLowerArm_OuterCage", 
+    "RightHand_OuterCage"
+};
 v15.NAMED_R15_BODY_PARTS = {};
 for _, v21 in v15.R15_BODY_PARTS do
     v15.NAMED_R15_BODY_PARTS[v21] = v21;
 end;
 v15.NAMED_R15_BODY_PARTS.Head = "Head";
 setmetatable(v15.NAMED_R15_BODY_PARTS, {
-    __index = function() --[[ Line: 84 ]] --[[ Name: __index ]]
+    __index = function() --[[ Line: 106 ]] --[[ Name: __index ]]
         error("NAMED_R15_BODY_PARTS key does not exist");
         return nil;
     end
@@ -90,6 +107,10 @@ v15.R15_STANDARD_JOINT_NAMES = {
     RightUpperArm = true, 
     RightLowerArm = true, 
     RightHand = true
+};
+v15.ALLOWED_SKINNING_TRANSFER_JOINT_NAMES = {
+    RBX_Leader = true, 
+    RBX_Follower = true
 };
 for _, v23 in v15.R15_BODY_PARTS do
     v15.R15_STANDARD_JOINT_NAMES[v23] = true;
@@ -228,7 +249,7 @@ v15.COMPARISON_METHODS = {
     FOUND_IN = "one of the following:"
 };
 setmetatable(v15.COMPARISON_METHODS, {
-    __index = function(_, v31) --[[ Line: 280 ]] --[[ Name: __index ]]
+    __index = function(_, v31) --[[ Line: 307 ]] --[[ Name: __index ]]
         return error("Invalid COMPARISON_METHOD " .. tostring(v31));
     end
 });
@@ -238,7 +259,7 @@ v15.INCLUSION_METHODS = {
     EXCLUSION_LIST = "EXCLUSION_LIST"
 };
 setmetatable(v15.INCLUSION_METHODS, {
-    __index = function(_, v33) --[[ Line: 295 ]] --[[ Name: __index ]]
+    __index = function(_, v33) --[[ Line: 322 ]] --[[ Name: __index ]]
         return error("Invalid INCLUSION_METHOD " .. tostring(v33));
     end
 });

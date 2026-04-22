@@ -8,27 +8,36 @@ local l_InputSize_0 = v2.Enums.InputSize;
 local l_View_0 = v2.View;
 local v8 = require(l_script_FirstAncestor_0.BeduiV2.Components.AbuseReportTooltip);
 local _ = require(l_script_FirstAncestor_0.BeduiV2.Hooks.AbuseSheetFlow.AbuseSheetFlowTypes);
-local v10 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.TextWithTranslation);
-return v3.memo(function(v11) --[[ Line: 29 ]] --[[ Name: AbuseReportInline ]]
-    -- upvalues: v3 (copy), l_View_0 (copy), l_Icon_0 (copy), l_IconName_0 (copy), l_InputSize_0 (copy), v8 (copy), v10 (copy)
-    local l_abuseReportFlow_0 = v11.abuseReportFlow;
+local v10 = require(l_script_FirstAncestor_0.BeduiV2.Components.LayoutSlots);
+local v11 = require(l_script_FirstAncestor_0.BeduiV2.Components.SlideTransition);
+local l_useLayoutSlots_0 = v10.useLayoutSlots;
+return v3.memo(function(v13) --[[ Line: 32 ]] --[[ Name: AbuseReportInline ]]
+    -- upvalues: l_useLayoutSlots_0 (copy), v3 (copy), v11 (copy), l_View_0 (copy), l_Icon_0 (copy), l_IconName_0 (copy), l_InputSize_0 (copy), v8 (copy)
+    local l_InlineContainer_0 = l_useLayoutSlots_0().InlineContainer;
+    local l_abuseReportFlow_0 = v13.abuseReportFlow;
     local l_config_0 = l_abuseReportFlow_0.config;
     local l_currentPageElement_0 = l_abuseReportFlow_0.currentPageElement;
-    local v15, v16 = v3.useState(l_config_0.display.titleDisclosure and l_config_0.display.titleDisclosure.openByDefault or false);
-    local v18 = v3.useCallback(function() --[[ Line: 36 ]]
-        -- upvalues: v16 (copy)
-        v16(function(v17) --[[ Line: 37 ]]
-            return not v17;
+    local v18 = v3.createElement(v11, {
+        nodeContent = v3.createElement(l_InlineContainer_0 or v3.Fragment, nil, l_currentPageElement_0), 
+        nodeId = l_abuseReportFlow_0.currentNodeId, 
+        nodeType = l_abuseReportFlow_0.currentNodeType, 
+        direction = l_abuseReportFlow_0.navigationDirection
+    });
+    local v19, v20 = v3.useState(l_config_0.display.titleDisclosure and l_config_0.display.titleDisclosure.openByDefault or false);
+    local v22 = v3.useCallback(function() --[[ Line: 48 ]]
+        -- upvalues: v20 (copy)
+        v20(function(v21) --[[ Line: 49 ]]
+            return not v21;
         end);
     end, {});
-    local v19 = v3.useMemo(function() --[[ Line: 42 ]]
-        -- upvalues: v3 (ref), l_View_0 (ref), l_abuseReportFlow_0 (copy), v11 (copy), l_Icon_0 (ref), l_IconName_0 (ref), l_InputSize_0 (ref)
+    local v23 = v3.useMemo(function() --[[ Line: 54 ]]
+        -- upvalues: v3 (ref), l_View_0 (ref), l_abuseReportFlow_0 (copy), v13 (copy), l_Icon_0 (ref), l_IconName_0 (ref), l_InputSize_0 (ref)
         return v3.createElement(l_View_0, {
             isDisabled = not l_abuseReportFlow_0.canGoBack, 
             onActivated = l_abuseReportFlow_0.goBack, 
             tag = {
                 ["auto-xy align-x-center padding-medium radius-circle"] = true, 
-                ["anchor-top-left position-top-left"] = v11.shouldUseOverlaidControls
+                ["anchor-top-left position-top-left"] = v13.shouldUseOverlaidControls
             }, 
             LayoutOrder = 1
         }, v3.createElement(l_Icon_0, {
@@ -41,16 +50,16 @@ return v3.memo(function(v11) --[[ Line: 29 ]] --[[ Name: AbuseReportInline ]]
     end, {
         l_abuseReportFlow_0.canGoBack, 
         l_abuseReportFlow_0.goBack, 
-        v11.shouldUseOverlaidControls
+        v13.shouldUseOverlaidControls
     });
-    local v20 = v3.useMemo(function() --[[ Line: 65 ]]
-        -- upvalues: l_config_0 (copy), v3 (ref), l_View_0 (ref), v18 (copy), v11 (copy), v8 (ref), v15 (copy), l_Icon_0 (ref), l_IconName_0 (ref), l_InputSize_0 (ref)
+    local v24 = v3.useMemo(function() --[[ Line: 77 ]]
+        -- upvalues: l_config_0 (copy), v3 (ref), l_View_0 (ref), v22 (copy), v13 (copy), v8 (ref), v19 (copy), l_Icon_0 (ref), l_IconName_0 (ref), l_InputSize_0 (ref)
         if l_config_0.display.titleDisclosure then
             return (v3.createElement(l_View_0, {
-                onActivated = v18, 
+                onActivated = v22, 
                 tag = {
                     ["auto-xy align-x-center padding-medium radius-circle"] = true, 
-                    ["anchor-top-right position-top-right"] = v11.shouldUseOverlaidControls
+                    ["anchor-top-right position-top-right"] = v13.shouldUseOverlaidControls
                 }, 
                 LayoutOrder = 3, 
                 ZIndex = 2
@@ -58,8 +67,8 @@ return v3.memo(function(v11) --[[ Line: 29 ]] --[[ Name: AbuseReportInline ]]
                 tooltipTitle = l_config_0.display.titleDisclosure.tooltipTitle, 
                 tooltipText = l_config_0.display.titleDisclosure.tooltipText, 
                 buttonLabel = l_config_0.display.titleDisclosure.buttonLabel, 
-                isOpen = v15, 
-                onClose = v18
+                isOpen = v19, 
+                onClose = v22
             }, v3.createElement(l_Icon_0, {
                 name = l_IconName_0.CircleI, 
                 size = l_InputSize_0.Medium
@@ -69,44 +78,37 @@ return v3.memo(function(v11) --[[ Line: 29 ]] --[[ Name: AbuseReportInline ]]
         end;
     end, {
         l_config_0.display.titleDisclosure, 
-        v18, 
-        v15, 
-        v11.shouldUseOverlaidControls
+        v22, 
+        v19, 
+        v13.shouldUseOverlaidControls
     });
     return v3.createElement(l_View_0, {
         tag = "size-full"
     }, {
-        OverlaidControlsLayout = v11.shouldUseOverlaidControls and v3.createElement(l_View_0, {
+        OverlaidControlsLayout = v13.shouldUseOverlaidControls and v3.createElement(l_View_0, {
             tag = "size-full"
         }, {
-            BackButtonContainer = v19, 
+            BackButtonContainer = v23, 
             Content = v3.createElement(l_View_0, {
-                tag = "col size-full padding-top-medium", 
+                tag = "col gap-xlarge size-full padding-top-medium", 
                 LayoutOrder = 2
-            }, l_currentPageElement_0), 
-            AbuseReportTooltipContainer = v20
+            }, v18), 
+            AbuseReportTooltipContainer = v24
         }), 
-        ControlRowLayout = not v11.shouldUseOverlaidControls and v3.createElement(l_View_0, {
+        ControlRowLayout = not v13.shouldUseOverlaidControls and v3.createElement(l_View_0, {
             tag = "col size-full"
         }, {
             ControlRow = v3.createElement(l_View_0, {
                 tag = "row flex-between size-full-0 auto-y", 
                 LayoutOrder = 1
             }, {
-                BackButtonContainer = v19, 
-                Title = if l_config_0.display.title then v3.createElement(l_View_0, {
-                    tag = "align-x-center auto-xy padding-medium"
-                }, v3.createElement(v10, {
-                    input = l_config_0.display.title, 
-                    tag = "auto-xy text-heading-small", 
-                    layoutOrder = 2
-                })) else nil, 
-                AbuseReportTooltipContainer = v20
+                BackButtonContainer = v23, 
+                AbuseReportTooltipContainer = v24
             }), 
             Content = v3.createElement(l_View_0, {
-                tag = "col size-full-0 padding-top-medium fill", 
+                tag = "col fill size-full-0 padding-top-medium", 
                 LayoutOrder = 2
-            }, l_currentPageElement_0)
+            }, v18)
         })
     });
 end);

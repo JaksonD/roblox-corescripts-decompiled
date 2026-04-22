@@ -60,6 +60,38 @@ return {
                                                             }, 
                                                             kind = "Field", 
                                                             directives = {}
+                                                        }, 
+                                                        {
+                                                            selectionSet = {
+                                                                kind = "SelectionSet", 
+                                                                selections = {
+                                                                    {
+                                                                        arguments = {}, 
+                                                                        name = {
+                                                                            value = "settingName", 
+                                                                            kind = "Name"
+                                                                        }, 
+                                                                        kind = "Field", 
+                                                                        directives = {}
+                                                                    }, 
+                                                                    {
+                                                                        arguments = {}, 
+                                                                        name = {
+                                                                            value = "settingValue", 
+                                                                            kind = "Name"
+                                                                        }, 
+                                                                        kind = "Field", 
+                                                                        directives = {}
+                                                                    }
+                                                                }
+                                                            }, 
+                                                            arguments = {}, 
+                                                            name = {
+                                                                value = "userSettings", 
+                                                                kind = "Name"
+                                                            }, 
+                                                            kind = "Field", 
+                                                            directives = {}
                                                         }
                                                     }
                                                 }, 

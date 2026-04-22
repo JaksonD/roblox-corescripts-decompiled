@@ -9,7 +9,7 @@ local v7 = require(l_CorePackages_0.Packages.RoactNavigation);
 local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
 local v9 = require(l_Modules_0.AvatarExperience.Common.Components.TitleDropDown);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v11 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v12 = v4.strictInterface({
     formFactor = v4.string, 
     isCompactView = v4.boolean, 
@@ -22,7 +22,7 @@ local v12 = v4.strictInterface({
     navigation = v4.table
 });
 return function(v13, v14) --[[ Line: 41 ]] --[[ Name: makeTopBarTitleDropDown ]]
-    -- upvalues: v2 (copy), v12 (copy), l_withLocalization_0 (copy), v5 (copy), v9 (copy), l_AvatarScreen_0 (copy), v6 (copy), v11 (copy), v7 (copy)
+    -- upvalues: v2 (copy), v12 (copy), l_withLocalization_0 (copy), v5 (copy), v9 (copy), l_AvatarScreen_0 (copy), v6 (copy), l_NavigateWithLock_0 (copy), v7 (copy)
     local function v18(v15) --[[ Line: 42 ]] --[[ Name: TopBarTitleDropDown ]]
         -- upvalues: v2 (ref), v12 (ref), l_withLocalization_0 (ref), v13 (copy), v5 (ref), v9 (ref), l_AvatarScreen_0 (ref), v14 (copy)
         v2.assert(v12(v15));
@@ -47,11 +47,11 @@ return function(v13, v14) --[[ Line: 41 ]] --[[ Name: makeTopBarTitleDropDown ]]
         end);
     end;
     v18 = v6.connect(nil, function(v19) --[[ Line: 63 ]]
-        -- upvalues: v11 (ref)
+        -- upvalues: l_NavigateWithLock_0 (ref)
         return {
             navigateWithLock = function(v20) --[[ Line: 65 ]] --[[ Name: navigateWithLock ]]
-                -- upvalues: v19 (copy), v11 (ref)
-                v19(v11(v20));
+                -- upvalues: v19 (copy), l_NavigateWithLock_0 (ref)
+                v19(l_NavigateWithLock_0(v20));
             end
         };
     end)(v18);

@@ -6,8 +6,6 @@ return {
     EditDisplayNameErrorModal = require(script.Components.ErrorModals.EditDisplayNameErrorModal), 
     EditSocialNetworksErrorModal = require(script.Components.ErrorModals.EditSocialNetworksErrorModal), 
     UsernameInsufficientFundsModal = require(script.Components.ErrorModals.UsernameInsufficientFundsModal), 
-    PersonaAvatarPage = require(script.Components.PersonaAvatarPage), 
-    EditPersonaNameModal = require(script.Components.EditPersonaNameModal), 
     EditSocialLinksModal = require(script.Components.EditSocialLinksModal), 
     Flags = require(script.Flags), 
     Constants = require(script.Common.Constants), 

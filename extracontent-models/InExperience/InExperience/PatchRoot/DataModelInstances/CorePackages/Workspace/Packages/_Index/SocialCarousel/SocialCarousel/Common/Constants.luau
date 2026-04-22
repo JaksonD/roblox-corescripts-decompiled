@@ -16,20 +16,23 @@ return {
         ADD_CONNECTIONS_HEADING = if l_FFlagConnectionsToFriendsRename_0 then nil else "CommonUI.Features.Label.Connect", 
         NEW_FRIEND_REQUESTS_MAX = "Feature.Friends.Label.NewFriendRequestsMax", 
         FRIENDS_ARE_NOW_CONNECTIONS = "Feature.Friends.Label.FriendsAreNowConnections", 
-        START_SQUAD_TEXT = "Feature.Squads.Label.StartParty"
+        START_SQUAD_TEXT = "Feature.Squads.Label.StartParty", 
+        SHARE_QR_HEADING = "Feature.Friends.Action.ShareQR"
     }, 
     ANALYTICS = {
         ACTION_TYPES = {
             OPEN_CONTEXTUAL_MENU = "OpenContextualMenu", 
             OPEN_PROFILE = "OpenProfile", 
             OPEN_CONSOLE_CONTEXTUAL_MENU = "OpenConsoleContextualMenu", 
-            OPEN_ADD_FRIENDS = "OpenAddFriends"
+            OPEN_ADD_FRIENDS = "OpenAddFriends", 
+            OPEN_SHARE_QR = "OpenShareQR"
         }, 
         BTN_VALUES = {
             OPEN_PEOPLE_LIST = "openPeopleList", 
             ADD_FRIENDS = "AddFriendsButton", 
             VIEW_ALL_FRIENDS = "friendsLanding", 
-            START_SQUAD = "StartSquadButton"
+            START_SQUAD = "StartSquadButton", 
+            SHARE_QR = "ShareQRButton"
         }, 
         SRC = {
             HOMEPAGE_FRIENDS_CAROUSEL = "HomepageFriendsCarousel", 
@@ -40,7 +43,8 @@ return {
             EMPTY_HINT = "EmptyHint", 
             CAROUSEL_FRIEND = "CarouselFriend", 
             ADD_FRIENDS = "AddFriendsBtn", 
-            START_SQUAD = "StartSquadBtn"
+            START_SQUAD = "StartSquadBtn", 
+            SHARE_QR = "ShareQRBtn"
         }, 
         CONTENT_TYPE = "User"
     }, 

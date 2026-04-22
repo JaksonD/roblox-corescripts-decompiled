@@ -20,7 +20,9 @@ local v18 = require(l_script_FirstAncestor_0.TopBarProvider);
 local v19 = require(l_script_FirstAncestor_0.Components.SelectChatMembers.createSystemMenuButton);
 local l_withLocalization_0 = require(l_Parent_0.Localization).withLocalization;
 local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local function v22() --[[ Line: 30 ]] --[[ Name: instantTransitionConfig ]]
+local v22 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarConfigDriven);
+local l_NavProps_0 = require(l_script_FirstAncestor_0.Constants).NavProps;
+local function v24() --[[ Line: 33 ]] --[[ Name: instantTransitionConfig ]]
     return {
         transitionSpec = {
             frequency = 1000000, 
@@ -28,67 +30,79 @@ local function v22() --[[ Line: 30 ]] --[[ Name: instantTransitionConfig ]]
         }
     };
 end;
-return function(v23, v24) --[[ Line: 39 ]]
-    -- upvalues: v3 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v16 (copy), v17 (copy), v5 (copy), v6 (copy), l_FFlagEnablePartyQuickStartButton_0 (copy), v18 (copy), v7 (copy), l_withLocalization_0 (copy), v19 (copy), v8 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v4 (copy), v9 (copy), v11 (copy), v10 (copy), v15 (copy), v2 (copy), v22 (copy)
-    local function v26(_) --[[ Line: 40 ]] --[[ Name: getChatDetailsNavigationOptions ]]
-        -- upvalues: v3 (ref), l_GetFFlagAppChatRebrandStringUpdates_0 (ref), l_GetFFlagIsSquadEnabled_0 (ref), v16 (ref), v17 (ref), v23 (copy)
-        return v3.Dictionary.join({
-            backButtonEnabled = true, 
-            headerText = {
-                raw = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Label.Details" or "Feature.Chat.Label.ChatDetails", 
-                shouldLocalize = true
-            }, 
-            backButtonTestId = if v16 then v17.chatDetailsTopBarActionButton("back") else nil
-        }, v23 or {});
-    end;
-    local function v29(v27) --[[ Line: 55 ]] --[[ Name: getSquadLobbyNavigationOptions ]]
-        -- upvalues: v3 (ref), v5 (ref), v6 (ref), v23 (copy)
-        local l_navigation_0 = v27.navigation;
-        return v3.Dictionary.join({
-            backButtonEnabled = true, 
-            renderRight = function() --[[ Line: 59 ]] --[[ Name: renderRight ]]
-                -- upvalues: v5 (ref), v6 (ref), l_navigation_0 (copy)
-                return v5.createElement(v6, {
-                    navigation = l_navigation_0
-                });
-            end
-        }, v23 or {});
-    end;
-    local function v36(v30) --[[ Line: 67 ]] --[[ Name: getSquadInviteFriendsNavigationOptions ]]
-        -- upvalues: l_FFlagEnablePartyQuickStartButton_0 (ref), v5 (ref), v18 (ref), v7 (ref), l_withLocalization_0 (ref), v19 (ref), v3 (ref), v23 (copy)
-        local v31 = v30.navigation and v30.navigation.getScreenProps and v30.navigation.getScreenProps("wideMode", false);
-        local v32 = {
-            backButtonEnabled = true, 
-            headerText = if l_FFlagEnablePartyQuickStartButton_0 then {
-                raw = "Feature.Squads.Action.Add", 
-                shouldLocalize = true
-            } else nil
-        };
-        if v31 then
-            v32.renderRight = function() --[[ Line: 83 ]]
-                -- upvalues: v5 (ref), v18 (ref), v7 (ref), l_withLocalization_0 (ref), v19 (ref)
-                return v5.createElement(v18, {
-                    screenName = v7.SquadInviteFriends, 
-                    render = function(v33) --[[ Line: 86 ]] --[[ Name: render ]]
-                        -- upvalues: v7 (ref), l_withLocalization_0 (ref), v19 (ref)
-                        local v34 = v33.getScreenTopBar(v7.SquadInviteFriends);
-                        return l_withLocalization_0({
-                            systemButtonText = "Feature.Squads.Action.Add"
-                        })(function(v35) --[[ Line: 91 ]]
-                            -- upvalues: v19 (ref), v34 (copy)
-                            return v19({
-                                localizedStrings = v35, 
-                                isDisabled = not v34.systemButtonEnabled, 
-                                onActivated = v34.systemButtonActivated
-                            });
-                        end);
-                    end
-                });
-            end;
+return function(v25, v26) --[[ Line: 42 ]]
+    -- upvalues: v22 (copy), v3 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v16 (copy), v17 (copy), v5 (copy), v6 (copy), l_NavProps_0 (copy), l_FFlagEnablePartyQuickStartButton_0 (copy), v18 (copy), v7 (copy), l_withLocalization_0 (copy), v19 (copy), v8 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v4 (copy), v9 (copy), v11 (copy), v10 (copy), v15 (copy), v2 (copy), v24 (copy)
+    local function v28(_) --[[ Line: 43 ]] --[[ Name: getChatDetailsNavigationOptions ]]
+        -- upvalues: v22 (ref), v25 (copy), v3 (ref), l_GetFFlagAppChatRebrandStringUpdates_0 (ref), l_GetFFlagIsSquadEnabled_0 (ref), v16 (ref), v17 (ref)
+        if v22() then
+            return v25 or {};
+        else
+            return v3.Dictionary.join({
+                backButtonEnabled = true, 
+                headerText = {
+                    raw = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Label.Details" or "Feature.Chat.Label.ChatDetails", 
+                    shouldLocalize = true
+                }, 
+                backButtonTestId = if v16 then v17.chatDetailsTopBarActionButton("back") else nil
+            }, v25 or {});
         end;
-        return v3.Dictionary.join(v32, v23 or {});
     end;
-    local v37 = {
+    local function v31(v29) --[[ Line: 61 ]] --[[ Name: getSquadLobbyNavigationOptions ]]
+        -- upvalues: v22 (ref), v25 (copy), v3 (ref), v5 (ref), v6 (ref)
+        if v22() then
+            return v25 or {};
+        else
+            local l_navigation_0 = v29.navigation;
+            return v3.Dictionary.join({
+                backButtonEnabled = true, 
+                renderRight = function() --[[ Line: 68 ]] --[[ Name: renderRight ]]
+                    -- upvalues: v5 (ref), v6 (ref), l_navigation_0 (copy)
+                    return v5.createElement(v6, {
+                        navigation = l_navigation_0
+                    });
+                end
+            }, v25 or {});
+        end;
+    end;
+    local function v38(v32) --[[ Line: 76 ]] --[[ Name: getSquadInviteFriendsNavigationOptions ]]
+        -- upvalues: v22 (ref), v25 (copy), l_NavProps_0 (ref), l_FFlagEnablePartyQuickStartButton_0 (ref), v5 (ref), v18 (ref), v7 (ref), l_withLocalization_0 (ref), v19 (ref), v3 (ref)
+        if v22() then
+            return v25 or {};
+        else
+            local v33 = v32.navigation and v32.navigation.getScreenProps and v32.navigation.getScreenProps(l_NavProps_0.WIDE_MODE, false);
+            local v34 = {
+                backButtonEnabled = true, 
+                headerText = if l_FFlagEnablePartyQuickStartButton_0 then {
+                    raw = "Feature.Squads.Action.Add", 
+                    shouldLocalize = true
+                } else nil
+            };
+            if v33 then
+                v34.renderRight = function() --[[ Line: 96 ]]
+                    -- upvalues: v5 (ref), v18 (ref), v7 (ref), l_withLocalization_0 (ref), v19 (ref)
+                    return v5.createElement(v18, {
+                        screenName = v7.SquadInviteFriends, 
+                        render = function(v35) --[[ Line: 99 ]] --[[ Name: render ]]
+                            -- upvalues: v7 (ref), l_withLocalization_0 (ref), v19 (ref)
+                            local v36 = v35.getScreenTopBar(v7.SquadInviteFriends);
+                            return l_withLocalization_0({
+                                systemButtonText = "Feature.Squads.Action.Add"
+                            })(function(v37) --[[ Line: 104 ]]
+                                -- upvalues: v19 (ref), v36 (copy)
+                                return v19({
+                                    localizedStrings = v37, 
+                                    isDisabled = not v36.systemButtonEnabled, 
+                                    onActivated = v36.systemButtonActivated
+                                });
+                            end);
+                        end
+                    });
+                end;
+            end;
+            return v3.Dictionary.join(v34, v25 or {});
+        end;
+    end;
+    local v39 = {
         {
             [v7.ChatConversation] = {
                 screen = v8, 
@@ -97,48 +111,48 @@ return function(v23, v24) --[[ Line: 39 ]]
                     isRoot = true, 
                     lockIconEnabled = true, 
                     tabBarVisible = true
-                }, v23 or {})
+                }, v25 or {})
             }
         }, 
         {
             [v7.ChatDetails] = {
                 screen = if l_FFlagEnableAppChatFocusableFixes_0 then v4(v9) else v9, 
-                navigationOptions = if l_FFlagEnableAppChatFocusableFixes_0 then v26 else v3.Dictionary.join({
+                navigationOptions = if l_FFlagEnableAppChatFocusableFixes_0 then v28 else v3.Dictionary.join({
                     backButtonEnabled = true
-                }, v23 or {})
+                }, v25 or {})
             }
         }
     };
     if l_GetFFlagIsSquadEnabled_0() then
-        table.insert(v37, {
+        table.insert(v39, {
             [v7.SquadLobby] = {
                 screen = if l_FFlagEnableAppChatFocusableFixes_0 then v4(v11.WideSquadLobbyScreen) else v11.WideSquadLobbyScreen, 
-                navigationOptions = if l_FFlagEnableAppChatFocusableFixes_0 then v29 else v3.Dictionary.join({
+                navigationOptions = if l_FFlagEnableAppChatFocusableFixes_0 then v31 else v3.Dictionary.join({
                     backButtonEnabled = true
-                }, v23 or {})
+                }, v25 or {})
             }
         });
-        table.insert(v37, {
+        table.insert(v39, {
             [v7.SquadInviteFriends] = {
                 screen = if l_FFlagEnableAppChatFocusableFixes_0 then v4(v10) else v10, 
-                navigationOptions = if l_FFlagEnableAppChatFocusableFixes_0 then v36 else v3.Dictionary.join({
+                navigationOptions = if l_FFlagEnableAppChatFocusableFixes_0 then v38 else v3.Dictionary.join({
                     backButtonEnabled = true, 
                     headerText = if l_FFlagEnablePartyQuickStartButton_0 then {
                         raw = "Feature.Squads.Action.Add", 
                         shouldLocalize = true
                     } else nil
-                }, v23 or {})
+                }, v25 or {})
             }
         });
     end;
-    local v38 = {
+    local v40 = {
         tabBarVisible = true
     };
     if v15 then
-        v38.absorbInputSelectable = false;
+        v40.absorbInputSelectable = false;
     end;
-    return v2.createRobloxStackNavigator(v37, {
-        defaultNavigationOptions = v38, 
-        transitionConfig = if v24 then v22 else nil
+    return v2.createRobloxStackNavigator(v39, {
+        defaultNavigationOptions = v40, 
+        transitionConfig = if v26 then v24 else nil
     });
 end;

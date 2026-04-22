@@ -1,27 +1,29 @@
 local l_Parent_0 = script.Parent.Parent;
 local v1 = require(l_Parent_0.Parent.Cryo);
 local v2 = require(l_Parent_0.flags.getFFlagUGCValidationEyebrowEyelashSupport);
-local function _(v3, v4) --[[ Line: 7 ]] --[[ Name: round ]]
-    local v5 = 10 ^ (v4 or 0);
-    return math.floor(v3 * v5 + 0.5) / v5;
+local v3 = game:DefineFastFlag("UGCValidationValueToStringVector3Precision", false);
+local function _(v4, v5) --[[ Line: 9 ]] --[[ Name: round ]]
+    local v6 = 10 ^ (v5 or 0);
+    return math.floor(v4 * v6 + 0.5) / v6;
 end;
-local function v7(v8) --[[ Line: 12 ]] --[[ Name: valueToString ]]
-    -- upvalues: v1 (copy), v2 (copy), v7 (copy)
-    local v9 = typeof(v8);
-    if v8 == v1.None then
+local function v8(v9) --[[ Line: 14 ]] --[[ Name: valueToString ]]
+    -- upvalues: v1 (copy), v3 (copy), v2 (copy), v8 (copy)
+    local v10 = typeof(v9);
+    if v9 == v1.None then
         return "not defined";
-    elseif v9 == "Vector3" then
-        return string.format("%d, %d, %d", math.floor(v8.X * 100 + 0.5) / 100, math.floor(v8.Y * 100 + 0.5) / 100, math.floor(v8.Z * 100 + 0.5) / 100);
-    elseif v9 == "Color3" then
-        return string.format("%d, %d, %d", math.floor(v8.r * 255), math.floor(v8.g * 255), (math.floor(v8.b * 255)));
-    elseif v2() and v9 == "table" and v8[1] ~= nil then
-        local v10 = tostring(v8[1]);
-        for v11 = 2, #v8 do
-            v10 = v10 .. ", " .. v7(v8[v11]);
+    elseif v10 == "Vector3" then
+        local v11 = v3 and "%g, %g, %g" or "%d, %d, %d";
+        return string.format(v11, math.floor(v9.X * 100 + 0.5) / 100, math.floor(v9.Y * 100 + 0.5) / 100, math.floor(v9.Z * 100 + 0.5) / 100);
+    elseif v10 == "Color3" then
+        return string.format("%d, %d, %d", math.floor(v9.r * 255), math.floor(v9.g * 255), (math.floor(v9.b * 255)));
+    elseif v2() and v10 == "table" and v9[1] ~= nil then
+        local v12 = tostring(v9[1]);
+        for v13 = 2, #v9 do
+            v12 = v12 .. ", " .. v8(v9[v13]);
         end;
-        return v10;
+        return v12;
     else
-        return (tostring(v8));
+        return (tostring(v9));
     end;
 end;
-return v7;
+return v8;

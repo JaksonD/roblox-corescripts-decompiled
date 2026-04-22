@@ -8,5 +8,6 @@ return {
     MessageSendToPendingRender = "MessageSendToPendingRender", 
     MessageSendResponseToFinalRender = "MessageSendResponseToFinalRender", 
     MessageSendToFinalRender = "MessageSendToFinalRender", 
-    MessageReceiveToRender = "MessageReceiveToRender"
+    MessageReceiveToRender = "MessageReceiveToRender", 
+    TopBarRenderInterval = "TopBarRenderInterval"
 };

@@ -213,7 +213,7 @@ v17.sendErrorReport = function(v63, v64, v65) --[[ Line: 335 ]] --[[ Name: sendE
             print("[Sentry] Level:", v67);
         end;
         v63._sentryClient:capture_exception({
-            type = "UniversalAppError", 
+            type = "LuaError", 
             message = v66, 
             stacktrace = v70
         }, v67, v68, v69, function(v73, v74, v75) --[[ Line: 387 ]]
@@ -246,96 +246,99 @@ v17._generateLog = function(v79) --[[ Line: 414 ]] --[[ Name: _generateLog ]]
     end;
     return nil;
 end;
-v17._generateErrorReport = function(v82, v83, v84, v85, _) --[[ Line: 439 ]] --[[ Name: _generateErrorReport ]]
-    -- upvalues: v7 (copy)
-    local v87 = nil;
+v17._generateErrorReport = function(v82, v83, v84, v85, _, v87) --[[ Line: 440 ]] --[[ Name: _generateErrorReport ]]
+    -- upvalues: v3 (copy), v7 (copy)
+    local v88 = nil;
     if type(v85) == "table" then
-        v87 = v7.fromDetails(v85);
+        local v89 = if v87 ~= nil then v3.Dictionary.join(v85, {
+            level = v87
+        }) else v85;
+        v88 = v7.fromDetails(v89);
     else
-        v87 = v7.fromMessageAndStack(v83, v84);
+        v88 = v7.fromMessageAndStack(v83, v84, v87);
         if type(v85) == "string" then
-            v87:addAnnotations({
+            v88:addAnnotations({
                 stackDetails = v85
             });
         end;
     end;
-    v87:addAttributes(v82._sharedAttributes);
+    v88:addAttributes(v82._sharedAttributes);
     if v82._sharedAnnotations and next(v82._sharedAnnotations) ~= nil then
-        v87:addAnnotations(v82._sharedAnnotations);
+        v88:addAnnotations(v82._sharedAnnotations);
     end;
     if v82._processErrorReportMethod ~= nil then
-        v87 = v82._processErrorReportMethod(v87);
+        v88 = v82._processErrorReportMethod(v88);
     end;
-    return v87, (v82:_generateLog());
+    return v88, (v82:_generateLog());
 end;
-v17.reportErrorImmediately = function(v88, v89, v90, v91, v92) --[[ Line: 492 ]] --[[ Name: reportErrorImmediately ]]
-    if not v88._isEnabled then
+v17.reportErrorImmediately = function(v90, v91, v92, v93, v94, v95) --[[ Line: 496 ]] --[[ Name: reportErrorImmediately ]]
+    if not v90._isEnabled then
         return;
     else
-        local v93, v94 = v88:_generateErrorReport(v89, v90, v91, v92);
-        v88:sendErrorReport(v93, v94);
+        local v96, v97 = v90:_generateErrorReport(v91, v92, v93, v94, v95);
+        v90:sendErrorReport(v96, v97);
         return;
     end;
 end;
-v17.reportErrorDeferred = function(v95, v96, v97, v98, v99) --[[ Line: 516 ]] --[[ Name: reportErrorDeferred ]]
-    if not v95._isEnabled then
+v17.reportErrorDeferred = function(v98, v99, v100, v101, v102, v103) --[[ Line: 522 ]] --[[ Name: reportErrorDeferred ]]
+    if not v98._isEnabled then
         return;
     else
-        local v100 = v96 or "";
-        local v101 = v97 or "";
-        local v102 = string.format("%s | %s", v100, v101);
-        v100 = {
+        local v104 = v99 or "";
+        local v105 = v100 or "";
+        local v106 = string.format("%s | %s", v104, v105);
+        v104 = {
             errorReport = nil, 
             log = nil
         };
-        if not v95._errorQueue:hasError(v102) then
-            local v103;
-            v101, v103 = v95:_generateErrorReport(v96, v97, v98, v99);
-            v100 = {
-                errorReport = v101, 
-                log = v103
+        if not v98._errorQueue:hasError(v106) then
+            local v107;
+            v105, v107 = v98:_generateErrorReport(v99, v100, v101, v102, v103);
+            v104 = {
+                errorReport = v105, 
+                log = v107
             };
         end;
-        v95._errorQueue:addError(v102, v100);
+        v98._errorQueue:addError(v106, v104);
         return;
     end;
 end;
-v17.reportAllErrors = function(v104) --[[ Line: 551 ]] --[[ Name: reportAllErrors ]]
-    if v104._errorQueue ~= nil then
-        v104._errorQueue:reportAllErrors();
+v17.reportAllErrors = function(v108) --[[ Line: 558 ]] --[[ Name: reportAllErrors ]]
+    if v108._errorQueue ~= nil then
+        v108._errorQueue:reportAllErrors();
     end;
 end;
-v17.stop = function(v105) --[[ Line: 560 ]] --[[ Name: stop ]]
-    v105._isEnabled = false;
-    if v105._errorQueue ~= nil then
-        v105:reportAllErrors();
-        v105._errorQueue:stopTimer();
+v17.stop = function(v109) --[[ Line: 567 ]] --[[ Name: stop ]]
+    v109._isEnabled = false;
+    if v109._errorQueue ~= nil then
+        v109:reportAllErrors();
+        v109._errorQueue:stopTimer();
     end;
 end;
-v17.updateSharedAttributes = function(v106, v107) --[[ Line: 578 ]] --[[ Name: updateSharedAttributes ]]
+v17.updateSharedAttributes = function(v110, v111) --[[ Line: 585 ]] --[[ Name: updateSharedAttributes ]]
     -- upvalues: v3 (copy), l_IAttributes_0 (copy), v12 (copy)
-    local v108 = v3.Dictionary.join(v106._sharedAttributes, v107);
-    local v109, v110 = l_IAttributes_0(v108);
-    if not v109 then
+    local v112 = v3.Dictionary.join(v110._sharedAttributes, v111);
+    local v113, v114 = l_IAttributes_0(v112);
+    if not v113 then
         if v12 then
-            assert(v109, v110);
+            assert(v113, v114);
         else
             return;
         end;
     end;
-    v106._sharedAttributes = v108;
+    v110._sharedAttributes = v112;
 end;
-v17.updateSharedAnnotations = function(v111, v112) --[[ Line: 600 ]] --[[ Name: updateSharedAnnotations ]]
+v17.updateSharedAnnotations = function(v115, v116) --[[ Line: 607 ]] --[[ Name: updateSharedAnnotations ]]
     -- upvalues: v3 (copy), l_IAnnotations_0 (copy), v12 (copy)
-    local v113 = v3.Dictionary.join(v111._sharedAnnotations, v112);
-    local v114, v115 = l_IAnnotations_0(v113);
-    if not v114 then
+    local v117 = v3.Dictionary.join(v115._sharedAnnotations, v116);
+    local v118, v119 = l_IAnnotations_0(v117);
+    if not v118 then
         if v12 then
-            assert(v114, v115);
+            assert(v118, v119);
         else
             return;
         end;
     end;
-    v111._sharedAnnotations = v113;
+    v115._sharedAnnotations = v117;
 end;
 return v17;

@@ -3,340 +3,376 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local l_LocalizationService_0 = game:GetService("LocalizationService");
 local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v5 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
-local v6 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
-local v7 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
-local v8 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.PurchaseProduct);
-local v9 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.HandlePurchaseSuccess);
-local v10 = require(l_CorePackages_0.Packages.Promise);
-local v11 = require(l_Modules_0.LuaApp.Components.RobuxUpsell.Enum.RobuxUpsellTriggerContext);
+local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
+local v6 = require(l_CorePackages_0.Workspace.Packages.IAPExperience);
+local v7 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
+local v8 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
+local v10 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.PurchaseProduct);
+local v11 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.HandlePurchaseSuccess);
+local v12 = require(l_CorePackages_0.Packages.Promise);
+local l_CartIdService_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Lib.CartIdService;
+local v14 = require(l_Modules_0.LuaApp.Components.RobuxUpsell.Enum.RobuxUpsellTriggerContext);
 local l_getRbxthumbWithTypeSizeAndOptions_0 = require(l_CorePackages_0.Workspace.Packages.UserLib).Utils.getRbxthumbWithTypeSizeAndOptions;
-local v13 = require(l_Modules_0.AvatarExperience.AccessoryAdjustment.AccessoryAdjustmentUtils);
-local v14 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
-local v15 = require(l_CorePackages_0.Workspace.Packages.RobloxAppLocales).Localization.new(l_LocalizationService_0.RobloxLocaleId);
-local v16 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v16 = require(l_Modules_0.AvatarExperience.AccessoryAdjustment.AccessoryAdjustmentUtils);
+local v17 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
+local v18 = require(l_CorePackages_0.Workspace.Packages.RobloxAppLocales).Localization.new(l_LocalizationService_0.RobloxLocaleId);
+local v19 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_addUnifiedEventLogging_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).addUnifiedEventLogging;
-local v18 = require(l_CorePackages_0.Packages.Cryo);
+local v21 = require(l_CorePackages_0.Packages.Cryo);
 local l_UnifiedEventLogEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogEnums;
 local l_UnifiedEventLogConstants_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogConstants;
-local v21 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForUnifiedPurchasePrompt);
-local v22 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite);
-local l_getIsUserEligibleForUnifiedPurchaseFlow_0 = v22.getIsUserEligibleForUnifiedPurchaseFlow;
-local l_ProductPurchaseSurface_0 = v22.Enums.ProductPurchaseSurface;
-local v25 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local v26 = require(l_CorePackages_0.Workspace.Packages.IAPExperience);
-local l_EconomicRestrictionsCounter_0 = v26.Counters.EconomicRestrictionsCounter;
+local v24 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForUnifiedPurchasePrompt);
+local v25 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite);
+local l_getIsUserEligibleForUnifiedPurchaseFlow_0 = v25.getIsUserEligibleForUnifiedPurchaseFlow;
+local l_ProductPurchaseSurface_0 = v25.Enums.ProductPurchaseSurface;
+local v28 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_EconomicRestrictionsCounter_0 = v6.Counters.EconomicRestrictionsCounter;
 local l_UniversalEconomicRestrictionsCounter_0 = l_EconomicRestrictionsCounter_0.UniversalEconomicRestrictionsCounter;
 local l_EconomicRestrictionsSurface_0 = l_EconomicRestrictionsCounter_0.EconomicRestrictionsSurface;
 local l_default_0 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol).default;
-local v31 = require(l_Modules_0.LuaApp.Thunks.Fraud.OpenCentralOverlayForEconomicRestrictionPrompt);
-local l_getTTIEventName_0 = v22.getTTIEventName;
+local v33 = require(l_Modules_0.LuaApp.Thunks.Fraud.OpenCentralOverlayForEconomicRestrictionPrompt);
+local l_getTTIEventName_0 = v25.getTTIEventName;
 local l_TimeToInteractiveTracker_0 = require(l_CorePackages_0.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker;
-local l_parseEconomicRestrictionsFailureReason_0 = v26.Utility.parseEconomicRestrictionsFailureReason;
-local l_parseEconomicRestrictionsExpirationTimeInMinutes_0 = v26.Utility.parseEconomicRestrictionsExpirationTimeInMinutes;
-local l_FFlagAXDurablesSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXDurablesSupport;
+local l_parseEconomicRestrictionsFailureReason_0 = v6.Utility.parseEconomicRestrictionsFailureReason;
+local l_parseEconomicRestrictionsExpirationTimeInMinutes_0 = v6.Utility.parseEconomicRestrictionsExpirationTimeInMinutes;
+local l_FFlagAXBlackbirdRoot_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXBlackbirdRoot;
 local l_FFlagAddTypesToWidgetItems_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAddTypesToWidgetItems;
-local l_FFlagAXFixPurchaseSurfaceLogging_0 = v25.FFlagAXFixPurchaseSurfaceLogging;
+local l_FFlagAXFixPurchaseSurfaceLogging_0 = v28.FFlagAXFixPurchaseSurfaceLogging;
 local l_FFlagAXEnableUnifiedProductPurchaseForMarketplace_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableUnifiedProductPurchaseForMarketplace;
-local l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 = v25.FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow;
-local l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 = v25.FFlagAddPerformanceMetricsToUnifiedPurchaseModal;
-local l_FFlagPurchasePromptSubtitleForTimedOptions_0 = v25.FFlagPurchasePromptSubtitleForTimedOptions;
+local l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 = v28.FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow;
+local l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 = v28.FFlagAddPerformanceMetricsToUnifiedPurchaseModal;
+local l_FFlagPurchasePromptSubtitleForTimedOptions_0 = v28.FFlagPurchasePromptSubtitleForTimedOptions;
+local l_FFlagPurchaseModalTimedOptionExtension_0 = v28.FFlagPurchaseModalTimedOptionExtension;
 local l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration;
 local l_FFlagFixUnifiedPurchaseResalePurchases_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagFixUnifiedPurchaseResalePurchases;
+local l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXMISEnableMultiShoppingUnifiedEvents;
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local function v51(v46, v47, v48, v49, v50) --[[ Line: 90 ]] --[[ Name: buildUnifiedPurchaseProductInfo ]]
+local l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceAssetBundles_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXLaunchUnifiedPurchaseFlowMarketplaceAssetBundles;
+local l_FFlagUseNavigationSelectors_0 = v28.FFlagUseNavigationSelectors;
+local function v63(v52, v53, v54, v55, v56, v57) --[[ Line: 109 ]] --[[ Name: buildUnifiedPurchaseProductInfo ]]
+    -- upvalues: l_FFlagAXBlackbirdRoot_0 (copy)
+    local v58 = if l_FFlagAXBlackbirdRoot_0 then {} else nil;
+    local v59 = nil;
+    if l_FFlagAXBlackbirdRoot_0 then
+        v59 = v52.discountInformation;
+        if v57 and v57 ~= 0 and v52.timedOptions then
+            for _, v61 in v52.timedOptions do
+                if v61.days == v57 then
+                    v59 = v61.discountInformation;
+                    break;
+                end;
+            end;
+        end;
+        if v59 then
+            local v62 = v59.discounts[1];
+            v58.Type = v62.discountCampaign;
+            v58.AmountInRobux = v62.robuxDiscountAmount;
+            v58.Percent = v62.robuxDiscountPercentage;
+        end;
+    end;
     return {
-        AssetType = v46.assetType, 
-        CollectibleItemId = v46.collectibleItemId, 
-        CollectibleProductId = v47, 
-        Description = v46.description, 
-        PriceInRobux = v48, 
-        ImageUrl = v46.imageUrl, 
-        Name = v46.name, 
-        ProductId = v49, 
-        AssetTypeId = v46.assetType, 
-        ProductType = v50, 
-        TargetId = v46.id, 
-        AssetId = v46.id, 
-        items = v46.items, 
+        AssetType = v52.assetType, 
+        CollectibleItemId = v52.collectibleItemId, 
+        CollectibleProductId = v53, 
+        Description = v52.description, 
+        PriceInRobux = v54, 
+        BasePriceInRobux = if l_FFlagAXBlackbirdRoot_0 and v59 then v59.originalPrice else nil, 
+        PriceDiscountDetails = if l_FFlagAXBlackbirdRoot_0 then {
+            v58
+        } else nil, 
+        ImageUrl = v52.imageUrl, 
+        Name = v52.name, 
+        ProductId = v55, 
+        AssetTypeId = v52.assetType, 
+        ProductType = v56, 
+        TargetId = v52.id, 
+        AssetId = v52.id, 
+        items = v52.items, 
         product = {
-            id = v49, 
-            isForSale = v46.isPurchasable
+            id = v55, 
+            isForSale = v52.isPurchasable
         }
     };
 end;
-local v52 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
-local v53 = require(l_Modules_0.LuaApp.Enum.ToastType);
-local v54 = {
+local v64 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
+local v65 = require(l_Modules_0.LuaApp.Enum.ToastType);
+local v66 = {
     toastMessage = "IAPExperience.RobuxUpsell.Title.InsufficientRobux", 
     isLocalized = false, 
-    toastType = v53.InformationMessage
+    toastType = v65.InformationMessage
 };
-return function(v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68) --[[ Line: 140 ]]
-    -- upvalues: v5 (copy), v13 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), v16 (copy), v6 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXEnableUnifiedProductPurchaseForMarketplace_0 (copy), l_FFlagFixUnifiedPurchaseResalePurchases_0 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), v7 (copy), v52 (copy), v54 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_parseEconomicRestrictionsFailureReason_0 (copy), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (copy), l_default_0 (copy), l_UniversalEconomicRestrictionsCounter_0 (copy), l_EconomicRestrictionsSurface_0 (copy), v31 (copy), v11 (copy), v8 (copy), v9 (copy), v18 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAddTypesToWidgetItems_0 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogConstants_0 (copy), v14 (copy), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (copy), l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 (copy), v10 (copy), v51 (copy), v21 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (copy), v15 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy)
-    return function(v69) --[[ Line: 156 ]]
-        -- upvalues: v61 (copy), v62 (copy), v60 (copy), v5 (ref), v13 (ref), v58 (copy), l_AvatarScreen_0 (ref), v59 (copy), v66 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v57 (copy), v16 (ref), v6 (ref), l_FFlagAXDurablesSupport_0 (ref), v67 (copy), l_FFlagAXEnableUnifiedProductPurchaseForMarketplace_0 (ref), l_FFlagFixUnifiedPurchaseResalePurchases_0 (ref), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v56 (copy), v65 (copy), v7 (ref), v63 (copy), v52 (ref), v64 (copy), v54 (ref), l_getRbxthumbWithTypeSizeAndOptions_0 (ref), l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v31 (ref), v11 (ref), v8 (ref), v55 (copy), v9 (ref), v18 (ref), l_UnifiedEventLogEnums_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), l_addUnifiedEventLogging_0 (ref), l_UnifiedEventLogConstants_0 (ref), v14 (ref), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (ref), l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 (ref), v10 (ref), v51 (ref), v21 (ref), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (ref), v68 (copy), v15 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref)
-        local v70 = v69:getState();
-        local l_v61_0 = v61;
-        local l_v62_0 = v62;
-        local l_name_0 = v60.opaque.name;
-        local v74 = v5(v70.AvatarExperience.Common, l_v61_0, l_v62_0);
-        if not v74 then
+return function(v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80) --[[ Line: 193 ]]
+    -- upvalues: v7 (copy), v16 (copy), l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), v19 (copy), v8 (copy), l_FFlagAXEnableUnifiedProductPurchaseForMarketplace_0 (copy), l_FFlagFixUnifiedPurchaseResalePurchases_0 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), l_NavigateWithLock_0 (copy), v64 (copy), v66 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_parseEconomicRestrictionsFailureReason_0 (copy), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (copy), l_default_0 (copy), l_UniversalEconomicRestrictionsCounter_0 (copy), l_EconomicRestrictionsSurface_0 (copy), v33 (copy), v14 (copy), v10 (copy), v11 (copy), v21 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAddTypesToWidgetItems_0 (copy), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (copy), l_CartIdService_0 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogConstants_0 (copy), v17 (copy), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (copy), l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 (copy), v12 (copy), v63 (copy), l_FFlagAXBlackbirdRoot_0 (copy), v24 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (copy), v18 (copy), l_FFlagPurchaseModalTimedOptionExtension_0 (copy), l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceAssetBundles_0 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy)
+    return function(v81) --[[ Line: 209 ]]
+        -- upvalues: v73 (copy), v74 (copy), v72 (copy), v7 (ref), v16 (ref), v70 (copy), l_FFlagUseNavigationSelectors_0 (ref), l_Selectors_0 (ref), l_AvatarScreen_0 (ref), v71 (copy), v78 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v69 (copy), v19 (ref), v8 (ref), v79 (copy), l_FFlagAXEnableUnifiedProductPurchaseForMarketplace_0 (ref), l_FFlagFixUnifiedPurchaseResalePurchases_0 (ref), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v68 (copy), v77 (copy), l_NavigateWithLock_0 (ref), v75 (copy), v64 (ref), v76 (copy), v66 (ref), l_getRbxthumbWithTypeSizeAndOptions_0 (ref), l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v33 (ref), v14 (ref), v10 (ref), v67 (copy), v11 (ref), v21 (ref), l_UnifiedEventLogEnums_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (ref), l_CartIdService_0 (ref), l_addUnifiedEventLogging_0 (ref), l_UnifiedEventLogConstants_0 (ref), v17 (ref), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (ref), l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 (ref), v12 (ref), v63 (ref), l_FFlagAXBlackbirdRoot_0 (ref), v24 (ref), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (ref), v80 (copy), v18 (ref), l_FFlagPurchaseModalTimedOptionExtension_0 (ref), l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceAssetBundles_0 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref)
+        local v82 = v81:getState();
+        local l_v73_0 = v73;
+        local l_v74_0 = v74;
+        local l_name_0 = v72.opaque.name;
+        local v86 = v7(v82.AvatarExperience.Common, l_v73_0, l_v74_0);
+        if not v86 then
             return;
         else
-            local l_TryOnItems_0 = v70.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
-            local v76 = v13.checkTryOnHasAdjustments(l_TryOnItems_0, (tostring(l_v61_0)));
-            if v58 then
-                local l_RequestId_0 = v70.AvatarExperience.Common.Widgets.WidgetInfo.RequestId;
-                local v78 = nil;
-                local v79 = v70.Navigation and v70.Navigation.currentRoute;
-                if v79 and v79.name == l_AvatarScreen_0.CatalogSearch then
-                    v78 = v79.params and v79.params.searchParams and v79.params.searchParams.searchKeyword;
+            local l_TryOnItems_0 = v82.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
+            local v88 = v16.checkTryOnHasAdjustments(l_TryOnItems_0, (tostring(l_v73_0)));
+            if v70 then
+                local l_RequestId_0 = v82.AvatarExperience.Common.Widgets.WidgetInfo.RequestId;
+                local v90 = nil;
+                local v91 = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectCurrentRoactNavigationRoute(v82) else v82.Navigation and v82.Navigation.currentRoute;
+                if v91 and v91.name == l_AvatarScreen_0.CatalogSearch then
+                    v90 = v91.params and v91.params.searchParams and v91.params.searchParams.searchKeyword;
                 end;
-                v58.clickPurchaseItemButton(l_v61_0, l_v62_0, v59, l_name_0, l_RequestId_0, v78, v76, v70.AvatarExperience.AnalyticsMetadata, v66, if l_FFlagAXFixPurchaseSurfaceLogging_0 and v57 then v57.getParam(v16.NavigationParams.fromSurface) else nil);
+                v70.clickPurchaseItemButton(l_v73_0, l_v74_0, v71, l_name_0, l_RequestId_0, v90, v88, v82.AvatarExperience.AnalyticsMetadata, v78, if l_FFlagAXFixPurchaseSurfaceLogging_0 and v69 then v69.getParam(v19.NavigationParams.fromSurface) else nil);
             end;
-            local l_resellerUserAssetIds_0 = v74.resellerUserAssetIds;
-            local v81 = l_resellerUserAssetIds_0 and l_resellerUserAssetIds_0[1];
-            local v82 = v70.AvatarExperience.Catalog.UserAssets[v81];
-            local v83 = v70.UserRobux[v70.LocalUserId];
-            local v84 = v74.lowestPrice or v74.priceInRobux;
-            local v85 = nil;
-            local v86 = nil;
-            local v87 = nil;
-            local v88 = nil;
-            v85 = v6.IsResellable(v74);
-            v86 = v74.expectedSellerId;
-            v87 = v74.creator and v74.creator.name;
-            v88 = v74.collectibleItemId;
-            if l_FFlagAXDurablesSupport_0 and v67 and v74.timedOptions then
-                for _, v90 in v74.timedOptions do
-                    if v90.days == v67 then
-                        v84 = v90.price;
+            local l_resellerUserAssetIds_0 = v86.resellerUserAssetIds;
+            local v93 = l_resellerUserAssetIds_0 and l_resellerUserAssetIds_0[1];
+            local v94 = v82.AvatarExperience.Catalog.UserAssets[v93];
+            local v95 = v82.UserRobux[v82.LocalUserId];
+            local v96 = v86.lowestPrice or v86.priceInRobux;
+            local v97 = nil;
+            local v98 = nil;
+            local v99 = nil;
+            local v100 = nil;
+            v97 = v8.IsResellable(v86);
+            v98 = v86.expectedSellerId;
+            v99 = v86.creator and v86.creator.name;
+            v100 = v86.collectibleItemId;
+            if v79 and v86.timedOptions then
+                for _, v102 in v86.timedOptions do
+                    if v102.days == v79 then
+                        v96 = v102.price;
                         break;
                     end;
                 end;
             end;
-            local v91 = nil;
-            if v85 and v82 then
-                v91 = v82.userAssetId;
-                v86 = v82.userId;
-                v87 = v82.userName;
+            local v103 = nil;
+            if v97 and v94 then
+                v103 = v94.userAssetId;
+                v98 = v94.userId;
+                v99 = v94.userName;
             end;
-            local v92 = nil;
-            local v93 = nil;
-            if v88 then
-                local l_CollectiblesItemInfo_0 = v70.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
-                local l_CollectiblesResellersInstances_0 = v70.AvatarExperience.Common.Collectibles.CollectiblesResellersInstances;
-                local l_CollectiblesResellableInstances_0 = v70.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances;
-                local v97 = v6.findCheapestCollectiblePurchaseInfoV2(v88, v85, l_CollectiblesItemInfo_0, l_CollectiblesResellersInstances_0, l_CollectiblesResellableInstances_0);
-                if l_FFlagAXDurablesSupport_0 then
-                    if v97.price and not v67 then
-                        v84 = v97.price;
-                    end;
-                elseif v97.price then
-                    v84 = v97.price;
+            local v104 = nil;
+            local v105 = nil;
+            if v100 then
+                local l_CollectiblesItemInfo_0 = v82.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
+                local l_CollectiblesResellersInstances_0 = v82.AvatarExperience.Common.Collectibles.CollectiblesResellersInstances;
+                local l_CollectiblesResellableInstances_0 = v82.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances;
+                local v109 = v8.findCheapestCollectiblePurchaseInfoV2(v100, v97, l_CollectiblesItemInfo_0, l_CollectiblesResellersInstances_0, l_CollectiblesResellableInstances_0);
+                if v109.price and not v79 then
+                    v96 = v109.price;
                 end;
-                if v97.collectibleInstanceId then
-                    v92 = v97.collectibleInstanceId;
-                    v86 = v97.expectedSellerId;
-                    v87 = v97.sellerName;
+                if v109.collectibleInstanceId then
+                    v104 = v109.collectibleInstanceId;
+                    v98 = v109.expectedSellerId;
+                    v99 = v109.sellerName;
                 end;
                 if l_FFlagAXEnableUnifiedProductPurchaseForMarketplace_0 then
-                    v93 = l_CollectiblesItemInfo_0[v88].collectibleProductId;
-                    if l_FFlagFixUnifiedPurchaseResalePurchases_0 and v92 ~= nil then
-                        local v98 = l_CollectiblesResellersInstances_0[v88];
-                        local v99 = v98 and v98.Instances and v98.Instances[v92];
-                        if v99 and v99.collectibleProductId then
-                            v93 = v99 and v99.collectibleProductId;
+                    v105 = l_CollectiblesItemInfo_0[v100].collectibleProductId;
+                    if l_FFlagFixUnifiedPurchaseResalePurchases_0 and v104 ~= nil then
+                        local v110 = l_CollectiblesResellersInstances_0[v100];
+                        local v111 = v110 and v110.Instances and v110.Instances[v104];
+                        if v111 and v111.collectibleProductId then
+                            v105 = v111 and v111.collectibleProductId;
                         end;
                     end;
                 end;
             end;
-            local function v115() --[[ Line: 272 ]]
-                -- upvalues: l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v84 (ref), v83 (copy), v57 (ref), l_AvatarScreen_0 (ref), l_v61_0 (copy), l_v62_0 (copy), v86 (ref), v87 (ref), v91 (ref), v92 (ref), v56 (ref), v59 (ref), v60 (ref), v65 (ref), v66 (ref), l_FFlagAXDurablesSupport_0 (ref), v67 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v16 (ref), v69 (copy), v7 (ref), v63 (ref), v52 (ref), v64 (ref), v54 (ref), v6 (ref), l_getRbxthumbWithTypeSizeAndOptions_0 (ref), v74 (copy), l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v31 (ref), v11 (ref), v8 (ref), v55 (ref), v58 (ref)
+            local function v127() --[[ Line: 322 ]]
+                -- upvalues: l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v96 (ref), v95 (copy), v69 (ref), l_AvatarScreen_0 (ref), l_v73_0 (copy), l_v74_0 (copy), v98 (ref), v99 (ref), v103 (ref), v104 (ref), v68 (ref), v71 (ref), v72 (ref), v77 (ref), v78 (ref), v79 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v19 (ref), v81 (copy), l_NavigateWithLock_0 (ref), v75 (ref), v64 (ref), v76 (ref), v66 (ref), v8 (ref), l_getRbxthumbWithTypeSizeAndOptions_0 (ref), v86 (copy), l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v33 (ref), v14 (ref), v10 (ref), v67 (ref), v70 (ref)
                 if l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 then
-                    local v100 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.Catalog);
-                    l_TimeToInteractiveTracker_0.trackStart(v100);
-                    l_TimeToInteractiveTracker_0.updateMetadata(v100, {
+                    local v112 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.Catalog);
+                    l_TimeToInteractiveTracker_0.trackStart(v112);
+                    l_TimeToInteractiveTracker_0.updateMetadata(v112, {
                         page = l_ProductPurchaseSurface_0.Catalog, 
                         category = "legacy_purchase_modal"
                     });
                 end;
-                if v84 and v84 <= v83 then
-                    v69:dispatch(v7(function() --[[ Line: 282 ]]
-                        -- upvalues: v57 (ref), l_AvatarScreen_0 (ref), l_v61_0 (ref), l_v62_0 (ref), v84 (ref), v86 (ref), v87 (ref), v91 (ref), v92 (ref), v56 (ref), v59 (ref), v60 (ref), v65 (ref), v66 (ref), l_FFlagAXDurablesSupport_0 (ref), v67 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v16 (ref)
-                        v57.navigate(l_AvatarScreen_0.PurchaseCatalogItem, {
-                            itemId = l_v61_0, 
-                            itemType = l_v62_0, 
-                            priceInRobux = v84, 
-                            sellerId = v86, 
-                            sellerName = v87, 
-                            userAssetId = v91, 
-                            collectibleInstanceId = v92, 
-                            onOverlayClosed = v56, 
-                            fromProfile = v59, 
-                            fromAvatarRoute = v60, 
-                            widgetInfo = v65, 
-                            fromContentFeed = v66, 
-                            timedOptionDays = if l_FFlagAXDurablesSupport_0 then v67 else nil, 
-                            fromSurface = if l_FFlagAXFixPurchaseSurfaceLogging_0 and v57 then v57.getParam(v16.NavigationParams.fromSurface) else nil
+                if v96 and v96 <= v95 then
+                    v81:dispatch(l_NavigateWithLock_0(function() --[[ Line: 332 ]]
+                        -- upvalues: v69 (ref), l_AvatarScreen_0 (ref), l_v73_0 (ref), l_v74_0 (ref), v96 (ref), v98 (ref), v99 (ref), v103 (ref), v104 (ref), v68 (ref), v71 (ref), v72 (ref), v77 (ref), v78 (ref), v79 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), v19 (ref)
+                        v69.navigate(l_AvatarScreen_0.PurchaseCatalogItem, {
+                            itemId = l_v73_0, 
+                            itemType = l_v74_0, 
+                            priceInRobux = v96, 
+                            sellerId = v98, 
+                            sellerName = v99, 
+                            userAssetId = v103, 
+                            collectibleInstanceId = v104, 
+                            onOverlayClosed = v68, 
+                            fromProfile = v71, 
+                            fromAvatarRoute = v72, 
+                            widgetInfo = v77, 
+                            fromContentFeed = v78, 
+                            timedOptionDays = v79, 
+                            fromSurface = if l_FFlagAXFixPurchaseSurfaceLogging_0 and v69 then v69.getParam(v19.NavigationParams.fromSurface) else nil
                         });
                     end));
                     return;
-                elseif v63 then
-                    v69:dispatch(v52(if v64 then v64 else v54));
+                elseif v75 then
+                    v81:dispatch(v64(if v76 then v76 else v66));
                     return;
                 else
                     local l_InsufficientRobuxPrompt_0 = l_AvatarScreen_0.InsufficientRobuxPrompt;
-                    local v102 = {
-                        onOverlayClosed = v56
+                    local v114 = {
+                        onOverlayClosed = v68
                     };
-                    local v103 = v6.GetRbxThumbType(l_v62_0);
-                    local v104 = l_getRbxthumbWithTypeSizeAndOptions_0(l_v61_0, v103, 150);
-                    local l_name_1 = v74.name;
-                    local function v109(v106) --[[ Line: 324 ]]
-                        -- upvalues: l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v69 (ref), v31 (ref)
-                        local v107 = l_parseEconomicRestrictionsFailureReason_0(v106);
-                        local v108 = l_parseEconomicRestrictionsExpirationTimeInMinutes_0(v106);
+                    local v115 = v8.GetRbxThumbType(l_v74_0);
+                    local v116 = l_getRbxthumbWithTypeSizeAndOptions_0(l_v73_0, v115, 150);
+                    local l_name_1 = v86.name;
+                    local function v121(v118) --[[ Line: 374 ]]
+                        -- upvalues: l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v81 (ref), v33 (ref)
+                        local v119 = l_parseEconomicRestrictionsFailureReason_0(v118);
+                        local v120 = l_parseEconomicRestrictionsExpirationTimeInMinutes_0(v118);
                         l_default_0:logRobloxTelemetryCounter(l_UniversalEconomicRestrictionsCounter_0, 1, {
                             surface = l_EconomicRestrictionsSurface_0.AvatarExperience, 
-                            failureReason = v107
+                            failureReason = v119
                         });
-                        return v69:dispatch(v31(v107, v108));
+                        return v81:dispatch(v33(v119, v120));
                     end;
                     l_InsufficientRobuxPrompt_0 = l_AvatarScreen_0.RobuxUpsellPrompt;
-                    v102.triggerContext = v11.UACatalog;
-                    v102.priceInRobux = v84;
-                    v102.userRobux = v83;
-                    v102.itemProductId = l_v61_0;
-                    v102.itemName = l_name_1;
-                    v102.itemIcon = v104;
-                    v102.purchaseItem = function() --[[ Line: 343 ]]
-                        -- upvalues: v57 (ref), v74 (ref), v6 (ref), l_v62_0 (ref), v69 (ref), v8 (ref), v55 (ref), v84 (ref), v86 (ref), l_v61_0 (ref), v91 (ref), v58 (ref), v59 (ref), v92 (ref), v65 (ref), v66 (ref), v109 (copy), l_FFlagAXDurablesSupport_0 (ref), v67 (ref)
-                        local v110 = if v57 then v57.state.routeName else nil;
-                        local v111 = v74 and v74.product and v74.product.id;
-                        local v112 = v6.GetItemSubType(l_v62_0, v74);
-                        local l_collectibleItemId_0 = v74.collectibleItemId;
-                        local v114 = v74.creator and v74.creator.type;
-                        return v69:dispatch(v8(v55, v111, v84, v86, l_v61_0, l_v62_0, v112, false, v91, v58, v57, v59, false, v110, l_collectibleItemId_0, v92, v114, v65, v66, v109, if l_FFlagAXDurablesSupport_0 then v67 else nil));
+                    v114.triggerContext = v14.UACatalog;
+                    v114.priceInRobux = v96;
+                    v114.userRobux = v95;
+                    v114.itemProductId = l_v73_0;
+                    v114.itemName = l_name_1;
+                    v114.itemIcon = v116;
+                    v114.purchaseItem = function() --[[ Line: 393 ]]
+                        -- upvalues: v69 (ref), v86 (ref), v8 (ref), l_v74_0 (ref), v81 (ref), v10 (ref), v67 (ref), v96 (ref), v98 (ref), l_v73_0 (ref), v103 (ref), v70 (ref), v71 (ref), v104 (ref), v77 (ref), v78 (ref), v121 (copy), v79 (ref)
+                        local v122 = if v69 then v69.state.routeName else nil;
+                        local v123 = v86 and v86.product and v86.product.id;
+                        local v124 = v8.GetItemSubType(l_v74_0, v86);
+                        local l_collectibleItemId_0 = v86.collectibleItemId;
+                        local v126 = v86.creator and v86.creator.type;
+                        return v81:dispatch(v10(v67, v123, v96, v98, l_v73_0, l_v74_0, v124, false, v103, v70, v69, v71, false, v122, l_collectibleItemId_0, v104, v126, v77, v78, v121, v79));
                     end;
-                    v69:dispatch(v7(function() --[[ Line: 376 ]]
-                        -- upvalues: v57 (ref), l_InsufficientRobuxPrompt_0 (ref), v102 (copy)
-                        v57.navigate(l_InsufficientRobuxPrompt_0, v102);
+                    v81:dispatch(l_NavigateWithLock_0(function() --[[ Line: 426 ]]
+                        -- upvalues: v69 (ref), l_InsufficientRobuxPrompt_0 (ref), v114 (copy)
+                        v69.navigate(l_InsufficientRobuxPrompt_0, v114);
                     end));
                     return;
                 end;
             end;
             if l_FFlagAXEnableUnifiedProductPurchaseForMarketplace_0 then
-                local function v138() --[[ Line: 383 ]]
-                    -- upvalues: l_v62_0 (copy), v6 (ref), v74 (copy), v16 (ref), v69 (copy), v9 (ref), v55 (ref), v61 (ref), v62 (ref), v88 (ref), v58 (ref), v59 (ref), v66 (ref), v60 (ref), l_name_0 (copy), v65 (ref), v84 (ref), v57 (ref), v18 (ref), l_UnifiedEventLogEnums_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), l_addUnifiedEventLogging_0 (ref), l_UnifiedEventLogConstants_0 (ref), v14 (ref), l_FFlagAXDurablesSupport_0 (ref), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (ref), l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 (ref), v10 (ref), v51 (ref), v93 (ref), l_v61_0 (copy), v21 (ref), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (ref), v68 (ref), v92 (ref), v67 (ref), v15 (ref), l_ProductPurchaseSurface_0 (ref), v83 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref)
-                    local function _() --[[ Line: 385 ]] --[[ Name: showWearAfterPurchase ]]
-                        -- upvalues: l_v62_0 (ref), v6 (ref), v74 (ref), v16 (ref)
-                        local l_l_v62_0_0 = l_v62_0;
-                        local v117 = v6.GetItemSubType(l_v62_0, v74);
-                        local v118 = false;
-                        if l_l_v62_0_0 == v16.ItemType.Asset then
-                            v118 = v117 ~= v16.AssetTypeIdStrings.EmoteAnimation;
+                local function v150() --[[ Line: 433 ]]
+                    -- upvalues: l_v74_0 (copy), v8 (ref), v86 (copy), v19 (ref), v81 (copy), v11 (ref), v67 (ref), v73 (ref), v74 (ref), v100 (ref), v70 (ref), v71 (ref), v78 (ref), v72 (ref), l_name_0 (copy), v77 (ref), v96 (ref), v69 (ref), v21 (ref), l_UnifiedEventLogEnums_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (ref), l_CartIdService_0 (ref), l_addUnifiedEventLogging_0 (ref), l_UnifiedEventLogConstants_0 (ref), v17 (ref), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (ref), l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 (ref), v12 (ref), v63 (ref), v105 (ref), l_v73_0 (copy), l_FFlagAXBlackbirdRoot_0 (ref), v79 (ref), v24 (ref), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (ref), v80 (ref), v104 (ref), v18 (ref), l_ProductPurchaseSurface_0 (ref), v95 (copy), l_FFlagPurchaseModalTimedOptionExtension_0 (ref), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref)
+                    local function _() --[[ Line: 435 ]] --[[ Name: showWearAfterPurchase ]]
+                        -- upvalues: l_v74_0 (ref), v8 (ref), v86 (ref), v19 (ref)
+                        local l_l_v74_0_0 = l_v74_0;
+                        local v129 = v8.GetItemSubType(l_v74_0, v86);
+                        local v130 = false;
+                        if l_l_v74_0_0 == v19.ItemType.Asset then
+                            v130 = v129 ~= v19.AssetTypeIdStrings.EmoteAnimation;
                         end;
-                        return v118;
+                        return v130;
                     end;
-                    local function v123(v120, v121) --[[ Line: 394 ]] --[[ Name: onPurchaseSuccess ]]
-                        -- upvalues: v6 (ref), l_v62_0 (ref), v74 (ref), v69 (ref), v9 (ref), v55 (ref), v61 (ref), v62 (ref), v88 (ref), v58 (ref), v59 (ref), v66 (ref), v60 (ref), l_name_0 (ref), v65 (ref), v84 (ref), v57 (ref)
-                        local v122 = v6.GetItemSubType(l_v62_0, v74);
-                        v69:dispatch(v9(v120, v121, v55, v61, v62, v88, v58, v59, v66, v60, l_name_0, v65, v84, v122, v57));
+                    local function v135(v132, v133) --[[ Line: 444 ]] --[[ Name: onPurchaseSuccess ]]
+                        -- upvalues: v8 (ref), l_v74_0 (ref), v86 (ref), v81 (ref), v11 (ref), v67 (ref), v73 (ref), v74 (ref), v100 (ref), v70 (ref), v71 (ref), v78 (ref), v72 (ref), l_name_0 (ref), v77 (ref), v96 (ref), v69 (ref)
+                        local v134 = v8.GetItemSubType(l_v74_0, v86);
+                        v81:dispatch(v11(v132, v133, v67, v73, v74, v100, v70, v71, v78, v72, l_name_0, v77, v96, v134, v69));
                     end;
-                    local function v128(v124) --[[ Line: 416 ]] --[[ Name: onBuyItemButtonMounted ]]
-                        -- upvalues: v65 (ref), v18 (ref), v61 (ref), v62 (ref), v16 (ref), l_UnifiedEventLogEnums_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), v74 (ref), v84 (ref), l_addUnifiedEventLogging_0 (ref), l_UnifiedEventLogConstants_0 (ref)
-                        if v124 then
-                            local v125 = {
-                                current = v124
+                    local function v140(v136) --[[ Line: 466 ]] --[[ Name: onBuyItemButtonMounted ]]
+                        -- upvalues: v77 (ref), v21 (ref), v73 (ref), v74 (ref), v19 (ref), l_UnifiedEventLogEnums_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), v86 (ref), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (ref), l_CartIdService_0 (ref), v96 (ref), l_addUnifiedEventLogging_0 (ref), l_UnifiedEventLogConstants_0 (ref)
+                        if v136 then
+                            local v137 = {
+                                current = v136
                             };
-                            local v126 = v65 or {};
-                            local v127 = v18.Dictionary.join(v126, {
-                                itemId = v61, 
-                                itemType = if v62 == v16.ItemType.Asset then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.ASSET else if v62 == v16.ItemType.Bundle then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.BUNDLE else nil, 
-                                assetType = if l_FFlagAddTypesToWidgetItems_0 and v126.widgetType then nil else v74.assetType, 
-                                widgetAssetType = if l_FFlagAddTypesToWidgetItems_0 and v126.widgetType then v74.assetType else nil, 
-                                bundleType = if l_FFlagAddTypesToWidgetItems_0 and v126.widgetType then nil else v74.bundleType, 
-                                widgetBundleType = if l_FFlagAddTypesToWidgetItems_0 and v126.widgetType then v74.bundleType else nil, 
+                            local v138 = v77 or {};
+                            local v139 = v21.Dictionary.join(v138, {
+                                itemId = v73, 
+                                itemType = if v74 == v19.ItemType.Asset then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.ASSET else if v74 == v19.ItemType.Bundle then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.BUNDLE else nil, 
+                                assetType = if l_FFlagAddTypesToWidgetItems_0 and v138.widgetType then nil else v86.assetType, 
+                                widgetAssetType = if l_FFlagAddTypesToWidgetItems_0 and v138.widgetType then v86.assetType else nil, 
+                                bundleType = if l_FFlagAddTypesToWidgetItems_0 and v138.widgetType then nil else v86.bundleType, 
+                                widgetBundleType = if l_FFlagAddTypesToWidgetItems_0 and v138.widgetType then v86.bundleType else nil, 
                                 action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.PURCHASE_ATTEMPT, 
-                                widgetItemPrice = if v126.widgetType then v84 else nil, 
-                                organicItemPrice = if v126.widgetType then nil else v84
+                                cartId = if l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 then l_CartIdService_0.getCartId() else nil, 
+                                widgetItemPrice = if v138.widgetType then v96 else nil, 
+                                organicItemPrice = if v138.widgetType then nil else v96
                             });
-                            l_addUnifiedEventLogging_0(v125, v127, {
+                            l_addUnifiedEventLogging_0(v137, v139, {
                                 sessionTagName = l_UnifiedEventLogConstants_0.L2_SESSION_TAG_NAME
                             });
                         end;
                     end;
-                    local function v129() --[[ Line: 451 ]] --[[ Name: onFlowComplete ]]
-                        -- upvalues: v69 (ref), v14 (ref)
-                        v69:dispatch(v14());
+                    local function v141() --[[ Line: 504 ]] --[[ Name: onFlowComplete ]]
+                        -- upvalues: v81 (ref), v17 (ref)
+                        v81:dispatch(v17());
                     end;
-                    local v130 = l_FFlagAXDurablesSupport_0 and l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 and v74.expirationTime ~= nil or l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0;
-                    local function v131() --[[ Line: 459 ]]
-                        -- upvalues: v10 (ref), v51 (ref), v74 (ref), v93 (ref), v84 (ref), l_v61_0 (ref), l_v62_0 (ref)
-                        return v10.resolve((v51(v74, v93, v84, l_v61_0, l_v62_0)));
+                    local v142 = l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 and v86.expirationTime ~= nil or l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0;
+                    local function v143() --[[ Line: 510 ]]
+                        -- upvalues: v12 (ref), v63 (ref), v86 (ref), v105 (ref), v96 (ref), l_v73_0 (ref), l_v74_0 (ref), l_FFlagAXBlackbirdRoot_0 (ref), v79 (ref)
+                        return v12.resolve((v63(v86, v105, v96, l_v73_0, l_v74_0, if l_FFlagAXBlackbirdRoot_0 then v79 else nil)));
                     end;
-                    local l_v69_0 = v69;
-                    local l_v21_0 = v21;
-                    local v134 = {
-                        subtitleView = if l_FFlagAXDurablesSupport_0 and l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v68 else nil, 
+                    local l_v81_0 = v81;
+                    local l_v24_0 = v24;
+                    local v146 = {
+                        subtitleView = if l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v80 else nil, 
                         productPayload = {
-                            id = l_v61_0, 
-                            kind = l_v62_0, 
+                            id = l_v73_0, 
+                            kind = l_v74_0, 
                             equipIfPurchased = false, 
                             isRobloxPurchase = true, 
-                            collectibleItemId = v74.collectibleItemId, 
-                            collectibleItemInstanceId = v92, 
-                            collectibleProductId = v93, 
-                            expectedPrice = v84, 
-                            timedOptionDays = if l_FFlagAXDurablesSupport_0 and l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 then v67 else nil
+                            collectibleItemId = v86.collectibleItemId, 
+                            collectibleItemInstanceId = v104, 
+                            collectibleProductId = v105, 
+                            expectedPrice = v96, 
+                            timedOptionDays = if l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 then v79 else nil
                         }, 
                         purchaseCallbacks = {
-                            onFlowComplete = v129, 
-                            onPurchaseSuccess = v123, 
-                            onBuyItemButtonMounted = v128, 
-                            fetchProductInfo = if l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 then v131 else nil
+                            onFlowComplete = v141, 
+                            onPurchaseSuccess = v135, 
+                            onBuyItemButtonMounted = v140, 
+                            fetchProductInfo = if l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 then v143 else nil
                         }
                     };
-                    local l_l_v62_0_1 = l_v62_0;
-                    local v136 = v6.GetItemSubType(l_v62_0, v74);
-                    local v137 = false;
-                    if l_l_v62_0_1 == v16.ItemType.Asset then
-                        v137 = v136 ~= v16.AssetTypeIdStrings.EmoteAnimation;
+                    local l_l_v74_0_1 = l_v74_0;
+                    local v148 = v8.GetItemSubType(l_v74_0, v86);
+                    local v149 = false;
+                    if l_l_v74_0_1 == v19.ItemType.Asset then
+                        v149 = v148 ~= v19.AssetTypeIdStrings.EmoteAnimation;
                     end;
-                    v134.postPurchaseActions = v137 and {
+                    v146.postPurchaseActions = v149 and {
                         {
-                            label = v15:Format("Feature.Catalog.Label.WearAfterPurchase"), 
-                            actionKey = v16.WearAfterPurchasePostPurchaseActionKey, 
+                            label = v18:Format("Feature.Catalog.Label.WearAfterPurchase"), 
+                            actionKey = v19.WearAfterPurchasePostPurchaseActionKey, 
                             isActionSelected = true
                         }
                     };
-                    v134.purchaseAnalyticsMetadata = {
+                    v146.purchaseAnalyticsMetadata = {
                         surface = l_ProductPurchaseSurface_0.Catalog
                     };
-                    v134.purchaseOptions = if l_FFlagAXDurablesSupport_0 and l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 or l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 then {
-                        shouldSkipOwnershipCheck = v130, 
-                        providedRobuxBalance = if l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 then v83 else nil
+                    v146.purchaseOptions = if not not l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 or l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 then {
+                        shouldSkipOwnershipCheck = v142, 
+                        providedRobuxBalance = if l_FFlagUnifiedPurchaseOptimizeTTIMarketplaceIntegration_0 then v95 else nil, 
+                        completionMessage = if l_FFlagPurchaseModalTimedOptionExtension_0 and v86.expirationTime ~= nil then v18:Format("Feature.Durables.PurchaseModal.SuccessMessage", {
+                            itemName = v86.name, 
+                            number = tostring(v79)
+                        }) else nil
                     } else nil;
-                    l_v69_0:dispatch(l_v21_0(v134, l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 and true or nil));
+                    l_v81_0:dispatch(l_v24_0(v146, l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 and true or nil));
                 end;
-                l_getIsUserEligibleForUnifiedPurchaseFlow_0(v55):andThen(function(v139) --[[ Line: 520 ]]
-                    -- upvalues: v138 (copy), v115 (copy)
-                    if v139 then
-                        v138();
-                        return;
-                    else
-                        v115();
-                        return;
-                    end;
-                end):catch(function(_) --[[ Line: 527 ]]
-                    -- upvalues: v115 (copy)
-                    v115();
-                end);
-                return;
+                if l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceAssetBundles_0 then
+                    v150();
+                    return;
+                else
+                    l_getIsUserEligibleForUnifiedPurchaseFlow_0(v67):andThen(function(v151) --[[ Line: 581 ]]
+                        -- upvalues: v150 (copy), v127 (copy)
+                        if v151 then
+                            v150();
+                            return;
+                        else
+                            v127();
+                            return;
+                        end;
+                    end):catch(function(_) --[[ Line: 588 ]]
+                        -- upvalues: v127 (copy)
+                        v127();
+                    end);
+                    return;
+                end;
             else
-                v115();
+                v127();
                 return;
             end;
         end;

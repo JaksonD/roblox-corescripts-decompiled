@@ -24,7 +24,7 @@ local v22 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.NavigatedT
 local v23 = require(l_Modules_0.AvatarExperience.Common.DeepLinkUtils);
 local v24 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
 local v25 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local v26 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v27 = require(l_Modules_0.AvatarExperience.Common.Thunks.Exit3DFullView);
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
 local v29 = v2.PureComponent:extend("Navigation");
@@ -92,7 +92,7 @@ v29.setCategoryAndSubcategory = function(v38, v39, v40) --[[ Line: 118 ]] --[[ N
     v38.props.exit3DFullView(l_axAnalytics_0, l_navigation_0.state.routeName);
 end;
 v29.init = function(v45) --[[ Line: 138 ]] --[[ Name: init ]]
-    -- upvalues: v19 (copy), l_AvatarScreen_0 (copy), v15 (copy), l_wasLastInputGamepad_0 (copy), v26 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
+    -- upvalues: v19 (copy), l_AvatarScreen_0 (copy), v15 (copy), l_wasLastInputGamepad_0 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
     local function v48(v46) --[[ Line: 139 ]] --[[ Name: promptR15UpgradeIfNecessary ]]
         -- upvalues: v19 (ref), v45 (copy), l_AvatarScreen_0 (ref)
         local v47 = ({
@@ -117,9 +117,9 @@ v29.init = function(v45) --[[ Line: 138 ]] --[[ Name: init ]]
         end;
     end;
     v45.onR15PromptClosed = function() --[[ Line: 175 ]]
-        -- upvalues: l_wasLastInputGamepad_0 (ref), v26 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v45 (copy)
+        -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v45 (copy)
         local v51 = l_wasLastInputGamepad_0();
-        v26("Navigation", v51);
+        l_logOnOverlayClosed_0("Navigation", v51);
         if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v51 then
             v45.props.focusController.captureFocus();
         end;

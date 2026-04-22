@@ -8,182 +8,185 @@ local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).
 local l_useRoactService_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useRoactService;
 local l_AppNotificationService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppNotificationService;
 local _ = require(l_CorePackages_0.Workspace.Packages.Navigation);
-local l_selectCurrentRoactNavigationRoute_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors.selectCurrentRoactNavigationRoute;
-local v11 = require(l_Modules_0.LuaApp.Services.AppEventIngestService);
-local v12 = require(l_Modules_0.LuaApp.ExperienceEventReceiver);
-local v13 = require(l_Modules_0.LuaApp.Analytics.Events.luaPageLoad);
-local v14 = require(l_Modules_0.LuaApp.Analytics.Events.luaPageUnload);
-local v15 = require(l_Modules_0.LuaApp.Enum.NotificationType);
+local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
+local l_selectCurrentRoactNavigationRoute_0 = l_Selectors_0.selectCurrentRoactNavigationRoute;
+local v12 = require(l_Modules_0.LuaApp.Services.AppEventIngestService);
+local v13 = require(l_Modules_0.LuaApp.ExperienceEventReceiver);
+local v14 = require(l_Modules_0.LuaApp.Analytics.Events.luaPageLoad);
+local v15 = require(l_Modules_0.LuaApp.Analytics.Events.luaPageUnload);
+local v16 = require(l_Modules_0.LuaApp.Enum.NotificationType);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local v17 = require(l_Modules_0.LuaApp.AppPage);
-local v18 = require(l_Modules_0.LuaApp.AppPageProperties);
-local v19 = require(l_Modules_0.LuaApp.Thunks.NavigateToRoute);
-local v20 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
-local v21 = require(l_Modules_0.LuaApp.Thunks.NavigateBack);
+local v18 = require(l_Modules_0.LuaApp.AppPage);
+local v19 = require(l_Modules_0.LuaApp.AppPageProperties);
+local v20 = require(l_Modules_0.LuaApp.Thunks.NavigateToRoute);
+local v21 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
+local v22 = require(l_Modules_0.LuaApp.Thunks.NavigateBack);
 local l_NavigateIntoChat_0 = require(l_CorePackages_0.Workspace.Packages.AppChat).Conversations.Thunks.NavigateIntoChat;
-local v23 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
-local v24 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
-local v25 = require(l_Modules_0.LuaApp.Enum.ToastType);
-local v26 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
-local v27 = require(l_Modules_0.LuaApp.Actions.SetPreloading);
+local v24 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
+local v25 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
+local v26 = require(l_Modules_0.LuaApp.Enum.ToastType);
+local v27 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
+local v28 = require(l_Modules_0.LuaApp.Actions.SetPreloading);
 local l_UniversalAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).UniversalAppPolicy;
-local v29 = require(l_Modules_0.LuaApp.Flags.GetFStringLuaAppUnloadEventEnabledPageNames);
-local l_FFlagShareTargetGameCleanup_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagShareTargetGameCleanup;
-local function _(v31, v32) --[[ Line: 43 ]] --[[ Name: notifySwitchedToAppShellFeature ]]
-    -- upvalues: v18 (copy)
-    local v33 = v18[v32];
-    v31:SwitchedToAppShellFeature(v33 and v33.appShellReporterFeature or Enum.AppShellFeature.None);
+local v30 = require(l_Modules_0.LuaApp.Flags.GetFStringLuaAppUnloadEventEnabledPageNames);
+local v31 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_FFlagShareTargetGameCleanup_0 = v31.FFlagShareTargetGameCleanup;
+local l_FFlagUseNavigationSelectors_0 = v31.FFlagUseNavigationSelectors;
+local function _(v34, v35) --[[ Line: 45 ]] --[[ Name: notifySwitchedToAppShellFeature ]]
+    -- upvalues: v19 (copy)
+    local v36 = v19[v35];
+    v34:SwitchedToAppShellFeature(v36 and v36.appShellReporterFeature or Enum.AppShellFeature.None);
 end;
-local function _(v35) --[[ Line: 52 ]] --[[ Name: getRouteName ]]
-    if v35 ~= nil then
-        return v35.routeName;
+local function _(v38) --[[ Line: 54 ]] --[[ Name: getRouteName ]]
+    if v38 ~= nil then
+        return v38.routeName;
     else
         return nil;
     end;
 end;
-local function _(v37) --[[ Line: 56 ]] --[[ Name: getRouteDetail ]]
-    if v37 ~= nil and v37.params ~= nil then
-        return v37.params.detail;
+local function _(v40) --[[ Line: 58 ]] --[[ Name: getRouteDetail ]]
+    if v40 ~= nil and v40.params ~= nil then
+        return v40.params.detail;
     else
         return nil;
     end;
 end;
-local function _() --[[ Line: 60 ]] --[[ Name: shouldEnableLuaAppUnloadEvent ]]
-    -- upvalues: v29 (copy)
-    return #v29() > 0;
+local function _() --[[ Line: 62 ]] --[[ Name: shouldEnableLuaAppUnloadEvent ]]
+    -- upvalues: v30 (copy)
+    return #v30() > 0;
 end;
-local function v59() --[[ Line: 65 ]] --[[ Name: usePageLoadEvents ]]
-    -- upvalues: l_useRoactService_0 (copy), v11 (copy), l_AppNotificationService_0 (copy), l_useSelector_0 (copy), l_selectCurrentRoactNavigationRoute_0 (copy), v4 (copy), v29 (copy), v12 (copy), v14 (copy), v13 (copy), v18 (copy)
-    local v40 = l_useRoactService_0(v11);
-    local v41 = l_useRoactService_0(l_AppNotificationService_0);
-    local v42 = l_useSelector_0(l_selectCurrentRoactNavigationRoute_0);
-    local v43 = if v42 ~= nil then v42.routeName else nil;
-    local v44 = if v42 ~= nil and v42.params ~= nil then v42.params.detail else nil;
-    local v45, v46 = v4.useState(os.clock());
-    local v47 = v4.useMemo(function() --[[ Line: 75 ]]
-        -- upvalues: v29 (ref), v12 (ref)
-        if #v29() > 0 then
-            return v12.new();
+local function v62() --[[ Line: 67 ]] --[[ Name: usePageLoadEvents ]]
+    -- upvalues: l_useRoactService_0 (copy), v12 (copy), l_AppNotificationService_0 (copy), l_useSelector_0 (copy), l_selectCurrentRoactNavigationRoute_0 (copy), v4 (copy), v30 (copy), v13 (copy), v15 (copy), v14 (copy), v19 (copy)
+    local v43 = l_useRoactService_0(v12);
+    local v44 = l_useRoactService_0(l_AppNotificationService_0);
+    local v45 = l_useSelector_0(l_selectCurrentRoactNavigationRoute_0);
+    local v46 = if v45 ~= nil then v45.routeName else nil;
+    local v47 = if v45 ~= nil and v45.params ~= nil then v45.params.detail else nil;
+    local v48, v49 = v4.useState(os.clock());
+    local v50 = v4.useMemo(function() --[[ Line: 77 ]]
+        -- upvalues: v30 (ref), v13 (ref)
+        if #v30() > 0 then
+            return v13.new();
         else
             return nil;
         end;
     end, {});
-    v4.useEffect(function() --[[ Line: 82 ]]
-        -- upvalues: v47 (copy), v14 (ref), v40 (copy), v43 (copy), v44 (copy), v45 (copy), v46 (copy), v13 (ref)
-        if v47 ~= nil then
-            local v50 = v47:onLaunched(function(v48) --[[ Line: 84 ]]
-                -- upvalues: v14 (ref), v40 (ref), v43 (ref), v44 (ref), v45 (ref), v46 (ref)
-                local v49 = os.clock();
-                v14(v40, "AppRouter", v43, v44, {
+    v4.useEffect(function() --[[ Line: 84 ]]
+        -- upvalues: v50 (copy), v15 (ref), v43 (copy), v46 (copy), v47 (copy), v48 (copy), v49 (copy), v14 (ref)
+        if v50 ~= nil then
+            local v53 = v50:onLaunched(function(v51) --[[ Line: 86 ]]
+                -- upvalues: v15 (ref), v43 (ref), v46 (ref), v47 (ref), v48 (ref), v49 (ref)
+                local v52 = os.clock();
+                v15(v43, "AppRouter", v46, v47, {
                     nextPage = "Experience", 
-                    nextDetail = v48.placeId, 
-                    timeOnPage = v49 - v45
+                    nextDetail = v51.placeId, 
+                    timeOnPage = v52 - v48
                 });
-                v46(v49);
+                v49(v52);
             end);
-            local v52 = v47:onLeft(function(v51) --[[ Line: 94 ]]
-                -- upvalues: v13 (ref), v40 (ref), v43 (ref), v44 (ref), v46 (ref)
-                v13(v40, "AppRouter", v43, v44, {
+            local v55 = v50:onLeft(function(v54) --[[ Line: 96 ]]
+                -- upvalues: v14 (ref), v43 (ref), v46 (ref), v47 (ref), v49 (ref)
+                v14(v43, "AppRouter", v46, v47, {
                     previousPage = "Experience", 
-                    previousDetail = v51.placeId
+                    previousDetail = v54.placeId
                 });
-                v46(os.clock());
+                v49(os.clock());
             end);
-            return function() --[[ Line: 102 ]]
-                -- upvalues: v50 (copy), v52 (copy)
-                v50:disconnect();
-                v52:disconnect();
+            return function() --[[ Line: 104 ]]
+                -- upvalues: v53 (copy), v55 (copy)
+                v53:disconnect();
+                v55:disconnect();
             end;
         else
             return;
         end;
     end, {
-        v47, 
-        v40, 
+        v50, 
         v43, 
-        v44
+        v46, 
+        v47
     });
-    local v53 = v4.useRef(nil);
-    v4.useEffect(function() --[[ Line: 111 ]]
-        -- upvalues: v53 (copy), v13 (ref), v40 (copy), v43 (copy), v44 (copy), v14 (ref), v45 (copy), v42 (copy), v41 (copy), v18 (ref), v46 (copy)
-        local l_current_0 = v53.current;
-        local v55 = if l_current_0 ~= nil then l_current_0.routeName else nil;
-        local l_current_1 = v53.current;
+    local v56 = v4.useRef(nil);
+    v4.useEffect(function() --[[ Line: 113 ]]
+        -- upvalues: v56 (copy), v14 (ref), v43 (copy), v46 (copy), v47 (copy), v15 (ref), v48 (copy), v45 (copy), v44 (copy), v19 (ref), v49 (copy)
+        local l_current_0 = v56.current;
+        local v58 = if l_current_0 ~= nil then l_current_0.routeName else nil;
+        local l_current_1 = v56.current;
         l_current_0 = if l_current_1 ~= nil and l_current_1.params ~= nil then l_current_1.params.detail else nil;
-        v13(v40, "AppRouter", v43, v44, {
-            previousPage = v55, 
+        v14(v43, "AppRouter", v46, v47, {
+            previousPage = v58, 
             previousDetail = l_current_0
         });
         l_current_1 = os.clock();
-        if v53.current ~= nil then
-            v14(v40, "AppRouter", v55, l_current_0, {
-                nextPage = v43, 
-                nextDetail = v44, 
-                timeOnPage = l_current_1 - v45
+        if v56.current ~= nil then
+            v15(v43, "AppRouter", v58, l_current_0, {
+                nextPage = v46, 
+                nextDetail = v47, 
+                timeOnPage = l_current_1 - v48
             });
         end;
-        v53.current = v42;
-        local l_v41_0 = v41;
-        local v58 = v18[v43];
-        l_v41_0:SwitchedToAppShellFeature(v58 and v58.appShellReporterFeature or Enum.AppShellFeature.None);
-        v46(l_current_1);
+        v56.current = v45;
+        local l_v44_0 = v44;
+        local v61 = v19[v46];
+        l_v44_0:SwitchedToAppShellFeature(v61 and v61.appShellReporterFeature or Enum.AppShellFeature.None);
+        v49(l_current_1);
     end, {
-        v43, 
-        v44
+        v46, 
+        v47
     });
 end;
-local v60 = v4.Component:extend("NavigationEventReceiver");
-v60.handleBackButtonPressed = function(v61) --[[ Line: 134 ]] --[[ Name: handleBackButtonPressed ]]
-    -- upvalues: v17 (copy), l_FFlagShareTargetGameCleanup_0 (copy), v18 (copy), l_GuiService_0 (copy), v15 (copy)
-    local v62 = #v61.props.currentRoute;
-    local l_name_0 = v61.props.currentRoute[1].name;
-    local l_name_1 = v61.props.currentRoute[v62].name;
-    if l_name_0 == v17.Chat and l_name_1 ~= v17.GameDetail and (l_FFlagShareTargetGameCleanup_0 and true or l_name_1 ~= v17.ShareGameToChat) then
+local v63 = v4.Component:extend("NavigationEventReceiver");
+v63.handleBackButtonPressed = function(v64) --[[ Line: 136 ]] --[[ Name: handleBackButtonPressed ]]
+    -- upvalues: v18 (copy), l_FFlagShareTargetGameCleanup_0 (copy), v19 (copy), l_GuiService_0 (copy), v16 (copy)
+    local v65 = #v64.props.currentRoute;
+    local l_name_0 = v64.props.currentRoute[1].name;
+    local l_name_1 = v64.props.currentRoute[v65].name;
+    if l_name_0 == v18.Chat and l_name_1 ~= v18.GameDetail and (l_FFlagShareTargetGameCleanup_0 and true or l_name_1 ~= v18.ShareGameToChat) then
         return;
-    elseif v18[l_name_1] and v18[l_name_1].disableBackButton then
+    elseif v19[l_name_1] and v19[l_name_1].disableBackButton then
         return;
-    elseif v61.props.centralOverlayType then
-        if not v61.props.centralOverlayDisableBackButtonClose then
-            v61.props.closeCentralOverlay();
+    elseif v64.props.centralOverlayType then
+        if not v64.props.centralOverlayDisableBackButtonClose then
+            v64.props.closeCentralOverlay();
         end;
         return;
-    elseif v62 > 1 then
-        v61.props.navigateBack();
+    elseif v65 > 1 then
+        v64.props.navigateBack();
         return;
     else
-        l_GuiService_0:BroadcastNotification("", v15.BACK_BUTTON_NOT_CONSUMED);
+        l_GuiService_0:BroadcastNotification("", v16.BACK_BUTTON_NOT_CONSUMED);
         return;
     end;
 end;
-v60.init = function(v65) --[[ Line: 179 ]] --[[ Name: init ]]
-    -- upvalues: v17 (copy), l_AvatarScreen_0 (copy), l_GuiService_0 (copy), v25 (copy)
-    local l_RobloxEventReceiver_0 = v65.props.RobloxEventReceiver;
-    v65.getShouldBlockDeeplink = function() --[[ Line: 182 ]]
-        -- upvalues: v65 (copy)
-        return not (v65.props.getCanSeeChatTab and v65.props.getCanSeeChatTab());
+v63.init = function(v68) --[[ Line: 181 ]] --[[ Name: init ]]
+    -- upvalues: v18 (copy), l_AvatarScreen_0 (copy), l_GuiService_0 (copy), v26 (copy)
+    local l_RobloxEventReceiver_0 = v68.props.RobloxEventReceiver;
+    v68.getShouldBlockDeeplink = function() --[[ Line: 184 ]]
+        -- upvalues: v68 (copy)
+        return not (v68.props.getCanSeeChatTab and v68.props.getCanSeeChatTab());
     end;
-    v65.tokens = {
-        l_RobloxEventReceiver_0:observeEvent("Navigations", function(v67, v68) --[[ Line: 187 ]]
-            -- upvalues: v17 (ref), v65 (copy), l_AvatarScreen_0 (ref)
-            if v68 == "Destination" or v68 == "Reload" then
-                if v67.appName == v17.ShareGameToChat then
-                    v65.props.navigateDown({
-                        name = v17.ShareGameToChat, 
-                        detail = v67.parameters.placeId
+    v68.tokens = {
+        l_RobloxEventReceiver_0:observeEvent("Navigations", function(v70, v71) --[[ Line: 189 ]]
+            -- upvalues: v18 (ref), v68 (copy), l_AvatarScreen_0 (ref)
+            if v71 == "Destination" or v71 == "Reload" then
+                if v70.appName == v18.ShareGameToChat then
+                    v68.props.navigateDown({
+                        name = v18.ShareGameToChat, 
+                        detail = v70.parameters.placeId
                     });
                     return;
-                elseif v67.appName == v17.Chat then
-                    if v65.getShouldBlockDeeplink() then
+                elseif v70.appName == v18.Chat then
+                    if v68.getShouldBlockDeeplink() then
                         return;
                     else
-                        v65.props.setPage({
-                            name = v17.Chat, 
-                            detail = v67.parameters and v67.parameters.conversationId
+                        v68.props.setPage({
+                            name = v18.Chat, 
+                            detail = v70.parameters and v70.parameters.conversationId
                         });
                         return;
                     end;
-                elseif v67.appName == l_AvatarScreen_0.AvatarEditor then
-                    v65.props.resetNavigationHistory({
+                elseif v70.appName == l_AvatarScreen_0.AvatarEditor then
+                    v68.props.resetNavigationHistory({
                         {
                             {
                                 name = l_AvatarScreen_0.AvatarExperienceLandingPage
@@ -200,120 +203,121 @@ v60.init = function(v65) --[[ Line: 179 ]] --[[ Name: init ]]
                     });
                     return;
                 else
-                    v65.props.setPage({
-                        name = v17[v67.appName] or v17.None
+                    v68.props.setPage({
+                        name = v18[v70.appName] or v18.None
                     });
                 end;
             end;
         end), 
-        l_GuiService_0.ShowLeaveConfirmation:Connect(function() --[[ Line: 219 ]]
-            -- upvalues: v65 (copy)
-            v65:handleBackButtonPressed();
+        l_GuiService_0.ShowLeaveConfirmation:Connect(function() --[[ Line: 221 ]]
+            -- upvalues: v68 (copy)
+            v68:handleBackButtonPressed();
         end), 
-        l_RobloxEventReceiver_0:observeEvent("AppShellNotifications", function(v69, v70) --[[ Line: 223 ]]
-            -- upvalues: v65 (copy)
-            if v70 == "StartConversationWithUserId" then
-                if v65.getShouldBlockDeeplink() then
+        l_RobloxEventReceiver_0:observeEvent("AppShellNotifications", function(v72, v73) --[[ Line: 225 ]]
+            -- upvalues: v68 (copy)
+            if v73 == "StartConversationWithUserId" then
+                if v68.getShouldBlockDeeplink() then
                     return;
                 else
-                    v65.props.navigateIntoChat({
-                        userId = v69
+                    v68.props.navigateIntoChat({
+                        userId = v72
                     });
                     return;
                 end;
-            elseif v70 == "StartConversationWithId" then
-                if v65.getShouldBlockDeeplink() then
+            elseif v73 == "StartConversationWithId" then
+                if v68.getShouldBlockDeeplink() then
                     return;
                 else
-                    v65.props.navigateIntoChat({
-                        conversationId = v69
+                    v68.props.navigateIntoChat({
+                        conversationId = v72
                     });
                     return;
                 end;
             else
-                if v70 == "Preloading" then
-                    local v71 = v69 == "true";
-                    v65.props.setPreloading(v71);
+                if v73 == "Preloading" then
+                    local v74 = v72 == "true";
+                    v68.props.setPreloading(v74);
                 end;
                 return;
             end;
         end), 
-        l_RobloxEventReceiver_0:observeEvent("QrCodeScanResult", function(_, v73) --[[ Line: 245 ]]
-            -- upvalues: v65 (copy), v25 (ref)
-            if v73 == "Cancelled" then
-                v65.props.navigateBack();
+        l_RobloxEventReceiver_0:observeEvent("QrCodeScanResult", function(_, v76) --[[ Line: 247 ]]
+            -- upvalues: v68 (copy), v26 (ref)
+            if v76 == "Cancelled" then
+                v68.props.navigateBack();
                 return;
             else
-                v65.props.navigateBack();
-                v65.props.setCurrentToast({
+                v68.props.navigateBack();
+                v68.props.setCurrentToast({
                     toastMessage = "Feature.Toast.ScanQrCodeError.UnrecognizableQrCode", 
-                    toastType = v25.NetworkingError
+                    toastType = v26.NetworkingError
                 });
                 return;
             end;
         end)
     };
 end;
-v60.render = function(_) --[[ Line: 260 ]] --[[ Name: render ]]
+v63.render = function(_) --[[ Line: 262 ]] --[[ Name: render ]]
 
 end;
-v60.willUnmount = function(v75) --[[ Line: 262 ]] --[[ Name: willUnmount ]]
-    for _, v77 in pairs(v75.tokens) do
-        v77:disconnect();
+v63.willUnmount = function(v78) --[[ Line: 264 ]] --[[ Name: willUnmount ]]
+    for _, v80 in pairs(v78.tokens) do
+        v80:disconnect();
     end;
 end;
-v60 = v5.connect(function(v78, _) --[[ Line: 268 ]]
+v63 = v5.connect(function(v81, _) --[[ Line: 270 ]]
+    -- upvalues: l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy)
     return {
-        currentRoute = v78.Navigation.history[#v78.Navigation.history], 
-        centralOverlayType = v78.CentralOverlay.OverlayType, 
-        centralOverlayDisableBackButtonClose = v78.CentralOverlay.Configs.DisableBackButtonClose
+        currentRoute = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectCurrentLegacyRoute(v81) else v81.Navigation.history[#v81.Navigation.history], 
+        centralOverlayType = v81.CentralOverlay.OverlayType, 
+        centralOverlayDisableBackButtonClose = v81.CentralOverlay.Configs.DisableBackButtonClose
     };
-end, function(v80) --[[ Line: 274 ]]
-    -- upvalues: v19 (copy), v20 (copy), v21 (copy), v24 (copy), v23 (copy), v26 (copy), l_NavigateIntoChat_0 (copy), v27 (copy)
+end, function(v83) --[[ Line: 278 ]]
+    -- upvalues: v20 (copy), v21 (copy), v22 (copy), v25 (copy), v24 (copy), v27 (copy), l_NavigateIntoChat_0 (copy), v28 (copy)
     return {
-        setPage = function(v81) --[[ Line: 276 ]] --[[ Name: setPage ]]
-            -- upvalues: v80 (copy), v19 (ref)
-            return v80(v19({
-                v81
+        setPage = function(v84) --[[ Line: 280 ]] --[[ Name: setPage ]]
+            -- upvalues: v83 (copy), v20 (ref)
+            return v83(v20({
+                v84
             }, true));
         end, 
-        navigateDown = function(v82) --[[ Line: 280 ]] --[[ Name: navigateDown ]]
-            -- upvalues: v80 (copy), v20 (ref)
-            return v80(v20(v82, true));
+        navigateDown = function(v85) --[[ Line: 284 ]] --[[ Name: navigateDown ]]
+            -- upvalues: v83 (copy), v21 (ref)
+            return v83(v21(v85, true));
         end, 
-        navigateBack = function() --[[ Line: 283 ]] --[[ Name: navigateBack ]]
-            -- upvalues: v80 (copy), v21 (ref)
-            return v80(v21(true));
+        navigateBack = function() --[[ Line: 287 ]] --[[ Name: navigateBack ]]
+            -- upvalues: v83 (copy), v22 (ref)
+            return v83(v22(true));
         end, 
-        closeCentralOverlay = function() --[[ Line: 286 ]] --[[ Name: closeCentralOverlay ]]
-            -- upvalues: v80 (copy), v24 (ref)
-            v80(v24());
+        closeCentralOverlay = function() --[[ Line: 290 ]] --[[ Name: closeCentralOverlay ]]
+            -- upvalues: v83 (copy), v25 (ref)
+            v83(v25());
         end, 
-        resetNavigationHistory = function(v83) --[[ Line: 289 ]] --[[ Name: resetNavigationHistory ]]
-            -- upvalues: v80 (copy), v23 (ref)
-            return v80(v23(nil, v83));
+        resetNavigationHistory = function(v86) --[[ Line: 293 ]] --[[ Name: resetNavigationHistory ]]
+            -- upvalues: v83 (copy), v24 (ref)
+            return v83(v24(nil, v86));
         end, 
-        setCurrentToast = function(v84) --[[ Line: 292 ]] --[[ Name: setCurrentToast ]]
-            -- upvalues: v80 (copy), v26 (ref)
-            v80(v26(v84));
+        setCurrentToast = function(v87) --[[ Line: 296 ]] --[[ Name: setCurrentToast ]]
+            -- upvalues: v83 (copy), v27 (ref)
+            v83(v27(v87));
         end, 
-        navigateIntoChat = function(v85) --[[ Line: 295 ]] --[[ Name: navigateIntoChat ]]
-            -- upvalues: v80 (copy), l_NavigateIntoChat_0 (ref)
-            return v80(l_NavigateIntoChat_0(v85, false));
+        navigateIntoChat = function(v88) --[[ Line: 299 ]] --[[ Name: navigateIntoChat ]]
+            -- upvalues: v83 (copy), l_NavigateIntoChat_0 (ref)
+            return v83(l_NavigateIntoChat_0(v88, false));
         end, 
-        setPreloading = function(v86) --[[ Line: 298 ]] --[[ Name: setPreloading ]]
-            -- upvalues: v80 (copy), v27 (ref)
-            v80(v27(v86));
+        setPreloading = function(v89) --[[ Line: 302 ]] --[[ Name: setPreloading ]]
+            -- upvalues: v83 (copy), v28 (ref)
+            v83(v28(v89));
         end
     };
-end)(v60);
-v60 = l_UniversalAppPolicy_0.connect(function(v87) --[[ Line: 303 ]]
+end)(v63);
+v63 = l_UniversalAppPolicy_0.connect(function(v90) --[[ Line: 307 ]]
     return {
-        getCanSeeChatTab = v87.getCanSeeChatTab
+        getCanSeeChatTab = v90.getCanSeeChatTab
     };
-end)(v60);
-return function(v88) --[[ Line: 309 ]] --[[ Name: NavigationEventReceiverWrapper ]]
-    -- upvalues: v59 (copy), v4 (copy), v60 (ref)
-    v59();
-    return v4.createElement(v60, v88);
+end)(v63);
+return function(v91) --[[ Line: 313 ]] --[[ Name: NavigationEventReceiverWrapper ]]
+    -- upvalues: v62 (copy), v4 (copy), v63 (ref)
+    v62();
+    return v4.createElement(v63, v91);
 end;

@@ -20,62 +20,72 @@ local l_useUserExperiment_0 = require(l_CorePackages_0.Packages.RoactAppExperime
 local l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagQRCodeScannerDeeplinkEnabledForAll;
 local l_FFlagQRInSearchScanner_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagQRInSearchScanner;
 local l_FFlagQRInSearchProfileQR_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagQRInSearchProfileQR;
-return function(v22) --[[ Line: 37 ]]
-    -- upvalues: l_useDispatch_0 (copy), v17 (copy), l_AppNotificationService_0 (copy), v6 (copy), l_RobloxEventReceiver_0 (copy), l_FFlagQRInSearchScanner_0 (copy), l_FFlagQRInSearchProfileQR_0 (copy), l_SetTabBarVisible_0 (copy), v9 (copy), l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_PermissionsProtocol_0 (copy), v10 (copy), v8 (copy), v13 (copy), v11 (copy), l_SettingsRoute_0 (copy), v7 (copy), v5 (copy)
-    local v23 = l_useDispatch_0();
-    local v24 = v17(l_AppNotificationService_0);
-    local v25 = v6.useMemo(function() --[[ Line: 40 ]]
-        -- upvalues: l_RobloxEventReceiver_0 (ref), v24 (copy)
-        return l_RobloxEventReceiver_0.new(v24);
+local l_FFlagSocialCarouselShareQREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagSocialCarouselShareQREnabled;
+return function(v23) --[[ Line: 40 ]]
+    -- upvalues: l_useDispatch_0 (copy), v17 (copy), l_AppNotificationService_0 (copy), v6 (copy), l_RobloxEventReceiver_0 (copy), l_FFlagQRInSearchScanner_0 (copy), l_FFlagQRInSearchProfileQR_0 (copy), l_SetTabBarVisible_0 (copy), l_FFlagSocialCarouselShareQREnabled_0 (copy), v9 (copy), l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_PermissionsProtocol_0 (copy), v10 (copy), v8 (copy), v13 (copy), v11 (copy), l_SettingsRoute_0 (copy), v7 (copy), v5 (copy)
+    local v24 = l_useDispatch_0();
+    local v25 = v17(l_AppNotificationService_0);
+    local v26 = v6.useMemo(function() --[[ Line: 43 ]]
+        -- upvalues: l_RobloxEventReceiver_0 (ref), v25 (copy)
+        return l_RobloxEventReceiver_0.new(v25);
     end, {
-        v24
+        v25
     });
     if l_FFlagQRInSearchScanner_0 or l_FFlagQRInSearchProfileQR_0 then
-        v6.useEffect(function() --[[ Line: 45 ]]
-            -- upvalues: v23 (copy), l_SetTabBarVisible_0 (ref)
-            v23(l_SetTabBarVisible_0(false));
+        v6.useEffect(function() --[[ Line: 48 ]]
+            -- upvalues: v24 (copy), l_SetTabBarVisible_0 (ref)
+            v24(l_SetTabBarVisible_0(false));
         end, {
-            v23
+            v24
         });
     end;
-    local v26 = v6.useCallback(function() --[[ Line: 50 ]]
-        -- upvalues: v23 (copy), v9 (ref)
-        v23(v9(true));
-    end, {});
-    local v28 = if not l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 then l_useUserExperiment_0({
+    local v27 = v6.useCallback(function() --[[ Line: 53 ]]
+        -- upvalues: l_FFlagSocialCarouselShareQREnabled_0 (ref), v23 (copy), v24 (copy), v9 (ref)
+        if l_FFlagSocialCarouselShareQREnabled_0 and v23.onClose then
+            v23.onClose();
+            return;
+        else
+            v24(v9(true));
+            return;
+        end;
+    end, {
+        if l_FFlagSocialCarouselShareQREnabled_0 then v23.onClose else nil, 
+        if l_FFlagSocialCarouselShareQREnabled_0 then v24 else nil
+    });
+    local v29 = if not l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 then l_useUserExperiment_0({
         l_AppUserLayers_0.ProfileQRCodeScannerLayer
-    }, function(v27) --[[ Line: 56 ]]
+    }, function(v28) --[[ Line: 66 ]]
         -- upvalues: l_AppUserLayers_0 (ref)
-        return (v27[l_AppUserLayers_0.ProfileQRCodeScannerLayer] or {}).systemSettingsDeeplinkEnabled;
+        return (v28[l_AppUserLayers_0.ProfileQRCodeScannerLayer] or {}).systemSettingsDeeplinkEnabled;
     end, false) else nil;
-    local v30 = v6.useCallback(function() --[[ Line: 62 ]]
-        -- upvalues: l_PermissionsProtocol_0 (ref), v23 (copy), v10 (ref), v8 (ref), l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 (ref), v28 (copy), v13 (ref), v11 (ref), l_SettingsRoute_0 (ref)
+    local v31 = v6.useCallback(function() --[[ Line: 72 ]]
+        -- upvalues: l_PermissionsProtocol_0 (ref), v24 (copy), v10 (ref), v8 (ref), l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 (ref), v29 (copy), v13 (ref), v11 (ref), l_SettingsRoute_0 (ref)
         l_PermissionsProtocol_0.default:checkOrRequestPermissions({
             l_PermissionsProtocol_0.Permissions.CAMERA_ACCESS
-        }):andThen(function(v29) --[[ Line: 67 ]]
-            -- upvalues: l_PermissionsProtocol_0 (ref), v23 (ref), v10 (ref), v8 (ref), l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 (ref), v28 (ref), v13 (ref), v11 (ref), l_SettingsRoute_0 (ref)
-            if v29 == l_PermissionsProtocol_0.Status.AUTHORIZED then
-                v23(v10({
+        }):andThen(function(v30) --[[ Line: 77 ]]
+            -- upvalues: l_PermissionsProtocol_0 (ref), v24 (ref), v10 (ref), v8 (ref), l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 (ref), v29 (ref), v13 (ref), v11 (ref), l_SettingsRoute_0 (ref)
+            if v30 == l_PermissionsProtocol_0.Status.AUTHORIZED then
+                v24(v10({
                     name = v8.ScanQrCode
                 }));
                 return;
-            elseif l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 or v28 then
-                v23(v13(v11.SettingsPermissionInteractiveAlert, {
+            elseif l_FFlagQRCodeScannerDeeplinkEnabledForAll_0 or v29 then
+                v24(v13(v11.SettingsPermissionInteractiveAlert, {
                     settingsRoute = l_SettingsRoute_0.Camera
                 }));
                 return;
             else
-                v23(v13(v11.CameraPermissionPrompt));
+                v24(v13(v11.CameraPermissionPrompt));
                 return;
             end;
         end);
     end, {
-        v28
+        v29
     });
     return v7.createElement(v5.ProfileQRCodeEntryPoint, {
-        robloxEventReceiver = v25, 
-        source = v22.source, 
-        onClose = v26, 
-        openQrCodeScanner = v30
+        robloxEventReceiver = v26, 
+        source = v23.source, 
+        onClose = v27, 
+        openQrCodeScanner = v31
     });
 end;

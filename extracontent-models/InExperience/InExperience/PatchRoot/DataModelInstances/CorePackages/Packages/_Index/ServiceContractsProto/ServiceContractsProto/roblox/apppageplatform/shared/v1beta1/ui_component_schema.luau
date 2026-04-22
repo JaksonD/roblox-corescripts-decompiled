@@ -46,1388 +46,1593 @@ local v44 = require(script.Parent.catalog_category_menu);
 local v45 = require(script.Parent.icon);
 local v46 = require(script.Parent.circle_icon);
 local v47 = require(script.Parent.content_rating_label);
-local v48 = require(script.Parent.play_button_with_contextual_message);
-local v49 = {};
-v49.__index = v49;
-v49.new = function(v50) --[[ Line: 293 ]] --[[ Name: new ]]
-    -- upvalues: v49 (copy)
+local v48 = require(script.Parent.link_text);
+local v49 = require(script.Parent.media_gallery);
+local v50 = require(script.Parent.play_button_contextual_message);
+local v51 = require(script.Parent.content_row);
+local v52 = require(script.Parent.filter_pills_carousel);
+local v53 = require(script.Parent.coachmark);
+local v54 = require(script.Parent.badge);
+local v55 = require(script.Parent.song_tile);
+local v56 = {};
+v56.__index = v56;
+v56.new = function(v57) --[[ Line: 294 ]] --[[ Name: new ]]
+    -- upvalues: v56 (copy)
     return (setmetatable({
-        kind = if not (v50 ~= nil) or v50.kind == nil then nil else v50.kind
-    }, v49));
+        kind = if not (v57 ~= nil) or v57.kind == nil then nil else v57.kind
+    }, v56));
 end;
-v49.encode = function(v51) --[[ Line: 299 ]] --[[ Name: encode ]]
+v56.encode = function(v58) --[[ Line: 300 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v52 = buffer.create(0);
-    local v53 = 0;
-    if v51.kind ~= nil then
-        if v51.kind.type == "tile" then
-            local v54 = v51.kind.value:encode();
-            local v55, v56 = v0.writeTag(v52, v53, 1, v0.wireTypes.lengthDelimited);
-            v55, v56 = v0.writeBuffer(v55, v56, v54, buffer.len(v54));
-            v52 = v55;
-            v53 = v56;
-        elseif v51.kind.type == "game_tile" then
-            local v57 = v51.kind.value:encode();
-            local v58, v59 = v0.writeTag(v52, v53, 2, v0.wireTypes.lengthDelimited);
-            v58, v59 = v0.writeBuffer(v58, v59, v57, buffer.len(v57));
-            v52 = v58;
-            v53 = v59;
-        elseif v51.kind.type == "button" then
-            local v60 = v51.kind.value:encode();
-            local v61, v62 = v0.writeTag(v52, v53, 3, v0.wireTypes.lengthDelimited);
-            v61, v62 = v0.writeBuffer(v61, v62, v60, buffer.len(v60));
-            v52 = v61;
-            v53 = v62;
-        elseif v51.kind.type == "image" then
-            local v63 = v51.kind.value:encode();
-            local v64, v65 = v0.writeTag(v52, v53, 4, v0.wireTypes.lengthDelimited);
-            v64, v65 = v0.writeBuffer(v64, v65, v63, buffer.len(v63));
-            v52 = v64;
-            v53 = v65;
-        elseif v51.kind.type == "text" then
-            local v66 = v51.kind.value:encode();
-            local v67, v68 = v0.writeTag(v52, v53, 5, v0.wireTypes.lengthDelimited);
-            v67, v68 = v0.writeBuffer(v67, v68, v66, buffer.len(v66));
-            v52 = v67;
-            v53 = v68;
-        elseif v51.kind.type == "view" then
-            local v69 = v51.kind.value:encode();
-            local v70, v71 = v0.writeTag(v52, v53, 6, v0.wireTypes.lengthDelimited);
-            v70, v71 = v0.writeBuffer(v70, v71, v69, buffer.len(v69));
-            v52 = v70;
-            v53 = v71;
-        elseif v51.kind.type == "divider" then
-            local v72 = v51.kind.value:encode();
-            local v73, v74 = v0.writeTag(v52, v53, 7, v0.wireTypes.lengthDelimited);
-            v73, v74 = v0.writeBuffer(v73, v74, v72, buffer.len(v72));
-            v52 = v73;
-            v53 = v74;
-        elseif v51.kind.type == "dialog" then
-            local v75 = v51.kind.value:encode();
-            local v76, v77 = v0.writeTag(v52, v53, 8, v0.wireTypes.lengthDelimited);
-            v76, v77 = v0.writeBuffer(v76, v77, v75, buffer.len(v75));
-            v52 = v76;
-            v53 = v77;
-        elseif v51.kind.type == "text_icon_row" then
-            local v78 = v51.kind.value:encode();
-            local v79, v80 = v0.writeTag(v52, v53, 9, v0.wireTypes.lengthDelimited);
-            v79, v80 = v0.writeBuffer(v79, v80, v78, buffer.len(v78));
-            v52 = v79;
-            v53 = v80;
-        elseif v51.kind.type == "text_pill" then
-            local v81 = v51.kind.value:encode();
-            local v82, v83 = v0.writeTag(v52, v53, 10, v0.wireTypes.lengthDelimited);
-            v82, v83 = v0.writeBuffer(v82, v83, v81, buffer.len(v81));
-            v52 = v82;
-            v53 = v83;
-        elseif v51.kind.type == "section_header" then
-            local v84 = v51.kind.value:encode();
-            local v85, v86 = v0.writeTag(v52, v53, 11, v0.wireTypes.lengthDelimited);
-            v85, v86 = v0.writeBuffer(v85, v86, v84, buffer.len(v84));
-            v52 = v85;
-            v53 = v86;
-        elseif v51.kind.type == "slot_overlay" then
-            local v87 = v51.kind.value:encode();
-            local v88, v89 = v0.writeTag(v52, v53, 12, v0.wireTypes.lengthDelimited);
-            v88, v89 = v0.writeBuffer(v88, v89, v87, buffer.len(v87));
-            v52 = v88;
-            v53 = v89;
-        elseif v51.kind.type == "tile_footer" then
-            local v90 = v51.kind.value:encode();
-            local v91, v92 = v0.writeTag(v52, v53, 13, v0.wireTypes.lengthDelimited);
-            v91, v92 = v0.writeBuffer(v91, v92, v90, buffer.len(v90));
-            v52 = v91;
-            v53 = v92;
-        elseif v51.kind.type == "attribution_row" then
-            local v93 = v51.kind.value:encode();
-            local v94, v95 = v0.writeTag(v52, v53, 14, v0.wireTypes.lengthDelimited);
-            v94, v95 = v0.writeBuffer(v94, v95, v93, buffer.len(v93));
-            v52 = v94;
-            v53 = v95;
-        elseif v51.kind.type == "game_tile_active_friends_footer" then
-            local v96 = v51.kind.value:encode();
-            local v97, v98 = v0.writeTag(v52, v53, 15, v0.wireTypes.lengthDelimited);
-            v97, v98 = v0.writeBuffer(v97, v98, v96, buffer.len(v96));
-            v52 = v97;
-            v53 = v98;
-        elseif v51.kind.type == "hero_unit" then
-            local v99 = v51.kind.value:encode();
-            local v100, v101 = v0.writeTag(v52, v53, 16, v0.wireTypes.lengthDelimited);
-            v100, v101 = v0.writeBuffer(v100, v101, v99, buffer.len(v99));
-            v52 = v100;
-            v53 = v101;
-        elseif v51.kind.type == "hold_to_play" then
-            local v102 = v51.kind.value:encode();
-            local v103, v104 = v0.writeTag(v52, v53, 17, v0.wireTypes.lengthDelimited);
-            v103, v104 = v0.writeBuffer(v103, v104, v102, buffer.len(v102));
-            v52 = v103;
-            v53 = v104;
-        elseif v51.kind.type == "play_button" then
-            local v105 = v51.kind.value:encode();
-            local v106, v107 = v0.writeTag(v52, v53, 18, v0.wireTypes.lengthDelimited);
-            v106, v107 = v0.writeBuffer(v106, v107, v105, buffer.len(v105));
-            v52 = v106;
-            v53 = v107;
-        elseif v51.kind.type == "countdown_text_icon_row" then
-            local v108 = v51.kind.value:encode();
-            local v109, v110 = v0.writeTag(v52, v53, 19, v0.wireTypes.lengthDelimited);
-            v109, v110 = v0.writeBuffer(v109, v110, v108, buffer.len(v108));
-            v52 = v109;
-            v53 = v110;
-        elseif v51.kind.type == "collection_carousel" then
-            local v111 = v51.kind.value:encode();
-            local v112, v113 = v0.writeTag(v52, v53, 20, v0.wireTypes.lengthDelimited);
-            v112, v113 = v0.writeBuffer(v112, v113, v111, buffer.len(v111));
-            v52 = v112;
-            v53 = v113;
-        elseif v51.kind.type == "collection_grid" then
-            local v114 = v51.kind.value:encode();
-            local v115, v116 = v0.writeTag(v52, v53, 21, v0.wireTypes.lengthDelimited);
-            v115, v116 = v0.writeBuffer(v115, v116, v114, buffer.len(v114));
-            v52 = v115;
-            v53 = v116;
-        elseif v51.kind.type == "single_item_collection" then
-            local v117 = v51.kind.value:encode();
-            local v118, v119 = v0.writeTag(v52, v53, 22, v0.wireTypes.lengthDelimited);
-            v118, v119 = v0.writeBuffer(v118, v119, v117, buffer.len(v117));
-            v52 = v118;
-            v53 = v119;
-        elseif v51.kind.type == "see_all_tile" then
-            local v120 = v51.kind.value:encode();
-            local v121, v122 = v0.writeTag(v52, v53, 23, v0.wireTypes.lengthDelimited);
-            v121, v122 = v0.writeBuffer(v121, v122, v120, buffer.len(v120));
-            v52 = v121;
-            v53 = v122;
-        elseif v51.kind.type == "focus_nav_actions" then
-            local v123 = v51.kind.value:encode();
-            local v124, v125 = v0.writeTag(v52, v53, 24, v0.wireTypes.lengthDelimited);
-            v124, v125 = v0.writeBuffer(v124, v125, v123, buffer.len(v123));
-            v52 = v124;
-            v53 = v125;
-        elseif v51.kind.type == "fragment" then
-            local v126 = v51.kind.value:encode();
-            local v127, v128 = v0.writeTag(v52, v53, 25, v0.wireTypes.lengthDelimited);
-            v127, v128 = v0.writeBuffer(v127, v128, v126, buffer.len(v126));
-            v52 = v127;
-            v53 = v128;
-        elseif v51.kind.type == "badge_tile" then
-            local v129 = v51.kind.value:encode();
-            local v130, v131 = v0.writeTag(v52, v53, 26, v0.wireTypes.lengthDelimited);
-            v130, v131 = v0.writeBuffer(v130, v131, v129, buffer.len(v129));
-            v52 = v130;
-            v53 = v131;
-        elseif v51.kind.type == "vertical_feed" then
-            local v132 = v51.kind.value:encode();
-            local v133, v134 = v0.writeTag(v52, v53, 27, v0.wireTypes.lengthDelimited);
-            v133, v134 = v0.writeBuffer(v133, v134, v132, buffer.len(v132));
-            v52 = v133;
-            v53 = v134;
-        elseif v51.kind.type == "info_table" then
-            local v135 = v51.kind.value:encode();
-            local v136, v137 = v0.writeTag(v52, v53, 28, v0.wireTypes.lengthDelimited);
-            v136, v137 = v0.writeBuffer(v136, v137, v135, buffer.len(v135));
-            v52 = v136;
-            v53 = v137;
-        elseif v51.kind.type == "info_table_cell" then
-            local v138 = v51.kind.value:encode();
-            local v139, v140 = v0.writeTag(v52, v53, 29, v0.wireTypes.lengthDelimited);
-            v139, v140 = v0.writeBuffer(v139, v140, v138, buffer.len(v138));
-            v52 = v139;
-            v53 = v140;
-        elseif v51.kind.type == "chip" then
-            local v141 = v51.kind.value:encode();
-            local v142, v143 = v0.writeTag(v52, v53, 30, v0.wireTypes.lengthDelimited);
-            v142, v143 = v0.writeBuffer(v142, v143, v141, buffer.len(v141));
-            v52 = v142;
-            v53 = v143;
-        elseif v51.kind.type == "dual_action_chip" then
-            local v144 = v51.kind.value:encode();
-            local v145, v146 = v0.writeTag(v52, v53, 31, v0.wireTypes.lengthDelimited);
-            v145, v146 = v0.writeBuffer(v145, v146, v144, buffer.len(v144));
-            v52 = v145;
-            v53 = v146;
-        elseif v51.kind.type == "expandable_text" then
-            local v147 = v51.kind.value:encode();
-            local v148, v149 = v0.writeTag(v52, v53, 32, v0.wireTypes.lengthDelimited);
-            v148, v149 = v0.writeBuffer(v148, v149, v147, buffer.len(v147));
-            v52 = v148;
-            v53 = v149;
-        elseif v51.kind.type == "associated_items_row" then
-            local v150 = v51.kind.value:encode();
-            local v151, v152 = v0.writeTag(v52, v53, 33, v0.wireTypes.lengthDelimited);
-            v151, v152 = v0.writeBuffer(v151, v152, v150, buffer.len(v150));
-            v52 = v151;
-            v53 = v152;
-        elseif v51.kind.type == "overflow_menu" then
-            local v153 = v51.kind.value:encode();
-            local v154, v155 = v0.writeTag(v52, v53, 34, v0.wireTypes.lengthDelimited);
-            v154, v155 = v0.writeBuffer(v154, v155, v153, buffer.len(v153));
-            v52 = v154;
-            v53 = v155;
-        elseif v51.kind.type == "details_page_image_header" then
-            local v156 = v51.kind.value:encode();
-            local v157, v158 = v0.writeTag(v52, v53, 35, v0.wireTypes.lengthDelimited);
-            v157, v158 = v0.writeBuffer(v157, v158, v156, buffer.len(v156));
-            v52 = v157;
-            v53 = v158;
-        elseif v51.kind.type == "card" then
-            local v159 = v51.kind.value:encode();
-            local v160, v161 = v0.writeTag(v52, v53, 36, v0.wireTypes.lengthDelimited);
-            v160, v161 = v0.writeBuffer(v160, v161, v159, buffer.len(v159));
-            v52 = v160;
-            v53 = v161;
-        elseif v51.kind.type == "tabs" then
-            local v162 = v51.kind.value:encode();
-            local v163, v164 = v0.writeTag(v52, v53, 37, v0.wireTypes.lengthDelimited);
-            v163, v164 = v0.writeBuffer(v163, v164, v162, buffer.len(v162));
-            v52 = v163;
-            v53 = v164;
-        elseif v51.kind.type == "action_bar" then
-            local v165 = v51.kind.value:encode();
-            local v166, v167 = v0.writeTag(v52, v53, 38, v0.wireTypes.lengthDelimited);
-            v166, v167 = v0.writeBuffer(v166, v167, v165, buffer.len(v165));
-            v52 = v166;
-            v53 = v167;
-        elseif v51.kind.type == "catalog_virtualized_feed" then
-            local v168 = v51.kind.value:encode();
-            local v169, v170 = v0.writeTag(v52, v53, 39, v0.wireTypes.lengthDelimited);
-            v169, v170 = v0.writeBuffer(v169, v170, v168, buffer.len(v168));
-            v52 = v169;
-            v53 = v170;
-        elseif v51.kind.type == "catalog_item_group" then
-            local v171 = v51.kind.value:encode();
-            local v172, v173 = v0.writeTag(v52, v53, 40, v0.wireTypes.lengthDelimited);
-            v172, v173 = v0.writeBuffer(v172, v173, v171, buffer.len(v171));
-            v52 = v172;
-            v53 = v173;
-        elseif v51.kind.type == "catalog_item_carousel" then
-            local v174 = v51.kind.value:encode();
-            local v175, v176 = v0.writeTag(v52, v53, 41, v0.wireTypes.lengthDelimited);
-            v175, v176 = v0.writeBuffer(v175, v176, v174, buffer.len(v174));
-            v52 = v175;
-            v53 = v176;
-        elseif v51.kind.type == "catalog_category_menu" then
-            local v177 = v51.kind.value:encode();
-            local v178, v179 = v0.writeTag(v52, v53, 42, v0.wireTypes.lengthDelimited);
-            v178, v179 = v0.writeBuffer(v178, v179, v177, buffer.len(v177));
-            v52 = v178;
-            v53 = v179;
-        elseif v51.kind.type == "icon" then
-            local v180 = v51.kind.value:encode();
-            local v181, v182 = v0.writeTag(v52, v53, 43, v0.wireTypes.lengthDelimited);
-            v181, v182 = v0.writeBuffer(v181, v182, v180, buffer.len(v180));
-            v52 = v181;
-            v53 = v182;
-        elseif v51.kind.type == "circle_icon" then
-            local v183 = v51.kind.value:encode();
-            local v184, v185 = v0.writeTag(v52, v53, 44, v0.wireTypes.lengthDelimited);
-            v184, v185 = v0.writeBuffer(v184, v185, v183, buffer.len(v183));
-            v52 = v184;
-            v53 = v185;
-        elseif v51.kind.type == "content_rating_label" then
-            local v186 = v51.kind.value:encode();
-            local v187, v188 = v0.writeTag(v52, v53, 45, v0.wireTypes.lengthDelimited);
-            v187, v188 = v0.writeBuffer(v187, v188, v186, buffer.len(v186));
-            v52 = v187;
-            v53 = v188;
-        elseif v51.kind.type == "play_button_with_contextual_message" then
-            local v189 = v51.kind.value:encode();
-            local v190, v191 = v0.writeTag(v52, v53, 46, v0.wireTypes.lengthDelimited);
-            v190, v191 = v0.writeBuffer(v190, v191, v189, buffer.len(v189));
-            v52 = v190;
-            v53 = v191;
+    local v59 = buffer.create(0);
+    local v60 = 0;
+    if v58.kind ~= nil then
+        if v58.kind.type == "tile" then
+            local v61 = v58.kind.value:encode();
+            local v62, v63 = v0.writeTag(v59, v60, 1, v0.wireTypes.lengthDelimited);
+            v62, v63 = v0.writeBuffer(v62, v63, v61, buffer.len(v61));
+            v59 = v62;
+            v60 = v63;
+        elseif v58.kind.type == "game_tile" then
+            local v64 = v58.kind.value:encode();
+            local v65, v66 = v0.writeTag(v59, v60, 2, v0.wireTypes.lengthDelimited);
+            v65, v66 = v0.writeBuffer(v65, v66, v64, buffer.len(v64));
+            v59 = v65;
+            v60 = v66;
+        elseif v58.kind.type == "button" then
+            local v67 = v58.kind.value:encode();
+            local v68, v69 = v0.writeTag(v59, v60, 3, v0.wireTypes.lengthDelimited);
+            v68, v69 = v0.writeBuffer(v68, v69, v67, buffer.len(v67));
+            v59 = v68;
+            v60 = v69;
+        elseif v58.kind.type == "image" then
+            local v70 = v58.kind.value:encode();
+            local v71, v72 = v0.writeTag(v59, v60, 4, v0.wireTypes.lengthDelimited);
+            v71, v72 = v0.writeBuffer(v71, v72, v70, buffer.len(v70));
+            v59 = v71;
+            v60 = v72;
+        elseif v58.kind.type == "text" then
+            local v73 = v58.kind.value:encode();
+            local v74, v75 = v0.writeTag(v59, v60, 5, v0.wireTypes.lengthDelimited);
+            v74, v75 = v0.writeBuffer(v74, v75, v73, buffer.len(v73));
+            v59 = v74;
+            v60 = v75;
+        elseif v58.kind.type == "view" then
+            local v76 = v58.kind.value:encode();
+            local v77, v78 = v0.writeTag(v59, v60, 6, v0.wireTypes.lengthDelimited);
+            v77, v78 = v0.writeBuffer(v77, v78, v76, buffer.len(v76));
+            v59 = v77;
+            v60 = v78;
+        elseif v58.kind.type == "divider" then
+            local v79 = v58.kind.value:encode();
+            local v80, v81 = v0.writeTag(v59, v60, 7, v0.wireTypes.lengthDelimited);
+            v80, v81 = v0.writeBuffer(v80, v81, v79, buffer.len(v79));
+            v59 = v80;
+            v60 = v81;
+        elseif v58.kind.type == "dialog" then
+            local v82 = v58.kind.value:encode();
+            local v83, v84 = v0.writeTag(v59, v60, 8, v0.wireTypes.lengthDelimited);
+            v83, v84 = v0.writeBuffer(v83, v84, v82, buffer.len(v82));
+            v59 = v83;
+            v60 = v84;
+        elseif v58.kind.type == "text_icon_row" then
+            local v85 = v58.kind.value:encode();
+            local v86, v87 = v0.writeTag(v59, v60, 9, v0.wireTypes.lengthDelimited);
+            v86, v87 = v0.writeBuffer(v86, v87, v85, buffer.len(v85));
+            v59 = v86;
+            v60 = v87;
+        elseif v58.kind.type == "text_pill" then
+            local v88 = v58.kind.value:encode();
+            local v89, v90 = v0.writeTag(v59, v60, 10, v0.wireTypes.lengthDelimited);
+            v89, v90 = v0.writeBuffer(v89, v90, v88, buffer.len(v88));
+            v59 = v89;
+            v60 = v90;
+        elseif v58.kind.type == "section_header" then
+            local v91 = v58.kind.value:encode();
+            local v92, v93 = v0.writeTag(v59, v60, 11, v0.wireTypes.lengthDelimited);
+            v92, v93 = v0.writeBuffer(v92, v93, v91, buffer.len(v91));
+            v59 = v92;
+            v60 = v93;
+        elseif v58.kind.type == "slot_overlay" then
+            local v94 = v58.kind.value:encode();
+            local v95, v96 = v0.writeTag(v59, v60, 12, v0.wireTypes.lengthDelimited);
+            v95, v96 = v0.writeBuffer(v95, v96, v94, buffer.len(v94));
+            v59 = v95;
+            v60 = v96;
+        elseif v58.kind.type == "tile_footer" then
+            local v97 = v58.kind.value:encode();
+            local v98, v99 = v0.writeTag(v59, v60, 13, v0.wireTypes.lengthDelimited);
+            v98, v99 = v0.writeBuffer(v98, v99, v97, buffer.len(v97));
+            v59 = v98;
+            v60 = v99;
+        elseif v58.kind.type == "attribution_row" then
+            local v100 = v58.kind.value:encode();
+            local v101, v102 = v0.writeTag(v59, v60, 14, v0.wireTypes.lengthDelimited);
+            v101, v102 = v0.writeBuffer(v101, v102, v100, buffer.len(v100));
+            v59 = v101;
+            v60 = v102;
+        elseif v58.kind.type == "game_tile_active_friends_footer" then
+            local v103 = v58.kind.value:encode();
+            local v104, v105 = v0.writeTag(v59, v60, 15, v0.wireTypes.lengthDelimited);
+            v104, v105 = v0.writeBuffer(v104, v105, v103, buffer.len(v103));
+            v59 = v104;
+            v60 = v105;
+        elseif v58.kind.type == "hero_unit" then
+            local v106 = v58.kind.value:encode();
+            local v107, v108 = v0.writeTag(v59, v60, 16, v0.wireTypes.lengthDelimited);
+            v107, v108 = v0.writeBuffer(v107, v108, v106, buffer.len(v106));
+            v59 = v107;
+            v60 = v108;
+        elseif v58.kind.type == "hold_to_play" then
+            local v109 = v58.kind.value:encode();
+            local v110, v111 = v0.writeTag(v59, v60, 17, v0.wireTypes.lengthDelimited);
+            v110, v111 = v0.writeBuffer(v110, v111, v109, buffer.len(v109));
+            v59 = v110;
+            v60 = v111;
+        elseif v58.kind.type == "play_button" then
+            local v112 = v58.kind.value:encode();
+            local v113, v114 = v0.writeTag(v59, v60, 18, v0.wireTypes.lengthDelimited);
+            v113, v114 = v0.writeBuffer(v113, v114, v112, buffer.len(v112));
+            v59 = v113;
+            v60 = v114;
+        elseif v58.kind.type == "countdown_text_icon_row" then
+            local v115 = v58.kind.value:encode();
+            local v116, v117 = v0.writeTag(v59, v60, 19, v0.wireTypes.lengthDelimited);
+            v116, v117 = v0.writeBuffer(v116, v117, v115, buffer.len(v115));
+            v59 = v116;
+            v60 = v117;
+        elseif v58.kind.type == "collection_carousel" then
+            local v118 = v58.kind.value:encode();
+            local v119, v120 = v0.writeTag(v59, v60, 20, v0.wireTypes.lengthDelimited);
+            v119, v120 = v0.writeBuffer(v119, v120, v118, buffer.len(v118));
+            v59 = v119;
+            v60 = v120;
+        elseif v58.kind.type == "collection_grid" then
+            local v121 = v58.kind.value:encode();
+            local v122, v123 = v0.writeTag(v59, v60, 21, v0.wireTypes.lengthDelimited);
+            v122, v123 = v0.writeBuffer(v122, v123, v121, buffer.len(v121));
+            v59 = v122;
+            v60 = v123;
+        elseif v58.kind.type == "single_item_collection" then
+            local v124 = v58.kind.value:encode();
+            local v125, v126 = v0.writeTag(v59, v60, 22, v0.wireTypes.lengthDelimited);
+            v125, v126 = v0.writeBuffer(v125, v126, v124, buffer.len(v124));
+            v59 = v125;
+            v60 = v126;
+        elseif v58.kind.type == "see_all_tile" then
+            local v127 = v58.kind.value:encode();
+            local v128, v129 = v0.writeTag(v59, v60, 23, v0.wireTypes.lengthDelimited);
+            v128, v129 = v0.writeBuffer(v128, v129, v127, buffer.len(v127));
+            v59 = v128;
+            v60 = v129;
+        elseif v58.kind.type == "focus_nav_actions" then
+            local v130 = v58.kind.value:encode();
+            local v131, v132 = v0.writeTag(v59, v60, 24, v0.wireTypes.lengthDelimited);
+            v131, v132 = v0.writeBuffer(v131, v132, v130, buffer.len(v130));
+            v59 = v131;
+            v60 = v132;
+        elseif v58.kind.type == "fragment" then
+            local v133 = v58.kind.value:encode();
+            local v134, v135 = v0.writeTag(v59, v60, 25, v0.wireTypes.lengthDelimited);
+            v134, v135 = v0.writeBuffer(v134, v135, v133, buffer.len(v133));
+            v59 = v134;
+            v60 = v135;
+        elseif v58.kind.type == "badge_tile" then
+            local v136 = v58.kind.value:encode();
+            local v137, v138 = v0.writeTag(v59, v60, 26, v0.wireTypes.lengthDelimited);
+            v137, v138 = v0.writeBuffer(v137, v138, v136, buffer.len(v136));
+            v59 = v137;
+            v60 = v138;
+        elseif v58.kind.type == "vertical_feed" then
+            local v139 = v58.kind.value:encode();
+            local v140, v141 = v0.writeTag(v59, v60, 27, v0.wireTypes.lengthDelimited);
+            v140, v141 = v0.writeBuffer(v140, v141, v139, buffer.len(v139));
+            v59 = v140;
+            v60 = v141;
+        elseif v58.kind.type == "info_table" then
+            local v142 = v58.kind.value:encode();
+            local v143, v144 = v0.writeTag(v59, v60, 28, v0.wireTypes.lengthDelimited);
+            v143, v144 = v0.writeBuffer(v143, v144, v142, buffer.len(v142));
+            v59 = v143;
+            v60 = v144;
+        elseif v58.kind.type == "info_table_cell" then
+            local v145 = v58.kind.value:encode();
+            local v146, v147 = v0.writeTag(v59, v60, 29, v0.wireTypes.lengthDelimited);
+            v146, v147 = v0.writeBuffer(v146, v147, v145, buffer.len(v145));
+            v59 = v146;
+            v60 = v147;
+        elseif v58.kind.type == "chip" then
+            local v148 = v58.kind.value:encode();
+            local v149, v150 = v0.writeTag(v59, v60, 30, v0.wireTypes.lengthDelimited);
+            v149, v150 = v0.writeBuffer(v149, v150, v148, buffer.len(v148));
+            v59 = v149;
+            v60 = v150;
+        elseif v58.kind.type == "dual_action_chip" then
+            local v151 = v58.kind.value:encode();
+            local v152, v153 = v0.writeTag(v59, v60, 31, v0.wireTypes.lengthDelimited);
+            v152, v153 = v0.writeBuffer(v152, v153, v151, buffer.len(v151));
+            v59 = v152;
+            v60 = v153;
+        elseif v58.kind.type == "expandable_text" then
+            local v154 = v58.kind.value:encode();
+            local v155, v156 = v0.writeTag(v59, v60, 32, v0.wireTypes.lengthDelimited);
+            v155, v156 = v0.writeBuffer(v155, v156, v154, buffer.len(v154));
+            v59 = v155;
+            v60 = v156;
+        elseif v58.kind.type == "associated_items_row" then
+            local v157 = v58.kind.value:encode();
+            local v158, v159 = v0.writeTag(v59, v60, 33, v0.wireTypes.lengthDelimited);
+            v158, v159 = v0.writeBuffer(v158, v159, v157, buffer.len(v157));
+            v59 = v158;
+            v60 = v159;
+        elseif v58.kind.type == "overflow_menu" then
+            local v160 = v58.kind.value:encode();
+            local v161, v162 = v0.writeTag(v59, v60, 34, v0.wireTypes.lengthDelimited);
+            v161, v162 = v0.writeBuffer(v161, v162, v160, buffer.len(v160));
+            v59 = v161;
+            v60 = v162;
+        elseif v58.kind.type == "details_page_image_header" then
+            local v163 = v58.kind.value:encode();
+            local v164, v165 = v0.writeTag(v59, v60, 35, v0.wireTypes.lengthDelimited);
+            v164, v165 = v0.writeBuffer(v164, v165, v163, buffer.len(v163));
+            v59 = v164;
+            v60 = v165;
+        elseif v58.kind.type == "card" then
+            local v166 = v58.kind.value:encode();
+            local v167, v168 = v0.writeTag(v59, v60, 36, v0.wireTypes.lengthDelimited);
+            v167, v168 = v0.writeBuffer(v167, v168, v166, buffer.len(v166));
+            v59 = v167;
+            v60 = v168;
+        elseif v58.kind.type == "tabs" then
+            local v169 = v58.kind.value:encode();
+            local v170, v171 = v0.writeTag(v59, v60, 37, v0.wireTypes.lengthDelimited);
+            v170, v171 = v0.writeBuffer(v170, v171, v169, buffer.len(v169));
+            v59 = v170;
+            v60 = v171;
+        elseif v58.kind.type == "action_bar" then
+            local v172 = v58.kind.value:encode();
+            local v173, v174 = v0.writeTag(v59, v60, 38, v0.wireTypes.lengthDelimited);
+            v173, v174 = v0.writeBuffer(v173, v174, v172, buffer.len(v172));
+            v59 = v173;
+            v60 = v174;
+        elseif v58.kind.type == "catalog_virtualized_feed" then
+            local v175 = v58.kind.value:encode();
+            local v176, v177 = v0.writeTag(v59, v60, 39, v0.wireTypes.lengthDelimited);
+            v176, v177 = v0.writeBuffer(v176, v177, v175, buffer.len(v175));
+            v59 = v176;
+            v60 = v177;
+        elseif v58.kind.type == "catalog_item_group" then
+            local v178 = v58.kind.value:encode();
+            local v179, v180 = v0.writeTag(v59, v60, 40, v0.wireTypes.lengthDelimited);
+            v179, v180 = v0.writeBuffer(v179, v180, v178, buffer.len(v178));
+            v59 = v179;
+            v60 = v180;
+        elseif v58.kind.type == "catalog_item_carousel" then
+            local v181 = v58.kind.value:encode();
+            local v182, v183 = v0.writeTag(v59, v60, 41, v0.wireTypes.lengthDelimited);
+            v182, v183 = v0.writeBuffer(v182, v183, v181, buffer.len(v181));
+            v59 = v182;
+            v60 = v183;
+        elseif v58.kind.type == "catalog_category_menu" then
+            local v184 = v58.kind.value:encode();
+            local v185, v186 = v0.writeTag(v59, v60, 42, v0.wireTypes.lengthDelimited);
+            v185, v186 = v0.writeBuffer(v185, v186, v184, buffer.len(v184));
+            v59 = v185;
+            v60 = v186;
+        elseif v58.kind.type == "icon" then
+            local v187 = v58.kind.value:encode();
+            local v188, v189 = v0.writeTag(v59, v60, 43, v0.wireTypes.lengthDelimited);
+            v188, v189 = v0.writeBuffer(v188, v189, v187, buffer.len(v187));
+            v59 = v188;
+            v60 = v189;
+        elseif v58.kind.type == "circle_icon" then
+            local v190 = v58.kind.value:encode();
+            local v191, v192 = v0.writeTag(v59, v60, 44, v0.wireTypes.lengthDelimited);
+            v191, v192 = v0.writeBuffer(v191, v192, v190, buffer.len(v190));
+            v59 = v191;
+            v60 = v192;
+        elseif v58.kind.type == "content_rating_label" then
+            local v193 = v58.kind.value:encode();
+            local v194, v195 = v0.writeTag(v59, v60, 45, v0.wireTypes.lengthDelimited);
+            v194, v195 = v0.writeBuffer(v194, v195, v193, buffer.len(v193));
+            v59 = v194;
+            v60 = v195;
+        elseif v58.kind.type == "play_button_contextual_message" then
+            local v196 = v58.kind.value:encode();
+            local v197, v198 = v0.writeTag(v59, v60, 46, v0.wireTypes.lengthDelimited);
+            v197, v198 = v0.writeBuffer(v197, v198, v196, buffer.len(v196));
+            v59 = v197;
+            v60 = v198;
+        elseif v58.kind.type == "media_gallery" then
+            local v199 = v58.kind.value:encode();
+            local v200, v201 = v0.writeTag(v59, v60, 47, v0.wireTypes.lengthDelimited);
+            v200, v201 = v0.writeBuffer(v200, v201, v199, buffer.len(v199));
+            v59 = v200;
+            v60 = v201;
+        elseif v58.kind.type == "content_row" then
+            local v202 = v58.kind.value:encode();
+            local v203, v204 = v0.writeTag(v59, v60, 48, v0.wireTypes.lengthDelimited);
+            v203, v204 = v0.writeBuffer(v203, v204, v202, buffer.len(v202));
+            v59 = v203;
+            v60 = v204;
+        elseif v58.kind.type == "link_text" then
+            local v205 = v58.kind.value:encode();
+            local v206, v207 = v0.writeTag(v59, v60, 49, v0.wireTypes.lengthDelimited);
+            v206, v207 = v0.writeBuffer(v206, v207, v205, buffer.len(v205));
+            v59 = v206;
+            v60 = v207;
+        elseif v58.kind.type == "filter_pills_carousel" then
+            local v208 = v58.kind.value:encode();
+            local v209, v210 = v0.writeTag(v59, v60, 50, v0.wireTypes.lengthDelimited);
+            v209, v210 = v0.writeBuffer(v209, v210, v208, buffer.len(v208));
+            v59 = v209;
+            v60 = v210;
+        elseif v58.kind.type == "coachmark" then
+            local v211 = v58.kind.value:encode();
+            local v212, v213 = v0.writeTag(v59, v60, 51, v0.wireTypes.lengthDelimited);
+            v212, v213 = v0.writeBuffer(v212, v213, v211, buffer.len(v211));
+            v59 = v212;
+            v60 = v213;
+        elseif v58.kind.type == "badge" then
+            local v214 = v58.kind.value:encode();
+            local v215, v216 = v0.writeTag(v59, v60, 52, v0.wireTypes.lengthDelimited);
+            v215, v216 = v0.writeBuffer(v215, v216, v214, buffer.len(v214));
+            v59 = v215;
+            v60 = v216;
+        elseif v58.kind.type == "song_tile" then
+            local v217 = v58.kind.value:encode();
+            local v218, v219 = v0.writeTag(v59, v60, 53, v0.wireTypes.lengthDelimited);
+            v218, v219 = v0.writeBuffer(v218, v219, v217, buffer.len(v217));
+            v59 = v218;
+            v60 = v219;
         end;
     end;
-    local v192 = buffer.create(v53);
-    buffer.copy(v192, 0, v52, 0, v53);
-    return v192;
+    local v220 = buffer.create(v60);
+    buffer.copy(v220, 0, v59, 0, v60);
+    return v220;
 end;
-v49.decode = function(v193) --[[ Line: 496 ]] --[[ Name: decode ]]
-    -- upvalues: v49 (copy), v0 (copy), v3 (copy), v5 (copy), v6 (copy), v7 (copy), v8 (copy), v9 (copy), v10 (copy), v11 (copy), v12 (copy), v13 (copy), v14 (copy), v15 (copy), v16 (copy), v17 (copy), v18 (copy), v19 (copy), v20 (copy), v21 (copy), v22 (copy), v23 (copy), v24 (copy), v25 (copy), v26 (copy), v27 (copy), v28 (copy), v4 (copy), v29 (copy), v30 (copy), v31 (copy), v32 (copy), v33 (copy), v34 (copy), v35 (copy), v36 (copy), v37 (copy), v38 (copy), v39 (copy), v40 (copy), v41 (copy), v42 (copy), v43 (copy), v44 (copy), v45 (copy), v46 (copy), v47 (copy), v48 (copy)
-    local v194 = v49.new();
-    local v195 = 0;
-    while v195 < buffer.len(v193) do
-        local v196 = nil;
-        local v197 = nil;
-        local v198, v199, v200 = v0.readTag(v193, v195);
-        v196 = v198;
-        v197 = v199;
-        v195 = v200;
-        if v197 == v0.wireTypes.varint then
-            v198 = nil;
-            v199, v200 = v0.readVarInt(v193, v195);
-            v198 = v199;
-            v195 = v200;
-        elseif v197 == v0.wireTypes.lengthDelimited then
-            if v196 == 1 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+v56.decode = function(v221) --[[ Line: 525 ]] --[[ Name: decode ]]
+    -- upvalues: v56 (copy), v0 (copy), v3 (copy), v5 (copy), v6 (copy), v7 (copy), v8 (copy), v9 (copy), v10 (copy), v11 (copy), v12 (copy), v13 (copy), v14 (copy), v15 (copy), v16 (copy), v17 (copy), v18 (copy), v19 (copy), v20 (copy), v21 (copy), v22 (copy), v23 (copy), v24 (copy), v25 (copy), v26 (copy), v27 (copy), v28 (copy), v4 (copy), v29 (copy), v30 (copy), v31 (copy), v32 (copy), v33 (copy), v34 (copy), v35 (copy), v36 (copy), v37 (copy), v38 (copy), v39 (copy), v40 (copy), v41 (copy), v42 (copy), v43 (copy), v44 (copy), v45 (copy), v46 (copy), v47 (copy), v50 (copy), v49 (copy), v51 (copy), v48 (copy), v52 (copy), v53 (copy), v54 (copy), v55 (copy)
+    local v222 = v56.new();
+    local v223 = 0;
+    while v223 < buffer.len(v221) do
+        local v224 = nil;
+        local v225 = nil;
+        local v226, v227, v228 = v0.readTag(v221, v223);
+        v224 = v226;
+        v225 = v227;
+        v223 = v228;
+        if v225 == v0.wireTypes.varint then
+            v226 = nil;
+            v227, v228 = v0.readVarInt(v221, v223);
+            v226 = v227;
+            v223 = v228;
+        elseif v225 == v0.wireTypes.lengthDelimited then
+            if v224 == 1 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "tile", 
-                    value = v3.TileSchema.decode(v198)
+                    value = v3.TileSchema.decode(v226)
                 };
-            elseif v196 == 2 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 2 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "game_tile", 
-                    value = v5.GameTileSchema.decode(v198)
+                    value = v5.GameTileSchema.decode(v226)
                 };
-            elseif v196 == 3 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 3 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "button", 
-                    value = v6.ButtonSchema.decode(v198)
+                    value = v6.ButtonSchema.decode(v226)
                 };
-            elseif v196 == 4 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 4 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "image", 
-                    value = v7.ImageSchema.decode(v198)
+                    value = v7.ImageSchema.decode(v226)
                 };
-            elseif v196 == 5 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 5 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "text", 
-                    value = v8.TextSchema.decode(v198)
+                    value = v8.TextSchema.decode(v226)
                 };
-            elseif v196 == 6 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 6 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "view", 
-                    value = v9.ViewSchema.decode(v198)
+                    value = v9.ViewSchema.decode(v226)
                 };
-            elseif v196 == 7 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 7 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "divider", 
-                    value = v10.DividerSchema.decode(v198)
+                    value = v10.DividerSchema.decode(v226)
                 };
-            elseif v196 == 8 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 8 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "dialog", 
-                    value = v11.DialogSchema.decode(v198)
+                    value = v11.DialogSchema.decode(v226)
                 };
-            elseif v196 == 9 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 9 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "text_icon_row", 
-                    value = v12.TextIconRowSchema.decode(v198)
+                    value = v12.TextIconRowSchema.decode(v226)
                 };
-            elseif v196 == 10 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 10 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "text_pill", 
-                    value = v13.TextPillSchema.decode(v198)
+                    value = v13.TextPillSchema.decode(v226)
                 };
-            elseif v196 == 11 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 11 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "section_header", 
-                    value = v14.SectionHeaderSchema.decode(v198)
+                    value = v14.SectionHeaderSchema.decode(v226)
                 };
-            elseif v196 == 12 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 12 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "slot_overlay", 
-                    value = v15.SlotOverlaySchema.decode(v198)
+                    value = v15.SlotOverlaySchema.decode(v226)
                 };
-            elseif v196 == 13 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 13 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "tile_footer", 
-                    value = v16.TileFooterSchema.decode(v198)
+                    value = v16.TileFooterSchema.decode(v226)
                 };
-            elseif v196 == 14 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 14 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "attribution_row", 
-                    value = v17.AttributionRowSchema.decode(v198)
+                    value = v17.AttributionRowSchema.decode(v226)
                 };
-            elseif v196 == 15 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 15 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "game_tile_active_friends_footer", 
-                    value = v18.GameTileActiveFriendsFooterSchema.decode(v198)
+                    value = v18.GameTileActiveFriendsFooterSchema.decode(v226)
                 };
-            elseif v196 == 16 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 16 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "hero_unit", 
-                    value = v19.HeroUnitSchema.decode(v198)
+                    value = v19.HeroUnitSchema.decode(v226)
                 };
-            elseif v196 == 17 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 17 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "hold_to_play", 
-                    value = v20.HoldToPlaySchema.decode(v198)
+                    value = v20.HoldToPlaySchema.decode(v226)
                 };
-            elseif v196 == 18 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 18 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "play_button", 
-                    value = v21.PlayButtonSchema.decode(v198)
+                    value = v21.PlayButtonSchema.decode(v226)
                 };
-            elseif v196 == 19 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 19 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "countdown_text_icon_row", 
-                    value = v22.CountdownTextIconRowSchema.decode(v198)
+                    value = v22.CountdownTextIconRowSchema.decode(v226)
                 };
-            elseif v196 == 20 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 20 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "collection_carousel", 
-                    value = v23.CollectionCarouselSchema.decode(v198)
+                    value = v23.CollectionCarouselSchema.decode(v226)
                 };
-            elseif v196 == 21 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 21 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "collection_grid", 
-                    value = v24.CollectionGridSchema.decode(v198)
+                    value = v24.CollectionGridSchema.decode(v226)
                 };
-            elseif v196 == 22 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 22 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "single_item_collection", 
-                    value = v25.SingleItemCollectionSchema.decode(v198)
+                    value = v25.SingleItemCollectionSchema.decode(v226)
                 };
-            elseif v196 == 23 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 23 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "see_all_tile", 
-                    value = v26.SeeAllTileSchema.decode(v198)
+                    value = v26.SeeAllTileSchema.decode(v226)
                 };
-            elseif v196 == 24 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 24 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "focus_nav_actions", 
-                    value = v27.FocusNavActionsSchema.decode(v198)
+                    value = v27.FocusNavActionsSchema.decode(v226)
                 };
-            elseif v196 == 25 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 25 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "fragment", 
-                    value = v28.FragmentSchema.decode(v198)
+                    value = v28.FragmentSchema.decode(v226)
                 };
-            elseif v196 == 26 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 26 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "badge_tile", 
-                    value = v4.BadgeTileSchema.decode(v198)
+                    value = v4.BadgeTileSchema.decode(v226)
                 };
-            elseif v196 == 27 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 27 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "vertical_feed", 
-                    value = v29.VerticalFeedSchema.decode(v198)
+                    value = v29.VerticalFeedSchema.decode(v226)
                 };
-            elseif v196 == 28 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 28 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "info_table", 
-                    value = v30.InfoTableSchema.decode(v198)
+                    value = v30.InfoTableSchema.decode(v226)
                 };
-            elseif v196 == 29 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 29 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "info_table_cell", 
-                    value = v31.InfoTableCellSchema.decode(v198)
+                    value = v31.InfoTableCellSchema.decode(v226)
                 };
-            elseif v196 == 30 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 30 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "chip", 
-                    value = v32.ChipSchema.decode(v198)
+                    value = v32.ChipSchema.decode(v226)
                 };
-            elseif v196 == 31 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 31 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "dual_action_chip", 
-                    value = v33.DualActionChipSchema.decode(v198)
+                    value = v33.DualActionChipSchema.decode(v226)
                 };
-            elseif v196 == 32 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 32 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "expandable_text", 
-                    value = v34.ExpandableTextSchema.decode(v198)
+                    value = v34.ExpandableTextSchema.decode(v226)
                 };
-            elseif v196 == 33 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 33 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "associated_items_row", 
-                    value = v35.AssociatedItemsRowSchema.decode(v198)
+                    value = v35.AssociatedItemsRowSchema.decode(v226)
                 };
-            elseif v196 == 34 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 34 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "overflow_menu", 
-                    value = v36.OverflowMenuSchema.decode(v198)
+                    value = v36.OverflowMenuSchema.decode(v226)
                 };
-            elseif v196 == 35 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 35 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "details_page_image_header", 
-                    value = v37.DetailsPageImageHeaderSchema.decode(v198)
+                    value = v37.DetailsPageImageHeaderSchema.decode(v226)
                 };
-            elseif v196 == 36 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 36 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "card", 
-                    value = v38.CardSchema.decode(v198)
+                    value = v38.CardSchema.decode(v226)
                 };
-            elseif v196 == 37 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 37 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "tabs", 
-                    value = v39.TabsSchema.decode(v198)
+                    value = v39.TabsSchema.decode(v226)
                 };
-            elseif v196 == 38 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 38 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "action_bar", 
-                    value = v40.ActionBarSchema.decode(v198)
+                    value = v40.ActionBarSchema.decode(v226)
                 };
-            elseif v196 == 39 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 39 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "catalog_virtualized_feed", 
-                    value = v41.CatalogVirtualizedFeedSchema.decode(v198)
+                    value = v41.CatalogVirtualizedFeedSchema.decode(v226)
                 };
-            elseif v196 == 40 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 40 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "catalog_item_group", 
-                    value = v42.CatalogItemGroupSchema.decode(v198)
+                    value = v42.CatalogItemGroupSchema.decode(v226)
                 };
-            elseif v196 == 41 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 41 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "catalog_item_carousel", 
-                    value = v43.CatalogItemCarouselSchema.decode(v198)
+                    value = v43.CatalogItemCarouselSchema.decode(v226)
                 };
-            elseif v196 == 42 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 42 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "catalog_category_menu", 
-                    value = v44.CatalogCategoryMenuSchema.decode(v198)
+                    value = v44.CatalogCategoryMenuSchema.decode(v226)
                 };
-            elseif v196 == 43 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 43 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "icon", 
-                    value = v45.IconSchema.decode(v198)
+                    value = v45.IconSchema.decode(v226)
                 };
-            elseif v196 == 44 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 44 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "circle_icon", 
-                    value = v46.CircleIconSchema.decode(v198)
+                    value = v46.CircleIconSchema.decode(v226)
                 };
-            elseif v196 == 45 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
+            elseif v224 == 45 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
                     type = "content_rating_label", 
-                    value = v47.ContentRatingLabelSchema.decode(v198)
+                    value = v47.ContentRatingLabelSchema.decode(v226)
                 };
-            elseif v196 == 46 then
-                v198 = nil;
-                v199, v200 = v0.readBuffer(v193, v195);
-                v198 = v199;
-                v195 = v200;
-                v194.kind = {
-                    type = "play_button_with_contextual_message", 
-                    value = v48.PlayButtonWithContextualMessageSchema.decode(v198)
+            elseif v224 == 46 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "play_button_contextual_message", 
+                    value = v50.PlayButtonContextualMessageSchema.decode(v226)
+                };
+            elseif v224 == 47 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "media_gallery", 
+                    value = v49.MediaGallerySchema.decode(v226)
+                };
+            elseif v224 == 48 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "content_row", 
+                    value = v51.ContentRowSchema.decode(v226)
+                };
+            elseif v224 == 49 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "link_text", 
+                    value = v48.LinkTextSchema.decode(v226)
+                };
+            elseif v224 == 50 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "filter_pills_carousel", 
+                    value = v52.FilterPillsCarouselSchema.decode(v226)
+                };
+            elseif v224 == 51 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "coachmark", 
+                    value = v53.CoachmarkSchema.decode(v226)
+                };
+            elseif v224 == 52 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "badge", 
+                    value = v54.BadgeSchema.decode(v226)
+                };
+            elseif v224 == 53 then
+                v226 = nil;
+                v227, v228 = v0.readBuffer(v221, v223);
+                v226 = v227;
+                v223 = v228;
+                v222.kind = {
+                    type = "song_tile", 
+                    value = v55.SongTileSchema.decode(v226)
                 };
             else
-                v198 = nil;
-                v199, v200 = v0.readVarInt(v193, v195);
-                v195 = v200 + v199;
+                v226 = nil;
+                v227, v228 = v0.readVarInt(v221, v223);
+                v223 = v228 + v227;
             end;
-        elseif v197 == v0.wireTypes.i32 then
-            v198 = nil;
-            v199, v200 = v0.readFixed32(v193, v195);
-            v198 = v199;
-            v195 = v200;
-        elseif v197 == v0.wireTypes.i64 then
-            v198 = nil;
-            v199, v200 = v0.readFixed64(v193, v195);
-            v198 = v199;
-            v195 = v200;
+        elseif v225 == v0.wireTypes.i32 then
+            v226 = nil;
+            v227, v228 = v0.readFixed32(v221, v223);
+            v226 = v227;
+            v223 = v228;
+        elseif v225 == v0.wireTypes.i64 then
+            v226 = nil;
+            v227, v228 = v0.readFixed64(v221, v223);
+            v226 = v227;
+            v223 = v228;
         else
-            error("Unsupported wire type: " .. v197);
+            error("Unsupported wire type: " .. v225);
         end;
     end;
-    return v194;
+    return v222;
 end;
-v49.jsonEncode = function(v201) --[[ Line: 924 ]] --[[ Name: jsonEncode ]]
-    local v202 = {};
-    if v201.kind ~= nil then
-        if v201.kind.type == "tile" then
-            v202.tile = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "game_tile" then
-            v202.gameTile = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "button" then
-            v202.button = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "image" then
-            v202.image = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "text" then
-            v202.text = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "view" then
-            v202.view = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "divider" then
-            v202.divider = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "dialog" then
-            v202.dialog = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "text_icon_row" then
-            v202.textIconRow = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "text_pill" then
-            v202.textPill = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "section_header" then
-            v202.sectionHeader = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "slot_overlay" then
-            v202.slotOverlay = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "tile_footer" then
-            v202.tileFooter = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "attribution_row" then
-            v202.attributionRow = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "game_tile_active_friends_footer" then
-            v202.gameTileActiveFriendsFooter = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "hero_unit" then
-            v202.heroUnit = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "hold_to_play" then
-            v202.holdToPlay = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "play_button" then
-            v202.playButton = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "countdown_text_icon_row" then
-            v202.countdownTextIconRow = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "collection_carousel" then
-            v202.collectionCarousel = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "collection_grid" then
-            v202.collectionGrid = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "single_item_collection" then
-            v202.singleItemCollection = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "see_all_tile" then
-            v202.seeAllTile = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "focus_nav_actions" then
-            v202.focusNavActions = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "fragment" then
-            v202.fragment = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "badge_tile" then
-            v202.badgeTile = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "vertical_feed" then
-            v202.verticalFeed = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "info_table" then
-            v202.infoTable = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "info_table_cell" then
-            v202.infoTableCell = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "chip" then
-            v202.chip = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "dual_action_chip" then
-            v202.dualActionChip = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "expandable_text" then
-            v202.expandableText = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "associated_items_row" then
-            v202.associatedItemsRow = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "overflow_menu" then
-            v202.overflowMenu = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "details_page_image_header" then
-            v202.detailsPageImageHeader = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "card" then
-            v202.card = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "tabs" then
-            v202.tabs = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "action_bar" then
-            v202.actionBar = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "catalog_virtualized_feed" then
-            v202.catalogVirtualizedFeed = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "catalog_item_group" then
-            v202.catalogItemGroup = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "catalog_item_carousel" then
-            v202.catalogItemCarousel = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "catalog_category_menu" then
-            v202.catalogCategoryMenu = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "icon" then
-            v202.icon = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "circle_icon" then
-            v202.circleIcon = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "content_rating_label" then
-            v202.contentRatingLabel = v201.kind.value:jsonEncode();
-            return v202;
-        elseif v201.kind.type == "play_button_with_contextual_message" then
-            v202.playButtonWithContextualMessage = v201.kind.value:jsonEncode();
+v56.jsonEncode = function(v229) --[[ Line: 1011 ]] --[[ Name: jsonEncode ]]
+    local v230 = {};
+    if v229.kind ~= nil then
+        if v229.kind.type == "tile" then
+            v230.tile = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "game_tile" then
+            v230.gameTile = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "button" then
+            v230.button = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "image" then
+            v230.image = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "text" then
+            v230.text = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "view" then
+            v230.view = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "divider" then
+            v230.divider = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "dialog" then
+            v230.dialog = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "text_icon_row" then
+            v230.textIconRow = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "text_pill" then
+            v230.textPill = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "section_header" then
+            v230.sectionHeader = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "slot_overlay" then
+            v230.slotOverlay = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "tile_footer" then
+            v230.tileFooter = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "attribution_row" then
+            v230.attributionRow = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "game_tile_active_friends_footer" then
+            v230.gameTileActiveFriendsFooter = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "hero_unit" then
+            v230.heroUnit = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "hold_to_play" then
+            v230.holdToPlay = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "play_button" then
+            v230.playButton = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "countdown_text_icon_row" then
+            v230.countdownTextIconRow = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "collection_carousel" then
+            v230.collectionCarousel = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "collection_grid" then
+            v230.collectionGrid = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "single_item_collection" then
+            v230.singleItemCollection = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "see_all_tile" then
+            v230.seeAllTile = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "focus_nav_actions" then
+            v230.focusNavActions = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "fragment" then
+            v230.fragment = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "badge_tile" then
+            v230.badgeTile = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "vertical_feed" then
+            v230.verticalFeed = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "info_table" then
+            v230.infoTable = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "info_table_cell" then
+            v230.infoTableCell = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "chip" then
+            v230.chip = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "dual_action_chip" then
+            v230.dualActionChip = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "expandable_text" then
+            v230.expandableText = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "associated_items_row" then
+            v230.associatedItemsRow = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "overflow_menu" then
+            v230.overflowMenu = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "details_page_image_header" then
+            v230.detailsPageImageHeader = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "card" then
+            v230.card = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "tabs" then
+            v230.tabs = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "action_bar" then
+            v230.actionBar = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "catalog_virtualized_feed" then
+            v230.catalogVirtualizedFeed = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "catalog_item_group" then
+            v230.catalogItemGroup = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "catalog_item_carousel" then
+            v230.catalogItemCarousel = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "catalog_category_menu" then
+            v230.catalogCategoryMenu = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "icon" then
+            v230.icon = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "circle_icon" then
+            v230.circleIcon = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "content_rating_label" then
+            v230.contentRatingLabel = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "play_button_contextual_message" then
+            v230.playButtonContextualMessage = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "media_gallery" then
+            v230.mediaGallery = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "content_row" then
+            v230.contentRow = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "link_text" then
+            v230.linkText = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "filter_pills_carousel" then
+            v230.filterPillsCarousel = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "coachmark" then
+            v230.coachmark = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "badge" then
+            v230.badge = v229.kind.value:jsonEncode();
+            return v230;
+        elseif v229.kind.type == "song_tile" then
+            v230.songTile = v229.kind.value:jsonEncode();
         end;
     end;
-    return v202;
+    return v230;
 end;
-v49.jsonDecode = function(v203) --[[ Line: 1026 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: v49 (copy), v3 (copy), v5 (copy), v6 (copy), v7 (copy), v8 (copy), v9 (copy), v10 (copy), v11 (copy), v12 (copy), v13 (copy), v14 (copy), v15 (copy), v16 (copy), v17 (copy), v18 (copy), v19 (copy), v20 (copy), v21 (copy), v22 (copy), v23 (copy), v24 (copy), v25 (copy), v26 (copy), v27 (copy), v28 (copy), v4 (copy), v29 (copy), v30 (copy), v31 (copy), v32 (copy), v33 (copy), v34 (copy), v35 (copy), v36 (copy), v37 (copy), v38 (copy), v39 (copy), v40 (copy), v41 (copy), v42 (copy), v43 (copy), v44 (copy), v45 (copy), v46 (copy), v47 (copy), v48 (copy)
-    local v204 = v49.new();
-    if v203.tile ~= nil then
-        v204.kind = {
+v56.jsonDecode = function(v231) --[[ Line: 1127 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: v56 (copy), v3 (copy), v5 (copy), v6 (copy), v7 (copy), v8 (copy), v9 (copy), v10 (copy), v11 (copy), v12 (copy), v13 (copy), v14 (copy), v15 (copy), v16 (copy), v17 (copy), v18 (copy), v19 (copy), v20 (copy), v21 (copy), v22 (copy), v23 (copy), v24 (copy), v25 (copy), v26 (copy), v27 (copy), v28 (copy), v4 (copy), v29 (copy), v30 (copy), v31 (copy), v32 (copy), v33 (copy), v34 (copy), v35 (copy), v36 (copy), v37 (copy), v38 (copy), v39 (copy), v40 (copy), v41 (copy), v42 (copy), v43 (copy), v44 (copy), v45 (copy), v46 (copy), v47 (copy), v50 (copy), v49 (copy), v51 (copy), v48 (copy), v52 (copy), v53 (copy), v54 (copy), v55 (copy)
+    local v232 = v56.new();
+    if v231.tile ~= nil then
+        v232.kind = {
             type = "tile", 
-            value = v3.TileSchema.jsonDecode(v203.tile)
+            value = v3.TileSchema.jsonDecode(v231.tile)
         };
     end;
-    if v203.game_tile ~= nil then
-        v204.kind = {
+    if v231.game_tile ~= nil then
+        v232.kind = {
             type = "game_tile", 
-            value = v5.GameTileSchema.jsonDecode(v203.game_tile)
+            value = v5.GameTileSchema.jsonDecode(v231.game_tile)
         };
     end;
-    if v203.gameTile ~= nil then
-        v204.kind = {
+    if v231.gameTile ~= nil then
+        v232.kind = {
             type = "game_tile", 
-            value = v5.GameTileSchema.jsonDecode(v203.gameTile)
+            value = v5.GameTileSchema.jsonDecode(v231.gameTile)
         };
     end;
-    if v203.button ~= nil then
-        v204.kind = {
+    if v231.button ~= nil then
+        v232.kind = {
             type = "button", 
-            value = v6.ButtonSchema.jsonDecode(v203.button)
+            value = v6.ButtonSchema.jsonDecode(v231.button)
         };
     end;
-    if v203.image ~= nil then
-        v204.kind = {
+    if v231.image ~= nil then
+        v232.kind = {
             type = "image", 
-            value = v7.ImageSchema.jsonDecode(v203.image)
+            value = v7.ImageSchema.jsonDecode(v231.image)
         };
     end;
-    if v203.text ~= nil then
-        v204.kind = {
+    if v231.text ~= nil then
+        v232.kind = {
             type = "text", 
-            value = v8.TextSchema.jsonDecode(v203.text)
+            value = v8.TextSchema.jsonDecode(v231.text)
         };
     end;
-    if v203.view ~= nil then
-        v204.kind = {
+    if v231.view ~= nil then
+        v232.kind = {
             type = "view", 
-            value = v9.ViewSchema.jsonDecode(v203.view)
+            value = v9.ViewSchema.jsonDecode(v231.view)
         };
     end;
-    if v203.divider ~= nil then
-        v204.kind = {
+    if v231.divider ~= nil then
+        v232.kind = {
             type = "divider", 
-            value = v10.DividerSchema.jsonDecode(v203.divider)
+            value = v10.DividerSchema.jsonDecode(v231.divider)
         };
     end;
-    if v203.dialog ~= nil then
-        v204.kind = {
+    if v231.dialog ~= nil then
+        v232.kind = {
             type = "dialog", 
-            value = v11.DialogSchema.jsonDecode(v203.dialog)
+            value = v11.DialogSchema.jsonDecode(v231.dialog)
         };
     end;
-    if v203.text_icon_row ~= nil then
-        v204.kind = {
+    if v231.text_icon_row ~= nil then
+        v232.kind = {
             type = "text_icon_row", 
-            value = v12.TextIconRowSchema.jsonDecode(v203.text_icon_row)
+            value = v12.TextIconRowSchema.jsonDecode(v231.text_icon_row)
         };
     end;
-    if v203.textIconRow ~= nil then
-        v204.kind = {
+    if v231.textIconRow ~= nil then
+        v232.kind = {
             type = "text_icon_row", 
-            value = v12.TextIconRowSchema.jsonDecode(v203.textIconRow)
+            value = v12.TextIconRowSchema.jsonDecode(v231.textIconRow)
         };
     end;
-    if v203.text_pill ~= nil then
-        v204.kind = {
+    if v231.text_pill ~= nil then
+        v232.kind = {
             type = "text_pill", 
-            value = v13.TextPillSchema.jsonDecode(v203.text_pill)
+            value = v13.TextPillSchema.jsonDecode(v231.text_pill)
         };
     end;
-    if v203.textPill ~= nil then
-        v204.kind = {
+    if v231.textPill ~= nil then
+        v232.kind = {
             type = "text_pill", 
-            value = v13.TextPillSchema.jsonDecode(v203.textPill)
+            value = v13.TextPillSchema.jsonDecode(v231.textPill)
         };
     end;
-    if v203.section_header ~= nil then
-        v204.kind = {
+    if v231.section_header ~= nil then
+        v232.kind = {
             type = "section_header", 
-            value = v14.SectionHeaderSchema.jsonDecode(v203.section_header)
+            value = v14.SectionHeaderSchema.jsonDecode(v231.section_header)
         };
     end;
-    if v203.sectionHeader ~= nil then
-        v204.kind = {
+    if v231.sectionHeader ~= nil then
+        v232.kind = {
             type = "section_header", 
-            value = v14.SectionHeaderSchema.jsonDecode(v203.sectionHeader)
+            value = v14.SectionHeaderSchema.jsonDecode(v231.sectionHeader)
         };
     end;
-    if v203.slot_overlay ~= nil then
-        v204.kind = {
+    if v231.slot_overlay ~= nil then
+        v232.kind = {
             type = "slot_overlay", 
-            value = v15.SlotOverlaySchema.jsonDecode(v203.slot_overlay)
+            value = v15.SlotOverlaySchema.jsonDecode(v231.slot_overlay)
         };
     end;
-    if v203.slotOverlay ~= nil then
-        v204.kind = {
+    if v231.slotOverlay ~= nil then
+        v232.kind = {
             type = "slot_overlay", 
-            value = v15.SlotOverlaySchema.jsonDecode(v203.slotOverlay)
+            value = v15.SlotOverlaySchema.jsonDecode(v231.slotOverlay)
         };
     end;
-    if v203.tile_footer ~= nil then
-        v204.kind = {
+    if v231.tile_footer ~= nil then
+        v232.kind = {
             type = "tile_footer", 
-            value = v16.TileFooterSchema.jsonDecode(v203.tile_footer)
+            value = v16.TileFooterSchema.jsonDecode(v231.tile_footer)
         };
     end;
-    if v203.tileFooter ~= nil then
-        v204.kind = {
+    if v231.tileFooter ~= nil then
+        v232.kind = {
             type = "tile_footer", 
-            value = v16.TileFooterSchema.jsonDecode(v203.tileFooter)
+            value = v16.TileFooterSchema.jsonDecode(v231.tileFooter)
         };
     end;
-    if v203.attribution_row ~= nil then
-        v204.kind = {
+    if v231.attribution_row ~= nil then
+        v232.kind = {
             type = "attribution_row", 
-            value = v17.AttributionRowSchema.jsonDecode(v203.attribution_row)
+            value = v17.AttributionRowSchema.jsonDecode(v231.attribution_row)
         };
     end;
-    if v203.attributionRow ~= nil then
-        v204.kind = {
+    if v231.attributionRow ~= nil then
+        v232.kind = {
             type = "attribution_row", 
-            value = v17.AttributionRowSchema.jsonDecode(v203.attributionRow)
+            value = v17.AttributionRowSchema.jsonDecode(v231.attributionRow)
         };
     end;
-    if v203.game_tile_active_friends_footer ~= nil then
-        v204.kind = {
+    if v231.game_tile_active_friends_footer ~= nil then
+        v232.kind = {
             type = "game_tile_active_friends_footer", 
-            value = v18.GameTileActiveFriendsFooterSchema.jsonDecode(v203.game_tile_active_friends_footer)
+            value = v18.GameTileActiveFriendsFooterSchema.jsonDecode(v231.game_tile_active_friends_footer)
         };
     end;
-    if v203.gameTileActiveFriendsFooter ~= nil then
-        v204.kind = {
+    if v231.gameTileActiveFriendsFooter ~= nil then
+        v232.kind = {
             type = "game_tile_active_friends_footer", 
-            value = v18.GameTileActiveFriendsFooterSchema.jsonDecode(v203.gameTileActiveFriendsFooter)
+            value = v18.GameTileActiveFriendsFooterSchema.jsonDecode(v231.gameTileActiveFriendsFooter)
         };
     end;
-    if v203.hero_unit ~= nil then
-        v204.kind = {
+    if v231.hero_unit ~= nil then
+        v232.kind = {
             type = "hero_unit", 
-            value = v19.HeroUnitSchema.jsonDecode(v203.hero_unit)
+            value = v19.HeroUnitSchema.jsonDecode(v231.hero_unit)
         };
     end;
-    if v203.heroUnit ~= nil then
-        v204.kind = {
+    if v231.heroUnit ~= nil then
+        v232.kind = {
             type = "hero_unit", 
-            value = v19.HeroUnitSchema.jsonDecode(v203.heroUnit)
+            value = v19.HeroUnitSchema.jsonDecode(v231.heroUnit)
         };
     end;
-    if v203.hold_to_play ~= nil then
-        v204.kind = {
+    if v231.hold_to_play ~= nil then
+        v232.kind = {
             type = "hold_to_play", 
-            value = v20.HoldToPlaySchema.jsonDecode(v203.hold_to_play)
+            value = v20.HoldToPlaySchema.jsonDecode(v231.hold_to_play)
         };
     end;
-    if v203.holdToPlay ~= nil then
-        v204.kind = {
+    if v231.holdToPlay ~= nil then
+        v232.kind = {
             type = "hold_to_play", 
-            value = v20.HoldToPlaySchema.jsonDecode(v203.holdToPlay)
+            value = v20.HoldToPlaySchema.jsonDecode(v231.holdToPlay)
         };
     end;
-    if v203.play_button ~= nil then
-        v204.kind = {
+    if v231.play_button ~= nil then
+        v232.kind = {
             type = "play_button", 
-            value = v21.PlayButtonSchema.jsonDecode(v203.play_button)
+            value = v21.PlayButtonSchema.jsonDecode(v231.play_button)
         };
     end;
-    if v203.playButton ~= nil then
-        v204.kind = {
+    if v231.playButton ~= nil then
+        v232.kind = {
             type = "play_button", 
-            value = v21.PlayButtonSchema.jsonDecode(v203.playButton)
+            value = v21.PlayButtonSchema.jsonDecode(v231.playButton)
         };
     end;
-    if v203.countdown_text_icon_row ~= nil then
-        v204.kind = {
+    if v231.countdown_text_icon_row ~= nil then
+        v232.kind = {
             type = "countdown_text_icon_row", 
-            value = v22.CountdownTextIconRowSchema.jsonDecode(v203.countdown_text_icon_row)
+            value = v22.CountdownTextIconRowSchema.jsonDecode(v231.countdown_text_icon_row)
         };
     end;
-    if v203.countdownTextIconRow ~= nil then
-        v204.kind = {
+    if v231.countdownTextIconRow ~= nil then
+        v232.kind = {
             type = "countdown_text_icon_row", 
-            value = v22.CountdownTextIconRowSchema.jsonDecode(v203.countdownTextIconRow)
+            value = v22.CountdownTextIconRowSchema.jsonDecode(v231.countdownTextIconRow)
         };
     end;
-    if v203.collection_carousel ~= nil then
-        v204.kind = {
+    if v231.collection_carousel ~= nil then
+        v232.kind = {
             type = "collection_carousel", 
-            value = v23.CollectionCarouselSchema.jsonDecode(v203.collection_carousel)
+            value = v23.CollectionCarouselSchema.jsonDecode(v231.collection_carousel)
         };
     end;
-    if v203.collectionCarousel ~= nil then
-        v204.kind = {
+    if v231.collectionCarousel ~= nil then
+        v232.kind = {
             type = "collection_carousel", 
-            value = v23.CollectionCarouselSchema.jsonDecode(v203.collectionCarousel)
+            value = v23.CollectionCarouselSchema.jsonDecode(v231.collectionCarousel)
         };
     end;
-    if v203.collection_grid ~= nil then
-        v204.kind = {
+    if v231.collection_grid ~= nil then
+        v232.kind = {
             type = "collection_grid", 
-            value = v24.CollectionGridSchema.jsonDecode(v203.collection_grid)
+            value = v24.CollectionGridSchema.jsonDecode(v231.collection_grid)
         };
     end;
-    if v203.collectionGrid ~= nil then
-        v204.kind = {
+    if v231.collectionGrid ~= nil then
+        v232.kind = {
             type = "collection_grid", 
-            value = v24.CollectionGridSchema.jsonDecode(v203.collectionGrid)
+            value = v24.CollectionGridSchema.jsonDecode(v231.collectionGrid)
         };
     end;
-    if v203.single_item_collection ~= nil then
-        v204.kind = {
+    if v231.single_item_collection ~= nil then
+        v232.kind = {
             type = "single_item_collection", 
-            value = v25.SingleItemCollectionSchema.jsonDecode(v203.single_item_collection)
+            value = v25.SingleItemCollectionSchema.jsonDecode(v231.single_item_collection)
         };
     end;
-    if v203.singleItemCollection ~= nil then
-        v204.kind = {
+    if v231.singleItemCollection ~= nil then
+        v232.kind = {
             type = "single_item_collection", 
-            value = v25.SingleItemCollectionSchema.jsonDecode(v203.singleItemCollection)
+            value = v25.SingleItemCollectionSchema.jsonDecode(v231.singleItemCollection)
         };
     end;
-    if v203.see_all_tile ~= nil then
-        v204.kind = {
+    if v231.see_all_tile ~= nil then
+        v232.kind = {
             type = "see_all_tile", 
-            value = v26.SeeAllTileSchema.jsonDecode(v203.see_all_tile)
+            value = v26.SeeAllTileSchema.jsonDecode(v231.see_all_tile)
         };
     end;
-    if v203.seeAllTile ~= nil then
-        v204.kind = {
+    if v231.seeAllTile ~= nil then
+        v232.kind = {
             type = "see_all_tile", 
-            value = v26.SeeAllTileSchema.jsonDecode(v203.seeAllTile)
+            value = v26.SeeAllTileSchema.jsonDecode(v231.seeAllTile)
         };
     end;
-    if v203.focus_nav_actions ~= nil then
-        v204.kind = {
+    if v231.focus_nav_actions ~= nil then
+        v232.kind = {
             type = "focus_nav_actions", 
-            value = v27.FocusNavActionsSchema.jsonDecode(v203.focus_nav_actions)
+            value = v27.FocusNavActionsSchema.jsonDecode(v231.focus_nav_actions)
         };
     end;
-    if v203.focusNavActions ~= nil then
-        v204.kind = {
+    if v231.focusNavActions ~= nil then
+        v232.kind = {
             type = "focus_nav_actions", 
-            value = v27.FocusNavActionsSchema.jsonDecode(v203.focusNavActions)
+            value = v27.FocusNavActionsSchema.jsonDecode(v231.focusNavActions)
         };
     end;
-    if v203.fragment ~= nil then
-        v204.kind = {
+    if v231.fragment ~= nil then
+        v232.kind = {
             type = "fragment", 
-            value = v28.FragmentSchema.jsonDecode(v203.fragment)
+            value = v28.FragmentSchema.jsonDecode(v231.fragment)
         };
     end;
-    if v203.badge_tile ~= nil then
-        v204.kind = {
+    if v231.badge_tile ~= nil then
+        v232.kind = {
             type = "badge_tile", 
-            value = v4.BadgeTileSchema.jsonDecode(v203.badge_tile)
+            value = v4.BadgeTileSchema.jsonDecode(v231.badge_tile)
         };
     end;
-    if v203.badgeTile ~= nil then
-        v204.kind = {
+    if v231.badgeTile ~= nil then
+        v232.kind = {
             type = "badge_tile", 
-            value = v4.BadgeTileSchema.jsonDecode(v203.badgeTile)
+            value = v4.BadgeTileSchema.jsonDecode(v231.badgeTile)
         };
     end;
-    if v203.vertical_feed ~= nil then
-        v204.kind = {
+    if v231.vertical_feed ~= nil then
+        v232.kind = {
             type = "vertical_feed", 
-            value = v29.VerticalFeedSchema.jsonDecode(v203.vertical_feed)
+            value = v29.VerticalFeedSchema.jsonDecode(v231.vertical_feed)
         };
     end;
-    if v203.verticalFeed ~= nil then
-        v204.kind = {
+    if v231.verticalFeed ~= nil then
+        v232.kind = {
             type = "vertical_feed", 
-            value = v29.VerticalFeedSchema.jsonDecode(v203.verticalFeed)
+            value = v29.VerticalFeedSchema.jsonDecode(v231.verticalFeed)
         };
     end;
-    if v203.info_table ~= nil then
-        v204.kind = {
+    if v231.info_table ~= nil then
+        v232.kind = {
             type = "info_table", 
-            value = v30.InfoTableSchema.jsonDecode(v203.info_table)
+            value = v30.InfoTableSchema.jsonDecode(v231.info_table)
         };
     end;
-    if v203.infoTable ~= nil then
-        v204.kind = {
+    if v231.infoTable ~= nil then
+        v232.kind = {
             type = "info_table", 
-            value = v30.InfoTableSchema.jsonDecode(v203.infoTable)
+            value = v30.InfoTableSchema.jsonDecode(v231.infoTable)
         };
     end;
-    if v203.info_table_cell ~= nil then
-        v204.kind = {
+    if v231.info_table_cell ~= nil then
+        v232.kind = {
             type = "info_table_cell", 
-            value = v31.InfoTableCellSchema.jsonDecode(v203.info_table_cell)
+            value = v31.InfoTableCellSchema.jsonDecode(v231.info_table_cell)
         };
     end;
-    if v203.infoTableCell ~= nil then
-        v204.kind = {
+    if v231.infoTableCell ~= nil then
+        v232.kind = {
             type = "info_table_cell", 
-            value = v31.InfoTableCellSchema.jsonDecode(v203.infoTableCell)
+            value = v31.InfoTableCellSchema.jsonDecode(v231.infoTableCell)
         };
     end;
-    if v203.chip ~= nil then
-        v204.kind = {
+    if v231.chip ~= nil then
+        v232.kind = {
             type = "chip", 
-            value = v32.ChipSchema.jsonDecode(v203.chip)
+            value = v32.ChipSchema.jsonDecode(v231.chip)
         };
     end;
-    if v203.dual_action_chip ~= nil then
-        v204.kind = {
+    if v231.dual_action_chip ~= nil then
+        v232.kind = {
             type = "dual_action_chip", 
-            value = v33.DualActionChipSchema.jsonDecode(v203.dual_action_chip)
+            value = v33.DualActionChipSchema.jsonDecode(v231.dual_action_chip)
         };
     end;
-    if v203.dualActionChip ~= nil then
-        v204.kind = {
+    if v231.dualActionChip ~= nil then
+        v232.kind = {
             type = "dual_action_chip", 
-            value = v33.DualActionChipSchema.jsonDecode(v203.dualActionChip)
+            value = v33.DualActionChipSchema.jsonDecode(v231.dualActionChip)
         };
     end;
-    if v203.expandable_text ~= nil then
-        v204.kind = {
+    if v231.expandable_text ~= nil then
+        v232.kind = {
             type = "expandable_text", 
-            value = v34.ExpandableTextSchema.jsonDecode(v203.expandable_text)
+            value = v34.ExpandableTextSchema.jsonDecode(v231.expandable_text)
         };
     end;
-    if v203.expandableText ~= nil then
-        v204.kind = {
+    if v231.expandableText ~= nil then
+        v232.kind = {
             type = "expandable_text", 
-            value = v34.ExpandableTextSchema.jsonDecode(v203.expandableText)
+            value = v34.ExpandableTextSchema.jsonDecode(v231.expandableText)
         };
     end;
-    if v203.associated_items_row ~= nil then
-        v204.kind = {
+    if v231.associated_items_row ~= nil then
+        v232.kind = {
             type = "associated_items_row", 
-            value = v35.AssociatedItemsRowSchema.jsonDecode(v203.associated_items_row)
+            value = v35.AssociatedItemsRowSchema.jsonDecode(v231.associated_items_row)
         };
     end;
-    if v203.associatedItemsRow ~= nil then
-        v204.kind = {
+    if v231.associatedItemsRow ~= nil then
+        v232.kind = {
             type = "associated_items_row", 
-            value = v35.AssociatedItemsRowSchema.jsonDecode(v203.associatedItemsRow)
+            value = v35.AssociatedItemsRowSchema.jsonDecode(v231.associatedItemsRow)
         };
     end;
-    if v203.overflow_menu ~= nil then
-        v204.kind = {
+    if v231.overflow_menu ~= nil then
+        v232.kind = {
             type = "overflow_menu", 
-            value = v36.OverflowMenuSchema.jsonDecode(v203.overflow_menu)
+            value = v36.OverflowMenuSchema.jsonDecode(v231.overflow_menu)
         };
     end;
-    if v203.overflowMenu ~= nil then
-        v204.kind = {
+    if v231.overflowMenu ~= nil then
+        v232.kind = {
             type = "overflow_menu", 
-            value = v36.OverflowMenuSchema.jsonDecode(v203.overflowMenu)
+            value = v36.OverflowMenuSchema.jsonDecode(v231.overflowMenu)
         };
     end;
-    if v203.details_page_image_header ~= nil then
-        v204.kind = {
+    if v231.details_page_image_header ~= nil then
+        v232.kind = {
             type = "details_page_image_header", 
-            value = v37.DetailsPageImageHeaderSchema.jsonDecode(v203.details_page_image_header)
+            value = v37.DetailsPageImageHeaderSchema.jsonDecode(v231.details_page_image_header)
         };
     end;
-    if v203.detailsPageImageHeader ~= nil then
-        v204.kind = {
+    if v231.detailsPageImageHeader ~= nil then
+        v232.kind = {
             type = "details_page_image_header", 
-            value = v37.DetailsPageImageHeaderSchema.jsonDecode(v203.detailsPageImageHeader)
+            value = v37.DetailsPageImageHeaderSchema.jsonDecode(v231.detailsPageImageHeader)
         };
     end;
-    if v203.card ~= nil then
-        v204.kind = {
+    if v231.card ~= nil then
+        v232.kind = {
             type = "card", 
-            value = v38.CardSchema.jsonDecode(v203.card)
+            value = v38.CardSchema.jsonDecode(v231.card)
         };
     end;
-    if v203.tabs ~= nil then
-        v204.kind = {
+    if v231.tabs ~= nil then
+        v232.kind = {
             type = "tabs", 
-            value = v39.TabsSchema.jsonDecode(v203.tabs)
+            value = v39.TabsSchema.jsonDecode(v231.tabs)
         };
     end;
-    if v203.action_bar ~= nil then
-        v204.kind = {
+    if v231.action_bar ~= nil then
+        v232.kind = {
             type = "action_bar", 
-            value = v40.ActionBarSchema.jsonDecode(v203.action_bar)
+            value = v40.ActionBarSchema.jsonDecode(v231.action_bar)
         };
     end;
-    if v203.actionBar ~= nil then
-        v204.kind = {
+    if v231.actionBar ~= nil then
+        v232.kind = {
             type = "action_bar", 
-            value = v40.ActionBarSchema.jsonDecode(v203.actionBar)
+            value = v40.ActionBarSchema.jsonDecode(v231.actionBar)
         };
     end;
-    if v203.catalog_virtualized_feed ~= nil then
-        v204.kind = {
+    if v231.catalog_virtualized_feed ~= nil then
+        v232.kind = {
             type = "catalog_virtualized_feed", 
-            value = v41.CatalogVirtualizedFeedSchema.jsonDecode(v203.catalog_virtualized_feed)
+            value = v41.CatalogVirtualizedFeedSchema.jsonDecode(v231.catalog_virtualized_feed)
         };
     end;
-    if v203.catalogVirtualizedFeed ~= nil then
-        v204.kind = {
+    if v231.catalogVirtualizedFeed ~= nil then
+        v232.kind = {
             type = "catalog_virtualized_feed", 
-            value = v41.CatalogVirtualizedFeedSchema.jsonDecode(v203.catalogVirtualizedFeed)
+            value = v41.CatalogVirtualizedFeedSchema.jsonDecode(v231.catalogVirtualizedFeed)
         };
     end;
-    if v203.catalog_item_group ~= nil then
-        v204.kind = {
+    if v231.catalog_item_group ~= nil then
+        v232.kind = {
             type = "catalog_item_group", 
-            value = v42.CatalogItemGroupSchema.jsonDecode(v203.catalog_item_group)
+            value = v42.CatalogItemGroupSchema.jsonDecode(v231.catalog_item_group)
         };
     end;
-    if v203.catalogItemGroup ~= nil then
-        v204.kind = {
+    if v231.catalogItemGroup ~= nil then
+        v232.kind = {
             type = "catalog_item_group", 
-            value = v42.CatalogItemGroupSchema.jsonDecode(v203.catalogItemGroup)
+            value = v42.CatalogItemGroupSchema.jsonDecode(v231.catalogItemGroup)
         };
     end;
-    if v203.catalog_item_carousel ~= nil then
-        v204.kind = {
+    if v231.catalog_item_carousel ~= nil then
+        v232.kind = {
             type = "catalog_item_carousel", 
-            value = v43.CatalogItemCarouselSchema.jsonDecode(v203.catalog_item_carousel)
+            value = v43.CatalogItemCarouselSchema.jsonDecode(v231.catalog_item_carousel)
         };
     end;
-    if v203.catalogItemCarousel ~= nil then
-        v204.kind = {
+    if v231.catalogItemCarousel ~= nil then
+        v232.kind = {
             type = "catalog_item_carousel", 
-            value = v43.CatalogItemCarouselSchema.jsonDecode(v203.catalogItemCarousel)
+            value = v43.CatalogItemCarouselSchema.jsonDecode(v231.catalogItemCarousel)
         };
     end;
-    if v203.catalog_category_menu ~= nil then
-        v204.kind = {
+    if v231.catalog_category_menu ~= nil then
+        v232.kind = {
             type = "catalog_category_menu", 
-            value = v44.CatalogCategoryMenuSchema.jsonDecode(v203.catalog_category_menu)
+            value = v44.CatalogCategoryMenuSchema.jsonDecode(v231.catalog_category_menu)
         };
     end;
-    if v203.catalogCategoryMenu ~= nil then
-        v204.kind = {
+    if v231.catalogCategoryMenu ~= nil then
+        v232.kind = {
             type = "catalog_category_menu", 
-            value = v44.CatalogCategoryMenuSchema.jsonDecode(v203.catalogCategoryMenu)
+            value = v44.CatalogCategoryMenuSchema.jsonDecode(v231.catalogCategoryMenu)
         };
     end;
-    if v203.icon ~= nil then
-        v204.kind = {
+    if v231.icon ~= nil then
+        v232.kind = {
             type = "icon", 
-            value = v45.IconSchema.jsonDecode(v203.icon)
+            value = v45.IconSchema.jsonDecode(v231.icon)
         };
     end;
-    if v203.circle_icon ~= nil then
-        v204.kind = {
+    if v231.circle_icon ~= nil then
+        v232.kind = {
             type = "circle_icon", 
-            value = v46.CircleIconSchema.jsonDecode(v203.circle_icon)
+            value = v46.CircleIconSchema.jsonDecode(v231.circle_icon)
         };
     end;
-    if v203.circleIcon ~= nil then
-        v204.kind = {
+    if v231.circleIcon ~= nil then
+        v232.kind = {
             type = "circle_icon", 
-            value = v46.CircleIconSchema.jsonDecode(v203.circleIcon)
+            value = v46.CircleIconSchema.jsonDecode(v231.circleIcon)
         };
     end;
-    if v203.content_rating_label ~= nil then
-        v204.kind = {
+    if v231.content_rating_label ~= nil then
+        v232.kind = {
             type = "content_rating_label", 
-            value = v47.ContentRatingLabelSchema.jsonDecode(v203.content_rating_label)
+            value = v47.ContentRatingLabelSchema.jsonDecode(v231.content_rating_label)
         };
     end;
-    if v203.contentRatingLabel ~= nil then
-        v204.kind = {
+    if v231.contentRatingLabel ~= nil then
+        v232.kind = {
             type = "content_rating_label", 
-            value = v47.ContentRatingLabelSchema.jsonDecode(v203.contentRatingLabel)
+            value = v47.ContentRatingLabelSchema.jsonDecode(v231.contentRatingLabel)
         };
     end;
-    if v203.play_button_with_contextual_message ~= nil then
-        v204.kind = {
-            type = "play_button_with_contextual_message", 
-            value = v48.PlayButtonWithContextualMessageSchema.jsonDecode(v203.play_button_with_contextual_message)
+    if v231.play_button_contextual_message ~= nil then
+        v232.kind = {
+            type = "play_button_contextual_message", 
+            value = v50.PlayButtonContextualMessageSchema.jsonDecode(v231.play_button_contextual_message)
         };
     end;
-    if v203.playButtonWithContextualMessage ~= nil then
-        v204.kind = {
-            type = "play_button_with_contextual_message", 
-            value = v48.PlayButtonWithContextualMessageSchema.jsonDecode(v203.playButtonWithContextualMessage)
+    if v231.playButtonContextualMessage ~= nil then
+        v232.kind = {
+            type = "play_button_contextual_message", 
+            value = v50.PlayButtonContextualMessageSchema.jsonDecode(v231.playButtonContextualMessage)
         };
     end;
-    return v204;
+    if v231.media_gallery ~= nil then
+        v232.kind = {
+            type = "media_gallery", 
+            value = v49.MediaGallerySchema.jsonDecode(v231.media_gallery)
+        };
+    end;
+    if v231.mediaGallery ~= nil then
+        v232.kind = {
+            type = "media_gallery", 
+            value = v49.MediaGallerySchema.jsonDecode(v231.mediaGallery)
+        };
+    end;
+    if v231.content_row ~= nil then
+        v232.kind = {
+            type = "content_row", 
+            value = v51.ContentRowSchema.jsonDecode(v231.content_row)
+        };
+    end;
+    if v231.contentRow ~= nil then
+        v232.kind = {
+            type = "content_row", 
+            value = v51.ContentRowSchema.jsonDecode(v231.contentRow)
+        };
+    end;
+    if v231.link_text ~= nil then
+        v232.kind = {
+            type = "link_text", 
+            value = v48.LinkTextSchema.jsonDecode(v231.link_text)
+        };
+    end;
+    if v231.linkText ~= nil then
+        v232.kind = {
+            type = "link_text", 
+            value = v48.LinkTextSchema.jsonDecode(v231.linkText)
+        };
+    end;
+    if v231.filter_pills_carousel ~= nil then
+        v232.kind = {
+            type = "filter_pills_carousel", 
+            value = v52.FilterPillsCarouselSchema.jsonDecode(v231.filter_pills_carousel)
+        };
+    end;
+    if v231.filterPillsCarousel ~= nil then
+        v232.kind = {
+            type = "filter_pills_carousel", 
+            value = v52.FilterPillsCarouselSchema.jsonDecode(v231.filterPillsCarousel)
+        };
+    end;
+    if v231.coachmark ~= nil then
+        v232.kind = {
+            type = "coachmark", 
+            value = v53.CoachmarkSchema.jsonDecode(v231.coachmark)
+        };
+    end;
+    if v231.badge ~= nil then
+        v232.kind = {
+            type = "badge", 
+            value = v54.BadgeSchema.jsonDecode(v231.badge)
+        };
+    end;
+    if v231.song_tile ~= nil then
+        v232.kind = {
+            type = "song_tile", 
+            value = v55.SongTileSchema.jsonDecode(v231.song_tile)
+        };
+    end;
+    if v231.songTile ~= nil then
+        v232.kind = {
+            type = "song_tile", 
+            value = v55.SongTileSchema.jsonDecode(v231.songTile)
+        };
+    end;
+    return v232;
 end;
-v49.descriptor = {
+v56.descriptor = {
     name = "UiComponentSchema", 
     fullName = "roblox.apppageplatform.shared.v1beta1.UiComponentSchema"
 };
-v2.UiComponentSchema = v49;
+v2.UiComponentSchema = v56;
 v1.default:register(v2.UiComponentSchema);
 return {
     UiComponentSchema = v2.UiComponentSchema

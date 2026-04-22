@@ -6,42 +6,49 @@ local l_SduiPageAnalytics_0 = v1.SduiPageAnalytics;
 local v5 = require(l_Parent_0.SduiCoreSystem);
 local l_SduiActionType_0 = v5.SduiActionType;
 local l_SduiErrorType_0 = v5.SduiErrors.SduiErrorType;
-return function(v8, _, v10) --[[ Line: 18 ]]
-    -- upvalues: l_SduiErrorType_0 (copy), l_SduiActionType_0 (copy), l_SduiPageAnalytics_0 (copy), l_SduiLoadTimer_0 (copy), l_getSduiApiStore_0 (copy)
-    local v11 = v8 and v8.actionParams or nil;
-    if v11 == nil then
-        v10.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, {
+local l_FFlagSduiChartsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiChartsSupport;
+return function(v9, _, v11) --[[ Line: 20 ]]
+    -- upvalues: l_SduiErrorType_0 (copy), l_SduiActionType_0 (copy), l_SduiPageAnalytics_0 (copy), l_SduiLoadTimer_0 (copy), l_getSduiApiStore_0 (copy), l_FFlagSduiChartsSupport_0 (copy)
+    local v12 = v9 and v9.actionParams or nil;
+    if v12 == nil then
+        v11.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, {
             name = l_SduiActionType_0.LoadMoreFromApi, 
             message = "Missing actionParams"
-        }, v10.appPage);
+        }, v11.appPage);
         return;
     else
-        assert(v11, "actionParams must exist");
-        local l_configKey_0 = v11.configKey;
+        assert(v12, "actionParams must exist");
+        local l_configKey_0 = v12.configKey;
         if typeof(l_configKey_0) ~= "string" then
-            v10.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, {
+            v11.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, {
                 name = l_SduiActionType_0.LoadMoreFromApi, 
                 message = ("Invalid or missing configKey: %*"):format(l_configKey_0), 
                 propName = "configKey"
-            }, v10.appPage);
+            }, v11.appPage);
             return;
         else
-            local l_surfaceKey_0 = v11.surfaceKey;
+            local l_surfaceKey_0 = v12.surfaceKey;
             if typeof(l_surfaceKey_0) ~= "string" then
-                v10.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, {
+                v11.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, {
                     name = l_SduiActionType_0.LoadMoreFromApi, 
                     message = ("Invalid or missing surfaceKey: %*"):format(l_surfaceKey_0), 
                     propName = "surfaceKey"
-                }, v10.appPage);
+                }, v11.appPage);
                 return;
             else
                 l_SduiPageAnalytics_0.sendLoadMoreEvent(l_surfaceKey_0);
-                local v14 = l_SduiLoadTimer_0.createLoadTimer(l_surfaceKey_0);
-                v14.start("loadMore");
-                l_getSduiApiStore_0().loadMoreFromApi({
+                local v15 = l_SduiLoadTimer_0.createLoadTimer(l_surfaceKey_0);
+                v15.start("loadMore");
+                local v16 = l_getSduiApiStore_0().loadMoreFromApi({
                     configKey = l_configKey_0, 
-                    loadTimer = v14
+                    loadTimer = v15
                 });
+                if l_FFlagSduiChartsSupport_0 then
+                    v16:finally(function() --[[ Line: 64 ]]
+                        -- upvalues: v15 (copy)
+                        v15.logRefreshComplete();
+                    end);
+                end;
                 return;
             end;
         end;

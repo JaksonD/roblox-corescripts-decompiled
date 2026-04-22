@@ -24,7 +24,7 @@ local v22 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.GetRecommendedAs
 local v23 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.GetRecommendedBundles);
 local v24 = require(l_Modules_0.AvatarExperience.Catalog.Components.ItemsList.BaseItemCard);
 local v25 = require(l_Modules_0.AvatarExperience.Common.Components.LoadableGridView);
-local v26 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local l_logOnOverlayClosed_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Debug.logOnOverlayClosed;
 local v27 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.AppRouterWrapper.NavigateDownToAvatarScreen);
 local v28 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
 local v29 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.SendDetailedCatalogAnalytics);
@@ -99,16 +99,16 @@ local function v53(v48, v49) --[[ Line: 120 ]] --[[ Name: useRecommendedItemsGri
     return v14.useEventHandlerMap(v52, v50);
 end;
 v46.init = function(v54) --[[ Line: 134 ]] --[[ Name: init ]]
-    -- upvalues: l_wasLastInputGamepad_0 (copy), v26 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), v20 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_AvatarScreen_0 (copy), v19 (copy), v4 (copy), v24 (copy), v34 (copy), l_FFlagAXItemDetailsIxpExposure_0 (copy)
+    -- upvalues: l_wasLastInputGamepad_0 (copy), l_logOnOverlayClosed_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), v20 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_AvatarScreen_0 (copy), v19 (copy), v4 (copy), v24 (copy), v34 (copy), l_FFlagAXItemDetailsIxpExposure_0 (copy)
     v54.selectRecommendedItem = function(v55, v56, _) --[[ Line: 135 ]]
-        -- upvalues: l_wasLastInputGamepad_0 (ref), v26 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v54 (copy)
+        -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v54 (copy)
         local l_id_0 = v55.id;
         local l_type_0 = v55.type;
         local l_subType_0 = v55.subType;
         local function v62() --[[ Line: 140 ]]
-            -- upvalues: l_wasLastInputGamepad_0 (ref), v26 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v54 (ref)
+            -- upvalues: l_wasLastInputGamepad_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v54 (ref)
             local v61 = l_wasLastInputGamepad_0();
-            v26("RecommendedItemsGrid", v61);
+            l_logOnOverlayClosed_0("RecommendedItemsGrid", v61);
             if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v61 then
                 v54.props.focusController.captureFocus();
             end;

@@ -1,4 +1,4 @@
-game:DefineFastFlag("EnableCurrencyTransferFlowV1", false);
+game:DefineFastFlag("EnableCurrencyTransferFlowV3", false);
 return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("EnableCurrencyTransferFlowV1");
+    return game:GetFastFlag("EnableCurrencyTransferFlowV3");
 end;

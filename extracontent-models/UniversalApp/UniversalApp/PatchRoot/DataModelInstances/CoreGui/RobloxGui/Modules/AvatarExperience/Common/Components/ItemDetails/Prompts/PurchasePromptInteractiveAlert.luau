@@ -15,60 +15,62 @@ local v13 = require(l_CorePackages_0.Packages.InputHandlers);
 local l_FocusNavigationEventNameEnum_0 = v11.FocusNavigationEventNameEnum;
 local l_useTableWrappedCallbackRef_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Utils.RoactGamepadMigration.useTableWrappedCallbackRef;
 local l_IntervalPerformanceTracker_0 = require(l_CorePackages_0.Workspace.Packages.IntervalPerformanceTracker).IntervalPerformanceTracker;
+local l_CartIdService_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Lib.CartIdService;
 local l_RoactFitComponents_0 = v7.RoactFitComponents;
 local l_FitFrameVertical_0 = l_RoactFitComponents_0.FitFrameVertical;
 local l_FitTextLabel_0 = l_RoactFitComponents_0.FitTextLabel;
 local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
-local v21 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.RobuxAmountDisplay);
-local v22 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v22 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.RobuxAmountDisplay);
+local v23 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_addUnifiedEventLogging_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).addUnifiedEventLogging;
 local l_UnifiedEventLogEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogEnums;
 local l_UnifiedEventLoggingUtils_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Utils.UnifiedEventLoggingUtils;
 local l_UnifiedEventLogConstants_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogConstants;
-local v27 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite);
-local l_getTTIEventName_0 = v27.getTTIEventName;
+local v28 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite);
+local l_getTTIEventName_0 = v28.getTTIEventName;
 local l_TimeToInteractiveTracker_0 = require(l_CorePackages_0.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker;
-local l_ProductPurchaseSurface_0 = v27.Enums.ProductPurchaseSurface;
-local v31 = require(l_CorePackages_0.Packages.UIBlox);
-local l_withStyle_0 = v31.Style.withStyle;
-local l_InteractiveAlert_0 = v31.App.Dialog.Alert.InteractiveAlert;
-local l_ButtonType_0 = v31.App.Button.Enum.ButtonType;
-local l_Checkbox_0 = v31.App.InputButton.Checkbox;
-local v36 = game:DefineFastFlag("AXFixPurchasePromptScrimClickThrough", false);
+local l_ProductPurchaseSurface_0 = v28.Enums.ProductPurchaseSurface;
+local v32 = require(l_CorePackages_0.Packages.UIBlox);
+local l_withStyle_0 = v32.Style.withStyle;
+local l_InteractiveAlert_0 = v32.App.Dialog.Alert.InteractiveAlert;
+local l_ButtonType_0 = v32.App.Button.Enum.ButtonType;
+local l_Checkbox_0 = v32.App.InputButton.Checkbox;
+local v37 = game:DefineFastFlag("AXFixPurchasePromptScrimClickThrough", false);
 local l_FFlagAXUpdateSaveStrings_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXUpdateSaveStrings;
 local l_FFlagAXCatalogMakeupSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXCatalogMakeupSupport;
+local l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXMISEnableMultiShoppingUnifiedEvents;
 local l_FFlagAXAddLookTypeEnumForLogging_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXAddLookTypeEnumForLogging;
 local l_FFlagAddTypesToWidgetItems_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAddTypesToWidgetItems;
-local v41 = game:DefineFastFlag("AXAddWearAndSaveToPurchaseLogging", false);
+local v43 = game:DefineFastFlag("AXAddWearAndSaveToPurchaseLogging", false);
 local l_FFlagAXMigratePurchasePromptInteractiveToFocusNavigation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigratePurchasePromptInteractiveToFocusNavigation;
 local l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAddPerformanceMetricsToUnifiedPurchaseModal;
 local l_FIntLegacyPurchaseFPSTrackingTimeout_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FIntLegacyPurchaseFPSTrackingTimeout;
 local l_FIntTTIUnifiedPurchaseSamplingRate_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FIntTTIUnifiedPurchaseSamplingRate;
-local v46 = {
+local v48 = {
     [Enum.KeyCode.ButtonX] = l_FocusNavigationEventNameEnum_0.SaveAsCharacter, 
     [Enum.KeyCode.ButtonY] = l_FocusNavigationEventNameEnum_0.WearAfterPurchase
 };
-local function v52(v47, v48, v49) --[[ Line: 108 ]] --[[ Name: useFocusNavigationBindings ]]
-    -- upvalues: v12 (copy), v46 (copy), v2 (copy), l_FocusNavigationEventNameEnum_0 (copy), v13 (copy)
-    local v50 = v12.useEventMap(v46, v47);
-    local v51 = v2.useMemo(function() --[[ Line: 114 ]]
-        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v48 (copy), v13 (ref), v49 (copy)
+local function v54(v49, v50, v51) --[[ Line: 112 ]] --[[ Name: useFocusNavigationBindings ]]
+    -- upvalues: v12 (copy), v48 (copy), v2 (copy), l_FocusNavigationEventNameEnum_0 (copy), v13 (copy)
+    local v52 = v12.useEventMap(v48, v49);
+    local v53 = v2.useMemo(function() --[[ Line: 118 ]]
+        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v50 (copy), v13 (ref), v51 (copy)
         return {
-            [l_FocusNavigationEventNameEnum_0.SaveAsCharacter] = if v48 then {
-                handler = v13.onRelease(v48)
+            [l_FocusNavigationEventNameEnum_0.SaveAsCharacter] = if v50 then {
+                handler = v13.onRelease(v50)
             } else nil, 
-            [l_FocusNavigationEventNameEnum_0.WearAfterPurchase] = if v49 then {
-                handler = v13.onRelease(v49)
+            [l_FocusNavigationEventNameEnum_0.WearAfterPurchase] = if v51 then {
+                handler = v13.onRelease(v51)
             } else nil
         };
     end, {
-        v48, 
-        v49
+        v50, 
+        v51
     });
-    return v12.useEventHandlerMap(v51, v50);
+    return v12.useEventHandlerMap(v53, v52);
 end;
-local v53 = v3.PureComponent:extend("PurchasePromptInteractiveAlert");
-v53.validateProps = v6.strictInterface({
+local v55 = v3.PureComponent:extend("PurchasePromptInteractiveAlert");
+v55.validateProps = v6.strictInterface({
     priceInRobux = v6.number, 
     showSaveAsCharacter = v6.optional(v6.boolean), 
     showWearAfterPurchase = v6.boolean, 
@@ -90,15 +92,15 @@ v53.validateProps = v6.strictInterface({
     saveIfWearAfterPurchase = v6.optional(v6.boolean), 
     screenSize = v6.Vector2
 });
-v53.init = function(v54) --[[ Line: 157 ]] --[[ Name: init ]]
+v55.init = function(v56) --[[ Line: 161 ]] --[[ Name: init ]]
     -- upvalues: v3 (copy)
-    v54.checkboxRef = v3.createRef();
-    v54.textButtonRef = v3.createRef();
+    v56.checkboxRef = v3.createRef();
+    v56.textButtonRef = v3.createRef();
 end;
-v53.renderCheckboxContainer = function(v55, v56) --[[ Line: 162 ]] --[[ Name: renderCheckboxContainer ]]
+v55.renderCheckboxContainer = function(v57, v58) --[[ Line: 166 ]] --[[ Name: renderCheckboxContainer ]]
     -- upvalues: v3 (copy), l_Checkbox_0 (copy)
-    local l_showSaveAsCharacter_0 = v55.props.showSaveAsCharacter;
-    local l_showWearAfterPurchase_0 = v55.props.showWearAfterPurchase;
+    local l_showSaveAsCharacter_0 = v57.props.showSaveAsCharacter;
+    local l_showWearAfterPurchase_0 = v57.props.showWearAfterPurchase;
     return (not not l_showSaveAsCharacter_0 or l_showWearAfterPurchase_0) and v3.createElement("Frame", {
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
@@ -116,37 +118,37 @@ v53.renderCheckboxContainer = function(v55, v56) --[[ Line: 162 ]] --[[ Name: re
         }), 
         WearAfterPurchaseCheckbox = l_showWearAfterPurchase_0 and v3.createElement(l_Checkbox_0, {
             size = UDim2.new(1, 0, 0, 0), 
-            text = if v55.props.isPurchasingOutfit then v56.wearOutfitLabel else v56.wearItemLabel, 
-            isSelected = v55.props.isWearAfterPurchaseChecked, 
-            onActivated = v55.props.toggleWearAfterPurchase, 
+            text = if v57.props.isPurchasingOutfit then v58.wearOutfitLabel else v58.wearItemLabel, 
+            isSelected = v57.props.isWearAfterPurchaseChecked, 
+            onActivated = v57.props.toggleWearAfterPurchase, 
             layoutOrder = 1, 
-            [v3.Ref] = v55.checkboxRef
+            [v3.Ref] = v57.checkboxRef
         }), 
         SaveAsCharacterCheckbox = l_showSaveAsCharacter_0 and v3.createElement(l_Checkbox_0, {
             size = UDim2.new(1, 0, 0, 0), 
-            text = v56.saveAsCharacterLabel, 
-            isSelected = v55.props.isSaveAsCharacterChecked, 
-            onActivated = v55.props.toggleSaveAsCharacter, 
+            text = v58.saveAsCharacterLabel, 
+            isSelected = v57.props.isSaveAsCharacterChecked, 
+            onActivated = v57.props.toggleSaveAsCharacter, 
             layoutOrder = 2, 
-            [v3.Ref] = v55.checkboxRef
+            [v3.Ref] = v57.checkboxRef
         })
     });
 end;
-v53.renderMiddle = function(v59, v60, v61) --[[ Line: 201 ]] --[[ Name: renderMiddle ]]
-    -- upvalues: v3 (copy), l_Focusable_0 (copy), l_FitFrameVertical_0 (copy), l_RoactFitComponents_0 (copy), l_FitTextLabel_0 (copy), v21 (copy)
-    local v62 = v59.props.priceInRobux or "";
-    local v63 = v62 == 0;
-    local v64 = not v63;
-    local l_Font_0 = v60.Font;
-    local l_Theme_0 = v60.Theme;
-    local v67 = l_Font_0.BaseSize * l_Font_0.Body.RelativeSize;
-    local v68 = v64 and v67 or 0;
+v55.renderMiddle = function(v61, v62, v63) --[[ Line: 205 ]] --[[ Name: renderMiddle ]]
+    -- upvalues: v3 (copy), l_Focusable_0 (copy), l_FitFrameVertical_0 (copy), l_RoactFitComponents_0 (copy), l_FitTextLabel_0 (copy), v22 (copy)
+    local v64 = v61.props.priceInRobux or "";
+    local v65 = v64 == 0;
+    local v66 = not v65;
+    local l_Font_0 = v62.Font;
+    local l_Theme_0 = v62.Theme;
+    local v69 = l_Font_0.BaseSize * l_Font_0.Body.RelativeSize;
+    local v70 = v66 and v69 or 0;
     return v3.createElement(l_Focusable_0[l_FitFrameVertical_0], {
         BackgroundTransparency = 1, 
         width = UDim.new(1, 0), 
-        defaultChild = v59.checkboxRef
+        defaultChild = v61.checkboxRef
     }, {
-        PriceContainer = not v63 and v3.createElement(l_FitFrameVertical_0, {
+        PriceContainer = not v65 and v3.createElement(l_FitFrameVertical_0, {
             FillDirection = Enum.FillDirection.Horizontal, 
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             contentPadding = UDim.new(0, 6), 
@@ -160,34 +162,34 @@ v53.renderMiddle = function(v59, v60, v61) --[[ Line: 201 ]] --[[ Name: renderMi
                 width = l_FitTextLabel_0.Width.FitToText, 
                 BackgroundTransparency = 1, 
                 Font = l_Font_0.Body.Font, 
-                Text = v61.priceLabel, 
+                Text = v63.priceLabel, 
                 TextColor3 = l_Theme_0.TextDefault.Color, 
                 TextTransparency = l_Theme_0.TextDefault.Transparency, 
-                TextSize = v67, 
+                TextSize = v69, 
                 LayoutOrder = 0
             }), 
-            RobuxContainer = v3.createElement(v21, {
-                robuxAmountText = tostring(v62), 
-                iconSize = v68, 
-                textSize = v67, 
+            RobuxContainer = v3.createElement(v22, {
+                robuxAmountText = tostring(v64), 
+                iconSize = v70, 
+                textSize = v69, 
                 padding = 4, 
-                showRobuxIcon = v64
+                showRobuxIcon = v66
             })
         }), 
-        CheckboxContainer = v59:renderCheckboxContainer(v61)
+        CheckboxContainer = v61:renderCheckboxContainer(v63)
     });
 end;
-v53.renderAlertLocalized = function(v69, v70, v71) --[[ Line: 253 ]] --[[ Name: renderAlertLocalized ]]
-    -- upvalues: v3 (copy), v36 (copy), l_Focusable_0 (copy), l_FFlagAXMigratePurchasePromptInteractiveToFocusNavigation_0 (copy), v8 (copy), l_InteractiveAlert_0 (copy), l_ButtonType_0 (copy)
-    return v3.createElement(if v36 then l_Focusable_0.TextButton else l_Focusable_0.Frame, {
-        Text = v36 and "" or nil, 
-        AutoButtonColor = not v36 and nil, 
-        Selectable = not v36 and nil, 
-        [v3.Event.Activated] = v36 and function() --[[ Line: 261 ]]
-            -- upvalues: v69 (copy)
-            v69.props.onCancel();
+v55.renderAlertLocalized = function(v71, v72, v73) --[[ Line: 257 ]] --[[ Name: renderAlertLocalized ]]
+    -- upvalues: v3 (copy), v37 (copy), l_Focusable_0 (copy), l_FFlagAXMigratePurchasePromptInteractiveToFocusNavigation_0 (copy), v8 (copy), l_InteractiveAlert_0 (copy), l_ButtonType_0 (copy)
+    return v3.createElement(if v37 then l_Focusable_0.TextButton else l_Focusable_0.Frame, {
+        Text = v37 and "" or nil, 
+        AutoButtonColor = not v37 and nil, 
+        Selectable = not v37 and nil, 
+        [v3.Event.Activated] = v37 and function() --[[ Line: 265 ]]
+            -- upvalues: v71 (copy)
+            v71.props.onCancel();
         end or nil, 
-        [v3.Ref] = if l_FFlagAXMigratePurchasePromptInteractiveToFocusNavigation_0 then v69.props.focusNavigationRef else nil, 
+        [v3.Ref] = if l_FFlagAXMigratePurchasePromptInteractiveToFocusNavigation_0 then v71.props.focusNavigationRef else nil, 
         Size = UDim2.fromScale(1, 1), 
         BackgroundTransparency = 1, 
         SelectionGroup = true, 
@@ -196,13 +198,13 @@ v53.renderAlertLocalized = function(v69, v70, v71) --[[ Line: 253 ]] --[[ Name: 
         SelectionBehaviorUp = Enum.SelectionBehavior.Stop, 
         SelectionBehaviorDown = Enum.SelectionBehavior.Stop, 
         inputBindings = if l_FFlagAXMigratePurchasePromptInteractiveToFocusNavigation_0 then nil else {
-            SaveAsCharacter = if v69.props.toggleSaveAsCharacter ~= nil then v8.Input.onBegin(Enum.KeyCode.ButtonX, v69.props.toggleSaveAsCharacter, {
+            SaveAsCharacter = if v71.props.toggleSaveAsCharacter ~= nil then v8.Input.onBegin(Enum.KeyCode.ButtonX, v71.props.toggleSaveAsCharacter, {
                 key = "Feature.Avatar.Heading.SaveCostume"
             }) else nil, 
-            WearAfterPurchase = v8.Input.onBegin(Enum.KeyCode.ButtonY, v69.props.toggleWearAfterPurchase, {
+            WearAfterPurchase = v8.Input.onBegin(Enum.KeyCode.ButtonY, v71.props.toggleWearAfterPurchase, {
                 key = "Feature.Avatar.Heading.WearConfirmation"
             }), 
-            Confirm = v8.Input.onBegin(Enum.KeyCode.ButtonA, function() --[[ Line: 290 ]]
+            Confirm = v8.Input.onBegin(Enum.KeyCode.ButtonA, function() --[[ Line: 294 ]]
 
             end, {
                 key = "CommonUI.Controls.Action.Confirm"
@@ -210,49 +212,49 @@ v53.renderAlertLocalized = function(v69, v70, v71) --[[ Line: 253 ]] --[[ Name: 
         }
     }, {
         PurchasePrompt = v3.createElement(l_InteractiveAlert_0, {
-            title = v69.props.titleText, 
-            bodyText = v69.props.bodyText, 
+            title = v71.props.titleText, 
+            bodyText = v71.props.bodyText, 
             buttonStackInfo = {
                 buttons = {
                     {
                         props = {
-                            onActivated = v69.props.onCancel, 
-                            text = v71.cancelButtonText
+                            onActivated = v71.props.onCancel, 
+                            text = v73.cancelButtonText
                         }, 
                         isDefaultChild = true
                     }, 
                     {
                         buttonType = l_ButtonType_0.PrimarySystem, 
                         props = {
-                            isLoading = v69.props.isLoading, 
-                            onActivated = v69.props.onConfirm, 
-                            text = v69.props.confirmButtonText, 
-                            buttonRef = v69.textButtonRef
+                            isLoading = v71.props.isLoading, 
+                            onActivated = v71.props.onConfirm, 
+                            text = v71.props.confirmButtonText, 
+                            buttonRef = v71.textButtonRef
                         }, 
                         isDefaultChild = false
                     }
                 }
             }, 
-            middleContent = function() --[[ Line: 320 ]] --[[ Name: middleContent ]]
-                -- upvalues: v69 (copy), v70 (copy), v71 (copy)
-                return v69:renderMiddle(v70, v71);
+            middleContent = function() --[[ Line: 324 ]] --[[ Name: middleContent ]]
+                -- upvalues: v71 (copy), v72 (copy), v73 (copy)
+                return v71:renderMiddle(v72, v73);
             end, 
-            screenSize = v69.props.screenSize, 
-            defaultChildRef = v69.props.defaultChildRef, 
+            screenSize = v71.props.screenSize, 
+            defaultChildRef = v71.props.defaultChildRef, 
             isMiddleContentFocusable = true
         })
     });
 end;
-v53.render = function(v72) --[[ Line: 331 ]] --[[ Name: render ]]
-    -- upvalues: v22 (copy), l_FFlagAXUpdateSaveStrings_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), l_withStyle_0 (copy), l_withLocalization_0 (copy)
-    local v73 = nil;
-    v73 = if v72.props.lookType and v72.props.lookType == v22.LookType.Avatar then {
+v55.render = function(v74) --[[ Line: 335 ]] --[[ Name: render ]]
+    -- upvalues: v23 (copy), l_FFlagAXUpdateSaveStrings_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), l_withStyle_0 (copy), l_withLocalization_0 (copy)
+    local v75 = nil;
+    v75 = if v74.props.lookType and v74.props.lookType == v23.LookType.Avatar then {
         priceLabel = "Feature.Catalog.Label.PriceColon", 
         cancelButtonText = "Feature.Catalog.Action.Cancel", 
         saveAsCharacterLabel = l_FFlagAXUpdateSaveStrings_0 and "Feature.Avatar.Label.Title.AddToMyAvatars" or "Feature.Catalog.Label.SaveAsCharacter", 
-        wearItemLabel = v72.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearAfterPurchase", 
-        wearOutfitLabel = v72.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearAvatarAfterPurchase"
-    } else if l_FFlagAXCatalogMakeupSupport_0 and v72.props.lookType and v72.props.lookType == v22.LookType.Makeup then {
+        wearItemLabel = v74.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearAfterPurchase", 
+        wearOutfitLabel = v74.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearAvatarAfterPurchase"
+    } else if l_FFlagAXCatalogMakeupSupport_0 and v74.props.lookType and v74.props.lookType == v23.LookType.Makeup then {
         priceLabel = "Feature.Catalog.Label.PriceColon", 
         cancelButtonText = "Feature.Catalog.Action.Cancel", 
         saveAsCharacterLabel = "Feature.Avatar.Label.Title.AddToMyMakeupLooks", 
@@ -262,82 +264,83 @@ v53.render = function(v72) --[[ Line: 331 ]] --[[ Name: render ]]
         priceLabel = "Feature.Catalog.Label.PriceColon", 
         cancelButtonText = "Feature.Catalog.Action.Cancel", 
         saveAsCharacterLabel = l_FFlagAXUpdateSaveStrings_0 and "Feature.Avatar.Label.Title.AddToMyAvatars" or "Feature.Catalog.Label.SaveAsCharacter", 
-        wearItemLabel = v72.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearAfterPurchase", 
-        wearOutfitLabel = v72.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearOutfitAfterPurchase"
+        wearItemLabel = v74.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearAfterPurchase", 
+        wearOutfitLabel = v74.props.saveIfWearAfterPurchase and "Feature.Avatar.Label.Title.WearAndSaveAfterPurchase" or "Feature.Catalog.Label.WearOutfitAfterPurchase"
     };
-    return l_withStyle_0(function(v74) --[[ Line: 375 ]]
-        -- upvalues: l_withLocalization_0 (ref), v73 (ref), v72 (copy)
-        return l_withLocalization_0(v73)(function(v75) --[[ Line: 376 ]]
-            -- upvalues: v72 (ref), v74 (copy)
-            return v72:renderAlertLocalized(v74, v75);
+    return l_withStyle_0(function(v76) --[[ Line: 379 ]]
+        -- upvalues: l_withLocalization_0 (ref), v75 (ref), v74 (copy)
+        return l_withLocalization_0(v75)(function(v77) --[[ Line: 380 ]]
+            -- upvalues: v74 (ref), v76 (copy)
+            return v74:renderAlertLocalized(v76, v77);
         end);
     end);
 end;
-v53.addUnifiedEventLogging = function(v76) --[[ Line: 382 ]] --[[ Name: addUnifiedEventLogging ]]
-    -- upvalues: l_addUnifiedEventLogging_0 (copy), v5 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (copy), l_UnifiedEventLoggingUtils_0 (copy), v41 (copy), l_FFlagAddTypesToWidgetItems_0 (copy), l_UnifiedEventLogConstants_0 (copy)
-    local v77 = v76.props.analyticsInfo or {};
-    l_addUnifiedEventLogging_0(v76.textButtonRef, v5.Dictionary.join(v77, {
+v55.addUnifiedEventLogging = function(v78) --[[ Line: 386 ]] --[[ Name: addUnifiedEventLogging ]]
+    -- upvalues: l_addUnifiedEventLogging_0 (copy), v5 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (copy), l_CartIdService_0 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (copy), l_UnifiedEventLoggingUtils_0 (copy), v43 (copy), l_FFlagAddTypesToWidgetItems_0 (copy), l_UnifiedEventLogConstants_0 (copy)
+    local v79 = v78.props.analyticsInfo or {};
+    l_addUnifiedEventLogging_0(v78.textButtonRef, v5.Dictionary.join(v79, {
         action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.PURCHASE_ATTEMPT, 
-        itemType = if v77.itemType == "Asset" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.ASSET else if v77.itemType == "Bundle" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.BUNDLE else l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.LOOK, 
-        organicLookType = if not (not l_FFlagAXAddLookTypeEnumForLogging_0 or v77.widgetType) and v76.props.lookType then l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(v76.props.lookType) else nil, 
-        widgetLookType = if l_FFlagAXAddLookTypeEnumForLogging_0 and v77.widgetType and v76.props.lookType then l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(v76.props.lookType) else nil, 
-        widgetItemPrice = if v77.widgetType then v76.props.priceInRobux else nil, 
-        organicItemPrice = if v77.widgetType then nil else v76.props.priceInRobux, 
-        widgetItemWearAfterPurchase = if v41 then if v77.widgetType then v76.props.showWearAfterPurchase and v76.props.isWearAfterPurchaseChecked else nil else nil, 
-        widgetItemSaveToMyAvatars = if v41 then if v77.widgetType then v76.props.showSaveAsCharacter and v76.props.isSaveAsCharacterChecked else nil else nil, 
-        organicItemWearAfterPurchase = if v41 then if v77.widgetType then nil else v76.props.showWearAfterPurchase and v76.props.isWearAfterPurchaseChecked else nil, 
-        organicItemSaveToMyAvatars = if v41 then if v77.widgetType then nil else v76.props.showSaveAsCharacter and v76.props.isSaveAsCharacterChecked else nil, 
-        widgetAssetType = if l_FFlagAddTypesToWidgetItems_0 and v77.widgetType then v77.assetType else nil, 
-        widgetBundleType = if l_FFlagAddTypesToWidgetItems_0 and v77.widgetType then v77.bundleType else nil
+        cartId = if l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 then l_CartIdService_0.getCartId() else nil, 
+        itemType = if v79.itemType == "Asset" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.ASSET else if v79.itemType == "Bundle" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.BUNDLE else l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.LOOK, 
+        organicLookType = if not (not l_FFlagAXAddLookTypeEnumForLogging_0 or v79.widgetType) and v78.props.lookType then l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(v78.props.lookType) else nil, 
+        widgetLookType = if l_FFlagAXAddLookTypeEnumForLogging_0 and v79.widgetType and v78.props.lookType then l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(v78.props.lookType) else nil, 
+        widgetItemPrice = if v79.widgetType then v78.props.priceInRobux else nil, 
+        organicItemPrice = if v79.widgetType then nil else v78.props.priceInRobux, 
+        widgetItemWearAfterPurchase = if v43 then if v79.widgetType then v78.props.showWearAfterPurchase and v78.props.isWearAfterPurchaseChecked else nil else nil, 
+        widgetItemSaveToMyAvatars = if v43 then if v79.widgetType then v78.props.showSaveAsCharacter and v78.props.isSaveAsCharacterChecked else nil else nil, 
+        organicItemWearAfterPurchase = if v43 then if v79.widgetType then nil else v78.props.showWearAfterPurchase and v78.props.isWearAfterPurchaseChecked else nil, 
+        organicItemSaveToMyAvatars = if v43 then if v79.widgetType then nil else v78.props.showSaveAsCharacter and v78.props.isSaveAsCharacterChecked else nil, 
+        widgetAssetType = if l_FFlagAddTypesToWidgetItems_0 and v79.widgetType then v79.assetType else nil, 
+        widgetBundleType = if l_FFlagAddTypesToWidgetItems_0 and v79.widgetType then v79.bundleType else nil
     }), {
         sessionTagName = l_UnifiedEventLogConstants_0.L2_SESSION_TAG_NAME
     });
 end;
-v53.didMount = function(v78) --[[ Line: 437 ]] --[[ Name: didMount ]]
+v55.didMount = function(v80) --[[ Line: 442 ]] --[[ Name: didMount ]]
     -- upvalues: l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (copy), l_IntervalPerformanceTracker_0 (copy), l_FIntLegacyPurchaseFPSTrackingTimeout_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), l_FIntTTIUnifiedPurchaseSamplingRate_0 (copy)
     if l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 then
         l_IntervalPerformanceTracker_0:startTracking("PurchaseModal_ProductPurchaseContainerShown_Catalog", l_FIntLegacyPurchaseFPSTrackingTimeout_0, nil, true, true);
         l_IntervalPerformanceTracker_0:startTracking("PurchaseModal_LegacyFlowShown_Catalog", 2, nil, true, true);
-        local v79 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.Catalog);
-        l_TimeToInteractiveTracker_0.trackEnd(v79, {
+        local v81 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.Catalog);
+        l_TimeToInteractiveTracker_0.trackEnd(v81, {
             samplingRateOverride = l_FIntTTIUnifiedPurchaseSamplingRate_0
         });
     end;
-    v78:addUnifiedEventLogging();
-end;
-v53.didUpdate = function(v80) --[[ Line: 459 ]] --[[ Name: didUpdate ]]
     v80:addUnifiedEventLogging();
 end;
-v53 = v4.connect(function(v81, _) --[[ Line: 463 ]]
+v55.didUpdate = function(v82) --[[ Line: 464 ]] --[[ Name: didUpdate ]]
+    v82:addUnifiedEventLogging();
+end;
+v55 = v4.connect(function(v83, _) --[[ Line: 468 ]]
     return {
-        screenSize = v81.ScreenSize
+        screenSize = v83.ScreenSize
     };
-end, nil)(v53);
+end, nil)(v55);
 if l_FFlagAXMigratePurchasePromptInteractiveToFocusNavigation_0 then
-    return function(v83) --[[ Line: 470 ]]
-        -- upvalues: v2 (copy), v52 (copy), v5 (copy), l_useTableWrappedCallbackRef_0 (copy), v53 (ref)
-        local v84 = v2.useCallback(function() --[[ Line: 471 ]]
-            -- upvalues: v83 (copy)
-            if v83.toggleSaveAsCharacter then
-                v83.toggleSaveAsCharacter();
+    return function(v85) --[[ Line: 475 ]]
+        -- upvalues: v2 (copy), v54 (copy), v5 (copy), l_useTableWrappedCallbackRef_0 (copy), v55 (ref)
+        local v86 = v2.useCallback(function() --[[ Line: 476 ]]
+            -- upvalues: v85 (copy)
+            if v85.toggleSaveAsCharacter then
+                v85.toggleSaveAsCharacter();
             end;
         end, {
-            v83.toggleSaveAsCharacter
+            v85.toggleSaveAsCharacter
         });
-        local v85 = v2.useCallback(function() --[[ Line: 476 ]]
-            -- upvalues: v83 (copy)
-            if v83.toggleWearAfterPurchase then
-                v83.toggleWearAfterPurchase();
+        local v87 = v2.useCallback(function() --[[ Line: 481 ]]
+            -- upvalues: v85 (copy)
+            if v85.toggleWearAfterPurchase then
+                v85.toggleWearAfterPurchase();
             end;
         end, {
-            v83.toggleWearAfterPurchase
+            v85.toggleWearAfterPurchase
         });
-        local v86 = v52(nil, if v83.toggleSaveAsCharacter then v84 else nil, if v83.toggleWearAfterPurchase then v85 else nil);
-        local v87 = v5.Dictionary.join(v83, {
-            focusNavigationRef = l_useTableWrappedCallbackRef_0(v86)
+        local v88 = v54(nil, if v85.toggleSaveAsCharacter then v86 else nil, if v85.toggleWearAfterPurchase then v87 else nil);
+        local v89 = v5.Dictionary.join(v85, {
+            focusNavigationRef = l_useTableWrappedCallbackRef_0(v88)
         });
-        return v2.createElement(v53, v87);
+        return v2.createElement(v55, v89);
     end;
 else
-    return v53;
+    return v55;
 end;

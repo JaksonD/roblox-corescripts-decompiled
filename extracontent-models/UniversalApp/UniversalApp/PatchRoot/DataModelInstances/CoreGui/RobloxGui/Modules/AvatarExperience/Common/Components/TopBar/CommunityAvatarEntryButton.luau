@@ -11,7 +11,7 @@ local l_TooltipOrientation_0 = v6.App.Dialog.Enum.TooltipOrientation;
 local l_withTooltip_0 = v6.App.Dialog.TooltipV2.withTooltip;
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
 local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
-local v13 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
 local v14 = require(l_Common_0.Components.TopBar.useCommunityAvatarEntryButtonTooltip);
 local l_IconButton_0 = v6.App.Button.IconButton;
 local l_IconSize_0 = v6.App.ImageSet.Enum.IconSize;
@@ -20,7 +20,7 @@ local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExper
 local l_FFlagEnableAppNavGamepadRemoval_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableAppNavGamepadRemoval;
 local l_useLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).Hooks.useLocalization;
 return function(v21) --[[ Line: 43 ]] --[[ Name: CommunityAvatarEntryButton ]]
-    -- upvalues: v17 (copy), l_useStyle_0 (copy), l_useNavigation_0 (copy), l_useDispatch_0 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), v4 (copy), v14 (copy), l_AvatarScreen_0 (copy), v13 (copy), l_useLocalization_0 (copy), l_CoreGui_0 (copy), l_TooltipOrientation_0 (copy), l_withTooltip_0 (copy), l_IconButton_0 (copy), l_Images_0 (copy), l_IconSize_0 (copy), v5 (copy)
+    -- upvalues: v17 (copy), l_useStyle_0 (copy), l_useNavigation_0 (copy), l_useDispatch_0 (copy), l_FFlagEnableAppNavGamepadRemoval_0 (copy), v4 (copy), v14 (copy), l_AvatarScreen_0 (copy), l_NavigateWithLock_0 (copy), l_useLocalization_0 (copy), l_CoreGui_0 (copy), l_TooltipOrientation_0 (copy), l_withTooltip_0 (copy), l_IconButton_0 (copy), l_Images_0 (copy), l_IconSize_0 (copy), v5 (copy)
     local v22 = v17.getIconButtonSize(v21.formFactor);
     local v23 = l_useStyle_0();
     local v24 = l_useNavigation_0();
@@ -29,7 +29,7 @@ return function(v21) --[[ Line: 43 ]] --[[ Name: CommunityAvatarEntryButton ]]
     local v27 = if l_FFlagEnableAppNavGamepadRemoval_0 then v4.useRef(nil) else nil;
     local v28, v29 = v14({});
     local v34 = if l_FFlagEnableAppNavGamepadRemoval_0 then v4.useCallback(function() --[[ Line: 57 ]]
-        -- upvalues: v27 (copy), v29 (copy), v24 (copy), l_AvatarScreen_0 (ref), v25 (copy), v13 (ref)
+        -- upvalues: v27 (copy), v29 (copy), v24 (copy), l_AvatarScreen_0 (ref), v25 (copy), l_NavigateWithLock_0 (ref)
         if not v27 or not v27.current then
             return;
         else
@@ -38,7 +38,7 @@ return function(v21) --[[ Line: 43 ]] --[[ Name: CommunityAvatarEntryButton ]]
             });
             local l_current_0 = v27.current;
             local v31 = l_current_0.AbsolutePosition + l_current_0.AbsoluteSize * Vector2.new(0.5, 0.5);
-            v25(v13(function() --[[ Line: 68 ]]
+            v25(l_NavigateWithLock_0(function() --[[ Line: 68 ]]
                 -- upvalues: v24 (ref), l_AvatarScreen_0 (ref), v31 (copy)
                 v24.navigate(l_AvatarScreen_0.CommunityAvatarEntryMenu, {
                     entryButtonPosition = v31
@@ -50,7 +50,7 @@ return function(v21) --[[ Line: 43 ]] --[[ Name: CommunityAvatarEntryButton ]]
         v27, 
         v29
     }) else v4.useCallback(function() --[[ Line: 81 ]]
-        -- upvalues: v21 (copy), v29 (copy), v24 (copy), l_AvatarScreen_0 (ref), v25 (copy), v13 (ref)
+        -- upvalues: v21 (copy), v29 (copy), v24 (copy), l_AvatarScreen_0 (ref), v25 (copy), l_NavigateWithLock_0 (ref)
         if not v21.buttonRef or not v21.buttonRef.current then
             return;
         else
@@ -59,7 +59,7 @@ return function(v21) --[[ Line: 43 ]] --[[ Name: CommunityAvatarEntryButton ]]
             });
             local l_current_1 = v21.buttonRef.current;
             local v33 = l_current_1.AbsolutePosition + l_current_1.AbsoluteSize * Vector2.new(0.5, 0.5);
-            v25(v13(function() --[[ Line: 92 ]]
+            v25(l_NavigateWithLock_0(function() --[[ Line: 92 ]]
                 -- upvalues: v24 (ref), l_AvatarScreen_0 (ref), v33 (copy)
                 v24.navigate(l_AvatarScreen_0.CommunityAvatarEntryMenu, {
                     entryButtonPosition = v33

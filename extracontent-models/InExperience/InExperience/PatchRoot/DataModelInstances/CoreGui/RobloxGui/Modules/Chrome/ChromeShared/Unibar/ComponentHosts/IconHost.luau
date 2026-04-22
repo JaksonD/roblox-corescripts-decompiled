@@ -22,16 +22,16 @@ local l_withTooltip_0 = v11.App.Dialog.TooltipV2.withTooltip;
 local v21 = require(l_script_FirstAncestor_0.Unibar.Constants);
 local v22 = require(l_script_FirstAncestor_0.Service);
 local v23 = require(l_script_FirstAncestor_0.Analytics.ChromeAnalytics);
-local _ = require(l_script_FirstAncestor_0.Service.Types);
 local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
-local v26 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
-local v27 = require(l_script_FirstAncestor_0.Hooks.useNotificationCount);
-local v28 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValue);
-local v29 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValueBinding);
-local v30 = require(l_script_FirstAncestor_0.Hooks.useTimeHysteresis);
+local v25 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
+local v26 = require(l_script_FirstAncestor_0.Hooks.useNotificationCount);
+local v27 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValue);
+local v28 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValueBinding);
+local v29 = require(l_script_FirstAncestor_0.Hooks.useTimeHysteresis);
 local l_useTokens_0 = v12.Hooks.useTokens;
-local v32 = require(l_script_FirstAncestor_0.Utility.shouldRejectMultiTouch);
+local v31 = require(l_script_FirstAncestor_0.Utility.shouldRejectMultiTouch);
 local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
+local v33 = nil;
 local v34 = nil;
 local v35 = nil;
 local v36 = nil;
@@ -40,168 +40,166 @@ local v38 = nil;
 local v39 = nil;
 local v40 = nil;
 local v41 = nil;
-local v42 = nil;
 if l_isInExperienceUIVREnabled_0 then
-    v34 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
-    local v43 = require(l_CorePackages_0.Workspace.Packages.VrSpatialUi);
-    v35 = v43.Panel3DInSpatialUI;
-    v36 = v43.Constants.PanelType;
-    v37 = v11.App.Dialog.Enum.TooltipOrientation;
-    v38 = v11.App.Dialog.TooltipCallout;
-    v39 = v43.Constants.SPATIAL_TOOLTIP_SPACING;
-    v40 = v43.UIManager;
-    v41 = require(l_script_FirstAncestor_0.Service.ChromeUtils).MappedSignal;
-    local v44 = v40.getInstance():getBottomBarVisibility();
-    if v44 and v34() then
-        local l_v44_0 = v44 --[[ copy: 45 -> 49 ]];
-        v42 = v41.new(v44, function() --[[ Line: 71 ]]
-            -- upvalues: l_v44_0 (copy)
-            return l_v44_0:get();
+    v33 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
+    local v42 = require(l_CorePackages_0.Workspace.Packages.VrSpatialUi);
+    v34 = v42.Panel3DInSpatialUI;
+    v35 = v42.Constants.PanelType;
+    v36 = v11.App.Dialog.Enum.TooltipOrientation;
+    v37 = v11.App.Dialog.TooltipCallout;
+    v38 = v42.Constants.SPATIAL_TOOLTIP_SPACING;
+    v39 = v42.UIManager;
+    v40 = require(l_script_FirstAncestor_0.Service.ChromeUtils).MappedSignal;
+    local v43 = v39.getInstance():getBottomBarVisibility();
+    if v43 and v33() then
+        local l_v43_0 = v43 --[[ copy: 45 -> 48 ]];
+        v41 = v40.new(v43, function() --[[ Line: 71 ]]
+            -- upvalues: l_v43_0 (copy)
+            return l_v43_0:get();
         end);
     end;
 end;
-local v46 = if l_FFlagEnableConsoleExpControls_0 then require(l_script_FirstAncestor_0.Parent.Parent.TopBar.Components.MenuIconContext) else nil;
-local l_FFlagEnableUnibarFtuxTooltips_0 = v5.FFlagEnableUnibarFtuxTooltips;
+local v45 = if l_FFlagEnableConsoleExpControls_0 then require(l_script_FirstAncestor_0.Parent.Parent.TopBar.Components.MenuIconContext) else nil;
 local l_GetFFlagSimpleChatUnreadMessageCount_0 = v5.GetFFlagSimpleChatUnreadMessageCount;
-local v49 = game:DefineFastFlag("UseBindingForUnreadChat", false);
-local v50 = {};
-areTooltipsDisplaying = function() --[[ Line: 93 ]] --[[ Name: areTooltipsDisplaying ]]
-    -- upvalues: v50 (copy)
-    local v51 = tick();
-    for _, v53 in v50 do
-        if v53.displaying or v51 - v53.time < 0.15 then
+local v47 = game:DefineFastFlag("UseBindingForUnreadChat", false);
+local v48 = {};
+areTooltipsDisplaying = function() --[[ Line: 94 ]] --[[ Name: areTooltipsDisplaying ]]
+    -- upvalues: v48 (copy)
+    local v49 = tick();
+    for _, v51 in v48 do
+        if v51.displaying or v49 - v51.time < 0.15 then
             return true;
         end;
     end;
     return false;
 end;
-logTooltipState = function(v54, v55) --[[ Line: 105 ]] --[[ Name: logTooltipState ]]
-    -- upvalues: v50 (copy)
-    if not v50[v54] or v50[v54].displaying ~= v55 then
-        v50[v54] = {
-            displaying = v55, 
+logTooltipState = function(v52, v53) --[[ Line: 106 ]] --[[ Name: logTooltipState ]]
+    -- upvalues: v48 (copy)
+    if not v48[v52] or v48[v52].displaying ~= v53 then
+        v48[v52] = {
+            displaying = v53, 
             time = tick()
         };
     end;
 end;
-NotificationBadge = function(v56) --[[ Line: 124 ]] --[[ Name: NotificationBadge ]]
-    -- upvalues: v49 (copy), v4 (copy), v27 (copy), v28 (copy), v22 (copy), l_GetFFlagSimpleChatUnreadMessageCount_0 (copy), l_useTokens_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v12 (copy), l_StatusIndicator_0 (copy), l_Flags_0 (copy), l_StatusIndicatorVariant_0 (copy)
-    if not v56.integration then
+NotificationBadge = function(v54) --[[ Line: 125 ]] --[[ Name: NotificationBadge ]]
+    -- upvalues: v47 (copy), v4 (copy), v26 (copy), v27 (copy), v22 (copy), l_GetFFlagSimpleChatUnreadMessageCount_0 (copy), l_useTokens_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v12 (copy), l_StatusIndicator_0 (copy), l_Flags_0 (copy), l_StatusIndicatorVariant_0 (copy)
+    if not v54.integration then
         return nil;
     else
+        local v55 = nil;
+        local v56 = nil;
         local v57 = nil;
         local v58 = nil;
         local v59 = nil;
-        local v60 = nil;
-        local v61 = nil;
-        local v62 = false;
-        if v49 then
-            local v63 = v56.integration.integration and v56.integration.integration.notification or nil;
-            local v64, v65 = v4.useBinding(v63 and v63:get().value or 0);
-            v57 = v64;
-            v58 = v65;
-            v64, v65 = v4.useState(false);
-            v60 = v64;
-            v61 = v65;
-            local l_v63_0 = v63 --[[ copy: 7 -> 13 ]];
-            v4.useEffect(function() --[[ Line: 138 ]]
-                -- upvalues: l_v63_0 (copy), v61 (ref), v58 (ref)
-                if not l_v63_0 then
+        local v60 = false;
+        if v47 then
+            local v61 = v54.integration.integration and v54.integration.integration.notification or nil;
+            local v62, v63 = v4.useBinding(v61 and v61:get().value or 0);
+            v55 = v62;
+            v56 = v63;
+            v62, v63 = v4.useState(false);
+            v58 = v62;
+            v59 = v63;
+            local l_v61_0 = v61 --[[ copy: 7 -> 13 ]];
+            v4.useEffect(function() --[[ Line: 139 ]]
+                -- upvalues: l_v61_0 (copy), v59 (ref), v56 (ref)
+                if not l_v61_0 then
                     return;
                 else
-                    local v68 = l_v63_0:connect(function() --[[ Line: 143 ]]
-                        -- upvalues: l_v63_0 (ref), v61 (ref), v58 (ref)
-                        local v67 = l_v63_0:get().value or 0;
-                        v61(v67 > 0);
-                        v58(v67);
+                    local v66 = l_v61_0:connect(function() --[[ Line: 144 ]]
+                        -- upvalues: l_v61_0 (ref), v59 (ref), v56 (ref)
+                        local v65 = l_v61_0:get().value or 0;
+                        v59(v65 > 0);
+                        v56(v65);
                     end);
-                    return function() --[[ Line: 148 ]]
-                        -- upvalues: v68 (copy)
-                        v68:disconnect();
+                    return function() --[[ Line: 149 ]]
+                        -- upvalues: v66 (copy)
+                        v66:disconnect();
                     end;
                 end;
             end, {
-                v56.integration.integration.id
+                v54.integration.integration.id
             });
         else
-            v59 = v27(v56.integration.integration);
-            if v28(v22:currentSubMenu(), function(v69) --[[ Line: 156 ]]
-                -- upvalues: v56 (copy)
-                return v69 == v56.integration.id;
+            v57 = v26(v54.integration.integration);
+            if v27(v22:currentSubMenu(), function(v67) --[[ Line: 157 ]]
+                -- upvalues: v54 (copy)
+                return v67 == v54.integration.id;
             end) then
-                v59 = 0;
+                v57 = 0;
             end;
-            if v56.integration and v56.integration.integration then
-                v62 = v56.integration.integration.hideNotificationCountWhileOpen or false;
+            if v54.integration and v54.integration.integration then
+                v60 = v54.integration.integration.hideNotificationCountWhileOpen or false;
             end;
         end;
+        local v68 = nil;
+        if l_GetFFlagSimpleChatUnreadMessageCount_0() and v54.disableBadgeNumber then
+            v68 = l_useTokens_0();
+        end;
+        local v69 = nil;
         local v70 = nil;
-        if l_GetFFlagSimpleChatUnreadMessageCount_0() and v56.disableBadgeNumber then
-            v70 = l_useTokens_0();
-        end;
         local v71 = nil;
         local v72 = nil;
-        local v73 = nil;
-        local v74 = nil;
         if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-            v71 = l_UnibarStyle_0.use();
-            v72 = v71.ICON_SIZE;
-            v73 = v71.ICON_BADGE_OFFSET_X;
-            v74 = v71.ICON_BADGE_OFFSET_Y;
+            v69 = l_UnibarStyle_0.use();
+            v70 = v69.ICON_SIZE;
+            v71 = v69.ICON_BADGE_OFFSET_X;
+            v72 = v69.ICON_BADGE_OFFSET_Y;
         else
-            v72 = v21.ICON_SIZE;
-            v73 = v21.ICON_BADGE_OFFSET_X;
-            v74 = v21.ICON_BADGE_OFFSET_Y;
+            v70 = v21.ICON_SIZE;
+            v71 = v21.ICON_BADGE_OFFSET_X;
+            v72 = v21.ICON_BADGE_OFFSET_Y;
         end;
-        local v75 = if v49 then v60 else v59 > 0;
+        local v73 = if v47 then v58 else v57 > 0;
         return v4.createElement("Frame", {
             BackgroundTransparency = 1, 
-            Size = if l_GetFFlagSimpleChatUnreadMessageCount_0() and v56.disableBadgeNumber then UDim2.new(0, v72, 0, v72) else UDim2.fromScale(1, 1), 
-            Visible = not v56.toggleTransition or v56.toggleTransition:map(function(v76) --[[ Line: 195 ]]
-                -- upvalues: v62 (ref)
-                if v62 then
-                    return v76 < 0.5;
+            Size = if l_GetFFlagSimpleChatUnreadMessageCount_0() and v54.disableBadgeNumber then UDim2.new(0, v70, 0, v70) else UDim2.fromScale(1, 1), 
+            Visible = not v54.toggleTransition or v54.toggleTransition:map(function(v74) --[[ Line: 196 ]]
+                -- upvalues: v60 (ref)
+                if v60 then
+                    return v74 < 0.5;
                 else
                     return true;
                 end;
             end) or true, 
             ZIndex = 2
         }, {
-            Badge = if v75 then if l_GetFFlagSimpleChatUnreadMessageCount_0() and v56.disableBadgeNumber then v4.createElement(v12.View, {
+            Badge = if v73 then if l_GetFFlagSimpleChatUnreadMessageCount_0() and v54.disableBadgeNumber then v4.createElement(v12.View, {
                 Position = UDim2.new(1, 0, 0.2, 0), 
                 backgroundStyle = {
-                    Color3 = v70.Color.System.Contrast.Color3, 
+                    Color3 = v68.Color.System.Contrast.Color3, 
                     Transparency = 0
                 }, 
                 stroke = {
-                    Color = v70.Color.Surface.Surface_0.Color3, 
+                    Color = v68.Color.Surface.Surface_0.Color3, 
                     Transparency = 0, 
-                    Thickness = v70.Stroke.Thicker
+                    Thickness = v68.Stroke.Thicker
                 }, 
                 tag = "anchor-top-right radius-circle size-200 stroke-thicker", 
                 ZIndex = 2
             }) else v4.createElement(l_StatusIndicator_0, {
-                value = if v49 then v57:map(function(v77) --[[ Line: 224 ]]
-                    return (math.min(v77, 99));
-                end) else math.min(v59, 99), 
+                value = if v47 then v55:map(function(v75) --[[ Line: 225 ]]
+                    return (math.min(v75, 99));
+                end) else math.min(v57, 99), 
                 variant = if l_Flags_0.FoundationStatusIndicatorVariantExperiment then l_StatusIndicatorVariant_0.Contrast_Experiment else l_StatusIndicatorVariant_0.Emphasis, 
                 AnchorPoint = Vector2.new(0, 0), 
-                Position = UDim2.new(0, v73, 0, v74)
+                Position = UDim2.new(0, v71, 0, v72)
             }) else nil
         });
     end;
 end;
-NotificationIndicator = function(v78) --[[ Line: 243 ]] --[[ Name: NotificationIndicator ]]
-    -- upvalues: v26 (copy), v22 (copy), v4 (copy)
-    local v79 = v26(v22:notificationIndicator());
-    v78.setIconVisible(not v79 or false);
+NotificationIndicator = function(v76) --[[ Line: 244 ]] --[[ Name: NotificationIndicator ]]
+    -- upvalues: v25 (copy), v22 (copy), v4 (copy)
+    local v77 = v25(v22:notificationIndicator());
+    v76.setIconVisible(not v77 or false);
     return (v4.createElement("Frame", {
         Name = "NotificationIndicatorFrame", 
         Size = UDim2.new(1, 0, 1, 0), 
         BorderSizePixel = 0, 
         BackgroundTransparency = 1
     }, {
-        IntegrationIcon = v79 and v79.component(v78) or nil, 
+        IntegrationIcon = v77 and v77.component(v76) or nil, 
         UIListLayout = v4.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal, 
             VerticalAlignment = Enum.VerticalAlignment.Center, 
@@ -209,125 +207,125 @@ NotificationIndicator = function(v78) --[[ Line: 243 ]] --[[ Name: NotificationI
         })
     }));
 end;
-HighlightCircle = function(v80) --[[ Line: 262 ]] --[[ Name: HighlightCircle ]]
+HighlightCircle = function(v78) --[[ Line: 263 ]] --[[ Name: HighlightCircle ]]
     -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v4 (copy)
     local _ = nil;
-    local v82 = nil;
-    v82 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
+    local v80 = nil;
+    v80 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
     return v4.createElement("Frame", {
-        Name = v80.name or "Highlighter", 
-        Size = v82, 
+        Name = v78.name or "Highlighter", 
+        Size = v80, 
         AnchorPoint = Vector2.new(0.5, 0.5), 
         Position = UDim2.new(0.5, 0, 0.5, 0), 
-        BackgroundColor3 = v80.color.Color, 
-        BackgroundTransparency = v80.color.Transparency, 
+        BackgroundColor3 = v78.color.Color, 
+        BackgroundTransparency = v78.color.Transparency, 
         BorderSizePixel = 0, 
-        Visible = v80.visible
+        Visible = v78.visible
     }, {
         corner = v4.createElement("UICorner", {
             CornerRadius = UDim.new(1, 0)
         })
     });
 end;
-TooltipButton = function(v83) --[[ Line: 292 ]] --[[ Name: TooltipButton ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v4 (copy), v30 (copy), l_isInExperienceUIVREnabled_0 (copy), v34 (ref), v26 (copy), v22 (copy), v42 (ref), l_ControlState_0 (copy), l_FFlagEnableUnibarFtuxTooltips_0 (copy), v23 (copy), l_UserInputService_0 (copy), v32 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v46 (copy), l_Interactable_0 (copy), l_FFlagUnibarMenuOpenHamburger_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), l_useCursor_0 (copy), v12 (copy), v35 (ref), v36 (ref), v39 (ref), v38 (ref), v37 (ref), l_withTooltip_0 (copy), l_CoreGui_0 (copy)
+TooltipButton = function(v81) --[[ Line: 293 ]] --[[ Name: TooltipButton ]]
+    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v4 (copy), v29 (copy), l_isInExperienceUIVREnabled_0 (copy), v33 (ref), v25 (copy), v22 (copy), v41 (ref), l_ControlState_0 (copy), v23 (copy), l_UserInputService_0 (copy), v31 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v45 (copy), l_Interactable_0 (copy), l_FFlagUnibarMenuOpenHamburger_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), l_useCursor_0 (copy), v12 (copy), v34 (ref), v35 (ref), v38 (ref), v37 (ref), v36 (ref), l_withTooltip_0 (copy), l_CoreGui_0 (copy)
     local _ = nil;
-    local v85 = nil;
-    v85 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
-    local v86 = v4.useRef(nil);
-    local l_secondaryAction_0 = v83.integration.integration.secondaryAction;
-    local v88 = v83.integration.integration.draggable or false;
-    local v89 = v4.useRef(nil);
-    v4.useEffect(function() --[[ Line: 308 ]]
-        -- upvalues: v89 (copy)
-        return function() --[[ Line: 309 ]]
-            -- upvalues: v89 (ref)
-            if v89.current then
-                v89.current:Disconnect();
-                v89.current = nil;
+    local v83 = nil;
+    v83 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
+    local v84 = v4.useRef(nil);
+    local l_secondaryAction_0 = v81.integration.integration.secondaryAction;
+    local v86 = v81.integration.integration.draggable or false;
+    local v87 = v4.useRef(nil);
+    v4.useEffect(function() --[[ Line: 309 ]]
+        -- upvalues: v87 (copy)
+        return function() --[[ Line: 310 ]]
+            -- upvalues: v87 (ref)
+            if v87.current then
+                v87.current:Disconnect();
+                v87.current = nil;
             end;
         end;
     end, {});
-    local v90 = nil;
-    local v91 = nil;
+    local v88 = nil;
+    local v89 = nil;
     if l_secondaryAction_0 then
-        local v92, v93 = v30(0.05, 0.15, 0.35);
-        v90 = v92;
-        v91 = v93;
+        local v90, v91 = v29(0.05, 0.15, 0.35);
+        v88 = v90;
+        v89 = v91;
     else
-        local v94, v95 = v30(0.6, 0.65, 0.7);
-        v90 = v94;
-        v91 = v95;
+        local v92, v93 = v29(0.6, 0.65, 0.7);
+        v88 = v92;
+        v89 = v93;
     end;
-    local v96, v97 = v30(0, 0, 0.65);
-    local v98, v99 = v4.useState(false);
-    local v100, v101 = v30(0, 1);
-    local v102 = if l_isInExperienceUIVREnabled_0 then v34() else nil;
-    local v103 = if l_isInExperienceUIVREnabled_0 then v26(v22:getTopBarVisibiity()) else nil;
-    local v104 = if l_isInExperienceUIVREnabled_0 and v42 then v26(v42) else nil;
-    local v105 = false;
-    if l_isInExperienceUIVREnabled_0 and v102 and not v103 and not v104 then
-        v105 = true;
-        v88 = v88 and not v105;
+    local v94, v95 = v29(0, 0, 0.65);
+    local v96, v97 = v4.useState(false);
+    local v98, v99 = v29(0, 1);
+    local v100 = if l_isInExperienceUIVREnabled_0 then v33() else nil;
+    local v101 = if l_isInExperienceUIVREnabled_0 then v25(v22:getTopBarVisibiity()) else nil;
+    local v102 = if l_isInExperienceUIVREnabled_0 and v41 then v25(v41) else nil;
+    local v103 = false;
+    if l_isInExperienceUIVREnabled_0 and v100 and not v101 and not v102 then
+        v103 = true;
+        v86 = v86 and not v103;
     end;
-    local v110 = v4.useCallback(function(v106, v107) --[[ Line: 347 ]]
-        -- upvalues: l_isInExperienceUIVREnabled_0 (ref), v105 (ref), l_ControlState_0 (ref), v22 (ref), v83 (copy), v91 (ref), v96 (copy), l_FFlagEnableUnibarFtuxTooltips_0 (ref), v101 (copy)
-        if l_isInExperienceUIVREnabled_0 and v105 then
+    local v108 = v4.useCallback(function(v104, v105) --[[ Line: 348 ]]
+        -- upvalues: l_isInExperienceUIVREnabled_0 (ref), v103 (ref), l_ControlState_0 (ref), v22 (ref), v81 (copy), v89 (ref), v94 (copy), v99 (copy)
+        if l_isInExperienceUIVREnabled_0 and v103 then
             return;
         else
-            if v107 == l_ControlState_0.Selected and (v106 == l_ControlState_0.Default or v106 == l_ControlState_0.Hover) then
-                v22:setSelected(v83.integration.id);
-            elseif v107 == l_ControlState_0.Selected and v106 == l_ControlState_0.Default then
-                v22:setSelected(v83.integration.id);
+            if v105 == l_ControlState_0.Selected and (v104 == l_ControlState_0.Default or v104 == l_ControlState_0.Hover) then
+                v22:setSelected(v81.integration.id);
+            elseif v105 == l_ControlState_0.Selected and v104 == l_ControlState_0.Default then
+                v22:setSelected(v81.integration.id);
             end;
-            local v108 = v107 ~= l_ControlState_0.Default;
-            v83.setHovered(v108);
-            local v109 = v107 == l_ControlState_0.Hover;
-            v91(v109, v109 and v96 or areTooltipsDisplaying());
-            if l_FFlagEnableUnibarFtuxTooltips_0 and v109 then
-                v22:onIntegrationHovered():fire(v83.integration.id);
+            local v106 = v105 ~= l_ControlState_0.Default;
+            v81.setHovered(v106);
+            local v107 = v105 == l_ControlState_0.Hover;
+            v89(v107, v107 and v94 or areTooltipsDisplaying());
+            if v107 then
+                v22:onIntegrationHovered():fire(v81.integration.id);
             end;
-            if not v108 then
-                v101(false);
+            if not v106 then
+                v99(false);
             end;
             return;
         end;
     end, if l_isInExperienceUIVREnabled_0 then {
-        v83.setHovered, 
-        v91, 
-        v101, 
-        v96, 
-        v102, 
-        v105
+        v81.setHovered, 
+        v89, 
+        v99, 
+        v94, 
+        v100, 
+        v103
     } else {
-        v83.setHovered, 
-        v91, 
-        v101, 
-        v96
+        v81.setHovered, 
+        v89, 
+        v99, 
+        v94
     });
-    local v117 = v4.useCallback(function(_, v112) --[[ Line: 383 ]]
-        -- upvalues: v88 (ref), v101 (copy), v23 (ref), v83 (copy), v89 (copy), l_UserInputService_0 (ref), v32 (ref), v22 (ref), v21 (ref)
-        if not v88 then
+    local v115 = v4.useCallback(function(_, v110) --[[ Line: 384 ]]
+        -- upvalues: v86 (ref), v99 (copy), v23 (ref), v81 (copy), v87 (copy), l_UserInputService_0 (ref), v31 (ref), v22 (ref), v21 (ref)
+        if not v86 then
             return;
         else
-            if v112.UserInputType == Enum.UserInputType.MouseButton1 or v112.UserInputType == Enum.UserInputType.Touch then
-                local l_Position_0 = v112.Position;
-                v101(true, true);
-                v23.default:onIconTouchBegan(v83.integration.id);
-                if not v89.current then
-                    v89.current = l_UserInputService_0.InputChanged:Connect(function(v114, _) --[[ Line: 396 ]]
-                        -- upvalues: v32 (ref), v112 (copy), v22 (ref), v83 (ref), v89 (ref), l_Position_0 (copy), v21 (ref), v23 (ref)
-                        if v32(v112, v114) then
+            if v110.UserInputType == Enum.UserInputType.MouseButton1 or v110.UserInputType == Enum.UserInputType.Touch then
+                local l_Position_0 = v110.Position;
+                v99(true, true);
+                v23.default:onIconTouchBegan(v81.integration.id);
+                if not v87.current then
+                    v87.current = l_UserInputService_0.InputChanged:Connect(function(v112, _) --[[ Line: 397 ]]
+                        -- upvalues: v31 (ref), v110 (copy), v22 (ref), v81 (ref), v87 (ref), l_Position_0 (copy), v21 (ref), v23 (ref)
+                        if v31(v110, v112) then
                             return;
-                        elseif v22:isWindowOpen(v83.integration.id) or not v89.current then
+                        elseif v22:isWindowOpen(v81.integration.id) or not v87.current then
                             return;
                         else
-                            local l_Position_1 = v114.Position;
+                            local l_Position_1 = v112.Position;
                             if math.abs((l_Position_0 - l_Position_1).Magnitude) > v21.DRAG_MAGNITUDE_THRESHOLD then
-                                v23.default:onIconDrag(v83.integration.id);
+                                v23.default:onIconDrag(v81.integration.id);
                                 v22:storeChromeInteracted();
-                                v22:toggleWindow(v83.integration.id);
-                                v22:gesture(v83.integration.id, v89, v112);
+                                v22:toggleWindow(v81.integration.id);
+                                v22:gesture(v81.integration.id, v87, v110);
                             end;
                             return;
                         end;
@@ -337,82 +335,82 @@ TooltipButton = function(v83) --[[ Line: 292 ]] --[[ Name: TooltipButton ]]
             return;
         end;
     end, {
-        v88
+        v86
     });
-    local v120 = v4.useCallback(function(_, v119) --[[ Line: 422 ]]
-        -- upvalues: v88 (ref), v101 (copy), v89 (copy), v22 (ref), v83 (copy)
-        if not v88 then
+    local v118 = v4.useCallback(function(_, v117) --[[ Line: 423 ]]
+        -- upvalues: v86 (ref), v99 (copy), v87 (copy), v22 (ref), v81 (copy)
+        if not v86 then
             return;
         else
-            if v119.UserInputType == Enum.UserInputType.MouseButton1 or v119.UserInputType == Enum.UserInputType.Touch then
-                v101(false);
-                if v89.current then
-                    v89.current:Disconnect();
-                    v89.current = nil;
-                    v22:gesture(v83.integration.id, nil);
+            if v117.UserInputType == Enum.UserInputType.MouseButton1 or v117.UserInputType == Enum.UserInputType.Touch then
+                v99(false);
+                if v87.current then
+                    v87.current:Disconnect();
+                    v87.current = nil;
+                    v22:gesture(v81.integration.id, nil);
                 end;
             end;
             return;
         end;
     end, {
-        v88
+        v86
     });
-    local v121 = (not not v90 or v96 or v98) and not v100;
-    if l_isInExperienceUIVREnabled_0 and v121 and v105 then
-        v121 = false;
+    local v119 = (not not v88 or v94 or v96) and not v98;
+    if l_isInExperienceUIVREnabled_0 and v119 and v103 then
+        v119 = false;
     end;
-    logTooltipState(v83.integration.id, v121);
-    local v122 = if l_FFlagEnableConsoleExpControls_0 then v4.useContext(v46) else nil;
-    local v127 = v4.useCallback(function(v123) --[[ Line: 450 ]]
-        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v22 (ref), v4 (ref), l_Interactable_0 (ref), v21 (ref), v83 (copy), v85 (ref), v110 (copy), v86 (copy), l_FFlagUnibarMenuOpenHamburger_0 (ref), l_FFlagUnibarMenuOpenSubmenu_0 (ref), l_useCursor_0 (ref), v12 (ref), v121 (ref), l_secondaryAction_0 (copy), v122 (copy), v117 (copy), v120 (copy), l_isInExperienceUIVREnabled_0 (ref), v102 (copy), v105 (ref), v101 (copy), v89 (copy)
-        local v124 = nil;
+    logTooltipState(v81.integration.id, v119);
+    local v120 = if l_FFlagEnableConsoleExpControls_0 then v4.useContext(v45) else nil;
+    local v125 = v4.useCallback(function(v121) --[[ Line: 451 ]]
+        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v22 (ref), v4 (ref), l_Interactable_0 (ref), v21 (ref), v81 (copy), v83 (ref), v108 (copy), v84 (copy), l_FFlagUnibarMenuOpenHamburger_0 (ref), l_FFlagUnibarMenuOpenSubmenu_0 (ref), l_useCursor_0 (ref), v12 (ref), v119 (ref), l_secondaryAction_0 (copy), v120 (copy), v115 (copy), v118 (copy), l_isInExperienceUIVREnabled_0 (ref), v100 (copy), v103 (ref), v99 (copy), v87 (copy)
+        local v122 = nil;
         if l_FFlagEnableConsoleExpControls_0 then
-            v124 = v22:menuList():get()[1].id;
+            v122 = v22:menuList():get()[1].id;
         end;
         return v4.createElement(l_Interactable_0, {
-            Name = (if l_FFlagEnableConsoleExpControls_0 then v21.ICON_NAME_PREFIX else "IconHitArea_") .. v83.integration.id, 
-            Size = v85, 
+            Name = (if l_FFlagEnableConsoleExpControls_0 then v21.ICON_NAME_PREFIX else "IconHitArea_") .. v81.integration.id, 
+            Size = v83, 
             AnchorPoint = Vector2.new(0.5, 0.5), 
             BackgroundTransparency = 1, 
             BorderSizePixel = 0, 
-            onStateChanged = v110, 
-            ref = v86, 
-            SelectionOrder = if not not l_FFlagUnibarMenuOpenHamburger_0 or l_FFlagUnibarMenuOpenSubmenu_0 then v83.integration.order else 100 - v83.integration.order, 
-            Position = v83.isCurrentlyOpenSubMenu:map(function(v125) --[[ Line: 468 ]]
+            onStateChanged = v108, 
+            ref = v84, 
+            SelectionOrder = if not not l_FFlagUnibarMenuOpenHamburger_0 or l_FFlagUnibarMenuOpenSubmenu_0 then v81.integration.order else 100 - v81.integration.order, 
+            Position = v81.isCurrentlyOpenSubMenu:map(function(v123) --[[ Line: 469 ]]
                 -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref)
-                return UDim2.new(0.5, 0, 0.5, not l_FFlagEnableConsoleExpControls_0 and v125 and 1 or 0);
+                return UDim2.new(0.5, 0, 0.5, not l_FFlagEnableConsoleExpControls_0 and v123 and 1 or 0);
             end), 
             SelectionImageObject = l_useCursor_0(v12.Enums.CursorType.SkinToneCircle), 
             SelectionGroup = true, 
             SelectionBehaviorUp = Enum.SelectionBehavior.Stop, 
-            SelectionBehaviorDown = v83.isCurrentlyOpenSubMenu:map(function(v126) --[[ Line: 474 ]]
-                -- upvalues: v121 (ref), l_secondaryAction_0 (ref)
-                if v121 and l_secondaryAction_0 or v126 then
+            SelectionBehaviorDown = v81.isCurrentlyOpenSubMenu:map(function(v124) --[[ Line: 475 ]]
+                -- upvalues: v119 (ref), l_secondaryAction_0 (ref)
+                if v119 and l_secondaryAction_0 or v124 then
                     return Enum.SelectionBehavior.Escape;
                 else
                     return Enum.SelectionBehavior.Stop;
                 end;
             end), 
-            NextSelectionLeft = if l_FFlagEnableConsoleExpControls_0 and v83.integration.id == v124 then v122.menuIconRef else nil, 
-            [v4.Change.AbsolutePosition] = v123, 
-            [v4.Change.AbsoluteSize] = v123, 
-            [v4.Event.InputBegan] = v117, 
-            [v4.Event.InputEnded] = v120, 
-            [v4.Event.Activated] = function() --[[ Line: 488 ]]
-                -- upvalues: l_isInExperienceUIVREnabled_0 (ref), v102 (ref), v105 (ref), v22 (ref), v101 (ref), v83 (ref), v89 (ref)
-                if l_isInExperienceUIVREnabled_0 and v102 then
-                    if v105 then
+            NextSelectionLeft = if l_FFlagEnableConsoleExpControls_0 and v81.integration.id == v122 then v120.menuIconRef else nil, 
+            [v4.Change.AbsolutePosition] = v121, 
+            [v4.Change.AbsoluteSize] = v121, 
+            [v4.Event.InputBegan] = v115, 
+            [v4.Event.InputEnded] = v118, 
+            [v4.Event.Activated] = function() --[[ Line: 489 ]]
+                -- upvalues: l_isInExperienceUIVREnabled_0 (ref), v100 (ref), v103 (ref), v22 (ref), v99 (ref), v81 (ref), v87 (ref)
+                if l_isInExperienceUIVREnabled_0 and v100 then
+                    if v103 then
                         return;
                     else
                         v22:onTriggerVRToggleButton():fire(true);
                     end;
                 end;
-                v101(true, true);
-                v83.integration.activated();
-                if v89.current then
-                    v89.current:Disconnect();
-                    v89.current = nil;
-                    v22:gesture(v83.integration.id, nil);
+                v99(true, true);
+                v81.integration.activated();
+                if v87.current then
+                    v87.current:Disconnect();
+                    v87.current = nil;
+                    v22:gesture(v81.integration.id, nil);
                 end;
             end
         }, {
@@ -421,184 +419,184 @@ TooltipButton = function(v83) --[[ Line: 292 ]] --[[ Name: TooltipButton ]]
             })
         });
     end, {
-        v110, 
-        v91, 
-        v101, 
-        v117, 
-        v120, 
-        v83.isCurrentlyOpenSubMenu, 
-        v121, 
+        v108, 
+        v89, 
+        v99, 
+        v115, 
+        v118, 
+        v81.isCurrentlyOpenSubMenu, 
+        v119, 
         l_secondaryAction_0, 
-        if l_isInExperienceUIVREnabled_0 then v105 else nil, 
-        if l_FFlagEnableConsoleExpControls_0 then v122.menuIconRef else nil
+        if l_isInExperienceUIVREnabled_0 then v103 else nil, 
+        if l_FFlagEnableConsoleExpControls_0 then v120.menuIconRef else nil
     });
-    local v128 = v4.useRef(nil);
-    local v134 = v4.useCallback(function(v129) --[[ Line: 525 ]]
-        -- upvalues: v128 (copy), v97 (copy)
+    local v126 = v4.useRef(nil);
+    local v132 = v4.useCallback(function(v127) --[[ Line: 526 ]]
+        -- upvalues: v126 (copy), v95 (copy)
+        local v128 = nil;
+        local v129 = nil;
         local v130 = nil;
-        local v131 = nil;
-        local v132 = nil;
-        local function v133() --[[ Line: 532 ]]
-            -- upvalues: v130 (ref), v131 (ref), v132 (ref)
+        local function v131() --[[ Line: 533 ]]
+            -- upvalues: v128 (ref), v129 (ref), v130 (ref)
+            if v128 then
+                v128:disconnect();
+                v128 = nil;
+            end;
+            if v129 then
+                v129:disconnect();
+                v129 = nil;
+            end;
             if v130 then
                 v130:disconnect();
                 v130 = nil;
             end;
-            if v131 then
-                v131:disconnect();
-                v131 = nil;
-            end;
-            if v132 then
-                v132:disconnect();
-                v132 = nil;
-            end;
         end;
-        if v129 ~= v128.current then
-            pcall(v133);
-            if v129 then
-                v130 = v129.MouseEnter:Connect(function() --[[ Line: 550 ]]
-                    -- upvalues: v97 (ref)
-                    v97(true, true);
+        if v127 ~= v126.current then
+            pcall(v131);
+            if v127 then
+                v128 = v127.MouseEnter:Connect(function() --[[ Line: 551 ]]
+                    -- upvalues: v95 (ref)
+                    v95(true, true);
                 end);
-                v131 = v129.MouseLeave:Connect(function() --[[ Line: 553 ]]
-                    -- upvalues: v97 (ref)
-                    v97(false);
+                v129 = v127.MouseLeave:Connect(function() --[[ Line: 554 ]]
+                    -- upvalues: v95 (ref)
+                    v95(false);
                 end);
-                v132 = v129.Destroying:Connect(function() --[[ Line: 556 ]]
-                    -- upvalues: v97 (ref)
-                    v97(false);
+                v130 = v127.Destroying:Connect(function() --[[ Line: 557 ]]
+                    -- upvalues: v95 (ref)
+                    v95(false);
                 end);
             end;
-            v128.current = v129;
+            v126.current = v127;
         end;
     end, {
-        v97
+        v95
     });
-    local v137 = if l_secondaryAction_0 then {
+    local v135 = if l_secondaryAction_0 then {
         text = l_secondaryAction_0.label, 
-        onStateChanged = function(_, v136) --[[ Line: 567 ]] --[[ Name: onStateChanged ]]
-            -- upvalues: l_ControlState_0 (ref), v99 (copy)
-            if v136 == l_ControlState_0.Selected then
-                v99(true);
+        onStateChanged = function(_, v134) --[[ Line: 568 ]] --[[ Name: onStateChanged ]]
+            -- upvalues: l_ControlState_0 (ref), v97 (copy)
+            if v134 == l_ControlState_0.Selected then
+                v97(true);
                 return;
             else
-                v99(false);
+                v97(false);
                 return;
             end;
         end, 
-        onActivated = function() --[[ Line: 574 ]] --[[ Name: onActivated ]]
-            -- upvalues: l_secondaryAction_0 (copy), v83 (copy)
-            l_secondaryAction_0.activated(v83.integration);
+        onActivated = function() --[[ Line: 575 ]] --[[ Name: onActivated ]]
+            -- upvalues: l_secondaryAction_0 (copy), v81 (copy)
+            l_secondaryAction_0.activated(v81.integration);
         end, 
-        NextSelectionUp = v86, 
-        NextSelectionLeft = v86, 
-        NextSelectionRight = v86, 
-        NextSelectionDown = v86
+        NextSelectionUp = v84, 
+        NextSelectionLeft = v84, 
+        NextSelectionRight = v84, 
+        NextSelectionDown = v84
     } else nil;
-    if l_isInExperienceUIVREnabled_0 and v102 then
+    if l_isInExperienceUIVREnabled_0 and v100 then
+        local v136, v137 = v4.useBinding(Vector2.zero);
         local v138, v139 = v4.useBinding(Vector2.zero);
-        local v140, v141 = v4.useBinding(Vector2.zero);
-        local v143 = v4.useCallback(function(v142) --[[ Line: 588 ]]
-            -- upvalues: v139 (copy), v141 (copy)
-            v139(v142.AbsolutePosition);
-            v141(v142.AbsoluteSize);
+        local v141 = v4.useCallback(function(v140) --[[ Line: 589 ]]
+            -- upvalues: v137 (copy), v139 (copy)
+            v137(v140.AbsolutePosition);
+            v139(v140.AbsoluteSize);
         end, {
-            v139, 
-            v141
+            v137, 
+            v139
         });
         return v4.createElement(v4.Fragment, nil, {
-            VRSpatialTooltip = if v121 and v35 then v4.createElement(v35, {
-                panelType = v36.ToolTipsContainer, 
-                renderFunction = function(v144) --[[ Line: 600 ]] --[[ Name: renderFunction ]]
-                    -- upvalues: v138 (copy), v140 (copy), v39 (ref), v4 (ref), v38 (ref), v83 (copy), v37 (ref), v137 (copy), l_secondaryAction_0 (copy), v134 (copy)
-                    local v145 = Vector2.new(v138:getValue().X + v140:getValue().X / 2, v144.Y - v39);
-                    return v4.createElement(v38, {
+            VRSpatialTooltip = if v119 and v34 then v4.createElement(v34, {
+                panelType = v35.ToolTipsContainer, 
+                renderFunction = function(v142) --[[ Line: 601 ]] --[[ Name: renderFunction ]]
+                    -- upvalues: v136 (copy), v138 (copy), v38 (ref), v4 (ref), v37 (ref), v81 (copy), v36 (ref), v135 (copy), l_secondaryAction_0 (copy), v132 (copy)
+                    local v143 = Vector2.new(v136:getValue().X + v138:getValue().X / 2, v142.Y - v38);
+                    return v4.createElement(v37, {
                         textAlignment = Enum.TextXAlignment.Center, 
-                        headerText = v83.integration.integration.label, 
-                        orientation = v37.Top, 
+                        headerText = v81.integration.integration.label, 
+                        orientation = v36.Top, 
                         distanceOffset = 0, 
-                        triggerPointCenter = v145, 
+                        triggerPointCenter = v143, 
                         contentOffsetVector = Vector2.zero, 
                         triggerPointRadius = Vector2.zero, 
-                        buttonProps = v137, 
-                        ref = if l_secondaryAction_0 then v134 else nil
+                        buttonProps = v135, 
+                        ref = if l_secondaryAction_0 then v132 else nil
                     });
                 end
             }) else nil; 
-            v127(v143)
+            v125(v141)
         });
     else
         return l_withTooltip_0({
-            headerText = v83.integration.integration.label, 
-            hotkeyCodes = v83.integration.integration.hotkeyCodes, 
+            headerText = v81.integration.integration.label, 
+            hotkeyCodes = v81.integration.integration.hotkeyCodes, 
             textAlignment = Enum.TextXAlignment.Left, 
-            buttonProps = v137, 
-            ref = if l_secondaryAction_0 then v134 else nil
+            buttonProps = v135, 
+            ref = if l_secondaryAction_0 then v132 else nil
         }, {
-            active = v121, 
+            active = v119, 
             guiTarget = l_CoreGui_0, 
             DisplayOrder = 10
-        }, v127);
+        }, v125);
     end;
 end;
-IconHost = function(v146) --[[ Line: 639 ]] --[[ Name: IconHost ]]
-    -- upvalues: v4 (copy), l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v29 (copy), v22 (copy), l_FFlagEnableConsoleExpControls_0 (copy)
-    if not v146.integration or not v146.integration.component then
+IconHost = function(v144) --[[ Line: 640 ]] --[[ Name: IconHost ]]
+    -- upvalues: v4 (copy), l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v28 (copy), v22 (copy), l_FFlagEnableConsoleExpControls_0 (copy)
+    if not v144.integration or not v144.integration.component then
         warn("IconHost has no component to render");
     end;
-    local v147, v148 = v4.useBinding(false);
-    local v149, v150 = v4.useBinding(true);
-    local v151 = l_useStyle_0();
+    local v145, v146 = v4.useBinding(false);
+    local v147, v148 = v4.useBinding(true);
+    local v149 = l_useStyle_0();
     local _ = nil;
-    local l_BackgroundOnHover_0 = v151.Theme.BackgroundOnHover;
-    local v154 = nil;
-    v154 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_CELL_WIDTH else v21.ICON_CELL_WIDTH;
-    local v156 = v29(v22:currentSubMenu(), function(v155) --[[ Line: 662 ]]
-        -- upvalues: v146 (copy)
-        return v155 == v146.integration.id;
+    local l_BackgroundOnHover_0 = v149.Theme.BackgroundOnHover;
+    local v152 = nil;
+    v152 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_CELL_WIDTH else v21.ICON_CELL_WIDTH;
+    local v154 = v28(v22:currentSubMenu(), function(v153) --[[ Line: 663 ]]
+        -- upvalues: v144 (copy)
+        return v153 == v144.integration.id;
     end);
     return v4.createElement("Frame", {
-        Size = UDim2.new(0, v154, 0, v154), 
-        LayoutOrder = v146.integration.order, 
+        Size = UDim2.new(0, v152, 0, v152), 
+        LayoutOrder = v144.integration.order, 
         BorderSizePixel = 0, 
         BackgroundTransparency = 1, 
-        Position = v146.position, 
-        Visible = v146.visible, 
-        ZIndex = if l_FFlagEnableConsoleExpControls_0 then nil else v146.integration.order
+        Position = v144.position, 
+        Visible = v144.visible, 
+        ZIndex = if l_FFlagEnableConsoleExpControls_0 then nil else v144.integration.order
     }, {
         v4.createElement("Frame", {
             Name = "IntegrationIconFrame", 
             Size = UDim2.new(1, 0, 1, 0), 
             BorderSizePixel = 0, 
             BackgroundTransparency = 1, 
-            Visible = v149
+            Visible = v147
         }, {
-            IntegrationIcon = v146.integration and v146.integration.component and v146.integration.component(v146) or nil, 
+            IntegrationIcon = v144.integration and v144.integration.component and v144.integration.component(v144) or nil, 
             UIListLayout = v4.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Horizontal, 
                 VerticalAlignment = Enum.VerticalAlignment.Center, 
                 HorizontalAlignment = Enum.HorizontalAlignment.Center
             })
         }), 
-        if v146.integration.integration.flashNotificationSource then v4.createElement(NotificationIndicator, {
-            integration = v146.integration, 
-            setIconVisible = v150
+        if v144.integration.integration.flashNotificationSource then v4.createElement(NotificationIndicator, {
+            integration = v144.integration, 
+            setIconVisible = v148
         }) else nil, 
         v4.createElement(HighlightCircle, {
             name = "SelectedHighlighter", 
             color = l_BackgroundOnHover_0, 
-            visible = v156
+            visible = v154
         }), 
         v4.createElement(HighlightCircle, {
             name = "Highlighter", 
             color = l_BackgroundOnHover_0, 
-            visible = v147
+            visible = v145
         }), 
-        v4.createElement(NotificationBadge, v146), 
-        if v146.disableButtonBehaviors then nil else v4.createElement(TooltipButton, {
-            integration = v146.integration, 
-            setHovered = v148, 
-            isCurrentlyOpenSubMenu = v156
+        v4.createElement(NotificationBadge, v144), 
+        if v144.disableButtonBehaviors then nil else v4.createElement(TooltipButton, {
+            integration = v144.integration, 
+            setHovered = v146, 
+            isCurrentlyOpenSubMenu = v154
         })
     });
 end;

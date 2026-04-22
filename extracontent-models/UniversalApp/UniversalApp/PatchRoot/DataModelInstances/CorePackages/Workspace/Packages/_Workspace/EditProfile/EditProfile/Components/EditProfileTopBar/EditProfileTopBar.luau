@@ -9,26 +9,25 @@ local l_useLocalization_0 = v5.Hooks.useLocalization;
 local l_makeBackButton_0 = require(l_Parent_0.AppHeaderBar).makeBackButton;
 local l_useLastInputMode_0 = v3.useLastInputMode;
 local v10 = require(l_script_FirstAncestor_0.Flags.FFlagEditProfileFixFocusNavigation);
-local l_FFlagEditProfileInExperiencePersonasV2_0 = require(l_Parent_0.SharedFlags).FFlagEditProfileInExperiencePersonasV2;
-return function(v12) --[[ Line: 24 ]] --[[ Name: EditProfileTopBar ]]
-    -- upvalues: v10 (copy), l_useLastInputMode_0 (copy), l_useLocalization_0 (copy), v6 (copy), l_makeBackButton_0 (copy), v2 (copy), l_HeaderBar_0 (copy), l_FFlagEditProfileInExperiencePersonasV2_0 (copy)
-    local v13 = if v10 then l_useLastInputMode_0() == "Focus" else nil;
-    local v14 = l_useLocalization_0({
+return function(v11) --[[ Line: 22 ]] --[[ Name: EditProfileTopBar ]]
+    -- upvalues: v10 (copy), l_useLastInputMode_0 (copy), l_useLocalization_0 (copy), v6 (copy), l_makeBackButton_0 (copy), v2 (copy), l_HeaderBar_0 (copy)
+    local v12 = if v10 then l_useLastInputMode_0() == "Focus" else nil;
+    local v13 = l_useLocalization_0({
         title = v6.Title
     });
-    local v15 = l_makeBackButton_0(v12.onClose);
+    local v14 = l_makeBackButton_0(v11.onClose);
     return v2.createElement("Frame", {
         BackgroundTransparency = 1, 
         Size = UDim2.new(1, 0, 0, 48), 
-        LayoutOrder = v12.layoutOrder, 
+        LayoutOrder = v11.layoutOrder, 
         ZIndex = 2
     }, {
         headerBar = v2.createElement(l_HeaderBar_0, {
             isSecondary = true, 
-            title = l_FFlagEditProfileInExperiencePersonasV2_0 and v12.title or v14.title, 
+            title = v13.title, 
             backgroundTransparency = 1, 
             barHeight = 48, 
-            renderLeft = if (not v10 or v13) and v10 then nil else v15
+            renderLeft = if (not v10 or v12) and v10 then nil else v14
         })
     });
 end;

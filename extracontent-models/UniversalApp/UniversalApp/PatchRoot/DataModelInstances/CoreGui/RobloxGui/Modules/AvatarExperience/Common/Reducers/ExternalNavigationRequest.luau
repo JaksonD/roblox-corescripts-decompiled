@@ -8,34 +8,32 @@ local v6 = require(l_Modules_0.AvatarExperience.Common.Actions.CompleteExternalN
 local v7 = require(l_Modules_0.AvatarExperience.Catalog.Actions.NavigatedToDeepLinkCatalogFilter);
 local v8 = require(l_Modules_0.AvatarExperience.Catalog.Actions.EquippedDeepLinkCatalogItem);
 local v9 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.NavigatedToDeepLinkAvatarEditor);
-local v10 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagAXDurablesSupport_0 = v10.FFlagAXDurablesSupport;
-local l_FFlagAXHandleTaxonomyIdsDeepLinks_0 = v10.FFlagAXHandleTaxonomyIdsDeepLinks;
-local v13 = {
+local l_FFlagAXHandleTaxonomyIdsDeepLinks_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXHandleTaxonomyIdsDeepLinks;
+local v11 = {
     screen = l_AvatarScreen_0.None, 
     params = nil, 
     requestId = 0, 
     completedRequestId = 0
 };
-return v3.createReducer(v13, {
-    [v5.name] = function(v14, v15) --[[ Line: 35 ]]
+return v3.createReducer(v11, {
+    [v5.name] = function(v12, v13) --[[ Line: 34 ]]
+        -- upvalues: v2 (copy)
+        return v2.Dictionary.join(v12, {
+            screen = v13.screen, 
+            params = v13.params, 
+            requestId = v12.requestId + 1
+        });
+    end, 
+    [v6.name] = function(v14, v15) --[[ Line: 42 ]]
         -- upvalues: v2 (copy)
         return v2.Dictionary.join(v14, {
-            screen = v15.screen, 
-            params = v15.params, 
-            requestId = v14.requestId + 1
+            completedRequestId = v15.requestId
         });
     end, 
-    [v6.name] = function(v16, v17) --[[ Line: 43 ]]
-        -- upvalues: v2 (copy)
+    [v7.name] = function(v16, _) --[[ Line: 47 ]]
+        -- upvalues: v2 (copy), l_FFlagAXHandleTaxonomyIdsDeepLinks_0 (copy)
         return v2.Dictionary.join(v16, {
-            completedRequestId = v17.requestId
-        });
-    end, 
-    [v7.name] = function(v18, _) --[[ Line: 48 ]]
-        -- upvalues: v2 (copy), l_FFlagAXHandleTaxonomyIdsDeepLinks_0 (copy), l_FFlagAXDurablesSupport_0 (copy)
-        return v2.Dictionary.join(v18, {
-            params = v2.Dictionary.join(v18.params or {}, {
+            params = v2.Dictionary.join(v16.params or {}, {
                 creatorName = v2.None, 
                 minPrice = v2.None, 
                 maxPrice = v2.None, 
@@ -48,25 +46,25 @@ return v3.createReducer(v13, {
                 taxonomy = if l_FFlagAXHandleTaxonomyIdsDeepLinks_0 then v2.None else nil, 
                 keyword = v2.None, 
                 topics = v2.None, 
-                wearTimeFilter = if l_FFlagAXDurablesSupport_0 then v2.None else nil
+                wearTimeFilter = v2.None
             })
         });
     end, 
-    [v8.name] = function(v20, v21) --[[ Line: 77 ]]
+    [v8.name] = function(v18, v19) --[[ Line: 76 ]]
         -- upvalues: v2 (copy)
+        return v2.Dictionary.join(v18, {
+            params = v2.Dictionary.join(v18.params or {}, {
+                itemId = v19.itemId, 
+                itemType = v19.itemType, 
+                wasItemEquipped = v19.wasItemEquipped or false, 
+                fetchItemFailed = v19.fetchItemFailed or false
+            })
+        });
+    end, 
+    [v9.name] = function(v20, _) --[[ Line: 86 ]]
+        -- upvalues: v2 (copy), l_AvatarScreen_0 (copy)
         return v2.Dictionary.join(v20, {
             params = v2.Dictionary.join(v20.params or {}, {
-                itemId = v21.itemId, 
-                itemType = v21.itemType, 
-                wasItemEquipped = v21.wasItemEquipped or false, 
-                fetchItemFailed = v21.fetchItemFailed or false
-            })
-        });
-    end, 
-    [v9.name] = function(v22, _) --[[ Line: 87 ]]
-        -- upvalues: v2 (copy), l_AvatarScreen_0 (copy)
-        return v2.Dictionary.join(v22, {
-            params = v2.Dictionary.join(v22.params or {}, {
                 category = v2.None, 
                 subcategory = v2.None, 
                 opaquePage = l_AvatarScreen_0.AvatarEditor

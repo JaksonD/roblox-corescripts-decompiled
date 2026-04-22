@@ -16,132 +16,123 @@ local v14 = require(l_Modules_0.AvatarExperience.Catalog.Actions.SetUnavailableI
 local v15 = require(l_Modules_0.AvatarExperience.Catalog.Actions.SetWearTimeFilter);
 local v16 = require(l_Modules_0.AvatarExperience.Catalog.Components.Filters.FilterUtils);
 local l_getUseSelectorDeepEquals_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Utils.getUseSelectorDeepEquals;
-local v18 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagMinMaxPriceValidation_0 = v18.FFlagMinMaxPriceValidation;
-local l_FFlagAXDurablesSupport_0 = v18.FFlagAXDurablesSupport;
-local function _(v21, v22) --[[ Line: 75 ]] --[[ Name: getPriceSelection ]]
+local l_FFlagMinMaxPriceValidation_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagMinMaxPriceValidation;
+local function _(v19, v20) --[[ Line: 74 ]] --[[ Name: getPriceSelection ]]
     -- upvalues: v9 (copy), v4 (copy)
-    if v9.MinPriceFilter < v21 or v22 < v9.MaxPriceFilter then
+    if v9.MinPriceFilter < v19 or v20 < v9.MaxPriceFilter then
         return v4.PriceRange;
     else
         return v4.AnyPrice;
     end;
 end;
-local function _(v24) --[[ Line: 83 ]] --[[ Name: getCreatorSelection ]]
+local function _(v22) --[[ Line: 82 ]] --[[ Name: getCreatorSelection ]]
     -- upvalues: v3 (copy)
-    if v24 == nil or v24 == "" then
+    if v22 == nil or v22 == "" then
         return v3.AllCreators;
     else
         return v3.Username;
     end;
 end;
-local function v28(v26, v27) --[[ Line: 91 ]] --[[ Name: wearTimeFilterChanged ]]
-    return v26 ~= v27;
+local function v26(v24, v25) --[[ Line: 90 ]] --[[ Name: wearTimeFilterChanged ]]
+    return v24 ~= v25;
 end;
-return function() --[[ Line: 96 ]] --[[ Name: useFiltersController ]]
-    -- upvalues: l_useSelector_0 (copy), v16 (copy), l_getUseSelectorDeepEquals_0 (copy), v2 (copy), v3 (copy), v9 (copy), v4 (copy), l_FFlagAXDurablesSupport_0 (copy), v6 (copy), l_useDispatch_0 (copy), v5 (copy), v7 (copy), v28 (copy), l_FFlagMinMaxPriceValidation_0 (copy), v11 (copy), v12 (copy), v13 (copy), v14 (copy), v15 (copy)
-    local v29 = l_useSelector_0(v16.selectSalesTypeFilter, l_getUseSelectorDeepEquals_0());
-    local v30, v31 = v2.useState(v29);
-    local v32 = l_useSelector_0(v16.selectCreatorFilter, l_getUseSelectorDeepEquals_0());
-    local v33 = if not (v32 ~= nil) or v32 == "" then v3.AllCreators else v3.Username;
-    local v34, v35 = v2.useState(v33);
-    local v36, v37 = v2.useState(v32);
-    local v38 = l_useSelector_0(v16.selectMinPrice, l_getUseSelectorDeepEquals_0());
-    local v39 = l_useSelector_0(v16.selectMaxPrice, l_getUseSelectorDeepEquals_0());
-    local v40 = if not (v9.MinPriceFilter >= v38) or v39 < v9.MaxPriceFilter then v4.PriceRange else v4.AnyPrice;
-    local v41, v42 = v2.useState(v40);
-    local v43, v44 = v2.useState(v38);
-    local v45, v46 = v2.useState(v39);
-    local v47 = l_useSelector_0(v16.selectUnavailableItemFilter, l_getUseSelectorDeepEquals_0());
-    local v48, v49 = v2.useState(v47);
-    local v50 = if l_FFlagAXDurablesSupport_0 then l_useSelector_0(v16.selectWearTimeFilter, l_getUseSelectorDeepEquals_0()) else v6.All;
-    local v51 = if l_FFlagAXDurablesSupport_0 then v2.useState(v50) else v6.All;
-    local function v52() --[[ Line: 122 ]]
-
-    end;
-    local v53 = l_useDispatch_0();
-    local v54 = true;
-    if v30 == v5.All then
-        v54 = true;
-        if v34 == v3.AllCreators then
-            v54 = true;
-            if v41 == v4.AnyPrice then
-                v54 = true;
-                if v48 == v7.Hide then
-                    v54 = l_FFlagAXDurablesSupport_0 and v51 ~= v6.All;
+return function() --[[ Line: 95 ]] --[[ Name: useFiltersController ]]
+    -- upvalues: l_useSelector_0 (copy), v16 (copy), l_getUseSelectorDeepEquals_0 (copy), v2 (copy), v3 (copy), v9 (copy), v4 (copy), l_useDispatch_0 (copy), v5 (copy), v7 (copy), v6 (copy), v26 (copy), l_FFlagMinMaxPriceValidation_0 (copy), v11 (copy), v12 (copy), v13 (copy), v14 (copy), v15 (copy)
+    local v27 = l_useSelector_0(v16.selectSalesTypeFilter, l_getUseSelectorDeepEquals_0());
+    local v28, v29 = v2.useState(v27);
+    local v30 = l_useSelector_0(v16.selectCreatorFilter, l_getUseSelectorDeepEquals_0());
+    local v31 = if not (v30 ~= nil) or v30 == "" then v3.AllCreators else v3.Username;
+    local v32, v33 = v2.useState(v31);
+    local v34, v35 = v2.useState(v30);
+    local v36 = l_useSelector_0(v16.selectMinPrice, l_getUseSelectorDeepEquals_0());
+    local v37 = l_useSelector_0(v16.selectMaxPrice, l_getUseSelectorDeepEquals_0());
+    local v38 = if not (v9.MinPriceFilter >= v36) or v37 < v9.MaxPriceFilter then v4.PriceRange else v4.AnyPrice;
+    local v39, v40 = v2.useState(v38);
+    local v41, v42 = v2.useState(v36);
+    local v43, v44 = v2.useState(v37);
+    local v45 = l_useSelector_0(v16.selectUnavailableItemFilter, l_getUseSelectorDeepEquals_0());
+    local v46, v47 = v2.useState(v45);
+    local v48 = l_useSelector_0(v16.selectWearTimeFilter, l_getUseSelectorDeepEquals_0());
+    local v49, v50 = v2.useState(v48);
+    local v51 = l_useDispatch_0();
+    local v52 = true;
+    if v28 == v5.All then
+        v52 = true;
+        if v32 == v3.AllCreators then
+            v52 = true;
+            if v39 == v4.AnyPrice then
+                v52 = true;
+                if v46 == v7.Hide then
+                    v52 = v49 ~= v6.All;
                 end;
             end;
         end;
     end;
-    local v55 = v34 == v3.AllCreators and "" or v36;
-    local v56 = if v41 == v4.AnyPrice then v9.MinPriceFilter else v43;
-    local v57 = if v41 == v4.AnyPrice then v9.MaxPriceFilter else v45;
-    local v58 = true;
-    if v30 == v29 then
-        v58 = true;
-        if v55 == v32 then
-            v58 = true;
-            if v56 == v38 then
-                v58 = true;
-                if v57 == v39 then
-                    v58 = true;
-                    if v48 == v47 then
-                        v58 = l_FFlagAXDurablesSupport_0 and v28 and v51 ~= v50;
+    local v53 = v32 == v3.AllCreators and "" or v34;
+    local v54 = if v39 == v4.AnyPrice then v9.MinPriceFilter else v41;
+    local v55 = if v39 == v4.AnyPrice then v9.MaxPriceFilter else v43;
+    local v56 = true;
+    if v28 == v27 then
+        v56 = true;
+        if v53 == v30 then
+            v56 = true;
+            if v54 == v36 then
+                v56 = true;
+                if v55 == v37 then
+                    v56 = true;
+                    if v46 == v45 then
+                        v56 = v26 and v49 ~= v48;
                     end;
                 end;
             end;
         end;
     end;
-    if l_FFlagMinMaxPriceValidation_0 and v57 < v56 then
-        v58 = false;
+    if l_FFlagMinMaxPriceValidation_0 and v55 < v54 then
+        v56 = false;
     end;
-    local v60 = v2.useCallback(function() --[[ Line: 154 ]]
-        -- upvalues: v31 (copy), v5 (ref), v35 (copy), v3 (ref), v42 (copy), v4 (ref), v49 (copy), v7 (ref), l_FFlagAXDurablesSupport_0 (ref), v6 (ref)
-        v31(v5.All);
-        v35(v3.AllCreators);
-        v42(v4.AnyPrice);
-        v49(v7.Hide);
-        if l_FFlagAXDurablesSupport_0 then
-            local _ = v6.All;
-        end;
+    local v57 = v2.useCallback(function() --[[ Line: 146 ]]
+        -- upvalues: v29 (copy), v5 (ref), v33 (copy), v3 (ref), v40 (copy), v4 (ref), v47 (copy), v7 (ref), v50 (copy), v6 (ref)
+        v29(v5.All);
+        v33(v3.AllCreators);
+        v40(v4.AnyPrice);
+        v47(v7.Hide);
+        v50(v6.All);
     end);
-    local v61 = v2.useCallback(function() --[[ Line: 165 ]]
-        -- upvalues: v53 (copy), v11 (ref), v30 (copy), v12 (ref), v55 (copy), v13 (ref), v56 (copy), v57 (copy), v14 (ref), v48 (copy), l_FFlagAXDurablesSupport_0 (ref), v15 (ref), v51 (copy)
-        v53(v11(v30));
-        v53(v12(v55));
-        v53(v13(v56, v57));
-        v53(v14(v48));
-        if l_FFlagAXDurablesSupport_0 then
-            v53(v15(v51));
-        end;
+    local v58 = v2.useCallback(function() --[[ Line: 155 ]]
+        -- upvalues: v51 (copy), v11 (ref), v28 (copy), v12 (ref), v53 (copy), v13 (ref), v54 (copy), v55 (copy), v14 (ref), v46 (copy), v15 (ref), v49 (copy)
+        v51(v11(v28));
+        v51(v12(v53));
+        v51(v13(v54, v55));
+        v51(v14(v46));
+        v51(v15(v49));
     end, {
-        v30, 
+        v28, 
+        v53, 
+        v54, 
         v55, 
-        v56, 
-        v57, 
-        v48, 
-        if l_FFlagAXDurablesSupport_0 then v51 else nil
+        v46, 
+        v49
     });
     return {
-        salesTypeFilter = v30, 
-        setSalesTypeFilter = v31, 
-        creatorFilter = v34, 
-        setCreatorFilter = v35, 
-        creatorUsername = v36, 
-        setCreatorUsername = v37, 
-        priceFilter = v41, 
-        setPriceFilter = v42, 
-        minPrice = v43, 
-        setMinPrice = v44, 
-        maxPrice = v45, 
-        setMaxPrice = v46, 
-        wearTimeFilter = v51, 
-        setWearTimeFilter = v52, 
-        unavailableItemFilter = v48, 
-        setUnavailableItemFilter = v49, 
-        canReset = v54, 
-        canApply = v58, 
-        reset = v60, 
-        apply = v61
+        salesTypeFilter = v28, 
+        setSalesTypeFilter = v29, 
+        creatorFilter = v32, 
+        setCreatorFilter = v33, 
+        creatorUsername = v34, 
+        setCreatorUsername = v35, 
+        priceFilter = v39, 
+        setPriceFilter = v40, 
+        minPrice = v41, 
+        setMinPrice = v42, 
+        maxPrice = v43, 
+        setMaxPrice = v44, 
+        wearTimeFilter = v49, 
+        setWearTimeFilter = v50, 
+        unavailableItemFilter = v46, 
+        setUnavailableItemFilter = v47, 
+        canReset = v52, 
+        canApply = v56, 
+        reset = v57, 
+        apply = v58
     };
 end;

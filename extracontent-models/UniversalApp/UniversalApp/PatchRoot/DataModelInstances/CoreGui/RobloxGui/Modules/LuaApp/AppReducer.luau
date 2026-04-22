@@ -8,25 +8,25 @@ local v6 = require(l_Modules_0.LuaApp.Components.ContactImporter.api);
 local v7 = require(l_Modules_0.LuaApp.Components.DiscoverabilityModal.api);
 local v8 = require(l_Modules_0.LuaApp.Components.SetAlias.api);
 local v9 = require(l_CorePackages_0.Workspace.Packages.ProfileQRCode);
-local v10 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform);
-local v11 = require(l_CorePackages_0.Workspace.Packages.SocialExperienceJoin);
-local v12 = require(l_CorePackages_0.Workspace.Packages.ProfileShareLinks);
-local v13 = require(l_CorePackages_0.Workspace.Packages.SquadsCore);
-local l_SquadLocation_0 = v13.Enums.SquadLocation;
-local v15 = require(l_CorePackages_0.Workspace.Packages.EditProfile);
-local v16 = require(l_CorePackages_0.Workspace.Packages.ContactsToast);
-local v17 = require(l_CorePackages_0.Workspace.Packages.GameIconRodux);
-local l_GameIconReducer_0 = v17.GameIcons.GameIconReducer;
-local l_BigGameIconReducer_0 = v17.BigGameIcons.BigGameIconReducer;
+local v10 = require(l_CorePackages_0.Workspace.Packages.SocialExperienceJoin);
+local v11 = require(l_CorePackages_0.Workspace.Packages.ProfileShareLinks);
+local v12 = require(l_CorePackages_0.Workspace.Packages.SquadsCore);
+local l_SquadLocation_0 = v12.Enums.SquadLocation;
+local v14 = require(l_CorePackages_0.Workspace.Packages.EditProfile);
+local v15 = require(l_CorePackages_0.Workspace.Packages.ContactsToast);
+local v16 = require(l_CorePackages_0.Workspace.Packages.GameIconRodux);
+local l_GameIconReducer_0 = v16.GameIcons.GameIconReducer;
+local l_BigGameIconReducer_0 = v16.BigGameIcons.BigGameIconReducer;
 local l_GamesProductInfoReducer_0 = require(l_CorePackages_0.Workspace.Packages.GameProductInfoRodux).GamesProductInfoReducer;
 local l_LaunchContext_0 = require(l_CorePackages_0.Workspace.Packages.AppStartup).Reducers.LaunchContext;
-local v22 = require(l_CorePackages_0.Workspace.Packages.AuthCommon);
-local v23 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
-local l_OmniFeedTypes_0 = v23.OmniFeedTypes;
-local v25 = require(l_CorePackages_0.Workspace.Packages.FriendRequestNicknames);
-local v26 = require(l_CorePackages_0.Workspace.Packages.UserSearch);
-local v27 = require(l_CorePackages_0.Workspace.Packages.SocialBlockingModal);
-local v28 = require(l_CorePackages_0.Workspace.Packages.SocialProof);
+local v21 = require(l_CorePackages_0.Workspace.Packages.AuthCommon);
+local v22 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
+local l_OmniFeedTypes_0 = v22.OmniFeedTypes;
+local v24 = require(l_CorePackages_0.Workspace.Packages.FriendRequestNicknames);
+local v25 = require(l_CorePackages_0.Workspace.Packages.UserSearch);
+local v26 = require(l_CorePackages_0.Workspace.Packages.SocialBlockingModal);
+local v27 = require(l_CorePackages_0.Workspace.Packages.SocialProof);
+local v28 = require(l_CorePackages_0.Workspace.Packages.SocialTabsPage);
 local v29 = require(l_CorePackages_0.Workspace.Packages.UserList);
 local l_Modules_1 = require(l_CorePackages_0.Workspace.Packages.DiscoveryMonolith).Modules;
 local l_GetFFlagEnableHomePageUpsellCard_0 = l_Modules_1.LuaApp.Flags.GetFFlagEnableHomePageUpsellCard;
@@ -34,7 +34,7 @@ local v32 = require(l_Modules_0.LuaApp.Flags.GetFFlagLocalUserGameVoteCounterRed
 local l_GetFFlagIsSquadEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled;
 local v34 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppEnableNativeRobuxProducts);
 local l_GetFFlagContactsToastEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagContactsToastEnabled;
-local l_ContactsToastIXP_0 = v16.ContactsToastIXP;
+local l_ContactsToastIXP_0 = v15.ContactsToastIXP;
 local l_FFlagFriendRequestNicknames_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagFriendRequestNicknames;
 local l_GetFFlagLuaAppEnableTopBanner_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableTopBanner;
 local l_FFlagEnableUserAccessServiceIntegration_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableUserAccessServiceIntegration;
@@ -42,24 +42,25 @@ local v40 = require(l_Modules_0.LuaApp.Flags.FFlagRobuxBadgeEnabled);
 local l_FFlagEnableSocialProofUserList_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSocialProofUserList;
 local l_FFlagEnablePlayWithRewardComponent_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnablePlayWithRewardComponent;
 local l_FFlagEnableUserListModule_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableUserListModule;
+local l_FFlagEnableSocialTabsPage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSocialTabsPage;
 local l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyDefault;
 local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp;
-local v46 = if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseSignalsRoduxStore then require(l_CorePackages_0.Workspace.Packages.SignalsRodux).combineReducers else v2.combineReducers;
-local function _(v47, v48) --[[ Line: 62 ]] --[[ Name: globalActionReducer ]]
+local v47 = if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseSignalsRoduxStore then require(l_CorePackages_0.Workspace.Packages.SignalsRodux).combineReducers else v2.combineReducers;
+local function _(v48, v49) --[[ Line: 63 ]] --[[ Name: globalActionReducer ]]
     -- upvalues: v4 (copy)
-    if v48.type == v4.name then
-        v47 = {
-            ScreenSize = v47.ScreenSize, 
-            DeviceOrientation = v47.DeviceOrientation, 
-            FormFactor = v47.FormFactor, 
-            GlobalGuiInset = v47.GlobalGuiInset, 
-            TopBar = v47.TopBar, 
-            AuthenticationStatus = v47.AuthenticationStatus
+    if v49.type == v4.name then
+        v48 = {
+            ScreenSize = v48.ScreenSize, 
+            DeviceOrientation = v48.DeviceOrientation, 
+            FormFactor = v48.FormFactor, 
+            GlobalGuiInset = v48.GlobalGuiInset, 
+            TopBar = v48.TopBar, 
+            AuthenticationStatus = v48.AuthenticationStatus
         };
     end;
-    return v47;
+    return v48;
 end;
-local v50 = v46({
+local v51 = v47({
     DeviceOrientation = require(l_Modules_0.LuaApp.Reducers.DeviceOrientation), 
     TopBar = require(l_Modules_0.LuaApp.Reducers.TopBar), 
     SiteMessage = require(l_Modules_0.LuaApp.Reducers.SiteMessage), 
@@ -75,7 +76,7 @@ local v50 = v46({
     InGameUsersByGame = require(l_Modules_0.LuaApp.Reducers.InGameUsersByGame), 
     IsLocalUserSoothsayer = require(l_Modules_0.LuaApp.Reducers.IsLocalUserSoothsayer), 
     SignUpInfo = require(l_Modules_0.LuaApp.Reducers.Authentication.SignUpInfo), 
-    CountryCodeList = v22.Reducers.CountryCodeList, 
+    CountryCodeList = v21.Reducers.CountryCodeList, 
     CountryCode = require(l_CorePackages_0.Workspace.Packages.CountryCode).CountryCodeReducer, 
     LoginResult = require(l_Modules_0.LuaApp.Reducers.Authentication.LoginResult), 
     GameSortGroups = l_Modules_1.LuaApp.Reducers.Games.GameSortGroups, 
@@ -160,11 +161,12 @@ local v50 = v46({
     SocialTab = require(l_CorePackages_0.Workspace.Packages.SocialTabState).installReducer(), 
     FriendsLanding = require(l_Modules_0.LuaApp.Components.FriendsLanding.FriendsLanding).installReducer(), 
     AddFriends = require(l_CorePackages_0.Workspace.Packages.AddFriendsState).installReducer(), 
-    ProfilePlatform = v10.installReducer(), 
-    [v11.RoduxKey] = v11.installReducer(), 
-    SocialProof = if l_FFlagEnableSocialProofUserList_0 then v28.installReducer() else nil, 
+    ProfilePlatform = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.installReducer)(), 
+    [v10.RoduxKey] = v10.installReducer(), 
+    SocialProof = if l_FFlagEnableSocialProofUserList_0 then v27.installReducer() else nil, 
+    [v28.RoduxKey] = if l_FFlagEnableSocialTabsPage_0 then v28.installReducer() else nil, 
     UserList = if l_FFlagEnableUserListModule_0 then v29.installReducer() else nil, 
-    ProfileShareLinks = v12.Rodux.installReducer(), 
+    ProfileShareLinks = v11.Rodux.installReducer(), 
     [v6.RoduxKey] = v6.installReducer(), 
     InviteLinkExpiredModal = require(l_Modules_0.LuaApp.Components.InviteLinkExpiredModal.api).installReducer(), 
     Moderation = require(l_Modules_0.LuaApp.Reducers.Moderation.UserModeration), 
@@ -174,38 +176,38 @@ local v50 = v46({
     VirtualEvents = require(l_CorePackages_0.Workspace.Packages.VirtualEventsState).installReducer(), 
     [v3.RoduxKey] = v3.installReducer(), 
     [v5.RoduxKey] = v5.installReducer({
-        contentType = v23.OmniRecommendationsContentType.RecommendedFriend, 
+        contentType = v22.OmniRecommendationsContentType.RecommendedFriend, 
         treatmentType = l_OmniFeedTypes_0.FriendRecommendationCarousel
     }), 
     [v7.RoduxKey] = v7.installReducer(), 
     [v8.RoduxKey] = v8.installReducer(), 
     [v9.RoduxKey] = v9.installReducer(), 
-    [v15.RoduxKey] = v15.installReducer(), 
-    [v13.RoduxKey] = if l_GetFFlagIsSquadEnabled_0() then v13.installReducer(l_SquadLocation_0.InApp) else nil, 
+    [v14.RoduxKey] = v14.installReducer(), 
+    [v12.RoduxKey] = if l_GetFFlagIsSquadEnabled_0() then v12.installReducer(l_SquadLocation_0.InApp) else nil, 
     CrossPlaySettings = require(l_CorePackages_0.Workspace.Packages.CrossPlay).Reducers.CrossPlaySettings, 
     PlayerContextualMenu = require(l_CorePackages_0.Workspace.Packages.PlayerContextualMenu).installReducer(), 
-    [v16.RoduxKey] = if not not l_GetFFlagContactsToastEnabled_0() or l_ContactsToastIXP_0.FFlagContactsToastExperimentEnabled then v16.installReducer() else nil, 
-    [v25.RoduxKey] = if l_FFlagFriendRequestNicknames_0 then v25.installReducer() else nil, 
-    [v26.RoduxKey] = v26.installReducer(), 
+    [v15.RoduxKey] = if not not l_GetFFlagContactsToastEnabled_0() or l_ContactsToastIXP_0.FFlagContactsToastExperimentEnabled then v15.installReducer() else nil, 
+    [v24.RoduxKey] = if l_FFlagFriendRequestNicknames_0 then v24.installReducer() else nil, 
+    [v25.RoduxKey] = v25.installReducer(), 
     UserAccess = if l_FFlagEnableUserAccessServiceIntegration_0 then require(l_Modules_0.LuaApp.Reducers.UserAccess.UserAccess) else nil, 
     RobuxVirtualItem = if v40 then require(l_Modules_0.LuaApp.Reducers.RobuxVirtualItem) else nil, 
-    [v27.RoduxKey] = v27.installReducer(), 
+    [v26.RoduxKey] = v26.installReducer(), 
     PlayWithRewardState = if l_FFlagEnablePlayWithRewardComponent_0 then require(l_CorePackages_0.Workspace.Packages.PlayWithRewardState).PlayWithRewardState else nil, 
     TextSearchResults = require(l_Modules_0.LuaApp.Components.Search.Reducers.TextSearchResults)
 });
-return function(v51, v52, v53) --[[ Line: 250 ]]
-    -- upvalues: v50 (copy), v4 (copy)
-    local l_v50_0 = v50;
+return function(v52, v53, v54) --[[ Line: 252 ]]
+    -- upvalues: v51 (copy), v4 (copy)
     local l_v51_0 = v51;
-    if v52.type == v4.name then
-        l_v51_0 = {
-            ScreenSize = l_v51_0.ScreenSize, 
-            DeviceOrientation = l_v51_0.DeviceOrientation, 
-            FormFactor = l_v51_0.FormFactor, 
-            GlobalGuiInset = l_v51_0.GlobalGuiInset, 
-            TopBar = l_v51_0.TopBar, 
-            AuthenticationStatus = l_v51_0.AuthenticationStatus
+    local l_v52_0 = v52;
+    if v53.type == v4.name then
+        l_v52_0 = {
+            ScreenSize = l_v52_0.ScreenSize, 
+            DeviceOrientation = l_v52_0.DeviceOrientation, 
+            FormFactor = l_v52_0.FormFactor, 
+            GlobalGuiInset = l_v52_0.GlobalGuiInset, 
+            TopBar = l_v52_0.TopBar, 
+            AuthenticationStatus = l_v52_0.AuthenticationStatus
         };
     end;
-    return l_v50_0(l_v51_0, v52, v53);
+    return l_v51_0(l_v52_0, v53, v54);
 end;

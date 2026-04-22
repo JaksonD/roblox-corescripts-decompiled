@@ -59,6 +59,13 @@ return {
                     }
                 }
             };
+        elseif v8 == "translation" then
+            return {
+                kind = {
+                    type = "translation", 
+                    value = v9
+                }
+            };
         else
             return {
                 kind = {
@@ -68,7 +75,7 @@ return {
             };
         end;
     end, 
-    createMockConditionalPropValue = function(v10, v11) --[[ Line: 130 ]] --[[ Name: createMockConditionalPropValue ]]
+    createMockConditionalPropValue = function(v10, v11) --[[ Line: 137 ]] --[[ Name: createMockConditionalPropValue ]]
         return {
             kind = {
                 type = "conditional", 
@@ -82,12 +89,12 @@ return {
             }
         };
     end, 
-    createMockConditionalOptions = function(v12) --[[ Line: 234 ]] --[[ Name: createMockConditionalOptions ]]
+    createMockConditionalOptions = function(v12) --[[ Line: 241 ]] --[[ Name: createMockConditionalOptions ]]
         return {
             options = v12
         };
     end, 
-    createMockComparisonConditionOption = function(v13, v14, v15, v16) --[[ Line: 149 ]] --[[ Name: createMockComparisonConditionOption ]]
+    createMockComparisonConditionOption = function(v13, v14, v15, v16) --[[ Line: 156 ]] --[[ Name: createMockComparisonConditionOption ]]
         return {
             condition = {
                 kind = {
@@ -104,7 +111,7 @@ return {
             kind = v16
         };
     end, 
-    createMockIsNullConditionOption = function(v17, v18) --[[ Line: 172 ]] --[[ Name: createMockIsNullConditionOption ]]
+    createMockIsNullConditionOption = function(v17, v18) --[[ Line: 179 ]] --[[ Name: createMockIsNullConditionOption ]]
         return {
             condition = {
                 kind = {
@@ -117,7 +124,7 @@ return {
             kind = v18
         };
     end, 
-    createMockIsNotNullConditionOption = function(v19, v20) --[[ Line: 186 ]] --[[ Name: createMockIsNotNullConditionOption ]]
+    createMockIsNotNullConditionOption = function(v19, v20) --[[ Line: 193 ]] --[[ Name: createMockIsNotNullConditionOption ]]
         return {
             condition = {
                 kind = {
@@ -130,7 +137,7 @@ return {
             kind = v20
         };
     end, 
-    createMockAndConditionOption = function(v21, v22) --[[ Line: 200 ]] --[[ Name: createMockAndConditionOption ]]
+    createMockAndConditionOption = function(v21, v22) --[[ Line: 207 ]] --[[ Name: createMockAndConditionOption ]]
         return {
             condition = {
                 kind = {
@@ -143,7 +150,7 @@ return {
             kind = v22
         };
     end, 
-    createMockOrConditionOption = function(v23, v24) --[[ Line: 214 ]] --[[ Name: createMockOrConditionOption ]]
+    createMockOrConditionOption = function(v23, v24) --[[ Line: 221 ]] --[[ Name: createMockOrConditionOption ]]
         return {
             condition = {
                 kind = {
@@ -156,7 +163,7 @@ return {
             kind = v24
         };
     end, 
-    createMockNestedComponentConditionalOption = function(v25, v26, v27) --[[ Line: 113 ]] --[[ Name: createMockNestedComponentConditionalOption ]]
+    createMockNestedComponentConditionalOption = function(v25, v26, v27) --[[ Line: 120 ]] --[[ Name: createMockNestedComponentConditionalOption ]]
         return {
             condition = v25, 
             kind = {

@@ -8,11 +8,13 @@ local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).
 local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
 local v8 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatEnableDomLocators);
 local v9 = require(l_script_FirstAncestor_0.Utils.DomLocators);
-local v10 = v3.PureComponent:extend("ChatDetailsScreen");
-v10.defaultProps = {
+local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarConfigDriven);
+local v11 = require(l_script_FirstAncestor_0.Stores.GetTopBarStore);
+local v12 = v3.PureComponent:extend("ChatDetailsScreen");
+v12.defaultProps = {
     navigation = nil
 };
-v10.navigationOptions = function() --[[ Line: 19 ]]
+v12.navigationOptions = function() --[[ Line: 21 ]]
     -- upvalues: l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v8 (copy), v9 (copy)
     return {
         headerText = {
@@ -22,74 +24,87 @@ v10.navigationOptions = function() --[[ Line: 19 ]]
         backButtonTestId = if v8 then v9.chatDetailsTopBarActionButton("back") else nil
     };
 end;
-v10.init = function(v11) --[[ Line: 33 ]] --[[ Name: init ]]
+v12.init = function(v13) --[[ Line: 35 ]] --[[ Name: init ]]
     -- upvalues: v5 (copy), v2 (copy)
-    v11.navigateToEditChatMembers = function(v12) --[[ Line: 34 ]]
-        -- upvalues: v5 (ref), v11 (copy), v2 (ref)
+    v13.navigateToEditChatMembers = function(v14) --[[ Line: 36 ]]
+        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
         v5:info("Navigate To EditChatMembers from {screen}");
-        v11.props.navigation.navigate(v2.EditChatMembers, {
-            conversation = v12
+        v13.props.navigation.navigate(v2.EditChatMembers, {
+            conversation = v14
         });
     end;
-    v11.navigateToToast = function(v13) --[[ Line: 39 ]]
-        -- upvalues: v5 (ref), v11 (copy), v2 (ref)
+    v13.navigateToToast = function(v15) --[[ Line: 41 ]]
+        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
         v5:info("Navigate To Toast from {screen}");
-        v11.props.navigation.navigate(v2.RoactChatToast, v13);
+        v13.props.navigation.navigate(v2.RoactChatToast, v15);
     end;
-    v11.navigateToDialog = function(v14, v15) --[[ Line: 44 ]]
-        -- upvalues: v5 (ref), v11 (copy)
-        v5:info("Navigate To {} from {screen}", v14);
-        v11.props.navigation.navigate(v14, v15);
+    v13.navigateToDialog = function(v16, v17) --[[ Line: 46 ]]
+        -- upvalues: v5 (ref), v13 (copy)
+        v5:info("Navigate To {} from {screen}", v16);
+        v13.props.navigation.navigate(v16, v17);
     end;
-    v11.navigateBack = function() --[[ Line: 49 ]]
-        -- upvalues: v11 (copy)
-        if v11.props.navigation.isFocused() then
-            v11.props.navigation.goBack();
+    v13.navigateBack = function() --[[ Line: 51 ]]
+        -- upvalues: v13 (copy)
+        if v13.props.navigation.isFocused() then
+            v13.props.navigation.goBack();
         end;
     end;
-    v11.navigateToConversation = function(v16) --[[ Line: 55 ]]
-        -- upvalues: v5 (ref), v11 (copy), v2 (ref)
+    v13.navigateToConversation = function(v18) --[[ Line: 57 ]]
+        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
         v5:info("Navigate To Conversation from {screen}");
-        v11.props.navigation.navigate(v2.ChatConversation, {
-            conversationId = v16
+        v13.props.navigation.navigate(v2.ChatConversation, {
+            conversationId = v18
         });
     end;
-    v11.navigateToChatLanding = function() --[[ Line: 60 ]]
-        -- upvalues: v5 (ref), v11 (copy), v2 (ref)
+    v13.navigateToChatLanding = function() --[[ Line: 62 ]]
+        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
         v5:info("Navigate To ChatLanding from {screen}");
-        if v11.props.navigation.getScreenProps("wideMode", false) then
-            v11.props.navigation.navigate(v2.EmptyConversation);
+        if v13.props.navigation.getScreenProps("wideMode", false) then
+            v13.props.navigation.navigate(v2.EmptyConversation);
             return;
         else
-            v11.props.navigation.navigate(v2.ChatLanding);
+            v13.props.navigation.navigate(v2.ChatLanding);
             return;
         end;
     end;
 end;
-v10.render = function(v17) --[[ Line: 71 ]] --[[ Name: render ]]
+v12.render = function(v19) --[[ Line: 73 ]] --[[ Name: render ]]
     -- upvalues: v5 (copy), v3 (copy), v4 (copy)
-    local l_navigation_0 = v17.props.navigation;
+    local l_navigation_0 = v19.props.navigation;
     assert(type(l_navigation_0) ~= "nil", "ChatDetailsScreen should be wrapped with Roact Navigation");
-    local v19 = l_navigation_0.getParam("conversationId", nil);
-    if v19 == nil then
+    local v21 = l_navigation_0.getParam("conversationId", nil);
+    if v21 == nil then
         v5:warning("ConversationId is required to open {screen}");
         return nil;
     else
         return v3.createElement(v4, {
             topBarHeight = l_navigation_0.getScreenProps("topBarHeight", 0), 
             wideMode = l_navigation_0.getScreenProps("wideMode", false), 
-            conversationId = v19, 
-            navigateBack = v17.navigateBack, 
-            navigateToEditChatMembers = v17.navigateToEditChatMembers, 
-            navigateToDialog = v17.navigateToDialog, 
-            navigateToToast = v17.navigateToToast, 
-            navigateToConversation = v17.navigateToConversation, 
-            navigateToChatLanding = v17.navigateToChatLanding
+            conversationId = v21, 
+            navigateBack = v19.navigateBack, 
+            navigateToEditChatMembers = v19.navigateToEditChatMembers, 
+            navigateToDialog = v19.navigateToDialog, 
+            navigateToToast = v19.navigateToToast, 
+            navigateToConversation = v19.navigateToConversation, 
+            navigateToChatLanding = v19.navigateToChatLanding
         });
     end;
 end;
-v10.didMount = function(_) --[[ Line: 94 ]] --[[ Name: didMount ]]
-    -- upvalues: v5 (copy)
+v12.didMount = function(_) --[[ Line: 96 ]] --[[ Name: didMount ]]
+    -- upvalues: v5 (copy), v10 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v11 (copy), v2 (copy)
     v5:info("{screen} mounted");
+    if v10() then
+        local v23 = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then {
+            raw = "Feature.Chat.Label.Details", 
+            shouldLocalize = true
+        } else {
+            raw = "Feature.Chat.Label.ChatDetails", 
+            shouldLocalize = true
+        };
+        v11(false).setScreenTopBar(v2.ChatDetails, {
+            headerText = v23, 
+            backButtonEnabled = true
+        });
+    end;
 end;
-return v10;
+return v12;

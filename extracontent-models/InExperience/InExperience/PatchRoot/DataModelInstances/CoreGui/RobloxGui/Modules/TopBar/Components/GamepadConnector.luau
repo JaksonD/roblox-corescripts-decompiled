@@ -39,252 +39,271 @@ local l_SettingsShowSignal_0 = require(l_CorePackages_0.Workspace.Packages.CoreS
 local l_PlayerList_0 = l_Parent_0.PlayerList;
 local v39 = require(l_PlayerList_0.PlayerListManager);
 local l_MenuIconSelectedSignal_0 = l_FocusUtils_0.MenuIconSelectedSignal;
-local v41 = require(l_CorePackages_0.Workspace.Packages.ExpChat).Stores.GetFocusNavigationStore(false);
-local v42 = nil;
-local v43 = nil;
-local v44 = nil;
-task.spawn(function() --[[ Line: 64 ]]
-    -- upvalues: v42 (ref), l_CoreGui_0 (copy), v43 (ref), v44 (ref)
-    v42 = l_CoreGui_0:WaitForChild("ToastNotification", 3);
-    v43 = if v42 ~= nil then v42:WaitForChild("ToastNotificationWrapper", 3) else nil;
-    v44 = if v43 ~= nil then v43:FindFirstChild("Toast", true) else nil;
+local v41 = require(l_CorePackages_0.Workspace.Packages.CoreGuiCommon);
+local l_FFlagEnableUISelector_0 = v41.Flags.FFlagEnableUISelector;
+local v43 = if l_FFlagEnableUISelector_0 then v41.Stores.GetUiSelectorSignalStore else nil;
+local v44 = require(l_CorePackages_0.Workspace.Packages.ExpChat).Stores.GetFocusNavigationStore(false);
+local v45 = nil;
+local v46 = nil;
+local v47 = nil;
+task.spawn(function() --[[ Line: 69 ]]
+    -- upvalues: v45 (ref), l_CoreGui_0 (copy), v46 (ref), v47 (ref)
+    v45 = l_CoreGui_0:WaitForChild("ToastNotification", 3);
+    v46 = if v45 ~= nil then v45:WaitForChild("ToastNotificationWrapper", 3) else nil;
+    v47 = if v46 ~= nil then v46:FindFirstChild("Toast", true) else nil;
 end);
-local function _() --[[ Line: 120 ]] --[[ Name: createSelectedCoreObject ]]
+local function _() --[[ Line: 125 ]] --[[ Name: createSelectedCoreObject ]]
     -- upvalues: v33 (copy), l_GuiService_0 (copy)
-    local v45 = v33.new(l_GuiService_0.SelectedCoreObject);
-    l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 122 ]]
-        -- upvalues: v45 (copy), l_GuiService_0 (ref)
-        v45:set(l_GuiService_0.SelectedCoreObject);
+    local v48 = v33.new(l_GuiService_0.SelectedCoreObject);
+    l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 127 ]]
+        -- upvalues: v48 (copy), l_GuiService_0 (ref)
+        v48:set(l_GuiService_0.SelectedCoreObject);
     end);
-    return v45;
+    return v48;
 end;
-local _ = function(v47) --[[ Line: 129 ]] --[[ Name: isInputGamepad ]]
+local _ = function(v50) --[[ Line: 134 ]] --[[ Name: isInputGamepad ]]
     -- upvalues: v36 (copy)
-    for _, v49 in v36.GamepadInputTypes do
-        if v47 == v49 then
+    for _, v52 in v36.GamepadInputTypes do
+        if v50 == v52 then
             return true;
         end;
     end;
     return false;
 end;
-local v51 = {};
-v51.__index = v51;
-v51.new = function() --[[ Line: 142 ]] --[[ Name: new ]]
-    -- upvalues: l_GuiService_0 (copy), v30 (copy), v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v33 (copy), l_UserInputService_0 (copy), v36 (copy), l_FFlagAddNewPlayerListFocusNav_0 (copy), l_SettingsShowSignal_0 (copy), v39 (copy), l_FFlagAddNewPlayerListMobileFocusNav_0 (copy), l_FFlagDisableGamepadConnectorInVR_0 (copy), l_isSpatial_0 (copy), l_FFlagShowUnibarOnVirtualCursor_0 (copy), l_GamepadService_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), l_MenuIconSelectedSignal_0 (copy), v24 (copy), v12 (copy), v51 (copy)
-    local v52 = false;
-    local v53 = {
+local v54 = {};
+v54.__index = v54;
+v54.new = function() --[[ Line: 147 ]] --[[ Name: new ]]
+    -- upvalues: l_GuiService_0 (copy), v30 (copy), v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v33 (copy), l_UserInputService_0 (copy), v36 (copy), l_FFlagAddNewPlayerListFocusNav_0 (copy), l_SettingsShowSignal_0 (copy), v39 (copy), l_FFlagAddNewPlayerListMobileFocusNav_0 (copy), l_FFlagDisableGamepadConnectorInVR_0 (copy), l_isSpatial_0 (copy), l_FFlagEnableUISelector_0 (copy), v43 (copy), l_FFlagShowUnibarOnVirtualCursor_0 (copy), l_GamepadService_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), l_MenuIconSelectedSignal_0 (copy), v24 (copy), v12 (copy), v54 (copy)
+    local v55 = false;
+    local v56 = {
         _loggedExperienceMenuGamepadExposure = false, 
         _devSetCoreGuiNavEnabled = l_GuiService_0.CoreGuiNavigationEnabled, 
         _chromeFocused = if v30 then v30:inFocusNav() else false, 
         _lastMenuButtonPress = 0, 
         _dismissFocusConnections = {}
     };
-    local v54;
+    local v57;
     if v29 and l_FFlagEnableConsoleExpControls_0 then
-        local v55 = v33.new(l_GuiService_0.SelectedCoreObject);
-        local l_v55_0 = v55 --[[ copy: 2 -> 9 ]];
-        l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 122 ]]
-            -- upvalues: l_v55_0 (copy), l_GuiService_0 (ref)
-            l_v55_0:set(l_GuiService_0.SelectedCoreObject);
+        local v58 = v33.new(l_GuiService_0.SelectedCoreObject);
+        local l_v58_0 = v58 --[[ copy: 2 -> 9 ]];
+        l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 127 ]]
+            -- upvalues: l_v58_0 (copy), l_GuiService_0 (ref)
+            l_v58_0:set(l_GuiService_0.SelectedCoreObject);
         end);
-        v54 = v55;
+        v57 = v58;
     else
-        v54 = nil;
+        v57 = nil;
     end;
-    v53._selectedCoreObject = v54;
-    v53._connections = {};
+    v56._selectedCoreObject = v57;
+    v56._connections = {};
     if v29 and l_FFlagEnableConsoleExpControls_0 then
-        v54 = v33.new;
+        v57 = v33.new;
         local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-        local v58;
-        for _, v60 in v36.GamepadInputTypes do
-            if l_l_UserInputService_0_LastInputType_0 == v60 then
-                v58 = true;
-                v52 = true;
+        local v61;
+        for _, v63 in v36.GamepadInputTypes do
+            if l_l_UserInputService_0_LastInputType_0 == v63 then
+                v61 = true;
+                v55 = true;
             end;
-            if v52 then
+            if v55 then
                 break;
             end;
         end;
-        if not v52 then
-            v58 = false;
+        if not v55 then
+            v61 = false;
         end;
-        v52 = false;
-        v53._gamepadActive = v54(v58);
-        v53._tiltMenuOpen = v33.new(false);
-        v53._playerListModalOpen = if l_FFlagAddNewPlayerListFocusNav_0 then v33.new(false) else nil;
-        v53._showTopBar = v33.new(true);
-        l_UserInputService_0.LastInputTypeChanged:Connect(function(v61) --[[ Line: 161 ]]
-            -- upvalues: v53 (copy), v36 (ref)
-            local v62 = false;
-            local l__gamepadActive_0 = v53._gamepadActive;
-            local v64;
-            for _, v66 in v36.GamepadInputTypes do
-                if v61 == v66 then
-                    v64 = true;
-                    v62 = true;
+        v55 = false;
+        v56._gamepadActive = v57(v61);
+        v56._tiltMenuOpen = v33.new(false);
+        v56._playerListModalOpen = if l_FFlagAddNewPlayerListFocusNav_0 then v33.new(false) else nil;
+        v56._showTopBar = v33.new(true);
+        l_UserInputService_0.LastInputTypeChanged:Connect(function(v64) --[[ Line: 166 ]]
+            -- upvalues: v56 (copy), v36 (ref)
+            local v65 = false;
+            local l__gamepadActive_0 = v56._gamepadActive;
+            local v67;
+            for _, v69 in v36.GamepadInputTypes do
+                if v64 == v69 then
+                    v67 = true;
+                    v65 = true;
                 end;
-                if v62 then
+                if v65 then
                     break;
                 end;
             end;
-            if not v62 then
-                v64 = false;
+            if not v65 then
+                v67 = false;
             end;
-            v62 = false;
-            l__gamepadActive_0:set(v64);
+            v65 = false;
+            l__gamepadActive_0:set(v67);
         end);
-        l_SettingsShowSignal_0:connect(function(v67) --[[ Line: 165 ]]
-            -- upvalues: v53 (copy)
-            v53._tiltMenuOpen:set(v67);
+        l_SettingsShowSignal_0:connect(function(v70) --[[ Line: 170 ]]
+            -- upvalues: v56 (copy)
+            v56._tiltMenuOpen:set(v70);
         end);
         if l_FFlagAddNewPlayerListFocusNav_0 then
-            v39:GetVisibilityChangedEvent().Event:Connect(function() --[[ Line: 170 ]]
-                -- upvalues: l_FFlagAddNewPlayerListMobileFocusNav_0 (ref), v39 (ref), v53 (copy)
-                local v68 = not l_FFlagAddNewPlayerListMobileFocusNav_0 or v39:GetIsModal();
-                v53._playerListModalOpen:set(v68 and v39:GetVisibility());
+            v39:GetVisibilityChangedEvent().Event:Connect(function() --[[ Line: 175 ]]
+                -- upvalues: l_FFlagAddNewPlayerListMobileFocusNav_0 (ref), v39 (ref), v56 (copy)
+                local v71 = not l_FFlagAddNewPlayerListMobileFocusNav_0 or v39:GetIsModal();
+                v56._playerListModalOpen:set(v71 and v39:GetVisibility());
             end);
         end;
         if not l_FFlagDisableGamepadConnectorInVR_0 or not l_isSpatial_0() then
-            v54 = function() --[[ Line: 177 ]]
-                -- upvalues: v53 (copy), l_UserInputService_0 (ref), l_FFlagAddNewPlayerListFocusNav_0 (ref), l_FFlagShowUnibarOnVirtualCursor_0 (ref), l_GamepadService_0 (ref), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (ref), l_GuiService_0 (ref)
-                local v69 = not v53._gamepadActive:get() or v53._chromeFocused:get() or v53._selectedCoreObject:get() ~= nil or l_UserInputService_0.TouchEnabled or v53._tiltMenuOpen:get() or l_FFlagAddNewPlayerListFocusNav_0 and v53._playerListModalOpen:get() or l_FFlagShowUnibarOnVirtualCursor_0 and l_GamepadService_0.GamepadCursorEnabled or l_FFlagVirtualCursorTopbarAlwaysVisible_0 and l_GamepadService_0.GamepadCursorEnabled;
-                v53._showTopBar:set(v69);
-                if v69 then
+            v57 = function() --[[ Line: 182 ]]
+                -- upvalues: v56 (copy), l_FFlagEnableUISelector_0 (ref), v43 (ref), l_UserInputService_0 (ref), l_FFlagAddNewPlayerListFocusNav_0 (ref), l_FFlagShowUnibarOnVirtualCursor_0 (ref), l_GamepadService_0 (ref), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (ref), l_GuiService_0 (ref)
+                local v72 = not v56._gamepadActive:get() or v56._chromeFocused:get() or v56._selectedCoreObject:get() ~= nil and (not l_FFlagEnableUISelector_0 or not v43(false).getVisibility()) or l_UserInputService_0.TouchEnabled or v56._tiltMenuOpen:get() or l_FFlagAddNewPlayerListFocusNav_0 and v56._playerListModalOpen:get() or l_FFlagShowUnibarOnVirtualCursor_0 and l_GamepadService_0.GamepadCursorEnabled or l_FFlagVirtualCursorTopbarAlwaysVisible_0 and l_GamepadService_0.GamepadCursorEnabled;
+                v56._showTopBar:set(v72);
+                if v72 then
                     l_GuiService_0.CoreGuiNavigationEnabled = true;
                     return;
                 else
-                    l_GuiService_0.CoreGuiNavigationEnabled = v53._devSetCoreGuiNavEnabled;
+                    l_GuiService_0.CoreGuiNavigationEnabled = v56._devSetCoreGuiNavEnabled;
                     return;
                 end;
             end;
-            v53._selectedCoreObject:connect(v54);
-            v53._chromeFocused:connect(v54);
-            v53._tiltMenuOpen:connect(v54);
+            v56._selectedCoreObject:connect(v57);
+            v56._chromeFocused:connect(v57);
+            v56._tiltMenuOpen:connect(v57);
             if l_FFlagShowUnibarOnVirtualCursor_0 or l_FFlagVirtualCursorTopbarAlwaysVisible_0 then
-                l_GamepadService_0:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(v54);
+                l_GamepadService_0:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(v57);
             end;
-            v53._gamepadActive:connect(v54, true);
+            v56._gamepadActive:connect(v57, true);
         end;
     end;
     if l_FFlagEnableConsoleExpControls_0 then
-        l_GuiService_0:GetPropertyChangedSignal("CoreGuiNavigationEnabled"):Connect(function() --[[ Line: 205 ]]
-            -- upvalues: v53 (copy), l_GuiService_0 (ref)
-            v53._devSetCoreGuiNavEnabled = l_GuiService_0.CoreGuiNavigationEnabled;
+        l_GuiService_0:GetPropertyChangedSignal("CoreGuiNavigationEnabled"):Connect(function() --[[ Line: 210 ]]
+            -- upvalues: v56 (copy), l_GuiService_0 (ref)
+            v56._devSetCoreGuiNavEnabled = l_GuiService_0.CoreGuiNavigationEnabled;
         end);
     end;
-    v53._isTopBarFocused = function() --[[ Line: 209 ]]
-        -- upvalues: l_FFlagVirtualCursorTopbarAlwaysVisible_0 (ref), l_GamepadService_0 (ref), v53 (copy), l_MenuIconSelectedSignal_0 (ref)
+    v56._isTopBarFocused = function() --[[ Line: 214 ]]
+        -- upvalues: l_FFlagVirtualCursorTopbarAlwaysVisible_0 (ref), l_GamepadService_0 (ref), v56 (copy), l_MenuIconSelectedSignal_0 (ref)
         if l_FFlagVirtualCursorTopbarAlwaysVisible_0 and l_GamepadService_0.GamepadCursorEnabled then
             return false;
         else
-            return v53._chromeFocused:get() or l_MenuIconSelectedSignal_0:get();
+            return v56._chromeFocused:get() or l_MenuIconSelectedSignal_0:get();
         end;
     end;
     if v24 then
-        v54 = v53._isTopBarFocused();
-        local v70, v71 = v12.createSignal(v54);
-        v53._topBarFocused = v70;
-        v53._setTopBarFocused = v71;
+        v57 = v56._isTopBarFocused();
+        local v73, v74 = v12.createSignal(v57);
+        v56._topBarFocused = v73;
+        v56._setTopBarFocused = v74;
     end;
-    return (setmetatable(v53, v51));
+    return (setmetatable(v56, v54));
 end;
-v51.connectToTopbar = function(v72) --[[ Line: 224 ]] --[[ Name: connectToTopbar ]]
+v54.connectToTopbar = function(v75) --[[ Line: 229 ]] --[[ Name: connectToTopbar ]]
     -- upvalues: v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_ContextActionService_0 (copy), l_GuiService_0 (copy), v24 (copy), l_FFlagSetUnibarShortcutOnTopBarFocus_0 (copy), v30 (copy), v34 (copy), l_MenuIconSelectedSignal_0 (copy)
     if v29 then
         if l_FFlagEnableConsoleExpControls_0 then
-            v72:disconnectFromTopbar();
+            v75:disconnectFromTopbar();
         end;
-        l_ContextActionService_0:BindCoreAction("FocusGamepadToTopbar", v72:_bindSelf(v72._toggleTopbar), false, Enum.KeyCode.ButtonStart);
-        local function v74() --[[ Line: 235 ]]
-            -- upvalues: v72 (copy), l_GuiService_0 (ref), v24 (ref), l_FFlagSetUnibarShortcutOnTopBarFocus_0 (ref), v30 (ref), v34 (ref)
-            local v73 = v72:_isTopBarFocused();
-            l_GuiService_0:SetMenuIsOpen(v73, "TopbarMenu");
+        l_ContextActionService_0:BindCoreAction("FocusGamepadToTopbar", v75:_bindSelf(v75._toggleTopbar), false, Enum.KeyCode.ButtonStart);
+        local function v77() --[[ Line: 240 ]]
+            -- upvalues: v75 (copy), l_GuiService_0 (ref), v24 (ref), l_FFlagSetUnibarShortcutOnTopBarFocus_0 (ref), v30 (ref), v34 (ref)
+            local v76 = v75:_isTopBarFocused();
+            l_GuiService_0:SetMenuIsOpen(v76, "TopbarMenu");
             if v24 then
-                v72._setTopBarFocused(v73);
+                v75._setTopBarFocused(v76);
             end;
-            if v73 then
+            if v76 then
                 if l_FFlagSetUnibarShortcutOnTopBarFocus_0 then
                     v30:setShortcutBar(v34.UNIBAR_SHORTCUTBAR_ID);
                 end;
-                v72:_addDismissFocusConnections();
+                v75:_addDismissFocusConnections();
                 return;
             else
-                v72:_removeDismissFocusConnections();
+                v75:_removeDismissFocusConnections();
                 return;
             end;
         end;
-        table.insert(v72._connections, v72._chromeFocused:connect(v74));
-        table.insert(v72._connections, l_MenuIconSelectedSignal_0:connect(v74));
+        table.insert(v75._connections, v75._chromeFocused:connect(v77));
+        table.insert(v75._connections, l_MenuIconSelectedSignal_0:connect(v77));
     end;
 end;
-v51.disconnectFromTopbar = function(v75) --[[ Line: 257 ]] --[[ Name: disconnectFromTopbar ]]
+v54.disconnectFromTopbar = function(v78) --[[ Line: 262 ]] --[[ Name: disconnectFromTopbar ]]
     -- upvalues: l_ContextActionService_0 (copy)
-    for _, v77 in v75._connections do
-        v77:disconnect();
+    for _, v80 in v78._connections do
+        v80:disconnect();
     end;
-    v75._connections = {};
-    v75:_removeDismissFocusConnections();
+    v78._connections = {};
+    v78:_removeDismissFocusConnections();
     l_ContextActionService_0:UnbindCoreAction("FocusGamepadToTopbar");
 end;
-v51.getSelectedCoreObject = function(v78) --[[ Line: 267 ]] --[[ Name: getSelectedCoreObject ]]
-    return v78._selectedCoreObject;
+v54.getSelectedCoreObject = function(v81) --[[ Line: 272 ]] --[[ Name: getSelectedCoreObject ]]
+    return v81._selectedCoreObject;
 end;
-v51.getShowTopBar = function(v79) --[[ Line: 271 ]] --[[ Name: getShowTopBar ]]
-    return v79._showTopBar;
+v54.getShowTopBar = function(v82) --[[ Line: 276 ]] --[[ Name: getShowTopBar ]]
+    return v82._showTopBar;
 end;
-v51.getGamepadActive = function(v80) --[[ Line: 275 ]] --[[ Name: getGamepadActive ]]
-    return v80._gamepadActive;
+v54.getGamepadActive = function(v83) --[[ Line: 280 ]] --[[ Name: getGamepadActive ]]
+    return v83._gamepadActive;
 end;
-v51.topBarFocused = function(v81, v82) --[[ Line: 279 ]] --[[ Name: topBarFocused ]]
+v54.topBarFocused = function(v84, v85) --[[ Line: 284 ]] --[[ Name: topBarFocused ]]
     -- upvalues: v24 (copy)
     if not v24 then
         return;
     else
-        return v81._topBarFocused(v82);
+        return v84._topBarFocused(v85);
     end;
 end;
-v51._addDismissFocusConnections = function(v83) --[[ Line: 287 ]] --[[ Name: _addDismissFocusConnections ]]
+v54._addDismissFocusConnections = function(v86) --[[ Line: 292 ]] --[[ Name: _addDismissFocusConnections ]]
     -- upvalues: l_UserInputService_0 (copy), v8 (copy), v7 (copy)
-    v83._dismissFocusConnections = {
-        (l_UserInputService_0.InputEnded:Connect(function(v84, v85) --[[ Line: 289 ]]
-            -- upvalues: v8 (ref), v7 (ref), v83 (copy)
-            local v86 = v8.getLastInputType(false);
-            local v87 = false;
-            if v86 == v7.Input.Pointer then
-                v87 = v84.UserInputType ~= Enum.UserInputType.Keyboard;
+    v86._dismissFocusConnections = {
+        (l_UserInputService_0.InputEnded:Connect(function(v87, v88) --[[ Line: 294 ]]
+            -- upvalues: v8 (ref), v7 (ref), v86 (copy)
+            local v89 = v8.getLastInputType(false);
+            local v90 = false;
+            if v89 == v7.Input.Pointer then
+                v90 = v87.UserInputType ~= Enum.UserInputType.Keyboard;
             end;
-            local v88 = v86 == v7.Input.Touch;
-            if v87 or v88 and not v85 then
-                v83:_unfocusGamepadFromTopBar();
+            local v91 = v89 == v7.Input.Touch;
+            if v90 or v91 and not v88 then
+                v86:_unfocusGamepadFromTopBar();
             end;
         end))
     };
 end;
-v51._removeDismissFocusConnections = function(v89) --[[ Line: 305 ]] --[[ Name: _removeDismissFocusConnections ]]
-    for _, v91 in v89._dismissFocusConnections do
-        v91:Disconnect();
+v54._removeDismissFocusConnections = function(v92) --[[ Line: 310 ]] --[[ Name: _removeDismissFocusConnections ]]
+    for _, v94 in v92._dismissFocusConnections do
+        v94:Disconnect();
     end;
-    v89._dismissFocusConnections = {};
+    v92._dismissFocusConnections = {};
 end;
-v51._toggleTopbar = function(v92, _, v94, _) --[[ Line: 312 ]] --[[ Name: _toggleTopbar ]]
-    -- upvalues: v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v30 (copy), v41 (copy), l_LogGamepadOpenExperienceControlsMenu_0 (copy), l_FFlagAddNewPlayerListMobileFocusNav_0 (copy), v39 (copy)
-    if v29 and not v92:_focusToastNotification(v94) and (not l_FFlagEnableConsoleExpControls_0 and v94 == Enum.UserInputState.End or l_FFlagEnableConsoleExpControls_0 and v94 == Enum.UserInputState.Begin) then
+v54._toggleTopbar = function(v95, _, v97, _) --[[ Line: 317 ]] --[[ Name: _toggleTopbar ]]
+    -- upvalues: v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_FFlagEnableUISelector_0 (copy), l_UserInputService_0 (copy), l_GamepadService_0 (copy), l_GuiService_0 (copy), v43 (copy), v30 (copy), v44 (copy), l_LogGamepadOpenExperienceControlsMenu_0 (copy), l_FFlagAddNewPlayerListMobileFocusNav_0 (copy), v39 (copy)
+    if v29 and not v95:_focusToastNotification(v97) and (not l_FFlagEnableConsoleExpControls_0 and v97 == Enum.UserInputState.End or l_FFlagEnableConsoleExpControls_0 and v97 == Enum.UserInputState.Begin) then
+        if l_FFlagEnableUISelector_0 and not l_UserInputService_0:GamepadSupports(l_UserInputService_0:GetLastInputType(), Enum.KeyCode.ButtonSelect) then
+            if l_GamepadService_0.GamepadCursorEnabled or l_GuiService_0.SelectedObject ~= nil then
+                l_GamepadService_0:DisableGamepadCursor();
+                l_GuiService_0.SelectedObject = nil;
+                return Enum.ContextActionResult.Sink;
+            else
+                local v99 = v43(false);
+                if v99.getVisibility(false) then
+                    v99.setVisibility(false);
+                    return Enum.ContextActionResult.Sink;
+                elseif not v95:_isTopBarFocused() then
+                    v99.setVisibility(true);
+                    return Enum.ContextActionResult.Sink;
+                end;
+            end;
+        end;
         if l_FFlagEnableConsoleExpControls_0 then
             if v30:integrations().nine_dot == nil then
                 return Enum.ContextActionResult.Pass;
             else
-                local v96 = not (v92:_isTopBarFocused() or v41.getChatInputBarFocused(false));
-                if v96 then
-                    v92:_focusGamepadToTopBar();
+                local v100 = not (v95:_isTopBarFocused() or v44.getChatInputBarFocused(false));
+                if v100 then
+                    v95:_focusGamepadToTopBar();
                 else
-                    v92:_unfocusGamepadFromTopBar();
+                    v95:_unfocusGamepadFromTopBar();
                 end;
-                v92:_logExperienceMenuGamepadExposure();
-                l_LogGamepadOpenExperienceControlsMenu_0(v96);
+                v95:_logExperienceMenuGamepadExposure();
+                l_LogGamepadOpenExperienceControlsMenu_0(v100);
             end;
         else
-            v92:_toggleUnibarMenu();
+            v95:_toggleUnibarMenu();
         end;
         if l_FFlagAddNewPlayerListMobileFocusNav_0 and v39:GetIsModal() and v39:GetVisibility() then
             v39:SetVisibility(false);
@@ -294,73 +313,73 @@ v51._toggleTopbar = function(v92, _, v94, _) --[[ Line: 312 ]] --[[ Name: _toggl
         return Enum.ContextActionResult.Pass;
     end;
 end;
-v51._toggleUnibarMenu = function(v97) --[[ Line: 351 ]] --[[ Name: _toggleUnibarMenu ]]
+v54._toggleUnibarMenu = function(v101) --[[ Line: 372 ]] --[[ Name: _toggleUnibarMenu ]]
     -- upvalues: l_FFlagEnableConsoleExpControls_0 (copy), v30 (copy), l_LogGamepadOpenExperienceControlsMenu_0 (copy)
-    local v98 = v97._chromeFocused:get();
-    if v98 then
+    local v102 = v101._chromeFocused:get();
+    if v102 then
         if l_FFlagEnableConsoleExpControls_0 then
-            v97:_unfocusGamepadFromTopBar();
+            v101:_unfocusGamepadFromTopBar();
         else
             v30:disableFocusNav();
         end;
     elseif l_FFlagEnableConsoleExpControls_0 then
-        v97:_focusGamepadToTopBar();
+        v101:_focusGamepadToTopBar();
     else
         v30:enableFocusNav();
     end;
-    v97:_logExperienceMenuGamepadExposure();
-    l_LogGamepadOpenExperienceControlsMenu_0(v98);
+    v101:_logExperienceMenuGamepadExposure();
+    l_LogGamepadOpenExperienceControlsMenu_0(v102);
 end;
-v51._focusGamepadToTopBar = function(_) --[[ Line: 370 ]] --[[ Name: _focusGamepadToTopBar ]]
+v54._focusGamepadToTopBar = function(_) --[[ Line: 391 ]] --[[ Name: _focusGamepadToTopBar ]]
     -- upvalues: l_FocusUtils_0 (copy)
     l_FocusUtils_0.FocusOnChrome();
 end;
-v51._unfocusGamepadFromTopBar = function(_) --[[ Line: 374 ]] --[[ Name: _unfocusGamepadFromTopBar ]]
-    -- upvalues: l_FocusUtils_0 (copy), l_FFlagConsoleChatUseChromeFocusUtils_0 (copy), v41 (copy), l_GuiService_0 (copy)
-    l_FocusUtils_0.FocusOffChrome(function() --[[ Line: 375 ]]
-        -- upvalues: l_FFlagConsoleChatUseChromeFocusUtils_0 (ref), v41 (ref), l_GuiService_0 (ref)
-        if l_FFlagConsoleChatUseChromeFocusUtils_0 and v41.getChatInputBarFocused(false) then
-            v41.unfocusChatInputBar();
+v54._unfocusGamepadFromTopBar = function(_) --[[ Line: 395 ]] --[[ Name: _unfocusGamepadFromTopBar ]]
+    -- upvalues: l_FocusUtils_0 (copy), l_FFlagConsoleChatUseChromeFocusUtils_0 (copy), v44 (copy), l_GuiService_0 (copy)
+    l_FocusUtils_0.FocusOffChrome(function() --[[ Line: 396 ]]
+        -- upvalues: l_FFlagConsoleChatUseChromeFocusUtils_0 (ref), v44 (ref), l_GuiService_0 (ref)
+        if l_FFlagConsoleChatUseChromeFocusUtils_0 and v44.getChatInputBarFocused(false) then
+            v44.unfocusChatInputBar();
         end;
         l_GuiService_0.SelectedCoreObject = nil;
     end);
 end;
-v51._focusToastNotification = function(v101, v102) --[[ Line: 383 ]] --[[ Name: _focusToastNotification ]]
-    -- upvalues: v44 (ref), l_ToastNotificationConstants_0 (copy)
-    local function _() --[[ Line: 384 ]] --[[ Name: buttonHoldTime ]]
-        -- upvalues: v101 (copy)
-        return tick() - v101._lastMenuButtonPress;
+v54._focusToastNotification = function(v105, v106) --[[ Line: 404 ]] --[[ Name: _focusToastNotification ]]
+    -- upvalues: v47 (ref), l_ToastNotificationConstants_0 (copy)
+    local function _() --[[ Line: 405 ]] --[[ Name: buttonHoldTime ]]
+        -- upvalues: v105 (copy)
+        return tick() - v105._lastMenuButtonPress;
     end;
-    local v104 = false;
-    if v44 ~= nil then
-        v104 = v44.Visible;
+    local v108 = false;
+    if v47 ~= nil then
+        v108 = v47.Visible;
     end;
-    if v102 == Enum.UserInputState.Begin then
-        v101._lastMenuButtonPress = tick();
+    if v106 == Enum.UserInputState.Begin then
+        v105._lastMenuButtonPress = tick();
         return false;
     else
-        local v105 = false;
-        if v102 == Enum.UserInputState.End then
-            v105 = v104 and tick() - v101._lastMenuButtonPress < l_ToastNotificationConstants_0.MenuButtonPressHoldTime;
+        local v109 = false;
+        if v106 == Enum.UserInputState.End then
+            v109 = v108 and tick() - v105._lastMenuButtonPress < l_ToastNotificationConstants_0.MenuButtonPressHoldTime;
         end;
-        return v105;
+        return v109;
     end;
 end;
-v51._logExperienceMenuGamepadExposure = function(v106) --[[ Line: 399 ]] --[[ Name: _logExperienceMenuGamepadExposure ]]
+v54._logExperienceMenuGamepadExposure = function(v110) --[[ Line: 420 ]] --[[ Name: _logExperienceMenuGamepadExposure ]]
     -- upvalues: l_FFlagExperienceMenuGamepadExposureEnabled_0 (copy), l_IXPServiceWrapper_0 (copy), l_AppUserLayers_0 (copy)
-    if l_FFlagExperienceMenuGamepadExposureEnabled_0 and not v106._loggedExperienceMenuGamepadExposure then
+    if l_FFlagExperienceMenuGamepadExposureEnabled_0 and not v110._loggedExperienceMenuGamepadExposure then
         l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(l_AppUserLayers_0.ExperienceMenuGamepadExposureLayer);
-        v106._loggedExperienceMenuGamepadExposure = true;
+        v110._loggedExperienceMenuGamepadExposure = true;
     end;
 end;
-v51._bindSelf = function(v107, v108) --[[ Line: 406 ]] --[[ Name: _bindSelf ]]
-    return function(...) --[[ Line: 407 ]]
-        -- upvalues: v108 (copy), v107 (copy)
-        return v108(v107, ...);
+v54._bindSelf = function(v111, v112) --[[ Line: 427 ]] --[[ Name: _bindSelf ]]
+    return function(...) --[[ Line: 428 ]]
+        -- upvalues: v112 (copy), v111 (copy)
+        return v112(v111, ...);
     end;
 end;
 if l_FFlagEnableConsoleExpControls_0 then
-    return (v51.new());
+    return (v54.new());
 else
-    return v51;
+    return v54;
 end;

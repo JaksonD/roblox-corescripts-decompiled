@@ -29,10 +29,10 @@ v3.new = function(v4) --[[ Line: 91 ]] --[[ Name: new ]]
         game_minimum_age = (not (v4 ~= nil) or v4.game_minimum_age == nil) and 0 or v4.game_minimum_age, 
         game_age_display_name = (not (v4 ~= nil) or v4.game_age_display_name == nil) and "" or v4.game_age_display_name, 
         content_maturity = (not (v4 ~= nil) or v4.content_maturity == nil) and "" or v4.content_maturity, 
+        is_officially_licensed = v4 ~= nil and not (v4.is_officially_licensed == nil) and v4.is_officially_licensed, 
         refund_policy_text = (not (v4 ~= nil) or v4.refund_policy_text == nil) and "" or v4.refund_policy_text, 
         refund_article_id = (not (v4 ~= nil) or v4.refund_article_id == nil) and "" or v4.refund_article_id, 
-        refund_link = (not (v4 ~= nil) or v4.refund_link == nil) and "" or v4.refund_link, 
-        license_description = (not (v4 ~= nil) or v4.license_description == nil) and "" or v4.license_description
+        preview_video_id = (not (v4 ~= nil) or v4.preview_video_id == nil) and 0 or v4.preview_video_id
     }, v3));
 end;
 v3.encode = function(v5) --[[ Line: 135 ]] --[[ Name: encode ]]
@@ -177,27 +177,27 @@ v3.encode = function(v5) --[[ Line: 135 ]] --[[ Name: encode ]]
         v6 = v52;
         v7 = v53;
     end;
-    if v5.refund_policy_text ~= nil and v5.refund_policy_text ~= "" then
-        local v54, v55 = v0.writeTag(v6, v7, 24, v0.wireTypes.lengthDelimited);
-        v54, v55 = v0.writeString(v54, v55, v5.refund_policy_text);
+    if v5.is_officially_licensed then
+        local v54, v55 = v0.writeTag(v6, v7, 24, v0.wireTypes.varint);
+        v54, v55 = v0.writeVarInt(v54, v55, v5.is_officially_licensed and 1 or 0);
         v6 = v54;
         v7 = v55;
     end;
-    if v5.refund_article_id ~= nil and v5.refund_article_id ~= "" then
+    if v5.refund_policy_text ~= nil and v5.refund_policy_text ~= "" then
         local v56, v57 = v0.writeTag(v6, v7, 25, v0.wireTypes.lengthDelimited);
-        v56, v57 = v0.writeString(v56, v57, v5.refund_article_id);
+        v56, v57 = v0.writeString(v56, v57, v5.refund_policy_text);
         v6 = v56;
         v7 = v57;
     end;
-    if v5.refund_link ~= nil and v5.refund_link ~= "" then
+    if v5.refund_article_id ~= nil and v5.refund_article_id ~= "" then
         local v58, v59 = v0.writeTag(v6, v7, 26, v0.wireTypes.lengthDelimited);
-        v58, v59 = v0.writeString(v58, v59, v5.refund_link);
+        v58, v59 = v0.writeString(v58, v59, v5.refund_article_id);
         v6 = v58;
         v7 = v59;
     end;
-    if v5.license_description ~= nil and v5.license_description ~= "" then
-        local v60, v61 = v0.writeTag(v6, v7, 27, v0.wireTypes.lengthDelimited);
-        v60, v61 = v0.writeString(v60, v61, v5.license_description);
+    if v5.preview_video_id ~= nil and v5.preview_video_id ~= 0 then
+        local v60, v61 = v0.writeTag(v6, v7, 27, v0.wireTypes.varint);
+        v60, v61 = v0.writeVarInt(v60, v61, v5.preview_video_id);
         v6 = v60;
         v7 = v61;
     end;
@@ -289,6 +289,18 @@ v3.decode = function(v63) --[[ Line: 279 ]] --[[ Name: decode ]]
                 v68 = v69;
                 v65 = v70;
                 v64.game_minimum_age = v68;
+            elseif v66 == 24 then
+                v68 = nil;
+                v69, v70 = v0.readVarInt(v63, v65);
+                v68 = v69;
+                v65 = v70;
+                v64.is_officially_licensed = v68 ~= 0;
+            elseif v66 == 27 then
+                v68 = nil;
+                v69, v70 = v0.readVarIntI64(v63, v65);
+                v68 = v69;
+                v65 = v70;
+                v64.preview_video_id = v68;
             else
                 v68 = nil;
                 v69, v70 = v0.readVarInt(v63, v65);
@@ -362,30 +374,18 @@ v3.decode = function(v63) --[[ Line: 279 ]] --[[ Name: decode ]]
                 v68 = v69;
                 v65 = v70;
                 v64.content_maturity = buffer.tostring(v68);
-            elseif v66 == 24 then
-                v68 = nil;
-                v69, v70 = v0.readBuffer(v63, v65);
-                v68 = v69;
-                v65 = v70;
-                v64.refund_policy_text = buffer.tostring(v68);
             elseif v66 == 25 then
                 v68 = nil;
                 v69, v70 = v0.readBuffer(v63, v65);
                 v68 = v69;
                 v65 = v70;
-                v64.refund_article_id = buffer.tostring(v68);
+                v64.refund_policy_text = buffer.tostring(v68);
             elseif v66 == 26 then
                 v68 = nil;
                 v69, v70 = v0.readBuffer(v63, v65);
                 v68 = v69;
                 v65 = v70;
-                v64.refund_link = buffer.tostring(v68);
-            elseif v66 == 27 then
-                v68 = nil;
-                v69, v70 = v0.readBuffer(v63, v65);
-                v68 = v69;
-                v65 = v70;
-                v64.license_description = buffer.tostring(v68);
+                v64.refund_article_id = buffer.tostring(v68);
             else
                 v68 = nil;
                 v69, v70 = v0.readVarInt(v63, v65);
@@ -478,17 +478,17 @@ v3.jsonEncode = function(v71) --[[ Line: 452 ]] --[[ Name: jsonEncode ]]
     if v71.content_maturity ~= nil and v71.content_maturity ~= "" then
         v72.contentMaturity = v71.content_maturity;
     end;
+    if v71.is_officially_licensed then
+        v72.isOfficiallyLicensed = v71.is_officially_licensed;
+    end;
     if v71.refund_policy_text ~= nil and v71.refund_policy_text ~= "" then
         v72.refundPolicyText = v71.refund_policy_text;
     end;
     if v71.refund_article_id ~= nil and v71.refund_article_id ~= "" then
         v72.refundArticleId = v71.refund_article_id;
     end;
-    if v71.refund_link ~= nil and v71.refund_link ~= "" then
-        v72.refundLink = v71.refund_link;
-    end;
-    if v71.license_description ~= nil and v71.license_description ~= "" then
-        v72.licenseDescription = v71.license_description;
+    if v71.preview_video_id ~= nil and v71.preview_video_id ~= 0 then
+        v72.previewVideoId = v71.preview_video_id;
     end;
     return v72;
 end;
@@ -624,6 +624,12 @@ v3.jsonDecode = function(v73) --[[ Line: 566 ]] --[[ Name: jsonDecode ]]
     if v73.contentMaturity ~= nil then
         v74.content_maturity = v73.contentMaturity;
     end;
+    if v73.is_officially_licensed ~= nil then
+        v74.is_officially_licensed = v73.is_officially_licensed;
+    end;
+    if v73.isOfficiallyLicensed ~= nil then
+        v74.is_officially_licensed = v73.isOfficiallyLicensed;
+    end;
     if v73.refund_policy_text ~= nil then
         v74.refund_policy_text = v73.refund_policy_text;
     end;
@@ -636,17 +642,11 @@ v3.jsonDecode = function(v73) --[[ Line: 566 ]] --[[ Name: jsonDecode ]]
     if v73.refundArticleId ~= nil then
         v74.refund_article_id = v73.refundArticleId;
     end;
-    if v73.refund_link ~= nil then
-        v74.refund_link = v73.refund_link;
+    if v73.preview_video_id ~= nil then
+        v74.preview_video_id = v73.preview_video_id;
     end;
-    if v73.refundLink ~= nil then
-        v74.refund_link = v73.refundLink;
-    end;
-    if v73.license_description ~= nil then
-        v74.license_description = v73.license_description;
-    end;
-    if v73.licenseDescription ~= nil then
-        v74.license_description = v73.licenseDescription;
+    if v73.previewVideoId ~= nil then
+        v74.preview_video_id = v73.previewVideoId;
     end;
     return v74;
 end;

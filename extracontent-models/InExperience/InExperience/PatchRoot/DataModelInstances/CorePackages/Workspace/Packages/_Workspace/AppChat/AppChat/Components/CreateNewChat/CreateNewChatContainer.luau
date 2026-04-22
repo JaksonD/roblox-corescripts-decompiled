@@ -19,7 +19,7 @@ local v17 = require(l_script_FirstAncestor_0.Models.Conversation);
 local _ = require(l_script_FirstAncestor_0.Models.ConversationChannels);
 local v19 = require(l_script_FirstAncestor_0.Conversations.Thunks.createConversation);
 local v20 = require(l_script_FirstAncestor_0.Conversations.Thunks.parseCreateConversationErrors);
-local v21 = if require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseNewSelectChatMembersContainer) then require(l_script_FirstAncestor_0.Components.SelectChatMembers.SelectChatMembersContainer) else require(l_script_FirstAncestor_0.Components.SelectChatMembers.SelectChatMembersContainerDeprecated);
+local v21 = require(l_script_FirstAncestor_0.Components.SelectChatMembers.SelectChatMembersContainer);
 local v22 = require(l_script_FirstAncestor_0.Analytics.EventNames);
 local v23 = require(l_script_FirstAncestor_0.Analytics.useAnalytics);
 local v24 = require(l_script_FirstAncestor_0.Analytics.Enums.CreateConversationError);
@@ -38,14 +38,14 @@ local v34 = {
     maxSelections = 5, 
     maxConversationSize = 5, 
     conversation = v17.empty(), 
-    setSystemButtonActivated = function(_) --[[ Line: 86 ]] --[[ Name: setSystemButtonActivated ]]
+    setSystemButtonActivated = function(_) --[[ Line: 82 ]] --[[ Name: setSystemButtonActivated ]]
 
     end, 
-    setSystemButtonEnabled = function(_) --[[ Line: 87 ]] --[[ Name: setSystemButtonEnabled ]]
+    setSystemButtonEnabled = function(_) --[[ Line: 83 ]] --[[ Name: setSystemButtonEnabled ]]
 
     end
 };
-CreateNewChatContainer = function(v35) --[[ Line: 91 ]] --[[ Name: CreateNewChatContainer ]]
+CreateNewChatContainer = function(v35) --[[ Line: 87 ]] --[[ Name: CreateNewChatContainer ]]
     -- upvalues: v4 (copy), v34 (copy), l_useRef_0 (copy), l_useState_0 (copy), l_FFlagAppIaScrollAway_0 (copy), l_FFlagAppIaScrollAwayFixSocial_0 (copy), v13 (copy), v12 (copy), l_useDispatch_0 (copy), l_useCallback_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v23 (copy), v8 (copy), v19 (copy), v20 (copy), v22 (copy), v24 (copy), l_useEffect_0 (copy), v5 (copy), v16 (copy), l_ResponseIndicator_0 (copy), v21 (copy)
     local v36 = v4.Dictionary.join(v34, v35);
     local v37 = l_useRef_0({});
@@ -61,7 +61,7 @@ CreateNewChatContainer = function(v35) --[[ Line: 91 ]] --[[ Name: CreateNewChat
         v44 = true;
     end;
     local v45 = l_useDispatch_0();
-    local v47 = l_useCallback_0(function(v46) --[[ Line: 113 ]]
+    local v47 = l_useCallback_0(function(v46) --[[ Line: 109 ]]
         -- upvalues: v36 (copy)
         v36.navigateToToast({
             toastProps = {
@@ -73,9 +73,9 @@ CreateNewChatContainer = function(v35) --[[ Line: 91 ]] --[[ Name: CreateNewChat
     end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
         v36.navigateToToast
     } else l_dependencyArray_0(v36.navigateToToast));
-    local function v52(v48, v49) --[[ Line: 127 ]]
+    local function v52(v48, v49) --[[ Line: 123 ]]
         -- upvalues: v37 (copy), v4 (ref), v38 (copy), v36 (copy)
-        v37.current = v4.List.map(v48, function(v50) --[[ Line: 128 ]]
+        v37.current = v4.List.map(v48, function(v50) --[[ Line: 124 ]]
             return v50.id;
         end);
         local v51 = v49 <= #v48;
@@ -85,17 +85,17 @@ CreateNewChatContainer = function(v35) --[[ Line: 91 ]] --[[ Name: CreateNewChat
         end;
     end;
     local v53 = v23();
-    local v59 = l_useCallback_0(function(v54) --[[ Line: 141 ]]
+    local v59 = l_useCallback_0(function(v54) --[[ Line: 137 ]]
         -- upvalues: v39 (copy), v37 (copy), v8 (ref), v40 (copy), v45 (copy), v19 (ref), v53 (copy), v36 (copy), v20 (ref), v47 (copy), v22 (ref), v24 (ref)
         if v39 or not v37.current then
             return v8.resolve();
         else
             v40(true);
             local v55 = #v37.current == 1 and "one_to_one" or "group";
-            return v45(v19(v55, v37.current, v53, "userCreatedNewConversation")):andThen(function(v56) --[[ Line: 162 ]]
+            return v45(v19(v55, v37.current, v53, "userCreatedNewConversation")):andThen(function(v56) --[[ Line: 158 ]]
                 -- upvalues: v36 (ref)
                 v36.navigateToConversation(v56.id);
-            end):catch(function(v57) --[[ Line: 166 ]]
+            end):catch(function(v57) --[[ Line: 162 ]]
                 -- upvalues: v20 (ref), v54 (copy), v47 (ref), v40 (ref), v53 (ref), v22 (ref), v24 (ref)
                 local v58 = if v20(v57) == "participant_chat_disabled" then v54.invalidParticipantText else v54.networkErrorText;
                 v47(v58);
@@ -116,7 +116,7 @@ CreateNewChatContainer = function(v35) --[[ Line: 91 ]] --[[ Name: CreateNewChat
         v47, 
         v53
     });
-    l_useEffect_0(function() --[[ Line: 196 ]]
+    l_useEffect_0(function() --[[ Line: 192 ]]
         -- upvalues: v36 (copy), v59 (copy)
         v36.setSystemButtonActivated(v59);
     end, {

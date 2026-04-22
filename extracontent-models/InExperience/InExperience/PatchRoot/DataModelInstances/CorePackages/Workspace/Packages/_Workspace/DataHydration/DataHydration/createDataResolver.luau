@@ -6,592 +6,495 @@ local l_getLocalPlayerUserId_0 = require(l_script_FirstAncestor_0.DataHydrationU
 local v5 = require(l_script_FirstAncestor_0.createRequestQueue);
 local v6 = require(l_Parent_0.Promise);
 local v7 = require(l_Parent_0.SharedFlags);
-local l_FFlagLuaAppDataHydrationSupportsMultiGet_0 = v7.FFlagLuaAppDataHydrationSupportsMultiGet;
 local l_FFlagLuaAppDataHydrationDataResolverOnClear_0 = v7.FFlagLuaAppDataHydrationDataResolverOnClear;
-local v10 = game:DefineFastInt("LuaAppDataHydrationDefaultBatchSize", 50);
-local v11 = game:DefineFastInt("LuaAppDataHydrationQueueProcessDelaySec", 1);
-local v12 = game:DefineFastInt("LuaAppDataHydrationDefaultRequestTimeoutSec", 30);
-return function(v13) --[[ Line: 25 ]] --[[ Name: createDataResolver ]]
-    -- upvalues: l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (copy), v10 (copy), v11 (copy), v12 (copy), v5 (copy), l_getLocalPlayerUserId_0 (copy), v6 (copy), l_FFlagLuaAppDataHydrationDataResolverOnClear_0 (copy), l_Players_0 (copy)
-    local v14 = nil;
-    if l_FFlagLuaAppDataHydrationSupportsMultiGet_0 then
-        v14 = v13.supportsMultiGet == nil or v13.supportsMultiGet;
+local l_FFlagSduiChartsSupport_0 = v7.FFlagSduiChartsSupport;
+local l_FFlagSduiDataCacheResetItem_0 = v7.FFlagSduiDataCacheResetItem;
+local v11 = game:DefineFastInt("LuaAppDataHydrationDefaultBatchSize", 50);
+local v12 = game:DefineFastInt("LuaAppDataHydrationQueueProcessDelaySec", 1);
+local v13 = game:DefineFastInt("LuaAppDataHydrationDefaultRequestTimeoutSec", 30);
+return function(v14) --[[ Line: 26 ]] --[[ Name: createDataResolver ]]
+    -- upvalues: v11 (copy), v12 (copy), v13 (copy), v5 (copy), l_getLocalPlayerUserId_0 (copy), v6 (copy), l_FFlagSduiDataCacheResetItem_0 (copy), l_FFlagSduiChartsSupport_0 (copy), l_FFlagLuaAppDataHydrationDataResolverOnClear_0 (copy), l_Players_0 (copy)
+    local v15 = v14.supportsMultiGet == nil or v14.supportsMultiGet;
+    local v16 = v14.requestBatchSize or v11;
+    if not v15 and not v14.requestBatchSize then
+        v16 = 1;
     end;
-    local v15 = v13.requestBatchSize or v10;
-    if l_FFlagLuaAppDataHydrationSupportsMultiGet_0 and not v14 and not v13.requestBatchSize then
-        v15 = 1;
+    local v17 = v14.queueProcessDelaySec or v12;
+    if not v15 and not v14.queueProcessDelaySec then
+        v17 = 0;
     end;
-    local v16 = v13.queueProcessDelaySec or v11;
-    if l_FFlagLuaAppDataHydrationSupportsMultiGet_0 and not v14 and not v13.queueProcessDelaySec then
-        v16 = 0;
-    end;
-    local v17 = v13.requestTimeoutSec or v12;
-    local l_cache_0 = v13.cache;
-    local v19 = v5();
-    local v20 = {};
-    local v21 = nil;
-    local v22 = l_getLocalPlayerUserId_0();
-    local function v23() --[[ Line: 60 ]] --[[ Name: FORCE_FETCH ]]
+    local v18 = v14.requestTimeoutSec or v13;
+    local l_cache_0 = v14.cache;
+    local v20 = v5();
+    local v21 = {};
+    local v22 = nil;
+    local v23 = l_getLocalPlayerUserId_0();
+    local function v24() --[[ Line: 58 ]] --[[ Name: FORCE_FETCH ]]
         return true;
     end;
-    local function _(v24) --[[ Line: 64 ]] --[[ Name: logError ]]
-        -- upvalues: v13 (copy)
-        if v13.logError then
-            v13.logError(v24);
+    local function _(v25) --[[ Line: 62 ]] --[[ Name: logError ]]
+        -- upvalues: v14 (copy)
+        if v14.logError then
+            v14.logError(v25);
         end;
     end;
-    local _ = function(v26, v27, v28) --[[ Line: 71 ]] --[[ Name: handleFailure ]]
-        -- upvalues: v22 (ref), v13 (copy), v20 (ref), l_cache_0 (copy)
-        if v28 ~= v22 then
+    local _ = function(v27, v28, v29) --[[ Line: 69 ]] --[[ Name: handleFailure ]]
+        -- upvalues: v23 (ref), v14 (copy), v21 (ref), l_cache_0 (copy)
+        if v29 ~= v23 then
             return;
         else
-            if v13.logError then
-                v13.logError(v26);
+            if v14.logError then
+                v14.logError(v27);
             end;
-            for _, v30 in v27 do
-                v20[v30] = nil;
+            for _, v31 in v28 do
+                v21[v31] = nil;
             end;
-            l_cache_0.markItemsAsFailed(v27);
+            l_cache_0.markItemsAsFailed(v28);
             return;
         end;
     end;
-    local function v42(v32, v33, v34) --[[ Line: 84 ]] --[[ Name: handleSuccess ]]
-        -- upvalues: v22 (ref), v20 (ref), v13 (copy), l_cache_0 (copy)
-        if v34 ~= v22 then
+    local function v43(v33, v34, v35) --[[ Line: 82 ]] --[[ Name: handleSuccess ]]
+        -- upvalues: v23 (ref), v21 (ref), v14 (copy), l_cache_0 (copy)
+        if v35 ~= v23 then
             return;
         else
-            for v35, _ in v32 do
-                v20[v35] = nil;
+            for v36, _ in v33 do
+                v21[v36] = nil;
             end;
-            if v13.replaceItems then
-                l_cache_0.replaceItems(v32);
+            if v14.replaceItems then
+                l_cache_0.replaceItems(v33);
             else
-                l_cache_0.updateItems(v32);
+                l_cache_0.updateItems(v33);
             end;
-            local v37 = {};
-            for _, v39 in v33 do
-                if v32[v39] == nil then
-                    table.insert(v37, v39);
+            local v38 = {};
+            for _, v40 in v34 do
+                if v33[v40] == nil then
+                    table.insert(v38, v40);
                 end;
             end;
-            if #v37 > 0 then
-                if v34 ~= v22 then
+            if #v38 > 0 then
+                if v35 ~= v23 then
                     return;
                 else
-                    if v13.logError then
-                        v13.logError("Items missing in response");
+                    if v14.logError then
+                        v14.logError("Items missing in response");
                     end;
-                    for _, v41 in v37 do
-                        v20[v41] = nil;
+                    for _, v42 in v38 do
+                        v21[v42] = nil;
                     end;
-                    l_cache_0.markItemsAsFailed(v37);
+                    l_cache_0.markItemsAsFailed(v38);
                 end;
             end;
             return;
         end;
     end;
-    local function v43() --[[ Line: 111 ]] --[[ Name: scheduleFetch ]]
-        -- upvalues: v21 (ref), v19 (copy), v16 (ref), v22 (ref), v15 (ref), v20 (ref), l_cache_0 (copy), v17 (copy), v13 (copy), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (copy), v43 (copy)
-        if v21 ~= nil or v19.isEmpty() then
+    local function v44() --[[ Line: 109 ]] --[[ Name: scheduleFetch ]]
+        -- upvalues: v22 (ref), v20 (copy), v17 (ref), v23 (ref), v16 (ref), v21 (ref), l_cache_0 (copy), v18 (copy), v14 (copy), v15 (copy), v6 (ref), v43 (copy), v44 (copy)
+        if v22 ~= nil or v20.isEmpty() then
             return;
         else
-            v21 = task.delay(v16, function() --[[ Line: 117 ]]
-                -- upvalues: v22 (ref), v21 (ref), v19 (ref), v15 (ref), v20 (ref), l_cache_0 (ref), v17 (ref), v13 (ref), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (ref), v43 (ref)
-                local l_v22_0 = v22;
-                v21 = nil;
-                if v19.isEmpty() then
+            v22 = task.delay(v17, function() --[[ Line: 115 ]]
+                -- upvalues: v23 (ref), v22 (ref), v20 (ref), v16 (ref), v21 (ref), l_cache_0 (ref), v18 (ref), v14 (ref), v15 (ref), v6 (ref), v43 (ref), v44 (ref)
+                local l_v23_0 = v23;
+                v22 = nil;
+                if v20.isEmpty() then
                     return;
                 else
-                    local v45 = v19.pop(v15);
-                    for _, v47 in v45 do
-                        v20[v47] = true;
+                    local v46 = v20.pop(v16);
+                    for _, v48 in v46 do
+                        v21[v48] = true;
                     end;
-                    local v48 = l_cache_0.getItems(v45);
-                    local v53 = task.delay(v17, function() --[[ Line: 132 ]]
-                        -- upvalues: v17 (ref), v45 (copy), l_v22_0 (copy), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref)
-                        local v49 = ("No fetch response after %* sec"):format(v17);
-                        local l_v45_0 = v45;
-                        if l_v22_0 ~= v22 then
+                    local v49 = l_cache_0.getItems(v46);
+                    local v54 = task.delay(v18, function() --[[ Line: 130 ]]
+                        -- upvalues: v18 (ref), v46 (copy), l_v23_0 (copy), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref)
+                        local v50 = ("No fetch response after %* sec"):format(v18);
+                        local l_v46_0 = v46;
+                        if l_v23_0 ~= v23 then
                             return;
                         else
-                            if v13.logError then
-                                v13.logError(v49);
+                            if v14.logError then
+                                v14.logError(v50);
                             end;
-                            for _, v52 in l_v45_0 do
-                                v20[v52] = nil;
+                            for _, v53 in l_v46_0 do
+                                v21[v53] = nil;
                             end;
-                            l_cache_0.markItemsAsFailed(l_v45_0);
+                            l_cache_0.markItemsAsFailed(l_v46_0);
                             return;
                         end;
                     end);
-                    local l_status_0, l_result_0 = pcall(function() --[[ Line: 136 ]]
-                        -- upvalues: l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v45 (copy), v48 (copy), v13 (ref), v6 (ref), v42 (ref), l_v22_0 (copy), v53 (copy), v22 (ref), v20 (ref), l_cache_0 (ref)
-                        if l_FFlagLuaAppDataHydrationSupportsMultiGet_0 and not v14 then
-                            local v54 = {};
-                            for _, v56 in v45 do
-                                local v57 = v48[v56];
-                                table.insert(v54, v13.fetchFn(v56, v57));
+                    local l_status_0, l_result_0 = pcall(function() --[[ Line: 134 ]]
+                        -- upvalues: v15 (ref), v46 (copy), v49 (copy), v14 (ref), v6 (ref), v43 (ref), l_v23_0 (copy), v54 (copy), v23 (ref), v21 (ref), l_cache_0 (ref)
+                        if not v15 then
+                            local v55 = {};
+                            for _, v57 in v46 do
+                                local v58 = v49[v57];
+                                table.insert(v55, v14.fetchFn(v57, v58));
                             end;
-                            v6.all(v54):andThen(function(v58) --[[ Line: 145 ]]
-                                -- upvalues: v45 (ref), v42 (ref), l_v22_0 (ref), v53 (ref)
-                                local v59 = {};
-                                for v60, v61 in v45 do
-                                    v59[v61] = v58[v60];
+                            v6.all(v55):andThen(function(v59) --[[ Line: 143 ]]
+                                -- upvalues: v46 (ref), v43 (ref), l_v23_0 (ref), v54 (ref)
+                                local v60 = {};
+                                for v61, v62 in v46 do
+                                    v60[v62] = v59[v61];
                                 end;
-                                v42(v59, v45, l_v22_0);
-                                task.cancel(v53);
-                            end):catch(function(v62) --[[ Line: 153 ]]
-                                -- upvalues: v45 (ref), l_v22_0 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v53 (ref)
-                                local l_v45_1 = v45;
-                                if l_v22_0 == v22 then
-                                    if v13.logError then
-                                        v13.logError(v62);
+                                v43(v60, v46, l_v23_0);
+                                task.cancel(v54);
+                            end):catch(function(v63) --[[ Line: 151 ]]
+                                -- upvalues: v46 (ref), l_v23_0 (ref), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref), v54 (ref)
+                                local l_v46_1 = v46;
+                                if l_v23_0 == v23 then
+                                    if v14.logError then
+                                        v14.logError(v63);
                                     end;
-                                    for _, v65 in l_v45_1 do
-                                        v20[v65] = nil;
+                                    for _, v66 in l_v46_1 do
+                                        v21[v66] = nil;
                                     end;
-                                    l_cache_0.markItemsAsFailed(l_v45_1);
+                                    l_cache_0.markItemsAsFailed(l_v46_1);
                                 end;
-                                task.cancel(v53);
+                                task.cancel(v54);
                             end);
                             return;
                         else
-                            v13.fetchFn(v48):andThen(function(v66) --[[ Line: 159 ]]
-                                -- upvalues: v42 (ref), v45 (ref), l_v22_0 (ref), v53 (ref)
-                                v42(v66, v45, l_v22_0);
-                                task.cancel(v53);
-                            end):catch(function(v67) --[[ Line: 163 ]]
-                                -- upvalues: v45 (ref), l_v22_0 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v53 (ref)
-                                local l_v45_2 = v45;
-                                if l_v22_0 == v22 then
-                                    if v13.logError then
-                                        v13.logError(v67);
+                            v14.fetchFn(v49):andThen(function(v67) --[[ Line: 157 ]]
+                                -- upvalues: v43 (ref), v46 (ref), l_v23_0 (ref), v54 (ref)
+                                v43(v67, v46, l_v23_0);
+                                task.cancel(v54);
+                            end):catch(function(v68) --[[ Line: 161 ]]
+                                -- upvalues: v46 (ref), l_v23_0 (ref), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref), v54 (ref)
+                                local l_v46_2 = v46;
+                                if l_v23_0 == v23 then
+                                    if v14.logError then
+                                        v14.logError(v68);
                                     end;
-                                    for _, v70 in l_v45_2 do
-                                        v20[v70] = nil;
+                                    for _, v71 in l_v46_2 do
+                                        v21[v71] = nil;
                                     end;
-                                    l_cache_0.markItemsAsFailed(l_v45_2);
+                                    l_cache_0.markItemsAsFailed(l_v46_2);
                                 end;
-                                task.cancel(v53);
+                                task.cancel(v54);
                             end);
                             return;
                         end;
                     end);
                     if not l_status_0 then
-                        if l_v22_0 == v22 then
-                            if v13.logError then
-                                v13.logError(l_result_0);
+                        if l_v23_0 == v23 then
+                            if v14.logError then
+                                v14.logError(l_result_0);
                             end;
-                            for _, v74 in v45 do
-                                v20[v74] = nil;
+                            for _, v75 in v46 do
+                                v21[v75] = nil;
                             end;
-                            l_cache_0.markItemsAsFailed(v45);
+                            l_cache_0.markItemsAsFailed(v46);
                         end;
-                        task.cancel(v53);
+                        task.cancel(v54);
                     end;
-                    v43();
+                    v44();
                     return;
                 end;
             end);
             return;
         end;
     end;
-    local function _(v75) --[[ Line: 179 ]] --[[ Name: isRequestInQueueOrInFlight ]]
-        -- upvalues: v19 (copy), v20 (ref)
-        if v19.hasItem(v75) then
+    local function _(v76) --[[ Line: 177 ]] --[[ Name: isRequestInQueueOrInFlight ]]
+        -- upvalues: v20 (copy), v21 (ref)
+        if v20.hasItem(v76) then
             return true;
-        elseif v20[v75] ~= nil then
+        elseif v21[v76] ~= nil then
             return true;
         else
             return false;
         end;
     end;
-    local function v115(v77, v78) --[[ Line: 189 ]] --[[ Name: getAndFetchItems ]]
-        -- upvalues: l_cache_0 (copy), v19 (copy), v20 (ref), v21 (ref), v16 (ref), v22 (ref), v15 (ref), v17 (copy), v13 (copy), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (copy), v43 (copy)
-        local v79, v80 = l_cache_0.getItems(v77, v78);
-        local v81 = {};
-        for v82, v83 in v79 do
-            v81[v82] = v83;
-            if v80[v82] and not (v19.hasItem(v82) and true or v20[v82] ~= nil) then
-                v19.push(v82);
+    local function v117(v78, v79) --[[ Line: 187 ]] --[[ Name: getAndFetchItems ]]
+        -- upvalues: l_cache_0 (copy), l_FFlagSduiDataCacheResetItem_0 (ref), v20 (copy), v21 (ref), v22 (ref), v17 (ref), v23 (ref), v16 (ref), v18 (copy), v14 (copy), v15 (copy), v6 (ref), v43 (copy), v44 (copy)
+        local v80, v81 = l_cache_0.getItems(v78, v79);
+        local v82 = {};
+        local v83 = if l_FFlagSduiDataCacheResetItem_0 then {} else nil;
+        for v84, v85 in v80 do
+            v82[v84] = v85;
+            if v81[v84] and not (v20.hasItem(v84) and true or v21[v84] ~= nil) then
+                v20.push(v84);
+                if l_FFlagSduiDataCacheResetItem_0 then
+                    table.insert(v83, v84);
+                end;
             end;
         end;
-        if not v19.isEmpty() and v21 == nil then
-            if v19.isEmpty() then
-                return v81;
+        if l_FFlagSduiDataCacheResetItem_0 and #v83 > 0 then
+            l_cache_0.resetFailedItems(v83);
+        end;
+        if not v20.isEmpty() and v22 == nil then
+            if v20.isEmpty() then
+                return v82;
             else
-                v21 = task.delay(v16, function() --[[ Line: 117 ]]
-                    -- upvalues: v22 (ref), v21 (ref), v19 (ref), v15 (ref), v20 (ref), l_cache_0 (ref), v17 (ref), v13 (ref), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (ref), v43 (ref)
-                    local l_v22_1 = v22;
-                    v21 = nil;
-                    if v19.isEmpty() then
+                v22 = task.delay(v17, function() --[[ Line: 115 ]]
+                    -- upvalues: v23 (ref), v22 (ref), v20 (ref), v16 (ref), v21 (ref), l_cache_0 (ref), v18 (ref), v14 (ref), v15 (ref), v6 (ref), v43 (ref), v44 (ref)
+                    local l_v23_1 = v23;
+                    v22 = nil;
+                    if v20.isEmpty() then
                         return;
                     else
-                        local v85 = v19.pop(v15);
-                        for _, v87 in v85 do
-                            v20[v87] = true;
+                        local v87 = v20.pop(v16);
+                        for _, v89 in v87 do
+                            v21[v89] = true;
                         end;
-                        local v88 = l_cache_0.getItems(v85);
-                        local v93 = task.delay(v17, function() --[[ Line: 132 ]]
-                            -- upvalues: v17 (ref), v85 (copy), l_v22_1 (copy), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref)
-                            local v89 = ("No fetch response after %* sec"):format(v17);
-                            local l_v85_0 = v85;
-                            if l_v22_1 ~= v22 then
+                        local v90 = l_cache_0.getItems(v87);
+                        local v95 = task.delay(v18, function() --[[ Line: 130 ]]
+                            -- upvalues: v18 (ref), v87 (copy), l_v23_1 (copy), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref)
+                            local v91 = ("No fetch response after %* sec"):format(v18);
+                            local l_v87_0 = v87;
+                            if l_v23_1 ~= v23 then
                                 return;
                             else
-                                if v13.logError then
-                                    v13.logError(v89);
+                                if v14.logError then
+                                    v14.logError(v91);
                                 end;
-                                for _, v92 in l_v85_0 do
-                                    v20[v92] = nil;
+                                for _, v94 in l_v87_0 do
+                                    v21[v94] = nil;
                                 end;
-                                l_cache_0.markItemsAsFailed(l_v85_0);
+                                l_cache_0.markItemsAsFailed(l_v87_0);
                                 return;
                             end;
                         end);
-                        local l_status_1, l_result_1 = pcall(function() --[[ Line: 136 ]]
-                            -- upvalues: l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v85 (copy), v88 (copy), v13 (ref), v6 (ref), v42 (ref), l_v22_1 (copy), v93 (copy), v22 (ref), v20 (ref), l_cache_0 (ref)
-                            if l_FFlagLuaAppDataHydrationSupportsMultiGet_0 and not v14 then
-                                local v94 = {};
-                                for _, v96 in v85 do
-                                    local v97 = v88[v96];
-                                    table.insert(v94, v13.fetchFn(v96, v97));
+                        local l_status_1, l_result_1 = pcall(function() --[[ Line: 134 ]]
+                            -- upvalues: v15 (ref), v87 (copy), v90 (copy), v14 (ref), v6 (ref), v43 (ref), l_v23_1 (copy), v95 (copy), v23 (ref), v21 (ref), l_cache_0 (ref)
+                            if not v15 then
+                                local v96 = {};
+                                for _, v98 in v87 do
+                                    local v99 = v90[v98];
+                                    table.insert(v96, v14.fetchFn(v98, v99));
                                 end;
-                                v6.all(v94):andThen(function(v98) --[[ Line: 145 ]]
-                                    -- upvalues: v85 (ref), v42 (ref), l_v22_1 (ref), v93 (ref)
-                                    local v99 = {};
-                                    for v100, v101 in v85 do
-                                        v99[v101] = v98[v100];
+                                v6.all(v96):andThen(function(v100) --[[ Line: 143 ]]
+                                    -- upvalues: v87 (ref), v43 (ref), l_v23_1 (ref), v95 (ref)
+                                    local v101 = {};
+                                    for v102, v103 in v87 do
+                                        v101[v103] = v100[v102];
                                     end;
-                                    v42(v99, v85, l_v22_1);
-                                    task.cancel(v93);
-                                end):catch(function(v102) --[[ Line: 153 ]]
-                                    -- upvalues: v85 (ref), l_v22_1 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v93 (ref)
-                                    local l_v85_1 = v85;
-                                    if l_v22_1 == v22 then
-                                        if v13.logError then
-                                            v13.logError(v102);
+                                    v43(v101, v87, l_v23_1);
+                                    task.cancel(v95);
+                                end):catch(function(v104) --[[ Line: 151 ]]
+                                    -- upvalues: v87 (ref), l_v23_1 (ref), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref), v95 (ref)
+                                    local l_v87_1 = v87;
+                                    if l_v23_1 == v23 then
+                                        if v14.logError then
+                                            v14.logError(v104);
                                         end;
-                                        for _, v105 in l_v85_1 do
-                                            v20[v105] = nil;
+                                        for _, v107 in l_v87_1 do
+                                            v21[v107] = nil;
                                         end;
-                                        l_cache_0.markItemsAsFailed(l_v85_1);
+                                        l_cache_0.markItemsAsFailed(l_v87_1);
                                     end;
-                                    task.cancel(v93);
+                                    task.cancel(v95);
                                 end);
                                 return;
                             else
-                                v13.fetchFn(v88):andThen(function(v106) --[[ Line: 159 ]]
-                                    -- upvalues: v42 (ref), v85 (ref), l_v22_1 (ref), v93 (ref)
-                                    v42(v106, v85, l_v22_1);
-                                    task.cancel(v93);
-                                end):catch(function(v107) --[[ Line: 163 ]]
-                                    -- upvalues: v85 (ref), l_v22_1 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v93 (ref)
-                                    local l_v85_2 = v85;
-                                    if l_v22_1 == v22 then
-                                        if v13.logError then
-                                            v13.logError(v107);
+                                v14.fetchFn(v90):andThen(function(v108) --[[ Line: 157 ]]
+                                    -- upvalues: v43 (ref), v87 (ref), l_v23_1 (ref), v95 (ref)
+                                    v43(v108, v87, l_v23_1);
+                                    task.cancel(v95);
+                                end):catch(function(v109) --[[ Line: 161 ]]
+                                    -- upvalues: v87 (ref), l_v23_1 (ref), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref), v95 (ref)
+                                    local l_v87_2 = v87;
+                                    if l_v23_1 == v23 then
+                                        if v14.logError then
+                                            v14.logError(v109);
                                         end;
-                                        for _, v110 in l_v85_2 do
-                                            v20[v110] = nil;
+                                        for _, v112 in l_v87_2 do
+                                            v21[v112] = nil;
                                         end;
-                                        l_cache_0.markItemsAsFailed(l_v85_2);
+                                        l_cache_0.markItemsAsFailed(l_v87_2);
                                     end;
-                                    task.cancel(v93);
+                                    task.cancel(v95);
                                 end);
                                 return;
                             end;
                         end);
                         if not l_status_1 then
-                            if l_v22_1 == v22 then
-                                if v13.logError then
-                                    v13.logError(l_result_1);
+                            if l_v23_1 == v23 then
+                                if v14.logError then
+                                    v14.logError(l_result_1);
                                 end;
-                                for _, v114 in v85 do
-                                    v20[v114] = nil;
+                                for _, v116 in v87 do
+                                    v21[v116] = nil;
                                 end;
-                                l_cache_0.markItemsAsFailed(v85);
+                                l_cache_0.markItemsAsFailed(v87);
                             end;
-                            task.cancel(v93);
+                            task.cancel(v95);
                         end;
-                        v43();
+                        v44();
                         return;
                     end;
                 end);
             end;
         end;
-        return v81;
+        return v82;
     end;
-    local function v151(v116, v117) --[[ Line: 206 ]] --[[ Name: getAndFetchItem ]]
-        -- upvalues: l_cache_0 (copy), v19 (copy), v20 (ref), v21 (ref), v16 (ref), v22 (ref), v15 (ref), v17 (copy), v13 (copy), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (copy), v43 (copy)
-        local v118, v119 = l_cache_0.getItem(v116, v117);
-        if v119 and not (v19.hasItem(v116) and true or v20[v116] ~= nil) then
-            v19.push(v116);
-        end;
-        if not v19.isEmpty() and v21 == nil then
-            if v19.isEmpty() then
-                return v118;
-            else
-                v21 = task.delay(v16, function() --[[ Line: 117 ]]
-                    -- upvalues: v22 (ref), v21 (ref), v19 (ref), v15 (ref), v20 (ref), l_cache_0 (ref), v17 (ref), v13 (ref), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (ref), v43 (ref)
-                    local l_v22_2 = v22;
-                    v21 = nil;
-                    if v19.isEmpty() then
-                        return;
-                    else
-                        local v121 = v19.pop(v15);
-                        for _, v123 in v121 do
-                            v20[v123] = true;
-                        end;
-                        local v124 = l_cache_0.getItems(v121);
-                        local v129 = task.delay(v17, function() --[[ Line: 132 ]]
-                            -- upvalues: v17 (ref), v121 (copy), l_v22_2 (copy), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref)
-                            local v125 = ("No fetch response after %* sec"):format(v17);
-                            local l_v121_0 = v121;
-                            if l_v22_2 ~= v22 then
-                                return;
-                            else
-                                if v13.logError then
-                                    v13.logError(v125);
-                                end;
-                                for _, v128 in l_v121_0 do
-                                    v20[v128] = nil;
-                                end;
-                                l_cache_0.markItemsAsFailed(l_v121_0);
-                                return;
-                            end;
-                        end);
-                        local l_status_2, l_result_2 = pcall(function() --[[ Line: 136 ]]
-                            -- upvalues: l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v121 (copy), v124 (copy), v13 (ref), v6 (ref), v42 (ref), l_v22_2 (copy), v129 (copy), v22 (ref), v20 (ref), l_cache_0 (ref)
-                            if l_FFlagLuaAppDataHydrationSupportsMultiGet_0 and not v14 then
-                                local v130 = {};
-                                for _, v132 in v121 do
-                                    local v133 = v124[v132];
-                                    table.insert(v130, v13.fetchFn(v132, v133));
-                                end;
-                                v6.all(v130):andThen(function(v134) --[[ Line: 145 ]]
-                                    -- upvalues: v121 (ref), v42 (ref), l_v22_2 (ref), v129 (ref)
-                                    local v135 = {};
-                                    for v136, v137 in v121 do
-                                        v135[v137] = v134[v136];
-                                    end;
-                                    v42(v135, v121, l_v22_2);
-                                    task.cancel(v129);
-                                end):catch(function(v138) --[[ Line: 153 ]]
-                                    -- upvalues: v121 (ref), l_v22_2 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v129 (ref)
-                                    local l_v121_1 = v121;
-                                    if l_v22_2 == v22 then
-                                        if v13.logError then
-                                            v13.logError(v138);
-                                        end;
-                                        for _, v141 in l_v121_1 do
-                                            v20[v141] = nil;
-                                        end;
-                                        l_cache_0.markItemsAsFailed(l_v121_1);
-                                    end;
-                                    task.cancel(v129);
-                                end);
-                                return;
-                            else
-                                v13.fetchFn(v124):andThen(function(v142) --[[ Line: 159 ]]
-                                    -- upvalues: v42 (ref), v121 (ref), l_v22_2 (ref), v129 (ref)
-                                    v42(v142, v121, l_v22_2);
-                                    task.cancel(v129);
-                                end):catch(function(v143) --[[ Line: 163 ]]
-                                    -- upvalues: v121 (ref), l_v22_2 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v129 (ref)
-                                    local l_v121_2 = v121;
-                                    if l_v22_2 == v22 then
-                                        if v13.logError then
-                                            v13.logError(v143);
-                                        end;
-                                        for _, v146 in l_v121_2 do
-                                            v20[v146] = nil;
-                                        end;
-                                        l_cache_0.markItemsAsFailed(l_v121_2);
-                                    end;
-                                    task.cancel(v129);
-                                end);
-                                return;
-                            end;
-                        end);
-                        if not l_status_2 then
-                            if l_v22_2 == v22 then
-                                if v13.logError then
-                                    v13.logError(l_result_2);
-                                end;
-                                for _, v150 in v121 do
-                                    v20[v150] = nil;
-                                end;
-                                l_cache_0.markItemsAsFailed(v121);
-                            end;
-                            task.cancel(v129);
-                        end;
-                        v43();
-                        return;
-                    end;
-                end);
+    local function v153(v118, v119) --[[ Line: 211 ]] --[[ Name: getAndFetchItem ]]
+        -- upvalues: l_cache_0 (copy), v20 (copy), v21 (ref), l_FFlagSduiDataCacheResetItem_0 (ref), v22 (ref), v17 (ref), v23 (ref), v16 (ref), v18 (copy), v14 (copy), v15 (copy), v6 (ref), v43 (copy), v44 (copy), l_FFlagSduiChartsSupport_0 (ref)
+        local v120, v121 = l_cache_0.getItem(v118, v119);
+        if v121 and not (v20.hasItem(v118) and true or v21[v118] ~= nil) then
+            if l_FFlagSduiDataCacheResetItem_0 then
+                l_cache_0.resetFailedItem(v118);
             end;
+            v20.push(v118);
         end;
-        return v118;
-    end;
-    local function v153(v152) --[[ Line: 217 ]] --[[ Name: getCachedItem ]]
-        -- upvalues: l_cache_0 (copy)
-        return l_cache_0.getItem(v152);
-    end;
-    local function v155(v154) --[[ Line: 221 ]] --[[ Name: getCachedItems ]]
-        -- upvalues: l_cache_0 (copy)
-        return l_cache_0.getItems(v154);
-    end;
-    local function v192(v156, v157) --[[ Line: 225 ]] --[[ Name: fetchItem ]]
-        -- upvalues: v23 (copy), l_cache_0 (copy), v19 (copy), v20 (ref), v21 (ref), v16 (ref), v22 (ref), v15 (ref), v17 (copy), v13 (copy), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (copy), v43 (copy)
-        local v158 = v157 or v23;
-        local v159, v160 = l_cache_0.getItem(v156, v158);
-        if v160 and not (v19.hasItem(v156) and true or v20[v156] ~= nil) then
-            v19.push(v156);
-        end;
-        if not v19.isEmpty() and v21 == nil and not v19.isEmpty() then
-            v21 = task.delay(v16, function() --[[ Line: 117 ]]
-                -- upvalues: v22 (ref), v21 (ref), v19 (ref), v15 (ref), v20 (ref), l_cache_0 (ref), v17 (ref), v13 (ref), l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v6 (ref), v42 (ref), v43 (ref)
-                local l_v22_3 = v22;
-                v21 = nil;
-                if v19.isEmpty() then
+        if not v20.isEmpty() and v22 == nil and not v20.isEmpty() then
+            v22 = task.delay(v17, function() --[[ Line: 115 ]]
+                -- upvalues: v23 (ref), v22 (ref), v20 (ref), v16 (ref), v21 (ref), l_cache_0 (ref), v18 (ref), v14 (ref), v15 (ref), v6 (ref), v43 (ref), v44 (ref)
+                local l_v23_2 = v23;
+                v22 = nil;
+                if v20.isEmpty() then
                     return;
                 else
-                    local v162 = v19.pop(v15);
-                    for _, v164 in v162 do
-                        v20[v164] = true;
+                    local v123 = v20.pop(v16);
+                    for _, v125 in v123 do
+                        v21[v125] = true;
                     end;
-                    local v165 = l_cache_0.getItems(v162);
-                    local v170 = task.delay(v17, function() --[[ Line: 132 ]]
-                        -- upvalues: v17 (ref), v162 (copy), l_v22_3 (copy), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref)
-                        local v166 = ("No fetch response after %* sec"):format(v17);
-                        local l_v162_0 = v162;
-                        if l_v22_3 ~= v22 then
+                    local v126 = l_cache_0.getItems(v123);
+                    local v131 = task.delay(v18, function() --[[ Line: 130 ]]
+                        -- upvalues: v18 (ref), v123 (copy), l_v23_2 (copy), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref)
+                        local v127 = ("No fetch response after %* sec"):format(v18);
+                        local l_v123_0 = v123;
+                        if l_v23_2 ~= v23 then
                             return;
                         else
-                            if v13.logError then
-                                v13.logError(v166);
+                            if v14.logError then
+                                v14.logError(v127);
                             end;
-                            for _, v169 in l_v162_0 do
-                                v20[v169] = nil;
+                            for _, v130 in l_v123_0 do
+                                v21[v130] = nil;
                             end;
-                            l_cache_0.markItemsAsFailed(l_v162_0);
+                            l_cache_0.markItemsAsFailed(l_v123_0);
                             return;
                         end;
                     end);
-                    local l_status_3, l_result_3 = pcall(function() --[[ Line: 136 ]]
-                        -- upvalues: l_FFlagLuaAppDataHydrationSupportsMultiGet_0 (ref), v14 (ref), v162 (copy), v165 (copy), v13 (ref), v6 (ref), v42 (ref), l_v22_3 (copy), v170 (copy), v22 (ref), v20 (ref), l_cache_0 (ref)
-                        if l_FFlagLuaAppDataHydrationSupportsMultiGet_0 and not v14 then
-                            local v171 = {};
-                            for _, v173 in v162 do
-                                local v174 = v165[v173];
-                                table.insert(v171, v13.fetchFn(v173, v174));
+                    local l_status_2, l_result_2 = pcall(function() --[[ Line: 134 ]]
+                        -- upvalues: v15 (ref), v123 (copy), v126 (copy), v14 (ref), v6 (ref), v43 (ref), l_v23_2 (copy), v131 (copy), v23 (ref), v21 (ref), l_cache_0 (ref)
+                        if not v15 then
+                            local v132 = {};
+                            for _, v134 in v123 do
+                                local v135 = v126[v134];
+                                table.insert(v132, v14.fetchFn(v134, v135));
                             end;
-                            v6.all(v171):andThen(function(v175) --[[ Line: 145 ]]
-                                -- upvalues: v162 (ref), v42 (ref), l_v22_3 (ref), v170 (ref)
-                                local v176 = {};
-                                for v177, v178 in v162 do
-                                    v176[v178] = v175[v177];
+                            v6.all(v132):andThen(function(v136) --[[ Line: 143 ]]
+                                -- upvalues: v123 (ref), v43 (ref), l_v23_2 (ref), v131 (ref)
+                                local v137 = {};
+                                for v138, v139 in v123 do
+                                    v137[v139] = v136[v138];
                                 end;
-                                v42(v176, v162, l_v22_3);
-                                task.cancel(v170);
-                            end):catch(function(v179) --[[ Line: 153 ]]
-                                -- upvalues: v162 (ref), l_v22_3 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v170 (ref)
-                                local l_v162_1 = v162;
-                                if l_v22_3 == v22 then
-                                    if v13.logError then
-                                        v13.logError(v179);
+                                v43(v137, v123, l_v23_2);
+                                task.cancel(v131);
+                            end):catch(function(v140) --[[ Line: 151 ]]
+                                -- upvalues: v123 (ref), l_v23_2 (ref), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref), v131 (ref)
+                                local l_v123_1 = v123;
+                                if l_v23_2 == v23 then
+                                    if v14.logError then
+                                        v14.logError(v140);
                                     end;
-                                    for _, v182 in l_v162_1 do
-                                        v20[v182] = nil;
+                                    for _, v143 in l_v123_1 do
+                                        v21[v143] = nil;
                                     end;
-                                    l_cache_0.markItemsAsFailed(l_v162_1);
+                                    l_cache_0.markItemsAsFailed(l_v123_1);
                                 end;
-                                task.cancel(v170);
+                                task.cancel(v131);
                             end);
                             return;
                         else
-                            v13.fetchFn(v165):andThen(function(v183) --[[ Line: 159 ]]
-                                -- upvalues: v42 (ref), v162 (ref), l_v22_3 (ref), v170 (ref)
-                                v42(v183, v162, l_v22_3);
-                                task.cancel(v170);
-                            end):catch(function(v184) --[[ Line: 163 ]]
-                                -- upvalues: v162 (ref), l_v22_3 (ref), v22 (ref), v13 (ref), v20 (ref), l_cache_0 (ref), v170 (ref)
-                                local l_v162_2 = v162;
-                                if l_v22_3 == v22 then
-                                    if v13.logError then
-                                        v13.logError(v184);
+                            v14.fetchFn(v126):andThen(function(v144) --[[ Line: 157 ]]
+                                -- upvalues: v43 (ref), v123 (ref), l_v23_2 (ref), v131 (ref)
+                                v43(v144, v123, l_v23_2);
+                                task.cancel(v131);
+                            end):catch(function(v145) --[[ Line: 161 ]]
+                                -- upvalues: v123 (ref), l_v23_2 (ref), v23 (ref), v14 (ref), v21 (ref), l_cache_0 (ref), v131 (ref)
+                                local l_v123_2 = v123;
+                                if l_v23_2 == v23 then
+                                    if v14.logError then
+                                        v14.logError(v145);
                                     end;
-                                    for _, v187 in l_v162_2 do
-                                        v20[v187] = nil;
+                                    for _, v148 in l_v123_2 do
+                                        v21[v148] = nil;
                                     end;
-                                    l_cache_0.markItemsAsFailed(l_v162_2);
+                                    l_cache_0.markItemsAsFailed(l_v123_2);
                                 end;
-                                task.cancel(v170);
+                                task.cancel(v131);
                             end);
                             return;
                         end;
                     end);
-                    if not l_status_3 then
-                        if l_v22_3 == v22 then
-                            if v13.logError then
-                                v13.logError(l_result_3);
+                    if not l_status_2 then
+                        if l_v23_2 == v23 then
+                            if v14.logError then
+                                v14.logError(l_result_2);
                             end;
-                            for _, v191 in v162 do
-                                v20[v191] = nil;
+                            for _, v152 in v123 do
+                                v21[v152] = nil;
                             end;
-                            l_cache_0.markItemsAsFailed(v162);
+                            l_cache_0.markItemsAsFailed(v123);
                         end;
-                        task.cancel(v170);
+                        task.cancel(v131);
                     end;
-                    v43();
+                    v44();
                     return;
                 end;
             end);
         end;
-        return v159;
-    end;
-    local function v195(v193, v194) --[[ Line: 229 ]] --[[ Name: fetchItems ]]
-        -- upvalues: v115 (copy), v23 (copy)
-        return (v115(v193, v194 or v23));
-    end;
-    local function v196() --[[ Line: 233 ]] --[[ Name: clear ]]
-        -- upvalues: v21 (ref), v20 (ref), l_cache_0 (copy), v19 (copy), l_FFlagLuaAppDataHydrationDataResolverOnClear_0 (ref), v13 (copy)
-        if v21 then
-            task.cancel(v21);
-            v21 = nil;
+        if l_FFlagSduiChartsSupport_0 then
+            return v120, v121;
+        else
+            return v120, nil;
         end;
-        v20 = {};
+    end;
+    local function v155(v154) --[[ Line: 230 ]] --[[ Name: getCachedItem ]]
+        -- upvalues: l_cache_0 (copy)
+        return l_cache_0.getItem(v154);
+    end;
+    local function v157(v156) --[[ Line: 234 ]] --[[ Name: getCachedItems ]]
+        -- upvalues: l_cache_0 (copy)
+        return l_cache_0.getItems(v156);
+    end;
+    local function v160(v158, v159) --[[ Line: 238 ]] --[[ Name: fetchItem ]]
+        -- upvalues: v153 (copy), v24 (copy)
+        return v153(v158, v159 or v24);
+    end;
+    local function v163(v161, v162) --[[ Line: 242 ]] --[[ Name: fetchItems ]]
+        -- upvalues: v117 (copy), v24 (copy)
+        return (v117(v161, v162 or v24));
+    end;
+    local function v164() --[[ Line: 246 ]] --[[ Name: clear ]]
+        -- upvalues: v22 (ref), v21 (ref), l_cache_0 (copy), v20 (copy), l_FFlagLuaAppDataHydrationDataResolverOnClear_0 (ref), v14 (copy)
+        if v22 then
+            task.cancel(v22);
+            v22 = nil;
+        end;
+        v21 = {};
         l_cache_0.clear();
-        v19.clear();
-        if l_FFlagLuaAppDataHydrationDataResolverOnClear_0 and v13.onClear then
-            v13.onClear();
+        v20.clear();
+        if l_FFlagLuaAppDataHydrationDataResolverOnClear_0 and v14.onClear then
+            v14.onClear();
         end;
     end;
-    local v198 = l_Players_0:GetPropertyChangedSignal("LocalPlayer"):Connect(function() --[[ Line: 247 ]]
-        -- upvalues: l_getLocalPlayerUserId_0 (ref), v22 (ref), v196 (copy)
-        local v197 = l_getLocalPlayerUserId_0();
-        if v197 ~= v22 then
-            v22 = v197;
-            v196();
+    local v166 = l_Players_0:GetPropertyChangedSignal("LocalPlayer"):Connect(function() --[[ Line: 260 ]]
+        -- upvalues: l_getLocalPlayerUserId_0 (ref), v23 (ref), v164 (copy)
+        local v165 = l_getLocalPlayerUserId_0();
+        if v165 ~= v23 then
+            v23 = v165;
+            v164();
         end;
     end);
-    local function v199() --[[ Line: 255 ]] --[[ Name: dispose ]]
-        -- upvalues: v198 (ref), l_cache_0 (copy)
-        if v198 then
-            v198:Disconnect();
-            v198 = nil;
+    local function v167() --[[ Line: 268 ]] --[[ Name: dispose ]]
+        -- upvalues: v166 (ref), l_cache_0 (copy)
+        if v166 then
+            v166:Disconnect();
+            v166 = nil;
         end;
         l_cache_0.dispose();
     end;
     return {
-        getAndFetchItems = v115, 
-        getAndFetchItem = v151, 
-        getCachedItem = v153, 
-        getCachedItems = v155, 
-        fetchItem = v192, 
-        fetchItems = v195, 
-        dispose = v199, 
-        clear = v196
+        getAndFetchItems = v117, 
+        getAndFetchItem = v153, 
+        getCachedItem = v155, 
+        getCachedItems = v157, 
+        fetchItem = v160, 
+        fetchItems = v163, 
+        dispose = v167, 
+        clear = v164
     };
 end;
