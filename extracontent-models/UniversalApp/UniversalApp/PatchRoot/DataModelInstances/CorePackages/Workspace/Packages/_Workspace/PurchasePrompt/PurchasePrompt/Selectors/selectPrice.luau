@@ -1,13 +1,33 @@
-local l_Parent_0 = script:FindFirstAncestor("PurchasePrompt").Parent;
-local _ = require(l_Parent_0.IAPExperience);
-return function(v2) --[[ Line: 17 ]] --[[ Name: selectPrice ]]
-    local l_productInfo_0 = v2.productInfo;
-    local v4 = l_productInfo_0.price or 0;
-    local v5 = l_productInfo_0.basePrice or v4;
-    local v6 = l_productInfo_0.priceDiscountDetails or {};
-    return {
-        priceInRobux = v4, 
-        basePriceInRobux = v5, 
-        discounts = v6
-    };
-end;
+local PurchasePrompt = script:FindFirstAncestor("PurchasePrompt")
+local PurchasePromptParent = PurchasePrompt.Parent
+
+require(PurchasePromptParent.IAPExperience)
+
+local FFlagFixResaleDisplayPrice = require(PurchasePrompt.Flags.FFlagFixResaleDisplayPrice)
+
+return function(t1: {[any]: any}) --[[ selectPrice ]] -- line: 22
+	-- upvalues: FFlagFixResaleDisplayPrice (copy)
+	local productInfo = t1.productInfo
+	local v6 = productInfo.price or 0
+	local v7 = productInfo.basePrice or v6
+	local v8 = productInfo.priceDiscountDetails or {}
+
+	if FFlagFixResaleDisplayPrice and t1.promptRequest then
+		local collectibleItemInstanceId = t1.promptRequest.collectibleItemInstanceId
+
+		if collectibleItemInstanceId and collectibleItemInstanceId ~= "" then
+			local expectedPrice = t1.promptRequest.expectedPrice
+
+			if expectedPrice ~= nil then
+				v6 = expectedPrice
+				v7 = expectedPrice
+			end
+		end
+	end
+
+	return {
+		priceInRobux = v6,
+		basePriceInRobux = v7,
+		discounts = v8
+	}
+end

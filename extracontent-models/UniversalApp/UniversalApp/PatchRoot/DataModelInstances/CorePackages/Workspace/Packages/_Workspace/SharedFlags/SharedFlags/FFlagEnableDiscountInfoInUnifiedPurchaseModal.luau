@@ -1,1 +1,1 @@
-return game:DefineFastFlag("EnableDiscountInfoInUnifiedPurchaseModal2", false);
+return game:DefineFastFlag("EnableDiscountInfoInUnifiedPurchaseModal6", false)

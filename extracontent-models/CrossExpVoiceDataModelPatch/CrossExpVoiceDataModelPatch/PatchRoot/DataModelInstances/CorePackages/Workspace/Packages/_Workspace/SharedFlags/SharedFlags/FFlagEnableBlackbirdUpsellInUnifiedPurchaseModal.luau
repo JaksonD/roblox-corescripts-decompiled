@@ -1,2 +1,3 @@
-local v0 = require(script.Parent.FFlagBlackbirdUpsellVersion);
-return game:DefineFastFlag("EnableBlackbirdUpsellInUnifiedPurchaseModal6", false) and v0;
+local FFlagBlackbirdUpsellVersion = require(script.Parent.FFlagBlackbirdUpsellVersion)
+
+return game:DefineFastFlag("EnableBlackbirdUpsellInUnifiedPurchaseModal7", false) and FFlagBlackbirdUpsellVersion
