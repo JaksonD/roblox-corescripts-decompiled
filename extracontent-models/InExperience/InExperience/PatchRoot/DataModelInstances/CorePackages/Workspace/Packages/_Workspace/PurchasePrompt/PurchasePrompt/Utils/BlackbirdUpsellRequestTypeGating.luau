@@ -1,30 +1,34 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("PurchasePrompt");
-local v1 = require(l_script_FirstAncestor_0.Enums.RequestType);
-local v2 = game:DefineFastString("BlackbirdUpsellHiddenRequestTypes", "");
-local function _(v3) --[[ Line: 17 ]] --[[ Name: trim ]]
-    return (v3:gsub("^%s+", ""):gsub("%s+$", ""));
-end;
-local function v10(v5, v6) --[[ Line: 24 ]] --[[ Name: matchesHiddenRequestTypeList ]]
-    -- upvalues: v1 (copy)
-    if v5 == nil or v5 == v1.None then
-        return false;
-    elseif v6 == "" then
-        return false;
-    else
-        local v7 = string.lower((tostring(v5)));
-        for v8 in string.gmatch(v6, "[^,]+") do
-            local v9 = string.lower((v8:gsub("^%s+", ""):gsub("%s+$", "")));
-            if v9 ~= "" and v7 == "requesttype." .. v9 then
-                return true;
-            end;
-        end;
-        return false;
-    end;
-end;
+local PurchasePrompt = script:FindFirstAncestor("PurchasePrompt")
+local RequestType = require(PurchasePrompt.Enums.RequestType)
+local v3 = game:DefineFastString("BlackbirdUpsellHiddenRequestTypes2", "")
+
+local function matchesHiddenRequestTypeList(p1, s1: string) -- line: 24
+	-- upvalues: RequestType (copy)
+	if p1 == nil or p1 == RequestType.None then
+		return false
+	end
+
+	if s1 == "" then
+		return false
+	end
+
+	local v8 = string.lower((tostring(p1)))
+
+	for match in string.gmatch(s1, "[^,]+") do
+		local v10 = string.lower((match:gsub("^%s+", ""):gsub("%s+$", "")))
+
+		if v10 ~= "" and v8 == "requesttype." .. v10 then
+			return true
+		end
+	end
+
+	return false
+end
+
 return {
-    isRequestTypeHiddenFromBlackbirdUpsell = function(v11) --[[ Line: 45 ]] --[[ Name: isRequestTypeHiddenFromBlackbirdUpsell ]]
-        -- upvalues: v10 (copy), v2 (copy)
-        return (v10(v11, v2));
-    end, 
-    matchesHiddenRequestTypeList = v10
-};
+	isRequestTypeHiddenFromBlackbirdUpsell = function(p2) --[[ isRequestTypeHiddenFromBlackbirdUpsell ]] -- line: 45
+		-- upvalues: matchesHiddenRequestTypeList (copy), v3 (copy)
+		return (matchesHiddenRequestTypeList(p2, v3))
+	end,
+	matchesHiddenRequestTypeList = matchesHiddenRequestTypeList
+}

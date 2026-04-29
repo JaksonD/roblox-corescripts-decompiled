@@ -1,73 +1,82 @@
-local l_IXPService_0 = game:GetService("IXPService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v3 = require(l_CorePackages_0.Packages.React);
-local v4 = require(l_CorePackages_0.Packages.Dash);
-local l_useDeviceType_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useDeviceType;
-local l_DeviceType_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).DeviceType;
-local v7 = require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailsPeekView);
-local v8 = require(l_Modules_0.LuaApp.Components.ExperienceDetails.ExperienceDetailsContainer);
-local l_useNavigationProps_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppNavigation).useNavigationProps;
-local _ = require(l_CorePackages_0.Workspace.Packages.Navigation);
-local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnableCustomSpawnSponsored;
-local l_FFlagLuaAppSduiEdpEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSduiEdpEnabled;
-local l_FFlagLuaAppSduiEdpLogExposure_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSduiEdpLogExposure;
-local l_FStringLuaAppSduiEdpIxpLayer_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FStringLuaAppSduiEdpIxpLayer;
-local _ = require(l_CorePackages_0.Workspace.Packages.SduiSharedUtilities);
-local function v17(v16) --[[ Line: 53 ]] --[[ Name: renderGameDetailsPeekView ]]
-    -- upvalues: v3 (copy), v7 (copy)
-    return v3.createElement(v7, v16);
-end;
-local function v19(v18) --[[ Line: 57 ]] --[[ Name: renderExperienceDetailsPage ]]
-    -- upvalues: v3 (copy), v8 (copy)
-    return v3.createElement(v8, v18);
-end;
-return function(v20) --[[ Line: 61 ]] --[[ Name: ExperienceDetailsSelector ]]
-    -- upvalues: l_useNavigationProps_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), v4 (copy), l_FFlagLuaAppSduiEdpLogExposure_0 (copy), v3 (copy), l_IXPService_0 (copy), l_FStringLuaAppSduiEdpIxpLayer_0 (copy), l_useDeviceType_0 (copy), l_DeviceType_0 (copy), l_FFlagLuaAppSduiEdpEnabled_0 (copy), l_CorePackages_0 (copy), v17 (copy), v19 (copy)
-    local v23 = l_useNavigationProps_0(function(v21, v22) --[[ Line: 62 ]]
-        -- upvalues: l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref)
-        if v21 ~= nil then
-            return {
-                universeId = v21, 
-                source = v22.source, 
-                index = v22.index, 
-                onClose = v22.onClose, 
-                mountAsFullView = v22.mountAsFullView, 
-                mountAnimation = v22.mountAnimation, 
-                referralSource = v22.referralSource, 
-                onPeekViewClosed = v22.onPeekViewClosed, 
-                showBackButton = v22.showBackButton, 
-                experienceJoinData = v22.experienceJoinData, 
-                placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v22.placeIdOverride else nil
-            };
-        else
-            return nil;
-        end;
-    end);
-    v20 = v4.join(v20, v23);
-    if l_FFlagLuaAppSduiEdpLogExposure_0 then
-        v3.useEffect(function() --[[ Line: 83 ]]
-            -- upvalues: l_IXPService_0 (ref), l_FStringLuaAppSduiEdpIxpLayer_0 (ref)
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(l_FStringLuaAppSduiEdpIxpLayer_0);
-        end, {});
-    end;
-    local v24 = if v20.deviceType then v20.deviceType else l_useDeviceType_0();
-    if v24 == l_DeviceType_0.Phone then
-        if l_FFlagLuaAppSduiEdpEnabled_0 then
-            local l_ExperienceDetailsPeekView_0 = require(l_CorePackages_0.Workspace.Packages.GameDetail).ExperienceDetailsPeekView;
-            return v3.createElement(l_ExperienceDetailsPeekView_0, v20);
-        else
-            return v17(v20);
-        end;
-    else
-        local v26 = v4.join(v20, {
-            deviceType = v24
-        });
-        if l_FFlagLuaAppSduiEdpEnabled_0 then
-            local l_ExperienceDetailsFullPage_0 = require(l_CorePackages_0.Workspace.Packages.GameDetail).ExperienceDetailsFullPage;
-            return v3.createElement(l_ExperienceDetailsFullPage_0, v26);
-        else
-            return v19(v26);
-        end;
-    end;
-end;
+local IXPService = game:GetService("IXPService")
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local React = require(CorePackages.Packages.React)
+local Dash = require(CorePackages.Packages.Dash)
+local useDeviceType = require(CorePackages.Workspace.Packages.RobloxAppHooks).useDeviceType
+local DeviceType = require(CorePackages.Workspace.Packages.RobloxAppEnums).DeviceType
+local GameDetailsPeekView = require(Modules.LuaApp.Components.GameDetails.GameDetailsPeekView)
+local ExperienceDetailsContainer = require(Modules.LuaApp.Components.ExperienceDetails.ExperienceDetailsContainer)
+local useNavigationProps = require(CorePackages.Workspace.Packages.RobloxAppNavigation).useNavigationProps
+
+require(CorePackages.Workspace.Packages.Navigation)
+
+local FFlagLuaAppSduiEdpEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppSduiEdpEnabled
+local FFlagLuaAppSduiEdpLogExposure = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppSduiEdpLogExposure
+local FStringLuaAppSduiEdpIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringLuaAppSduiEdpIxpLayer
+
+require(CorePackages.Workspace.Packages.SduiSharedUtilities)
+
+local function renderGameDetailsPeekView(t1: {[any]: any}) -- line: 50
+	-- upvalues: React (copy), GameDetailsPeekView (copy)
+	return React.createElement(GameDetailsPeekView, t1)
+end
+local function renderExperienceDetailsPage(t2: {[any]: any}) -- line: 54
+	-- upvalues: React (copy), ExperienceDetailsContainer (copy)
+	return React.createElement(ExperienceDetailsContainer, t2)
+end
+
+return function(t3: {[any]: any}) --[[ ExperienceDetailsSelector ]] -- line: 58
+	-- upvalues: useNavigationProps (copy), Dash (copy), FFlagLuaAppSduiEdpLogExposure (copy), React (copy), IXPService (copy), FStringLuaAppSduiEdpIxpLayer (copy), useDeviceType (copy), DeviceType (copy), FFlagLuaAppSduiEdpEnabled (copy), CorePackages (copy), renderGameDetailsPeekView (copy), renderExperienceDetailsPage (copy)
+	local v19 = useNavigationProps(function(p1, p2) -- line: 59
+		if p1 ~= nil then
+			return {
+				universeId = p1,
+				source = p2.source,
+				index = p2.index,
+				onClose = p2.onClose,
+				mountAsFullView = p2.mountAsFullView,
+				mountAnimation = p2.mountAnimation,
+				referralSource = p2.referralSource,
+				onPeekViewClosed = p2.onPeekViewClosed,
+				showBackButton = p2.showBackButton,
+				experienceJoinData = p2.experienceJoinData,
+				placeIdOverride = p2.placeIdOverride
+			}
+		end
+
+		return nil
+	end)
+	local v20 = Dash.join(t3, v19)
+
+	if FFlagLuaAppSduiEdpLogExposure then
+		React.useEffect(function() -- line: 80
+			-- upvalues: IXPService (copy), FStringLuaAppSduiEdpIxpLayer (copy)
+			IXPService:LogFlagLinkedUserLayerExposure(FStringLuaAppSduiEdpIxpLayer)
+		end, {})
+	end
+
+	local v21 = if not v20.deviceType then useDeviceType() else v20.deviceType
+
+	if v21 == DeviceType.Phone then
+		if FFlagLuaAppSduiEdpEnabled then
+			local ExperienceDetailsPeekView = require(CorePackages.Workspace.Packages.GameDetail).ExperienceDetailsPeekView
+
+			return React.createElement(ExperienceDetailsPeekView, v20)
+		end
+
+		return renderGameDetailsPeekView(v20)
+	end
+
+	local v23 = Dash.join(v20, {
+		deviceType = v21
+	})
+
+	if FFlagLuaAppSduiEdpEnabled then
+		local ExperienceDetailsFullPage = require(CorePackages.Workspace.Packages.GameDetail).ExperienceDetailsFullPage
+
+		return React.createElement(ExperienceDetailsFullPage, v23)
+	end
+
+	return renderExperienceDetailsPage(v23)
+end

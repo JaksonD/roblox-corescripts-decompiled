@@ -1,81 +1,73 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("NotApprovedPage");
-local _ = require(l_script_FirstAncestor_0.Common.Types);
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.ArgCheck);
-local l_dependencyArray_0 = require(l_Parent_0.RoactUtils).Hooks.dependencyArray;
-local v5 = require(l_Parent_0.React);
-local l_useMemo_0 = v5.useMemo;
-local l_useContext_0 = v5.useContext;
-local v8 = require(l_script_FirstAncestor_0.Utils.platformEvidence);
-local v9 = require(l_script_FirstAncestor_0.Utils.collectUniqueTranslations);
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapMiddlePages);
-local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
-local v12 = v5.createContext({});
+local NotApprovedPage = script:FindFirstAncestor("NotApprovedPage")
+
+require(NotApprovedPage.Common.Types)
+
+local NotApprovedPageParent = NotApprovedPage.Parent
+local ArgCheck = require(NotApprovedPageParent.ArgCheck)
+local dependencyArray = require(NotApprovedPageParent.RoactUtils).Hooks.dependencyArray
+local React = require(NotApprovedPageParent.React)
+local useMemo = React.useMemo
+local useContext = React.useContext
+local platformEvidence = require(NotApprovedPage.Utils.platformEvidence)
+local collectUniqueTranslations = require(NotApprovedPage.Utils.collectUniqueTranslations)
+local FFlagRemoveDependencyArrayAntipattern = require(NotApprovedPageParent.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+local v11 = React.createContext({})
+
 return {
-    NotApprovedPageProvider = function(v13) --[[ Line: 55 ]] --[[ Name: NotApprovedPageProvider ]]
-        -- upvalues: v10 (copy), l_useMemo_0 (copy), v8 (copy), v9 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v5 (copy), v12 (copy)
-        local l_translations_0 = v13.translations;
-        local l_badUtterances_0 = v13.moderationDetail.badUtterances;
-        local l_violation_0 = v13.moderationDetail.violation;
-        local v17 = if v10 then v13.commutationEligibility else nil;
-        local v23 = l_useMemo_0(function() --[[ Line: 62 ]]
-            -- upvalues: l_violation_0 (copy), v8 (ref), v9 (ref), l_translations_0 (copy), l_badUtterances_0 (copy), v10 (ref), v17 (copy)
-            local v18 = {};
-            local v19 = {};
-            if l_violation_0 and v8.isVisibleInView(l_violation_0) then
-                v18 = v9(l_violation_0.abuseTypeTranslationKeys, l_translations_0);
-                v19 = v9(l_violation_0.abuseTypeTranslationKeys, nil);
-            elseif l_badUtterances_0 then
-                local v20 = {};
-                for _, v22 in l_badUtterances_0 do
-                    table.insert(v20, v22.labelTranslationKey);
-                end;
-                v18 = v9(v20, l_translations_0);
-                v19 = v9(v20, nil);
-            end;
-            if v10 then
-                return {
-                    translations = l_translations_0, 
-                    violationReasons = {
-                        translatedReasons = v18, 
-                        untranslatedReasons = v19
-                    }, 
-                    commutationEligibility = v17
-                };
-            else
-                return {
-                    translations = l_translations_0, 
-                    violationReasons = {
-                        translatedReasons = v18, 
-                        untranslatedReasons = v19
-                    }
-                };
-            end;
-        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-            l_badUtterances_0, 
-            l_violation_0, 
-            l_translations_0, 
-            v17
-        } else l_dependencyArray_0(l_badUtterances_0, l_violation_0, l_translations_0, v17));
-        return v5.createElement(v12.Provider, {
-            value = v23
-        }, v13.children);
-    end, 
-    useNotApprovedPageContext = function() --[[ Line: 108 ]] --[[ Name: useNotApprovedPageContext ]]
-        -- upvalues: l_useContext_0 (copy), v12 (copy), v3 (copy), v10 (copy)
-        local v24 = l_useContext_0(v12);
-        v3.assert(v24 and v24.translations, "useNotApprovedPageContext returned invalid context, usually this means the NotApprovedPageProvider is not present in the tree");
-        if v10 then
-            return {
-                translations = v24.translations, 
-                violationReasons = v24.violationReasons, 
-                commutationEligibility = v24.commutationEligibility
-            };
-        else
-            return {
-                translations = v24.translations, 
-                violationReasons = v24.violationReasons
-            };
-        end;
-    end
-};
+	NotApprovedPageProvider = function(t1: {[any]: any}) --[[ NotApprovedPageProvider ]] -- line: 53
+		-- upvalues: useMemo (copy), platformEvidence (copy), collectUniqueTranslations (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), React (copy), v11 (copy)
+		local translations = t1.translations
+		local badUtterances = t1.moderationDetail.badUtterances
+		local violation = t1.moderationDetail.violation
+		local commutationEligibility = t1.commutationEligibility
+		local v17 = useMemo(function() -- line: 59
+			-- upvalues: violation (copy), platformEvidence (copy), collectUniqueTranslations (copy), translations (copy), badUtterances (copy), commutationEligibility (copy)
+			local t2 = {}
+			local t3 = {}
+
+			if violation and platformEvidence.isVisibleInView(violation) then
+				t2 = collectUniqueTranslations(violation.abuseTypeTranslationKeys, translations)
+				t3 = collectUniqueTranslations(violation.abuseTypeTranslationKeys, nil)
+			elseif badUtterances then
+				local t4 = {}
+
+				for _, v23 in badUtterances do
+					table.insert(t4, v23.labelTranslationKey)
+				end
+
+				t2 = collectUniqueTranslations(t4, translations)
+				t3 = collectUniqueTranslations(t4, nil)
+			end
+
+			return {
+				translations = translations,
+				violationReasons = {
+					translatedReasons = t2,
+					untranslatedReasons = t3
+				},
+				commutationEligibility = commutationEligibility
+			}
+		end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(badUtterances, violation, translations, commutationEligibility) else {
+			badUtterances,
+			violation,
+			translations,
+			commutationEligibility
+		})
+
+		return React.createElement(v11.Provider, {
+			value = v17
+		}, t1.children)
+	end,
+	useNotApprovedPageContext = function() --[[ useNotApprovedPageContext ]] -- line: 97
+		-- upvalues: useContext (copy), v11 (copy), ArgCheck (copy)
+		local v18 = useContext(v11)
+
+		ArgCheck.assert(v18 and v18.translations, "useNotApprovedPageContext returned invalid context, usually this means the NotApprovedPageProvider is not present in the tree")
+
+		return {
+			translations = v18.translations,
+			violationReasons = v18.violationReasons,
+			commutationEligibility = v18.commutationEligibility
+		}
+	end
+}

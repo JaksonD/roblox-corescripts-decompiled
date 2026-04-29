@@ -1,789 +1,882 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.Rodux);
-local v3 = require(l_CorePackages_0.Packages.Cryo);
-local v4 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local v5 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceHeadRefinement);
-local v6 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local v7 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local v8 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog);
-local v9 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
-local v10 = require(l_CorePackages_0.Packages.tutils);
-local v11 = require(l_Modules_0.AvatarExperience.Common.Actions.TryOnLooksOutfit);
-local v12 = require(l_Modules_0.AvatarExperience.Common.Actions.ToggleTryOn);
-local v13 = require(l_Modules_0.AvatarExperience.Common.Actions.TryOnColorUpdated);
-local v14 = require(l_Modules_0.AvatarExperience.Common.Actions.SetEquippedInTryOnManager);
-local v15 = require(l_Modules_0.AvatarExperience.Common.Actions.SetSelectedTimedOption);
-local v16 = require(l_Modules_0.AvatarExperience.Common.Actions.RemoveUnselectedItemsFromTryOn);
-local v17 = require(l_Modules_0.AvatarExperience.Common.Actions.RemoveFromTryOn);
-local v18 = require(l_Modules_0.AvatarExperience.Common.Actions.RemoveLookItemsFromTryOn);
-local v19 = require(l_Modules_0.AvatarExperience.Common.Actions.ReceivedBundleInfoForTryOn);
-local v20 = require(l_Modules_0.AvatarExperience.Common.Actions.ClearTryOns);
-local v21 = require(l_Modules_0.AvatarExperience.Common.Actions.SetOrderForTryOns);
-local v22 = require(l_Modules_0.AvatarExperience.Common.Actions.SetAdjustableTryOnIds);
-local v23 = require(l_Modules_0.AvatarExperience.Common.Actions.AddSelectedBundleInfo);
-local v24 = require(l_Modules_0.AvatarExperience.Common.Actions.SetOutfitTryOns);
-local v25 = require(l_Modules_0.AvatarExperience.AccessoryAdjustment.Actions.SetAccessoryAdjustments);
-local v26 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local l_ReducerUtils_0 = v9.Utils.ReducerUtils;
-local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local v29 = require(l_Modules_0.AvatarExperience.Common.Actions.RemoveLook);
-local v30 = require(l_Modules_0.AvatarExperience.Common.Actions.RemoveLookFromTryOn);
-local l_TryOnClassicHeadShape_0 = v5.Actions.TryOnClassicHeadShape;
-local v32 = require(l_Modules_0.AvatarExperience.Common.Actions.NavigatedToNonTryOnPage);
-local v33 = require(l_Modules_0.AvatarExperience.Common.Actions.NavigatedToTryOnPage);
-local v34 = require(l_Modules_0.AvatarExperience.Common.Actions.DefaultTryOnBodyColorsToggled);
-local l_findItemInTryOnItems_0 = v7.Utils.findItemInTryOnItems;
-local l_getTryOnItemReducerKey_0 = v7.Utils.getTryOnItemReducerKey;
-local l_getFilteredTryOnItems_0 = v8.Utils.TryOns.getFilteredTryOnItems;
-local l_removeMakeupAssetsFromTryOnsIfOverLimit_0 = v8.Utils.TryOns.removeMakeupAssetsFromTryOnsIfOverLimit;
-local l_SetLastToggledLookType_0 = v8.State.Actions.SetLastToggledLookType;
-local l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 = v7.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE;
-local l_LAYERED_MAKEUP_ORDER_0 = v7.Constants.LAYERED_MAKEUP_ORDER;
-local l_MAKEUP_LOOK_ASSET_TYPES_0 = v7.Constants.MAKEUP_LOOK_ASSET_TYPES;
-local l_LOOK_TYPE_0 = v7.Constants.LOOK_TYPE;
-local l_CharacterHistoryStateChangeButtonActivated_0 = v7.State.Actions.CharacterHistoryStateChangeButtonActivated;
-local l_FFlagAXRootSlotBasedEditorFlag_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXRootSlotBasedEditorFlag;
-local l_FFlagAXCatalogMakeupSupport_0 = v6.FFlagAXCatalogMakeupSupport;
-local l_AXEnableAccessoryAdjustmentDuringTryOnIXP_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceExperiments).AXEnableAccessoryAdjustmentDuringTryOnIXP;
-local l_FFlagAXMISEnableMultiShopping_0 = v6.FFlagAXMISEnableMultiShopping;
-local l_FFlagAXDurablesForMIS_0 = v6.FFlagAXDurablesForMIS;
-local l_FFlagParseHeadShapeFromAPIResponse_0 = v6.FFlagParseHeadShapeFromAPIResponse;
-local l_FFlagHeadRefinementFacialAnimationToggle_0 = v6.FFlagHeadRefinementFacialAnimationToggle;
-local l_FFlagDynamicHeadsMigration_0 = v6.FFlagDynamicHeadsMigration;
-local l_FFlagAXCustomizeMakeupSupport_0 = v6.FFlagAXCustomizeMakeupSupport;
-local v54 = 0;
-local function v68(v55, v56) --[[ Line: 142 ]] --[[ Name: formatItem ]]
-    -- upvalues: l_FFlagAXMISEnableMultiShopping_0 (copy), l_FFlagDynamicHeadsMigration_0 (copy), v26 (copy), l_FFlagParseHeadShapeFromAPIResponse_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), v3 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_LAYERED_MAKEUP_ORDER_0 (copy), v54 (ref)
-    local v57 = v55.receivedBundleInfo and true or false;
-    local l_bundleInfo_0 = v55.bundleInfo;
-    if l_FFlagAXMISEnableMultiShopping_0 and v55.bundleItems and not v57 then
-        local v59 = {};
-        for _, v61 in v55.bundleItems do
-            if l_FFlagDynamicHeadsMigration_0 and v61.type == v26.ItemType.Asset then
-                local v62 = v61.assetType or v55.itemSubType == v26.BundleTypeIdStrings.DynamicHead and v26.AssetTypeIdStrings.DynamicHead;
-                if v62 then
-                    local v63 = {
-                        assetType = v62
-                    };
-                    if l_FFlagParseHeadShapeFromAPIResponse_0 and v61.meta and v61.meta.headShape ~= nil then
-                        v63.headShape = v61.meta.headShape;
-                    end;
-                    if l_FFlagHeadRefinementFacialAnimationToggle_0 and v61.meta and v61.meta.staticFacialAnimation ~= nil then
-                        v63.staticFacialAnimation = v61.meta.staticFacialAnimation;
-                    end;
-                    v59[v61.id] = v63;
-                end;
-            elseif v61.type == v26.ItemType.Asset and v61.assetType then
-                local v64 = {
-                    assetType = v61.assetType
-                };
-                if l_FFlagParseHeadShapeFromAPIResponse_0 and v61.meta and v61.meta.headShape ~= nil then
-                    v64.headShape = v61.meta.headShape;
-                end;
-                if l_FFlagHeadRefinementFacialAnimationToggle_0 and v61.meta and v61.meta.staticFacialAnimation ~= nil then
-                    v64.staticFacialAnimation = v61.meta.staticFacialAnimation;
-                end;
-                v59[v61.id] = v64;
-            end;
-        end;
-        l_bundleInfo_0 = v59;
-        v57 = true;
-    end;
-    local v65 = {
-        version = "1", 
-        itemId = v55.itemId, 
-        itemType = v55.itemType, 
-        itemSubType = v55.itemSubType, 
-        selectedInTryOnManager = v55.selectedInTryOnManager, 
-        isUnequipped = v56, 
-        receivedBundleInfo = v57, 
-        bundleInfo = if l_FFlagAXMISEnableMultiShopping_0 then l_bundleInfo_0 else v55.bundleInfo, 
-        widgetInfo = v55.widgetInfo, 
-        isRecolorable = v55.isRecolorable, 
-        selectedTimedOptionIndex = if l_FFlagAXDurablesForMIS_0 then v55.selectedTimedOptionIndex else nil
-    };
-    if v26.AssetTypeIdToAccessoryTypeEnum[v55.itemSubType] then
-        local v66 = {
-            order = v55.overrideOrder or v26.LayeredClothingOrder[v55.itemSubType], 
-            isLayered = v26.LayeredAssetTypes[v55.itemSubType] ~= nil
-        };
-        v65 = v3.Dictionary.join(v65, v66);
-    elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v55.itemSubType] then
-        local v67 = {
-            order = v55.overrideOrder or l_LAYERED_MAKEUP_ORDER_0[v55.itemSubType], 
-            isLayered = true
-        };
-        v65 = v3.Dictionary.join(v65, v67);
-    end;
-    if not v56 then
-        v65.itemRecency = v54;
-        v54 = v54 + 1;
-    end;
-    return v65;
-end;
-local function v75(v69, v70, v71) --[[ Line: 245 ]] --[[ Name: formatItemFromLookOutfit ]]
-    -- upvalues: v26 (copy), v3 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_LAYERED_MAKEUP_ORDER_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v54 (ref)
-    local v72 = {
-        version = "1", 
-        itemId = v69.itemId, 
-        itemType = v69.itemType, 
-        itemSubType = v69.itemSubType, 
-        selectedInTryOnManager = v69.isNotSelectable ~= true, 
-        isUnequipped = false, 
-        receivedBundleInfo = false, 
-        lookId = v71
-    };
-    if v26.AssetTypeIdToAccessoryTypeEnum[v69.itemSubType] then
-        local v73 = {
-            order = v69.order or v26.LayeredClothingOrder[v69.itemSubType], 
-            isLayered = v26.LayeredAssetTypes[v69.itemSubType] ~= nil
-        };
-        v72 = v3.Dictionary.join(v72, v73);
-    elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v69.itemSubType] then
-        local v74 = {
-            order = v69.order or l_LAYERED_MAKEUP_ORDER_0[v69.itemSubType], 
-            isLayered = true
-        };
-        v72 = v3.Dictionary.join(v72, v74);
-    end;
-    v72.itemRecency = if not (v70 ~= v26.LookType.Avatar) or l_FFlagAXCatalogMakeupSupport_0 and v70 == v26.LookType.Makeup then v69.tryOnItemOrder else v54;
-    v54 = v54 + 1;
-    return v72;
-end;
-local function v82(v76, v77) --[[ Line: 284 ]] --[[ Name: formatBundleFromLookOutfit ]]
-    -- upvalues: l_FFlagAXMISEnableMultiShopping_0 (copy), v26 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), l_LAYERED_MAKEUP_ORDER_0 (copy), l_FFlagParseHeadShapeFromAPIResponse_0 (copy), v54 (ref)
-    local v78 = {
-        version = "1", 
-        selectedInTryOnManager = v76.isNotSelectable ~= true, 
-        isUnequipped = false, 
-        receivedBundleInfo = false, 
-        itemType = v76.itemType, 
-        itemId = v76.itemId, 
-        itemSubType = if l_FFlagAXMISEnableMultiShopping_0 then v76.itemSubType else nil, 
-        lookId = v77
-    };
-    local v79 = {};
-    for _, v81 in v76.items do
-        v79[v81.itemId] = {
-            assetType = v81.itemSubType, 
-            order = v26.LayeredClothingOrder[v81.itemSubType] or l_FFlagAXCustomizeMakeupSupport_0 and l_LAYERED_MAKEUP_ORDER_0[v81.itemSubType], 
-            headShape = if l_FFlagParseHeadShapeFromAPIResponse_0 then v81.headShape else nil
-        };
-    end;
-    v78.bundleInfo = v79;
-    v78.itemRecency = v76.tryOnItemOrder or v54;
-    v54 = v54 + 1;
-    return v78;
-end;
-local function v90(v83, v84, v85) --[[ Line: 316 ]] --[[ Name: removeItem ]]
-    -- upvalues: l_getTryOnItemReducerKey_0 (copy), v26 (copy), v3 (copy)
-    local v86 = l_getTryOnItemReducerKey_0(v85.itemId, v85.itemType);
-    local v87 = v84[v86];
-    v87.isUnequipped = true;
-    local v88 = v85.itemSubType == v26.AssetTypeIdStrings.Face;
-    local v89 = false;
-    if v85.itemType == v26.ItemType.Bundle then
-        v89 = v26.BundleTypeIdStringToNameForBackend[v85.itemSubType] == "Body";
-    end;
-    return v3.Dictionary.join(v83, {
-        TryOnItems = v3.Dictionary.join(v84, {
-            [v86] = v3.None
-        }), 
-        LastToggledItem = v87, 
-        LastTryOnClassicHeadShape = if v88 then v3.None else nil, 
-        BodyColor3s = if v89 then v3.None else nil, 
-        BodyPartColorRangeIds = if v89 then v3.None else nil
-    });
-end;
-local function _(v91) --[[ Line: 340 ]] --[[ Name: isAnimationOrEmoteItem ]]
-    -- upvalues: v26 (copy)
-    if v91.itemType == v26.ItemType.Asset and v91.itemSubType == v26.AssetTypeIdStrings.EmoteAnimation then
-        return true;
-    elseif v91.itemType == v26.ItemType.Bundle and v91.itemSubType == tostring(v26.BundleTypeIdStrings.Animations) then
-        return true;
-    else
-        return false;
-    end;
-end;
-local function v96(v93) --[[ Line: 354 ]] --[[ Name: getTryOnItemsContainsRecolorableBody ]]
-    -- upvalues: v26 (copy)
-    for _, v95 in v93 do
-        if v95.itemType == "Bundle" and v26.BundleTypeIdStringToNameForBackend[v95.itemSubType] == "Body" and v95.isRecolorable then
-            return true;
-        end;
-    end;
-    return false;
-end;
-local function v102(v97) --[[ Line: 367 ]] --[[ Name: getTryOnItemsMakeupAndAvatarLookIds ]]
-    -- upvalues: v3 (copy), l_MAKEUP_LOOK_ASSET_TYPES_0 (copy)
-    local l_None_0 = v3.None;
-    local l_None_1 = v3.None;
-    for _, v101 in v97 do
-        if v101.lookId and not l_MAKEUP_LOOK_ASSET_TYPES_0[v101.itemSubType] then
-            l_None_0 = v101.lookId;
-        end;
-        if v101.lookId and l_MAKEUP_LOOK_ASSET_TYPES_0[v101.itemSubType] then
-            l_None_1 = v101.lookId;
-        end;
-    end;
-    return l_None_0, l_None_1;
-end;
-local function v116(v103) --[[ Line: 384 ]] --[[ Name: reconcileAllTryOnState ]]
-    -- upvalues: l_FFlagAXMISEnableMultiShopping_0 (copy), v102 (copy), v96 (copy), v3 (copy), v10 (copy), l_LOOK_TYPE_0 (copy)
-    local l_TryOnItems_0 = v103.TryOnItems;
-    local v105 = nil;
-    local v106 = nil;
-    if l_FFlagAXMISEnableMultiShopping_0 then
-        local v107, v108 = v102(l_TryOnItems_0);
-        v105 = v107;
-        v106 = v108;
-    end;
-    local v109 = v96(l_TryOnItems_0);
-    if l_FFlagAXMISEnableMultiShopping_0 then
-        v109 = v109 or v105 ~= nil;
-    end;
-    local v110 = if v109 then v103.BodyColor3s else v3.None;
-    local v111 = if v109 then v103.BodyPartColorRangeIds else v3.None;
-    local v112 = if v109 then v103.DefaultTryOnBodyColorsToggled else false;
-    local v113 = if l_FFlagAXMISEnableMultiShopping_0 then v10.fieldCount(l_TryOnItems_0) == 0 else nil;
-    local v114 = if l_FFlagAXMISEnableMultiShopping_0 then if v113 then v3.None else v103.LookType else nil;
-    local v115 = if l_FFlagAXMISEnableMultiShopping_0 then if not v113 and v106 then l_LOOK_TYPE_0.Makeup else v3.None else nil;
-    return v3.Dictionary.join(v103, {
-        BodyColor3s = v110, 
-        BodyPartColorRangeIds = v111, 
-        DefaultTryOnBodyColorsToggled = v112, 
-        LookId = if l_FFlagAXMISEnableMultiShopping_0 then v105 else nil, 
-        LookType = if l_FFlagAXMISEnableMultiShopping_0 then v114 else nil, 
-        MakeupLookId = if l_FFlagAXMISEnableMultiShopping_0 then v106 else nil, 
-        MakeupLookType = if l_FFlagAXMISEnableMultiShopping_0 then v115 else nil, 
-        ShouldTryOnWithoutEquippedItems = if l_FFlagAXMISEnableMultiShopping_0 then not v113 and v103.ShouldTryOnWithoutEquippedItems else nil
-    });
-end;
-local v117 = if l_AXEnableAccessoryAdjustmentDuringTryOnIXP_0.isEnabled() then v4.readTestVariable(l_AXEnableAccessoryAdjustmentDuringTryOnIXP_0.EnabledForUser) else nil;
-local v118 = {
-    TryOnItems = {}, 
-    DefaultTryOnBodyColorsToggled = false, 
-    LookId = nil, 
-    LookType = nil, 
-    MakeupLookId = nil, 
-    MakeupLookType = nil, 
-    LastToggledLookType = nil, 
-    LastTryOnClassicHeadShape = nil, 
-    OutfitIdMap = {}, 
-    AdjustableTryOnIds = if v117 then {} else nil, 
-    ShouldTryOnWithoutEquippedItems = not l_FFlagAXMISEnableMultiShopping_0 and nil
-};
-return v2.createReducer(v118, {
-    [v13.name] = function(v119, v120) --[[ Line: 443 ]]
-        -- upvalues: v118 (copy)
-        local v121 = table.clone(v119 or v118);
-        v121.BodyColor3s = v120.colors;
-        v121.BodyPartColorRangeIds = v120.bodyPartColorRangeIds;
-        return v121;
-    end, 
-    [v12.name] = function(v122, v123) --[[ Line: 450 ]]
-        -- upvalues: v118 (copy), l_getTryOnItemReducerKey_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v116 (copy), v90 (copy), l_ReducerUtils_0 (copy), v68 (copy), l_getFilteredTryOnItems_0 (copy), v26 (copy), v3 (copy), v96 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), l_removeMakeupAssetsFromTryOnsIfOverLimit_0 (copy)
-        local v124 = v122 or v118;
-        local v125 = v124.TryOnItems or {};
-        local v126 = v124.LookId ~= nil;
-        local v127 = l_getTryOnItemReducerKey_0(v123.itemId, v123.itemType);
-        if if l_FFlagAXMISEnableMultiShopping_0 then v125[v127] ~= nil else v125[v127] ~= nil and not v126 then
-            if l_FFlagAXMISEnableMultiShopping_0 then
-                return v116(v90(v124, v125, v123));
-            else
-                return v90(v124, v125, v123);
-            end;
-        else
-            if l_FFlagAXMISEnableMultiShopping_0 and v123.resetTryOnsBeforeToggleOn then
-                v125 = {};
-            end;
-            local v128 = l_ReducerUtils_0.filterTryOns(v125, v123);
-            local v129 = v68(v123, false);
-            if l_FFlagAXMISEnableMultiShopping_0 then
-                v128 = l_getFilteredTryOnItems_0(v125, v129);
-            end;
-            local v130 = nil;
-            if v129.itemType == v26.ItemType.Asset and v129.itemSubType == v26.AssetTypeIdStrings.EmoteAnimation or v129.itemType == v26.ItemType.Bundle and v129.itemSubType == tostring(v26.BundleTypeIdStrings.Animations) then
-                v130 = v129;
-            end;
-            if not l_FFlagAXMISEnableMultiShopping_0 and v126 then
-                return v3.Dictionary.join(v124, {
-                    TryOnItems = {
-                        [v123.itemId] = v129
-                    }, 
-                    LastToggledItem = v129, 
-                    LastAnimOrEmoteToggledItem = v130, 
-                    LookId = v3.None, 
-                    BodyColor3s = {}, 
-                    BodyPartColorRangeIds = v3.None, 
-                    DefaultTryOnBodyColorsToggled = false
-                });
-            else
-                local v131 = v3.Dictionary.join(v128, {
-                    [v127] = v129
-                });
-                local v132 = v96(v131);
-                local v133 = if v132 then v124.BodyColor3s else v3.None;
-                local v134 = if v132 then v124.BodyPartColorRangeIds else v3.None;
-                local v135 = if v132 then v124.DefaultTryOnBodyColorsToggled else false;
-                local v136 = v3.Dictionary.join(v124, {
-                    TryOnItems = v131, 
-                    LastToggledItem = v129, 
-                    LastAnimOrEmoteToggledItem = v130, 
-                    BodyColor3s = v133, 
-                    BodyPartColorRangeIds = v134, 
-                    DefaultTryOnBodyColorsToggled = v135
-                });
-                if l_FFlagAXMISEnableMultiShopping_0 then
-                    if l_FFlagAXCatalogMakeupSupport_0 then
-                        v131 = l_removeMakeupAssetsFromTryOnsIfOverLimit_0(v131);
-                    end;
-                    v136 = v3.Dictionary.join(v136, {
-                        TryOnItems = v131, 
-                        LastToggledItem = v129, 
-                        LastAnimOrEmoteToggledItem = v130
-                    });
-                    return v116(v136);
-                else
-                    return v136;
-                end;
-            end;
-        end;
-    end, 
-    [l_TryOnClassicHeadShape_0.name] = function(v137, v138) --[[ Line: 549 ]]
-        -- upvalues: v3 (copy)
-        return v3.Dictionary.join(v137, {
-            LastTryOnClassicHeadShape = if v138.headShape then v138.headShape else v3.None
-        });
-    end, 
-    [v11.name] = function(v139, v140) --[[ Line: 555 ]]
-        -- upvalues: v118 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), l_LOOK_TYPE_0 (copy), l_MAKEUP_LOOK_ASSET_TYPES_0 (copy), l_getTryOnItemReducerKey_0 (copy), v75 (copy), v82 (copy), v3 (copy)
-        local v141 = v139 or v118;
-        local v142 = {};
-        if l_FFlagAXMISEnableMultiShopping_0 and l_FFlagAXCatalogMakeupSupport_0 and v140.lookType == l_LOOK_TYPE_0.Makeup then
-            v142 = table.clone(v141.TryOnItems);
-            for v143, v144 in v142 do
-                if l_MAKEUP_LOOK_ASSET_TYPES_0[v144.itemSubType] then
-                    v142[v143] = nil;
-                end;
-            end;
-        end;
-        for _, v146 in v140.assetItemIdTypeAndSubtype do
-            v142[l_getTryOnItemReducerKey_0(v146.itemId, v146.itemType)] = v75(v146, v140.lookType, if l_FFlagAXMISEnableMultiShopping_0 then v140.lookId else nil);
-        end;
-        if v140.bundleItemIdTypeAndSubtype ~= nil then
-            for _, v148 in v140.bundleItemIdTypeAndSubtype do
-                v142[l_getTryOnItemReducerKey_0(v148.itemId, v148.itemType)] = v82(v148, if l_FFlagAXMISEnableMultiShopping_0 then v140.lookId else nil);
-            end;
-        end;
-        if l_FFlagAXMISEnableMultiShopping_0 and l_FFlagAXCatalogMakeupSupport_0 and v140.lookType == l_LOOK_TYPE_0.Makeup then
-            return v3.Dictionary.join(v141, {
-                TryOnItems = v142, 
-                MakeupLookId = if v140.lookId then v140.lookId else v3.None, 
-                MakeupLookType = v140.lookType, 
-                LastToggledLookType = v140.lookType, 
-                MakeupLookAnalyticsInfo = if v140.analyticsInfo then v140.analyticsInfo else v3.None
-            });
-        else
-            return v3.Dictionary.join(v141, {
-                TryOnItems = v142, 
-                LookId = if v140.lookId then v140.lookId else v3.None, 
-                LookAnalyticsInfo = if v140.analyticsInfo then v140.analyticsInfo else v3.None, 
-                LookType = v140.lookType, 
-                MakeupLookId = v3.None, 
-                MakeupLookType = v3.None, 
-                MakeupLookAnalyticsInfo = v3.None, 
-                LastToggledLookType = if l_FFlagAXMISEnableMultiShopping_0 then v140.lookType else nil, 
-                BodyColor3s = if v140.bodyColor3s then v140.bodyColor3s else v3.None, 
-                BodyPartColorRangeIds = if v140.bodyPartColorRangeIds then v140.bodyPartColorRangeIds else v3.None, 
-                DefaultTryOnBodyColorsToggled = v3.None, 
-                Scale = if v140.scale then v140.scale else v3.None, 
-                ShouldTryOnWithoutEquippedItems = if l_FFlagAXMISEnableMultiShopping_0 then v140.lookId ~= nil else nil
-            });
-        end;
-    end, 
-    [v14.name] = function(v149, v150) --[[ Line: 622 ]]
-        -- upvalues: v118 (copy), l_getTryOnItemReducerKey_0 (copy), v3 (copy)
-        local v151 = v149 or v118;
-        local v152 = v151.TryOnItems or {};
-        local v153 = l_getTryOnItemReducerKey_0(v150.itemId, v150.itemType);
-        if v152[v153] == nil then
-            return v151;
-        else
-            return v3.Dictionary.join(v151, {
-                TryOnItems = v3.Dictionary.join(v152, {
-                    [v153] = v3.Dictionary.join(v152[v153], {
-                        selectedInTryOnManager = v150.selectedInTryOnManager
-                    })
-                })
-            });
-        end;
-    end, 
-    [v15.name] = function(v154, v155) --[[ Line: 640 ]]
-        -- upvalues: v118 (copy), l_getTryOnItemReducerKey_0 (copy), v3 (copy)
-        local v156 = v154 or v118;
-        local v157 = v156.TryOnItems or {};
-        local v158 = l_getTryOnItemReducerKey_0(v155.itemId, v155.itemType);
-        if v157[v158] == nil then
-            return v156;
-        else
-            return v3.Dictionary.join(v156, {
-                TryOnItems = v3.Dictionary.join(v157, {
-                    [v158] = v3.Dictionary.join(v157[v158], {
-                        selectedTimedOptionIndex = v155.selectedTimedOptionIndex
-                    })
-                })
-            });
-        end;
-    end, 
-    [v16.name] = function(v159, _) --[[ Line: 658 ]]
-        -- upvalues: v118 (copy), v3 (copy)
-        local v161 = v159 or v118;
-        local v162 = v161.TryOnItems or {};
-        local v163 = {};
-        for v164, v165 in v162 do
-            if v165.selectedInTryOnManager then
-                v163[v164] = v165;
-            end;
-        end;
-        return v3.Dictionary.join(v161, {
-            TryOnItems = v163
-        });
-    end, 
-    [v30.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v166, v167) --[[ Line: 675 ]]
-        -- upvalues: v118 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v3 (copy)
-        local v168 = v166 or v118;
-        local v169 = v168.TryOnItems or {};
-        local v170 = {};
-        for v171, v172 in v169 do
-            if v172.lookId ~= v167.lookId then
-                v170[v171] = v172;
-            end;
-        end;
-        if l_FFlagAXCatalogMakeupSupport_0 and v168.MakeupLookId == v167.lookId then
-            return v3.Dictionary.join(v168, {
-                TryOnItems = v170, 
-                MakeupLookId = v3.None, 
-                MakeupLookType = v3.None, 
-                MakeupLookAnalyticsInfo = v3.None, 
-                LastToggledLookType = v3.None
-            });
-        else
-            return v3.Dictionary.join(v168, {
-                TryOnItems = v170, 
-                LookId = v3.None, 
-                LookType = v3.None, 
-                LookAnalyticsInfo = v3.None, 
-                BodyColor3s = v3.None, 
-                BodyPartColorRangeIds = v3.None, 
-                Scale = v3.None, 
-                LastToggledLookType = v3.None, 
-                ShouldTryOnWithoutEquippedItems = false
-            });
-        end;
-    end or nil, 
-    [v17.name] = function(v173, v174) --[[ Line: 709 ]]
-        -- upvalues: v118 (copy), l_findItemInTryOnItems_0 (copy), v116 (copy), v90 (copy)
-        local v175 = v173 or v118;
-        local v176 = v175.TryOnItems or {};
-        local v177 = nil;
-        v177 = l_findItemInTryOnItems_0(v176, v174.itemId, v174.itemType);
-        if v177 ~= nil then
-            return v116(v90(v175, v176, v177));
-        else
-            return v175;
-        end;
-    end, 
-    [v18.name] = function(v178, v179) --[[ Line: 722 ]]
-        -- upvalues: v118 (copy), l_getTryOnItemReducerKey_0 (copy), v26 (copy), v3 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy)
-        local v180 = v178 or v118;
-        if v179.lookId == v180.LookId then
-            local v181 = v180.TryOnItems or {};
-            for _, v183 in v179.assetIds do
-                local v184 = l_getTryOnItemReducerKey_0(v183, v26.ItemType.Asset);
-                if v181[v184] ~= nil then
-                    v181 = v3.Dictionary.join(v181, {
-                        [v184] = v3.None
-                    });
-                end;
-            end;
-            if v179.bundleIds ~= nil then
-                for _, v186 in v179.bundleIds do
-                    local v187 = l_getTryOnItemReducerKey_0(v186, v26.ItemType.Bundle);
-                    if v181[v187] ~= nil then
-                        v181 = v3.Dictionary.join(v181, {
-                            [v187] = v3.None
-                        });
-                    end;
-                end;
-            end;
-            v180 = v3.Dictionary.join(v180, {
-                TryOnItems = v181, 
-                LookId = v3.None, 
-                LookType = v3.None, 
-                BodyColor3s = v3.None, 
-                BodyPartColorRangeIds = v3.None, 
-                Scale = v3.None, 
-                ShouldTryOnWithoutEquippedItems = not l_FFlagAXMISEnableMultiShopping_0 and nil
-            });
-        end;
-        if l_FFlagAXMISEnableMultiShopping_0 and l_FFlagAXCatalogMakeupSupport_0 and v179.lookId == v180.MakeupLookId then
-            local v188 = v180.TryOnItems or {};
-            for _, v190 in v179.assetIds do
-                local v191 = l_getTryOnItemReducerKey_0(v190, v26.ItemType.Asset);
-                if v188[v191] ~= nil then
-                    v188 = v3.Dictionary.join(v188, {
-                        [v191] = v3.None
-                    });
-                end;
-            end;
-            if v179.bundleIds ~= nil then
-                for _, v193 in v179.bundleIds do
-                    local v194 = l_getTryOnItemReducerKey_0(v193, v26.ItemType.Bundle);
-                    if v188[v194] ~= nil then
-                        v188 = v3.Dictionary.join(v188, {
-                            [v194] = v3.None
-                        });
-                    end;
-                end;
-            end;
-            v180 = v3.Dictionary.join(v180, {
-                TryOnItems = v188, 
-                MakeupLookId = v3.None, 
-                MakeupLookType = v3.None
-            });
-        end;
-        return v180;
-    end, 
-    [v19.name] = function(v195, v196) --[[ Line: 795 ]]
-        -- upvalues: v118 (copy), l_getTryOnItemReducerKey_0 (copy), v26 (copy), v3 (copy)
-        local v197 = v195 or v118;
-        local v198 = v197.TryOnItems or {};
-        local _ = nil;
-        local v200 = nil;
-        v200 = l_getTryOnItemReducerKey_0(v196.itemId, v26.ItemType.Bundle);
-        if v198[v200] then
-            local v201 = table.clone(v197.OutfitIdMap or {});
-            v201[v196.itemId] = v196.outfitId;
-            local l_v200_0 = v200;
-            return v3.Dictionary.join(v197, {
-                TryOnItems = v3.Dictionary.join(v198, {
-                    [l_v200_0] = v3.Dictionary.join(v198[l_v200_0], {
-                        receivedBundleInfo = true
-                    })
-                }), 
-                OutfitIdMap = v201
-            });
-        else
-            return v197;
-        end;
-    end, 
-    [v20.name] = function(v203, v204) --[[ Line: 824 ]]
-        -- upvalues: v3 (copy), v118 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy)
-        if v203 then
-            local v205 = not v203.LookId and v204.retainTryOnColor;
-            return v3.Dictionary.join(v118, {
-                LastTryOnClassicHeadShape = v203.LastTryOnClassicHeadShape, 
-                DefaultTryOnBodyColorsToggled = if v205 then v203.DefaultTryOnBodyColorsToggled else nil, 
-                BodyColor3s = if v205 then v203.BodyColor3s else nil, 
-                BodyPartColorRangeIds = if v205 then v203.BodyPartColorRangeIds else nil, 
-                OutfitIdMap = if v203 then v203.OutfitIdMap else {}, 
-                ShouldTryOnWithoutEquippedItems = not l_FFlagAXMISEnableMultiShopping_0 and nil, 
-                LastToggledLookType = if l_FFlagAXMISEnableMultiShopping_0 and l_FFlagAXCatalogMakeupSupport_0 then v3.None else nil
-            });
-        else
-            return v118;
-        end;
-    end, 
-    [v32.name] = function(v206, _) --[[ Line: 846 ]]
-        -- upvalues: v118 (copy)
-        local v208 = table.clone(v118);
-        if v206 and v206.OutfitIdMap then
-            v208.OutfitIdMap = v206.OutfitIdMap;
-        end;
-        return v208;
-    end, 
-    [v33.name] = function(v209, _) --[[ Line: 854 ]]
-        -- upvalues: v118 (copy)
-        local v211 = table.clone(v118);
-        if v209 and v209.OutfitIdMap then
-            v211.OutfitIdMap = v209.OutfitIdMap;
-        end;
-        return v211;
-    end, 
-    [v34.name] = function(v212, v213) --[[ Line: 862 ]]
-        -- upvalues: v118 (copy)
-        local v214 = table.clone(v212 or v118);
-        v214.DefaultTryOnBodyColorsToggled = v213.state;
-        return v214;
-    end, 
-    [v21.name] = function(v215, v216) --[[ Line: 869 ]]
-        -- upvalues: v118 (copy), l_getTryOnItemReducerKey_0 (copy), v26 (copy), v3 (copy)
-        local l_itemIdToOrderMap_0 = v216.itemIdToOrderMap;
-        local v218 = v215 or v118;
-        for v219, v220 in l_itemIdToOrderMap_0 do
-            local v221 = v218.TryOnItems or {};
-            local v222 = l_getTryOnItemReducerKey_0(v219, v26.ItemType.Asset);
-            if v221[v222] and v221[v222].itemType ~= v26.ItemType.Bundle then
-                v218 = v3.Dictionary.join(v218, {
-                    TryOnItems = v3.Dictionary.join(v221, {
-                        [v222] = v3.Dictionary.join(v221[v222], {
-                            order = v220
-                        })
-                    })
-                });
-            elseif not v221[v222] then
-                for v223, v224 in v221 do
-                    if v224.bundleInfo and v224.bundleInfo[v219] and v224.itemId ~= tostring(v26.BlockyBundleId) then
-                        local l_bundleInfo_1 = v224.bundleInfo;
-                        local v226 = v3.Dictionary.join(l_bundleInfo_1, {
-                            [v219] = v3.Dictionary.join(l_bundleInfo_1[v219], {
-                                order = v220
-                            })
-                        });
-                        v218 = v3.Dictionary.join(v215, {
-                            TryOnItems = v3.Dictionary.join(v221, {
-                                [v223] = v3.Dictionary.join(v221[v223], {
-                                    bundleInfo = v226
-                                })
-                            })
-                        });
-                        break;
-                    end;
-                end;
-            end;
-        end;
-        return v218;
-    end, 
-    [v25.name] = function(v227, v228) --[[ Line: 928 ]]
-        -- upvalues: v118 (copy), v3 (copy)
-        local v229 = v227 or v118;
-        local v230 = v229.TryOnItems or {};
-        for v231, v232 in v230 do
-            if v232.itemType == "Asset" then
-                if v232.itemId == v228.itemId then
-                    return v3.Dictionary.join(v229, {
-                        TryOnItems = v3.Dictionary.join(v230, {
-                            [v231] = v3.Dictionary.join(v232, {
-                                position = v228.position, 
-                                rotation = v228.rotation, 
-                                scale = v228.scale
-                            })
-                        })
-                    });
-                end;
-            elseif v232.itemType == "Bundle" then
-                for v233, v234 in v230 do
-                    if v234.bundleInfo and v234.bundleInfo[v228.itemId] then
-                        local l_bundleInfo_2 = v234.bundleInfo;
-                        local v236 = v3.Dictionary.join(l_bundleInfo_2, {
-                            [v228.itemId] = v3.Dictionary.join(l_bundleInfo_2[v228.itemId], {
-                                position = v228.position, 
-                                rotation = v228.rotation, 
-                                scale = v228.scale
-                            })
-                        });
-                        return v3.Dictionary.join(v227, {
-                            TryOnItems = v3.Dictionary.join(v230, {
-                                [v233] = v3.Dictionary.join(v230[v233], {
-                                    bundleInfo = v236
-                                })
-                            })
-                        });
-                    end;
-                end;
-            end;
-        end;
-        return v229;
-    end, 
-    [v23.name] = function(v237, v238) --[[ Line: 973 ]]
-        -- upvalues: v118 (copy), l_getTryOnItemReducerKey_0 (copy), v26 (copy), v3 (copy)
-        local v239 = v237 or v118;
-        local v240 = v239.TryOnItems or {};
-        local v241 = l_getTryOnItemReducerKey_0(v238.bundleId, v26.ItemType.Bundle);
-        if v240[v241] then
-            return v3.Dictionary.join(v239, {
-                TryOnItems = v3.Dictionary.join(v240, {
-                    [v241] = v3.Dictionary.join(v240[v241], {
-                        bundleInfo = v238.bundleInfo
-                    })
-                })
-            });
-        else
-            return v239;
-        end;
-    end, 
-    [v24.name] = function(_, v243) --[[ Line: 992 ]]
-        return v243.outfitTryOns;
-    end, 
-    [v29.name] = function(v244, v245) --[[ Line: 996 ]]
-        -- upvalues: v118 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v3 (copy)
-        local v246 = v244 or v118;
-        if v245.lookId == v246.LookId or l_FFlagAXMISEnableMultiShopping_0 and l_FFlagAXCatalogMakeupSupport_0 and v245.lookId == v246.MakeupLookId then
-            local v247 = {};
-            if l_FFlagAXMISEnableMultiShopping_0 then
-                local v248 = v246.TryOnItems or {};
-                for v249, v250 in v248 do
-                    if v250.lookId ~= v245.lookId then
-                        v247[v249] = v250;
-                    end;
-                end;
-            end;
-            if l_FFlagAXMISEnableMultiShopping_0 and l_FFlagAXCatalogMakeupSupport_0 then
-                if v245.lookId == v246.LookId then
-                    v246 = v3.Dictionary.join(v246, {
-                        TryOnItems = v247, 
-                        LookId = v3.None, 
-                        LookType = v3.None, 
-                        BodyColor3s = v3.None, 
-                        BodyPartColorRangeIds = v3.None, 
-                        Scale = v3.None, 
-                        ShouldTryOnWithoutEquippedItems = false, 
-                        LastToggledLookType = v3.None
-                    });
-                end;
-                if v245.lookId == v246.MakeupLookId then
-                    return (v3.Dictionary.join(v246, {
-                        TryOnItems = v247, 
-                        MakeupLookId = v3.None, 
-                        MakeupLookType = v3.None, 
-                        LastToggledLookType = v3.None
-                    }));
-                end;
-            else
-                v246 = v3.Dictionary.join(v246, {
-                    TryOnItems = v247, 
-                    LookId = v3.None, 
-                    LookType = v3.None, 
-                    BodyColor3s = v3.None, 
-                    BodyPartColorRangeIds = v3.None, 
-                    Scale = v3.None, 
-                    ShouldTryOnWithoutEquippedItems = not l_FFlagAXMISEnableMultiShopping_0 and nil
-                });
-            end;
-        end;
-        return v246;
-    end, 
-    [l_CharacterHistoryStateChangeButtonActivated_0.name] = function(v251, v252) --[[ Line: 1056 ]]
-        -- upvalues: l_FFlagAXRootSlotBasedEditorFlag_0 (copy)
-        if l_FFlagAXRootSlotBasedEditorFlag_0 and v252.tryOn and v252.tryOn.OutfitTryOn then
-            return table.clone(v252.tryOn.OutfitTryOn);
-        else
-            return v251;
-        end;
-    end, 
-    [v22.name] = v117 and function(v253, v254) --[[ Line: 1067 ]]
-        -- upvalues: v118 (copy)
-        local v255 = table.clone(v253 or v118);
-        v255.AdjustableTryOnIds = v254.adjustableTryOnIds;
-        return v255;
-    end or nil, 
-    [l_SetLastToggledLookType_0.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v256, v257) --[[ Line: 1074 ]]
-        -- upvalues: v118 (copy), v3 (copy)
-        local v258 = v256 or v118;
-        return v3.Dictionary.join(v258, {
-            LastToggledLookType = v257.lastToggledLookType
-        });
-    end or nil
-});
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local Rodux = require(CorePackages.Packages.Rodux)
+local Cryo = require(CorePackages.Packages.Cryo)
+local IxpUtils = require(CorePackages.Workspace.Packages.IxpUtils)
+local AvatarExperienceHeadRefinement = require(CorePackages.Workspace.Packages.AvatarExperienceHeadRefinement)
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local AvatarExperienceCatalog = require(CorePackages.Workspace.Packages.AvatarExperienceCatalog)
+local AvatarExperienceRodux = require(CorePackages.Workspace.Packages.AvatarExperienceRodux)
+local tutils = require(CorePackages.Packages.tutils)
+local TryOnLooksOutfit = require(Modules.AvatarExperience.Common.Actions.TryOnLooksOutfit)
+local ToggleTryOn = require(Modules.AvatarExperience.Common.Actions.ToggleTryOn)
+local TryOnColorUpdated = require(Modules.AvatarExperience.Common.Actions.TryOnColorUpdated)
+local SetEquippedInTryOnManager = require(Modules.AvatarExperience.Common.Actions.SetEquippedInTryOnManager)
+local SetSelectedTimedOption = require(Modules.AvatarExperience.Common.Actions.SetSelectedTimedOption)
+local RemoveUnselectedItemsFromTryOn = require(Modules.AvatarExperience.Common.Actions.RemoveUnselectedItemsFromTryOn)
+local RemoveFromTryOn = require(Modules.AvatarExperience.Common.Actions.RemoveFromTryOn)
+local RemoveLookItemsFromTryOn = require(Modules.AvatarExperience.Common.Actions.RemoveLookItemsFromTryOn)
+local ReceivedBundleInfoForTryOn = require(Modules.AvatarExperience.Common.Actions.ReceivedBundleInfoForTryOn)
+local ClearTryOns = require(Modules.AvatarExperience.Common.Actions.ClearTryOns)
+local SetOrderForTryOns = require(Modules.AvatarExperience.Common.Actions.SetOrderForTryOns)
+local SetAdjustableTryOnIds = require(Modules.AvatarExperience.Common.Actions.SetAdjustableTryOnIds)
+local AddSelectedBundleInfo = require(Modules.AvatarExperience.Common.Actions.AddSelectedBundleInfo)
+local SetOutfitTryOns = require(Modules.AvatarExperience.Common.Actions.SetOutfitTryOns)
+local SetAccessoryAdjustments = require(Modules.AvatarExperience.AccessoryAdjustment.Actions.SetAccessoryAdjustments)
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local ReducerUtils = AvatarExperienceRodux.Utils.ReducerUtils
+
+require(Modules.AvatarExperience.Common.Types)
+
+local RemoveLook = require(Modules.AvatarExperience.Common.Actions.RemoveLook)
+local RemoveLookFromTryOn = require(Modules.AvatarExperience.Common.Actions.RemoveLookFromTryOn)
+local TryOnClassicHeadShape = AvatarExperienceHeadRefinement.Actions.TryOnClassicHeadShape
+local NavigatedToNonTryOnPage = require(Modules.AvatarExperience.Common.Actions.NavigatedToNonTryOnPage)
+local NavigatedToTryOnPage = require(Modules.AvatarExperience.Common.Actions.NavigatedToTryOnPage)
+local DefaultTryOnBodyColorsToggled = require(Modules.AvatarExperience.Common.Actions.DefaultTryOnBodyColorsToggled)
+local findItemInTryOnItems = AvatarExperienceCommon.Utils.findItemInTryOnItems
+local getTryOnItemReducerKey = AvatarExperienceCommon.Utils.getTryOnItemReducerKey
+local getFilteredTryOnItems = AvatarExperienceCatalog.Utils.TryOns.getFilteredTryOnItems
+local removeMakeupAssetsFromTryOnsIfOverLimit = AvatarExperienceCatalog.Utils.TryOns.removeMakeupAssetsFromTryOnsIfOverLimit
+local SetLastToggledLookType = AvatarExperienceCatalog.State.Actions.SetLastToggledLookType
+local ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE = AvatarExperienceCommon.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE
+local LAYERED_MAKEUP_ORDER = AvatarExperienceCommon.Constants.LAYERED_MAKEUP_ORDER
+local MAKEUP_LOOK_ASSET_TYPES = AvatarExperienceCommon.Constants.MAKEUP_LOOK_ASSET_TYPES
+local LOOK_TYPE = AvatarExperienceCommon.Constants.LOOK_TYPE
+local Constants2 = AvatarExperienceCommon.Constants
+local ItemTypeEnum = AvatarExperienceCommon.Enums.ItemTypeEnum
+local ASSET_TYPE_NAME_TO_ID_STRING = Constants2.ASSET_TYPE_NAME_TO_ID_STRING
+local BUNDLE_TYPE_ID_STRINGS = Constants2.BUNDLE_TYPE_ID_STRINGS
+local BUNDLE_TYPE_ID_STRING_TO_NAME_FOR_BACKEND = Constants2.BUNDLE_TYPE_ID_STRING_TO_NAME_FOR_BACKEND
+local LAYERED_CLOTHING_ORDER = Constants2.LAYERED_CLOTHING_ORDER
+local LAYERED_ASSET_TYPES = Constants2.LAYERED_ASSET_TYPES
+local ASSET_TYPE_TO_ACCESSORY_TYPE = Constants2.ASSET_TYPE_TO_ACCESSORY_TYPE
+local CharacterHistoryStateChangeButtonActivated = AvatarExperienceCommon.State.Actions.CharacterHistoryStateChangeButtonActivated
+local FFlagAXRootSlotBasedEditorFlag = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXRootSlotBasedEditorFlag
+local FFlagAXCatalogMakeupSupport = AvatarExperienceFlags.FFlagAXCatalogMakeupSupport
+local AXEnableAccessoryAdjustmentDuringTryOnIXP = require(CorePackages.Workspace.Packages.AvatarExperienceExperiments).AXEnableAccessoryAdjustmentDuringTryOnIXP
+local FFlagAXMISEnableMultiShopping = AvatarExperienceFlags.FFlagAXMISEnableMultiShopping
+local FFlagAXDurablesForMIS = AvatarExperienceFlags.FFlagAXDurablesForMIS
+local FFlagParseHeadShapeFromAPIResponse = AvatarExperienceFlags.FFlagParseHeadShapeFromAPIResponse
+local FFlagHeadRefinementFacialAnimationToggle = AvatarExperienceFlags.FFlagHeadRefinementFacialAnimationToggle
+local FFlagDynamicHeadsMigration = AvatarExperienceFlags.FFlagDynamicHeadsMigration
+local FFlagAXCustomizeMakeupSupport = AvatarExperienceFlags.FFlagAXCustomizeMakeupSupport
+local n1 = 0
+
+local function formatItem(p1, b1: boolean) -- line: 153
+	-- upvalues: FFlagAXMISEnableMultiShopping (copy), FFlagDynamicHeadsMigration (copy), ItemTypeEnum (copy), BUNDLE_TYPE_ID_STRINGS (copy), ASSET_TYPE_NAME_TO_ID_STRING (copy), FFlagParseHeadShapeFromAPIResponse (copy), FFlagHeadRefinementFacialAnimationToggle (copy), FFlagAXDurablesForMIS (copy), ASSET_TYPE_TO_ACCESSORY_TYPE (copy), LAYERED_CLOTHING_ORDER (copy), LAYERED_ASSET_TYPES (copy), Cryo (copy), FFlagAXCustomizeMakeupSupport (copy), ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE (copy), LAYERED_MAKEUP_ORDER (copy), n1 (ref)
+	local v74 = not not p1.receivedBundleInfo
+	local bundleInfo = p1.bundleInfo
+
+	if FFlagAXMISEnableMultiShopping and (p1.bundleItems and not v74) then
+		bundleInfo = {}
+
+		for _, v77 in p1.bundleItems do
+			if FFlagDynamicHeadsMigration and v77.type == ItemTypeEnum.Asset then
+				local v78 = v77.assetType or (p1.itemSubType ~= BUNDLE_TYPE_ID_STRINGS.DynamicHead or ASSET_TYPE_NAME_TO_ID_STRING.DynamicHead)
+
+				if v78 then
+					local t1 = {
+						assetType = v78
+					}
+
+					if FFlagParseHeadShapeFromAPIResponse and v77.meta and v77.meta.headShape ~= nil then
+						t1.headShape = v77.meta.headShape
+					end
+
+					if FFlagHeadRefinementFacialAnimationToggle and v77.meta and v77.meta.staticFacialAnimation ~= nil then
+						t1.staticFacialAnimation = v77.meta.staticFacialAnimation
+					end
+
+					bundleInfo[v77.id] = t1
+				end
+			elseif v77.type == ItemTypeEnum.Asset and v77.assetType then
+				local t2 = {
+					assetType = v77.assetType
+				}
+
+				if FFlagParseHeadShapeFromAPIResponse and v77.meta and v77.meta.headShape ~= nil then
+					t2.headShape = v77.meta.headShape
+				end
+
+				if FFlagHeadRefinementFacialAnimationToggle and v77.meta and v77.meta.staticFacialAnimation ~= nil then
+					t2.staticFacialAnimation = v77.meta.staticFacialAnimation
+				end
+
+				bundleInfo[v77.id] = t2
+			end
+		end
+
+		v74 = true
+	end
+
+	local t3 = {
+		version = "1",
+		itemId = p1.itemId,
+		itemType = p1.itemType,
+		itemSubType = p1.itemSubType,
+		selectedInTryOnManager = p1.selectedInTryOnManager,
+		isUnequipped = b1,
+		receivedBundleInfo = v74,
+		bundleInfo = if not FFlagAXMISEnableMultiShopping then p1.bundleInfo else bundleInfo,
+		widgetInfo = p1.widgetInfo,
+		isRecolorable = p1.isRecolorable,
+		selectedTimedOptionIndex = if not FFlagAXDurablesForMIS then nil else p1.selectedTimedOptionIndex
+	}
+
+	if ASSET_TYPE_TO_ACCESSORY_TYPE[p1.itemSubType] then
+		local t4 = {
+			order = p1.overrideOrder or LAYERED_CLOTHING_ORDER[p1.itemSubType],
+			isLayered = LAYERED_ASSET_TYPES[p1.itemSubType] ~= nil
+		}
+
+		t3 = Cryo.Dictionary.join(t3, t4)
+	elseif FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[p1.itemSubType] then
+		local t5 = {
+			order = p1.overrideOrder or LAYERED_MAKEUP_ORDER[p1.itemSubType],
+			isLayered = true
+		}
+
+		t3 = Cryo.Dictionary.join(t3, t5)
+	end
+
+	if not b1 then
+		t3.itemRecency = n1
+		n1 += 1
+	end
+
+	return t3
+end
+local function formatItemFromLookOutfit(p2, p3, s1: string?) -- line: 253
+	-- upvalues: ASSET_TYPE_TO_ACCESSORY_TYPE (copy), LAYERED_CLOTHING_ORDER (copy), LAYERED_ASSET_TYPES (copy), Cryo (copy), FFlagAXCustomizeMakeupSupport (copy), ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE (copy), LAYERED_MAKEUP_ORDER (copy), LOOK_TYPE (copy), FFlagAXCatalogMakeupSupport (copy), n1 (ref)
+	local t6 = {
+		version = "1",
+		itemId = p2.itemId,
+		itemType = p2.itemType,
+		itemSubType = p2.itemSubType,
+		selectedInTryOnManager = p2.isNotSelectable ~= true,
+		isUnequipped = false,
+		receivedBundleInfo = false,
+		lookId = s1
+	}
+
+	if ASSET_TYPE_TO_ACCESSORY_TYPE[p2.itemSubType] then
+		local t7 = {
+			order = p2.order or LAYERED_CLOTHING_ORDER[p2.itemSubType],
+			isLayered = LAYERED_ASSET_TYPES[p2.itemSubType] ~= nil
+		}
+
+		t6 = Cryo.Dictionary.join(t6, t7)
+	elseif FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[p2.itemSubType] then
+		local t8 = {
+			order = p2.order or LAYERED_MAKEUP_ORDER[p2.itemSubType],
+			isLayered = true
+		}
+
+		t6 = Cryo.Dictionary.join(t6, t8)
+	end
+
+	t6.itemRecency = if p3 ~= LOOK_TYPE.Avatar and (not FFlagAXCatalogMakeupSupport or p3 ~= LOOK_TYPE.Makeup) then n1 else p2.tryOnItemOrder
+	n1 += 1
+
+	return t6
+end
+local function formatBundleFromLookOutfit(p4, s2: string?) -- line: 292
+	-- upvalues: FFlagAXMISEnableMultiShopping (copy), LAYERED_CLOTHING_ORDER (copy), FFlagAXCustomizeMakeupSupport (copy), LAYERED_MAKEUP_ORDER (copy), FFlagParseHeadShapeFromAPIResponse (copy), n1 (ref)
+	local t9 = {
+		version = "1",
+		selectedInTryOnManager = p4.isNotSelectable ~= true,
+		isUnequipped = false,
+		receivedBundleInfo = false,
+		itemType = p4.itemType,
+		itemId = p4.itemId,
+		itemSubType = if not FFlagAXMISEnableMultiShopping then nil else p4.itemSubType,
+		lookId = s2
+	}
+	local t10 = {}
+
+	for _, v95 in p4.items do
+		t10[v95.itemId] = {
+			assetType = v95.itemSubType,
+			order = LAYERED_CLOTHING_ORDER[v95.itemSubType] or if not FFlagAXCustomizeMakeupSupport then nil else LAYERED_MAKEUP_ORDER[v95.itemSubType],
+			headShape = if not FFlagParseHeadShapeFromAPIResponse then nil else v95.headShape
+		}
+	end
+
+	t9.bundleInfo = t10
+	t9.itemRecency = p4.tryOnItemOrder or n1
+	n1 += 1
+
+	return t9
+end
+local function removeItem(p5, p6, t11: {[any]: any}) -- line: 324
+	-- upvalues: getTryOnItemReducerKey (copy), ASSET_TYPE_NAME_TO_ID_STRING (copy), ItemTypeEnum (copy), BUNDLE_TYPE_ID_STRING_TO_NAME_FOR_BACKEND (copy), Cryo (copy)
+	local v99 = getTryOnItemReducerKey(t11.itemId, t11.itemType)
+	local v100 = p6[v99]
+
+	v100.isUnequipped = true
+
+	local v101 = t11.itemSubType == ASSET_TYPE_NAME_TO_ID_STRING.Face
+	local v102 = t11.itemType == ItemTypeEnum.Bundle and BUNDLE_TYPE_ID_STRING_TO_NAME_FOR_BACKEND[t11.itemSubType] == "Body"
+
+	return Cryo.Dictionary.join(p5, {
+		TryOnItems = Cryo.Dictionary.join(p6, {
+			[v99] = Cryo.None
+		}),
+		LastToggledItem = v100,
+		LastTryOnClassicHeadShape = if not v101 then nil else Cryo.None,
+		BodyColor3s = if not v102 then nil else Cryo.None,
+		BodyPartColorRangeIds = if not v102 then nil else Cryo.None
+	})
+end
+local function getTryOnItemsContainsRecolorableBody(t12: {[any]: any}) -- line: 362
+	-- upvalues: BUNDLE_TYPE_ID_STRING_TO_NAME_FOR_BACKEND (copy)
+	for _, v106 in t12 do
+		if v106.itemType == "Bundle" and BUNDLE_TYPE_ID_STRING_TO_NAME_FOR_BACKEND[v106.itemSubType] == "Body" and v106.isRecolorable then
+			return true
+		end
+	end
+
+	return false
+end
+local function getTryOnItemsMakeupAndAvatarLookIds(t13: {[any]: any}) -- line: 375
+	-- upvalues: Cryo (copy), MAKEUP_LOOK_ASSET_TYPES (copy)
+	local None = Cryo.None
+	local None2 = Cryo.None
+
+	for _, v111 in t13 do
+		if v111.lookId and not MAKEUP_LOOK_ASSET_TYPES[v111.itemSubType] then
+			None = v111.lookId
+		end
+
+		if v111.lookId and MAKEUP_LOOK_ASSET_TYPES[v111.itemSubType] then
+			None2 = v111.lookId
+		end
+	end
+
+	return None, None2
+end
+local function reconcileAllTryOnState(t14: {[any]: any}) -- line: 392
+	-- upvalues: FFlagAXMISEnableMultiShopping (copy), getTryOnItemsMakeupAndAvatarLookIds (copy), getTryOnItemsContainsRecolorableBody (copy), Cryo (copy), tutils (copy), LOOK_TYPE (copy)
+	local TryOnItems = t14.TryOnItems
+	local v114 = nil
+	local v115 = nil
+
+	if FFlagAXMISEnableMultiShopping then
+		v114, v115 = getTryOnItemsMakeupAndAvatarLookIds(TryOnItems)
+	end
+
+	local v116 = getTryOnItemsContainsRecolorableBody(TryOnItems)
+
+	if FFlagAXMISEnableMultiShopping then
+		v116 = v116 or v114 ~= nil
+	end
+
+	local v117 = if not v116 then Cryo.None else t14.BodyColor3s
+	local v118 = if not v116 then Cryo.None else t14.BodyPartColorRangeIds
+	local v119 = not not v116 and t14.DefaultTryOnBodyColorsToggled
+	local v120 = if not FFlagAXMISEnableMultiShopping then nil else tutils.fieldCount(TryOnItems) == 0
+	local v121 = if not FFlagAXMISEnableMultiShopping then nil else if not v120 then t14.LookType else Cryo.None
+	local v122 = if not FFlagAXMISEnableMultiShopping then nil else if not v120 and v115 then LOOK_TYPE.Makeup else Cryo.None
+
+	return Cryo.Dictionary.join(t14, {
+		BodyColor3s = v117,
+		BodyPartColorRangeIds = v118,
+		DefaultTryOnBodyColorsToggled = v119,
+		LookId = if not FFlagAXMISEnableMultiShopping then nil else v114,
+		LookType = if not FFlagAXMISEnableMultiShopping then nil else v121,
+		MakeupLookId = if not FFlagAXMISEnableMultiShopping then nil else v115,
+		MakeupLookType = if not FFlagAXMISEnableMultiShopping then nil else v122,
+		ShouldTryOnWithoutEquippedItems = if not FFlagAXMISEnableMultiShopping then nil else not v120 and t14.ShouldTryOnWithoutEquippedItems
+	})
+end
+
+local v70 = if not AXEnableAccessoryAdjustmentDuringTryOnIXP.isEnabled() then nil else IxpUtils.readTestVariable(AXEnableAccessoryAdjustmentDuringTryOnIXP.EnabledForUser)
+local t15 = {
+	TryOnItems = {},
+	DefaultTryOnBodyColorsToggled = false,
+	LookId = nil,
+	LookType = nil,
+	MakeupLookId = nil,
+	MakeupLookType = nil,
+	LastToggledLookType = nil,
+	LastTryOnClassicHeadShape = nil,
+	OutfitIdMap = {},
+	AdjustableTryOnIds = if not v70 then nil else {},
+	ShouldTryOnWithoutEquippedItems = not FFlagAXMISEnableMultiShopping and nil
+}
+
+return Rodux.createReducer(t15, {
+	[TryOnColorUpdated.name] = function(t16: {[any]: any}?, p7) -- line: 451
+		-- upvalues: t15 (copy)
+		local v125 = table.clone(t16 or t15)
+
+		v125.BodyColor3s = p7.colors
+		v125.BodyPartColorRangeIds = p7.bodyPartColorRangeIds
+
+		return v125
+	end,
+	[ToggleTryOn.name] = function(t17: {[any]: any}?, p8) -- line: 458
+		-- upvalues: t15 (copy), getTryOnItemReducerKey (copy), FFlagAXMISEnableMultiShopping (copy), reconcileAllTryOnState (copy), removeItem (copy), ReducerUtils (copy), formatItem (copy), getFilteredTryOnItems (copy), ItemTypeEnum (copy), ASSET_TYPE_NAME_TO_ID_STRING (copy), BUNDLE_TYPE_ID_STRINGS (copy), Cryo (copy), getTryOnItemsContainsRecolorableBody (copy), FFlagAXCatalogMakeupSupport (copy), removeMakeupAssetsFromTryOnsIfOverLimit (copy)
+		local v128 = t17 or t15
+		local v129 = v128.TryOnItems or {}
+		local v130 = v128.LookId ~= nil
+		local v131 = getTryOnItemReducerKey(p8.itemId, p8.itemType)
+
+		if if not FFlagAXMISEnableMultiShopping then v129[v131] ~= nil and not v130 else v129[v131] ~= nil then
+			if FFlagAXMISEnableMultiShopping then
+				return reconcileAllTryOnState(removeItem(v128, v129, p8))
+			end
+
+			return removeItem(v128, v129, p8)
+		end
+
+		if FFlagAXMISEnableMultiShopping and p8.resetTryOnsBeforeToggleOn then
+			v129 = {}
+		end
+
+		local v132 = ReducerUtils.filterTryOns(v129, p8)
+		local v133 = formatItem(p8, false)
+
+		if FFlagAXMISEnableMultiShopping then
+			v132 = getFilteredTryOnItems(v129, v133)
+		end
+
+		local v134 = nil
+
+		if v133.itemType == ItemTypeEnum.Asset and v133.itemSubType == ASSET_TYPE_NAME_TO_ID_STRING.EmoteAnimation or v133.itemType == ItemTypeEnum.Bundle and v133.itemSubType == tostring(BUNDLE_TYPE_ID_STRINGS.Animations) then
+			v134 = v133
+		end
+
+		if not FFlagAXMISEnableMultiShopping and v130 then
+			return Cryo.Dictionary.join(v128, {
+				TryOnItems = {
+					[p8.itemId] = v133
+				},
+				LastToggledItem = v133,
+				LastAnimOrEmoteToggledItem = v134,
+				LookId = Cryo.None,
+				BodyColor3s = {},
+				BodyPartColorRangeIds = Cryo.None,
+				DefaultTryOnBodyColorsToggled = false
+			})
+		end
+
+		local v135 = Cryo.Dictionary.join(v132, {
+			[v131] = v133
+		})
+		local v136 = getTryOnItemsContainsRecolorableBody(v135)
+		local v137 = if not v136 then Cryo.None else v128.BodyColor3s
+		local v138 = if not v136 then Cryo.None else v128.BodyPartColorRangeIds
+		local v139 = not not v136 and v128.DefaultTryOnBodyColorsToggled
+		local v140 = Cryo.Dictionary.join(v128, {
+			TryOnItems = v135,
+			LastToggledItem = v133,
+			LastAnimOrEmoteToggledItem = v134,
+			BodyColor3s = v137,
+			BodyPartColorRangeIds = v138,
+			DefaultTryOnBodyColorsToggled = v139
+		})
+
+		if FFlagAXMISEnableMultiShopping then
+			if FFlagAXCatalogMakeupSupport then
+				v135 = removeMakeupAssetsFromTryOnsIfOverLimit(v135)
+			end
+
+			local v141 = Cryo.Dictionary.join(v140, {
+				TryOnItems = v135,
+				LastToggledItem = v133,
+				LastAnimOrEmoteToggledItem = v134
+			})
+
+			return reconcileAllTryOnState(v141)
+		end
+
+		return v140
+	end,
+	[TryOnClassicHeadShape.name] = function(t18: {[any]: any}?, p9) -- line: 557
+		-- upvalues: Cryo (copy)
+		return Cryo.Dictionary.join(t18, {
+			LastTryOnClassicHeadShape = if not p9.headShape then Cryo.None else p9.headShape
+		})
+	end,
+	[TryOnLooksOutfit.name] = function(t19: {[any]: any}?, p10) -- line: 563
+		-- upvalues: t15 (copy), FFlagAXMISEnableMultiShopping (copy), FFlagAXCatalogMakeupSupport (copy), LOOK_TYPE (copy), MAKEUP_LOOK_ASSET_TYPES (copy), getTryOnItemReducerKey (copy), formatItemFromLookOutfit (copy), formatBundleFromLookOutfit (copy), Cryo (copy)
+		local v146 = t19 or t15
+		local t20 = {}
+
+		if FFlagAXMISEnableMultiShopping and (FFlagAXCatalogMakeupSupport and p10.lookType == LOOK_TYPE.Makeup) then
+			t20 = table.clone(v146.TryOnItems)
+
+			for v148, v149 in t20 do
+				if MAKEUP_LOOK_ASSET_TYPES[v149.itemSubType] then
+					t20[v148] = nil
+				end
+			end
+		end
+
+		for _, v151 in p10.assetItemIdTypeAndSubtype do
+			t20[getTryOnItemReducerKey(v151.itemId, v151.itemType)] = formatItemFromLookOutfit(v151, p10.lookType, if not FFlagAXMISEnableMultiShopping then nil else p10.lookId)
+		end
+
+		if p10.bundleItemIdTypeAndSubtype ~= nil then
+			for _, v153 in p10.bundleItemIdTypeAndSubtype do
+				t20[getTryOnItemReducerKey(v153.itemId, v153.itemType)] = formatBundleFromLookOutfit(v153, if not FFlagAXMISEnableMultiShopping then nil else p10.lookId)
+			end
+		end
+
+		if FFlagAXMISEnableMultiShopping and FFlagAXCatalogMakeupSupport and p10.lookType == LOOK_TYPE.Makeup then
+			return Cryo.Dictionary.join(v146, {
+				TryOnItems = t20,
+				MakeupLookId = if not p10.lookId then Cryo.None else p10.lookId,
+				MakeupLookType = p10.lookType,
+				LastToggledLookType = p10.lookType,
+				MakeupLookAnalyticsInfo = if not p10.analyticsInfo then Cryo.None else p10.analyticsInfo
+			})
+		end
+
+		return Cryo.Dictionary.join(v146, {
+			TryOnItems = t20,
+			LookId = if not p10.lookId then Cryo.None else p10.lookId,
+			LookAnalyticsInfo = if not p10.analyticsInfo then Cryo.None else p10.analyticsInfo,
+			LookType = p10.lookType,
+			MakeupLookId = Cryo.None,
+			MakeupLookType = Cryo.None,
+			MakeupLookAnalyticsInfo = Cryo.None,
+			LastToggledLookType = if not FFlagAXMISEnableMultiShopping then nil else p10.lookType,
+			BodyColor3s = if not p10.bodyColor3s then Cryo.None else p10.bodyColor3s,
+			BodyPartColorRangeIds = if not p10.bodyPartColorRangeIds then Cryo.None else p10.bodyPartColorRangeIds,
+			DefaultTryOnBodyColorsToggled = Cryo.None,
+			Scale = if not p10.scale then Cryo.None else p10.scale,
+			ShouldTryOnWithoutEquippedItems = if not FFlagAXMISEnableMultiShopping then nil else p10.lookId ~= nil
+		})
+	end,
+	[SetEquippedInTryOnManager.name] = function(t21: {[any]: any}?, p11) -- line: 630
+		-- upvalues: t15 (copy), getTryOnItemReducerKey (copy), Cryo (copy)
+		local v156 = t21 or t15
+		local v157 = v156.TryOnItems or {}
+		local v158 = getTryOnItemReducerKey(p11.itemId, p11.itemType)
+
+		if v157[v158] == nil then
+			return v156
+		end
+
+		return Cryo.Dictionary.join(v156, {
+			TryOnItems = Cryo.Dictionary.join(v157, {
+				[v158] = Cryo.Dictionary.join(v157[v158], {
+					selectedInTryOnManager = p11.selectedInTryOnManager
+				})
+			})
+		})
+	end,
+	[SetSelectedTimedOption.name] = function(t22: {[any]: any}?, p12) -- line: 648
+		-- upvalues: t15 (copy), getTryOnItemReducerKey (copy), Cryo (copy)
+		local v161 = t22 or t15
+		local v162 = v161.TryOnItems or {}
+		local v163 = getTryOnItemReducerKey(p12.itemId, p12.itemType)
+
+		if v162[v163] == nil then
+			return v161
+		end
+
+		return Cryo.Dictionary.join(v161, {
+			TryOnItems = Cryo.Dictionary.join(v162, {
+				[v163] = Cryo.Dictionary.join(v162[v163], {
+					selectedTimedOptionIndex = p12.selectedTimedOptionIndex
+				})
+			})
+		})
+	end,
+	[RemoveUnselectedItemsFromTryOn.name] = function(t23: {[any]: any}?, _) -- line: 666
+		-- upvalues: t15 (copy), Cryo (copy)
+		local v166 = t23 or t15
+		local t24 = {}
+
+		for v168, v169 in v166.TryOnItems or {} do
+			if v169.selectedInTryOnManager then
+				t24[v168] = v169
+			end
+		end
+
+		return Cryo.Dictionary.join(v166, {
+			TryOnItems = t24
+		})
+	end,
+	[RemoveLookFromTryOn.name] = if not FFlagAXMISEnableMultiShopping then nil else function(t25: {[any]: any}?, p14) -- line: 683
+		-- upvalues: t15 (copy), FFlagAXCatalogMakeupSupport (copy), Cryo (copy)
+		local v172 = t25 or t15
+		local t26 = {}
+
+		for v174, v175 in v172.TryOnItems or {} do
+			if v175.lookId ~= p14.lookId then
+				t26[v174] = v175
+			end
+		end
+
+		if FFlagAXCatalogMakeupSupport and v172.MakeupLookId == p14.lookId then
+			return Cryo.Dictionary.join(v172, {
+				TryOnItems = t26,
+				MakeupLookId = Cryo.None,
+				MakeupLookType = Cryo.None,
+				MakeupLookAnalyticsInfo = Cryo.None,
+				LastToggledLookType = Cryo.None
+			})
+		end
+
+		return Cryo.Dictionary.join(v172, {
+			TryOnItems = t26,
+			LookId = Cryo.None,
+			LookType = Cryo.None,
+			LookAnalyticsInfo = Cryo.None,
+			BodyColor3s = Cryo.None,
+			BodyPartColorRangeIds = Cryo.None,
+			Scale = Cryo.None,
+			LastToggledLookType = Cryo.None,
+			ShouldTryOnWithoutEquippedItems = false
+		})
+	end,
+	[RemoveFromTryOn.name] = function(t27: {[any]: any}?, p15) -- line: 717
+		-- upvalues: t15 (copy), findItemInTryOnItems (copy), reconcileAllTryOnState (copy), removeItem (copy)
+		local v178 = t27 or t15
+		local v179 = v178.TryOnItems or {}
+		local v180 = findItemInTryOnItems(v179, p15.itemId, p15.itemType)
+
+		if v180 ~= nil then
+			return reconcileAllTryOnState(removeItem(v178, v179, v180))
+		end
+
+		return v178
+	end,
+	[RemoveLookItemsFromTryOn.name] = function(t28: {[any]: any}?, p16) -- line: 730
+		-- upvalues: t15 (copy), getTryOnItemReducerKey (copy), ItemTypeEnum (copy), Cryo (copy), FFlagAXMISEnableMultiShopping (copy), FFlagAXCatalogMakeupSupport (copy)
+		local v183 = t28 or t15
+
+		if p16.lookId == v183.LookId then
+			local v184 = v183.TryOnItems or {}
+
+			for _, v186 in p16.assetIds do
+				local v187 = getTryOnItemReducerKey(v186, ItemTypeEnum.Asset)
+
+				if v184[v187] ~= nil then
+					v184 = Cryo.Dictionary.join(v184, {
+						[v187] = Cryo.None
+					})
+				end
+			end
+
+			if p16.bundleIds ~= nil then
+				for _, v189 in p16.bundleIds do
+					local v190 = getTryOnItemReducerKey(v189, ItemTypeEnum.Bundle)
+
+					if v184[v190] ~= nil then
+						v184 = Cryo.Dictionary.join(v184, {
+							[v190] = Cryo.None
+						})
+					end
+				end
+			end
+
+			v183 = Cryo.Dictionary.join(v183, {
+				TryOnItems = v184,
+				LookId = Cryo.None,
+				LookType = Cryo.None,
+				BodyColor3s = Cryo.None,
+				BodyPartColorRangeIds = Cryo.None,
+				Scale = Cryo.None,
+				ShouldTryOnWithoutEquippedItems = not FFlagAXMISEnableMultiShopping and nil
+			})
+		end
+
+		if FFlagAXMISEnableMultiShopping and FFlagAXCatalogMakeupSupport and p16.lookId == v183.MakeupLookId then
+			local v191 = v183.TryOnItems or {}
+
+			for _, v193 in p16.assetIds do
+				local v194 = getTryOnItemReducerKey(v193, ItemTypeEnum.Asset)
+
+				if v191[v194] ~= nil then
+					v191 = Cryo.Dictionary.join(v191, {
+						[v194] = Cryo.None
+					})
+				end
+			end
+
+			if p16.bundleIds ~= nil then
+				for _, v196 in p16.bundleIds do
+					local v197 = getTryOnItemReducerKey(v196, ItemTypeEnum.Bundle)
+
+					if v191[v197] ~= nil then
+						v191 = Cryo.Dictionary.join(v191, {
+							[v197] = Cryo.None
+						})
+					end
+				end
+			end
+
+			v183 = Cryo.Dictionary.join(v183, {
+				TryOnItems = v191,
+				MakeupLookId = Cryo.None,
+				MakeupLookType = Cryo.None
+			})
+		end
+
+		return v183
+	end,
+	[ReceivedBundleInfoForTryOn.name] = function(t29: {[any]: any}?, p17) -- line: 803
+		-- upvalues: t15 (copy), getTryOnItemReducerKey (copy), ItemTypeEnum (copy), Cryo (copy)
+		local v200 = t29 or t15
+		local v201 = v200.TryOnItems or {}
+		local v202 = getTryOnItemReducerKey(p17.itemId, ItemTypeEnum.Bundle)
+
+		if v201[v202] then
+			local v203 = table.clone(v200.OutfitIdMap or {})
+
+			v203[p17.itemId] = p17.outfitId
+
+			return Cryo.Dictionary.join(v200, {
+				TryOnItems = Cryo.Dictionary.join(v201, {
+					[v202] = Cryo.Dictionary.join(v201[v202], {
+						receivedBundleInfo = true
+					})
+				}),
+				OutfitIdMap = v203
+			})
+		end
+
+		return v200
+	end,
+	[ClearTryOns.name] = function(t30: {[any]: any}?, p18) -- line: 832
+		-- upvalues: Cryo (copy), t15 (copy), FFlagAXMISEnableMultiShopping (copy), FFlagAXCatalogMakeupSupport (copy)
+		if t30 then
+			local v206 = not t30.LookId and p18.retainTryOnColor
+
+			return Cryo.Dictionary.join(t15, {
+				LastTryOnClassicHeadShape = t30.LastTryOnClassicHeadShape,
+				DefaultTryOnBodyColorsToggled = if not v206 then nil else t30.DefaultTryOnBodyColorsToggled,
+				BodyColor3s = if not v206 then nil else t30.BodyColor3s,
+				BodyPartColorRangeIds = if not v206 then nil else t30.BodyPartColorRangeIds,
+				OutfitIdMap = if not t30 then {} else t30.OutfitIdMap,
+				ShouldTryOnWithoutEquippedItems = not FFlagAXMISEnableMultiShopping and nil,
+				LastToggledLookType = if not FFlagAXMISEnableMultiShopping or not FFlagAXCatalogMakeupSupport then nil else Cryo.None
+			})
+		end
+
+		return t15
+	end,
+	[NavigatedToNonTryOnPage.name] = function(t31: {[any]: any}?, _) -- line: 854
+		-- upvalues: t15 (copy)
+		local v209 = table.clone(t15)
+
+		if t31 and t31.OutfitIdMap then
+			v209.OutfitIdMap = t31.OutfitIdMap
+		end
+
+		return v209
+	end,
+	[NavigatedToTryOnPage.name] = function(t32: {[any]: any}?, _) -- line: 862
+		-- upvalues: t15 (copy)
+		local v212 = table.clone(t15)
+
+		if t32 and t32.OutfitIdMap then
+			v212.OutfitIdMap = t32.OutfitIdMap
+		end
+
+		return v212
+	end,
+	[DefaultTryOnBodyColorsToggled.name] = function(t33: {[any]: any}?, p21) -- line: 870
+		-- upvalues: t15 (copy)
+		local v215 = table.clone(t33 or t15)
+
+		v215.DefaultTryOnBodyColorsToggled = p21.state
+
+		return v215
+	end,
+	[SetOrderForTryOns.name] = function(t34: {[any]: any}?, p22) -- line: 877
+		-- upvalues: t15 (copy), getTryOnItemReducerKey (copy), ItemTypeEnum (copy), Cryo (copy), Constants (copy)
+		local itemIdToOrderMap = p22.itemIdToOrderMap
+		local v219 = t34 or t15
+
+		for v220, v221 in itemIdToOrderMap do
+			local v222 = v219.TryOnItems or {}
+			local v223 = getTryOnItemReducerKey(v220, ItemTypeEnum.Asset)
+
+			if v222[v223] and v222[v223].itemType ~= ItemTypeEnum.Bundle then
+				v219 = Cryo.Dictionary.join(v219, {
+					TryOnItems = Cryo.Dictionary.join(v222, {
+						[v223] = Cryo.Dictionary.join(v222[v223], {
+							order = v221
+						})
+					})
+				})
+			elseif not v222[v223] then
+				for v224, v225 in v222 do
+					if v225.bundleInfo and v225.bundleInfo[v220] and v225.itemId ~= tostring(Constants.BlockyBundleId) then
+						local bundleInfo = v225.bundleInfo
+						local v227 = Cryo.Dictionary.join(bundleInfo, {
+							[v220] = Cryo.Dictionary.join(bundleInfo[v220], {
+								order = v221
+							})
+						})
+
+						v219 = Cryo.Dictionary.join(t34, {
+							TryOnItems = Cryo.Dictionary.join(v222, {
+								[v224] = Cryo.Dictionary.join(v222[v224], {
+									bundleInfo = v227
+								})
+							})
+						})
+
+						break
+					end
+				end
+			end
+		end
+
+		return v219
+	end,
+	[SetAccessoryAdjustments.name] = function(t35: {[any]: any}?, p23) -- line: 933
+		-- upvalues: t15 (copy), Cryo (copy)
+		local v230 = t35 or t15
+		local v231 = v230.TryOnItems or {}
+
+		for v232, v233 in v231 do
+			if v233.itemType == "Asset" then
+				if v233.itemId ~= p23.itemId then
+					continue
+				end
+
+				return Cryo.Dictionary.join(v230, {
+					TryOnItems = Cryo.Dictionary.join(v231, {
+						[v232] = Cryo.Dictionary.join(v233, {
+							position = p23.position,
+							rotation = p23.rotation,
+							scale = p23.scale
+						})
+					})
+				})
+			end
+
+			if v233.itemType == "Bundle" then
+				for v234, v235 in v231 do
+					if v235.bundleInfo and v235.bundleInfo[p23.itemId] then
+						local bundleInfo = v235.bundleInfo
+						local v237 = Cryo.Dictionary.join(bundleInfo, {
+							[p23.itemId] = Cryo.Dictionary.join(bundleInfo[p23.itemId], {
+								position = p23.position,
+								rotation = p23.rotation,
+								scale = p23.scale
+							})
+						})
+
+						return Cryo.Dictionary.join(t35, {
+							TryOnItems = Cryo.Dictionary.join(v231, {
+								[v234] = Cryo.Dictionary.join(v231[v234], {
+									bundleInfo = v237
+								})
+							})
+						})
+					end
+				end
+			end
+		end
+
+		return v230
+	end,
+	[AddSelectedBundleInfo.name] = function(t36: {[any]: any}?, p24) -- line: 978
+		-- upvalues: t15 (copy), getTryOnItemReducerKey (copy), ItemTypeEnum (copy), Cryo (copy)
+		local v240 = t36 or t15
+		local v241 = v240.TryOnItems or {}
+		local v242 = getTryOnItemReducerKey(p24.bundleId, ItemTypeEnum.Bundle)
+
+		if v241[v242] then
+			return Cryo.Dictionary.join(v240, {
+				TryOnItems = Cryo.Dictionary.join(v241, {
+					[v242] = Cryo.Dictionary.join(v241[v242], {
+						bundleInfo = p24.bundleInfo
+					})
+				})
+			})
+		end
+
+		return v240
+	end,
+	[SetOutfitTryOns.name] = function(_: {[any]: any}?, p25) -- line: 997
+		return p25.outfitTryOns
+	end,
+	[RemoveLook.name] = function(t38: {[any]: any}?, p26) -- line: 1001
+		-- upvalues: t15 (copy), FFlagAXMISEnableMultiShopping (copy), FFlagAXCatalogMakeupSupport (copy), Cryo (copy)
+		local v247 = t38 or t15
+
+		if p26.lookId == v247.LookId or FFlagAXMISEnableMultiShopping and FFlagAXCatalogMakeupSupport and p26.lookId == v247.MakeupLookId then
+			local t39 = {}
+
+			if FFlagAXMISEnableMultiShopping then
+				for v249, v250 in v247.TryOnItems or {} do
+					if v250.lookId ~= p26.lookId then
+						t39[v249] = v250
+					end
+				end
+			end
+
+			if FFlagAXMISEnableMultiShopping and FFlagAXCatalogMakeupSupport then
+				if p26.lookId == v247.LookId then
+					v247 = Cryo.Dictionary.join(v247, {
+						TryOnItems = t39,
+						LookId = Cryo.None,
+						LookType = Cryo.None,
+						BodyColor3s = Cryo.None,
+						BodyPartColorRangeIds = Cryo.None,
+						Scale = Cryo.None,
+						ShouldTryOnWithoutEquippedItems = false,
+						LastToggledLookType = Cryo.None
+					})
+				end
+
+				if p26.lookId == v247.MakeupLookId then
+					return (Cryo.Dictionary.join(v247, {
+						TryOnItems = t39,
+						MakeupLookId = Cryo.None,
+						MakeupLookType = Cryo.None,
+						LastToggledLookType = Cryo.None
+					}))
+				end
+			else
+				v247 = Cryo.Dictionary.join(v247, {
+					TryOnItems = t39,
+					LookId = Cryo.None,
+					LookType = Cryo.None,
+					BodyColor3s = Cryo.None,
+					BodyPartColorRangeIds = Cryo.None,
+					Scale = Cryo.None,
+					ShouldTryOnWithoutEquippedItems = not FFlagAXMISEnableMultiShopping and nil
+				})
+			end
+		end
+
+		return v247
+	end,
+	[CharacterHistoryStateChangeButtonActivated.name] = function(p27, p28) -- line: 1061
+		-- upvalues: FFlagAXRootSlotBasedEditorFlag (copy)
+		if FFlagAXRootSlotBasedEditorFlag and (p28.tryOn and p28.tryOn.OutfitTryOn) then
+			return table.clone(p28.tryOn.OutfitTryOn)
+		end
+
+		return p27
+	end,
+	[SetAdjustableTryOnIds.name] = if not v70 then nil else function(t40: {[any]: any}?, p29) -- line: 1072
+		-- upvalues: t15 (copy)
+		local v255 = table.clone(t40 or t15)
+
+		v255.AdjustableTryOnIds = p29.adjustableTryOnIds
+
+		return v255
+	end,
+	[SetLastToggledLookType.name] = if not FFlagAXMISEnableMultiShopping then nil else function(t41: {[any]: any}?, p30) -- line: 1079
+		-- upvalues: t15 (copy), Cryo (copy)
+		local v258 = t41 or t15
+
+		return Cryo.Dictionary.join(v258, {
+			LastToggledLookType = p30.lastToggledLookType
+		})
+	end
+})

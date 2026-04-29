@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AXEnableTimedOptionsForCatalogRowCard", false);
+return game:DefineFastFlag("AXEnableTimedOptionsForCatalogRowCard2", false)

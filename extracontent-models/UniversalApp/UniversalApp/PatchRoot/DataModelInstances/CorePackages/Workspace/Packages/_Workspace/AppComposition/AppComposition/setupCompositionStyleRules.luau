@@ -1,107 +1,120 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppComposition");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.Foundation);
-local v3 = require(l_Parent_0.Signals);
-local v4 = require(l_script_FirstAncestor_0.CompositionConfig);
-local v5 = require(l_script_FirstAncestor_0.CompositionTags);
-local v6 = require(l_script_FirstAncestor_0.getGlobalViewportBreakpoint);
-local l_Header_0 = v5.ContentRegion.Header;
-local l_Body_0 = v5.ContentRegion.Body;
-local l_Detail_0 = v5.Layout.Detail;
-local l_ClipAtMaxWidth_0 = v5.Utility.ClipAtMaxWidth;
-local v11 = {
-    [(".%*"):format(l_Header_0)] = {
-        AnchorPoint = Vector2.new(0.5, 0), 
-        Position = UDim2.fromScale(0.5, 0)
-    }, 
-    [(".%*::UIPadding"):format(l_Header_0)] = {
-        PaddingLeft = "$CompositionMargin", 
-        PaddingRight = "$CompositionMargin"
-    }, 
-    [(".%*::UISizeConstraint"):format(l_Header_0)] = {
-        MaxSize = "$CompositionMaxWidthDiscovery"
-    }, 
-    [(".%*"):format(l_Body_0)] = {
-        AnchorPoint = Vector2.new(0.5, 0), 
-        Position = UDim2.fromScale(0.5, 0)
-    }, 
-    [(".%*::UIPadding"):format(l_Body_0)] = {
-        PaddingLeft = "$CompositionMargin", 
-        PaddingRight = "$CompositionMargin"
-    }, 
-    [(".%*::UISizeConstraint"):format(l_Body_0)] = {
-        MaxSize = "$CompositionMaxWidthDiscovery"
-    }, 
-    [(".%* >> .%*::UISizeConstraint"):format(l_Detail_0, l_Header_0)] = {
-        MaxSize = "$CompositionMaxWidthDetail"
-    }, 
-    [(".%* >> .%*::UISizeConstraint"):format(l_Detail_0, l_Body_0)] = {
-        MaxSize = "$CompositionMaxWidthDetail"
-    }, 
-    [(".%*::StyleQuery #CompositionAtMaxWidthDiscovery"):format(l_Body_0)] = {
-        MinSize = "$CompositionClipThresholdDiscovery"
-    }, 
-    [(".%*::StyleQuery #CompositionNotAtMaxWidthDiscovery"):format(l_Body_0)] = {
-        MaxSize = "$CompositionMaxWidthDiscovery"
-    }, 
-    [("@CompositionAtMaxWidthDiscovery >> .%*"):format(l_ClipAtMaxWidth_0)] = {
-        ClipsDescendants = true
-    }, 
-    [("@CompositionNotAtMaxWidthDiscovery >> .%*"):format(l_ClipAtMaxWidth_0)] = {
-        ClipsDescendants = false
-    }, 
-    [(".%* >> .%*::StyleQuery #CompositionAtMaxWidthDetail"):format(l_Detail_0, l_Body_0)] = {
-        MinSize = "$CompositionClipThresholdDetail"
-    }, 
-    [(".%* >> .%*::StyleQuery #CompositionNotAtMaxWidthDetail"):format(l_Detail_0, l_Body_0)] = {
-        MaxSize = "$CompositionMaxWidthDetail"
-    }, 
-    [("@CompositionAtMaxWidthDetail >> .%*"):format(l_ClipAtMaxWidth_0)] = {
-        ClipsDescendants = true
-    }, 
-    [("@CompositionNotAtMaxWidthDetail >> .%*"):format(l_ClipAtMaxWidth_0)] = {
-        ClipsDescendants = false
-    }
-};
-local function v17(v12, v13) --[[ Line: 101 ]] --[[ Name: applyRules ]]
-    -- upvalues: v11 (copy)
-    for v14, v15 in v11 do
-        local l_StyleRule_0 = Instance.new("StyleRule");
-        l_StyleRule_0.Selector = v14;
-        l_StyleRule_0.Name = v14;
-        l_StyleRule_0:SetProperties(v15);
-        l_StyleRule_0.Parent = v12;
-        table.insert(v13, l_StyleRule_0);
-    end;
-end;
-local function v26(v18, v19) --[[ Line: 115 ]] --[[ Name: setupReactiveAttributes ]]
-    -- upvalues: v3 (copy), v6 (copy), v4 (copy)
-    local v22 = v3.createComputed(function(v20) --[[ Line: 116 ]]
-        -- upvalues: v6 (ref), v4 (ref), v19 (copy)
-        local v21 = v6(v20);
-        return v4.getBaseConfig(v21, v19).margin;
-    end);
-    return v3.createEffect(function(v23) --[[ Line: 121 ]]
-        -- upvalues: v22 (copy), v18 (copy)
-        local v24 = v22(v23);
-        local v25 = v24 * 2;
-        v18:SetAttribute("CompositionMargin", UDim.new(0, v24));
-        v18:SetAttribute("CompositionMaxWidthDiscovery", Vector2.new(1920 + v25, 1e999));
-        v18:SetAttribute("CompositionClipThresholdDiscovery", Vector2.new(1920 + v25, 0));
-        v18:SetAttribute("CompositionMaxWidthDetail", Vector2.new(800 + v25, 1e999));
-        v18:SetAttribute("CompositionClipThresholdDetail", Vector2.new(800 + v25, 0));
-    end);
-end;
-return function(v27, v28) --[[ Line: 135 ]] --[[ Name: setupCompositionStyleRules ]]
-    -- upvalues: v17 (copy), v26 (copy)
-    local v29 = {};
-    v17(v27, v29);
-    local v30 = v26(v27, v28);
-    return function() --[[ Line: 142 ]]
-        -- upvalues: v30 (copy), v29 (copy)
-        v30();
-        for _, v32 in v29 do
-            v32:Destroy();
-        end;
-    end;
-end;
+local AppComposition = script:FindFirstAncestor("AppComposition")
+local AppCompositionParent = AppComposition.Parent
+
+require(AppCompositionParent.Foundation)
+
+local Signals = require(AppCompositionParent.Signals)
+local CompositionConfig = require(AppComposition.CompositionConfig)
+local CompositionTags = require(AppComposition.CompositionTags)
+local getGlobalViewportBreakpoint = require(AppComposition.getGlobalViewportBreakpoint)
+local v7 = game:DefineFastFlag("LuaAppCompositionFixDetailClip", false)
+local Header = CompositionTags.ContentRegion.Header
+local Body = CompositionTags.ContentRegion.Body
+local Detail = CompositionTags.Layout.Detail
+local ClipAtMaxWidth = CompositionTags.Utility.ClipAtMaxWidth
+local t1 = {
+	[`.{ Header }`] = {
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.fromScale(0.5, 0)
+	},
+	[`.{ Header }::UIPadding`] = {
+		PaddingLeft = "$CompositionMargin",
+		PaddingRight = "$CompositionMargin"
+	},
+	[`.{ Header }::UISizeConstraint`] = {
+		MaxSize = "$CompositionMaxWidthDiscovery"
+	},
+	[`.{ Body }`] = {
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.fromScale(0.5, 0)
+	},
+	[`.{ Body }::UIPadding`] = {
+		PaddingLeft = "$CompositionMargin",
+		PaddingRight = "$CompositionMargin"
+	},
+	[`.{ Body }::UISizeConstraint`] = {
+		MaxSize = "$CompositionMaxWidthDiscovery"
+	},
+	[`.{ Detail } >> .{ Header }::UISizeConstraint`] = {
+		MaxSize = "$CompositionMaxWidthDetail"
+	},
+	[`.{ Detail } >> .{ Body }::UISizeConstraint`] = {
+		MaxSize = "$CompositionMaxWidthDetail"
+	},
+	[`.{ Body }::StyleQuery #CompositionAtMaxWidthDiscovery`] = {
+		MinSize = "$CompositionClipThresholdDiscovery"
+	},
+	[`.{ Body }::StyleQuery #CompositionNotAtMaxWidthDiscovery`] = {
+		MaxSize = "$CompositionMaxWidthDiscovery"
+	},
+	[`@CompositionAtMaxWidthDiscovery >> .{ ClipAtMaxWidth }`] = {
+		ClipsDescendants = true
+	},
+	[`@CompositionNotAtMaxWidthDiscovery >> .{ ClipAtMaxWidth }`] = if v7 then nil else {
+		ClipsDescendants = false
+	},
+	[`.{ Detail } >> .{ Body }::StyleQuery #CompositionAtMaxWidthDetail`] = {
+		MinSize = "$CompositionClipThresholdDetail"
+	},
+	[`.{ Detail } >> .{ Body }::StyleQuery #CompositionNotAtMaxWidthDetail`] = {
+		MaxSize = "$CompositionMaxWidthDetail"
+	},
+	[`@CompositionAtMaxWidthDetail >> .{ ClipAtMaxWidth }`] = {
+		ClipsDescendants = true
+	},
+	[`@CompositionNotAtMaxWidthDetail >> .{ ClipAtMaxWidth }`] = if v7 then nil else {
+		ClipsDescendants = false
+	}
+}
+
+local function applyRules(p1, t2: {[any]: any}) -- line: 107
+	-- upvalues: t1 (copy)
+	for v17, v18 in t1 do
+		local StyleRule = Instance.new("StyleRule")
+
+		StyleRule.Selector = v17
+		StyleRule.Name = v17
+		StyleRule:SetProperties(v18)
+		StyleRule.Parent = p1
+		table.insert(t2, StyleRule)
+	end
+end
+local function setupReactiveAttributes(p2, p3) -- line: 121
+	-- upvalues: Signals (copy), getGlobalViewportBreakpoint (copy), CompositionConfig (copy)
+	local v22 = Signals.createComputed(function(p4) -- line: 122
+		-- upvalues: getGlobalViewportBreakpoint (copy), CompositionConfig (copy), p3 (copy)
+		local v28 = getGlobalViewportBreakpoint(p4)
+
+		return CompositionConfig.getBaseConfig(v28, p3).margin
+	end)
+
+	return Signals.createEffect(function(p5) -- line: 127
+		-- upvalues: v22 (copy), p2 (copy)
+		local v30 = v22(p5)
+		local v31 = v30 * 2
+
+		p2:SetAttribute("CompositionMargin", UDim.new(0, v30))
+		p2:SetAttribute("CompositionMaxWidthDiscovery", Vector2.new(1920 + v31, 1e999))
+		p2:SetAttribute("CompositionClipThresholdDiscovery", Vector2.new(1920 + v31, 0))
+		p2:SetAttribute("CompositionMaxWidthDetail", Vector2.new(848 + v31, 1e999))
+		p2:SetAttribute("CompositionClipThresholdDetail", Vector2.new(848 + v31, 0))
+	end)
+end
+
+return function(p6, p7) --[[ setupCompositionStyleRules ]] -- line: 141
+	-- upvalues: applyRules (copy), setupReactiveAttributes (copy)
+	local t3 = {}
+
+	applyRules(p6, t3)
+
+	local v26 = setupReactiveAttributes(p6, p7)
+
+	return function() -- line: 148
+		-- upvalues: v26 (copy), t3 (copy)
+		v26()
+
+		for _, v33 in t3 do
+			v33:Destroy()
+		end
+	end
+end

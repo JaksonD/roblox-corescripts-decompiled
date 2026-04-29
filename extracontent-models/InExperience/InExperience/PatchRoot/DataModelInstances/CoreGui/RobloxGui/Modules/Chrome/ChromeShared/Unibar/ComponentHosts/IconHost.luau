@@ -1,603 +1,725 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ChromeShared");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_UserInputService_0 = game:GetService("UserInputService");
-local v4 = require(l_CorePackages_0.Packages.React);
-local v5 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagEnableConsoleExpControls_0 = v5.FFlagEnableConsoleExpControls;
-local v7 = require(script.Parent.Parent.Parent.Parent.Flags);
-local l_FFlagUnibarMenuOpenHamburger_0 = v7.FFlagUnibarMenuOpenHamburger;
-local l_FFlagUnibarMenuOpenSubmenu_0 = v7.FFlagUnibarMenuOpenSubmenu;
-local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_script_FirstAncestor_0.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
-local v11 = require(l_CorePackages_0.Packages.UIBlox);
-local v12 = require(l_CorePackages_0.Packages.Foundation);
-local l_useCursor_0 = v12.Hooks.useCursor;
-local l_Flags_0 = v12.Utility.Flags;
-local l_StatusIndicator_0 = v12.StatusIndicator;
-local l_StatusIndicatorVariant_0 = v12.Enums.StatusIndicatorVariant;
-local l_Interactable_0 = v11.Core.Control.Interactable;
-local l_ControlState_0 = v11.Core.Control.Enum.ControlState;
-local l_useStyle_0 = v11.Core.Style.useStyle;
-local l_withTooltip_0 = v11.App.Dialog.TooltipV2.withTooltip;
-local v21 = require(l_script_FirstAncestor_0.Unibar.Constants);
-local v22 = require(l_script_FirstAncestor_0.Service);
-local v23 = require(l_script_FirstAncestor_0.Analytics.ChromeAnalytics);
-local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
-local v25 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
-local v26 = require(l_script_FirstAncestor_0.Hooks.useNotificationCount);
-local v27 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValue);
-local v28 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValueBinding);
-local v29 = require(l_script_FirstAncestor_0.Hooks.useTimeHysteresis);
-local l_useTokens_0 = v12.Hooks.useTokens;
-local v31 = require(l_script_FirstAncestor_0.Utility.shouldRejectMultiTouch);
-local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
-local v33 = nil;
-local v34 = nil;
-local v35 = nil;
-local v36 = nil;
-local v37 = nil;
-local v38 = nil;
-local v39 = nil;
-local v40 = nil;
-local v41 = nil;
-if l_isInExperienceUIVREnabled_0 then
-    v33 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
-    local v42 = require(l_CorePackages_0.Workspace.Packages.VrSpatialUi);
-    v34 = v42.Panel3DInSpatialUI;
-    v35 = v42.Constants.PanelType;
-    v36 = v11.App.Dialog.Enum.TooltipOrientation;
-    v37 = v11.App.Dialog.TooltipCallout;
-    v38 = v42.Constants.SPATIAL_TOOLTIP_SPACING;
-    v39 = v42.UIManager;
-    v40 = require(l_script_FirstAncestor_0.Service.ChromeUtils).MappedSignal;
-    local v43 = v39.getInstance():getBottomBarVisibility();
-    if v43 and v33() then
-        local l_v43_0 = v43 --[[ copy: 45 -> 48 ]];
-        v41 = v40.new(v43, function() --[[ Line: 71 ]]
-            -- upvalues: l_v43_0 (copy)
-            return l_v43_0:get();
-        end);
-    end;
-end;
-local v45 = if l_FFlagEnableConsoleExpControls_0 then require(l_script_FirstAncestor_0.Parent.Parent.TopBar.Components.MenuIconContext) else nil;
-local l_GetFFlagSimpleChatUnreadMessageCount_0 = v5.GetFFlagSimpleChatUnreadMessageCount;
-local v47 = game:DefineFastFlag("UseBindingForUnreadChat", false);
-local v48 = {};
-areTooltipsDisplaying = function() --[[ Line: 94 ]] --[[ Name: areTooltipsDisplaying ]]
-    -- upvalues: v48 (copy)
-    local v49 = tick();
-    for _, v51 in v48 do
-        if v51.displaying or v49 - v51.time < 0.15 then
-            return true;
-        end;
-    end;
-    return false;
-end;
-logTooltipState = function(v52, v53) --[[ Line: 106 ]] --[[ Name: logTooltipState ]]
-    -- upvalues: v48 (copy)
-    if not v48[v52] or v48[v52].displaying ~= v53 then
-        v48[v52] = {
-            displaying = v53, 
-            time = tick()
-        };
-    end;
-end;
-NotificationBadge = function(v54) --[[ Line: 125 ]] --[[ Name: NotificationBadge ]]
-    -- upvalues: v47 (copy), v4 (copy), v26 (copy), v27 (copy), v22 (copy), l_GetFFlagSimpleChatUnreadMessageCount_0 (copy), l_useTokens_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v12 (copy), l_StatusIndicator_0 (copy), l_Flags_0 (copy), l_StatusIndicatorVariant_0 (copy)
-    if not v54.integration then
-        return nil;
-    else
-        local v55 = nil;
-        local v56 = nil;
-        local v57 = nil;
-        local v58 = nil;
-        local v59 = nil;
-        local v60 = false;
-        if v47 then
-            local v61 = v54.integration.integration and v54.integration.integration.notification or nil;
-            local v62, v63 = v4.useBinding(v61 and v61:get().value or 0);
-            v55 = v62;
-            v56 = v63;
-            v62, v63 = v4.useState(false);
-            v58 = v62;
-            v59 = v63;
-            local l_v61_0 = v61 --[[ copy: 7 -> 13 ]];
-            v4.useEffect(function() --[[ Line: 139 ]]
-                -- upvalues: l_v61_0 (copy), v59 (ref), v56 (ref)
-                if not l_v61_0 then
-                    return;
-                else
-                    local v66 = l_v61_0:connect(function() --[[ Line: 144 ]]
-                        -- upvalues: l_v61_0 (ref), v59 (ref), v56 (ref)
-                        local v65 = l_v61_0:get().value or 0;
-                        v59(v65 > 0);
-                        v56(v65);
-                    end);
-                    return function() --[[ Line: 149 ]]
-                        -- upvalues: v66 (copy)
-                        v66:disconnect();
-                    end;
-                end;
-            end, {
-                v54.integration.integration.id
-            });
-        else
-            v57 = v26(v54.integration.integration);
-            if v27(v22:currentSubMenu(), function(v67) --[[ Line: 157 ]]
-                -- upvalues: v54 (copy)
-                return v67 == v54.integration.id;
-            end) then
-                v57 = 0;
-            end;
-            if v54.integration and v54.integration.integration then
-                v60 = v54.integration.integration.hideNotificationCountWhileOpen or false;
-            end;
-        end;
-        local v68 = nil;
-        if l_GetFFlagSimpleChatUnreadMessageCount_0() and v54.disableBadgeNumber then
-            v68 = l_useTokens_0();
-        end;
-        local v69 = nil;
-        local v70 = nil;
-        local v71 = nil;
-        local v72 = nil;
-        if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-            v69 = l_UnibarStyle_0.use();
-            v70 = v69.ICON_SIZE;
-            v71 = v69.ICON_BADGE_OFFSET_X;
-            v72 = v69.ICON_BADGE_OFFSET_Y;
-        else
-            v70 = v21.ICON_SIZE;
-            v71 = v21.ICON_BADGE_OFFSET_X;
-            v72 = v21.ICON_BADGE_OFFSET_Y;
-        end;
-        local v73 = if v47 then v58 else v57 > 0;
-        return v4.createElement("Frame", {
-            BackgroundTransparency = 1, 
-            Size = if l_GetFFlagSimpleChatUnreadMessageCount_0() and v54.disableBadgeNumber then UDim2.new(0, v70, 0, v70) else UDim2.fromScale(1, 1), 
-            Visible = not v54.toggleTransition or v54.toggleTransition:map(function(v74) --[[ Line: 196 ]]
-                -- upvalues: v60 (ref)
-                if v60 then
-                    return v74 < 0.5;
-                else
-                    return true;
-                end;
-            end) or true, 
-            ZIndex = 2
-        }, {
-            Badge = if v73 then if l_GetFFlagSimpleChatUnreadMessageCount_0() and v54.disableBadgeNumber then v4.createElement(v12.View, {
-                Position = UDim2.new(1, 0, 0.2, 0), 
-                backgroundStyle = {
-                    Color3 = v68.Color.System.Contrast.Color3, 
-                    Transparency = 0
-                }, 
-                stroke = {
-                    Color = v68.Color.Surface.Surface_0.Color3, 
-                    Transparency = 0, 
-                    Thickness = v68.Stroke.Thicker
-                }, 
-                tag = "anchor-top-right radius-circle size-200 stroke-thicker", 
-                ZIndex = 2
-            }) else v4.createElement(l_StatusIndicator_0, {
-                value = if v47 then v55:map(function(v75) --[[ Line: 225 ]]
-                    return (math.min(v75, 99));
-                end) else math.min(v57, 99), 
-                variant = if l_Flags_0.FoundationStatusIndicatorVariantExperiment then l_StatusIndicatorVariant_0.Contrast_Experiment else l_StatusIndicatorVariant_0.Emphasis, 
-                AnchorPoint = Vector2.new(0, 0), 
-                Position = UDim2.new(0, v71, 0, v72)
-            }) else nil
-        });
-    end;
-end;
-NotificationIndicator = function(v76) --[[ Line: 244 ]] --[[ Name: NotificationIndicator ]]
-    -- upvalues: v25 (copy), v22 (copy), v4 (copy)
-    local v77 = v25(v22:notificationIndicator());
-    v76.setIconVisible(not v77 or false);
-    return (v4.createElement("Frame", {
-        Name = "NotificationIndicatorFrame", 
-        Size = UDim2.new(1, 0, 1, 0), 
-        BorderSizePixel = 0, 
-        BackgroundTransparency = 1
-    }, {
-        IntegrationIcon = v77 and v77.component(v76) or nil, 
-        UIListLayout = v4.createElement("UIListLayout", {
-            FillDirection = Enum.FillDirection.Horizontal, 
-            VerticalAlignment = Enum.VerticalAlignment.Center, 
-            HorizontalAlignment = Enum.HorizontalAlignment.Center
-        })
-    }));
-end;
-HighlightCircle = function(v78) --[[ Line: 263 ]] --[[ Name: HighlightCircle ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v4 (copy)
-    local _ = nil;
-    local v80 = nil;
-    v80 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
-    return v4.createElement("Frame", {
-        Name = v78.name or "Highlighter", 
-        Size = v80, 
-        AnchorPoint = Vector2.new(0.5, 0.5), 
-        Position = UDim2.new(0.5, 0, 0.5, 0), 
-        BackgroundColor3 = v78.color.Color, 
-        BackgroundTransparency = v78.color.Transparency, 
-        BorderSizePixel = 0, 
-        Visible = v78.visible
-    }, {
-        corner = v4.createElement("UICorner", {
-            CornerRadius = UDim.new(1, 0)
-        })
-    });
-end;
-TooltipButton = function(v81) --[[ Line: 293 ]] --[[ Name: TooltipButton ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v4 (copy), v29 (copy), l_isInExperienceUIVREnabled_0 (copy), v33 (ref), v25 (copy), v22 (copy), v41 (ref), l_ControlState_0 (copy), v23 (copy), l_UserInputService_0 (copy), v31 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v45 (copy), l_Interactable_0 (copy), l_FFlagUnibarMenuOpenHamburger_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), l_useCursor_0 (copy), v12 (copy), v34 (ref), v35 (ref), v38 (ref), v37 (ref), v36 (ref), l_withTooltip_0 (copy), l_CoreGui_0 (copy)
-    local _ = nil;
-    local v83 = nil;
-    v83 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
-    local v84 = v4.useRef(nil);
-    local l_secondaryAction_0 = v81.integration.integration.secondaryAction;
-    local v86 = v81.integration.integration.draggable or false;
-    local v87 = v4.useRef(nil);
-    v4.useEffect(function() --[[ Line: 309 ]]
-        -- upvalues: v87 (copy)
-        return function() --[[ Line: 310 ]]
-            -- upvalues: v87 (ref)
-            if v87.current then
-                v87.current:Disconnect();
-                v87.current = nil;
-            end;
-        end;
-    end, {});
-    local v88 = nil;
-    local v89 = nil;
-    if l_secondaryAction_0 then
-        local v90, v91 = v29(0.05, 0.15, 0.35);
-        v88 = v90;
-        v89 = v91;
-    else
-        local v92, v93 = v29(0.6, 0.65, 0.7);
-        v88 = v92;
-        v89 = v93;
-    end;
-    local v94, v95 = v29(0, 0, 0.65);
-    local v96, v97 = v4.useState(false);
-    local v98, v99 = v29(0, 1);
-    local v100 = if l_isInExperienceUIVREnabled_0 then v33() else nil;
-    local v101 = if l_isInExperienceUIVREnabled_0 then v25(v22:getTopBarVisibiity()) else nil;
-    local v102 = if l_isInExperienceUIVREnabled_0 and v41 then v25(v41) else nil;
-    local v103 = false;
-    if l_isInExperienceUIVREnabled_0 and v100 and not v101 and not v102 then
-        v103 = true;
-        v86 = v86 and not v103;
-    end;
-    local v108 = v4.useCallback(function(v104, v105) --[[ Line: 348 ]]
-        -- upvalues: l_isInExperienceUIVREnabled_0 (ref), v103 (ref), l_ControlState_0 (ref), v22 (ref), v81 (copy), v89 (ref), v94 (copy), v99 (copy)
-        if l_isInExperienceUIVREnabled_0 and v103 then
-            return;
-        else
-            if v105 == l_ControlState_0.Selected and (v104 == l_ControlState_0.Default or v104 == l_ControlState_0.Hover) then
-                v22:setSelected(v81.integration.id);
-            elseif v105 == l_ControlState_0.Selected and v104 == l_ControlState_0.Default then
-                v22:setSelected(v81.integration.id);
-            end;
-            local v106 = v105 ~= l_ControlState_0.Default;
-            v81.setHovered(v106);
-            local v107 = v105 == l_ControlState_0.Hover;
-            v89(v107, v107 and v94 or areTooltipsDisplaying());
-            if v107 then
-                v22:onIntegrationHovered():fire(v81.integration.id);
-            end;
-            if not v106 then
-                v99(false);
-            end;
-            return;
-        end;
-    end, if l_isInExperienceUIVREnabled_0 then {
-        v81.setHovered, 
-        v89, 
-        v99, 
-        v94, 
-        v100, 
-        v103
-    } else {
-        v81.setHovered, 
-        v89, 
-        v99, 
-        v94
-    });
-    local v115 = v4.useCallback(function(_, v110) --[[ Line: 384 ]]
-        -- upvalues: v86 (ref), v99 (copy), v23 (ref), v81 (copy), v87 (copy), l_UserInputService_0 (ref), v31 (ref), v22 (ref), v21 (ref)
-        if not v86 then
-            return;
-        else
-            if v110.UserInputType == Enum.UserInputType.MouseButton1 or v110.UserInputType == Enum.UserInputType.Touch then
-                local l_Position_0 = v110.Position;
-                v99(true, true);
-                v23.default:onIconTouchBegan(v81.integration.id);
-                if not v87.current then
-                    v87.current = l_UserInputService_0.InputChanged:Connect(function(v112, _) --[[ Line: 397 ]]
-                        -- upvalues: v31 (ref), v110 (copy), v22 (ref), v81 (ref), v87 (ref), l_Position_0 (copy), v21 (ref), v23 (ref)
-                        if v31(v110, v112) then
-                            return;
-                        elseif v22:isWindowOpen(v81.integration.id) or not v87.current then
-                            return;
-                        else
-                            local l_Position_1 = v112.Position;
-                            if math.abs((l_Position_0 - l_Position_1).Magnitude) > v21.DRAG_MAGNITUDE_THRESHOLD then
-                                v23.default:onIconDrag(v81.integration.id);
-                                v22:storeChromeInteracted();
-                                v22:toggleWindow(v81.integration.id);
-                                v22:gesture(v81.integration.id, v87, v110);
-                            end;
-                            return;
-                        end;
-                    end);
-                end;
-            end;
-            return;
-        end;
-    end, {
-        v86
-    });
-    local v118 = v4.useCallback(function(_, v117) --[[ Line: 423 ]]
-        -- upvalues: v86 (ref), v99 (copy), v87 (copy), v22 (ref), v81 (copy)
-        if not v86 then
-            return;
-        else
-            if v117.UserInputType == Enum.UserInputType.MouseButton1 or v117.UserInputType == Enum.UserInputType.Touch then
-                v99(false);
-                if v87.current then
-                    v87.current:Disconnect();
-                    v87.current = nil;
-                    v22:gesture(v81.integration.id, nil);
-                end;
-            end;
-            return;
-        end;
-    end, {
-        v86
-    });
-    local v119 = (not not v88 or v94 or v96) and not v98;
-    if l_isInExperienceUIVREnabled_0 and v119 and v103 then
-        v119 = false;
-    end;
-    logTooltipState(v81.integration.id, v119);
-    local v120 = if l_FFlagEnableConsoleExpControls_0 then v4.useContext(v45) else nil;
-    local v125 = v4.useCallback(function(v121) --[[ Line: 451 ]]
-        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v22 (ref), v4 (ref), l_Interactable_0 (ref), v21 (ref), v81 (copy), v83 (ref), v108 (copy), v84 (copy), l_FFlagUnibarMenuOpenHamburger_0 (ref), l_FFlagUnibarMenuOpenSubmenu_0 (ref), l_useCursor_0 (ref), v12 (ref), v119 (ref), l_secondaryAction_0 (copy), v120 (copy), v115 (copy), v118 (copy), l_isInExperienceUIVREnabled_0 (ref), v100 (copy), v103 (ref), v99 (copy), v87 (copy)
-        local v122 = nil;
-        if l_FFlagEnableConsoleExpControls_0 then
-            v122 = v22:menuList():get()[1].id;
-        end;
-        return v4.createElement(l_Interactable_0, {
-            Name = (if l_FFlagEnableConsoleExpControls_0 then v21.ICON_NAME_PREFIX else "IconHitArea_") .. v81.integration.id, 
-            Size = v83, 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            BackgroundTransparency = 1, 
-            BorderSizePixel = 0, 
-            onStateChanged = v108, 
-            ref = v84, 
-            SelectionOrder = if not not l_FFlagUnibarMenuOpenHamburger_0 or l_FFlagUnibarMenuOpenSubmenu_0 then v81.integration.order else 100 - v81.integration.order, 
-            Position = v81.isCurrentlyOpenSubMenu:map(function(v123) --[[ Line: 469 ]]
-                -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref)
-                return UDim2.new(0.5, 0, 0.5, not l_FFlagEnableConsoleExpControls_0 and v123 and 1 or 0);
-            end), 
-            SelectionImageObject = l_useCursor_0(v12.Enums.CursorType.SkinToneCircle), 
-            SelectionGroup = true, 
-            SelectionBehaviorUp = Enum.SelectionBehavior.Stop, 
-            SelectionBehaviorDown = v81.isCurrentlyOpenSubMenu:map(function(v124) --[[ Line: 475 ]]
-                -- upvalues: v119 (ref), l_secondaryAction_0 (ref)
-                if v119 and l_secondaryAction_0 or v124 then
-                    return Enum.SelectionBehavior.Escape;
-                else
-                    return Enum.SelectionBehavior.Stop;
-                end;
-            end), 
-            NextSelectionLeft = if l_FFlagEnableConsoleExpControls_0 and v81.integration.id == v122 then v120.menuIconRef else nil, 
-            [v4.Change.AbsolutePosition] = v121, 
-            [v4.Change.AbsoluteSize] = v121, 
-            [v4.Event.InputBegan] = v115, 
-            [v4.Event.InputEnded] = v118, 
-            [v4.Event.Activated] = function() --[[ Line: 489 ]]
-                -- upvalues: l_isInExperienceUIVREnabled_0 (ref), v100 (ref), v103 (ref), v22 (ref), v99 (ref), v81 (ref), v87 (ref)
-                if l_isInExperienceUIVREnabled_0 and v100 then
-                    if v103 then
-                        return;
-                    else
-                        v22:onTriggerVRToggleButton():fire(true);
-                    end;
-                end;
-                v99(true, true);
-                v81.integration.activated();
-                if v87.current then
-                    v87.current:Disconnect();
-                    v87.current = nil;
-                    v22:gesture(v81.integration.id, nil);
-                end;
-            end
-        }, {
-            corner = v4.createElement("UICorner", {
-                CornerRadius = UDim.new(1, 0)
-            })
-        });
-    end, {
-        v108, 
-        v89, 
-        v99, 
-        v115, 
-        v118, 
-        v81.isCurrentlyOpenSubMenu, 
-        v119, 
-        l_secondaryAction_0, 
-        if l_isInExperienceUIVREnabled_0 then v103 else nil, 
-        if l_FFlagEnableConsoleExpControls_0 then v120.menuIconRef else nil
-    });
-    local v126 = v4.useRef(nil);
-    local v132 = v4.useCallback(function(v127) --[[ Line: 526 ]]
-        -- upvalues: v126 (copy), v95 (copy)
-        local v128 = nil;
-        local v129 = nil;
-        local v130 = nil;
-        local function v131() --[[ Line: 533 ]]
-            -- upvalues: v128 (ref), v129 (ref), v130 (ref)
-            if v128 then
-                v128:disconnect();
-                v128 = nil;
-            end;
-            if v129 then
-                v129:disconnect();
-                v129 = nil;
-            end;
-            if v130 then
-                v130:disconnect();
-                v130 = nil;
-            end;
-        end;
-        if v127 ~= v126.current then
-            pcall(v131);
-            if v127 then
-                v128 = v127.MouseEnter:Connect(function() --[[ Line: 551 ]]
-                    -- upvalues: v95 (ref)
-                    v95(true, true);
-                end);
-                v129 = v127.MouseLeave:Connect(function() --[[ Line: 554 ]]
-                    -- upvalues: v95 (ref)
-                    v95(false);
-                end);
-                v130 = v127.Destroying:Connect(function() --[[ Line: 557 ]]
-                    -- upvalues: v95 (ref)
-                    v95(false);
-                end);
-            end;
-            v126.current = v127;
-        end;
-    end, {
-        v95
-    });
-    local v135 = if l_secondaryAction_0 then {
-        text = l_secondaryAction_0.label, 
-        onStateChanged = function(_, v134) --[[ Line: 568 ]] --[[ Name: onStateChanged ]]
-            -- upvalues: l_ControlState_0 (ref), v97 (copy)
-            if v134 == l_ControlState_0.Selected then
-                v97(true);
-                return;
-            else
-                v97(false);
-                return;
-            end;
-        end, 
-        onActivated = function() --[[ Line: 575 ]] --[[ Name: onActivated ]]
-            -- upvalues: l_secondaryAction_0 (copy), v81 (copy)
-            l_secondaryAction_0.activated(v81.integration);
-        end, 
-        NextSelectionUp = v84, 
-        NextSelectionLeft = v84, 
-        NextSelectionRight = v84, 
-        NextSelectionDown = v84
-    } else nil;
-    if l_isInExperienceUIVREnabled_0 and v100 then
-        local v136, v137 = v4.useBinding(Vector2.zero);
-        local v138, v139 = v4.useBinding(Vector2.zero);
-        local v141 = v4.useCallback(function(v140) --[[ Line: 589 ]]
-            -- upvalues: v137 (copy), v139 (copy)
-            v137(v140.AbsolutePosition);
-            v139(v140.AbsoluteSize);
-        end, {
-            v137, 
-            v139
-        });
-        return v4.createElement(v4.Fragment, nil, {
-            VRSpatialTooltip = if v119 and v34 then v4.createElement(v34, {
-                panelType = v35.ToolTipsContainer, 
-                renderFunction = function(v142) --[[ Line: 601 ]] --[[ Name: renderFunction ]]
-                    -- upvalues: v136 (copy), v138 (copy), v38 (ref), v4 (ref), v37 (ref), v81 (copy), v36 (ref), v135 (copy), l_secondaryAction_0 (copy), v132 (copy)
-                    local v143 = Vector2.new(v136:getValue().X + v138:getValue().X / 2, v142.Y - v38);
-                    return v4.createElement(v37, {
-                        textAlignment = Enum.TextXAlignment.Center, 
-                        headerText = v81.integration.integration.label, 
-                        orientation = v36.Top, 
-                        distanceOffset = 0, 
-                        triggerPointCenter = v143, 
-                        contentOffsetVector = Vector2.zero, 
-                        triggerPointRadius = Vector2.zero, 
-                        buttonProps = v135, 
-                        ref = if l_secondaryAction_0 then v132 else nil
-                    });
-                end
-            }) else nil; 
-            v125(v141)
-        });
-    else
-        return l_withTooltip_0({
-            headerText = v81.integration.integration.label, 
-            hotkeyCodes = v81.integration.integration.hotkeyCodes, 
-            textAlignment = Enum.TextXAlignment.Left, 
-            buttonProps = v135, 
-            ref = if l_secondaryAction_0 then v132 else nil
-        }, {
-            active = v119, 
-            guiTarget = l_CoreGui_0, 
-            DisplayOrder = 10
-        }, v125);
-    end;
-end;
-IconHost = function(v144) --[[ Line: 640 ]] --[[ Name: IconHost ]]
-    -- upvalues: v4 (copy), l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v28 (copy), v22 (copy), l_FFlagEnableConsoleExpControls_0 (copy)
-    if not v144.integration or not v144.integration.component then
-        warn("IconHost has no component to render");
-    end;
-    local v145, v146 = v4.useBinding(false);
-    local v147, v148 = v4.useBinding(true);
-    local v149 = l_useStyle_0();
-    local _ = nil;
-    local l_BackgroundOnHover_0 = v149.Theme.BackgroundOnHover;
-    local v152 = nil;
-    v152 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_CELL_WIDTH else v21.ICON_CELL_WIDTH;
-    local v154 = v28(v22:currentSubMenu(), function(v153) --[[ Line: 663 ]]
-        -- upvalues: v144 (copy)
-        return v153 == v144.integration.id;
-    end);
-    return v4.createElement("Frame", {
-        Size = UDim2.new(0, v152, 0, v152), 
-        LayoutOrder = v144.integration.order, 
-        BorderSizePixel = 0, 
-        BackgroundTransparency = 1, 
-        Position = v144.position, 
-        Visible = v144.visible, 
-        ZIndex = if l_FFlagEnableConsoleExpControls_0 then nil else v144.integration.order
-    }, {
-        v4.createElement("Frame", {
-            Name = "IntegrationIconFrame", 
-            Size = UDim2.new(1, 0, 1, 0), 
-            BorderSizePixel = 0, 
-            BackgroundTransparency = 1, 
-            Visible = v147
-        }, {
-            IntegrationIcon = v144.integration and v144.integration.component and v144.integration.component(v144) or nil, 
-            UIListLayout = v4.createElement("UIListLayout", {
-                FillDirection = Enum.FillDirection.Horizontal, 
-                VerticalAlignment = Enum.VerticalAlignment.Center, 
-                HorizontalAlignment = Enum.HorizontalAlignment.Center
-            })
-        }), 
-        if v144.integration.integration.flashNotificationSource then v4.createElement(NotificationIndicator, {
-            integration = v144.integration, 
-            setIconVisible = v148
-        }) else nil, 
-        v4.createElement(HighlightCircle, {
-            name = "SelectedHighlighter", 
-            color = l_BackgroundOnHover_0, 
-            visible = v154
-        }), 
-        v4.createElement(HighlightCircle, {
-            name = "Highlighter", 
-            color = l_BackgroundOnHover_0, 
-            visible = v145
-        }), 
-        v4.createElement(NotificationBadge, v144), 
-        if v144.disableButtonBehaviors then nil else v4.createElement(TooltipButton, {
-            integration = v144.integration, 
-            setHovered = v146, 
-            isCurrentlyOpenSubMenu = v154
-        })
-    });
-end;
-return IconHost;
+local ChromeShared = script:FindFirstAncestor("ChromeShared")
+local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local TextChatService = game:GetService("TextChatService")
+local UserInputService = game:GetService("UserInputService")
+local React = require(CorePackages.Packages.React)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local FFlagExpChatShowGlobalChatTooltip = SharedFlags.FFlagExpChatShowGlobalChatTooltip
+local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
+local GetGlobalChatTooltipStore = ExpChat.Stores.GetGlobalChatTooltipStore
+local GetChatStatusStore = ExpChat.Stores.GetChatStatusStore
+local isUserChatEnabled = ExpChat.isUserChatEnabled
+local GetFFlagTextChatEnableUniverseChatTabs = require(CorePackages.Workspace.Packages.ExpChatShared).Flags.GetFFlagTextChatEnableUniverseChatTabs
+local Flags = require(script.Parent.Parent.Parent.Parent.Flags)
+local FFlagUnibarMenuOpenHamburger = Flags.FFlagUnibarMenuOpenHamburger
+local FFlagUnibarMenuOpenSubmenu = Flags.FFlagUnibarMenuOpenSubmenu
+local FFlagTokenizeUnibarConstantsWithStyleProvider = require(ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local useCursor = Foundation.Hooks.useCursor
+local Flags2 = Foundation.Utility.Flags
+local StatusIndicator = Foundation.StatusIndicator
+local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
+local Interactable = UIBlox.Core.Control.Interactable
+local ControlState = UIBlox.Core.Control.Enum.ControlState
+local useStyle = UIBlox.Core.Style.useStyle
+local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
+local Constants = require(ChromeShared.Unibar.Constants)
+local Service = require(ChromeShared.Service)
+local ChromeAnalytics = require(ChromeShared.Analytics.ChromeAnalytics)
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
+local useObservableValue = require(ChromeShared.Hooks.useObservableValue)
+local useNotificationCount = require(ChromeShared.Hooks.useNotificationCount)
+local useMappedObservableValue = require(ChromeShared.Hooks.useMappedObservableValue)
+local useMappedObservableValueBinding = require(ChromeShared.Hooks.useMappedObservableValueBinding)
+local useTimeHysteresis = require(ChromeShared.Hooks.useTimeHysteresis)
+local useTokens = Foundation.Hooks.useTokens
+local shouldRejectMultiTouch = require(ChromeShared.Utility.shouldRejectMultiTouch)
+local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local isSpatial = nil
+local Panel3DInSpatialUI = nil
+local PanelType = nil
+local TooltipOrientation = nil
+local TooltipCallout = nil
+local SPATIAL_TOOLTIP_SPACING = nil
+local u48 = nil
+
+if isInExperienceUIVREnabled then
+	isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+
+	local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
+
+	Panel3DInSpatialUI = VrSpatialUi.Panel3DInSpatialUI
+	PanelType = VrSpatialUi.Constants.PanelType
+	TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
+	TooltipCallout = UIBlox.App.Dialog.TooltipCallout
+	SPATIAL_TOOLTIP_SPACING = VrSpatialUi.Constants.SPATIAL_TOOLTIP_SPACING
+
+	local UIManager = VrSpatialUi.UIManager
+	local MappedSignal = require(ChromeShared.Service.ChromeUtils).MappedSignal
+	local v52 = UIManager.getInstance():getBottomBarVisibility()
+
+	if v52 and isSpatial() then
+		u48 = MappedSignal.new(v52, function() -- line: 82
+			-- upvalues: v52 (copy)
+			return v52:get()
+		end)
+	end
+end
+
+local v53 = if not FFlagEnableConsoleExpControls then nil else require(ChromeShared.Parent.Parent.TopBar.Components.MenuIconContext)
+local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
+local v55 = game:DefineFastFlag("UseBindingForUnreadChat", false)
+local t1 = {}
+
+function areTooltipsDisplaying() -- line: 105
+	-- upvalues: t1 (copy)
+	local timestamp = tick()
+
+	for _, v59 in t1 do
+		if v59.displaying or timestamp - v59.time < 0.15 then
+			return true
+		end
+	end
+
+	return false
+end
+function logTooltipState(p1, b1: boolean) -- line: 117
+	-- upvalues: t1 (copy)
+	if not t1[p1] or b1 ~= t1[p1].displaying then
+		t1[p1] = {
+			displaying = b1,
+			time = tick()
+		}
+	end
+end
+function NotificationBadge(t2: {[any]: any}) -- line: 137
+	-- upvalues: v55 (copy), React (copy), useNotificationCount (copy), useMappedObservableValue (copy), Service (copy), GetFFlagSimpleChatUnreadMessageCount (copy), useTokens (copy), FFlagTokenizeUnibarConstantsWithStyleProvider (copy), UnibarStyle (copy), Constants (copy), FFlagExpChatShowGlobalChatTooltip (copy), Foundation (copy), StatusIndicator (copy), Flags2 (copy), StatusIndicatorVariant (copy)
+	if not t2.integration then
+		return nil
+	end
+
+	local v63 = nil
+	local u64 = nil
+	local v65 = nil
+	local v66 = nil
+	local u67 = nil
+	local u68 = false
+
+	if v55 then
+		local v69 = t2.integration.integration and t2.integration.integration.notification or nil
+		local v70
+
+		v63, v70 = React.useBinding(v69 and v69:get().value or 0)
+		u64 = v70
+
+		local v71
+
+		v66, v71 = React.useState(false)
+		u67 = v71
+		React.useEffect(function() -- line: 151
+			-- upvalues: v69 (copy), u67 (ref), u64 (ref)
+			if not v69 then
+				return
+			end
+
+			local v144 = v69:connect(function() -- line: 156
+				-- upvalues: v69 (copy), u67 (ref), u64 (ref)
+				local v171 = v69:get().value or 0
+
+				u67(v171 > 0)
+				u64(v171)
+			end)
+
+			return function() -- line: 161
+				-- upvalues: v144 (copy)
+				v144:disconnect()
+			end
+		end, { t2.integration.integration.id })
+	else
+		v65 = useNotificationCount(t2.integration.integration)
+
+		if useMappedObservableValue(Service:currentSubMenu(), function(p2) -- line: 169
+			-- upvalues: t2 (copy)
+			return p2 == t2.integration.id
+		end) then
+			v65 = 0
+		end
+
+		if t2.integration and t2.integration.integration then
+			u68 = t2.integration.integration.hideNotificationCountWhileOpen or false
+		end
+	end
+
+	local v72 = nil
+
+	if GetFFlagSimpleChatUnreadMessageCount() and t2.disableBadgeNumber then
+		v72 = useTokens()
+	end
+
+	local ICON_SIZE, ICON_BADGE_OFFSET_X, ICON_BADGE_OFFSET_Y
+
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		local v73 = UnibarStyle.use()
+
+		ICON_SIZE = v73.ICON_SIZE
+		ICON_BADGE_OFFSET_X = v73.ICON_BADGE_OFFSET_X
+		ICON_BADGE_OFFSET_Y = v73.ICON_BADGE_OFFSET_Y
+	else
+		ICON_SIZE = Constants.ICON_SIZE
+		ICON_BADGE_OFFSET_X = Constants.ICON_BADGE_OFFSET_X
+		ICON_BADGE_OFFSET_Y = Constants.ICON_BADGE_OFFSET_Y
+	end
+
+	local v77 = t2.minBadgeCount or 0
+	local v78 = if not FFlagExpChatShowGlobalChatTooltip then if not v55 then v65 > 0 else v66 else if not v55 then v65 > 0 or v77 > 0 else v66 or v77 > 0
+	local v79 = if not FFlagExpChatShowGlobalChatTooltip then if not v55 then math.min(v65, 99) else v63:map(function(p3) -- line: 223
+		return (math.min(p3, 99))
+	end) else if not v55 then math.min(math.max(v65, v77), 99) else v63:map(function(p4) -- line: 217
+		-- upvalues: v77 (copy)
+		return (math.min(math.max(p4, v77), 99))
+	end)
+
+	return React.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = if not GetFFlagSimpleChatUnreadMessageCount() or not t2.disableBadgeNumber then UDim2.fromScale(1, 1) else UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		Visible = not t2.toggleTransition or (t2.toggleTransition:map(function(p5) -- line: 234
+			-- upvalues: u68 (ref)
+			if u68 then
+				return p5 < 0.5
+			end
+
+			return true
+		end) or true),
+		ZIndex = 2
+	}, {
+		Badge = if not v78 then nil else if not GetFFlagSimpleChatUnreadMessageCount() or not t2.disableBadgeNumber then React.createElement(StatusIndicator, {
+			value = v79,
+			variant = if not Flags2.FoundationStatusIndicatorVariantExperiment then StatusIndicatorVariant.Emphasis else StatusIndicatorVariant.Contrast_Experiment,
+			AnchorPoint = Vector2.new(0, 0),
+			Position = UDim2.new(0, ICON_BADGE_OFFSET_X, 0, ICON_BADGE_OFFSET_Y)
+		}) else React.createElement(Foundation.View, {
+			Position = UDim2.new(1, 0, 0.2, 0),
+			backgroundStyle = {
+				Color3 = v72.Color.System.Contrast.Color3,
+				Transparency = 0
+			},
+			stroke = {
+				Color = v72.Color.Surface.Surface_0.Color3,
+				Transparency = 0,
+				Thickness = v72.Stroke.Thicker
+			},
+			tag = "anchor-top-right radius-circle size-200 stroke-thicker",
+			ZIndex = 2
+		})
+	})
+end
+function ChatNotificationBadge(t3: {[any]: any}) -- line: 274
+	-- upvalues: GetGlobalChatTooltipStore (copy), GetChatStatusStore (copy), SignalsReact (copy), isUserChatEnabled (copy), React (copy), GetFFlagTextChatEnableUniverseChatTabs (copy), TextChatService (copy)
+	local v81 = GetGlobalChatTooltipStore(false)
+	local v82 = GetChatStatusStore(false)
+	local v83 = SignalsReact.useSignalState(v81.getIsChatWindowOpen)
+	local v84 = isUserChatEnabled(SignalsReact.useSignalState(v82.getChatStatus))
+	local v85 = SignalsReact.useSignalState(v81.getIsGlobalChatTooltipDismissed)
+	local v86 = SignalsReact.useSignalState(v81.getIsGlobalChatTooltipEligible)
+	local v87 = SignalsReact.useSignalState(v81.getIsScreenWideEnough)
+	local v88 = t3.integration.id == "chat"
+	local v89, v90 = React.useState(false)
+
+	React.useEffect(function() -- line: 288
+		-- upvalues: GetFFlagTextChatEnableUniverseChatTabs (copy), TextChatService (copy), v90 (copy)
+		if not GetFFlagTextChatEnableUniverseChatTabs() then
+			return
+		end
+
+		if TextChatService:HasAllocatedUniverseChatContext("global") then
+			v90(true)
+		end
+
+		local connection = TextChatService.UniverseChatChannelAllocated:Connect(function(s1: string) -- line: 297
+			-- upvalues: v90 (copy)
+			if s1 == "global" then
+				v90(true)
+			end
+		end)
+
+		return function() -- line: 303
+			-- upvalues: connection (copy)
+			connection:Disconnect()
+		end
+	end, {})
+
+	local ChatWindowConfiguration = TextChatService:FindFirstChildOfClass("ChatWindowConfiguration")
+	local v92 = ChatWindowConfiguration == nil or ChatWindowConfiguration.HorizontalAlignment == Enum.HorizontalAlignment.Left and ChatWindowConfiguration.VerticalAlignment == Enum.VerticalAlignment.Top
+	local v93 = v88 and (v84 and (v86 and (v89 and (v92 and (v87 and not v85)))))
+	local setShouldShowGlobalChatTooltip = v81.setShouldShowGlobalChatTooltip
+
+	React.useEffect(function() -- line: 325
+		-- upvalues: v88 (copy), setShouldShowGlobalChatTooltip (copy), v93 (copy), v83 (copy)
+		if v88 then
+			setShouldShowGlobalChatTooltip(v93 and v83)
+		end
+	end, {
+		v88,
+		v93,
+		v83,
+		setShouldShowGlobalChatTooltip
+	})
+
+	local v95, v96 = React.useState(false)
+
+	React.useEffect(function() -- line: 332
+		-- upvalues: v93 (copy), v83 (copy), v96 (copy)
+		if v93 and v83 then
+			v96(true)
+		end
+	end, {
+		v93,
+		v83
+	})
+
+	local v97 = table.clone(t3)
+
+	if v93 and not v95 then
+		v97.minBadgeCount = 1
+	end
+
+	return React.createElement(NotificationBadge, v97)
+end
+function NotificationIndicator(t4: {[any]: any}) -- line: 349
+	-- upvalues: useObservableValue (copy), Service (copy), React (copy)
+	local v99 = useObservableValue(Service:notificationIndicator())
+
+	t4.setIconVisible(not v99)
+
+	return (React.createElement("Frame", {
+		Name = "NotificationIndicatorFrame",
+		Size = UDim2.new(1, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1
+	}, {
+		IntegrationIcon = v99 and v99.component(t4) or nil,
+		UIListLayout = React.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center
+		})
+	}))
+end
+function HighlightCircle(p6) -- line: 368
+	-- upvalues: FFlagTokenizeUnibarConstantsWithStyleProvider (copy), UnibarStyle (copy), Constants (copy), React (copy)
+	local v101 = if not FFlagTokenizeUnibarConstantsWithStyleProvider then Constants.ICON_HIGHLIGHT_SIZE else UnibarStyle.use().ICON_HIGHLIGHT_SIZE
+
+	return React.createElement("Frame", {
+		Name = p6.name or "Highlighter",
+		Size = v101,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		BackgroundColor3 = p6.color.Color,
+		BackgroundTransparency = p6.color.Transparency,
+		BorderSizePixel = 0,
+		Visible = p6.visible
+	}, {
+		corner = React.createElement("UICorner", {
+			CornerRadius = UDim.new(1, 0)
+		})
+	})
+end
+function TooltipButton(t5: {[any]: any}) -- line: 398
+	-- upvalues: FFlagTokenizeUnibarConstantsWithStyleProvider (copy), UnibarStyle (copy), Constants (copy), React (copy), useTimeHysteresis (copy), isInExperienceUIVREnabled (copy), isSpatial (ref), useObservableValue (copy), Service (copy), u48 (ref), ControlState (copy), ChromeAnalytics (copy), UserInputService (copy), shouldRejectMultiTouch (copy), FFlagEnableConsoleExpControls (copy), v53 (copy), Interactable (copy), FFlagUnibarMenuOpenHamburger (copy), FFlagUnibarMenuOpenSubmenu (copy), useCursor (copy), Foundation (copy), Panel3DInSpatialUI (ref), PanelType (ref), SPATIAL_TOOLTIP_SPACING (ref), TooltipCallout (ref), TooltipOrientation (ref), withTooltip (copy), CoreGui (copy)
+	local u103 = if not FFlagTokenizeUnibarConstantsWithStyleProvider then Constants.ICON_HIGHLIGHT_SIZE else UnibarStyle.use().ICON_HIGHLIGHT_SIZE
+	local v104 = React.useRef(nil)
+	local secondaryAction = t5.integration.integration.secondaryAction
+	local u106 = t5.integration.integration.draggable or false
+	local v107 = React.useRef(nil)
+
+	React.useEffect(function() -- line: 414
+		-- upvalues: v107 (copy)
+		return function() -- line: 415
+			-- upvalues: v107 (copy)
+			if v107.current then
+				v107.current:Disconnect()
+				v107.current = nil
+			end
+		end
+	end, {})
+
+	local v108, u110
+
+	if secondaryAction then
+		local v109
+
+		v108, v109 = useTimeHysteresis(0.05, 0.15, 0.35)
+		u110 = v109
+	else
+		local v111
+
+		v108, v111 = useTimeHysteresis(0.6, 0.65, 0.7)
+		u110 = v111
+	end
+
+	local v112, v113 = useTimeHysteresis(0, 0, 0.65)
+	local v114, v115 = React.useState(false)
+	local v116, v117 = useTimeHysteresis(0, 1)
+	local v118 = if not isInExperienceUIVREnabled then nil else isSpatial()
+	local v119 = if not isInExperienceUIVREnabled then nil else useObservableValue(Service:getTopBarVisibiity())
+	local v120 = if not isInExperienceUIVREnabled or not u48 then nil else useObservableValue(u48)
+	local u121 = false
+
+	if isInExperienceUIVREnabled and v118 and not v119 and not v120 then
+		u121 = true
+		u106 = u106 and not u121
+	end
+
+	local v122 = React.useCallback(function(p7, p8) -- line: 453
+		-- upvalues: isInExperienceUIVREnabled (copy), u121 (ref), ControlState (copy), Service (copy), t5 (copy), u110 (ref), v112 (copy), v117 (copy)
+		if isInExperienceUIVREnabled and u121 then
+			return
+		end
+
+		if p8 == ControlState.Selected and (p7 == ControlState.Default or p7 == ControlState.Hover) then
+			Service:setSelected(t5.integration.id)
+		elseif p8 == ControlState.Selected and p7 == ControlState.Default then
+			Service:setSelected(t5.integration.id)
+		end
+
+		local v152 = p8 ~= ControlState.Default
+
+		t5.setHovered(v152)
+
+		local v153 = p8 == ControlState.Hover
+
+		u110(v153, v153 and v112 or areTooltipsDisplaying())
+
+		if v153 then
+			Service:onIntegrationHovered():fire(t5.integration.id)
+		end
+
+		if not v152 then
+			v117(false)
+		end
+	end, if not isInExperienceUIVREnabled then {
+		t5.setHovered,
+		u110,
+		v117,
+		v112
+	} else {
+		t5.setHovered,
+		u110,
+		v117,
+		v112,
+		v118,
+		u121
+	})
+	local v123 = React.useCallback(function(_, p10) -- line: 489
+		-- upvalues: u106 (ref), v117 (copy), ChromeAnalytics (copy), t5 (copy), v107 (copy), UserInputService (copy), shouldRejectMultiTouch (copy), Service (copy), Constants (copy)
+		if not u106 then
+			return
+		end
+
+		if p10.UserInputType == Enum.UserInputType.MouseButton1 or p10.UserInputType == Enum.UserInputType.Touch then
+			local p10Position = p10.Position
+
+			v117(true, true)
+			ChromeAnalytics.default:onIconTouchBegan(t5.integration.id)
+
+			if not v107.current then
+				v107.current = UserInputService.InputChanged:Connect(function(input, _) -- line: 502
+					-- upvalues: shouldRejectMultiTouch (copy), p10 (copy), Service (copy), t5 (copy), v107 (copy), p10Position (copy), Constants (copy), ChromeAnalytics (copy)
+					if shouldRejectMultiTouch(p10, input) then
+						return
+					end
+
+					if Service:isWindowOpen(t5.integration.id) or not v107.current then
+						return
+					end
+
+					local inputPosition = input.Position
+
+					if math.abs((p10Position - inputPosition).Magnitude) > Constants.DRAG_MAGNITUDE_THRESHOLD then
+						ChromeAnalytics.default:onIconDrag(t5.integration.id)
+						Service:storeChromeInteracted()
+						Service:toggleWindow(t5.integration.id)
+						Service:gesture(t5.integration.id, v107, p10)
+					end
+				end)
+			end
+		end
+	end, { u106 })
+	local v124 = React.useCallback(function(_, p13) -- line: 528
+		-- upvalues: u106 (ref), v117 (copy), v107 (copy), Service (copy), t5 (copy)
+		if not u106 then
+			return
+		end
+
+		if p13.UserInputType == Enum.UserInputType.MouseButton1 or p13.UserInputType == Enum.UserInputType.Touch then
+			v117(false)
+
+			if v107.current then
+				v107.current:Disconnect()
+				v107.current = nil
+				Service:gesture(t5.integration.id, nil)
+			end
+		end
+	end, { u106 })
+	local u125 = (v108 or (v112 or v114)) and not v116
+
+	if isInExperienceUIVREnabled and u125 and u121 then
+		u125 = false
+	end
+
+	logTooltipState(t5.integration.id, u125)
+
+	local v126 = if not FFlagEnableConsoleExpControls then nil else React.useContext(v53)
+	local v127 = React.useCallback(function(p14) -- line: 556
+		-- upvalues: FFlagEnableConsoleExpControls (copy), Service (copy), React (copy), Interactable (copy), Constants (copy), t5 (copy), u103 (ref), v122 (copy), v104 (copy), FFlagUnibarMenuOpenHamburger (copy), FFlagUnibarMenuOpenSubmenu (copy), useCursor (copy), Foundation (copy), u125 (ref), secondaryAction (copy), v126 (copy), v123 (copy), v124 (copy), isInExperienceUIVREnabled (copy), v118 (copy), u121 (ref), v117 (copy), v107 (copy)
+		local id = nil
+
+		if FFlagEnableConsoleExpControls then
+			id = Service:menuList():get()[1].id
+		end
+
+		return React.createElement(Interactable, {
+			Name = (not FFlagEnableConsoleExpControls and "IconHitArea_" or Constants.ICON_NAME_PREFIX) .. t5.integration.id,
+			Size = u103,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			onStateChanged = v122,
+			ref = v104,
+			SelectionOrder = if not FFlagUnibarMenuOpenHamburger and not FFlagUnibarMenuOpenSubmenu then 100 - t5.integration.order else t5.integration.order,
+			Position = t5.isCurrentlyOpenSubMenu:map(function(b2: boolean?) -- line: 574
+				-- upvalues: FFlagEnableConsoleExpControls (copy)
+				return UDim2.new(0.5, 0, 0.5, (FFlagEnableConsoleExpControls or not b2) and 0 or 1)
+			end),
+			SelectionImageObject = useCursor(Foundation.Enums.CursorType.SkinToneCircle),
+			SelectionGroup = true,
+			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorDown = t5.isCurrentlyOpenSubMenu:map(function(b3: boolean?) -- line: 580
+				-- upvalues: u125 (ref), secondaryAction (copy)
+				if u125 and secondaryAction or b3 then
+					return Enum.SelectionBehavior.Escape
+				end
+
+				return Enum.SelectionBehavior.Stop
+			end),
+			NextSelectionLeft = if not FFlagEnableConsoleExpControls or id ~= t5.integration.id then nil else v126.menuIconRef,
+			[React.Change.AbsolutePosition] = p14,
+			[React.Change.AbsoluteSize] = p14,
+			[React.Event.InputBegan] = v123,
+			[React.Event.InputEnded] = v124,
+			[React.Event.Activated] = function() -- line: 594
+				-- upvalues: isInExperienceUIVREnabled (copy), v118 (copy), u121 (ref), Service (copy), v117 (copy), t5 (copy), v107 (copy)
+				if isInExperienceUIVREnabled and v118 then
+					if u121 then
+						return
+					end
+
+					Service:onTriggerVRToggleButton():fire(true)
+				end
+
+				v117(true, true)
+				t5.integration.activated()
+
+				if v107.current then
+					v107.current:Disconnect()
+					v107.current = nil
+					Service:gesture(t5.integration.id, nil)
+				end
+			end
+		}, {
+			corner = React.createElement("UICorner", {
+				CornerRadius = UDim.new(1, 0)
+			})
+		})
+	end, {
+		v122,
+		u110,
+		v117,
+		v123,
+		v124,
+		t5.isCurrentlyOpenSubMenu,
+		u125,
+		secondaryAction,
+		if not isInExperienceUIVREnabled then nil else u121,
+		if not FFlagEnableConsoleExpControls then nil else v126.menuIconRef
+	})
+	local v128 = React.useRef(nil)
+	local v129 = React.useCallback(function(p15) -- line: 631
+		-- upvalues: v128 (copy), v113 (copy)
+		local u162 = nil
+		local u163 = nil
+		local u164 = nil
+
+		if p15 ~= v128.current then
+			pcall(function() -- line: 638
+				-- upvalues: u162 (ref), u163 (ref), u164 (ref)
+				if u162 then
+					u162:disconnect()
+					u162 = nil
+				end
+
+				if u163 then
+					u163:disconnect()
+					u163 = nil
+				end
+
+				if u164 then
+					u164:disconnect()
+					u164 = nil
+				end
+			end)
+
+			if p15 then
+				u162 = p15.MouseEnter:Connect(function() -- line: 656
+					-- upvalues: v113 (copy)
+					v113(true, true)
+				end)
+				u163 = p15.MouseLeave:Connect(function() -- line: 659
+					-- upvalues: v113 (copy)
+					v113(false)
+				end)
+				u164 = p15.Destroying:Connect(function() -- line: 662
+					-- upvalues: v113 (copy)
+					v113(false)
+				end)
+			end
+
+			v128.current = p15
+		end
+	end, { v113 })
+	local v130 = if not secondaryAction then nil else {
+		text = secondaryAction.label,
+		onStateChanged = function(_, p17) --[[ onStateChanged ]] -- line: 673
+			-- upvalues: ControlState (copy), v115 (copy)
+			if p17 == ControlState.Selected then
+				v115(true)
+
+				return
+			end
+
+			v115(false)
+		end,
+		onActivated = function() --[[ onActivated ]] -- line: 680
+			-- upvalues: secondaryAction (copy), t5 (copy)
+			secondaryAction.activated(t5.integration)
+		end,
+		NextSelectionUp = v104,
+		NextSelectionLeft = v104,
+		NextSelectionRight = v104,
+		NextSelectionDown = v104
+	}
+
+	if isInExperienceUIVREnabled and v118 then
+		local v131, v132 = React.useBinding(Vector2.zero)
+		local v133, v134 = React.useBinding(Vector2.zero)
+		local v135 = React.useCallback(function(p18) -- line: 694
+			-- upvalues: v132 (copy), v134 (copy)
+			v132(p18.AbsolutePosition)
+			v134(p18.AbsoluteSize)
+		end, {
+			v132,
+			v134
+		})
+
+		return React.createElement(React.Fragment, nil, {
+			VRSpatialTooltip = if not u125 or not Panel3DInSpatialUI then nil else React.createElement(Panel3DInSpatialUI, {
+				panelType = PanelType.ToolTipsContainer,
+				renderFunction = function(vector2: Vector2) --[[ renderFunction ]] -- line: 706
+					-- upvalues: v131 (copy), v133 (copy), SPATIAL_TOOLTIP_SPACING (ref), React (copy), TooltipCallout (ref), t5 (copy), TooltipOrientation (ref), v130 (copy), secondaryAction (copy), v129 (copy)
+					local vector2_2 = Vector2.new(v131:getValue().X + v133:getValue().X / 2, vector2.Y - SPATIAL_TOOLTIP_SPACING)
+
+					return React.createElement(TooltipCallout, {
+						textAlignment = Enum.TextXAlignment.Center,
+						headerText = t5.integration.integration.label,
+						orientation = TooltipOrientation.Top,
+						distanceOffset = 0,
+						triggerPointCenter = vector2_2,
+						contentOffsetVector = Vector2.zero,
+						triggerPointRadius = Vector2.zero,
+						buttonProps = v130,
+						ref = if not secondaryAction then nil else v129
+					})
+				end
+			}),
+			v127(v135)
+		})
+	end
+
+	return withTooltip({
+		headerText = t5.integration.integration.label,
+		hotkeyCodes = t5.integration.integration.hotkeyCodes,
+		textAlignment = Enum.TextXAlignment.Left,
+		buttonProps = v130,
+		ref = if not secondaryAction then nil else v129
+	}, {
+		active = u125,
+		guiTarget = CoreGui,
+		DisplayOrder = 10
+	}, v127)
+end
+function IconHost(t6: {[any]: any}) -- line: 745
+	-- upvalues: React (copy), useStyle (copy), FFlagTokenizeUnibarConstantsWithStyleProvider (copy), UnibarStyle (copy), Constants (copy), useMappedObservableValueBinding (copy), Service (copy), FFlagEnableConsoleExpControls (copy), FFlagExpChatShowGlobalChatTooltip (copy)
+	if not t6.integration or not t6.integration.component then
+		warn("IconHost has no component to render")
+	end
+
+	local v137, v138 = React.useBinding(false)
+	local v139, v140 = React.useBinding(true)
+	local BackgroundOnHover = useStyle().Theme.BackgroundOnHover
+	local v142 = if not FFlagTokenizeUnibarConstantsWithStyleProvider then Constants.ICON_CELL_WIDTH else UnibarStyle.use().ICON_CELL_WIDTH
+	local v143 = useMappedObservableValueBinding(Service:currentSubMenu(), function(p19) -- line: 768
+		-- upvalues: t6 (copy)
+		return p19 == t6.integration.id
+	end)
+
+	return React.createElement("Frame", {
+		Size = UDim2.new(0, v142, 0, v142),
+		LayoutOrder = t6.integration.order,
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+		Position = t6.position,
+		Visible = t6.visible,
+		ZIndex = if not FFlagEnableConsoleExpControls then t6.integration.order else nil
+	}, {
+		React.createElement("Frame", {
+			Name = "IntegrationIconFrame",
+			Size = UDim2.new(1, 0, 1, 0),
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			Visible = v139
+		}, {
+			IntegrationIcon = t6.integration and (not not t6.integration.component and t6.integration.component(t6)) or nil,
+			UIListLayout = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center
+			})
+		}),
+		if not t6.integration.integration.flashNotificationSource then nil else React.createElement(NotificationIndicator, {
+			integration = t6.integration,
+			setIconVisible = v140
+		}),
+		React.createElement(HighlightCircle, {
+			name = "SelectedHighlighter",
+			color = BackgroundOnHover,
+			visible = v143
+		}),
+		React.createElement(HighlightCircle, {
+			name = "Highlighter",
+			color = BackgroundOnHover,
+			visible = v137
+		}),
+		if not FFlagExpChatShowGlobalChatTooltip or t6.integration.id ~= "chat" then React.createElement(NotificationBadge, t6) else React.createElement(ChatNotificationBadge, t6),
+		if not t6.disableButtonBehaviors then React.createElement(TooltipButton, {
+			integration = t6.integration,
+			setHovered = v138,
+			isCurrentlyOpenSubMenu = v143
+		}) else nil
+	})
+end
+
+return IconHost

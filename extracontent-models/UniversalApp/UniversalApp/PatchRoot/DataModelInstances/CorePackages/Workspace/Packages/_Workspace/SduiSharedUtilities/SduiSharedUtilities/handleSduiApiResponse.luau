@@ -1,195 +1,252 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SduiSharedUtilities");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.Signals);
-local v3 = require(l_Parent_0.SduiCoreSystem);
-local l_SduiErrors_0 = v3.SduiErrors;
-local l_SduiLogger_0 = v3.SduiLogger;
-local v6 = require(l_script_FirstAncestor_0.getSduiTemplateStore);
-local v7 = require(l_script_FirstAncestor_0.SduiProtobufResponseHelpers);
-local _ = require(l_script_FirstAncestor_0.SduiLoadTimer);
-local l_SduiRequestStatus_0 = require(l_script_FirstAncestor_0.SduiIntegrationTypes).SduiRequestStatus;
-local l_getSduiClientBindingBuilder_0 = v3.getSduiClientBindingBuilder;
-local l_createBuilderConfig_0 = v3.createBuilderConfig;
-local l_getSduiDataBinder_0 = v3.getSduiDataBinder;
-local l_FFlagSduiAllowNoConfigsBuilt_0 = require(l_Parent_0.SharedFlags).FFlagSduiAllowNoConfigsBuilt;
-local l_FFlagSduiLocalizedLiterals_0 = require(l_Parent_0.SharedFlags).FFlagSduiLocalizedLiterals;
-local l_FFlagSduiChartsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiChartsSupport;
-local function v16(v17, v18) --[[ Line: 33 ]] --[[ Name: mergeTables ]]
-    -- upvalues: v16 (copy)
-    for v19, v20 in v18 do
-        if typeof(v20) == "table" then
-            if v17[v19] == nil then
-                v17[v19] = {};
-            end;
-            if #v20 > 0 then
-                for _, v22 in v20 do
-                    table.insert(v17[v19], v22);
-                end;
-            else
-                v16(v17[v19], v20);
-            end;
-        else
-            v17[v19] = v20;
-        end;
-    end;
-end;
-local function _(v23, v24) --[[ Line: 55 ]] --[[ Name: getUpdatedInputData ]]
-    -- upvalues: v16 (copy)
-    local v25 = table.clone(v23);
-    v16(v25, v24);
-    return v25;
-end;
-return function(v27) --[[ Line: 72 ]] --[[ Name: handleSduiApiResponse ]]
-    -- upvalues: l_FFlagSduiAllowNoConfigsBuilt_0 (copy), l_SduiRequestStatus_0 (copy), l_SduiLogger_0 (copy), l_SduiErrors_0 (copy), l_getSduiDataBinder_0 (copy), v6 (copy), l_FFlagSduiLocalizedLiterals_0 (copy), v7 (copy), v16 (copy), l_createBuilderConfig_0 (copy), l_getSduiClientBindingBuilder_0 (copy), l_FFlagSduiChartsSupport_0 (copy)
-    local l_response_0 = v27.response;
-    local l_decodeResponse_0 = v27.decodeResponse;
-    local l_parsePageEntriesFromResponse_0 = v27.parsePageEntriesFromResponse;
-    local l_parseHydrationDataFromResponse_0 = v27.parseHydrationDataFromResponse;
-    local l_parseTemplateEntriesFromResponse_0 = v27.parseTemplateEntriesFromResponse;
-    local l_getInputDataSignalsForRequest_0 = v27.getInputDataSignalsForRequest;
-    local l_loadTimer_0 = v27.loadTimer;
-    local l_surfaceKey_0 = v27.surfaceKey;
-    local v36 = v27.configCacheKey or v27.surfaceKey;
-    local l_paginateResponse_0 = v27.paginateResponse;
-    local l_buildNextPageUrl_0 = v27.buildNextPageUrl;
-    local v39 = if l_FFlagSduiAllowNoConfigsBuilt_0 then v27.allowNoConfigsBuilt else nil;
-    assert(v36, "configCacheKey must exist");
-    l_loadTimer_0.logNetRequestStats(l_response_0.Stats);
-    l_loadTimer_0.logResponseDecodeBegin();
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 110 ]]
-        -- upvalues: l_decodeResponse_0 (copy), l_response_0 (copy)
-        return (l_decodeResponse_0(l_response_0.Body));
-    end);
-    l_loadTimer_0.logResponseDecodeEnd();
-    if not l_status_0 then
-        l_loadTimer_0.updateRequestStatus(l_SduiRequestStatus_0.FailedToLoad);
-        l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToDecodeResponse, {
-            debugName = v36, 
-            message = l_result_0
-        }, l_surfaceKey_0);
-        error("Failed to decode");
-    end;
-    l_loadTimer_0.logResponseDataUpdateBegin();
-    if l_parseHydrationDataFromResponse_0 then
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 133 ]]
-            -- upvalues: l_parseHydrationDataFromResponse_0 (copy), l_result_0 (copy), l_getSduiDataBinder_0 (ref)
-            local v42 = l_parseHydrationDataFromResponse_0(l_result_0);
-            l_getSduiDataBinder_0().updateDataStores(v42);
-        end);
-        if not l_status_1 then
-            l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToUpdateDataStores, {
-                debugName = v36, 
-                message = l_result_1
-            }, l_surfaceKey_0);
-        end;
-    end;
-    local v45 = {};
-    if l_parseTemplateEntriesFromResponse_0 then
-        local l_status_2, l_result_2 = pcall(function() --[[ Line: 149 ]]
-            -- upvalues: v45 (ref), l_parseTemplateEntriesFromResponse_0 (copy), l_result_0 (copy), v6 (ref)
-            local _ = nil;
-            local v47, v48 = l_parseTemplateEntriesFromResponse_0(l_result_0);
-            v45 = v48;
-            v6().addTemplates(v47);
-        end);
-        if not l_status_2 then
-            l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToAddTemplates, {
-                debugName = v36, 
-                message = l_result_2
-            }, l_surfaceKey_0);
-        end;
-    end;
-    l_loadTimer_0.logResponseDataUpdateEnd();
-    l_loadTimer_0.logSduiTreeBuildBegin();
-    local v51 = if l_parsePageEntriesFromResponse_0 then l_parsePageEntriesFromResponse_0(l_result_0) else {};
-    local v52 = if l_FFlagSduiLocalizedLiterals_0 then v7.parseLocalizedLiteralsFromResponse(l_result_0) else nil;
-    local v53 = {};
-    local v54 = #v51 > 1;
-    for _, v56 in v51 do
-        local l_identifier_0 = v56.identifier;
-        local v58 = if v54 and l_identifier_0 and l_identifier_0 ~= "" then ("%*_%*"):format(v36, l_identifier_0) else v36;
-        local l_componentInputData_0 = v56.componentInputData;
-        local v60 = l_getInputDataSignalsForRequest_0(v58);
-        local v61 = v60.get(false);
-        if l_paginateResponse_0 and v61 then
-            if l_componentInputData_0 then
-                local v62 = v60.get(false);
-                local v63 = table.clone(v62);
-                v16(v63, l_componentInputData_0);
-                v60.set(v63);
-            end;
-        else
-            v60.set(l_componentInputData_0);
-        end;
-        if not (l_paginateResponse_0 and v61) then
-            local l_robloxComponentType_0 = v56.robloxComponentType;
-            if not l_robloxComponentType_0 then
-                l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToAddTemplates, {
-                    debugName = v36, 
-                    message = "Page entry missing robloxComponentType"
-                }, l_surfaceKey_0);
-                continue;
-            else
-                local v65 = v45[l_robloxComponentType_0];
-                if not v65 then
-                    l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToMapRobloxComponentToTemplate, {
-                        debugName = v36, 
-                        name = l_robloxComponentType_0, 
-                        message = ("Missing template for robloxComponentType %*"):format(l_robloxComponentType_0)
-                    }, l_surfaceKey_0);
-                    continue;
-                else
-                    local l_status_3, l_result_3 = pcall(function() --[[ Line: 225 ]]
-                        -- upvalues: l_createBuilderConfig_0 (ref), l_surfaceKey_0 (copy), v36 (copy), v45 (ref), v52 (copy), l_getSduiClientBindingBuilder_0 (ref), v65 (copy), v60 (copy)
-                        local v67 = l_createBuilderConfig_0({
-                            appPage = l_surfaceKey_0, 
-                            debugName = v36, 
-                            getTemplateForRobloxComponent = function(v66) --[[ Line: 229 ]] --[[ Name: getTemplateForRobloxComponent ]]
-                                -- upvalues: v45 (ref)
-                                return v45[v66];
-                            end, 
-                            localizedLiterals = v52
-                        });
-                        return (l_getSduiClientBindingBuilder_0().buildConfigForComponent(v65, v60.get, v67));
-                    end);
-                    if l_status_3 then
-                        if v53[v58] then
-                            l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.DuplicateOrMissingIdentifier, {
-                                debugName = v58, 
-                                name = l_robloxComponentType_0, 
-                                message = ("Existing config found for cacheKey %*. Need to specify identifer in page entry for multiple configs"):format(v58)
-                            }, l_surfaceKey_0);
-                        end;
-                        v53[v58] = {
-                            config = l_result_3, 
-                            dataUpdatedTimestamp = if l_FFlagSduiChartsSupport_0 then os.clock() else nil
-                        };
-                    else
-                        l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToBuildClientBindingConfig, {
-                            debugName = v36, 
-                            name = l_robloxComponentType_0, 
-                            message = ("%*"):format(l_result_3)
-                        }, l_surfaceKey_0);
-                    end;
-                    if v56.title and v53[v58] then
-                        v53[v58].title = v56.title;
-                    end;
-                end;
-            end;
-        end;
-        v53[v58] = v53[v58] or {};
-        if l_buildNextPageUrl_0 then
-            v53[v58].nextPageUrl = l_buildNextPageUrl_0(l_result_0) or "";
-        else
-            v53[v58].nextPageUrl = "";
-        end;
-    end;
-    if not next(v53) and not l_paginateResponse_0 and (not l_FFlagSduiAllowNoConfigsBuilt_0 or not v39) then
-        l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.NoComponentConfigsBuilt, {
-            debugName = v36, 
-            message = ("No configs built when handling proto response for %*"):format(v36)
-        }, l_surfaceKey_0);
-    end;
-    l_loadTimer_0.logSduiTreeBuildEnd();
-    return v53;
-end;
+local SduiSharedUtilities = script:FindFirstAncestor("SduiSharedUtilities")
+local SduiSharedUtilitiesParent = SduiSharedUtilities.Parent
+
+require(SduiSharedUtilitiesParent.Signals)
+
+local SduiCoreSystem = require(SduiSharedUtilitiesParent.SduiCoreSystem)
+local SduiErrors = SduiCoreSystem.SduiErrors
+local SduiLogger = SduiCoreSystem.SduiLogger
+local getSduiTemplateStore = require(SduiSharedUtilities.getSduiTemplateStore)
+local SduiProtobufResponseHelpers = require(SduiSharedUtilities.SduiProtobufResponseHelpers)
+
+require(SduiSharedUtilities.SduiLoadTimer)
+
+local SduiRequestStatus = require(SduiSharedUtilities.SduiIntegrationTypes).SduiRequestStatus
+local getSduiClientBindingBuilder = SduiCoreSystem.getSduiClientBindingBuilder
+local createBuilderConfig = SduiCoreSystem.createBuilderConfig
+local getSduiDataBinder = SduiCoreSystem.getSduiDataBinder
+local FFlagSduiAllowNoConfigsBuilt = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiAllowNoConfigsBuilt
+local FFlagSduiLocalizedLiterals = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiLocalizedLiterals
+local FFlagSduiChartsSupport = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiChartsSupport
+local FFlagEnableSduiV2HomepagePrompts = require(SduiSharedUtilitiesParent.SharedFlags).FFlagEnableSduiV2HomepagePrompts
+local FFlagSduiImprovedErrorDimensions = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiImprovedErrorDimensions
+
+local function mergeTables(t1: {[any]: any}, t2: {[any]: any}) -- line: 36
+	-- upvalues: mergeTables (copy)
+	for v20, v21 in t2 do
+		if typeof(v21) == "table" then
+			if t1[v20] == nil then
+				t1[v20] = {}
+			end
+
+			if #v21 > 0 then
+				for _, v23 in v21 do
+					table.insert(t1[v20], v23)
+				end
+			else
+				mergeTables(t1[v20], v21)
+			end
+		else
+			t1[v20] = v21
+		end
+	end
+end
+
+return function(t3: {[any]: any}) --[[ handleSduiApiResponse ]] -- line: 75
+	-- upvalues: FFlagSduiAllowNoConfigsBuilt (copy), SduiRequestStatus (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiImprovedErrorDimensions (copy), getSduiDataBinder (copy), getSduiTemplateStore (copy), FFlagSduiLocalizedLiterals (copy), SduiProtobufResponseHelpers (copy), mergeTables (copy), createBuilderConfig (copy), getSduiClientBindingBuilder (copy), FFlagSduiChartsSupport (copy), FFlagEnableSduiV2HomepagePrompts (copy)
+	local response = t3.response
+	local decodeResponse = t3.decodeResponse
+	local parsePageEntriesFromResponse = t3.parsePageEntriesFromResponse
+	local parseHydrationDataFromResponse = t3.parseHydrationDataFromResponse
+	local parseTemplateEntriesFromResponse = t3.parseTemplateEntriesFromResponse
+	local getInputDataSignalsForRequest = t3.getInputDataSignalsForRequest
+	local loadTimer = t3.loadTimer
+	local surfaceKey = t3.surfaceKey
+	local v36 = t3.configCacheKey or t3.surfaceKey
+	local paginateResponse = t3.paginateResponse
+	local buildNextPageUrl = t3.buildNextPageUrl
+	local v39 = if not FFlagSduiAllowNoConfigsBuilt then nil else t3.allowNoConfigsBuilt
+
+	assert(v36, "configCacheKey must exist")
+	loadTimer.logNetRequestStats(response.Stats)
+	loadTimer.logResponseDecodeBegin()
+
+	local ok, result = pcall(function() -- line: 113
+		-- upvalues: decodeResponse (copy), response (copy)
+		return (decodeResponse(response.Body))
+	end)
+
+	loadTimer.logResponseDecodeEnd()
+
+	local g60 = nil
+	local g61 = nil
+
+	if not ok then
+		loadTimer.updateRequestStatus(SduiRequestStatus.FailedToLoad)
+		SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToDecodeResponse, {
+			debugName = if not FFlagSduiImprovedErrorDimensions then v36 else nil,
+			name = if not FFlagSduiImprovedErrorDimensions then nil else v36,
+			message = result
+		}, surfaceKey)
+		error("Failed to decode")
+	end
+
+	loadTimer.logResponseDataUpdateBegin()
+
+	if parseHydrationDataFromResponse then
+		local ok2, result2 = pcall(function() -- line: 137
+			-- upvalues: parseHydrationDataFromResponse (copy), result (copy), getSduiDataBinder (copy)
+			local v66 = parseHydrationDataFromResponse(result)
+
+			getSduiDataBinder().updateDataStores(v66)
+		end)
+
+		if not ok2 then
+			SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToUpdateDataStores, {
+				debugName = if not FFlagSduiImprovedErrorDimensions then v36 else nil,
+				name = if not FFlagSduiImprovedErrorDimensions then nil else v36,
+				message = result2
+			}, surfaceKey)
+		end
+	end
+
+	local t4 = {}
+
+	if parseTemplateEntriesFromResponse then
+		local ok3, result3 = pcall(function() -- line: 154
+			-- upvalues: t4 (ref), parseTemplateEntriesFromResponse (copy), result (copy), getSduiTemplateStore (copy)
+			local v67, v68 = parseTemplateEntriesFromResponse(result)
+
+			t4 = v68
+			getSduiTemplateStore().addTemplates(v67)
+		end)
+
+		if not ok3 then
+			SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToAddTemplates, {
+				debugName = if not FFlagSduiImprovedErrorDimensions then v36 else nil,
+				name = if not FFlagSduiImprovedErrorDimensions then nil else v36,
+				message = result3
+			}, surfaceKey)
+		end
+	end
+
+	loadTimer.logResponseDataUpdateEnd()
+	loadTimer.logSduiTreeBuildBegin()
+
+	local v47 = if not parsePageEntriesFromResponse then {} else parsePageEntriesFromResponse(result)
+	local v48 = if not FFlagSduiLocalizedLiterals then nil else SduiProtobufResponseHelpers.parseLocalizedLiteralsFromResponse(result)
+	local t5 = {}
+	local v50 = #v47 > 1
+
+	for _, v52 in v47 do
+		local identifier = v52.identifier
+		local v54 = if not v50 or (not identifier or identifier == "") then v36 else `{ v36 }_{ identifier }`
+		local componentInputData = v52.componentInputData
+		local v56 = getInputDataSignalsForRequest(v54)
+		local v57 = v56.get(false)
+
+		if paginateResponse and v57 then
+			if componentInputData then
+				local v58 = v56.get(false)
+				local v59 = table.clone(v58)
+
+				mergeTables(v59, componentInputData)
+				v56.set(v59)
+			end
+		else
+			v56.set(componentInputData)
+		end
+
+		repeat
+			if g60 or not not (paginateResponse and v57) then
+				g60 = false
+				t5[v54] = t5[v54] or {}
+
+				if buildNextPageUrl then
+					t5[v54].nextPageUrl = buildNextPageUrl(result) or ""
+				else
+					t5[v54].nextPageUrl = ""
+				end
+
+				g61 = true
+
+				break
+			end
+
+			local robloxComponentType = v52.robloxComponentType
+
+			if robloxComponentType then
+				local v63 = t4[robloxComponentType]
+
+				if not v63 then
+					SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToMapRobloxComponentToTemplate, {
+						debugName = if not FFlagSduiImprovedErrorDimensions then v36 else nil,
+						name = robloxComponentType,
+						message = `Missing template for robloxComponentType { robloxComponentType }`
+					}, surfaceKey)
+					g61 = true
+
+					break
+				end
+
+				local ok4, result4 = pcall(function() -- line: 232
+					-- upvalues: createBuilderConfig (copy), surfaceKey (copy), v36 (copy), t4 (ref), v48 (copy), getSduiClientBindingBuilder (copy), v63 (copy), v56 (copy)
+					local v69 = createBuilderConfig({
+						appPage = surfaceKey,
+						debugName = v36,
+						getTemplateForRobloxComponent = function(p1) --[[ getTemplateForRobloxComponent ]] -- line: 236
+							-- upvalues: t4 (ref)
+							return t4[p1]
+						end,
+						localizedLiterals = v48
+					})
+
+					return (getSduiClientBindingBuilder().buildConfigForComponent(v63, v56.get, v69))
+				end)
+
+				if ok4 then
+					if t5[v54] then
+						SduiLogger.reportError(SduiErrors.SduiErrorType.DuplicateOrMissingIdentifier, {
+							debugName = if not FFlagSduiImprovedErrorDimensions then v54 else nil,
+							name = robloxComponentType,
+							message = `Existing config found for cacheKey { v54 }. Need to specify identifer in page entry for multiple configs`
+						}, surfaceKey)
+					end
+
+					t5[v54] = {
+						config = result4,
+						dataUpdatedTimestamp = if not FFlagSduiChartsSupport then nil else os.clock(),
+						identifier = if not FFlagEnableSduiV2HomepagePrompts then nil else identifier,
+						robloxComponentType = if not FFlagEnableSduiV2HomepagePrompts then nil else robloxComponentType
+					}
+				else
+					SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToBuildClientBindingConfig, {
+						debugName = if not FFlagSduiImprovedErrorDimensions then v36 else nil,
+						name = robloxComponentType,
+						message = `{ result4 }`
+					}, surfaceKey)
+				end
+
+				if v52.title and t5[v54] then
+					t5[v54].title = v52.title
+				end
+
+				g60 = true
+			end
+		until not g60
+
+		if g61 then
+			g61 = false
+
+			continue
+		end
+
+		SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToAddTemplates, {
+			debugName = if not FFlagSduiImprovedErrorDimensions then v36 else nil,
+			name = if not FFlagSduiImprovedErrorDimensions then nil else v36,
+			message = "Page entry missing robloxComponentType"
+		}, surfaceKey)
+	end
+
+	if not next(t5) and not paginateResponse and (not FFlagSduiAllowNoConfigsBuilt or not v39) then
+		SduiLogger.reportError(SduiErrors.SduiErrorType.NoComponentConfigsBuilt, {
+			debugName = if not FFlagSduiImprovedErrorDimensions then v36 else nil,
+			name = if not FFlagSduiImprovedErrorDimensions then nil else v36,
+			message = `No configs built when handling proto response for { v36 }`
+		}, surfaceKey)
+	end
+
+	loadTimer.logSduiTreeBuildEnd()
+
+	return t5
+end

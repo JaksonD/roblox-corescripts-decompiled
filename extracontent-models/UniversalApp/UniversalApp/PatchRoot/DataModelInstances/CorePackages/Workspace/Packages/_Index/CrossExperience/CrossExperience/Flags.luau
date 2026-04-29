@@ -1,3 +1,1 @@
-return {
-    FFlagLogCrossExperienceEvents = require(script.FFlagLogCrossExperienceEvents)
-};
+return {}

@@ -1,819 +1,858 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_AdService_0 = game:GetService("AdService");
-local l_IXPService_0 = game:GetService("IXPService");
-local v3 = require(l_CorePackages_0.Packages.Roact);
-local v4 = require(l_CorePackages_0.Packages.Cryo);
-local v5 = require(l_CorePackages_0.Packages.RoactRodux);
-local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
-local l_memoize_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).memoize;
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local l_RoactNetworking_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).RoactNetworking;
-local l_ApiFetchGameDetails_0 = require(l_CorePackages_0.Workspace.Packages.GameDetailRodux).GameDetails.ApiFetchGameDetails;
-local l_FetchGamePlayabilityAndProductInfo_0 = require(l_CorePackages_0.Workspace.Packages.GameDetailRodux).FetchGamePlayabilityAndProductInfo;
-local l_PlayabilityStatusEnum_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes).PlayabilityStatusEnum;
-local l_EnumGameDetailErrorTypes_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes).EnumGameDetailErrorTypes;
-local l_getSafeAreaSize_0 = require(l_CorePackages_0.Workspace.Packages.InputUi).getSafeAreaSize;
-local l_RetrievalStatus_0 = require(l_CorePackages_0.Workspace.Packages.Http).Enum.RetrievalStatus;
-local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
-local v17 = require(l_CorePackages_0.Packages.SignalsReact);
-local v18 = require(l_CorePackages_0.Packages.React);
-local v19 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
-local l_AppEventIngestService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppEventIngestService;
-local v21 = require(l_CorePackages_0.Packages.RoactNavigation);
-local v22 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
-local v24 = require(script.Parent.Parent.ExperienceDetails.ExperienceDetailsExperimentation);
-local l_GameInfosReducer_0 = require(l_CorePackages_0.Workspace.Packages.GameInfosRodux).GameInfosReducer;
-local l_ExperienceDetailsNoticeType_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes).ExperienceDetailsNoticeType;
-local v27 = require(l_CorePackages_0.Packages.UIBlox);
-local l_AppPage_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).AppPage;
-local l_withStyle_0 = v27.Style.withStyle;
-local l_LoadingStateContainer_0 = v27.App.Container.LoadingStateContainer;
-local l_RetrievalStatus_1 = v27.App.Loading.Enum.RetrievalStatus;
-local l_EmptyState_0 = v27.App.Indicator.EmptyState;
-local l_PlayWithRewardComponent_0 = require(l_CorePackages_0.Workspace.Packages.PlayWithRewardComponent).PlayWithRewardComponent;
-local l_FetchPlayWithRewardState_0 = require(l_CorePackages_0.Workspace.Packages.PlayWithRewardComponent).FetchPlayWithRewardState;
-local l_SetPlayWithRewardState_0 = require(l_CorePackages_0.Workspace.Packages.PlayWithRewardState).SetPlayWithRewardState;
-local v36 = require(script.Parent.Parent.ExperienceDetails.Hooks.useEdpServerIxpVariables);
-local l_Modules_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryMonolith).Modules;
-local l_MediaGallerySwiped_0 = l_Modules_0.LuaApp.Analytics.Events.Games.GameDetailsEvents.MediaGallerySwiped;
-local l_MediaGalleryMediaChanged_0 = l_Modules_0.LuaApp.Analytics.Events.Games.GameDetailsEvents.MediaGalleryMediaChanged;
-local l_checkAndFormatPossibleLink_0 = require(l_CorePackages_0.Workspace.Packages.CollectionViews).checkAndFormatPossibleLink;
-local l_Modules_1 = game:GetService("CoreGui").RobloxGui.Modules;
-local v42 = require(l_Modules_1.LuaApp.Constants);
-local v43 = require(l_Modules_1.LuaApp.Thunks.ApiFetchExperienceDetailsPage);
-local v44 = require(l_Modules_1.LuaApp.Thunks.ApiFetchExperienceDetailsPageCounters);
-local v45 = require(l_Modules_1.LuaApp.Components.LoadingSkeleton);
-local v46 = require(l_Modules_1.LuaApp.Components.GameDetails.GameInfoList);
-local v47 = require(l_Modules_1.LuaApp.Components.GameDetails.GameHeader);
-local v48 = require(l_Modules_1.LuaApp.Components.GameDetails.GamePlaysAndRatings);
-local v49 = require(l_Modules_1.LuaApp.Thunks.Games.FetchGameDetailsPageData);
-local v50 = require(l_Modules_1.LuaApp.Thunks.Games.RecommendedGames);
-local v51 = require(l_Modules_1.LuaApp.Components.VirtualEvents.EventsListWrapper);
-local v52 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.GameStatsCarousel);
-local v53 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.ExperienceTagsContainer);
-local v54 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.ExperienceDescription);
-local v55 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.ExperienceMediaGallery);
-local v56 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.IgrsRatingLabel);
-local v57 = require(l_Modules_1.LuaApp.Components.GameDetails.GameRefundPolicy);
-local v58 = require(l_Modules_1.LuaApp.Thunks.OpenRefundPolicyLearnMorePage);
-local v59 = require(l_Modules_1.LuaApp.Thunks.OpenWebview);
-local v60 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.ExperienceSongsCarousel);
-local v61 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.RecommendedExperienceCarousel);
-local v62 = require(script.Parent.Parent.ExperienceDetails.EdpSduiUtils);
-local v63 = require(l_CorePackages_0.Workspace.Packages.ServerDrivenUi);
-local v64 = require(l_CorePackages_0.Workspace.Packages.GameDetailTelemetry);
-local l_EDPTTIConstants_0 = v64.EDPTTIConstants;
-local l_FFlagEDPTTITrackingEnabled_0 = v64.FFlagEDPTTITrackingEnabled;
-local v67 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.useEDPTTITracking);
-local l_useFirstMediaCarouselImageUri_0 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.useFirstMediaCarouselImageUri).useFirstMediaCarouselImageUri;
-local l_FFlagLuaAppShowNoticeOnEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppShowNoticeOnEdp;
-local l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppExperienceDetailsLayoutOrderConfig;
-local l_FFlagSongEdpCarouselIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagSongEdpCarouselIxp;
-local v72 = game:DefineFastFlag("LuaAppFixNoticeLocalization", false);
-local l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnableConsolidatedGameRefundPolicy;
-local l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryRedesignIxp;
-local l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryVideoPreviewIxp;
-local l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryRedesignTelemetry;
-local l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyDefault;
-local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp;
-local l_FFlagEnablePlayWithRewardComponent_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnablePlayWithRewardComponent;
-local l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveDefault;
-local l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveIxp;
-local l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddUniverseIdToGameDetailsEvents;
-local l_FFlagLuaAppAddIgrsRatingToEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddIgrsRatingToEdp;
-local l_FFlagLuaAppExpandableTextImpressionsEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppExpandableTextImpressionsEnabled;
-local v85 = {
-    [1] = {
-        Size = UDim2.new(0.5, 0, 0, 35)
-    }, 
-    [2] = {
-        Size = UDim2.new(0.25, 0, 0, 24)
-    }, 
-    [3] = {
-        Size = UDim2.new(1, 0, 0, 200)
-    }, 
-    [4] = {
-        Size = UDim2.new(1, 0, 0, 24)
-    }, 
-    [5] = {
-        Size = UDim2.new(0.6, 0, 0, 24)
-    }
-};
-local function _(v86) --[[ Line: 130 ]] --[[ Name: getInnerPaddingSize ]]
-    if v86 < 600 then
-        return 20;
-    else
-        return 40;
-    end;
-end;
-local function _() --[[ Line: 134 ]] --[[ Name: createLayoutOrderGenerator ]]
-    local v88 = 0;
-    return function() --[[ Line: 136 ]]
-        -- upvalues: v88 (ref)
-        v88 = v88 + 1;
-        return v88;
-    end;
-end;
-local v90 = {
-    Header = 100, 
-    MediaGallery = 125, 
-    StatsCarousel = 200, 
-    TagSection = 300, 
-    MovedEventsList = 400, 
-    Description = 500, 
-    IgrsRatingLabel = l_FFlagLuaAppAddIgrsRatingToEdp_0 and 550 or nil, 
-    PlaysAndRatings = 600, 
-    InfoList = 700, 
-    RefundPolicy = 900, 
-    Notice = 1000, 
-    RecommendedGames = 1100, 
-    ExperienceSongsCarousel = 1200, 
-    SduiFeedItemsDefault = 1500
-};
-local v91 = v3.PureComponent:extend("GameDetailsCard");
-v91.init = function(v92) --[[ Line: 161 ]] --[[ Name: init ]]
-    -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy), v19 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (copy), l_MediaGallerySwiped_0 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (copy), l_MediaGalleryMediaChanged_0 (copy), l_memoize_0 (copy), l_checkAndFormatPossibleLink_0 (copy), v3 (copy), l_RetrievalStatus_0 (copy)
-    if l_FFlagEnablePlayWithRewardComponent_0 then
-        v92.state = {
-            didFocus = false
-        };
-        v92.onDidFocus = function() --[[ Line: 164 ]]
-            -- upvalues: v92 (copy)
-            v92:setState({
-                didFocus = true
-            });
-        end;
-    end;
-    local l_universeId_0 = v92.props.universeId;
-    v19.isType(l_universeId_0, "string", "GameDetailsCard.init.universeId");
-    v92.fetchGameDetailsPageData = function() --[[ Line: 172 ]]
-        -- upvalues: v92 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref)
-        local l_networking_0 = v92.props.networking;
-        local l_universeId_1 = v92.props.universeId;
-        return v92.props.fetchGameDetailsPageData(l_networking_0, l_universeId_1, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v92.props.shouldHydrateLegacyIxp else nil, if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v92.props.shouldInterleaveSduiIxp else nil, if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v92.props.shouldInterleaveSduiIxp then v92.props.sduiDataUpdatedTimestamp else nil);
-    end;
-    v92.onMediaGallerySwiped = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else function() --[[ Line: 191 ]]
-        -- upvalues: v92 (copy), l_MediaGallerySwiped_0 (ref), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref)
-        local v96 = v92.props.gameDetail and v92.props.gameDetail.rootPlaceId or nil;
-        if v96 then
-            l_MediaGallerySwiped_0(v92.props.eventIngest, "GameDetailsCard", v96, if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then {
-                universeId = v92.props.universeId
-            } else nil);
-        end;
-    end;
-    v92.onMediaGalleryMediaChanged = l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 and function(v97, v98, v99, v100) --[[ Line: 208 ]]
-        -- upvalues: v92 (copy), l_MediaGalleryMediaChanged_0 (ref), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref)
-        local v101 = v92.props.gameDetail and v92.props.gameDetail.rootPlaceId or nil;
-        if v101 then
-            l_MediaGalleryMediaChanged_0(v92.props.eventIngest, "GameDetailsCard", v101, {
-                imageAssetId = v97, 
-                videoAssetId = v98, 
-                isYouTubeVideo = v99, 
-                autoAdvance = v100, 
-                universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v92.props.universeId else nil
-            });
-        end;
-    end or nil;
-    v92.linkStartStyle = l_memoize_0(function(v102) --[[ Line: 222 ]]
-        local l_Color3_0 = v102.Tokens.Semantic.Color.Text.Link.Color3;
-        return (("<font color=\"%*\"><b>"):format((string.format("rgb(%d, %d, %d)", math.round(l_Color3_0.R * 255), math.round(l_Color3_0.G * 255), (math.round(l_Color3_0.B * 255))))));
-    end);
-    v92.checkAndFormatPossibleLink = l_memoize_0(function(v104, v105) --[[ Line: 234 ]]
-        -- upvalues: l_checkAndFormatPossibleLink_0 (ref), v92 (copy)
-        return l_checkAndFormatPossibleLink_0(v105, nil, nil, v92.linkStartStyle(v104), "</b></font>");
-    end);
-    v92.renderRefundPolicy = function(v106, v107, v108) --[[ Line: 240 ]]
-        -- upvalues: v92 (copy), v3 (ref)
-        local l_Body_0 = v106.Tokens.Semantic.Typography.Body;
-        local l_Muted_0 = v106.Tokens.Semantic.Color.Text.Muted;
-        local v111, v112 = v92.checkAndFormatPossibleLink(v106, v107.policyText);
-        return v3.createElement("Frame", {
-            BackgroundTransparency = 1, 
-            BorderSizePixel = 0, 
-            Size = UDim2.fromScale(1, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            LayoutOrder = v108
-        }, {
-            RefundPolicy = v3.createElement("TextButton", {
-                BackgroundTransparency = 1, 
-                Text = v112, 
-                AutomaticSize = Enum.AutomaticSize.XY, 
-                Font = l_Body_0.Font, 
-                TextSize = l_Body_0.FontSize, 
-                TextColor3 = l_Muted_0.Color3, 
-                TextTransparency = l_Muted_0.Transparency, 
-                TextWrapped = true, 
-                TextXAlignment = Enum.TextXAlignment.Left, 
-                RichText = v111, 
-                [v3.Event.Activated] = function(_) --[[ Line: 264 ]]
-                    -- upvalues: v92 (ref), v107 (copy)
-                    v92.props.openRefundPolicyLearnMorePage(v107.learnMoreUrl);
-                end
-            })
-        });
-    end;
-    v92.maybeFetchPlayWithReward = l_FFlagEnablePlayWithRewardComponent_0 and function() --[[ Line: 272 ]]
-        -- upvalues: v92 (copy), l_RetrievalStatus_0 (ref)
-        if v92.state.didFocus ~= true or v92.props.gameDetailsPageDataStatus ~= l_RetrievalStatus_0.Done then
-            return;
-        else
-            local v114 = tonumber(v92.props.localUserId);
-            if not v114 then
-                return;
-            elseif v92.props.playWithRewardData and v92.props.playWithRewardData.universeId == v92.props.universeId then
-                return;
-            else
-                v92:setState({
-                    didFocus = false
-                });
-                v92.props.fetchPlayWithReward(v92.props.universeId, v114):catch(function() --[[ Line: 287 ]]
+local CorePackages = game:GetService("CorePackages")
+local AdService = game:GetService("AdService")
+local IXPService = game:GetService("IXPService")
+local Roact = require(CorePackages.Packages.Roact)
+local Cryo = require(CorePackages.Packages.Cryo)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
+local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local RoactNetworking = require(CorePackages.Workspace.Packages.RoactServiceTags).RoactNetworking
+local useRoactService = require(CorePackages.Workspace.Packages.RobloxAppHooks).useRoactService
+local usePlayButtonState = require(CorePackages.Workspace.Packages.GamePlayButton).usePlayButtonState
+local PlayButtonStates = require(CorePackages.Workspace.Packages.GamePlayButton).PlayButtonStates
+local ApiFetchGameDetails = require(CorePackages.Workspace.Packages.GameDetailRodux).GameDetails.ApiFetchGameDetails
+local FetchGamePlayabilityAndProductInfo = require(CorePackages.Workspace.Packages.GameDetailRodux).FetchGamePlayabilityAndProductInfo
+local PlayabilityStatusEnum = require(CorePackages.Workspace.Packages.DiscoveryTypes).PlayabilityStatusEnum
+local EnumGameDetailErrorTypes = require(CorePackages.Workspace.Packages.DiscoveryTypes).EnumGameDetailErrorTypes
+local getSafeAreaSize = require(CorePackages.Workspace.Packages.InputUi).getSafeAreaSize
+local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
+local RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local React = require(CorePackages.Packages.React)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+local AppEventIngestService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppEventIngestService
+local RoactNavigation = require(CorePackages.Packages.RoactNavigation)
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+local AppUserLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local ExperienceDetailsExperimentation = require(script.Parent.Parent.ExperienceDetails.ExperienceDetailsExperimentation)
+local GameInfosReducer = require(CorePackages.Workspace.Packages.GameInfosRodux).GameInfosReducer
+local ExperienceDetailsNoticeType = require(CorePackages.Workspace.Packages.DiscoveryTypes).ExperienceDetailsNoticeType
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local AppPage = require(CorePackages.Workspace.Packages.RobloxAppEnums).AppPage
+local withStyle = UIBlox.Style.withStyle
+local LoadingStateContainer = UIBlox.App.Container.LoadingStateContainer
+local RetrievalStatus2 = UIBlox.App.Loading.Enum.RetrievalStatus
+local EmptyState = UIBlox.App.Indicator.EmptyState
+local PlayWithRewardComponent = require(CorePackages.Workspace.Packages.PlayWithRewardComponent).PlayWithRewardComponent
+local FetchPlayWithRewardState = require(CorePackages.Workspace.Packages.PlayWithRewardComponent).FetchPlayWithRewardState
+local SetPlayWithRewardState = require(CorePackages.Workspace.Packages.PlayWithRewardState).SetPlayWithRewardState
+local useEdpServerIxpVariables = require(script.Parent.Parent.ExperienceDetails.Hooks.useEdpServerIxpVariables)
+local Modules = require(CorePackages.Workspace.Packages.DiscoveryMonolith).Modules
+local MediaGallerySwiped = Modules.LuaApp.Analytics.Events.Games.GameDetailsEvents.MediaGallerySwiped
+local MediaGalleryMediaChanged = Modules.LuaApp.Analytics.Events.Games.GameDetailsEvents.MediaGalleryMediaChanged
+local checkAndFormatPossibleLink = require(CorePackages.Workspace.Packages.CollectionViews).checkAndFormatPossibleLink
+local Modules2 = game:GetService("CoreGui").RobloxGui.Modules
+local Constants = require(Modules2.LuaApp.Constants)
+local ApiFetchExperienceDetailsPage = require(Modules2.LuaApp.Thunks.ApiFetchExperienceDetailsPage)
+local ApiFetchExperienceDetailsPageCounters = require(Modules2.LuaApp.Thunks.ApiFetchExperienceDetailsPageCounters)
+local LoadingSkeleton = require(Modules2.LuaApp.Components.LoadingSkeleton)
+local GameInfoList = require(Modules2.LuaApp.Components.GameDetails.GameInfoList)
+local GameHeader = require(Modules2.LuaApp.Components.GameDetails.GameHeader)
+local GamePlaysAndRatings = require(Modules2.LuaApp.Components.GameDetails.GamePlaysAndRatings)
+local FetchGameDetailsPageData = require(Modules2.LuaApp.Thunks.Games.FetchGameDetailsPageData)
+local RecommendedGames = require(Modules2.LuaApp.Thunks.Games.RecommendedGames)
+local EventsListWrapper = require(Modules2.LuaApp.Components.VirtualEvents.EventsListWrapper)
+local GameStatsCarousel = require(Modules2.LuaApp.Components.ExperienceDetails.GameStatsCarousel)
+local ExperienceTagsContainer = require(Modules2.LuaApp.Components.ExperienceDetails.ExperienceTagsContainer)
+local ExperienceDescription = require(Modules2.LuaApp.Components.ExperienceDetails.ExperienceDescription)
+local ExperienceMediaGallery = require(Modules2.LuaApp.Components.ExperienceDetails.ExperienceMediaGallery)
+local IgrsRatingLabel = require(Modules2.LuaApp.Components.ExperienceDetails.IgrsRatingLabel)
+local GameRefundPolicy = require(Modules2.LuaApp.Components.GameDetails.GameRefundPolicy)
+local OpenRefundPolicyLearnMorePage = require(Modules2.LuaApp.Thunks.OpenRefundPolicyLearnMorePage)
+local OpenWebview = require(Modules2.LuaApp.Thunks.OpenWebview)
+local ExperienceSongsCarousel = require(Modules2.LuaApp.Components.ExperienceDetails.ExperienceSongsCarousel)
+local RecommendedExperienceCarousel = require(Modules2.LuaApp.Components.ExperienceDetails.RecommendedExperienceCarousel)
+local EdpSduiUtils = require(script.Parent.Parent.ExperienceDetails.EdpSduiUtils)
+local ServerDrivenUi = require(CorePackages.Workspace.Packages.ServerDrivenUi)
+local GameDetailTelemetry = require(CorePackages.Workspace.Packages.GameDetailTelemetry)
+local EDPTTIConstants = GameDetailTelemetry.EDPTTIConstants
+local FFlagEDPTTITrackingEnabled = GameDetailTelemetry.FFlagEDPTTITrackingEnabled
+local useEDPTTITracking = require(Modules2.LuaApp.Components.ExperienceDetails.useEDPTTITracking)
+local useFirstMediaCarouselImageUri = require(Modules2.LuaApp.Components.ExperienceDetails.useFirstMediaCarouselImageUri).useFirstMediaCarouselImageUri
+local FFlagLuaAppExperienceDetailsLayoutOrderConfig = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppExperienceDetailsLayoutOrderConfig
+local FFlagSongEdpCarouselIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagSongEdpCarouselIxp
+local v75 = game:DefineFastFlag("LuaAppFixNoticeLocalization", false)
+local FFlagLuaAppEnableConsolidatedGameRefundPolicy = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEnableConsolidatedGameRefundPolicy
+local FFlagLuaAppEdpMediaGalleryRedesignIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryRedesignIxp
+local FFlagLuaAppEdpMediaGalleryVideoPreviewIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryVideoPreviewIxp
+local FFlagLuaAppEdpMediaGalleryRedesignTelemetry = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryRedesignTelemetry
+local FFlagLuaAppEdpBackendV2HydrateLegacyDefault = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyDefault
+local FFlagLuaAppEdpBackendV2HydrateLegacyIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp
+local FFlagEnablePlayWithRewardComponent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePlayWithRewardComponent
+local FFlagLuaAppEdpBackendV2SduiInterleaveDefault = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveDefault
+local FFlagLuaAppEdpBackendV2SduiInterleaveIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveIxp
+local FFlagLuaAppAddUniverseIdToGameDetailsEvents = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppAddUniverseIdToGameDetailsEvents
+local FFlagLuaAppAddIgrsRatingToEdp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppAddIgrsRatingToEdp
+local FFlagLuaAppExpandableTextImpressionsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppExpandableTextImpressionsEnabled
+local t1 = {
+	[1] = {
+		Size = UDim2.new(0.5, 0, 0, 35)
+	},
+	[2] = {
+		Size = UDim2.new(0.25, 0, 0, 24)
+	},
+	[3] = {
+		Size = UDim2.new(1, 0, 0, 200)
+	},
+	[4] = {
+		Size = UDim2.new(1, 0, 0, 24)
+	},
+	[5] = {
+		Size = UDim2.new(0.6, 0, 0, 24)
+	}
+}
+local t2 = {
+	Header = 100,
+	MediaGallery = 125,
+	StatsCarousel = 200,
+	TagSection = 300,
+	MovedEventsList = 400,
+	Description = 500,
+	IgrsRatingLabel = if not FFlagLuaAppAddIgrsRatingToEdp then nil else 550,
+	PlaysAndRatings = 600,
+	InfoList = 700,
+	RefundPolicy = 900,
+	Notice = 1000,
+	RecommendedGames = 1100,
+	ExperienceSongsCarousel = 1200,
+	SduiFeedItemsDefault = 1500
+}
+local v90 = Roact.PureComponent:extend("GameDetailsCard")
 
-                end);
-                return;
-            end;
-        end;
-    end or nil;
-end;
-v91.renderOnLoading = function(_, v116) --[[ Line: 292 ]] --[[ Name: renderOnLoading ]]
-    -- upvalues: v3 (copy), v45 (copy), v85 (copy)
-    return v3.createElement("Frame", {
-        Size = UDim2.new(1, 0, 1, 0), 
-        BackgroundTransparency = 1
-    }, {
-        Padding = v3.createElement("UIPadding", {
-            PaddingTop = UDim.new(0, 0), 
-            PaddingLeft = UDim.new(0, v116), 
-            PaddingRight = UDim.new(0, v116)
-        }), 
-        Skeleton = v3.createElement(v45, {
-            Size = UDim2.new(1, 0, 1, 0), 
-            createLayout = function() --[[ Line: 304 ]] --[[ Name: createLayout ]]
-                -- upvalues: v3 (ref)
-                return v3.createElement("UIListLayout", {
-                    FillDirection = Enum.FillDirection.Vertical, 
-                    HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-                    SortOrder = Enum.SortOrder.LayoutOrder, 
-                    Padding = UDim.new(0, 15)
-                });
-            end, 
-            panels = v85
-        })
-    });
-end;
-v91.renderOnLoaded = function(v117, v118, v119, v120, v121) --[[ Line: 317 ]] --[[ Name: renderOnLoaded ]]
-    -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v24 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_FFlagEnablePlayWithRewardComponent_0 (copy), l_withStyle_0 (copy), v3 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (copy), v47 (copy), v90 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v55 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (copy), v52 (copy), v53 (copy), v51 (copy), v54 (copy), l_RetrievalStatus_1 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (copy), l_AppPage_0 (copy), v56 (copy), v42 (copy), v48 (copy), v46 (copy), l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (copy), v57 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_ExperienceDetailsNoticeType_0 (copy), v72 (copy), l_RetrievalStatus_0 (copy), v61 (copy), l_FFlagSongEdpCarouselIxp_0 (copy), v60 (copy), l_PlayWithRewardComponent_0 (copy)
-    local l_universeId_2 = v117.props.universeId;
-    local l_gameDetail_0 = v117.props.gameDetail;
-    local l_gameInfo_0 = v117.props.gameInfo;
-    local v125 = l_gameDetail_0 and l_gameDetail_0.rootPlaceId or l_gameInfo_0 and l_gameInfo_0.placeId;
-    local v126 = v117.props.showRecommendedGames and v117.props.enableRecommendedGames;
-    local v127 = l_gameDetail_0 and v117.props.enableSocial;
-    local v128 = l_gameDetail_0 and v117.props.enableGameInfoList;
-    local l_enableGamePlaysAndRatings_0 = v117.props.enableGamePlaysAndRatings;
-    local l_enableGamePassPreview_0 = v117.props.enableGamePassPreview;
-    if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v24.getShouldInterleaveSdui()) and v117.props.edpServerIxpVariables and v117.props.edpServerIxpVariables.hideGameRatings == true then
-        l_enableGamePlaysAndRatings_0 = false;
-    end;
-    local v131 = l_gameDetail_0 and l_gameDetail_0.description ~= nil and l_gameDetail_0.description ~= "";
-    local l_showGlobalCounters_0 = v117.props.showGlobalCounters;
-    local l_showLikesFavoritesCount_0 = v117.props.showLikesFavoritesCount;
-    local l_ageRecommendations_0 = v117.props.ageRecommendations;
-    local v135 = if l_FFlagLuaAppAddIgrsRatingToEdp_0 and l_ageRecommendations_0 and l_ageRecommendations_0.summary and l_ageRecommendations_0.summary.ageRecommendation and l_ageRecommendations_0.summary.ageRecommendation.igrsRating and l_ageRecommendations_0.summary.ageRecommendation.igrsRating ~= "" then l_ageRecommendations_0.summary.ageRecommendation.igrsRating else nil;
-    local v136 = if l_FFlagLuaAppAddIgrsRatingToEdp_0 and l_ageRecommendations_0 and l_ageRecommendations_0.summary and l_ageRecommendations_0.summary.ageRecommendation and l_ageRecommendations_0.summary.ageRecommendation.igrsRatingDisplayMessage then l_ageRecommendations_0.summary.ageRecommendation.igrsRatingDisplayMessage else nil;
-    local l_notificationsCanAccessExperience_0 = v117.props.notificationsCanAccessExperience;
-    if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v24.getShouldInterleaveSdui()) and v117.props.edpServerIxpVariables and v117.props.edpServerIxpVariables.hideNotifyButton == true then
-        l_notificationsCanAccessExperience_0 = false;
-    end;
-    local v138 = 0;
-    local v139;
-    do
-        local l_v138_0 = v138;
-        v139 = function() --[[ Line: 136 ]]
-            -- upvalues: l_v138_0 (ref)
-            l_v138_0 = l_v138_0 + 1;
-            return l_v138_0;
-        end;
-    end;
-    v138 = v117.props.webViewSupport and l_gameDetail_0 ~= nil and l_gameDetail_0.refundPolicy ~= nil;
-    local v141 = if l_FFlagEnablePlayWithRewardComponent_0 then v117.props.isPlayabilitySettledAndPlayable else nil;
-    return l_withStyle_0(function(v142) --[[ Line: 380 ]]
-        -- upvalues: v3 (ref), v119 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (ref), v47 (ref), v90 (ref), l_universeId_2 (copy), l_notificationsCanAccessExperience_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v117 (copy), v139 (copy), v55 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref), v118 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v24 (ref), v52 (ref), v53 (ref), v51 (ref), v125 (copy), v131 (copy), v54 (ref), l_RetrievalStatus_1 (ref), v120 (copy), l_gameDetail_0 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (ref), l_AppPage_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), v135 (copy), v56 (ref), v136 (copy), v42 (ref), v121 (copy), l_enableGamePlaysAndRatings_0 (ref), v48 (ref), l_showGlobalCounters_0 (copy), l_showLikesFavoritesCount_0 (copy), v128 (copy), v46 (ref), v127 (copy), l_ageRecommendations_0 (copy), l_enableGamePassPreview_0 (copy), v138 (copy), l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (ref), v57 (ref), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_ExperienceDetailsNoticeType_0 (ref), v72 (ref), l_RetrievalStatus_0 (ref), v126 (copy), v61 (ref), l_FFlagSongEdpCarouselIxp_0 (ref), v60 (ref), l_gameInfo_0 (copy), l_FFlagEnablePlayWithRewardComponent_0 (ref), v141 (copy), l_PlayWithRewardComponent_0 (ref)
-        local v143 = {
-            ListLayout = v3.createElement("UIListLayout", {
-                FillDirection = Enum.FillDirection.Vertical, 
-                HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                SortOrder = Enum.SortOrder.LayoutOrder, 
-                Padding = UDim.new(0, 20)
-            }), 
-            PagePadding = v3.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, v119), 
-                PaddingRight = UDim.new(0, v119), 
-                PaddingTop = UDim.new(0, 0), 
-                PaddingBottom = UDim.new(0, 20)
-            }), 
-            Header = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v3.createElement(v47, {
-                LayoutOrder = v90.Header, 
-                universeId = l_universeId_2, 
-                showNotificationButton = l_notificationsCanAccessExperience_0, 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-            }) else v3.createElement("Frame", {
-                LayoutOrder = v139(), 
-                Position = UDim2.new(0, 0, 0, 0), 
-                Size = UDim2.new(1, 0, 0, 0), 
-                BackgroundTransparency = 1, 
-                BorderSizePixel = 0, 
-                AutomaticSize = Enum.AutomaticSize.Y
-            }, {
-                ListLayout = v3.createElement("UIListLayout", {
-                    FillDirection = Enum.FillDirection.Vertical, 
-                    HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                    SortOrder = Enum.SortOrder.LayoutOrder, 
-                    Padding = UDim.new(0, 20)
-                }), 
-                MediaGalleryFrame = v3.createElement("Frame", {
-                    LayoutOrder = 2, 
-                    Position = UDim2.new(0, 0, 0, 0), 
-                    Size = UDim2.new(1, 0, 0, 0), 
-                    BackgroundTransparency = 1, 
-                    BorderSizePixel = 0, 
-                    AutomaticSize = Enum.AutomaticSize.Y
-                }, {
-                    MediaGallery = v3.createElement(v55, {
-                        universeId = l_universeId_2, 
-                        deviceType = "Phone", 
-                        showYouTubeVideoFirst = false, 
-                        onSwipe = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v117.onMediaGallerySwiped, 
-                        onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v117.onMediaGalleryMediaChanged else nil, 
-                        mediaGalleryRedesignEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 then v117.props.mediaGalleryRedesignEnabledIxp else nil, 
-                        mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v117.props.mediaGalleryVideoPreviewEnabledIxp else nil, 
-                        shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-                    }), 
-                    SizeConstraint = v3.createElement("UISizeConstraint", {
-                        MinSize = Vector2.new(0, (v118 - v119 * 2) / 1.7777777777777777)
-                    })
-                }), 
-                Header = v3.createElement(v47, {
-                    LayoutOrder = 1, 
-                    universeId = l_universeId_2, 
-                    showNotificationButton = l_notificationsCanAccessExperience_0, 
-                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-                })
-            }), 
-            MediaGalleryFrame = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v3.createElement("Frame", {
-                LayoutOrder = v90.MediaGallery, 
-                Position = UDim2.new(0, 0, 0, 0), 
-                Size = UDim2.new(1, 0, 0, 0), 
-                BackgroundTransparency = 1, 
-                BorderSizePixel = 0, 
-                AutomaticSize = Enum.AutomaticSize.Y
-            }, {
-                MediaGallery = v3.createElement(v55, {
-                    universeId = l_universeId_2, 
-                    deviceType = "Phone", 
-                    showYouTubeVideoFirst = false, 
-                    onSwipe = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v117.onMediaGallerySwiped, 
-                    onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v117.onMediaGalleryMediaChanged else nil, 
-                    mediaGalleryRedesignEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 then v117.props.mediaGalleryRedesignEnabledIxp else nil, 
-                    mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v117.props.mediaGalleryVideoPreviewEnabledIxp else nil, 
-                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-                }), 
-                SizeConstraint = v3.createElement("UISizeConstraint", {
-                    MinSize = Vector2.new(0, (v118 - v119 * 2) / 1.7777777777777777)
-                })
-            }) else nil, 
-            StatsCarousel = if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v24.getShouldInterleaveSdui()) and v117.props.edpServerIxpVariables and v117.props.edpServerIxpVariables.hideStatsCarousel == true then nil else v3.createElement(v52, {
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.StatsCarousel else v139(), 
-                universeId = l_universeId_2, 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-            }), 
-            TagSection = v3.createElement(v53, {
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.TagSection else v139(), 
-                universeId = l_universeId_2, 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil, 
-                hideContentDescriptors = (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v24.getShouldInterleaveSdui()) and v117.props.edpServerIxpVariables and v117.props.edpServerIxpVariables.showContentDescriptorsInInfoList == true or nil
-            }), 
-            MovedEventsList = v3.createElement(v51, {
-                layoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.MovedEventsList else v139(), 
-                universeId = l_universeId_2, 
-                referralSource = "expDetailsPage", 
-                defaultThumbnail = if v125 then ("rbxthumb://type=GameThumbnail&id=%d&w=768&h=432"):format(v125) else nil, 
-                peekViewFormat = true
-            }), 
-            Description = if v131 then v3.createElement(v54, {
-                dataStatus = l_RetrievalStatus_1.fromRawValue(v120), 
-                descriptionText = l_gameDetail_0 and l_gameDetail_0.description, 
-                expandable = true, 
-                listPadding = v142.Tokens.Global.Space_125, 
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.Description else v139(), 
-                universeId = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then l_universeId_2 else nil, 
-                pageContext = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then l_AppPage_0.GameDetail else nil, 
-                componentType = l_FFlagLuaAppExpandableTextImpressionsEnabled_0 and "gameDescription" or nil, 
-                viewportBoundsOffset = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v117.props.viewportBoundsOffset else nil
-            }) else nil, 
-            IgrsRatingLabel = if l_FFlagLuaAppAddIgrsRatingToEdp_0 and v135 then v3.createElement(v56, {
-                igrsRating = v135, 
-                igrsRatingDisplayMessage = v136, 
-                onActivated = function() --[[ Line: 564 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v117 (ref), v42 (ref), v121 (ref)
-                    v117.props.openWebview(v42.INDONESIAN_CONTENT_MATURITY_URL, v121.contentMaturityHeader);
-                end, 
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.IgrsRatingLabel else v139()
-            }) else nil, 
-            PlaysAndRatings = l_enableGamePlaysAndRatings_0 and v3.createElement(v48, {
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.PlaysAndRatings else v139(), 
-                universeId = l_universeId_2, 
-                containerWidth = v118 - 2 * v119, 
-                rowPadding = 20, 
-                showGlobalCounters = l_showGlobalCounters_0, 
-                showLikesFavoritesCount = l_showLikesFavoritesCount_0, 
-                hideVisits = true, 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-            }), 
-            InfoList = v128 and v3.createElement(v46, {
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.InfoList else v139(), 
-                universeId = l_universeId_2, 
-                leftPadding = v119, 
-                rightPadding = v119, 
-                showSocial = v127, 
-                ageRecommendations = l_ageRecommendations_0, 
-                width = v118, 
-                enableGamePassPreview = l_enableGamePassPreview_0, 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-            }), 
-            RefundPolicy = if v138 then if l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 then v3.createElement(v57, {
-                refundPolicy = l_gameDetail_0.refundPolicy, 
-                layoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.RefundPolicy else v139()
-            }) else v117.renderRefundPolicy(v142, l_gameDetail_0.refundPolicy, if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.RefundPolicy else v139()) else nil, 
-            Notice = if l_FFlagLuaAppShowNoticeOnEdp_0 and v117.props.experienceDetailsNoticeType == l_ExperienceDetailsNoticeType_0.InExperiencePurchase then v3.createElement(v54, {
-                dataStatus = if v72 then l_RetrievalStatus_1.fromRawValue(l_RetrievalStatus_0.Done) else l_RetrievalStatus_1.fromRawValue(v120), 
-                headerText = v121.noticeHeader, 
-                descriptionText = v121.noticeText, 
-                expandable = false, 
-                listPadding = v142.Tokens.Global.Space_125, 
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.Notice else v139(), 
-                universeId = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then l_universeId_2 else nil, 
-                pageContext = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then l_AppPage_0.GameDetail else nil, 
-                componentType = l_FFlagLuaAppExpandableTextImpressionsEnabled_0 and "gameNotice" or nil, 
-                viewportBoundsOffset = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v117.props.viewportBoundsOffset else nil
-            }) else nil, 
-            RecommendedGames = v126 and v3.createElement("Frame", {
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.RecommendedGames else v139(), 
-                Size = UDim2.new(1, 0, 0, 0), 
-                BorderSizePixel = 0, 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundTransparency = 1
-            }, {
-                Carousel = v3.createElement(v61, {
-                    universeId = l_universeId_2, 
-                    pageContext = l_AppPage_0.GameDetail, 
-                    onPeekViewClosed = v117.props.onPeekViewClosed, 
-                    scrollingEnabled = true, 
-                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v117.props.shouldHydrateLegacyIxp else nil
-                })
-            }), 
-            ExperienceSongsCarousel = if l_FFlagSongEdpCarouselIxp_0 and v117.props.showSongCarousel then v3.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, 0), 
-                BorderSizePixel = 0, 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundTransparency = 1, 
-                LayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v90.ExperienceSongsCarousel else v139()
-            }, {
-                v3.createElement(v60, {
-                    universeId = l_universeId_2, 
-                    universeTitle = l_gameDetail_0 and l_gameDetail_0.name or l_gameInfo_0 and l_gameInfo_0.name or "", 
-                    collectionOrder = 2, 
-                    clipsDescendants = false
-                })
-            }) else nil, 
-            PlayWithRewardComponent = if l_FFlagEnablePlayWithRewardComponent_0 and v141 then v3.createElement(l_PlayWithRewardComponent_0, {
-                universeId = l_universeId_2, 
-                placeId = v125, 
-                flowId = if v117.props.playWithRewardData then v117.props.playWithRewardData.flowId else "", 
-                fetchedUniverseId = if v117.props.playWithRewardData then v117.props.playWithRewardData.universeId else nil, 
-                isAdDataExpected = if v117.props.playWithRewardData then v117.props.playWithRewardData.isAdDataExpected else false, 
-                playWithRewardAdData = if v117.props.playWithRewardData then v117.props.playWithRewardData.adData else nil
-            }) else nil
-        };
-        if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v117.props.shouldInterleaveSduiIxp) and v117.props.sduiFeedItemConfigs then
-            for v144, v145 in v117.props.sduiFeedItemConfigs do
-                v143[("SduiFeedItem_%*"):format(v144)] = v3.createElement("Frame", {
-                    Size = UDim2.new(1, 0, 0, 0), 
-                    BorderSizePixel = 0, 
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    BackgroundTransparency = 1, 
-                    LayoutOrder = v145.portraitLayoutOrder
-                }, {
-                    SduiComponent = v145.renderComponent()
-                });
-            end;
-        end;
-        return v3.createElement("Frame", {
-            Position = UDim2.new(0, 0, 0, 0), 
-            Size = UDim2.new(1, 0, 0, 0), 
-            BackgroundTransparency = 1, 
-            BorderSizePixel = 0, 
-            AutomaticSize = Enum.AutomaticSize.Y
-        }, v143);
-    end);
-end;
-v91.renderOnFailed = function(v146, v147, v148, v149) --[[ Line: 727 ]] --[[ Name: renderOnFailed ]]
-    -- upvalues: v72 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_EnumGameDetailErrorTypes_0 (copy), v3 (copy), l_EmptyState_0 (copy)
-    if v146.props.gameInfo then
-        return v146:renderOnLoaded(v148, v149, nil, if not not v72 or l_FFlagLuaAppAddIgrsRatingToEdp_0 then v147 else nil);
-    else
-        local v150 = v146.props.gameDetailError and v146.props.gameDetailError.errorType == l_EnumGameDetailErrorTypes_0.ExperienceUnavailable;
-        return v3.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            BackgroundTransparency = 1
-        }, {
-            Padding = v3.createElement("UIPadding", {
-                PaddingTop = UDim.new(0, 100), 
-                PaddingLeft = UDim.new(0, v149), 
-                PaddingRight = UDim.new(0, v149), 
-                PaddingBottom = UDim.new(0, 20)
-            }), 
-            EmptyState = v3.createElement(l_EmptyState_0, {
-                onActivated = if v150 then nil else v146.fetchGameDetailsPageData, 
-                text = if v150 then v147.experienceUnavailableMessage else v147.failedMessage, 
-                maxSizeTextLabel = Vector2.new(v148 - 2 * v149, 1e999)
-            })
-        });
-    end;
-end;
-v91.getImageSize = function(_, v152, v153, v154, v155) --[[ Line: 762 ]] --[[ Name: getImageSize ]]
-    local v156 = v153 * 1.8;
-    local v157 = v155 / v154;
-    local v158 = math.max(v156, v152 * v157);
-    local v159 = v158 / v157;
-    return Vector2.new(v159, v158);
-end;
-v91.render = function(v160) --[[ Line: 773 ]] --[[ Name: render ]]
-    -- upvalues: l_getSafeAreaSize_0 (copy), v3 (copy), l_withLocalization_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_LoadingStateContainer_0 (copy), l_RetrievalStatus_1 (copy), l_FFlagEnablePlayWithRewardComponent_0 (copy), v21 (copy)
-    local l_screenSize_0 = v160.props.screenSize;
-    local l_globalGuiInset_0 = v160.props.globalGuiInset;
-    local l_gameDetailsPageDataStatus_0 = v160.props.gameDetailsPageDataStatus;
-    local v164 = l_getSafeAreaSize_0(l_screenSize_0, l_globalGuiInset_0);
-    local v165 = math.min(v164.X.Offset, 640);
-    local l_Offset_0 = v164.Y.Offset;
-    local v167 = v165 < 600 and 20 or 40;
-    local v169 = v3.createElement("Frame", {
-        Size = UDim2.new(1, 0, 0, 0), 
-        AutomaticSize = Enum.AutomaticSize.Y, 
-        Position = UDim2.new(0, 0, 0, 0), 
-        BackgroundTransparency = 1, 
-        ClipsDescendants = true
-    }, {
-        GameDetails = v3.createElement("Frame", {
-            Position = UDim2.new(0, 0, 0, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            Size = UDim2.new(1, 0, 0, 0), 
-            BackgroundTransparency = 1
-        }, {
-            Background = v3.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, l_Offset_0), 
-                Position = UDim2.new(0, 0, 0, 0), 
-                BackgroundTransparency = 1, 
-                ZIndex = 1
-            }), 
-            LoadingState = l_withLocalization_0({
-                failedMessage = "Feature.EmptyStatePage.Message.NoInternet", 
-                experienceUnavailableMessage = "Feature.GamePage.QuickLaunch.LaunchError.TemporarilyUnavailable", 
-                noticeHeader = l_FFlagLuaAppShowNoticeOnEdp_0 and "Feature.ExperienceDetails.Body.NotesTitle" or nil, 
-                noticeText = l_FFlagLuaAppShowNoticeOnEdp_0 and "Feature.ExperienceDetails.Notes.InExperiencePurchase" or nil, 
-                contentMaturityHeader = l_FFlagLuaAppAddIgrsRatingToEdp_0 and "Feature.GameDetails.Label.ContentMaturity" or nil
-            })(function(v168) --[[ Line: 812 ]]
-                -- upvalues: v3 (ref), l_LoadingStateContainer_0 (ref), l_RetrievalStatus_1 (ref), l_gameDetailsPageDataStatus_0 (copy), v160 (copy), v165 (copy), v167 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref)
-                return v3.createElement("Frame", {
-                    Size = UDim2.fromScale(1, 0), 
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    Position = UDim2.new(0, 0, 0, 0), 
-                    ZIndex = 2, 
-                    BackgroundTransparency = 1
-                }, {
-                    LoadingStateContainer = v3.createElement(l_LoadingStateContainer_0, {
-                        dataStatus = l_RetrievalStatus_1.fromRawValue(l_gameDetailsPageDataStatus_0), 
-                        renderOnFailed = function() --[[ Line: 822 ]] --[[ Name: renderOnFailed ]]
-                            -- upvalues: v160 (ref), v168 (copy), v165 (ref), v167 (ref)
-                            return v160:renderOnFailed(v168, v165, v167);
-                        end, 
-                        renderOnLoading = function() --[[ Line: 825 ]] --[[ Name: renderOnLoading ]]
-                            -- upvalues: v160 (ref), v167 (ref)
-                            return v160:renderOnLoading(v167);
-                        end, 
-                        renderOnLoaded = function() --[[ Line: 828 ]] --[[ Name: renderOnLoaded ]]
-                            -- upvalues: v160 (ref), v165 (ref), v167 (ref), l_gameDetailsPageDataStatus_0 (ref), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), v168 (copy)
-                            return v160:renderOnLoaded(v165, v167, l_gameDetailsPageDataStatus_0, if not not l_FFlagLuaAppShowNoticeOnEdp_0 or l_FFlagLuaAppAddIgrsRatingToEdp_0 then v168 else nil);
-                        end
-                    })
-                });
-            end)
-        })
-    });
-    if l_FFlagEnablePlayWithRewardComponent_0 then
-        return v3.createFragment({
-            Content = v169, 
-            NavigationEvents = v3.createElement(v21.NavigationEvents, {
-                onDidFocus = v160.onDidFocus
-            })
-        });
-    else
-        return v169;
-    end;
-end;
-v91.didMount = function(v170) --[[ Line: 854 ]] --[[ Name: didMount ]]
-    -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy)
-    v170.fetchGameDetailsPageData();
-    if l_FFlagEnablePlayWithRewardComponent_0 then
-        v170.maybeFetchPlayWithReward();
-    end;
-end;
-v91.didUpdate = function(v171) --[[ Line: 861 ]] --[[ Name: didUpdate ]]
-    -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy)
-    if l_FFlagEnablePlayWithRewardComponent_0 then
-        v171.maybeFetchPlayWithReward();
-    end;
-end;
-v91.willUnmount = function(v172) --[[ Line: 867 ]] --[[ Name: willUnmount ]]
-    -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy)
-    local l_eventIngest_0 = v172.props.eventIngest;
-    local l_universeId_3 = v172.props.universeId;
-    local v175 = v172.props.gameDetail and v172.props.gameDetail.rootPlaceId or nil;
-    local v176 = v172.props.source or "None";
-    local v177 = v172.props.index or -1;
-    if l_eventIngest_0 ~= nil and l_universeId_3 ~= nil and v175 ~= nil then
-        l_eventIngest_0:setRBXEventStream("GameDetailsCard", "viewClose", {
-            universeId = l_universeId_3, 
-            rootPlaceId = v175, 
-            source = v176, 
-            index = v177
-        });
-    end;
-    if l_FFlagEnablePlayWithRewardComponent_0 then
-        v172.props.clearPlayWithReward();
-    end;
-end;
-local v180 = l_memoize_0(function(v178, v179) --[[ Line: 886 ]]
-    -- upvalues: l_RetrievalStatus_0 (copy)
-    if v178 == l_RetrievalStatus_0.Done and (v179 == nil or #v179 == 0) then
-        return false;
-    else
-        return true;
-    end;
-end);
-v91 = v5.connect(function(v181, v182) --[[ Line: 896 ]]
-    -- upvalues: l_FFlagEnablePlayWithRewardComponent_0 (copy), l_FetchGamePlayabilityAndProductInfo_0 (copy), l_RetrievalStatus_0 (copy), l_PlayabilityStatusEnum_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v43 (copy), l_ApiFetchGameDetails_0 (copy), v50 (copy), l_GameInfosReducer_0 (copy), v180 (copy)
-    local v183 = nil;
-    local v184 = nil;
-    local v185 = if l_FFlagEnablePlayWithRewardComponent_0 then l_FetchGamePlayabilityAndProductInfo_0.GetFetchingStatus(v181, v182.universeId) else nil;
-    local v186 = if l_FFlagEnablePlayWithRewardComponent_0 then v181.PlayabilityStatus and v181.PlayabilityStatus[v182.universeId] or nil else nil;
-    local v187 = if l_FFlagEnablePlayWithRewardComponent_0 then v185 == l_RetrievalStatus_0.Done and v186 ~= nil and v186.playabilityStatus == l_PlayabilityStatusEnum_0.Playable else nil;
-    if l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v182.shouldHydrateLegacyIxp then
-        v183 = v43.GetFetchingStatus(v181, v182.universeId);
-        v184 = v43.GetFetchingStatus(v181, v182.universeId);
-    else
-        v183 = l_ApiFetchGameDetails_0.GetFetchingStatus(v181, v182.universeId);
-        v184 = v50.GetFetchingStatus(v181, v182.universeId);
-    end;
-    local v188 = v181.Personalization[l_GameInfosReducer_0.key][v182.universeId];
-    local v189 = nil;
-    if l_FFlagEnablePlayWithRewardComponent_0 and v181.PlayWithRewardState.universeId == v182.universeId then
-        v189 = v181.PlayWithRewardState;
-    end;
-    return {
-        topBarHeight = 0, 
-        gameDetail = if not not l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 or l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 and v182.shouldHydrateLegacyIxp then v181.GameDetailsV2[v182.universeId] else v181.GameDetails[v182.universeId], 
-        gameDetailError = v181.GameDetailErrors[v182.universeId], 
-        gameDetailsPageDataStatus = v183, 
-        gameInfo = v188, 
-        screenSize = v181.ScreenSize, 
-        globalGuiInset = v181.GlobalGuiInset, 
-        showLoadingBackground = v183 ~= l_RetrievalStatus_0.Done, 
-        showRecommendedGames = v180(v184, v181.RecommendedGameEntries[v182.universeId]), 
-        ageRecommendations = v181.AgeRecommendations[v182.universeId], 
-        playWithRewardData = if l_FFlagEnablePlayWithRewardComponent_0 then v189 else nil, 
-        isPlayabilitySettledAndPlayable = if l_FFlagEnablePlayWithRewardComponent_0 then v187 else nil, 
-        localUserId = if l_FFlagEnablePlayWithRewardComponent_0 then v181.LocalUserId else nil
-    };
-end, function(v190) --[[ Line: 953 ]]
-    -- upvalues: v49 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagEnablePlayWithRewardComponent_0 (copy), l_SetPlayWithRewardState_0 (copy), l_FetchPlayWithRewardState_0 (copy), l_AdService_0 (copy), v58 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), v59 (copy)
-    return {
-        fetchGameDetailsPageData = function(v191, v192, v193, v194, v195) --[[ Line: 955 ]] --[[ Name: fetchGameDetailsPageData ]]
-            -- upvalues: v190 (copy), v49 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref)
-            return v190(v49(v191, v192, nil, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v193 else nil, if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v194 else nil, if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v194 then v195 else nil));
-        end, 
-        clearPlayWithReward = l_FFlagEnablePlayWithRewardComponent_0 and function() --[[ Line: 977 ]]
-            -- upvalues: v190 (copy), l_SetPlayWithRewardState_0 (ref)
-            return v190(l_SetPlayWithRewardState_0("", "", false, nil));
-        end or nil, 
-        fetchPlayWithReward = l_FFlagEnablePlayWithRewardComponent_0 and function(v196, v197) --[[ Line: 982 ]]
-            -- upvalues: v190 (copy), l_FetchPlayWithRewardState_0 (ref), l_AdService_0 (ref)
-            return v190(l_FetchPlayWithRewardState_0(l_AdService_0, v196, v197));
-        end or nil, 
-        openRefundPolicyLearnMorePage = function(v198) --[[ Line: 986 ]] --[[ Name: openRefundPolicyLearnMorePage ]]
-            -- upvalues: v190 (copy), v58 (ref)
-            return v190(v58(v198));
-        end, 
-        openWebview = l_FFlagLuaAppAddIgrsRatingToEdp_0 and function(v199, v200) --[[ Line: 990 ]]
-            -- upvalues: v190 (copy), v59 (ref)
-            return v190(v59(v199, v200));
-        end or nil
-    };
-end)(v91);
-v91 = l_RoactServices_0.connect({
-    networking = l_RoactNetworking_0, 
-    eventIngest = l_AppEventIngestService_0
-})(v91);
-v91 = l_RoactAppPolicy_0.connect(function(v201, _) --[[ Line: 1002 ]]
-    -- upvalues: l_FFlagLuaAppShowNoticeOnEdp_0 (copy)
-    return {
-        enableRecommendedGames = v201.getRecommendedGames(), 
-        enableSocial = v201.getSocialLinks(), 
-        enableGameInfoList = v201.getGameInfoList(), 
-        enableGamePlaysAndRatings = v201.getGamePlaysAndRatings(), 
-        showGlobalCounters = v201.getShowGlobalCounters(), 
-        showLikesFavoritesCount = v201.getEnableAggregateLikesFavoritesCount(), 
-        enableGamePassPreview = v201.getShowPassesOnExperienceDetails(), 
-        webViewSupport = v201.getWebViewSupport(), 
-        notificationsCanAccessExperience = v201.getNotificationsCanReceiveExperience(), 
-        experienceDetailsNoticeType = if l_FFlagLuaAppShowNoticeOnEdp_0 then v201.getExperienceDetailsNoticeType() else nil
-    };
-end)(v91);
-if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
-    local l_v91_0 = v91;
-    local l_l_v91_0_0 = l_v91_0 --[[ copy: 91 -> 92 ]];
-    v91 = function(v205) --[[ Line: 1021 ]]
-        -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v63 (copy), v62 (copy), v90 (copy), v44 (copy), v18 (copy), v17 (copy), v36 (copy), v3 (copy), l_l_v91_0_0 (copy), v4 (copy)
-        local v206 = nil;
-        local v207 = nil;
-        local v208 = nil;
-        if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
-            local v209 = v63.useSduiContextFromSignalAndProcessConfigs(v62.getUnprocessedEdpStoreKey((tostring(v205.universeId))), v62.getEdpStoreKey((tostring(v205.universeId))), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v205.shouldInterleaveSduiIxp);
-            v206 = v63.useSduiEdpFeedItemConfigs({
-                sduiContext = v209, 
-                storeKey = v62.getEdpStoreKey((tostring(v205.universeId))), 
-                portraitLayoutConfig = v90, 
-                landscapeLayoutConfig = v90, 
-                defaultLayoutOrder = v90.SduiFeedItemsDefault, 
-                logLayoutConflictFn = v44.logSduiLayoutOrderConflict, 
-                shouldInterleaveSdui = l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v205.shouldInterleaveSduiIxp
-            });
-            local v211 = v18.useMemo(function() --[[ Line: 1042 ]]
-                -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v205 (copy), v63 (ref), v62 (ref)
-                return function(v210) --[[ Line: 1043 ]]
-                    -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v205 (ref), v63 (ref), v62 (ref)
-                    if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v205.shouldInterleaveSduiIxp) and v205.universeId then
-                        return v63.getSduiFeedStore(v62.getEdpStoreKey((tostring(v205.universeId)))).getDataUpdatedTimestamp(v210);
-                    else
-                        return nil;
-                    end;
-                end;
-            end, {
-                v205.universeId, 
-                v205.shouldInterleaveSduiIxp
-            });
-            v207 = v17.useSignalState(v211);
-            v208 = v36();
-        end;
-        return v3.createElement(l_l_v91_0_0, v4.Dictionary.join(v205, {
-            currentSduiDataTimestamp = v207, 
-            sduiFeedItemConfigs = v206, 
-            edpServerIxpVariables = v208
-        }));
-    end;
-end;
-if l_FFlagSongEdpCarouselIxp_0 or l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 or l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then
-    v91 = v22.connectUserLayer({
-        l_AppUserLayers_0.ExperienceDetailsPageExposureLayer
-    }, function(v212, _) --[[ Line: 1075 ]]
-        -- upvalues: l_AppUserLayers_0 (copy), l_FFlagSongEdpCarouselIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (copy)
-        local v214 = v212[l_AppUserLayers_0.ExperienceDetailsPageExposureLayer] or {};
-        return {
-            showSongCarousel = if l_FFlagSongEdpCarouselIxp_0 then v214.showSongCarousel else nil, 
-            mediaGalleryRedesignEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 then v214.MediaGalleryRedesignEnabled else nil, 
-            mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v214.MediaGalleryVideoPreviewEnabled else nil
-        };
-    end, true)(v91);
-end;
-if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 or l_FFlagEDPTTITrackingEnabled_0 then
-    local l_v91_1 = v91;
-    v91 = function(v216) --[[ Line: 1098 ]]
-        -- upvalues: l_FFlagEDPTTITrackingEnabled_0 (copy), l_useFirstMediaCarouselImageUri_0 (copy), v67 (copy), l_EDPTTIConstants_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v24 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v18 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), v3 (copy), l_v91_1 (copy), v4 (copy)
-        if l_FFlagEDPTTITrackingEnabled_0 then
-            local v217 = l_useFirstMediaCarouselImageUri_0(v216.universeId);
-            v67(l_EDPTTIConstants_0.EDP_IMPLEMENTATION.LEGACY_PEEK_VIEW, v216.universeId, v217);
-        end;
-        local v218 = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v24.getShouldHydrateLegacy() else nil;
-        local v219 = if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v24.getShouldInterleaveSdui() else nil;
-        v18.useEffect(function() --[[ Line: 1115 ]]
-            -- upvalues: l_IXPService_0 (ref), l_AppUserLayers_0 (ref)
-            l_IXPService_0:LogUserLayerExposure(l_AppUserLayers_0.ExperienceDetailsPageExposureLayer);
-        end, {});
-        return v3.createElement(l_v91_1, v4.Dictionary.join(v216, {
-            shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v218 else nil, 
-            shouldInterleaveSduiIxp = if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v219 else nil
-        }));
-    end;
-end;
-return v91;
+function v90.init(p1) -- line: 162
+	-- upvalues: FFlagEnablePlayWithRewardComponent (copy), ArgCheck (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy), FFlagLuaAppEdpMediaGalleryRedesignTelemetry (copy), MediaGallerySwiped (copy), FFlagLuaAppAddUniverseIdToGameDetailsEvents (copy), MediaGalleryMediaChanged (copy), memoize (copy), checkAndFormatPossibleLink (copy), Roact (copy), RetrievalStatus (copy)
+	if FFlagEnablePlayWithRewardComponent then
+		p1.state = {
+			didFocus = false
+		}
+
+		function p1.onDidFocus() -- line: 165
+			-- upvalues: p1 (copy)
+			p1:setState({
+				didFocus = true
+			})
+		end
+	end
+
+	local universeId = p1.props.universeId
+
+	ArgCheck.isType(universeId, "string", "GameDetailsCard.init.universeId")
+
+	function p1.fetchGameDetailsPageData() -- line: 173
+		-- upvalues: p1 (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy)
+		local networking = p1.props.networking
+		local universeId2 = p1.props.universeId
+
+		return p1.props.fetchGameDetailsPageData(networking, universeId2, if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p1.props.shouldHydrateLegacyIxp, if not FFlagLuaAppEdpBackendV2SduiInterleaveIxp then nil else p1.props.shouldInterleaveSduiIxp, if not FFlagLuaAppEdpBackendV2SduiInterleaveDefault and (not FFlagLuaAppEdpBackendV2SduiInterleaveIxp or not p1.props.shouldInterleaveSduiIxp) then nil else p1.props.sduiDataUpdatedTimestamp)
+	end
+
+	p1.onMediaGallerySwiped = not FFlagLuaAppEdpMediaGalleryRedesignTelemetry and function() -- line: 192
+		-- upvalues: p1 (copy), MediaGallerySwiped (copy), FFlagLuaAppAddUniverseIdToGameDetailsEvents (copy)
+		local v190 = p1.props.gameDetail and p1.props.gameDetail.rootPlaceId or nil
+
+		if v190 then
+			MediaGallerySwiped(p1.props.eventIngest, "GameDetailsCard", v190, if not FFlagLuaAppAddUniverseIdToGameDetailsEvents then nil else {
+				universeId = p1.props.universeId
+			})
+		end
+	end or nil
+	p1.onMediaGalleryMediaChanged = if not FFlagLuaAppEdpMediaGalleryRedesignTelemetry then nil else function(p2, p3, p4, p5) -- line: 209
+		-- upvalues: p1 (copy), MediaGalleryMediaChanged (copy), FFlagLuaAppAddUniverseIdToGameDetailsEvents (copy)
+		local v195 = p1.props.gameDetail and p1.props.gameDetail.rootPlaceId or nil
+
+		if v195 then
+			MediaGalleryMediaChanged(p1.props.eventIngest, "GameDetailsCard", v195, {
+				imageAssetId = p2,
+				videoAssetId = p3,
+				isYouTubeVideo = p4,
+				autoAdvance = p5,
+				universeId = if not FFlagLuaAppAddUniverseIdToGameDetailsEvents then nil else p1.props.universeId
+			})
+		end
+	end
+	p1.linkStartStyle = memoize(function(p6) -- line: 223
+		local LinkColor3 = p6.Tokens.Semantic.Color.Text.Link.Color3
+
+		return `<font color="{ string.format("rgb(%d, %d, %d)", math.round(LinkColor3.R * 255), math.round(LinkColor3.G * 255), (math.round(LinkColor3.B * 255))) }"><b>`
+	end)
+	p1.checkAndFormatPossibleLink = memoize(function(p7, p8) -- line: 235
+		-- upvalues: checkAndFormatPossibleLink (copy), p1 (copy)
+		return checkAndFormatPossibleLink(p8, nil, nil, p1.linkStartStyle(p7), "</b></font>")
+	end)
+
+	function p1.renderRefundPolicy(p9, p10, p11) -- line: 241
+		-- upvalues: p1 (copy), Roact (copy)
+		local Body = p9.Tokens.Semantic.Typography.Body
+		local Muted = p9.Tokens.Semantic.Color.Text.Muted
+		local v205, v206 = p1.checkAndFormatPossibleLink(p9, p10.policyText)
+
+		return Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			LayoutOrder = p11
+		}, {
+			RefundPolicy = Roact.createElement("TextButton", {
+				BackgroundTransparency = 1,
+				Text = v206,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Font = Body.Font,
+				TextSize = Body.FontSize,
+				TextColor3 = Muted.Color3,
+				TextTransparency = Muted.Transparency,
+				TextWrapped = true,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				RichText = v205,
+				[Roact.Event.Activated] = function(_) -- line: 265
+					-- upvalues: p1 (copy), p10 (copy)
+					p1.props.openRefundPolicyLearnMorePage(p10.learnMoreUrl)
+				end
+			})
+		})
+	end
+
+	p1.maybeFetchPlayWithReward = if not FFlagEnablePlayWithRewardComponent then nil else function() -- line: 273
+		-- upvalues: p1 (copy), RetrievalStatus (copy)
+		if p1.state.didFocus ~= true or p1.props.gameDetailsPageDataStatus ~= RetrievalStatus.Done then
+			return
+		end
+
+		local num = tonumber(p1.props.localUserId)
+
+		if not num then
+			return
+		end
+
+		if p1.props.playWithRewardData and p1.props.playWithRewardData.universeId == p1.props.universeId then
+			return
+		end
+
+		p1:setState({
+			didFocus = false
+		})
+		p1.props.fetchPlayWithReward(p1.props.universeId, num):catch(function() -- line: 288
+		end)
+	end
+end
+function v90.renderOnLoading(_, p14) -- line: 293
+	-- upvalues: Roact (copy), LoadingSkeleton (copy), t1 (copy)
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, 0),
+			PaddingLeft = UDim.new(0, p14),
+			PaddingRight = UDim.new(0, p14)
+		}),
+		Skeleton = Roact.createElement(LoadingSkeleton, {
+			Size = UDim2.new(1, 0, 1, 0),
+			createLayout = function() --[[ createLayout ]] -- line: 305
+				-- upvalues: Roact (copy)
+				return Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 15)
+				})
+			end,
+			panels = t1
+		})
+	})
+end
+function v90.renderOnLoaded(p15, p16, p17, p18, p19) -- line: 318
+	-- upvalues: FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), ExperienceDetailsExperimentation (copy), FFlagLuaAppAddIgrsRatingToEdp (copy), FFlagEnablePlayWithRewardComponent (copy), withStyle (copy), Roact (copy), FFlagLuaAppExperienceDetailsLayoutOrderConfig (copy), GameHeader (copy), t2 (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), ExperienceMediaGallery (copy), FFlagLuaAppEdpMediaGalleryRedesignTelemetry (copy), FFlagLuaAppEdpMediaGalleryRedesignIxp (copy), FFlagLuaAppEdpMediaGalleryVideoPreviewIxp (copy), GameStatsCarousel (copy), ExperienceTagsContainer (copy), EventsListWrapper (copy), ExperienceDescription (copy), RetrievalStatus2 (copy), FFlagLuaAppExpandableTextImpressionsEnabled (copy), AppPage (copy), IgrsRatingLabel (copy), Constants (copy), GamePlaysAndRatings (copy), GameInfoList (copy), FFlagLuaAppEnableConsolidatedGameRefundPolicy (copy), GameRefundPolicy (copy), ExperienceDetailsNoticeType (copy), v75 (copy), RetrievalStatus (copy), RecommendedExperienceCarousel (copy), FFlagSongEdpCarouselIxp (copy), ExperienceSongsCarousel (copy), PlayWithRewardComponent (copy)
+	local universeId = p15.props.universeId
+	local gameDetail = p15.props.gameDetail
+	local gameInfo = p15.props.gameInfo
+	local v111 = gameDetail and gameDetail.rootPlaceId or gameInfo and gameInfo.placeId
+	local v112 = p15.props.showRecommendedGames and p15.props.enableRecommendedGames
+	local v113 = gameDetail and p15.props.enableSocial
+	local v114 = gameDetail and p15.props.enableGameInfoList
+	local enableGamePlaysAndRatings = p15.props.enableGamePlaysAndRatings
+	local enableGamePassPreview = p15.props.enableGamePassPreview
+
+	if (FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp and ExperienceDetailsExperimentation.getShouldInterleaveSdui()) and (p15.props.edpServerIxpVariables and p15.props.edpServerIxpVariables.hideGameRatings == true) then
+		enableGamePlaysAndRatings = false
+	end
+
+	local v117 = gameDetail and (gameDetail.description ~= nil and gameDetail.description ~= "")
+	local showGlobalCounters = p15.props.showGlobalCounters
+	local showLikesFavoritesCount = p15.props.showLikesFavoritesCount
+	local ageRecommendations = p15.props.ageRecommendations
+	local v121 = if not FFlagLuaAppAddIgrsRatingToEdp or (not ageRecommendations or (not ageRecommendations.summary or (not ageRecommendations.summary.ageRecommendation or (not ageRecommendations.summary.ageRecommendation.igrsRating or ageRecommendations.summary.ageRecommendation.igrsRating == "")))) then nil else ageRecommendations.summary.ageRecommendation.igrsRating
+	local v122 = if not FFlagLuaAppAddIgrsRatingToEdp or (not ageRecommendations or (not ageRecommendations.summary or (not ageRecommendations.summary.ageRecommendation or not ageRecommendations.summary.ageRecommendation.igrsRatingDisplayMessage))) then nil else ageRecommendations.summary.ageRecommendation.igrsRatingDisplayMessage
+	local notificationsCanAccessExperience = p15.props.notificationsCanAccessExperience
+
+	if (FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp and ExperienceDetailsExperimentation.getShouldInterleaveSdui()) and (p15.props.edpServerIxpVariables and p15.props.edpServerIxpVariables.hideNotifyButton == true) then
+		notificationsCanAccessExperience = false
+	end
+
+	local n1 = 0
+
+	local function v125() -- line: 137
+		-- upvalues: n1 (ref)
+		n1 += 1
+
+		return n1
+	end
+
+	local v126 = p15.props.webViewSupport and (gameDetail ~= nil and gameDetail.refundPolicy ~= nil)
+	local v127 = if not FFlagEnablePlayWithRewardComponent then nil else p15.props.isPlayabilitySettledAndPlayable
+
+	return withStyle(function(p20) -- line: 381
+		-- upvalues: Roact (copy), p17 (copy), FFlagLuaAppExperienceDetailsLayoutOrderConfig (copy), GameHeader (copy), t2 (copy), universeId (copy), notificationsCanAccessExperience (ref), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), p15 (copy), v125 (copy), ExperienceMediaGallery (copy), FFlagLuaAppEdpMediaGalleryRedesignTelemetry (copy), FFlagLuaAppEdpMediaGalleryRedesignIxp (copy), FFlagLuaAppEdpMediaGalleryVideoPreviewIxp (copy), p16 (copy), FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), ExperienceDetailsExperimentation (copy), GameStatsCarousel (copy), ExperienceTagsContainer (copy), EventsListWrapper (copy), v111 (copy), v117 (copy), ExperienceDescription (copy), RetrievalStatus2 (copy), p18 (copy), gameDetail (copy), FFlagLuaAppExpandableTextImpressionsEnabled (copy), AppPage (copy), FFlagLuaAppAddIgrsRatingToEdp (copy), v121 (copy), IgrsRatingLabel (copy), v122 (copy), Constants (copy), p19 (copy), enableGamePlaysAndRatings (ref), GamePlaysAndRatings (copy), showGlobalCounters (copy), showLikesFavoritesCount (copy), v114 (copy), GameInfoList (copy), v113 (copy), ageRecommendations (copy), enableGamePassPreview (copy), v126 (copy), FFlagLuaAppEnableConsolidatedGameRefundPolicy (copy), GameRefundPolicy (copy), ExperienceDetailsNoticeType (copy), v75 (copy), RetrievalStatus (copy), v112 (copy), RecommendedExperienceCarousel (copy), FFlagSongEdpCarouselIxp (copy), ExperienceSongsCarousel (copy), gameInfo (copy), FFlagEnablePlayWithRewardComponent (copy), v127 (copy), PlayWithRewardComponent (copy)
+		local t3 = {
+			ListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, 20)
+			}),
+			PagePadding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, p17),
+				PaddingRight = UDim.new(0, p17),
+				PaddingTop = UDim.new(0, 0),
+				PaddingBottom = UDim.new(0, 20)
+			}),
+			Header = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then Roact.createElement("Frame", {
+				LayoutOrder = v125(),
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 0, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.Y
+			}, {
+				ListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 20)
+				}),
+				MediaGalleryFrame = Roact.createElement("Frame", {
+					LayoutOrder = 2,
+					Position = UDim2.new(0, 0, 0, 0),
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AutomaticSize = Enum.AutomaticSize.Y
+				}, {
+					MediaGallery = Roact.createElement(ExperienceMediaGallery, {
+						universeId = universeId,
+						deviceType = "Phone",
+						showYouTubeVideoFirst = false,
+						onSwipe = if not FFlagLuaAppEdpMediaGalleryRedesignTelemetry then p15.onMediaGallerySwiped else nil,
+						onMediaGalleryMediaChanged = if not FFlagLuaAppEdpMediaGalleryRedesignTelemetry then nil else p15.onMediaGalleryMediaChanged,
+						mediaGalleryRedesignEnabledIxp = if not FFlagLuaAppEdpMediaGalleryRedesignIxp then nil else p15.props.mediaGalleryRedesignEnabledIxp,
+						mediaGalleryVideoPreviewEnabledIxp = if not FFlagLuaAppEdpMediaGalleryVideoPreviewIxp then nil else p15.props.mediaGalleryVideoPreviewEnabledIxp,
+						shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+					}),
+					SizeConstraint = Roact.createElement("UISizeConstraint", {
+						MinSize = Vector2.new(0, (p16 - p17 * 2) / 1.7777777777777777)
+					})
+				}),
+				Header = Roact.createElement(GameHeader, {
+					LayoutOrder = 1,
+					universeId = universeId,
+					showNotificationButton = notificationsCanAccessExperience,
+					shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+				})
+			}) else Roact.createElement(GameHeader, {
+				LayoutOrder = t2.Header,
+				universeId = universeId,
+				showNotificationButton = notificationsCanAccessExperience,
+				shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+			}),
+			MediaGalleryFrame = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then nil else Roact.createElement("Frame", {
+				LayoutOrder = t2.MediaGallery,
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 0, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.Y
+			}, {
+				MediaGallery = Roact.createElement(ExperienceMediaGallery, {
+					universeId = universeId,
+					deviceType = "Phone",
+					showYouTubeVideoFirst = false,
+					onSwipe = if not FFlagLuaAppEdpMediaGalleryRedesignTelemetry then p15.onMediaGallerySwiped else nil,
+					onMediaGalleryMediaChanged = if not FFlagLuaAppEdpMediaGalleryRedesignTelemetry then nil else p15.onMediaGalleryMediaChanged,
+					mediaGalleryRedesignEnabledIxp = if not FFlagLuaAppEdpMediaGalleryRedesignIxp then nil else p15.props.mediaGalleryRedesignEnabledIxp,
+					mediaGalleryVideoPreviewEnabledIxp = if not FFlagLuaAppEdpMediaGalleryVideoPreviewIxp then nil else p15.props.mediaGalleryVideoPreviewEnabledIxp,
+					shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+				}),
+				SizeConstraint = Roact.createElement("UISizeConstraint", {
+					MinSize = Vector2.new(0, (p16 - p17 * 2) / 1.7777777777777777)
+				})
+			}),
+			StatsCarousel = if not FFlagLuaAppEdpBackendV2SduiInterleaveDefault and (not FFlagLuaAppEdpBackendV2SduiInterleaveIxp or not ExperienceDetailsExperimentation.getShouldInterleaveSdui()) or (not p15.props.edpServerIxpVariables or p15.props.edpServerIxpVariables.hideStatsCarousel ~= true) then Roact.createElement(GameStatsCarousel, {
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.StatsCarousel,
+				universeId = universeId,
+				shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+			}) else nil,
+			TagSection = Roact.createElement(ExperienceTagsContainer, {
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.TagSection,
+				universeId = universeId,
+				shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp,
+				hideContentDescriptors = not (not FFlagLuaAppEdpBackendV2SduiInterleaveDefault and (not FFlagLuaAppEdpBackendV2SduiInterleaveIxp or not ExperienceDetailsExperimentation.getShouldInterleaveSdui())) and (not not p15.props.edpServerIxpVariables and p15.props.edpServerIxpVariables.showContentDescriptorsInInfoList == true) or nil
+			}),
+			MovedEventsList = Roact.createElement(EventsListWrapper, {
+				layoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.MovedEventsList,
+				universeId = universeId,
+				referralSource = "expDetailsPage",
+				defaultThumbnail = if not v111 then nil else ("rbxthumb://type=GameThumbnail&id=%d&w=768&h=432"):format(v111),
+				peekViewFormat = true
+			}),
+			Description = if not v117 then nil else Roact.createElement(ExperienceDescription, {
+				dataStatus = RetrievalStatus2.fromRawValue(p18),
+				descriptionText = gameDetail and gameDetail.description,
+				expandable = true,
+				listPadding = p20.Tokens.Global.Space_125,
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.Description,
+				universeId = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else universeId,
+				pageContext = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else AppPage.GameDetail,
+				componentType = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else "gameDescription",
+				viewportBoundsOffset = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else p15.props.viewportBoundsOffset
+			}),
+			IgrsRatingLabel = if not FFlagLuaAppAddIgrsRatingToEdp or not v121 then nil else Roact.createElement(IgrsRatingLabel, {
+				igrsRating = v121,
+				igrsRatingDisplayMessage = v122,
+				onActivated = function() --[[ onActivated ]] -- line: 565
+					-- upvalues: p15 (copy), Constants (copy), p19 (copy)
+					p15.props.openWebview(Constants.INDONESIAN_CONTENT_MATURITY_URL, p19.contentMaturityHeader)
+				end,
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.IgrsRatingLabel
+			}),
+			PlaysAndRatings = enableGamePlaysAndRatings and Roact.createElement(GamePlaysAndRatings, {
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.PlaysAndRatings,
+				universeId = universeId,
+				containerWidth = p16 - 2 * p17,
+				rowPadding = 20,
+				showGlobalCounters = showGlobalCounters,
+				showLikesFavoritesCount = showLikesFavoritesCount,
+				hideVisits = true,
+				shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+			}),
+			InfoList = v114 and Roact.createElement(GameInfoList, {
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.InfoList,
+				universeId = universeId,
+				leftPadding = p17,
+				rightPadding = p17,
+				showSocial = v113,
+				ageRecommendations = ageRecommendations,
+				width = p16,
+				enableGamePassPreview = enableGamePassPreview,
+				shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+			}),
+			RefundPolicy = if not v126 then nil else if not FFlagLuaAppEnableConsolidatedGameRefundPolicy then p15.renderRefundPolicy(p20, gameDetail.refundPolicy, if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.RefundPolicy) else Roact.createElement(GameRefundPolicy, {
+				refundPolicy = gameDetail.refundPolicy,
+				layoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.RefundPolicy
+			}),
+			Notice = if p15.props.experienceDetailsNoticeType ~= ExperienceDetailsNoticeType.InExperiencePurchase then nil else Roact.createElement(ExperienceDescription, {
+				dataStatus = if not v75 then RetrievalStatus2.fromRawValue(p18) else RetrievalStatus2.fromRawValue(RetrievalStatus.Done),
+				headerText = p19.noticeHeader,
+				descriptionText = p19.noticeText,
+				expandable = false,
+				listPadding = p20.Tokens.Global.Space_125,
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.Notice,
+				universeId = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else universeId,
+				pageContext = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else AppPage.GameDetail,
+				componentType = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else "gameNotice",
+				viewportBoundsOffset = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else p15.props.viewportBoundsOffset
+			}),
+			RecommendedGames = v112 and Roact.createElement("Frame", {
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.RecommendedGames,
+				Size = UDim2.new(1, 0, 0, 0),
+				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1
+			}, {
+				Carousel = Roact.createElement(RecommendedExperienceCarousel, {
+					universeId = universeId,
+					pageContext = AppPage.GameDetail,
+					onPeekViewClosed = p15.props.onPeekViewClosed,
+					scrollingEnabled = true,
+					shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p15.props.shouldHydrateLegacyIxp
+				})
+			}),
+			ExperienceSongsCarousel = if not FFlagSongEdpCarouselIxp or not p15.props.showSongCarousel then nil else Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 0),
+				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				LayoutOrder = if not FFlagLuaAppExperienceDetailsLayoutOrderConfig then v125() else t2.ExperienceSongsCarousel
+			}, { Roact.createElement(ExperienceSongsCarousel, {
+				universeId = universeId,
+				universeTitle = gameDetail and gameDetail.name or (gameInfo and gameInfo.name or ""),
+				collectionOrder = 2,
+				clipsDescendants = false
+			}) }),
+			PlayWithRewardComponent = if not FFlagEnablePlayWithRewardComponent or not v127 then nil else Roact.createElement(PlayWithRewardComponent, {
+				universeId = universeId,
+				placeId = v111,
+				placeIdOverride = p15.props.placeIdOverride,
+				experienceJoinData = p15.props.experienceJoinData,
+				flowId = not p15.props.playWithRewardData and "" or p15.props.playWithRewardData.flowId,
+				fetchedUniverseId = if not p15.props.playWithRewardData then nil else p15.props.playWithRewardData.universeId,
+				isAdDataExpected = not not p15.props.playWithRewardData and p15.props.playWithRewardData.isAdDataExpected,
+				playWithRewardAdData = if not p15.props.playWithRewardData then nil else p15.props.playWithRewardData.adData
+			})
+		}
+
+		if (FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp and p15.props.shouldInterleaveSduiIxp) and p15.props.sduiFeedItemConfigs then
+			for v210, v211 in p15.props.sduiFeedItemConfigs do
+				t3[`SduiFeedItem_{ v210 }`] = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 0),
+					BorderSizePixel = 0,
+					AutomaticSize = Enum.AutomaticSize.Y,
+					BackgroundTransparency = 1,
+					LayoutOrder = v211.portraitLayoutOrder
+				}, {
+					SduiComponent = v211.renderComponent()
+				})
+			end
+		end
+
+		return Roact.createElement("Frame", {
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = UDim2.new(1, 0, 0, 0),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			AutomaticSize = Enum.AutomaticSize.Y
+		}, t3)
+	end)
+end
+function v90.renderOnFailed(p21, p22, p23, p24) -- line: 729
+	-- upvalues: v75 (copy), FFlagLuaAppAddIgrsRatingToEdp (copy), EnumGameDetailErrorTypes (copy), Roact (copy), EmptyState (copy)
+	if p21.props.gameInfo then
+		return p21:renderOnLoaded(p23, p24, nil, if not v75 and not FFlagLuaAppAddIgrsRatingToEdp then nil else p22)
+	end
+
+	local v132 = p21.props.gameDetailError and p21.props.gameDetailError.errorType == EnumGameDetailErrorTypes.ExperienceUnavailable
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 1
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, 100),
+			PaddingLeft = UDim.new(0, p24),
+			PaddingRight = UDim.new(0, p24),
+			PaddingBottom = UDim.new(0, 20)
+		}),
+		EmptyState = Roact.createElement(EmptyState, {
+			onActivated = if not v132 then p21.fetchGameDetailsPageData else nil,
+			text = if not v132 then p22.failedMessage else p22.experienceUnavailableMessage,
+			maxSizeTextLabel = Vector2.new(p23 - 2 * p24, 1e999)
+		})
+	})
+end
+function v90.getImageSize(_, p26, p27, p28, p29) -- line: 764
+	local v138 = p27 * 1.8
+	local v139 = p29 / p28
+	local v140 = math.max(v138, p26 * v139)
+	local v141 = v140 / v139
+
+	return Vector2.new(v141, v140)
+end
+function v90.render(p30) -- line: 775
+	-- upvalues: getSafeAreaSize (copy), Roact (copy), withLocalization (copy), FFlagLuaAppAddIgrsRatingToEdp (copy), LoadingStateContainer (copy), RetrievalStatus2 (copy), FFlagEnablePlayWithRewardComponent (copy), RoactNavigation (copy)
+	local screenSize = p30.props.screenSize
+	local globalGuiInset = p30.props.globalGuiInset
+	local gameDetailsPageDataStatus = p30.props.gameDetailsPageDataStatus
+	local v146 = getSafeAreaSize(screenSize, globalGuiInset)
+	local v147 = math.min(v146.X.Offset, 640)
+	local YOffset = v146.Y.Offset
+	local v149 = not (v147 < 600) and 40 or 20
+	local v150 = Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		Position = UDim2.new(0, 0, 0, 0),
+		BackgroundTransparency = 1,
+		ClipsDescendants = true
+	}, {
+		GameDetails = Roact.createElement("Frame", {
+			Position = UDim2.new(0, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = UDim2.new(1, 0, 0, 0),
+			BackgroundTransparency = 1
+		}, {
+			Background = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, YOffset),
+				Position = UDim2.new(0, 0, 0, 0),
+				BackgroundTransparency = 1,
+				ZIndex = 1
+			}),
+			LoadingState = withLocalization({
+				failedMessage = "Feature.EmptyStatePage.Message.NoInternet",
+				experienceUnavailableMessage = "Feature.GamePage.QuickLaunch.LaunchError.TemporarilyUnavailable",
+				noticeHeader = "Feature.ExperienceDetails.Body.NotesTitle",
+				noticeText = "Feature.ExperienceDetails.Notes.InExperiencePurchase",
+				contentMaturityHeader = if not FFlagLuaAppAddIgrsRatingToEdp then nil else "Feature.GameDetails.Label.ContentMaturity"
+			})(function(p31) -- line: 812
+				-- upvalues: Roact (copy), LoadingStateContainer (copy), RetrievalStatus2 (copy), gameDetailsPageDataStatus (copy), p30 (copy), v147 (copy), v149 (copy)
+				return Roact.createElement("Frame", {
+					Size = UDim2.fromScale(1, 0),
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Position = UDim2.new(0, 0, 0, 0),
+					ZIndex = 2,
+					BackgroundTransparency = 1
+				}, {
+					LoadingStateContainer = Roact.createElement(LoadingStateContainer, {
+						dataStatus = RetrievalStatus2.fromRawValue(gameDetailsPageDataStatus),
+						renderOnFailed = function() --[[ renderOnFailed ]] -- line: 822
+							-- upvalues: p30 (copy), p31 (copy), v147 (copy), v149 (copy)
+							return p30:renderOnFailed(p31, v147, v149)
+						end,
+						renderOnLoading = function() --[[ renderOnLoading ]] -- line: 825
+							-- upvalues: p30 (copy), v149 (copy)
+							return p30:renderOnLoading(v149)
+						end,
+						renderOnLoaded = function() --[[ renderOnLoaded ]] -- line: 828
+							-- upvalues: p30 (copy), v147 (copy), v149 (copy), gameDetailsPageDataStatus (copy), p31 (copy)
+							return p30:renderOnLoaded(v147, v149, gameDetailsPageDataStatus, p31)
+						end
+					})
+				})
+			end)
+		})
+	})
+
+	if FFlagEnablePlayWithRewardComponent then
+		return Roact.createFragment({
+			Content = v150,
+			NavigationEvents = Roact.createElement(RoactNavigation.NavigationEvents, {
+				onDidFocus = p30.onDidFocus
+			})
+		})
+	end
+
+	return v150
+end
+function v90.didMount(p32) -- line: 854
+	-- upvalues: FFlagEnablePlayWithRewardComponent (copy)
+	p32.fetchGameDetailsPageData()
+
+	if FFlagEnablePlayWithRewardComponent then
+		p32.maybeFetchPlayWithReward()
+	end
+end
+function v90.didUpdate(p33) -- line: 861
+	-- upvalues: FFlagEnablePlayWithRewardComponent (copy)
+	if FFlagEnablePlayWithRewardComponent then
+		p33.maybeFetchPlayWithReward()
+	end
+end
+function v90.willUnmount(p34) -- line: 867
+	-- upvalues: FFlagEnablePlayWithRewardComponent (copy)
+	local eventIngest = p34.props.eventIngest
+	local universeId = p34.props.universeId
+	local v156 = p34.props.gameDetail and p34.props.gameDetail.rootPlaceId or nil
+	local v157 = p34.props.source or "None"
+	local v158 = p34.props.index or -1
+
+	if eventIngest ~= nil and (universeId ~= nil and v156 ~= nil) then
+		eventIngest:setRBXEventStream("GameDetailsCard", "viewClose", {
+			universeId = universeId,
+			rootPlaceId = v156,
+			source = v157,
+			index = v158
+		})
+	end
+
+	if FFlagEnablePlayWithRewardComponent then
+		p34.props.clearPlayWithReward()
+	end
+end
+
+local v91 = memoize(function(p35, p36) -- line: 886
+	-- upvalues: RetrievalStatus (copy)
+	if p35 == RetrievalStatus.Done and (p36 == nil or #p36 == 0) then
+		return false
+	end
+
+	return true
+end)
+local v92 = RoactRodux.connect(function(p37, p38) -- line: 896
+	-- upvalues: FFlagEnablePlayWithRewardComponent (copy), FetchGamePlayabilityAndProductInfo (copy), RetrievalStatus (copy), PlayabilityStatusEnum (copy), PlayButtonStates (copy), FFlagLuaAppEdpBackendV2HydrateLegacyDefault (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), ApiFetchExperienceDetailsPage (copy), ApiFetchGameDetails (copy), RecommendedGames (copy), GameInfosReducer (copy), v91 (copy)
+	local v163 = if not FFlagEnablePlayWithRewardComponent then nil else FetchGamePlayabilityAndProductInfo.GetFetchingStatus(p37, p38.universeId)
+	local v164 = if not FFlagEnablePlayWithRewardComponent then nil else p37.PlayabilityStatus and p37.PlayabilityStatus[p38.universeId] or nil
+	local v165 = if not FFlagEnablePlayWithRewardComponent then nil else v163 == RetrievalStatus.Done and (v164 ~= nil and (v164.playabilityStatus == PlayabilityStatusEnum.Playable and p38.playButtonState == PlayButtonStates.Playable))
+	local v166, v167
+
+	if FFlagLuaAppEdpBackendV2HydrateLegacyDefault or FFlagLuaAppEdpBackendV2HydrateLegacyIxp and p38.shouldHydrateLegacyIxp then
+		v166 = ApiFetchExperienceDetailsPage.GetFetchingStatus(p37, p38.universeId)
+		v167 = ApiFetchExperienceDetailsPage.GetFetchingStatus(p37, p38.universeId)
+	else
+		v166 = ApiFetchGameDetails.GetFetchingStatus(p37, p38.universeId)
+		v167 = RecommendedGames.GetFetchingStatus(p37, p38.universeId)
+	end
+
+	local v168 = p37.Personalization[GameInfosReducer.key][p38.universeId]
+	local PlayWithRewardState = nil
+
+	if FFlagEnablePlayWithRewardComponent and p37.PlayWithRewardState.universeId == p38.universeId then
+		PlayWithRewardState = p37.PlayWithRewardState
+	end
+
+	return {
+		topBarHeight = 0,
+		gameDetail = if not FFlagLuaAppEdpBackendV2HydrateLegacyDefault and (not FFlagLuaAppEdpBackendV2HydrateLegacyIxp or not p38.shouldHydrateLegacyIxp) then p37.GameDetails[p38.universeId] else p37.GameDetailsV2[p38.universeId],
+		gameDetailError = p37.GameDetailErrors[p38.universeId],
+		gameDetailsPageDataStatus = v166,
+		gameInfo = v168,
+		screenSize = p37.ScreenSize,
+		globalGuiInset = p37.GlobalGuiInset,
+		showLoadingBackground = v166 ~= RetrievalStatus.Done,
+		showRecommendedGames = v91(v167, p37.RecommendedGameEntries[p38.universeId]),
+		ageRecommendations = p37.AgeRecommendations[p38.universeId],
+		playWithRewardData = if not FFlagEnablePlayWithRewardComponent then nil else PlayWithRewardState,
+		isPlayabilitySettledAndPlayable = if not FFlagEnablePlayWithRewardComponent then nil else v165,
+		localUserId = if not FFlagEnablePlayWithRewardComponent then nil else p37.LocalUserId
+	}
+end, function(p39) -- line: 954
+	-- upvalues: FetchGameDetailsPageData (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy), FFlagEnablePlayWithRewardComponent (copy), SetPlayWithRewardState (copy), FetchPlayWithRewardState (copy), AdService (copy), OpenRefundPolicyLearnMorePage (copy), FFlagLuaAppAddIgrsRatingToEdp (copy), OpenWebview (copy)
+	return {
+		fetchGameDetailsPageData = function(p40, p41, p42, p43, p44) --[[ fetchGameDetailsPageData ]] -- line: 956
+			-- upvalues: p39 (copy), FetchGameDetailsPageData (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy)
+			return p39(FetchGameDetailsPageData(p40, p41, nil, if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p42, if not FFlagLuaAppEdpBackendV2SduiInterleaveIxp then nil else p43, if not FFlagLuaAppEdpBackendV2SduiInterleaveDefault and (not FFlagLuaAppEdpBackendV2SduiInterleaveIxp or not p43) then nil else p44))
+		end,
+		clearPlayWithReward = if not FFlagEnablePlayWithRewardComponent then nil else function() -- line: 978
+			-- upvalues: p39 (copy), SetPlayWithRewardState (copy)
+			return p39(SetPlayWithRewardState("", "", false, nil))
+		end,
+		fetchPlayWithReward = if not FFlagEnablePlayWithRewardComponent then nil else function(s1: string, n2: number) -- line: 983
+			-- upvalues: p39 (copy), FetchPlayWithRewardState (copy), AdService (copy)
+			return p39(FetchPlayWithRewardState(AdService, s1, n2))
+		end,
+		openRefundPolicyLearnMorePage = function(p45) --[[ openRefundPolicyLearnMorePage ]] -- line: 987
+			-- upvalues: p39 (copy), OpenRefundPolicyLearnMorePage (copy)
+			return p39(OpenRefundPolicyLearnMorePage(p45))
+		end,
+		openWebview = if not FFlagLuaAppAddIgrsRatingToEdp then nil else function(p46, p47) -- line: 991
+			-- upvalues: p39 (copy), OpenWebview (copy)
+			return p39(OpenWebview(p46, p47))
+		end
+	}
+end)(v90)
+local v93 = RoactServices.connect({
+	networking = RoactNetworking,
+	eventIngest = AppEventIngestService
+})(v92)
+local v94 = RoactAppPolicy.connect(function(p48, _) -- line: 1003
+	return {
+		enableRecommendedGames = p48.getRecommendedGames(),
+		enableSocial = p48.getSocialLinks(),
+		enableGameInfoList = p48.getGameInfoList(),
+		enableGamePlaysAndRatings = p48.getGamePlaysAndRatings(),
+		showGlobalCounters = p48.getShowGlobalCounters(),
+		showLikesFavoritesCount = p48.getEnableAggregateLikesFavoritesCount(),
+		enableGamePassPreview = p48.getShowPassesOnExperienceDetails(),
+		webViewSupport = p48.getWebViewSupport(),
+		notificationsCanAccessExperience = p48.getNotificationsCanReceiveExperience(),
+		experienceDetailsNoticeType = p48.getExperienceDetailsNoticeType()
+	}
+end)(v93)
+
+if FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp then
+	local v95 = v94
+
+	function v94(p50) -- line: 1020
+		-- upvalues: FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), ServerDrivenUi (copy), EdpSduiUtils (copy), t2 (copy), ApiFetchExperienceDetailsPageCounters (copy), React (copy), SignalsReact (copy), useEdpServerIxpVariables (copy), Roact (copy), v95 (copy), Cryo (copy)
+		local v174 = nil
+		local v175 = nil
+		local v176 = nil
+
+		if FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp then
+			local v177 = ServerDrivenUi.useSduiContextFromSignalAndProcessConfigs(EdpSduiUtils.getUnprocessedEdpStoreKey((tostring(p50.universeId))), EdpSduiUtils.getEdpStoreKey((tostring(p50.universeId))), FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp and p50.shouldInterleaveSduiIxp)
+
+			v174 = ServerDrivenUi.useSduiEdpFeedItemConfigs({
+				sduiContext = v177,
+				storeKey = EdpSduiUtils.getEdpStoreKey((tostring(p50.universeId))),
+				portraitLayoutConfig = t2,
+				landscapeLayoutConfig = t2,
+				defaultLayoutOrder = t2.SduiFeedItemsDefault,
+				logLayoutConflictFn = ApiFetchExperienceDetailsPageCounters.logSduiLayoutOrderConflict,
+				shouldInterleaveSdui = FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp and p50.shouldInterleaveSduiIxp
+			})
+
+			local v178 = React.useMemo(function() -- line: 1041
+				-- upvalues: FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), p50 (copy), ServerDrivenUi (copy), EdpSduiUtils (copy)
+				return function(p51) -- line: 1042
+					-- upvalues: FFlagLuaAppEdpBackendV2SduiInterleaveDefault (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), p50 (copy), ServerDrivenUi (copy), EdpSduiUtils (copy)
+					if (FFlagLuaAppEdpBackendV2SduiInterleaveDefault or FFlagLuaAppEdpBackendV2SduiInterleaveIxp and p50.shouldInterleaveSduiIxp) and p50.universeId then
+						return ServerDrivenUi.getSduiFeedStore(EdpSduiUtils.getEdpStoreKey((tostring(p50.universeId)))).getDataUpdatedTimestamp(p51)
+					end
+
+					return nil
+				end
+			end, {
+				p50.universeId,
+				p50.shouldInterleaveSduiIxp
+			})
+
+			v175 = SignalsReact.useSignalState(v178)
+			v176 = useEdpServerIxpVariables()
+		end
+
+		return Roact.createElement(v95, Cryo.Dictionary.join(p50, {
+			currentSduiDataTimestamp = v175,
+			sduiFeedItemConfigs = v174,
+			edpServerIxpVariables = v176
+		}))
+	end
+end
+
+if FFlagSongEdpCarouselIxp or FFlagLuaAppEdpMediaGalleryRedesignIxp or FFlagLuaAppEdpMediaGalleryVideoPreviewIxp then
+	v94 = RoactAppExperiment.connectUserLayer({ AppUserLayers.ExperienceDetailsPageExposureLayer }, function(p52, _) -- line: 1074
+		-- upvalues: AppUserLayers (copy), FFlagSongEdpCarouselIxp (copy), FFlagLuaAppEdpMediaGalleryRedesignIxp (copy), FFlagLuaAppEdpMediaGalleryVideoPreviewIxp (copy)
+		local v181 = p52[AppUserLayers.ExperienceDetailsPageExposureLayer] or {}
+
+		return {
+			showSongCarousel = if not FFlagSongEdpCarouselIxp then nil else v181.showSongCarousel,
+			mediaGalleryRedesignEnabledIxp = if not FFlagLuaAppEdpMediaGalleryRedesignIxp then nil else v181.MediaGalleryRedesignEnabled,
+			mediaGalleryVideoPreviewEnabledIxp = if not FFlagLuaAppEdpMediaGalleryVideoPreviewIxp then nil else v181.MediaGalleryVideoPreviewEnabled
+		}
+	end, true)(v94)
+end
+
+if FFlagLuaAppEdpBackendV2HydrateLegacyIxp or FFlagLuaAppEdpBackendV2SduiInterleaveIxp or FFlagEDPTTITrackingEnabled or FFlagEnablePlayWithRewardComponent then
+	local v96 = v94
+
+	function v94(p54) -- line: 1098
+		-- upvalues: FFlagEDPTTITrackingEnabled (copy), useFirstMediaCarouselImageUri (copy), useEDPTTITracking (copy), EDPTTIConstants (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), ExperienceDetailsExperimentation (copy), FFlagLuaAppEdpBackendV2SduiInterleaveIxp (copy), FFlagEnablePlayWithRewardComponent (copy), useRoactService (copy), RoactNetworking (copy), usePlayButtonState (copy), React (copy), IXPService (copy), AppUserLayers (copy), Roact (copy), v96 (copy), Cryo (copy)
+		if FFlagEDPTTITrackingEnabled then
+			local v183 = useFirstMediaCarouselImageUri(p54.universeId)
+
+			useEDPTTITracking(EDPTTIConstants.EDP_IMPLEMENTATION.LEGACY_PEEK_VIEW, p54.universeId, v183)
+		end
+
+		local v184 = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else ExperienceDetailsExperimentation.getShouldHydrateLegacy()
+		local v185 = if not FFlagLuaAppEdpBackendV2SduiInterleaveIxp then nil else ExperienceDetailsExperimentation.getShouldInterleaveSdui()
+		local playButtonState = nil
+
+		if FFlagEnablePlayWithRewardComponent then
+			local v187 = useRoactService(RoactNetworking)
+
+			playButtonState = usePlayButtonState(v187, p54.universeId, nil).playButtonState
+		end
+
+		if FFlagLuaAppEdpBackendV2HydrateLegacyIxp or FFlagLuaAppEdpBackendV2SduiInterleaveIxp or FFlagEDPTTITrackingEnabled then
+			React.useEffect(function() -- line: 1127
+				-- upvalues: IXPService (copy), AppUserLayers (copy)
+				IXPService:LogUserLayerExposure(AppUserLayers.ExperienceDetailsPageExposureLayer)
+			end, {})
+		end
+
+		return Roact.createElement(v96, Cryo.Dictionary.join(p54, {
+			shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else v184,
+			shouldInterleaveSduiIxp = if not FFlagLuaAppEdpBackendV2SduiInterleaveIxp then nil else v185,
+			playButtonState = if not FFlagEnablePlayWithRewardComponent then nil else playButtonState
+		}))
+	end
+end
+
+return v94

@@ -1,200 +1,226 @@
-local l_Parent_0 = script:FindFirstAncestor("GameInvite").Parent;
-local v1 = require(l_Parent_0.Cryo);
-game:DefineFastFlag("LuaAppInviteEventsIncludePlaceId", false);
-game:DefineFastFlag("GameInviteModalIncludeLinkIdInShareButton", false);
-local v2 = {};
-v2.__index = v2;
-v2.ButtonName = {
-    SettingsHub = "settingsHub", 
-    ModalPrompt = "modalPrompt", 
-    GameDetailsMoreMenu = "uaGameDetailsMoreMenu", 
-    GameDetailsPlayWithFriendsMenu = "uaGameDetailsPlayWithFriendsMenu"
-};
-v2.EventName = {
-    InviteSent = "inputShareGameInviteSent", 
-    EntryPoint = "inputShareGameEntryPoint", 
-    LinkGenerated = "linkGenerated", 
-    ShareButtonClick = "buttonClick", 
-    InviteSearchFocused = "inviteSearchFocused", 
-    GameInviteModal = "gameInviteModal"
-};
-v2.ActionType = {
-    ModalOpen = "modalOpen", 
-    InviteTriggered = "inviteTriggered", 
-    ModalClose = "modalClose", 
-    InviteFailure = "inviteFailure"
-};
-v2.DiagCounters = {
-    EntryPoint = {
-        [v2.ButtonName.SettingsHub] = settings():GetFVariable("LuaShareGameSettingsHubEntryCounter"), 
-        [v2.ButtonName.ModalPrompt] = settings():GetFVariable("LuaShareGameModalPromptEntryCounter")
-    }, 
-    InviteSent = {
-        [v2.ButtonName.SettingsHub] = settings():GetFVariable("LuaShareGameSettingsHubInviteCounter"), 
-        [v2.ButtonName.ModalPrompt] = settings():GetFVariable("LuaShareGameModalPromptInviteCounter")
-    }
-};
-v2.new = function() --[[ Line: 48 ]] --[[ Name: new ]]
-    -- upvalues: v2 (copy)
-    local v3 = {
-        _eventStreamImpl = nil, 
-        _diagImpl = nil, 
-        _buttonName = nil
-    };
-    setmetatable(v3, v2);
-    return v3;
-end;
-v2.withEventStream = function(v4, v5) --[[ Line: 59 ]] --[[ Name: withEventStream ]]
-    v4._eventStreamImpl = v5;
-    return v4;
-end;
-v2.withDiag = function(v6, v7) --[[ Line: 64 ]] --[[ Name: withDiag ]]
-    v6._diagImpl = v7;
-    return v6;
-end;
-v2.withButtonName = function(v8, v9) --[[ Line: 69 ]] --[[ Name: withButtonName ]]
-    v8._buttonName = v9;
-    return v8;
-end;
-v2.onActivatedInviteSent = function(v10, _, v12, v13, v14, v15) --[[ Line: 74 ]] --[[ Name: onActivatedInviteSent ]]
-    -- upvalues: v2 (copy)
-    local v16 = v10:_getButtonName();
-    local v17 = "inGame";
-    if v10:_getIsUniversalApp() then
-        v17 = "inApp";
-    end;
-    local l_InviteSent_0 = v2.EventName.InviteSent;
-    local v19 = table.concat(v13, ",");
-    local v20 = nil;
-    local v21 = nil;
-    if v10:_getIsUniversalApp() then
-        v20 = tostring(v14);
-        v21 = tostring(v15);
-    else
-        v20 = tostring(game.PlaceId);
-        v21 = tostring(game.GameId);
-    end;
-    local v22 = {
-        btn = v16, 
-        placeId = v20, 
-        gameId = v21, 
-        conversationId = tostring(v12), 
-        participants = v19
-    };
-    v10:_getEventStream():setRBXEventStream(v17, l_InviteSent_0, v22);
-    local v23 = v2.DiagCounters.InviteSent[v10:_getButtonName()];
-    if v23 then
-        v10:_getDiag():reportCounter(v23, 1);
-    end;
-end;
-v2.inputShareGameEntryPoint = function(v24, v25, v26) --[[ Line: 106 ]] --[[ Name: inputShareGameEntryPoint ]]
-    -- upvalues: v2 (copy)
-    local v27 = v24:_getButtonName();
-    local v28 = "inGame";
-    if v24:_getIsUniversalApp() then
-        v28 = "inApp";
-    end;
-    local l_EntryPoint_0 = v2.EventName.EntryPoint;
-    local v30 = nil;
-    local v31 = nil;
-    if v24:_getIsUniversalApp() then
-        v30 = tostring(v25);
-        v31 = tostring(v26);
-    else
-        v30 = tostring(game.PlaceId);
-        v31 = tostring(game.GameId);
-    end;
-    local v32 = {
-        btn = v27, 
-        placeId = v30, 
-        gameId = v31
-    };
-    v24:_getEventStream():setRBXEventStream(v28, l_EntryPoint_0, v32);
-    local v33 = v2.DiagCounters.EntryPoint[v24:_getButtonName()];
-    if v33 then
-        v24:_getDiag():reportCounter(v33, 1);
-    end;
-end;
-v2.linkGenerated = function(v34, v35) --[[ Line: 134 ]] --[[ Name: linkGenerated ]]
-    -- upvalues: v2 (copy)
-    local l_LinkGenerated_0 = v2.EventName.LinkGenerated;
-    local v37 = {
-        linkType = v35.linkType, 
-        linkId = v35.linkId, 
-        page = "inGameMenu", 
-        subpage = "inviteFriendsPage"
-    };
-    v34:_getEventStream():setRBXEventStream("shareLinks", l_LinkGenerated_0, v37);
-end;
-v2.onShareButtonClick = function(v38, v39) --[[ Line: 146 ]] --[[ Name: onShareButtonClick ]]
-    -- upvalues: v2 (copy)
-    local l_ShareButtonClick_0 = v2.EventName.ShareButtonClick;
-    local v41 = {
-        btn = "shareServerInviteLink", 
-        page = "inGameMenu", 
-        subpage = "inviteFriendsPage", 
-        linkId = if game:GetFastFlag("GameInviteModalIncludeLinkIdInShareButton") then v39 else nil, 
-        isShortUrlEnabled = true
-    };
-    v38:_getEventStream():setRBXEventStream("shareLinks", l_ShareButtonClick_0, v41);
-end;
-v2.onSearchFocused = function(v42) --[[ Line: 159 ]] --[[ Name: onSearchFocused ]]
-    -- upvalues: v2 (copy)
-    local l_InviteSearchFocused_0 = v2.EventName.InviteSearchFocused;
-    local v44 = "inGame";
-    local v45 = {
-        btn = v42:_getButtonName(), 
-        page = "inGameMenu", 
-        subpage = "inviteFriendsPage"
-    };
-    if v42:_getIsUniversalApp() then
-        v44 = "inApp";
-        v45.page = "inAppGameDetails";
-    end;
-    v42:_getEventStream():setRBXEventStream(v44, l_InviteSearchFocused_0, v45);
-end;
-v2.sendEvent = function(v46, v47, v48, v49) --[[ Line: 174 ]] --[[ Name: sendEvent ]]
-    -- upvalues: v1 (copy)
-    local l_Args_0 = v48.Args;
-    if game:GetFastFlag("LuaAppInviteEventsIncludePlaceId") then
-        l_Args_0 = v1.Dictionary.join(l_Args_0, {
-            placeId = if v46:_getIsUniversalApp() and v49 and v49.place_id then v49.place_id else game.PlaceId
-        });
-    end;
-    if v49 then
-        l_Args_0 = v1.Dictionary.join(l_Args_0, v49);
-    end;
-    v46:_getEventStream():setRBXEventStream(v47, v48.Type, l_Args_0);
-end;
-v2.sendGameInviteModalEvent = function(v51, v52, v53) --[[ Line: 191 ]] --[[ Name: sendGameInviteModalEvent ]]
-    -- upvalues: v1 (copy), v2 (copy)
-    local v54 = {
-        place_id = if v51:_getIsUniversalApp() and v53 and v53.place_id then v53.place_id else game.PlaceId
-    };
-    if v53 then
-        v54 = v1.Dictionary.join(v54, v53);
-    end;
-    v51:_getEventStream():setRBXEventStream(v52, v2.EventName.GameInviteModal, v54);
-end;
-v2._getEventStream = function(v55) --[[ Line: 205 ]] --[[ Name: _getEventStream ]]
-    assert(v55._eventStreamImpl, "EventStream implementation not found. Did you forget to construct withEventStream?");
-    return v55._eventStreamImpl;
-end;
-v2._getDiag = function(v56) --[[ Line: 210 ]] --[[ Name: _getDiag ]]
-    assert(v56._diagImpl, "Diag implementation not found. Did you forget to construct withDiag?");
-    return v56._diagImpl;
-end;
-v2._getButtonName = function(v57) --[[ Line: 215 ]] --[[ Name: _getButtonName ]]
-    assert(v57._buttonName, "ButtonName not found. Did you forget to construct withButtonName?");
-    return v57._buttonName;
-end;
-v2._getIsUniversalApp = function(v58) --[[ Line: 220 ]] --[[ Name: _getIsUniversalApp ]]
-    -- upvalues: v2 (copy)
-    assert(v58._buttonName, "ButtonName not found. Did you forget to construct withButtonName?");
-    local v59 = true;
-    if v58._buttonName ~= v2.ButtonName.GameDetailsMoreMenu then
-        v59 = v58._buttonName == v2.ButtonName.GameDetailsPlayWithFriendsMenu;
-    end;
-    return v59;
-end;
-return v2;
+local Parent = script:FindFirstAncestor("GameInvite").Parent
+local Cryo = require(Parent.Cryo)
+
+game:DefineFastFlag("GameInviteModalIncludeLinkIdInShareButton", false)
+
+local t1 = {}
+
+t1.__index = t1
+t1.ButtonName = {
+	SettingsHub = "settingsHub",
+	ModalPrompt = "modalPrompt",
+	GameDetailsMoreMenu = "uaGameDetailsMoreMenu",
+	GameDetailsPlayWithFriendsMenu = "uaGameDetailsPlayWithFriendsMenu"
+}
+t1.EventName = {
+	InviteSent = "inputShareGameInviteSent",
+	EntryPoint = "inputShareGameEntryPoint",
+	LinkGenerated = "linkGenerated",
+	ShareButtonClick = "buttonClick",
+	InviteSearchFocused = "inviteSearchFocused",
+	GameInviteModal = "gameInviteModal"
+}
+t1.ActionType = {
+	ModalOpen = "modalOpen",
+	InviteTriggered = "inviteTriggered",
+	ModalClose = "modalClose",
+	InviteFailure = "inviteFailure"
+}
+t1.DiagCounters = {
+	EntryPoint = {
+		[t1.ButtonName.SettingsHub] = settings():GetFVariable("LuaShareGameSettingsHubEntryCounter"),
+		[t1.ButtonName.ModalPrompt] = settings():GetFVariable("LuaShareGameModalPromptEntryCounter")
+	},
+	InviteSent = {
+		[t1.ButtonName.SettingsHub] = settings():GetFVariable("LuaShareGameSettingsHubInviteCounter"),
+		[t1.ButtonName.ModalPrompt] = settings():GetFVariable("LuaShareGameModalPromptInviteCounter")
+	}
+}
+
+function t1.new() -- line: 47
+	-- upvalues: t1 (copy)
+	local t2 = {
+		_eventStreamImpl = nil,
+		_diagImpl = nil,
+		_buttonName = nil
+	}
+
+	setmetatable(t2, t1)
+
+	return t2
+end
+function t1.withEventStream(p1, p2) -- line: 58
+	p1._eventStreamImpl = p2
+
+	return p1
+end
+function t1.withDiag(p3, p4) -- line: 63
+	p3._diagImpl = p4
+
+	return p3
+end
+function t1.withButtonName(p5, p6) -- line: 68
+	p5._buttonName = p6
+
+	return p5
+end
+function t1.onActivatedInviteSent(p7, _, p9, p10, p11, p12) -- line: 73
+	-- upvalues: t1 (copy)
+	local v17 = p7:_getButtonName()
+	local s1 = "inGame"
+
+	if p7:_getIsUniversalApp() then
+		s1 = "inApp"
+	end
+
+	local InviteSent = t1.EventName.InviteSent
+	local v20 = table.concat(p10, ",")
+	local str, str2
+
+	if p7:_getIsUniversalApp() then
+		str = tostring(p11)
+		str2 = tostring(p12)
+	else
+		str = tostring(game.PlaceId)
+		str2 = tostring(game.GameId)
+	end
+
+	local t3 = {
+		btn = v17,
+		placeId = str,
+		gameId = str2,
+		conversationId = tostring(p9),
+		participants = v20
+	}
+
+	p7:_getEventStream():setRBXEventStream(s1, InviteSent, t3)
+
+	local v24 = t1.DiagCounters.InviteSent[p7:_getButtonName()]
+
+	if v24 then
+		p7:_getDiag():reportCounter(v24, 1)
+	end
+end
+function t1.inputShareGameEntryPoint(p13, p14, p15) -- line: 105
+	-- upvalues: t1 (copy)
+	local v28 = p13:_getButtonName()
+	local s2 = "inGame"
+
+	if p13:_getIsUniversalApp() then
+		s2 = "inApp"
+	end
+
+	local EntryPoint = t1.EventName.EntryPoint
+	local str, str3
+
+	if p13:_getIsUniversalApp() then
+		str = tostring(p14)
+		str3 = tostring(p15)
+	else
+		str = tostring(game.PlaceId)
+		str3 = tostring(game.GameId)
+	end
+
+	local t4 = {
+		btn = v28,
+		placeId = str,
+		gameId = str3
+	}
+
+	p13:_getEventStream():setRBXEventStream(s2, EntryPoint, t4)
+
+	local v34 = t1.DiagCounters.EntryPoint[p13:_getButtonName()]
+
+	if v34 then
+		p13:_getDiag():reportCounter(v34, 1)
+	end
+end
+function t1.linkGenerated(t5: {[any]: any}, t6: {[any]: any}) -- line: 133
+	-- upvalues: t1 (copy)
+	local LinkGenerated = t1.EventName.LinkGenerated
+	local t7 = {
+		linkType = t6.linkType,
+		linkId = t6.linkId,
+		page = "inGameMenu",
+		subpage = "inviteFriendsPage"
+	}
+
+	t5:_getEventStream():setRBXEventStream("shareLinks", LinkGenerated, t7)
+end
+function t1.onShareButtonClick(t8: {[any]: any}, n1: number?) -- line: 145
+	-- upvalues: t1 (copy)
+	local ShareButtonClick = t1.EventName.ShareButtonClick
+	local t9 = {
+		btn = "shareServerInviteLink",
+		page = "inGameMenu",
+		subpage = "inviteFriendsPage",
+		linkId = if not game:GetFastFlag("GameInviteModalIncludeLinkIdInShareButton") then nil else n1,
+		isShortUrlEnabled = true
+	}
+
+	t8:_getEventStream():setRBXEventStream("shareLinks", ShareButtonClick, t9)
+end
+function t1.onSearchFocused(p16) -- line: 158
+	-- upvalues: t1 (copy)
+	local InviteSearchFocused = t1.EventName.InviteSearchFocused
+	local s3 = "inGame"
+	local t10 = {
+		btn = p16:_getButtonName(),
+		page = "inGameMenu",
+		subpage = "inviteFriendsPage"
+	}
+
+	if p16:_getIsUniversalApp() then
+		s3 = "inApp"
+		t10.page = "inAppGameDetails"
+	end
+
+	p16:_getEventStream():setRBXEventStream(s3, InviteSearchFocused, t10)
+end
+function t1.sendEvent(p17, p18, p19, p20) -- line: 173
+	-- upvalues: Cryo (copy)
+	local v51 = Cryo.Dictionary.join(p19.Args, {
+		placeId = if not p17:_getIsUniversalApp() or (not p20 or not p20.place_id) then game.PlaceId else p20.place_id
+	})
+
+	if p20 then
+		v51 = Cryo.Dictionary.join(v51, p20)
+	end
+
+	p17:_getEventStream():setRBXEventStream(p18, p19.Type, v51)
+end
+function t1.sendGameInviteModalEvent(p21, p22, p23) -- line: 187
+	-- upvalues: Cryo (copy), t1 (copy)
+	local t11 = {
+		place_id = if not p21:_getIsUniversalApp() or (not p23 or not p23.place_id) then game.PlaceId else p23.place_id
+	}
+
+	if p23 then
+		t11 = Cryo.Dictionary.join(t11, p23)
+	end
+
+	p21:_getEventStream():setRBXEventStream(p22, t1.EventName.GameInviteModal, t11)
+end
+function t1._getEventStream(p24) -- line: 201
+	assert(p24._eventStreamImpl, "EventStream implementation not found. Did you forget to construct withEventStream?")
+
+	return p24._eventStreamImpl
+end
+function t1._getDiag(p25) -- line: 206
+	assert(p25._diagImpl, "Diag implementation not found. Did you forget to construct withDiag?")
+
+	return p25._diagImpl
+end
+function t1._getButtonName(p26) -- line: 211
+	assert(p26._buttonName, "ButtonName not found. Did you forget to construct withButtonName?")
+
+	return p26._buttonName
+end
+function t1._getIsUniversalApp(p27) -- line: 216
+	-- upvalues: t1 (copy)
+	assert(p27._buttonName, "ButtonName not found. Did you forget to construct withButtonName?")
+
+	return p27._buttonName == t1.ButtonName.GameDetailsMoreMenu or p27._buttonName == t1.ButtonName.GameDetailsPlayWithFriendsMenu
+end
+
+return t1

@@ -1,173 +1,198 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_Players_0 = game:GetService("Players");
-local l_MemStorageService_0 = game:GetService("MemStorageService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v4 = require(l_Modules_0.LuaApp.Enum.LoginStatus);
-local v5 = require(l_Modules_0.LuaApp.Http.Requests.Logout);
-local l_SetAuthenticationStatus_0 = require(l_CorePackages_0.Workspace.Packages.AuthenticationStatus).Actions.SetAuthenticationStatus;
-local v7 = require(l_Modules_0.LuaApp.Enum.NotificationType);
-local v8 = require(script.Parent.ClearApp);
-local v9 = require(script.Parent.AppStorageUtilities);
-local v10 = require(script.Parent.GetLocaleAndGotoLoginPage);
-local v11 = require(script.Parent.User);
-local v12 = require(l_Modules_0.LuaApp.PromiseUtilities);
-local l_AppStorageService_0 = game:GetService("AppStorageService");
-local v14 = require(l_Modules_0.LuaApp.Enum.MemStorageKeys);
-local l_Logger_0 = require(l_CorePackages_0.Workspace.Packages.Loggers).Logger;
-local v16 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local l_ExperimentCacheManager_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager;
-local v18 = require(l_Modules_0.LuaApp.Flags.GetFFlagDebugResetSurveyStorage);
-local v19 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol);
-local v20 = require(l_Modules_0.LuaApp.Analytics.RobloxTelemetryConfigs.LuaLogoutReasons);
-local v21 = require(l_Modules_0.LuaApp.Analytics.Events.Auth.luaLogoutReasonNames);
-local v22 = require(l_Modules_0.LuaApp.Components.OnPlatformSurveys.CsatSurveyConstants);
-local v23 = require(l_Modules_0.LuaApp.Thunks.Authentication.ResetAppState);
-local v24 = require(l_Modules_0.LuaApp.Thunks.Authentication.DeleteAllCredentialsFromKeystore);
-local l_AuthLocalStorageKeys_0 = require(l_CorePackages_0.Workspace.Packages.AuthCommon).Enums.AuthLocalStorageKeys;
-local l_LoginMethods_0 = require(l_CorePackages_0.Workspace.Packages.AuthCommon).Enums.LoginMethods;
-local l_TelemetryService_0 = game:GetService("TelemetryService");
-local v28 = game:DefineFastFlag("UseResetAppStateForLogout2", false);
-local v29 = require(l_Modules_0.LuaApp.Flags.FFlagEnableIosKeychainLoginLua);
-local l_default_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default;
-local l_ContentProvider_0 = game:GetService("ContentProvider");
-local l_HttpService_0 = game:GetService("HttpService");
-local v33 = require(l_CorePackages_0.Workspace.Packages.AuthCommon);
-local l_KeystoreAnalyticsEvents_0 = v33.Analytics.KeystoreAnalyticsEvents;
-local l_KeystoreEventConstants_0 = v33.Analytics.KeystoreEventConstants;
-local l_KeystoreConstants_0 = v33.Common.KeystoreConstants;
-local v37 = require(l_CorePackages_0.Workspace.Packages.AuthAnalytics);
-local l_DefaultUnauthenticatedConstants_0 = v33.Common.DefaultUnauthenticatedConstants;
-local l_authClientError_0 = v37.Events.authClientError;
-local v40 = require(l_Modules_0.LuaApp.Flags.FFlagEnableInvoluntaryLogoutEvent);
-local l_FFlagEnableLogoutV3_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLogoutV3;
-local l_FFlagEnableLastLoginMethodTracking_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLastLoginMethodTracking;
-local l_GetFFlagEnableStorePreviousAccountData_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableStorePreviousAccountData;
-local l_StorePreviousAccountData_0 = v33.Thunks.StorePreviousAccountData;
-local v45 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagEnableBlackbirdCheckDev_0 = v45.FFlagEnableBlackbirdCheckDev;
-local l_FFlagEnableMagicLogin_0 = v45.FFlagEnableMagicLogin;
-local l_SetMagicLoginAdvertisement_0 = require(l_CorePackages_0.Workspace.Packages.LoginV2).Thunks.SetMagicLoginAdvertisement;
-local l_GetFFlagKeystoreAutoLoginAvailable_0 = v45.GetFFlagKeystoreAutoLoginAvailable;
-local v50 = require(l_Modules_0.LuaApp.Flags.FFlagEnableTelemetryV2Logouts);
-local l_LuaLogoutTelemetryConfig_0 = require(l_CorePackages_0.Workspace.Packages.AuthAnalytics).TelemetryConfigs.LuaLogoutTelemetryConfig;
-local v52 = game:DefineFastFlag("EnableRecordSignOut", false);
-local l_recordSignOut_0 = v33.Utils.recordSignOut;
-return function(v54, v55, v56, v57) --[[ Line: 65 ]]
-    -- upvalues: l_Logger_0 (copy), v52 (copy), v21 (copy), l_recordSignOut_0 (copy), l_FFlagEnableMagicLogin_0 (copy), l_SetMagicLoginAdvertisement_0 (copy), v40 (copy), l_FFlagEnableLogoutV3_0 (copy), v11 (copy), l_authClientError_0 (copy), l_DefaultUnauthenticatedConstants_0 (copy), l_FFlagEnableLastLoginMethodTracking_0 (copy), v9 (copy), l_LoginMethods_0 (copy), l_AppStorageService_0 (copy), l_AuthLocalStorageKeys_0 (copy), l_GetFFlagEnableStorePreviousAccountData_0 (copy), l_StorePreviousAccountData_0 (copy), v5 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_Players_0 (copy), v29 (copy), l_GetFFlagKeystoreAutoLoginAvailable_0 (copy), l_HttpService_0 (copy), l_ContentProvider_0 (copy), l_KeystoreAnalyticsEvents_0 (copy), l_KeystoreEventConstants_0 (copy), v24 (copy), l_default_0 (copy), l_KeystoreConstants_0 (copy), v12 (copy), v28 (copy), v23 (copy), l_SetAuthenticationStatus_0 (copy), v4 (copy), v10 (copy), v19 (copy), v20 (copy), v50 (copy), l_TelemetryService_0 (copy), l_LuaLogoutTelemetryConfig_0 (copy), v7 (copy), v8 (copy), l_ExperimentCacheManager_0 (copy), v18 (copy), v22 (copy), l_MemStorageService_0 (copy), v14 (copy), v16 (copy)
-    return function(v58) --[[ Line: 66 ]]
-        -- upvalues: l_Logger_0 (ref), v52 (ref), v56 (copy), v21 (ref), l_recordSignOut_0 (ref), l_FFlagEnableMagicLogin_0 (ref), l_SetMagicLoginAdvertisement_0 (ref), v40 (ref), l_FFlagEnableLogoutV3_0 (ref), v11 (ref), l_authClientError_0 (ref), l_DefaultUnauthenticatedConstants_0 (ref), v57 (copy), l_FFlagEnableLastLoginMethodTracking_0 (ref), v9 (ref), l_LoginMethods_0 (ref), l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), l_GetFFlagEnableStorePreviousAccountData_0 (ref), l_StorePreviousAccountData_0 (ref), v5 (ref), v54 (copy), l_FFlagEnableBlackbirdCheckDev_0 (ref), l_Players_0 (ref), v29 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), v24 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v12 (ref), v28 (ref), v23 (ref), l_SetAuthenticationStatus_0 (ref), v4 (ref), v10 (ref), v19 (ref), v20 (ref), v50 (ref), l_TelemetryService_0 (ref), l_LuaLogoutTelemetryConfig_0 (ref), v55 (copy), v7 (ref), v8 (ref), l_ExperimentCacheManager_0 (ref), v18 (ref), v22 (ref), l_MemStorageService_0 (ref), v14 (ref), v16 (ref)
-        l_Logger_0:info(string.format("[%f] Logout() (Universal App)", tick()));
-        if v52 then
-            local v59 = v56 ~= v21.ManageAccountsRemoveCurrentUser;
-            local l_v59_0 = v59 --[[ copy: 1 -> 8 ]];
-            pcall(function() --[[ Line: 70 ]]
-                -- upvalues: l_recordSignOut_0 (ref), l_v59_0 (copy)
-                l_recordSignOut_0(nil, l_v59_0);
-            end);
-        end;
-        local v61 = nil;
-        local v62 = nil;
-        local v63 = nil;
-        local v64 = nil;
-        if l_FFlagEnableMagicLogin_0 then
-            l_SetMagicLoginAdvertisement_0(false);
-        end;
-        if v40 or l_FFlagEnableLogoutV3_0 then
-            v61 = v11.fromLocalStorage();
-            v62 = v56 or v21.Unknown;
-            v63 = tostring(v61.userId);
-        end;
-        if v40 then
-            l_authClientError_0(l_DefaultUnauthenticatedConstants_0.DefaultClientErrorReason, v62, v57, v63);
-        end;
-        local v65 = false;
-        if l_FFlagEnableLastLoginMethodTracking_0 then
-            local v66 = v9.getLastSuccessfulSignInMethod();
-            local v67 = true;
-            if v66 ~= l_LoginMethods_0.Email then
-                v67 = true;
-                if v66 ~= l_LoginMethods_0.EmailOtp then
-                    v67 = v66 == l_LoginMethods_0.Phone;
-                end;
-            end;
-            v65 = v67;
-        end;
-        if not v65 then
-            local v68 = v11.fromLocalStorage() and v11.fromLocalStorage().username;
-            if v68 and v68 ~= "" then
-                l_AppStorageService_0:SetItem(l_AuthLocalStorageKeys_0.CredentialValue, v68);
-            end;
-        end;
-        if l_GetFFlagEnableStorePreviousAccountData_0() then
-            l_StorePreviousAccountData_0();
-        end;
-        v64 = if l_FFlagEnableLogoutV3_0 then v5(v54, v62, v57, v63) else v5(v54);
-        if l_FFlagEnableBlackbirdCheckDev_0 then
-            l_Players_0:SetLocalPlayerInfo(-1, "", "", 0, true, false);
-        else
-            l_Players_0:SetLocalPlayerInfo(-1, "", "", 0, true);
-        end;
-        if v29 or l_GetFFlagKeystoreAutoLoginAvailable_0() then
-            local v69 = l_HttpService_0:JSONEncode({
-                server = l_ContentProvider_0.BaseUrl
-            });
-            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.intentionalLogoutDelete);
-            if l_GetFFlagKeystoreAutoLoginAvailable_0() then
-                v24(v69);
-            else
-                l_default_0:deleteAllCredentialsFromiOSKeychain(l_default_0.CredentialsTypes.iosKeychainPassword, v69, l_KeystoreConstants_0.KeystoreTimeout);
-            end;
-        end;
-        v12.Batch({
-            v64
-        }):andThen(function() --[[ Line: 150 ]]
-            -- upvalues: v28 (ref), v58 (copy), v23 (ref), l_SetAuthenticationStatus_0 (ref), v4 (ref), v10 (ref), v54 (ref), l_AppStorageService_0 (ref), v19 (ref), v20 (ref), v56 (ref), v21 (ref), v50 (ref), l_TelemetryService_0 (ref), l_LuaLogoutTelemetryConfig_0 (ref), v55 (ref), v7 (ref), v8 (ref), v11 (ref), l_ExperimentCacheManager_0 (ref), v18 (ref), v22 (ref), v9 (ref), l_MemStorageService_0 (ref), v14 (ref), v16 (ref)
-            if v28 then
-                v58:dispatch(v23());
-                v58:dispatch(l_SetAuthenticationStatus_0(v4.LOGGED_OUT));
-                v58:dispatch(v10(v54));
-                l_AppStorageService_0:flush();
-                v19.default:logRobloxTelemetryEvent(v20, nil, {
-                    lualogoutreasons = v56 or v21.Unknown
-                });
-                if v50 then
-                    l_TelemetryService_0:LogCounter(l_LuaLogoutTelemetryConfig_0, {
-                        customFields = {
-                            reason = v56 or v21.Unknown
-                        }
-                    }, 1);
-                end;
-                v55:BroadcastNotification("", v7.DID_LOG_OUT);
-                return;
-            else
-                v58:dispatch(v8());
-                v58:dispatch(l_SetAuthenticationStatus_0(v4.LOGGED_OUT));
-                v58:dispatch(v10(v54));
-                v11.clearLocalStorage();
-                l_ExperimentCacheManager_0.default:clearCache();
-                if v18() then
-                    l_AppStorageService_0:SetItem(v22.LOCAL_STORAGE_KEY_CSAT_SURVEY_COMPLETED_IDS, "{}");
-                end;
-                v9.setRobloxLocaleId("");
-                v9.setDiscoveryClientFallbackCache("");
-                l_AppStorageService_0:flush();
-                l_MemStorageService_0:Fire(v14.ThemeUpdate, "dark");
-                l_MemStorageService_0:SetItem(v14.RobuxBalance, "0");
-                l_MemStorageService_0:SetItem(v14.RobuxBalanceLocalized, "--");
-                v16.clearUserLayers();
-                v19.default:logRobloxTelemetryEvent(v20, nil, {
-                    lualogoutreasons = v56 or v21.Unknown
-                });
-                if v50 then
-                    l_TelemetryService_0:LogCounter(l_LuaLogoutTelemetryConfig_0, {
-                        customFields = {
-                            reason = v56 or v21.Unknown
-                        }
-                    }, 1);
-                end;
-                v55:BroadcastNotification("", v7.DID_LOG_OUT);
-                return;
-            end;
-        end);
-    end;
-end;
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Players = game:GetService("Players")
+local MemStorageService = game:GetService("MemStorageService")
+local CorePackages = game:GetService("CorePackages")
+local LoginStatus = require(Modules.LuaApp.Enum.LoginStatus)
+local Logout = require(Modules.LuaApp.Http.Requests.Logout)
+local SetAuthenticationStatus = require(CorePackages.Workspace.Packages.AuthenticationStatus).Actions.SetAuthenticationStatus
+local NotificationType = require(Modules.LuaApp.Enum.NotificationType)
+local ClearApp = require(script.Parent.ClearApp)
+local AppStorageUtilities = require(script.Parent.AppStorageUtilities)
+local GetLocaleAndGotoLoginPage = require(script.Parent.GetLocaleAndGotoLoginPage)
+local User = require(script.Parent.User)
+local PromiseUtilities = require(Modules.LuaApp.PromiseUtilities)
+local AppStorageService = game:GetService("AppStorageService")
+local MemStorageKeys = require(Modules.LuaApp.Enum.MemStorageKeys)
+local Logger = require(CorePackages.Workspace.Packages.Loggers).Logger
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+local ExperimentCacheManager = require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
+local GetFFlagDebugResetSurveyStorage = require(Modules.LuaApp.Flags.GetFFlagDebugResetSurveyStorage)
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
+local LuaLogoutReasons = require(Modules.LuaApp.Analytics.RobloxTelemetryConfigs.LuaLogoutReasons)
+local luaLogoutReasonNames = require(Modules.LuaApp.Analytics.Events.Auth.luaLogoutReasonNames)
+local CsatSurveyConstants = require(Modules.LuaApp.Components.OnPlatformSurveys.CsatSurveyConstants)
+local ResetAppState = require(Modules.LuaApp.Thunks.Authentication.ResetAppState)
+local DeleteAllCredentialsFromKeystore = require(Modules.LuaApp.Thunks.Authentication.DeleteAllCredentialsFromKeystore)
+local AuthLocalStorageKeys = require(CorePackages.Workspace.Packages.AuthCommon).Enums.AuthLocalStorageKeys
+local LoginMethods = require(CorePackages.Workspace.Packages.AuthCommon).Enums.LoginMethods
+local TelemetryService = game:GetService("TelemetryService")
+local v29 = game:DefineFastFlag("UseResetAppStateForLogout2", false)
+local FFlagEnableIosKeychainLoginLua = require(Modules.LuaApp.Flags.FFlagEnableIosKeychainLoginLua)
+local default = require(CorePackages.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default
+local ContentProvider = game:GetService("ContentProvider")
+local HttpService = game:GetService("HttpService")
+local AuthCommon = require(CorePackages.Workspace.Packages.AuthCommon)
+local KeystoreAnalyticsEvents = AuthCommon.Analytics.KeystoreAnalyticsEvents
+local KeystoreEventConstants = AuthCommon.Analytics.KeystoreEventConstants
+local KeystoreConstants = AuthCommon.Common.KeystoreConstants
+local AuthAnalytics = require(CorePackages.Workspace.Packages.AuthAnalytics)
+local DefaultUnauthenticatedConstants = AuthCommon.Common.DefaultUnauthenticatedConstants
+local authClientError = AuthAnalytics.Events.authClientError
+local FFlagEnableInvoluntaryLogoutEvent = require(Modules.LuaApp.Flags.FFlagEnableInvoluntaryLogoutEvent)
+local FFlagEnableLogoutV3 = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableLogoutV3
+local FFlagEnableLastLoginMethodTracking = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableLastLoginMethodTracking
+local GetFFlagEnableStorePreviousAccountData = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStorePreviousAccountData
+local StorePreviousAccountData = AuthCommon.Thunks.StorePreviousAccountData
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableBlackbirdCheck = SharedFlags.FFlagEnableBlackbirdCheck
+local FFlagEnableMagicLogin = SharedFlags.FFlagEnableMagicLogin
+local SetMagicLoginAdvertisement = require(CorePackages.Workspace.Packages.LoginV2).Thunks.SetMagicLoginAdvertisement
+local GetFFlagKeystoreAutoLoginAvailable = SharedFlags.GetFFlagKeystoreAutoLoginAvailable
+local FFlagEnableTelemetryV2Logouts = require(Modules.LuaApp.Flags.FFlagEnableTelemetryV2Logouts)
+local TelemetryConfigs = require(CorePackages.Workspace.Packages.AuthAnalytics).TelemetryConfigs
+local LuaLogoutTelemetryConfig = TelemetryConfigs.LuaLogoutTelemetryConfig
+local KeystoreDeleteCredentialsTelemetryConfig = TelemetryConfigs.KeystoreDeleteCredentialsTelemetryConfig
+local GetFFlagAddPromCounterToKeystoreOps = SharedFlags.GetFFlagAddPromCounterToKeystoreOps
+local v56 = game:DefineFastFlag("EnableRecordSignOut", false)
+local recordSignOut = AuthCommon.Utils.recordSignOut
+
+return function(p1, p2, s1: string?, s2: string?) -- line: 67
+	-- upvalues: Logger (copy), v56 (copy), luaLogoutReasonNames (copy), recordSignOut (copy), FFlagEnableMagicLogin (copy), SetMagicLoginAdvertisement (copy), FFlagEnableInvoluntaryLogoutEvent (copy), FFlagEnableLogoutV3 (copy), User (copy), authClientError (copy), DefaultUnauthenticatedConstants (copy), FFlagEnableLastLoginMethodTracking (copy), AppStorageUtilities (copy), LoginMethods (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), GetFFlagEnableStorePreviousAccountData (copy), StorePreviousAccountData (copy), Logout (copy), FFlagEnableBlackbirdCheck (copy), Players (copy), FFlagEnableIosKeychainLoginLua (copy), GetFFlagKeystoreAutoLoginAvailable (copy), HttpService (copy), ContentProvider (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreDeleteCredentialsTelemetryConfig (copy), DeleteAllCredentialsFromKeystore (copy), default (copy), KeystoreConstants (copy), PromiseUtilities (copy), v29 (copy), ResetAppState (copy), SetAuthenticationStatus (copy), LoginStatus (copy), GetLocaleAndGotoLoginPage (copy), LoggingProtocol (copy), LuaLogoutReasons (copy), FFlagEnableTelemetryV2Logouts (copy), LuaLogoutTelemetryConfig (copy), NotificationType (copy), ClearApp (copy), ExperimentCacheManager (copy), GetFFlagDebugResetSurveyStorage (copy), CsatSurveyConstants (copy), MemStorageService (copy), MemStorageKeys (copy), RoactAppExperiment (copy)
+	return function(p3) -- line: 68
+		-- upvalues: Logger (copy), v56 (copy), s1 (copy), luaLogoutReasonNames (copy), recordSignOut (copy), FFlagEnableMagicLogin (copy), SetMagicLoginAdvertisement (copy), FFlagEnableInvoluntaryLogoutEvent (copy), FFlagEnableLogoutV3 (copy), User (copy), authClientError (copy), DefaultUnauthenticatedConstants (copy), s2 (copy), FFlagEnableLastLoginMethodTracking (copy), AppStorageUtilities (copy), LoginMethods (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), GetFFlagEnableStorePreviousAccountData (copy), StorePreviousAccountData (copy), Logout (copy), p1 (copy), FFlagEnableBlackbirdCheck (copy), Players (copy), FFlagEnableIosKeychainLoginLua (copy), GetFFlagKeystoreAutoLoginAvailable (copy), HttpService (copy), ContentProvider (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreDeleteCredentialsTelemetryConfig (copy), DeleteAllCredentialsFromKeystore (copy), default (copy), KeystoreConstants (copy), PromiseUtilities (copy), v29 (copy), ResetAppState (copy), SetAuthenticationStatus (copy), LoginStatus (copy), GetLocaleAndGotoLoginPage (copy), LoggingProtocol (copy), LuaLogoutReasons (copy), FFlagEnableTelemetryV2Logouts (copy), LuaLogoutTelemetryConfig (copy), p2 (copy), NotificationType (copy), ClearApp (copy), ExperimentCacheManager (copy), GetFFlagDebugResetSurveyStorage (copy), CsatSurveyConstants (copy), MemStorageService (copy), MemStorageKeys (copy), RoactAppExperiment (copy)
+		Logger:info(string.format("[%f] Logout() (Universal App)", tick()))
+
+		if v56 then
+			local v63 = s1 ~= luaLogoutReasonNames.ManageAccountsRemoveCurrentUser
+
+			pcall(function() -- line: 72
+				-- upvalues: recordSignOut (copy), v63 (copy)
+				recordSignOut(nil, v63)
+			end)
+		end
+
+		local v64 = nil
+		local str = nil
+
+		if FFlagEnableMagicLogin then
+			SetMagicLoginAdvertisement(false)
+		end
+
+		if FFlagEnableInvoluntaryLogoutEvent or FFlagEnableLogoutV3 then
+			local v66 = User.fromLocalStorage()
+
+			v64 = s1 or luaLogoutReasonNames.Unknown
+			str = tostring(v66.userId)
+		end
+
+		if FFlagEnableInvoluntaryLogoutEvent then
+			authClientError(DefaultUnauthenticatedConstants.DefaultClientErrorReason, v64, s2, str)
+		end
+
+		local v67 = false
+
+		if FFlagEnableLastLoginMethodTracking then
+			local v68 = AppStorageUtilities.getLastSuccessfulSignInMethod()
+
+			v67 = v68 == LoginMethods.Email or (v68 == LoginMethods.EmailOtp or v68 == LoginMethods.Phone)
+		end
+
+		if not v67 then
+			local v69 = User.fromLocalStorage() and User.fromLocalStorage().username
+
+			if v69 and v69 ~= "" then
+				AppStorageService:SetItem(AuthLocalStorageKeys.CredentialValue, v69)
+			end
+		end
+
+		if GetFFlagEnableStorePreviousAccountData() then
+			StorePreviousAccountData()
+		end
+
+		local v70 = if not FFlagEnableLogoutV3 then Logout(p1) else Logout(p1, v64, s2, str)
+
+		if FFlagEnableBlackbirdCheck then
+			Players:SetLocalPlayerInfo(-1, "", "", 0, true, false)
+		else
+			Players:SetLocalPlayerInfo(-1, "", "", 0, true)
+		end
+
+		if FFlagEnableIosKeychainLoginLua or GetFFlagKeystoreAutoLoginAvailable() then
+			local json = HttpService:JSONEncode({
+				server = ContentProvider.BaseUrl
+			})
+
+			KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.intentionalLogoutDelete)
+
+			if GetFFlagAddPromCounterToKeystoreOps() then
+				TelemetryService:LogCounter(KeystoreDeleteCredentialsTelemetryConfig, {
+					customFields = {
+						reason = "intentional_logout"
+					}
+				}, 1)
+			end
+
+			if GetFFlagKeystoreAutoLoginAvailable() then
+				DeleteAllCredentialsFromKeystore(json)
+			else
+				default:deleteAllCredentialsFromiOSKeychain(default.CredentialsTypes.iosKeychainPassword, json, KeystoreConstants.KeystoreTimeout)
+			end
+		end
+
+		PromiseUtilities.Batch({ v70 }):andThen(function() -- line: 159
+			-- upvalues: v29 (copy), p3 (copy), ResetAppState (copy), SetAuthenticationStatus (copy), LoginStatus (copy), GetLocaleAndGotoLoginPage (copy), p1 (copy), AppStorageService (copy), LoggingProtocol (copy), LuaLogoutReasons (copy), s1 (copy), luaLogoutReasonNames (copy), FFlagEnableTelemetryV2Logouts (copy), TelemetryService (copy), LuaLogoutTelemetryConfig (copy), p2 (copy), NotificationType (copy), ClearApp (copy), User (copy), ExperimentCacheManager (copy), GetFFlagDebugResetSurveyStorage (copy), CsatSurveyConstants (copy), AppStorageUtilities (copy), MemStorageService (copy), MemStorageKeys (copy), RoactAppExperiment (copy)
+			if v29 then
+				p3:dispatch(ResetAppState())
+				p3:dispatch(SetAuthenticationStatus(LoginStatus.LOGGED_OUT))
+				p3:dispatch(GetLocaleAndGotoLoginPage(p1))
+				AppStorageService:flush()
+				LoggingProtocol.default:logRobloxTelemetryEvent(LuaLogoutReasons, nil, {
+					lualogoutreasons = s1 or luaLogoutReasonNames.Unknown
+				})
+
+				if FFlagEnableTelemetryV2Logouts then
+					TelemetryService:LogCounter(LuaLogoutTelemetryConfig, {
+						customFields = {
+							reason = s1 or luaLogoutReasonNames.Unknown
+						}
+					}, 1)
+				end
+
+				p2:BroadcastNotification("", NotificationType.DID_LOG_OUT)
+
+				return
+			end
+
+			p3:dispatch(ClearApp())
+			p3:dispatch(SetAuthenticationStatus(LoginStatus.LOGGED_OUT))
+			p3:dispatch(GetLocaleAndGotoLoginPage(p1))
+			User.clearLocalStorage()
+			ExperimentCacheManager.default:clearCache()
+
+			if GetFFlagDebugResetSurveyStorage() then
+				AppStorageService:SetItem(CsatSurveyConstants.LOCAL_STORAGE_KEY_CSAT_SURVEY_COMPLETED_IDS, "{}")
+			end
+
+			AppStorageUtilities.setRobloxLocaleId("")
+			AppStorageUtilities.setDiscoveryClientFallbackCache("")
+			AppStorageService:flush()
+			MemStorageService:Fire(MemStorageKeys.ThemeUpdate, "dark")
+			MemStorageService:SetItem(MemStorageKeys.RobuxBalance, "0")
+			MemStorageService:SetItem(MemStorageKeys.RobuxBalanceLocalized, "--")
+			RoactAppExperiment.clearUserLayers()
+			LoggingProtocol.default:logRobloxTelemetryEvent(LuaLogoutReasons, nil, {
+				lualogoutreasons = s1 or luaLogoutReasonNames.Unknown
+			})
+
+			if FFlagEnableTelemetryV2Logouts then
+				TelemetryService:LogCounter(LuaLogoutTelemetryConfig, {
+					customFields = {
+						reason = s1 or luaLogoutReasonNames.Unknown
+					}
+				}, 1)
+			end
+
+			p2:BroadcastNotification("", NotificationType.DID_LOG_OUT)
+		end)
+	end
+end

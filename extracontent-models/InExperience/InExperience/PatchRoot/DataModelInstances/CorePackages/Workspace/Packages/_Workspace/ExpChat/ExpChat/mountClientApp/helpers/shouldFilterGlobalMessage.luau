@@ -1,12 +1,16 @@
-return function(v0, v1, v2) --[[ Line: 3 ]]
-    local l_TextSource_0 = v0.TextSource;
-    if not l_TextSource_0 then
-        return false;
-    elseif v2 and l_TextSource_0.UserId == v2 then
-        return false;
-    else
-        local v4 = string.lower(l_TextSource_0.Username or "");
-        local v5 = string.lower(l_TextSource_0.DisplayName or "");
-        return v4 ~= "" and v1.isUsernameMuted(v4) or v5 ~= "" and v1.isDisplayNameMuted(v5);
-    end;
-end;
+return function(p1, p2, n1: number?) -- line: 3
+	local TextSource = p1.TextSource
+
+	if not TextSource then
+		return false
+	end
+
+	if n1 and n1 == TextSource.UserId then
+		return false
+	end
+
+	local v5 = string.lower(TextSource.Username or "")
+	local v6 = string.lower(TextSource.DisplayName or "")
+
+	return v5 ~= "" and p2.isUsernameMuted(v5) or (v6 ~= "" and p2.isDisplayNameMuted(v6) or p2.isUserIdMuted(TextSource.UserId))
+end

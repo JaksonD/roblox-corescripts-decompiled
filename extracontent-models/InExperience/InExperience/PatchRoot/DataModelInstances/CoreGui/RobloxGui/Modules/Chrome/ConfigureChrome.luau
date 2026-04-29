@@ -1,97 +1,108 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Chrome");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_GuiService_0 = game:GetService("GuiService");
-if not require(l_CorePackages_0.Workspace.Packages.Chrome).Enabled() then
-    return nil;
-else
-    local v3 = require(l_script_FirstAncestor_0.Service);
-    local v4 = require(l_script_FirstAncestor_0.Integrations.Party.Constants);
-    local v5 = require(l_script_FirstAncestor_0.Integrations.Connect.isConnectUnibarEnabled);
-    local v6 = require(l_script_FirstAncestor_0.Integrations.Connect.isConnectDropdownEnabled);
-    local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
-    local v8 = require(l_script_FirstAncestor_0.ChromeShared.Shortcuts.ConfigureShortcuts);
-    local v9 = require(l_script_FirstAncestor_0.ChromeShared.Unibar.Constants);
-    local v10 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-    local l_GetFFlagDebugEnableUnibarDummyIntegrations_0 = v10.GetFFlagDebugEnableUnibarDummyIntegrations;
-    local l_FFlagEnableConsoleExpControls_0 = v10.FFlagEnableConsoleExpControls;
-    local l_FFlagEnableInExperienceAvatarSwitcher_0 = v10.FFlagEnableInExperienceAvatarSwitcher;
-    local l_FFlagEnableSideSheet_0 = v10.FFlagEnableSideSheet;
-    local l_FFlagAddIGMToSideSheet_0 = v10.FFlagAddIGMToSideSheet;
-    local l_isSpatial_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
-    local function _() --[[ Line: 29 ]] --[[ Name: initializeIntegrations ]]
-        -- upvalues: l_script_FirstAncestor_0 (copy)
-        require(l_script_FirstAncestor_0.Integrations);
-    end;
-    local function _() --[[ Line: 33 ]]
-        -- upvalues: v8 (copy)
-        v8();
-    end;
-    local function v22() --[[ Line: 37 ]] --[[ Name: configureUnibar ]]
-        -- upvalues: v6 (copy), l_GetFFlagDebugEnableUnibarDummyIntegrations_0 (copy), v5 (copy), v4 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), v3 (copy), l_FFlagEnableInExperienceAvatarSwitcher_0 (copy), v9 (copy), l_GuiService_0 (copy), l_FFlagEnableSideSheet_0 (copy), l_FFlagAddIGMToSideSheet_0 (copy)
-        local v19 = {
-            "leaderboard", 
-            "emotes", 
-            "backpack"
-        };
-        table.insert(v19, "respawn");
-        table.insert(v19, 1, "trust_and_safety");
-        if v6() then
-            table.insert(v19, 1, "connect_dropdown");
-        end;
-        local v20 = {
-            "toggle_mic_mute", 
-            "chat", 
-            "nine_dot"
-        };
-        table.insert(v20, 2, "join_voice");
-        if l_GetFFlagDebugEnableUnibarDummyIntegrations_0() then
-            table.insert(v20, 1, "dummy_window");
-            table.insert(v20, 1, "dummy_window_2");
-        end;
-        if v5() then
-            table.insert(v20, 1, "connect_unibar");
-        end;
-        local v21 = table.find(v20, "toggle_mic_mute");
-        if v21 then
-            table.insert(v20, v21 + 1, v4.TOGGLE_MIC_INTEGRATION_ID);
-        end;
-        if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then
-            v3:configureMenu({
-                {
-                    "vr_toggle_button", 
-                    "vr_safety_bubble"
-                }, 
-                v20
-            });
-        else
-            v3:configureMenu({
-                v20
-            });
-        end;
-        if l_isInExperienceUIVREnabled_0 then
-            if not l_isSpatial_0() then
-                table.insert(v19, 2, "camera_entrypoint");
-                table.insert(v19, 2, "selfie_view");
-            end;
-        else
-            table.insert(v19, 2, "camera_entrypoint");
-            table.insert(v19, 2, "selfie_view");
-        end;
-        if l_FFlagEnableInExperienceAvatarSwitcher_0 then
-            table.insert(v19, 3, v9.AVATAR_SWITCHER_ID);
-        end;
-        if not l_isSpatial_0() and not l_GuiService_0:IsTenFootInterface() then
-            table.insert(v19, 4, "music_entrypoint");
-        end;
-        if l_FFlagEnableSideSheet_0 and l_FFlagAddIGMToSideSheet_0 then
-            table.insert(v19, "people");
-        end;
-        v3:configureSubMenu("nine_dot", v19);
-    end;
-    require(l_script_FirstAncestor_0.Integrations);
-    if l_FFlagEnableConsoleExpControls_0 then
-        v8();
-    end;
-    v22();
-    return nil;
+local Chrome = script:FindFirstAncestor("Chrome")
+local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+
+if not require(CorePackages.Workspace.Packages.Chrome).Enabled() then
+	return nil
+end
+
+local Service = require(Chrome.Service)
+local Constants = require(Chrome.Integrations.Party.Constants)
+local isConnectUnibarEnabled = require(Chrome.Integrations.Connect.isConnectUnibarEnabled)
+local isConnectDropdownEnabled = require(Chrome.Integrations.Connect.isConnectDropdownEnabled)
+local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local ConfigureShortcuts = require(Chrome.ChromeShared.Shortcuts.ConfigureShortcuts)
+local Constants2 = require(Chrome.ChromeShared.Unibar.Constants)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+
+require(Chrome.Integrations)
+
+if FFlagEnableConsoleExpControls then
+	ConfigureShortcuts()
 end;
+
+(function() --[[ configureUnibar ]] -- line: 37
+	-- upvalues: isConnectDropdownEnabled (copy), GetFFlagDebugEnableUnibarDummyIntegrations (copy), isConnectUnibarEnabled (copy), Constants (copy), isInExperienceUIVREnabled (copy), isSpatial (copy), Service (copy), FFlagEnableInExperienceAvatarSwitcher (copy), Constants2 (copy), GuiService (copy), FFlagEnableSideSheet (copy), FFlagAddIGMToSideSheet (copy)
+	local t1 = {
+		"leaderboard",
+		"emotes",
+		"backpack"
+	}
+
+	table.insert(t1, "respawn")
+	table.insert(t1, 1, "trust_and_safety")
+
+	if isConnectDropdownEnabled() then
+		table.insert(t1, 1, "connect_dropdown")
+	end
+
+	local t2 = {
+		"toggle_mic_mute",
+		"chat",
+		"nine_dot"
+	}
+
+	table.insert(t2, 2, "join_voice")
+
+	if GetFFlagDebugEnableUnibarDummyIntegrations() then
+		table.insert(t2, 1, "dummy_window")
+		table.insert(t2, 1, "dummy_window_2")
+	end
+
+	if isConnectUnibarEnabled() then
+		table.insert(t2, 1, "connect_unibar")
+	end
+
+	local v20 = table.find(t2, "toggle_mic_mute")
+
+	if v20 then
+		table.insert(t2, v20 + 1, Constants.TOGGLE_MIC_INTEGRATION_ID)
+	end
+
+	if isInExperienceUIVREnabled and isSpatial() then
+		Service:configureMenu({
+			{
+				"vr_toggle_button",
+				"vr_safety_bubble"
+			},
+			t2
+		})
+	else
+		Service:configureMenu({ t2 })
+	end
+
+	if isInExperienceUIVREnabled then
+		if not isSpatial() then
+			table.insert(t1, 2, "camera_entrypoint")
+			table.insert(t1, 2, "selfie_view")
+		end
+	else
+		table.insert(t1, 2, "camera_entrypoint")
+		table.insert(t1, 2, "selfie_view")
+	end
+
+	if FFlagEnableInExperienceAvatarSwitcher then
+		table.insert(t1, 3, Constants2.AVATAR_SWITCHER_ID)
+	end
+
+	if not isSpatial() and not GuiService:IsTenFootInterface() then
+		table.insert(t1, 4, "music_entrypoint")
+	end
+
+	if FFlagEnableSideSheet and FFlagAddIGMToSideSheet then
+		table.insert(t1, "people")
+		table.insert(t1, "settings")
+		table.insert(t1, "gallery")
+		table.insert(t1, "help")
+	end
+
+	Service:configureSubMenu("nine_dot", t1)
+end)()
+
+return nil

@@ -1,19 +1,26 @@
-local v0 = {
-    back = "back", 
-    close = "close", 
-    none = "none"
-};
-local v1 = {
-    FailedToLoad = "FailedToLoad", 
-    LoadedFromCache = "LoadedFromCache", 
-    LoadedFromNetwork = "LoadedFromNetwork"
-};
-local v2 = {
-    Protobuf = "protobuf", 
-    ProtobufJson = "protobuf-json"
-};
+local t1 = {
+	back = "back",
+	close = "close",
+	none = "none"
+}
+local t2 = {
+	FailedToLoad = "FailedToLoad",
+	LoadedFromCache = "LoadedFromCache",
+	LoadedFromNetwork = "LoadedFromNetwork"
+}
+local t3 = {
+	Protobuf = "protobuf",
+	ProtobufJson = "protobuf-json"
+}
+local t4 = {
+	Loading = "Loading",
+	Error = "Error",
+	Resolved = "Resolved"
+}
+
 return {
-    NavButtonType = v0, 
-    SduiRequestStatus = v1, 
-    SduiResponseType = v2
-};
+	NavButtonType = t1,
+	SduiRequestStatus = t2,
+	SduiResponseType = t3,
+	UiStatus = t4
+}

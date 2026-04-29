@@ -1,4 +1,5 @@
-game:DefineFastInt("UGCValidationLeftArmThresholdSide", 50);
-return function() --[[ Line: 7 ]]
-    return game:GetFastInt("UGCValidationLeftArmThresholdSide");
-end;
+game:DefineFastInt("UGCValidationLeftArmThresholdSide", 0)
+
+return function() -- line: 7
+	return game:GetFastInt("UGCValidationLeftArmThresholdSide")
+end

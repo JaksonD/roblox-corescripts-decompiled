@@ -1,67 +1,71 @@
-local l_Parent_0 = script:FindFirstAncestor("AppChat").Parent;
-local v1 = require(l_Parent_0.Roact);
-local l_withStyle_0 = require(l_Parent_0.UIBlox).Style.withStyle;
-local l_withLocalization_0 = require(l_Parent_0.Localization).withLocalization;
-local l_UniversalAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).UniversalAppPolicy;
-local v5 = require(script.Parent.ChatDisabledIndicator);
-local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
-local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
-local v9 = v1.PureComponent:extend("EmptyConversationList");
-v9.defaultProps = {
-    chatEnabled = false, 
-    navigateToPrivacy = function() --[[ Line: 20 ]] --[[ Name: navigateToPrivacy ]]
+local Parent = script:FindFirstAncestor("AppChat").Parent
+local Roact = require(Parent.Roact)
+local withStyle = require(Parent.UIBlox).Style.withStyle
+local withLocalization = require(Parent.Localization).withLocalization
+local UniversalAppPolicy = require(Parent.UniversalAppPolicy).UniversalAppPolicy
+local ChatDisabledIndicator = require(script.Parent.ChatDisabledIndicator)
+local GetFFlagIsSquadEnabled = require(Parent.SharedFlags).GetFFlagIsSquadEnabled
+local FFlagConnectionsToFriendsRename = require(Parent.SharedFlags).FFlagConnectionsToFriendsRename
+local v9 = Roact.PureComponent:extend("EmptyConversationList")
 
-    end, 
-    makeFriendsToChatKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.MakeFriendsToParty" or "Feature.Chat.Message.MakeFriendsToChat", 
-    privacyButtonKey = "Feature.Chat.Label.PrivacySettings", 
-    turnOnChatKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.TurnOnParty" or "Feature.Chat.Message.TurnOnChat", 
-    privacyButtonEnabled = true, 
-    renameFriendsToConnections = true
-};
-local v10 = {
-    makeFriendsToChatKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.MakeConnectionsToParty" or "Feature.Chat.Message.MakeConnectionsToChat", 
-    turnOnChatKey = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.EnableParty.FriendsRename" or "Feature.Chat.Message.EnableParty" else l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.EnableChat.FriendsRename" or "Feature.Chat.Message.EnableChat"
-};
-v9.didMount = function(v11) --[[ Line: 46 ]] --[[ Name: didMount ]]
-    if v11.props.fireRenderEvent then
-        v11.props.fireRenderEvent();
-    end;
-end;
-v9.render = function(v12) --[[ Line: 52 ]] --[[ Name: render ]]
-    -- upvalues: v10 (copy), l_withLocalization_0 (copy), l_withStyle_0 (copy), v1 (copy), v5 (copy)
-    local l_makeFriendsToChatKey_0 = v12.props.makeFriendsToChatKey;
-    local l_turnOnChatKey_0 = v12.props.turnOnChatKey;
-    if v12.props.renameFriendsToConnections then
-        l_makeFriendsToChatKey_0 = v10[l_makeFriendsToChatKey_0];
-        l_turnOnChatKey_0 = v10[l_turnOnChatKey_0];
-    end;
-    return l_withLocalization_0({
-        privacyButtonText = v12.props.privacyButtonKey, 
-        chatDisabledText = v12.props.chatEnabled and l_makeFriendsToChatKey_0 or l_turnOnChatKey_0
-    })(function(v15) --[[ Line: 62 ]]
-        -- upvalues: l_withStyle_0 (ref), v1 (ref), v5 (ref), v12 (copy)
-        return l_withStyle_0(function(v16) --[[ Line: 63 ]]
-            -- upvalues: v1 (ref), v5 (ref), v12 (ref), v15 (copy)
-            return v1.createElement("Frame", {
-                BackgroundColor3 = v16.Theme.BackgroundDefault.Color, 
-                BackgroundTransparency = v16.Tokens.Global.Color.None.Transparency, 
-                BorderSizePixel = 0, 
-                Size = UDim2.new(1, 0, 1, 0)
-            }, {
-                ChatDisabledIndicator = v1.createElement(v5, {
-                    chatEnabled = v12.props.chatEnabled, 
-                    navigateToPrivacy = v12.props.navigateToPrivacy, 
-                    chatDisabledText = v15.chatDisabledText, 
-                    privacyButtonText = v15.privacyButtonText, 
-                    privacyButtonEnabled = v12.props.privacyButtonEnabled
-                })
-            });
-        end);
-    end);
-end;
-return l_UniversalAppPolicy_0.connect(function(v17) --[[ Line: 83 ]]
-    return {
-        renameFriendsToConnections = v17.getRenameFriendsToConnections()
-    };
-end)(v9);
+v9.defaultProps = {
+	chatEnabled = false,
+	navigateToPrivacy = function() --[[ navigateToPrivacy ]] -- line: 19
+	end,
+	makeFriendsToChatKey = not GetFFlagIsSquadEnabled() and "Feature.Chat.Message.MakeFriendsToChat" or "Feature.Chat.Message.MakeFriendsToParty",
+	privacyButtonKey = "Feature.Chat.Label.PrivacySettings",
+	turnOnChatKey = not GetFFlagIsSquadEnabled() and "Feature.Chat.Message.TurnOnChat" or "Feature.Chat.Message.TurnOnParty",
+	privacyButtonEnabled = true,
+	renameFriendsToConnections = true
+}
+
+local t1 = {
+	makeFriendsToChatKey = not GetFFlagIsSquadEnabled() and "Feature.Chat.Message.MakeConnectionsToChat" or "Feature.Chat.Message.MakeConnectionsToParty",
+	turnOnChatKey = if not GetFFlagIsSquadEnabled() then not FFlagConnectionsToFriendsRename and "Feature.Chat.Message.EnableChat" or "Feature.Chat.Message.EnableChat.FriendsRename" else not FFlagConnectionsToFriendsRename and "Feature.Chat.Message.EnableParty" or "Feature.Chat.Message.EnableParty.FriendsRename"
+}
+
+function v9.didMount(p1) -- line: 45
+	if p1.props.fireRenderEvent then
+		p1.props.fireRenderEvent()
+	end
+end
+function v9.render(p2) -- line: 51
+	-- upvalues: t1 (copy), withLocalization (copy), withStyle (copy), Roact (copy), ChatDisabledIndicator (copy)
+	local makeFriendsToChatKey = p2.props.makeFriendsToChatKey
+	local turnOnChatKey = p2.props.turnOnChatKey
+
+	if p2.props.renameFriendsToConnections then
+		makeFriendsToChatKey = t1[makeFriendsToChatKey]
+		turnOnChatKey = t1[turnOnChatKey]
+	end
+
+	return withLocalization({
+		privacyButtonText = p2.props.privacyButtonKey,
+		chatDisabledText = p2.props.chatEnabled and makeFriendsToChatKey or turnOnChatKey
+	})(function(p3) -- line: 61
+		-- upvalues: withStyle (copy), Roact (copy), ChatDisabledIndicator (copy), p2 (copy)
+		return withStyle(function(p4) -- line: 62
+			-- upvalues: Roact (copy), ChatDisabledIndicator (copy), p2 (copy), p3 (copy)
+			return Roact.createElement("Frame", {
+				BackgroundColor3 = p4.Theme.BackgroundDefault.Color,
+				BackgroundTransparency = p4.Tokens.Global.Color.None.Transparency,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 1, 0)
+			}, {
+				ChatDisabledIndicator = Roact.createElement(ChatDisabledIndicator, {
+					chatEnabled = p2.props.chatEnabled,
+					navigateToPrivacy = p2.props.navigateToPrivacy,
+					chatDisabledText = p3.chatDisabledText,
+					privacyButtonText = p3.privacyButtonText,
+					privacyButtonEnabled = p2.props.privacyButtonEnabled
+				})
+			})
+		end)
+	end)
+end
+
+return UniversalAppPolicy.connect(function(p5) -- line: 82
+	return {
+		renameFriendsToConnections = p5.getRenameFriendsToConnections()
+	}
+end)(v9)

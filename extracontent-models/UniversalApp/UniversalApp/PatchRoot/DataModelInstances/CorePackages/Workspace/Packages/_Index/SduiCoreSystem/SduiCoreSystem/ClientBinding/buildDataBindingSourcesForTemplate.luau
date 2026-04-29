@@ -1,84 +1,82 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SduiCoreSystem");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.ServiceContractsProto);
-local v3 = require(l_script_FirstAncestor_0.ClientBinding.tryGetPathFromData);
-local v4 = require(l_script_FirstAncestor_0.ClientBinding.SduiDataBindingContentType);
-local _ = require(l_script_FirstAncestor_0.ClientBinding.SduiClientBindingTypes);
-local v6 = require(l_script_FirstAncestor_0.ClientBinding.ProtoVariableMapper);
-local v7 = require(l_Parent_0.SharedFlags);
-local l_FFlagLuaAppSduiBadgeDetailsComponents_0 = v7.FFlagLuaAppSduiBadgeDetailsComponents;
-local l_FFlagSduiExperienceDetailsSupport_0 = v7.FFlagSduiExperienceDetailsSupport;
-local l_FFlagSduiMarketplaceCatalogCategorySupport_0 = v7.FFlagSduiMarketplaceCatalogCategorySupport;
-local l_FFlagSduiMarketplaceCatalogSortSupport_0 = v7.FFlagSduiMarketplaceCatalogSortSupport;
-local l_FFlagSduiSongHydrationSupport_0 = v7.FFlagSduiSongHydrationSupport;
-local v13 = {
-    [v4.badge] = {
-        "badge_id"
-    }, 
-    [v4.creator] = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then {
-        "creator_key"
-    } else nil, 
-    [v4.universe] = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then {
-        "universe_id"
-    } else nil, 
-    [v4.ageRecommendation] = if l_FFlagSduiExperienceDetailsSupport_0 then {
-        "universe_id"
-    } else nil, 
-    [v4.socialLink] = if l_FFlagSduiExperienceDetailsSupport_0 then {
-        "social_link_id"
-    } else nil, 
-    [v4.marketplaceCatalogCategory] = if l_FFlagSduiMarketplaceCatalogCategorySupport_0 then {
-        "marketplace_catalog_category_item_id"
-    } else nil, 
-    [v4.song] = if l_FFlagSduiSongHydrationSupport_0 then {
-        "song_id"
-    } else nil, 
-    [v4.marketplaceCatalogSort] = if l_FFlagSduiMarketplaceCatalogSortSupport_0 then {
-        "catalog_sort_id"
-    } else nil, 
-    [v4.gamePass] = if l_FFlagSduiExperienceDetailsSupport_0 then {
-        "game_pass_id"
-    } else nil
-};
-return function(v14, v15) --[[ Line: 88 ]] --[[ Name: buildDataBindingSourcesForTemplate ]]
-    -- upvalues: v6 (copy), v3 (copy), v13 (copy)
-    local v16 = {};
-    for _, v18 in v15 do
-        local v19 = v6.mapHydrationContentTypeToLua(v18.content_type);
-        if not v19 then
-            error((("Unsupported contentType %*"):format(v18.content_type)));
-        end;
-        local v20 = v18.id_binding and v18.id_binding.kind and v18.id_binding.kind.type;
-        local v21 = v18.id_binding and v18.id_binding.kind and v18.id_binding.kind.value;
-        local v22 = nil;
-        if v20 == "literal" and v21 then
-            v22 = v21;
-        elseif v20 == "input_path" and v21 then
-            local v23 = string.split(v21, ".");
-            local v24, v25 = v3(v14, v23);
-            if v24 and v25 ~= nil then
-                v22 = v25;
-            else
-                error((("Unable to resolve path from inputPath: %* in data"):format(v21)));
-            end;
-        else
-            local v26 = v13[v19];
-            if v26 then
-                local v27, v28 = v3(v14, v26);
-                if v27 and v28 ~= nil then
-                    v22 = v28;
-                else
-                    local v29 = table.concat(v26, ",");
-                    error((("Unable to resolve default path: %* in data for contentType %*"):format(v29, v19)));
-                end;
-            else
-                error((("Unable to find default for unknown contentType: %*"):format(v19)));
-            end;
-        end;
-        v16[if v18.alias and v18.alias ~= "" then v18.alias else v19] = {
-            contentType = v19, 
-            id = v22
-        };
-    end;
-    return v16;
-end;
+local SduiCoreSystem = script:FindFirstAncestor("SduiCoreSystem")
+local SduiCoreSystemParent = SduiCoreSystem.Parent
+
+require(SduiCoreSystemParent.ServiceContractsProto)
+
+local tryGetPathFromData = require(SduiCoreSystem.ClientBinding.tryGetPathFromData)
+local SduiDataBindingContentType = require(SduiCoreSystem.ClientBinding.SduiDataBindingContentType)
+
+require(SduiCoreSystem.ClientBinding.SduiClientBindingTypes)
+
+local ProtoVariableMapper = require(SduiCoreSystem.ClientBinding.ProtoVariableMapper)
+local SharedFlags = require(SduiCoreSystemParent.SharedFlags)
+local FFlagLuaAppSduiBadgeDetailsComponents = SharedFlags.FFlagLuaAppSduiBadgeDetailsComponents
+local FFlagSduiExperienceDetailsSupport = SharedFlags.FFlagSduiExperienceDetailsSupport
+local FFlagSduiMarketplaceCatalogCategorySupport = SharedFlags.FFlagSduiMarketplaceCatalogCategorySupport
+local FFlagSduiMarketplaceCatalogSortSupport = SharedFlags.FFlagSduiMarketplaceCatalogSortSupport
+local FFlagSduiSongHydrationSupport = SharedFlags.FFlagSduiSongHydrationSupport
+local t1 = {
+	[SduiDataBindingContentType.badge] = { "badge_id" },
+	[SduiDataBindingContentType.creator] = if not FFlagLuaAppSduiBadgeDetailsComponents then nil else { "creator_key" },
+	[SduiDataBindingContentType.universe] = if not FFlagLuaAppSduiBadgeDetailsComponents then nil else { "universe_id" },
+	[SduiDataBindingContentType.ageRecommendation] = if not FFlagSduiExperienceDetailsSupport then nil else { "universe_id" },
+	[SduiDataBindingContentType.socialLink] = if not FFlagSduiExperienceDetailsSupport then nil else { "social_link_id" },
+	[SduiDataBindingContentType.marketplaceCatalogCategory] = if not FFlagSduiMarketplaceCatalogCategorySupport then nil else { "marketplace_catalog_category_item_id" },
+	[SduiDataBindingContentType.song] = if not FFlagSduiSongHydrationSupport then nil else { "song_id" },
+	[SduiDataBindingContentType.marketplaceCatalogSort] = if not FFlagSduiMarketplaceCatalogSortSupport then nil else { "catalog_sort_id" },
+	[SduiDataBindingContentType.gamePass] = if not FFlagSduiExperienceDetailsSupport then nil else { "game_pass_id" },
+	[SduiDataBindingContentType.playability] = if not FFlagSduiExperienceDetailsSupport then nil else { "universe_id" }
+}
+
+return function(t2: {[any]: any}, t3: {[any]: any}) --[[ buildDataBindingSourcesForTemplate ]] -- line: 92
+	-- upvalues: ProtoVariableMapper (copy), tryGetPathFromData (copy), t1 (copy)
+	local t4 = {}
+
+	for _, v17 in t3 do
+		local v18 = ProtoVariableMapper.mapHydrationContentTypeToLua(v17.content_type)
+
+		if not v18 then
+			error(`Unsupported contentType { v17.content_type }`)
+		end
+
+		local v19 = v17.id_binding and (v17.id_binding.kind and v17.id_binding.kind.type)
+		local v20 = v17.id_binding and (v17.id_binding.kind and v17.id_binding.kind.value)
+		local v21 = nil
+
+		if v19 == "literal" and v20 then
+			v21 = v20
+		elseif v19 == "input_path" and v20 then
+			local parts = string.split(v20, ".")
+			local v23, v24 = tryGetPathFromData(t2, parts)
+
+			if v23 and v24 ~= nil then
+				v21 = v24
+			else
+				error(`Unable to resolve path from inputPath: { v20 } in data`)
+			end
+		else
+			local v25 = t1[v18]
+
+			if v25 then
+				local v26, v27 = tryGetPathFromData(t2, v25)
+
+				if v26 and v27 ~= nil then
+					v21 = v27
+				else
+					local v28 = table.concat(v25, ",")
+
+					error(`Unable to resolve default path: { v28 } in data for contentType { v18 }`)
+				end
+			else
+				error(`Unable to find default for unknown contentType: { v18 }`)
+			end
+		end
+
+		t4[if not v17.alias or v17.alias == "" then v18 else v17.alias] = {
+			contentType = v18,
+			id = v21
+		}
+	end
+
+	return t4
+end

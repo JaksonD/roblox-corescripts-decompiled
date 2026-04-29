@@ -1,18 +1,21 @@
-local l_Parent_0 = script:FindFirstAncestor("FlyoutSidePanel").Parent;
-local v1 = require(l_Parent_0.React);
-local v2 = require(l_Parent_0.Foundation);
-local l_IconSize_0 = v2.Enums.IconSize;
-local v4 = require(l_Parent_0.BuilderIcons);
-return function(v5) --[[ Line: 12 ]] --[[ Name: ChevronSmallDownButton ]]
-    -- upvalues: v1 (copy), v2 (copy), v4 (copy), l_IconSize_0 (copy)
-    return v1.createElement(v2.View, {
-        tag = "position-center-right anchor-center-right auto-xy radius-circle bg-action-standard padding-xsmall", 
-        onActivated = v5.onActivated
-    }, {
-        Icon = v1.createElement(v2.Icon, {
-            tag = "position-center-center anchor-center-center auto-xy content-emphasis", 
-            name = v4.Icon.ChevronSmallDown, 
-            size = l_IconSize_0.Medium
-        })
-    });
-end;
+local Parent = script:FindFirstAncestor("FlyoutSidePanel").Parent
+local React = require(Parent.React)
+local Foundation = require(Parent.Foundation)
+local IconSize = Foundation.Enums.IconSize
+local BuilderIcons = require(Parent.BuilderIcons)
+local FFlagEnableFlyoutUncheckedBadge = require(Parent.SharedFlags).FFlagEnableFlyoutUncheckedBadge
+
+return function(t1: {[any]: any}) --[[ ChevronSmallDownButton ]] -- line: 16
+	-- upvalues: React (copy), Foundation (copy), FFlagEnableFlyoutUncheckedBadge (copy), BuilderIcons (copy), IconSize (copy)
+	return React.createElement(Foundation.View, {
+		tag = "position-center-right anchor-center-right auto-xy radius-circle bg-action-standard padding-xsmall",
+		onActivated = t1.onActivated,
+		LayoutOrder = if not FFlagEnableFlyoutUncheckedBadge then nil else t1.layoutOrder
+	}, {
+		Icon = React.createElement(Foundation.Icon, {
+			tag = "position-center-center anchor-center-center auto-xy content-emphasis",
+			name = BuilderIcons.Icon.ChevronSmallDown,
+			size = IconSize.Medium
+		})
+	})
+end

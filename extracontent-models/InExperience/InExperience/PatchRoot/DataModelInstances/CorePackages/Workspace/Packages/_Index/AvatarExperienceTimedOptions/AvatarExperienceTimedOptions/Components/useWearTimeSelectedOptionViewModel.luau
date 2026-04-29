@@ -1,150 +1,157 @@
-local l_LocalizationService_0 = game:GetService("LocalizationService");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AvatarExperienceTimedOptions");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.AvatarExperienceFlags);
-local v4 = require(l_Parent_0.React);
-local v5 = require(l_Parent_0.Foundation);
-local v6 = require(l_Parent_0.Localization);
-local l_Localization_0 = require(l_Parent_0.RobloxAppLocales).Localization;
-local l_useLocalization_0 = v6.Hooks.useLocalization;
-local l_useTokens_0 = v5.Hooks.useTokens;
-local _ = require(l_script_FirstAncestor_0.Types.TimedOptionType);
-local l_CombinedFFlagShouldUseLegacyGamepadFocus_0 = v3.CombinedFFlagShouldUseLegacyGamepadFocus;
-local l_FFlagAXDurablesForMIS_0 = v3.FFlagAXDurablesForMIS;
-local l_FFlagAXBlackbirdRoot_0 = v3.FFlagAXBlackbirdRoot;
-local _ = function(v14) --[[ Line: 55 ]] --[[ Name: getPermanentPrice ]]
-    for _, v16 in v14 do
-        if v16.days == 0 then
-            return v16.price;
-        end;
-    end;
-    return 0;
-end;
-return function(v18) --[[ Line: 65 ]] --[[ Name: useWearTimeSelectedOptionViewModel ]]
-    -- upvalues: l_useTokens_0 (copy), v4 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_useLocalization_0 (copy), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (copy), l_FFlagAXBlackbirdRoot_0 (copy)
-    local v19 = false;
-    local v20 = l_useTokens_0();
-    local v21 = v4.useMemo(function() --[[ Line: 68 ]]
-        -- upvalues: l_Localization_0 (ref), l_LocalizationService_0 (ref)
-        return l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
-    end, {});
-    local v22, v23 = v4.useState(nil);
-    v4.useEffect(function() --[[ Line: 75 ]]
-        -- upvalues: l_FFlagAXDurablesForMIS_0 (ref), v18 (copy), v23 (copy)
-        if l_FFlagAXDurablesForMIS_0 and v18.selectedTimedOptionIndexInReducer ~= nil then
-            v23(v18.selectedTimedOptionIndexInReducer);
-            return;
-        else
-            for v24, v25 in v18.options do
-                if v25.selected then
-                    v23(v24);
-                    return;
-                end;
-            end;
-            return;
-        end;
-    end, {
-        v18.options, 
-        if l_FFlagAXDurablesForMIS_0 then v18.selectedTimedOptionIndexInReducer else nil
-    });
-    local v26 = if v22 then v18.options[v22] else nil;
-    local v27 = if v26 then v26.days else 0;
-    local v28 = l_useLocalization_0({
-        infinite = "Feature.Durables.ItemDetails.WearTimeOptions.Button.Infinite", 
-        xDay = {
-            "Feature.Durables.BottomBar.RentalDuration"; 
-            num = v27
-        }, 
-        xDays = {
-            "Feature.Durables.BottomBar.RentalDurationPlural"; 
-            num = v27
-        }, 
-        xDayList = {
-            "Feature.Durables.ItemDetails.WearTimeOptions.Button.XDay"; 
-            num = v27
-        }, 
-        xDaysList = {
-            "Feature.Durables.ItemDetails.WearTimeOptions.Button.XDays"; 
-            num = v27
-        }
-    });
-    local v29, v30 = v4.useState(false);
-    local v31 = v4.useRef(nil);
-    if l_CombinedFFlagShouldUseLegacyGamepadFocus_0 and v18.triggerRef then
-        v31 = v18.triggerRef;
-    end;
-    local v32;
-    if v26 then
-        v32 = v26.price;
-    else
-        for _, v34 in v18.options do
-            if v34.days == 0 then
-                v32 = v34.price;
-                v19 = true;
-            end;
-            if v19 then
-                break;
-            end;
-        end;
-        if not v19 then
-            v32 = 0;
-        end;
-    end;
-    v19 = false;
-    local v35 = nil;
-    local v36 = nil;
-    if v27 == 0 then
-        v35 = v28.infinite;
-        v36 = v28.infinite;
-    elseif v27 == 1 then
-        v35 = v28.xDay;
-        v36 = v28.xDayList;
-    else
-        v35 = v28.xDays;
-        v36 = v28.xDaysList;
-    end;
-    local v38 = v4.useCallback(function(v37) --[[ Line: 119 ]]
-        -- upvalues: v23 (copy), v18 (copy), v30 (copy)
-        v23(v37);
-        if v18.onOptionActivated then
-            v18.onOptionActivated(v37);
-        end;
-        v30(false);
-    end, {
-        v18.onOptionActivated
-    });
-    local v42 = v4.useMemo(function() --[[ Line: 127 ]]
-        -- upvalues: v18 (copy), v22 (copy), l_FFlagAXBlackbirdRoot_0 (ref)
-        local v39 = {};
-        for v40, v41 in v18.options do
-            v39[v40] = {
-                days = v41.days, 
-                price = v41.price, 
-                selected = v40 == v22, 
-                discountInformation = if l_FFlagAXBlackbirdRoot_0 then v41.discountInformation else nil
-            };
-        end;
-        return v39;
-    end, {
-        v18.options, 
-        v22
-    });
-    return {
-        tokens = v20, 
-        localization = v21, 
-        selectedIndex = v22, 
-        setSelectedIndex = v23, 
-        selectedOption = v26, 
-        days = v27, 
-        localizedText = v28, 
-        isOpen = v29, 
-        setIsOpen = v30, 
-        anchorRef = v31, 
-        price = v32, 
-        subLabelText = v35, 
-        listLabelText = v36, 
-        handleOptionActivated = v38, 
-        updatedOptions = v42, 
-        disableOptionSelection = v18.disableOptionSelection
-    };
-end;
+local LocalizationService = game:GetService("LocalizationService")
+local Parent = script:FindFirstAncestor("AvatarExperienceTimedOptions").Parent
+local AvatarExperienceFlags = require(Parent.AvatarExperienceFlags)
+local React = require(Parent.React)
+local Foundation = require(Parent.Foundation)
+local Localization = require(Parent.Localization)
+local Localization2 = require(Parent.RobloxAppLocales).Localization
+local useLocalization = Localization.Hooks.useLocalization
+local useTokens = Foundation.Hooks.useTokens
+
+require(Parent.AvatarExperienceCommon)
+
+local CombinedFFlagShouldUseLegacyGamepadFocus = AvatarExperienceFlags.CombinedFFlagShouldUseLegacyGamepadFocus
+local FFlagAXDurablesForMIS = AvatarExperienceFlags.FFlagAXDurablesForMIS
+local FFlagAXBlackbirdRoot = AvatarExperienceFlags.FFlagAXBlackbirdRoot
+
+return function(t1: {[any]: any}) --[[ useWearTimeSelectedOptionViewModel ]] -- line: 65
+	-- upvalues: useTokens (copy), React (copy), Localization2 (copy), LocalizationService (copy), FFlagAXDurablesForMIS (copy), useLocalization (copy), CombinedFFlagShouldUseLegacyGamepadFocus (copy), FFlagAXBlackbirdRoot (copy)
+	local v17 = useTokens()
+	local v18 = React.useMemo(function() -- line: 68
+		-- upvalues: Localization2 (copy), LocalizationService (copy)
+		return Localization2.new(LocalizationService.RobloxLocaleId)
+	end, {})
+	local v19, v20 = React.useState(nil)
+
+	React.useEffect(function() -- line: 75
+		-- upvalues: FFlagAXDurablesForMIS (copy), t1 (copy), v20 (copy)
+		if FFlagAXDurablesForMIS and t1.selectedTimedOptionIndexInReducer ~= nil then
+			v20(t1.selectedTimedOptionIndexInReducer)
+
+			return
+		end
+
+		for v35, v36 in t1.options do
+			if v36.selected then
+				v20(v35)
+
+				return
+			end
+		end
+	end, {
+		t1.options,
+		if not FFlagAXDurablesForMIS then nil else t1.selectedTimedOptionIndexInReducer
+	})
+
+	local v21 = if not v19 then nil else t1.options[v19]
+	local v22 = not v21 and 0 or v21.days
+	local v23 = useLocalization({
+		infinite = "Feature.Durables.ItemDetails.WearTimeOptions.Button.Infinite",
+		xDay = {
+			"Feature.Durables.BottomBar.RentalDuration",
+			num = v22
+		},
+		xDays = {
+			"Feature.Durables.BottomBar.RentalDurationPlural",
+			num = v22
+		},
+		xDayList = {
+			"Feature.Durables.ItemDetails.WearTimeOptions.Button.XDay",
+			num = v22
+		},
+		xDaysList = {
+			"Feature.Durables.ItemDetails.WearTimeOptions.Button.XDays",
+			num = v22
+		}
+	})
+	local v24, v25 = React.useState(false)
+	local v26 = React.useRef(nil)
+	local g30 = nil
+	local price = nil
+
+	if CombinedFFlagShouldUseLegacyGamepadFocus and t1.triggerRef then
+		v26 = t1.triggerRef
+	end
+
+	if v21 then
+		price = v21.price
+	else
+		for _, v29 in t1.options do
+			if v29.days == 0 then
+				price = v29.price
+				g30 = true
+			end
+
+			if g30 then
+				break
+			end
+		end
+
+		if not g30 then
+			price = 0
+		end
+	end
+
+	g30 = false
+
+	local infinite, infinite2
+
+	if v22 == 0 then
+		infinite = v23.infinite
+		infinite2 = v23.infinite
+	elseif v22 == 1 then
+		infinite = v23.xDay
+		infinite2 = v23.xDayList
+	else
+		infinite = v23.xDays
+		infinite2 = v23.xDaysList
+	end
+
+	local v33 = React.useCallback(function(n1: number) -- line: 119
+		-- upvalues: v20 (copy), t1 (copy), v25 (copy)
+		v20(n1)
+
+		if t1.onOptionActivated then
+			t1.onOptionActivated(n1)
+		end
+
+		v25(false)
+	end, { t1.onOptionActivated })
+	local v34 = React.useMemo(function() -- line: 127
+		-- upvalues: t1 (copy), v19 (copy), FFlagAXBlackbirdRoot (copy)
+		local t2 = {}
+
+		for v39, v40 in t1.options do
+			t2[v39] = {
+				days = v40.days,
+				price = v40.price,
+				selected = v39 == v19,
+				discountInformation = if not FFlagAXBlackbirdRoot then nil else v40.discountInformation
+			}
+		end
+
+		return t2
+	end, {
+		t1.options,
+		v19
+	})
+
+	return {
+		tokens = v17,
+		localization = v18,
+		selectedIndex = v19,
+		setSelectedIndex = v20,
+		selectedOption = v21,
+		days = v22,
+		localizedText = v23,
+		isOpen = v24,
+		setIsOpen = v25,
+		anchorRef = v26,
+		price = price,
+		subLabelText = infinite,
+		listLabelText = infinite2,
+		handleOptionActivated = v33,
+		updatedOptions = v34,
+		disableOptionSelection = t1.disableOptionSelection
+	}
+end

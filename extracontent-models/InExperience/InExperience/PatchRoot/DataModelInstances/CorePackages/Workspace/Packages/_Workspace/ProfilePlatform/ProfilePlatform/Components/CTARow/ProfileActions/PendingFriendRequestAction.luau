@@ -1,18 +1,23 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_ButtonVariant_0 = require(l_Parent_0.Foundation).Enums.ButtonVariant;
-local v3 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-return {
-    [v3.ProfileActions.PendingFriendRequest] = function(v5) --[[ Line: 12 ]]
-        -- upvalues: l_ButtonVariant_0 (copy), v3 (copy)
-        return {
-            variant = l_ButtonVariant_0.Subtle, 
-            text = v5.localized[v3.ProfileActions.PendingFriendRequest], 
-            onActivated = function() --[[ Line: 16 ]] --[[ Name: onActivated ]]
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local ButtonVariant = require(ProfilePlatformParent.Foundation).Enums.ButtonVariant
+local Enums = require(ProfilePlatform.Common.Enums)
 
-            end, 
-            isDisabled = true
-        };
-    end
-};
+require(ProfilePlatform.Components.CTARow.Types)
+
+local ProfileTypes = Enums.ProfileTypes
+
+return {
+	[Enums.ProfileActions.PendingFriendRequest] = function(p1) -- line: 13
+		-- upvalues: ButtonVariant (copy), Enums (copy), ProfileTypes (copy)
+		return {
+			variant = ButtonVariant.Subtle,
+			text = p1.localized[Enums.ProfileActions.PendingFriendRequest],
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 18
+				end
+			},
+			isDisabled = true
+		}
+	end
+}

@@ -1,207 +1,221 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_default_0 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol).default;
-l_default_0:logEventOnce("home_page_require_begin");
-local v3 = require(l_CorePackages_0.Packages.Cryo);
-local v4 = require(l_CorePackages_0.Packages.React);
-local v5 = require(l_CorePackages_0.Packages.RoactRodux);
-local v6 = require(l_CorePackages_0.Packages.RoactNavigation);
-local l_getTestId_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).getTestId;
-local l_combineReactTags_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).combineReactTags;
-local v9 = require(l_CorePackages_0.Packages.t);
-local l_withStyle_0 = require(l_CorePackages_0.Packages.UIBlox).Style.withStyle;
-local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
-local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local l_AppNotificationService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppNotificationService;
-local v15 = require(l_CorePackages_0.Workspace.Packages.AppNavBar);
-local l_CheckForSduiModal_0 = require(l_CorePackages_0.Workspace.Packages.ServerTriggeredModals).CheckForSduiModal;
-local v17 = require(l_Modules_0.LuaApp.Enum.RetrievalStatus);
-local v18 = require(l_Modules_0.LuaApp.Components.TopBar.TopBar);
-local v19 = require(l_Modules_0.Personalization.Home.HomeOmniFeed.HomeOmniFeed);
-local v20 = require(l_Modules_0.LuaApp.Common.withThrottleFramerateGivenPolicy);
-local v21 = require(l_Modules_0.Personalization.PersonalizationTopBar);
-local v22 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks);
-local l_UiMode_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).UiMode;
-local l_useUiModeInfo_0 = v22.useUiModeInfo;
-local v25 = require(l_Modules_0.LuaApp.AppPage);
-local v26 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
-local v27 = require(l_Modules_0.Personalization.Home.VngAppUpsell.CheckForVngAppUpsell);
-local v28 = require(l_Modules_0.Personalization.Home.PushNotificationsUpsell.CheckForPushNotificationsUpsell);
-local v29 = require(l_Modules_0.LuaApp.Components.Moderation.CheckForReminderOfNorms);
-local l_FlyoutSidePanelIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).FlyoutSidePanelIXP;
-local l_CompositionTags_0 = require(l_CorePackages_0.Workspace.Packages.AppComposition).CompositionTags;
-local l_Sources_0 = require(l_CorePackages_0.Workspace.Packages.SocialLuaAnalytics).Analytics.Enums.Sources;
-local l_isSubjectToDesktopPolicies_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies;
-local l_GetFFlagEnableAccessBlockAtAppContainerLevel_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableAccessBlockAtAppContainerLevel;
-local v35 = require(l_Modules_0.LuaApp.Flags.GetFFlagInjectAnalyticsService);
-local l_FFlagLuaAppHomeVngAppUpsell_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppHomeVngAppUpsell;
-local l_GetFFlagEnablePushNotificationsUpsellModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnablePushNotificationsUpsellModal;
-local l_GetFFlagEnableReminderOfNormsABTest_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableReminderOfNormsABTest;
-local v39 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagAppIaScrollAway_0 = v39.FFlagAppIaScrollAway;
-local l_FFlagLuaAppsServerTriggeredModals_0 = v39.FFlagLuaAppsServerTriggeredModals;
-local l_FFlagAppIaHomeSubTab_0 = v39.FFlagAppIaHomeSubTab;
-local l_FFlagEnableLeftNavOnConsole_0 = v39.FFlagEnableLeftNavOnConsole;
-local l_FFlagLuaAppEnableChartsPageProfileLink_0 = v39.FFlagLuaAppEnableChartsPageProfileLink;
-local l_FFlagLuaAppCompositionHome_0 = v39.FFlagLuaAppCompositionHome;
-local l_FFlagLuaAppAddTestIdsForArrow_0 = v39.FFlagLuaAppAddTestIdsForArrow;
-local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = v39.FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
-local function v48() --[[ Line: 64 ]] --[[ Name: logFirstTileImageLoaded ]]
-    -- upvalues: l_default_0 (copy)
-    l_default_0:logEventOnce("home_first_tile_thumbnail_loaded");
-end;
-local v49 = v4.PureComponent:extend("HomePageWithFeed");
-v49.validateProps = v9.strictInterface({
-    homePageDataStatus = v9.string, 
-    navigateToUAppBlock = if l_GetFFlagEnableAccessBlockAtAppContainerLevel_0() then nil else v9.callback, 
-    topBarHeight = if l_FFlagAppIaScrollAway_0 then v9.number else nil, 
-    useGridPageLayout = v9.optional(v9.boolean), 
-    policyEnableHomePageAgeBlock = v9.optional(v9.boolean), 
-    setThrottleFramerateEnabled = v9.optional(v9.callback), 
-    navigation = v9.table, 
-    screenProps = v9.optional(v9.table), 
-    notificationService = v9.any, 
-    backgroundColor = v9.Color3, 
-    backgroundTransparency = v9.number, 
-    hasTopBar = v9.boolean, 
-    onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v9.optional(v9.callback) else nil
-});
-v49.init = function(v50) --[[ Line: 99 ]] --[[ Name: init ]]
-    -- upvalues: l_GetFFlagEnableAccessBlockAtAppContainerLevel_0 (copy), l_isSubjectToDesktopPolicies_0 (copy)
-    if not l_GetFFlagEnableAccessBlockAtAppContainerLevel_0() and v50.props.policyEnableHomePageAgeBlock then
-        v50.props.navigateToUAppBlock();
-    end;
-    v50.notifyPageLoaded = function() --[[ Line: 106 ]]
-        -- upvalues: v50 (copy)
-        v50.props.notificationService:ActionEnabled(Enum.AppShellActionType.HomePageLoaded);
-    end;
-    v50.onDidFocus = function() --[[ Line: 110 ]]
-        -- upvalues: l_isSubjectToDesktopPolicies_0 (ref), v50 (copy)
-        if l_isSubjectToDesktopPolicies_0() then
-            v50.props.setThrottleFramerateEnabled(false);
-        end;
-    end;
-    v50.onWillBlur = function() --[[ Line: 116 ]]
-        -- upvalues: l_isSubjectToDesktopPolicies_0 (ref), v50 (copy)
-        if l_isSubjectToDesktopPolicies_0() then
-            v50.props.setThrottleFramerateEnabled(true);
-        end;
-    end;
-end;
-v49.render = function(v51) --[[ Line: 123 ]] --[[ Name: render ]]
-    -- upvalues: v4 (copy), v19 (copy), l_FFlagAppIaHomeSubTab_0 (copy), l_FlyoutSidePanelIXP_0 (copy), l_FFlagAppIaScrollAway_0 (copy), v15 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), v18 (copy), v21 (copy), l_FFlagLuaAppCompositionHome_0 (copy), l_CompositionTags_0 (copy), l_FFlagLuaAppEnableChartsPageProfileLink_0 (copy), l_Sources_0 (copy), v6 (copy), l_FFlagLuaAppHomeVngAppUpsell_0 (copy), v27 (copy), l_GetFFlagEnablePushNotificationsUpsellModal_0 (copy), v28 (copy), l_GetFFlagEnableReminderOfNormsABTest_0 (copy), v29 (copy), l_FFlagLuaAppsServerTriggeredModals_0 (copy), l_CheckForSduiModal_0 (copy), l_FFlagLuaAppAddTestIdsForArrow_0 (copy), l_getTestId_0 (copy), l_combineReactTags_0 (copy), v35 (copy), l_withStyle_0 (copy)
-    local function v60(_) --[[ Line: 124 ]]
-        -- upvalues: v51 (copy), v4 (ref), v19 (ref), l_FFlagAppIaHomeSubTab_0 (ref), l_FlyoutSidePanelIXP_0 (ref), l_FFlagAppIaScrollAway_0 (ref), v15 (ref), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (ref), v18 (ref), v21 (ref), l_FFlagLuaAppCompositionHome_0 (ref), l_CompositionTags_0 (ref), l_FFlagLuaAppEnableChartsPageProfileLink_0 (ref), l_Sources_0 (ref), v6 (ref), l_FFlagLuaAppHomeVngAppUpsell_0 (ref), v27 (ref), l_GetFFlagEnablePushNotificationsUpsellModal_0 (ref), v28 (ref), l_GetFFlagEnableReminderOfNormsABTest_0 (ref), v29 (ref), l_FFlagLuaAppsServerTriggeredModals_0 (ref), l_CheckForSduiModal_0 (ref), l_FFlagLuaAppAddTestIdsForArrow_0 (ref), l_getTestId_0 (ref), l_combineReactTags_0 (ref), v35 (ref)
-        local l_backgroundColor_0 = v51.props.backgroundColor;
-        local l_backgroundTransparency_0 = v51.props.backgroundTransparency;
-        local l_useGridPageLayout_0 = v51.props.useGridPageLayout;
-        local v56 = v4.createElement(v19, {
-            canvasTopPadding = if l_FFlagAppIaHomeSubTab_0 and l_FlyoutSidePanelIXP_0.isHomeSubTabEnabled() and l_FFlagAppIaScrollAway_0 then if v51.props.screenProps then v51.props.screenProps.headerHeight else nil else if l_FFlagAppIaScrollAway_0 and v51.props.hasTopBar and v15.getScrollAwayEnabled() then v51.props.topBarHeight else nil, 
-            onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v51.props.onTileImageLoaded else nil
-        });
-        local v57 = v4.createElement(v18.PageWrapper, {
-            topBarSlot = if l_FFlagAppIaHomeSubTab_0 and l_FlyoutSidePanelIXP_0.isHomeSubTabEnabled() then nil else if v51.props.hasTopBar then v4.createElement(v21, {
-                tag = if l_FFlagLuaAppCompositionHome_0 then l_CompositionTags_0.ContentRegion.Header else nil, 
-                useGridPageLayout = l_useGridPageLayout_0, 
-                profileSource = if l_FFlagLuaAppEnableChartsPageProfileLink_0 then l_Sources_0.HomePageSelfWidget else nil, 
-                sideMarginOverride = l_FFlagLuaAppCompositionHome_0 and 0 or nil
-            }) else nil, 
-            BackgroundColor3 = l_backgroundColor_0, 
-            BackgroundTransparency = l_backgroundTransparency_0
-        }, {
-            HomeOmniFeed = v56
-        });
-        local v58 = {
-            NavigationEvents = v4.createElement(v6.NavigationEvents, {
-                onDidFocus = v51.onDidFocus, 
-                onWillBlur = v51.onWillBlur
-            }), 
-            CheckForVngAppUpsell = if l_FFlagLuaAppHomeVngAppUpsell_0 then v4.createElement(v27) else nil, 
-            CheckForPushNotificationsUpsell = if l_GetFFlagEnablePushNotificationsUpsellModal_0() then v4.createElement(v28) else nil, 
-            CheckForReminderOfNorms = if l_GetFFlagEnableReminderOfNormsABTest_0() then v4.createElement(v29) else nil, 
-            CheckForSduiModal = if l_FFlagLuaAppsServerTriggeredModals_0 then v4.createElement(l_CheckForSduiModal_0) else nil, 
-            Content = v57
-        };
-        local v59 = if l_FFlagLuaAppAddTestIdsForArrow_0 then l_getTestId_0("page-home") else nil;
-        return v4.createElement("Frame", {
-            [v4.Tag] = if l_FFlagLuaAppAddTestIdsForArrow_0 then l_combineReactTags_0(v35() and "app-screen.home" or nil, v59) else v35() and "app-screen.home" or nil, 
-            Size = UDim2.new(1, 0, 1, 0), 
-            BackgroundColor3 = l_backgroundColor_0, 
-            BackgroundTransparency = l_backgroundTransparency_0, 
-            BorderSizePixel = 0
-        }, v58);
-    end;
-    return l_withStyle_0(function(v61) --[[ Line: 200 ]]
-        -- upvalues: v60 (copy)
-        return v60(v61);
-    end);
-end;
-v49.didMount = function(v62) --[[ Line: 205 ]] --[[ Name: didMount ]]
-    -- upvalues: v17 (copy)
-    v62.isMounted = true;
-    if v62.props.homePageDataStatus == v17.Done then
-        v62.notifyPageLoaded();
-    end;
-    v62.onDidFocus();
-end;
-v49.didUpdate = function(v63, v64) --[[ Line: 215 ]] --[[ Name: didUpdate ]]
-    -- upvalues: l_GetFFlagEnableAccessBlockAtAppContainerLevel_0 (copy), v17 (copy)
-    if not l_GetFFlagEnableAccessBlockAtAppContainerLevel_0() and v63.props.policyEnableHomePageAgeBlock then
-        v63.props.navigateToUAppBlock();
-    end;
-    local v65 = v63.props.homePageDataStatus == v17.Done;
-    local v66 = v64.homePageDataStatus == v17.Done;
-    if v65 and not v66 then
-        v63.notifyPageLoaded();
-    end;
-end;
-v49.willUnmount = function(v67) --[[ Line: 232 ]] --[[ Name: willUnmount ]]
-    v67.isMounted = false;
-end;
-v49 = v5.connect(function(v68, _) --[[ Line: 236 ]]
-    -- upvalues: l_FFlagAppIaScrollAway_0 (copy)
-    return {
-        homePageDataStatus = v68.Startup.HomePageDataStatus, 
-        topBarHeight = if l_FFlagAppIaScrollAway_0 then v68.TopBar.topBarHeight else nil
-    };
-end, function(v70) --[[ Line: 241 ]]
-    -- upvalues: l_GetFFlagEnableAccessBlockAtAppContainerLevel_0 (copy), v26 (copy), v25 (copy)
-    return {
-        navigateToUAppBlock = if l_GetFFlagEnableAccessBlockAtAppContainerLevel_0() then nil else function() --[[ Line: 245 ]]
-            -- upvalues: v70 (copy), v26 (ref), v25 (ref)
-            v70(v26({
-                {
-                    name = v25.UAppBlock
-                }
-            }));
-        end
-    };
-end)(v49);
-local v71 = v6.withNavigation(v49);
-v49 = l_RoactServices_0.connect({
-    notificationService = l_AppNotificationService_0
-})(function(v72) --[[ Line: 254 ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), v3 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), v48 (copy), v4 (copy), v71 (copy)
-    local v73 = l_useDesignTokens_0();
-    local v74 = l_useUiModeInfo_0();
-    local v75 = true;
-    if v74.uiMode == l_UiMode_0.TenFoot then
-        v75 = l_FFlagEnableLeftNavOnConsole_0;
-    end;
-    local v76 = v3.Dictionary.join(v72, {
-        backgroundColor = v73.LuaApps.App.Page.BackgroundColor, 
-        backgroundTransparency = v73.LuaApps.App.Page.BackgroundTransparency, 
-        hasTopBar = v75, 
-        onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v48 else nil
-    });
-    return v4.createElement(v71, v76);
-end);
-v49 = v20((l_RoactAppPolicy_0.connect(function(v77, _) --[[ Line: 276 ]]
-    return {
-        useGridPageLayout = v77.useGridPageLayout(), 
-        policyEnableHomePageAgeBlock = v77.getEnableHomePageAgeBlock()
-    };
-end)(v49)));
-l_default_0:logEventOnce("home_page_require_end");
-return v49;
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local default = require(CorePackages.Workspace.Packages.LoggingProtocol).default
+
+default:logEventOnce("home_page_require_begin")
+
+local Cryo = require(CorePackages.Packages.Cryo)
+local React = require(CorePackages.Packages.React)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local RoactNavigation = require(CorePackages.Packages.RoactNavigation)
+local getTestId = require(CorePackages.Workspace.Packages.RoactUtils).getTestId
+local combineReactTags = require(CorePackages.Workspace.Packages.RoactUtils).combineReactTags
+local t = require(CorePackages.Packages.t)
+local withStyle = require(CorePackages.Packages.UIBlox).Style.withStyle
+local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local AppNotificationService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppNotificationService
+local AppNavBar = require(CorePackages.Workspace.Packages.AppNavBar)
+local CheckForSduiModal = require(CorePackages.Workspace.Packages.ServerTriggeredModals).CheckForSduiModal
+local CheckForPrompts = require(CorePackages.Workspace.Packages.ServerTriggeredModals).CheckForPrompts
+local RetrievalStatus = require(Modules.LuaApp.Enum.RetrievalStatus)
+local TopBar = require(Modules.LuaApp.Components.TopBar.TopBar)
+local HomeOmniFeed = require(Modules.Personalization.Home.HomeOmniFeed.HomeOmniFeed)
+local withThrottleFramerateGivenPolicy = require(Modules.LuaApp.Common.withThrottleFramerateGivenPolicy)
+local PersonalizationTopBar = require(Modules.Personalization.PersonalizationTopBar)
+local RobloxAppHooks = require(CorePackages.Workspace.Packages.RobloxAppHooks)
+local UiMode = require(CorePackages.Workspace.Packages.RobloxAppEnums).UiMode
+local useUiModeInfo = RobloxAppHooks.useUiModeInfo
+local AppPage = require(Modules.LuaApp.AppPage)
+local ResetNavigationHistory = require(Modules.LuaApp.Thunks.ResetNavigationHistory)
+local CheckForVngAppUpsell = require(Modules.Personalization.Home.VngAppUpsell.CheckForVngAppUpsell)
+local CheckForPushNotificationsUpsell = require(Modules.Personalization.Home.PushNotificationsUpsell.CheckForPushNotificationsUpsell)
+local CheckForReminderOfNorms = require(Modules.LuaApp.Components.Moderation.CheckForReminderOfNorms)
+local FlyoutSidePanelIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).FlyoutSidePanelIXP
+local CompositionTags = require(CorePackages.Workspace.Packages.AppComposition).CompositionTags
+local Sources = require(CorePackages.Workspace.Packages.SocialLuaAnalytics).Analytics.Enums.Sources
+local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
+local GetFFlagEnableAccessBlockAtAppContainerLevel = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAccessBlockAtAppContainerLevel
+local GetFFlagInjectAnalyticsService = require(Modules.LuaApp.Flags.GetFFlagInjectAnalyticsService)
+local FFlagLuaAppHomeVngAppUpsell = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppHomeVngAppUpsell
+local GetFFlagEnablePushNotificationsUpsellModal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePushNotificationsUpsellModal
+local GetFFlagEnableReminderOfNormsABTest = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableReminderOfNormsABTest
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAppIaScrollAway = SharedFlags.FFlagAppIaScrollAway
+local FFlagLuaAppsServerTriggeredModals = SharedFlags.FFlagLuaAppsServerTriggeredModals
+local FFlagEnableSduiV2HomepagePrompts = SharedFlags.FFlagEnableSduiV2HomepagePrompts
+local FFlagAppIaHomeSubTab = SharedFlags.FFlagAppIaHomeSubTab
+local FFlagEnableLeftNavOnConsole = SharedFlags.FFlagEnableLeftNavOnConsole
+local FFlagLuaAppEnableChartsPageProfileLink = SharedFlags.FFlagLuaAppEnableChartsPageProfileLink
+local FFlagLuaAppCompositionHome = SharedFlags.FFlagLuaAppCompositionHome
+local FFlagLuaAppAddTestIdsForArrow = SharedFlags.FFlagLuaAppAddTestIdsForArrow
+local FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone = SharedFlags.FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone
+
+local function logFirstTileImageLoaded() -- line: 66
+	-- upvalues: default (copy)
+	default:logEventOnce("home_first_tile_thumbnail_loaded")
+end
+
+local v52 = React.PureComponent:extend("HomePageWithFeed")
+
+v52.validateProps = t.strictInterface({
+	homePageDataStatus = t.string,
+	navigateToUAppBlock = if not GetFFlagEnableAccessBlockAtAppContainerLevel() then t.callback else nil,
+	topBarHeight = if not FFlagAppIaScrollAway then nil else t.number,
+	useGridPageLayout = t.optional(t.boolean),
+	policyEnableHomePageAgeBlock = t.optional(t.boolean),
+	setThrottleFramerateEnabled = t.optional(t.callback),
+	navigation = t.table,
+	screenProps = t.optional(t.table),
+	notificationService = t.any,
+	backgroundColor = t.Color3,
+	backgroundTransparency = t.number,
+	hasTopBar = t.boolean,
+	onTileImageLoaded = if not FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone then nil else t.optional(t.callback)
+})
+
+function v52.init(p1) -- line: 101
+	-- upvalues: GetFFlagEnableAccessBlockAtAppContainerLevel (copy), isSubjectToDesktopPolicies (copy)
+	if not GetFFlagEnableAccessBlockAtAppContainerLevel() and p1.props.policyEnableHomePageAgeBlock then
+		p1.props.navigateToUAppBlock()
+	end
+
+	function p1.notifyPageLoaded() -- line: 108
+		-- upvalues: p1 (copy)
+		p1.props.notificationService:ActionEnabled(Enum.AppShellActionType.HomePageLoaded)
+	end
+	function p1.onDidFocus() -- line: 112
+		-- upvalues: isSubjectToDesktopPolicies (copy), p1 (copy)
+		if isSubjectToDesktopPolicies() then
+			p1.props.setThrottleFramerateEnabled(false)
+		end
+	end
+	function p1.onWillBlur() -- line: 118
+		-- upvalues: isSubjectToDesktopPolicies (copy), p1 (copy)
+		if isSubjectToDesktopPolicies() then
+			p1.props.setThrottleFramerateEnabled(true)
+		end
+	end
+end
+function v52.render(p2) -- line: 125
+	-- upvalues: React (copy), HomeOmniFeed (copy), FFlagAppIaHomeSubTab (copy), FlyoutSidePanelIXP (copy), FFlagAppIaScrollAway (copy), AppNavBar (copy), FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone (copy), TopBar (copy), PersonalizationTopBar (copy), FFlagLuaAppCompositionHome (copy), CompositionTags (copy), FFlagLuaAppEnableChartsPageProfileLink (copy), Sources (copy), RoactNavigation (copy), FFlagLuaAppHomeVngAppUpsell (copy), CheckForVngAppUpsell (copy), GetFFlagEnablePushNotificationsUpsellModal (copy), CheckForPushNotificationsUpsell (copy), GetFFlagEnableReminderOfNormsABTest (copy), CheckForReminderOfNorms (copy), FFlagLuaAppsServerTriggeredModals (copy), CheckForSduiModal (copy), FFlagEnableSduiV2HomepagePrompts (copy), CheckForPrompts (copy), FFlagLuaAppAddTestIdsForArrow (copy), getTestId (copy), combineReactTags (copy), GetFFlagInjectAnalyticsService (copy), withStyle (copy)
+	local function v59(_) -- line: 126
+		-- upvalues: p2 (copy), React (copy), HomeOmniFeed (copy), FFlagAppIaHomeSubTab (copy), FlyoutSidePanelIXP (copy), FFlagAppIaScrollAway (copy), AppNavBar (copy), FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone (copy), TopBar (copy), PersonalizationTopBar (copy), FFlagLuaAppCompositionHome (copy), CompositionTags (copy), FFlagLuaAppEnableChartsPageProfileLink (copy), Sources (copy), RoactNavigation (copy), FFlagLuaAppHomeVngAppUpsell (copy), CheckForVngAppUpsell (copy), GetFFlagEnablePushNotificationsUpsellModal (copy), CheckForPushNotificationsUpsell (copy), GetFFlagEnableReminderOfNormsABTest (copy), CheckForReminderOfNorms (copy), FFlagLuaAppsServerTriggeredModals (copy), CheckForSduiModal (copy), FFlagEnableSduiV2HomepagePrompts (copy), CheckForPrompts (copy), FFlagLuaAppAddTestIdsForArrow (copy), getTestId (copy), combineReactTags (copy), GetFFlagInjectAnalyticsService (copy)
+		local backgroundColor = p2.props.backgroundColor
+		local backgroundTransparency = p2.props.backgroundTransparency
+		local useGridPageLayout = p2.props.useGridPageLayout
+		local v79 = React.createElement(HomeOmniFeed, {
+			canvasTopPadding = if not FFlagAppIaHomeSubTab or (not FlyoutSidePanelIXP.isHomeSubTabEnabled() or not FFlagAppIaScrollAway) then if not FFlagAppIaScrollAway or (not p2.props.hasTopBar or not AppNavBar.getScrollAwayEnabled()) then nil else p2.props.topBarHeight else if not p2.props.screenProps then nil else p2.props.screenProps.headerHeight,
+			onTileImageLoaded = if not FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone then nil else p2.props.onTileImageLoaded
+		})
+		local v80 = React.createElement(TopBar.PageWrapper, {
+			topBarSlot = if not FFlagAppIaHomeSubTab or not FlyoutSidePanelIXP.isHomeSubTabEnabled() then if not p2.props.hasTopBar then nil else React.createElement(PersonalizationTopBar, {
+				tag = if not FFlagLuaAppCompositionHome then nil else CompositionTags.ContentRegion.Header,
+				useGridPageLayout = useGridPageLayout,
+				profileSource = if not FFlagLuaAppEnableChartsPageProfileLink then nil else Sources.HomePageSelfWidget,
+				sideMarginOverride = if not FFlagLuaAppCompositionHome then nil else 0
+			}) else nil,
+			BackgroundColor3 = backgroundColor,
+			BackgroundTransparency = backgroundTransparency
+		}, {
+			HomeOmniFeed = v79
+		})
+		local t1 = {
+			NavigationEvents = React.createElement(RoactNavigation.NavigationEvents, {
+				onDidFocus = p2.onDidFocus,
+				onWillBlur = p2.onWillBlur
+			}),
+			CheckForVngAppUpsell = if not FFlagLuaAppHomeVngAppUpsell then nil else React.createElement(CheckForVngAppUpsell),
+			CheckForPushNotificationsUpsell = if not GetFFlagEnablePushNotificationsUpsellModal() then nil else React.createElement(CheckForPushNotificationsUpsell),
+			CheckForReminderOfNorms = if not GetFFlagEnableReminderOfNormsABTest() then nil else React.createElement(CheckForReminderOfNorms),
+			CheckForSduiModal = if not FFlagLuaAppsServerTriggeredModals then nil else React.createElement(CheckForSduiModal),
+			CheckForPrompts = if not FFlagEnableSduiV2HomepagePrompts then nil else React.createElement(CheckForPrompts),
+			Content = v80
+		}
+		local v82 = if not FFlagLuaAppAddTestIdsForArrow then nil else getTestId("page-home")
+
+		return React.createElement("Frame", {
+			[React.Tag] = if not FFlagLuaAppAddTestIdsForArrow then if not GetFFlagInjectAnalyticsService() then nil else "app-screen.home" else combineReactTags(if not GetFFlagInjectAnalyticsService() then nil else "app-screen.home", v82),
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundColor3 = backgroundColor,
+			BackgroundTransparency = backgroundTransparency,
+			BorderSizePixel = 0
+		}, t1)
+	end
+
+	return withStyle(function(p4) -- line: 203
+		-- upvalues: v59 (copy)
+		return v59(p4)
+	end)
+end
+function v52.didMount(p5) -- line: 208
+	-- upvalues: RetrievalStatus (copy)
+	p5.isMounted = true
+
+	if p5.props.homePageDataStatus == RetrievalStatus.Done then
+		p5.notifyPageLoaded()
+	end
+
+	p5.onDidFocus()
+end
+function v52.didUpdate(p6, p7) -- line: 218
+	-- upvalues: GetFFlagEnableAccessBlockAtAppContainerLevel (copy), RetrievalStatus (copy)
+	if not GetFFlagEnableAccessBlockAtAppContainerLevel() and p6.props.policyEnableHomePageAgeBlock then
+		p6.props.navigateToUAppBlock()
+	end
+
+	local v63 = p6.props.homePageDataStatus == RetrievalStatus.Done
+	local v64 = p7.homePageDataStatus == RetrievalStatus.Done
+
+	if v63 and not v64 then
+		p6.notifyPageLoaded()
+	end
+end
+function v52.willUnmount(p8) -- line: 235
+	p8.isMounted = false
+end
+
+local v53 = RoactRodux.connect(function(p9, _) -- line: 239
+	-- upvalues: FFlagAppIaScrollAway (copy)
+	return {
+		homePageDataStatus = p9.Startup.HomePageDataStatus,
+		topBarHeight = if not FFlagAppIaScrollAway then nil else p9.TopBar.topBarHeight
+	}
+end, function(p11) -- line: 244
+	-- upvalues: GetFFlagEnableAccessBlockAtAppContainerLevel (copy), ResetNavigationHistory (copy), AppPage (copy)
+	return {
+		navigateToUAppBlock = not GetFFlagEnableAccessBlockAtAppContainerLevel() and function() -- line: 248
+			-- upvalues: p11 (copy), ResetNavigationHistory (copy), AppPage (copy)
+			p11(ResetNavigationHistory({{
+				name = AppPage.UAppBlock
+			}}))
+		end or nil
+	}
+end)(v52)
+local v54 = RoactNavigation.withNavigation(v53)
+local v55 = RoactServices.connect({
+	notificationService = AppNotificationService
+})(function(p12) -- line: 257
+	-- upvalues: useDesignTokens (copy), useUiModeInfo (copy), UiMode (copy), FFlagEnableLeftNavOnConsole (copy), Cryo (copy), FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone (copy), logFirstTileImageLoaded (copy), React (copy), v54 (copy)
+	local v70 = useDesignTokens()
+	local v71 = useUiModeInfo().uiMode ~= UiMode.TenFoot or FFlagEnableLeftNavOnConsole
+	local v72 = Cryo.Dictionary.join(p12, {
+		backgroundColor = v70.LuaApps.App.Page.BackgroundColor,
+		backgroundTransparency = v70.LuaApps.App.Page.BackgroundTransparency,
+		hasTopBar = v71,
+		onTileImageLoaded = if not FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone then nil else logFirstTileImageLoaded
+	})
+
+	return React.createElement(v54, v72)
+end)
+local v56 = withThrottleFramerateGivenPolicy((RoactAppPolicy.connect(function(p13, _) -- line: 279
+	return {
+		useGridPageLayout = p13.useGridPageLayout(),
+		policyEnableHomePageAgeBlock = p13.getEnableHomePageAgeBlock()
+	}
+end)(v55)))
+
+default:logEventOnce("home_page_require_end")
+
+return v56

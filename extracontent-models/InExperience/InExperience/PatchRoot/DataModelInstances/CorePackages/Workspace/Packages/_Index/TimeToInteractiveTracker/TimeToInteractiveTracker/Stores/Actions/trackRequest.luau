@@ -1,49 +1,74 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("TimeToInteractiveTracker");
-local _ = require(script.Parent.Parent.types);
-local v2 = require(l_script_FirstAncestor_0.Utils.now);
-local v3 = require(l_script_FirstAncestor_0.Utils.Util);
-return function(v4, v5) --[[ Line: 16 ]]
-    -- upvalues: v2 (copy), v3 (copy)
-    return function(v6, v7, v8) --[[ Line: 17 ]]
-        -- upvalues: v2 (ref), v4 (copy), v5 (copy), v3 (ref)
-        local v9 = v2();
-        local v10 = v4(false)[v6];
-        if not v10 or not v10.startTime then
-            warn((("TimeToInteractiveTracker.trackRequest called before trackStart for eventName=%*"):format(v6)));
-            return;
-        else
-            local v11 = (v9 - v10.startTime) * 1000;
-            local v12 = {
-                name = v8, 
-                timestamp = v9, 
-                deltaMs = v11
-            };
-            v5(function(v13) --[[ Line: 34 ]]
-                -- upvalues: v6 (copy), v3 (ref), v7 (copy), v12 (copy)
-                local v14 = v13[v6];
-                if not v14 or not v14.milestones then
-                    return v13;
-                else
-                    local v15 = v3.findLastMilestoneIndex(v14.milestones, v7);
-                    if not v15 then
-                        warn((("TimeToInteractiveTracker.trackRequest: no milestone \"%*\" found for eventName=%*"):format(v7, v6)));
-                        return v13;
-                    else
-                        local v16 = table.clone(v13);
-                        local v17 = table.clone(v14);
-                        local v18 = table.clone(v14.milestones);
-                        local v19 = table.clone(v18[v15]);
-                        local v20 = if v19.requests then table.clone(v19.requests) else {};
-                        table.insert(v20, v12);
-                        v19.requests = v20;
-                        v18[v15] = v19;
-                        v17.milestones = v18;
-                        v16[v6] = v17;
-                        return v16;
-                    end;
-                end;
-            end);
-            return;
-        end;
-    end;
-end;
+local TimeToInteractiveTracker = script:FindFirstAncestor("TimeToInteractiveTracker")
+local TimeToInteractiveTrackerParent = TimeToInteractiveTracker.Parent
+local v3 = require(TimeToInteractiveTracker.Logger):new(script.Name)
+local FFlagLuaAppPerfTrackerUseLogger = require(TimeToInteractiveTrackerParent.SharedFlags).FFlagLuaAppPerfTrackerUseLogger
+
+require(script.Parent.Parent.types)
+
+local now = require(TimeToInteractiveTracker.Utils.now)
+local Util = require(TimeToInteractiveTracker.Utils.Util)
+
+return function(p1, p2) -- line: 20
+	-- upvalues: now (copy), FFlagLuaAppPerfTrackerUseLogger (copy), v3 (copy), Util (copy)
+	return function(s1: string, p3, s2: string) -- line: 21
+		-- upvalues: now (copy), p1 (copy), FFlagLuaAppPerfTrackerUseLogger (copy), v3 (copy), p2 (copy), Util (copy)
+		local v12 = now()
+		local v13 = p1(false)[s1]
+
+		if not v13 or not v13.startTime then
+			if FFlagLuaAppPerfTrackerUseLogger then
+				v3:warning(`called before trackStart for eventName={ s1 }`)
+
+				return
+			end
+
+			warn(`TimeToInteractiveTracker.trackRequest called before trackStart for eventName={ s1 }`)
+
+			return
+		end
+
+		local v14 = (v12 - v13.startTime) * 1000
+		local t1 = {
+			name = s2,
+			timestamp = v12,
+			deltaMs = v14
+		}
+
+		p2(function(p4) -- line: 42
+			-- upvalues: s1 (copy), Util (copy), p3 (copy), FFlagLuaAppPerfTrackerUseLogger (copy), v3 (copy), t1 (copy)
+			local v17 = p4[s1]
+
+			if not v17 or not v17.milestones then
+				return p4
+			end
+
+			local v18 = Util.findLastMilestoneIndex(v17.milestones, p3)
+
+			if not v18 then
+				if FFlagLuaAppPerfTrackerUseLogger then
+					v3:warning(`no milestone "{ p3 }" found for eventName={ s1 }`)
+
+					return p4
+				end
+
+				warn(`TimeToInteractiveTracker.trackRequest: no milestone "{ p3 }" found for eventName={ s1 }`)
+
+				return p4
+			end
+
+			local v19 = table.clone(p4)
+			local v20 = table.clone(v17)
+			local v21 = table.clone(v17.milestones)
+			local v22 = table.clone(v21[v18])
+			local v23 = if not v22.requests then {} else table.clone(v22.requests)
+
+			table.insert(v23, t1)
+			v22.requests = v23
+			v21[v18] = v22
+			v20.milestones = v21
+			v19[s1] = v20
+
+			return v19
+		end)
+	end
+end

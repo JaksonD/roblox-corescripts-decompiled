@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AddIGMToSideSheet", false);
+return game:DefineFastFlag("AddIGMToSideSheet2", false)

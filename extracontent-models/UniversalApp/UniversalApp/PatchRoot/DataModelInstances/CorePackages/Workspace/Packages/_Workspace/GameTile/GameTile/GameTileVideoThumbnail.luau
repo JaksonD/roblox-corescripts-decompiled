@@ -1,42 +1,80 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("GameTile");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local l_VideoPlayer_0 = require(l_Parent_0.VideoUtils).VideoPlayer;
-local _ = require(l_script_FirstAncestor_0.GameTileTypes);
-local l_FFlagLuaAppEdpMediaGalleryFullScreen_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEdpMediaGalleryFullScreen;
-local l_VideoPlaybackCoordinator_0 = require(l_Parent_0.VideoUtils).VideoPlaybackCoordinator;
-return function(v7) --[[ Line: 31 ]] --[[ Name: GameTileVideoThumbnail ]]
-    -- upvalues: v2 (copy), l_VideoPlaybackCoordinator_0 (copy), l_VideoPlayer_0 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (copy)
-    local v10 = v2.useCallback(function(v8, v9) --[[ Line: 32 ]]
-        -- upvalues: v7 (copy), l_VideoPlaybackCoordinator_0 (ref)
-        if v7.videoAnalytics then
-            v7.videoAnalytics.reportVideoLoad(v7.itemIndex, l_VideoPlaybackCoordinator_0.default.currentPlaybackSessionId, v8, v9);
-        end;
-    end, {
-        v7.itemIndex, 
-        v7.videoAnalytics
-    });
-    local v11 = v2.useCallback(function() --[[ Line: 43 ]]
-        -- upvalues: v7 (copy), l_VideoPlaybackCoordinator_0 (ref)
-        if v7.videoAnalytics then
-            v7.videoAnalytics.reportVideoLoop(v7.itemIndex, l_VideoPlaybackCoordinator_0.default.currentPlaybackSessionId);
-        end;
-    end, {
-        v7.itemIndex, 
-        v7.videoAnalytics
-    });
-    return v2.createElement(l_VideoPlayer_0, {
-        video = v7.video, 
-        thumbnail = v7.image, 
-        shouldStartPlayback = v7.playing, 
-        muted = true, 
-        looped = v7.looped, 
-        Size = v7.Size, 
-        ScaleType = if v7.isTileContained then Enum.ScaleType.Tile else nil, 
-        ZIndex = v7.ZIndex, 
-        cornerRadius = v7.cornerRadius, 
-        onVideoLoaded = v10, 
-        onVideoLooped = v11, 
-        onVideoPlayerActivated = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then v7.onActivated else nil
-    });
-end;
+local GameTile = script:FindFirstAncestor("GameTile")
+local GameTileParent = GameTile.Parent
+local React = require(GameTileParent.React)
+local VideoUtils = require(GameTileParent.VideoUtils)
+local VideoPlayer = VideoUtils.VideoPlayer
+local VideoPlaybackCoordinator = VideoUtils.VideoPlaybackCoordinator
+
+require(GameTile.GameTileTypes)
+
+local FFlagLuaAppEdpMediaGalleryFullScreen = require(GameTileParent.SharedFlags).FFlagLuaAppEdpMediaGalleryFullScreen
+local FFlagLuaAppHomeUnifiedVideoEngagementEvents = require(GameTileParent.SharedFlags).FFlagLuaAppHomeUnifiedVideoEngagementEvents
+local FFlagLuaAppHomeTouchAutoplay = require(GameTileParent.SharedFlags).FFlagLuaAppHomeTouchAutoplay
+local FFlagLuaAppVideoTileDisableActivation = require(GameTileParent.SharedFlags).FFlagLuaAppVideoTileDisableActivation
+local FFlagLuaAppVideoTileHideCenterPlayButton = require(GameTileParent.SharedFlags).FFlagLuaAppVideoTileHideCenterPlayButton
+
+return function(t1: {[any]: any}) --[[ GameTileVideoThumbnail ]] -- line: 40
+	-- upvalues: React (copy), FFlagLuaAppHomeTouchAutoplay (copy), VideoPlaybackCoordinator (copy), FFlagLuaAppHomeUnifiedVideoEngagementEvents (copy), VideoPlayer (copy), FFlagLuaAppVideoTileHideCenterPlayButton (copy), FFlagLuaAppVideoTileDisableActivation (copy), FFlagLuaAppEdpMediaGalleryFullScreen (copy)
+	local v13 = React.useCallback(function(n1: number, n2: number) -- line: 42
+		-- upvalues: t1 (copy), FFlagLuaAppHomeTouchAutoplay (copy), VideoPlaybackCoordinator (copy)
+		if t1.videoAnalytics then
+			t1.videoAnalytics.reportVideoLoad(t1.itemIndex, if not FFlagLuaAppHomeTouchAutoplay or not t1.videoPlaybackCoordinator then VideoPlaybackCoordinator.default.currentPlaybackSessionId else t1.videoPlaybackCoordinator.currentPlaybackSessionId, n1, n2)
+		end
+	end, {
+		t1.itemIndex,
+		t1.videoAnalytics,
+		if not FFlagLuaAppHomeTouchAutoplay then nil else t1.videoPlaybackCoordinator
+	})
+	local v14 = React.useCallback(function() -- line: 62
+		-- upvalues: t1 (copy), FFlagLuaAppHomeTouchAutoplay (copy), VideoPlaybackCoordinator (copy)
+		if t1.videoAnalytics then
+			t1.videoAnalytics.reportVideoLoop(t1.itemIndex, if not FFlagLuaAppHomeTouchAutoplay or not t1.videoPlaybackCoordinator then VideoPlaybackCoordinator.default.currentPlaybackSessionId else t1.videoPlaybackCoordinator.currentPlaybackSessionId)
+		end
+	end, {
+		t1.itemIndex,
+		t1.videoAnalytics,
+		if not FFlagLuaAppHomeTouchAutoplay then nil else t1.videoPlaybackCoordinator
+	})
+	local v15 = nil
+
+	if FFlagLuaAppHomeUnifiedVideoEngagementEvents then
+		v15 = React.useMemo(function() -- line: 82
+			-- upvalues: t1 (copy), FFlagLuaAppHomeTouchAutoplay (copy), VideoPlaybackCoordinator (copy)
+			return {
+				videoAnalyticsData = {
+					source = "universe",
+					sourceId = t1.universeId
+				},
+				getPlaybackSessionId = function() --[[ getPlaybackSessionId ]] -- line: 88
+					-- upvalues: FFlagLuaAppHomeTouchAutoplay (copy), t1 (copy), VideoPlaybackCoordinator (copy)
+					if FFlagLuaAppHomeTouchAutoplay and t1.videoPlaybackCoordinator then
+						return t1.videoPlaybackCoordinator.currentPlaybackSessionId
+					end
+
+					return VideoPlaybackCoordinator.default.currentPlaybackSessionId
+				end
+			}
+		end, {
+			t1.universeId,
+			if not FFlagLuaAppHomeTouchAutoplay then nil else t1.videoPlaybackCoordinator
+		})
+	end
+
+	return React.createElement(VideoPlayer, {
+		video = t1.video,
+		thumbnail = t1.image,
+		shouldStartPlayback = t1.playing,
+		muted = true,
+		looped = t1.looped,
+		Size = t1.Size,
+		ScaleType = if not t1.isTileContained then nil else Enum.ScaleType.Tile,
+		ZIndex = t1.ZIndex,
+		cornerRadius = t1.cornerRadius,
+		hideCenterPlayButton = not not FFlagLuaAppVideoTileHideCenterPlayButton or nil,
+		disableActivation = not not FFlagLuaAppVideoTileDisableActivation or nil,
+		onVideoLoaded = v13,
+		onVideoLooped = v14,
+		onVideoPlayerActivated = if not FFlagLuaAppVideoTileDisableActivation then if not FFlagLuaAppEdpMediaGalleryFullScreen then nil else t1.onActivated else nil,
+		videoAnalyticsContext = if not FFlagLuaAppHomeUnifiedVideoEngagementEvents then nil else v15
+	})
+end

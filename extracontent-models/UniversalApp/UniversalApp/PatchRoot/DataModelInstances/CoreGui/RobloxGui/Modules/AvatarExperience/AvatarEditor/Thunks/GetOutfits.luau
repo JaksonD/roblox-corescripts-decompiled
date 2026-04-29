@@ -1,134 +1,160 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Logging_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Logging;
-local v3 = require(l_CorePackages_0.Packages.Promise);
-local l_PerformFetch_0 = require(l_CorePackages_0.Workspace.Packages.Http).PerformFetch;
-local v5 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
-local v6 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local v7 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.GetOutfit);
-local v8 = require(l_Modules_0.AvatarExperience.Common.Thunks.BatchGetOutfits);
-local v9 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetOwnedItemIdsBySubtype);
-local v10 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetOutfitOrAsset);
-local v11 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetPageFinished);
-local v12 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
-local v13 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v14 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v15 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_reportAvatarEventCounterNoAnalyticsArgument_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).reportAvatarEventCounterNoAnalyticsArgument;
-local v17 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v18 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableAvatarEditorServiceAPIErrorLogging);
-local v19 = require(l_Modules_0.AvatarExperience.Experiments.AXCombineGetOutfitDispatchesIXP);
-local _ = require(l_Modules_0.LuaApp.Types.RoduxTypes);
-local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local l_FFlagAXModeratedItemsFlow_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXModeratedItemsFlow;
-local l_FFlagAXEnableModeratedItemsFlowForDurables_0 = v15.FFlagAXEnableModeratedItemsFlowForDurables;
-local l_FFlagAXInventoryDurablesSupport_0 = v15.FFlagAXInventoryDurablesSupport;
-local function _(v25, v26, v27) --[[ Line: 36 ]]
-    return v25 .. "." .. tostring(v26) .. tostring(v27);
-end;
-local function v45(v29, v30, v31, v32, v33, v34, v35, v36, v37) --[[ Line: 40 ]]
-    -- upvalues: v14 (copy), v19 (copy), v6 (copy), v7 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), v12 (copy), v11 (copy), v8 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (copy), v10 (copy), v9 (copy)
-    local l_v32_CurrentPage_0 = v32:GetCurrentPage();
-    l_v32_CurrentPage_0 = v14.tableToCamelCaseKeys(l_v32_CurrentPage_0);
-    local v39 = {};
-    local v40 = {};
-    for _, v42 in l_v32_CurrentPage_0 do
-        local v43 = tostring(v42.id);
-        v39[#v39 + 1] = v43;
-        if v31:getState().AvatarExperience.AvatarEditor.OutfitInfos[v43] == nil then
-            if v19.isEnabled() and v6.readTestVariable(v19.EnabledForUser) then
-                table.insert(v40, v43);
-            else
-                v31:dispatch(v7(v43, nil, nil, if l_FFlagAXInventoryDurablesSupport_0 then v37 else nil));
-            end;
-        end;
-    end;
-    local v44 = nil;
-    if v32.IsFinished then
-        v44 = v12.ReachedLastPage;
-        v31:dispatch(v11(v35 or v29, v32.IsFinished));
-    end;
-    v33:storePageObject(v29 .. "." .. tostring(v30) .. tostring(v36), v32);
-    if v19.isEnabled() and v6.readTestVariable(v19.EnabledForUser) then
-        v31:dispatch(v8(v40, if not not l_FFlagAXModeratedItemsFlow_0 or l_FFlagAXEnableModeratedItemsFlowForDurables_0 then v37 else nil));
-    end;
-    v31:dispatch(v10(v39, v12.OutfitOrAsset.Outfit));
-    v31:dispatch(v9(v29, v39));
-    v34(v44);
-end;
-local function v58(v46, v47, v48, v49, v50, v51, v52, v53, v54, v55) --[[ Line: 103 ]] --[[ Name: advancePage ]]
-    -- upvalues: v45 (copy), l_Logging_0 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 115 ]]
-        -- upvalues: v50 (copy)
-        v50:AdvanceToNextPageAsync();
-    end);
-    if l_status_0 then
-        v45(v46, v52, v47, v50, v51, v48, v53, v54, v55);
-        return;
-    else
-        l_Logging_0.warn("GetOutfits failure: " .. l_result_0);
-        v49(l_result_0);
-        return;
-    end;
-end;
-local function v71(v59, v60, v61, v62, v63, v64, v65, v66, v67, v68) --[[ Line: 137 ]] --[[ Name: fetchInitialPage ]]
-    -- upvalues: v45 (copy), l_Logging_0 (copy), v18 (copy), l_reportAvatarEventCounterNoAnalyticsArgument_0 (copy), v17 (copy)
-    local l_status_1, l_result_1 = pcall(function() --[[ Line: 149 ]]
-        -- upvalues: v65 (copy), v64 (copy), v67 (copy)
-        if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-            return v65:GetOutfitsAsync(v64, v67);
-        else
-            return v65:GetOutfits(v64, v67);
-        end;
-    end);
-    if l_status_1 then
-        v45(v59, v64, v60, l_result_1, v63, v61, v66, v67, v68);
-        return;
-    else
-        l_Logging_0.warn("GetOutfits failure: " .. l_result_1);
-        if v18() then
-            l_reportAvatarEventCounterNoAnalyticsArgument_0(v17.Counter.AvatarEditorServiceErrors.GetOutfits);
-        end;
-        v62(l_result_1);
-        return;
-    end;
-end;
-return function(v72, v73, v74, v75, v76) --[[ Line: 180 ]]
-    -- upvalues: v5 (copy), l_PerformFetch_0 (copy), v13 (copy), v3 (copy), v12 (copy), v58 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (copy), v71 (copy)
-    v5.isTypeOrNil(v73, "boolean", "GetOutfits thunk expects onlyEditableOutfits to be a boolean or nil");
-    v5.isTypeOrNil(v75, "string", "GetOutfits thunk expects outfitType to be a string or nil");
-    local v77 = v74 or v72;
-    return function(v78, v79) --[[ Line: 191 ]]
-        -- upvalues: l_PerformFetch_0 (ref), v13 (ref), v77 (copy), v73 (copy), v75 (copy), v72 (copy), v3 (ref), v12 (ref), v58 (ref), v74 (copy), l_FFlagAXModeratedItemsFlow_0 (ref), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (ref), v76 (copy), v71 (ref)
-        local l_pageObjectManager_0 = v79.pageObjectManager;
-        local l_avatarEditorService_0 = v79.avatarEditorService;
-        return l_PerformFetch_0.Single(v13.OutfitsKey .. v77, function(v82) --[[ Line: 194 ]]
-            -- upvalues: v73 (ref), v75 (ref), v13 (ref), l_pageObjectManager_0 (copy), v72 (ref), v3 (ref), v12 (ref), v58 (ref), v74 (ref), l_FFlagAXModeratedItemsFlow_0 (ref), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (ref), v76 (ref), v71 (ref), l_avatarEditorService_0 (copy)
-            local v83 = nil;
-            v83 = if v73 == nil then Enum.OutfitSource.All else if v73 then Enum.OutfitSource.Created else Enum.OutfitSource.Purchased;
-            local l_All_0 = Enum.OutfitType.All;
-            if v75 == v13.OutfitTypes.Avatar then
-                l_All_0 = Enum.OutfitType.Avatar;
-            elseif v75 == v13.OutfitTypes.DynamicHead then
-                l_All_0 = Enum.OutfitType.DynamicHead;
-            elseif v75 == v13.OutfitTypes.Makeup then
-                l_All_0 = Enum.OutfitType.All;
-            end;
-            local v85 = l_pageObjectManager_0:getPageObject(v72 .. "." .. tostring(v83) .. tostring(l_All_0));
-            if v85 and v85.IsFinished then
-                return v3.resolve(v12.ReachedLastPage);
-            else
-                return v3.new(function(v86, v87) --[[ Line: 219 ]]
-                    -- upvalues: v85 (copy), v58 (ref), v72 (ref), v82 (copy), l_pageObjectManager_0 (ref), v83 (ref), v74 (ref), l_All_0 (ref), l_FFlagAXModeratedItemsFlow_0 (ref), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (ref), v76 (ref), v71 (ref), l_avatarEditorService_0 (ref)
-                    if v85 ~= nil then
-                        v58(v72, v82, v86, v87, v85, l_pageObjectManager_0, v83, v74, l_All_0, if not not l_FFlagAXModeratedItemsFlow_0 or l_FFlagAXEnableModeratedItemsFlowForDurables_0 then v76 else nil);
-                        return;
-                    else
-                        v71(v72, v82, v86, v87, l_pageObjectManager_0, v83, l_avatarEditorService_0, v74, l_All_0, if not not l_FFlagAXModeratedItemsFlow_0 or l_FFlagAXEnableModeratedItemsFlowForDurables_0 then v76 else nil);
-                        return;
-                    end;
-                end);
-            end;
-        end)(v78);
-    end;
-end;
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
+local Promise = require(CorePackages.Packages.Promise)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+local IxpUtils = require(CorePackages.Workspace.Packages.IxpUtils)
+local GetOutfit = require(Modules.AvatarExperience.AvatarEditor.Thunks.GetOutfit)
+local BatchGetOutfits = require(Modules.AvatarExperience.Common.Thunks.BatchGetOutfits)
+local SetOwnedItemIdsBySubtype = require(Modules.AvatarExperience.AvatarEditor.Actions.SetOwnedItemIdsBySubtype)
+local SetOutfitOrAsset = require(Modules.AvatarExperience.AvatarEditor.Actions.SetOutfitOrAsset)
+local SetPageFinished = require(Modules.AvatarExperience.AvatarEditor.Actions.SetPageFinished)
+local Constants = require(Modules.AvatarExperience.AvatarEditor.Constants)
+local Constants2 = require(Modules.AvatarExperience.Common.Constants)
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local reportAvatarEventCounterNoAnalyticsArgument = require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).reportAvatarEventCounterNoAnalyticsArgument
+local Constants3 = require(Modules.AvatarExperience.Common.Constants)
+local GetFFlagEnableAvatarEditorServiceAPIErrorLogging = require(Modules.AvatarExperience.Flags.GetFFlagEnableAvatarEditorServiceAPIErrorLogging)
+local AXCombineGetOutfitDispatchesIXP = require(Modules.AvatarExperience.Experiments.AXCombineGetOutfitDispatchesIXP)
+
+require(Modules.LuaApp.Types.RoduxTypes)
+require(Modules.AvatarExperience.Common.AvatarExperienceState)
+
+local FFlagAXModeratedItemsFlow = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXModeratedItemsFlow
+local FFlagAXEnableModeratedItemsFlowForDurables = AvatarExperienceFlags.FFlagAXEnableModeratedItemsFlowForDurables
+local FFlagAXInventoryDurablesSupport = AvatarExperienceFlags.FFlagAXInventoryDurablesSupport
+local FFlagAXEnableExpiredUserLookCheckout = AvatarExperienceFlags.FFlagAXEnableExpiredUserLookCheckout
+
+local function v25(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) -- line: 41
+	-- upvalues: Utils (copy), AXCombineGetOutfitDispatchesIXP (copy), IxpUtils (copy), GetOutfit (copy), FFlagAXInventoryDurablesSupport (copy), Constants (copy), SetPageFinished (copy), BatchGetOutfits (copy), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), SetOutfitOrAsset (copy), SetOwnedItemIdsBySubtype (copy)
+	local CurrentPage = p4:GetCurrentPage()
+	local t1 = {}
+	local t2 = {}
+
+	for _, v45 in (Utils.tableToCamelCaseKeys(CurrentPage)) do
+		local str = tostring(v45.id)
+
+		t1[#t1 + 1] = str
+
+		local v47 = p3:getState()
+
+		if p10 or v47.AvatarExperience.AvatarEditor.OutfitInfos[str] == nil then
+			if not p10 and AXCombineGetOutfitDispatchesIXP.isEnabled() and IxpUtils.readTestVariable(AXCombineGetOutfitDispatchesIXP.EnabledForUser) then
+				table.insert(t2, str)
+			else
+				p3:dispatch(GetOutfit(str, nil, nil, if not FFlagAXInventoryDurablesSupport then nil else p9, p10))
+			end
+		end
+	end
+
+	local ReachedLastPage = nil
+
+	if p4.IsFinished then
+		ReachedLastPage = Constants.ReachedLastPage
+		p3:dispatch(SetPageFinished(p7 or p1, p4.IsFinished))
+	end
+
+	p5:storePageObject(p1 .. "." .. tostring(p2) .. tostring(p8), p4)
+
+	if AXCombineGetOutfitDispatchesIXP.isEnabled() and IxpUtils.readTestVariable(AXCombineGetOutfitDispatchesIXP.EnabledForUser) then
+		p3:dispatch(BatchGetOutfits(t2, if not FFlagAXModeratedItemsFlow and not FFlagAXEnableModeratedItemsFlowForDurables then nil else p9))
+	end
+
+	p3:dispatch(SetOutfitOrAsset(t1, Constants.OutfitOrAsset.Outfit))
+	p3:dispatch(SetOwnedItemIdsBySubtype(p1, t1))
+	p6(ReachedLastPage)
+end
+local function advancePage(p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21) -- line: 112
+	-- upvalues: v25 (copy), Logging (copy)
+	local ok, result = pcall(function() -- line: 125
+		-- upvalues: p15 (copy)
+		p15:AdvanceToNextPageAsync()
+	end)
+
+	if ok then
+		v25(p11, p17, p12, p15, p16, p13, p18, p19, p20, p21)
+
+		return
+	end
+
+	Logging.warn("GetOutfits failure: " .. result)
+	p14(result)
+end
+local function fetchInitialPage(p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32) -- line: 148
+	-- upvalues: v25 (copy), Logging (copy), GetFFlagEnableAvatarEditorServiceAPIErrorLogging (copy), reportAvatarEventCounterNoAnalyticsArgument (copy), Constants3 (copy)
+	local ok, result = pcall(function() -- line: 161
+		-- upvalues: p28 (copy), p27 (copy), p30 (copy)
+		if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+			return p28:GetOutfitsAsync(p27, p30)
+		end
+
+		return p28:GetOutfits(p27, p30)
+	end)
+
+	if ok then
+		v25(p22, p27, p23, result, p26, p24, p29, p30, p31, p32)
+
+		return
+	end
+
+	Logging.warn("GetOutfits failure: " .. result)
+
+	if GetFFlagEnableAvatarEditorServiceAPIErrorLogging() then
+		reportAvatarEventCounterNoAnalyticsArgument(Constants3.Counter.AvatarEditorServiceErrors.GetOutfits)
+	end
+
+	p25(result)
+end
+
+return function(p33, p34, p35, p36, p37, p38, p39) -- line: 193
+	-- upvalues: ArgCheck (copy), PerformFetch (copy), Constants2 (copy), FFlagAXEnableExpiredUserLookCheckout (copy), Promise (copy), Constants (copy), advancePage (copy), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), fetchInitialPage (copy)
+	ArgCheck.isTypeOrNil(p34, "boolean", "GetOutfits thunk expects onlyEditableOutfits to be a boolean or nil")
+	ArgCheck.isTypeOrNil(p36, "string", "GetOutfits thunk expects outfitType to be a string or nil")
+	ArgCheck.isTypeOrNil(p38, "boolean", "GetOutfits thunk expects forceInitialPage to be a boolean or nil")
+	ArgCheck.isTypeOrNil(p39, "boolean", "GetOutfits thunk expects forceRefresh to be a boolean or nil")
+
+	local v82 = p35 or p33
+
+	return function(p40, p41) -- line: 209
+		-- upvalues: PerformFetch (copy), Constants2 (copy), v82 (copy), p34 (copy), p36 (copy), p33 (copy), FFlagAXEnableExpiredUserLookCheckout (copy), p38 (copy), Promise (copy), Constants (copy), advancePage (copy), p35 (copy), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), p37 (copy), p39 (copy), fetchInitialPage (copy)
+		local pageObjectManager = p41.pageObjectManager
+		local avatarEditorService = p41.avatarEditorService
+
+		return PerformFetch.Single(Constants2.OutfitsKey .. v82, function(p42) -- line: 212
+			-- upvalues: p34 (copy), p36 (copy), Constants2 (copy), p33 (copy), FFlagAXEnableExpiredUserLookCheckout (copy), p38 (copy), pageObjectManager (copy), Promise (copy), Constants (copy), advancePage (copy), p35 (copy), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), p37 (copy), p39 (copy), fetchInitialPage (copy), avatarEditorService (copy)
+			local u88 = if p34 ~= nil then if not p34 then Enum.OutfitSource.Purchased else Enum.OutfitSource.Created else Enum.OutfitSource.All
+			local All = Enum.OutfitType.All
+
+			if p36 == Constants2.OutfitTypes.Avatar then
+				All = Enum.OutfitType.Avatar
+			elseif p36 == Constants2.OutfitTypes.DynamicHead then
+				All = Enum.OutfitType.DynamicHead
+			elseif p36 == Constants2.OutfitTypes.Makeup then
+				All = Enum.OutfitType.All
+			end
+
+			local v90 = p33
+			local v91 = u88
+			local v92 = All
+			local v93 = v90 .. "." .. tostring(v91) .. tostring(v92)
+			local v94 = if not FFlagAXEnableExpiredUserLookCheckout or not p38 then pageObjectManager:getPageObject(v93) else nil
+
+			if v94 and v94.IsFinished then
+				return Promise.resolve(Constants.ReachedLastPage)
+			end
+
+			return Promise.new(function(p43, p44) -- line: 244
+				-- upvalues: v94 (copy), advancePage (copy), p33 (copy), p42 (copy), pageObjectManager (copy), u88 (ref), p35 (copy), All (ref), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), p37 (copy), p39 (copy), fetchInitialPage (copy), avatarEditorService (copy)
+				if v94 ~= nil then
+					advancePage(p33, p42, p43, p44, v94, pageObjectManager, u88, p35, All, if not FFlagAXModeratedItemsFlow and not FFlagAXEnableModeratedItemsFlowForDurables then nil else p37, p39)
+
+					return
+				end
+
+				fetchInitialPage(p33, p42, p43, p44, pageObjectManager, u88, avatarEditorService, p35, All, if not FFlagAXModeratedItemsFlow and not FFlagAXEnableModeratedItemsFlowForDurables then nil else p37, p39)
+			end)
+		end)(p40)
+	end
+end

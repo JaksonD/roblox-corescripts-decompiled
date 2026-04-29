@@ -1,199 +1,234 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("DiscoveryMonolith");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Roact);
-local v3 = require(l_Parent_0.RoactRodux);
-local v4 = require(l_Parent_0.t);
-local _ = require(l_Parent_0.GameTile);
-local v6 = require(l_Parent_0.DiscoveryTypes);
-local l_GameSortGroups_0 = v6.GameSortGroups;
-local l_OmniFeedConstants_0 = v6.OmniFeedConstants;
-local l_FormFactor_0 = require(l_Parent_0.FormFactor).Enums.FormFactor;
-local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local l_mutedError_0 = require(l_Parent_0.Loggers).mutedError;
-local l_parseBooleanString_0 = require(l_Parent_0.DiscoveryUtils).parseBooleanString;
-local l_Modules_0 = l_script_FirstAncestor_0.Modules;
-local v14 = require(l_Modules_0.Personalization.Games.GameCollectionCarousel);
-local v15 = require(l_Modules_0.Personalization.OmniFeed.OmniFeedProps);
-local l_FFlagLuaAppHeaderButtonText_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHeaderButtonText;
-local l_FFlagSearchOmniAutocompletePage_0 = require(l_Parent_0.SharedFlags).FFlagSearchOmniAutocompletePage;
-local l_FIntLuaAppDelayImpressionsMaxUpdates_0 = require(l_Parent_0.SharedFlags).FIntLuaAppDelayImpressionsMaxUpdates;
-local v19 = game:DefineFastFlag("LuaAppForceLowResMural", false);
-local v20 = require(l_Modules_0.Personalization.Search.FIntSearchLandingPageSideMargin);
-local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
-local l_FFlagLuaAppCompositionAlways_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionAlways;
-local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
-local l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 = v6.Constants.GAME_CAROUSEL_SIDE_COMPACT_PADDING;
-local l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 = v6.Constants.GAME_CAROUSEL_SIDE_WIDE_PADDING;
-local v26 = v2.PureComponent:extend("GameCarouselFeedItem");
-v26.validateProps = v4.strictInterface({
-    [v15.key] = v15.interface, 
-    sortIndex = v4.number, 
-    isOmni = v4.boolean, 
-    topicLayoutData = v4.optional(v4.table), 
-    formFactor = v4.string, 
-    sortName = v4.string
-});
-v26.render = function(v27) --[[ Line: 51 ]] --[[ Name: render ]]
-    -- upvalues: v15 (copy), l_OmniFeedConstants_0 (copy), l_mutedError_0 (copy), v19 (copy), l_FFlagLuaAppHeaderButtonText_0 (copy), l_parseBooleanString_0 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_AppPage_0 (copy), l_FormFactor_0 (copy), l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 (copy), l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 (copy), v2 (copy), v14 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy), v20 (copy), l_FIntLuaAppDelayImpressionsMaxUpdates_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy)
-    local l_sortIndex_0 = v27.props.sortIndex;
-    local l_sortName_0 = v27.props.sortName;
-    local l_formFactor_0 = v27.props.formFactor;
-    local l_scrollViewPositionChangedSignal_0 = v27.props[v15.key].scrollViewPositionChangedSignal;
-    local l_appPage_0 = v27.props[v15.key].appPage;
-    local l_feedItemStartRow_0 = v27.props[v15.key].feedItemStartRow;
-    local v34 = nil;
-    local v35 = nil;
-    local v36 = nil;
-    local v37 = nil;
-    local v38 = nil;
-    local v39 = nil;
-    local v40 = "Narrow";
-    if v27.props.topicLayoutData then
-        v36 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
-        if v36 then
-            if v36 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile then
-                v40 = "Event";
-            elseif v36 == l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
-                v40 = "Wide";
-            end;
-            local v41 = true;
-            if v40 ~= "Wide" then
-                v41 = v40 == "Event";
-            end;
-            v34 = v41;
-        end;
-        v37 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.LinkPath];
-        v38 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SubtitleLinkPath];
-        v35 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.PlayerCountStyle];
-        v39 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.PlayButtonStyle];
-    end;
-    local v42 = nil;
-    if v27.props.topicLayoutData then
-        local v43 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.IsSponsoredFooterAllowed];
-        local v44 = false;
-        if v43 ~= nil then
-            v44 = v43 == "true";
-        end;
-        v42 = v44;
-    end;
-    local v45 = nil;
-    if v27.props.topicLayoutData then
-        local v46 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HideSeeAll];
-        local v47 = false;
-        if v46 ~= nil then
-            v47 = v46 == "true";
-        end;
-        v45 = v47;
-    end;
-    local v48 = if v27.props.topicLayoutData then v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.InfoText] else nil;
-    local v49 = nil;
-    if v27.props.topicLayoutData then
-        local v50 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EndTimestamp];
-        if v50 then
-            v49 = tonumber(v50);
-            if v49 == nil then
-                l_mutedError_0(string.format("Unable to convert `endTimestamp` to number with value: %s", v50));
-            end;
-        end;
-    end;
-    local v51 = nil;
-    if v27.props.topicLayoutData then
-        v51 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.CountdownString];
-        if v51 ~= nil and v51 ~= "" and (not v51:find("{hours}") or not v51:find("{minutes}")) then
-            l_mutedError_0(string.format("Invalid `countdownString` missing placeholder strings {hours} or {minutes}: %s", v51));
-            v51 = nil;
-        end;
-    end;
-    local v52 = nil;
-    if v27.props.topicLayoutData then
-        local v53 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.BackgroundImageAssetId];
-        if v53 and v53 ~= "" then
-            v52 = if v19 then ("rbxthumb://type=Asset&id=%*&w=384&h=216"):format(v53) else ("rbxthumb://type=Asset&id=%*&w=768&h=432"):format(v53);
-        end;
-    end;
-    local v54 = nil;
-    if l_FFlagLuaAppHeaderButtonText_0 and v27.props.topicLayoutData then
-        v54 = v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HeaderButtonText];
-    end;
-    local v55 = nil;
-    local v56 = nil;
-    local v57 = nil;
-    if v27.props.topicLayoutData then
-        v55 = l_parseBooleanString_0(v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HideTileMetadata]);
-        v56 = l_parseBooleanString_0(v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HideTileTitle]);
-        v57 = l_parseBooleanString_0(v27.props.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ContainedTile]);
-    end;
-    local v58 = l_FFlagLuaAppCompositionAlways_0 and true or if l_FFlagLuaAppCompositionSupport_0 then v27.props[v15.key].appCompositionEnabled else nil;
-    local v59 = true;
-    if l_appPage_0 ~= l_AppPage_0.Games then
-        v59 = l_appPage_0 == l_AppPage_0.Home;
-    end;
-    local v60 = nil;
-    v60 = if l_formFactor_0 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0;
-    return v2.createElement(v14, {
-        gameSortId = l_sortName_0, 
-        sortIndex = l_sortIndex_0, 
-        pageContext = l_appPage_0, 
-        scrollViewPositionChangedSignal = l_scrollViewPositionChangedSignal_0, 
-        friendFooterEnabled = true, 
-        isHoverSupportEnabled = v59 or l_appPage_0 == l_AppPage_0.Games and v34, 
-        gridSupportAllowed = v59, 
-        useGridTiles = v34, 
-        playerCountStyle = v35, 
-        isSponsoredFooterAllowed = v42, 
-        componentType = v36, 
-        linkPath = v37, 
-        subtitleLinkPath = v38, 
-        hideSeeAll = v45, 
-        gameTileLayoutType = v40, 
-        infoText = v48, 
-        endTimestamp = v49, 
-        countdownString = v51, 
-        startRow = l_feedItemStartRow_0, 
-        playButtonStyle = v39, 
-        sideMargin = if v58 then nil else v60, 
-        appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v58 else nil, 
-        backgroundMuralUrl = v52, 
-        headerButtonText = if l_FFlagLuaAppHeaderButtonText_0 then v54 else nil, 
-        shouldHideTileMetadata = v55, 
-        shouldHideTileTitle = v56, 
-        containedTile = v57, 
-        shouldUseFrameBoundsForImpressions = if l_FFlagSearchOmniAutocompletePage_0 then l_appPage_0 == l_AppPage_0.SearchLandingPage else nil, 
-        layoutOverrides = if v58 then nil else if l_FFlagSearchOmniAutocompletePage_0 then if l_appPage_0 == l_AppPage_0.SearchLandingPage then {
-            sideMargin = if l_formFactor_0 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else v20
-        } else nil else nil, 
-        numUpdatesToDelayImpressions = l_FIntLuaAppDelayImpressionsMaxUpdates_0, 
-        selectionOrderBase = v27.props[v15.key].selectionOrderBase, 
-        defaultContainerSize = v27.props[v15.key].defaultContainerSize, 
-        onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v27.props[v15.key].onTileImageLoaded else nil
-    });
-end;
-return (v3.connect(function(v61, v62) --[[ Line: 226 ]]
-    -- upvalues: v15 (copy), l_AppPage_0 (copy), l_GameSortGroups_0 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy), l_mutedError_0 (copy)
-    local l_appPage_1 = v62[v15.key].appPage;
-    local v64 = nil;
-    if v62.isOmni then
-        assert(l_appPage_1 == l_AppPage_0.Home, "Omni only on Home Page");
-        local v65 = v61.OmniRecommendations[l_appPage_1];
-        local v66 = (v65 and v65.sorts or {})[v62.sortIndex];
-        if v66 and v66.topicId then
-            v64 = tostring(v66.topicId);
-        end;
-    else
-        local v67 = nil;
-        if l_appPage_1 == l_AppPage_0.Home then
-            v67 = l_GameSortGroups_0.HomeGames;
-        elseif l_appPage_1 == l_AppPage_0.Games then
-            v67 = l_GameSortGroups_0.Games;
-        elseif l_FFlagSearchOmniAutocompletePage_0 and l_appPage_1 == l_AppPage_0.SearchLandingPage then
-            v67 = l_GameSortGroups_0.SearchLandingPage;
-        else
-            l_mutedError_0("Unsupported page for GameCarouselFeedItem data: " .. tostring(l_appPage_1));
-        end;
-        v64 = v61.GameSortGroups[v67].sorts[v62.sortIndex];
-    end;
-    return {
-        sortName = v64, 
-        formFactor = v61.FormFactor
-    };
-end)(v26));
+local DiscoveryMonolith = script:FindFirstAncestor("DiscoveryMonolith")
+local DiscoveryMonolithParent = DiscoveryMonolith.Parent
+local Roact = require(DiscoveryMonolithParent.Roact)
+local RoactRodux = require(DiscoveryMonolithParent.RoactRodux)
+local t = require(DiscoveryMonolithParent.t)
+
+require(DiscoveryMonolithParent.GameTile)
+
+local DiscoveryTypes = require(DiscoveryMonolithParent.DiscoveryTypes)
+local GameSortGroups = DiscoveryTypes.GameSortGroups
+local OmniFeedConstants = DiscoveryTypes.OmniFeedConstants
+local FormFactor = require(DiscoveryMonolithParent.FormFactor).Enums.FormFactor
+local AppPage = require(DiscoveryMonolithParent.RobloxAppEnums).AppPage
+local mutedError = require(DiscoveryMonolithParent.Loggers).mutedError
+local parseBooleanString = require(DiscoveryMonolithParent.DiscoveryUtils).parseBooleanString
+local Modules = DiscoveryMonolith.Modules
+local GameCollectionCarousel = require(Modules.Personalization.Games.GameCollectionCarousel)
+local OmniFeedProps = require(Modules.Personalization.OmniFeed.OmniFeedProps)
+local FFlagLuaAppHeaderButtonText = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppHeaderButtonText
+local FFlagLuaAppGameCarouselAmpUpsellAction = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppGameCarouselAmpUpsellAction
+local FFlagSearchOmniAutocompletePage = require(DiscoveryMonolithParent.SharedFlags).FFlagSearchOmniAutocompletePage
+local FIntLuaAppDelayImpressionsMaxUpdates = require(DiscoveryMonolithParent.SharedFlags).FIntLuaAppDelayImpressionsMaxUpdates
+local v20 = game:DefineFastFlag("LuaAppForceLowResMural", false)
+local FIntSearchLandingPageSideMargin = require(Modules.Personalization.Search.FIntSearchLandingPageSideMargin)
+local FFlagLuaAppCompositionSupport = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppCompositionSupport
+local FFlagLuaAppCompositionAlways = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppCompositionAlways
+local FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone
+local FFlagLuaAppHomeTouchAutoplay = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppHomeTouchAutoplay
+local GAME_CAROUSEL_SIDE_COMPACT_PADDING = DiscoveryTypes.Constants.GAME_CAROUSEL_SIDE_COMPACT_PADDING
+local GAME_CAROUSEL_SIDE_WIDE_PADDING = DiscoveryTypes.Constants.GAME_CAROUSEL_SIDE_WIDE_PADDING
+local v28 = Roact.PureComponent:extend("GameCarouselFeedItem")
+
+v28.validateProps = t.strictInterface({
+	[OmniFeedProps.key] = OmniFeedProps.interface,
+	sortIndex = t.number,
+	isOmni = t.boolean,
+	topicLayoutData = t.optional(t.table),
+	formFactor = t.string,
+	sortName = t.string
+})
+
+function v28.render(p1) -- line: 53
+	-- upvalues: OmniFeedProps (copy), OmniFeedConstants (copy), FFlagLuaAppGameCarouselAmpUpsellAction (copy), mutedError (copy), v20 (copy), FFlagLuaAppHeaderButtonText (copy), parseBooleanString (copy), FFlagLuaAppCompositionAlways (copy), FFlagLuaAppCompositionSupport (copy), AppPage (copy), FormFactor (copy), GAME_CAROUSEL_SIDE_COMPACT_PADDING (copy), GAME_CAROUSEL_SIDE_WIDE_PADDING (copy), Roact (copy), GameCollectionCarousel (copy), FFlagSearchOmniAutocompletePage (copy), FIntSearchLandingPageSideMargin (copy), FIntLuaAppDelayImpressionsMaxUpdates (copy), FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone (copy), FFlagLuaAppHomeTouchAutoplay (copy)
+	local sortIndex = p1.props.sortIndex
+	local sortName = p1.props.sortName
+	local formFactor = p1.props.formFactor
+	local scrollViewPositionChangedSignal = p1.props[OmniFeedProps.key].scrollViewPositionChangedSignal
+	local appPage = p1.props[OmniFeedProps.key].appPage
+	local feedItemStartRow = p1.props[OmniFeedProps.key].feedItemStartRow
+	local v36 = nil
+	local v37 = nil
+	local v38 = nil
+	local v39 = nil
+	local v40 = nil
+	local v41 = nil
+	local v42 = nil
+	local v43 = nil
+	local s1 = "Narrow"
+
+	if p1.props.topicLayoutData then
+		v38 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.ComponentType]
+
+		if v38 then
+			if v38 == OmniFeedConstants.ComponentTypeDataKeys.EventTile then
+				s1 = "Event"
+			elseif v38 == OmniFeedConstants.ComponentTypeDataKeys.GridTile then
+				s1 = "Wide"
+			end
+
+			v36 = s1 == "Wide" or s1 == "Event"
+		end
+
+		v39 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.LinkPath]
+		v40 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.SubtitleLinkPath]
+
+		if FFlagLuaAppGameCarouselAmpUpsellAction then
+			v41 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.AmpUpsellFeatureName]
+			v42 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.AmpUpsellNamespace]
+		end
+
+		v37 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.PlayerCountStyle]
+		v43 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.PlayButtonStyle]
+	end
+
+	local v45 = nil
+
+	if p1.props.topicLayoutData then
+		local v46 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.IsSponsoredFooterAllowed]
+
+		v45 = v46 ~= nil and v46 == "true"
+	end
+
+	local v47 = nil
+
+	if p1.props.topicLayoutData then
+		local v48 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.HideSeeAll]
+
+		v47 = v48 ~= nil and v48 == "true"
+	end
+
+	local v49 = if not p1.props.topicLayoutData then nil else p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.InfoText]
+	local num = nil
+
+	if p1.props.topicLayoutData then
+		local v51 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.EndTimestamp]
+
+		if v51 then
+			num = tonumber(v51)
+
+			if num == nil then
+				mutedError(string.format("Unable to convert `endTimestamp` to number with value: %s", v51))
+			end
+		end
+	end
+
+	local v52 = nil
+
+	if p1.props.topicLayoutData then
+		v52 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.CountdownString]
+
+		if v52 ~= nil and v52 ~= "" and (not v52:find("{hours}") or not v52:find("{minutes}")) then
+			mutedError(string.format("Invalid `countdownString` missing placeholder strings {hours} or {minutes}: %s", v52))
+			v52 = nil
+		end
+	end
+
+	local v53 = nil
+
+	if p1.props.topicLayoutData then
+		local v54 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.BackgroundImageAssetId]
+
+		if v54 and v54 ~= "" then
+			v53 = if not v20 then `rbxthumb://type=Asset&id={ v54 }&w=768&h=432` else `rbxthumb://type=Asset&id={ v54 }&w=384&h=216`
+		end
+	end
+
+	local v55 = nil
+
+	if FFlagLuaAppHeaderButtonText and p1.props.topicLayoutData then
+		v55 = p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.HeaderButtonText]
+	end
+
+	local v56 = nil
+	local v57 = nil
+	local v58 = nil
+
+	if p1.props.topicLayoutData then
+		v56 = parseBooleanString(p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.HideTileMetadata])
+		v57 = parseBooleanString(p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.HideTileTitle])
+		v58 = parseBooleanString(p1.props.topicLayoutData[OmniFeedConstants.TopicLayoutDataKeys.ContainedTile])
+	end
+
+	local v59 = not not FFlagLuaAppCompositionAlways or if not FFlagLuaAppCompositionSupport then nil else p1.props[OmniFeedProps.key].appCompositionEnabled
+	local v60 = appPage == AppPage.Games or appPage == AppPage.Home
+	local v61 = if formFactor ~= FormFactor.COMPACT then GAME_CAROUSEL_SIDE_WIDE_PADDING else GAME_CAROUSEL_SIDE_COMPACT_PADDING
+
+	return Roact.createElement(GameCollectionCarousel, {
+		gameSortId = sortName,
+		sortIndex = sortIndex,
+		pageContext = appPage,
+		scrollViewPositionChangedSignal = scrollViewPositionChangedSignal,
+		friendFooterEnabled = true,
+		isHoverSupportEnabled = v60 or appPage == AppPage.Games and v36,
+		gridSupportAllowed = v60,
+		useGridTiles = v36,
+		playerCountStyle = v37,
+		isSponsoredFooterAllowed = v45,
+		componentType = v38,
+		linkPath = v39,
+		subtitleLinkPath = v40,
+		ampUpsellFeatureName = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else v41,
+		ampUpsellNamespace = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else v42,
+		refreshFeed = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else p1.props[OmniFeedProps.key].refreshFeed,
+		hideSeeAll = v47,
+		gameTileLayoutType = s1,
+		infoText = v49,
+		endTimestamp = num,
+		countdownString = v52,
+		startRow = feedItemStartRow,
+		playButtonStyle = v43,
+		sideMargin = if not v59 then v61 else nil,
+		appCompositionEnabled = if not FFlagLuaAppCompositionSupport then nil else v59,
+		backgroundMuralUrl = v53,
+		headerButtonText = if not FFlagLuaAppHeaderButtonText then nil else v55,
+		shouldHideTileMetadata = v56,
+		shouldHideTileTitle = v57,
+		containedTile = v58,
+		shouldUseFrameBoundsForImpressions = if not FFlagSearchOmniAutocompletePage then nil else appPage == AppPage.SearchLandingPage,
+		layoutOverrides = if not v59 then if not FFlagSearchOmniAutocompletePage then nil else if appPage ~= AppPage.SearchLandingPage then nil else {
+			sideMargin = if formFactor ~= FormFactor.COMPACT then FIntSearchLandingPageSideMargin else GAME_CAROUSEL_SIDE_COMPACT_PADDING
+		} else nil,
+		numUpdatesToDelayImpressions = FIntLuaAppDelayImpressionsMaxUpdates,
+		selectionOrderBase = p1.props[OmniFeedProps.key].selectionOrderBase,
+		defaultContainerSize = p1.props[OmniFeedProps.key].defaultContainerSize,
+		onTileImageLoaded = if not FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone then nil else p1.props[OmniFeedProps.key].onTileImageLoaded,
+		videoPlaybackContext = if not FFlagLuaAppHomeTouchAutoplay then nil else p1.props[OmniFeedProps.key].videoPlaybackContext
+	})
+end
+
+return (RoactRodux.connect(function(p2, p3) -- line: 241
+	-- upvalues: OmniFeedProps (copy), AppPage (copy), GameSortGroups (copy), FFlagSearchOmniAutocompletePage (copy), mutedError (copy)
+	local appPage = p3[OmniFeedProps.key].appPage
+	local str = nil
+
+	if p3.isOmni then
+		assert(appPage == AppPage.Home, "Omni only on Home Page")
+
+		local v66 = p2.OmniRecommendations[appPage]
+		local v67 = (v66 and v66.sorts or {})[p3.sortIndex]
+
+		if v67 and v67.topicId then
+			str = tostring(v67.topicId)
+		end
+	else
+		local HomeGames = nil
+
+		if appPage == AppPage.Home then
+			HomeGames = GameSortGroups.HomeGames
+		elseif appPage == AppPage.Games then
+			HomeGames = GameSortGroups.Games
+		elseif FFlagSearchOmniAutocompletePage and appPage == AppPage.SearchLandingPage then
+			HomeGames = GameSortGroups.SearchLandingPage
+		else
+			mutedError("Unsupported page for GameCarouselFeedItem data: " .. tostring(appPage))
+		end
+
+		str = p2.GameSortGroups[HomeGames].sorts[p3.sortIndex]
+	end
+
+	return {
+		sortName = str,
+		formFactor = p2.FormFactor
+	}
+end)(v28))

@@ -1,9 +1,10 @@
 return {
-    FFlagExpChatAddUserAsyncNilCheck = require(script.FFlagExpChatAddUserAsyncNilCheck), 
-    FFlagExpChatDisableUniverseBubbleChat = require(script.FFlagExpChatDisableUniverseBubbleChat), 
-    GetFFlagExpChatSyntheticSystemMessageRichText = require(script.GetFFlagExpChatSyntheticSystemMessageRichText), 
-    GetFFlagEnableExpChatUniverseChatTabNames = require(script.GetFFlagEnableExpChatUniverseChatTabNames), 
-    GetFFlagExpChatGlobalMuteCommandEnabled = require(script.GetFFlagExpChatGlobalMuteCommandEnabled), 
-    GetFFlagTextChatEnableUniverseChatTabs = require(script.GetFFlagTextChatEnableUniverseChatTabs), 
-    getFFlagUseCharacterStore = require(script.getFFlagUseCharacterStore)
-};
+	FFlagExpChatAddUserAsyncNilCheck = require(script.FFlagExpChatAddUserAsyncNilCheck),
+	FFlagExpChatDisableUniverseBubbleChat = require(script.FFlagExpChatDisableUniverseBubbleChat),
+	GetFFlagExpChatSyntheticSystemMessageRichText = require(script.GetFFlagExpChatSyntheticSystemMessageRichText),
+	GetFFlagEnableExpChatUniverseChatTabNames = require(script.GetFFlagEnableExpChatUniverseChatTabNames),
+	GetFFlagExpChatGlobalMuteCommandEnabled = require(script.GetFFlagExpChatGlobalMuteCommandEnabled),
+	GetFFlagExpChatSuppressWelcomeMessageTabUnread = require(script.GetFFlagExpChatSuppressWelcomeMessageTabUnread),
+	GetFFlagTextChatEnableUniverseChatTabs = require(script.GetFFlagTextChatEnableUniverseChatTabs),
+	getFFlagUseCharacterStore = require(script.getFFlagUseCharacterStore)
+}

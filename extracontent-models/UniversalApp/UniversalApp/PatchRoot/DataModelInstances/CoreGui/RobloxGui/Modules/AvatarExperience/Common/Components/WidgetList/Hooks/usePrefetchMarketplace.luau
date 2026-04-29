@@ -1,100 +1,140 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v2 = require(l_CorePackages_0.Packages.React);
-local l_AXPrefetchMarketplaceIXP_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceExperiments).AXPrefetchMarketplaceIXP;
-local v4 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
-local v6 = require(script.Parent.useMarketplaceResultsFetcher);
-local v7 = require(script.Parent.useIsHomepageReady);
-local v8 = game:DefineFastFlag("AXDebugForceIsRecentMarketplaceEnabled", false);
-local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local v10 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local l_sendAXCounterV2_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).sendAXCounterV2;
-local v12 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagAXStrictCheckForPrefetchMarketplace_0 = v12.FFlagAXStrictCheckForPrefetchMarketplace;
-local l_FFlagsAXPrefetchMarketplaceThumbnailsXP_0 = v12.FFlagsAXPrefetchMarketplaceThumbnailsXP;
-local v15 = l_FFlagAXStrictCheckForPrefetchMarketplace_0 and l_FFlagsAXPrefetchMarketplaceThumbnailsXP_0.UserIsInExperiment;
-local v16 = require(l_Modules_0.AvatarExperience.Common.Components.WidgetList.Hooks.usePrefetchMarketplaceThumbnails);
-local v17 = game:DefineFastFlag("AXAppLaunchedCounterEnabled", false);
-local l_FFlagAXFixPrefetchMarketplaceStartupCrash_0 = v12.FFlagAXFixPrefetchMarketplaceStartupCrash;
-local function v20(v19) --[[ Line: 65 ]] --[[ Name: selectIsRecentMarketplaceUser ]]
-    -- upvalues: v8 (copy), l_FFlagAXFixPrefetchMarketplaceStartupCrash_0 (copy)
-    if v8 then
-        return true;
-    elseif l_FFlagAXFixPrefetchMarketplaceStartupCrash_0 and (not v19.AvatarExperience or not v19.AvatarExperience.Catalog or not v19.AvatarExperience.Catalog.Metadata) then
-        return false;
-    else
-        return v19.AvatarExperience.Catalog.Metadata.isRecentMarketplaceUser;
-    end;
-end;
-return function() --[[ Line: 97 ]] --[[ Name: usePrefetchMarketplace ]]
-    -- upvalues: l_AXPrefetchMarketplaceIXP_0 (copy), v4 (copy), v7 (copy), l_useSelector_0 (copy), v20 (copy), v6 (copy), l_FFlagAXStrictCheckForPrefetchMarketplace_0 (copy), v2 (copy), v15 (copy), v16 (copy), v17 (copy), l_sendAXCounterV2_0 (copy), v10 (copy)
-    local v21 = if l_AXPrefetchMarketplaceIXP_0.isEnabled() then v4.readTestVariable(l_AXPrefetchMarketplaceIXP_0.EnabledForUser) else nil;
-    local v22 = v7();
-    local v23 = l_useSelector_0(v20);
-    local v24 = v6();
-    local l_hasFetched_0 = v24.hasFetched;
-    local l_isFetching_0 = v24.isFetching;
-    local l_fetchMarketplace_0 = v24.fetchMarketplace;
-    local v28 = if l_FFlagAXStrictCheckForPrefetchMarketplace_0 then v2.useRef(false) else nil;
-    local v29 = nil;
-    local v30 = nil;
-    if v15 then
-        v30 = v2.useRef(false);
-        v29 = v16();
-    end;
-    if v17 then
-        v2.useEffect(function() --[[ Line: 122 ]]
-            -- upvalues: l_sendAXCounterV2_0 (ref), v10 (ref)
-            l_sendAXCounterV2_0(v10.Counter.PrefetchMarketplace.appLaunched);
-        end, {});
-    end;
-    v2.useEffect(function() --[[ Line: 138 ]]
-        -- upvalues: l_FFlagAXStrictCheckForPrefetchMarketplace_0 (ref), v28 (copy), v21 (copy), v23 (copy), l_hasFetched_0 (copy), l_isFetching_0 (copy), v22 (copy), l_sendAXCounterV2_0 (ref), v10 (ref), l_fetchMarketplace_0 (copy)
-        if l_FFlagAXStrictCheckForPrefetchMarketplace_0 and v28 and v28.current then
-            return;
-        elseif not v21 then
-            return;
-        elseif not v23 then
-            return;
-        elseif l_hasFetched_0 or l_isFetching_0 then
-            return;
-        elseif not v22 then
-            return;
-        else
-            l_sendAXCounterV2_0(v10.Counter.PrefetchMarketplace.isRecentMarketplaceUser);
-            l_fetchMarketplace_0();
-            if l_FFlagAXStrictCheckForPrefetchMarketplace_0 and v28 then
-                v28.current = true;
-            end;
-            return;
-        end;
-    end, {
-        l_hasFetched_0, 
-        l_isFetching_0, 
-        v22, 
-        v21, 
-        v23
-    });
-    if v15 then
-        v2.useEffect(function() --[[ Line: 190 ]]
-            -- upvalues: v30 (ref), v28 (copy), l_hasFetched_0 (copy), v29 (ref)
-            if v30.current then
-                return;
-            elseif v28 and not v28.current then
-                return;
-            elseif not l_hasFetched_0 then
-                return;
-            else
-                if v29 then
-                    v29();
-                    v30.current = true;
-                end;
-                return;
-            end;
-        end, {
-            v29, 
-            l_hasFetched_0
-        });
-    end;
-end;
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local React = require(CorePackages.Packages.React)
+local AXPrefetchMarketplaceIXP = require(CorePackages.Workspace.Packages.AvatarExperienceExperiments).AXPrefetchMarketplaceIXP
+local IxpUtils = require(CorePackages.Workspace.Packages.IxpUtils)
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
+local useMarketplaceResultsFetcher = require(script.Parent.useMarketplaceResultsFetcher)
+local useMarketplaceResultsFetcherSdui = require(script.Parent.useMarketplaceResultsFetcherSdui)
+local useResultsAreSduiEnabled = require(script.Parent.useResultsAreSduiEnabled)
+local useIsHomepageReady = require(script.Parent.useIsHomepageReady)
+local useGetSelectedCategoryAndSubcategoryId = require(Modules.AvatarExperience.Catalog.Hooks.useGetSelectedCategoryAndSubcategoryId)
+local v12 = game:DefineFastFlag("AXDebugForceIsRecentMarketplaceEnabled", false)
+
+require(Modules.AvatarExperience.Common.AvatarExperienceState)
+
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local sendAXCounterV2 = require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).sendAXCounterV2
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagAXStrictCheckForPrefetchMarketplace = AvatarExperienceFlags.FFlagAXStrictCheckForPrefetchMarketplace
+local FFlagAXMigrateAllTabToSduiDev = AvatarExperienceFlags.FFlagAXMigrateAllTabToSduiDev
+local FFlagsAXPrefetchMarketplaceThumbnailsXP = AvatarExperienceFlags.FFlagsAXPrefetchMarketplaceThumbnailsXP
+local v19 = FFlagAXStrictCheckForPrefetchMarketplace and FFlagsAXPrefetchMarketplaceThumbnailsXP.UserIsInExperiment
+local usePrefetchMarketplaceThumbnails = require(Modules.AvatarExperience.Common.Components.WidgetList.Hooks.usePrefetchMarketplaceThumbnails)
+local v21 = game:DefineFastFlag("AXAppLaunchedCounterEnabled", false)
+local FFlagAXFixPrefetchMarketplaceStartupCrash = AvatarExperienceFlags.FFlagAXFixPrefetchMarketplaceStartupCrash
+
+local function selectIsRecentMarketplaceUser(p1) -- line: 71
+	-- upvalues: v12 (copy), FFlagAXFixPrefetchMarketplaceStartupCrash (copy)
+	if v12 then
+		return true
+	end
+
+	if FFlagAXFixPrefetchMarketplaceStartupCrash and (not p1.AvatarExperience or not p1.AvatarExperience.Catalog or not p1.AvatarExperience.Catalog.Metadata) then
+		return false
+	end
+
+	return p1.AvatarExperience.Catalog.Metadata.isRecentMarketplaceUser
+end
+
+return function() --[[ usePrefetchMarketplace ]] -- line: 103
+	-- upvalues: AXPrefetchMarketplaceIXP (copy), IxpUtils (copy), useIsHomepageReady (copy), useSelector (copy), selectIsRecentMarketplaceUser (copy), useMarketplaceResultsFetcher (copy), FFlagAXMigrateAllTabToSduiDev (copy), useGetSelectedCategoryAndSubcategoryId (copy), useMarketplaceResultsFetcherSdui (copy), Constants (copy), useResultsAreSduiEnabled (copy), FFlagAXStrictCheckForPrefetchMarketplace (copy), React (copy), v19 (copy), usePrefetchMarketplaceThumbnails (copy), v21 (copy), sendAXCounterV2 (copy)
+	local v25 = if not AXPrefetchMarketplaceIXP.isEnabled() then nil else IxpUtils.readTestVariable(AXPrefetchMarketplaceIXP.EnabledForUser)
+	local v26 = useIsHomepageReady()
+	local v27 = useSelector(selectIsRecentMarketplaceUser)
+	local v28 = useMarketplaceResultsFetcher()
+	local hasFetched = v28.hasFetched
+	local isFetching = v28.isFetching
+	local fetchMarketplace = v28.fetchMarketplace
+
+	if FFlagAXMigrateAllTabToSduiDev then
+		local v32, _ = useGetSelectedCategoryAndSubcategoryId()
+		local v34 = useMarketplaceResultsFetcherSdui({
+			categoryId = v32 or Constants.DefaultCatalogCategoryId
+		})
+
+		if useResultsAreSduiEnabled() then
+			hasFetched = v34.hasFetched
+			isFetching = v34.isFetching
+			fetchMarketplace = v34.fetchMarketplace
+		end
+	end
+
+	local v35 = if not FFlagAXStrictCheckForPrefetchMarketplace then nil else React.useRef(false)
+	local u36 = nil
+	local u37 = nil
+
+	if v19 then
+		u37 = React.useRef(false)
+		u36 = usePrefetchMarketplaceThumbnails()
+	end
+
+	if v21 then
+		React.useEffect(function() -- line: 153
+			-- upvalues: sendAXCounterV2 (copy), Constants (copy)
+			sendAXCounterV2(Constants.Counter.PrefetchMarketplace.appLaunched)
+		end, {})
+	end
+
+	React.useEffect(function() -- line: 170
+		-- upvalues: FFlagAXStrictCheckForPrefetchMarketplace (copy), v35 (copy), v25 (copy), v27 (copy), hasFetched (ref), isFetching (ref), v26 (copy), sendAXCounterV2 (copy), Constants (copy), fetchMarketplace (ref)
+		if FFlagAXStrictCheckForPrefetchMarketplace and (v35 and v35.current) then
+			return
+		end
+
+		if not v25 then
+			return
+		end
+
+		if not v27 then
+			return
+		end
+
+		if hasFetched or isFetching then
+			return
+		end
+
+		if not v26 then
+			return
+		end
+
+		sendAXCounterV2(Constants.Counter.PrefetchMarketplace.isRecentMarketplaceUser)
+		fetchMarketplace()
+
+		if FFlagAXStrictCheckForPrefetchMarketplace and v35 then
+			v35.current = true
+		end
+	end, {
+		hasFetched,
+		isFetching,
+		v26,
+		v25,
+		v27,
+		if not FFlagAXMigrateAllTabToSduiDev then nil else fetchMarketplace
+	})
+
+	if v19 then
+		React.useEffect(function() -- line: 231
+			-- upvalues: u37 (ref), v35 (copy), hasFetched (ref), u36 (ref)
+			if u37.current then
+				return
+			end
+
+			if v35 and not v35.current then
+				return
+			end
+
+			if not hasFetched then
+				return
+			end
+
+			if u36 then
+				u36()
+				u37.current = true
+			end
+		end, {
+			u36,
+			hasFetched
+		})
+	end
+end

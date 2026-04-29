@@ -1,86 +1,77 @@
-local l_Parent_0 = script:FindFirstAncestor("AppChat").Parent;
-local v1 = require(l_Parent_0.React);
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local v3 = require(l_Parent_0.Foundation);
-local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
-local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
-local v7 = {
-    friends = {
-        icon = "rbxasset://textures/ui/LuaChat/icons/ic-friends.png", 
-        copy = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.MakeFriendsToParty" or "Feature.Chat.Message.MakeConnectionsToParty" else "Feature.Chat.Message.MakeConnectionsToChat", 
-        cta = l_FFlagConnectionsToFriendsRename_0 and "Feature.SettingsHub.Label.NoFriendsScreen" or "Feature.SettingsHub.Label.NoConnectionsScreen"
-    }, 
-    regional = {
-        icon = "icons/status/oof_xlarge", 
-        copy = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.PartyUnavailableRegion" or "Feature.Chat.Message.ChatUnavailableRegion", 
-        cta = nil
-    }, 
-    privacy = {
-        icon = "rbxasset://textures/ui/LuaChat/icons/ic-friends.png", 
-        copy = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.EnableParty.FriendsRename" or "Feature.Chat.Message.EnableParty" else l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.EnableChat.FriendsRename" or "Feature.Chat.Message.EnableChat", 
-        cta = "Feature.Chat.Label.PrivacySettings"
-    }, 
-    thirdParty = {
-        icon = "rbxasset://textures/ui/LuaChat/icons/ic-friends.png", 
-        copy = "Feature.Chat.Message.ChatIsDisabledByPrivacySetting", 
-        cta = nil
-    }, 
-    fallback = {
-        icon = "icons/status/oof_xlarge", 
-        copy = "CommonUI.Messages.Response.PageError", 
-        cta = nil
-    }
-};
-local function _(v8) --[[ Line: 73 ]] --[[ Name: getEmptyStateFromProps ]]
-    if v8.chatEnabled then
-        return "friends";
-    elseif not v8.globalRulesEnabled then
-        return "regional";
-    elseif not v8.privacySettingsEnabled then
-        return "privacy";
-    elseif not v8.thirdPartyPrivacySettingsEnabled then
-        return "thirdParty";
-    else
-        return "fallback";
-    end;
-end;
-return function(v10) --[[ Line: 88 ]] --[[ Name: NoConversationsLanding ]]
-    -- upvalues: v7 (copy), l_useLocalization_0 (copy), v1 (copy), v3 (copy)
-    local v11 = v10.chatEnabled and "friends" or if v10.globalRulesEnabled then if v10.privacySettingsEnabled then v10.thirdPartyPrivacySettingsEnabled and "fallback" or "thirdParty" else "privacy" else "regional";
-    local v12 = v7[v11];
-    local v13 = v12.cta ~= nil;
-    if v11 == "friends" and not v10.canNavigateToAddFriends then
-        v13 = false;
-    elseif v11 == "privacy" and not v10.canNavigateToPrivacySettings then
-        v13 = false;
-    end;
-    local v14 = l_useLocalization_0({
-        callToAction = v12.cta or "Feature.Chat.Label.PrivacySettings", 
-        copy = v12.copy
-    });
-    v1.useEffect(function() --[[ Line: 103 ]]
-        -- upvalues: v10 (copy), v11 (copy)
-        if v10.fireRenderEvent then
-            v10.fireRenderEvent(v11);
-        end;
-    end, {
-        v10.fireRenderEvent, 
-        v11
-    });
-    return v1.createElement(v3.Empty, {
-        icon = {
-            name = v12.icon, 
-            size = "XLarge"
-        }, 
-        text = v14.copy, 
-        button = if v13 then {
-            text = v14.callToAction, 
-            icon = "icons/navigation/externallink_medium", 
-            onActivated = function() --[[ Line: 119 ]] --[[ Name: onActivated ]]
-                -- upvalues: v10 (copy), v11 (copy)
-                v10.onCallToAction(v11);
-            end
-        } else nil
-    });
-end;
+local Parent = script:FindFirstAncestor("AppChat").Parent
+local React = require(Parent.React)
+local useLocalization = require(Parent.Localization).Hooks.useLocalization
+local Foundation = require(Parent.Foundation)
+local GetFFlagIsSquadEnabled = require(Parent.SharedFlags).GetFFlagIsSquadEnabled
+local FFlagConnectionsToFriendsRename = require(Parent.SharedFlags).FFlagConnectionsToFriendsRename
+local t1 = {
+	friends = {
+		icon = "rbxasset://textures/ui/LuaChat/icons/ic-friends.png",
+		copy = not GetFFlagIsSquadEnabled() and "Feature.Chat.Message.MakeConnectionsToChat" or (not FFlagConnectionsToFriendsRename and "Feature.Chat.Message.MakeConnectionsToParty" or "Feature.Chat.Message.MakeFriendsToParty"),
+		cta = not FFlagConnectionsToFriendsRename and "Feature.SettingsHub.Label.NoConnectionsScreen" or "Feature.SettingsHub.Label.NoFriendsScreen"
+	},
+	regional = {
+		icon = "icons/status/oof_xlarge",
+		copy = not GetFFlagIsSquadEnabled() and "Feature.Chat.Message.ChatUnavailableRegion" or "Feature.Chat.Message.PartyUnavailableRegion",
+		cta = nil
+	},
+	privacy = {
+		icon = "rbxasset://textures/ui/LuaChat/icons/ic-friends.png",
+		copy = if not GetFFlagIsSquadEnabled() then not FFlagConnectionsToFriendsRename and "Feature.Chat.Message.EnableChat" or "Feature.Chat.Message.EnableChat.FriendsRename" else not FFlagConnectionsToFriendsRename and "Feature.Chat.Message.EnableParty" or "Feature.Chat.Message.EnableParty.FriendsRename",
+		cta = "Feature.Chat.Label.PrivacySettings"
+	},
+	thirdParty = {
+		icon = "rbxasset://textures/ui/LuaChat/icons/ic-friends.png",
+		copy = "Feature.Chat.Message.ChatIsDisabledByPrivacySetting",
+		cta = nil
+	},
+	fallback = {
+		icon = "icons/status/oof_xlarge",
+		copy = "CommonUI.Messages.Response.PageError",
+		cta = nil
+	}
+}
+
+return function(t2: {[any]: any}) --[[ NoConversationsLanding ]] -- line: 87
+	-- upvalues: t1 (copy), useLocalization (copy), React (copy), Foundation (copy)
+	local v10 = if not t2.chatEnabled then if t2.globalRulesEnabled then if t2.privacySettingsEnabled then t2.thirdPartyPrivacySettingsEnabled and "fallback" or "thirdParty" else "privacy" else "regional" else "friends"
+	local v11 = t1[v10]
+	local v12 = v11.cta ~= nil
+
+	if v10 == "friends" and not t2.canNavigateToAddFriends then
+		v12 = false
+	elseif v10 == "privacy" and not t2.canNavigateToPrivacySettings then
+		v12 = false
+	end
+
+	local v13 = useLocalization({
+		callToAction = v11.cta or "Feature.Chat.Label.PrivacySettings",
+		copy = v11.copy
+	})
+
+	React.useEffect(function() -- line: 102
+		-- upvalues: t2 (copy), v10 (copy)
+		if t2.fireRenderEvent then
+			t2.fireRenderEvent(v10)
+		end
+	end, {
+		t2.fireRenderEvent,
+		v10
+	})
+
+	return React.createElement(Foundation.Empty, {
+		icon = {
+			name = v11.icon,
+			size = "XLarge"
+		},
+		text = v13.copy,
+		button = if not v12 then nil else {
+			text = v13.callToAction,
+			icon = "icons/navigation/externallink_medium",
+			onActivated = function() --[[ onActivated ]] -- line: 118
+				-- upvalues: t2 (copy), v10 (copy)
+				t2.onCallToAction(v10)
+			end
+		}
+	})
+end

@@ -1,629 +1,629 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Players_0 = game:GetService("Players");
-local v3 = require(l_CorePackages_0.Packages.Cryo);
-local v4 = require(l_CorePackages_0.Packages.Roact);
-local v5 = require(l_CorePackages_0.Packages.React);
-local v6 = require(l_CorePackages_0.Packages.RoactRodux);
-local v7 = require(l_CorePackages_0.Packages.UIBlox);
-local l_withStyle_0 = v7.Style.withStyle;
-local v9 = require(l_Modules_0.LuaApp.withLocalization);
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local v11 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v12 = require(l_CorePackages_0.Packages.Foundation);
-local l_Image_0 = v12.Image;
-local l_useTokens_0 = v12.Hooks.useTokens;
-local l_View_0 = v12.View;
-local l_Text_0 = v12.Text;
-local l_TextInput_0 = v12.TextInput;
-local l_InputSize_0 = v12.Enums.InputSize;
-local l_Text_1 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Text;
-local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
-local v21 = require(l_Modules_0.LuaApp.Thunks.Authentication.CrossDeviceLogin);
-local v22 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsAuthEvents);
-local v23 = require(l_Modules_0.LuaApp.EventStreamConstants);
-local v24 = require(l_Modules_0.LuaApp.Http.Requests.GetIXPLayerParameters);
-local v25 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableCrossDeviceLoginUsingQRCodes);
-local v26 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableCrossDeviceEnterCodeRefresh);
-local v27 = require(l_Modules_0.LuaApp.FitChildren);
-local v28 = require(l_Modules_0.LuaApp.Components.FitTextLabel);
-local v29 = require(l_CorePackages_0.Workspace.Packages.AuthCommon);
-local l_TextInputBoxWithBorder_0 = v29.Components.TextInputBoxWithBorder;
-local l_AuthStatefulRoundCornerBorder_0 = v29.Components.AuthStatefulRoundCornerBorder;
-local l_Button_0 = v7.App.Button.Button;
-local l_ButtonType_0 = v7.App.Button.Enum.ButtonType;
-local v34 = require(l_Modules_0.LuaApp.Components.Authentication.CrossDeviceLogin.CrossDevicePhoneLayout);
-local v35 = require(l_Modules_0.LuaApp.Components.Authentication.CrossDeviceLogin.CrossDeviceTabletLayout);
-local v36 = require(l_Modules_0.LuaApp.Components.Authentication.Logger);
-local l_GetFFlagEnableAuthsecImageUpdate_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableAuthsecImageUpdate;
-local l_Images_0 = v7.App.ImageSet.Images;
-local l_ImageSetLabel_0 = v7.Core.ImageSet.ImageSetLabel;
-local v40 = l_Images_0["icons/graphic/lock_xxlarge"];
-game:DefineFastFlag("EnablePlayerAppCrossDeviceEnterCodeExperiments", false);
-game:DefineFastFlag("EnableXDLCodeValidationExperiment", false);
-local function _(v41) --[[ Line: 78 ]] --[[ Name: sanitizeEnterCode ]]
-    return v41:gsub("[^%w]", ""):upper():sub(1, 6);
-end;
-local function _() --[[ Line: 82 ]] --[[ Name: getLocalPlayerDisplayName ]]
-    -- upvalues: l_Players_0 (copy)
-    local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
-    if not l_LocalPlayer_0 then
-        return "Player";
-    else
-        local l_DisplayName_0 = l_LocalPlayer_0.DisplayName;
-        if l_DisplayName_0 and l_DisplayName_0 ~= "" then
-            return l_DisplayName_0;
-        else
-            return l_LocalPlayer_0.Name;
-        end;
-    end;
-end;
-local function _(v46) --[[ Line: 94 ]] --[[ Name: escapeForRichText ]]
-    return v46:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;");
-end;
-local v48 = v4.PureComponent:extend("CrossDeviceEnterCodePage");
-v48.init = function(v49) --[[ Line: 100 ]] --[[ Name: init ]]
-    -- upvalues: v12 (copy), v36 (copy), v25 (copy), v26 (copy), v23 (copy), v4 (copy)
-    v49.latestSanitizedCode = "";
-    v49:setState({
-        inputCode = "", 
-        inputErrorKey = "", 
-        placeholderTextOverride = "", 
-        disableSubmissionForBadCode = false, 
-        isConfirming = false, 
-        isFocused = false
-    });
-    v49.onFocus = function() --[[ Line: 112 ]]
-        -- upvalues: v49 (copy)
-        v49:setState({
-            inputErrorKey = "", 
-            isFocused = true
-        });
-    end;
-    v49.onFocusLost = function(_, v51) --[[ Line: 119 ]]
-        -- upvalues: v49 (copy)
-        if v51 and #v49.state.inputCode == 6 then
-            v49.confirmButtonPressed();
-            return;
-        else
-            v49:setState({
-                isFocused = false
-            });
-            return;
-        end;
-    end;
-    v49.getVerifyCodeImage = function(v52) --[[ Line: 129 ]]
-        -- upvalues: v12 (ref)
-        if v52 == v12.Enums.Theme.Dark then
-            return "icons/graphic/verifyCode_dark";
-        else
-            return "icons/graphic/verifyCode_light";
-        end;
-    end;
-    v49.onTextChanged = function(v53) --[[ Line: 137 ]]
-        -- upvalues: v49 (copy), v36 (ref)
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 144 ]]
-            -- upvalues: v53 (copy), v49 (ref)
-            local v54 = v53.Text:gsub("[^%w]", ""):upper():sub(1, 6);
-            if v54 ~= v53.Text then
-                v53.Text = v54;
-                return;
-            else
-                v49:setState({
-                    inputCode = v53.Text
-                });
-                return;
-            end;
-        end);
-        if not l_status_0 then
-            v36:warning(string.format("Text validation error in CrossDeviceEnderCodeView: %s", (tostring(l_result_0))));
-        end;
-    end;
-    v49.onRefreshCodeChanged = function(v57) --[[ Line: 159 ]]
-        -- upvalues: v49 (copy), v36 (ref)
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 160 ]]
-            -- upvalues: v57 (copy), v49 (ref)
-            local v58 = v57:gsub("[^%w]", ""):upper():sub(1, 6);
-            v49.latestSanitizedCode = v58;
-            v49.setInputText(v58);
-            v49:setState({
-                inputCode = v58
-            });
-        end);
-        if not l_status_1 then
-            v36:warning(string.format("Text validation error in CrossDeviceEnderCodeView: %s", (tostring(l_result_1))));
-        end;
-    end;
-    v49.attemptDeeplinkCode = true;
-    v49.confirmingCode = false;
-    v49.confirmButtonPressed = function() --[[ Line: 175 ]]
-        -- upvalues: v49 (copy), v25 (ref), v26 (ref), v23 (ref)
-        if not v49.confirmingCode then
-            v49.confirmingCode = true;
-            v49:setState({
-                isConfirming = true, 
-                isFocused = false
-            });
-            local v61 = nil;
-            local v62 = nil;
-            if v25() and v49.attemptDeeplinkCode and v49.props.code then
-                v61 = v49.props.code;
-                v62 = "qrCode";
-            else
-                v61 = v49.state.inputCode;
-                v62 = "alphaNumericCode";
-            end;
-            if v26() and v62 == "alphaNumericCode" then
-                v61 = v49.latestSanitizedCode;
-            end;
-            v49.attemptDeeplinkCode = false;
-            if v25() then
-                v49.props.authAnalytics.reportButtonClickedWithCType(v23.Context.QuickLogin, v23.Button.EnterDeviceCode, v62);
-            else
-                v49.props.authAnalytics.reportButtonClicked(v23.Context.QuickLogin, v23.Button.EnterDeviceCode);
-            end;
-            do
-                local l_v61_0 = v61;
-                v49.props.validateCode(v49.props.networking, l_v61_0):andThen(function(v64) --[[ Line: 212 ]]
-                    -- upvalues: v49 (ref), l_v61_0 (ref)
-                    v49.acceptInputCode(l_v61_0, v64.DeviceInfo);
-                end, v49.clearInputCode);
-            end;
-        end;
-    end;
-    local v65, v66 = v4.createBinding("");
-    v49.inputText = v65;
-    v49.setInputText = v66;
-    v49.clearInputCode = function(v67) --[[ Line: 219 ]]
-        -- upvalues: v49 (copy)
-        v49.confirmingCode = false;
-        v49.latestSanitizedCode = "";
-        v49.setInputText("");
-        local v68 = "Authentication.Login.Response.SomethingWentWrong";
-        if v67.Body == "\"CodeInvalid\"" then
-            v68 = "Authentication.CrossDevice.Response.InvalidCode";
-        elseif v67.Body == "\"InvalidLocation\"" then
-            v68 = "Authentication.CrossDevice.Label.InvalidLocationError";
-        end;
-        v49:setState({
-            inputCode = "", 
-            inputErrorKey = v68, 
-            isConfirming = false
-        });
-    end;
-    v49.acceptInputCode = function(v69, v70) --[[ Line: 236 ]]
-        -- upvalues: v49 (copy)
-        if v49.props.confirmDeviceCode then
-            v49.props.confirmDeviceCode(v69, v70);
-        end;
-    end;
-end;
-v48.didMount = function(v71) --[[ Line: 243 ]] --[[ Name: didMount ]]
-    -- upvalues: v23 (copy), v24 (copy)
-    if v71.props.code then
-        local v72 = v71.props.code:gsub("[^%w]", ""):upper():sub(1, 6);
-        v71.setInputText(v72);
-        v71.latestSanitizedCode = v72;
-        v71:setState({
-            inputCode = v72
-        });
-        v71.confirmButtonPressed();
-    end;
-    v71.isMounted = true;
-    v71.props.authAnalytics.reportScreenLoaded(v23.Context.QuickLogin);
-    if game:GetFastFlag("EnablePlayerAppCrossDeviceEnterCodeExperiments") then
-        v24(v71.props.networking, "PlayerApp.CrossDeviceLogin.ConfirmCode", {
-            "HintTextOverride"
-        }):andThen(function(v73) --[[ Line: 262 ]]
-            -- upvalues: v71 (copy)
-            local v74 = v73 and v73.responseBody;
-            if v74 and v71.isMounted then
-                local l_HintTextOverride_0 = v74.HintTextOverride;
-                local l_ShouldDisableSubmissionForBadCode_0 = v74.ShouldDisableSubmissionForBadCode;
-                v71:setState({
-                    placeholderTextOverride = l_HintTextOverride_0 or "", 
-                    disableSubmissionForBadCode = l_ShouldDisableSubmissionForBadCode_0 or false
-                });
-            end;
-        end, function() --[[ Line: 272 ]]
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local Players = game:GetService("Players")
+local Cryo = require(CorePackages.Packages.Cryo)
+local Roact = require(CorePackages.Packages.Roact)
+local React = require(CorePackages.Packages.React)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local withStyle = UIBlox.Style.withStyle
+local withLocalization = require(Modules.LuaApp.withLocalization)
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
+local Foundation = require(CorePackages.Packages.Foundation)
+local FoundationImage = Foundation.Image
+local useTokens = Foundation.Hooks.useTokens
+local View = Foundation.View
+local FoundationText = Foundation.Text
+local TextInput = Foundation.TextInput
+local InputSize = Foundation.Enums.InputSize
+local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
+local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local CrossDeviceLogin = require(Modules.LuaApp.Thunks.Authentication.CrossDeviceLogin)
+local RoactAnalyticsAuthEvents = require(Modules.LuaApp.Services.RoactAnalyticsAuthEvents)
+local EventStreamConstants = require(Modules.LuaApp.EventStreamConstants)
+local GetIXPLayerParameters = require(Modules.LuaApp.Http.Requests.GetIXPLayerParameters)
+local GetFFlagEnableCrossDeviceLoginUsingQRCodes = require(Modules.LuaApp.Flags.GetFFlagEnableCrossDeviceLoginUsingQRCodes)
+local GetFFlagEnableCrossDeviceEnterCodeRefresh = require(Modules.LuaApp.Flags.GetFFlagEnableCrossDeviceEnterCodeRefresh)
+local FitChildren = require(Modules.LuaApp.FitChildren)
+local FitTextLabel = require(Modules.LuaApp.Components.FitTextLabel)
+local AuthCommon = require(CorePackages.Workspace.Packages.AuthCommon)
+local TextInputBoxWithBorder = AuthCommon.Components.TextInputBoxWithBorder
+local AuthStatefulRoundCornerBorder = AuthCommon.Components.AuthStatefulRoundCornerBorder
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local CrossDevicePhoneLayout = require(Modules.LuaApp.Components.Authentication.CrossDeviceLogin.CrossDevicePhoneLayout)
+local CrossDeviceTabletLayout = require(Modules.LuaApp.Components.Authentication.CrossDeviceLogin.CrossDeviceTabletLayout)
+local Logger = require(Modules.LuaApp.Components.Authentication.Logger)
+local GetFFlagEnableAuthsecImageUpdate = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAuthsecImageUpdate
+local Images = UIBlox.App.ImageSet.Images
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local v41 = Images["icons/graphic/lock_xxlarge"]
+local v42 = Roact.PureComponent:extend("CrossDeviceEnterCodePage")
 
-        end);
-    end;
-end;
-v48.willUnmount = function(v77) --[[ Line: 278 ]] --[[ Name: willUnmount ]]
-    v77.isMounted = false;
-end;
-v48.renderEnterCodeRefresh = function(v78, v79, v80, v81) --[[ Line: 282 ]] --[[ Name: renderEnterCodeRefresh ]]
-    -- upvalues: v9 (copy), l_Text_1 (copy), l_Players_0 (copy), v4 (copy), l_View_0 (copy), l_Text_0 (copy), l_TextInput_0 (copy), l_InputSize_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy)
-    return v9({
-        refreshHeadline = "Authentication.CrossDevice.Heading.SigninAnotherDevice", 
-        refreshIntro = "Authentication.CrossDevice.Label.SigninInstructionHeading", 
-        refreshStep1 = "Authentication.CrossDevice.Label.SigninInstructionOne", 
-        refreshStep2 = "Authentication.CrossDevice.Label.SigninInstructionTwo", 
-        refreshStep3 = "Authentication.CrossDevice.Label.SigninInstructionThree", 
-        refreshSecurityFooter = "Authentication.CrossDevice.Label.QuickSignInWarning", 
-        refreshContinue = "Authentication.CrossDevice.Label.Continue", 
-        refreshPlaceholder = "Authentication.CrossDevice.Label.EnterCodeTextBox"
-    })(function(v82) --[[ Line: 292 ]]
-        -- upvalues: v78 (copy), v79 (copy), l_Text_1 (ref), l_Players_0 (ref), v81 (copy), v4 (ref), l_View_0 (ref), l_Text_0 (ref), l_TextInput_0 (ref), l_InputSize_0 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), v80 (copy)
-        local l_inputCode_0 = v78.state.inputCode;
-        local v84 = v78.state.inputErrorKey == "";
-        local l_isConfirming_0 = v78.state.isConfirming;
-        local l_designTokens_0 = v78.props.designTokens;
-        local l_Font_0 = l_designTokens_0.LuaApps.CrossDeviceLogin.bodyFont.Font;
-        local l_Color3_0 = l_designTokens_0.LuaApps.CrossDeviceLogin.bodyTextColor.Color3;
-        local l_Transparency_0 = l_designTokens_0.LuaApps.CrossDeviceLogin.headerTextColor.Transparency;
-        local l_Color3_1 = l_designTokens_0.LuaApps.CrossDeviceLogin.textAlertColor.Color3;
-        local l_BaseSize_0 = v79.Font.BaseSize;
-        local l_refreshContinue_0 = v82.refreshContinue;
-        local v93 = v78.props.tokens.Padding.Medium * 2;
-        local v94 = l_Text_1.GetTextWidth(l_refreshContinue_0, l_Font_0, l_BaseSize_0) + v93;
-        local l_refreshIntro_0 = v82.refreshIntro;
-        local v96 = "{username}";
-        local v97 = "<b>";
-        local l_LocalPlayer_1 = l_Players_0.LocalPlayer;
-        local v99;
-        if not l_LocalPlayer_1 then
-            v99 = "Player";
-        else
-            local l_DisplayName_1 = l_LocalPlayer_1.DisplayName;
-            v99 = if l_DisplayName_1 and l_DisplayName_1 ~= "" then l_DisplayName_1 else l_LocalPlayer_1.Name;
-        end;
-        l_refreshIntro_0 = l_refreshIntro_0:gsub(v96, v97 .. v99:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;") .. "</b>");
-        local v101 = v78.state.placeholderTextOverride ~= "" and v78.state.placeholderTextOverride or v82.refreshPlaceholder;
-        v96 = {
-            Color3 = l_Color3_1, 
-            Transparency = l_Transparency_0
-        };
-        local v102 = {
-            Color3 = l_Color3_0, 
-            Transparency = l_Transparency_0
-        };
-        v97 = l_designTokens_0.Global;
-        local l_Size_1000_0 = v78.props.tokens.Size.Size_1000;
-        local l_Space_150_0 = v97.Space_150;
-        v99 = v78.props.highKeyboardMode and not v81;
-        l_LocalPlayer_1 = l_designTokens_0.LuaApps.CrossDeviceLogin.verticalPadding;
-        return v4.createElement(l_View_0, {
-            tag = "col align-x-left gap-xsmall size-full-0 auto-y", 
-            Size = UDim2.new(1, 0, 0, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            BackgroundTransparency = 1, 
-            Position = if v99 then UDim2.new(0, 0, 0, -l_LocalPlayer_1) else nil, 
-            padding = {
-                left = UDim.new(0, 0), 
-                right = UDim.new(0, 0)
-            }
-        }, {
-            CopyBlock = not v99 and v4.createElement(l_View_0, {
-                tag = "col align-x-left gap-xsmall size-full-0 auto-y", 
-                LayoutOrder = 1, 
-                BackgroundTransparency = 1, 
-                padding = {
-                    bottom = UDim.new(0, l_Space_150_0)
-                }
-            }, {
-                HeadlineWrap = v4.createElement(l_View_0, {
-                    tag = "col size-full-0 auto-y", 
-                    LayoutOrder = 1, 
-                    BackgroundTransparency = 1, 
-                    padding = {
-                        bottom = UDim.new(0, l_Space_150_0)
-                    }
-                }, {
-                    Headline = v4.createElement(l_Text_0, {
-                        tag = "size-full-0 auto-xy text-heading-small text-wrap text-align-x-left", 
-                        LayoutOrder = 1, 
-                        Text = v82.refreshHeadline, 
-                        TextWrapped = true
-                    })
-                }), 
-                Intro = v4.createElement(l_Text_0, {
-                    tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left", 
-                    LayoutOrder = 2, 
-                    Text = l_refreshIntro_0, 
-                    RichText = true, 
-                    TextWrapped = true
-                }), 
-                StepsIndent = v4.createElement(l_View_0, {
-                    tag = "col gap-xxsmall size-full-0 auto-y", 
-                    LayoutOrder = 3, 
-                    BackgroundTransparency = 1, 
-                    padding = {
-                        left = UDim.new(0, 18)
-                    }
-                }, {
-                    Step1 = v4.createElement(l_Text_0, {
-                        tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left", 
-                        LayoutOrder = 1, 
-                        Text = v82.refreshStep1, 
-                        TextWrapped = true
-                    }), 
-                    Step2 = v4.createElement(l_Text_0, {
-                        tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left", 
-                        LayoutOrder = 2, 
-                        Text = v82.refreshStep2, 
-                        TextWrapped = true
-                    }), 
-                    Step3 = v4.createElement(l_Text_0, {
-                        tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left", 
-                        LayoutOrder = 3, 
-                        Text = v82.refreshStep3, 
-                        TextWrapped = true
-                    })
-                })
-            }) or nil, 
-            InputRow = v4.createElement(l_View_0, {
-                tag = "row items-stretch gap-small size-full-0 auto-y", 
-                LayoutOrder = 2, 
-                BackgroundTransparency = 1, 
-                padding = {
-                    bottom = UDim.new(0, l_Space_150_0)
-                }
-            }, {
-                InputWrap = v4.createElement(l_View_0, {
-                    tag = "grow auto-y", 
-                    LayoutOrder = 1, 
-                    BackgroundTransparency = 1
-                }, {
-                    CodeField = v4.createElement(l_TextInput_0, {
-                        LayoutOrder = 1, 
-                        label = "", 
-                        text = v78.inputText, 
-                        onChanged = v78.onRefreshCodeChanged, 
-                        placeholder = v101, 
-                        width = UDim.new(1, 0), 
-                        hasError = not v84, 
-                        size = l_InputSize_0.Medium, 
-                        onFocusGained = v78.onFocus, 
-                        onFocusLost = function() --[[ Line: 423 ]] --[[ Name: onFocusLost ]]
-                            -- upvalues: v78 (ref)
-                            v78:setState({
-                                isFocused = false
-                            });
-                        end, 
-                        onReturnPressed = function() --[[ Line: 428 ]] --[[ Name: onReturnPressed ]]
-                            -- upvalues: v78 (ref)
-                            if #v78.state.inputCode == 6 then
-                                v78.confirmButtonPressed();
-                            end;
-                        end
-                    })
-                }), 
-                ContinueButtonWrap = v4.createElement(l_View_0, {
-                    tag = "col", 
-                    LayoutOrder = 2, 
-                    Size = UDim2.new(0, v94, 0, l_Size_1000_0), 
-                    BackgroundTransparency = 1
-                }, {
-                    ContinueButton = v4.createElement(l_Button_0, {
-                        buttonType = l_ButtonType_0.PrimarySystem, 
-                        size = UDim2.new(1, 0, 1, 0), 
-                        text = l_refreshContinue_0, 
-                        isDisabled = game:GetFastFlag("EnableXDLCodeValidationExperiment") and v78.state.disableSubmissionForBadCode and #l_inputCode_0 < 6 or l_inputCode_0 == "", 
-                        isLoading = l_isConfirming_0, 
-                        onActivated = v78.confirmButtonPressed, 
-                        [v4.Ref] = v78.props.continueButtonRef
-                    })
-                })
-            }), 
-            InputError = not v84 and v4.createElement(l_View_0, {
-                tag = "col size-full-0 auto-y", 
-                LayoutOrder = 4, 
-                BackgroundTransparency = 1, 
-                padding = {
-                    bottom = UDim.new(0, l_Space_150_0)
-                }
-            }, {
-                ErrorText = v4.createElement(l_Text_0, {
-                    tag = "size-full-0 auto-xy text-body-small text-wrap text-align-x-left", 
-                    LayoutOrder = 1, 
-                    Text = v80.inputError, 
-                    TextWrapped = true, 
-                    textStyle = v96
-                })
-            }) or nil, 
-            SecurityFooter = v4.createElement(l_Text_0, {
-                tag = "size-full-0 auto-xy text-body-small text-wrap text-align-x-left", 
-                LayoutOrder = 6, 
-                Text = v82.refreshSecurityFooter, 
-                TextWrapped = true, 
-                textStyle = v102
-            })
-        });
-    end);
-end;
-v48.render = function(v105) --[[ Line: 483 ]] --[[ Name: render ]]
-    -- upvalues: l_withStyle_0 (copy), v9 (copy), v26 (copy), v4 (copy), v35 (copy), v34 (copy), l_GetFFlagEnableAuthsecImageUpdate_0 (copy), l_Image_0 (copy), l_ImageSetLabel_0 (copy), v40 (copy), v27 (copy), v28 (copy), l_TextInputBoxWithBorder_0 (copy), l_AuthStatefulRoundCornerBorder_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), l_Text_1 (copy)
-    local l_isWideView_0 = v105.props.isWideView;
-    local l_inputCode_1 = v105.state.inputCode;
-    local v108 = v105.state.inputErrorKey == "";
-    local l_isConfirming_1 = v105.state.isConfirming;
-    local l_isFocused_0 = v105.state.isFocused;
-    return l_withStyle_0(function(v111) --[[ Line: 491 ]]
-        -- upvalues: v9 (ref), v108 (copy), v105 (copy), l_isWideView_0 (copy), v26 (ref), v4 (ref), v35 (ref), v34 (ref), l_GetFFlagEnableAuthsecImageUpdate_0 (ref), l_Image_0 (ref), l_ImageSetLabel_0 (ref), v40 (ref), v27 (ref), v28 (ref), l_TextInputBoxWithBorder_0 (ref), l_AuthStatefulRoundCornerBorder_0 (ref), l_isFocused_0 (copy), l_Button_0 (ref), l_ButtonType_0 (ref), l_isConfirming_1 (copy), l_inputCode_1 (copy), l_Text_1 (ref)
-        return v9({
-            tabletHeader = "Authentication.CrossDevice.Heading.LoginAnotherDevice", 
-            warningHeader = "Authentication.CrossDevice.Heading.LoginWarning", 
-            warning1 = "Authentication.CrossDevice.Label.Warning1", 
-            warning2 = "Authentication.CrossDevice.Label.Warning2", 
-            placeholderText = "Authentication.CrossDevice.Label.EnterOtherDeviceCode", 
-            enter = "Authentication.CrossDevice.Action.Enter", 
-            inputError = not v108 and v105.state.inputErrorKey or nil
-        })(function(v112) --[[ Line: 500 ]]
-            -- upvalues: v105 (ref), l_isWideView_0 (ref), v111 (copy), v26 (ref), v4 (ref), v35 (ref), v34 (ref), l_GetFFlagEnableAuthsecImageUpdate_0 (ref), l_Image_0 (ref), l_ImageSetLabel_0 (ref), v40 (ref), v27 (ref), v28 (ref), l_TextInputBoxWithBorder_0 (ref), v108 (ref), l_AuthStatefulRoundCornerBorder_0 (ref), l_isFocused_0 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), l_isConfirming_1 (ref), l_inputCode_1 (ref), l_Text_1 (ref)
-            local l_designTokens_1 = v105.props.designTokens;
-            local v114 = l_isWideView_0 and v105.props.tokens.Size.Size_2000 * 2 or v105.props.tokens.Size.Size_2000 * 4;
-            local v115 = l_isWideView_0 and v105.props.tokens.Size.Size_2200 or v105.props.tokens.Size.Size_2200 * 2;
-            local v116 = not l_isWideView_0 and v105.props.tokens.Size.Size_350 or 0;
-            local v117 = UDim2.fromOffset(l_designTokens_1.LuaApps.CrossDeviceLogin.iconSize, l_designTokens_1.LuaApps.CrossDeviceLogin.iconSize);
-            local l_Font_1 = l_designTokens_1.LuaApps.CrossDeviceLogin.headerFont.Font;
-            local l_FontSize_0 = l_designTokens_1.LuaApps.CrossDeviceLogin.headerFont.FontSize;
-            local l_Color3_2 = l_designTokens_1.LuaApps.CrossDeviceLogin.headerTextColor.Color3;
-            local l_headerPadding_0 = l_designTokens_1.LuaApps.CrossDeviceLogin.headerPadding;
-            local l_Font_2 = l_designTokens_1.LuaApps.CrossDeviceLogin.bodyFont.Font;
-            local l_FontSize_1 = l_designTokens_1.LuaApps.CrossDeviceLogin.bodyFont.FontSize;
-            local l_Color3_3 = l_designTokens_1.LuaApps.CrossDeviceLogin.bodyTextColor.Color3;
-            local l_Transparency_1 = l_designTokens_1.LuaApps.CrossDeviceLogin.headerTextColor.Transparency;
-            local l_Font_3 = l_designTokens_1.LuaApps.CrossDeviceLogin.textAlertFont.Font;
-            local l_FontSize_2 = l_designTokens_1.LuaApps.CrossDeviceLogin.textAlertFont.FontSize;
-            local l_Color3_4 = l_designTokens_1.LuaApps.CrossDeviceLogin.textAlertColor.Color3;
-            local l_BaseSize_1 = v111.Font.BaseSize;
-            local v130 = v105.state.placeholderTextOverride ~= "" and v105.state.placeholderTextOverride or v112.placeholderText;
-            if v26() then
-                return v105:renderEnterCodeRefresh(v111, v112, l_isWideView_0);
-            else
-                return v4.createElement(l_isWideView_0 and v35 or v34, {
-                    TabletHeaderText = v112.tabletHeader, 
-                    Style = v111, 
-                    HighKeyboardMode = v105.props.highKeyboardMode, 
-                    Icon = l_GetFFlagEnableAuthsecImageUpdate_0() and v4.createElement("Frame", {
-                        LayoutOrder = 1, 
-                        Size = l_isWideView_0 and v117 or UDim2.new(0, v114, 0, v115 - v116), 
-                        BackgroundTransparency = 1
-                    }, {
-                        Image = v4.createElement(l_Image_0, {
-                            Image = v105.getVerifyCodeImage(v105.props.tokens.Config.ColorMode.Name), 
-                            ScaleType = Enum.ScaleType.Fit, 
-                            Size = UDim2.new(0, v114, 0, v115), 
-                            Position = UDim2.new(0.5, 0, 0.5, -v116 / 2), 
-                            AnchorPoint = Vector2.new(0.5, 0.5)
-                        })
-                    }) or v4.createElement(l_ImageSetLabel_0, {
-                        Size = v117, 
-                        BackgroundTransparency = 1, 
-                        LayoutOrder = 1, 
-                        ScaleType = Enum.ScaleType.Fit, 
-                        Image = v40, 
-                        ImageColor3 = v111.Theme.UIEmphasis.Color, 
-                        ImageTransparency = 0
-                    }), 
-                    WarningText = v4.createElement(v27.FitFrame, {
-                        LayoutOrder = 2, 
-                        Size = UDim2.new(1, -20, 0, 0), 
-                        fitAxis = v27.FitAxis.Height, 
-                        BackgroundTransparency = 1
-                    }, {
-                        Align = v4.createElement("UIListLayout", {
-                            FillDirection = Enum.FillDirection.Vertical, 
-                            HorizontalAlignment = Enum.HorizontalAlignment.Right, 
-                            Padding = UDim.new(0, 6), 
-                            SortOrder = Enum.SortOrder.LayoutOrder
-                        }), 
-                        TopWarning = v4.createElement(v28, {
-                            LayoutOrder = 1, 
-                            Size = UDim2.new(1, 0, 0, 0), 
-                            Text = v112.warningHeader, 
-                            TextWrapped = true, 
-                            Font = l_Font_1, 
-                            TextSize = l_FontSize_0, 
-                            TextColor3 = l_Color3_2, 
-                            TextTransparency = l_Transparency_1, 
-                            TextXAlignment = l_isWideView_0 and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center, 
-                            fitAxis = v27.FitAxis.Height, 
-                            BackgroundTransparency = 1
-                        }), 
-                        Padding = v4.createElement("Frame", {
-                            LayoutOrder = 2, 
-                            Size = UDim2.new(1, 0, 0, l_headerPadding_0), 
-                            BackgroundTransparency = 1
-                        }), 
-                        BulletPoint1 = v4.createElement(v28, {
-                            LayoutOrder = 3, 
-                            Size = UDim2.new(1, 0, 0, 0), 
-                            Text = v112.warning1, 
-                            TextWrapped = true, 
-                            Font = l_Font_2, 
-                            TextSize = l_FontSize_1, 
-                            TextColor3 = l_Color3_3, 
-                            TextTransparency = l_Transparency_1, 
-                            TextXAlignment = Enum.TextXAlignment.Left, 
-                            fitAxis = v27.FitAxis.Height, 
-                            BackgroundTransparency = 1
-                        }), 
-                        BulletPoint2 = v4.createElement(v28, {
-                            LayoutOrder = 4, 
-                            Size = UDim2.new(1, 0, 0, 0), 
-                            Text = v112.warning2, 
-                            TextWrapped = true, 
-                            Font = l_Font_2, 
-                            TextSize = l_FontSize_1, 
-                            TextColor3 = l_Color3_3, 
-                            TextTransparency = l_Transparency_1, 
-                            TextXAlignment = Enum.TextXAlignment.Left, 
-                            fitAxis = v27.FitAxis.Height, 
-                            BackgroundTransparency = 1
-                        })
-                    }), 
-                    InputBox = v4.createElement(l_TextInputBoxWithBorder_0, {
-                        layoutOrder = 3, 
-                        placeholderText = v130, 
-                        borderState = not v108 and l_AuthStatefulRoundCornerBorder_0.BorderState.Error or l_isFocused_0 and l_AuthStatefulRoundCornerBorder_0.BorderState.Focused or l_AuthStatefulRoundCornerBorder_0.BorderState.Default, 
-                        text = v105.inputText, 
-                        onFocused = v105.onFocus, 
-                        onFocusLost = v105.onFocusLost, 
-                        onChangeTextCallback = v105.onTextChanged
-                    }), 
-                    InputWarning = not v108 and v4.createElement(v28, {
-                        LayoutOrder = 4, 
-                        Size = UDim2.new(1, -6, 0, l_FontSize_2), 
-                        Position = UDim2.new(0, 3, 1, 3), 
-                        BackgroundTransparency = 1, 
-                        Font = l_Font_3, 
-                        TextSize = l_FontSize_2, 
-                        TextColor3 = l_Color3_4, 
-                        TextTransparency = l_Transparency_1, 
-                        TextXAlignment = Enum.TextXAlignment.Left, 
-                        Text = v112.inputError, 
-                        TextWrapped = true, 
-                        fitAxis = v27.FitAxis.Height
-                    }), 
-                    ConfirmCodeButton = v4.createElement(l_Button_0, {
-                        buttonType = l_ButtonType_0.PrimarySystem, 
-                        size = UDim2.new(1, 0, 1, 0), 
-                        text = v112.enter, 
-                        [v4.Ref] = v105.props.continueButtonRef, 
-                        onActivated = v105.confirmButtonPressed, 
-                        isLoading = l_isConfirming_1, 
-                        isDisabled = game:GetFastFlag("EnableXDLCodeValidationExperiment") and v105.state.disableSubmissionForBadCode and #l_inputCode_1 < 6 or l_inputCode_1 == ""
-                    }), 
-                    ConfirmCodeButtonWidth = l_Text_1.GetTextWidth(v112.enter, l_Font_2, l_BaseSize_1) + 40
-                });
-            end;
-        end);
-    end);
-end;
-local v131 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
-v48 = v131.connectUserLayer({
-    l_AppUserLayers_0.ExposureLayer, 
-    l_AppUserLayers_0.AccessLayer
-}, function(_, _) --[[ Line: 666 ]]
-    return {};
-end)(v48);
-v48 = l_RoactServices_0.connect({
-    networking = v11, 
-    authAnalytics = v22
-})(v48);
-local v140 = v6.connect(function(v135, _) --[[ Line: 675 ]]
-    return {
-        screenSize = v135.ScreenSize
-    };
-end, function(v137) --[[ Line: 679 ]]
-    -- upvalues: v21 (copy)
-    return {
-        validateCode = function(v138, v139) --[[ Line: 681 ]] --[[ Name: validateCode ]]
-            -- upvalues: v137 (copy), v21 (ref)
-            return v137(v21.EnterCode(v138, v139));
-        end
-    };
-end)(v48);
-return function(v141) --[[ Line: 688 ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useTokens_0 (copy), v5 (copy), v140 (copy), v3 (copy)
-    local v142 = l_useDesignTokens_0();
-    local v143 = l_useTokens_0();
-    return v5.createElement(v140, v3.Dictionary.join(v141, {
-        designTokens = v142, 
-        tokens = v143
-    }));
-end;
+function v42.init(p1) -- line: 97
+	-- upvalues: Foundation (copy), Logger (copy), GetFFlagEnableCrossDeviceLoginUsingQRCodes (copy), GetFFlagEnableCrossDeviceEnterCodeRefresh (copy), EventStreamConstants (copy), Roact (copy)
+	p1.latestSanitizedCode = ""
+	p1:setState({
+		inputCode = "",
+		inputErrorKey = "",
+		placeholderTextOverride = "",
+		disableSubmissionForBadCode = false,
+		isConfirming = false,
+		isFocused = false
+	})
+
+	function p1.onFocus() -- line: 109
+		-- upvalues: p1 (copy)
+		p1:setState({
+			inputErrorKey = "",
+			isFocused = true
+		})
+	end
+	function p1.onFocusLost(_, p3) -- line: 116
+		-- upvalues: p1 (copy)
+		if p3 and #p1.state.inputCode == 6 then
+			p1.confirmButtonPressed()
+
+			return
+		end
+
+		p1:setState({
+			isFocused = false
+		})
+	end
+	function p1.getVerifyCodeImage(s1: string) -- line: 126
+		-- upvalues: Foundation (copy)
+		if s1 == Foundation.Enums.Theme.Dark then
+			return "icons/graphic/verifyCode_dark"
+		end
+
+		return "icons/graphic/verifyCode_light"
+	end
+	function p1.onTextChanged(p4) -- line: 134
+		-- upvalues: p1 (copy), Logger (copy)
+		local ok, result = pcall(function() -- line: 141
+			-- upvalues: p4 (copy), p1 (copy)
+			local v124 = p4.Text:gsub("[^%w]", ""):upper():sub(1, 6)
+
+			if v124 ~= p4.Text then
+				p4.Text = v124
+
+				return
+			end
+
+			p1:setState({
+				inputCode = p4.Text
+			})
+		end)
+
+		if not ok then
+			Logger:warning(string.format("Text validation error in CrossDeviceEnderCodeView: %s", (tostring(result))))
+		end
+	end
+	function p1.onRefreshCodeChanged(s2: string) -- line: 156
+		-- upvalues: p1 (copy), Logger (copy)
+		local ok, result = pcall(function() -- line: 157
+			-- upvalues: s2 (copy), p1 (copy)
+			local v125 = s2:gsub("[^%w]", ""):upper():sub(1, 6)
+
+			p1.latestSanitizedCode = v125
+			p1.setInputText(v125)
+			p1:setState({
+				inputCode = v125
+			})
+		end)
+
+		if not ok then
+			Logger:warning(string.format("Text validation error in CrossDeviceEnderCodeView: %s", (tostring(result))))
+		end
+	end
+
+	p1.attemptDeeplinkCode = true
+	p1.confirmingCode = false
+
+	function p1.confirmButtonPressed() -- line: 172
+		-- upvalues: p1 (copy), GetFFlagEnableCrossDeviceLoginUsingQRCodes (copy), GetFFlagEnableCrossDeviceEnterCodeRefresh (copy), EventStreamConstants (copy)
+		if not p1.confirmingCode then
+			p1.confirmingCode = true
+			p1:setState({
+				isConfirming = true,
+				isFocused = false
+			})
+
+			local code, s3
+
+			if GetFFlagEnableCrossDeviceLoginUsingQRCodes() and p1.attemptDeeplinkCode and p1.props.code then
+				code = p1.props.code
+				s3 = "qrCode"
+			else
+				code = p1.state.inputCode
+				s3 = "alphaNumericCode"
+			end
+
+			if GetFFlagEnableCrossDeviceEnterCodeRefresh() and s3 == "alphaNumericCode" then
+				code = p1.latestSanitizedCode
+			end
+
+			p1.attemptDeeplinkCode = false
+
+			if GetFFlagEnableCrossDeviceLoginUsingQRCodes() then
+				p1.props.authAnalytics.reportButtonClickedWithCType(EventStreamConstants.Context.QuickLogin, EventStreamConstants.Button.EnterDeviceCode, s3)
+			else
+				p1.props.authAnalytics.reportButtonClicked(EventStreamConstants.Context.QuickLogin, EventStreamConstants.Button.EnterDeviceCode)
+			end
+
+			p1.props.validateCode(p1.props.networking, code):andThen(function(p5) -- line: 209
+				-- upvalues: p1 (copy), code (ref)
+				p1.acceptInputCode(code, p5.DeviceInfo)
+			end, p1.clearInputCode)
+		end
+	end
+
+	local v53, v54 = Roact.createBinding("")
+
+	p1.inputText = v53
+	p1.setInputText = v54
+
+	function p1.clearInputCode(p6) -- line: 216
+		-- upvalues: p1 (copy)
+		p1.confirmingCode = false
+		p1.latestSanitizedCode = ""
+		p1.setInputText("")
+
+		local s4 = "Authentication.Login.Response.SomethingWentWrong"
+
+		if p6.Body == "\"CodeInvalid\"" then
+			s4 = "Authentication.CrossDevice.Response.InvalidCode"
+		elseif p6.Body == "\"InvalidLocation\"" then
+			s4 = "Authentication.CrossDevice.Label.InvalidLocationError"
+		end
+
+		p1:setState({
+			inputCode = "",
+			inputErrorKey = s4,
+			isConfirming = false
+		})
+	end
+	function p1.acceptInputCode(p7, p8) -- line: 233
+		-- upvalues: p1 (copy)
+		if p1.props.confirmDeviceCode then
+			p1.props.confirmDeviceCode(p7, p8)
+		end
+	end
+end
+function v42.didMount(p9) -- line: 240
+	-- upvalues: EventStreamConstants (copy), GetIXPLayerParameters (copy)
+	if p9.props.code then
+		local v56 = p9.props.code:gsub("[^%w]", ""):upper():sub(1, 6)
+
+		p9.setInputText(v56)
+		p9.latestSanitizedCode = v56
+		p9:setState({
+			inputCode = v56
+		})
+		p9.confirmButtonPressed()
+	end
+
+	p9.isMounted = true
+	p9.props.authAnalytics.reportScreenLoaded(EventStreamConstants.Context.QuickLogin)
+	GetIXPLayerParameters(p9.props.networking, "PlayerApp.CrossDeviceLogin.ConfirmCode", { "HintTextOverride" }):andThen(function(p10) -- line: 258
+		-- upvalues: p9 (copy)
+		local v92 = p10 and p10.responseBody
+
+		if v92 and p9.isMounted then
+			local HintTextOverride = v92.HintTextOverride
+			local ShouldDisableSubmissionForBadCode = v92.ShouldDisableSubmissionForBadCode
+
+			p9:setState({
+				placeholderTextOverride = HintTextOverride or "",
+				disableSubmissionForBadCode = ShouldDisableSubmissionForBadCode or false
+			})
+		end
+	end, function() -- line: 268
+	end)
+end
+function v42.willUnmount(p11) -- line: 273
+	p11.isMounted = false
+end
+function v42.renderEnterCodeRefresh(p12, p13, p14, p15) -- line: 277
+	-- upvalues: withLocalization (copy), Text (copy), Players (copy), Roact (copy), View (copy), FoundationText (copy), TextInput (copy), InputSize (copy), Button (copy), ButtonType (copy)
+	return withLocalization({
+		refreshHeadline = "Authentication.CrossDevice.Heading.SigninAnotherDevice",
+		refreshIntro = "Authentication.CrossDevice.Label.SigninInstructionHeading",
+		refreshStep1 = "Authentication.CrossDevice.Label.SigninInstructionOne",
+		refreshStep2 = "Authentication.CrossDevice.Label.SigninInstructionTwo",
+		refreshStep3 = "Authentication.CrossDevice.Label.SigninInstructionThree",
+		refreshSecurityFooter = "Authentication.CrossDevice.Label.QuickSignInWarning",
+		refreshContinue = "Authentication.CrossDevice.Label.Continue",
+		refreshPlaceholder = "Authentication.CrossDevice.Label.EnterCodeTextBox"
+	})(function(p16) -- line: 287
+		-- upvalues: p12 (copy), p13 (copy), Text (copy), Players (copy), p15 (copy), Roact (copy), View (copy), FoundationText (copy), TextInput (copy), InputSize (copy), Button (copy), ButtonType (copy), p14 (copy)
+		local inputCode = p12.state.inputCode
+		local v97 = p12.state.inputErrorKey == ""
+		local isConfirming = p12.state.isConfirming
+		local designTokens = p12.props.designTokens
+		local bodyFontFont = designTokens.LuaApps.CrossDeviceLogin.bodyFont.Font
+		local bodyTextColorColor3 = designTokens.LuaApps.CrossDeviceLogin.bodyTextColor.Color3
+		local headerTextColorTransparency = designTokens.LuaApps.CrossDeviceLogin.headerTextColor.Transparency
+		local textAlertColorColor3 = designTokens.LuaApps.CrossDeviceLogin.textAlertColor.Color3
+		local BaseSize = p13.Font.BaseSize
+		local refreshContinue = p16.refreshContinue
+		local v106 = p12.props.tokens.Padding.Medium * 2
+		local v107 = Text.GetTextWidth(refreshContinue, bodyFontFont, BaseSize) + v106
+		local refreshIntro = p16.refreshIntro
+		local LocalPlayer = Players.LocalPlayer
+		local s5
+
+		if not LocalPlayer then
+			s5 = "Player"
+		else
+			local DisplayName = LocalPlayer.DisplayName
+
+			s5 = if not DisplayName or DisplayName == "" then LocalPlayer.Name else DisplayName
+		end
+
+		local v112 = refreshIntro:gsub("{username}", "<b>" .. s5:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;") .. "</b>")
+		local v113 = p12.state.placeholderTextOverride ~= "" and p12.state.placeholderTextOverride or p16.refreshPlaceholder
+		local t1 = {
+			Color3 = textAlertColorColor3,
+			Transparency = headerTextColorTransparency
+		}
+		local t2 = {
+			Color3 = bodyTextColorColor3,
+			Transparency = headerTextColorTransparency
+		}
+		local Global = designTokens.Global
+		local Size_1000 = p12.props.tokens.Size.Size_1000
+		local Space_150 = Global.Space_150
+		local v119 = p12.props.highKeyboardMode and not p15
+		local verticalPadding = designTokens.LuaApps.CrossDeviceLogin.verticalPadding
+
+		return Roact.createElement(View, {
+			tag = "col align-x-left gap-xsmall size-full-0 auto-y",
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			Position = if not v119 then nil else UDim2.new(0, 0, 0, -verticalPadding),
+			padding = {
+				left = UDim.new(0, 0),
+				right = UDim.new(0, 0)
+			}
+		}, {
+			CopyBlock = not v119 and Roact.createElement(View, {
+				tag = "col align-x-left gap-xsmall size-full-0 auto-y",
+				LayoutOrder = 1,
+				BackgroundTransparency = 1,
+				padding = {
+					bottom = UDim.new(0, Space_150)
+				}
+			}, {
+				HeadlineWrap = Roact.createElement(View, {
+					tag = "col size-full-0 auto-y",
+					LayoutOrder = 1,
+					BackgroundTransparency = 1,
+					padding = {
+						bottom = UDim.new(0, Space_150)
+					}
+				}, {
+					Headline = Roact.createElement(FoundationText, {
+						tag = "size-full-0 auto-xy text-heading-small text-wrap text-align-x-left",
+						LayoutOrder = 1,
+						Text = p16.refreshHeadline,
+						TextWrapped = true
+					})
+				}),
+				Intro = Roact.createElement(FoundationText, {
+					tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left",
+					LayoutOrder = 2,
+					Text = v112,
+					RichText = true,
+					TextWrapped = true
+				}),
+				StepsIndent = Roact.createElement(View, {
+					tag = "col gap-xxsmall size-full-0 auto-y",
+					LayoutOrder = 3,
+					BackgroundTransparency = 1,
+					padding = {
+						left = UDim.new(0, 18)
+					}
+				}, {
+					Step1 = Roact.createElement(FoundationText, {
+						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left",
+						LayoutOrder = 1,
+						Text = p16.refreshStep1,
+						TextWrapped = true
+					}),
+					Step2 = Roact.createElement(FoundationText, {
+						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left",
+						LayoutOrder = 2,
+						Text = p16.refreshStep2,
+						TextWrapped = true
+					}),
+					Step3 = Roact.createElement(FoundationText, {
+						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left",
+						LayoutOrder = 3,
+						Text = p16.refreshStep3,
+						TextWrapped = true
+					})
+				})
+			}) or nil,
+			InputRow = Roact.createElement(View, {
+				tag = "row items-stretch gap-small size-full-0 auto-y",
+				LayoutOrder = 2,
+				BackgroundTransparency = 1,
+				padding = {
+					bottom = UDim.new(0, Space_150)
+				}
+			}, {
+				InputWrap = Roact.createElement(View, {
+					tag = "grow auto-y",
+					LayoutOrder = 1,
+					BackgroundTransparency = 1
+				}, {
+					CodeField = Roact.createElement(TextInput, {
+						LayoutOrder = 1,
+						label = "",
+						text = p12.inputText,
+						onChanged = p12.onRefreshCodeChanged,
+						placeholder = v113,
+						width = UDim.new(1, 0),
+						hasError = not v97,
+						size = InputSize.Medium,
+						onFocusGained = p12.onFocus,
+						onFocusLost = function() --[[ onFocusLost ]] -- line: 418
+							-- upvalues: p12 (copy)
+							p12:setState({
+								isFocused = false
+							})
+						end,
+						onReturnPressed = function() --[[ onReturnPressed ]] -- line: 423
+							-- upvalues: p12 (copy)
+							if #p12.state.inputCode == 6 then
+								p12.confirmButtonPressed()
+							end
+						end
+					})
+				}),
+				ContinueButtonWrap = Roact.createElement(View, {
+					tag = "col",
+					LayoutOrder = 2,
+					Size = UDim2.new(0, v107, 0, Size_1000),
+					BackgroundTransparency = 1
+				}, {
+					ContinueButton = Roact.createElement(Button, {
+						buttonType = ButtonType.PrimarySystem,
+						size = UDim2.new(1, 0, 1, 0),
+						text = refreshContinue,
+						isDisabled = p12.state.disableSubmissionForBadCode and #inputCode < 6 or inputCode == "",
+						isLoading = isConfirming,
+						onActivated = p12.confirmButtonPressed,
+						[Roact.Ref] = p12.props.continueButtonRef
+					})
+				})
+			}),
+			InputError = not v97 and Roact.createElement(View, {
+				tag = "col size-full-0 auto-y",
+				LayoutOrder = 4,
+				BackgroundTransparency = 1,
+				padding = {
+					bottom = UDim.new(0, Space_150)
+				}
+			}, {
+				ErrorText = Roact.createElement(FoundationText, {
+					tag = "size-full-0 auto-xy text-body-small text-wrap text-align-x-left",
+					LayoutOrder = 1,
+					Text = p14.inputError,
+					TextWrapped = true,
+					textStyle = t1
+				})
+			}) or nil,
+			SecurityFooter = Roact.createElement(FoundationText, {
+				tag = "size-full-0 auto-xy text-body-small text-wrap text-align-x-left",
+				LayoutOrder = 6,
+				Text = p16.refreshSecurityFooter,
+				TextWrapped = true,
+				textStyle = t2
+			})
+		})
+	end)
+end
+function v42.render(p17) -- line: 475
+	-- upvalues: withStyle (copy), withLocalization (copy), GetFFlagEnableCrossDeviceEnterCodeRefresh (copy), Roact (copy), CrossDeviceTabletLayout (copy), CrossDevicePhoneLayout (copy), GetFFlagEnableAuthsecImageUpdate (copy), FoundationImage (copy), ImageSetLabel (copy), v41 (copy), FitChildren (copy), FitTextLabel (copy), TextInputBoxWithBorder (copy), AuthStatefulRoundCornerBorder (copy), Button (copy), ButtonType (copy), Text (copy)
+	local isWideView = p17.props.isWideView
+	local inputCode = p17.state.inputCode
+	local v65 = p17.state.inputErrorKey == ""
+	local isConfirming = p17.state.isConfirming
+	local isFocused = p17.state.isFocused
+
+	return withStyle(function(p18) -- line: 483
+		-- upvalues: withLocalization (copy), v65 (copy), p17 (copy), isWideView (copy), GetFFlagEnableCrossDeviceEnterCodeRefresh (copy), Roact (copy), CrossDeviceTabletLayout (copy), CrossDevicePhoneLayout (copy), GetFFlagEnableAuthsecImageUpdate (copy), FoundationImage (copy), ImageSetLabel (copy), v41 (copy), FitChildren (copy), FitTextLabel (copy), TextInputBoxWithBorder (copy), AuthStatefulRoundCornerBorder (copy), isFocused (copy), Button (copy), ButtonType (copy), isConfirming (copy), inputCode (copy), Text (copy)
+		return withLocalization({
+			tabletHeader = "Authentication.CrossDevice.Heading.LoginAnotherDevice",
+			warningHeader = "Authentication.CrossDevice.Heading.LoginWarning",
+			warning1 = "Authentication.CrossDevice.Label.Warning1",
+			warning2 = "Authentication.CrossDevice.Label.Warning2",
+			placeholderText = "Authentication.CrossDevice.Label.EnterOtherDeviceCode",
+			enter = "Authentication.CrossDevice.Action.Enter",
+			inputError = not v65 and p17.state.inputErrorKey or nil
+		})(function(p19) -- line: 492
+			-- upvalues: p17 (copy), isWideView (copy), p18 (copy), GetFFlagEnableCrossDeviceEnterCodeRefresh (copy), Roact (copy), CrossDeviceTabletLayout (copy), CrossDevicePhoneLayout (copy), GetFFlagEnableAuthsecImageUpdate (copy), FoundationImage (copy), ImageSetLabel (copy), v41 (copy), FitChildren (copy), FitTextLabel (copy), TextInputBoxWithBorder (copy), v65 (copy), AuthStatefulRoundCornerBorder (copy), isFocused (copy), Button (copy), ButtonType (copy), isConfirming (copy), inputCode (copy), Text (copy)
+			local designTokens = p17.props.designTokens
+			local v129 = isWideView and p17.props.tokens.Size.Size_2000 * 2 or p17.props.tokens.Size.Size_2000 * 4
+			local v130 = isWideView and p17.props.tokens.Size.Size_2200 or p17.props.tokens.Size.Size_2200 * 2
+			local v131 = not isWideView and p17.props.tokens.Size.Size_350 or 0
+			local uDim2 = UDim2.fromOffset(designTokens.LuaApps.CrossDeviceLogin.iconSize, designTokens.LuaApps.CrossDeviceLogin.iconSize)
+			local headerFontFont = designTokens.LuaApps.CrossDeviceLogin.headerFont.Font
+			local FontSize = designTokens.LuaApps.CrossDeviceLogin.headerFont.FontSize
+			local headerTextColorColor3 = designTokens.LuaApps.CrossDeviceLogin.headerTextColor.Color3
+			local headerPadding = designTokens.LuaApps.CrossDeviceLogin.headerPadding
+			local bodyFontFont = designTokens.LuaApps.CrossDeviceLogin.bodyFont.Font
+			local FontSize2 = designTokens.LuaApps.CrossDeviceLogin.bodyFont.FontSize
+			local bodyTextColorColor3 = designTokens.LuaApps.CrossDeviceLogin.bodyTextColor.Color3
+			local headerTextColorTransparency = designTokens.LuaApps.CrossDeviceLogin.headerTextColor.Transparency
+			local textAlertFontFont = designTokens.LuaApps.CrossDeviceLogin.textAlertFont.Font
+			local FontSize3 = designTokens.LuaApps.CrossDeviceLogin.textAlertFont.FontSize
+			local textAlertColorColor3 = designTokens.LuaApps.CrossDeviceLogin.textAlertColor.Color3
+			local BaseSize = p18.Font.BaseSize
+			local v145 = p17.state.placeholderTextOverride ~= "" and p17.state.placeholderTextOverride or p19.placeholderText
+
+			if GetFFlagEnableCrossDeviceEnterCodeRefresh() then
+				return p17:renderEnterCodeRefresh(p18, p19, isWideView)
+			end
+
+			return Roact.createElement(isWideView and CrossDeviceTabletLayout or CrossDevicePhoneLayout, {
+				TabletHeaderText = p19.tabletHeader,
+				Style = p18,
+				HighKeyboardMode = p17.props.highKeyboardMode,
+				Icon = GetFFlagEnableAuthsecImageUpdate() and Roact.createElement("Frame", {
+					LayoutOrder = 1,
+					Size = isWideView and uDim2 or UDim2.new(0, v129, 0, v130 - v131),
+					BackgroundTransparency = 1
+				}, {
+					Image = Roact.createElement(FoundationImage, {
+						Image = p17.getVerifyCodeImage(p17.props.tokens.Config.ColorMode.Name),
+						ScaleType = Enum.ScaleType.Fit,
+						Size = UDim2.new(0, v129, 0, v130),
+						Position = UDim2.new(0.5, 0, 0.5, -v131 / 2),
+						AnchorPoint = Vector2.new(0.5, 0.5)
+					})
+				}) or Roact.createElement(ImageSetLabel, {
+					Size = uDim2,
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+					ScaleType = Enum.ScaleType.Fit,
+					Image = v41,
+					ImageColor3 = p18.Theme.UIEmphasis.Color,
+					ImageTransparency = 0
+				}),
+				WarningText = Roact.createElement(FitChildren.FitFrame, {
+					LayoutOrder = 2,
+					Size = UDim2.new(1, -20, 0, 0),
+					fitAxis = FitChildren.FitAxis.Height,
+					BackgroundTransparency = 1
+				}, {
+					Align = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						Padding = UDim.new(0, 6),
+						SortOrder = Enum.SortOrder.LayoutOrder
+					}),
+					TopWarning = Roact.createElement(FitTextLabel, {
+						LayoutOrder = 1,
+						Size = UDim2.new(1, 0, 0, 0),
+						Text = p19.warningHeader,
+						TextWrapped = true,
+						Font = headerFontFont,
+						TextSize = FontSize,
+						TextColor3 = headerTextColorColor3,
+						TextTransparency = headerTextColorTransparency,
+						TextXAlignment = isWideView and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center,
+						fitAxis = FitChildren.FitAxis.Height,
+						BackgroundTransparency = 1
+					}),
+					Padding = Roact.createElement("Frame", {
+						LayoutOrder = 2,
+						Size = UDim2.new(1, 0, 0, headerPadding),
+						BackgroundTransparency = 1
+					}),
+					BulletPoint1 = Roact.createElement(FitTextLabel, {
+						LayoutOrder = 3,
+						Size = UDim2.new(1, 0, 0, 0),
+						Text = p19.warning1,
+						TextWrapped = true,
+						Font = bodyFontFont,
+						TextSize = FontSize2,
+						TextColor3 = bodyTextColorColor3,
+						TextTransparency = headerTextColorTransparency,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						fitAxis = FitChildren.FitAxis.Height,
+						BackgroundTransparency = 1
+					}),
+					BulletPoint2 = Roact.createElement(FitTextLabel, {
+						LayoutOrder = 4,
+						Size = UDim2.new(1, 0, 0, 0),
+						Text = p19.warning2,
+						TextWrapped = true,
+						Font = bodyFontFont,
+						TextSize = FontSize2,
+						TextColor3 = bodyTextColorColor3,
+						TextTransparency = headerTextColorTransparency,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						fitAxis = FitChildren.FitAxis.Height,
+						BackgroundTransparency = 1
+					})
+				}),
+				InputBox = Roact.createElement(TextInputBoxWithBorder, {
+					layoutOrder = 3,
+					placeholderText = v145,
+					borderState = not v65 and AuthStatefulRoundCornerBorder.BorderState.Error or (isFocused and AuthStatefulRoundCornerBorder.BorderState.Focused or AuthStatefulRoundCornerBorder.BorderState.Default),
+					text = p17.inputText,
+					onFocused = p17.onFocus,
+					onFocusLost = p17.onFocusLost,
+					onChangeTextCallback = p17.onTextChanged
+				}),
+				InputWarning = not v65 and Roact.createElement(FitTextLabel, {
+					LayoutOrder = 4,
+					Size = UDim2.new(1, -6, 0, FontSize3),
+					Position = UDim2.new(0, 3, 1, 3),
+					BackgroundTransparency = 1,
+					Font = textAlertFontFont,
+					TextSize = FontSize3,
+					TextColor3 = textAlertColorColor3,
+					TextTransparency = headerTextColorTransparency,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Text = p19.inputError,
+					TextWrapped = true,
+					fitAxis = FitChildren.FitAxis.Height
+				}),
+				ConfirmCodeButton = Roact.createElement(Button, {
+					buttonType = ButtonType.PrimarySystem,
+					size = UDim2.new(1, 0, 1, 0),
+					text = p19.enter,
+					[Roact.Ref] = p17.props.continueButtonRef,
+					onActivated = p17.confirmButtonPressed,
+					isLoading = isConfirming,
+					isDisabled = p17.state.disableSubmissionForBadCode and #inputCode < 6 or inputCode == ""
+				}),
+				ConfirmCodeButtonWidth = Text.GetTextWidth(p19.enter, bodyFontFont, BaseSize) + 40
+			})
+		end)
+	end)
+end
+
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+local AppUserLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local v45 = RoactAppExperiment.connectUserLayer({
+	AppUserLayers.ExposureLayer,
+	AppUserLayers.AccessLayer
+}, function(_, _) -- line: 655
+	return {}
+end)(v42)
+local v46 = RoactServices.connect({
+	networking = RoactNetworking,
+	authAnalytics = RoactAnalyticsAuthEvents
+})(v45)
+local v47 = RoactRodux.connect(function(p22, _) -- line: 664
+	return {
+		screenSize = p22.ScreenSize
+	}
+end, function(p24) -- line: 668
+	-- upvalues: CrossDeviceLogin (copy)
+	return {
+		validateCode = function(p25, p26) --[[ validateCode ]] -- line: 670
+			-- upvalues: p24 (copy), CrossDeviceLogin (copy)
+			return p24(CrossDeviceLogin.EnterCode(p25, p26))
+		end
+	}
+end)(v46)
+
+return function(p27) -- line: 677
+	-- upvalues: useDesignTokens (copy), useTokens (copy), React (copy), v47 (copy), Cryo (copy)
+	local v74 = useDesignTokens()
+	local v75 = useTokens()
+
+	return React.createElement(v47, Cryo.Dictionary.join(p27, {
+		designTokens = v74,
+		tokens = v75
+	}))
+end

@@ -1,72 +1,70 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_ButtonVariant_0 = require(l_Parent_0.Foundation).Enums.ButtonVariant;
-local v3 = require(l_script_FirstAncestor_0.Networking.GroupsNetworking);
-local v4 = require(l_script_FirstAncestor_0.Networking.getProfilePlatform);
-local v5 = require(l_script_FirstAncestor_0.Hooks.getAvailableCommunityComponents);
-local v6 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-local v8 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local v9 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformUpdateUXForNonSocialCommunities);
-local function _(v10) --[[ Line: 18 ]] --[[ Name: areFollowActionsSupportedForProfileType ]]
-    -- upvalues: v6 (copy)
-    return v10 == v6.ProfileTypes.Community;
-end;
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local ButtonVariant = require(ProfilePlatformParent.Foundation).Enums.ButtonVariant
+local GroupsNetworking = require(ProfilePlatform.Networking.GroupsNetworking)
+local getProfilePlatform = require(ProfilePlatform.Networking.getProfilePlatform)
+local getAvailableCommunityComponents = require(ProfilePlatform.Hooks.getAvailableCommunityComponents)
+local Enums = require(ProfilePlatform.Common.Enums)
+
+require(ProfilePlatform.Components.CTARow.Types)
+
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local ProfileTypes = Enums.ProfileTypes
+local FFlagProfilePlatformUpdateUXForNonSocialCommunities = require(ProfilePlatform.Flags.FFlagProfilePlatformUpdateUXForNonSocialCommunities)
+
 return {
-    [v6.ProfileActions.Follow] = v9 and function(v12) --[[ Line: 24 ]]
-        -- upvalues: v6 (copy), l_ButtonVariant_0 (copy), v8 (copy), v3 (copy), v4 (copy), v5 (copy)
-        if not (v12.profileType == v6.ProfileTypes.Community) then
-            return nil;
-        else
-            return {
-                variant = l_ButtonVariant_0.Standard, 
-                text = v12.localized[v6.ProfileActions.Follow], 
-                onActivated = function() --[[ Line: 31 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v12 (copy), v8 (ref), v3 (ref), v4 (ref), v5 (ref)
-                    v12.analytics.fireAnalyticsEvent(v8.CTAButtonFollow, {
-                        buttonSurface = v12.buttonSurface
-                    });
-                    return v12.dispatch(v3.JoinGroup.API({
-                        groupId = v12.profileId
-                    })):andThen(function() --[[ Line: 39 ]]
-                        -- upvalues: v12 (ref), v4 (ref), v5 (ref)
-                        v12.dispatch(v4.API({
-                            profileType = v12.profileType, 
-                            profileId = v12.profileId, 
-                            components = v5(), 
-                            includeComponentOrdering = true
-                        }));
-                    end);
-                end
-            };
-        end;
-    end or nil, 
-    [v6.ProfileActions.Unfollow] = v9 and function(v13) --[[ Line: 53 ]]
-        -- upvalues: v6 (copy), v8 (copy), v3 (copy), v4 (copy), v5 (copy)
-        if not (v13.profileType == v6.ProfileTypes.Community) then
-            return nil;
-        else
-            return {
-                text = v13.localized[v6.ProfileActions.Unfollow], 
-                onActivated = function() --[[ Line: 59 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v13 (copy), v8 (ref), v3 (ref), v4 (ref), v5 (ref)
-                    v13.analytics.fireAnalyticsEvent(v8.ContextualMenuButtonUnfollow, {
-                        buttonSurface = v13.buttonSurface
-                    });
-                    return v13.dispatch(v3.LeaveGroup.API({
-                        groupId = v13.profileId, 
-                        userId = v13.localUserId
-                    })):andThen(function() --[[ Line: 69 ]]
-                        -- upvalues: v13 (ref), v4 (ref), v5 (ref)
-                        v13.dispatch(v4.API({
-                            profileType = v13.profileType, 
-                            profileId = v13.profileId, 
-                            components = v5(), 
-                            includeComponentOrdering = true
-                        }));
-                    end);
-                end
-            };
-        end;
-    end or nil
-};
+	[Enums.ProfileActions.Follow] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities then nil else function(p1) -- line: 21
+		-- upvalues: ButtonVariant (copy), Enums (copy), ProfileTypes (copy), EventNames (copy), GroupsNetworking (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy)
+		return {
+			variant = ButtonVariant.Standard,
+			text = p1.localized[Enums.ProfileActions.Follow],
+			onActivated = {
+				[ProfileTypes.Community] = function() -- line: 26
+					-- upvalues: p1 (copy), EventNames (copy), GroupsNetworking (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy)
+					p1.analytics.fireAnalyticsEvent(EventNames.CTAButtonFollow, {
+						buttonSurface = p1.buttonSurface
+					})
+
+					return p1.dispatch(GroupsNetworking.JoinGroup.API({
+						groupId = p1.profileId
+					})):andThen(function() -- line: 34
+						-- upvalues: p1 (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy)
+						p1.dispatch(getProfilePlatform.API({
+							profileType = p1.profileType,
+							profileId = p1.profileId,
+							components = getAvailableCommunityComponents(),
+							includeComponentOrdering = true
+						}))
+					end)
+				end
+			}
+		}
+	end,
+	[Enums.ProfileActions.Unfollow] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities then nil else function(p2) -- line: 49
+		-- upvalues: Enums (copy), ProfileTypes (copy), EventNames (copy), GroupsNetworking (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy)
+		return {
+			text = p2.localized[Enums.ProfileActions.Unfollow],
+			onActivated = {
+				[ProfileTypes.Community] = function() -- line: 53
+					-- upvalues: p2 (copy), EventNames (copy), GroupsNetworking (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy)
+					p2.analytics.fireAnalyticsEvent(EventNames.ContextualMenuButtonUnfollow, {
+						buttonSurface = p2.buttonSurface
+					})
+
+					return p2.dispatch(GroupsNetworking.LeaveGroup.API({
+						groupId = p2.profileId,
+						userId = p2.localUserId
+					})):andThen(function() -- line: 63
+						-- upvalues: p2 (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy)
+						p2.dispatch(getProfilePlatform.API({
+							profileType = p2.profileType,
+							profileId = p2.profileId,
+							components = getAvailableCommunityComponents(),
+							includeComponentOrdering = true
+						}))
+					end)
+				end
+			}
+		}
+	end
+}

@@ -1,15 +1,16 @@
 return {
-    NotifPush = "NotifPush", 
-    NotifStream = "NotifStream", 
-    PartyTabBanner = "PartyTabBanner", 
-    PartyChatConversationBottomBanner = "PartyChatConversationBottomBanner", 
-    Unknown = "Unknown", 
-    Homepage = "Homepage", 
-    PartyTab = "PartyTab", 
-    ProfileCompletion = "ProfileCompletion", 
-    PartyChatConversationUA = "PartyChatConversationUA", 
-    PartyChatConversationInExperience = "PartyChatConversationInExperience", 
-    PartyTabInExperience = "PartyTabInExperience", 
-    InExperienceChatInputBar = "InExperienceChatInputBar", 
-    InExperienceVoiceChatIcon = "InExperienceVoiceChatIcon"
-};
+	NotifPush = "NotifPush",
+	NotifStream = "NotifStream",
+	PartyTabBanner = "PartyTabBanner",
+	PartyChatConversationBottomBanner = "PartyChatConversationBottomBanner",
+	Unknown = "Unknown",
+	Homepage = "Homepage",
+	PartyTab = "PartyTab",
+	ProfileCompletion = "ProfileCompletion",
+	ProfileActionBar = "ProfileActionBar",
+	PartyChatConversationUA = "PartyChatConversationUA",
+	PartyChatConversationInExperience = "PartyChatConversationInExperience",
+	PartyTabInExperience = "PartyTabInExperience",
+	InExperienceChatInputBar = "InExperienceChatInputBar",
+	InExperienceVoiceChatIcon = "InExperienceVoiceChatIcon"
+}

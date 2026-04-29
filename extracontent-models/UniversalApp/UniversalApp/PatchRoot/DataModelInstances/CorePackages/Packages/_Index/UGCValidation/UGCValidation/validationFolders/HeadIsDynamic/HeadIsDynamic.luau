@@ -1,63 +1,47 @@
-local l_Parent_0 = script.Parent.Parent.Parent;
-local _ = require(l_Parent_0.util.Types);
-local v2 = require(l_Parent_0.validationSystem.ValidationEnums);
-local v3 = require(l_Parent_0.validationSystem.ErrorSourceStrings);
-local v4 = require(l_Parent_0.flags.getFIntUGCValidationDynamicHeadMinimumQualityPercent);
-local v5 = require(l_Parent_0.flags.getFFlagUGCValidationUpdateHeadIsDynamic);
-local v6 = require(l_Parent_0.flags.getFFlagUGCValidationAddGeometryToExports);
-local v7 = {
-    categories = {
-        v2.UploadCategory.DYNAMIC_HEAD
-    }, 
-    fflag = require(l_Parent_0.flags.getFFlagUGCValidateIsDynamicHead), 
-    shadowFlag = require(l_Parent_0.flags.getFFlagUGCValidationShadowIsDynamicHead), 
-    expectedAqsData = {
-        Measure_Dynamic_Head = {}
-    }, 
-    knownAqsUserErrors = {}
-};
-if v5() then
-    v7.knownAqsUserErrors = {
-        INVALID_LANDMARKS = v3.Keys.DynamicHeadCageMisaligned, 
-        NO_FACS = v3.Keys.DynamicHeadNOFACS, 
-        MISSING_CAGE_INFO = v3.Keys.DynamicHeadMISSINGCAGE
-    };
-else
-    v7.knownAqsUserErrors = {
-        INVALID_LANDMARKS = v3.Keys.DynamicHeadCageMisaligned
-    };
-end;
-local v8 = {
-    left_eye_close = v3.Keys.DynamicHeadLeftEyeNotClose, 
-    right_eye_close = v3.Keys.DynamicHeadRightEyeNotClose, 
-    mouth_open = v3.Keys.DynamicHeadMouthNotOpen, 
-    is_happy = v3.Keys.DynamicHeadHappyNotShown, 
-    is_sad = v3.Keys.DynamicHeadSadNotShown
-};
-v7.run = function(v9, v10) --[[ Line: 41 ]]
-    -- upvalues: v6 (copy), v5 (copy), v3 (copy), v8 (copy), v4 (copy)
-    local v11 = nil;
-    v11 = if v6() then v10.aqsSummaryData.Measure_Dynamic_Head.Head or v10.aqsSummaryData.Measure_Dynamic_Head.Head_Geo else v10.aqsSummaryData.Measure_Dynamic_Head.Head;
-    if v5() then
-        if v11 == nil then
-            v9:fail(v3.Keys.AQSInputDataError);
-            return;
-        else
-            for v12, v13 in v8 do
-                if v11[v12] ~= nil and tonumber(v11[v12]) <= v4() / 100 then
-                    v9:fail(v13);
-                end;
-            end;
-            return;
-        end;
-    else
-        for _, v15 in v11 do
-            if tonumber(v15) < v4() / 100 then
-                v9:fail(v3.Keys.HeadNotDynamic);
-                return;
-            end;
-        end;
-        return;
-    end;
-end;
-return v7;
+local ParentParent = script.Parent.Parent.Parent
+
+require(ParentParent.util.Types)
+
+local ValidationEnums = require(ParentParent.validationSystem.ValidationEnums)
+local ErrorSourceStrings = require(ParentParent.validationSystem.ErrorSourceStrings)
+local getFIntUGCValidationDynamicHeadMinimumQualityPercent = require(ParentParent.flags.getFIntUGCValidationDynamicHeadMinimumQualityPercent)
+local getFFlagUGCValidationAddGeometryToExports = require(ParentParent.flags.getFFlagUGCValidationAddGeometryToExports)
+local t1 = {
+	categories = { ValidationEnums.UploadCategory.DYNAMIC_HEAD },
+	fflag = require(ParentParent.flags.getFFlagUGCValidateIsDynamicHead),
+	shadowFlag = require(ParentParent.flags.getFFlagUGCValidationShadowIsDynamicHead),
+	expectedAqsData = {
+		Measure_Dynamic_Head = {}
+	},
+	knownAqsUserErrors = {
+		INVALID_LANDMARKS = ErrorSourceStrings.Keys.DynamicHeadCageMisaligned,
+		NO_FACS = ErrorSourceStrings.Keys.DynamicHeadNOFACS,
+		MISSING_CAGE_INFO = ErrorSourceStrings.Keys.DynamicHeadMISSINGCAGE
+	}
+}
+local t2 = {
+	left_eye_close = ErrorSourceStrings.Keys.DynamicHeadLeftEyeNotClose,
+	right_eye_close = ErrorSourceStrings.Keys.DynamicHeadRightEyeNotClose,
+	mouth_open = ErrorSourceStrings.Keys.DynamicHeadMouthNotOpen,
+	is_happy = ErrorSourceStrings.Keys.DynamicHeadHappyNotShown,
+	is_sad = ErrorSourceStrings.Keys.DynamicHeadSadNotShown
+}
+
+function t1.run(p1, p2) -- line: 33
+	-- upvalues: getFFlagUGCValidationAddGeometryToExports (copy), ErrorSourceStrings (copy), t2 (copy), getFIntUGCValidationDynamicHeadMinimumQualityPercent (copy)
+	local v10 = if not getFFlagUGCValidationAddGeometryToExports() then p2.aqsSummaryData.Measure_Dynamic_Head.Head else p2.aqsSummaryData.Measure_Dynamic_Head.Head or p2.aqsSummaryData.Measure_Dynamic_Head.Head_Geo
+
+	if v10 == nil then
+		p1:fail(ErrorSourceStrings.Keys.AQSInputDataError)
+
+		return
+	end
+
+	for v11, v12 in t2 do
+		if v10[v11] ~= nil and tonumber(v10[v11]) <= getFIntUGCValidationDynamicHeadMinimumQualityPercent() / 100 then
+			p1:fail(v12)
+		end
+	end
+end
+
+return t1

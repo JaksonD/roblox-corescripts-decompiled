@@ -1,187 +1,188 @@
-local l_Parent_0 = script.Parent.Parent;
-local l_Parent_1 = l_Parent_0.Parent;
-local l_TelemetryService_0 = require(l_Parent_1.MockableProxyServices).TelemetryService;
-local _ = require(l_Parent_0.Enum.Placement);
-local v4 = {
-    "addOSInfo", 
-    "addSessionId", 
-    "addSessionInfo"
-};
-local v5 = {
-    eventName = "AppNav_SwitchTab", 
-    backends = {
-        "RobloxTelemetryStat"
-    }, 
-    throttlingPercentage = 10000, 
-    lastUpdated = {
-        2026, 
-        3, 
-        12
-    }, 
-    description = "App Nav switch tab", 
-    links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
-};
-local v6 = {
-    eventName = "AppNav_SwitchTab", 
-    backends = {
-        "EventIngest"
-    }, 
-    throttlingPercentage = 10000, 
-    lastUpdated = {
-        2026, 
-        3, 
-        12
-    }, 
-    description = "App Nav switch tab", 
-    links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
-};
-local v7 = {
-    eventName = "AppNav_IsVisibleChanged", 
-    backends = {
-        "RobloxTelemetryStat"
-    }, 
-    throttlingPercentage = 10000, 
-    lastUpdated = {
-        26, 
-        3, 
-        17
-    }, 
-    description = "App Nav isVisible prop changed", 
-    links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
-};
-local v8 = {
-    eventName = "AppNav_IsVisibleChanged", 
-    backends = {
-        "EventIngest"
-    }, 
-    throttlingPercentage = 10000, 
-    lastUpdated = {
-        26, 
-        3, 
-        17
-    }, 
-    description = "App Nav isVisible prop changed", 
-    links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
-};
-local v9 = {
-    eventName = "AppNav_PlacementChanged", 
-    backends = {
-        "RobloxTelemetryCounter"
-    }, 
-    throttlingPercentage = 10000, 
-    lastUpdated = {
-        26, 
-        3, 
-        17
-    }, 
-    description = "App Nav placement prop changed", 
-    links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
-};
-local v10 = nil;
-local function v13(v11, v12) --[[ Line: 69 ]] --[[ Name: logSwitchTabStart ]]
-    -- upvalues: v10 (ref)
-    v10 = {
-        previousPage = v11, 
-        nextPage = v12, 
-        startTime = os.clock()
-    };
-end;
-local function v17(v14, v15, v16) --[[ Line: 77 ]] --[[ Name: reportSwitchTab ]]
-    -- upvalues: l_TelemetryService_0 (copy), v5 (copy), v6 (copy), v4 (copy)
-    l_TelemetryService_0:LogStat(v5, {
-        customFields = {
-            previous_page = v14, 
-            current_page = v15
-        }
-    }, v16);
-    l_TelemetryService_0:LogEvent(v6, {
-        customFields = {
-            previous_page = v14, 
-            current_page = v15, 
-            duration = v16
-        }, 
-        standardizedFields = v4
-    });
-end;
-local function v21(v18) --[[ Line: 94 ]] --[[ Name: logSwitchTabEnd ]]
-    -- upvalues: v10 (ref), v17 (copy)
-    if not v10 then
-        return;
-    elseif v18 ~= v10.nextPage then
-        v10 = nil;
-        return;
-    else
-        local l_previousPage_0 = v10.previousPage;
-        local v20 = (os.clock() - v10.startTime) * 1000;
-        v10 = nil;
-        v17(l_previousPage_0, v18, v20);
-        return;
-    end;
-end;
-local v22 = nil;
-local function v24(v23) --[[ Line: 113 ]] --[[ Name: logVisibilityStart ]]
-    -- upvalues: v22 (ref)
-    v22 = {
-        nextValue = v23, 
-        startTime = os.clock()
-    };
-end;
-local function v27(v25, v26) --[[ Line: 120 ]] --[[ Name: reportVisibility ]]
-    -- upvalues: l_TelemetryService_0 (copy), v7 (copy), v8 (copy), v4 (copy)
-    l_TelemetryService_0:LogStat(v7, {
-        customFields = {
-            is_visible = v25
-        }
-    }, v26);
-    l_TelemetryService_0:LogEvent(v8, {
-        customFields = {
-            is_visible = v25, 
-            duration = v26
-        }, 
-        standardizedFields = v4
-    });
-end;
-local function v30(v28) --[[ Line: 135 ]] --[[ Name: logVisibilityEnd ]]
-    -- upvalues: v22 (ref), v27 (copy)
-    if not v22 then
-        return;
-    elseif v28 ~= v22.nextValue then
-        v22 = nil;
-        return;
-    else
-        local v29 = (os.clock() - v22.startTime) * 1000;
-        v22 = nil;
-        v27(v28, v29);
-        return;
-    end;
-end;
-local v31 = nil;
-local function v33(v32) --[[ Line: 153 ]] --[[ Name: logPlacement ]]
-    -- upvalues: v31 (ref), l_TelemetryService_0 (copy), v9 (copy)
-    if v32 == v31 then
-        return;
-    else
-        l_TelemetryService_0:LogCounter(v9, {
-            customFields = {
-                previous_placement = v31, 
-                current_placement = v32
-            }
-        });
-        v31 = v32;
-        return;
-    end;
-end;
-local function v34() --[[ Line: 168 ]] --[[ Name: reset ]]
-    -- upvalues: v10 (ref), v22 (ref), v31 (ref)
-    v10 = nil;
-    v22 = nil;
-    v31 = nil;
-end;
+local ParentParent = script.Parent.Parent
+local ParentParentParent = ParentParent.Parent
+local TelemetryService = require(ParentParentParent.MockableProxyServices).TelemetryService
+
+require(ParentParent.Enum.Placement)
+
+local DeviceTier = require(ParentParentParent.Devices).DeviceTier
+local v5 = game:DefineFastFlag("AppNavDeviceTier", false)
+local t1 = {
+	"addOSInfo",
+	"addSessionId",
+	"addSessionInfo"
+}
+local v7 = if not v5 then nil else DeviceTier.GetDeviceMemoryTier()
+local t2 = {
+	eventName = "AppNav_SwitchTab",
+	backends = { "RobloxTelemetryStat" },
+	throttlingPercentage = 10000,
+	lastUpdated = {
+		2026,
+		3,
+		12
+	},
+	description = "App Nav switch tab",
+	links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
+}
+local t3 = {
+	eventName = "AppNav_SwitchTab",
+	backends = { "EventIngest" },
+	throttlingPercentage = 10000,
+	lastUpdated = {
+		2026,
+		3,
+		12
+	},
+	description = "App Nav switch tab",
+	links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
+}
+local t4 = {
+	eventName = "AppNav_IsVisibleChanged",
+	backends = { "RobloxTelemetryStat" },
+	throttlingPercentage = 10000,
+	lastUpdated = {
+		26,
+		3,
+		17
+	},
+	description = "App Nav isVisible prop changed",
+	links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
+}
+local t5 = {
+	eventName = "AppNav_IsVisibleChanged",
+	backends = { "EventIngest" },
+	throttlingPercentage = 10000,
+	lastUpdated = {
+		26,
+		3,
+		17
+	},
+	description = "App Nav isVisible prop changed",
+	links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
+}
+local t6 = {
+	eventName = "AppNav_PlacementChanged",
+	backends = { "RobloxTelemetryCounter" },
+	throttlingPercentage = 10000,
+	lastUpdated = {
+		26,
+		3,
+		17
+	},
+	description = "App Nav placement prop changed",
+	links = "https://roblox.atlassian.net/wiki/x/1ACaAQE"
+}
+local t7 = nil
+
+local function reportSwitchTab(s1: string, s2: string, n1: number) -- line: 82
+	-- upvalues: TelemetryService (copy), t2 (copy), v5 (copy), v7 (copy), t3 (copy), t1 (copy)
+	TelemetryService:LogStat(t2, {
+		customFields = {
+			previous_page = s1,
+			current_page = s2,
+			device_tier = if not v5 then nil else v7
+		}
+	}, n1)
+	TelemetryService:LogEvent(t3, {
+		customFields = {
+			previous_page = s1,
+			current_page = s2,
+			duration = n1
+		},
+		standardizedFields = t1
+	})
+end
+
+local t8 = nil
+
+local function reportVisibility(b1: boolean, n2: number) -- line: 126
+	-- upvalues: TelemetryService (copy), t4 (copy), v5 (copy), v7 (copy), t5 (copy), t1 (copy)
+	TelemetryService:LogStat(t4, {
+		customFields = {
+			is_visible = b1,
+			device_tier = if not v5 then nil else v7
+		}
+	}, n2)
+	TelemetryService:LogEvent(t5, {
+		customFields = {
+			is_visible = b1,
+			duration = n2
+		},
+		standardizedFields = t1
+	})
+end
+
+local u17 = nil
+
 return {
-    logSwitchTabStart = v13, 
-    logSwitchTabEnd = v21, 
-    logVisibilityStart = v24, 
-    logVisibilityEnd = v30, 
-    logPlacement = v33, 
-    reset = v34
-};
+	logSwitchTabStart = function(s3: string, s4: string) --[[ logSwitchTabStart ]] -- line: 74
+		-- upvalues: t7 (ref)
+		t7 = {
+			previousPage = s3,
+			nextPage = s4,
+			startTime = os.clock()
+		}
+	end,
+	logSwitchTabEnd = function(s5: string) --[[ logSwitchTabEnd ]] -- line: 100
+		-- upvalues: t7 (ref), reportSwitchTab (copy)
+		if not t7 then
+			return
+		end
+
+		if s5 ~= t7.nextPage then
+			t7 = nil
+
+			return
+		end
+
+		local previousPage = t7.previousPage
+		local v25 = (os.clock() - t7.startTime) * 1000
+
+		t7 = nil
+		reportSwitchTab(previousPage, s5, v25)
+	end,
+	logVisibilityStart = function(b2: boolean) --[[ logVisibilityStart ]] -- line: 119
+		-- upvalues: t8 (ref)
+		t8 = {
+			nextValue = b2,
+			startTime = os.clock()
+		}
+	end,
+	logVisibilityEnd = function(b3: boolean) --[[ logVisibilityEnd ]] -- line: 142
+		-- upvalues: t8 (ref), reportVisibility (copy)
+		if not t8 then
+			return
+		end
+
+		if b3 ~= t8.nextValue then
+			t8 = nil
+
+			return
+		end
+
+		local v30 = (os.clock() - t8.startTime) * 1000
+
+		t8 = nil
+		reportVisibility(b3, v30)
+	end,
+	logPlacement = function(p1) --[[ logPlacement ]] -- line: 160
+		-- upvalues: u17 (ref), TelemetryService (copy), t6 (copy)
+		if p1 == u17 then
+			return
+		end
+
+		TelemetryService:LogCounter(t6, {
+			customFields = {
+				previous_placement = u17,
+				current_placement = p1
+			}
+		})
+		u17 = p1
+	end,
+	reset = function() --[[ reset ]] -- line: 175
+		-- upvalues: t7 (ref), t8 (ref), u17 (ref)
+		t7 = nil
+		t8 = nil
+		u17 = nil
+	end
+}

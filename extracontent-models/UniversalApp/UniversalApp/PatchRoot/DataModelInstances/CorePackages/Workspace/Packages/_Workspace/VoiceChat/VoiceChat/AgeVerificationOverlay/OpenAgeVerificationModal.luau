@@ -1,14 +1,16 @@
-local l_Parent_0 = script:FindFirstAncestor("VoiceChat").Parent;
-local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local l_NavigateDown_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateDown;
-return function(v3) --[[ Line: 6 ]]
-    -- upvalues: l_AppPage_0 (copy), l_NavigateDown_0 (copy)
-    return function(v4) --[[ Line: 7 ]]
-        -- upvalues: l_AppPage_0 (ref), v3 (copy), l_NavigateDown_0 (ref)
-        local v5 = {
-            name = l_AppPage_0.AgeVerificationRequired, 
-            detail = v3
-        };
-        v4:dispatch(l_NavigateDown_0(v5));
-    end;
-end;
+local Parent = script:FindFirstAncestor("VoiceChat").Parent
+local AppPage = require(Parent.RobloxAppEnums).AppPage
+local NavigateDown = require(Parent.NavigationRodux).Thunks.NavigateDown
+
+return function(s1: string) -- line: 10
+	-- upvalues: AppPage (copy), NavigateDown (copy)
+	return function(p1) -- line: 11
+		-- upvalues: AppPage (copy), s1 (copy), NavigateDown (copy)
+		local t1 = {
+			name = AppPage.AgeVerificationRequired,
+			detail = s1
+		}
+
+		p1:dispatch(NavigateDown(t1))
+	end
+end

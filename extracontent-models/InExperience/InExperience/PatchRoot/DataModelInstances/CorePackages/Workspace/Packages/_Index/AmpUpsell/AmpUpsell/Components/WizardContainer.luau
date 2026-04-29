@@ -1,343 +1,385 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AmpUpsell");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
-local v4 = require(l_script_FirstAncestor_0.Common.Enums);
-local l_ActionTypeEnum_0 = v4.ActionTypeEnum;
-local l_ActionStatusEnum_0 = v4.ActionStatusEnum;
-local l_AccessResponseEnum_0 = v4.AccessResponseEnum;
-local l_UserSettingsSettingNameEnum_0 = v4.UserSettingsSettingNameEnum;
-local _ = require(l_script_FirstAncestor_0.Common.Types);
-local l_accountSettingsUpsellStringsFn_0 = require(l_script_FirstAncestor_0.Common.LocalizationStrings).accountSettingsUpsellStringsFn;
-local l_LoadingSpinner_0 = require(l_Parent_0.UIBlox).App.Loading.LoadingSpinner;
-local v12 = require(l_Parent_0.Cryo);
-local v13 = require(l_script_FirstAncestor_0.Analytics.AnalyticsService);
-local v14 = require(l_script_FirstAncestor_0.Analytics.sendModalActionEvent);
-local v15 = require(l_script_FirstAncestor_0.Common.AmpApiProvider);
-local v16 = require(l_script_FirstAncestor_0.Common.AppScreens);
-local v17 = require(l_script_FirstAncestor_0.Components.ErrorScreen);
-local l_useApolloClient_0 = require(l_Parent_0.ApolloClient).useApolloClient;
-local v19 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableAmpUpsellGql);
-local v20 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableAmpEmailUpsellSupport);
-local v21 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableAmpIDVUpsellSupport);
-local v22 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableAmpSubscriptionUpsell);
-local l_logEventOnceIfEnabled_0 = require(l_script_FirstAncestor_0.Common.LoggingUtils).logEventOnceIfEnabled;
-local function v28(v24) --[[ Line: 54 ]] --[[ Name: getSuccessfulActions ]]
-    -- upvalues: l_ActionStatusEnum_0 (copy)
-    local v25 = {};
-    for v26, v27 in pairs(v24) do
-        if v27 == l_ActionStatusEnum_0.Success then
-            table.insert(v25, v26);
-        end;
-    end;
-    return v25;
-end;
-return function(v29) --[[ Line: 64 ]] --[[ Name: WizardContainer ]]
-    -- upvalues: l_useNavigation_0 (copy), v15 (copy), v13 (copy), v2 (copy), l_useApolloClient_0 (copy), l_ActionTypeEnum_0 (copy), v16 (copy), v12 (copy), l_ActionStatusEnum_0 (copy), l_AccessResponseEnum_0 (copy), v20 (copy), v21 (copy), l_logEventOnceIfEnabled_0 (copy), v22 (copy), l_UserSettingsSettingNameEnum_0 (copy), l_accountSettingsUpsellStringsFn_0 (copy), v19 (copy), v28 (copy), v14 (copy), v17 (copy), l_LoadingSpinner_0 (copy)
-    local v30 = l_useNavigation_0();
-    local l_featureName_0 = v29.featureName;
-    local l_nameSpace_0 = v29.nameSpace;
-    local l_recourseData_0 = v29.recourseData;
-    local l_extraParameters_0 = v29.extraParameters;
-    local l_entryPointEventCtx_0 = v29.entryPointEventCtx;
-    local l_openUpsells_0 = v29.openUpsells;
-    local l_completionCallback_0 = v29.completionCallback;
-    local l_metadata_0 = v29.metadata;
-    local v39 = if v29.ampApiProvider then v29.ampApiProvider else v15;
-    local v40 = if v29.analyticsService then v29.analyticsService else v13.EventStream;
-    local v41 = if v29.openAccountSettingsUpsell then v29.openAccountSettingsUpsell else v30.push;
-    local v42, v43 = v2.useState({});
-    local v44, v45 = v2.useState(false);
-    local v46 = l_useApolloClient_0();
-    local v52 = v2.useCallback(function(_, v48) --[[ Line: 85 ]]
-        -- upvalues: l_ActionTypeEnum_0 (ref), v16 (ref), v43 (copy), v12 (ref), v42 (copy), l_ActionStatusEnum_0 (ref), l_completionCallback_0 (copy), l_AccessResponseEnum_0 (ref), v20 (ref), v21 (ref), l_featureName_0 (copy), l_recourseData_0 (copy), l_entryPointEventCtx_0 (copy), v30 (copy), l_metadata_0 (copy), v29 (copy), l_logEventOnceIfEnabled_0 (ref), v22 (ref)
-        local l_action_0 = v48.action;
-        if l_action_0 == l_ActionTypeEnum_0.Phone then
-            return {
-                eventContext = "AmpUpsell", 
-                origin = v16.AmpWizardContainer, 
-                onSuccess = function() --[[ Line: 91 ]] --[[ Name: onSuccess ]]
-                    -- upvalues: v43 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    v43(v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Phone] = l_ActionStatusEnum_0.Success
-                    }));
-                end, 
-                onFailure = function() --[[ Line: 96 ]] --[[ Name: onFailure ]]
-                    -- upvalues: l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Phone] = l_ActionStatusEnum_0.Failure
-                    }));
-                end, 
-                onCancelled = function() --[[ Line: 102 ]] --[[ Name: onCancelled ]]
-                    -- upvalues: l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Phone] = l_ActionStatusEnum_0.Cancelled
-                    }));
-                end
-            };
-        elseif v20() and l_action_0 == l_ActionTypeEnum_0.AddedEmail then
-            return {
-                eventContext = "AmpUpsell", 
-                closeOnEmailUpdate = true, 
-                addEmailOver13TextKey = "Feature.VerificationUpsell.Description.IDVerificationAddEmailText", 
-                addEmailUnder13TextKey = "Feature.VerificationUpsell.Description.IDVerificationAddEmailText", 
-                addEmailTitleKey = "Feature.VerificationUpsell.Heading.AddEmail", 
-                successCallback = function(_) --[[ Line: 116 ]] --[[ Name: successCallback ]]
-                    -- upvalues: v43 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    v43(v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Email] = l_ActionStatusEnum_0.Success
-                    }));
-                end, 
-                failureCallback = function() --[[ Line: 121 ]] --[[ Name: failureCallback ]]
-                    -- upvalues: l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Phone] = l_ActionStatusEnum_0.Failure
-                    }));
-                end, 
-                closeCentralOverlay = function() --[[ Line: 127 ]] --[[ Name: closeCentralOverlay ]]
+local AmpUpsell = script:FindFirstAncestor("AmpUpsell")
+local AmpUpsellParent = AmpUpsell.Parent
+local React = require(AmpUpsellParent.React)
+local useNavigation = require(AmpUpsellParent.Navigation).useNavigation
+local Enums = require(AmpUpsell.Common.Enums)
+local ActionTypeEnum = Enums.ActionTypeEnum
+local ActionStatusEnum = Enums.ActionStatusEnum
+local AccessResponseEnum = Enums.AccessResponseEnum
+local UserSettingsSettingNameEnum = Enums.UserSettingsSettingNameEnum
 
-                end
-            };
-        elseif v21() and l_action_0 == l_ActionTypeEnum_0.GovernmentId then
-            return {
-                featureName = l_featureName_0, 
-                onSuccess = function() --[[ Line: 132 ]] --[[ Name: onSuccess ]]
-                    -- upvalues: v43 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    v43(v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.GovernmentId] = l_ActionStatusEnum_0.Success
-                    }));
-                end, 
-                onFailure = function() --[[ Line: 140 ]] --[[ Name: onFailure ]]
-                    -- upvalues: l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.GovernmentId] = l_ActionStatusEnum_0.Failure
-                    }));
-                end, 
-                onCancelled = function() --[[ Line: 149 ]] --[[ Name: onCancelled ]]
-                    -- upvalues: l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.GovernmentId] = l_ActionStatusEnum_0.Cancelled
-                    }));
-                end
-            };
-        elseif l_action_0 == l_ActionTypeEnum_0.ParentConsent or l_action_0 == l_ActionTypeEnum_0.ParentLink then
-            return {
-                recourseAction = v48.action, 
-                parentConsentTypes = v48.parentConsentTypes, 
-                recourseData = l_recourseData_0, 
-                entryPointEventCtx = l_entryPointEventCtx_0, 
-                onCancel = function() --[[ Line: 166 ]] --[[ Name: onCancel ]]
-                    -- upvalues: l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_action_0 (copy), l_ActionStatusEnum_0 (ref)
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_action_0] = l_ActionStatusEnum_0.Cancelled
-                    }));
-                end, 
-                onSuccess = function() --[[ Line: 172 ]] --[[ Name: onSuccess ]]
-                    -- upvalues: l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_action_0 (copy), l_ActionStatusEnum_0 (ref)
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_action_0] = l_ActionStatusEnum_0.Success
-                    }));
-                end, 
-                onRetryAmp = function() --[[ Line: 178 ]] --[[ Name: onRetryAmp ]]
-                    -- upvalues: v30 (ref), v43 (ref), v12 (ref), v42 (ref), l_action_0 (copy), l_ActionStatusEnum_0 (ref)
-                    v30.pop();
-                    v43(v12.Dictionary.join(v42, {
-                        [l_action_0] = l_ActionStatusEnum_0.RetryRequested
-                    }));
-                end
-            };
-        elseif l_action_0 == l_ActionTypeEnum_0.AgeEstimation then
-            return {
-                featureName = l_featureName_0, 
-                entryPointEventCtx = l_entryPointEventCtx_0, 
-                metadata = l_metadata_0, 
-                skipFacialAgeEstimationWebLinkModal = v29.skipFacialAgeEstimationWebLinkModal, 
-                onSuccess = function() --[[ Line: 191 ]] --[[ Name: onSuccess ]]
-                    -- upvalues: l_logEventOnceIfEnabled_0 (ref), v30 (ref), l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_logEventOnceIfEnabled_0("complete_flow_with_success");
-                    v30.pop();
-                    l_completionCallback_0(l_AccessResponseEnum_0.Granted, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.AgeEstimation] = l_ActionStatusEnum_0.Success
-                    }));
-                end, 
-                onFailure = function() --[[ Line: 202 ]] --[[ Name: onFailure ]]
-                    -- upvalues: l_logEventOnceIfEnabled_0 (ref), v30 (ref), l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_logEventOnceIfEnabled_0("complete_flow_with_error");
-                    v30.pop();
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.AgeEstimation] = l_ActionStatusEnum_0.Failure
-                    }));
-                end, 
-                onCancel = function() --[[ Line: 213 ]] --[[ Name: onCancel ]]
-                    -- upvalues: l_logEventOnceIfEnabled_0 (ref), v30 (ref), l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    l_logEventOnceIfEnabled_0("complete_flow_with_cancel");
-                    v30.pop();
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.AgeEstimation] = l_ActionStatusEnum_0.Cancelled
-                    }));
-                end, 
-                onRetry = function() --[[ Line: 224 ]] --[[ Name: onRetry ]]
-                    -- upvalues: v30 (ref), v43 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    v30.pop();
-                    v43(v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.AgeEstimation] = l_ActionStatusEnum_0.RetryRequested
-                    }));
-                end
-            };
-        elseif v22() and l_action_0 == l_ActionTypeEnum_0.Subscription then
-            local l_l_recourseData_0_0 = l_recourseData_0;
-            return {
-                purchaseUIOptions = l_l_recourseData_0_0 and l_l_recourseData_0_0.purchaseUIOptions, 
-                surfaceName = l_l_recourseData_0_0 and l_l_recourseData_0_0.surfaceName, 
-                surfaceContext = l_l_recourseData_0_0 and l_l_recourseData_0_0.surfaceContext, 
-                analyticsContext = l_l_recourseData_0_0 and l_l_recourseData_0_0.analyticsContext, 
-                onSuccess = function() --[[ Line: 241 ]] --[[ Name: onSuccess ]]
-                    -- upvalues: v30 (ref), l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    v30.pop();
-                    l_completionCallback_0(l_AccessResponseEnum_0.Granted, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Subscription] = l_ActionStatusEnum_0.Success
-                    }));
-                end, 
-                onFailure = function() --[[ Line: 251 ]] --[[ Name: onFailure ]]
-                    -- upvalues: v30 (ref), l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    v30.pop();
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Subscription] = l_ActionStatusEnum_0.Failure
-                    }));
-                end, 
-                onCancel = function() --[[ Line: 261 ]] --[[ Name: onCancel ]]
-                    -- upvalues: v30 (ref), l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_ActionTypeEnum_0 (ref), l_ActionStatusEnum_0 (ref)
-                    v30.pop();
-                    l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                        [l_ActionTypeEnum_0.Subscription] = l_ActionStatusEnum_0.Cancelled
-                    }));
-                end
-            };
-        else
-            return {};
-        end;
-    end, {
-        v42
-    });
-    local v56 = v2.useCallback(function(v53) --[[ Line: 282 ]]
-        -- upvalues: l_ActionTypeEnum_0 (ref), l_UserSettingsSettingNameEnum_0 (ref), l_openUpsells_0 (copy)
-        local l_action_1 = v53.action;
-        if l_action_1 == l_ActionTypeEnum_0.UserSettings then
-            local l_userSettings_0 = v53.userSettings;
-            if l_userSettings_0 and l_userSettings_0.settingName == l_UserSettingsSettingNameEnum_0.AllowFacialAgeEstimation then
-                return nil;
-            end;
-        end;
-        return l_openUpsells_0[l_action_1];
-    end, {
-        l_openUpsells_0
-    });
-    local v63 = v2.useCallback(function(_, v58) --[[ Line: 296 ]]
-        -- upvalues: v45 (copy), v56 (copy), v52 (copy), l_ActionTypeEnum_0 (ref), l_completionCallback_0 (copy), l_AccessResponseEnum_0 (ref), v42 (copy), l_accountSettingsUpsellStringsFn_0 (ref), v41 (copy), l_featureName_0 (copy), v30 (copy), v12 (ref), l_ActionStatusEnum_0 (ref)
-        if v58 == nil or #v58 == 0 then
-            v45(true);
-            return;
-        else
-            local v59 = v58[1];
-            local l_action_2 = v59.action;
-            local v61 = v56(v59);
-            if v61 ~= nil then
-                v61((v52(l_action_2, v59)));
-                return;
-            elseif l_action_2 == l_ActionTypeEnum_0.Subscription then
-                l_completionCallback_0(l_AccessResponseEnum_0.Denied, v42);
-                return;
-            else
-                local v62 = l_accountSettingsUpsellStringsFn_0(v59);
-                if not v62 then
-                    l_completionCallback_0(l_AccessResponseEnum_0.Error, v42);
-                    return;
-                else
-                    v41({
-                        featureName = l_featureName_0, 
-                        localizationStrings = v62, 
-                        onCloseModal = function() --[[ Line: 325 ]] --[[ Name: onCloseModal ]]
-                            -- upvalues: v30 (ref), l_completionCallback_0 (ref), l_AccessResponseEnum_0 (ref), v12 (ref), v42 (ref), l_action_2 (copy), l_ActionStatusEnum_0 (ref)
-                            v30.pop();
-                            l_completionCallback_0(l_AccessResponseEnum_0.Denied, v12.Dictionary.join(v42, {
-                                [l_action_2] = l_ActionStatusEnum_0.Cancelled
-                            }));
-                        end
-                    });
-                    return;
-                end;
-            end;
-        end;
-    end, {
-        v42, 
-        l_completionCallback_0, 
-        l_featureName_0, 
-        v52, 
-        v30.pop, 
-        v41, 
-        v56
-    });
-    local v67 = v2.useCallback(function(v64, v65) --[[ Line: 343 ]]
-        -- upvalues: v45 (copy), l_logEventOnceIfEnabled_0 (ref), v19 (ref), v39 (copy), v46 (copy), v28 (ref), v42 (copy), l_extraParameters_0 (copy), l_AccessResponseEnum_0 (ref), v63 (copy), l_completionCallback_0 (copy)
-        v45(false);
-        l_logEventOnceIfEnabled_0("amp_feature_access_init");
-        local v66 = if v19() then v39.upsellFeatureAccessGql(v46, v64, v28(v42), v65, l_extraParameters_0) else v39.upsellFeatureAccess(v64, v28(v42), v65, l_extraParameters_0);
-        if v66.access == l_AccessResponseEnum_0.Error then
-            v45(true);
-            return;
-        elseif v66.access == l_AccessResponseEnum_0.Actionable then
-            l_logEventOnceIfEnabled_0("amp_feature_access_actionable");
-            v63(v66.recourse, v66.recourses);
-            return;
-        elseif v66.access == l_AccessResponseEnum_0.Granted then
-            l_logEventOnceIfEnabled_0("amp_feature_access_granted");
-            l_completionCallback_0(l_AccessResponseEnum_0.Granted, v42);
-            return;
-        elseif v66.access == l_AccessResponseEnum_0.Denied then
-            l_logEventOnceIfEnabled_0("amp_feature_access_denied");
-            l_completionCallback_0(l_AccessResponseEnum_0.Denied, v42);
-            return;
-        else
-            l_completionCallback_0(l_AccessResponseEnum_0.Pending, v42);
-            return;
-        end;
-    end, {
-        v39, 
-        l_extraParameters_0
-    });
-    v2.useEffect(function() --[[ Line: 376 ]]
-        -- upvalues: v14 (ref), v40 (copy), v16 (ref), l_featureName_0 (copy)
-        v14(v40, v16.AmpWizardContainer, l_featureName_0, "Shown");
-    end, {
-        v40
-    });
-    v2.useEffect(function() --[[ Line: 380 ]]
-        -- upvalues: v67 (copy), l_featureName_0 (copy), l_nameSpace_0 (copy)
-        v67(l_featureName_0, l_nameSpace_0);
-    end, {
-        v42, 
-        l_featureName_0, 
-        l_completionCallback_0, 
-        l_nameSpace_0
-    });
-    if v44 then
-        return v2.createElement(v17, {
-            featureName = l_featureName_0, 
-            onRetry = function() --[[ Line: 387 ]] --[[ Name: onRetry ]]
-                -- upvalues: v45 (copy), v67 (copy), l_featureName_0 (copy)
-                v45(false);
-                v67(l_featureName_0);
-            end, 
-            onCancel = function() --[[ Line: 391 ]] --[[ Name: onCancel ]]
-                -- upvalues: l_completionCallback_0 (copy), l_AccessResponseEnum_0 (ref), v42 (copy)
-                l_completionCallback_0(l_AccessResponseEnum_0.Denied, v42);
-            end
-        });
-    else
-        return v2.createElement(l_LoadingSpinner_0, {
-            size = UDim2.fromOffset(42, 42), 
-            position = UDim2.fromScale(0.5, 0.5), 
-            anchorPoint = Vector2.new(0.5, 0.5)
-        });
-    end;
-end;
+require(AmpUpsell.Common.Types)
+
+local accountSettingsUpsellStringsFn = require(AmpUpsell.Common.LocalizationStrings).accountSettingsUpsellStringsFn
+local LoadingSpinner = require(AmpUpsellParent.UIBlox).App.Loading.LoadingSpinner
+local Cryo = require(AmpUpsellParent.Cryo)
+local AnalyticsService = require(AmpUpsell.Analytics.AnalyticsService)
+local sendModalActionEvent = require(AmpUpsell.Analytics.sendModalActionEvent)
+local AmpApiProvider = require(AmpUpsell.Common.AmpApiProvider)
+local AppScreens = require(AmpUpsell.Common.AppScreens)
+local ErrorScreen = require(AmpUpsell.Components.ErrorScreen)
+local useCompletionCallbackWithReturnPage = require(AmpUpsell.Common.useCompletionCallbackWithReturnPage)
+local useApolloClient = require(AmpUpsellParent.ApolloClient).useApolloClient
+local FFlagEnableAmpWizardDeepLink = require(AmpUpsellParent.SharedFlags).FFlagEnableAmpWizardDeepLink
+local GetFFlagEnableAmpUpsellGql = require(AmpUpsell.Flags.GetFFlagEnableAmpUpsellGql)
+local GetFFlagEnableAmpEmailUpsellSupport = require(AmpUpsell.Flags.GetFFlagEnableAmpEmailUpsellSupport)
+local GetFFlagEnableAmpIDVUpsellSupport = require(AmpUpsell.Flags.GetFFlagEnableAmpIDVUpsellSupport)
+local GetFFlagEnableAmpSubscriptionUpsell = require(AmpUpsell.Flags.GetFFlagEnableAmpSubscriptionUpsell)
+local logEventOnceIfEnabled = require(AmpUpsell.Common.LoggingUtils).logEventOnceIfEnabled
+
+local function getSuccessfulActions(t1: {[any]: any}) -- line: 56
+	-- upvalues: ActionStatusEnum (copy)
+	local t2 = {}
+
+	for k, v in pairs(t1) do
+		if v == ActionStatusEnum.Success then
+			table.insert(t2, k)
+		end
+	end
+
+	return t2
+end
+
+return function(t3: {[any]: any}) --[[ WizardContainer ]] -- line: 66
+	-- upvalues: useNavigation (copy), AmpApiProvider (copy), AnalyticsService (copy), React (copy), useApolloClient (copy), useCompletionCallbackWithReturnPage (copy), FFlagEnableAmpWizardDeepLink (copy), ActionTypeEnum (copy), AppScreens (copy), Cryo (copy), ActionStatusEnum (copy), AccessResponseEnum (copy), GetFFlagEnableAmpEmailUpsellSupport (copy), GetFFlagEnableAmpIDVUpsellSupport (copy), logEventOnceIfEnabled (copy), GetFFlagEnableAmpSubscriptionUpsell (copy), UserSettingsSettingNameEnum (copy), accountSettingsUpsellStringsFn (copy), GetFFlagEnableAmpUpsellGql (copy), getSuccessfulActions (copy), sendModalActionEvent (copy), ErrorScreen (copy), LoadingSpinner (copy)
+	local v32 = useNavigation()
+	local featureName = t3.featureName
+	local nameSpace = t3.nameSpace
+	local recourseData = t3.recourseData
+	local extraParameters = t3.extraParameters
+	local entryPointEventCtx = t3.entryPointEventCtx
+	local openUpsells = t3.openUpsells
+	local completionCallback = t3.completionCallback
+	local metadata = t3.metadata
+	local v41 = if not t3.ampApiProvider then AmpApiProvider else t3.ampApiProvider
+	local v42 = if not t3.analyticsService then AnalyticsService.EventStream else t3.analyticsService
+	local v43 = if not t3.openAccountSettingsUpsell then v32.push else t3.openAccountSettingsUpsell
+	local v44, v45 = React.useState({})
+	local v46, v47 = React.useState(false)
+	local v48 = useApolloClient()
+	local v49 = useCompletionCallbackWithReturnPage(v32, completionCallback, metadata)
+	local v50 = if not FFlagEnableAmpWizardDeepLink then completionCallback else v49
+	local v51 = React.useCallback(function(_, p2) -- line: 93
+		-- upvalues: ActionTypeEnum (copy), AppScreens (copy), v45 (copy), Cryo (copy), v44 (copy), ActionStatusEnum (copy), v50 (copy), AccessResponseEnum (copy), GetFFlagEnableAmpEmailUpsellSupport (copy), GetFFlagEnableAmpIDVUpsellSupport (copy), featureName (copy), recourseData (copy), entryPointEventCtx (copy), v32 (copy), metadata (copy), t3 (copy), logEventOnceIfEnabled (copy), GetFFlagEnableAmpSubscriptionUpsell (copy)
+		local action = p2.action
+
+		if action == ActionTypeEnum.Phone then
+			return {
+				eventContext = "AmpUpsell",
+				origin = AppScreens.AmpWizardContainer,
+				onSuccess = function() --[[ onSuccess ]] -- line: 99
+					-- upvalues: v45 (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v45(Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Phone] = ActionStatusEnum.Success
+					}))
+				end,
+				onFailure = function() --[[ onFailure ]] -- line: 104
+					-- upvalues: v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Phone] = ActionStatusEnum.Failure
+					}))
+				end,
+				onCancelled = function() --[[ onCancelled ]] -- line: 110
+					-- upvalues: v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Phone] = ActionStatusEnum.Cancelled
+					}))
+				end
+			}
+		end
+
+		if GetFFlagEnableAmpEmailUpsellSupport() and action == ActionTypeEnum.AddedEmail then
+			return {
+				eventContext = "AmpUpsell",
+				closeOnEmailUpdate = true,
+				addEmailOver13TextKey = "Feature.VerificationUpsell.Description.IDVerificationAddEmailText",
+				addEmailUnder13TextKey = "Feature.VerificationUpsell.Description.IDVerificationAddEmailText",
+				addEmailTitleKey = "Feature.VerificationUpsell.Heading.AddEmail",
+				successCallback = function(_) --[[ successCallback ]] -- line: 124
+					-- upvalues: v45 (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v45(Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Email] = ActionStatusEnum.Success
+					}))
+				end,
+				failureCallback = function() --[[ failureCallback ]] -- line: 129
+					-- upvalues: v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Phone] = ActionStatusEnum.Failure
+					}))
+				end,
+				closeCentralOverlay = function() --[[ closeCentralOverlay ]] -- line: 135
+				end
+			}
+		end
+
+		if GetFFlagEnableAmpIDVUpsellSupport() and action == ActionTypeEnum.GovernmentId then
+			return {
+				featureName = featureName,
+				onSuccess = function() --[[ onSuccess ]] -- line: 140
+					-- upvalues: v45 (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v45(Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.GovernmentId] = ActionStatusEnum.Success
+					}))
+				end,
+				onFailure = function() --[[ onFailure ]] -- line: 148
+					-- upvalues: v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.GovernmentId] = ActionStatusEnum.Failure
+					}))
+				end,
+				onCancelled = function() --[[ onCancelled ]] -- line: 157
+					-- upvalues: v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.GovernmentId] = ActionStatusEnum.Cancelled
+					}))
+				end
+			}
+		end
+
+		if action == ActionTypeEnum.ParentConsent or action == ActionTypeEnum.ParentLink then
+			return {
+				recourseAction = p2.action,
+				parentConsentTypes = p2.parentConsentTypes,
+				recourseData = recourseData,
+				entryPointEventCtx = entryPointEventCtx,
+				onCancel = function() --[[ onCancel ]] -- line: 174
+					-- upvalues: v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), action (copy), ActionStatusEnum (copy)
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[action] = ActionStatusEnum.Cancelled
+					}))
+				end,
+				onSuccess = function() --[[ onSuccess ]] -- line: 180
+					-- upvalues: v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), action (copy), ActionStatusEnum (copy)
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[action] = ActionStatusEnum.Success
+					}))
+				end,
+				onRetryAmp = function() --[[ onRetryAmp ]] -- line: 186
+					-- upvalues: v32 (copy), v45 (copy), Cryo (copy), v44 (copy), action (copy), ActionStatusEnum (copy)
+					v32.pop()
+					v45(Cryo.Dictionary.join(v44, {
+						[action] = ActionStatusEnum.RetryRequested
+					}))
+				end
+			}
+		end
+
+		if action == ActionTypeEnum.AgeEstimation then
+			return {
+				featureName = featureName,
+				entryPointEventCtx = entryPointEventCtx,
+				metadata = metadata,
+				skipFacialAgeEstimationWebLinkModal = t3.skipFacialAgeEstimationWebLinkModal,
+				onSuccess = function() --[[ onSuccess ]] -- line: 199
+					-- upvalues: logEventOnceIfEnabled (copy), v32 (copy), v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					logEventOnceIfEnabled("complete_flow_with_success")
+					v32.pop()
+					v50(AccessResponseEnum.Granted, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.AgeEstimation] = ActionStatusEnum.Success
+					}))
+				end,
+				onFailure = function() --[[ onFailure ]] -- line: 210
+					-- upvalues: logEventOnceIfEnabled (copy), v32 (copy), v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					logEventOnceIfEnabled("complete_flow_with_error")
+					v32.pop()
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.AgeEstimation] = ActionStatusEnum.Failure
+					}))
+				end,
+				onCancel = function() --[[ onCancel ]] -- line: 221
+					-- upvalues: logEventOnceIfEnabled (copy), v32 (copy), v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					logEventOnceIfEnabled("complete_flow_with_cancel")
+					v32.pop()
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.AgeEstimation] = ActionStatusEnum.Cancelled
+					}))
+				end,
+				onRetry = function() --[[ onRetry ]] -- line: 232
+					-- upvalues: v32 (copy), v45 (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v32.pop()
+					v45(Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.AgeEstimation] = ActionStatusEnum.RetryRequested
+					}))
+				end
+			}
+		end
+
+		if GetFFlagEnableAmpSubscriptionUpsell() and action == ActionTypeEnum.Subscription then
+			local v58 = recourseData
+
+			return {
+				purchaseUIOptions = v58 and v58.purchaseUIOptions,
+				surfaceName = v58 and v58.surfaceName,
+				surfaceContext = v58 and v58.surfaceContext,
+				analyticsContext = v58 and v58.analyticsContext,
+				onSuccess = function() --[[ onSuccess ]] -- line: 249
+					-- upvalues: v32 (copy), v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v32.pop()
+					v50(AccessResponseEnum.Granted, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Subscription] = ActionStatusEnum.Success
+					}))
+				end,
+				onFailure = function() --[[ onFailure ]] -- line: 259
+					-- upvalues: v32 (copy), v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v32.pop()
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Subscription] = ActionStatusEnum.Failure
+					}))
+				end,
+				onCancel = function() --[[ onCancel ]] -- line: 269
+					-- upvalues: v32 (copy), v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), ActionTypeEnum (copy), ActionStatusEnum (copy)
+					v32.pop()
+					v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+						[ActionTypeEnum.Subscription] = ActionStatusEnum.Cancelled
+					}))
+				end
+			}
+		end
+
+		return {}
+	end, {
+		v44,
+		v50
+	})
+	local v52 = React.useCallback(function(p4) -- line: 290
+		-- upvalues: ActionTypeEnum (copy), UserSettingsSettingNameEnum (copy), openUpsells (copy)
+		local action = p4.action
+
+		if action == ActionTypeEnum.UserSettings then
+			local userSettings = p4.userSettings
+
+			if userSettings and userSettings.settingName == UserSettingsSettingNameEnum.AllowFacialAgeEstimation then
+				return nil
+			end
+		end
+
+		return openUpsells[action]
+	end, { openUpsells })
+	local v53 = React.useCallback(function(_, t4: {[any]: any}?) -- line: 304
+		-- upvalues: v47 (copy), v52 (copy), v51 (copy), ActionTypeEnum (copy), v50 (copy), AccessResponseEnum (copy), v44 (copy), accountSettingsUpsellStringsFn (copy), v43 (copy), featureName (copy), v32 (copy), Cryo (copy), ActionStatusEnum (copy)
+		if t4 == nil or #t4 == 0 then
+			v47(true)
+
+			return
+		end
+
+		local v64 = t4[1]
+		local action = v64.action
+		local v66 = v52(v64)
+
+		if v66 ~= nil then
+			v66((v51(action, v64)))
+
+			return
+		end
+
+		if action == ActionTypeEnum.Subscription then
+			v50(AccessResponseEnum.Denied, v44)
+
+			return
+		end
+
+		local v67 = accountSettingsUpsellStringsFn(v64)
+
+		if not v67 then
+			v50(AccessResponseEnum.Error, v44)
+
+			return
+		end
+
+		v43({
+			featureName = featureName,
+			localizationStrings = v67,
+			onCloseModal = function() --[[ onCloseModal ]] -- line: 333
+				-- upvalues: v32 (copy), v50 (copy), AccessResponseEnum (copy), Cryo (copy), v44 (copy), action (copy), ActionStatusEnum (copy)
+				v32.pop()
+				v50(AccessResponseEnum.Denied, Cryo.Dictionary.join(v44, {
+					[action] = ActionStatusEnum.Cancelled
+				}))
+			end
+		})
+	end, {
+		v44,
+		v50,
+		featureName,
+		v51,
+		v32.pop,
+		v43,
+		v52
+	})
+	local v54 = React.useCallback(function(p6, p7) -- line: 351
+		-- upvalues: v47 (copy), logEventOnceIfEnabled (copy), GetFFlagEnableAmpUpsellGql (copy), v41 (copy), v48 (copy), getSuccessfulActions (copy), v44 (copy), extraParameters (copy), AccessResponseEnum (copy), v53 (copy), v50 (copy)
+		v47(false)
+		logEventOnceIfEnabled("amp_feature_access_init")
+
+		local v70 = if not GetFFlagEnableAmpUpsellGql() then v41.upsellFeatureAccess(p6, getSuccessfulActions(v44), p7, extraParameters) else v41.upsellFeatureAccessGql(v48, p6, getSuccessfulActions(v44), p7, extraParameters)
+
+		if v70.access == AccessResponseEnum.Error then
+			v47(true)
+
+			return
+		end
+
+		if v70.access == AccessResponseEnum.Actionable then
+			logEventOnceIfEnabled("amp_feature_access_actionable")
+			v53(v70.recourse, v70.recourses)
+
+			return
+		end
+
+		if v70.access == AccessResponseEnum.Granted then
+			logEventOnceIfEnabled("amp_feature_access_granted")
+			v50(AccessResponseEnum.Granted, v44)
+
+			return
+		end
+
+		if v70.access == AccessResponseEnum.Denied then
+			logEventOnceIfEnabled("amp_feature_access_denied")
+			v50(AccessResponseEnum.Denied, v44)
+
+			return
+		end
+
+		v50(AccessResponseEnum.Pending, v44)
+	end, {
+		v41,
+		extraParameters,
+		v50
+	})
+
+	React.useEffect(function() -- line: 384
+		-- upvalues: sendModalActionEvent (copy), v42 (copy), AppScreens (copy), featureName (copy)
+		sendModalActionEvent(v42, AppScreens.AmpWizardContainer, featureName, "Shown")
+	end, { v42 })
+	React.useEffect(function() -- line: 388
+		-- upvalues: v54 (copy), featureName (copy), nameSpace (copy)
+		v54(featureName, nameSpace)
+	end, {
+		v44,
+		featureName,
+		v54,
+		nameSpace
+	})
+
+	if v46 then
+		return React.createElement(ErrorScreen, {
+			featureName = featureName,
+			onRetry = function() --[[ onRetry ]] -- line: 395
+				-- upvalues: v47 (copy), v54 (copy), featureName (copy)
+				v47(false)
+				v54(featureName)
+			end,
+			onCancel = function() --[[ onCancel ]] -- line: 399
+				-- upvalues: v50 (copy), AccessResponseEnum (copy), v44 (copy)
+				v50(AccessResponseEnum.Denied, v44)
+			end
+		})
+	end
+
+	return React.createElement(LoadingSpinner, {
+		size = UDim2.fromOffset(42, 42),
+		position = UDim2.fromScale(0.5, 0.5),
+		anchorPoint = Vector2.new(0.5, 0.5)
+	})
+end

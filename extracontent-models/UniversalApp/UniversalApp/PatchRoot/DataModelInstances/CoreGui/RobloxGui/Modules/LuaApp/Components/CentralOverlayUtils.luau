@@ -1,392 +1,400 @@
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v3 = require(l_Modules_0.LuaApp.Enum.OverlayType);
-local v4 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
-local _ = require(l_CorePackages_0.Packages.React);
-local l_createLazyComponent_0 = v4.Components.createLazyComponent;
-local v7 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableConfirmSignOutV2);
-local v8 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableLoginAccountSelector);
-local v9 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableOtpEmailLogin);
-local l_GetFFlagEdpPlayerFeedbackEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEdpPlayerFeedbackEnabled;
-local v11 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppAccountSecurityPromptEnabled);
-local l_GetFFlagIsSquadEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled;
-local v13 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableVNGNewAppAvailableModal);
-local v14 = require(l_Modules_0.LuaApp.Flags.FFlagEnableLuaAccountSwitch);
-local l_GetFFlagEnableAccountSwitcherFoundationDesign_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableAccountSwitcherFoundationDesign;
-local v16 = require(l_Modules_0.LuaApp.Flags.FFlagEnableKoreaKISACompliance);
-local l_GetFFlagUseUpdatedVNGAgreementsWorkflow_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagUseUpdatedVNGAgreementsWorkflow;
-local l_FFlagLuaAppHomeVngAppUpsell_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppHomeVngAppUpsell;
-local l_FFlagSearchOmniAutocompletePage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagSearchOmniAutocompletePage;
-local l_GetFFlagEnableReminderOfNormsABTest_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableReminderOfNormsABTest;
-local l_GetFFlagEnableInAppBugReporting_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableInAppBugReporting;
-local l_FFlagEnableAbuseReportRevampFlow_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableAbuseReportRevampFlow;
-local l_FFlagEnableMagicLogin_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableMagicLogin;
-local l_FFlagAXWearTimeSupport_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXWearTimeSupport;
-local l_FFlagLuaAppsServerTriggeredModals_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppsServerTriggeredModals;
-local l_FFlagEnableUnifiedProductPurchaseFlow_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableUnifiedProductPurchaseFlow;
-local l_FFlagEnableSignUpExitModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSignUpExitModal;
-local l_FFlagEnableSystemTrayModals_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSystemTrayModals;
-local l_FFlagLuaAppEnableWhyThisAdModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnableWhyThisAdModal;
-local l_FFlagLuaAppSduiBadgeDetailsComponents_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSduiBadgeDetailsComponents;
-local l_FFlagLuaAppPlayButtonUpsellLinking_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppPlayButtonUpsellLinking;
+local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
+local Modules = CoreGui.RobloxGui.Modules
+local OverlayType = require(Modules.LuaApp.Enum.OverlayType)
+local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+
+require(CorePackages.Packages.React)
+
+local createLazyComponent = RoactUtils.Components.createLazyComponent
+local GetFFlagEnableConfirmSignOutV2 = require(Modules.LuaApp.Flags.GetFFlagEnableConfirmSignOutV2)
+local GetFFlagEnableLoginAccountSelector = require(Modules.LuaApp.Flags.GetFFlagEnableLoginAccountSelector)
+local GetFFlagEnableOtpEmailLogin = require(Modules.LuaApp.Flags.GetFFlagEnableOtpEmailLogin)
+local GetFFlagEdpPlayerFeedbackEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEdpPlayerFeedbackEnabled
+local GetFFlagLuaAppAccountSecurityPromptEnabled = require(Modules.LuaApp.Flags.GetFFlagLuaAppAccountSecurityPromptEnabled)
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
+local GetFFlagEnableVNGNewAppAvailableModal = require(Modules.LuaApp.Flags.GetFFlagEnableVNGNewAppAvailableModal)
+local FFlagEnableLuaAccountSwitch = require(Modules.LuaApp.Flags.FFlagEnableLuaAccountSwitch)
+local GetFFlagEnableAccountSwitcherFoundationDesign = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAccountSwitcherFoundationDesign
+local FFlagEnableKoreaKISACompliance = require(Modules.LuaApp.Flags.FFlagEnableKoreaKISACompliance)
+local GetFFlagUseUpdatedVNGAgreementsWorkflow = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseUpdatedVNGAgreementsWorkflow
+local FFlagLuaAppHomeVngAppUpsell = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppHomeVngAppUpsell
+local FFlagSearchOmniAutocompletePage = require(CorePackages.Workspace.Packages.SharedFlags).FFlagSearchOmniAutocompletePage
+local GetFFlagEnableReminderOfNormsABTest = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableReminderOfNormsABTest
+local GetFFlagEnableInAppBugReporting = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInAppBugReporting
+local FFlagEnableAbuseReportRevampFlow = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAbuseReportRevampFlow
+local FFlagEnableMagicLogin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableMagicLogin
+local FFlagAXWearTimeSupport = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXWearTimeSupport
+local FFlagLuaAppsServerTriggeredModals = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppsServerTriggeredModals
+local FFlagEnableUnifiedProductPurchaseFlow = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnifiedProductPurchaseFlow
+local FFlagEnableSignUpExitModal = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSignUpExitModal
+local FFlagEnableSystemTrayModals = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSystemTrayModals
+local FFlagLuaAppEnableWhyThisAdModal = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEnableWhyThisAdModal
+local FFlagLuaAppSduiBadgeDetailsComponents = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppSduiBadgeDetailsComponents
+local FFlagLuaAppPlayButtonUpsellLinking = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppPlayButtonUpsellLinking
+local FFlagEnableSduiV2HomepagePrompts = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSduiV2HomepagePrompts
+
 return {
-    OverlayComponent = {
-        [v3.VerifyPhoneNumber] = l_createLazyComponent_0(function() --[[ Line: 50 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.VerifyPhoneNumber);
-        end), 
-        [v3.VerifiedEnableVoice] = l_createLazyComponent_0(function() --[[ Line: 53 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Verification.IdentityVerification.VerifiedEnableVoiceModal);
-        end), 
-        [v3.UserAgreementsUpdatedPopup] = l_createLazyComponent_0(function() --[[ Line: 56 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.UserAgreement.UserAgreementsUpdatedPopup);
-        end), 
-        [v3.VNGUserAgreementsPopup] = l_createLazyComponent_0(function() --[[ Line: 59 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.UserAgreement.VNGUserAgreementsPopup);
-        end), 
-        [v3.UserAgreementsSecondPrompt] = l_createLazyComponent_0(function() --[[ Line: 62 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.Luobu.Components.Authentication.UserAgreementsSecondPrompt);
-        end), 
-        [v3.UserAgreementsPrompt] = l_createLazyComponent_0(function() --[[ Line: 65 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.Luobu.Components.Authentication.UserAgreementsPrompt);
-        end), 
-        [v3.TencentNoticePopup] = l_createLazyComponent_0(function() --[[ Line: 68 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.Luobu.Components.TencentNoticePopup.TencentNoticePopup);
-        end), 
-        [v3.SimpleTextAlertPrompt] = l_createLazyComponent_0(function() --[[ Line: 71 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.Luobu.Components.Authentication.SimpleTextAlertPrompt);
-        end), 
-        [v3.SignUpBirthdayPickerOverlay] = l_createLazyComponent_0(function() --[[ Line: 74 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.SignUpBirthdayPickerOverlay);
-        end), 
-        [v3.PurchaseGameRobuxShortfall] = l_createLazyComponent_0(function() --[[ Line: 77 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.GameDetails.PurchaseGameRobuxShortfallPrompt);
-        end), 
-        [v3.PurchaseGame] = l_createLazyComponent_0(function() --[[ Line: 80 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.GameDetails.PurchaseGamePrompt);
-        end), 
-        [v3.PlacesList] = l_createLazyComponent_0(function() --[[ Line: 83 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Home.PlacesListContextualMenu);
-        end), 
-        [v3.PeopleList] = l_createLazyComponent_0(function() --[[ Line: 86 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Home.PeopleListContextualMenuFn);
-        end), 
-        [v3.LoginPasswordResetPrompt] = l_createLazyComponent_0(function() --[[ Line: 89 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.PasswordResetPrompt);
-        end), 
-        [v3.LoginEmailVerificationPrompt] = l_createLazyComponent_0(function() --[[ Line: 92 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.LoginEmailVerificationPrompt);
-        end), 
-        [v3.UpdateRequiredPrompt] = l_createLazyComponent_0(function() --[[ Line: 95 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.UpdateRequiredPrompt);
-        end), 
-        [v3.LeaveRobloxAlert] = l_createLazyComponent_0(function() --[[ Line: 98 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.GameDetails.LeaveRobloxAlert);
-        end), 
-        [v3.ReportLogsOverlay] = l_createLazyComponent_0(function() --[[ Line: 101 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.More.ReportLogsOverlay);
-        end), 
-        [v3.GameDetailsPlayWithFriends] = l_createLazyComponent_0(function() --[[ Line: 104 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailsPlayWithFriendsContextualMenu);
-        end), 
-        [v3.GameDetailMore] = l_createLazyComponent_0(function() --[[ Line: 107 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailMoreContextualMenu);
-        end), 
-        [v3.GameDetailsSquad] = if l_GetFFlagIsSquadEnabled_0() then l_createLazyComponent_0(function() --[[ Line: 111 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailsSquadContextualMenu);
-        end) else nil, 
-        [v3.ExperienceGuidelinesExplained] = l_createLazyComponent_0(function() --[[ Line: 115 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.ExperienceGuidelines.ExperienceGuidelinesExplained);
-        end), 
-        [v3.FindFriendsModal] = l_createLazyComponent_0(function() --[[ Line: 118 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.ContactImporter.api).FindFriendsModal;
-        end), 
-        [v3.EmailVerificationUpsellOverlay] = l_createLazyComponent_0(function() --[[ Line: 121 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.VerificationUpsell.EmailVerificationUpsellOverlay);
-        end), 
-        [v3.PhoneVerificationUpsellOverlay] = l_createLazyComponent_0(function() --[[ Line: 124 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.PhoneUpsell).PhoneVerificationUpsellOverlay;
-        end), 
-        [v3.PhoneVerificationUpsellOverlayWrapper] = l_createLazyComponent_0(function() --[[ Line: 127 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.PhoneUpsell).PhoneVerificationUpsellOverlayWrapper;
-        end), 
-        [v3.VoicePhoneVerificationUpsellOverlayWrapper] = l_createLazyComponent_0(function() --[[ Line: 130 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.PhoneUpsell).VoicePhoneVerificationUpsellOverlayWrapper;
-        end), 
-        [v3.DevSubMore] = l_createLazyComponent_0(function() --[[ Line: 133 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.DevSubMoreMenu);
-        end), 
-        [v3.DevSubConfirmCancel] = l_createLazyComponent_0(function() --[[ Line: 136 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.DevSubConfirmCancelPrompt);
-        end), 
-        [v3.CrossDeviceLoginConfirmation] = l_createLazyComponent_0(function() --[[ Line: 139 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.CrossDeviceLogin.LoginConfirmationPrompt);
-        end), 
-        [v3.CrossDeviceCodePrompt] = l_createLazyComponent_0(function() --[[ Line: 142 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.CrossDeviceLogin.LoginCodePrompt);
-        end), 
-        [v3.ContactsList] = l_createLazyComponent_0(function() --[[ Line: 145 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.ContactImporter.api).ContactsList;
-        end), 
-        [v3.ConfirmSignOut] = l_createLazyComponent_0(function() --[[ Line: 148 ]]
-            -- upvalues: v7 (copy), l_Modules_0 (copy)
-            if v7() then
-                return require(l_Modules_0.LuaApp.Components.Authentication.ConfirmSignOutV2);
-            else
-                return require(l_Modules_0.LuaApp.Components.Authentication.ConfirmSignOut);
-            end;
-        end), 
-        [v3.CameraPermissionPrompt] = l_createLazyComponent_0(function() --[[ Line: 155 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.CameraPermissionPrompt);
-        end), 
-        [v3.AgreeToPhoneNumberVerification] = l_createLazyComponent_0(function() --[[ Line: 158 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.AgreeToPhoneNumberVerification);
-        end), 
-        [v3.AccountAuthenticationFailureOverlay] = l_createLazyComponent_0(function() --[[ Line: 161 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.AccountAuthenticationFailureOverlay);
-        end), 
-        [v3.PurchasePass] = l_createLazyComponent_0(function() --[[ Line: 164 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Passes.PurchasePassPrompt);
-        end), 
-        [v3.PurchasePassInsufficientRobux] = l_createLazyComponent_0(function() --[[ Line: 167 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Passes.PurchasePassInsufficientRobuxPrompt);
-        end), 
-        [v3.PurchaseDeveloperProduct] = l_createLazyComponent_0(function() --[[ Line: 170 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductPrompt);
-        end), 
-        [v3.PurchaseDeveloperProductInsufficientRobux] = l_createLazyComponent_0(function() --[[ Line: 173 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductInsufficientRobuxPrompt);
-        end), 
-        [v3.PurchaseDeveloperProductPendingProductsLimitExceeded] = l_createLazyComponent_0(function() --[[ Line: 176 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductPendingProductsLimitExceededPrompt);
-        end), 
-        [v3.PurchaseDeveloperProductSuccess] = l_createLazyComponent_0(function() --[[ Line: 181 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductSuccessPrompt);
-        end), 
-        [v3.AccountSecurityPromptOverlay] = if v11() then l_createLazyComponent_0(function() --[[ Line: 185 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.AccountSecurity.PromptOverlay);
-        end) else nil, 
-        [v3.DiscoverabilityUpsell] = l_createLazyComponent_0(function() --[[ Line: 189 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.DiscoverabilityModal.api).DiscoverabilityOverlay;
-        end), 
-        [v3.SurveyPrompt] = l_createLazyComponent_0(function() --[[ Line: 192 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.OnPlatformSurveys.SurveyPrompt);
-        end), 
-        [v3.PlayerContextualMenu] = l_createLazyComponent_0(function() --[[ Line: 195 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.PlayerContextualMenu).Component;
-        end), 
-        [v3.GamepadDisconnected] = l_createLazyComponent_0(function() --[[ Line: 198 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.InputUi).Gamepad.GamepadDisconnectedModal;
-        end), 
-        [v3.IapExperienceAnimator] = l_createLazyComponent_0(function() --[[ Line: 201 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.IAPExperience).Animator;
-        end), 
-        [v3.AccountSelector] = if v8() then l_createLazyComponent_0(function() --[[ Line: 205 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AccountSelector).AccountSelectorOverlay;
-        end) else nil, 
-        [v3.AccountSwitcher] = if l_GetFFlagEnableAccountSwitcherFoundationDesign_0() then l_createLazyComponent_0(function() --[[ Line: 210 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AccountSelector).AccountSwitchingSelectAccount;
-        end) else nil, 
-        [v3.EmailOtp] = if v9() then l_createLazyComponent_0(function() --[[ Line: 215 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.OtpLogin).EmailOtpOverlay;
-        end) else nil, 
-        [v3.VngContactInfoFormWebviewPopup] = l_createLazyComponent_0(function() --[[ Line: 219 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Vng.VngContactInfoFormWebviewPopup);
-        end), 
-        [v3.NewAppAvailableModal] = if v13() then l_createLazyComponent_0(function() --[[ Line: 223 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Authentication.NewAppAvailableInteractiveAlert);
-        end) else nil, 
-        [v3.AccountSwitchingErrorOverlay] = if v14 then l_createLazyComponent_0(function() --[[ Line: 228 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AccountSwitching).AccountSwitchingErrorOverlay;
-        end) else nil, 
-        [v3.CloseOnlyInteractiveAlert] = l_createLazyComponent_0(function() --[[ Line: 232 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AppBlox).CloseOnlyInteractiveAlert;
-        end), 
-        [v3.ConfirmationDialog] = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then l_createLazyComponent_0(function() --[[ Line: 236 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AppBlox).ConfirmationDialog;
-        end) else nil, 
-        [v3.UpsellModal] = if l_FFlagLuaAppPlayButtonUpsellLinking_0 then nil else l_createLazyComponent_0(function() --[[ Line: 242 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AppBlox).UpsellModal;
-        end), 
-        [v3.PlayButtonUpsellDialog] = if l_FFlagLuaAppPlayButtonUpsellLinking_0 then l_createLazyComponent_0(function() --[[ Line: 246 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.GamePlayButton).PlayButtonUpsellDialog;
-        end) else nil, 
-        [v3.SquadPrompt] = if l_GetFFlagIsSquadEnabled_0() then l_createLazyComponent_0(function() --[[ Line: 251 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.SquadsCore).SquadPrompt;
-        end) else nil, 
-        [v3.VngComplianceLoadingPopup] = if l_GetFFlagUseUpdatedVNGAgreementsWorkflow_0() then l_createLazyComponent_0(function() --[[ Line: 256 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Vng.VngComplianceLoadingPopup);
-        end) else nil, 
-        [v3.KISAPopUpAgreements] = if v16 then l_createLazyComponent_0(function() --[[ Line: 261 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AuthCompliance).KISAPopUpAgreements;
-        end) else nil, 
-        [v3.ItemsReceivedAlert] = l_createLazyComponent_0(function() --[[ Line: 265 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.ItemsReceivedAlert).ItemsReceivedAlert;
-        end), 
-        [v3.VngAppUpsell] = if l_FFlagLuaAppHomeVngAppUpsell_0 then l_createLazyComponent_0(function() --[[ Line: 269 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.Personalization.Home.VngAppUpsell.VngAppUpsellOverlay);
-        end) else nil, 
-        [v3.SearchPageOverlay] = if l_FFlagSearchOmniAutocompletePage_0 then l_createLazyComponent_0(function() --[[ Line: 274 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.Personalization.Search.SearchPageOverlay);
-        end) else nil, 
-        [v3.GamePlayerFeedbackForm] = if l_GetFFlagEdpPlayerFeedbackEnabled_0() then l_createLazyComponent_0(function() --[[ Line: 279 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.PlayerFeedback).GamePlayerFeedbackFormModal;
-        end) else nil, 
-        [v3.ReminderOfNormsPopup] = if l_GetFFlagEnableReminderOfNormsABTest_0() then l_createLazyComponent_0(function() --[[ Line: 284 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Moderation.ReminderOfNormsPopup);
-        end) else nil, 
-        [v3.GameFilterMenuDropdown] = l_createLazyComponent_0(function() --[[ Line: 288 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.GameFilters).FilterMenuDropdown;
-        end), 
-        [v3.SettingsPermissionInteractiveAlert] = l_createLazyComponent_0(function() --[[ Line: 291 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.SocialCommon).Components.SettingsPermissionInteractiveAlert;
-        end), 
-        [v3.BugReporter] = if l_GetFFlagEnableInAppBugReporting_0() then l_createLazyComponent_0(function() --[[ Line: 295 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.BugReporting).BugReporterModalContainer;
-        end) else nil, 
-        [v3.InAppIntervention] = l_createLazyComponent_0(function() --[[ Line: 299 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.InAppIntervention).InAppInterventionContainer;
-        end), 
-        [v3.DynamicAbuseReport] = if l_FFlagEnableAbuseReportRevampFlow_0 then l_createLazyComponent_0(function() --[[ Line: 303 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.GenericAbuseReporting).UXFlows.DynamicReportContainer;
-        end) else nil, 
-        [v3.AccountReactivationPrompt] = l_createLazyComponent_0(function() --[[ Line: 307 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.NotApprovedPage).AccountReactivationPrompt;
-        end), 
-        [v3.MagicLoginApprovePopup] = if l_FFlagEnableMagicLogin_0 then l_createLazyComponent_0(function() --[[ Line: 311 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.LoginV2).Components.MagicLoginApprovePopup;
-        end) else nil, 
-        [v3.MagicLoginRequestPopup] = if l_FFlagEnableMagicLogin_0 then l_createLazyComponent_0(function() --[[ Line: 316 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.LoginV2).Components.MagicLoginRequestPopup;
-        end) else nil, 
-        [v3.DeviceSelectorPeekView] = if l_FFlagEnableMagicLogin_0 then l_createLazyComponent_0(function() --[[ Line: 321 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.LoginV2).Components.DeviceSelectorPeekView;
-        end) else nil, 
-        [v3.AccountLinkingAlert] = l_createLazyComponent_0(function() --[[ Line: 325 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AuthCommon).Components.AccountLinkingAlert;
-        end), 
-        [v3.CheckboxFeedbackFormModal] = l_createLazyComponent_0(function() --[[ Line: 328 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AppBlox).CheckboxFeedbackFormModal;
-        end), 
-        [v3.ProvideFeedbackToast] = l_createLazyComponent_0(function() --[[ Line: 331 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AppBlox).ProvideFeedbackToast;
-        end), 
-        [v3.WearTimeInfoModal] = if l_FFlagAXWearTimeSupport_0 then l_createLazyComponent_0(function() --[[ Line: 335 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AvatarExperienceTimedOptions).WearTimeInfoModal;
-        end) else nil, 
-        [v3.EconomicRestrictionPrompt] = l_createLazyComponent_0(function() --[[ Line: 339 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.Fraud.EconomicRestrictionPrompt);
-        end), 
-        [v3.UnifiedProductPurchaseModal] = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then l_createLazyComponent_0(function() --[[ Line: 343 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.PurchasePrompt).UnifiedPurchasePromptContainer;
-        end) else nil, 
-        [v3.AccountLockModal] = l_createLazyComponent_0(function() --[[ Line: 347 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AccountLockModal).AccountLockModal;
-        end), 
-        [v3.SduiModal] = if l_FFlagLuaAppsServerTriggeredModals_0 then l_createLazyComponent_0(function() --[[ Line: 351 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.ServerTriggeredModals).SduiModal;
-        end) else nil, 
-        [v3.SignUpExitModal] = if l_FFlagEnableSignUpExitModal_0 then l_createLazyComponent_0(function() --[[ Line: 356 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.AuthSignup).Components.SignUpExitModal;
-        end) else nil, 
-        [v3.SocialUpsellOverlay] = l_createLazyComponent_0(function() --[[ Line: 360 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.SocialUpsell).InAppSocialUpsellOverlayWrapper;
-        end), 
-        [v3.NotificationsModal] = if l_FFlagEnableSystemTrayModals_0 then l_createLazyComponent_0(function() --[[ Line: 364 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.NotificationsModal);
-        end) else nil, 
-        [v3.SystemTrayModal] = if l_FFlagEnableSystemTrayModals_0 then l_createLazyComponent_0(function() --[[ Line: 369 ]]
-            -- upvalues: l_Modules_0 (copy)
-            return require(l_Modules_0.LuaApp.Components.SystemTrayModal);
-        end) else nil, 
-        [v3.WhyThisAdModal] = if l_FFlagLuaAppEnableWhyThisAdModal_0 then l_createLazyComponent_0(function() --[[ Line: 374 ]]
-            -- upvalues: l_CorePackages_0 (copy)
-            return require(l_CorePackages_0.Workspace.Packages.SponsoredTiles).WhyThisAdModal;
-        end) else nil
-    }
-};
+	OverlayComponent = {
+		[OverlayType.VerifyPhoneNumber] = createLazyComponent(function() -- line: 52
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.VerifyPhoneNumber)
+		end),
+		[OverlayType.VerifiedEnableVoice] = createLazyComponent(function() -- line: 55
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Verification.IdentityVerification.VerifiedEnableVoiceModal)
+		end),
+		[OverlayType.UserAgreementsUpdatedPopup] = createLazyComponent(function() -- line: 58
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.UserAgreement.UserAgreementsUpdatedPopup)
+		end),
+		[OverlayType.VNGUserAgreementsPopup] = createLazyComponent(function() -- line: 61
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.UserAgreement.VNGUserAgreementsPopup)
+		end),
+		[OverlayType.UserAgreementsSecondPrompt] = createLazyComponent(function() -- line: 64
+			-- upvalues: Modules (copy)
+			return require(Modules.Luobu.Components.Authentication.UserAgreementsSecondPrompt)
+		end),
+		[OverlayType.UserAgreementsPrompt] = createLazyComponent(function() -- line: 67
+			-- upvalues: Modules (copy)
+			return require(Modules.Luobu.Components.Authentication.UserAgreementsPrompt)
+		end),
+		[OverlayType.TencentNoticePopup] = createLazyComponent(function() -- line: 70
+			-- upvalues: Modules (copy)
+			return require(Modules.Luobu.Components.TencentNoticePopup.TencentNoticePopup)
+		end),
+		[OverlayType.SimpleTextAlertPrompt] = createLazyComponent(function() -- line: 73
+			-- upvalues: Modules (copy)
+			return require(Modules.Luobu.Components.Authentication.SimpleTextAlertPrompt)
+		end),
+		[OverlayType.SignUpBirthdayPickerOverlay] = createLazyComponent(function() -- line: 76
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.SignUpBirthdayPickerOverlay)
+		end),
+		[OverlayType.PurchaseGameRobuxShortfall] = createLazyComponent(function() -- line: 79
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.GameDetails.PurchaseGameRobuxShortfallPrompt)
+		end),
+		[OverlayType.PurchaseGame] = createLazyComponent(function() -- line: 82
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.GameDetails.PurchaseGamePrompt)
+		end),
+		[OverlayType.PlacesList] = createLazyComponent(function() -- line: 85
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Home.PlacesListContextualMenu)
+		end),
+		[OverlayType.PeopleList] = createLazyComponent(function() -- line: 88
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Home.PeopleListContextualMenuFn)
+		end),
+		[OverlayType.LoginPasswordResetPrompt] = createLazyComponent(function() -- line: 91
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.PasswordResetPrompt)
+		end),
+		[OverlayType.LoginEmailVerificationPrompt] = createLazyComponent(function() -- line: 94
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.LoginEmailVerificationPrompt)
+		end),
+		[OverlayType.UpdateRequiredPrompt] = createLazyComponent(function() -- line: 97
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.UpdateRequiredPrompt)
+		end),
+		[OverlayType.LeaveRobloxAlert] = createLazyComponent(function() -- line: 100
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.GameDetails.LeaveRobloxAlert)
+		end),
+		[OverlayType.ReportLogsOverlay] = createLazyComponent(function() -- line: 103
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.More.ReportLogsOverlay)
+		end),
+		[OverlayType.GameDetailsPlayWithFriends] = createLazyComponent(function() -- line: 106
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.GameDetails.GameDetailsPlayWithFriendsContextualMenu)
+		end),
+		[OverlayType.GameDetailMore] = createLazyComponent(function() -- line: 109
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.GameDetails.GameDetailMoreContextualMenu)
+		end),
+		[OverlayType.GameDetailsSquad] = if not GetFFlagIsSquadEnabled() then nil else createLazyComponent(function() -- line: 113
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.GameDetails.GameDetailsSquadContextualMenu)
+		end),
+		[OverlayType.ExperienceGuidelinesExplained] = createLazyComponent(function() -- line: 117
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.ExperienceGuidelines.ExperienceGuidelinesExplained)
+		end),
+		[OverlayType.FindFriendsModal] = createLazyComponent(function() -- line: 120
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.ContactImporter.api).FindFriendsModal
+		end),
+		[OverlayType.EmailVerificationUpsellOverlay] = createLazyComponent(function() -- line: 123
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.VerificationUpsell.EmailVerificationUpsellOverlay)
+		end),
+		[OverlayType.PhoneVerificationUpsellOverlay] = createLazyComponent(function() -- line: 126
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.PhoneUpsell).PhoneVerificationUpsellOverlay
+		end),
+		[OverlayType.PhoneVerificationUpsellOverlayWrapper] = createLazyComponent(function() -- line: 129
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.PhoneUpsell).PhoneVerificationUpsellOverlayWrapper
+		end),
+		[OverlayType.VoicePhoneVerificationUpsellOverlayWrapper] = createLazyComponent(function() -- line: 132
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.PhoneUpsell).VoicePhoneVerificationUpsellOverlayWrapper
+		end),
+		[OverlayType.DevSubMore] = createLazyComponent(function() -- line: 135
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.DevSubMoreMenu)
+		end),
+		[OverlayType.DevSubConfirmCancel] = createLazyComponent(function() -- line: 138
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.DevSubConfirmCancelPrompt)
+		end),
+		[OverlayType.CrossDeviceLoginConfirmation] = createLazyComponent(function() -- line: 141
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.CrossDeviceLogin.LoginConfirmationPrompt)
+		end),
+		[OverlayType.CrossDeviceCodePrompt] = createLazyComponent(function() -- line: 144
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.CrossDeviceLogin.LoginCodePrompt)
+		end),
+		[OverlayType.ContactsList] = createLazyComponent(function() -- line: 147
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.ContactImporter.api).ContactsList
+		end),
+		[OverlayType.ConfirmSignOut] = createLazyComponent(function() -- line: 150
+			-- upvalues: GetFFlagEnableConfirmSignOutV2 (copy), Modules (copy)
+			if GetFFlagEnableConfirmSignOutV2() then
+				return require(Modules.LuaApp.Components.Authentication.ConfirmSignOutV2)
+			end
+
+			return require(Modules.LuaApp.Components.Authentication.ConfirmSignOut)
+		end),
+		[OverlayType.CameraPermissionPrompt] = createLazyComponent(function() -- line: 157
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.CameraPermissionPrompt)
+		end),
+		[OverlayType.AgreeToPhoneNumberVerification] = createLazyComponent(function() -- line: 160
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.AgreeToPhoneNumberVerification)
+		end),
+		[OverlayType.AccountAuthenticationFailureOverlay] = createLazyComponent(function() -- line: 163
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.AccountAuthenticationFailureOverlay)
+		end),
+		[OverlayType.PurchasePass] = createLazyComponent(function() -- line: 166
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Passes.PurchasePassPrompt)
+		end),
+		[OverlayType.PurchasePassInsufficientRobux] = createLazyComponent(function() -- line: 169
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Passes.PurchasePassInsufficientRobuxPrompt)
+		end),
+		[OverlayType.PurchaseDeveloperProduct] = createLazyComponent(function() -- line: 172
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductPrompt)
+		end),
+		[OverlayType.PurchaseDeveloperProductInsufficientRobux] = createLazyComponent(function() -- line: 175
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductInsufficientRobuxPrompt)
+		end),
+		[OverlayType.PurchaseDeveloperProductPendingProductsLimitExceeded] = createLazyComponent(function() -- line: 178
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductPendingProductsLimitExceededPrompt)
+		end),
+		[OverlayType.PurchaseDeveloperProductSuccess] = createLazyComponent(function() -- line: 183
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.DeveloperProduct.PurchaseDeveloperProductSuccessPrompt)
+		end),
+		[OverlayType.AccountSecurityPromptOverlay] = if not GetFFlagLuaAppAccountSecurityPromptEnabled() then nil else createLazyComponent(function() -- line: 187
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.AccountSecurity.PromptOverlay)
+		end),
+		[OverlayType.DiscoverabilityUpsell] = createLazyComponent(function() -- line: 191
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.DiscoverabilityModal.api).DiscoverabilityOverlay
+		end),
+		[OverlayType.SurveyPrompt] = createLazyComponent(function() -- line: 194
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.OnPlatformSurveys.SurveyPrompt)
+		end),
+		[OverlayType.PlayerContextualMenu] = createLazyComponent(function() -- line: 197
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.PlayerContextualMenu).Component
+		end),
+		[OverlayType.GamepadDisconnected] = createLazyComponent(function() -- line: 200
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadDisconnectedModal
+		end),
+		[OverlayType.IapExperienceAnimator] = createLazyComponent(function() -- line: 203
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.IAPExperience).Animator
+		end),
+		[OverlayType.AccountSelector] = if not GetFFlagEnableLoginAccountSelector() then nil else createLazyComponent(function() -- line: 207
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AccountSelector).AccountSelectorOverlay
+		end),
+		[OverlayType.AccountSwitcher] = if not GetFFlagEnableAccountSwitcherFoundationDesign() then nil else createLazyComponent(function() -- line: 212
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AccountSelector).AccountSwitchingSelectAccount
+		end),
+		[OverlayType.EmailOtp] = if not GetFFlagEnableOtpEmailLogin() then nil else createLazyComponent(function() -- line: 217
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.OtpLogin).EmailOtpOverlay
+		end),
+		[OverlayType.VngContactInfoFormWebviewPopup] = createLazyComponent(function() -- line: 221
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Vng.VngContactInfoFormWebviewPopup)
+		end),
+		[OverlayType.NewAppAvailableModal] = if not GetFFlagEnableVNGNewAppAvailableModal() then nil else createLazyComponent(function() -- line: 225
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Authentication.NewAppAvailableInteractiveAlert)
+		end),
+		[OverlayType.AccountSwitchingErrorOverlay] = if not FFlagEnableLuaAccountSwitch then nil else createLazyComponent(function() -- line: 230
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AccountSwitching).AccountSwitchingErrorOverlay
+		end),
+		[OverlayType.CloseOnlyInteractiveAlert] = createLazyComponent(function() -- line: 234
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AppBlox).CloseOnlyInteractiveAlert
+		end),
+		[OverlayType.ConfirmationDialog] = if not FFlagLuaAppSduiBadgeDetailsComponents then nil else createLazyComponent(function() -- line: 238
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AppBlox).ConfirmationDialog
+		end),
+		[OverlayType.UpsellModal] = if not FFlagLuaAppPlayButtonUpsellLinking then createLazyComponent(function() -- line: 244
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AppBlox).UpsellModal
+		end) else nil,
+		[OverlayType.PlayButtonUpsellDialog] = if not FFlagLuaAppPlayButtonUpsellLinking then nil else createLazyComponent(function() -- line: 248
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.GamePlayButton).PlayButtonUpsellDialog
+		end),
+		[OverlayType.SquadPrompt] = if not GetFFlagIsSquadEnabled() then nil else createLazyComponent(function() -- line: 253
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.SquadsCore).SquadPrompt
+		end),
+		[OverlayType.VngComplianceLoadingPopup] = if not GetFFlagUseUpdatedVNGAgreementsWorkflow() then nil else createLazyComponent(function() -- line: 258
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Vng.VngComplianceLoadingPopup)
+		end),
+		[OverlayType.KISAPopUpAgreements] = if not FFlagEnableKoreaKISACompliance then nil else createLazyComponent(function() -- line: 263
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AuthCompliance).KISAPopUpAgreements
+		end),
+		[OverlayType.ItemsReceivedAlert] = createLazyComponent(function() -- line: 267
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.ItemsReceivedAlert).ItemsReceivedAlert
+		end),
+		[OverlayType.VngAppUpsell] = if not FFlagLuaAppHomeVngAppUpsell then nil else createLazyComponent(function() -- line: 271
+			-- upvalues: Modules (copy)
+			return require(Modules.Personalization.Home.VngAppUpsell.VngAppUpsellOverlay)
+		end),
+		[OverlayType.SearchPageOverlay] = if not FFlagSearchOmniAutocompletePage then nil else createLazyComponent(function() -- line: 276
+			-- upvalues: Modules (copy)
+			return require(Modules.Personalization.Search.SearchPageOverlay)
+		end),
+		[OverlayType.GamePlayerFeedbackForm] = if not GetFFlagEdpPlayerFeedbackEnabled() then nil else createLazyComponent(function() -- line: 281
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.PlayerFeedback).GamePlayerFeedbackFormModal
+		end),
+		[OverlayType.ReminderOfNormsPopup] = if not GetFFlagEnableReminderOfNormsABTest() then nil else createLazyComponent(function() -- line: 286
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Moderation.ReminderOfNormsPopup)
+		end),
+		[OverlayType.GameFilterMenuDropdown] = createLazyComponent(function() -- line: 290
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.GameFilters).FilterMenuDropdown
+		end),
+		[OverlayType.SettingsPermissionInteractiveAlert] = createLazyComponent(function() -- line: 293
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.SocialCommon).Components.SettingsPermissionInteractiveAlert
+		end),
+		[OverlayType.BugReporter] = if not GetFFlagEnableInAppBugReporting() then nil else createLazyComponent(function() -- line: 297
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.BugReporting).BugReporterModalContainer
+		end),
+		[OverlayType.InAppIntervention] = createLazyComponent(function() -- line: 301
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.InAppIntervention).InAppInterventionContainer
+		end),
+		[OverlayType.DynamicAbuseReport] = if not FFlagEnableAbuseReportRevampFlow then nil else createLazyComponent(function() -- line: 305
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.GenericAbuseReporting).UXFlows.DynamicReportContainer
+		end),
+		[OverlayType.AccountReactivationPrompt] = createLazyComponent(function() -- line: 309
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.NotApprovedPage).AccountReactivationPrompt
+		end),
+		[OverlayType.MagicLoginApprovePopup] = if not FFlagEnableMagicLogin then nil else createLazyComponent(function() -- line: 313
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.LoginV2).Components.MagicLoginApprovePopup
+		end),
+		[OverlayType.MagicLoginRequestPopup] = if not FFlagEnableMagicLogin then nil else createLazyComponent(function() -- line: 318
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.LoginV2).Components.MagicLoginRequestPopup
+		end),
+		[OverlayType.DeviceSelectorPeekView] = if not FFlagEnableMagicLogin then nil else createLazyComponent(function() -- line: 323
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.LoginV2).Components.DeviceSelectorPeekView
+		end),
+		[OverlayType.AccountLinkingAlert] = createLazyComponent(function() -- line: 327
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AuthCommon).Components.AccountLinkingAlert
+		end),
+		[OverlayType.CheckboxFeedbackFormModal] = createLazyComponent(function() -- line: 330
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AppBlox).CheckboxFeedbackFormModal
+		end),
+		[OverlayType.ProvideFeedbackToast] = createLazyComponent(function() -- line: 333
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AppBlox).ProvideFeedbackToast
+		end),
+		[OverlayType.WearTimeInfoModal] = if not FFlagAXWearTimeSupport then nil else createLazyComponent(function() -- line: 337
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AvatarExperienceTimedOptions).WearTimeInfoModal
+		end),
+		[OverlayType.EconomicRestrictionPrompt] = createLazyComponent(function() -- line: 341
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.Fraud.EconomicRestrictionPrompt)
+		end),
+		[OverlayType.UnifiedProductPurchaseModal] = if not FFlagEnableUnifiedProductPurchaseFlow then nil else createLazyComponent(function() -- line: 345
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.PurchasePrompt).UnifiedPurchasePromptContainer
+		end),
+		[OverlayType.AccountLockModal] = createLazyComponent(function() -- line: 349
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AccountLockModal).AccountLockModal
+		end),
+		[OverlayType.SduiModal] = if not FFlagLuaAppsServerTriggeredModals then nil else createLazyComponent(function() -- line: 353
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.ServerTriggeredModals).SduiModal
+		end),
+		[OverlayType.SduiPromptModal] = if not FFlagEnableSduiV2HomepagePrompts then nil else createLazyComponent(function() -- line: 358
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.ServerTriggeredModals).PromptsContainer
+		end),
+		[OverlayType.SignUpExitModal] = if not FFlagEnableSignUpExitModal then nil else createLazyComponent(function() -- line: 363
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.AuthSignup).Components.SignUpExitModal
+		end),
+		[OverlayType.SocialUpsellOverlay] = createLazyComponent(function() -- line: 367
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.SocialUpsell).InAppSocialUpsellOverlayWrapper
+		end),
+		[OverlayType.NotificationsModal] = if not FFlagEnableSystemTrayModals then nil else createLazyComponent(function() -- line: 371
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.NotificationsModal)
+		end),
+		[OverlayType.SystemTrayModal] = if not FFlagEnableSystemTrayModals then nil else createLazyComponent(function() -- line: 376
+			-- upvalues: Modules (copy)
+			return require(Modules.LuaApp.Components.SystemTrayModal)
+		end),
+		[OverlayType.WhyThisAdModal] = if not FFlagLuaAppEnableWhyThisAdModal then nil else createLazyComponent(function() -- line: 381
+			-- upvalues: CorePackages (copy)
+			return require(CorePackages.Workspace.Packages.SponsoredTiles).WhyThisAdModal
+		end)
+	}
+}

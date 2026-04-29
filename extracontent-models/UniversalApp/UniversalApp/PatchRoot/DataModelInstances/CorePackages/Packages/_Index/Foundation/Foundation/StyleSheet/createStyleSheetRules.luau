@@ -1,59 +1,86 @@
-local l_Parent_0 = script.Parent;
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_1 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_1.React);
-local v4 = require(l_Parent_0.StyleRule);
-local _ = require(l_Parent_0.Rules.Types);
-local _ = require(l_script_FirstAncestor_0.Enums.Device);
-local _ = require(l_script_FirstAncestor_0.Enums.Theme);
-local v8 = require(l_script_FirstAncestor_0.Utility.scaleValue);
-local function v16(v9, v10, v11) --[[ Line: 20 ]] --[[ Name: insertRule ]]
-    -- upvalues: v3 (copy), v4 (copy)
-    local l_properties_0 = v10.properties;
-    local v13 = "." .. v11;
-    local v14 = if v10.modifier ~= nil then ":" .. v10.modifier else "";
-    local v15 = v13 .. v14 .. if v10.pseudo ~= nil then " ::" .. v10.pseudo else "";
-    if v10.pseudo ~= nil then
-        v15 = v15 .. ", " .. v13 .. v14 .. " > " .. v10.pseudo;
-    end;
-    table.insert(v9, v3.createElement(v4, {
-        key = v15, 
-        Priority = v10.priority, 
-        Selector = v15, 
-        properties = l_properties_0
-    }));
-end;
-local function v24(v17, v18, v19, v20) --[[ Line: 43 ]] --[[ Name: updateRuleAttributes ]]
-    -- upvalues: v8 (copy)
-    v18 = v18 or {};
-    v20 = v20 or 1;
-    for _, v22 in v18 do
-        if v19[v22.name] ~= v20 then
-            local v23 = v8(v22.value, v20);
-            v17:SetAttribute(v22.name, v23);
-            v19[v22.name] = v20;
-        end;
-    end;
-end;
-return function(v25, v26, v27, v28, v29) --[[ Line: 61 ]] --[[ Name: createStyleSheetRules ]]
-    -- upvalues: v24 (copy), v16 (copy)
-    local v30 = {};
-    for v31, _ in v26 do
-        local v33 = v25[v31];
-        if v33 ~= nil then
-            if v27 and v28 then
-                v24(v27, v33.attributes, v28, v29);
-            end;
-            v16(v30, v33, v31);
-            if v33.children then
-                for _, v35 in v33.children do
-                    if v27 and v28 then
-                        v24(v27, v35.attributes, v28, v29);
-                    end;
-                    v16(v30, v35, v35.tag);
-                end;
-            end;
-        end;
-    end;
-    return v30;
-end;
+local scriptParent = script.Parent
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local React = require(FoundationParent.React)
+local StyleRule = require(scriptParent.StyleRule)
+
+require(scriptParent.Rules.Types)
+require(Foundation.Enums.Device)
+
+local Flags = require(Foundation.Utility.Flags)
+
+require(Foundation.Enums.Theme)
+require(scriptParent.getOverrideAttributes)
+
+local scaleValue = require(Foundation.Utility.scaleValue)
+
+local function insertRule(t1: {[any]: any}, p1, s1: string) -- line: 23
+	-- upvalues: React (copy), StyleRule (copy)
+	local properties = p1.properties
+	local v14 = "." .. s1
+	local v15 = p1.modifier == nil and "" or ":" .. p1.modifier
+	local v16 = v14 .. v15 .. (p1.pseudo == nil and "" or " ::" .. p1.pseudo)
+
+	if p1.pseudo ~= nil then
+		v16 ..= ", " .. v14 .. v15 .. " > " .. p1.pseudo
+	end
+
+	table.insert(t1, React.createElement(StyleRule, {
+		key = v16,
+		Priority = p1.priority,
+		Selector = v16,
+		properties = properties
+	}))
+end
+local function updateRuleAttributes(p2, t2: {[any]: any}?, t3: {[any]: any}, n1: number?, p3) -- line: 46
+	-- upvalues: Flags (copy), scaleValue (copy)
+	local v22 = t2 or {}
+	local v23 = if not Flags.FoundationDisableTokenScaling then n1 or 1 else 1
+
+	for _, v25 in v22 do
+		if Flags.FoundationUseAttributeTokens then
+			local v26 = if not p3 then nil else p3[v25.name]
+			local v27 = if v26 == nil then v25.value else v26
+			local v28 = scaleValue(v27, v23)
+
+			if v28 ~= t3[v25.name] then
+				p2:SetAttribute(v25.name, v28)
+				t3[v25.name] = v28
+			end
+		elseif v23 ~= t3[v25.name] then
+			local v29 = scaleValue(v25.value, v23)
+
+			p2:SetAttribute(v25.name, v29)
+			t3[v25.name] = v23
+		end
+	end
+end
+
+return function(t4: {[any]: any}, t5: {[any]: any}, p4, t6: {[any]: any}?, n2: number?, p5) --[[ createStyleSheetRules ]] -- line: 73
+	-- upvalues: updateRuleAttributes (copy), insertRule (copy)
+	local t7 = {}
+
+	for v37, _ in t5 do
+		local v39 = t4[v37]
+
+		if v39 ~= nil then
+			if p4 and t6 then
+				updateRuleAttributes(p4, v39.attributes, t6, n2, p5)
+			end
+
+			insertRule(t7, v39, v37)
+
+			if v39.children then
+				for _, v41 in v39.children do
+					if p4 and t6 then
+						updateRuleAttributes(p4, v41.attributes, t6, n2, p5)
+					end
+
+					insertRule(t7, v41, v41.tag)
+				end
+			end
+		end
+	end
+
+	return t7
+end

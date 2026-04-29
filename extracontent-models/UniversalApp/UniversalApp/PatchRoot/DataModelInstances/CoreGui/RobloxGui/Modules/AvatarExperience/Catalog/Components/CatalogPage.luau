@@ -1,815 +1,859 @@
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_UserInputService_0 = game:GetService("UserInputService");
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v4 = require(l_CorePackages_0.Packages.Roact);
-local v5 = require(l_CorePackages_0.Packages.React);
-local v6 = require(l_CorePackages_0.Packages.RoactRodux);
-local v7 = require(l_CorePackages_0.Packages.t);
-local v8 = require(l_CorePackages_0.Packages.RoactGamepad);
-local l_Focusable_0 = v8.Focusable;
-local v10 = require(l_CorePackages_0.Packages.Cryo);
-local v11 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
-local l_useSelector_0 = v11.Hooks.RoactRodux.useSelector;
-local l_useDispatch_0 = v11.Hooks.RoactRodux.useDispatch;
-local l_ExternalEventConnection_0 = v11.ExternalEventConnection;
-local l_isGamepadInput_0 = v11.isGamepadInput;
-local l_useRoactService_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useRoactService;
-local l_Images_0 = require(l_CorePackages_0.Packages.UIBlox).App.ImageSet.Images;
-local l_AXRemoveBackButtonDesktopClientsIXPTest_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceExperiments).AXRemoveBackButtonDesktopClientsIXPTest;
-local v19 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local v20 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog);
-local v21 = require(l_Modules_0.AvatarExperience.AvatarRefinement.HeadRefinement.Stores.GetHeadShapeInventoryStore);
-local v22 = require(l_Modules_0.LuaApp.AppPage);
-local v23 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v24 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
-local l_AvatarScreen_0 = v24.Enums.AvatarScreen;
-local l_AvatarScreenProperties_0 = v24.AvatarRoute.AvatarScreenProperties;
-local l_useAvatarRoute_0 = v24.AvatarRoute.Hooks.useAvatarRoute;
-local v28 = require(l_Modules_0.AvatarExperience.Common.Services.Analytics);
-local v29 = require(l_Modules_0.LuaApp.Services.RoactAnalytics);
-local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
-local v31 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local v33 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.NavigationEventsLogger);
-local v34 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withStackVisibilityWrapper);
-local v35 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withMappedNavigationParams);
-local v36 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local _ = require(l_CorePackages_0.Packages.ReactFocusNavigation);
-local l_FocusNavigationEventNameEnum_0 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils).FocusNavigationEventNameEnum;
-local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
-local v40 = require(l_Modules_0.AvatarExperience.Common.Context.withNamedRefs);
-local v41 = require(l_Modules_0.LuaApp.Context.useTopBarSearchSignal);
-local v42 = require(l_Modules_0.AvatarExperience.Common.Components.TopBar.makeTitleDropDown);
-local v43 = if require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXTransitionMenuV2)() then require(l_Modules_0.AvatarExperience.Common.Components.AXTransitionSegmentedMenu) else require(l_Modules_0.AvatarExperience.Common.Components.AXTransitionSegmentedMenu_DEPRECATED);
-local v44 = require(l_Modules_0.AvatarExperience.Common.Components.TopBar.makeAvatarBackButton);
-local v45 = require(l_Modules_0.AvatarExperience.Common.Components.AvatarExperienceView);
-local v46 = require(l_Modules_0.AvatarExperience.Catalog.Components.NavigationItemsView);
-local v47 = require(l_Modules_0.LuaApp.Components.TopBar.TopBar);
-local v48 = require(l_Modules_0.AvatarExperience.Common.Components.GamepadFocusHandlerForPage);
-local v49 = require(l_Modules_0.AvatarExperience.Common.Components.BoundInputsUpdater);
-local v50 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics);
-local v51 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
-local l_PeekViewState_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).PeekViewState;
-local v53 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
-local l_SetItemDetailsPeekViewState_0 = v53.Actions.SetItemDetailsPeekViewState;
-local l_SetTryOnManagerPeekViewState_0 = v53.Actions.SetTryOnManagerPeekViewState;
-local v56 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenItemPrompt);
-local v57 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
-local l_FullView_0 = v19.Enums.FullView;
-local v59 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenQuickMenu);
-local v60 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums);
-local v61 = require(l_Modules_0.LuaApp.Navigation.AndroidBackButtonConnection);
-local v62 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Utils.isAvatarRouteVisible);
-local v63 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectIsPortrait);
-local v64 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectIsFullView);
-local v65 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
-local v66 = require(l_Modules_0.LuaApp.Thunks.InstantResetNavigationHistory);
-local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local v68 = require(l_Modules_0.AvatarExperience.Catalog.Components.OnFocusExposureLogger);
-local v69 = require(l_Modules_0.AvatarExperience.Catalog.Components.OnFocusExperimentExposureLogger);
-local v70 = require(l_Modules_0.AvatarExperience.Common.Hooks.useAvatarExperienceFocusNavigationBindings);
-local v71 = require(l_Modules_0.AvatarExperience.Common.Hooks.useOpenQuickMenuCallback);
-local v72 = require(l_Modules_0.AvatarExperience.Common.Hooks.useQuickMenuAvailable);
-local v73 = require(l_Modules_0.AvatarExperience.Common.Hooks.useOverlayClosedCallback);
-local l_useUiModeInfo_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useUiModeInfo;
-local l_UiMode_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).UiMode;
-local v76 = require(l_Modules_0.AvatarExperience.Catalog.Actions.SetSearchCategoryAndSubcategory);
-local l_sendAXCounterV2_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).sendAXCounterV2;
-local v78 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local l_IsVRAppBuild_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).IsVRAppBuild;
-local v80 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAvatarAutocompleteEnabledForAll);
-local v81 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagLooksIXPLogging);
-local v82 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local l_IXPServiceWrapper_0 = require(l_CorePackages_0.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper;
-local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
-local v85 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagDynamicHeadsMigration_0 = v85.FFlagDynamicHeadsMigration;
-local v87 = require(l_Modules_0.AvatarExperience.Flags.AvatarMarketplaceBackendIXPTests);
-local v88 = require(l_Modules_0.AvatarExperience.Flags.UniversalAppCameraIXPTest);
-local v89 = require(l_Modules_0.AvatarExperience.Experiments.AXDisableAlwaysRenderedScreensIXP);
-local v90 = require(l_Modules_0.AvatarExperience.Experiments.AXCatalogPerfReduxReductionIXP);
-local l_AXAvatarsTabIXP_0 = v19.Experiments.AXAvatarsTabIXP;
-local l_getBackendLayerNamesForCatalog_0 = v19.Utils.getBackendLayerNamesForCatalog;
-local l_UserIsInExperiment_0 = v85.FFlagsAXPrefetchMarketplaceThumbnailsXP.UserIsInExperiment;
-local v94 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXDisableRelevanceRecommendationsLayerExposure);
-local v95 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXDisableSortsLayerExposure);
-local v96 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXDisableRecommendationsAndSearchLayerExposure);
-local v97 = require(l_Modules_0.AvatarExperience.Flags.GetFlagAXEnableInitialTopLevelPageCounter);
-local l_FFlagAXMigrateCatalogPageInputBindings_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateCatalogPageInputBindings;
-local v99 = require(l_Modules_0.AvatarExperience.Flags.GetFStringAXCatalogAndEditorExposureLayerName);
-local l_FFlagAXAvatarTimeoutFlow_0 = v85.FFlagAXAvatarTimeoutFlow;
-local l_FFlagAXRefetchAvatarOnTimeout_0 = v85.FFlagAXRefetchAvatarOnTimeout;
-local l_FFlagAXMISEnableMultiShopping_0 = v85.FFlagAXMISEnableMultiShopping;
-local l_FFlagAXMakeupReleaseFTUX_0 = v85.FFlagAXMakeupReleaseFTUX;
-local l_FFlagAXOpaqueMarketplaceTopbar_0 = v85.FFlagAXOpaqueMarketplaceTopbar;
-local l_FFlagAXBackendDrivenCatalogLayers_0 = v85.FFlagAXBackendDrivenCatalogLayers;
-local v106 = game:DefineFastFlag("AXEnableIXPCounters2", false);
-local v107 = game:DefineFastFlag("AXCustomizeOverhaulCatalogExposure2", false);
-local v108 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXCatalogAndEditorExposureUseFStringLayer);
-local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
-local l_FFlagAXCatalogCategoriesStore_0 = v85.FFlagAXCatalogCategoriesStore;
-local v111 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
-local v112 = game:DefineFastString("AXMISExperimentLayerName", l_AppUserLayers_0.AvatarExperienceUAMarketplaceView);
-local v113 = game:DefineFastFlag("AXMISExposureLogging", false);
-local v114 = game:DefineFastString("AXTaxonomyM20ExperimentLayerName", l_AppUserLayers_0.AvatarExperienceUAMarketplaceView);
-local l_FFlagAXExpandPeekViewOnFirstScroll_0 = v85.FFlagAXExpandPeekViewOnFirstScroll;
-local l_FFlagAXEnableCategoryPillsExposureLogging_0 = v85.FFlagAXEnableCategoryPillsExposureLogging;
-local l_FFlagAXHideMenuOnScroll_0 = v85.FFlagAXHideMenuOnScroll;
-local l_FFlagAXFixCatalogRefreshRendering_0 = v85.FFlagAXFixCatalogRefreshRendering;
-local l_FFlagBasedExposureLoggingCatalogPage_0 = v85.FFlagBasedExposureLoggingCatalogPage;
-local l_FFlagAXEnableTaxonomyM20ExposureLoggingCatalog_0 = v85.FFlagAXEnableTaxonomyM20ExposureLoggingCatalog;
-local l_FFlagAXHandleTaxonomyIdsDeepLinks_0 = v85.FFlagAXHandleTaxonomyIdsDeepLinks;
-local l_FFlagAXMoveCatalogFilterToL1NavigationExposureLogging_0 = v85.FFlagAXMoveCatalogFilterToL1NavigationExposureLogging;
-local l_FFlagAXDefaultCatalogCategoryId_0 = v85.FFlagAXDefaultCatalogCategoryId;
-local l_FFlagEnableLeftNavOnConsole_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLeftNavOnConsole;
-local l_FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup_0 = v85.FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup;
-local l_FFlagAXHideCatalogShortcutsInFullView_0 = v85.FFlagAXHideCatalogShortcutsInFullView;
-local v127 = game:DefineFastFlag("FFlagAXCatalogCategoriesSDUIExposureLogging", false);
-local v128 = game:DefineFastString("FStringAXCatalogCategoriesSDUIExposureLayer", l_AppUserLayers_0.AvatarExperienceUAMarketplaceView);
-local l_FFlagAXCatalogM41CategoriesExposureLogging_0 = v85.FFlagAXCatalogM41CategoriesExposureLogging;
-local l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 = v85.FFlagAXEnableMilestoneTrackingForAvatarExperience;
-local l_WidgetsPercievedTTIManager_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceTTIPerformance).WidgetsPercievedTTIManager;
-local l_FFlagAXHideMenuOnScrollExposureLogging_0 = v85.FFlagAXHideMenuOnScrollExposureLogging;
-local v133 = game:DefineFastFlag("AXVirtualizedListConfigExposureLogging", false);
-local v134 = require(script.Parent.useCatalogPageFocusNavigationBindings);
-local v135 = require(script.Parent.useCatalogPageRevertToLastEquippedStateHook);
-local l_useCatalogPageTimeoutPrompt_0 = v20.Hooks.useCatalogPageTimeoutPrompt;
-local l_useCatalogPageMakeupReleaseFtux_0 = v20.Hooks.useCatalogPageMakeupReleaseFtux;
-local v138 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.RefetchAvatarData);
-local v139 = require(l_Modules_0.LuaApp.mutedError);
-local v140 = l_Images_0["icons/actions/truncationExpand"];
-local l_CatalogCategories_0 = v19.Enums.CatalogCategories;
-local function v143(v142) --[[ Line: 213 ]] --[[ Name: selectTryOnManagerViewState ]]
-    return v142.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState;
-end;
-local function v146(v144) --[[ Line: 217 ]] --[[ Name: selectIsTryOnButtonShowing ]]
-    -- upvalues: v10 (copy)
-    local l_TryOnItems_0 = v144.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
-    return #v10.Dictionary.values(l_TryOnItems_0) > 1;
-end;
-local v147 = v4.PureComponent:extend("CatalogPage");
-v147.validateProps = v7.strictInterface({
-    fullView = v7.optional(v7.userdata), 
-    isPortrait = v7.optional(v7.boolean), 
-    itemDetailsExpanded = v7.optional(v7.boolean), 
-    tryOnManagerPeekViewState = v7.optional(v7.valueOf(l_PeekViewState_0)), 
-    tryOnItems = v7.optional(v7.table), 
-    openItemPrompt = v7.callback, 
-    setItemDetailsPeekViewState = v7.callback, 
-    navigateIntoQuickMenu = v7.optional(v7.callback), 
-    setFullView = v7.callback, 
-    resetNavigationHistory = v7.callback, 
-    instantResetNavigationHistory = v7.callback, 
-    setTryOnManagerPeekViewState = v7.callback, 
-    resetSearchCategoryAndSubcategory = v7.callback, 
-    namedRefs = v7.table, 
-    prevNavPage = v7.optional(v7.string), 
-    prevNavHistory = v7.optional(v7.table), 
-    navigation = v7.optional(v7.table), 
-    avatarRoute = v7.optional(v7.table), 
-    avatarExperienceAnalytics = v7.optional(v7.table), 
-    networking = v7.optional(v7.callback), 
-    appAnalytics = v7.optional(v7.table), 
-    avatarEditorAnalytics = v7.optional(v7.table), 
-    catalogAnalytics = v7.optional(v7.table), 
-    show3dView = v7.optional(v7.boolean), 
-    itemId = v7.optional(v7.string), 
-    itemType = v7.optional(v7.string), 
-    isFirstItemDetails = v7.optional(v7.boolean), 
-    is10ftUI = v7.boolean, 
-    focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v7.table, 
-    androidBackButtonConnection = v7.table, 
-    overlayClosedCallback = v7.callback, 
-    fetchItemFailed = if l_FFlagAXFixCatalogRefreshRendering_0 then v7.optional(v7.boolean) else nil, 
-    wasItemEquipped = if l_FFlagAXFixCatalogRefreshRendering_0 then v7.optional(v7.boolean) else nil, 
-    category = if l_FFlagAXHandleTaxonomyIdsDeepLinks_0 then v7.optional(v7.string) else nil, 
-    subcategory = if l_FFlagAXHandleTaxonomyIdsDeepLinks_0 then v7.optional(v7.string) else nil, 
-    taxonomy = if l_FFlagAXHandleTaxonomyIdsDeepLinks_0 then v7.optional(v7.string) else nil
-});
-v147.init = function(v148) --[[ Line: 284 ]] --[[ Name: init ]]
-    -- upvalues: v4 (copy), v8 (copy), l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), v23 (copy), l_AvatarScreen_0 (copy), l_FullView_0 (copy), l_FFlagAXExpandPeekViewOnFirstScroll_0 (copy), v22 (copy), v42 (copy), v44 (copy), v80 (copy), v97 (copy), l_sendAXCounterV2_0 (copy), v78 (copy), l_FFlagAXEnableCategoryPillsExposureLogging_0 (copy), l_IXPServiceWrapper_0 (copy), l_AppUserLayers_0 (copy), l_FFlagAXEnableTaxonomyM20ExposureLoggingCatalog_0 (copy), v114 (copy)
-    v148.topBarRef = v4.createRef();
-    v148.sceneUIContainerRef = v4.createRef();
-    v148.titleDropDownRef = v4.createRef();
-    v148.topBarRenderRightRef = v4.createRef();
-    v148.refinementButtonsRef = v4.createRef();
-    v148.multiTryOnBottomBarRef = v4.createRef();
-    v148.quickButtonsRef = v4.createRef();
-    v148.itemDetailsPeekViewRefs = v8.createRefCache();
-    local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-    v148:setState({
-        lastInputIsGamepad = l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_0)
-    });
-    v148.setDefaultRefOverride = function(v150) --[[ Line: 301 ]]
-        -- upvalues: v148 (copy), v4 (ref)
-        v148:setState({
-            defaultRefOverride = v150 or v4.None
-        });
-    end;
-    v148.changeView = function() --[[ Line: 307 ]]
-        -- upvalues: v148 (copy), v23 (ref)
-        local l_avatarExperienceAnalytics_0 = v148.props.avatarExperienceAnalytics;
-        local v152 = v23.getNewFullViewEnum(v148.props.fullView);
-        v148.props.setFullView(l_avatarExperienceAnalytics_0, v148.props.avatarRoute.opaque.name, v152);
-    end;
-    v148.setUIFullView = function() --[[ Line: 314 ]]
-        -- upvalues: v148 (copy), l_AvatarScreen_0 (ref), l_FullView_0 (ref)
-        local l_avatarExperienceAnalytics_1 = v148.props.avatarExperienceAnalytics;
-        if v148.props.isPortrait then
-            v148.props.setFullView(l_avatarExperienceAnalytics_1, l_AvatarScreen_0.CatalogSearch, l_FullView_0.UIFullView);
-        end;
-    end;
-    v148.isAvatarScreen = function(v154) --[[ Line: 322 ]]
-        -- upvalues: l_AvatarScreen_0 (ref)
-        return (rawget(l_AvatarScreen_0, v154));
-    end;
-    v148.topBarBackButtonActivated = function() --[[ Line: 326 ]]
-        -- upvalues: l_FFlagAXExpandPeekViewOnFirstScroll_0 (ref), v148 (copy), l_FullView_0 (ref), l_AvatarScreen_0 (ref), v22 (ref)
-        if l_FFlagAXExpandPeekViewOnFirstScroll_0 and v148.props.fullView == l_FullView_0.UIFullView then
-            local l_avatarExperienceAnalytics_2 = v148.props.avatarExperienceAnalytics;
-            v148.props.setFullView(l_avatarExperienceAnalytics_2, v148.props.avatarRoute.opaque.name, l_FullView_0.None);
-            return;
-        else
-            local l_navigation_0 = v148.props.navigation;
-            local l_avatarEditorAnalytics_0 = v148.props.avatarEditorAnalytics;
-            local l_prevNavPage_0 = v148.props.prevNavPage;
-            local l_prevNavHistory_0 = v148.props.prevNavHistory;
-            if l_prevNavPage_0 and l_prevNavHistory_0 then
-                if v148.isAvatarScreen(l_prevNavPage_0) then
-                    v148.props.navigation.navigate(l_prevNavPage_0);
-                else
-                    v148.props.resetNavigationHistory(l_prevNavHistory_0);
-                end;
-            else
-                local v160 = if v148.props.is10ftUI then l_AvatarScreen_0.AvatarExperienceLandingPage else v22.Home;
-                l_navigation_0.navigate(v160);
-            end;
-            l_avatarEditorAnalytics_0.catalogToAvatarBackButton();
-            return;
-        end;
-    end;
-    v148.defaultChildRef = v4.createRef();
-    v148.lastInputTypeChangedCallback = function(v161) --[[ Line: 354 ]]
-        -- upvalues: l_isGamepadInput_0 (ref), v148 (copy)
-        local v162 = l_isGamepadInput_0(v161);
-        if v162 ~= v148.state.lastInputIsGamepad then
-            v148:setState({
-                lastInputIsGamepad = v162
-            });
-        end;
-    end;
-    v148.titleDropDown = v42("Feature.Avatar.Action.Marketplace", v148.props.overlayClosedCallback);
-    v148.backButton = v44(v148.topBarBackButtonActivated);
-    v148.onConfirmSearchCallback = function() --[[ Line: 367 ]]
-        -- upvalues: v148 (copy), v80 (ref)
-        v148.props.resetSearchCategoryAndSubcategory();
-        if v80() and v148.setUIFullView then
-            v148.setUIFullView();
-        end;
-    end;
-    if v97() then
-        l_sendAXCounterV2_0(v78.Counter.TopLevelPageInitialView.Catalog);
-    end;
-    if l_FFlagAXEnableCategoryPillsExposureLogging_0 then
-        l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(l_AppUserLayers_0.AvatarExperienceUAAllViews);
-    end;
-    if l_FFlagAXEnableTaxonomyM20ExposureLoggingCatalog_0 then
-        l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(v114);
-    end;
-end;
-v147.getBestDefaultRefForPage = function(v163) --[[ Line: 389 ]] --[[ Name: getBestDefaultRefForPage ]]
-    if v163.state.defaultRefOverride then
-        return v163.state.defaultRefOverride;
-    else
-        return v163.defaultChildRef;
-    end;
-end;
-if not l_FFlagAXMigrateCatalogPageInputBindings_0 then
-    v147.getInputBindings = function(v164) --[[ Line: 398 ]] --[[ Name: getInputBindings ]]
-        -- upvalues: l_AvatarScreenProperties_0 (copy), v10 (copy), l_AvatarScreen_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v8 (copy), v36 (copy), l_PeekViewState_0 (copy)
-        local l_avatarRoute_0 = v164.props.avatarRoute;
-        local l_name_0 = l_avatarRoute_0.current.name;
-        local l_isMultiTryOn_0 = l_AvatarScreenProperties_0[l_avatarRoute_0.opaque.name].isMultiTryOn;
-        local v168 = #v10.Dictionary.values(v164.props.tryOnItems) > 1;
-        local v169 = {
-            OpenTryOnManager = if l_name_0 ~= l_AvatarScreen_0.TryOnManager and (l_isMultiTryOn_0 or l_FFlagAXMISEnableMultiShopping_0) and v168 then v8.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 408 ]]
-                -- upvalues: v36 (ref), v164 (copy), l_AvatarScreen_0 (ref)
-                v36.closeFiltersAndItemDetails(v164.props.navigation);
-                v164.props.navigation.navigate(l_AvatarScreen_0.TryOnManager);
-            end, {
-                key = "Feature.Catalog.Label.TryOns"
-            }) else nil
-        };
-        if l_name_0 == l_AvatarScreen_0.ItemDetails then
-            return (v10.Dictionary.join(v169, {
-                NavigateBack = v8.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 419 ]]
-                    -- upvalues: v36 (ref), v164 (copy)
-                    v36.closeFocusedScreen(v164.props.navigation);
-                end), 
-                OpenItemPrompt = v8.Input.onBegin(Enum.KeyCode.ButtonX, function() --[[ Line: 422 ]]
-                    -- upvalues: v164 (copy), l_avatarRoute_0 (copy)
-                    v164.props.openItemPrompt(v164.props.networking, v164.props.catalogAnalytics, v164.props.overlayClosedCallback, v164.props.navigation, l_avatarRoute_0);
-                end, {
-                    key = "Feature.Catalog.Action.Buy"
-                }), 
-                OpenCatalogContextMenu = v8.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 433 ]]
-                    -- upvalues: v164 (copy), l_AvatarScreen_0 (ref), l_avatarRoute_0 (copy)
-                    v164.props.navigation.navigate(l_AvatarScreen_0.CatalogContextMenu, {
-                        itemId = l_avatarRoute_0.current.params.itemId, 
-                        itemType = l_avatarRoute_0.current.params.itemType, 
-                        onOverlayClosed = v164.props.overlayClosedCallback
-                    });
-                end, {
-                    key = "Feature.Catalog.Action.ItemOptions"
-                })
-            }));
-        elseif l_name_0 == l_AvatarScreen_0.TryOnManager then
-            return (v10.Dictionary.join(v169, {
-                OpenCloseTryOnManager = v8.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 445 ]]
-                    -- upvalues: v164 (copy), l_PeekViewState_0 (ref)
-                    local l_tryOnManagerPeekViewState_0 = v164.props.tryOnManagerPeekViewState;
-                    if l_tryOnManagerPeekViewState_0 == l_PeekViewState_0.Full or l_tryOnManagerPeekViewState_0 == l_PeekViewState_0.Extended then
-                        v164.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Brief);
-                        return;
-                    else
-                        v164.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Full);
-                        return;
-                    end;
-                end, {
-                    key = "Feature.Catalog.Label.TryOns"
-                })
-            }));
-        else
-            if l_name_0 == l_AvatarScreen_0.LookDetails then
-                v169 = v10.Dictionary.join(v169, {
-                    OpenCloseTryOnManager = v8.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 458 ]]
-                        -- upvalues: v164 (copy), l_PeekViewState_0 (ref)
-                        local l_tryOnManagerPeekViewState_1 = v164.props.tryOnManagerPeekViewState;
-                        if l_tryOnManagerPeekViewState_1 == l_PeekViewState_0.Full or l_tryOnManagerPeekViewState_1 == l_PeekViewState_0.Extended then
-                            v164.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Brief);
-                            return;
-                        else
-                            v164.props.setTryOnManagerPeekViewState(l_PeekViewState_0.Full);
-                            return;
-                        end;
-                    end, {
-                        key = "Feature.Catalog.Label.TryOns"
-                    })
-                });
-            end;
-            return v169;
-        end;
-    end;
-end;
-if v106 then
-    v147.sendExperimentCountersOnce = function(_) --[[ Line: 476 ]] --[[ Name: sendExperimentCountersOnce ]]
+local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
+local Modules = CoreGui.RobloxGui.Modules
+local Roact = require(CorePackages.Packages.Roact)
+local React = require(CorePackages.Packages.React)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local t = require(CorePackages.Packages.t)
+local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
+local Focusable = RoactGamepad.Focusable
+local Cryo = require(CorePackages.Packages.Cryo)
+local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
+local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
+local ExternalEventConnection = RoactUtils.ExternalEventConnection
+local isGamepadInput = RoactUtils.isGamepadInput
+local useRoactService = require(CorePackages.Workspace.Packages.RobloxAppHooks).useRoactService
+local Images = require(CorePackages.Packages.UIBlox).App.ImageSet.Images
+local AXRemoveBackButtonDesktopClientsIXPTest = require(CorePackages.Workspace.Packages.AvatarExperienceExperiments).AXRemoveBackButtonDesktopClientsIXPTest
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local AvatarExperienceCatalog = require(CorePackages.Workspace.Packages.AvatarExperienceCatalog)
+local GetHeadShapeInventoryStore = require(Modules.AvatarExperience.AvatarRefinement.HeadRefinement.Stores.GetHeadShapeInventoryStore)
+local AppPage = require(Modules.LuaApp.AppPage)
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+local AvatarExperienceNavigation = require(CorePackages.Workspace.Packages.AvatarExperienceNavigation)
+local AvatarScreen = AvatarExperienceNavigation.Enums.AvatarScreen
+local AvatarScreenProperties = AvatarExperienceNavigation.AvatarRoute.AvatarScreenProperties
+local useAvatarRoute = AvatarExperienceNavigation.AvatarRoute.Hooks.useAvatarRoute
+local Analytics = require(Modules.AvatarExperience.Common.Services.Analytics)
+local RoactAnalytics = require(Modules.LuaApp.Services.RoactAnalytics)
+local RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
+local RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local NavigationEventsLogger = require(Modules.AvatarExperience.Common.Components.RoactNavigation.Debug.NavigationEventsLogger)
+local withStackVisibilityWrapper = require(Modules.AvatarExperience.Common.Components.RoactNavigation.withStackVisibilityWrapper)
+local withMappedNavigationParams = require(Modules.AvatarExperience.Common.Components.RoactNavigation.withMappedNavigationParams)
+local NavigationUtils = require(Modules.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils)
 
-    end;
-end;
-v147.didMount = function(v173) --[[ Line: 479 ]] --[[ Name: didMount ]]
-    -- upvalues: v62 (copy), v106 (copy), v107 (copy), v82 (copy), v108 (copy), v99 (copy), l_AppUserLayers_0 (copy), v113 (copy), l_IXPServiceWrapper_0 (copy), v112 (copy)
-    if not v173.props.is10ftUI and v62(v173.props) then
-        v173.props.androidBackButtonConnection.connect(v173.topBarBackButtonActivated);
-    end;
-    if v106 then
-        v173:sendExperimentCountersOnce();
-    end;
-    if v107 then
-        v82.logLayerExposure(if v108 then v99() else l_AppUserLayers_0.AvatarExperienceUAAllViews);
-    end;
-    if v113 then
-        l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(v112);
-    end;
-end;
-v147.willUnmount = function(v174) --[[ Line: 503 ]] --[[ Name: willUnmount ]]
-    v174.props.androidBackButtonConnection.disconnect();
-end;
-v147.didUpdate = function(v175, v176) --[[ Line: 507 ]] --[[ Name: didUpdate ]]
-    -- upvalues: v62 (copy)
-    if not v175.props.is10ftUI then
-        if not v62(v176) and v62(v175.props) then
-            v175.props.androidBackButtonConnection.connect(v175.topBarBackButtonActivated);
-            return;
-        elseif v62(v176) and not v62(v175.props) then
-            v175.props.androidBackButtonConnection.disconnect();
-        end;
-    end;
-end;
-v147.willUpdate = function(v177, v178) --[[ Line: 517 ]] --[[ Name: willUpdate ]]
-    -- upvalues: l_FFlagAXExpandPeekViewOnFirstScroll_0 (copy), v44 (copy)
-    if l_FFlagAXExpandPeekViewOnFirstScroll_0 and v178.fullView ~= v177.props.fullView then
-        v177.backButton = v44(v177.topBarBackButtonActivated, v177:getBackButtonIcon(v178.fullView));
-    end;
-end;
-if l_FFlagAXExpandPeekViewOnFirstScroll_0 then
-    v147.getBackButtonIcon = function(v179, v180) --[[ Line: 525 ]] --[[ Name: getBackButtonIcon ]]
-        -- upvalues: l_FullView_0 (copy), v140 (copy)
-        if not v180 then
-            v180 = v179.props.fullView;
-        end;
-        if v180 == l_FullView_0.UIFullView then
-            return v140;
-        else
-            return nil;
-        end;
-    end;
-end;
-v147.renderTopBar = function(v181) --[[ Line: 539 ]] --[[ Name: renderTopBar ]]
-    -- upvalues: l_withLocalization_0 (copy), v80 (copy), l_IsVRAppBuild_0 (copy), v43 (copy), v47 (copy), v4 (copy), v60 (copy), l_FFlagAXOpaqueMarketplaceTopbar_0 (copy)
-    local l_isPortrait_0 = v181.props.isPortrait;
-    local l_show3dView_0 = v181.props.show3dView;
-    return l_withLocalization_0({
-        title = "Feature.Avatar.Action.Marketplace"
-    })(function(v184) --[[ Line: 545 ]]
-        -- upvalues: v80 (ref), l_IsVRAppBuild_0 (ref), v181 (copy), v43 (ref), v47 (ref), v4 (ref), v60 (ref), l_FFlagAXOpaqueMarketplaceTopbar_0 (ref), l_isPortrait_0 (copy), l_show3dView_0 (copy)
-        local v185 = 2;
-        if v80() then
-            v185 = 3;
-        end;
-        local v186 = nil;
-        local v187 = nil;
-        local v188 = nil;
-        if l_IsVRAppBuild_0() then
-            v187 = nil;
-            v186 = nil;
-            v188 = nil;
-        else
-            v186 = v181.backButton;
-            v187 = if v181.props.is10ftUI then v181.titleDropDown else v43;
-            v188 = {
-                v47.SearchButton
-            };
-        end;
-        return v4.createElement(v47.Container, {
-            forceCompactMode = true, 
-            searchType = v60.SearchTypes.Catalog, 
-            titleText = v184.title, 
-            ZIndex = v185, 
-            transparentBackground = if not l_FFlagAXOpaqueMarketplaceTopbar_0 or l_isPortrait_0 then l_show3dView_0 else false, 
-            hideSiteMessageBanner = l_isPortrait_0, 
-            [v4.Ref] = v181.topBarRef, 
-            setDefaultRefOverride = v181.setDefaultRefOverride, 
-            NextSelectionDown = v181.defaultChildRef, 
-            NextSelectionRight = v181.sceneUIContainerRef, 
-            onConfirmSearchCallback = v181.onConfirmSearchCallback, 
-            leftItem = v186, 
-            centerItem = v187, 
-            rightItems = v188, 
-            useParentSizeForCenterItem = true, 
-            shouldNavigateToSearchLandingPage = true
-        });
-    end);
-end;
-v147.render = function(v189) --[[ Line: 588 ]] --[[ Name: render ]]
-    -- upvalues: l_FullView_0 (copy), l_AvatarScreen_0 (copy), v4 (copy), l_Focusable_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_FFlagAXMigrateCatalogPageInputBindings_0 (copy), v49 (copy), l_ExternalEventConnection_0 (copy), l_UserInputService_0 (copy), v33 (copy), v68 (copy), v88 (copy), v94 (copy), v87 (copy), v96 (copy), v81 (copy), v95 (copy), v69 (copy), v89 (copy), v90 (copy), l_AXRemoveBackButtonDesktopClientsIXPTest_0 (copy), l_AXAvatarsTabIXP_0 (copy), l_FFlagAXBackendDrivenCatalogLayers_0 (copy), l_getBackendLayerNamesForCatalog_0 (copy), l_FFlagBasedExposureLoggingCatalogPage_0 (copy), l_UserIsInExperiment_0 (copy), l_AppUserLayers_0 (copy), l_FFlagAXMoveCatalogFilterToL1NavigationExposureLogging_0 (copy), v127 (copy), v128 (copy), l_FFlagAXCatalogM41CategoriesExposureLogging_0 (copy), l_FFlagAXHideMenuOnScrollExposureLogging_0 (copy), v133 (copy), v45 (copy), l_FFlagAXHideMenuOnScroll_0 (copy), l_FFlagAXExpandPeekViewOnFirstScroll_0 (copy), v48 (copy), v46 (copy)
-    local v190 = v189.props.fullView == l_FullView_0.SceneFullView;
-    local v191 = v189.props.fullView == l_FullView_0.UIFullView;
-    local l_show3dView_1 = v189.props.show3dView;
-    local l_namedRefs_0 = v189.props.namedRefs;
-    local v194 = v189.props.avatarRoute.current.name == l_AvatarScreen_0.SortAndFilters;
-    local l_quickButtonsRef_0 = v189.quickButtonsRef;
-    if v189.props.avatarRoute.current.name == l_AvatarScreen_0.TryOnManager then
-        l_quickButtonsRef_0 = l_namedRefs_0[l_AvatarScreen_0.TryOnManager];
-    elseif v189.props.avatarRoute.current.name == l_AvatarScreen_0.LookDetails then
-        l_quickButtonsRef_0 = l_namedRefs_0[l_AvatarScreen_0.LookDetails];
-    elseif v194 then
-        l_quickButtonsRef_0 = l_namedRefs_0[l_AvatarScreen_0.SortAndFilters];
-    end;
-    return v4.createElement(l_Focusable_0.Frame, {
-        BackgroundTransparency = 1, 
-        Size = UDim2.new(1, 0, 1, 0), 
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v189.props.focusController, 
-        defaultChild = v189:getBestDefaultRefForPage(), 
-        restorePreviousChildFocus = false, 
-        inputBindings = if l_FFlagAXMigrateCatalogPageInputBindings_0 then nil else v189:getInputBindings(), 
-        ref = l_namedRefs_0[l_AvatarScreen_0.Catalog]
-    }, {
-        BoundInputsUpdater = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v4.createElement(v49), 
-        LastInputTypeChangedConnection = v4.createElement(l_ExternalEventConnection_0, {
-            event = l_UserInputService_0.LastInputTypeChanged, 
-            callback = v189.lastInputTypeChangedCallback
-        }), 
-        NavigationEventsLogger = v4.createElement(v33, {
-            pageName = "Catalog"
-        }), 
-        UniversalAppCameraExposure = v4.createElement(v68, {
-            ixpTest = v88
-        }), 
-        RelevanceRecommendationsExposure = if v94() then nil else v4.createElement(v68, {
-            ixpTest = v87.RelevanceRecommendations
-        }), 
-        RecommendationsAndSearchExposure = if v96() then nil else v4.createElement(v68, {
-            ixpTest = v87.RecommendationsAndSearch
-        }), 
-        SortsExposure = (not not v81() or not v95()) and v4.createElement(v68, {
-            ixpTest = v87.Sorts
-        }), 
-        SearchWidgetsExposure = v81() and v4.createElement(v68, {
-            ixpTest = v87.SearchWidgets
-        }), 
-        OnFocusExperimentExposureLogger = v4.createElement(v69, {
-            ixpTests = {
-                if v89.isEnabled() then v89 else nil, 
-                if v90.isEnabled() then v90 else nil, 
-                if l_AXRemoveBackButtonDesktopClientsIXPTest_0.isEnabled() then l_AXRemoveBackButtonDesktopClientsIXPTest_0 else nil, 
-                if l_AXAvatarsTabIXP_0.isEnabled() then l_AXAvatarsTabIXP_0 else nil
-            }, 
-            layers = if l_FFlagAXBackendDrivenCatalogLayers_0 then l_getBackendLayerNamesForCatalog_0() else nil, 
-            flagIXPTestLayers = if l_FFlagBasedExposureLoggingCatalogPage_0 then {
-                if l_UserIsInExperiment_0 then l_AppUserLayers_0.AvatarExperienceUAMarketplaceView else nil, 
-                if l_FFlagAXMoveCatalogFilterToL1NavigationExposureLogging_0 then l_AppUserLayers_0.AvatarExperienceUAMarketplaceView else nil, 
-                if v127 then v128 else nil, 
-                if l_FFlagAXCatalogM41CategoriesExposureLogging_0 then l_AppUserLayers_0.AvatarExperienceUAMarketplaceView else nil, 
-                if l_FFlagAXHideMenuOnScrollExposureLogging_0 then l_AppUserLayers_0.AvatarExperienceUAMarketplaceView else nil, 
-                if v133 then l_AppUserLayers_0.AvatarExperienceUAMarketplaceView else nil
-            } else nil
-        }), 
-        AvatarExperienceView = v4.createElement(v45, {
-            changeViewFunction = v189.changeView, 
-            allowAdaptiveScrolling = true, 
-            adaptiveScrollingProps = if not not l_FFlagAXHideMenuOnScroll_0 or l_FFlagAXExpandPeekViewOnFirstScroll_0 then {
-                enableExpandPeekViewOnUpwardScroll = l_FFlagAXExpandPeekViewOnFirstScroll_0 and true or nil, 
-                enableAnimatedVisibility = l_FFlagAXHideMenuOnScroll_0 and true or nil
-            } else nil, 
-            isDisabled = not l_show3dView_1, 
-            isSceneFullView = v190, 
-            isUIFullView = v191, 
-            topBar = v189:renderTopBar(), 
-            refinementButtonsRef = v189.refinementButtonsRef, 
-            quickButtonsRef = v189.quickButtonsRef, 
-            [v4.Ref] = v189.sceneUIContainerRef, 
-            NextSelectionDown = v189.defaultChildRef, 
-            NextSelectionLeft = v189.topBarRef, 
-            defaultChildRef = v189.defaultChildRef, 
-            multiTryOnBottomBarRef = v189.multiTryOnBottomBarRef, 
-            itemDetailsPeekViewRefs = v189.itemDetailsPeekViewRefs, 
-            showUndoRedo = true, 
-            showSaveButton = false
-        }, {
-            GamepadFocusHandlerForPage = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v4.createElement(v48, {
-                focusController = v189.props.focusController, 
-                captureFocusOnMount = true
-            }), 
-            NavigationAndItemsList = v4.createElement(v46, {
-                defaultChildRef = v189.defaultChildRef, 
-                NextSelectionUp = v189.topBarRef, 
-                NextSelectionRight = l_quickButtonsRef_0, 
-                multiTryOnBottomBarRef = v189.multiTryOnBottomBarRef, 
-                itemDetailsPeekViewRefs = v189.itemDetailsPeekViewRefs
-            })
-        })
-    });
-end;
-v147 = v6.connect(function(v196) --[[ Line: 722 ]] --[[ Name: mapStateToProps ]]
-    -- upvalues: v64 (copy), l_AvatarScreen_0 (copy), v63 (copy), l_FFlagAXMigrateCatalogPageInputBindings_0 (copy)
-    return {
-        fullView = v64(v196, l_AvatarScreen_0.Catalog), 
-        isPortrait = v63(v196), 
-        itemDetailsExpanded = v196.AvatarExperience.Common.ItemDetailsExpanded, 
-        tryOnManagerPeekViewState = v196.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState, 
-        tryOnItems = if l_FFlagAXMigrateCatalogPageInputBindings_0 then nil else v196.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems
-    };
-end, function(v197) --[[ Line: 734 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v56 (copy), l_SetItemDetailsPeekViewState_0 (copy), v59 (copy), v57 (copy), v65 (copy), v66 (copy), l_SetTryOnManagerPeekViewState_0 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v111 (copy), l_FFlagAXDefaultCatalogCategoryId_0 (copy), v78 (copy), l_CatalogCategories_0 (copy), v139 (copy), v76 (copy)
-    return {
-        openItemPrompt = function(v198, v199, v200, v201, v202) --[[ Line: 736 ]] --[[ Name: openItemPrompt ]]
-            -- upvalues: v197 (copy), v56 (ref)
-            v197(v56(v198, v199, v200, v201, v202));
-        end, 
-        setItemDetailsPeekViewState = function(v203) --[[ Line: 739 ]] --[[ Name: setItemDetailsPeekViewState ]]
-            -- upvalues: v197 (copy), l_SetItemDetailsPeekViewState_0 (ref)
-            v197(l_SetItemDetailsPeekViewState_0(v203));
-        end, 
-        navigateIntoQuickMenu = function(v204, v205) --[[ Line: 742 ]] --[[ Name: navigateIntoQuickMenu ]]
-            -- upvalues: v197 (copy), v59 (ref)
-            v197(v59(v204, v205));
-        end, 
-        setFullView = function(v206, v207, v208) --[[ Line: 745 ]] --[[ Name: setFullView ]]
-            -- upvalues: v197 (copy), v57 (ref)
-            v197(v57(v206, v207, v208));
-        end, 
-        resetNavigationHistory = function(v209) --[[ Line: 748 ]] --[[ Name: resetNavigationHistory ]]
-            -- upvalues: v197 (copy), v65 (ref)
-            return v197(v65(nil, v209));
-        end, 
-        instantResetNavigationHistory = function(v210) --[[ Line: 751 ]] --[[ Name: instantResetNavigationHistory ]]
-            -- upvalues: v197 (copy), v66 (ref)
-            return v197(v66(nil, v210));
-        end, 
-        setTryOnManagerPeekViewState = function(v211) --[[ Line: 754 ]] --[[ Name: setTryOnManagerPeekViewState ]]
-            -- upvalues: v197 (copy), l_SetTryOnManagerPeekViewState_0 (ref)
-            v197(l_SetTryOnManagerPeekViewState_0(v211));
-        end, 
-        resetSearchCategoryAndSubcategory = function() --[[ Line: 757 ]] --[[ Name: resetSearchCategoryAndSubcategory ]]
-            -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (ref), v111 (ref), l_FFlagAXDefaultCatalogCategoryId_0 (ref), v78 (ref), l_CatalogCategories_0 (ref), v139 (ref), v197 (copy), v76 (ref)
-            if l_FFlagAXCatalogCategoriesStore_0 then
-                if not v111.getCatalogSearchSelectionStore().changeCategory(if l_FFlagAXDefaultCatalogCategoryId_0 then v78.DefaultCatalogCategoryId else l_CatalogCategories_0.Recommended:rawValue(), nil) then
-                    v139("Failed to select subcategory in ResetSearchCategoryAndSubcategory thunk");
-                    return;
-                end;
-            else
-                v197(v76("All", nil));
-            end;
-        end
-    };
-end)(v147);
-v147 = l_RoactServices_0.connect({
-    avatarExperienceAnalytics = v28, 
-    networking = v31, 
-    appAnalytics = v29, 
-    avatarEditorAnalytics = v50, 
-    catalogAnalytics = v51
-})(v147);
-v147 = v40((v35(v34((l_RoactAppPolicy_0.connect(function(v212, _) --[[ Line: 786 ]]
-    return {
-        show3dView = v212.getCatalogShow3dView()
-    };
-end)(v147))), nil)));
-return function(v214) --[[ Line: 798 ]] --[[ Name: CatalogPageContainer ]]
-    -- upvalues: l_FFlagAXRefetchAvatarOnTimeout_0 (copy), l_useRoactService_0 (copy), v31 (copy), l_useDispatch_0 (copy), l_FFlagDynamicHeadsMigration_0 (copy), v5 (copy), v21 (copy), l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 (copy), l_WidgetsPercievedTTIManager_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v8 (copy), v61 (copy), v73 (copy), l_FFlagAXMigrateCatalogPageInputBindings_0 (copy), v51 (copy), v41 (copy), v72 (copy), l_useAvatarRoute_0 (copy), l_AvatarScreen_0 (copy), l_AvatarScreenProperties_0 (copy), l_useSelector_0 (copy), v146 (copy), v71 (copy), v36 (copy), v56 (copy), v143 (copy), l_PeekViewState_0 (copy), l_SetTryOnManagerPeekViewState_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), l_FFlagAXHideCatalogShortcutsInFullView_0 (copy), v64 (copy), l_FullView_0 (copy), v134 (copy), v70 (copy), l_FFlagAXAvatarTimeoutFlow_0 (copy), v138 (copy), l_useCatalogPageTimeoutPrompt_0 (copy), l_FFlagAXMakeupReleaseFTUX_0 (copy), v111 (copy), l_CatalogCategories_0 (copy), l_useCatalogPageMakeupReleaseFtux_0 (copy), v10 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), l_FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup_0 (copy), v135 (copy), v147 (ref)
-    local v215 = nil;
-    local v216 = nil;
-    if l_FFlagAXRefetchAvatarOnTimeout_0 then
-        v215 = l_useRoactService_0(v31);
-        v216 = l_useDispatch_0();
-    end;
-    if l_FFlagDynamicHeadsMigration_0 then
-        v5.useEffect(function() --[[ Line: 807 ]]
-            -- upvalues: v21 (ref)
-            local v217 = v21(false);
-            if v217 then
-                v217.getInventory(false);
-            end;
-        end, {});
-    end;
-    if l_FFlagAXEnableMilestoneTrackingForAvatarExperience_0 and l_WidgetsPercievedTTIManager_0 then
-        l_WidgetsPercievedTTIManager_0.Hooks.useRenderAndMountedTracking();
-    end;
-    local v218 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v5.useRef(v8.createFocusController()).current;
-    local l_current_0 = v5.useRef(v61()).current;
-    local v220 = v73(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v218);
-    local v221 = nil;
-    if l_FFlagAXMigrateCatalogPageInputBindings_0 then
-        if not l_FFlagAXRefetchAvatarOnTimeout_0 then
-            v215 = l_useRoactService_0(v31);
-            v216 = l_useDispatch_0();
-        end;
-        local v222 = l_useRoactService_0(v51);
-        local v223 = v41();
-        local v224 = v72();
-        local v225 = l_useAvatarRoute_0();
-        local v226 = v225.current.name == l_AvatarScreen_0.ItemDetails;
-        local v227 = true;
-        if v225.current.name ~= l_AvatarScreen_0.LookDetails then
-            v227 = v225.current.name == l_AvatarScreen_0.TryOnManager;
-        end;
-        local l_isMultiTryOn_1 = l_AvatarScreenProperties_0[v225.opaque.name].isMultiTryOn;
-        local v229 = l_useSelector_0(v146);
-        local v230 = false;
-        if v225.current.name ~= l_AvatarScreen_0.TryOnManager then
-            v230 = l_isMultiTryOn_1 and v229;
-        end;
-        local v231 = v71(v220);
-        local v233 = v5.useCallback(function(v232) --[[ Line: 851 ]]
-            -- upvalues: v36 (ref), v214 (copy)
-            v232.cancelled = true;
-            v36.closeFocusedScreen(v214.navigation);
-        end, {
-            v214.navigation
-        });
-        local l_v222_0 = v222 --[[ copy: 7 -> 29 ]];
-        local l_v225_0 = v225 --[[ copy: 10 -> 30 ]];
-        local v236 = v5.useCallback(function() --[[ Line: 857 ]]
-            -- upvalues: v216 (ref), v56 (ref), v215 (ref), l_v222_0 (copy), v220 (copy), v214 (copy), l_v225_0 (copy)
-            v216(v56(v215, l_v222_0, v220, v214.navigation, l_v225_0));
-        end, {
-            v216, 
-            v215, 
-            v222, 
-            v220, 
-            v214.navigation, 
-            v225
-        });
-        local v237 = v5.useCallback(function() --[[ Line: 865 ]]
-            -- upvalues: v214 (copy), l_AvatarScreen_0 (ref), l_v225_0 (copy), v220 (copy)
-            v214.navigation.navigate(l_AvatarScreen_0.CatalogContextMenu, {
-                itemId = l_v225_0.current.params.itemId, 
-                itemType = l_v225_0.current.params.itemType, 
-                onOverlayClosed = v220
-            });
-        end, {
-            v214.navigation, 
-            v225, 
-            v220
-        });
-        local v238 = l_useSelector_0(v143);
-        local v240 = v5.useCallback(function() --[[ Line: 875 ]]
-            -- upvalues: v238 (copy), l_PeekViewState_0 (ref), v216 (ref), l_SetTryOnManagerPeekViewState_0 (ref)
-            local v239 = if not (v238 ~= l_PeekViewState_0.Full) or v238 == l_PeekViewState_0.Extended then l_PeekViewState_0.Brief else l_PeekViewState_0.Full;
-            v216(l_SetTryOnManagerPeekViewState_0(v239));
-        end, {
-            v238, 
-            v216
-        });
-        local v241 = v5.useCallback(function() --[[ Line: 883 ]]
-            -- upvalues: v36 (ref), v214 (copy), l_AvatarScreen_0 (ref)
-            v36.closeFiltersAndItemDetails(v214.navigation);
-            v214.navigation.navigate(l_AvatarScreen_0.TryOnManager);
-        end, {
-            v214.navigation
-        });
-        local l_v223_0 = v223 --[[ copy: 8 -> 31 ]];
-        local v243 = v5.useCallback(function() --[[ Line: 888 ]]
-            -- upvalues: l_v223_0 (copy), l_AvatarScreen_0 (ref)
-            l_v223_0:fire(l_AvatarScreen_0.Catalog);
-        end, {
-            v223
-        });
-        local v244 = v5.useMemo(function() --[[ Line: 892 ]]
-            -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v227 (copy), v230 (copy)
-            return {
-                [Enum.KeyCode.ButtonB] = l_FocusNavigationEventNameEnum_0.NavigateBack, 
-                [Enum.KeyCode.Escape] = l_FocusNavigationEventNameEnum_0.NavigateBack, 
-                [Enum.KeyCode.ButtonStart] = l_FocusNavigationEventNameEnum_0.OpenQuickMenu, 
-                [Enum.KeyCode.ButtonX] = l_FocusNavigationEventNameEnum_0.OpenBuyCatalogItemPrompt, 
-                [Enum.KeyCode.ButtonL3] = l_FocusNavigationEventNameEnum_0.OpenCatalogContextMenu, 
-                [Enum.KeyCode.ButtonY] = if not not v227 or v230 then l_FocusNavigationEventNameEnum_0.ToggleTryOnManager else l_FocusNavigationEventNameEnum_0.Search
-            };
-        end, {
-            v227, 
-            v230
-        });
-        if l_FFlagAXHideCatalogShortcutsInFullView_0 then
-            local l_v225_1 = v225 --[[ copy: 10 -> 32 ]];
-            local v247 = v5.useCallback(function(v246) --[[ Line: 906 ]]
-                -- upvalues: v64 (ref), l_v225_1 (copy), l_FullView_0 (ref)
-                return v64(v246, l_v225_1.opaque.name) == l_FullView_0.SceneFullView;
-            end, {
-                v225.opaque.name
-            });
-            local v248 = not l_useSelector_0(v247);
-            v221 = v134(v244, {
-                onNavigateBack = if v248 and v226 then v233 else nil, 
-                onOpenQuickMenu = if v248 and v224 then v231 else nil, 
-                onOpenBuyItemPrompt = if v248 and v226 then v236 else nil, 
-                onOpenContextMenu = if v248 and v226 then v237 else nil, 
-                onToggleSearch = if v248 then v243 else nil, 
-                onToggleTryOnManager = if v248 and v227 then v240 else if v230 then v241 else nil
-            });
-        else
-            v221 = v134(v244, {
-                onNavigateBack = if v226 then v233 else nil, 
-                onOpenQuickMenu = if v224 then v231 else nil, 
-                onOpenBuyItemPrompt = if v226 then v236 else nil, 
-                onOpenContextMenu = if v226 then v237 else nil, 
-                onToggleSearch = v243, 
-                onToggleTryOnManager = if v227 then v240 else if v230 then v241 else nil
-            });
-        end;
-    else
-        v221 = v70({
-            overlayClosedCallback = v220
-        });
-    end;
-    if l_FFlagAXAvatarTimeoutFlow_0 then
-        local v249 = l_useAvatarRoute_0();
-        local v250 = if l_FFlagAXRefetchAvatarOnTimeout_0 then v5.useCallback(function() --[[ Line: 946 ]]
-            -- upvalues: v216 (ref), v138 (ref), v215 (ref)
-            v216(v138(v215, true));
-        end, {
-            v216, 
-            v215
-        }) else nil;
-        l_useCatalogPageTimeoutPrompt_0(v214.navigation, if l_FFlagAXRefetchAvatarOnTimeout_0 and v249.opaque.name == l_AvatarScreen_0.Catalog then v250 else nil);
-    end;
-    if l_FFlagAXMakeupReleaseFTUX_0 then
-        local v251 = l_useAvatarRoute_0();
-        local v252 = v5.useCallback(function() --[[ Line: 961 ]]
-            -- upvalues: v111 (ref), l_CatalogCategories_0 (ref)
-            v111.getCatalogSelectionStore().changeCategory(l_CatalogCategories_0.Makeup:rawValue(), nil);
-        end, {});
-        l_useCatalogPageMakeupReleaseFtux_0(v251, v214.navigation, v252);
-    end;
-    local l_join_0 = v10.Dictionary.join;
-    local l_v214_0 = v214;
-    local v255 = {
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v218, 
-        overlayClosedCallback = v220, 
-        androidBackButtonConnection = l_current_0
-    };
-    local v256 = false;
-    if l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot then
-        v256 = not l_FFlagEnableLeftNavOnConsole_0;
-    end;
-    v255.is10ftUI = v256;
-    l_join_0 = l_join_0(l_v214_0, v255);
-    if l_FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup_0 then
-        v135();
-    end;
-    return v5.createElement("Frame", {
-        BackgroundTransparency = 1, 
-        Size = UDim2.fromScale(1, 1), 
-        ref = v221
-    }, v5.createElement(v147, l_join_0));
-end;
+require(CorePackages.Packages.ReactFocusNavigation)
+
+local FocusNavigationEventNameEnum = require(CorePackages.Workspace.Packages.FocusNavigationUtils).FocusNavigationEventNameEnum
+local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
+local withNamedRefs = require(Modules.AvatarExperience.Common.Context.withNamedRefs)
+local useTopBarSearchSignal = require(Modules.LuaApp.Context.useTopBarSearchSignal)
+local makeTitleDropDown = require(Modules.AvatarExperience.Common.Components.TopBar.makeTitleDropDown)
+local v43 = if not require(Modules.AvatarExperience.Flags.GetFFlagAXTransitionMenuV2)() then require(Modules.AvatarExperience.Common.Components.AXTransitionSegmentedMenu_DEPRECATED) else require(Modules.AvatarExperience.Common.Components.AXTransitionSegmentedMenu)
+local makeAvatarBackButton = require(Modules.AvatarExperience.Common.Components.TopBar.makeAvatarBackButton)
+local AvatarExperienceView = require(Modules.AvatarExperience.Common.Components.AvatarExperienceView)
+local NavigationItemsView = require(Modules.AvatarExperience.Catalog.Components.NavigationItemsView)
+local TopBar = require(Modules.LuaApp.Components.TopBar.TopBar)
+local GamepadFocusHandlerForPage = require(Modules.AvatarExperience.Common.Components.GamepadFocusHandlerForPage)
+local BoundInputsUpdater = require(Modules.AvatarExperience.Common.Components.BoundInputsUpdater)
+local Analytics2 = require(Modules.AvatarExperience.AvatarEditor.Services.Analytics)
+local Analytics3 = require(Modules.AvatarExperience.Catalog.Services.Analytics)
+local PeekViewState = require(CorePackages.Workspace.Packages.PeekView).PeekViewState
+local AvatarExperienceRodux = require(CorePackages.Workspace.Packages.AvatarExperienceRodux)
+local SetItemDetailsPeekViewState = AvatarExperienceRodux.Actions.SetItemDetailsPeekViewState
+local SetTryOnManagerPeekViewState = AvatarExperienceRodux.Actions.SetTryOnManagerPeekViewState
+local OpenItemPrompt = require(Modules.AvatarExperience.Common.Thunks.OpenItemPrompt)
+local SetFullView = require(Modules.AvatarExperience.Common.Thunks.SetFullView)
+local FullView = AvatarExperienceCommon.Enums.FullView
+local OpenQuickMenu = require(Modules.AvatarExperience.Common.Thunks.OpenQuickMenu)
+local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
+local AndroidBackButtonConnection = require(Modules.LuaApp.Navigation.AndroidBackButtonConnection)
+local isAvatarRouteVisible = require(Modules.AvatarExperience.Common.Components.RoactNavigation.Utils.isAvatarRouteVisible)
+local selectIsPortrait = require(Modules.AvatarExperience.Common.Selectors.selectIsPortrait)
+local selectIsFullView = require(Modules.AvatarExperience.Common.Selectors.selectIsFullView)
+local ResetNavigationHistory = require(Modules.LuaApp.Thunks.ResetNavigationHistory)
+local InstantResetNavigationHistory = require(Modules.LuaApp.Thunks.InstantResetNavigationHistory)
+
+require(Modules.AvatarExperience.Common.AvatarExperienceState)
+
+local OnFocusExposureLogger = require(Modules.AvatarExperience.Catalog.Components.OnFocusExposureLogger)
+local OnFocusExperimentExposureLogger = require(Modules.AvatarExperience.Catalog.Components.OnFocusExperimentExposureLogger)
+local useAvatarExperienceFocusNavigationBindings = require(Modules.AvatarExperience.Common.Hooks.useAvatarExperienceFocusNavigationBindings)
+local useOpenQuickMenuCallback = require(Modules.AvatarExperience.Common.Hooks.useOpenQuickMenuCallback)
+local useQuickMenuAvailable = require(Modules.AvatarExperience.Common.Hooks.useQuickMenuAvailable)
+local useOverlayClosedCallback = require(Modules.AvatarExperience.Common.Hooks.useOverlayClosedCallback)
+local useUiModeInfo = require(CorePackages.Workspace.Packages.RobloxAppHooks).useUiModeInfo
+local UiMode = require(CorePackages.Workspace.Packages.RobloxAppEnums).UiMode
+local SetSearchCategoryAndSubcategory = require(Modules.AvatarExperience.Catalog.Actions.SetSearchCategoryAndSubcategory)
+local sendAXCounterV2 = require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).sendAXCounterV2
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild
+local GetFFlagAvatarAutocompleteEnabledForAll = require(Modules.AvatarExperience.Flags.GetFFlagAvatarAutocompleteEnabledForAll)
+local GetFFlagLooksIXPLogging = require(Modules.AvatarExperience.Flags.GetFFlagLooksIXPLogging)
+local IxpUtils = require(CorePackages.Workspace.Packages.IxpUtils)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
+local AppUserLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagDynamicHeadsMigration = AvatarExperienceFlags.FFlagDynamicHeadsMigration
+local AvatarMarketplaceBackendIXPTests = require(Modules.AvatarExperience.Flags.AvatarMarketplaceBackendIXPTests)
+local UniversalAppCameraIXPTest = require(Modules.AvatarExperience.Flags.UniversalAppCameraIXPTest)
+local AXDisableAlwaysRenderedScreensIXP = require(Modules.AvatarExperience.Experiments.AXDisableAlwaysRenderedScreensIXP)
+local AXCatalogPerfReduxReductionIXP = require(Modules.AvatarExperience.Experiments.AXCatalogPerfReduxReductionIXP)
+local AXAvatarsTabIXP = AvatarExperienceCommon.Experiments.AXAvatarsTabIXP
+local getBackendLayerNamesForCatalog = AvatarExperienceCommon.Utils.getBackendLayerNamesForCatalog
+local UserIsInExperiment = AvatarExperienceFlags.FFlagsAXPrefetchMarketplaceThumbnailsXP.UserIsInExperiment
+local GetFFlagAXDisableRelevanceRecommendationsLayerExposure = require(Modules.AvatarExperience.Flags.GetFFlagAXDisableRelevanceRecommendationsLayerExposure)
+local GetFFlagAXDisableSortsLayerExposure = require(Modules.AvatarExperience.Flags.GetFFlagAXDisableSortsLayerExposure)
+local GetFFlagAXDisableRecommendationsAndSearchLayerExposure = require(Modules.AvatarExperience.Flags.GetFFlagAXDisableRecommendationsAndSearchLayerExposure)
+local GetFlagAXEnableInitialTopLevelPageCounter = require(Modules.AvatarExperience.Flags.GetFlagAXEnableInitialTopLevelPageCounter)
+local FFlagAXMigrateCatalogPageInputBindings = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXMigrateCatalogPageInputBindings
+local GetFStringAXCatalogAndEditorExposureLayerName = require(Modules.AvatarExperience.Flags.GetFStringAXCatalogAndEditorExposureLayerName)
+local FFlagAXAvatarTimeoutFlow = AvatarExperienceFlags.FFlagAXAvatarTimeoutFlow
+local FFlagAXRefetchAvatarOnTimeout = AvatarExperienceFlags.FFlagAXRefetchAvatarOnTimeout
+local FFlagAXMISEnableMultiShopping = AvatarExperienceFlags.FFlagAXMISEnableMultiShopping
+local FFlagAXMakeupReleaseFTUX = AvatarExperienceFlags.FFlagAXMakeupReleaseFTUX
+local FFlagAXOpaqueMarketplaceTopbar = AvatarExperienceFlags.FFlagAXOpaqueMarketplaceTopbar
+local FFlagAXBackendDrivenCatalogLayers = AvatarExperienceFlags.FFlagAXBackendDrivenCatalogLayers
+local v105 = game:DefineFastFlag("AXEnableIXPCounters2", false)
+local v106 = game:DefineFastFlag("AXCustomizeOverhaulCatalogExposure2", false)
+local FFlagAXCatalogAndEditorExposureUseFStringLayer = require(Modules.AvatarExperience.Flags.FFlagAXCatalogAndEditorExposureUseFStringLayer)
+local FFlagAXMigrateAXToGlobalAutofocus = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus
+local FFlagAXCatalogCategoriesStore = AvatarExperienceFlags.FFlagAXCatalogCategoriesStore
+local GetCatalogCategoriesStore = require(Modules.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore)
+local v111 = game:DefineFastString("AXMISExperimentLayerName", AppUserLayers.AvatarExperienceUAMarketplaceView)
+local v112 = game:DefineFastFlag("AXMISExposureLogging", false)
+local v113 = game:DefineFastString("AXTaxonomyM20ExperimentLayerName", AppUserLayers.AvatarExperienceUAMarketplaceView)
+local FFlagAXExpandPeekViewOnFirstScroll = AvatarExperienceFlags.FFlagAXExpandPeekViewOnFirstScroll
+local FFlagAXEnableCategoryPillsExposureLogging = AvatarExperienceFlags.FFlagAXEnableCategoryPillsExposureLogging
+local FFlagAXHideMenuOnScroll = AvatarExperienceFlags.FFlagAXHideMenuOnScroll
+local FFlagAXFixCatalogRefreshRendering = AvatarExperienceFlags.FFlagAXFixCatalogRefreshRendering
+local FFlagBasedExposureLoggingCatalogPage = AvatarExperienceFlags.FFlagBasedExposureLoggingCatalogPage
+local FFlagAXEnableTaxonomyM20ExposureLoggingCatalog = AvatarExperienceFlags.FFlagAXEnableTaxonomyM20ExposureLoggingCatalog
+local FFlagAXHandleTaxonomyIdsDeepLinks = AvatarExperienceFlags.FFlagAXHandleTaxonomyIdsDeepLinks
+local FFlagAXMoveCatalogFilterToL1NavigationExposureLogging = AvatarExperienceFlags.FFlagAXMoveCatalogFilterToL1NavigationExposureLogging
+local FFlagAXDefaultCatalogCategoryId = AvatarExperienceFlags.FFlagAXDefaultCatalogCategoryId
+local FFlagEnableLeftNavOnConsole = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableLeftNavOnConsole
+local FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup = AvatarExperienceFlags.FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup
+local FFlagAXHideCatalogShortcutsInFullView = AvatarExperienceFlags.FFlagAXHideCatalogShortcutsInFullView
+local v126 = game:DefineFastFlag("FFlagAXCatalogCategoriesSDUIExposureLogging", false)
+local v127 = game:DefineFastString("FStringAXCatalogCategoriesSDUIExposureLayer", AppUserLayers.AvatarExperienceUAMarketplaceView)
+local FFlagAXCatalogM41CategoriesExposureLogging = AvatarExperienceFlags.FFlagAXCatalogM41CategoriesExposureLogging
+local FFlagAXEnableMilestoneTrackingForAvatarExperience = AvatarExperienceFlags.FFlagAXEnableMilestoneTrackingForAvatarExperience
+local WidgetsPercievedTTIManager = require(CorePackages.Workspace.Packages.AvatarExperienceTTIPerformance).WidgetsPercievedTTIManager
+local FFlagAXHideMenuOnScrollExposureLogging = AvatarExperienceFlags.FFlagAXHideMenuOnScrollExposureLogging
+local FFlagAXMakeupCategoryPositionExperimentExposureLogging = AvatarExperienceFlags.FFlagAXMakeupCategoryPositionExperimentExposureLogging
+local v133 = game:DefineFastFlag("AXVirtualizedListConfigExposureLogging", false)
+local useCatalogPageFocusNavigationBindings = require(script.Parent.useCatalogPageFocusNavigationBindings)
+local useCatalogPageRevertToLastEquippedStateHook = require(script.Parent.useCatalogPageRevertToLastEquippedStateHook)
+local useCatalogPageTimeoutPrompt = AvatarExperienceCatalog.Hooks.useCatalogPageTimeoutPrompt
+local useCatalogPageMakeupReleaseFtux = AvatarExperienceCatalog.Hooks.useCatalogPageMakeupReleaseFtux
+local RefetchAvatarData = require(Modules.AvatarExperience.AvatarEditor.Thunks.RefetchAvatarData)
+local mutedError = require(Modules.LuaApp.mutedError)
+local v140 = Images["icons/actions/truncationExpand"]
+local CatalogCategories = AvatarExperienceCommon.Enums.CatalogCategories
+
+local function selectTryOnManagerViewState(p1) -- line: 215
+	return p1.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState
+end
+local function selectIsTryOnButtonShowing(p2) -- line: 219
+	-- upvalues: Cryo (copy)
+	local TryOnItems = p2.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems
+
+	return #Cryo.Dictionary.values(TryOnItems) > 1
+end
+
+local v144 = Roact.PureComponent:extend("CatalogPage")
+
+v144.validateProps = t.strictInterface({
+	fullView = t.optional(t.userdata),
+	isPortrait = t.optional(t.boolean),
+	itemDetailsExpanded = t.optional(t.boolean),
+	tryOnManagerPeekViewState = t.optional(t.valueOf(PeekViewState)),
+	tryOnItems = t.optional(t.table),
+	openItemPrompt = t.callback,
+	setItemDetailsPeekViewState = t.callback,
+	navigateIntoQuickMenu = t.optional(t.callback),
+	setFullView = t.callback,
+	resetNavigationHistory = t.callback,
+	instantResetNavigationHistory = t.callback,
+	setTryOnManagerPeekViewState = t.callback,
+	resetSearchCategoryAndSubcategory = t.callback,
+	namedRefs = t.table,
+	prevNavPage = t.optional(t.string),
+	prevNavHistory = t.optional(t.table),
+	navigation = t.optional(t.table),
+	avatarRoute = t.optional(t.table),
+	avatarExperienceAnalytics = t.optional(t.table),
+	networking = t.optional(t.callback),
+	appAnalytics = t.optional(t.table),
+	avatarEditorAnalytics = t.optional(t.table),
+	catalogAnalytics = t.optional(t.table),
+	show3dView = t.optional(t.boolean),
+	itemId = t.optional(t.string),
+	itemType = t.optional(t.string),
+	isFirstItemDetails = t.optional(t.boolean),
+	is10ftUI = t.boolean,
+	focusController = if not FFlagAXMigrateAXToGlobalAutofocus then t.table else nil,
+	androidBackButtonConnection = t.table,
+	overlayClosedCallback = t.callback,
+	fetchItemFailed = if not FFlagAXFixCatalogRefreshRendering then nil else t.optional(t.boolean),
+	wasItemEquipped = if not FFlagAXFixCatalogRefreshRendering then nil else t.optional(t.boolean),
+	category = if not FFlagAXHandleTaxonomyIdsDeepLinks then nil else t.optional(t.string),
+	subcategory = if not FFlagAXHandleTaxonomyIdsDeepLinks then nil else t.optional(t.string),
+	taxonomy = if not FFlagAXHandleTaxonomyIdsDeepLinks then nil else t.optional(t.string)
+})
+
+function v144.init(p3) -- line: 286
+	-- upvalues: Roact (copy), RoactGamepad (copy), UserInputService (copy), isGamepadInput (copy), Utils (copy), AvatarScreen (copy), FullView (copy), FFlagAXExpandPeekViewOnFirstScroll (copy), AppPage (copy), makeTitleDropDown (copy), makeAvatarBackButton (copy), GetFFlagAvatarAutocompleteEnabledForAll (copy), GetFlagAXEnableInitialTopLevelPageCounter (copy), sendAXCounterV2 (copy), Constants (copy), FFlagAXEnableCategoryPillsExposureLogging (copy), IXPServiceWrapper (copy), AppUserLayers (copy), FFlagAXEnableTaxonomyM20ExposureLoggingCatalog (copy), v113 (copy)
+	p3.topBarRef = Roact.createRef()
+	p3.sceneUIContainerRef = Roact.createRef()
+	p3.titleDropDownRef = Roact.createRef()
+	p3.topBarRenderRightRef = Roact.createRef()
+	p3.refinementButtonsRef = Roact.createRef()
+	p3.multiTryOnBottomBarRef = Roact.createRef()
+	p3.quickButtonsRef = Roact.createRef()
+	p3.itemDetailsPeekViewRefs = RoactGamepad.createRefCache()
+
+	local LastInputType = UserInputService:GetLastInputType()
+
+	p3:setState({
+		lastInputIsGamepad = isGamepadInput(LastInputType)
+	})
+
+	function p3.setDefaultRefOverride(p4) -- line: 303
+		-- upvalues: p3 (copy), Roact (copy)
+		p3:setState({
+			defaultRefOverride = p4 or Roact.None
+		})
+	end
+	function p3.changeView() -- line: 309
+		-- upvalues: p3 (copy), Utils (copy)
+		local avatarExperienceAnalytics = p3.props.avatarExperienceAnalytics
+		local v217 = Utils.getNewFullViewEnum(p3.props.fullView)
+
+		p3.props.setFullView(avatarExperienceAnalytics, p3.props.avatarRoute.opaque.name, v217)
+	end
+	function p3.setUIFullView() -- line: 316
+		-- upvalues: p3 (copy), AvatarScreen (copy), FullView (copy)
+		local avatarExperienceAnalytics = p3.props.avatarExperienceAnalytics
+
+		if p3.props.isPortrait then
+			p3.props.setFullView(avatarExperienceAnalytics, AvatarScreen.CatalogSearch, FullView.UIFullView)
+		end
+	end
+	function p3.isAvatarScreen(p5) -- line: 324
+		-- upvalues: AvatarScreen (copy)
+		return (rawget(AvatarScreen, p5))
+	end
+	function p3.topBarBackButtonActivated() -- line: 328
+		-- upvalues: FFlagAXExpandPeekViewOnFirstScroll (copy), p3 (copy), FullView (copy), AvatarScreen (copy), AppPage (copy)
+		if FFlagAXExpandPeekViewOnFirstScroll and p3.props.fullView == FullView.UIFullView then
+			local avatarExperienceAnalytics = p3.props.avatarExperienceAnalytics
+
+			p3.props.setFullView(avatarExperienceAnalytics, p3.props.avatarRoute.opaque.name, FullView.None)
+
+			return
+		end
+
+		local navigation = p3.props.navigation
+		local avatarEditorAnalytics = p3.props.avatarEditorAnalytics
+		local prevNavPage = p3.props.prevNavPage
+		local prevNavHistory = p3.props.prevNavHistory
+
+		if prevNavPage and prevNavHistory then
+			if p3.isAvatarScreen(prevNavPage) then
+				p3.props.navigation.navigate(prevNavPage)
+			else
+				p3.props.resetNavigationHistory(prevNavHistory)
+			end
+		else
+			local v225 = if not p3.props.is10ftUI then AppPage.Home else AvatarScreen.AvatarExperienceLandingPage
+
+			navigation.navigate(v225)
+		end
+
+		avatarEditorAnalytics.catalogToAvatarBackButton()
+	end
+
+	p3.defaultChildRef = Roact.createRef()
+
+	function p3.lastInputTypeChangedCallback(p6) -- line: 356
+		-- upvalues: isGamepadInput (copy), p3 (copy)
+		local v227 = isGamepadInput(p6)
+
+		if v227 ~= p3.state.lastInputIsGamepad then
+			p3:setState({
+				lastInputIsGamepad = v227
+			})
+		end
+	end
+
+	p3.titleDropDown = makeTitleDropDown("Feature.Avatar.Action.Marketplace", p3.props.overlayClosedCallback)
+	p3.backButton = makeAvatarBackButton(p3.topBarBackButtonActivated)
+
+	function p3.onConfirmSearchCallback() -- line: 369
+		-- upvalues: p3 (copy), GetFFlagAvatarAutocompleteEnabledForAll (copy)
+		p3.props.resetSearchCategoryAndSubcategory()
+
+		if GetFFlagAvatarAutocompleteEnabledForAll() and p3.setUIFullView then
+			p3.setUIFullView()
+		end
+	end
+
+	if GetFlagAXEnableInitialTopLevelPageCounter() then
+		sendAXCounterV2(Constants.Counter.TopLevelPageInitialView.Catalog)
+	end
+
+	if FFlagAXEnableCategoryPillsExposureLogging then
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.AvatarExperienceUAAllViews)
+	end
+
+	if FFlagAXEnableTaxonomyM20ExposureLoggingCatalog then
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(v113)
+	end
+end
+function v144.getBestDefaultRefForPage(p7) -- line: 391
+	if p7.state.defaultRefOverride then
+		return p7.state.defaultRefOverride
+	end
+
+	return p7.defaultChildRef
+end
+
+if not FFlagAXMigrateCatalogPageInputBindings then
+	function v144.getInputBindings(p8) -- line: 400
+		-- upvalues: AvatarScreenProperties (copy), Cryo (copy), AvatarScreen (copy), FFlagAXMISEnableMultiShopping (copy), RoactGamepad (copy), NavigationUtils (copy), PeekViewState (copy)
+		local avatarRoute = p8.props.avatarRoute
+		local name = avatarRoute.current.name
+		local isMultiTryOn = AvatarScreenProperties[avatarRoute.opaque.name].isMultiTryOn
+		local v158 = #Cryo.Dictionary.values(p8.props.tryOnItems) > 1
+		local t1 = {
+			OpenTryOnManager = if name == AvatarScreen.TryOnManager or (not isMultiTryOn and not FFlagAXMISEnableMultiShopping or not v158) then nil else RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonY, function() -- line: 410
+				-- upvalues: NavigationUtils (copy), p8 (copy), AvatarScreen (copy)
+				NavigationUtils.closeFiltersAndItemDetails(p8.props.navigation)
+				p8.props.navigation.navigate(AvatarScreen.TryOnManager)
+			end, {
+				key = "Feature.Catalog.Label.TryOns"
+			})
+		}
+
+		if name == AvatarScreen.ItemDetails then
+			return (Cryo.Dictionary.join(t1, {
+				NavigateBack = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonB, function() -- line: 421
+					-- upvalues: NavigationUtils (copy), p8 (copy)
+					NavigationUtils.closeFocusedScreen(p8.props.navigation)
+				end),
+				OpenItemPrompt = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonX, function() -- line: 424
+					-- upvalues: p8 (copy), avatarRoute (copy)
+					p8.props.openItemPrompt(p8.props.networking, p8.props.catalogAnalytics, p8.props.overlayClosedCallback, p8.props.navigation, avatarRoute)
+				end, {
+					key = "Feature.Catalog.Action.Buy"
+				}),
+				OpenCatalogContextMenu = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonL3, function() -- line: 435
+					-- upvalues: p8 (copy), AvatarScreen (copy), avatarRoute (copy)
+					p8.props.navigation.navigate(AvatarScreen.CatalogContextMenu, {
+						itemId = avatarRoute.current.params.itemId,
+						itemType = avatarRoute.current.params.itemType,
+						onOverlayClosed = p8.props.overlayClosedCallback
+					})
+				end, {
+					key = "Feature.Catalog.Action.ItemOptions"
+				})
+			}))
+		end
+
+		if name == AvatarScreen.TryOnManager then
+			return (Cryo.Dictionary.join(t1, {
+				OpenCloseTryOnManager = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonY, function() -- line: 447
+					-- upvalues: p8 (copy), PeekViewState (copy)
+					local tryOnManagerPeekViewState = p8.props.tryOnManagerPeekViewState
+
+					if tryOnManagerPeekViewState == PeekViewState.Full or tryOnManagerPeekViewState == PeekViewState.Extended then
+						p8.props.setTryOnManagerPeekViewState(PeekViewState.Brief)
+
+						return
+					end
+
+					p8.props.setTryOnManagerPeekViewState(PeekViewState.Full)
+				end, {
+					key = "Feature.Catalog.Label.TryOns"
+				})
+			}))
+		end
+
+		if name == AvatarScreen.LookDetails then
+			t1 = Cryo.Dictionary.join(t1, {
+				OpenCloseTryOnManager = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonY, function() -- line: 460
+					-- upvalues: p8 (copy), PeekViewState (copy)
+					local tryOnManagerPeekViewState = p8.props.tryOnManagerPeekViewState
+
+					if tryOnManagerPeekViewState == PeekViewState.Full or tryOnManagerPeekViewState == PeekViewState.Extended then
+						p8.props.setTryOnManagerPeekViewState(PeekViewState.Brief)
+
+						return
+					end
+
+					p8.props.setTryOnManagerPeekViewState(PeekViewState.Full)
+				end, {
+					key = "Feature.Catalog.Label.TryOns"
+				})
+			})
+		end
+
+		return t1
+	end
+end
+
+if v105 then
+	function v144.sendExperimentCountersOnce(_) -- line: 478
+	end
+end
+
+function v144.didMount(p10) -- line: 481
+	-- upvalues: isAvatarRouteVisible (copy), v105 (copy), v106 (copy), IxpUtils (copy), FFlagAXCatalogAndEditorExposureUseFStringLayer (copy), GetFStringAXCatalogAndEditorExposureLayerName (copy), AppUserLayers (copy), v112 (copy), IXPServiceWrapper (copy), v111 (copy)
+	if not p10.props.is10ftUI and isAvatarRouteVisible(p10.props) then
+		p10.props.androidBackButtonConnection.connect(p10.topBarBackButtonActivated)
+	end
+
+	if v105 then
+		p10:sendExperimentCountersOnce()
+	end
+
+	if v106 then
+		IxpUtils.logLayerExposure(if not FFlagAXCatalogAndEditorExposureUseFStringLayer then AppUserLayers.AvatarExperienceUAAllViews else GetFStringAXCatalogAndEditorExposureLayerName())
+	end
+
+	if v112 then
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(v111)
+	end
+end
+function v144.willUnmount(p11) -- line: 505
+	p11.props.androidBackButtonConnection.disconnect()
+end
+function v144.didUpdate(p12, p13) -- line: 509
+	-- upvalues: isAvatarRouteVisible (copy)
+	if not p12.props.is10ftUI then
+		if not isAvatarRouteVisible(p13) and isAvatarRouteVisible(p12.props) then
+			p12.props.androidBackButtonConnection.connect(p12.topBarBackButtonActivated)
+
+			return
+		end
+
+		if isAvatarRouteVisible(p13) and not isAvatarRouteVisible(p12.props) then
+			p12.props.androidBackButtonConnection.disconnect()
+		end
+	end
+end
+function v144.willUpdate(p14, p15) -- line: 519
+	-- upvalues: FFlagAXExpandPeekViewOnFirstScroll (copy), makeAvatarBackButton (copy)
+	if FFlagAXExpandPeekViewOnFirstScroll and p15.fullView ~= p14.props.fullView then
+		p14.backButton = makeAvatarBackButton(p14.topBarBackButtonActivated, p14:getBackButtonIcon(p15.fullView))
+	end
+end
+
+if FFlagAXExpandPeekViewOnFirstScroll then
+	function v144.getBackButtonIcon(p16, p17) -- line: 527
+		-- upvalues: FullView (copy), v140 (copy)
+		if not p17 then
+			p17 = p16.props.fullView
+		end
+
+		if p17 == FullView.UIFullView then
+			return v140
+		end
+
+		return nil
+	end
+end
+
+function v144.renderTopBar(p18) -- line: 541
+	-- upvalues: withLocalization (copy), GetFFlagAvatarAutocompleteEnabledForAll (copy), IsVRAppBuild (copy), v43 (copy), TopBar (copy), Roact (copy), RobloxAppEnums (copy), FFlagAXOpaqueMarketplaceTopbar (copy)
+	local isPortrait = p18.props.isPortrait
+	local show3dView = p18.props.show3dView
+
+	return withLocalization({
+		title = "Feature.Avatar.Action.Marketplace"
+	})(function(p19) -- line: 547
+		-- upvalues: GetFFlagAvatarAutocompleteEnabledForAll (copy), IsVRAppBuild (copy), p18 (copy), v43 (copy), TopBar (copy), Roact (copy), RobloxAppEnums (copy), FFlagAXOpaqueMarketplaceTopbar (copy), isPortrait (copy), show3dView (copy)
+		local n1 = 2
+
+		if GetFFlagAvatarAutocompleteEnabledForAll() then
+			n1 = 3
+		end
+
+		local v232, v233, v234
+
+		if IsVRAppBuild() then
+			v232 = nil
+			v233 = nil
+			v234 = nil
+		else
+			v233 = p18.backButton
+			v232 = if not p18.props.is10ftUI then v43 else p18.titleDropDown
+			v234 = { TopBar.SearchButton }
+		end
+
+		return Roact.createElement(TopBar.Container, {
+			forceCompactMode = true,
+			searchType = RobloxAppEnums.SearchTypes.Catalog,
+			titleText = p19.title,
+			ZIndex = n1,
+			transparentBackground = if not FFlagAXOpaqueMarketplaceTopbar or isPortrait then show3dView else false,
+			hideSiteMessageBanner = isPortrait,
+			[Roact.Ref] = p18.topBarRef,
+			setDefaultRefOverride = p18.setDefaultRefOverride,
+			NextSelectionDown = p18.defaultChildRef,
+			NextSelectionRight = p18.sceneUIContainerRef,
+			onConfirmSearchCallback = p18.onConfirmSearchCallback,
+			leftItem = v233,
+			centerItem = v232,
+			rightItems = v234,
+			useParentSizeForCenterItem = true,
+			shouldNavigateToSearchLandingPage = true
+		})
+	end)
+end
+function v144.render(p20) -- line: 590
+	-- upvalues: FullView (copy), AvatarScreen (copy), Roact (copy), Focusable (copy), FFlagAXMigrateAXToGlobalAutofocus (copy), FFlagAXMigrateCatalogPageInputBindings (copy), BoundInputsUpdater (copy), ExternalEventConnection (copy), UserInputService (copy), NavigationEventsLogger (copy), OnFocusExposureLogger (copy), UniversalAppCameraIXPTest (copy), GetFFlagAXDisableRelevanceRecommendationsLayerExposure (copy), AvatarMarketplaceBackendIXPTests (copy), GetFFlagAXDisableRecommendationsAndSearchLayerExposure (copy), GetFFlagLooksIXPLogging (copy), GetFFlagAXDisableSortsLayerExposure (copy), OnFocusExperimentExposureLogger (copy), AXDisableAlwaysRenderedScreensIXP (copy), AXCatalogPerfReduxReductionIXP (copy), AXRemoveBackButtonDesktopClientsIXPTest (copy), AXAvatarsTabIXP (copy), FFlagAXBackendDrivenCatalogLayers (copy), getBackendLayerNamesForCatalog (copy), FFlagBasedExposureLoggingCatalogPage (copy), UserIsInExperiment (copy), AppUserLayers (copy), FFlagAXMoveCatalogFilterToL1NavigationExposureLogging (copy), v126 (copy), v127 (copy), FFlagAXCatalogM41CategoriesExposureLogging (copy), FFlagAXHideMenuOnScrollExposureLogging (copy), v133 (copy), FFlagAXMakeupCategoryPositionExperimentExposureLogging (copy), AvatarExperienceView (copy), FFlagAXHideMenuOnScroll (copy), FFlagAXExpandPeekViewOnFirstScroll (copy), GamepadFocusHandlerForPage (copy), NavigationItemsView (copy)
+	local v173 = p20.props.fullView == FullView.SceneFullView
+	local v174 = p20.props.fullView == FullView.UIFullView
+	local show3dView = p20.props.show3dView
+	local namedRefs = p20.props.namedRefs
+	local v177 = p20.props.avatarRoute.current.name == AvatarScreen.SortAndFilters
+	local quickButtonsRef = p20.quickButtonsRef
+
+	if p20.props.avatarRoute.current.name == AvatarScreen.TryOnManager then
+		quickButtonsRef = namedRefs[AvatarScreen.TryOnManager]
+	elseif p20.props.avatarRoute.current.name == AvatarScreen.LookDetails then
+		quickButtonsRef = namedRefs[AvatarScreen.LookDetails]
+	elseif v177 then
+		quickButtonsRef = namedRefs[AvatarScreen.SortAndFilters]
+	end
+
+	return Roact.createElement(Focusable.Frame, {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 1, 0),
+		focusController = if not FFlagAXMigrateAXToGlobalAutofocus then p20.props.focusController else nil,
+		defaultChild = p20:getBestDefaultRefForPage(),
+		restorePreviousChildFocus = false,
+		inputBindings = if not FFlagAXMigrateCatalogPageInputBindings then p20:getInputBindings() else nil,
+		ref = namedRefs[AvatarScreen.Catalog]
+	}, {
+		BoundInputsUpdater = if not FFlagAXMigrateAXToGlobalAutofocus then Roact.createElement(BoundInputsUpdater) else nil,
+		LastInputTypeChangedConnection = Roact.createElement(ExternalEventConnection, {
+			event = UserInputService.LastInputTypeChanged,
+			callback = p20.lastInputTypeChangedCallback
+		}),
+		NavigationEventsLogger = Roact.createElement(NavigationEventsLogger, {
+			pageName = "Catalog"
+		}),
+		UniversalAppCameraExposure = Roact.createElement(OnFocusExposureLogger, {
+			ixpTest = UniversalAppCameraIXPTest
+		}),
+		RelevanceRecommendationsExposure = if not GetFFlagAXDisableRelevanceRecommendationsLayerExposure() then Roact.createElement(OnFocusExposureLogger, {
+			ixpTest = AvatarMarketplaceBackendIXPTests.RelevanceRecommendations
+		}) else nil,
+		RecommendationsAndSearchExposure = if not GetFFlagAXDisableRecommendationsAndSearchLayerExposure() then Roact.createElement(OnFocusExposureLogger, {
+			ixpTest = AvatarMarketplaceBackendIXPTests.RecommendationsAndSearch
+		}) else nil,
+		SortsExposure = (GetFFlagLooksIXPLogging() or not GetFFlagAXDisableSortsLayerExposure()) and Roact.createElement(OnFocusExposureLogger, {
+			ixpTest = AvatarMarketplaceBackendIXPTests.Sorts
+		}),
+		SearchWidgetsExposure = GetFFlagLooksIXPLogging() and Roact.createElement(OnFocusExposureLogger, {
+			ixpTest = AvatarMarketplaceBackendIXPTests.SearchWidgets
+		}),
+		OnFocusExperimentExposureLogger = Roact.createElement(OnFocusExperimentExposureLogger, {
+			ixpTests = {
+				if not AXDisableAlwaysRenderedScreensIXP.isEnabled() then nil else AXDisableAlwaysRenderedScreensIXP,
+				if not AXCatalogPerfReduxReductionIXP.isEnabled() then nil else AXCatalogPerfReduxReductionIXP,
+				if not AXRemoveBackButtonDesktopClientsIXPTest.isEnabled() then nil else AXRemoveBackButtonDesktopClientsIXPTest,
+				if not AXAvatarsTabIXP.isEnabled() then nil else AXAvatarsTabIXP
+			},
+			layers = if not FFlagAXBackendDrivenCatalogLayers then nil else getBackendLayerNamesForCatalog(),
+			flagIXPTestLayers = if not FFlagBasedExposureLoggingCatalogPage then nil else {
+				if not UserIsInExperiment then nil else AppUserLayers.AvatarExperienceUAMarketplaceView,
+				if not FFlagAXMoveCatalogFilterToL1NavigationExposureLogging then nil else AppUserLayers.AvatarExperienceUAAllViews,
+				if not v126 then nil else v127,
+				if not FFlagAXCatalogM41CategoriesExposureLogging then nil else AppUserLayers.AvatarExperienceUAMarketplaceView,
+				if not FFlagAXHideMenuOnScrollExposureLogging then nil else AppUserLayers.AvatarExperienceUAMarketplaceView,
+				if not v133 then nil else AppUserLayers.AvatarExperienceUAMarketplaceView,
+				if not FFlagAXMakeupCategoryPositionExperimentExposureLogging then nil else AppUserLayers.AvatarExperienceUAMarketplaceView
+			}
+		}),
+		AvatarExperienceView = Roact.createElement(AvatarExperienceView, {
+			changeViewFunction = p20.changeView,
+			allowAdaptiveScrolling = true,
+			adaptiveScrollingProps = if not FFlagAXHideMenuOnScroll and not FFlagAXExpandPeekViewOnFirstScroll then nil else {
+				enableExpandPeekViewOnUpwardScroll = not not FFlagAXExpandPeekViewOnFirstScroll or nil,
+				enableAnimatedVisibility = not not FFlagAXHideMenuOnScroll or nil
+			},
+			isDisabled = not show3dView,
+			isSceneFullView = v173,
+			isUIFullView = v174,
+			topBar = p20:renderTopBar(),
+			refinementButtonsRef = p20.refinementButtonsRef,
+			quickButtonsRef = p20.quickButtonsRef,
+			[Roact.Ref] = p20.sceneUIContainerRef,
+			NextSelectionDown = p20.defaultChildRef,
+			NextSelectionLeft = p20.topBarRef,
+			defaultChildRef = p20.defaultChildRef,
+			multiTryOnBottomBarRef = p20.multiTryOnBottomBarRef,
+			itemDetailsPeekViewRefs = p20.itemDetailsPeekViewRefs,
+			showUndoRedo = true,
+			showSaveButton = false
+		}, {
+			GamepadFocusHandlerForPage = if not FFlagAXMigrateAXToGlobalAutofocus then Roact.createElement(GamepadFocusHandlerForPage, {
+				focusController = p20.props.focusController,
+				captureFocusOnMount = true
+			}) else nil,
+			NavigationAndItemsList = Roact.createElement(NavigationItemsView, {
+				defaultChildRef = p20.defaultChildRef,
+				NextSelectionUp = p20.topBarRef,
+				NextSelectionRight = quickButtonsRef,
+				multiTryOnBottomBarRef = p20.multiTryOnBottomBarRef,
+				itemDetailsPeekViewRefs = p20.itemDetailsPeekViewRefs
+			})
+		})
+	})
+end
+
+local v145 = RoactRodux.connect(function(p21) --[[ mapStateToProps ]] -- line: 727
+	-- upvalues: selectIsFullView (copy), AvatarScreen (copy), selectIsPortrait (copy), FFlagAXMigrateCatalogPageInputBindings (copy)
+	return {
+		fullView = selectIsFullView(p21, AvatarScreen.Catalog),
+		isPortrait = selectIsPortrait(p21),
+		itemDetailsExpanded = p21.AvatarExperience.Common.ItemDetailsExpanded,
+		tryOnManagerPeekViewState = p21.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState,
+		tryOnItems = if not FFlagAXMigrateCatalogPageInputBindings then p21.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems else nil
+	}
+end, function(p22: ((...any) -> ...any)) --[[ mapDispatchToProps ]] -- line: 739
+	-- upvalues: OpenItemPrompt (copy), SetItemDetailsPeekViewState (copy), OpenQuickMenu (copy), SetFullView (copy), ResetNavigationHistory (copy), InstantResetNavigationHistory (copy), SetTryOnManagerPeekViewState (copy), FFlagAXCatalogCategoriesStore (copy), GetCatalogCategoriesStore (copy), FFlagAXDefaultCatalogCategoryId (copy), Constants (copy), CatalogCategories (copy), mutedError (copy), SetSearchCategoryAndSubcategory (copy)
+	return {
+		openItemPrompt = function(p23, p24, p25, p26, p27) --[[ openItemPrompt ]] -- line: 741
+			-- upvalues: p22 (copy), OpenItemPrompt (copy)
+			p22(OpenItemPrompt(p23, p24, p25, p26, p27))
+		end,
+		setItemDetailsPeekViewState = function(p28) --[[ setItemDetailsPeekViewState ]] -- line: 744
+			-- upvalues: p22 (copy), SetItemDetailsPeekViewState (copy)
+			p22(SetItemDetailsPeekViewState(p28))
+		end,
+		navigateIntoQuickMenu = function(p29, p30) --[[ navigateIntoQuickMenu ]] -- line: 747
+			-- upvalues: p22 (copy), OpenQuickMenu (copy)
+			p22(OpenQuickMenu(p29, p30))
+		end,
+		setFullView = function(p31, p32, p33) --[[ setFullView ]] -- line: 750
+			-- upvalues: p22 (copy), SetFullView (copy)
+			p22(SetFullView(p31, p32, p33))
+		end,
+		resetNavigationHistory = function(p34) --[[ resetNavigationHistory ]] -- line: 753
+			-- upvalues: p22 (copy), ResetNavigationHistory (copy)
+			return p22(ResetNavigationHistory(nil, p34))
+		end,
+		instantResetNavigationHistory = function(p35) --[[ instantResetNavigationHistory ]] -- line: 756
+			-- upvalues: p22 (copy), InstantResetNavigationHistory (copy)
+			return p22(InstantResetNavigationHistory(nil, p35))
+		end,
+		setTryOnManagerPeekViewState = function(p36) --[[ setTryOnManagerPeekViewState ]] -- line: 759
+			-- upvalues: p22 (copy), SetTryOnManagerPeekViewState (copy)
+			p22(SetTryOnManagerPeekViewState(p36))
+		end,
+		resetSearchCategoryAndSubcategory = function() --[[ resetSearchCategoryAndSubcategory ]] -- line: 762
+			-- upvalues: FFlagAXCatalogCategoriesStore (copy), GetCatalogCategoriesStore (copy), FFlagAXDefaultCatalogCategoryId (copy), Constants (copy), CatalogCategories (copy), mutedError (copy), p22 (copy), SetSearchCategoryAndSubcategory (copy)
+			if FFlagAXCatalogCategoriesStore then
+				if not GetCatalogCategoriesStore.getCatalogSearchSelectionStore().changeCategory(if not FFlagAXDefaultCatalogCategoryId then CatalogCategories.Recommended:rawValue() else Constants.DefaultCatalogCategoryId, nil) then
+					mutedError("Failed to select subcategory in ResetSearchCategoryAndSubcategory thunk")
+
+					return
+				end
+			else
+				p22(SetSearchCategoryAndSubcategory("All", nil))
+			end
+		end
+	}
+end)(v144)
+local v146 = RoactServices.connect({
+	avatarExperienceAnalytics = Analytics,
+	networking = RoactNetworking,
+	appAnalytics = RoactAnalytics,
+	avatarEditorAnalytics = Analytics2,
+	catalogAnalytics = Analytics3
+})(v145)
+local u147 = withNamedRefs((withMappedNavigationParams(withStackVisibilityWrapper((RoactAppPolicy.connect(function(p37, _) -- line: 791
+	return {
+		show3dView = p37.getCatalogShow3dView()
+	}
+end)(v146))), nil)))
+
+return function(p39) --[[ CatalogPageContainer ]] -- line: 803
+	-- upvalues: FFlagAXRefetchAvatarOnTimeout (copy), useRoactService (copy), RoactNetworking (copy), useDispatch (copy), FFlagDynamicHeadsMigration (copy), React (copy), GetHeadShapeInventoryStore (copy), FFlagAXEnableMilestoneTrackingForAvatarExperience (copy), WidgetsPercievedTTIManager (copy), FFlagAXMigrateAXToGlobalAutofocus (copy), RoactGamepad (copy), AndroidBackButtonConnection (copy), useOverlayClosedCallback (copy), FFlagAXMigrateCatalogPageInputBindings (copy), Analytics3 (copy), useTopBarSearchSignal (copy), useQuickMenuAvailable (copy), useAvatarRoute (copy), AvatarScreen (copy), AvatarScreenProperties (copy), useSelector (copy), selectIsTryOnButtonShowing (copy), useOpenQuickMenuCallback (copy), NavigationUtils (copy), OpenItemPrompt (copy), selectTryOnManagerViewState (copy), PeekViewState (copy), SetTryOnManagerPeekViewState (copy), FocusNavigationEventNameEnum (copy), FFlagAXHideCatalogShortcutsInFullView (copy), selectIsFullView (copy), FullView (copy), useCatalogPageFocusNavigationBindings (copy), useAvatarExperienceFocusNavigationBindings (copy), FFlagAXAvatarTimeoutFlow (copy), RefetchAvatarData (copy), useCatalogPageTimeoutPrompt (copy), FFlagAXMakeupReleaseFTUX (copy), GetCatalogCategoriesStore (copy), CatalogCategories (copy), useCatalogPageMakeupReleaseFtux (copy), Cryo (copy), useUiModeInfo (copy), UiMode (copy), FFlagEnableLeftNavOnConsole (copy), FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup (copy), useCatalogPageRevertToLastEquippedStateHook (copy), u147 (ref)
+	local u184 = nil
+	local u185 = nil
+
+	if FFlagAXRefetchAvatarOnTimeout then
+		u184 = useRoactService(RoactNetworking)
+		u185 = useDispatch()
+	end
+
+	if FFlagDynamicHeadsMigration then
+		React.useEffect(function() -- line: 812
+			-- upvalues: GetHeadShapeInventoryStore (copy)
+			local v249 = GetHeadShapeInventoryStore(false)
+
+			if v249 then
+				v249.getInventory(false)
+			end
+		end, {})
+	end
+
+	if FFlagAXEnableMilestoneTrackingForAvatarExperience and WidgetsPercievedTTIManager then
+		WidgetsPercievedTTIManager.Hooks.useRenderAndMountedTracking()
+	end
+
+	local v186 = if not FFlagAXMigrateAXToGlobalAutofocus then React.useRef(RoactGamepad.createFocusController()).current else nil
+	local current = React.useRef(AndroidBackButtonConnection()).current
+	local v188 = useOverlayClosedCallback(if not FFlagAXMigrateAXToGlobalAutofocus then v186 else nil)
+	local v209
+
+	if FFlagAXMigrateCatalogPageInputBindings then
+		if not FFlagAXRefetchAvatarOnTimeout then
+			u184 = useRoactService(RoactNetworking)
+			u185 = useDispatch()
+		end
+
+		local v189 = useRoactService(Analytics3)
+		local v190 = useTopBarSearchSignal()
+		local v191 = useQuickMenuAvailable()
+		local v192 = useAvatarRoute()
+		local v193 = v192.current.name == AvatarScreen.ItemDetails
+		local v194 = v192.current.name == AvatarScreen.LookDetails or v192.current.name == AvatarScreen.TryOnManager
+		local isMultiTryOn = AvatarScreenProperties[v192.opaque.name].isMultiTryOn
+		local v196 = useSelector(selectIsTryOnButtonShowing)
+		local v197 = v192.current.name ~= AvatarScreen.TryOnManager and (isMultiTryOn and v196)
+		local v198 = useOpenQuickMenuCallback(v188)
+		local v199 = React.useCallback(function(p40) -- line: 856
+			-- upvalues: NavigationUtils (copy), p39 (copy)
+			p40.cancelled = true
+			NavigationUtils.closeFocusedScreen(p39.navigation)
+		end, { p39.navigation })
+		local v200 = React.useCallback(function() -- line: 862
+			-- upvalues: u185 (ref), OpenItemPrompt (copy), u184 (ref), v189 (copy), v188 (copy), p39 (copy), v192 (copy)
+			u185(OpenItemPrompt(u184, v189, v188, p39.navigation, v192))
+		end, {
+			u185,
+			u184,
+			v189,
+			v188,
+			p39.navigation,
+			v192
+		})
+		local v201 = React.useCallback(function() -- line: 870
+			-- upvalues: p39 (copy), AvatarScreen (copy), v192 (copy), v188 (copy)
+			p39.navigation.navigate(AvatarScreen.CatalogContextMenu, {
+				itemId = v192.current.params.itemId,
+				itemType = v192.current.params.itemType,
+				onOverlayClosed = v188
+			})
+		end, {
+			p39.navigation,
+			v192,
+			v188
+		})
+		local v202 = useSelector(selectTryOnManagerViewState)
+		local v203 = React.useCallback(function() -- line: 880
+			-- upvalues: v202 (copy), PeekViewState (copy), u185 (ref), SetTryOnManagerPeekViewState (copy)
+			local v251 = if v202 ~= PeekViewState.Full and v202 ~= PeekViewState.Extended then PeekViewState.Full else PeekViewState.Brief
+
+			u185(SetTryOnManagerPeekViewState(v251))
+		end, {
+			v202,
+			u185
+		})
+		local v204 = React.useCallback(function() -- line: 888
+			-- upvalues: NavigationUtils (copy), p39 (copy), AvatarScreen (copy)
+			NavigationUtils.closeFiltersAndItemDetails(p39.navigation)
+			p39.navigation.navigate(AvatarScreen.TryOnManager)
+		end, { p39.navigation })
+		local v205 = React.useCallback(function() -- line: 893
+			-- upvalues: v190 (copy), AvatarScreen (copy)
+			v190:fire(AvatarScreen.Catalog)
+		end, { v190 })
+		local v206 = React.useMemo(function() -- line: 897
+			-- upvalues: FocusNavigationEventNameEnum (copy), v194 (copy), v197 (copy)
+			return {
+				[Enum.KeyCode.ButtonB] = FocusNavigationEventNameEnum.NavigateBack,
+				[Enum.KeyCode.Escape] = FocusNavigationEventNameEnum.NavigateBack,
+				[Enum.KeyCode.ButtonStart] = FocusNavigationEventNameEnum.OpenQuickMenu,
+				[Enum.KeyCode.ButtonX] = FocusNavigationEventNameEnum.OpenBuyCatalogItemPrompt,
+				[Enum.KeyCode.ButtonL3] = FocusNavigationEventNameEnum.OpenCatalogContextMenu,
+				[Enum.KeyCode.ButtonY] = if not v194 and not v197 then FocusNavigationEventNameEnum.Search else FocusNavigationEventNameEnum.ToggleTryOnManager
+			}
+		end, {
+			v194,
+			v197
+		})
+
+		if FFlagAXHideCatalogShortcutsInFullView then
+			local v207 = React.useCallback(function(p41) -- line: 911
+				-- upvalues: selectIsFullView (copy), v192 (copy), FullView (copy)
+				return selectIsFullView(p41, v192.opaque.name) == FullView.SceneFullView
+			end, { v192.opaque.name })
+			local v208 = not useSelector(v207)
+
+			v209 = useCatalogPageFocusNavigationBindings(v206, {
+				onNavigateBack = if not v208 or not v193 then nil else v199,
+				onOpenQuickMenu = if not v208 or not v191 then nil else v198,
+				onOpenBuyItemPrompt = if not v208 or not v193 then nil else v200,
+				onOpenContextMenu = if not v208 or not v193 then nil else v201,
+				onToggleSearch = if not v208 then nil else v205,
+				onToggleTryOnManager = if not v208 or not v194 then if not v197 then nil else v204 else v203
+			})
+		else
+			v209 = useCatalogPageFocusNavigationBindings(v206, {
+				onNavigateBack = if not v193 then nil else v199,
+				onOpenQuickMenu = if not v191 then nil else v198,
+				onOpenBuyItemPrompt = if not v193 then nil else v200,
+				onOpenContextMenu = if not v193 then nil else v201,
+				onToggleSearch = v205,
+				onToggleTryOnManager = if not v194 then if not v197 then nil else v204 else v203
+			})
+		end
+	else
+		v209 = useAvatarExperienceFocusNavigationBindings({
+			overlayClosedCallback = v188
+		})
+	end
+
+	if FFlagAXAvatarTimeoutFlow then
+		local v210 = useAvatarRoute()
+		local v211 = if not FFlagAXRefetchAvatarOnTimeout then nil else React.useCallback(function() -- line: 951
+			-- upvalues: u185 (ref), RefetchAvatarData (copy), u184 (ref)
+			u185(RefetchAvatarData(u184, true))
+		end, {
+			u185,
+			u184
+		})
+
+		useCatalogPageTimeoutPrompt(p39.navigation, if not FFlagAXRefetchAvatarOnTimeout or v210.opaque.name ~= AvatarScreen.Catalog then nil else v211)
+	end
+
+	if FFlagAXMakeupReleaseFTUX then
+		local v212 = useAvatarRoute()
+		local v213 = React.useCallback(function() -- line: 966
+			-- upvalues: GetCatalogCategoriesStore (copy), CatalogCategories (copy)
+			GetCatalogCategoriesStore.getCatalogSelectionStore().changeCategory(CatalogCategories.Makeup:rawValue(), nil)
+		end, {})
+
+		useCatalogPageMakeupReleaseFtux(v212, p39.navigation, v213)
+	end
+
+	local v214 = Cryo.Dictionary.join(p39, {
+		focusController = if not FFlagAXMigrateAXToGlobalAutofocus then v186 else nil,
+		overlayClosedCallback = v188,
+		androidBackButtonConnection = current,
+		is10ftUI = useUiModeInfo().uiMode == UiMode.TenFoot and not FFlagEnableLeftNavOnConsole
+	})
+
+	if FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup then
+		useCatalogPageRevertToLastEquippedStateHook()
+	end
+
+	return React.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.fromScale(1, 1),
+		ref = v209
+	}, React.createElement(u147, v214))
+end

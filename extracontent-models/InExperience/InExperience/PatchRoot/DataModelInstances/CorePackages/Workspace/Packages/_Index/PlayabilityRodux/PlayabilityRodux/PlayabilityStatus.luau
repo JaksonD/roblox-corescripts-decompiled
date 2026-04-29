@@ -1,5 +1,7 @@
-local _ = require(script.PlayabilityStatusModel);
+require(script.PlayabilityStatusModel)
+
 return {
-    ApiFetchPlayabilityStatus = require(script.ApiFetchPlayabilityStatus), 
-    PlayabilityStatusReducer = require(script.PlayabilityStatusReducer)
-};
+	ApiFetchPlayabilityStatus = require(script.ApiFetchPlayabilityStatus),
+	PlayabilityStatusReducer = require(script.PlayabilityStatusReducer),
+	SetPlayabilityStatus = require(script.SetPlayabilityStatus)
+}

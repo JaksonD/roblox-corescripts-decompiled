@@ -1,147 +1,157 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_script_FirstAncestor_0.types);
-local l_ResponseIndicator_0 = require(l_script_FirstAncestor_0.SocialLibraries).Components.ResponseIndicator;
-local v4 = require(l_Parent_0.Cryo);
-local v5 = require(l_Parent_0.React);
-local l_dependencyArray_0 = require(l_Parent_0.RoactUtils).Hooks.dependencyArray;
-local l_memo_0 = v5.memo;
-local v8 = require(l_Parent_0.Promise);
-local l_useCallback_0 = v5.useCallback;
-local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_useEffect_0 = v5.useEffect;
-local v12 = require(l_script_FirstAncestor_0.Hooks.useIsGroupChatEnabled);
-local v13 = require(l_script_FirstAncestor_0.Hooks.useIsInExperience);
-local l_useState_0 = v5.useState;
-local l_useRef_0 = v5.useRef;
-local v16 = require(l_Parent_0.AppNavBar);
-local v17 = require(l_script_FirstAncestor_0.Models.Conversation);
-local _ = require(l_script_FirstAncestor_0.Models.ConversationChannels);
-local v19 = require(l_script_FirstAncestor_0.Conversations.Thunks.createConversation);
-local v20 = require(l_script_FirstAncestor_0.Conversations.Thunks.parseCreateConversationErrors);
-local v21 = require(l_script_FirstAncestor_0.Components.SelectChatMembers.SelectChatMembersContainer);
-local v22 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local v23 = require(l_script_FirstAncestor_0.Analytics.useAnalytics);
-local v24 = require(l_script_FirstAncestor_0.Analytics.Enums.CreateConversationError);
-local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local v26 = require(l_Parent_0.SharedFlags);
-local l_FFlagAppIaScrollAway_0 = v26.FFlagAppIaScrollAway;
-local l_FFlagAppIaScrollAwayFixSocial_0 = v26.FFlagAppIaScrollAwayFixSocial;
-local l_GetFFlagIsSquadEnabled_0 = v26.GetFFlagIsSquadEnabled;
-local l_FFlagConnectionsToFriendsRename_0 = v26.FFlagConnectionsToFriendsRename;
-local l_FFlagRemoveDependencyArrayAntipattern_0 = v26.FFlagRemoveDependencyArrayAntipattern;
-local v34 = {
-    systemButtonText = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Action.Create" or "Feature.Chat.Action.StartChatWithFriends", 
-    pageHeaderText = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Heading.PartyWithFriends" or "Feature.Chat.Heading.PartyWithConnections" else "Feature.Chat.Heading.ChatWithConnections", 
-    topBarHeight = nil, 
-    minSelections = 1, 
-    maxSelections = 5, 
-    maxConversationSize = 5, 
-    conversation = v17.empty(), 
-    setSystemButtonActivated = function(_) --[[ Line: 82 ]] --[[ Name: setSystemButtonActivated ]]
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
 
-    end, 
-    setSystemButtonEnabled = function(_) --[[ Line: 83 ]] --[[ Name: setSystemButtonEnabled ]]
+require(AppChat.types)
 
-    end
-};
-CreateNewChatContainer = function(v35) --[[ Line: 87 ]] --[[ Name: CreateNewChatContainer ]]
-    -- upvalues: v4 (copy), v34 (copy), l_useRef_0 (copy), l_useState_0 (copy), l_FFlagAppIaScrollAway_0 (copy), l_FFlagAppIaScrollAwayFixSocial_0 (copy), v13 (copy), v12 (copy), l_useDispatch_0 (copy), l_useCallback_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v23 (copy), v8 (copy), v19 (copy), v20 (copy), v22 (copy), v24 (copy), l_useEffect_0 (copy), v5 (copy), v16 (copy), l_ResponseIndicator_0 (copy), v21 (copy)
-    local v36 = v4.Dictionary.join(v34, v35);
-    local v37 = l_useRef_0({});
-    local v38 = l_useRef_0(false);
-    local v39, v40 = l_useState_0(false);
-    local v41 = if not l_FFlagAppIaScrollAway_0 or l_FFlagAppIaScrollAwayFixSocial_0 then nil else v13();
-    local l_maxSelections_0 = v36.maxSelections;
-    local l_maxConversationSize_0 = v36.maxConversationSize;
-    local v44 = false;
-    if not v12() then
-        l_maxSelections_0 = 1;
-        l_maxConversationSize_0 = 1;
-        v44 = true;
-    end;
-    local v45 = l_useDispatch_0();
-    local v47 = l_useCallback_0(function(v46) --[[ Line: 109 ]]
-        -- upvalues: v36 (copy)
-        v36.navigateToToast({
-            toastProps = {
-                toastContent = {
-                    toastTitle = v46
-                }
-            }
-        });
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v36.navigateToToast
-    } else l_dependencyArray_0(v36.navigateToToast));
-    local function v52(v48, v49) --[[ Line: 123 ]]
-        -- upvalues: v37 (copy), v4 (ref), v38 (copy), v36 (copy)
-        v37.current = v4.List.map(v48, function(v50) --[[ Line: 124 ]]
-            return v50.id;
-        end);
-        local v51 = v49 <= #v48;
-        if v38.current ~= v51 then
-            v38.current = v51;
-            v36.setSystemButtonEnabled(v51);
-        end;
-    end;
-    local v53 = v23();
-    local v59 = l_useCallback_0(function(v54) --[[ Line: 137 ]]
-        -- upvalues: v39 (copy), v37 (copy), v8 (ref), v40 (copy), v45 (copy), v19 (ref), v53 (copy), v36 (copy), v20 (ref), v47 (copy), v22 (ref), v24 (ref)
-        if v39 or not v37.current then
-            return v8.resolve();
-        else
-            v40(true);
-            local v55 = #v37.current == 1 and "one_to_one" or "group";
-            return v45(v19(v55, v37.current, v53, "userCreatedNewConversation")):andThen(function(v56) --[[ Line: 158 ]]
-                -- upvalues: v36 (ref)
-                v36.navigateToConversation(v56.id);
-            end):catch(function(v57) --[[ Line: 162 ]]
-                -- upvalues: v20 (ref), v54 (copy), v47 (ref), v40 (ref), v53 (ref), v22 (ref), v24 (ref)
-                local v58 = if v20(v57) == "participant_chat_disabled" then v54.invalidParticipantText else v54.networkErrorText;
-                v47(v58);
-                v40(false);
-                if v53 then
-                    v53.fireAnalyticsEvent(v22.NewConversationCreated, {
-                        createConversationResult = v24.FetchConversationError
-                    });
-                end;
-            end);
-        end;
-    end, {
-        v45, 
-        v39, 
-        v40, 
-        v37, 
-        v36.navigateToConversation, 
-        v47, 
-        v53
-    });
-    l_useEffect_0(function() --[[ Line: 192 ]]
-        -- upvalues: v36 (copy), v59 (copy)
-        v36.setSystemButtonActivated(v59);
-    end, {
-        v36.setSystemButtonActivated, 
-        v59
-    });
-    return v5.createElement("ImageButton", {
-        Size = UDim2.new(1, 0, 1, 0), 
-        BackgroundTransparency = 1, 
-        Active = true, 
-        AutoButtonColor = false
-    }, {
-        UIPadding = if not (not l_FFlagAppIaScrollAway_0 or l_FFlagAppIaScrollAwayFixSocial_0 or v41) and v16.getScrollAwayEnabled() and v36.topBarHeight ~= nil then v5.createElement("UIPadding", {
-            PaddingTop = UDim.new(0, v36.topBarHeight)
-        }) else nil, 
-        responseIndicator = v39 and v5.createElement(l_ResponseIndicator_0, {
-            soakAreaColor3 = Color3.fromRGB(25, 25, 25), 
-            soakAreaTransparency = 0.8
-        }), 
-        selectChatMembers = v5.createElement(v21, v4.Dictionary.join(v36, {
-            selectedUsersChanged = v52, 
-            maxSelections = l_maxSelections_0, 
-            maxConversationSize = l_maxConversationSize_0, 
-            canOnlyCreateOneToOneChat = v44
-        }))
-    });
-end;
-return l_memo_0(CreateNewChatContainer);
+local ResponseIndicator = require(AppChat.SocialLibraries).Components.ResponseIndicator
+local Cryo = require(AppChatParent.Cryo)
+local React = require(AppChatParent.React)
+local dependencyArray = require(AppChatParent.RoactUtils).Hooks.dependencyArray
+local memo = React.memo
+local Promise = require(AppChatParent.Promise)
+local useCallback = React.useCallback
+local useDispatch = require(AppChatParent.RoactUtils).Hooks.RoactRodux.useDispatch
+local useEffect = React.useEffect
+local useIsGroupChatEnabled = require(AppChat.Hooks.useIsGroupChatEnabled)
+local useIsInExperience = require(AppChat.Hooks.useIsInExperience)
+local useState = React.useState
+local useRef = React.useRef
+local AppNavBar = require(AppChatParent.AppNavBar)
+local Conversation = require(AppChat.Models.Conversation)
+
+require(AppChat.Models.ConversationChannels)
+
+local createConversation = require(AppChat.Conversations.Thunks.createConversation)
+local parseCreateConversationErrors = require(AppChat.Conversations.Thunks.parseCreateConversationErrors)
+local SelectChatMembersContainer = require(AppChat.Components.SelectChatMembers.SelectChatMembersContainer)
+local EventNames = require(AppChat.Analytics.EventNames)
+local useAnalytics = require(AppChat.Analytics.useAnalytics)
+local CreateConversationError = require(AppChat.Analytics.Enums.CreateConversationError)
+local SharedFlags = require(AppChatParent.SharedFlags)
+local FFlagAppIaScrollAway = SharedFlags.FFlagAppIaScrollAway
+local FFlagAppIaScrollAwayFixSocial = SharedFlags.FFlagAppIaScrollAwayFixSocial
+local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
+local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
+local FFlagRemoveDependencyArrayAntipattern = SharedFlags.FFlagRemoveDependencyArrayAntipattern
+local t1 = {
+	systemButtonText = not GetFFlagIsSquadEnabled() and "Feature.Chat.Action.StartChatWithFriends" or "Feature.Chat.Action.Create",
+	pageHeaderText = not GetFFlagIsSquadEnabled() and "Feature.Chat.Heading.ChatWithConnections" or (not FFlagConnectionsToFriendsRename and "Feature.Chat.Heading.PartyWithConnections" or "Feature.Chat.Heading.PartyWithFriends"),
+	topBarHeight = nil,
+	minSelections = 1,
+	maxSelections = 5,
+	maxConversationSize = 5,
+	conversation = Conversation.empty(),
+	setSystemButtonActivated = function(_) --[[ setSystemButtonActivated ]] -- line: 81
+	end,
+	setSystemButtonEnabled = function(_) --[[ setSystemButtonEnabled ]] -- line: 82
+	end
+}
+
+function CreateNewChatContainer(t2: {[any]: any}) -- line: 86
+	-- upvalues: Cryo (copy), t1 (copy), useRef (copy), useState (copy), FFlagAppIaScrollAway (copy), FFlagAppIaScrollAwayFixSocial (copy), useIsInExperience (copy), useIsGroupChatEnabled (copy), useDispatch (copy), useCallback (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), useAnalytics (copy), Promise (copy), createConversation (copy), parseCreateConversationErrors (copy), EventNames (copy), CreateConversationError (copy), useEffect (copy), React (copy), AppNavBar (copy), ResponseIndicator (copy), SelectChatMembersContainer (copy)
+	local v34 = Cryo.Dictionary.join(t1, t2)
+	local v35 = useRef({})
+	local v36 = useRef(false)
+	local v37, v38 = useState(false)
+	local v39 = if not FFlagAppIaScrollAway or FFlagAppIaScrollAwayFixSocial then nil else useIsInExperience()
+	local maxSelections = v34.maxSelections
+	local maxConversationSize = v34.maxConversationSize
+	local v42 = false
+
+	if not useIsGroupChatEnabled() then
+		maxSelections = 1
+		maxConversationSize = 1
+		v42 = true
+	end
+
+	local v43 = useDispatch()
+	local v44 = useCallback(function(p3) -- line: 108
+		-- upvalues: v34 (copy)
+		v34.navigateToToast({
+			toastProps = {
+				toastContent = {
+					toastTitle = p3
+				}
+			}
+		})
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v34.navigateToToast) else { v34.navigateToToast })
+	local v45 = useAnalytics()
+	local v46 = useCallback(function(p4) -- line: 136
+		-- upvalues: v37 (copy), v35 (copy), Promise (copy), v38 (copy), v43 (copy), createConversation (copy), v45 (copy), v34 (copy), parseCreateConversationErrors (copy), v44 (copy), EventNames (copy), CreateConversationError (copy)
+		if v37 or not v35.current then
+			return Promise.resolve()
+		end
+
+		v38(true)
+
+		local v52 = #v35.current ~= 1 and "group" or "one_to_one"
+
+		return v43(createConversation(v52, v35.current, v45, "userCreatedNewConversation")):andThen(function(p5) -- line: 157
+			-- upvalues: v34 (copy)
+			v34.navigateToConversation(p5.id)
+		end):catch(function(p6) -- line: 161
+			-- upvalues: parseCreateConversationErrors (copy), p4 (copy), v44 (copy), v38 (copy), v45 (copy), EventNames (copy), CreateConversationError (copy)
+			local v56 = if parseCreateConversationErrors(p6) ~= "participant_chat_disabled" then p4.networkErrorText else p4.invalidParticipantText
+
+			v44(v56)
+			v38(false)
+
+			if v45 then
+				v45.fireAnalyticsEvent(EventNames.NewConversationCreated, {
+					createConversationResult = CreateConversationError.FetchConversationError
+				})
+			end
+		end)
+	end, {
+		v43,
+		v37,
+		v38,
+		v35,
+		v34.navigateToConversation,
+		v44,
+		v45
+	})
+
+	useEffect(function() -- line: 191
+		-- upvalues: v34 (copy), v46 (copy)
+		v34.setSystemButtonActivated(v46)
+	end, {
+		v34.setSystemButtonActivated,
+		v46
+	})
+
+	return React.createElement("ImageButton", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+		Active = true,
+		AutoButtonColor = false
+	}, {
+		UIPadding = if not FFlagAppIaScrollAway or (FFlagAppIaScrollAwayFixSocial or (v39 or (not AppNavBar.getScrollAwayEnabled() or v34.topBarHeight == nil))) then nil else React.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, v34.topBarHeight)
+		}),
+		responseIndicator = v37 and React.createElement(ResponseIndicator, {
+			soakAreaColor3 = Color3.fromRGB(25, 25, 25),
+			soakAreaTransparency = 0.8
+		}),
+		selectChatMembers = React.createElement(SelectChatMembersContainer, Cryo.Dictionary.join(v34, {
+			selectedUsersChanged = function(p7, p8) -- line: 122
+				-- upvalues: v35 (copy), Cryo (copy), v36 (copy), v34 (copy)
+				v35.current = Cryo.List.map(p7, function(p9) -- line: 123
+					return p9.id
+				end)
+
+				local v50 = p8 <= #p7
+
+				if v50 ~= v36.current then
+					v36.current = v50
+					v34.setSystemButtonEnabled(v50)
+				end
+			end,
+			maxSelections = maxSelections,
+			maxConversationSize = maxConversationSize,
+			canOnlyCreateOneToOneChat = v42
+		}))
+	})
+end
+
+return memo(CreateNewChatContainer)

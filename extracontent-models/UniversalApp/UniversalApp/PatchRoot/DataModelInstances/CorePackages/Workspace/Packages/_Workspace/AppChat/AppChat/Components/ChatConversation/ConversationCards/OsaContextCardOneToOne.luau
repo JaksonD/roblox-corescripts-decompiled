@@ -1,255 +1,244 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_Parent_0.Foundation);
-local l_UserTile_0 = require(l_Parent_0.UserTile).UserTile;
-local l_LayoutMode_0 = require(l_Parent_0.UserTile).LayoutMode;
-local l_Skeleton_0 = v3.Skeleton;
-local l_IXPService_0 = game:GetService("IXPService");
-local l_useTokens_0 = v3.Hooks.useTokens;
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local v10 = require(l_script_FirstAncestor_0.Hooks.useFoundationPresence);
-local v11 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatContextCardNameLoadingShimmer);
-local v12 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseTCUserTileForOSACard);
-local v13 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableAvatarPresence);
-local v14 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatAvatarPresenceIxpEnabled);
-local v15 = require(l_script_FirstAncestor_0.Flags.FStringAppChatAvatarPresenceIxpLayer);
-local l_FFlagEnableBlackbirdCheckDev_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheckDev;
-return v2.memo(v2.forwardRef(function(v17, v18) --[[ Line: 40 ]]
-    -- upvalues: l_useTokens_0 (copy), v10 (copy), l_useLocalization_0 (copy), v2 (copy), v14 (copy), l_IXPService_0 (copy), v15 (copy), v11 (copy), v3 (copy), l_Skeleton_0 (copy), v12 (copy), l_UserTile_0 (copy), l_LayoutMode_0 (copy), v13 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy)
-    local v19 = l_useTokens_0();
-    local l_Size_0 = v19.Size;
-    local v21 = v10(v17.userId);
-    local v22 = l_useLocalization_0({
-        firstConversationWithThisUserHeadingText = "Feature.Chat.Heading.FirstConversationWithThisUser", 
-        firstConversationWithHeadingText = {
-            "Feature.Chat.Heading.FirstConversationWith"; 
-            displayName = v17.displayName
-        }, 
-        firstInteractionWithThisPersonHeadingText = "Feature.Chat.Heading.FirstInteractionWithThisPerson", 
-        firstInteractionWithHeadingText = {
-            "Feature.Chat.Heading.FirstInteractionWith"; 
-            displayName = v17.displayName
-        }, 
-        osaContextCardDescriptionText = "Feature.Chat.Description.OSAContextCardDescription", 
-        user = "Feature.Chat.Label.User"
-    });
-    local l_isChatUserMessagesEnabled_0 = v17.isChatUserMessagesEnabled;
-    local v24 = if l_isChatUserMessagesEnabled_0 then v22.firstConversationWithHeadingText else v22.firstInteractionWithHeadingText;
-    local v25 = if l_isChatUserMessagesEnabled_0 then v22.firstConversationWithThisUserHeadingText else v22.firstInteractionWithThisPersonHeadingText;
-    v2.useEffect(function() --[[ Line: 69 ]]
-        -- upvalues: v14 (ref), l_IXPService_0 (ref), v15 (ref)
-        if v14 then
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v15);
-        end;
-    end, {});
-    if v11 then
-        local v26 = not v17.displayName and not v17.hasError;
-        local v27 = not v17.username and not v17.hasError;
-        local v28 = not v17.avatarThumbnail and not v17.hasError;
-        local v29 = not v26 and not v27 and not v28;
-        return v2.createElement(v3.View, {
-            tag = "col align-x-center size-full-0 auto-y padding-xxlarge radius-large bg-shift-100 gap-xlarge", 
-            sizeConstraint = {
-                MaxSize = Vector2.new(700, 500)
-            }
-        }, {
-            AvatarContainer = v2.createElement(v3.View, {
-                tag = "col auto-xy bg-action-subtle align-x-center gap-medium radius-large padding-small", 
-                LayoutOrder = 1, 
-                onActivated = if v29 then v17.onAvatarActivated else nil
-            }, {
-                AvatarCircle = if v28 then v2.createElement(l_Skeleton_0, {
-                    Size = UDim2.new(0, l_Size_0.Size_1200, 0, l_Size_0.Size_1200), 
-                    radius = v3.Enums.Radius.Circle, 
-                    LayoutOrder = 1
-                }) else if v12 then v2.createElement(v3.View, {
-                    tag = "size-1200-1200", 
-                    LayoutOrder = 1
-                }, {
-                    v2.createElement(l_UserTile_0, {
-                        userId = tostring(v17.userId), 
-                        layoutMode = l_LayoutMode_0.compact, 
-                        userPresenceType = if v13 then v21.presence else v3.Enums.UserPresence.None, 
-                        dontTruncateTitle = true, 
-                        onActivated = v17.onAvatarActivated, 
-                        isRobloxSubscriber = if l_FFlagEnableBlackbirdCheckDev_0 then v17.isRobloxSubscriber else nil
-                    })
-                }) else v2.createElement(v3.Image, {
-                    tag = "size-1200-1200 bg-shift-200", 
-                    cornerRadius = UDim.new(0, v19.Radius.Circle), 
-                    Image = v17.avatarThumbnail, 
-                    LayoutOrder = 1
-                }), 
-                AvatarTextContainer = v2.createElement(v3.View, {
-                    tag = "col auto-xy align-x-center gap-xxsmall", 
-                    LayoutOrder = 2
-                }, {
-                    DisplayName = if v26 then v2.createElement(l_Skeleton_0, {
-                        Size = UDim2.new(0, l_Size_0.Size_2500, 0, v19.Typography.TitleMedium.FontSize), 
-                        radius = v3.Enums.Radius.Large, 
-                        LayoutOrder = 1
-                    }) else if not (l_FFlagEnableBlackbirdCheckDev_0 and v17.isRobloxSubscriber) or v17.hasError then v2.createElement(v3.Text, {
-                        tag = "auto-xy", 
-                        LayoutOrder = 1, 
-                        Text = if v17.hasError then v22.user else v17.displayName, 
-                        fontStyle = v19.Typography.TitleMedium, 
-                        textStyle = v19.Color.Content.Emphasis
-                    }) else v2.createElement(v3.View, {
-                        tag = "row auto-xy align-y-center gap-xsmall", 
-                        LayoutOrder = 1
-                    }, {
-                        Name = v2.createElement(v3.Text, {
-                            tag = "auto-xy", 
-                            LayoutOrder = 1, 
-                            Text = v17.displayName, 
-                            fontStyle = v19.Typography.TitleMedium, 
-                            textStyle = v19.Color.Content.Emphasis
-                        }), 
-                        Badge = v2.createElement(v3.Icon, {
-                            LayoutOrder = 2, 
-                            name = v3.Enums.IconName.PaperAirplane, 
-                            size = v3.Enums.IconSize.Small, 
-                            style = v19.Color.Content.Emphasis
-                        })
-                    }), 
-                    Username = if v27 then v2.createElement(l_Skeleton_0, {
-                        Size = UDim2.new(0, l_Size_0.Size_2000, 0, v19.Typography.BodySmall.FontSize), 
-                        radius = v3.Enums.Radius.Large, 
-                        LayoutOrder = 2
-                    }) else v2.createElement(v3.Text, {
-                        tag = "auto-xy", 
-                        LayoutOrder = 2, 
-                        Text = if v17.hasError then v22.user else v17.username, 
-                        fontStyle = v19.Typography.BodySmall, 
-                        textStyle = v19.Color.Content.Muted
-                    })
-                })
-            }), 
-            TextContainer = v2.createElement(v3.View, {
-                tag = "col align-x-center auto-xy", 
-                LayoutOrder = 2, 
-                ref = v18
-            }, {
-                HeadingText = if v26 then v2.createElement(l_Skeleton_0, {
-                    Size = UDim2.new(0, l_Size_0.Size_3000, 0, v19.Typography.TitleLarge.FontSize + v19.Gap.XXSmall), 
-                    radius = v3.Enums.Radius.Large, 
-                    LayoutOrder = 1
-                }) else v2.createElement(v3.Text, {
-                    tag = "auto-xy text-wrap", 
-                    LayoutOrder = 1, 
-                    Text = if v17.hasError then v25 else v24, 
-                    fontStyle = v19.Typography.TitleLarge, 
-                    textStyle = v19.Color.Content.Emphasis
-                }), 
-                DescriptionText = v2.createElement(v3.Text, {
-                    tag = "auto-xy text-wrap", 
-                    LayoutOrder = 2, 
-                    Text = v22.osaContextCardDescriptionText, 
-                    fontStyle = v19.Typography.BodyLarge, 
-                    textStyle = v19.Color.Content.Default
-                })
-            })
-        });
-    elseif (not (v17.displayName and v17.username) or not v17.avatarThumbnail) and not v17.hasError then
-        return v2.createElement(v3.View, {
-            tag = "size-full-0 auto-y", 
-            sizeConstraint = {
-                MaxSize = Vector2.new(700, 500)
-            }
-        }, {
-            v2.createElement(v3.Skeleton, {
-                Size = UDim2.new(1, 0, 0, 270), 
-                radius = v3.Enums.Radius.Large
-            })
-        });
-    else
-        return v2.createElement(v3.View, {
-            tag = "col align-x-center size-full-0 auto-y padding-xxlarge radius-large bg-shift-100 gap-xlarge", 
-            sizeConstraint = {
-                MaxSize = Vector2.new(700, 500)
-            }
-        }, {
-            AvatarContainer = if v17.hasError then nil else v2.createElement(v3.View, {
-                tag = "col auto-xy bg-action-subtle align-x-center gap-medium radius-large padding-small", 
-                LayoutOrder = 1, 
-                onActivated = v17.onAvatarActivated
-            }, {
-                AvatarCircle = if v12 then v2.createElement(v3.View, {
-                    tag = "size-1200-1200", 
-                    LayoutOrder = 1
-                }, {
-                    v2.createElement(l_UserTile_0, {
-                        userId = tostring(v17.userId), 
-                        layoutMode = l_LayoutMode_0.compact, 
-                        userPresenceType = if v13 then v21.presence else v3.Enums.UserPresence.None, 
-                        dontTruncateTitle = true, 
-                        onActivated = v17.onAvatarActivated, 
-                        isRobloxSubscriber = if l_FFlagEnableBlackbirdCheckDev_0 then v17.isRobloxSubscriber else nil
-                    })
-                }) else v2.createElement(v3.Image, {
-                    tag = "size-1200-1200 bg-shift-200", 
-                    cornerRadius = UDim.new(0, v19.Radius.Circle), 
-                    Image = v17.avatarThumbnail, 
-                    LayoutOrder = 1
-                }), 
-                AvatarTextContainer = v2.createElement(v3.View, {
-                    tag = "col auto-xy align-x-center", 
-                    LayoutOrder = 2
-                }, {
-                    DisplayName = if l_FFlagEnableBlackbirdCheckDev_0 and v17.isRobloxSubscriber then v2.createElement(v3.View, {
-                        tag = "row auto-xy align-y-center gap-xsmall", 
-                        LayoutOrder = 1
-                    }, {
-                        Name = v2.createElement(v3.Text, {
-                            tag = "auto-xy", 
-                            LayoutOrder = 1, 
-                            Text = v17.displayName, 
-                            fontStyle = v19.Typography.TitleMedium, 
-                            textStyle = v19.Color.Content.Emphasis
-                        }), 
-                        Badge = v2.createElement(v3.Icon, {
-                            LayoutOrder = 2, 
-                            name = v3.Enums.IconName.PaperAirplane, 
-                            size = v3.Enums.IconSize.Small, 
-                            style = v19.Color.Content.Emphasis
-                        })
-                    }) else v2.createElement(v3.Text, {
-                        tag = "auto-xy", 
-                        LayoutOrder = 1, 
-                        Text = v17.displayName, 
-                        fontStyle = v19.Typography.TitleMedium, 
-                        textStyle = v19.Color.Content.Emphasis
-                    }), 
-                    Username = v2.createElement(v3.Text, {
-                        tag = "auto-xy", 
-                        LayoutOrder = 2, 
-                        Text = v17.username, 
-                        fontStyle = v19.Typography.BodySmall, 
-                        textStyle = v19.Color.Content.Muted
-                    })
-                })
-            }), 
-            TextContainer = v2.createElement(v3.View, {
-                tag = "col align-x-center auto-xy", 
-                LayoutOrder = 2, 
-                ref = v18
-            }, {
-                HeadingText = v2.createElement(v3.Text, {
-                    tag = "auto-xy text-wrap", 
-                    LayoutOrder = 1, 
-                    Text = if v17.hasError then v25 else v24, 
-                    fontStyle = v19.Typography.TitleLarge, 
-                    textStyle = v19.Color.Content.Emphasis
-                }), 
-                DescriptionText = v2.createElement(v3.Text, {
-                    tag = "auto-xy text-wrap", 
-                    LayoutOrder = 2, 
-                    Text = v22.osaContextCardDescriptionText, 
-                    fontStyle = v19.Typography.BodyLarge, 
-                    textStyle = v19.Color.Content.Default
-                })
-            })
-        });
-    end;
-end));
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local React = require(AppChatParent.React)
+local Foundation = require(AppChatParent.Foundation)
+local UserTile = require(AppChatParent.UserTile).UserTile
+local LayoutMode = require(AppChatParent.UserTile).LayoutMode
+local Skeleton = Foundation.Skeleton
+local useTokens = Foundation.Hooks.useTokens
+local useLocalization = require(AppChatParent.Localization).Hooks.useLocalization
+local useFoundationPresence = require(AppChat.Hooks.useFoundationPresence)
+local FFlagAppChatContextCardNameLoadingShimmer = require(AppChat.Flags.FFlagAppChatContextCardNameLoadingShimmer)
+local FFlagAppChatUseTCUserTileForOSACard = require(AppChat.Flags.FFlagAppChatUseTCUserTileForOSACard)
+local FFlagEnableBlackbirdCheck = require(AppChatParent.SharedFlags).FFlagEnableBlackbirdCheck
+
+return React.memo(React.forwardRef(function(t1: {[any]: any}, p1) -- line: 36
+	-- upvalues: useTokens (copy), useFoundationPresence (copy), useLocalization (copy), FFlagAppChatContextCardNameLoadingShimmer (copy), React (copy), Foundation (copy), Skeleton (copy), FFlagAppChatUseTCUserTileForOSACard (copy), UserTile (copy), LayoutMode (copy), FFlagEnableBlackbirdCheck (copy)
+	local v16 = useTokens()
+	local Size = v16.Size
+	local v18 = useFoundationPresence(t1.userId)
+	local v19 = useLocalization({
+		firstConversationWithThisUserHeadingText = "Feature.Chat.Heading.FirstConversationWithThisUser",
+		firstConversationWithHeadingText = {
+			"Feature.Chat.Heading.FirstConversationWith",
+			displayName = t1.displayName
+		},
+		firstInteractionWithThisPersonHeadingText = "Feature.Chat.Heading.FirstInteractionWithThisPerson",
+		firstInteractionWithHeadingText = {
+			"Feature.Chat.Heading.FirstInteractionWith",
+			displayName = t1.displayName
+		},
+		osaContextCardDescriptionText = "Feature.Chat.Description.OSAContextCardDescription",
+		user = "Feature.Chat.Label.User"
+	})
+	local isChatUserMessagesEnabled = t1.isChatUserMessagesEnabled
+	local v21 = if not isChatUserMessagesEnabled then v19.firstInteractionWithHeadingText else v19.firstConversationWithHeadingText
+	local v22 = if not isChatUserMessagesEnabled then v19.firstInteractionWithThisPersonHeadingText else v19.firstConversationWithThisUserHeadingText
+
+	if FFlagAppChatContextCardNameLoadingShimmer then
+		local v23 = not t1.displayName and not t1.hasError
+		local v24 = not t1.username and not t1.hasError
+		local v25 = not t1.avatarThumbnail and not t1.hasError
+		local v26 = not v23 and (not v24 and not v25)
+
+		return React.createElement(Foundation.View, {
+			tag = "col align-x-center size-full-0 auto-y padding-xxlarge radius-large bg-shift-100 gap-xlarge",
+			sizeConstraint = {
+				MaxSize = Vector2.new(700, 500)
+			}
+		}, {
+			AvatarContainer = React.createElement(Foundation.View, {
+				tag = "col auto-xy bg-action-subtle align-x-center gap-medium radius-large padding-small",
+				LayoutOrder = 1,
+				onActivated = if not v26 then nil else t1.onAvatarActivated
+			}, {
+				AvatarCircle = if not v25 then if not FFlagAppChatUseTCUserTileForOSACard then React.createElement(Foundation.Image, {
+					tag = "size-1200-1200 bg-shift-200",
+					cornerRadius = UDim.new(0, v16.Radius.Circle),
+					Image = t1.avatarThumbnail,
+					LayoutOrder = 1
+				}) else React.createElement(Foundation.View, {
+					tag = "size-1200-1200",
+					LayoutOrder = 1
+				}, { React.createElement(UserTile, {
+					userId = tostring(t1.userId),
+					layoutMode = LayoutMode.compact,
+					userPresenceType = v18.presence,
+					dontTruncateTitle = true,
+					onActivated = t1.onAvatarActivated,
+					isRobloxSubscriber = if not FFlagEnableBlackbirdCheck then nil else t1.isRobloxSubscriber
+				}) }) else React.createElement(Skeleton, {
+					Size = UDim2.new(0, Size.Size_1200, 0, Size.Size_1200),
+					radius = Foundation.Enums.Radius.Circle,
+					LayoutOrder = 1
+				}),
+				AvatarTextContainer = React.createElement(Foundation.View, {
+					tag = "col auto-xy align-x-center gap-xxsmall",
+					LayoutOrder = 2
+				}, {
+					DisplayName = if not v23 then if not FFlagEnableBlackbirdCheck or (not t1.isRobloxSubscriber or t1.hasError) then React.createElement(Foundation.Text, {
+						tag = "auto-xy",
+						LayoutOrder = 1,
+						Text = if not t1.hasError then t1.displayName else v19.user,
+						fontStyle = v16.Typography.TitleMedium,
+						textStyle = v16.Color.Content.Emphasis
+					}) else React.createElement(Foundation.View, {
+						tag = "row auto-xy align-y-center gap-xsmall",
+						LayoutOrder = 1
+					}, {
+						Name = React.createElement(Foundation.Text, {
+							tag = "auto-xy",
+							LayoutOrder = 1,
+							Text = t1.displayName,
+							fontStyle = v16.Typography.TitleMedium,
+							textStyle = v16.Color.Content.Emphasis
+						}),
+						Badge = React.createElement(Foundation.Icon, {
+							LayoutOrder = 2,
+							name = Foundation.Enums.IconName.RobloxPlus,
+							size = Foundation.Enums.IconSize.Small,
+							style = v16.Color.Content.Emphasis
+						})
+					}) else React.createElement(Skeleton, {
+						Size = UDim2.new(0, Size.Size_2500, 0, v16.Typography.TitleMedium.FontSize),
+						radius = Foundation.Enums.Radius.Large,
+						LayoutOrder = 1
+					}),
+					Username = if not v24 then React.createElement(Foundation.Text, {
+						tag = "auto-xy",
+						LayoutOrder = 2,
+						Text = if not t1.hasError then t1.username else v19.user,
+						fontStyle = v16.Typography.BodySmall,
+						textStyle = v16.Color.Content.Muted
+					}) else React.createElement(Skeleton, {
+						Size = UDim2.new(0, Size.Size_2000, 0, v16.Typography.BodySmall.FontSize),
+						radius = Foundation.Enums.Radius.Large,
+						LayoutOrder = 2
+					})
+				})
+			}),
+			TextContainer = React.createElement(Foundation.View, {
+				tag = "col align-x-center auto-xy",
+				LayoutOrder = 2,
+				ref = p1
+			}, {
+				HeadingText = if not v23 then React.createElement(Foundation.Text, {
+					tag = "auto-xy text-wrap",
+					LayoutOrder = 1,
+					Text = if not t1.hasError then v21 else v22,
+					fontStyle = v16.Typography.TitleLarge,
+					textStyle = v16.Color.Content.Emphasis
+				}) else React.createElement(Skeleton, {
+					Size = UDim2.new(0, Size.Size_3000, 0, v16.Typography.TitleLarge.FontSize + v16.Gap.XXSmall),
+					radius = Foundation.Enums.Radius.Large,
+					LayoutOrder = 1
+				}),
+				DescriptionText = React.createElement(Foundation.Text, {
+					tag = "auto-xy text-wrap",
+					LayoutOrder = 2,
+					Text = v19.osaContextCardDescriptionText,
+					fontStyle = v16.Typography.BodyLarge,
+					textStyle = v16.Color.Content.Default
+				})
+			})
+		})
+	end
+
+	if (not t1.displayName or (not t1.username or not t1.avatarThumbnail)) and not t1.hasError then
+		return React.createElement(Foundation.View, {
+			tag = "size-full-0 auto-y",
+			sizeConstraint = {
+				MaxSize = Vector2.new(700, 500)
+			}
+		}, { React.createElement(Foundation.Skeleton, {
+			Size = UDim2.new(1, 0, 0, 270),
+			radius = Foundation.Enums.Radius.Large
+		}) })
+	end
+
+	return React.createElement(Foundation.View, {
+		tag = "col align-x-center size-full-0 auto-y padding-xxlarge radius-large bg-shift-100 gap-xlarge",
+		sizeConstraint = {
+			MaxSize = Vector2.new(700, 500)
+		}
+	}, {
+		AvatarContainer = if not t1.hasError then React.createElement(Foundation.View, {
+			tag = "col auto-xy bg-action-subtle align-x-center gap-medium radius-large padding-small",
+			LayoutOrder = 1,
+			onActivated = t1.onAvatarActivated
+		}, {
+			AvatarCircle = if not FFlagAppChatUseTCUserTileForOSACard then React.createElement(Foundation.Image, {
+				tag = "size-1200-1200 bg-shift-200",
+				cornerRadius = UDim.new(0, v16.Radius.Circle),
+				Image = t1.avatarThumbnail,
+				LayoutOrder = 1
+			}) else React.createElement(Foundation.View, {
+				tag = "size-1200-1200",
+				LayoutOrder = 1
+			}, { React.createElement(UserTile, {
+				userId = tostring(t1.userId),
+				layoutMode = LayoutMode.compact,
+				userPresenceType = v18.presence,
+				dontTruncateTitle = true,
+				onActivated = t1.onAvatarActivated,
+				isRobloxSubscriber = if not FFlagEnableBlackbirdCheck then nil else t1.isRobloxSubscriber
+			}) }),
+			AvatarTextContainer = React.createElement(Foundation.View, {
+				tag = "col auto-xy align-x-center",
+				LayoutOrder = 2
+			}, {
+				DisplayName = if not FFlagEnableBlackbirdCheck or not t1.isRobloxSubscriber then React.createElement(Foundation.Text, {
+					tag = "auto-xy",
+					LayoutOrder = 1,
+					Text = t1.displayName,
+					fontStyle = v16.Typography.TitleMedium,
+					textStyle = v16.Color.Content.Emphasis
+				}) else React.createElement(Foundation.View, {
+					tag = "row auto-xy align-y-center gap-xsmall",
+					LayoutOrder = 1
+				}, {
+					Name = React.createElement(Foundation.Text, {
+						tag = "auto-xy",
+						LayoutOrder = 1,
+						Text = t1.displayName,
+						fontStyle = v16.Typography.TitleMedium,
+						textStyle = v16.Color.Content.Emphasis
+					}),
+					Badge = React.createElement(Foundation.Icon, {
+						LayoutOrder = 2,
+						name = Foundation.Enums.IconName.RobloxPlus,
+						size = Foundation.Enums.IconSize.Small,
+						style = v16.Color.Content.Emphasis
+					})
+				}),
+				Username = React.createElement(Foundation.Text, {
+					tag = "auto-xy",
+					LayoutOrder = 2,
+					Text = t1.username,
+					fontStyle = v16.Typography.BodySmall,
+					textStyle = v16.Color.Content.Muted
+				})
+			})
+		}) else nil,
+		TextContainer = React.createElement(Foundation.View, {
+			tag = "col align-x-center auto-xy",
+			LayoutOrder = 2,
+			ref = p1
+		}, {
+			HeadingText = React.createElement(Foundation.Text, {
+				tag = "auto-xy text-wrap",
+				LayoutOrder = 1,
+				Text = if not t1.hasError then v21 else v22,
+				fontStyle = v16.Typography.TitleLarge,
+				textStyle = v16.Color.Content.Emphasis
+			}),
+			DescriptionText = React.createElement(Foundation.Text, {
+				tag = "auto-xy text-wrap",
+				LayoutOrder = 2,
+				Text = v19.osaContextCardDescriptionText,
+				fontStyle = v16.Typography.BodyLarge,
+				textStyle = v16.Color.Content.Default
+			})
+		})
+	})
+end))

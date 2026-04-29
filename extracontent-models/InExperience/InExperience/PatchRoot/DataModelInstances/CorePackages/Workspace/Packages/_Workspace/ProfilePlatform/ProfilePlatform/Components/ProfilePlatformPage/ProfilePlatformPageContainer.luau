@@ -1,255 +1,283 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_script_FirstAncestor_0.Utils.getDeepValue);
-local v3 = require(l_Parent_0.Navigation);
-local v4 = require(l_Parent_0.React);
-local v5 = require(l_Parent_0.RoactUtils);
-local v6 = require(l_Parent_0.RobloxAppEnums);
-local v7 = require(l_Parent_0.SharedFlags);
-local v8 = require(l_Parent_0.SocialLuaAnalytics);
-local v9 = require(l_Parent_0.SocialStopwatch);
-local v10 = require(l_Parent_0.Cryo);
-local v11 = require(l_script_FirstAncestor_0.Networking.checkQrSession);
-local l_useDispatch_0 = v5.Hooks.RoactRodux.useDispatch;
-local l_useEffectOnMount_0 = v5.Hooks.useEffectOnMount;
-local l_useLocalUserId_0 = require(l_Parent_0.RobloxAppHooks).useLocalUserId;
-local l_dependencyArray_0 = v5.Hooks.dependencyArray;
-local l_useSignalState_0 = require(l_Parent_0.SignalsReact).useSignalState;
-local l_ProfileRefreshSignal_0 = require(l_Parent_0.ProfilePlatformCommon).Signals.ProfileRefreshSignal;
-local v18 = require(l_script_FirstAncestor_0.Components.ProfilePlatformPage.parseComponentsFromJson);
-local v19 = require(l_script_FirstAncestor_0.Hooks.useAvailableComponents);
-local v20 = require(l_script_FirstAncestor_0.Hooks.useProfileJson);
-local v21 = require(l_script_FirstAncestor_0.Contexts.useProfileWrapperContext);
-local v22 = require(script.Parent.ProfilePlatformEventReceiver);
-local v23 = require(l_script_FirstAncestor_0.Contexts.useProfileAnalyticsContext);
-local v24 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local v25 = require(l_script_FirstAncestor_0.Common.Enums);
-local v26 = require(script.Parent.getFriendStatusFromProfileResponse);
-local v27 = require(script.Parent.getIsTrustedConnectionsStatusFromProfileResponse);
-local v28 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatformActionInfo);
-local l_LoadingStages_0 = v8.Analytics.Enums.LoadingStages;
-local v30 = require(l_script_FirstAncestor_0.Analytics.LoadingStagesExtension);
-local v31 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableVR);
-local v32 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableLazyLoadingComponents);
-local l_FFlagProfilePlatformTrustedConnectionsMVP_0 = v7.FFlagProfilePlatformTrustedConnectionsMVP;
-local v34 = game:DefineFastString("SocialProfilePeekViewLayer", "Social.ProfilePeekView");
-local v35 = game:DefineFastString("SocialProfilePeekViewSecondaryLayer", "Social.ProfilePeekView.Secondary");
-local v36 = game:DefineFastString("SocialSelfProfileViewLayer", "Social.SelfProfileView");
-local l_IXPService_0 = game:GetService("IXPService");
-local v38 = game:DefineFastFlag("EnableSocialProfilePeekViewExposureEvents", false);
-local v39 = game:DefineFastFlag("ProfilePlatformEnableRefreshSignal", false);
-local v40 = game:DefineFastFlag("ProfilePlatformEnableSessionization", false);
-local v41 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformFixAnalyticsPrimaryAction);
-local v42 = if v40 then game:GetService("SessionService") else nil;
-local v43 = if v40 then require(l_Parent_0.RobloxAppSessionization).SessionType else nil;
-local l_FFlagPPVBackgroundPrefetchAvatar_0 = v7.FFlagPPVBackgroundPrefetchAvatar;
-local v45 = if l_FFlagPPVBackgroundPrefetchAvatar_0 then require(l_Parent_0.EditProfileBackground).AvatarModelPrefetch else nil;
-local v46 = require(script.Parent.ProfilePlatformPage);
-local v47 = require(l_script_FirstAncestor_0.Networking.getProfilePlatform);
-local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
-return function() --[[ Line: 70 ]]
-    -- upvalues: v4 (copy), v21 (copy), v23 (copy), l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (copy), v3 (copy), v20 (copy), v19 (copy), v9 (copy), v24 (copy), l_LoadingStages_0 (copy), v47 (copy), v32 (copy), v31 (copy), v41 (copy), v2 (copy), v25 (copy), v26 (copy), v27 (copy), v11 (copy), v6 (copy), v28 (copy), v30 (copy), l_FFlagPPVBackgroundPrefetchAvatar_0 (copy), l_useEffectOnMount_0 (copy), v45 (copy), v39 (copy), l_useSignalState_0 (copy), l_ProfileRefreshSignal_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v38 (copy), l_IXPService_0 (copy), v34 (copy), v35 (copy), v36 (copy), v40 (copy), v42 (copy), v43 (copy), v10 (copy), v18 (copy), v22 (copy), v46 (copy)
-    local v49, v50 = v4.useState(true);
-    local v51 = v21();
-    local v52 = v23();
-    local l_profileId_0 = v51.profileId;
-    local l_profileType_0 = v51.profileType;
-    local v55 = l_useLocalUserId_0();
-    local v56 = tostring(l_profileId_0) == tostring(v55);
-    local v57 = l_useDispatch_0();
-    local v58 = if l_FFlagProfilePlatformTrustedConnectionsMVP_0 then v3.useNavigation() else nil;
-    local v59 = v20();
-    local v60 = v19();
-    local v61 = v4.useRef(0);
-    local function v71(v62) --[[ Line: 91 ]]
-        -- upvalues: v9 (ref), v52 (copy), v24 (ref), l_LoadingStages_0 (ref), v57 (copy), v47 (ref), l_profileId_0 (copy), l_profileType_0 (copy), v60 (copy), v32 (ref), v50 (copy), v31 (ref), v41 (ref), v2 (ref), v25 (ref), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (ref), v26 (ref), v27 (ref), v51 (copy), v11 (ref), v58 (copy), v6 (ref), v28 (ref), v30 (ref)
-        local v63 = v9.Stopwatch.get(v9.Events.ProfileOpened);
-        v52.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-            statValue = if v63 then v63.timeElapsed else nil, 
-            status = l_LoadingStages_0.Fetching, 
-            isProfilePlatform = true
-        });
-        v57(v47.API({
-            profileId = l_profileId_0, 
-            profileType = l_profileType_0, 
-            components = v60, 
-            includeComponentOrdering = true, 
-            onlyEssentialComponents = v32 and true or nil
-        })):andThen(function(v64) --[[ Line: 107 ]]
-            -- upvalues: v32 (ref), v50 (ref), v31 (ref), v62 (copy), v52 (ref), v24 (ref), v41 (ref), v2 (ref), v25 (ref), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (ref), v26 (ref), v27 (ref), v51 (ref), v57 (ref), v11 (ref), l_profileId_0 (ref), v58 (ref), v6 (ref), v28 (ref)
-            if v32 then
-                v50(false);
-            end;
-            if v31 and v62 > 1 then
-                v52.fireAnalyticsEvent(v24.ProfilePlatformPageReloaded, {
-                    reloadCount = v62
-                });
-                return;
-            else
-                local v65 = nil;
-                if v41 then
-                    local v66 = v2(v64, (("responseBody.components.%*.buttons"):format(v25.Components.Actions)));
-                    v65 = if v66 and v66[1] then v66[1].type else nil;
-                else
-                    v65 = v2(v64, (("responseBody.components.%*.primary"):format(v25.Components.Actions)));
-                end;
-                if l_FFlagProfilePlatformTrustedConnectionsMVP_0 and v26(v64) == v25.FriendStatus.Friends and not v27(v64) and v51.sourceInfo.source == v25.Sources.QrCode then
-                    v57(v11.API(l_profileId_0)):andThen(function(v67) --[[ Line: 134 ]]
-                        -- upvalues: v58 (ref), v6 (ref), l_profileId_0 (ref), v57 (ref), v28 (ref)
-                        if v67.responseBody == true then
-                            v58.push(v6.AppPage.TrustedContactsModal, {
-                                userId = l_profileId_0, 
-                                sentFromQrCode = true, 
-                                onRequestSent = function() --[[ Line: 139 ]] --[[ Name: onRequestSent ]]
-                                    -- upvalues: v57 (ref), v28 (ref), l_profileId_0 (ref)
-                                    return v57(v28(l_profileId_0));
-                                end
-                            });
-                        end;
-                    end);
-                end;
-                v52.fireAnalyticsEvent(v24.ProfilePageLoadedWithData, {
-                    friendStatus = v26(v64), 
-                    absolutePosition = v51.sourceInfo.homepageCarouselAbsolutePosition, 
-                    isHomePageCarousel = v51.sourceInfo.source == v25.Sources.HomepageFriendsCarousel, 
-                    source = v51.sourceInfo.source, 
-                    isRecommendation = v51.sourceInfo.isRecommendation, 
-                    v51.sourceInfo.recommendationContextType, 
-                    recommendationRank = v51.sourceInfo.recommendationRank, 
-                    recommendationSessionId = v51.sourceInfo.recommendationSessionId, 
-                    shareLinkId = v51.sourceInfo.shareLinkId, 
-                    primaryAction = v65
-                });
-                return;
-            end;
-        end):catch(function(_) --[[ Line: 162 ]]
-            -- upvalues: v52 (ref), v24 (ref), v63 (copy), l_LoadingStages_0 (ref)
-            v52.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-                statValue = if v63 then v63.timeElapsed else nil, 
-                status = l_LoadingStages_0.Failed, 
-                isProfilePlatform = true
-            });
-        end);
-        if v32 then
-            v57(v47.API({
-                profileId = l_profileId_0, 
-                profileType = l_profileType_0, 
-                components = v60, 
-                includeComponentOrdering = true, 
-                onlyEssentialComponents = false
-            })):andThen(function(_) --[[ Line: 178 ]]
-                -- upvalues: v52 (ref), v24 (ref), v63 (copy), v30 (ref)
-                v52.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-                    statValue = if v63 then v63.timeElapsed else nil, 
-                    status = v30.LazyLoaded, 
-                    isProfilePlatform = true
-                });
-            end):catch(function(_) --[[ Line: 185 ]]
-                -- upvalues: v52 (ref), v24 (ref), v63 (copy), l_LoadingStages_0 (ref)
-                v52.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-                    statValue = if v63 then v63.timeElapsed else nil, 
-                    status = l_LoadingStages_0.Failed, 
-                    isProfilePlatform = true
-                });
-            end);
-        end;
-    end;
-    if l_FFlagPPVBackgroundPrefetchAvatar_0 then
-        l_useEffectOnMount_0(function() --[[ Line: 196 ]]
-            -- upvalues: l_profileType_0 (copy), v25 (ref), l_profileId_0 (copy), v45 (ref)
-            if l_profileType_0 ~= v25.ProfileTypes.User then
-                return;
-            else
-                local v72 = tonumber(l_profileId_0);
-                if v72 then
-                    v45.prefetch(v72);
-                end;
-                return;
-            end;
-        end);
-    end;
-    if v39 then
-        local v73 = l_useSignalState_0(l_ProfileRefreshSignal_0.getProfileRefreshSignal);
-        local v74 = v4.useRef(0);
-        local l_v73_0 = v73 --[[ copy: 14 -> 16 ]];
-        v4.useEffect(function() --[[ Line: 212 ]]
-            -- upvalues: v56 (copy), l_v73_0 (copy), v74 (copy), v71 (copy)
-            if v56 and l_v73_0 > v74.current then
-                v74.current = l_v73_0;
-                v71();
-            end;
-        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-            v73, 
-            v56, 
-            l_profileId_0, 
-            v71
-        } else l_dependencyArray_0(v73, v56, l_profileId_0, v71));
-    end;
-    if v31 then
-        v4.useEffect(function() --[[ Line: 225 ]]
-            -- upvalues: v61 (copy), v71 (copy)
-            local v76 = v61.current + 1;
-            v61.current = v76;
-            v71(v76);
-        end, {
-            v60
-        });
-    else
-        l_useEffectOnMount_0(function() --[[ Line: 231 ]]
-            -- upvalues: v71 (copy)
-            v71();
-        end);
-    end;
-    v4.useEffect(function() --[[ Line: 236 ]]
-        -- upvalues: v9 (ref), v52 (copy), v24 (ref)
-        return function() --[[ Line: 237 ]]
-            -- upvalues: v9 (ref), v52 (ref), v24 (ref)
-            v9.Stopwatch.stop(v9.Events.ProfileOpened);
-            v52.fireAnalyticsEvent(v24.ProfileClosed);
-        end;
-    end, {});
-    if v38 then
-        l_useEffectOnMount_0(function() --[[ Line: 245 ]]
-            -- upvalues: l_IXPService_0 (ref), v34 (ref), v35 (ref), v56 (copy), v36 (ref)
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v34);
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v35);
-            if v56 then
-                l_IXPService_0:LogFlagLinkedUserLayerExposure(v36);
-            end;
-        end);
-    end;
-    if v40 then
-        v4.useEffect(function() --[[ Line: 255 ]]
-            -- upvalues: v42 (ref), v43 (ref), v51 (copy)
-            local v77 = nil;
-            if v42:SessionExists(v43.StructuralIdentifier.ProfilePlatformPage) then
-                v77 = v42:GetMetadata(v43.StructuralIdentifier.ProfilePlatformPage, v43.Metadata.ProfilePlatformPage.ProfileSessionId);
-            else
-                v42:SetSession(v43.StructuralIdentifier.Level2a, v43.StructuralIdentifier.ProfilePlatformPage, v43.StructuralIdentifier.ProfilePlatformPage);
-            end;
-            v42:SetMetadata(v43.StructuralIdentifier.ProfilePlatformPage, v43.Metadata.ProfilePlatformPage.ProfileSessionId, v51.profileSessionId);
-            return function() --[[ Line: 275 ]]
-                -- upvalues: v77 (ref), v42 (ref), v43 (ref)
-                if v77 ~= nil then
-                    v42:SetMetadata(v43.StructuralIdentifier.ProfilePlatformPage, v43.Metadata.ProfilePlatformPage.ProfileSessionId, v77);
-                    return;
-                else
-                    v42:RemoveSession(v43.StructuralIdentifier.ProfilePlatformPage);
-                    return;
-                end;
-            end;
-        end, {});
-    end;
-    local v78 = v4.useMemo(function() --[[ Line: 291 ]]
-        -- upvalues: v10 (ref), v18 (ref), v59 (copy), l_profileType_0 (copy), v4 (ref), v22 (ref)
-        return v10.Dictionary.union(v18(v59.components, v59.componentOrdering, l_profileType_0), {
-            ProfilePlatformEventReceiver = v4.createElement(v22)
-        });
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v59.components, 
-        v59.componentOrdering
-    } else l_dependencyArray_0(v59.components, v59.componentOrdering));
-    return v4.createElement(v46, {
-        children = if v32 and v49 then {} else v78
-    });
-end;
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local getDeepValue = require(ProfilePlatform.Utils.getDeepValue)
+local Navigation = require(ProfilePlatformParent.Navigation)
+local React = require(ProfilePlatformParent.React)
+local RoactUtils = require(ProfilePlatformParent.RoactUtils)
+local RobloxAppEnums = require(ProfilePlatformParent.RobloxAppEnums)
+local SharedFlags = require(ProfilePlatformParent.SharedFlags)
+local SocialLuaAnalytics = require(ProfilePlatformParent.SocialLuaAnalytics)
+local SocialStopwatch = require(ProfilePlatformParent.SocialStopwatch)
+local Cryo = require(ProfilePlatformParent.Cryo)
+local checkQrSession = require(ProfilePlatform.Networking.checkQrSession)
+local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
+local useEffectOnMount = RoactUtils.Hooks.useEffectOnMount
+local useLocalUserId = require(ProfilePlatformParent.RobloxAppHooks).useLocalUserId
+local dependencyArray = RoactUtils.Hooks.dependencyArray
+local useSignalState = require(ProfilePlatformParent.SignalsReact).useSignalState
+local ProfileRefreshSignal = require(ProfilePlatformParent.ProfilePlatformCommon).Signals.ProfileRefreshSignal
+local parseComponentsFromJson = require(ProfilePlatform.Components.ProfilePlatformPage.parseComponentsFromJson)
+local useAvailableComponents = require(ProfilePlatform.Hooks.useAvailableComponents)
+local useProfileJson = require(ProfilePlatform.Hooks.useProfileJson)
+local useProfileWrapperContext = require(ProfilePlatform.Contexts.useProfileWrapperContext)
+local ProfilePlatformEventReceiver = require(script.Parent.ProfilePlatformEventReceiver)
+local useProfileAnalyticsContext = require(ProfilePlatform.Contexts.useProfileAnalyticsContext)
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local Enums = require(ProfilePlatform.Common.Enums)
+local getFriendStatusFromProfileResponse = require(script.Parent.getFriendStatusFromProfileResponse)
+local getIsTrustedConnectionsStatusFromProfileResponse = require(script.Parent.getIsTrustedConnectionsStatusFromProfileResponse)
+local refreshProfilePlatformActionInfo = require(ProfilePlatform.Networking.refreshProfilePlatformActionInfo)
+local LoadingStages = SocialLuaAnalytics.Analytics.Enums.LoadingStages
+local LoadingStagesExtension = require(ProfilePlatform.Analytics.LoadingStagesExtension)
+local FFlagProfilePlatformEnableVR = require(ProfilePlatform.Flags.FFlagProfilePlatformEnableVR)
+local FFlagProfilePlatformEnableLazyLoadingComponents = require(ProfilePlatform.Flags.FFlagProfilePlatformEnableLazyLoadingComponents)
+local FFlagProfilePlatformTrustedConnectionsMVP = SharedFlags.FFlagProfilePlatformTrustedConnectionsMVP
+local FFlagTCUnifyNavigationEntry = SharedFlags.FFlagTCUnifyNavigationEntry
+local v36 = game:DefineFastString("SocialProfilePeekViewLayer", "Social.ProfilePeekView")
+local v37 = game:DefineFastString("SocialProfilePeekViewSecondaryLayer", "Social.ProfilePeekView.Secondary")
+local v38 = game:DefineFastString("SocialSelfProfileViewLayer", "Social.SelfProfileView")
+local IXPService = game:GetService("IXPService")
+local v40 = game:DefineFastFlag("EnableSocialProfilePeekViewExposureEvents", false)
+local v41 = game:DefineFastFlag("ProfilePlatformEnableRefreshSignal", false)
+local v42 = game:DefineFastFlag("ProfilePlatformEnableSessionization", false)
+local v43 = if not v42 then nil else game:GetService("SessionService")
+local v44 = if not v42 then nil else require(ProfilePlatformParent.RobloxAppSessionization).SessionType
+local FFlagPPVBackgroundPrefetchAvatar = SharedFlags.FFlagPPVBackgroundPrefetchAvatar
+local v46 = if not FFlagPPVBackgroundPrefetchAvatar then nil else require(ProfilePlatformParent.EditProfileBackground).AvatarModelPrefetch
+local ProfilePlatformPage = require(script.Parent.ProfilePlatformPage)
+local getProfilePlatform = require(ProfilePlatform.Networking.getProfilePlatform)
+local FFlagRemoveDependencyArrayAntipattern = require(ProfilePlatformParent.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+
+return function() -- line: 69
+	-- upvalues: React (copy), useProfileWrapperContext (copy), useProfileAnalyticsContext (copy), useLocalUserId (copy), useDispatch (copy), FFlagProfilePlatformTrustedConnectionsMVP (copy), Navigation (copy), useProfileJson (copy), useAvailableComponents (copy), SocialStopwatch (copy), EventNames (copy), LoadingStages (copy), getProfilePlatform (copy), FFlagProfilePlatformEnableLazyLoadingComponents (copy), FFlagProfilePlatformEnableVR (copy), getDeepValue (copy), Enums (copy), getFriendStatusFromProfileResponse (copy), getIsTrustedConnectionsStatusFromProfileResponse (copy), checkQrSession (copy), FFlagTCUnifyNavigationEntry (copy), RobloxAppEnums (copy), refreshProfilePlatformActionInfo (copy), LoadingStagesExtension (copy), FFlagPPVBackgroundPrefetchAvatar (copy), useEffectOnMount (copy), v46 (copy), v41 (copy), useSignalState (copy), ProfileRefreshSignal (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), v40 (copy), IXPService (copy), v36 (copy), v37 (copy), v38 (copy), v42 (copy), v43 (copy), v44 (copy), Cryo (copy), parseComponentsFromJson (copy), ProfilePlatformEventReceiver (copy), ProfilePlatformPage (copy)
+	local v50, v51 = React.useState(true)
+	local v52 = useProfileWrapperContext()
+	local v53 = useProfileAnalyticsContext()
+	local profileId = v52.profileId
+	local profileType = v52.profileType
+	local v56 = useLocalUserId()
+	local v57 = tostring(profileId) == tostring(v56)
+	local v58 = useDispatch()
+	local v59 = if not FFlagProfilePlatformTrustedConnectionsMVP then nil else Navigation.useNavigation()
+	local v60 = useProfileJson()
+	local v61 = useAvailableComponents()
+	local v62 = React.useRef(0)
+
+	local function v63(n1: number?) -- line: 90
+		-- upvalues: SocialStopwatch (copy), v53 (copy), EventNames (copy), LoadingStages (copy), v58 (copy), getProfilePlatform (copy), profileId (copy), profileType (copy), v61 (copy), FFlagProfilePlatformEnableLazyLoadingComponents (copy), v51 (copy), FFlagProfilePlatformEnableVR (copy), getDeepValue (copy), Enums (copy), FFlagProfilePlatformTrustedConnectionsMVP (copy), getFriendStatusFromProfileResponse (copy), getIsTrustedConnectionsStatusFromProfileResponse (copy), v52 (copy), checkQrSession (copy), FFlagTCUnifyNavigationEntry (copy), v59 (copy), RobloxAppEnums (copy), refreshProfilePlatformActionInfo (copy), LoadingStagesExtension (copy)
+		local v68 = SocialStopwatch.Stopwatch.get(SocialStopwatch.Events.ProfileOpened)
+
+		v53.fireAnalyticsEvent(EventNames.ProfileLoadingStage, {
+			statValue = if not v68 then nil else v68.timeElapsed,
+			status = LoadingStages.Fetching,
+			isProfilePlatform = true
+		})
+		v58(getProfilePlatform.API({
+			profileId = profileId,
+			profileType = profileType,
+			components = v61,
+			includeComponentOrdering = true,
+			onlyEssentialComponents = not not FFlagProfilePlatformEnableLazyLoadingComponents or nil
+		})):andThen(function(p1) -- line: 106
+			-- upvalues: FFlagProfilePlatformEnableLazyLoadingComponents (copy), v51 (copy), FFlagProfilePlatformEnableVR (copy), n1 (copy), v53 (copy), EventNames (copy), getDeepValue (copy), Enums (copy), FFlagProfilePlatformTrustedConnectionsMVP (copy), getFriendStatusFromProfileResponse (copy), getIsTrustedConnectionsStatusFromProfileResponse (copy), v52 (copy), v58 (copy), checkQrSession (copy), profileId (copy), FFlagTCUnifyNavigationEntry (copy), v59 (copy), RobloxAppEnums (copy), refreshProfilePlatformActionInfo (copy)
+			if FFlagProfilePlatformEnableLazyLoadingComponents then
+				v51(false)
+			end
+
+			if FFlagProfilePlatformEnableVR and n1 > 1 then
+				v53.fireAnalyticsEvent(EventNames.ProfilePlatformPageReloaded, {
+					reloadCount = n1
+				})
+
+				return
+			end
+
+			local v73 = getDeepValue(p1, `responseBody.components.{ Enums.Components.Actions }.buttons`)
+			local v74 = if not v73 or not v73[1] then nil else v73[1].type
+
+			if FFlagProfilePlatformTrustedConnectionsMVP and getFriendStatusFromProfileResponse(p1) == Enums.FriendStatus.Friends and not getIsTrustedConnectionsStatusFromProfileResponse(p1) and v52.sourceInfo.source == Enums.Sources.QrCode then
+				v58(checkQrSession.API(profileId)):andThen(function(p2) -- line: 128
+					-- upvalues: FFlagTCUnifyNavigationEntry (copy), v59 (copy), RobloxAppEnums (copy), profileId (copy), v58 (copy), refreshProfilePlatformActionInfo (copy)
+					if p2.responseBody == true then
+						if FFlagTCUnifyNavigationEntry then
+							v59.push(RobloxAppEnums.AppPage.TrustedContactsModal, {
+								props = {
+									userId = profileId,
+									sentFromQrCode = true,
+									onRequestSent = function() --[[ onRequestSent ]] -- line: 135
+										-- upvalues: v58 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+										return v58(refreshProfilePlatformActionInfo(profileId))
+									end
+								}
+							})
+
+							return
+						end
+
+						v59.push(RobloxAppEnums.AppPage.TrustedContactsModal, {
+							userId = profileId,
+							sentFromQrCode = true,
+							onRequestSent = function() --[[ onRequestSent ]] -- line: 144
+								-- upvalues: v58 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+								return v58(refreshProfilePlatformActionInfo(profileId))
+							end
+						})
+					end
+				end)
+			end
+
+			v53.fireAnalyticsEvent(EventNames.ProfilePageLoadedWithData, {
+				friendStatus = getFriendStatusFromProfileResponse(p1),
+				absolutePosition = v52.sourceInfo.homepageCarouselAbsolutePosition,
+				isHomePageCarousel = v52.sourceInfo.source == Enums.Sources.HomepageFriendsCarousel,
+				source = v52.sourceInfo.source,
+				isRecommendation = v52.sourceInfo.isRecommendation,
+				v52.sourceInfo.recommendationContextType,
+				recommendationRank = v52.sourceInfo.recommendationRank,
+				recommendationSessionId = v52.sourceInfo.recommendationSessionId,
+				shareLinkId = v52.sourceInfo.shareLinkId,
+				primaryAction = v74
+			})
+		end):catch(function(_) -- line: 168
+			-- upvalues: v53 (copy), EventNames (copy), v68 (copy), LoadingStages (copy)
+			v53.fireAnalyticsEvent(EventNames.ProfileLoadingStage, {
+				statValue = if not v68 then nil else v68.timeElapsed,
+				status = LoadingStages.Failed,
+				isProfilePlatform = true
+			})
+		end)
+
+		if FFlagProfilePlatformEnableLazyLoadingComponents then
+			v58(getProfilePlatform.API({
+				profileId = profileId,
+				profileType = profileType,
+				components = v61,
+				includeComponentOrdering = true,
+				onlyEssentialComponents = false
+			})):andThen(function(_) -- line: 184
+				-- upvalues: v53 (copy), EventNames (copy), v68 (copy), LoadingStagesExtension (copy)
+				v53.fireAnalyticsEvent(EventNames.ProfileLoadingStage, {
+					statValue = if not v68 then nil else v68.timeElapsed,
+					status = LoadingStagesExtension.LazyLoaded,
+					isProfilePlatform = true
+				})
+			end):catch(function(_) -- line: 191
+				-- upvalues: v53 (copy), EventNames (copy), v68 (copy), LoadingStages (copy)
+				v53.fireAnalyticsEvent(EventNames.ProfileLoadingStage, {
+					statValue = if not v68 then nil else v68.timeElapsed,
+					status = LoadingStages.Failed,
+					isProfilePlatform = true
+				})
+			end)
+		end
+	end
+
+	if FFlagPPVBackgroundPrefetchAvatar then
+		useEffectOnMount(function() -- line: 202
+			-- upvalues: profileType (copy), Enums (copy), profileId (copy), v46 (copy)
+			if profileType ~= Enums.ProfileTypes.User then
+				return
+			end
+
+			local num = tonumber(profileId)
+
+			if num then
+				v46.prefetch(num)
+			end
+		end)
+	end
+
+	if v41 then
+		local v64 = useSignalState(ProfileRefreshSignal.getProfileRefreshSignal)
+		local v65 = React.useRef(0)
+
+		React.useEffect(function() -- line: 218
+			-- upvalues: v57 (copy), v64 (copy), v65 (copy), v63 (copy)
+			if v57 and v64 > v65.current then
+				v65.current = v64
+				v63()
+			end
+		end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v64, v57, profileId, v63) else {
+			v64,
+			v57,
+			profileId,
+			v63
+		})
+	end
+
+	if FFlagProfilePlatformEnableVR then
+		React.useEffect(function() -- line: 231
+			-- upvalues: v62 (copy), v63 (copy)
+			local v70 = v62.current + 1
+
+			v62.current = v70
+			v63(v70)
+		end, { v61 })
+	else
+		useEffectOnMount(function() -- line: 237
+			-- upvalues: v63 (copy)
+			v63()
+		end)
+	end
+
+	React.useEffect(function() -- line: 242
+		-- upvalues: SocialStopwatch (copy), v53 (copy), EventNames (copy)
+		return function() -- line: 243
+			-- upvalues: SocialStopwatch (copy), v53 (copy), EventNames (copy)
+			SocialStopwatch.Stopwatch.stop(SocialStopwatch.Events.ProfileOpened)
+			v53.fireAnalyticsEvent(EventNames.ProfileClosed)
+		end
+	end, {})
+
+	if v40 then
+		useEffectOnMount(function() -- line: 251
+			-- upvalues: IXPService (copy), v36 (copy), v37 (copy), v57 (copy), v38 (copy)
+			IXPService:LogFlagLinkedUserLayerExposure(v36)
+			IXPService:LogFlagLinkedUserLayerExposure(v37)
+
+			if v57 then
+				IXPService:LogFlagLinkedUserLayerExposure(v38)
+			end
+		end)
+	end
+
+	if v42 then
+		React.useEffect(function() -- line: 261
+			-- upvalues: v43 (copy), v44 (copy), v52 (copy)
+			local Metadata = nil
+
+			if v43:SessionExists(v44.StructuralIdentifier.ProfilePlatformPage) then
+				Metadata = v43:GetMetadata(v44.StructuralIdentifier.ProfilePlatformPage, v44.Metadata.ProfilePlatformPage.ProfileSessionId)
+			else
+				v43:SetSession(v44.StructuralIdentifier.Level2a, v44.StructuralIdentifier.ProfilePlatformPage, v44.StructuralIdentifier.ProfilePlatformPage)
+			end
+
+			v43:SetMetadata(v44.StructuralIdentifier.ProfilePlatformPage, v44.Metadata.ProfilePlatformPage.ProfileSessionId, v52.profileSessionId)
+
+			return function() -- line: 281
+				-- upvalues: Metadata (ref), v43 (copy), v44 (copy)
+				if Metadata ~= nil then
+					v43:SetMetadata(v44.StructuralIdentifier.ProfilePlatformPage, v44.Metadata.ProfilePlatformPage.ProfileSessionId, Metadata)
+
+					return
+				end
+
+				v43:RemoveSession(v44.StructuralIdentifier.ProfilePlatformPage)
+			end
+		end, {})
+	end
+
+	local v66 = React.useMemo(function() -- line: 297
+		-- upvalues: Cryo (copy), parseComponentsFromJson (copy), v60 (copy), profileType (copy), React (copy), ProfilePlatformEventReceiver (copy)
+		return Cryo.Dictionary.union(parseComponentsFromJson(v60.components, v60.componentOrdering, profileType), {
+			ProfilePlatformEventReceiver = React.createElement(ProfilePlatformEventReceiver)
+		})
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v60.components, v60.componentOrdering) else {
+		v60.components,
+		v60.componentOrdering
+	})
+
+	return React.createElement(ProfilePlatformPage, {
+		children = if not FFlagProfilePlatformEnableLazyLoadingComponents or not v50 then v66 else {}
+	})
+end

@@ -1,4 +1,5 @@
-game:DefineFastFlag("EnableTwoStepMethodDynamicText", false);
-return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("EnableTwoStepMethodDynamicText");
-end;
+game:DefineFastFlag("EnableTwoStepMethodDynamicText2", false)
+
+return function() -- line: 3
+	return game:GetFastFlag("EnableTwoStepMethodDynamicText2")
+end

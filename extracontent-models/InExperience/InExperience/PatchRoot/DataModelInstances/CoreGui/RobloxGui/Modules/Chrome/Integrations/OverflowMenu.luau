@@ -1,340 +1,375 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Chrome");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.React);
-local v3 = require(l_script_FirstAncestor_0.Service);
-local v4 = require(l_script_FirstAncestor_0.ChromeShared.Service.ChromeUtils);
-local v5 = require(l_script_FirstAncestor_0.Integrations.ChromeIntegrationUtils);
-local v6 = require(l_script_FirstAncestor_0.Integrations.RespawnUtils);
-local l_MappedSignal_0 = v4.MappedSignal;
-local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
-local l_SideSheetPlacement_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).Enums.SideSheetPlacement;
-local v10 = require(l_script_FirstAncestor_0.Integrations.CommonIcon);
-local v11 = require(l_script_FirstAncestor_0.Integrations.CommonFtuxTooltip);
-local v12 = require(l_script_FirstAncestor_0.Integrations.AvatarSwitcher.AvatarSwitcherFtuxTooltip);
-local l_VRService_0 = game:GetService("VRService");
-local l_RobloxGui_0 = game:GetService("CoreGui"):WaitForChild("RobloxGui");
-local v15 = require(l_RobloxGui_0.Modules.PlayerList.PlayerListManager);
-local v16 = require(l_RobloxGui_0.Modules.EmotesMenu.EmotesMenuMaster);
-local l_FFlagEnableNewBackpack_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack;
-local v18 = if l_FFlagEnableNewBackpack_0 then require(l_CorePackages_0.Workspace.Packages.System).Features else nil;
-local v19 = if not l_FFlagEnableNewBackpack_0 then require(l_RobloxGui_0.Modules.BackpackScript) else nil;
-local v20 = require(l_script_FirstAncestor_0.ChromeShared.Hooks.useMappedSignal);
-local l_GetFFlagIsSquadEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled;
-local v22 = require(l_CorePackages_0.Packages.UIBlox);
-local l_Images_0 = v22.App.ImageSet.Images;
-local l_useStyle_0 = v22.Core.Style.useStyle;
-local l_ImageSetLabel_0 = v22.Core.ImageSet.ImageSetLabel;
-local v26 = require(l_script_FirstAncestor_0.ChromeShared.Unibar.Constants);
-local l_isSpatial_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
-local v28 = require(l_RobloxGui_0.Modules.SelfieView);
-local v29 = require(l_script_FirstAncestor_0.Flags.GetFStringConnectTooltipLocalStorageKey);
-local v30 = require(l_script_FirstAncestor_0.Flags.GetFIntRobloxConnectFtuxShowDelayMs);
-local v31 = require(l_script_FirstAncestor_0.Flags.GetFIntRobloxConnectFtuxDismissDelayMs);
-local l_GetFFlagEnableAppChatInExperience_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience;
-local v33 = require(l_script_FirstAncestor_0.Flags.GetShouldShowPlatformChatBasedOnPolicy);
-local v34 = game:DefineFastFlag("FixIntegrationActivated1", false);
-local v35 = game:DefineFastFlag("FixInventoryFilledIcon", false);
-local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_script_FirstAncestor_0.ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
-local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local v38 = game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false);
-local v39 = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false);
-local v40 = game:DefineFastInt("UnibarConnectTooltipPriority", 2000);
-local v41 = l_GetFFlagEnableAppChatInExperience_0() and v38 and v33();
-local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
-local l_InExperienceUIVRIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP;
-local l_SELFIE_VIEW_ID_0 = v26.SELFIE_VIEW_ID;
-local v45 = l_MappedSignal_0.new(v15:GetSetVisibleChangedEvent().Event, function() --[[ Line: 70 ]]
-    -- upvalues: v15 (copy)
-    return v15:GetSetVisible();
-end);
-local v48 = v3:register({
-    id = "leaderboard", 
-    label = "CoreScripts.TopBar.Leaderboard", 
-    sideSheetPlacement = l_SideSheetPlacement_0.Vertical, 
-    activated = function(_) --[[ Line: 78 ]] --[[ Name: activated ]]
-        -- upvalues: l_isInExperienceUIVREnabled_0 (copy), l_VRService_0 (copy), l_RobloxGui_0 (copy), v15 (copy), l_isSpatial_0 (copy), l_InExperienceUIVRIXP_0 (copy), v5 (copy)
-        if not l_isInExperienceUIVREnabled_0 and l_VRService_0.VREnabled then
-            require(l_RobloxGui_0.Modules.InGameMenu).openPlayersPage();
-            return;
-        elseif v15:GetSetVisible() then
-            v15:SetVisibility(not v15:GetSetVisible());
-            return;
-        elseif l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and not l_InExperienceUIVRIXP_0:isMovePanelToCenter() then
-            v15:SetVisibility(not v15:GetSetVisible());
-            return;
-        else
-            v5.dismissRobloxMenuAndRun(function() --[[ Line: 89 ]]
-                -- upvalues: v15 (ref)
-                v15:SetVisibility(not v15:GetSetVisible());
-            end);
-            return;
-        end;
-    end, 
-    isActivated = function() --[[ Line: 96 ]] --[[ Name: isActivated ]]
-        -- upvalues: v45 (copy)
-        return v45:get();
-    end, 
-    components = {
-        Icon = function(_) --[[ Line: 100 ]] --[[ Name: Icon ]]
-            -- upvalues: v10 (copy), v45 (copy)
-            return v10("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", v45);
-        end
-    }
-});
-v4.setCoreGuiAvailability(v48, Enum.CoreGuiType.PlayerList);
-local v49 = l_MappedSignal_0.new(v16.EmotesMenuToggled.Event, function() --[[ Line: 107 ]]
-    -- upvalues: v16 (copy)
-    return v16:isOpen();
-end);
-local v52 = v3:register({
-    id = "emotes", 
-    label = "CoreScripts.TopBar.Emotes", 
-    sideSheetPlacement = l_SideSheetPlacement_0.Vertical, 
-    activated = function(_) --[[ Line: 114 ]] --[[ Name: activated ]]
-        -- upvalues: v16 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), l_InExperienceUIVRIXP_0 (copy), v5 (copy)
-        if v16:isOpen() then
-            v16:close();
-            return;
-        elseif l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and not l_InExperienceUIVRIXP_0:isMovePanelToCenter() then
-            v16:open();
-            return;
-        else
-            v5.dismissRobloxMenuAndRun(function() --[[ Line: 121 ]]
-                -- upvalues: v16 (ref)
-                v16:open();
-            end);
-            return;
-        end;
-    end, 
-    isActivated = function() --[[ Line: 127 ]] --[[ Name: isActivated ]]
-        -- upvalues: v49 (copy)
-        return v49:get();
-    end, 
-    components = {
-        Icon = function(_) --[[ Line: 131 ]] --[[ Name: Icon ]]
-            -- upvalues: v10 (copy), v49 (copy)
-            return v10("icons/controls/emoteOff", "icons/controls/emoteOn", v49);
-        end
-    }
-});
-local v53 = false;
-local l_MenuIsVisible_0 = v16.MenuIsVisible;
-updateEmoteAvailability = function() --[[ Line: 140 ]] --[[ Name: updateEmoteAvailability ]]
-    -- upvalues: v53 (ref), l_MenuIsVisible_0 (ref), v52 (copy)
-    if v53 and l_MenuIsVisible_0 then
-        v52.availability:available();
-        return;
-    else
-        v52.availability:unavailable();
-        return;
-    end;
-end;
-v4.setCoreGuiAvailability(v52, Enum.CoreGuiType.EmotesMenu, function(v55) --[[ Line: 148 ]]
-    -- upvalues: v53 (ref)
-    v53 = v55;
-    updateEmoteAvailability();
-end);
-v16.MenuVisibilityChanged.Event:Connect(function() --[[ Line: 153 ]]
-    -- upvalues: l_MenuIsVisible_0 (ref), v16 (copy)
-    l_MenuIsVisible_0 = v16.MenuIsVisible;
-    updateEmoteAvailability();
-end);
-local v56 = if not l_FFlagEnableNewBackpack_0 then l_MappedSignal_0.new(v19.StateChanged.Event, function() --[[ Line: 159 ]]
-    -- upvalues: v19 (copy)
-    return v19.IsOpen;
-end) else nil;
-local v59 = v3:register({
-    id = "backpack", 
-    label = "CoreScripts.TopBar.Inventory", 
-    sideSheetPlacement = l_SideSheetPlacement_0.Vertical, 
-    activated = function(_) --[[ Line: 167 ]] --[[ Name: activated ]]
-        -- upvalues: l_FFlagEnableNewBackpack_0 (copy), v18 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), l_InExperienceUIVRIXP_0 (copy), v5 (copy), v19 (copy)
-        if l_FFlagEnableNewBackpack_0 then
-            if v18.getVisibility(v18.FeatureName.Backpack) then
-                v18.toggleVisibility(v18.FeatureName.Backpack);
-                return;
-            elseif l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and not l_InExperienceUIVRIXP_0:isMovePanelToCenter() then
-                v18.toggleVisibility(v18.FeatureName.Backpack);
-                return;
-            else
-                v5.dismissRobloxMenuAndRun(function() --[[ Line: 175 ]]
-                    -- upvalues: v18 (ref)
-                    v18.toggleVisibility(v18.FeatureName.Backpack);
-                end);
-                return;
-            end;
-        elseif v19.IsOpen then
-            v19:OpenClose();
-            return;
-        elseif l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and not l_InExperienceUIVRIXP_0:isMovePanelToCenter() then
-            v19:OpenClose();
-            return;
-        else
-            v5.dismissRobloxMenuAndRun(function() --[[ Line: 187 ]]
-                -- upvalues: v19 (ref)
-                v19:OpenClose();
-            end);
-            return;
-        end;
-    end, 
-    isActivated = function() --[[ Line: 194 ]] --[[ Name: isActivated ]]
-        -- upvalues: l_FFlagEnableNewBackpack_0 (copy), v18 (copy), v56 (copy)
-        if l_FFlagEnableNewBackpack_0 then
-            return v18.getVisibility(v18.FeatureName.Backpack);
-        else
-            return v56:get();
-        end;
-    end, 
-    components = {
-        Icon = function(_) --[[ Line: 201 ]] --[[ Name: Icon ]]
-            -- upvalues: v10 (copy), v35 (copy), v56 (copy)
-            return v10("icons/menu/inventoryOff", v35 and "icons/menu/inventoryOn" or "icons/menu/inventory", v56);
-        end
-    }
-});
-v4.setCoreGuiAvailability(v59, Enum.CoreGuiType.Backpack);
-local v62 = v3:register({
-    id = "respawn", 
-    label = "CoreScripts.InGameMenu.QuickActions.Respawn", 
-    sideSheetPlacement = l_SideSheetPlacement_0.Vertical, 
-    activated = function(_) --[[ Line: 216 ]] --[[ Name: activated ]]
-        -- upvalues: v6 (copy)
-        v6.respawnPage();
-    end, 
-    isActivated = function() --[[ Line: 219 ]] --[[ Name: isActivated ]]
-        -- upvalues: v6 (copy)
-        return v6.respawnPageOpenSignal:get();
-    end, 
-    components = {
-        Icon = function(_) --[[ Line: 223 ]] --[[ Name: Icon ]]
-            -- upvalues: v10 (copy)
-            return v10("icons/actions/respawn");
-        end
-    }
-});
-updateRespawn = function(v63) --[[ Line: 229 ]] --[[ Name: updateRespawn ]]
-    -- upvalues: v62 (copy)
-    if v63 then
-        v62.availability:available();
-        return;
-    else
-        v62.availability:unavailable();
-        return;
-    end;
-end;
-task.defer(function() --[[ Line: 237 ]]
-    -- upvalues: l_RobloxGui_0 (copy)
-    local v64 = require(l_RobloxGui_0.Modules.Settings.SettingsHub);
-    v64.RespawnBehaviourChangedEvent.Event:connect(updateRespawn);
-    updateRespawn(v64:GetRespawnBehaviour());
-end);
-local v65 = v3:currentSubMenu();
-local v66 = l_MappedSignal_0.new(v65:signal(), function() --[[ Line: 244 ]]
-    -- upvalues: v65 (copy)
-    return v65:get() == "nine_dot";
-end);
-if v3:orderAlignment():get() == Enum.HorizontalAlignment.Right then
-    v66:connect(function(v67) --[[ Line: 249 ]]
-        -- upvalues: v15 (copy)
-        v15:SetMinimized(v67);
-    end);
-end;
-HamburgerButton = function(v68) --[[ Line: 254 ]] --[[ Name: HamburgerButton ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v26 (copy), v66 (copy), v20 (copy), v41 (copy), v11 (copy), v40 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v29 (copy), v30 (copy), v31 (copy), v2 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v28 (copy), v3 (copy), l_SELFIE_VIEW_ID_0 (copy), v39 (copy), v12 (copy)
-    local l_toggleTransition_0 = v68.toggleTransition;
-    local v70 = l_useStyle_0();
-    local v71 = nil;
-    local v72 = nil;
-    local v73 = nil;
-    if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v71 = l_UnibarStyle_0.use();
-        v72 = v71.ICON_SIZE;
-        v73 = v71.MEDIUM_ICON_SIZE;
-    else
-        v72 = v26.ICON_SIZE;
-        v73 = v26.MEDIUM_ICON_SIZE;
-    end;
-    local v74 = v66 and v20(v66) or false;
-    local v75 = if v41 then v11({
-        id = "CONNECT_TOOLTIP", 
-        priority = v40, 
-        isIconVisible = v68.visible, 
-        headerKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "CoreScripts.FTUX.Heading.CheckOutRobloxParty" or "CoreScripts.FTUX.Heading.CheckOutRobloxConnect", 
-        bodyKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime" or "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime", 
-        localStorageKey = v29(), 
-        showDelay = v30(), 
-        dismissDelay = v31()
-    }) else nil;
-    return v2.createElement("Frame", {
-        Size = UDim2.new(0, v72, 0, v72), 
-        BorderSizePixel = 0, 
-        BackgroundColor3 = v70.Theme.BackgroundOnHover.Color, 
-        BackgroundTransparency = l_toggleTransition_0:map(function(v76) --[[ Line: 295 ]]
-            -- upvalues: v70 (copy)
-            return 1 - (1 - v70.Theme.BackgroundOnHover.Transparency) * v76;
-        end)
-    }, {
-        v2.createElement("UICorner", {
-            Name = "Corner", 
-            CornerRadius = UDim.new(1, 0)
-        }), 
-        v2.createElement(l_ImageSetLabel_0, {
-            Name = "Overflow", 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            BackgroundTransparency = 1, 
-            Image = l_Images_0["icons/common/hamburgermenu"], 
-            Size = l_toggleTransition_0:map(function(v77) --[[ Line: 309 ]]
-                -- upvalues: v72 (ref)
-                v77 = 1 - v77;
-                return UDim2.new(0, v72 * v77, 0, v72 * v77);
-            end), 
-            ImageColor3 = v70.Theme.IconEmphasis.Color, 
-            ImageTransparency = l_toggleTransition_0:map(function(v78) --[[ Line: 315 ]]
-                -- upvalues: v70 (copy)
-                return v78 * v70.Theme.IconEmphasis.Transparency;
-            end)
-        }), 
-        v2.createElement(l_ImageSetLabel_0, {
-            Name = "Close", 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            BackgroundTransparency = 1, 
-            Image = l_Images_0["icons/navigation/close"], 
-            Size = l_toggleTransition_0:map(function(v79) --[[ Line: 325 ]]
-                -- upvalues: v73 (ref)
-                return UDim2.new(0, v73 * v79, 0, v73 * v79);
-            end), 
-            ImageColor3 = v70.Theme.IconEmphasis.Color, 
-            ImageTransparency = l_toggleTransition_0:map(function(v80) --[[ Line: 330 ]]
-                -- upvalues: v70 (copy)
-                return (1 - v80) * v70.Theme.IconEmphasis.Transparency;
-            end)
-        }), 
-        if not v28.useCameraOn() or v3:isWindowOpen(l_SELFIE_VIEW_ID_0) or v74 then nil else v2.createElement(v28.CameraStatusDot, {
-            Name = "CameraStatusDot", 
-            Position = UDim2.new(1, -4, 1, -7), 
-            ZIndex = 2
-        }), 
-        v75, 
-        if v39 then v2.createElement(v12, {
-            visible = v68.visible
-        }) else nil
-    });
-end;
-return v3:register({
-    initialAvailability = v3.AvailabilitySignal.Pinned, 
-    id = "nine_dot", 
-    label = "CoreScripts.TopBar.MoreMenu", 
-    sideSheetPlacement = l_SideSheetPlacement_0.None, 
-    isActivated = v34 and function() --[[ Line: 358 ]]
-        -- upvalues: v66 (copy)
-        return v66:get();
-    end or nil, 
-    components = {
-        Icon = function(v81) --[[ Line: 363 ]] --[[ Name: Icon ]]
-            -- upvalues: v2 (copy)
-            return v2.createElement(HamburgerButton, v81);
-        end
-    }
-});
+local Chrome = script:FindFirstAncestor("Chrome")
+local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+local Service = require(Chrome.Service)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
+local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
+local RespawnUtils = require(Chrome.Integrations.RespawnUtils)
+local MappedSignal = ChromeUtils.MappedSignal
+local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
+local SideSheetPlacement = require(CorePackages.Workspace.Packages.Chrome).Enums.SideSheetPlacement
+local CommonIcon = require(Chrome.Integrations.CommonIcon)
+local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
+local AvatarSwitcherFtuxTooltip = require(Chrome.Integrations.AvatarSwitcher.AvatarSwitcherFtuxTooltip)
+local VRService = game:GetService("VRService")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
+local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
+local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
+local v19 = if not FFlagEnableNewBackpack then nil else require(CorePackages.Workspace.Packages.System).Features
+local v20 = if FFlagEnableNewBackpack then nil else require(RobloxGui.Modules.BackpackScript)
+local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local Images = UIBlox.App.ImageSet.Images
+local useStyle = UIBlox.Core.Style.useStyle
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local Constants = require(Chrome.ChromeShared.Unibar.Constants)
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+local SelfieView = require(RobloxGui.Modules.SelfieView)
+local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
+local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
+local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxDismissDelayMs)
+local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
+local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
+local v35 = game:DefineFastFlag("FixIntegrationActivated1", false)
+local v36 = game:DefineFastFlag("FixInventoryFilledIcon", false)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = require(Chrome.ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider
+local v38 = game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
+local v39 = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false)
+local v40 = game:DefineFastInt("UnibarConnectTooltipPriority", 2000)
+local v41 = GetFFlagEnableAppChatInExperience() and (v38 and GetShouldShowPlatformChatBasedOnPolicy())
+local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
+local SELFIE_VIEW_ID = Constants.SELFIE_VIEW_ID
+local v45 = MappedSignal.new(PlayerListManager:GetSetVisibleChangedEvent().Event, function() -- line: 67
+	-- upvalues: PlayerListManager (copy)
+	return PlayerListManager:GetSetVisible()
+end)
+local v46 = Service:register({
+	id = "leaderboard",
+	label = "CoreScripts.TopBar.Leaderboard",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
+	activated = function(_) --[[ activated ]] -- line: 75
+		-- upvalues: isInExperienceUIVREnabled (copy), VRService (copy), RobloxGui (copy), PlayerListManager (copy), isSpatial (copy), InExperienceUIVRIXP (copy), ChromeIntegrationUtils (copy)
+		if not isInExperienceUIVREnabled and VRService.VREnabled then
+			require(RobloxGui.Modules.InGameMenu).openPlayersPage()
+
+			return
+		end
+
+		if PlayerListManager:GetSetVisible() then
+			PlayerListManager:SetVisibility(not PlayerListManager:GetSetVisible())
+
+			return
+		end
+
+		if isInExperienceUIVREnabled and isSpatial() and not InExperienceUIVRIXP:isMovePanelToCenter() then
+			PlayerListManager:SetVisibility(not PlayerListManager:GetSetVisible())
+
+			return
+		end
+
+		ChromeIntegrationUtils.dismissRobloxMenuAndRun(function() -- line: 86
+			-- upvalues: PlayerListManager (copy)
+			PlayerListManager:SetVisibility(not PlayerListManager:GetSetVisible())
+		end)
+	end,
+	isActivated = function() --[[ isActivated ]] -- line: 93
+		-- upvalues: v45 (copy)
+		return v45:get()
+	end,
+	components = {
+		Icon = function(_) --[[ Icon ]] -- line: 97
+			-- upvalues: CommonIcon (copy), v45 (copy)
+			return CommonIcon("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", v45)
+		end
+	}
+})
+
+ChromeUtils.setCoreGuiAvailability(v46, Enum.CoreGuiType.PlayerList)
+
+local v47 = MappedSignal.new(EmotesMenuMaster.EmotesMenuToggled.Event, function() -- line: 104
+	-- upvalues: EmotesMenuMaster (copy)
+	return EmotesMenuMaster:isOpen()
+end)
+local v48 = Service:register({
+	id = "emotes",
+	label = "CoreScripts.TopBar.Emotes",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
+	activated = function(_) --[[ activated ]] -- line: 111
+		-- upvalues: EmotesMenuMaster (copy), isInExperienceUIVREnabled (copy), isSpatial (copy), InExperienceUIVRIXP (copy), ChromeIntegrationUtils (copy)
+		if EmotesMenuMaster:isOpen() then
+			EmotesMenuMaster:close()
+
+			return
+		end
+
+		if isInExperienceUIVREnabled and isSpatial() and not InExperienceUIVRIXP:isMovePanelToCenter() then
+			EmotesMenuMaster:open()
+
+			return
+		end
+
+		ChromeIntegrationUtils.dismissRobloxMenuAndRun(function() -- line: 118
+			-- upvalues: EmotesMenuMaster (copy)
+			EmotesMenuMaster:open()
+		end)
+	end,
+	isActivated = function() --[[ isActivated ]] -- line: 124
+		-- upvalues: v47 (copy)
+		return v47:get()
+	end,
+	components = {
+		Icon = function(_) --[[ Icon ]] -- line: 128
+			-- upvalues: CommonIcon (copy), v47 (copy)
+			return CommonIcon("icons/controls/emoteOff", "icons/controls/emoteOn", v47)
+		end
+	}
+})
+local u49 = false
+local MenuIsVisible = EmotesMenuMaster.MenuIsVisible
+
+function updateEmoteAvailability() -- line: 137
+	-- upvalues: u49 (ref), MenuIsVisible (ref), v48 (copy)
+	if u49 and MenuIsVisible then
+		v48.availability:available()
+
+		return
+	end
+
+	v48.availability:unavailable()
+end
+
+ChromeUtils.setCoreGuiAvailability(v48, Enum.CoreGuiType.EmotesMenu, function(p5) -- line: 145
+	-- upvalues: u49 (ref)
+	u49 = p5
+	updateEmoteAvailability()
+end)
+EmotesMenuMaster.MenuVisibilityChanged.Event:Connect(function() -- line: 150
+	-- upvalues: MenuIsVisible (ref), EmotesMenuMaster (copy)
+	MenuIsVisible = EmotesMenuMaster.MenuIsVisible
+	updateEmoteAvailability()
+end)
+
+local v51 = if FFlagEnableNewBackpack then nil else MappedSignal.new(v20.StateChanged.Event, function() -- line: 156
+	-- upvalues: v20 (copy)
+	return v20.IsOpen
+end)
+local v52 = Service:register({
+	id = "backpack",
+	label = "CoreScripts.TopBar.Inventory",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
+	activated = function(_) --[[ activated ]] -- line: 164
+		-- upvalues: FFlagEnableNewBackpack (copy), v19 (copy), isInExperienceUIVREnabled (copy), isSpatial (copy), InExperienceUIVRIXP (copy), ChromeIntegrationUtils (copy), v20 (copy)
+		if FFlagEnableNewBackpack then
+			if v19.getVisibility(v19.FeatureName.Backpack) then
+				v19.toggleVisibility(v19.FeatureName.Backpack)
+
+				return
+			end
+
+			if isInExperienceUIVREnabled and isSpatial() and not InExperienceUIVRIXP:isMovePanelToCenter() then
+				v19.toggleVisibility(v19.FeatureName.Backpack)
+
+				return
+			end
+
+			ChromeIntegrationUtils.dismissRobloxMenuAndRun(function() -- line: 172
+				-- upvalues: v19 (copy)
+				v19.toggleVisibility(v19.FeatureName.Backpack)
+			end)
+
+			return
+		end
+
+		if v20.IsOpen then
+			v20:OpenClose()
+
+			return
+		end
+
+		if isInExperienceUIVREnabled and isSpatial() and not InExperienceUIVRIXP:isMovePanelToCenter() then
+			v20:OpenClose()
+
+			return
+		end
+
+		ChromeIntegrationUtils.dismissRobloxMenuAndRun(function() -- line: 184
+			-- upvalues: v20 (copy)
+			v20:OpenClose()
+		end)
+	end,
+	isActivated = function() --[[ isActivated ]] -- line: 191
+		-- upvalues: FFlagEnableNewBackpack (copy), v19 (copy), v51 (copy)
+		if FFlagEnableNewBackpack then
+			return v19.getVisibility(v19.FeatureName.Backpack)
+		end
+
+		return v51:get()
+	end,
+	components = {
+		Icon = function(_) --[[ Icon ]] -- line: 198
+			-- upvalues: CommonIcon (copy), v36 (copy), v51 (copy)
+			return CommonIcon("icons/menu/inventoryOff", not v36 and "icons/menu/inventory" or "icons/menu/inventoryOn", v51)
+		end
+	}
+})
+
+ChromeUtils.setCoreGuiAvailability(v52, Enum.CoreGuiType.Backpack)
+
+local v53 = Service:register({
+	id = "respawn",
+	label = "CoreScripts.InGameMenu.QuickActions.Respawn",
+	sideSheetPlacement = SideSheetPlacement.Vertical,
+	activated = function(_) --[[ activated ]] -- line: 213
+		-- upvalues: RespawnUtils (copy)
+		RespawnUtils.respawnPage()
+	end,
+	isActivated = function() --[[ isActivated ]] -- line: 216
+		-- upvalues: RespawnUtils (copy)
+		return RespawnUtils.respawnPageOpenSignal:get()
+	end,
+	components = {
+		Icon = function(_) --[[ Icon ]] -- line: 220
+			-- upvalues: CommonIcon (copy)
+			return CommonIcon("icons/actions/respawn")
+		end
+	}
+})
+
+function updateRespawn(p10) -- line: 226
+	-- upvalues: v53 (copy)
+	if p10 then
+		v53.availability:available()
+
+		return
+	end
+
+	v53.availability:unavailable()
+end
+
+task.defer(function() -- line: 234
+	-- upvalues: RobloxGui (copy)
+	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+
+	SettingsHub.RespawnBehaviourChangedEvent.Event:connect(updateRespawn)
+	updateRespawn(SettingsHub:GetRespawnBehaviour())
+end)
+
+local v54 = Service:currentSubMenu()
+local v55 = MappedSignal.new(v54:signal(), function() -- line: 241
+	-- upvalues: v54 (copy)
+	return v54:get() == "nine_dot"
+end)
+
+if Service:orderAlignment():get() == Enum.HorizontalAlignment.Right then
+	v55:connect(function(p11) -- line: 246
+		-- upvalues: PlayerListManager (copy)
+		PlayerListManager:SetMinimized(p11)
+	end)
+end
+
+function HamburgerButton(p12) -- line: 251
+	-- upvalues: useStyle (copy), FFlagTokenizeUnibarConstantsWithStyleProvider (copy), UnibarStyle (copy), Constants (copy), v55 (copy), useMappedSignal (copy), v41 (copy), CommonFtuxTooltip (copy), v40 (copy), GetFFlagIsSquadEnabled (copy), GetFStringConnectTooltipLocalStorageKey (copy), GetFIntRobloxConnectFtuxShowDelayMs (copy), GetFIntRobloxConnectFtuxDismissDelayMs (copy), React (copy), ImageSetLabel (copy), Images (copy), SelfieView (copy), Service (copy), SELFIE_VIEW_ID (copy), v39 (copy), AvatarSwitcherFtuxTooltip (copy)
+	local toggleTransition = p12.toggleTransition
+	local v70 = useStyle()
+	local ICON_SIZE, MEDIUM_ICON_SIZE
+
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		local v71 = UnibarStyle.use()
+
+		ICON_SIZE = v71.ICON_SIZE
+		MEDIUM_ICON_SIZE = v71.MEDIUM_ICON_SIZE
+	else
+		ICON_SIZE = Constants.ICON_SIZE
+		MEDIUM_ICON_SIZE = Constants.MEDIUM_ICON_SIZE
+	end
+
+	local v74 = not not v55 and (useMappedSignal(v55) or false)
+	local v75 = if not v41 then nil else CommonFtuxTooltip({
+		id = "CONNECT_TOOLTIP",
+		priority = v40,
+		isIconVisible = p12.visible,
+		headerKey = not GetFFlagIsSquadEnabled() and "CoreScripts.FTUX.Heading.CheckOutRobloxConnect" or "CoreScripts.FTUX.Heading.CheckOutRobloxParty",
+		bodyKey = not GetFFlagIsSquadEnabled() and "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime" or "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime",
+		localStorageKey = GetFStringConnectTooltipLocalStorageKey(),
+		showDelay = GetFIntRobloxConnectFtuxShowDelayMs(),
+		dismissDelay = GetFIntRobloxConnectFtuxDismissDelayMs()
+	})
+
+	return React.createElement("Frame", {
+		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		BorderSizePixel = 0,
+		BackgroundColor3 = v70.Theme.BackgroundOnHover.Color,
+		BackgroundTransparency = toggleTransition:map(function(p13) -- line: 292
+			-- upvalues: v70 (copy)
+			return 1 - (1 - v70.Theme.BackgroundOnHover.Transparency) * p13
+		end)
+	}, {
+		React.createElement("UICorner", {
+			Name = "Corner",
+			CornerRadius = UDim.new(1, 0)
+		}),
+		React.createElement(ImageSetLabel, {
+			Name = "Overflow",
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			BackgroundTransparency = 1,
+			Image = Images["icons/common/hamburgermenu"],
+			Size = toggleTransition:map(function(p14) -- line: 306
+				-- upvalues: ICON_SIZE (ref)
+				local v79 = 1 - p14
+
+				return UDim2.new(0, ICON_SIZE * v79, 0, ICON_SIZE * v79)
+			end),
+			ImageColor3 = v70.Theme.IconEmphasis.Color,
+			ImageTransparency = toggleTransition:map(function(p15) -- line: 312
+				-- upvalues: v70 (copy)
+				return p15 * v70.Theme.IconEmphasis.Transparency
+			end)
+		}),
+		React.createElement(ImageSetLabel, {
+			Name = "Close",
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			BackgroundTransparency = 1,
+			Image = Images["icons/navigation/close"],
+			Size = toggleTransition:map(function(p16) -- line: 322
+				-- upvalues: MEDIUM_ICON_SIZE (ref)
+				return UDim2.new(0, MEDIUM_ICON_SIZE * p16, 0, MEDIUM_ICON_SIZE * p16)
+			end),
+			ImageColor3 = v70.Theme.IconEmphasis.Color,
+			ImageTransparency = toggleTransition:map(function(p17) -- line: 327
+				-- upvalues: v70 (copy)
+				return (1 - p17) * v70.Theme.IconEmphasis.Transparency
+			end)
+		}),
+		if not SelfieView.useCameraOn() or (Service:isWindowOpen(SELFIE_VIEW_ID) or v74) then nil else React.createElement(SelfieView.CameraStatusDot, {
+			Name = "CameraStatusDot",
+			Position = UDim2.new(1, -4, 1, -7),
+			ZIndex = 2
+		}),
+		v75,
+		if not v39 then nil else React.createElement(AvatarSwitcherFtuxTooltip, {
+			visible = p12.visible
+		})
+	})
+end
+
+return Service:register({
+	initialAvailability = Service.AvailabilitySignal.Pinned,
+	id = "nine_dot",
+	label = "CoreScripts.TopBar.MoreMenu",
+	sideSheetPlacement = SideSheetPlacement.None,
+	isActivated = if not v35 then nil else function() -- line: 355
+		-- upvalues: v55 (copy)
+		return v55:get()
+	end,
+	components = {
+		Icon = function(p18) --[[ Icon ]] -- line: 360
+			-- upvalues: React (copy)
+			return React.createElement(HamburgerButton, p18)
+		end
+	}
+})

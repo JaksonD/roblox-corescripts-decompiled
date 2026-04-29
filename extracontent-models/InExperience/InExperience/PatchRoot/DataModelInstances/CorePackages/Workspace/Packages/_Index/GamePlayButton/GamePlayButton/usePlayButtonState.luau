@@ -1,107 +1,124 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("GamePlayButton");
-local v1 = require(l_script_FirstAncestor_0.PlayButtonStates);
-local v2 = require(l_script_FirstAncestor_0.FetchGamePlayButtonData);
-local v3 = require(l_script_FirstAncestor_0.ApiPostPreparePurchase);
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
-local v6 = require(l_Parent_0.React);
-local _ = require(l_Parent_0.PlayabilityRodux);
-local l_PlayabilityStatusEnum_0 = require(l_Parent_0.DiscoveryTypes).PlayabilityStatusEnum;
-local l_RetrievalStatus_0 = require(l_Parent_0.Http).Enum.RetrievalStatus;
-local v10 = require(l_Parent_0.RoactUtils);
-local l_useDispatch_0 = v10.Hooks.RoactRodux.useDispatch;
-local l_useSelector_0 = v10.Hooks.RoactRodux.useSelector;
-local l_FetchGamePlayabilityAndProductInfo_0 = require(l_Parent_0.GameDetailRodux).FetchGamePlayabilityAndProductInfo;
-local l_GamesProductInfoReducer_0 = require(l_Parent_0.GameProductInfoRodux).GamesProductInfoReducer;
-local l_useCurrentSquadSelector_0 = require(l_Parent_0.RoduxSquads).Hooks.useCurrentSquadSelector;
-local l_useIsExperienceInvitePending_0 = require(l_Parent_0.Squads).Hooks.useIsExperienceInvitePending;
-local l_useAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).useAppPolicy;
-local l_FFlagLuaAppParentUpsellPolicy_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppParentUpsellPolicy;
-local l_FFlagLuaAppEnablePlayableStateWhenLoading_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnablePlayableStateWhenLoading;
-local function v28(v20, v21, v22, v23, v24, v25, v26) --[[ Line: 30 ]] --[[ Name: selectPlayButtonState ]]
-    -- upvalues: l_RetrievalStatus_0 (copy), v1 (copy), l_PlayabilityStatusEnum_0 (copy), l_FFlagLuaAppParentUpsellPolicy_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy)
-    local v27 = nil;
-    v27 = if v20 == l_RetrievalStatus_0.Done and v21 ~= nil then if v21.isPlayable == true then v1.Playable else if v21.playabilityStatus == l_PlayabilityStatusEnum_0.PurchaseRequired and v22 ~= nil and v22.isForSale == true then v1.PaidAccess else if v21.playabilityStatus == l_PlayabilityStatusEnum_0.FiatPurchaseRequired and v22 ~= nil and v22.isForSale == true then v1.FiatPaidAccess else if v21.playabilityStatus == l_PlayabilityStatusEnum_0.ContextualPlayabilityUnverifiedSeventeenPlusUser then v1.ActionNeeded else if (not l_FFlagLuaAppParentUpsellPolicy_0 or v26) and v21.playabilityStatus == l_PlayabilityStatusEnum_0.ContextualPlayabilityAgeRecommendationParentalControls then v1.ActionNeeded else v1.UnplayableOther else v1.Playable;
-    if l_GetFFlagIsSquadEnabled_0() and v27 == v1.Playable and v23 and #v23.members > 1 and (not v25 or not v25.maxPlayers or v25.maxPlayers > 1) then
-        if v24 then
-            return v1.WaitingForParty;
-        else
-            v27 = v1.PlayableWithParty;
-        end;
-    end;
-    return v27;
-end;
-return function(v29, v30, v31, v32) --[[ Line: 94 ]]
-    -- upvalues: l_useDispatch_0 (copy), v6 (copy), v2 (copy), l_FFlagLuaAppParentUpsellPolicy_0 (copy), l_useAppPolicy_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_useCurrentSquadSelector_0 (copy), l_useIsExperienceInvitePending_0 (copy), l_useSelector_0 (copy), l_FFlagLuaAppEnablePlayableStateWhenLoading_0 (copy), v1 (copy), v3 (copy), l_RetrievalStatus_0 (copy), l_FetchGamePlayabilityAndProductInfo_0 (copy), l_GamesProductInfoReducer_0 (copy), v28 (copy)
-    local v33 = l_useDispatch_0();
-    v6.useEffect(function() --[[ Line: 97 ]]
-        -- upvalues: v31 (copy), v33 (copy), v2 (ref), v29 (copy), v30 (copy)
-        local v34 = nil;
-        if v31 ~= nil and v31 > 0 then
-            v34 = task.delay(v31, function() --[[ Line: 100 ]]
-                -- upvalues: v34 (ref), v33 (ref), v2 (ref), v29 (ref), v30 (ref)
-                v34 = nil;
-                v33(v2.Fetch(v29, v30));
-            end);
-        else
-            v33(v2.Fetch(v29, v30));
-        end;
-        return function() --[[ Line: 108 ]]
-            -- upvalues: v34 (ref)
-            if v34 ~= nil then
-                task.cancel(v34);
-            end;
-        end;
-    end, {
-        v30, 
-        v31
-    });
-    local v35 = nil;
-    if l_FFlagLuaAppParentUpsellPolicy_0 then
-        v35 = l_useAppPolicy_0(function(v36) --[[ Line: 117 ]]
-            return v36.getShouldShowVpcPlayButtonUpsells();
-        end);
-    end;
-    local v37 = if l_GetFFlagIsSquadEnabled_0() then l_useCurrentSquadSelector_0() else nil;
-    local v38 = if l_GetFFlagIsSquadEnabled_0() then l_useIsExperienceInvitePending_0() else nil;
-    local v40 = l_useSelector_0(function(v39) --[[ Line: 124 ]]
-        -- upvalues: v30 (copy)
-        return v39.PlayabilityStatus and v39.PlayabilityStatus[v30] or nil;
-    end);
-    return {
-        playButtonState = l_useSelector_0(function(v41) --[[ Line: 127 ]]
-            -- upvalues: v2 (ref), v30 (copy), l_FFlagLuaAppEnablePlayableStateWhenLoading_0 (ref), v32 (copy), l_GetFFlagIsSquadEnabled_0 (ref), v37 (copy), v38 (copy), v1 (ref), v3 (ref), l_RetrievalStatus_0 (ref), l_FetchGamePlayabilityAndProductInfo_0 (ref), l_GamesProductInfoReducer_0 (ref), v28 (ref), v40 (copy), l_FFlagLuaAppParentUpsellPolicy_0 (ref), v35 (ref)
-            if v2.IsLoading(v41, v30) then
-                if l_FFlagLuaAppEnablePlayableStateWhenLoading_0 then
-                    if v32 then
-                        if l_GetFFlagIsSquadEnabled_0() and v37 and #v37.members > 1 then
-                            if v38 then
-                                return v1.WaitingForParty;
-                            else
-                                return v1.PlayableWithParty;
-                            end;
-                        else
-                            return v1.Playable;
-                        end;
-                    else
-                        return v1.Loading;
-                    end;
-                else
-                    return v1.Loading;
-                end;
-            elseif v3.GetFetchingStatus(v41, v30) == l_RetrievalStatus_0.Fetching then
-                return v1.Loading;
-            else
-                local v42 = l_FetchGamePlayabilityAndProductInfo_0.GetFetchingStatus(v41, v30);
-                local v43 = v41[l_GamesProductInfoReducer_0.key] and v41[l_GamesProductInfoReducer_0.key][v30] or nil;
-                if l_GetFFlagIsSquadEnabled_0() then
-                    local v44 = v41.GameDetails[v30];
-                    return (v28(v42, v40, v43, v37, v38, v44, if l_FFlagLuaAppParentUpsellPolicy_0 then v35 else nil));
-                else
-                    return (v28(v42, v40, v43, nil, nil, nil, if l_FFlagLuaAppParentUpsellPolicy_0 then v35 else nil));
-                end;
-            end;
-        end), 
-        playabilityStatus = v40
-    };
-end;
+local GamePlayButton = script:FindFirstAncestor("GamePlayButton")
+local PlayButtonStates = require(GamePlayButton.PlayButtonStates)
+local FetchGamePlayButtonData = require(GamePlayButton.FetchGamePlayButtonData)
+local ApiPostPreparePurchase = require(GamePlayButton.ApiPostPreparePurchase)
+local GamePlayButtonParent = GamePlayButton.Parent
+local GetFFlagIsSquadEnabled = require(GamePlayButtonParent.SharedFlags).GetFFlagIsSquadEnabled
+local React = require(GamePlayButtonParent.React)
+
+require(GamePlayButtonParent.PlayabilityRodux)
+
+local PlayabilityStatusEnum = require(GamePlayButtonParent.DiscoveryTypes).PlayabilityStatusEnum
+local RetrievalStatus = require(GamePlayButtonParent.Http).Enum.RetrievalStatus
+local RoactUtils = require(GamePlayButtonParent.RoactUtils)
+local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
+local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
+local FetchGamePlayabilityAndProductInfo = require(GamePlayButtonParent.GameDetailRodux).FetchGamePlayabilityAndProductInfo
+local GamesProductInfoReducer = require(GamePlayButtonParent.GameProductInfoRodux).GamesProductInfoReducer
+local useCurrentSquadSelector = require(GamePlayButtonParent.RoduxSquads).Hooks.useCurrentSquadSelector
+local useIsExperienceInvitePending = require(GamePlayButtonParent.Squads).Hooks.useIsExperienceInvitePending
+local useAppPolicy = require(GamePlayButtonParent.UniversalAppPolicy).useAppPolicy
+local FFlagLuaAppParentUpsellPolicy = require(GamePlayButtonParent.SharedFlags).FFlagLuaAppParentUpsellPolicy
+local FFlagLuaAppEnablePlayableStateWhenLoading = require(GamePlayButtonParent.SharedFlags).FFlagLuaAppEnablePlayableStateWhenLoading
+local FFlagLuaAppPlayButtonAmpAgeCheckFlow = require(GamePlayButtonParent.SharedFlags).FFlagLuaAppPlayButtonAmpAgeCheckFlow
+
+local function selectPlayButtonState(p1, p2, p3, p4, b1: boolean?, p5, b2: boolean?) -- line: 31
+	-- upvalues: RetrievalStatus (copy), PlayButtonStates (copy), PlayabilityStatusEnum (copy), FFlagLuaAppPlayButtonAmpAgeCheckFlow (copy), FFlagLuaAppParentUpsellPolicy (copy), GetFFlagIsSquadEnabled (copy)
+	local v29 = if p1 ~= RetrievalStatus.Done or p2 == nil then PlayButtonStates.Playable else if p2.isPlayable ~= true then if p2.playabilityStatus ~= PlayabilityStatusEnum.PurchaseRequired or (p3 == nil or p3.isForSale ~= true) then if p2.playabilityStatus ~= PlayabilityStatusEnum.FiatPurchaseRequired or (p3 == nil or p3.isForSale ~= true) then if not FFlagLuaAppPlayButtonAmpAgeCheckFlow or p2.playabilityStatus ~= PlayabilityStatusEnum.ContextualPlayabilityUnverifiedSeventeenPlusUser and (not (not not (not FFlagLuaAppParentUpsellPolicy or b2) and p2.playabilityStatus == PlayabilityStatusEnum.ContextualPlayabilityAgeRecommendationParentalControls) and p2.playabilityStatus ~= PlayabilityStatusEnum.ContextualPlayabilityAgeCheckRequired) then if FFlagLuaAppPlayButtonAmpAgeCheckFlow or p2.playabilityStatus ~= PlayabilityStatusEnum.ContextualPlayabilityUnverifiedSeventeenPlusUser then if FFlagLuaAppPlayButtonAmpAgeCheckFlow or (not (not FFlagLuaAppParentUpsellPolicy or b2) or p2.playabilityStatus ~= PlayabilityStatusEnum.ContextualPlayabilityAgeRecommendationParentalControls) then PlayButtonStates.UnplayableOther else PlayButtonStates.ActionNeeded else PlayButtonStates.ActionNeeded else PlayButtonStates.ActionNeeded else PlayButtonStates.FiatPaidAccess else PlayButtonStates.PaidAccess else PlayButtonStates.Playable
+
+	if GetFFlagIsSquadEnabled() and (v29 == PlayButtonStates.Playable and p4 and #p4.members > 1) and (not p5 or not p5.maxPlayers or p5.maxPlayers > 1) then
+		if b1 then
+			return PlayButtonStates.WaitingForParty
+		end
+
+		v29 = PlayButtonStates.PlayableWithParty
+	end
+
+	return v29
+end
+
+return function(p6, p7, n1: number?, b3: boolean?) -- line: 109
+	-- upvalues: useDispatch (copy), React (copy), FetchGamePlayButtonData (copy), FFlagLuaAppParentUpsellPolicy (copy), useAppPolicy (copy), GetFFlagIsSquadEnabled (copy), useCurrentSquadSelector (copy), useIsExperienceInvitePending (copy), useSelector (copy), FFlagLuaAppEnablePlayableStateWhenLoading (copy), PlayButtonStates (copy), ApiPostPreparePurchase (copy), RetrievalStatus (copy), FetchGamePlayabilityAndProductInfo (copy), GamesProductInfoReducer (copy), selectPlayButtonState (copy)
+	local v34 = useDispatch()
+
+	React.useEffect(function() -- line: 112
+		-- upvalues: n1 (copy), v34 (copy), FetchGamePlayButtonData (copy), p6 (copy), p7 (copy)
+		local u39 = nil
+
+		if n1 ~= nil and n1 > 0 then
+			u39 = task.delay(n1, function() -- line: 115
+				-- upvalues: u39 (ref), v34 (copy), FetchGamePlayButtonData (copy), p6 (copy), p7 (copy)
+				u39 = nil
+				v34(FetchGamePlayButtonData.Fetch(p6, p7))
+			end)
+		else
+			v34(FetchGamePlayButtonData.Fetch(p6, p7))
+		end
+
+		return function() -- line: 123
+			-- upvalues: u39 (ref)
+			if u39 ~= nil then
+				task.cancel(u39)
+			end
+		end
+	end, {
+		p7,
+		n1
+	})
+
+	local u35 = nil
+
+	if FFlagLuaAppParentUpsellPolicy then
+		u35 = useAppPolicy(function(p8) -- line: 132
+			return p8.getShouldShowVpcPlayButtonUpsells()
+		end)
+	end
+
+	local v36 = if not GetFFlagIsSquadEnabled() then nil else useCurrentSquadSelector()
+	local v37 = if not GetFFlagIsSquadEnabled() then nil else useIsExperienceInvitePending()
+	local v38 = useSelector(function(p9) -- line: 139
+		-- upvalues: p7 (copy)
+		return p9.PlayabilityStatus and p9.PlayabilityStatus[p7] or nil
+	end)
+
+	return {
+		playButtonState = useSelector(function(p10) -- line: 142
+			-- upvalues: FetchGamePlayButtonData (copy), p7 (copy), FFlagLuaAppEnablePlayableStateWhenLoading (copy), b3 (copy), GetFFlagIsSquadEnabled (copy), v36 (copy), v37 (copy), PlayButtonStates (copy), ApiPostPreparePurchase (copy), RetrievalStatus (copy), FetchGamePlayabilityAndProductInfo (copy), GamesProductInfoReducer (copy), selectPlayButtonState (copy), v38 (copy), FFlagLuaAppParentUpsellPolicy (copy), u35 (ref)
+			if FetchGamePlayButtonData.IsLoading(p10, p7) then
+				if FFlagLuaAppEnablePlayableStateWhenLoading then
+					if b3 then
+						if GetFFlagIsSquadEnabled() and v36 and #v36.members > 1 then
+							if v37 then
+								return PlayButtonStates.WaitingForParty
+							end
+
+							return PlayButtonStates.PlayableWithParty
+						end
+
+						return PlayButtonStates.Playable
+					end
+
+					return PlayButtonStates.Loading
+				end
+
+				return PlayButtonStates.Loading
+			end
+
+			if ApiPostPreparePurchase.GetFetchingStatus(p10, p7) == RetrievalStatus.Fetching then
+				return PlayButtonStates.Loading
+			end
+
+			local v43 = FetchGamePlayabilityAndProductInfo.GetFetchingStatus(p10, p7)
+			local v44 = p10[GamesProductInfoReducer.key] and p10[GamesProductInfoReducer.key][p7] or nil
+
+			if GetFFlagIsSquadEnabled() then
+				local v45 = p10.GameDetails[p7]
+
+				return (selectPlayButtonState(v43, v38, v44, v36, v37, v45, if not FFlagLuaAppParentUpsellPolicy then nil else u35))
+			end
+
+			return (selectPlayButtonState(v43, v38, v44, nil, nil, nil, if not FFlagLuaAppParentUpsellPolicy then nil else u35))
+		end),
+		playabilityStatus = v38
+	}
+end

@@ -1,176 +1,197 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_HttpService_0 = game:GetService("HttpService");
-local v3 = require(l_Parent_0.Foundation);
-local v4 = require(l_Parent_0.UIBlox);
-local v5 = require(l_Parent_0.SocialCommon);
-local v6 = require(l_Parent_0.RobloxAppEnums);
-local l_Images_0 = v4.App.ImageSet.Images;
-local l_ButtonVariant_0 = v3.Enums.ButtonVariant;
-local l_ContextualInfoTypes_0 = v5.Enums.ContextualInfoTypes;
-local l_AppPage_0 = v6.AppPage;
-local l_SetCurrentToastMessage_0 = require(l_Parent_0.ToastRodux).Actions.SetCurrentToastMessage;
-local l_NavigateDown_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateDown;
-local v13 = require(l_script_FirstAncestor_0.Networking.NetworkingFriends);
-local v14 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatformActionInfo);
-local v15 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatform);
-local v16 = require(l_script_FirstAncestor_0.Common.Constants);
-local v17 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-local v19 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local l_FriendRequestNicknamesIXP_0 = require(l_Parent_0.FriendRequestNicknames).FriendRequestNicknamesIXP;
-local l_USER_FRIENDING_ERRORS_0 = v16.USER_FRIENDING_ERRORS;
-local l_STATUS_CODES_0 = v16.STATUS_CODES;
-local function v32(v23, v24, v25) --[[ Line: 31 ]] --[[ Name: setErrorToast ]]
-    -- upvalues: v17 (copy), l_STATUS_CODES_0 (copy), l_USER_FRIENDING_ERRORS_0 (copy), l_HttpService_0 (copy), l_SetCurrentToastMessage_0 (copy)
-    local function v28(v26, v27) --[[ Line: 32 ]] --[[ Name: getErrorToastMessage ]]
-        -- upvalues: v24 (copy), v17 (ref), l_STATUS_CODES_0 (ref), l_USER_FRIENDING_ERRORS_0 (ref), v23 (copy)
-        if v24 == v17.ProfileActions.AddFriend or v24 == v17.ProfileActions.AddFriendFromContacts then
-            if v26 == l_STATUS_CODES_0.BAD_REQUEST then
-                return ({
-                    [l_USER_FRIENDING_ERRORS_0.INVALID_TARGET_USER_ERROR] = v23.localized.invalidTargetUserError, 
-                    [l_USER_FRIENDING_ERRORS_0.ALREADY_FRIEND_ERROR] = v23.localized.alreadyFriendError, 
-                    [l_USER_FRIENDING_ERRORS_0.MAX_FRIENDS_ERROR] = v23.localized.maxFriendsError, 
-                    [l_USER_FRIENDING_ERRORS_0.INVALID_NICKNAME_ERROR] = v23.localized.invalidNicknameError
-                })[v27];
-            elseif v26 == l_STATUS_CODES_0.UNAUTHORIZED then
-                return ({
-                    [l_USER_FRIENDING_ERRORS_0.UNAUTHORIZED_ERROR] = v23.localized.unauthorizedError
-                })[v27];
-            elseif v26 == l_STATUS_CODES_0.FORBIDDEN then
-                return ({
-                    [l_USER_FRIENDING_ERRORS_0.USER_BANNED_ERROR] = v23.localized.userBannedError, 
-                    [l_USER_FRIENDING_ERRORS_0.USER_BLOCKED_ERROR] = v23.localized.userBlockedError, 
-                    [l_USER_FRIENDING_ERRORS_0.USER_NOT_PASSED_CAPTCHA_ERROR] = v23.localized.userNotPassedCaptchaError
-                })[v27];
-            elseif v26 == l_STATUS_CODES_0.TOO_MANY_REQUESTS then
-                return ({
-                    [l_USER_FRIENDING_ERRORS_0.TOO_MANY_REQUESTS_ERROR] = v23.localized.tooManyRequestsError
-                })[v27];
-            end;
-        end;
-        return nil;
-    end;
-    if v25 ~= nil then
-        local l_StatusCode_0 = v25.StatusCode;
-        local v30 = if v25.Body then l_HttpService_0:JSONDecode(v25.Body) else nil;
-        local v31 = v28(l_StatusCode_0, if v30 and v30.errors and v30.errors[1] and v30.errors[1].code then v30.errors[1].code else nil) or v23.localized.defaultFriendingError;
-        v23.dispatch(l_SetCurrentToastMessage_0({
-            toastMessage = v31, 
-            isLocalized = true
-        }));
-        return;
-    else
-        v23.dispatch(l_SetCurrentToastMessage_0({
-            toastMessage = v23.localized.defaultFriendingError, 
-            isLocalized = true
-        }));
-        return;
-    end;
-end;
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local HttpService = game:GetService("HttpService")
+local Foundation = require(ProfilePlatformParent.Foundation)
+local UIBlox = require(ProfilePlatformParent.UIBlox)
+local SocialCommon = require(ProfilePlatformParent.SocialCommon)
+local RobloxAppEnums = require(ProfilePlatformParent.RobloxAppEnums)
+local Images = UIBlox.App.ImageSet.Images
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local ContextualInfoTypes = SocialCommon.Enums.ContextualInfoTypes
+local AppPage = RobloxAppEnums.AppPage
+local SetCurrentToastMessage = require(ProfilePlatformParent.ToastRodux).Actions.SetCurrentToastMessage
+local NavigateDown = require(ProfilePlatformParent.NavigationRodux).Thunks.NavigateDown
+local NetworkingFriends = require(ProfilePlatform.Networking.NetworkingFriends)
+local refreshProfilePlatformActionInfo = require(ProfilePlatform.Networking.refreshProfilePlatformActionInfo)
+local refreshProfilePlatform = require(ProfilePlatform.Networking.refreshProfilePlatform)
+local Constants = require(ProfilePlatform.Common.Constants)
+local Enums = require(ProfilePlatform.Common.Enums)
+
+require(ProfilePlatform.Components.CTARow.Types)
+
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local ProfileTypes = Enums.ProfileTypes
+local FriendRequestNicknamesIXP = require(ProfilePlatformParent.FriendRequestNicknames).FriendRequestNicknamesIXP
+local USER_FRIENDING_ERRORS = Constants.USER_FRIENDING_ERRORS
+local STATUS_CODES = Constants.STATUS_CODES
+
+local function setErrorToast(p1, s1: string, p2) -- line: 32
+	-- upvalues: Enums (copy), STATUS_CODES (copy), USER_FRIENDING_ERRORS (copy), HttpService (copy), SetCurrentToastMessage (copy)
+	if p2 ~= nil then
+		local StatusCode = p2.StatusCode
+		local v29 = if not p2.Body then nil else HttpService:JSONDecode(p2.Body)
+		local v30 = (function(p3, p4) --[[ getErrorToastMessage ]] -- line: 33
+			-- upvalues: s1 (copy), Enums (copy), STATUS_CODES (copy), USER_FRIENDING_ERRORS (copy), p1 (copy)
+			if s1 == Enums.ProfileActions.AddFriend or s1 == Enums.ProfileActions.AddFriendFromContacts then
+				if p3 == STATUS_CODES.BAD_REQUEST then
+					return ({
+						[USER_FRIENDING_ERRORS.INVALID_TARGET_USER_ERROR] = p1.localized.invalidTargetUserError,
+						[USER_FRIENDING_ERRORS.ALREADY_FRIEND_ERROR] = p1.localized.alreadyFriendError,
+						[USER_FRIENDING_ERRORS.MAX_FRIENDS_ERROR] = p1.localized.maxFriendsError,
+						[USER_FRIENDING_ERRORS.INVALID_NICKNAME_ERROR] = p1.localized.invalidNicknameError
+					})[p4]
+				end
+
+				if p3 == STATUS_CODES.UNAUTHORIZED then
+					return ({
+						[USER_FRIENDING_ERRORS.UNAUTHORIZED_ERROR] = p1.localized.unauthorizedError
+					})[p4]
+				end
+
+				if p3 == STATUS_CODES.FORBIDDEN then
+					return ({
+						[USER_FRIENDING_ERRORS.USER_BANNED_ERROR] = p1.localized.userBannedError,
+						[USER_FRIENDING_ERRORS.USER_BLOCKED_ERROR] = p1.localized.userBlockedError,
+						[USER_FRIENDING_ERRORS.USER_NOT_PASSED_CAPTCHA_ERROR] = p1.localized.userNotPassedCaptchaError
+					})[p4]
+				end
+
+				if p3 == STATUS_CODES.TOO_MANY_REQUESTS then
+					return ({
+						[USER_FRIENDING_ERRORS.TOO_MANY_REQUESTS_ERROR] = p1.localized.tooManyRequestsError
+					})[p4]
+				end
+			end
+
+			return nil
+		end)(StatusCode, (if not v29 or (not v29.errors or (not v29.errors[1] or not v29.errors[1].code)) then nil else v29.errors[1].code)) or p1.localized.defaultFriendingError
+
+		p1.dispatch(SetCurrentToastMessage({
+			toastMessage = v30,
+			isLocalized = true
+		}))
+
+		return
+	end
+
+	p1.dispatch(SetCurrentToastMessage({
+		toastMessage = p1.localized.defaultFriendingError,
+		isLocalized = true
+	}))
+end
+
 return {
-    [v17.ProfileActions.AddFriend] = function(v33) --[[ Line: 83 ]]
-        -- upvalues: v17 (copy), l_ButtonVariant_0 (copy), v19 (copy), l_FriendRequestNicknamesIXP_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_SetCurrentToastMessage_0 (copy), l_Images_0 (copy), v13 (copy), v14 (copy), v32 (copy)
-        return {
-            text = v33.localized[v17.ProfileActions.AddFriend], 
-            variant = l_ButtonVariant_0.Emphasis, 
-            onActivated = function() --[[ Line: 87 ]] --[[ Name: onActivated ]]
-                -- upvalues: v33 (copy), v19 (ref), v17 (ref), l_FriendRequestNicknamesIXP_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_SetCurrentToastMessage_0 (ref), l_Images_0 (ref), v13 (ref), v14 (ref), v32 (ref)
-                v33.analytics.fireAnalyticsEvent(v19.CTAButtonAddFriend, {
-                    buttonSurface = v33.buttonSurface, 
-                    absolutePosition = v33.profileWrapperContext.sourceInfo.homepageCarouselAbsolutePosition, 
-                    isHomePageCarousel = v33.profileWrapperContext.sourceInfo.source == v17.Sources.HomepageFriendsCarousel, 
-                    isRecommendation = v33.profileWrapperContext.sourceInfo.isRecommendation, 
-                    source = v33.profileWrapperContext.sourceInfo.source, 
-                    contextualInfoType = v33.profileWrapperContext.sourceInfo.contextualInfoType, 
-                    recommendationContextType = v33.profileWrapperContext.sourceInfo.recommendationContextType, 
-                    recommendationRank = v33.profileWrapperContext.sourceInfo.recommendationRank, 
-                    recommendationSessionId = v33.profileWrapperContext.sourceInfo.recommendationSessionId
-                });
-                if l_FriendRequestNicknamesIXP_0.FFlagFriendRequestNicknames and v33.friendRequestNicknamesEnabled then
-                    return v33.dispatch(l_NavigateDown_0({
-                        name = l_AppPage_0.SetNicknameModal, 
-                        extraProps = {
-                            friendRequestParams = {
-                                targetUserId = v33.profileId, 
-                                source = v33.profileWrapperContext.sourceInfo.friendshipOriginSourceType
-                            }
-                        }
-                    }));
-                else
-                    v33.dispatch(l_SetCurrentToastMessage_0({
-                        toastMessage = v33.localized.friendRequestSentToast, 
-                        toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                        isLocalized = true
-                    }));
-                    return v33.dispatch(v13.RequestFriendshipFromUserId.API({
-                        targetUserId = v33.profileId, 
-                        currentUserId = v33.localUserId, 
-                        friendshipOriginSourceType = v33.profileWrapperContext.sourceInfo.friendshipOriginSourceType
-                    })):andThen(function() --[[ Line: 123 ]]
-                        -- upvalues: v33 (ref), v14 (ref)
-                        return v33.dispatch(v14(v33.profileId));
-                    end):catch(function(v34) --[[ Line: 126 ]]
-                        -- upvalues: v32 (ref), v33 (ref), v17 (ref)
-                        v32(v33, v17.ProfileActions.AddFriend, v34);
-                    end);
-                end;
-            end
-        };
-    end, 
-    [v17.ProfileActions.AddFriendFromContacts] = function(v35) --[[ Line: 134 ]]
-        -- upvalues: l_ButtonVariant_0 (copy), v17 (copy), l_SetCurrentToastMessage_0 (copy), l_Images_0 (copy), v13 (copy), l_ContextualInfoTypes_0 (copy), v15 (copy), v32 (copy)
-        return {
-            variant = l_ButtonVariant_0.Emphasis, 
-            text = v35.localized[v17.ProfileActions.AddFriendFromContacts], 
-            onActivated = function() --[[ Line: 138 ]] --[[ Name: onActivated ]]
-                -- upvalues: v35 (copy), l_SetCurrentToastMessage_0 (ref), l_Images_0 (ref), v13 (ref), l_ContextualInfoTypes_0 (ref), v15 (ref), v17 (ref), v32 (ref)
-                v35.dispatch(l_SetCurrentToastMessage_0({
-                    toastMessage = v35.localized.friendRequestSentToast, 
-                    toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                    isLocalized = true
-                }));
-                return v35.dispatch(v13.RequestFriendshipFromContactId.API({
-                    currentUserId = v35.localUserId, 
-                    contactId = v35.profileId, 
-                    contextType = l_ContextualInfoTypes_0.Contacts
-                })):andThen(function() --[[ Line: 150 ]]
-                    -- upvalues: v35 (ref), v15 (ref), v17 (ref)
-                    return v35.dispatch(v15({
-                        profileType = v35.profileType, 
-                        profileId = v35.profileId, 
-                        components = {
-                            v17.Components.ContactProfileHeader, 
-                            v17.Components.Actions, 
-                            v17.Components.ContactDescription
-                        }
-                    }));
-                end):catch(function(v36) --[[ Line: 161 ]]
-                    -- upvalues: v32 (ref), v35 (ref), v17 (ref)
-                    v32(v35, v17.ProfileActions.AddFriendFromContacts, v36);
-                end);
-            end
-        };
-    end, 
-    [v17.ProfileActions.AddFriendFromContactsSent] = function(v37) --[[ Line: 168 ]]
-        -- upvalues: l_ButtonVariant_0 (copy), v17 (copy)
-        return {
-            variant = l_ButtonVariant_0.Subtle, 
-            text = v37.localized[v17.ProfileActions.AddFriendFromContactsSent], 
-            onActivated = function() --[[ Line: 172 ]] --[[ Name: onActivated ]]
+	[Enums.ProfileActions.AddFriend] = function(p5) -- line: 84
+		-- upvalues: Enums (copy), ButtonVariant (copy), ProfileTypes (copy), EventNames (copy), FriendRequestNicknamesIXP (copy), NavigateDown (copy), AppPage (copy), SetCurrentToastMessage (copy), Images (copy), NetworkingFriends (copy), refreshProfilePlatformActionInfo (copy), setErrorToast (copy)
+		return {
+			text = p5.localized[Enums.ProfileActions.AddFriend],
+			variant = ButtonVariant.Emphasis,
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 89
+					-- upvalues: p5 (copy), EventNames (copy), Enums (copy), FriendRequestNicknamesIXP (copy), NavigateDown (copy), AppPage (copy), SetCurrentToastMessage (copy), Images (copy), NetworkingFriends (copy), refreshProfilePlatformActionInfo (copy), setErrorToast (copy)
+					p5.analytics.fireAnalyticsEvent(EventNames.CTAButtonAddFriend, {
+						buttonSurface = p5.buttonSurface,
+						absolutePosition = p5.profileWrapperContext.sourceInfo.homepageCarouselAbsolutePosition,
+						isHomePageCarousel = p5.profileWrapperContext.sourceInfo.source == Enums.Sources.HomepageFriendsCarousel,
+						isRecommendation = p5.profileWrapperContext.sourceInfo.isRecommendation,
+						source = p5.profileWrapperContext.sourceInfo.source,
+						contextualInfoType = p5.profileWrapperContext.sourceInfo.contextualInfoType,
+						recommendationContextType = p5.profileWrapperContext.sourceInfo.recommendationContextType,
+						recommendationRank = p5.profileWrapperContext.sourceInfo.recommendationRank,
+						recommendationSessionId = p5.profileWrapperContext.sourceInfo.recommendationSessionId
+					})
 
-            end, 
-            isDisabled = true
-        };
-    end, 
-    [v17.ProfileActions.CannotAddFriend] = function(v38) --[[ Line: 177 ]]
-        -- upvalues: v17 (copy)
-        return {
-            text = v38.localized[v17.ProfileActions.CannotAddFriend], 
-            onActivated = function() --[[ Line: 180 ]] --[[ Name: onActivated ]]
+					if FriendRequestNicknamesIXP.FFlagFriendRequestNicknames and p5.friendRequestNicknamesEnabled then
+						return p5.dispatch(NavigateDown({
+							name = AppPage.SetNicknameModal,
+							extraProps = {
+								friendRequestParams = {
+									targetUserId = p5.profileId,
+									source = p5.profileWrapperContext.sourceInfo.friendshipOriginSourceType
+								}
+							}
+						}))
+					end
 
-            end, 
-            isDisabled = true
-        };
-    end
-};
+					p5.dispatch(SetCurrentToastMessage({
+						toastMessage = p5.localized.friendRequestSentToast,
+						toastIcon = Images["icons/actions/friends/friendAdd"],
+						isLocalized = true
+					}))
+
+					return p5.dispatch(NetworkingFriends.RequestFriendshipFromUserId.API({
+						targetUserId = p5.profileId,
+						currentUserId = p5.localUserId,
+						friendshipOriginSourceType = p5.profileWrapperContext.sourceInfo.friendshipOriginSourceType
+					})):andThen(function() -- line: 127
+						-- upvalues: p5 (copy), refreshProfilePlatformActionInfo (copy)
+						return p5.dispatch(refreshProfilePlatformActionInfo(p5.profileId))
+					end):catch(function(p6) -- line: 130
+						-- upvalues: setErrorToast (copy), p5 (copy), Enums (copy)
+						setErrorToast(p5, Enums.ProfileActions.AddFriend, p6)
+					end)
+				end
+			}
+		}
+	end,
+	[Enums.ProfileActions.AddFriendFromContacts] = function(p7) -- line: 139
+		-- upvalues: ButtonVariant (copy), Enums (copy), ProfileTypes (copy), SetCurrentToastMessage (copy), Images (copy), NetworkingFriends (copy), ContextualInfoTypes (copy), refreshProfilePlatform (copy), setErrorToast (copy)
+		return {
+			variant = ButtonVariant.Emphasis,
+			text = p7.localized[Enums.ProfileActions.AddFriendFromContacts],
+			onActivated = {
+				[ProfileTypes.Contact] = function() -- line: 144
+					-- upvalues: p7 (copy), SetCurrentToastMessage (copy), Images (copy), NetworkingFriends (copy), ContextualInfoTypes (copy), refreshProfilePlatform (copy), Enums (copy), setErrorToast (copy)
+					p7.dispatch(SetCurrentToastMessage({
+						toastMessage = p7.localized.friendRequestSentToast,
+						toastIcon = Images["icons/actions/friends/friendAdd"],
+						isLocalized = true
+					}))
+
+					return p7.dispatch(NetworkingFriends.RequestFriendshipFromContactId.API({
+						currentUserId = p7.localUserId,
+						contactId = p7.profileId,
+						contextType = ContextualInfoTypes.Contacts
+					})):andThen(function() -- line: 156
+						-- upvalues: p7 (copy), refreshProfilePlatform (copy), Enums (copy)
+						return p7.dispatch(refreshProfilePlatform({
+							profileType = p7.profileType,
+							profileId = p7.profileId,
+							components = {
+								Enums.Components.ContactProfileHeader,
+								Enums.Components.Actions,
+								Enums.Components.ContactDescription
+							}
+						}))
+					end):catch(function(p8) -- line: 167
+						-- upvalues: setErrorToast (copy), p7 (copy), Enums (copy)
+						setErrorToast(p7, Enums.ProfileActions.AddFriendFromContacts, p8)
+					end)
+				end
+			}
+		}
+	end,
+	[Enums.ProfileActions.AddFriendFromContactsSent] = function(p9) -- line: 175
+		-- upvalues: ButtonVariant (copy), Enums (copy), ProfileTypes (copy)
+		return {
+			variant = ButtonVariant.Subtle,
+			text = p9.localized[Enums.ProfileActions.AddFriendFromContactsSent],
+			onActivated = {
+				[ProfileTypes.Contact] = function() -- line: 180
+				end
+			},
+			isDisabled = true
+		}
+	end,
+	[Enums.ProfileActions.CannotAddFriend] = function(p10) -- line: 186
+		-- upvalues: Enums (copy), ProfileTypes (copy)
+		return {
+			text = p10.localized[Enums.ProfileActions.CannotAddFriend],
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 190
+				end
+			},
+			isDisabled = true
+		}
+	end
+}

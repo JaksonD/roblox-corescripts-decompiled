@@ -1,102 +1,144 @@
-local l_Parent_0 = script:FindFirstAncestor("AppBlox").Parent;
-local v1 = require(l_Parent_0.React);
-local v2 = require(l_Parent_0.Foundation);
-local l_useBreakpoint_0 = require(l_Parent_0.Foundation).Hooks.useBreakpoint;
-local l_useResponsive_0 = require(l_Parent_0.Foundation).Hooks.useResponsive;
-local l_ResponsiveProvider_0 = require(l_Parent_0.Foundation).ResponsiveProvider;
-local v6 = require(l_Parent_0.Cryo);
-local v7 = game:DefineFastFlag("LuaAppInfoTableResponsiveProviderOverride", false);
-local v8 = game:DefineFastFlag("LuaAppInfoTableWorkaroundGridJank2", false) and v7;
-local l_Breakpoint_0 = v2.Enums.Breakpoint;
-return v1.memo(function(v10) --[[ Line: 41 ]] --[[ Name: InfoTable ]]
-    -- upvalues: v8 (copy), v1 (copy), v2 (copy), v7 (copy), l_useResponsive_0 (copy), v6 (copy), l_Breakpoint_0 (copy), l_useBreakpoint_0 (copy), l_ResponsiveProvider_0 (copy)
-    local v11 = if v10.numColumns and v10.numColumns > 0 then v10.numColumns else 1;
-    local v12 = nil;
-    local v13 = nil;
-    local v14 = nil;
-    local v15 = nil;
-    if v8 then
-        local v16, v17 = v1.useState(false);
-        v12 = v16;
-        v13 = v17;
-        v16, v17 = v1.useState(nil);
-        v14 = v16;
-        v15 = v17;
-    end;
-    local v18 = {};
-    local v19 = 12 / v11;
-    if not v8 or v12 then
-        for v20, v21 in v10.items do
-            v18[("Cell_%*"):format(v20)] = v1.createElement(v2.Grid.Cell, {
-                size = v19, 
-                tag = "size-full-0 auto-y", 
-                LayoutOrder = v20
-            }, v21);
-        end;
-    end;
-    local v22 = nil;
-    if v7 then
-        local v23 = l_useResponsive_0();
-        v22 = v6.Dictionary.join(v23.config, {
-            grid = v6.Dictionary.join(v23.config.grid, {
-                margins = {
-                    [l_Breakpoint_0.XSmall] = 0, 
-                    [l_Breakpoint_0.Small] = 0, 
-                    [l_Breakpoint_0.Medium] = 0, 
-                    [l_Breakpoint_0.Large] = 0, 
-                    [l_Breakpoint_0.XLarge] = 0, 
-                    [l_Breakpoint_0.XXLarge] = 0
-                }
-            })
-        });
-    end;
-    if v8 then
-        local _, v25 = l_useBreakpoint_0(v14);
-        v1.useEffect(function() --[[ Line: 82 ]]
-            -- upvalues: v25 (copy), v13 (ref)
-            if v25.X > 0 then
-                task.defer(function() --[[ Line: 84 ]]
-                    -- upvalues: v13 (ref)
-                    v13(true);
-                end);
-            end;
-        end, {
-            v25.X
-        });
-        return v1.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            BackgroundTransparency = 1, 
-            LayoutOrder = v10.LayoutOrder, 
-            ref = v15
-        }, {
-            ContentFrame = v1.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, 0), 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundTransparency = 1, 
-                LayoutOrder = v10.LayoutOrder
-            }, {
-                Grid = v1.createElement(l_ResponsiveProvider_0, {
-                    config = v22
-                }, v1.createElement(v2.Grid.Root, {
-                    tag = v10.gridTag, 
-                    testId = v10.testId
-                }, v18))
-            })
-        });
-    elseif v7 then
-        return v1.createElement(l_ResponsiveProvider_0, {
-            config = v22
-        }, v1.createElement(v2.Grid.Root, {
-            tag = v10.gridTag, 
-            LayoutOrder = v10.LayoutOrder, 
-            testId = v10.testId
-        }, v18));
-    else
-        return v1.createElement(v2.Grid.Root, {
-            tag = v10.gridTag, 
-            LayoutOrder = v10.LayoutOrder, 
-            testId = v10.testId
-        }, v18);
-    end;
-end);
+local Parent = script:FindFirstAncestor("AppBlox").Parent
+local React = require(Parent.React)
+local Foundation = require(Parent.Foundation)
+local useBreakpoint = require(Parent.Foundation).Hooks.useBreakpoint
+local useResponsive = require(Parent.Foundation).Hooks.useResponsive
+local ResponsiveProvider = require(Parent.Foundation).ResponsiveProvider
+local Cryo = require(Parent.Cryo)
+local v8 = game:DefineFastFlag("LuaAppInfoTableResponsiveProviderOverride", false)
+local v9 = game:DefineFastFlag("LuaAppInfoTableWorkaroundGridJank2", false) and v8
+local FFlagSduiExperienceDetailsSupport = require(Parent.SharedFlags).FFlagSduiExperienceDetailsSupport
+local Breakpoint = Foundation.Enums.Breakpoint
+
+local function buildColumnMajorChildren(t1: {[any]: any}, n1: number, n2: number) -- line: 27
+	-- upvalues: React (copy), Foundation (copy)
+	local v16 = #t1
+	local v17 = math.ceil(v16 / n1)
+	local t2 = {}
+	local n3 = 0
+
+	for i = 1, v17 do
+		for j = 1, n1 do
+			n3 += 1
+
+			local v22 = (j - 1) * v17 + i
+			local v23 = if not (v22 <= v16) then React.createElement(Foundation.View, {
+				tag = "size-full-0 auto-y",
+				BackgroundTransparency = 1
+			}) else t1[v22]
+
+			t2[`Cell_{ n3 }`] = React.createElement(Foundation.Grid.Cell, {
+				size = n2,
+				tag = "size-full-0 auto-y",
+				LayoutOrder = n3
+			}, v23)
+		end
+	end
+
+	return t2
+end
+
+return React.memo(function(t3: {[any]: any}) --[[ InfoTable ]] -- line: 75
+	-- upvalues: v9 (copy), React (copy), FFlagSduiExperienceDetailsSupport (copy), buildColumnMajorChildren (copy), Foundation (copy), v8 (copy), useResponsive (copy), Cryo (copy), Breakpoint (copy), useBreakpoint (copy), ResponsiveProvider (copy)
+	local v25 = (not t3.numColumns or not (t3.numColumns > 0)) and 1 or t3.numColumns
+	local v26 = nil
+	local u27 = nil
+	local v28 = nil
+	local v29 = nil
+
+	if v9 then
+		local v30
+
+		v26, v30 = React.useState(false)
+		u27 = v30
+		v28, v29 = React.useState(nil)
+	end
+
+	local t4 = {}
+	local v32 = 12 / v25
+
+	if not v9 or v26 then
+		if FFlagSduiExperienceDetailsSupport and v25 > 1 then
+			t4 = buildColumnMajorChildren(t3.items, v25, v32)
+		else
+			for v33, v34 in t3.items do
+				t4[`Cell_{ v33 }`] = React.createElement(Foundation.Grid.Cell, {
+					size = v32,
+					tag = "size-full-0 auto-y",
+					LayoutOrder = v33
+				}, v34)
+			end
+		end
+	end
+
+	local v35 = nil
+
+	if v8 then
+		local v36 = useResponsive()
+
+		v35 = Cryo.Dictionary.join(v36.config, {
+			grid = Cryo.Dictionary.join(v36.config.grid, {
+				margins = {
+					[Breakpoint.XSmall] = 0,
+					[Breakpoint.Small] = 0,
+					[Breakpoint.Medium] = 0,
+					[Breakpoint.Large] = 0,
+					[Breakpoint.XLarge] = 0,
+					[Breakpoint.XXLarge] = 0
+				}
+			})
+		})
+	end
+
+	if v9 then
+		local _, v38 = useBreakpoint(v28)
+
+		React.useEffect(function() -- line: 120
+			-- upvalues: v38 (copy), u27 (ref)
+			if v38.X > 0 then
+				task.defer(function() -- line: 122
+					-- upvalues: u27 (ref)
+					u27(true)
+				end)
+			end
+		end, { v38.X })
+
+		return React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = t3.LayoutOrder,
+			ref = v29
+		}, {
+			ContentFrame = React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				LayoutOrder = t3.LayoutOrder
+			}, {
+				Grid = React.createElement(ResponsiveProvider, {
+					config = v35
+				}, React.createElement(Foundation.Grid.Root, {
+					tag = t3.gridTag,
+					testId = t3.testId
+				}, t4))
+			})
+		})
+	end
+
+	if v8 then
+		return React.createElement(ResponsiveProvider, {
+			config = v35
+		}, React.createElement(Foundation.Grid.Root, {
+			tag = t3.gridTag,
+			LayoutOrder = t3.LayoutOrder,
+			testId = t3.testId
+		}, t4))
+	end
+
+	return React.createElement(Foundation.Grid.Root, {
+		tag = t3.gridTag,
+		LayoutOrder = t3.LayoutOrder,
+		testId = t3.testId
+	}, t4)
+end)

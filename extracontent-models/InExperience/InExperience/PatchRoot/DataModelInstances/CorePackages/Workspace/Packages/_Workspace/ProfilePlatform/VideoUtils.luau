@@ -1,2 +1,3 @@
-local l__Index_0 = script.Parent.Parent.Parent._Index;
-return (require(l__Index_0.VideoUtils.VideoUtils));
+local _Index = script.Parent.Parent.Parent._Index
+
+return (require(_Index.VideoUtils.VideoUtils))

@@ -1,1702 +1,1907 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("LoginV2");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_HttpService_0 = game:GetService("HttpService");
-local l_UserInputService_0 = game:GetService("UserInputService");
-local l_GuiService_0 = game:GetService("GuiService");
-local l_AppStorageService_0 = game:GetService("AppStorageService");
-local l_MemStorageService_0 = game:GetService("MemStorageService");
-local l_ContentProvider_0 = game:GetService("ContentProvider");
-local v8 = require(l_script_FirstAncestor_0.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local l_UserIdentifierType_0 = v8.UserIdentifierType;
-local v11 = require(l_Parent_0.React);
-local v12 = require(l_Parent_0.Promise);
-local v13 = require(l_Parent_0.AuthCommon);
-local v14 = require(l_Parent_0.OtpLogin);
-local _ = require(l_Parent_0.LuauPolyfill);
-local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_useRoactService_0 = require(l_Parent_0.RobloxAppHooks).useRoactService;
-local l_useAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).useAppPolicy;
-local l_LaunchContext_0 = require(l_Parent_0.AppStartup).Enums.LaunchContext;
-local l_CloseCentralOverlay_0 = require(l_Parent_0.CentralOverlay).Thunks.CloseCentralOverlay;
-local l_SetCentralOverlay_0 = require(l_Parent_0.CentralOverlay).Actions.SetCentralOverlay;
-local l_NotificationType_0 = require(l_Parent_0.RobloxAppEnums).NotificationType;
-local l_CentralOverlayType_0 = require(l_Parent_0.RobloxAppEnums).CentralOverlayType;
-local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local l_OpenAccountSwitchingErrorOverlay_0 = require(l_Parent_0.AccountSwitcher).OpenAccountSwitchingErrorOverlay;
-local l_RenderChallenge_0 = require(l_Parent_0.GenericChallenges).Middleware.RenderChallenge;
-local l_ChallengeType_0 = require(l_Parent_0.GenericChallenges).Types.ChallengeType;
-local l_TwoStepVerificationActionType_0 = require(l_Parent_0.GenericChallenges).Types.TwoStepVerificationActionType;
-local l_NavigateDown_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateDown;
-local v30 = require(l_Parent_0.AuthAnalytics);
-local l_StatusCodes_0 = require(l_Parent_0.Http).StatusCodes;
-local l_EventStreamConstants_0 = require(l_Parent_0.AuthAnalytics).EventStreamConstants;
-local v33 = require(l_Parent_0.RoactAppExperiment);
-local l_AppBtidLayers_0 = require(l_Parent_0.ExperimentLayers).AppBtidLayers;
-local v35 = require(l_Parent_0.RoactServiceTags);
-local l_RoactNetworking_0 = v35.RoactNetworking;
-local l_RoactAnalytics_0 = v35.RoactAnalytics;
-local l_AppLinking_0 = v35.AppLinking;
-local v39 = require(l_Parent_0.CredentialsProtocol);
-local l_Constants_0 = v39.Constants;
-local l_default_0 = v39.CredentialsProtocol.default;
-local l_CredentialsProtocolErrorCodes_0 = v39.CredentialsProtocolErrorCodes;
-local v43 = require(l_Parent_0.SharedFlags);
-local l_GetFFlagEnableLoginAccountSelector_0 = v43.GetFFlagEnableLoginAccountSelector;
-local l_FFlagEnableLuaAccountSwitch_0 = v43.FFlagEnableLuaAccountSwitch;
-local l_FFlagLuaEnableDidSwitchAccount_0 = v43.FFlagLuaEnableDidSwitchAccount;
-local l_GetFStringVNGDownloadNowUrl_0 = v43.GetFStringVNGDownloadNowUrl;
-local l_FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues_0 = v43.FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues;
-local l_FFlagAddReasonToEveryLogout_0 = v43.FFlagAddReasonToEveryLogout;
-local l_FFlagEnablePasskeyLoginErrorLogging_0 = v43.FFlagEnablePasskeyLoginErrorLogging;
-local l_FFlagUseErrorTypeForPasskeyLoginLogging_0 = v43.FFlagUseErrorTypeForPasskeyLoginLogging;
-local l_FFlagDisableMemStorageServicePasswordEvent_0 = v43.FFlagDisableMemStorageServicePasswordEvent;
-local l_FFlagEnableLoginV2ForcedUsernameOverride_0 = v43.FFlagEnableLoginV2ForcedUsernameOverride;
-local l_FFlagEnablePWManagerLoginCheck_0 = v43.FFlagEnablePWManagerLoginCheck;
-local l_GetFFlagKeystoreAutoLoginAvailable_0 = v43.GetFFlagKeystoreAutoLoginAvailable;
-local l_GetFFlagBypassKeystoreLoginIxpV2_0 = v43.GetFFlagBypassKeystoreLoginIxpV2;
-local l_GetFFlagCheckIsAvailableForKeystoreOperations_0 = v43.GetFFlagCheckIsAvailableForKeystoreOperations;
-local l_GetFFlagRemoveKeystoreIxpLogic_0 = v43.GetFFlagRemoveKeystoreIxpLogic;
-local l_GetFFlagEnableAccountSwitcherFoundationDesign_0 = v43.GetFFlagEnableAccountSwitcherFoundationDesign;
-local l_GetFFlagEnableAccountSwitcherRedesignIXP_0 = v43.GetFFlagEnableAccountSwitcherRedesignIXP;
-local l_FFlagEnableNavigateToLoginAfterLogoutAll_0 = v43.FFlagEnableNavigateToLoginAfterLogoutAll;
-local l_FFlagEnable2SVRecovery_0 = v43.FFlagEnable2SVRecovery;
-local v63 = game:DefineFastFlag("LoginV2AwaitPasswordRegistration", false);
-local v64 = game:DefineFastFlag("EnableIllegalChildAccountLinkingErrorMessageOn2SVLoginV2", false);
-local v65 = require(l_script_FirstAncestor_0.Context.LoginContext);
-local v66 = require(l_script_FirstAncestor_0.Reducers.LoginStateReducer);
-local v67 = require(l_script_FirstAncestor_0.Thunks.StartAuthenticationByUser);
-local v68 = require(l_script_FirstAncestor_0.Thunks.StartPasskeyAuthentication);
-local v69 = require(l_script_FirstAncestor_0.Enums.LoginPageState);
-local v70 = require(l_script_FirstAncestor_0.Enums.LoginActionType);
-local l_Base64_0 = v13.Utils.Base64;
-local l_AccountSwitcherConstants_0 = v13.Common.AccountSwitcherConstants;
-local l_LoginResult_0 = v13.Models.LoginResult;
-local l_SetLoginResult_0 = v13.Actions.SetLoginResult;
-local l_SetBackNavigationDisabled_0 = v13.Actions.SetBackNavigationDisabled;
-local l_authClientError_0 = v30.Events.authClientError;
-local l_authButtonClick_0 = v30.Events.authButtonClick;
-local l_reportEphemeralCounter_0 = v13.Analytics.reportEphemeralCounter;
-local l_AppStorageUtilities_0 = v13.Utils.AppStorageUtilities;
-local l_LoginByPasskey_0 = v13.Thunks.LoginByPasskey;
-local l_LoginByCode_0 = v13.Thunks.LoginByCode;
-local l_LoginByOtp_0 = v13.Thunks.LoginByOtp;
-local l_Login_0 = v13.Thunks.Login;
-local l_User_0 = v13.Thunks.User;
-local l_AppLoginCounterNames_0 = v13.Enums.AppLoginCounterNames;
-local l_LoginErrorCodes_0 = v13.Enums.LoginErrorCodes;
-local l_getTwoStepLoginErrorKey_0 = v13.Utils.getTwoStepLoginErrorKey;
-local l_OpenCentralOverlayForLoginPasswordResetPrompt_0 = v13.Thunks.OpenCentralOverlayForLoginPasswordResetPrompt;
-local l_LogoutAllLoggedInUsers_0 = v13.Thunks.LogoutAllLoggedInUsers;
-local l_AuthLocalStorageKeys_0 = v13.Enums.AuthLocalStorageKeys;
-local l_OpenAccountSelector_0 = v13.Thunks.OpenAccountSelector;
-local l_AuthMemStorageKeys_0 = v13.Enums.AuthMemStorageKeys;
-local l_TwoStepRequests_0 = v13.Http.Requests.TwoStepRequests;
-local l_LogoutReasonNames_0 = v13.Enums.LogoutReasonNames;
-local l_PasskeyConstants_0 = v13.Common.PasskeyConstants;
-local l_record2svCompletion_0 = v13.Utils.record2svCompletion;
-local l_recordLogin_0 = v13.Utils.recordLogin;
-local l_TwoStepErrorCodes_0 = v13.Enums.TwoStepErrorCodes;
-local l_GetUserByUsername_0 = v13.Thunks.GetUserByUsername;
-local l_KeystoreConstants_0 = v13.Common.KeystoreConstants;
-local l_KeystoreAnalyticsEvents_0 = v13.Analytics.KeystoreAnalyticsEvents;
-local l_KeystoreEventConstants_0 = v13.Analytics.KeystoreEventConstants;
-local l_FFlagEnableRecordLogin_0 = require(l_Parent_0.SharedFlags).FFlagEnableRecordLogin;
-local l_LoginMethods_0 = v13.Enums.LoginMethods;
-local l_GetPasswordManagerUsageStore_0 = v13.Stores.GetPasswordManagerUsageStore;
-local l_SendCode_0 = v14.Thunks.SendCode;
-local l_ResendCode_0 = v14.Thunks.ResendCode;
-local l_Constants_1 = v14.Constants;
-local l_Logger_0 = require(l_Parent_0.Loggers).Logger;
-local l_default_1 = require(l_Parent_0.LoggingProtocol).default;
-local l_TelemetryConfigs_0 = require(l_Parent_0.AuthAnalytics).TelemetryConfigs;
-local l_useNavigationProps_0 = require(l_Parent_0.RobloxAppNavigation).useNavigationProps;
-return function(v113) --[[ Line: 155 ]]
-    -- upvalues: l_useNavigationProps_0 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (copy), l_UserIdentifierType_0 (copy), v11 (copy), v66 (copy), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (copy), v33 (copy), l_AppBtidLayers_0 (copy), l_GetFFlagEnableAccountSwitcherRedesignIXP_0 (copy), l_GetFFlagEnableAccountSwitcherFoundationDesign_0 (copy), l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_RoactAnalytics_0 (copy), l_AppLinking_0 (copy), l_useAppPolicy_0 (copy), v68 (copy), v67 (copy), l_SetLoginResult_0 (copy), l_SetBackNavigationDisabled_0 (copy), l_LaunchContext_0 (copy), v12 (copy), v70 (copy), v69 (copy), l_FFlagEnablePWManagerLoginCheck_0 (copy), l_GetPasswordManagerUsageStore_0 (copy), l_LoginByPasskey_0 (copy), l_LoginByCode_0 (copy), l_LoginByOtp_0 (copy), l_CloseCentralOverlay_0 (copy), l_Login_0 (copy), l_OpenAccountSelector_0 (copy), l_User_0 (copy), l_RenderChallenge_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues_0 (copy), l_AccountSwitcherConstants_0 (copy), l_AppStorageUtilities_0 (copy), l_FFlagLuaEnableDidSwitchAccount_0 (copy), l_GuiService_0 (copy), l_NotificationType_0 (copy), l_default_1 (copy), l_TelemetryConfigs_0 (copy), l_HttpService_0 (copy), l_FFlagDisableMemStorageServicePasswordEvent_0 (copy), l_MemStorageService_0 (copy), l_AuthMemStorageKeys_0 (copy), l_default_0 (copy), l_Constants_0 (copy), l_Logger_0 (copy), l_authButtonClick_0 (copy), l_EventStreamConstants_0 (copy), l_getTwoStepLoginErrorKey_0 (copy), l_TwoStepErrorCodes_0 (copy), l_reportEphemeralCounter_0 (copy), l_AppLoginCounterNames_0 (copy), l_ChallengeType_0 (copy), l_TwoStepVerificationActionType_0 (copy), l_FFlagEnable2SVRecovery_0 (copy), l_TwoStepRequests_0 (copy), v63 (copy), l_FFlagEnableRecordLogin_0 (copy), l_record2svCompletion_0 (copy), l_FFlagEnableLuaAccountSwitch_0 (copy), v64 (copy), l_GetFFlagKeystoreAutoLoginAvailable_0 (copy), l_GetFFlagRemoveKeystoreIxpLogic_0 (copy), l_GetFFlagBypassKeystoreLoginIxpV2_0 (copy), l_ContentProvider_0 (copy), l_GetUserByUsername_0 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (copy), l_KeystoreConstants_0 (copy), l_KeystoreAnalyticsEvents_0 (copy), l_KeystoreEventConstants_0 (copy), l_LoginResult_0 (copy), l_GetFFlagEnableLoginAccountSelector_0 (copy), l_AppStorageService_0 (copy), l_AuthLocalStorageKeys_0 (copy), l_recordLogin_0 (copy), l_LoginMethods_0 (copy), l_Constants_1 (copy), l_SendCode_0 (copy), l_ResendCode_0 (copy), l_UserInputService_0 (copy), l_Base64_0 (copy), l_FFlagUseErrorTypeForPasskeyLoginLogging_0 (copy), l_CredentialsProtocolErrorCodes_0 (copy), l_authClientError_0 (copy), l_PasskeyConstants_0 (copy), l_FFlagEnablePasskeyLoginErrorLogging_0 (copy), l_OpenAccountSwitchingErrorOverlay_0 (copy), l_OpenCentralOverlayForLoginPasswordResetPrompt_0 (copy), l_LogoutAllLoggedInUsers_0 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), l_GetFStringVNGDownloadNowUrl_0 (copy), l_LoginErrorCodes_0 (copy), l_StatusCodes_0 (copy), l_FFlagAddReasonToEveryLogout_0 (copy), l_LogoutReasonNames_0 (copy), v65 (copy)
-    local v116 = l_useNavigationProps_0(function(_, v115) --[[ Line: 156 ]]
-        -- upvalues: l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref)
-        return {
-            credProtocolIsAvailableResponse = v115.credProtocolIsAvailableResponse, 
-            forcedUsernameOverride = if l_FFlagEnableLoginV2ForcedUsernameOverride_0 then v115.forcedUsernameOverride else nil
-        };
-    end);
-    local v117 = {
-        userIdentifier = "", 
-        userIdentifierType = l_UserIdentifierType_0.Unknown, 
-        numLoginAttempts = 0, 
-        forceLoginByUsername = false, 
-        availableLoginMethods = {}, 
-        credentialsProtocolStatus = {
-            fido2Supported = false, 
-            passwordsSupported = false, 
-            v2InterfaceSupported = false, 
-            shouldShowAuthScreenCredentialsPopup = false, 
-            shouldShowAuthScreenUserSpecificPasskeyPopup = false, 
-            initialStateUpdated = false
-        }, 
-        shouldAutoShowCredentialPopup = true, 
-        componentState = {
-            LoginScreenV2 = {
-                errorKey = "", 
-                userIdentifier = "", 
-                shouldAttemptCredentialPrefill = true
-            }, 
-            AuthenticationScreen = {
-                errorKey = "", 
-                errorType = nil, 
-                password = ""
-            }, 
-            EmailOtpScreen = {
-                errorKey = "", 
-                emailOtp = "", 
-                sessionToken = ""
-            }
-        }, 
-        monoDeps = v113.monoDeps, 
-        extraProps = v116
-    };
-    local v118, v119 = v11.useReducer(v66, v117);
-    local v120 = nil;
-    if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 then
-        v120 = v11.useRef(v118.userIdentifier);
-        v120.current = v118.userIdentifier;
-    end;
-    local v122 = v33.useBrowserTrackerExperiment({
-        l_AppBtidLayers_0.LoginLayer
-    }, function(v121) --[[ Line: 211 ]]
-        -- upvalues: l_AppBtidLayers_0 (ref)
-        return {
-            shouldLoginWithKeystoreCredentials = (v121[l_AppBtidLayers_0.LoginLayer] or {}).shouldLoginWithKeystoreCredentials or false
-        };
-    end);
-    local v124 = not l_GetFFlagEnableAccountSwitcherRedesignIXP_0() or v33.useBrowserTrackerExperiment({
-        l_AppBtidLayers_0.AccountSwitcherLayer
-    }, function(v123) --[[ Line: 222 ]]
-        -- upvalues: l_AppBtidLayers_0 (ref)
-        return (v123[l_AppBtidLayers_0.AccountSwitcherLayer] or {}).enableAccountSwitcherFoundationDesign == true;
-    end);
-    local v125 = l_GetFFlagEnableAccountSwitcherFoundationDesign_0() and v124;
-    local v126 = l_useDispatch_0();
-    local v127 = l_useRoactService_0(l_RoactNetworking_0);
-    local v128 = l_useRoactService_0(l_RoactAnalytics_0);
-    local v129 = l_useRoactService_0(l_AppLinking_0);
-    local v131 = l_useAppPolicy_0(function(v130) --[[ Line: 234 ]]
-        return v130;
-    end);
-    local l_LaunchApp_0 = v118.monoDeps.LaunchApp;
-    local l_ResetAppState_0 = v118.monoDeps.ResetAppState;
-    local l_Logout_0 = v118.monoDeps.Logout;
-    local function v135() --[[ Line: 243 ]]
-        -- upvalues: v126 (copy), v68 (ref), v127 (copy)
-        return v126(v68(v127));
-    end;
-    local function v137(v136) --[[ Line: 247 ]]
-        -- upvalues: v126 (copy), v67 (ref), v127 (copy)
-        return v126(v67(v127, v136));
-    end;
-    local function _(v138) --[[ Line: 251 ]]
-        -- upvalues: v126 (copy), l_SetLoginResult_0 (ref)
-        return v126(l_SetLoginResult_0(v138));
-    end;
-    local function _(v140) --[[ Line: 255 ]]
-        -- upvalues: v126 (copy), l_SetBackNavigationDisabled_0 (ref)
-        return v126(l_SetBackNavigationDisabled_0(v140));
-    end;
-    local function _() --[[ Line: 259 ]]
-        -- upvalues: v126 (copy), l_LaunchApp_0 (copy), v127 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref)
-        return v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-    end;
-    local function v143() --[[ Line: 263 ]]
-        -- upvalues: v126 (copy), l_ResetAppState_0 (copy), v12 (ref)
-        v126(l_ResetAppState_0());
-        return v12.resolve();
-    end;
-    local function v144() --[[ Line: 268 ]]
-        -- upvalues: v119 (copy), v70 (ref), v69 (ref), l_UserIdentifierType_0 (ref)
-        v119({
-            type = v70.SetComponentState, 
-            data = {
-                component = v69.AuthenticationScreen, 
-                payload = {
-                    errorKey = "", 
-                    errorType = nil, 
-                    password = ""
-                }
-            }
-        });
-        v119({
-            type = v70.SetComponentState, 
-            data = {
-                component = v69.LoginScreenV2, 
-                payload = {
-                    errorKey = "", 
-                    userIdentifier = ""
-                }
-            }
-        });
-        v119({
-            type = v70.SetUserIdentifierAndType, 
-            data = {
-                userIdentifier = "", 
-                userIdentifierType = l_UserIdentifierType_0.Unknown
-            }
-        });
-    end;
-    local v145 = if l_FFlagEnablePWManagerLoginCheck_0 then l_GetPasswordManagerUsageStore_0(false) else nil;
-    if v145 then
-        v145.setLoggedinUsingSavedPassword(false);
-        v145.setSavedPasswordAfterLogin(false);
-    end;
-    local function _(v146, v147) --[[ Line: 307 ]]
-        -- upvalues: v126 (copy), l_LoginByPasskey_0 (ref), v127 (copy)
-        return v126(l_LoginByPasskey_0(v127, v146, v147));
-    end;
-    local function _(v149, v150, v151, v152, v153, v154) --[[ Line: 311 ]]
-        -- upvalues: v126 (copy), l_LoginByCode_0 (ref), v127 (copy)
-        return v126(l_LoginByCode_0(v127, v149, v150, v151, v152, v153, v154));
-    end;
-    local function _(v156, v157, v158, v159, v160) --[[ Line: 332 ]]
-        -- upvalues: v126 (copy), l_LoginByOtp_0 (ref), v127 (copy)
-        return v126(l_LoginByOtp_0(v127, v156, v157, v158, v159, v160));
-    end;
-    local function v162() --[[ Line: 351 ]]
-        -- upvalues: v126 (copy), l_CloseCentralOverlay_0 (ref)
-        return v126(l_CloseCentralOverlay_0());
-    end;
-    local function v163(...) --[[ Line: 355 ]]
-        -- upvalues: v126 (copy), l_Login_0 (ref)
-        return v126(l_Login_0(...));
-    end;
-    local function _(v164) --[[ Line: 359 ]]
-        -- upvalues: v126 (copy), l_OpenAccountSelector_0 (ref)
-        return v126(l_OpenAccountSelector_0(v164, true, false));
-    end;
-    local function v166() --[[ Line: 363 ]]
-        -- upvalues: l_User_0 (ref)
-        return l_User_0.fromLocalStorage().userId ~= -1;
-    end;
-    local function _(v167) --[[ Line: 367 ]]
-        -- upvalues: l_RenderChallenge_0 (ref)
-        return l_RenderChallenge_0(v167);
-    end;
-    local function v170(v169) --[[ Line: 371 ]]
-        -- upvalues: v126 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
-        v126(l_NavigateDown_0({
-            name = l_AppPage_0.GenericWebPage, 
-            detail = v169, 
-            extraProps = {
-                title = "", 
-                transitionAnimation = "SlideInFromBottom"
-            }
-        }));
-    end;
-    local function v172(v171) --[[ Line: 382 ]]
-        -- upvalues: v126 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
-        v126(l_NavigateDown_0({
-            name = l_AppPage_0.AccountRecovery, 
-            extraProps = {
-                identifier = v171, 
-                recoverPassword = true
-            }
-        }));
-    end;
-    local function v179(v173) --[[ Line: 392 ]]
-        -- upvalues: l_User_0 (ref), v126 (copy), l_ResetAppState_0 (copy), v12 (ref), l_FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues_0 (ref), l_AccountSwitcherConstants_0 (ref), l_AppStorageUtilities_0 (ref), l_FFlagLuaEnableDidSwitchAccount_0 (ref), l_GuiService_0 (ref), l_NotificationType_0 (ref), l_LaunchApp_0 (copy), v127 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref)
-        if l_User_0.fromLocalStorage().userId ~= -1 then
-            v126(l_ResetAppState_0());
-            v12.resolve():andThen(function(_) --[[ Line: 394 ]]
-                -- upvalues: l_FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues_0 (ref), l_AccountSwitcherConstants_0 (ref), l_AppStorageUtilities_0 (ref), v173 (copy), l_FFlagLuaEnableDidSwitchAccount_0 (ref), l_GuiService_0 (ref), l_NotificationType_0 (ref)
-                local v175 = if l_FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues_0 then l_AccountSwitcherConstants_0.AccountSwitcherSwitchedFromLoginStatus else l_AccountSwitcherConstants_0.AccountSwitcherSwitchedStatus;
-                l_AppStorageUtilities_0.setAccountSwitchStatus(v175);
-                l_AppStorageUtilities_0.setAccountBlob(v173);
-                l_AppStorageUtilities_0.flush();
-                if l_FFlagLuaEnableDidSwitchAccount_0 then
-                    l_GuiService_0:BroadcastNotification("", l_NotificationType_0.DID_SWITCH_ACCOUNT);
-                    return;
-                else
-                    l_GuiService_0:BroadcastNotification("", l_NotificationType_0.DID_LOG_OUT);
-                    return;
-                end;
-            end, function(_) --[[ Line: 406 ]]
-                -- upvalues: l_AppStorageUtilities_0 (ref), v173 (copy), v126 (ref), l_LaunchApp_0 (ref), v127 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref)
-                l_AppStorageUtilities_0.setAccountSwitchStatus("switched");
-                l_AppStorageUtilities_0.setAccountBlob(v173);
-                l_AppStorageUtilities_0.flush();
-                local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-            end);
-            return;
-        else
-            l_AppStorageUtilities_0.setAccountBlob(v173);
-            l_AppStorageUtilities_0.flush();
-            local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-            return;
-        end;
-    end;
-    local function v187(v180) --[[ Line: 419 ]]
-        -- upvalues: l_default_1 (ref), l_TelemetryConfigs_0 (ref), l_HttpService_0 (ref), v118 (copy), l_FFlagDisableMemStorageServicePasswordEvent_0 (ref), l_MemStorageService_0 (ref), l_AuthMemStorageKeys_0 (ref), l_default_0 (ref), l_Constants_0 (ref), l_FFlagEnablePWManagerLoginCheck_0 (ref), v145 (copy), l_Logger_0 (ref), l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref)
-        if v180 == nil then
-            l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginPasswordSaveSkippedConfig, 1, {
-                reason = "missingCredentialsJson"
-            });
-            return nil;
-        else
-            local v181 = l_HttpService_0:JSONDecode(v180);
-            if v181.cvalue == nil or v181.password == nil then
-                l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginPasswordSaveSkippedConfig, 1, {
-                    reason = "missingUsernameOrPassword"
-                });
-                return nil;
-            elseif not v118.credentialsProtocolStatus.passwordsSupported then
-                if not l_FFlagDisableMemStorageServicePasswordEvent_0 then
-                    l_MemStorageService_0:Fire(l_AuthMemStorageKeys_0.AuthenticatedCredentials, v180);
-                end;
-                l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginPasswordSaveSkippedConfig, 1, {
-                    reason = "passwordsNotSupported"
-                });
-                return nil;
-            else
-                local v182 = {
-                    username = v181.cvalue, 
-                    password = v181.password
-                };
-                local v183 = l_HttpService_0:JSONEncode(v182);
-                l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginPasswordSaveAttemptedConfig, 1);
-                return l_default_0:registerCredentials(l_default_0.CredentialsTypes.password, v183, l_Constants_0.Defaults.PASSWORD_REGISTRATION_CREDENTIALSPROTOCOL_TIMEOUT):andThen(function(v184) --[[ Line: 467 ]]
-                    -- upvalues: l_HttpService_0 (ref), l_FFlagEnablePWManagerLoginCheck_0 (ref), v145 (ref), l_Logger_0 (ref), l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), l_default_1 (ref), l_TelemetryConfigs_0 (ref)
-                    if v184 then
-                        local v185 = l_HttpService_0:JSONDecode(v184);
-                        if v185.errorCode == nil then
-                            if l_FFlagEnablePWManagerLoginCheck_0 and v145 then
-                                v145.setSavedPasswordAfterLogin(true);
-                            end;
-                            l_Logger_0:info("Successfully registered password.");
-                            l_authButtonClick_0(l_EventStreamConstants_0.Context.CMPasswordLogin, l_EventStreamConstants_0.Button.SavePassword);
-                            l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginPasswordSaveSuccessConfig, 1);
-                            return;
-                        else
-                            l_Logger_0:warning("Error registering password: {}", v185.errorMsg);
-                            l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginPasswordSaveFailureConfig, 1, {
-                                errorCode = tostring(v185.errorCode)
-                            });
-                        end;
-                    end;
-                end, function(v186) --[[ Line: 493 ]]
-                    -- upvalues: l_Logger_0 (ref), l_default_1 (ref), l_TelemetryConfigs_0 (ref)
-                    l_Logger_0:warning("Error registering password: {}", v186);
-                    l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginPasswordSaveFailureConfig, 1, {
-                        error = tostring(v186)
-                    });
-                end);
-            end;
-        end;
-    end;
-    local function v191(v188, v189) --[[ Line: 503 ]]
-        -- upvalues: l_getTwoStepLoginErrorKey_0 (ref), l_TwoStepErrorCodes_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref)
-        local v190 = l_getTwoStepLoginErrorKey_0(v188);
-        if v188 and v188 == l_TwoStepErrorCodes_0.IllegalChildAccountLinking then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureTwoStepVerification, 1);
-        else
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureUnknownError, 1);
-        end;
-        v189.setInProgress(false);
-        v189.setErrorKey(v190);
-    end;
-    local function v205(v192, v193, v194) --[[ Line: 516 ]]
-        -- upvalues: l_ChallengeType_0 (ref), l_TwoStepVerificationActionType_0 (ref), l_FFlagEnable2SVRecovery_0 (ref), l_TwoStepRequests_0 (ref), v127 (copy), v126 (copy), l_SetBackNavigationDisabled_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v63 (ref), v187 (copy), l_FFlagEnableRecordLogin_0 (ref), l_record2svCompletion_0 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (copy), l_LaunchApp_0 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref), v64 (ref), l_HttpService_0 (ref), v191 (copy), l_RenderChallenge_0 (ref)
-        local l_ticket_0 = v192.twoStepVerificationData.ticket;
-        local l_id_0 = v192.user.id;
-        local v203 = {
-            title = "Authentication.Login.Label.TwoStepVerification", 
-            challengeType = l_ChallengeType_0.TwoStepVerification, 
-            challengeParameters = {
-                actionType = l_TwoStepVerificationActionType_0.Login, 
-                challengeId = l_ticket_0, 
-                userId = l_id_0, 
-                allowRememberDevice = true, 
-                clientSupports2svRecovery = l_FFlagEnable2SVRecovery_0 and true or false
-            }, 
-            callbacks = {
-                OnChallengeCompleted = function(v197) --[[ Line: 531 ]] --[[ Name: OnChallengeCompleted ]]
-                    -- upvalues: l_TwoStepRequests_0 (ref), v127 (ref), l_id_0 (copy), l_ticket_0 (copy), v126 (ref), l_SetBackNavigationDisabled_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v63 (ref), v187 (ref), v193 (copy), l_FFlagEnableRecordLogin_0 (ref), l_record2svCompletion_0 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), v64 (ref), l_HttpService_0 (ref), v191 (ref), v194 (copy)
-                    l_TwoStepRequests_0.login(v127, l_id_0, l_ticket_0, v197.data.verificationToken, v197.data.rememberDevice):andThen(function(v198) --[[ Line: 539 ]]
-                        -- upvalues: v126 (ref), l_SetBackNavigationDisabled_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v63 (ref), v187 (ref), v193 (ref), l_FFlagEnableRecordLogin_0 (ref), l_record2svCompletion_0 (ref), l_id_0 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v127 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref)
-                        local v199 = v126(l_SetBackNavigationDisabled_0(false));
-                        l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Success, 1);
-                        if v63 then
-                            v199 = v187(v193);
-                            if v199 then
-                                v199:await();
-                            end;
-                        end;
-                        if l_FFlagEnableRecordLogin_0 then
-                            pcall(function() --[[ Line: 551 ]]
-                                -- upvalues: l_record2svCompletion_0 (ref), l_id_0 (ref)
-                                l_record2svCompletion_0(l_id_0);
-                            end);
-                        end;
-                        if l_FFlagEnableLuaAccountSwitch_0 then
-                            v179(v198.responseBody and v198.responseBody.accountBlob);
-                            return;
-                        else
-                            v199 = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-                            return;
-                        end;
-                    end, function(v200) --[[ Line: 563 ]]
-                        -- upvalues: l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v64 (ref), l_HttpService_0 (ref), v191 (ref), v194 (ref)
-                        l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Failure, 1);
-                        if v64 then
-                            local l_status_0, l_result_0 = pcall(function() --[[ Line: 567 ]]
-                                -- upvalues: l_HttpService_0 (ref), v200 (copy)
-                                return l_HttpService_0:JSONDecode(v200.Body).errors[1].code;
-                            end);
-                            v191(if l_status_0 then l_result_0 else nil, v194);
-                            return;
-                        else
-                            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureUnknownError, 1);
-                            v194.setInProgress(false);
-                            v194.setErrorKey("Authentication.Login.Response.SomethingWentWrong");
-                            return;
-                        end;
-                    end):finally(function() --[[ Line: 578 ]]
-                        -- upvalues: v63 (ref), v187 (ref), v193 (ref)
-                        if not v63 then
-                            v187(v193);
-                        end;
-                    end);
-                end, 
-                OnChallengeAbandoned = function() --[[ Line: 584 ]] --[[ Name: OnChallengeAbandoned ]]
-                    -- upvalues: v194 (copy)
-                    v194.setInProgress(false);
-                end, 
-                OnChallengeInvalidated = function() --[[ Line: 587 ]] --[[ Name: OnChallengeInvalidated ]]
-                    -- upvalues: v194 (copy)
-                    v194.setInProgress(false);
-                    v194.setErrorKey("Authentication.Login.Response.SomethingWentWrong");
-                end, 
-                OnChallengeLoadFailed = function() --[[ Line: 591 ]] --[[ Name: OnChallengeLoadFailed ]]
-                    -- upvalues: v194 (copy)
-                    v194.setInProgress(false);
-                    v194.setErrorKey("Authentication.Login.Response.SomethingWentWrong");
-                end
-            }
-        };
-        local _ = l_RenderChallenge_0(v203);
-    end;
-    local function v215(_, _, v208, v209, v210) --[[ Line: 599 ]]
-        -- upvalues: l_ChallengeType_0 (ref), l_RenderChallenge_0 (ref)
-        local v213 = {
-            challengeType = l_ChallengeType_0.SecurityQuestions, 
-            challengeParameters = {
-                sessionId = v208.sessionId, 
-                userId = v208.userId
-            }, 
-            callbacks = {
-                OnChallengeCompleted = function(v211) --[[ Line: 613 ]] --[[ Name: OnChallengeCompleted ]]
-                    -- upvalues: v208 (copy), v209 (copy)
-                    local v212 = {
-                        sessionId = v208.sessionId, 
-                        redemptionToken = v211.data.redemptionToken
-                    };
-                    v209(v212);
-                end, 
-                OnChallengeAbandoned = function() --[[ Line: 620 ]] --[[ Name: OnChallengeAbandoned ]]
-                    -- upvalues: v210 (copy)
-                    v210.setInProgress(false);
-                end, 
-                OnChallengeInvalidated = function() --[[ Line: 623 ]] --[[ Name: OnChallengeInvalidated ]]
-                    -- upvalues: v210 (copy)
-                    v210.setInProgress(false);
-                    v210.setErrorKey("Authentication.Login.Response.SomethingWentWrong");
-                end, 
-                OnChallengeLoadFailed = function() --[[ Line: 627 ]] --[[ Name: OnChallengeLoadFailed ]]
-                    -- upvalues: v210 (copy)
-                    v210.setInProgress(false);
-                    v210.setErrorKey("Authentication.Login.Response.SomethingWentWrong");
-                end
-            }
-        };
-        local _ = l_RenderChallenge_0(v213);
-    end;
-    local _ = function(v216) --[[ Line: 635 ]]
-        -- upvalues: v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (copy), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref)
-        return v12.new(function(v217, v218) --[[ Line: 638 ]]
-            -- upvalues: l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), v216 (copy), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v12 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref)
-            if l_GetFFlagKeystoreAutoLoginAvailable_0() == false or v216 == nil then
-                v217();
-                return;
-            else
-                local v219 = l_GetFFlagRemoveKeystoreIxpLogic_0() and true or v122.shouldLoginWithKeystoreCredentials or l_GetFFlagBypassKeystoreLoginIxpV2_0();
-                local v220 = l_HttpService_0:JSONEncode({
-                    server = l_ContentProvider_0.BaseUrl
-                });
-                local v221 = l_HttpService_0:JSONDecode(v216);
-                l_GetUserByUsername_0(v127, v221.cvalue)():andThen(function(v222) --[[ Line: 660 ]]
-                    -- upvalues: v218 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v220 (copy), v12 (ref)
-                    if not v222 or not v222.id then
-                        return v218("Invalid usernameInfo");
-                    elseif l_GetFFlagCheckIsAvailableForKeystoreOperations_0() then
-                        return l_default_0:isAvailable(l_default_0.CredentialsTypes.keystore, l_KeystoreConstants_0.KeystoreTimeout):andThen(function(v223) --[[ Line: 670 ]]
-                            -- upvalues: l_default_0 (ref), v220 (ref), l_KeystoreConstants_0 (ref), v12 (ref)
-                            if v223 and v223.keystore and v223.keystore.isAvailable then
-                                return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v220, l_KeystoreConstants_0.KeystoreTimeout);
-                            else
-                                return v12.resolve(nil);
-                            end;
-                        end):andThen(function() --[[ Line: 685 ]]
-                            -- upvalues: v222 (copy)
-                            return v222;
-                        end);
-                    else
-                        return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v220, l_KeystoreConstants_0.KeystoreTimeout):andThen(function() --[[ Line: 693 ]]
-                            -- upvalues: v222 (copy)
-                            return v222;
-                        end);
-                    end;
-                end):andThen(function(v224) --[[ Line: 698 ]]
-                    -- upvalues: l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), v221 (copy), v219 (copy), l_KeystoreConstants_0 (ref), l_default_0 (ref)
-                    local v225 = nil;
-                    if l_GetFFlagRemoveKeystoreIxpLogic_0() then
-                        l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentials, (tostring(v224.id)));
-                        v225 = l_HttpService_0:JSONEncode({
-                            server = tostring(l_ContentProvider_0.BaseUrl), 
-                            username = tostring(v221.cvalue), 
-                            userId = tostring(v224.id), 
-                            password = tostring(v221.password)
-                        });
-                    else
-                        local v226 = nil;
-                        if v219 == true then
-                            v226 = l_KeystoreConstants_0.Experiment;
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsExperimentGroup, (tostring(v224.id)));
-                        else
-                            v226 = l_KeystoreConstants_0.Control;
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsControlGroup, (tostring(v224.id)));
-                        end;
-                        v225 = l_HttpService_0:JSONEncode({
-                            server = tostring(l_ContentProvider_0.BaseUrl), 
-                            username = tostring(v221.cvalue), 
-                            userId = tostring(v224.id), 
-                            password = tostring(v221.password), 
-                            experimentGroup = tostring(v226)
-                        });
-                    end;
-                    return l_default_0:registerCredentials(l_default_0.CredentialsTypes.keystore, v225, l_KeystoreConstants_0.KeystoreTimeout);
-                end):andThen(function(_) --[[ Line: 743 ]]
-                    -- upvalues: v217 (copy)
-                    v217();
-                end):catch(function(v228) --[[ Line: 746 ]]
-                    -- upvalues: v218 (copy)
-                    v218(v228);
-                end);
-                return;
-            end;
-        end);
-    end;
-    local function v250(v230, v231, v232) --[[ Line: 752 ]]
-        -- upvalues: v126 (copy), l_SetBackNavigationDisabled_0 (ref), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (copy), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (copy), v63 (ref), v187 (copy), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (copy), l_LaunchApp_0 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-        local _ = v126(l_SetBackNavigationDisabled_0(false));
-        v12.new(function(v234, v235) --[[ Line: 638 ]]
-            -- upvalues: l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), v231 (copy), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v12 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref)
-            if l_GetFFlagKeystoreAutoLoginAvailable_0() == false or v231 == nil then
-                v234();
-                return;
-            else
-                local v236 = l_GetFFlagRemoveKeystoreIxpLogic_0() and true or v122.shouldLoginWithKeystoreCredentials or l_GetFFlagBypassKeystoreLoginIxpV2_0();
-                local v237 = l_HttpService_0:JSONEncode({
-                    server = l_ContentProvider_0.BaseUrl
-                });
-                local v238 = l_HttpService_0:JSONDecode(v231);
-                l_GetUserByUsername_0(v127, v238.cvalue)():andThen(function(v239) --[[ Line: 660 ]]
-                    -- upvalues: v235 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v237 (copy), v12 (ref)
-                    if not v239 or not v239.id then
-                        return v235("Invalid usernameInfo");
-                    elseif l_GetFFlagCheckIsAvailableForKeystoreOperations_0() then
-                        return l_default_0:isAvailable(l_default_0.CredentialsTypes.keystore, l_KeystoreConstants_0.KeystoreTimeout):andThen(function(v240) --[[ Line: 670 ]]
-                            -- upvalues: l_default_0 (ref), v237 (ref), l_KeystoreConstants_0 (ref), v12 (ref)
-                            if v240 and v240.keystore and v240.keystore.isAvailable then
-                                return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v237, l_KeystoreConstants_0.KeystoreTimeout);
-                            else
-                                return v12.resolve(nil);
-                            end;
-                        end):andThen(function() --[[ Line: 685 ]]
-                            -- upvalues: v239 (copy)
-                            return v239;
-                        end);
-                    else
-                        return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v237, l_KeystoreConstants_0.KeystoreTimeout):andThen(function() --[[ Line: 693 ]]
-                            -- upvalues: v239 (copy)
-                            return v239;
-                        end);
-                    end;
-                end):andThen(function(v241) --[[ Line: 698 ]]
-                    -- upvalues: l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), v238 (copy), v236 (copy), l_KeystoreConstants_0 (ref), l_default_0 (ref)
-                    local v242 = nil;
-                    if l_GetFFlagRemoveKeystoreIxpLogic_0() then
-                        l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentials, (tostring(v241.id)));
-                        v242 = l_HttpService_0:JSONEncode({
-                            server = tostring(l_ContentProvider_0.BaseUrl), 
-                            username = tostring(v238.cvalue), 
-                            userId = tostring(v241.id), 
-                            password = tostring(v238.password)
-                        });
-                    else
-                        local v243 = nil;
-                        if v236 == true then
-                            v243 = l_KeystoreConstants_0.Experiment;
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsExperimentGroup, (tostring(v241.id)));
-                        else
-                            v243 = l_KeystoreConstants_0.Control;
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsControlGroup, (tostring(v241.id)));
-                        end;
-                        v242 = l_HttpService_0:JSONEncode({
-                            server = tostring(l_ContentProvider_0.BaseUrl), 
-                            username = tostring(v238.cvalue), 
-                            userId = tostring(v241.id), 
-                            password = tostring(v238.password), 
-                            experimentGroup = tostring(v243)
-                        });
-                    end;
-                    return l_default_0:registerCredentials(l_default_0.CredentialsTypes.keystore, v242, l_KeystoreConstants_0.KeystoreTimeout);
-                end):andThen(function(_) --[[ Line: 743 ]]
-                    -- upvalues: v234 (copy)
-                    v234();
-                end):catch(function(v245) --[[ Line: 746 ]]
-                    -- upvalues: v235 (copy)
-                    v235(v245);
-                end);
-                return;
-            end;
-        end):finally(function() --[[ Line: 755 ]]
-            -- upvalues: l_LoginResult_0 (ref), v230 (copy), v126 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v231 (copy), v232 (copy), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v127 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-            if l_LoginResult_0.hasTwoStepData(v230) then
-                local _ = v126(l_SetLoginResult_0(v230));
-                l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureTwoStepVerification, 1);
-                spawn(function() --[[ Line: 762 ]]
-                    -- upvalues: v205 (ref), v230 (ref), v231 (ref), v232 (ref)
-                    v205(v230, v231, v232);
-                end);
-            else
-                l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Success, 1);
-                if v231 then
-                    if v63 then
-                        local v247 = v187(v231);
-                        if v247 then
-                            v247:await();
-                        end;
-                    else
-                        v187(v231);
-                    end;
-                end;
-                if l_FFlagEnableLuaAccountSwitch_0 then
-                    v179(v230.accountBlob);
-                else
-                    local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-                end;
-            end;
-            if l_GetFFlagEnableLoginAccountSelector_0() then
-                local _ = v126(l_CloseCentralOverlay_0());
-            end;
-        end);
-    end;
-    local v251 = nil;
-    local function v252(v253, v254, v255, v256, v257, v258, v259) --[[ Line: 796 ]] --[[ Name: handleLoginWithFormData ]]
-        -- upvalues: v251 (ref), v118 (copy), v126 (copy), l_SetBackNavigationDisabled_0 (ref), v252 (copy), v163 (copy), v127 (copy), l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), l_FFlagEnablePWManagerLoginCheck_0 (ref), v145 (copy), l_HttpService_0 (ref), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (copy), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (copy), v63 (ref), v187 (copy), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (copy), l_LaunchApp_0 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref)
-        local v260 = v251(v259);
-        local v261 = v253 or v118.userIdentifier;
-        local _ = v126(l_SetBackNavigationDisabled_0(true));
-        return v163(v127, v261, v254, function(v263, v264) --[[ Line: 811 ]]
-            -- upvalues: v252 (ref), v253 (copy), v254 (copy), v256 (copy), v257 (copy), v258 (copy), v259 (copy)
-            if v263 then
-                v252(v253, v254, v264, v256, v257, v258, v259);
-            end;
-        end, v255, function(v265) --[[ Line: 825 ]]
-            -- upvalues: v252 (ref), v253 (copy), v254 (copy), v255 (copy), v257 (copy), v258 (copy), v259 (copy)
-            v252(v253, v254, v255, v265, v257, v258, v259);
-        end, v256, v257, v118.forceLoginByUsername):andThen(function(v266) --[[ Line: 847 ]]
-            -- upvalues: l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), v261 (copy), l_FFlagEnablePWManagerLoginCheck_0 (ref), v145 (ref), v258 (copy), l_HttpService_0 (ref), v254 (copy), v259 (copy), v126 (ref), l_SetBackNavigationDisabled_0 (ref), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-            l_AppStorageService_0:SetItem(l_AuthLocalStorageKeys_0.CredentialValue, v261);
-            l_AppStorageService_0:Flush();
-            if l_FFlagEnablePWManagerLoginCheck_0 and v145 then
-                v145.setLoggedinUsingSavedPassword(true);
-            end;
-            local v267 = if not v258 then l_HttpService_0:JSONEncode({
-                cvalue = v261, 
-                password = v254, 
-                authType = "login"
-            }) else nil;
-            local l_v259_0 = v259;
-            local _ = v126(l_SetBackNavigationDisabled_0(false));
-            v12.new(function(v270, v271) --[[ Line: 638 ]]
-                -- upvalues: l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), v267 (copy), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v12 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref)
-                if l_GetFFlagKeystoreAutoLoginAvailable_0() == false or v267 == nil then
-                    v270();
-                    return;
-                else
-                    local v272 = l_GetFFlagRemoveKeystoreIxpLogic_0() and true or v122.shouldLoginWithKeystoreCredentials or l_GetFFlagBypassKeystoreLoginIxpV2_0();
-                    local v273 = l_HttpService_0:JSONEncode({
-                        server = l_ContentProvider_0.BaseUrl
-                    });
-                    local v274 = l_HttpService_0:JSONDecode(v267);
-                    l_GetUserByUsername_0(v127, v274.cvalue)():andThen(function(v275) --[[ Line: 660 ]]
-                        -- upvalues: v271 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v273 (copy), v12 (ref)
-                        if not v275 or not v275.id then
-                            return v271("Invalid usernameInfo");
-                        elseif l_GetFFlagCheckIsAvailableForKeystoreOperations_0() then
-                            return l_default_0:isAvailable(l_default_0.CredentialsTypes.keystore, l_KeystoreConstants_0.KeystoreTimeout):andThen(function(v276) --[[ Line: 670 ]]
-                                -- upvalues: l_default_0 (ref), v273 (ref), l_KeystoreConstants_0 (ref), v12 (ref)
-                                if v276 and v276.keystore and v276.keystore.isAvailable then
-                                    return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v273, l_KeystoreConstants_0.KeystoreTimeout);
-                                else
-                                    return v12.resolve(nil);
-                                end;
-                            end):andThen(function() --[[ Line: 685 ]]
-                                -- upvalues: v275 (copy)
-                                return v275;
-                            end);
-                        else
-                            return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v273, l_KeystoreConstants_0.KeystoreTimeout):andThen(function() --[[ Line: 693 ]]
-                                -- upvalues: v275 (copy)
-                                return v275;
-                            end);
-                        end;
-                    end):andThen(function(v277) --[[ Line: 698 ]]
-                        -- upvalues: l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), v274 (copy), v272 (copy), l_KeystoreConstants_0 (ref), l_default_0 (ref)
-                        local v278 = nil;
-                        if l_GetFFlagRemoveKeystoreIxpLogic_0() then
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentials, (tostring(v277.id)));
-                            v278 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v274.cvalue), 
-                                userId = tostring(v277.id), 
-                                password = tostring(v274.password)
-                            });
-                        else
-                            local v279 = nil;
-                            if v272 == true then
-                                v279 = l_KeystoreConstants_0.Experiment;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsExperimentGroup, (tostring(v277.id)));
-                            else
-                                v279 = l_KeystoreConstants_0.Control;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsControlGroup, (tostring(v277.id)));
-                            end;
-                            v278 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v274.cvalue), 
-                                userId = tostring(v277.id), 
-                                password = tostring(v274.password), 
-                                experimentGroup = tostring(v279)
-                            });
-                        end;
-                        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.keystore, v278, l_KeystoreConstants_0.KeystoreTimeout);
-                    end):andThen(function(_) --[[ Line: 743 ]]
-                        -- upvalues: v270 (copy)
-                        v270();
-                    end):catch(function(v281) --[[ Line: 746 ]]
-                        -- upvalues: v271 (copy)
-                        v271(v281);
-                    end);
-                    return;
-                end;
-            end):finally(function() --[[ Line: 755 ]]
-                -- upvalues: l_LoginResult_0 (ref), v266 (copy), v126 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v267 (copy), l_v259_0 (copy), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v127 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-                if l_LoginResult_0.hasTwoStepData(v266) then
-                    local _ = v126(l_SetLoginResult_0(v266));
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureTwoStepVerification, 1);
-                    spawn(function() --[[ Line: 762 ]]
-                        -- upvalues: v205 (ref), v266 (ref), v267 (ref), l_v259_0 (ref)
-                        v205(v266, v267, l_v259_0);
-                    end);
-                else
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Success, 1);
-                    if v267 then
-                        if v63 then
-                            local v283 = v187(v267);
-                            if v283 then
-                                v283:await();
-                            end;
-                        else
-                            v187(v267);
-                        end;
-                    end;
-                    if l_FFlagEnableLuaAccountSwitch_0 then
-                        v179(v266.accountBlob);
-                    else
-                        local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-                    end;
-                end;
-                if l_GetFFlagEnableLoginAccountSelector_0() then
-                    local _ = v126(l_CloseCentralOverlay_0());
-                end;
-            end);
-        end, function(v286) --[[ Line: 864 ]]
-            -- upvalues: v260 (copy), v261 (copy), v254 (copy), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref)
-            v260(v286, v261, v254, l_FFlagEnableNavigateToLoginAfterLogoutAll_0 and true or nil);
-        end);
-    end;
-    local function v314(v287, v288, v289) --[[ Line: 869 ]]
-        -- upvalues: v251 (ref), v126 (copy), l_SetBackNavigationDisabled_0 (ref), l_LoginByPasskey_0 (ref), v127 (copy), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (copy), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (copy), v63 (ref), v187 (copy), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (copy), l_LaunchApp_0 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-        local v290 = v251(v289);
-        local _ = v126(l_SetBackNavigationDisabled_0(true));
-        return v126(l_LoginByPasskey_0(v127, v287, v288)):andThen(function(v292) --[[ Line: 874 ]]
-            -- upvalues: v289 (copy), v126 (ref), l_SetBackNavigationDisabled_0 (ref), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-            local l_v289_0 = v289;
-            local v294 = v126(l_SetBackNavigationDisabled_0(false));
-            v294 = v12.new;
-            local v295 = nil;
-            v294 = v294(function(v296, v297) --[[ Line: 638 ]]
-                -- upvalues: l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), v295 (copy), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v12 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref)
-                if l_GetFFlagKeystoreAutoLoginAvailable_0() == false or v295 == nil then
-                    v296();
-                    return;
-                else
-                    local v298 = l_GetFFlagRemoveKeystoreIxpLogic_0() and true or v122.shouldLoginWithKeystoreCredentials or l_GetFFlagBypassKeystoreLoginIxpV2_0();
-                    local v299 = l_HttpService_0:JSONEncode({
-                        server = l_ContentProvider_0.BaseUrl
-                    });
-                    local v300 = l_HttpService_0:JSONDecode(v295);
-                    l_GetUserByUsername_0(v127, v300.cvalue)():andThen(function(v301) --[[ Line: 660 ]]
-                        -- upvalues: v297 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v299 (copy), v12 (ref)
-                        if not v301 or not v301.id then
-                            return v297("Invalid usernameInfo");
-                        elseif l_GetFFlagCheckIsAvailableForKeystoreOperations_0() then
-                            return l_default_0:isAvailable(l_default_0.CredentialsTypes.keystore, l_KeystoreConstants_0.KeystoreTimeout):andThen(function(v302) --[[ Line: 670 ]]
-                                -- upvalues: l_default_0 (ref), v299 (ref), l_KeystoreConstants_0 (ref), v12 (ref)
-                                if v302 and v302.keystore and v302.keystore.isAvailable then
-                                    return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v299, l_KeystoreConstants_0.KeystoreTimeout);
-                                else
-                                    return v12.resolve(nil);
-                                end;
-                            end):andThen(function() --[[ Line: 685 ]]
-                                -- upvalues: v301 (copy)
-                                return v301;
-                            end);
-                        else
-                            return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v299, l_KeystoreConstants_0.KeystoreTimeout):andThen(function() --[[ Line: 693 ]]
-                                -- upvalues: v301 (copy)
-                                return v301;
-                            end);
-                        end;
-                    end):andThen(function(v303) --[[ Line: 698 ]]
-                        -- upvalues: l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), v300 (copy), v298 (copy), l_KeystoreConstants_0 (ref), l_default_0 (ref)
-                        local v304 = nil;
-                        if l_GetFFlagRemoveKeystoreIxpLogic_0() then
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentials, (tostring(v303.id)));
-                            v304 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v300.cvalue), 
-                                userId = tostring(v303.id), 
-                                password = tostring(v300.password)
-                            });
-                        else
-                            local v305 = nil;
-                            if v298 == true then
-                                v305 = l_KeystoreConstants_0.Experiment;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsExperimentGroup, (tostring(v303.id)));
-                            else
-                                v305 = l_KeystoreConstants_0.Control;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsControlGroup, (tostring(v303.id)));
-                            end;
-                            v304 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v300.cvalue), 
-                                userId = tostring(v303.id), 
-                                password = tostring(v300.password), 
-                                experimentGroup = tostring(v305)
-                            });
-                        end;
-                        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.keystore, v304, l_KeystoreConstants_0.KeystoreTimeout);
-                    end):andThen(function(_) --[[ Line: 743 ]]
-                        -- upvalues: v296 (copy)
-                        v296();
-                    end):catch(function(v307) --[[ Line: 746 ]]
-                        -- upvalues: v297 (copy)
-                        v297(v307);
-                    end);
-                    return;
-                end;
-            end);
-            local v308 = nil;
-            v294:finally(function() --[[ Line: 755 ]]
-                -- upvalues: l_LoginResult_0 (ref), v292 (copy), v126 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v308 (copy), l_v289_0 (copy), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v127 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-                if l_LoginResult_0.hasTwoStepData(v292) then
-                    local _ = v126(l_SetLoginResult_0(v292));
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureTwoStepVerification, 1);
-                    spawn(function() --[[ Line: 762 ]]
-                        -- upvalues: v205 (ref), v292 (ref), v308 (ref), l_v289_0 (ref)
-                        v205(v292, v308, l_v289_0);
-                    end);
-                else
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Success, 1);
-                    if v308 then
-                        if v63 then
-                            local v310 = v187(v308);
-                            if v310 then
-                                v310:await();
-                            end;
-                        else
-                            v187(v308);
-                        end;
-                    end;
-                    if l_FFlagEnableLuaAccountSwitch_0 then
-                        v179(v292.accountBlob);
-                    else
-                        local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-                    end;
-                end;
-                if l_GetFFlagEnableLoginAccountSelector_0() then
-                    local _ = v126(l_CloseCentralOverlay_0());
-                end;
-            end);
-        end, function(v313) --[[ Line: 876 ]]
-            -- upvalues: v290 (copy), v287 (copy)
-            v290(v313, v287, nil);
-        end);
-    end;
-    local function v315(v316, v317, v318, v319, v320) --[[ Line: 881 ]] --[[ Name: handleLoginWithCode ]]
-        -- upvalues: v251 (ref), v126 (copy), l_SetBackNavigationDisabled_0 (ref), v315 (copy), l_LoginByCode_0 (ref), v127 (copy), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (copy), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (copy), v63 (ref), v187 (copy), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (copy), l_LaunchApp_0 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-        local v321 = v251(v320);
-        local _ = v126(l_SetBackNavigationDisabled_0(true));
-        return v126(l_LoginByCode_0(v127, v316, v317, function(v323, v324) --[[ Line: 892 ]]
-            -- upvalues: v315 (ref), v316 (copy), v317 (copy), v320 (copy)
-            if v323 then
-                v315(v316, v317, v324, nil, v320);
-            end;
-        end, v318, function(v325) --[[ Line: 898 ]]
-            -- upvalues: v315 (ref), v316 (copy), v317 (copy), v320 (copy)
-            v315(v316, v317, nil, v325, v320);
-        end, v319)):andThen(function(v326) --[[ Line: 909 ]]
-            -- upvalues: v320 (copy), v126 (ref), l_SetBackNavigationDisabled_0 (ref), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-            local l_v320_0 = v320;
-            local v328 = v126(l_SetBackNavigationDisabled_0(false));
-            v328 = v12.new;
-            local v329 = nil;
-            v328 = v328(function(v330, v331) --[[ Line: 638 ]]
-                -- upvalues: l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), v329 (copy), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v12 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref)
-                if l_GetFFlagKeystoreAutoLoginAvailable_0() == false or v329 == nil then
-                    v330();
-                    return;
-                else
-                    local v332 = l_GetFFlagRemoveKeystoreIxpLogic_0() and true or v122.shouldLoginWithKeystoreCredentials or l_GetFFlagBypassKeystoreLoginIxpV2_0();
-                    local v333 = l_HttpService_0:JSONEncode({
-                        server = l_ContentProvider_0.BaseUrl
-                    });
-                    local v334 = l_HttpService_0:JSONDecode(v329);
-                    l_GetUserByUsername_0(v127, v334.cvalue)():andThen(function(v335) --[[ Line: 660 ]]
-                        -- upvalues: v331 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v333 (copy), v12 (ref)
-                        if not v335 or not v335.id then
-                            return v331("Invalid usernameInfo");
-                        elseif l_GetFFlagCheckIsAvailableForKeystoreOperations_0() then
-                            return l_default_0:isAvailable(l_default_0.CredentialsTypes.keystore, l_KeystoreConstants_0.KeystoreTimeout):andThen(function(v336) --[[ Line: 670 ]]
-                                -- upvalues: l_default_0 (ref), v333 (ref), l_KeystoreConstants_0 (ref), v12 (ref)
-                                if v336 and v336.keystore and v336.keystore.isAvailable then
-                                    return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v333, l_KeystoreConstants_0.KeystoreTimeout);
-                                else
-                                    return v12.resolve(nil);
-                                end;
-                            end):andThen(function() --[[ Line: 685 ]]
-                                -- upvalues: v335 (copy)
-                                return v335;
-                            end);
-                        else
-                            return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v333, l_KeystoreConstants_0.KeystoreTimeout):andThen(function() --[[ Line: 693 ]]
-                                -- upvalues: v335 (copy)
-                                return v335;
-                            end);
-                        end;
-                    end):andThen(function(v337) --[[ Line: 698 ]]
-                        -- upvalues: l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), v334 (copy), v332 (copy), l_KeystoreConstants_0 (ref), l_default_0 (ref)
-                        local v338 = nil;
-                        if l_GetFFlagRemoveKeystoreIxpLogic_0() then
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentials, (tostring(v337.id)));
-                            v338 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v334.cvalue), 
-                                userId = tostring(v337.id), 
-                                password = tostring(v334.password)
-                            });
-                        else
-                            local v339 = nil;
-                            if v332 == true then
-                                v339 = l_KeystoreConstants_0.Experiment;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsExperimentGroup, (tostring(v337.id)));
-                            else
-                                v339 = l_KeystoreConstants_0.Control;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsControlGroup, (tostring(v337.id)));
-                            end;
-                            v338 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v334.cvalue), 
-                                userId = tostring(v337.id), 
-                                password = tostring(v334.password), 
-                                experimentGroup = tostring(v339)
-                            });
-                        end;
-                        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.keystore, v338, l_KeystoreConstants_0.KeystoreTimeout);
-                    end):andThen(function(_) --[[ Line: 743 ]]
-                        -- upvalues: v330 (copy)
-                        v330();
-                    end):catch(function(v341) --[[ Line: 746 ]]
-                        -- upvalues: v331 (copy)
-                        v331(v341);
-                    end);
-                    return;
-                end;
-            end);
-            local v342 = nil;
-            v328:finally(function() --[[ Line: 755 ]]
-                -- upvalues: l_LoginResult_0 (ref), v326 (copy), v126 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v342 (copy), l_v320_0 (copy), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v127 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-                if l_LoginResult_0.hasTwoStepData(v326) then
-                    local _ = v126(l_SetLoginResult_0(v326));
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureTwoStepVerification, 1);
-                    spawn(function() --[[ Line: 762 ]]
-                        -- upvalues: v205 (ref), v326 (ref), v342 (ref), l_v320_0 (ref)
-                        v205(v326, v342, l_v320_0);
-                    end);
-                else
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Success, 1);
-                    if v342 then
-                        if v63 then
-                            local v344 = v187(v342);
-                            if v344 then
-                                v344:await();
-                            end;
-                        else
-                            v187(v342);
-                        end;
-                    end;
-                    if l_FFlagEnableLuaAccountSwitch_0 then
-                        v179(v326.accountBlob);
-                    else
-                        local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-                    end;
-                end;
-                if l_GetFFlagEnableLoginAccountSelector_0() then
-                    local _ = v126(l_CloseCentralOverlay_0());
-                end;
-            end);
-        end, function(v347) --[[ Line: 911 ]]
-            -- upvalues: l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v321 (copy), v316 (copy), v317 (copy)
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureAuthCode, 1);
-            v321(v347, v316, v317);
-        end);
-    end;
-    local function v348(v349, v350, v351, v352, v353) --[[ Line: 917 ]] --[[ Name: handleLoginWithOtp ]]
-        -- upvalues: v251 (ref), v126 (copy), l_SetBackNavigationDisabled_0 (ref), v348 (copy), l_LoginByOtp_0 (ref), v127 (copy), l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), v118 (copy), l_FFlagEnableRecordLogin_0 (ref), l_recordLogin_0 (ref), l_LoginMethods_0 (ref), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (copy), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (copy), v63 (ref), v187 (copy), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (copy), l_LaunchApp_0 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-        local v354 = v251(v353);
-        local _ = v126(l_SetBackNavigationDisabled_0(true));
-        return v126(l_LoginByOtp_0(v127, v349, v350, function(v356) --[[ Line: 928 ]]
-            -- upvalues: v348 (ref), v349 (copy), v350 (copy), v352 (copy), v353 (copy)
-            v348(v349, v350, v356, v352, v353);
-        end, v351, v352)):andThen(function(v357) --[[ Line: 933 ]]
-            -- upvalues: l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), v118 (ref), l_FFlagEnableRecordLogin_0 (ref), l_recordLogin_0 (ref), l_LoginMethods_0 (ref), v353 (copy), v126 (ref), l_SetBackNavigationDisabled_0 (ref), v12 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_LoginResult_0 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-            l_AppStorageService_0:SetItem(l_AuthLocalStorageKeys_0.CredentialValue, v118.userIdentifier);
-            if l_FFlagEnableRecordLogin_0 then
-                pcall(function() --[[ Line: 936 ]]
-                    -- upvalues: l_recordLogin_0 (ref), v357 (copy), l_LoginMethods_0 (ref), v118 (ref)
-                    l_recordLogin_0(v357, l_LoginMethods_0.EmailOtp, v118.userIdentifier);
-                end);
-            end;
-            local l_v353_0 = v353;
-            local v359 = v126(l_SetBackNavigationDisabled_0(false));
-            v359 = v12.new;
-            local v360 = nil;
-            v359 = v359(function(v361, v362) --[[ Line: 638 ]]
-                -- upvalues: l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), v360 (copy), l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), v122 (ref), l_GetFFlagBypassKeystoreLoginIxpV2_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), l_GetUserByUsername_0 (ref), v127 (ref), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v12 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref)
-                if l_GetFFlagKeystoreAutoLoginAvailable_0() == false or v360 == nil then
-                    v361();
-                    return;
-                else
-                    local v363 = l_GetFFlagRemoveKeystoreIxpLogic_0() and true or v122.shouldLoginWithKeystoreCredentials or l_GetFFlagBypassKeystoreLoginIxpV2_0();
-                    local v364 = l_HttpService_0:JSONEncode({
-                        server = l_ContentProvider_0.BaseUrl
-                    });
-                    local v365 = l_HttpService_0:JSONDecode(v360);
-                    l_GetUserByUsername_0(v127, v365.cvalue)():andThen(function(v366) --[[ Line: 660 ]]
-                        -- upvalues: v362 (copy), l_GetFFlagCheckIsAvailableForKeystoreOperations_0 (ref), l_default_0 (ref), l_KeystoreConstants_0 (ref), v364 (copy), v12 (ref)
-                        if not v366 or not v366.id then
-                            return v362("Invalid usernameInfo");
-                        elseif l_GetFFlagCheckIsAvailableForKeystoreOperations_0() then
-                            return l_default_0:isAvailable(l_default_0.CredentialsTypes.keystore, l_KeystoreConstants_0.KeystoreTimeout):andThen(function(v367) --[[ Line: 670 ]]
-                                -- upvalues: l_default_0 (ref), v364 (ref), l_KeystoreConstants_0 (ref), v12 (ref)
-                                if v367 and v367.keystore and v367.keystore.isAvailable then
-                                    return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v364, l_KeystoreConstants_0.KeystoreTimeout);
-                                else
-                                    return v12.resolve(nil);
-                                end;
-                            end):andThen(function() --[[ Line: 685 ]]
-                                -- upvalues: v366 (copy)
-                                return v366;
-                            end);
-                        else
-                            return l_default_0:deleteAllCredentialsFromKeystore(l_default_0.CredentialsTypes.keystore, v364, l_KeystoreConstants_0.KeystoreTimeout):andThen(function() --[[ Line: 693 ]]
-                                -- upvalues: v366 (copy)
-                                return v366;
-                            end);
-                        end;
-                    end):andThen(function(v368) --[[ Line: 698 ]]
-                        -- upvalues: l_GetFFlagRemoveKeystoreIxpLogic_0 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_HttpService_0 (ref), l_ContentProvider_0 (ref), v365 (copy), v363 (copy), l_KeystoreConstants_0 (ref), l_default_0 (ref)
-                        local v369 = nil;
-                        if l_GetFFlagRemoveKeystoreIxpLogic_0() then
-                            l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentials, (tostring(v368.id)));
-                            v369 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v365.cvalue), 
-                                userId = tostring(v368.id), 
-                                password = tostring(v365.password)
-                            });
-                        else
-                            local v370 = nil;
-                            if v363 == true then
-                                v370 = l_KeystoreConstants_0.Experiment;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsExperimentGroup, (tostring(v368.id)));
-                            else
-                                v370 = l_KeystoreConstants_0.Control;
-                                l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.saveCredentialsControlGroup, (tostring(v368.id)));
-                            end;
-                            v369 = l_HttpService_0:JSONEncode({
-                                server = tostring(l_ContentProvider_0.BaseUrl), 
-                                username = tostring(v365.cvalue), 
-                                userId = tostring(v368.id), 
-                                password = tostring(v365.password), 
-                                experimentGroup = tostring(v370)
-                            });
-                        end;
-                        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.keystore, v369, l_KeystoreConstants_0.KeystoreTimeout);
-                    end):andThen(function(_) --[[ Line: 743 ]]
-                        -- upvalues: v361 (copy)
-                        v361();
-                    end):catch(function(v372) --[[ Line: 746 ]]
-                        -- upvalues: v362 (copy)
-                        v362(v372);
-                    end);
-                    return;
-                end;
-            end);
-            local v373 = nil;
-            v359:finally(function() --[[ Line: 755 ]]
-                -- upvalues: l_LoginResult_0 (ref), v357 (copy), v126 (ref), l_SetLoginResult_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v205 (ref), v373 (copy), l_v353_0 (copy), v63 (ref), v187 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v127 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_GetFFlagEnableLoginAccountSelector_0 (ref), l_CloseCentralOverlay_0 (ref)
-                if l_LoginResult_0.hasTwoStepData(v357) then
-                    local _ = v126(l_SetLoginResult_0(v357));
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureTwoStepVerification, 1);
-                    spawn(function() --[[ Line: 762 ]]
-                        -- upvalues: v205 (ref), v357 (ref), v373 (ref), l_v353_0 (ref)
-                        v205(v357, v373, l_v353_0);
-                    end);
-                else
-                    l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Success, 1);
-                    if v373 then
-                        if v63 then
-                            local v375 = v187(v373);
-                            if v375 then
-                                v375:await();
-                            end;
-                        else
-                            v187(v373);
-                        end;
-                    end;
-                    if l_FFlagEnableLuaAccountSwitch_0 then
-                        v179(v357.accountBlob);
-                    else
-                        local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-                    end;
-                end;
-                if l_GetFFlagEnableLoginAccountSelector_0() then
-                    local _ = v126(l_CloseCentralOverlay_0());
-                end;
-            end);
-        end, function(v378) --[[ Line: 942 ]]
-            -- upvalues: v354 (copy), v349 (copy), v350 (copy)
-            v354(v378, v349, v350);
-        end);
-    end;
-    local function v387(v379, v380) --[[ Line: 948 ]]
-        -- upvalues: v126 (copy), l_SetBackNavigationDisabled_0 (ref), l_Constants_1 (ref), v118 (copy), l_SendCode_0 (ref), v127 (copy)
-        local v381 = v126(l_SetBackNavigationDisabled_0(true));
-        v381 = {
-            origin = l_Constants_1.otpServiceOrigin, 
-            contactType = l_Constants_1.otpServiceContactType, 
-            contactValue = v118.userIdentifier
-        };
-        return v126(l_SendCode_0(v127, v381)):andThen(function(v382) --[[ Line: 959 ]]
-            -- upvalues: v379 (copy)
-            v379(v382.otpSessionToken);
-        end, function(v383) --[[ Line: 962 ]]
-            -- upvalues: v380 (copy), l_Constants_1 (ref)
-            v380.setInProgress(false);
-            local v384 = tonumber(v383) or 0;
-            local v385 = l_Constants_1.statusCodeMap[v384] or "Unknown";
-            local v386 = l_Constants_1.errorMessageKeys[v385] or l_Constants_1.errorMessageKeys.Unknown;
-            v380.setErrorKey(v386);
-        end);
-    end;
-    local function v397(v388, v389, v390) --[[ Line: 971 ]]
-        -- upvalues: v126 (copy), l_SetBackNavigationDisabled_0 (ref), l_Constants_1 (ref), l_ResendCode_0 (ref), v127 (copy)
-        local v391 = v126(l_SetBackNavigationDisabled_0(true));
-        v391 = {
-            origin = l_Constants_1.otpServiceOrigin, 
-            contactType = l_Constants_1.otpServiceContactType, 
-            otpSessionToken = v388
-        };
-        return v126(l_ResendCode_0(v127, v391)):andThen(function(v392) --[[ Line: 983 ]]
-            -- upvalues: v389 (copy)
-            v389(v392.otpSessionToken);
-        end, function(v393) --[[ Line: 986 ]]
-            -- upvalues: v390 (copy), l_Constants_1 (ref)
-            v390.setInProgress(false);
-            local v394 = tonumber(v393) or 0;
-            local v395 = l_Constants_1.statusCodeMap[v394] or "Unknown";
-            local v396 = l_Constants_1.errorMessageKeys[v395] or l_Constants_1.errorMessageKeys.Unknown;
-            v390.setErrorKey(v396);
-        end);
-    end;
-    local function v417(v398, v399, v400) --[[ Line: 995 ]]
-        -- upvalues: v137 (copy), v118 (copy), v135 (copy), l_HttpService_0 (ref), l_Constants_0 (ref), l_UserInputService_0 (ref), l_Base64_0 (ref), l_default_0 (ref), l_Logger_0 (ref), l_FFlagUseErrorTypeForPasskeyLoginLogging_0 (ref), l_CredentialsProtocolErrorCodes_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref), l_PasskeyConstants_0 (ref), l_FFlagEnablePasskeyLoginErrorLogging_0 (ref), v314 (copy)
-        local v401 = v399 and function() --[[ Line: 1002 ]]
-            -- upvalues: v137 (ref), v118 (ref)
-            return v137({
-                cvalue = v118.userIdentifier, 
-                ctype = v118.userIdentifierType
-            });
-        end or function() --[[ Line: 1008 ]]
-            -- upvalues: v135 (ref)
-            return v135();
-        end;
-        local v402 = false;
-        return v401():andThen(function(v403) --[[ Line: 1015 ]]
-            -- upvalues: l_HttpService_0 (ref), l_Constants_0 (ref), v400 (copy), l_UserInputService_0 (ref), l_Base64_0 (ref), l_default_0 (ref), l_Logger_0 (ref), l_FFlagUseErrorTypeForPasskeyLoginLogging_0 (ref), l_CredentialsProtocolErrorCodes_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref), l_PasskeyConstants_0 (ref), l_FFlagEnablePasskeyLoginErrorLogging_0 (ref), v398 (copy), v402 (ref), v314 (ref)
-            local v404 = l_HttpService_0:JSONDecode(v403.authenticationOptions);
-            local l_sessionId_0 = v403.sessionId;
-            local v406 = tonumber(v404.publicKey.timeout);
-            local v407 = if v406 then v406 / 1000 else l_Constants_0.Defaults.CREDENTIALSPROTOCOL_GETCREDENTIALS_DEFAULTTIMEOUT;
-            v404.keyType = "platform";
-            v404.deviceBoundOnly = v400;
-            if l_UserInputService_0:GetPlatform() ~= Enum.Platform.Android then
-                v404.publicKey.challenge = l_Base64_0.FromUrlSafeBase64(v404.publicKey.challenge);
-                if v404.publicKey.allowCredentials then
-                    for _, v409 in ipairs(v404.publicKey.allowCredentials) do
-                        v409.id = l_Base64_0.FromUrlSafeBase64(v409.id);
-                    end;
-                end;
-            end;
-            local v410 = l_HttpService_0:JSONEncode(v404);
-            l_default_0:getCredentials(l_default_0.CredentialsTypes.FIDO2, v410, v407):andThen(function(v411) --[[ Line: 1041 ]]
-                -- upvalues: l_HttpService_0 (ref), l_Logger_0 (ref), l_FFlagUseErrorTypeForPasskeyLoginLogging_0 (ref), l_CredentialsProtocolErrorCodes_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref), l_PasskeyConstants_0 (ref), l_FFlagEnablePasskeyLoginErrorLogging_0 (ref), l_Base64_0 (ref), v398 (ref), v402 (ref), v314 (ref), l_sessionId_0 (copy)
-                if v411 ~= nil then
-                    local v412 = l_HttpService_0:JSONDecode(v411);
-                    if v412 == nil or next(v412) == nil then
-                        l_Logger_0:info("Passkey credential signing failed. No result returned.");
-                        return;
-                    elseif v412.errorCode ~= nil then
-                        l_Logger_0:info("Passkey credential signing failed. Error {} (msg: {}) returned.", v412.errorCode, v412.errorMsg);
-                        if l_FFlagUseErrorTypeForPasskeyLoginLogging_0 then
-                            local v413 = tonumber(v412.errorCode);
-                            local v414 = l_CredentialsProtocolErrorCodes_0.GetCredentialsErrorCodes[v413 or -1] or string.format(l_CredentialsProtocolErrorCodes_0.UNMAPPED_ERROR_CODE, (tostring(v412.errorCode)));
-                            l_authClientError_0(l_EventStreamConstants_0.Context.PasskeyLoginAttempt, v414, l_PasskeyConstants_0.PASSKEY_FETCH_LOGIN_V2);
-                            return;
-                        elseif l_FFlagEnablePasskeyLoginErrorLogging_0 and type(v412.errorMsg) == "string" then
-                            l_authClientError_0(l_EventStreamConstants_0.Context.PasskeyLoginAttempt, v412.errorMsg, l_PasskeyConstants_0.PASSKEY_FETCH_LOGIN_V2);
-                            return;
-                        end;
-                    else
-                        l_Logger_0:info("Passkey credential signing completed. Attempting login.");
-                        v412.id = l_Base64_0.ToUrlSafeBase64(v412.id);
-                        v412.rawId = l_Base64_0.ToUrlSafeBase64(v412.rawId);
-                        v412.response.signature = l_Base64_0.ToUrlSafeBase64(v412.response.signature);
-                        v412.response.userHandle = l_Base64_0.ToUrlSafeBase64(v412.response.userHandle);
-                        v412.response.authenticatorData = l_Base64_0.ToUrlSafeBase64(v412.response.authenticatorData);
-                        v412.response.clientDataJSON = l_Base64_0.ToUrlSafeBase64(v412.response.clientDataJSON);
-                        v398.setInProgress(true);
-                        v402 = true;
-                        v314(v412, l_sessionId_0, v398);
-                    end;
-                end;
-            end, function(v415) --[[ Line: 1091 ]]
-                -- upvalues: l_Logger_0 (ref)
-                l_Logger_0:warning("Passkey credential signing failed. Error: {}", v415);
-            end):await();
-        end, function(v416) --[[ Line: 1095 ]]
-            -- upvalues: l_Logger_0 (ref), v399 (copy), v400 (copy), v398 (copy)
-            l_Logger_0:warning("Fetching passkey login options failed with error code: {}", v416.errorCode);
-            if v399 and not v400 then
-                v398.setErrorKey("Authentication.Login.Response.UnableToSignIn");
-            end;
-        end):finally(function() --[[ Line: 1102 ]]
-            -- upvalues: v398 (copy), v402 (ref)
-            if v398.onCredentialsPopupAbandoned and not v402 then
-                v398.onCredentialsPopupAbandoned();
-            end;
-        end);
-    end;
-    local function v439(v418, v419, v420, v421) --[[ Line: 1109 ]]
-        -- upvalues: v137 (copy), v118 (copy), v135 (copy), l_HttpService_0 (ref), l_Constants_0 (ref), l_UserInputService_0 (ref), l_Base64_0 (ref), l_Logger_0 (ref), l_default_1 (ref), l_TelemetryConfigs_0 (ref), l_default_0 (ref), l_FFlagEnablePasskeyLoginErrorLogging_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref), l_PasskeyConstants_0 (ref), v252 (copy), v314 (copy)
-        if not v418 and not v419 then
-            return;
-        else
-            local v422 = v420 and function() --[[ Line: 1121 ]]
-                -- upvalues: v137 (ref), v118 (ref)
-                return v137({
-                    cvalue = v118.userIdentifier, 
-                    ctype = v118.userIdentifierType
-                });
-            end or function() --[[ Line: 1127 ]]
-                -- upvalues: v135 (ref)
-                return v135();
-            end;
-            local v423 = nil;
-            local v424 = nil;
-            local v425 = nil;
-            local v426 = {};
-            if v418 then
-                v422():andThen(function(v427) --[[ Line: 1137 ]]
-                    -- upvalues: v423 (ref), l_HttpService_0 (ref), v424 (ref), v425 (ref), l_Constants_0 (ref), l_UserInputService_0 (ref), l_Base64_0 (ref)
-                    v423 = l_HttpService_0:JSONDecode(v427.authenticationOptions);
-                    v424 = v427.sessionId;
-                    v425 = tonumber(v423.publicKey.timeout) or l_Constants_0.Defaults.CREDENTIALSPROTOCOL_GETCREDENTIALS_DEFAULTTIMEOUT;
-                    v423.keyType = "platform";
-                    v423.deviceBoundOnly = true;
-                    if l_UserInputService_0:GetPlatform() ~= Enum.Platform.Android then
-                        v423.publicKey.challenge = l_Base64_0.FromUrlSafeBase64(v423.publicKey.challenge);
-                        if v423.publicKey.allowCredentials then
-                            for _, v429 in ipairs(v423.publicKey.allowCredentials) do
-                                v429.id = l_Base64_0.FromUrlSafeBase64(v429.id);
-                            end;
-                        end;
-                    end;
-                end, function(v430) --[[ Line: 1158 ]]
-                    -- upvalues: l_Logger_0 (ref)
-                    l_Logger_0:warning("Fetching passkey login options failed with error code: {}", v430.errorCode);
-                end):await();
-                if v423 ~= nil then
-                    v426.FIDO2 = v423;
-                end;
-            end;
-            if v419 then
-                v426.password = {};
-                if v420 then
-                    v426.password.username = v118.userIdentifier;
-                end;
-            end;
-            local v431 = if v425 then v425 / 1000 else l_Constants_0.Defaults.CREDENTIALSPROTOCOL_GETCREDENTIALS_DEFAULTTIMEOUT;
-            local v432 = false;
-            local v433 = l_HttpService_0:JSONEncode(v426);
-            l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginCredentialSheetShownConfig, 1);
-            return l_default_0:getCredentials(l_default_0.CredentialsTypes.all, v433, v431):andThen(function(v434) --[[ Line: 1188 ]]
-                -- upvalues: l_HttpService_0 (ref), l_Logger_0 (ref), l_default_1 (ref), l_TelemetryConfigs_0 (ref), l_FFlagEnablePasskeyLoginErrorLogging_0 (ref), l_authClientError_0 (ref), l_EventStreamConstants_0 (ref), l_PasskeyConstants_0 (ref), l_default_0 (ref), v421 (copy), v432 (ref), v252 (ref), l_Base64_0 (ref), v314 (ref), v424 (ref)
-                if v434 ~= nil then
-                    local v435 = l_HttpService_0:JSONDecode(v434);
-                    if v435 == nil or not v435.response and not v435.errorCode then
-                        l_Logger_0:info("Generic credential fetch failed. No result returned.");
-                        l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginCredentialSheetDismissedConfig, 1);
-                        return;
-                    elseif v435.errorCode ~= nil then
-                        l_Logger_0:info("Generic credential fetch failed. Error {} (msg: {}) returned.", v435.errorCode, v435.errorMsg);
-                        l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginCredentialSheetErrorConfig, 1, {
-                            errorCode = tostring(v435.errorCode)
-                        });
-                        if l_FFlagEnablePasskeyLoginErrorLogging_0 and type(v435.errorMsg) == "string" then
-                            l_authClientError_0(l_EventStreamConstants_0.Context.PasskeyLoginAttempt, v435.errorMsg, l_PasskeyConstants_0.GENERIC_CREDENTIAL_FETCH_LOGIN_V2);
-                            return;
-                        end;
-                    elseif v435.credentialType == l_default_0.CredentialsTypes.password then
-                        l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginCredentialSheetPasswordSelectedConfig, 1);
-                        v421.setInProgress(true);
-                        v432 = true;
-                        v252(v435.response.username, v435.response.password, nil, nil, nil, true, v421);
-                        return;
-                    elseif v435.credentialType == l_default_0.CredentialsTypes.FIDO2 then
-                        l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginCredentialSheetPasskeySelectedConfig, 1);
-                        v435.response.id = l_Base64_0.ToUrlSafeBase64(v435.response.id);
-                        v435.response.rawId = l_Base64_0.ToUrlSafeBase64(v435.response.rawId);
-                        v435.response.response.signature = l_Base64_0.ToUrlSafeBase64(v435.response.response.signature);
-                        v435.response.response.userHandle = l_Base64_0.ToUrlSafeBase64(v435.response.response.userHandle);
-                        v435.response.response.authenticatorData = l_Base64_0.ToUrlSafeBase64(v435.response.response.authenticatorData);
-                        v435.response.response.clientDataJSON = l_Base64_0.ToUrlSafeBase64(v435.response.response.clientDataJSON);
-                        v421.setInProgress(true);
-                        v432 = true;
-                        v314(v435.response, v424, v421);
-                    end;
-                end;
-            end, function(v436) --[[ Line: 1253 ]]
-                -- upvalues: l_Logger_0 (ref), l_default_1 (ref), l_TelemetryConfigs_0 (ref)
-                l_Logger_0:warning("Generic credential signing failed. Error: {}", v436);
-                l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.IosAuthServiceLoginCredentialSheetDismissedConfig, 1);
-            end):andThen(function(_) --[[ Line: 1262 ]]
-                -- upvalues: v421 (copy), v432 (ref)
-                if v421.onCredentialsPopupAbandoned and not v432 then
-                    v421.onCredentialsPopupAbandoned();
-                end;
-            end):catch(function(_) --[[ Line: 1268 ]]
-                -- upvalues: v421 (copy), v432 (ref)
-                if v421.onCredentialsPopupAbandoned and not v432 then
-                    v421.onCredentialsPopupAbandoned();
-                end;
-            end);
-        end;
-    end;
-    local function v448(v440, v441, v442, v443, v444, v445, v446, v447) --[[ Line: 1275 ]]
-        -- upvalues: v126 (copy), l_OpenAccountSwitchingErrorOverlay_0 (ref)
-        return v126(l_OpenAccountSwitchingErrorOverlay_0(v440, v441, v442, v443, v444, v445, v446, v447));
-    end;
-    local function v449() --[[ Line: 1299 ]]
-        -- upvalues: v126 (copy), l_OpenCentralOverlayForLoginPasswordResetPrompt_0 (ref)
-        return v126(l_OpenCentralOverlayForLoginPasswordResetPrompt_0());
-    end;
-    local function v452(v450, v451) --[[ Line: 1303 ]]
-        -- upvalues: l_LogoutAllLoggedInUsers_0 (ref)
-        return l_LogoutAllLoggedInUsers_0(v450, v451);
-    end;
-    local function v456(v453, v454, v455) --[[ Line: 1307 ]]
-        -- upvalues: v126 (copy), l_Logout_0 (copy)
-        return v126(l_Logout_0(v453, v454, v455));
-    end;
-    local function v457() --[[ Line: 1311 ]]
-        -- upvalues: v126 (copy), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), v129 (copy), l_GetFStringVNGDownloadNowUrl_0 (ref)
-        return v126(l_SetCentralOverlay_0(l_CentralOverlayType_0.NewAppAvailableModal, {
-            onButtonActivated = function() --[[ Line: 1313 ]] --[[ Name: onButtonActivated ]]
-                -- upvalues: v129 (ref), l_GetFStringVNGDownloadNowUrl_0 (ref)
-                v129:openURL(l_GetFStringVNGDownloadNowUrl_0());
-            end
-        }));
-    end;
-    local function v467(v458, v459, v460, v461) --[[ Line: 1320 ]]
-        -- upvalues: l_EventStreamConstants_0 (ref), v118 (copy), l_UserIdentifierType_0 (ref), v348 (copy), v252 (copy), v126 (copy), l_CloseCentralOverlay_0 (ref), l_OpenAccountSelector_0 (ref)
-        local v462 = "";
-        if v461.isLoginByOtp then
-            v462 = l_EventStreamConstants_0.Context.DisambiguationOTP;
-        elseif v118.userIdentifierType == l_UserIdentifierType_0.Email then
-            v462 = l_EventStreamConstants_0.Context.DisambiguationEmail;
-        elseif v118.userIdentifierType == l_UserIdentifierType_0.Phone then
-            v462 = l_EventStreamConstants_0.Context.DisambiguationPhone;
-        end;
-        local v465 = {
-            origin = l_EventStreamConstants_0.Context.Login, 
-            context = v462, 
-            users = v458, 
-            onAccountSelection = function(v463) --[[ Line: 1339 ]] --[[ Name: onAccountSelection ]]
-                -- upvalues: v461 (copy), v348 (ref), v459 (copy), v460 (copy), v252 (ref)
-                if v461.isLoginByOtp then
-                    v348(v459, v460, nil, v463, v461);
-                    return;
-                else
-                    v252(v459, v460, nil, nil, v463, false, v461):await();
-                    return;
-                end;
-            end, 
-            onAccountSelectionAbandoned = function() --[[ Line: 1346 ]] --[[ Name: onAccountSelectionAbandoned ]]
-                -- upvalues: v461 (copy), v126 (ref), l_CloseCentralOverlay_0 (ref)
-                v461.setInProgress(false);
-                local _ = v126(l_CloseCentralOverlay_0());
-            end, 
-            titleTextKey = "Authentication.Login.Label.AccountSelectorTitle"
-        };
-        local _ = v126(l_OpenAccountSelector_0(v465, true, false));
-    end;
-    local function v469(v468) --[[ Line: 1356 ]]
-        -- upvalues: v144 (copy), v119 (copy), v70 (ref), v69 (ref)
-        v144();
-        v119({
-            type = v70.SetComponentState, 
-            data = {
-                component = v69.LoginScreenV2, 
-                payload = {
-                    errorKey = v468.errorKey
-                }
-            }
-        });
-        v119({
-            type = v70.ForceLoginByUsername
-        });
-    end;
-    local function v471(v470) --[[ Line: 1372 ]]
-        -- upvalues: l_LoginErrorCodes_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), l_StatusCodes_0 (ref)
-        if v470.errorCode == l_LoginErrorCodes_0.IncorrectCValueOrPassword then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureCredentials, 1);
-            return;
-        elseif v470.errorCode == l_LoginErrorCodes_0.AccountLocked then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailurePasswordReset, 1);
-            return;
-        elseif v470.errorCode == l_LoginErrorCodes_0.CTypeNotSupported then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureBadRequest, 1);
-            return;
-        elseif v470.errorCode == l_LoginErrorCodes_0.CValueAndPasswordRequired then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureBadRequest, 1);
-            return;
-        elseif v470.errorCode == l_LoginErrorCodes_0.SecurityQuestions then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureSecurityQuestions, 1);
-            return;
-        elseif v470.errorCode == l_LoginErrorCodes_0.MultipleUsersPerCredential then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureMultipleUsersPerCredential, 1);
-            return;
-        elseif v470.HttpError == Enum.HttpError.OK and v470.StatusCode == l_StatusCodes_0.TOO_MANY_REQUESTS then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureThrottled, 1);
-            return;
-        elseif v470.HttpError == Enum.HttpError.OK and v470.StatusCode == l_StatusCodes_0.REQUEST_TIMEOUT then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureTimeout, 1);
-            return;
-        elseif v470.HttpError == Enum.HttpError.OK and v470.StatusCode == l_StatusCodes_0.BAD_REQUEST then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureBadRequest, 1);
-            return;
-        elseif v470.HttpError == Enum.HttpError.OK and v470.StatusCode == l_StatusCodes_0.NOT_FOUND then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureNotFound, 1);
-            return;
-        elseif v470.HttpError == Enum.HttpError.OK and v470.StatusCode == l_StatusCodes_0.INTERNAL_SERVER_ERROR then
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureInternalServerError, 1);
-            return;
-        else
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.FailureUnknownError, 1);
-            return;
-        end;
-    end;
-    v251 = function(v472) --[[ Line: 1400 ]]
-        -- upvalues: l_LoginErrorCodes_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v471 (copy), l_authClientError_0 (ref), v126 (copy), l_CloseCentralOverlay_0 (ref), l_AppStorageUtilities_0 (ref), l_User_0 (ref), v127 (copy), l_LogoutAllLoggedInUsers_0 (ref), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref), v163 (copy), l_LoginResult_0 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (copy), l_LaunchApp_0 (copy), v128 (copy), v131 (copy), l_LaunchContext_0 (ref), l_ResetAppState_0 (copy), v12 (ref), l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), l_AccountSwitcherConstants_0 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), l_GuiService_0 (ref), l_LogoutReasonNames_0 (ref), l_Logout_0 (copy), v120 (ref), v125 (copy), l_OpenAccountSwitchingErrorOverlay_0 (ref), v469 (copy), v69 (ref), l_OpenCentralOverlayForLoginPasswordResetPrompt_0 (ref), v457 (copy), v215 (copy), v467 (copy)
-        return function(v473, v474, v475, v476) --[[ Line: 1401 ]] --[[ Name: handleLoginError ]]
-            -- upvalues: l_LoginErrorCodes_0 (ref), l_reportEphemeralCounter_0 (ref), l_AppLoginCounterNames_0 (ref), v471 (ref), l_authClientError_0 (ref), v472 (copy), v126 (ref), l_CloseCentralOverlay_0 (ref), l_AppStorageUtilities_0 (ref), l_User_0 (ref), v127 (ref), l_LogoutAllLoggedInUsers_0 (ref), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref), v163 (ref), l_LoginResult_0 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), l_LaunchApp_0 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_ResetAppState_0 (ref), v12 (ref), l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), l_AccountSwitcherConstants_0 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), l_GuiService_0 (ref), l_LogoutReasonNames_0 (ref), l_Logout_0 (ref), v120 (ref), v125 (ref), l_OpenAccountSwitchingErrorOverlay_0 (ref), v469 (ref), v69 (ref), l_OpenCentralOverlayForLoginPasswordResetPrompt_0 (ref), v457 (ref), v215 (ref), v467 (ref)
-            local v477 = false;
-            local v478 = v473.errorCode == l_LoginErrorCodes_0.MultipleUsersPerCredential;
-            local v479 = v473.errorCode == l_LoginErrorCodes_0.SecurityQuestions;
-            if v478 or v479 then
-                v477 = true;
-            end;
-            l_reportEphemeralCounter_0(l_AppLoginCounterNames_0.Failure, 1);
-            v471(v473);
-            l_authClientError_0(v472.eventContext, v473.errorCode);
-            local function v481() --[[ Line: 1419 ]]
-                -- upvalues: v472 (ref), v477 (ref), v126 (ref), l_CloseCentralOverlay_0 (ref)
-                v472.setInProgress(v477);
-                local _ = v126(l_CloseCentralOverlay_0());
-            end;
-            local function v494() --[[ Line: 1424 ]]
-                -- upvalues: l_AppStorageUtilities_0 (ref), l_User_0 (ref), v472 (ref), v127 (ref), l_LogoutAllLoggedInUsers_0 (ref), l_FFlagEnableNavigateToLoginAfterLogoutAll_0 (ref), v476 (copy), v163 (ref), v474 (copy), v475 (copy), l_LoginResult_0 (ref), l_FFlagEnableLuaAccountSwitch_0 (ref), v179 (ref), v126 (ref), l_LaunchApp_0 (ref), v128 (ref), v131 (ref), l_LaunchContext_0 (ref), l_ResetAppState_0 (ref), v12 (ref), l_AppStorageService_0 (ref), l_AuthLocalStorageKeys_0 (ref), l_AccountSwitcherConstants_0 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), l_GuiService_0 (ref), l_LogoutReasonNames_0 (ref), l_Logout_0 (ref), l_CloseCentralOverlay_0 (ref)
-                local v482 = l_AppStorageUtilities_0.getAccountBlob();
-                local v483 = l_User_0.fromLocalStorage().userId ~= -1;
-                v472.setInProgress(true);
-                l_LogoutAllLoggedInUsers_0(v127, v482):await();
-                local v484 = false;
-                if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 then
-                    if v476 then
-                        local l_status_1, l_result_1 = pcall(function() --[[ Line: 1433 ]]
-                            -- upvalues: v163 (ref), v127 (ref), v474 (ref), v475 (ref)
-                            return v163(v127, v474, v475):expect();
-                        end);
-                        if l_status_1 and l_result_1 and not l_LoginResult_0.hasTwoStepData(l_result_1) then
-                            if l_FFlagEnableLuaAccountSwitch_0 then
-                                v179(l_result_1.accountBlob);
-                                return;
-                            else
-                                local _ = v126(l_LaunchApp_0(v127, nil, v128, v131, l_LaunchContext_0.Login));
-                                return;
-                            end;
-                        end;
-                    elseif type(v474) ~= "string" then
-                        v484 = true;
-                    end;
-                end;
-                if v483 == true then
-                    v126(l_ResetAppState_0());
-                    local v488 = v12.resolve();
-                    l_AppStorageService_0:SetItem(l_AuthLocalStorageKeys_0.CredentialValue, "");
-                    l_AppStorageService_0:Flush();
-                    if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 then
-                        v488 = if v484 then l_AccountSwitcherConstants_0.AccountSwitcherPendingPasskeyLoginV2AfterLogoutAll else l_AccountSwitcherConstants_0.AccountSwitcherPendingLoginV2AfterLogoutAll;
-                        l_AppStorageUtilities_0.setAccountSwitchStatus(v488);
-                        l_AppStorageUtilities_0.flush();
-                    end;
-                    if l_FFlagAddReasonToEveryLogout_0 then
-                        v488 = v127;
-                        local l_l_GuiService_0_0 = l_GuiService_0;
-                        local l_LoginContextAccountSwitchingErrorOverlay_0 = l_LogoutReasonNames_0.LoginContextAccountSwitchingErrorOverlay;
-                        local _ = v126(l_Logout_0(v488, l_l_GuiService_0_0, l_LoginContextAccountSwitchingErrorOverlay_0));
-                    else
-                        local _ = v126(l_Logout_0(v127, l_GuiService_0, nil));
-                    end;
-                end;
-                v472.setInProgress(false);
-                local _ = v126(l_CloseCentralOverlay_0());
-            end;
-            if l_FFlagEnableLuaAccountSwitch_0 and v473.errorCode == l_LoginErrorCodes_0.EmptyAccountSwitchBlobRequired then
-                v472.setErrorKey("");
-                local v495 = if not l_FFlagEnableNavigateToLoginAfterLogoutAll_0 or v476 then v474 else v120.current;
-                if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 then
-                    l_AppStorageUtilities_0.setAccountSwitchTargetUsername(v495);
-                end;
-                local v496 = v125 and "Authentication.AccountSwitch.Header.SignOutOtherAccounts" or "Authentication.AccountSwitch.Header.LogoutAllAccounts";
-                local v497 = v125 and "Authentication.AccountSwitch.Description.ContinueSignOutOthers" or "Authentication.AccountSwitch.Description.LogoutConfirmation";
-                local v498 = v125 and "Authentication.AccountSwitch.Action.Continue" or "Authentication.AccountSwitch.Action.LogoutAllAccounts";
-                local l_AccountSwitcherLoginEmptyBlobRequiredError_0 = l_AccountSwitcherConstants_0.AccountSwitcherLoginEmptyBlobRequiredError;
-                local v500 = v495 or nil;
-                local _ = v126(l_OpenAccountSwitchingErrorOverlay_0(v496, v497, v498, "Authentication.CrossDevice.Action.CancelLogin", v494, v481, l_AccountSwitcherLoginEmptyBlobRequiredError_0, v500));
-                return;
-            elseif l_FFlagEnableLuaAccountSwitch_0 and v473.errorCode == l_LoginErrorCodes_0.ParentEmptyAccountSwitchBlobRequired then
-                v472.setErrorKey("");
-                local v502 = if not l_FFlagEnableNavigateToLoginAfterLogoutAll_0 or v476 then v474 else v120.current;
-                if l_FFlagEnableNavigateToLoginAfterLogoutAll_0 then
-                    l_AppStorageUtilities_0.setAccountSwitchTargetUsername(v502);
-                end;
-                local v503 = v125 and "Authentication.AccountSwitch.Header.SignOutOtherAccounts" or "Authentication.AccountSwitch.Header.LogoutAllAccounts";
-                local v504 = v125 and "Authentication.AccountSwitch.Description.ContinueSignOutOthers" or "Authentication.AccountSwitch.Description.ParentLogoutConfirmation";
-                local v505 = v125 and "Authentication.AccountSwitch.Action.Continue" or "Authentication.AccountSwitch.Action.LogoutAllAccounts";
-                local l_AccountSwitcherParentLoginEmptyBlobRequiredError_0 = l_AccountSwitcherConstants_0.AccountSwitcherParentLoginEmptyBlobRequiredError;
-                local v507 = v502 or nil;
-                local _ = v126(l_OpenAccountSwitchingErrorOverlay_0(v503, v504, v505, "Authentication.CrossDevice.Action.CancelLogin", v494, v481, l_AccountSwitcherParentLoginEmptyBlobRequiredError_0, v507));
-                return;
-            elseif v473.errorCode == l_LoginErrorCodes_0.MoreThanOneUsername then
-                v469(v473);
-                v472.navigation.navigate(v69.LoginScreenV2);
-                return;
-            else
-                if v473.errorCode == l_LoginErrorCodes_0.AccountLocked then
-                    local _ = v126(l_OpenCentralOverlayForLoginPasswordResetPrompt_0());
-                end;
-                if v473.errorCode == l_LoginErrorCodes_0.GlobalAppAccessDeniedVNG then
-                    v457();
-                end;
-                if v479 and v473.securityQuestionsData and v473.securityQuestionsCallback then
-                    spawn(function() --[[ Line: 1551 ]]
-                        -- upvalues: v215 (ref), v474 (copy), v475 (copy), v473 (copy), v472 (ref)
-                        v215(v474, v475, v473.securityQuestionsData, v473.securityQuestionsCallback, v472);
-                    end);
-                    return;
-                elseif v478 and v473.usersData and v474 and v475 then
-                    v467(v473.usersData, v474, v475, v472);
-                    return;
-                else
-                    v472.setErrorKey(v473.errorKey or "Authentication.Login.Response.SomethingWentWrong");
-                    v472.setInProgress(v477);
-                    return;
-                end;
-            end;
-        end;
-    end;
-    return v11.createElement(v65.Provider, {
-        value = {
-            state = v118, 
-            dispatch = v119, 
-            parentNavigation = v113.parentNavigation, 
-            utils = {
-                handleLoginCompletionWithAccountSwitching = v179, 
-                handleLoginResult = v250, 
-                showPasskeyLoginPopup = v417, 
-                showGenericCredentialLoginPopup = v439, 
-                handleLoginWithCode = v315, 
-                handleLoginWithFormData = v252, 
-                handleLoginWithPasskey = v314, 
-                handleLoginWithOtp = v348, 
-                handleSendEmailOtp = v387, 
-                handleResendEmailOtp = v397, 
-                openAccountSwitchingErrorOverlay = v448, 
-                openPasswordResetPrompt = v449, 
-                openWebView = v170, 
-                openAccountRecovery = v172, 
-                logoutAllLoggedInUsers = v452, 
-                logoutWithoutShowConfirmation = v456, 
-                openNewAppAvailableModal = v457, 
-                closeCentralOverlay = v162, 
-                clearApp = v143, 
-                openAccountSelector = v467, 
-                handleCredentialsCollision = v469, 
-                registerPassword = v187, 
-                isUserAuthenticated = v166
-            }
-        }
-    }, v113.children);
-end;
+local LoginV2 = script:FindFirstAncestor("LoginV2")
+local LoginV2Parent = LoginV2.Parent
+local HttpService = game:GetService("HttpService")
+local UserInputService = game:GetService("UserInputService")
+local GuiService = game:GetService("GuiService")
+local AppStorageService = game:GetService("AppStorageService")
+local MemStorageService = game:GetService("MemStorageService")
+local ContentProvider = game:GetService("ContentProvider")
+local Enums = require(LoginV2.Enums)
+
+require(LoginV2.Components.Types)
+
+local UserIdentifierType = Enums.UserIdentifierType
+local React = require(LoginV2Parent.React)
+local Promise = require(LoginV2Parent.Promise)
+local AuthCommon = require(LoginV2Parent.AuthCommon)
+local OtpLogin = require(LoginV2Parent.OtpLogin)
+
+require(LoginV2Parent.LuauPolyfill)
+
+local useDispatch = require(LoginV2Parent.RoactUtils).Hooks.RoactRodux.useDispatch
+local useRoactService = require(LoginV2Parent.RobloxAppHooks).useRoactService
+local useAppPolicy = require(LoginV2Parent.UniversalAppPolicy).useAppPolicy
+local LaunchContext = require(LoginV2Parent.AppStartup).Enums.LaunchContext
+local CloseCentralOverlay = require(LoginV2Parent.CentralOverlay).Thunks.CloseCentralOverlay
+local SetCentralOverlay = require(LoginV2Parent.CentralOverlay).Actions.SetCentralOverlay
+local NotificationType = require(LoginV2Parent.RobloxAppEnums).NotificationType
+local CentralOverlayType = require(LoginV2Parent.RobloxAppEnums).CentralOverlayType
+local AppPage = require(LoginV2Parent.RobloxAppEnums).AppPage
+local OpenAccountSwitchingErrorOverlay = require(LoginV2Parent.AccountSwitcher).OpenAccountSwitchingErrorOverlay
+local RenderChallenge = require(LoginV2Parent.GenericChallenges).Middleware.RenderChallenge
+local ChallengeType = require(LoginV2Parent.GenericChallenges).Types.ChallengeType
+local TwoStepVerificationActionType = require(LoginV2Parent.GenericChallenges).Types.TwoStepVerificationActionType
+local NavigateDown = require(LoginV2Parent.NavigationRodux).Thunks.NavigateDown
+local AuthAnalytics = require(LoginV2Parent.AuthAnalytics)
+local StatusCodes = require(LoginV2Parent.Http).StatusCodes
+local EventStreamConstants = require(LoginV2Parent.AuthAnalytics).EventStreamConstants
+local RoactAppExperiment = require(LoginV2Parent.RoactAppExperiment)
+local AppBtidLayers = require(LoginV2Parent.ExperimentLayers).AppBtidLayers
+local RoactServiceTags = require(LoginV2Parent.RoactServiceTags)
+local RoactNetworking = RoactServiceTags.RoactNetworking
+local RoactAnalytics = RoactServiceTags.RoactAnalytics
+local AppLinking = RoactServiceTags.AppLinking
+local CredentialsProtocol = require(LoginV2Parent.CredentialsProtocol)
+local Constants = CredentialsProtocol.Constants
+local default = CredentialsProtocol.CredentialsProtocol.default
+local CredentialsProtocolErrorCodes = CredentialsProtocol.CredentialsProtocolErrorCodes
+local SharedFlags = require(LoginV2Parent.SharedFlags)
+local GetFFlagEnableLoginAccountSelector = SharedFlags.GetFFlagEnableLoginAccountSelector
+local FFlagEnableLuaAccountSwitch = SharedFlags.FFlagEnableLuaAccountSwitch
+local FFlagLuaEnableDidSwitchAccount = SharedFlags.FFlagLuaEnableDidSwitchAccount
+local GetFStringVNGDownloadNowUrl = SharedFlags.GetFStringVNGDownloadNowUrl
+local FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues = SharedFlags.FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues
+local FFlagAddReasonToEveryLogout = SharedFlags.FFlagAddReasonToEveryLogout
+local FFlagEnablePasskeyLoginErrorLogging = SharedFlags.FFlagEnablePasskeyLoginErrorLogging
+local FFlagDisableMemStorageServicePasswordEvent = SharedFlags.FFlagDisableMemStorageServicePasswordEvent
+local FFlagEnableLoginV2ForcedUsernameOverride = SharedFlags.FFlagEnableLoginV2ForcedUsernameOverride
+local FFlagEnablePWManagerLoginCheck = SharedFlags.FFlagEnablePWManagerLoginCheck
+local FFlagEnablePWManagerSignupCheck = SharedFlags.FFlagEnablePWManagerSignupCheck
+local GetFFlagKeystoreAutoLoginAvailable = SharedFlags.GetFFlagKeystoreAutoLoginAvailable
+local GetFFlagBypassKeystoreLoginIxpV2 = SharedFlags.GetFFlagBypassKeystoreLoginIxpV2
+local GetFFlagCheckIsAvailableForKeystoreOperations = SharedFlags.GetFFlagCheckIsAvailableForKeystoreOperations
+local GetFFlagRemoveKeystoreIxpLogic = SharedFlags.GetFFlagRemoveKeystoreIxpLogic
+local GetFFlagEnableAccountSwitcherFoundationDesign = SharedFlags.GetFFlagEnableAccountSwitcherFoundationDesign
+local GetFFlagEnableAccountSwitcherRedesignIXP = SharedFlags.GetFFlagEnableAccountSwitcherRedesignIXP
+local FFlagEnableNavigateToLoginAfterLogoutAll = SharedFlags.FFlagEnableNavigateToLoginAfterLogoutAll
+local FFlagEnable2SVRecovery = SharedFlags.FFlagEnable2SVRecovery
+local v62 = game:DefineFastFlag("LoginV2AwaitPasswordRegistration", false)
+local v63 = game:DefineFastFlag("EnableIllegalChildAccountLinkingErrorMessageOn2SVLoginV2", false)
+local LoginContext = require(LoginV2.Context.LoginContext)
+local LoginStateReducer = require(LoginV2.Reducers.LoginStateReducer)
+local StartAuthenticationByUser = require(LoginV2.Thunks.StartAuthenticationByUser)
+local StartPasskeyAuthentication = require(LoginV2.Thunks.StartPasskeyAuthentication)
+local LoginPageState = require(LoginV2.Enums.LoginPageState)
+local LoginActionType = require(LoginV2.Enums.LoginActionType)
+local Base64 = AuthCommon.Utils.Base64
+local AccountSwitcherConstants = AuthCommon.Common.AccountSwitcherConstants
+local LoginResult = AuthCommon.Models.LoginResult
+local SetLoginResult = AuthCommon.Actions.SetLoginResult
+local SetBackNavigationDisabled = AuthCommon.Actions.SetBackNavigationDisabled
+local authClientError = AuthAnalytics.Events.authClientError
+local authButtonClick = AuthAnalytics.Events.authButtonClick
+local reportEphemeralCounter = AuthCommon.Analytics.reportEphemeralCounter
+local AppStorageUtilities = AuthCommon.Utils.AppStorageUtilities
+local LoginByPasskey = AuthCommon.Thunks.LoginByPasskey
+local LoginByCode = AuthCommon.Thunks.LoginByCode
+local LoginByOtp = AuthCommon.Thunks.LoginByOtp
+local Login = AuthCommon.Thunks.Login
+local User = AuthCommon.Thunks.User
+local AppLoginCounterNames = AuthCommon.Enums.AppLoginCounterNames
+local LoginErrorCodes = AuthCommon.Enums.LoginErrorCodes
+local getTwoStepLoginErrorKey = AuthCommon.Utils.getTwoStepLoginErrorKey
+local OpenCentralOverlayForLoginPasswordResetPrompt = AuthCommon.Thunks.OpenCentralOverlayForLoginPasswordResetPrompt
+local LogoutAllLoggedInUsers = AuthCommon.Thunks.LogoutAllLoggedInUsers
+local AuthLocalStorageKeys = AuthCommon.Enums.AuthLocalStorageKeys
+local OpenAccountSelector = AuthCommon.Thunks.OpenAccountSelector
+local AuthMemStorageKeys = AuthCommon.Enums.AuthMemStorageKeys
+local TwoStepRequests = AuthCommon.Http.Requests.TwoStepRequests
+local LogoutReasonNames = AuthCommon.Enums.LogoutReasonNames
+local PasskeyConstants = AuthCommon.Common.PasskeyConstants
+local record2svCompletion = AuthCommon.Utils.record2svCompletion
+local recordLogin = AuthCommon.Utils.recordLogin
+local TwoStepErrorCodes = AuthCommon.Enums.TwoStepErrorCodes
+local GetUserByUsername = AuthCommon.Thunks.GetUserByUsername
+local KeystoreConstants = AuthCommon.Common.KeystoreConstants
+local KeystoreAnalyticsEvents = AuthCommon.Analytics.KeystoreAnalyticsEvents
+local KeystoreEventConstants = AuthCommon.Analytics.KeystoreEventConstants
+local FFlagEnableRecordLogin = require(LoginV2Parent.SharedFlags).FFlagEnableRecordLogin
+local LoginMethods = AuthCommon.Enums.LoginMethods
+local GetPasswordManagerUsageStore = AuthCommon.Stores.GetPasswordManagerUsageStore
+local SendCode = OtpLogin.Thunks.SendCode
+local ResendCode = OtpLogin.Thunks.ResendCode
+local Constants2 = OtpLogin.Constants
+local Logger = require(LoginV2Parent.Loggers).Logger
+local default2 = require(LoginV2Parent.LoggingProtocol).default
+local TelemetryConfigs = require(LoginV2Parent.AuthAnalytics).TelemetryConfigs
+local KeystoreSaveCredentialsTelemetryConfig = TelemetryConfigs.KeystoreSaveCredentialsTelemetryConfig
+local TelemetryService = game:GetService("TelemetryService")
+local GetFFlagAddPromCounterToKeystoreOps = SharedFlags.GetFFlagAddPromCounterToKeystoreOps
+local useNavigationProps = require(LoginV2Parent.RobloxAppNavigation).useNavigationProps
+
+return function(t1: {[any]: any}) -- line: 159
+	-- upvalues: useNavigationProps (copy), FFlagEnableLoginV2ForcedUsernameOverride (copy), UserIdentifierType (copy), React (copy), LoginStateReducer (copy), FFlagEnableNavigateToLoginAfterLogoutAll (copy), RoactAppExperiment (copy), AppBtidLayers (copy), GetFFlagEnableAccountSwitcherRedesignIXP (copy), GetFFlagEnableAccountSwitcherFoundationDesign (copy), useDispatch (copy), useRoactService (copy), RoactNetworking (copy), RoactAnalytics (copy), AppLinking (copy), useAppPolicy (copy), StartPasskeyAuthentication (copy), StartAuthenticationByUser (copy), SetLoginResult (copy), SetBackNavigationDisabled (copy), LaunchContext (copy), Promise (copy), LoginActionType (copy), LoginPageState (copy), FFlagEnablePWManagerLoginCheck (copy), GetPasswordManagerUsageStore (copy), FFlagEnablePWManagerSignupCheck (copy), LoginByPasskey (copy), LoginByCode (copy), LoginByOtp (copy), CloseCentralOverlay (copy), Login (copy), OpenAccountSelector (copy), User (copy), RenderChallenge (copy), NavigateDown (copy), AppPage (copy), FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues (copy), AccountSwitcherConstants (copy), AppStorageUtilities (copy), FFlagLuaEnableDidSwitchAccount (copy), GuiService (copy), NotificationType (copy), default2 (copy), TelemetryConfigs (copy), HttpService (copy), FFlagDisableMemStorageServicePasswordEvent (copy), MemStorageService (copy), AuthMemStorageKeys (copy), default (copy), Constants (copy), Logger (copy), authButtonClick (copy), EventStreamConstants (copy), getTwoStepLoginErrorKey (copy), TwoStepErrorCodes (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), ChallengeType (copy), TwoStepVerificationActionType (copy), FFlagEnable2SVRecovery (copy), TwoStepRequests (copy), v62 (copy), FFlagEnableRecordLogin (copy), record2svCompletion (copy), FFlagEnableLuaAccountSwitch (copy), v63 (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), ContentProvider (copy), GetUserByUsername (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), GetFFlagEnableLoginAccountSelector (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), recordLogin (copy), LoginMethods (copy), Constants2 (copy), SendCode (copy), ResendCode (copy), UserInputService (copy), Base64 (copy), CredentialsProtocolErrorCodes (copy), authClientError (copy), PasskeyConstants (copy), FFlagEnablePasskeyLoginErrorLogging (copy), OpenAccountSwitchingErrorOverlay (copy), OpenCentralOverlayForLoginPasswordResetPrompt (copy), LogoutAllLoggedInUsers (copy), SetCentralOverlay (copy), CentralOverlayType (copy), GetFStringVNGDownloadNowUrl (copy), LoginErrorCodes (copy), StatusCodes (copy), FFlagAddReasonToEveryLogout (copy), LogoutReasonNames (copy), LoginContext (copy)
+	local v116 = useNavigationProps(function(_: string, p1) -- line: 160
+		-- upvalues: FFlagEnableLoginV2ForcedUsernameOverride (copy)
+		return {
+			credProtocolIsAvailableResponse = p1.credProtocolIsAvailableResponse,
+			forcedUsernameOverride = if not FFlagEnableLoginV2ForcedUsernameOverride then nil else p1.forcedUsernameOverride
+		}
+	end)
+	local t2 = {
+		userIdentifier = "",
+		userIdentifierType = UserIdentifierType.Unknown,
+		numLoginAttempts = 0,
+		forceLoginByUsername = false,
+		availableLoginMethods = {},
+		credentialsProtocolStatus = {
+			fido2Supported = false,
+			passwordsSupported = false,
+			v2InterfaceSupported = false,
+			shouldShowAuthScreenCredentialsPopup = false,
+			shouldShowAuthScreenUserSpecificPasskeyPopup = false,
+			initialStateUpdated = false
+		},
+		shouldAutoShowCredentialPopup = true,
+		componentState = {
+			LoginScreenV2 = {
+				errorKey = "",
+				userIdentifier = "",
+				shouldAttemptCredentialPrefill = true
+			},
+			AuthenticationScreen = {
+				errorKey = "",
+				errorType = nil,
+				password = ""
+			},
+			EmailOtpScreen = {
+				errorKey = "",
+				emailOtp = "",
+				sessionToken = ""
+			}
+		},
+		monoDeps = t1.monoDeps,
+		extraProps = v116
+	}
+	local v118, v119 = React.useReducer(LoginStateReducer, t2)
+	local u120 = nil
+	local handleLoginWithFormData = nil
+	local handleLoginWithCode = nil
+	local handleLoginWithOtp = nil
+
+	if FFlagEnableNavigateToLoginAfterLogoutAll then
+		u120 = React.useRef(v118.userIdentifier)
+		u120.current = v118.userIdentifier
+	end
+
+	local v121 = RoactAppExperiment.useBrowserTrackerExperiment({ AppBtidLayers.LoginLayer }, function(p2) -- line: 215
+		-- upvalues: AppBtidLayers (copy)
+		return {
+			shouldLoginWithKeystoreCredentials = (p2[AppBtidLayers.LoginLayer] or {}).shouldLoginWithKeystoreCredentials or false
+		}
+	end)
+	local v122 = not GetFFlagEnableAccountSwitcherRedesignIXP() or RoactAppExperiment.useBrowserTrackerExperiment({ AppBtidLayers.AccountSwitcherLayer }, function(p3) -- line: 226
+		-- upvalues: AppBtidLayers (copy)
+		return (p3[AppBtidLayers.AccountSwitcherLayer] or {}).enableAccountSwitcherFoundationDesign == true
+	end)
+	local v123 = GetFFlagEnableAccountSwitcherFoundationDesign() and v122
+	local v124 = useDispatch()
+	local v125 = useRoactService(RoactNetworking)
+	local v126 = useRoactService(RoactAnalytics)
+	local v127 = useRoactService(AppLinking)
+	local v128 = useAppPolicy(function(p4) -- line: 238
+		return p4
+	end)
+	local LaunchApp = v118.monoDeps.LaunchApp
+	local ResetAppState = v118.monoDeps.ResetAppState
+	local Logout = v118.monoDeps.Logout
+
+	local function v132() -- line: 247
+		-- upvalues: v124 (copy), StartPasskeyAuthentication (copy), v125 (copy)
+		return v124(StartPasskeyAuthentication(v125))
+	end
+	local function v133(p5) -- line: 251
+		-- upvalues: v124 (copy), StartAuthenticationByUser (copy), v125 (copy)
+		return v124(StartAuthenticationByUser(v125, p5))
+	end
+	local function v134() -- line: 272
+		-- upvalues: v119 (copy), LoginActionType (copy), LoginPageState (copy), UserIdentifierType (copy)
+		v119({
+			type = LoginActionType.SetComponentState,
+			data = {
+				component = LoginPageState.AuthenticationScreen,
+				payload = {
+					errorKey = "",
+					errorType = nil,
+					password = ""
+				}
+			}
+		})
+		v119({
+			type = LoginActionType.SetComponentState,
+			data = {
+				component = LoginPageState.LoginScreenV2,
+				payload = {
+					errorKey = "",
+					userIdentifier = ""
+				}
+			}
+		})
+		v119({
+			type = LoginActionType.SetUserIdentifierAndType,
+			data = {
+				userIdentifier = "",
+				userIdentifierType = UserIdentifierType.Unknown
+			}
+		})
+	end
+
+	local v135 = if not FFlagEnablePWManagerLoginCheck then nil else GetPasswordManagerUsageStore(false)
+
+	if FFlagEnablePWManagerSignupCheck and v135 then
+		v135.resetAll()
+	elseif v135 then
+		v135.setLoggedinUsingSavedPassword(false)
+		v135.setSavedPasswordAfterLogin(false)
+	end
+
+	local function v136(...) -- line: 361
+		-- upvalues: v124 (copy), Login (copy)
+		return v124(Login(...))
+	end
+	local function v137(p6) -- line: 398
+		-- upvalues: User (copy), v124 (copy), ResetAppState (copy), Promise (copy), FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues (copy), AccountSwitcherConstants (copy), AppStorageUtilities (copy), FFlagLuaEnableDidSwitchAccount (copy), GuiService (copy), NotificationType (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy)
+		if User.fromLocalStorage().userId ~= -1 then
+			v124(ResetAppState())
+			Promise.resolve():andThen(function(_) -- line: 400
+				-- upvalues: FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues (copy), AccountSwitcherConstants (copy), AppStorageUtilities (copy), p6 (copy), FFlagLuaEnableDidSwitchAccount (copy), GuiService (copy), NotificationType (copy)
+				local v272 = if not FFlagLuaEnableLoginAndSignupDifferentiatedStatusValues then AccountSwitcherConstants.AccountSwitcherSwitchedStatus else AccountSwitcherConstants.AccountSwitcherSwitchedFromLoginStatus
+
+				AppStorageUtilities.setAccountSwitchStatus(v272)
+				AppStorageUtilities.setAccountBlob(p6)
+				AppStorageUtilities.flush()
+
+				if FFlagLuaEnableDidSwitchAccount then
+					GuiService:BroadcastNotification("", NotificationType.DID_SWITCH_ACCOUNT)
+
+					return
+				end
+
+				GuiService:BroadcastNotification("", NotificationType.DID_LOG_OUT)
+			end, function(_) -- line: 412
+				-- upvalues: AppStorageUtilities (copy), p6 (copy), v124 (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy)
+				AppStorageUtilities.setAccountSwitchStatus("switched")
+				AppStorageUtilities.setAccountBlob(p6)
+				AppStorageUtilities.flush()
+				v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+			end)
+
+			return
+		end
+
+		AppStorageUtilities.setAccountBlob(p6)
+		AppStorageUtilities.flush()
+		v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+	end
+	local function v138(s2: string?) -- line: 425
+		-- upvalues: default2 (copy), TelemetryConfigs (copy), HttpService (copy), v118 (copy), FFlagDisableMemStorageServicePasswordEvent (copy), MemStorageService (copy), AuthMemStorageKeys (copy), default (copy), Constants (copy), FFlagEnablePWManagerLoginCheck (copy), v135 (copy), Logger (copy), authButtonClick (copy), EventStreamConstants (copy)
+		if s2 == nil then
+			default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginPasswordSaveSkippedConfig, 1, {
+				reason = "missingCredentialsJson"
+			})
+
+			return nil
+		end
+
+		local data = HttpService:JSONDecode(s2)
+
+		if data.cvalue == nil or data.password == nil then
+			default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginPasswordSaveSkippedConfig, 1, {
+				reason = "missingUsernameOrPassword"
+			})
+
+			return nil
+		end
+
+		if not v118.credentialsProtocolStatus.passwordsSupported then
+			if not FFlagDisableMemStorageServicePasswordEvent then
+				MemStorageService:Fire(AuthMemStorageKeys.AuthenticatedCredentials, s2)
+			end
+
+			default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginPasswordSaveSkippedConfig, 1, {
+				reason = "passwordsNotSupported"
+			})
+
+			return nil
+		end
+
+		local t3 = {
+			username = data.cvalue,
+			password = data.password
+		}
+		local json = HttpService:JSONEncode(t3)
+
+		default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginPasswordSaveAttemptedConfig, 1)
+
+		return default:registerCredentials(default.CredentialsTypes.password, json, Constants.Defaults.PASSWORD_REGISTRATION_CREDENTIALSPROTOCOL_TIMEOUT):andThen(function(p9) -- line: 473
+			-- upvalues: HttpService (copy), FFlagEnablePWManagerLoginCheck (copy), v135 (copy), Logger (copy), authButtonClick (copy), EventStreamConstants (copy), default2 (copy), TelemetryConfigs (copy)
+			if p9 then
+				local data2 = HttpService:JSONDecode(p9)
+
+				if data2.errorCode == nil then
+					if FFlagEnablePWManagerLoginCheck and v135 then
+						v135.setSavedPasswordAfterLogin(true)
+					end
+
+					Logger:info("Successfully registered password.")
+					authButtonClick(EventStreamConstants.Context.CMPasswordLogin, EventStreamConstants.Button.SavePassword)
+					default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginPasswordSaveSuccessConfig, 1)
+
+					return
+				end
+
+				Logger:warning("Error registering password: {}", data2.errorMsg)
+				default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginPasswordSaveFailureConfig, 1, {
+					errorCode = tostring(data2.errorCode)
+				})
+			end
+		end, function(p10) -- line: 499
+			-- upvalues: Logger (copy), default2 (copy), TelemetryConfigs (copy)
+			Logger:warning("Error registering password: {}", p10)
+			default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginPasswordSaveFailureConfig, 1, {
+				error = tostring(p10)
+			})
+		end)
+	end
+	local function v139(n1: number?, t4: {[any]: any}) -- line: 509
+		-- upvalues: getTwoStepLoginErrorKey (copy), TwoStepErrorCodes (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy)
+		local v183 = getTwoStepLoginErrorKey(n1)
+
+		if n1 and n1 == TwoStepErrorCodes.IllegalChildAccountLinking then
+			reportEphemeralCounter(AppLoginCounterNames.FailureTwoStepVerification, 1)
+		else
+			reportEphemeralCounter(AppLoginCounterNames.FailureUnknownError, 1)
+		end
+
+		t4.setInProgress(false)
+		t4.setErrorKey(v183)
+	end
+	local function v140(p11, p12, t5: {[any]: any}) -- line: 522
+		-- upvalues: ChallengeType (copy), TwoStepVerificationActionType (copy), FFlagEnable2SVRecovery (copy), TwoStepRequests (copy), v125 (copy), v124 (copy), SetBackNavigationDisabled (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v62 (copy), v138 (copy), FFlagEnableRecordLogin (copy), record2svCompletion (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), v63 (copy), HttpService (copy), v139 (copy), RenderChallenge (copy)
+		local ticket = p11.twoStepVerificationData.ticket
+		local id = p11.user.id
+		local t6 = {
+			title = "Authentication.Login.Label.TwoStepVerification",
+			challengeType = ChallengeType.TwoStepVerification,
+			challengeParameters = {
+				actionType = TwoStepVerificationActionType.Login,
+				challengeId = ticket,
+				userId = id,
+				allowRememberDevice = true,
+				clientSupports2svRecovery = not not FFlagEnable2SVRecovery
+			},
+			callbacks = {
+				OnChallengeCompleted = function(p13) --[[ OnChallengeCompleted ]] -- line: 537
+					-- upvalues: TwoStepRequests (copy), v125 (copy), id (copy), ticket (copy), v124 (copy), SetBackNavigationDisabled (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v62 (copy), v138 (copy), p12 (copy), FFlagEnableRecordLogin (copy), record2svCompletion (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), v63 (copy), HttpService (copy), v139 (copy), t5 (copy)
+					TwoStepRequests.login(v125, id, ticket, p13.data.verificationToken, p13.data.rememberDevice):andThen(function(p14) -- line: 545
+						-- upvalues: v124 (copy), SetBackNavigationDisabled (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v62 (copy), v138 (copy), p12 (copy), FFlagEnableRecordLogin (copy), record2svCompletion (copy), id (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy)
+						v124(SetBackNavigationDisabled(false))
+						reportEphemeralCounter(AppLoginCounterNames.Success, 1)
+
+						if v62 then
+							local v369 = v138(p12)
+
+							if v369 then
+								v369:await()
+							end
+						end
+
+						if FFlagEnableRecordLogin then
+							pcall(function() -- line: 557
+								-- upvalues: record2svCompletion (copy), id (copy)
+								record2svCompletion(id)
+							end)
+						end
+
+						if FFlagEnableLuaAccountSwitch then
+							v137(p14.responseBody and p14.responseBody.accountBlob)
+
+							return
+						end
+
+						v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+					end, function(p15) -- line: 569
+						-- upvalues: reportEphemeralCounter (copy), AppLoginCounterNames (copy), v63 (copy), HttpService (copy), v139 (copy), t5 (copy)
+						reportEphemeralCounter(AppLoginCounterNames.Failure, 1)
+
+						if v63 then
+							local ok, result = pcall(function() -- line: 573
+								-- upvalues: HttpService (copy), p15 (copy)
+								return HttpService:JSONDecode(p15.Body).errors[1].code
+							end)
+
+							v139(if not ok then nil else result, t5)
+
+							return
+						end
+
+						reportEphemeralCounter(AppLoginCounterNames.FailureUnknownError, 1)
+						t5.setInProgress(false)
+						t5.setErrorKey("Authentication.Login.Response.SomethingWentWrong")
+					end):finally(function() -- line: 584
+						-- upvalues: v62 (copy), v138 (copy), p12 (copy)
+						if not v62 then
+							v138(p12)
+						end
+					end)
+				end,
+				OnChallengeAbandoned = function() --[[ OnChallengeAbandoned ]] -- line: 590
+					-- upvalues: t5 (copy)
+					t5.setInProgress(false)
+				end,
+				OnChallengeInvalidated = function() --[[ OnChallengeInvalidated ]] -- line: 593
+					-- upvalues: t5 (copy)
+					t5.setInProgress(false)
+					t5.setErrorKey("Authentication.Login.Response.SomethingWentWrong")
+				end,
+				OnChallengeLoadFailed = function() --[[ OnChallengeLoadFailed ]] -- line: 597
+					-- upvalues: t5 (copy)
+					t5.setInProgress(false)
+					t5.setErrorKey("Authentication.Login.Response.SomethingWentWrong")
+				end
+			}
+		}
+
+		RenderChallenge(t6)
+	end
+	local function v141(_, _, p18, p19, t7: {[any]: any}) -- line: 605
+		-- upvalues: ChallengeType (copy), RenderChallenge (copy)
+		local t9 = {
+			challengeType = ChallengeType.SecurityQuestions,
+			challengeParameters = {
+				sessionId = p18.sessionId,
+				userId = p18.userId
+			},
+			callbacks = {
+				OnChallengeCompleted = function(p20) --[[ OnChallengeCompleted ]] -- line: 619
+					-- upvalues: p18 (copy), p19 (copy)
+					local t8 = {
+						sessionId = p18.sessionId,
+						redemptionToken = p20.data.redemptionToken
+					}
+
+					p19(t8)
+				end,
+				OnChallengeAbandoned = function() --[[ OnChallengeAbandoned ]] -- line: 626
+					-- upvalues: t7 (copy)
+					t7.setInProgress(false)
+				end,
+				OnChallengeInvalidated = function() --[[ OnChallengeInvalidated ]] -- line: 629
+					-- upvalues: t7 (copy)
+					t7.setInProgress(false)
+					t7.setErrorKey("Authentication.Login.Response.SomethingWentWrong")
+				end,
+				OnChallengeLoadFailed = function() --[[ OnChallengeLoadFailed ]] -- line: 633
+					-- upvalues: t7 (copy)
+					t7.setInProgress(false)
+					t7.setErrorKey("Authentication.Login.Response.SomethingWentWrong")
+				end
+			}
+		}
+
+		RenderChallenge(t9)
+	end
+
+	local u142 = nil
+
+	function handleLoginWithFormData(p21, p22, p23, p24, p25, p26, t10: {[any]: any}) -- line: 816
+		-- upvalues: u142 (ref), v118 (copy), v124 (copy), SetBackNavigationDisabled (copy), handleLoginWithFormData (copy), v136 (copy), v125 (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), FFlagEnablePWManagerLoginCheck (copy), v135 (copy), HttpService (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), ContentProvider (copy), GetUserByUsername (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy), FFlagEnableNavigateToLoginAfterLogoutAll (copy)
+		local v207 = u142(t10)
+		local v208 = p21 or v118.userIdentifier
+
+		v124(SetBackNavigationDisabled(true))
+
+		return v136(v125, v208, p22, function(p27, p28) -- line: 831
+			-- upvalues: handleLoginWithFormData (copy), p21 (copy), p22 (copy), p24 (copy), p25 (copy), p26 (copy), t10 (copy)
+			if p27 then
+				handleLoginWithFormData(p21, p22, p28, p24, p25, p26, t10)
+			end
+		end, p23, function(p29) -- line: 845
+			-- upvalues: handleLoginWithFormData (copy), p21 (copy), p22 (copy), p23 (copy), p25 (copy), p26 (copy), t10 (copy)
+			handleLoginWithFormData(p21, p22, p23, p29, p25, p26, t10)
+		end, p24, p25, v118.forceLoginByUsername):andThen(function(p30) -- line: 867
+			-- upvalues: AppStorageService (copy), AuthLocalStorageKeys (copy), v208 (copy), FFlagEnablePWManagerLoginCheck (copy), v135 (copy), p26 (copy), HttpService (copy), p22 (copy), t10 (copy), v124 (copy), SetBackNavigationDisabled (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+			AppStorageService:SetItem(AuthLocalStorageKeys.CredentialValue, v208)
+			AppStorageService:Flush()
+
+			if FFlagEnablePWManagerLoginCheck and (v135 and p26) then
+				v135.setLoggedinUsingSavedPassword(true)
+			end
+
+			local v296 = if p26 then nil else HttpService:JSONEncode({
+				cvalue = v208,
+				password = p22,
+				authType = "login"
+			})
+			local v297 = t10
+
+			v124(SetBackNavigationDisabled(false))
+			Promise.new(function(p31, p32) -- line: 644
+				-- upvalues: GetFFlagKeystoreAutoLoginAvailable (copy), v296 (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), Promise (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy)
+				if GetFFlagKeystoreAutoLoginAvailable() == false or v296 == nil then
+					p31()
+
+					return
+				end
+
+				local v387 = not not GetFFlagRemoveKeystoreIxpLogic() or (v121.shouldLoginWithKeystoreCredentials or GetFFlagBypassKeystoreLoginIxpV2())
+				local json = HttpService:JSONEncode({
+					server = ContentProvider.BaseUrl
+				})
+				local data = HttpService:JSONDecode(v296)
+
+				GetUserByUsername(v125, data.cvalue)():andThen(function(p33) -- line: 666
+					-- upvalues: p32 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), json (copy), Promise (copy)
+					if not p33 or not p33.id then
+						return p32("Invalid usernameInfo")
+					end
+
+					if GetFFlagCheckIsAvailableForKeystoreOperations() then
+						return default:isAvailable(default.CredentialsTypes.keystore, KeystoreConstants.KeystoreTimeout):andThen(function(p34) -- line: 676
+							-- upvalues: default (copy), json (copy), KeystoreConstants (copy), Promise (copy)
+							if p34 and (p34.keystore and p34.keystore.isAvailable) then
+								return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout)
+							end
+
+							return Promise.resolve(nil)
+						end):andThen(function() -- line: 691
+							-- upvalues: p33 (copy)
+							return p33
+						end)
+					end
+
+					return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout):andThen(function() -- line: 699
+						-- upvalues: p33 (copy)
+						return p33
+					end)
+				end):andThen(function(p35) -- line: 704
+					-- upvalues: GetFFlagRemoveKeystoreIxpLogic (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), HttpService (copy), ContentProvider (copy), data (copy), v387 (copy), KeystoreConstants (copy), default (copy)
+					local json2
+
+					if GetFFlagRemoveKeystoreIxpLogic() then
+						KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentials, (tostring(p35.id)))
+
+						if GetFFlagAddPromCounterToKeystoreOps() then
+							TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+								customFields = {
+									result = "attempt"
+								}
+							}, 1)
+						end
+
+						json2 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p35.id),
+							password = tostring(data.password)
+						})
+					else
+						local Experiment
+
+						if v387 == true then
+							Experiment = KeystoreConstants.Experiment
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsExperimentGroup, (tostring(p35.id)))
+						else
+							Experiment = KeystoreConstants.Control
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsControlGroup, (tostring(p35.id)))
+						end
+
+						json2 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p35.id),
+							password = tostring(data.password),
+							experimentGroup = tostring(Experiment)
+						})
+					end
+
+					return default:registerCredentials(default.CredentialsTypes.keystore, json2, KeystoreConstants.KeystoreTimeout)
+				end):andThen(function(_) -- line: 756
+					-- upvalues: p31 (copy)
+					p31()
+				end):catch(function(p37) -- line: 759
+					-- upvalues: GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), p32 (copy)
+					if GetFFlagAddPromCounterToKeystoreOps() then
+						TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+							customFields = {
+								result = "error"
+							}
+						}, 1)
+					end
+
+					p32(p37)
+				end)
+			end):finally(function() -- line: 775
+				-- upvalues: LoginResult (copy), p30 (copy), v124 (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v296 (copy), v297 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+				if LoginResult.hasTwoStepData(p30) then
+					local v390 = p30
+
+					v124(SetLoginResult(v390))
+					reportEphemeralCounter(AppLoginCounterNames.FailureTwoStepVerification, 1)
+					spawn(function() -- line: 782
+						-- upvalues: v140 (copy), p30 (copy), v296 (copy), v297 (copy)
+						v140(p30, v296, v297)
+					end)
+				else
+					reportEphemeralCounter(AppLoginCounterNames.Success, 1)
+
+					if v296 then
+						if v62 then
+							local v391 = v138(v296)
+
+							if v391 then
+								v391:await()
+							end
+						else
+							v138(v296)
+						end
+					end
+
+					if FFlagEnableLuaAccountSwitch then
+						v137(p30.accountBlob)
+					else
+						v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+					end
+				end
+
+				if GetFFlagEnableLoginAccountSelector() then
+					v124(CloseCentralOverlay())
+				end
+			end)
+		end, function(p38) -- line: 884
+			-- upvalues: v207 (copy), v208 (copy), p22 (copy), FFlagEnableNavigateToLoginAfterLogoutAll (copy)
+			v207(p38, v208, p22, not not FFlagEnableNavigateToLoginAfterLogoutAll or nil)
+		end)
+	end
+
+	local function v144(p39, p40, t11: {[any]: any}) -- line: 889
+		-- upvalues: u142 (ref), v124 (copy), SetBackNavigationDisabled (copy), LoginByPasskey (copy), v125 (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+		local v212 = u142(t11)
+
+		v124(SetBackNavigationDisabled(true))
+
+		return v124(LoginByPasskey(v125, p39, p40)):andThen(function(p41) -- line: 894
+			-- upvalues: t11 (copy), v124 (copy), SetBackNavigationDisabled (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+			local v300 = t11
+
+			v124(SetBackNavigationDisabled(false))
+
+			local v301 = nil
+			local v302 = nil
+
+			Promise.new(function(p42, p43) -- line: 644
+				-- upvalues: GetFFlagKeystoreAutoLoginAvailable (copy), v301 (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), Promise (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy)
+				if GetFFlagKeystoreAutoLoginAvailable() == false or v301 == nil then
+					p42()
+
+					return
+				end
+
+				local v394 = not not GetFFlagRemoveKeystoreIxpLogic() or (v121.shouldLoginWithKeystoreCredentials or GetFFlagBypassKeystoreLoginIxpV2())
+				local json = HttpService:JSONEncode({
+					server = ContentProvider.BaseUrl
+				})
+				local data = HttpService:JSONDecode(v301)
+
+				GetUserByUsername(v125, data.cvalue)():andThen(function(p44) -- line: 666
+					-- upvalues: p43 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), json (copy), Promise (copy)
+					if not p44 or not p44.id then
+						return p43("Invalid usernameInfo")
+					end
+
+					if GetFFlagCheckIsAvailableForKeystoreOperations() then
+						return default:isAvailable(default.CredentialsTypes.keystore, KeystoreConstants.KeystoreTimeout):andThen(function(p45) -- line: 676
+							-- upvalues: default (copy), json (copy), KeystoreConstants (copy), Promise (copy)
+							if p45 and (p45.keystore and p45.keystore.isAvailable) then
+								return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout)
+							end
+
+							return Promise.resolve(nil)
+						end):andThen(function() -- line: 691
+							-- upvalues: p44 (copy)
+							return p44
+						end)
+					end
+
+					return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout):andThen(function() -- line: 699
+						-- upvalues: p44 (copy)
+						return p44
+					end)
+				end):andThen(function(p46) -- line: 704
+					-- upvalues: GetFFlagRemoveKeystoreIxpLogic (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), HttpService (copy), ContentProvider (copy), data (copy), v394 (copy), KeystoreConstants (copy), default (copy)
+					local json3
+
+					if GetFFlagRemoveKeystoreIxpLogic() then
+						KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentials, (tostring(p46.id)))
+
+						if GetFFlagAddPromCounterToKeystoreOps() then
+							TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+								customFields = {
+									result = "attempt"
+								}
+							}, 1)
+						end
+
+						json3 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p46.id),
+							password = tostring(data.password)
+						})
+					else
+						local Experiment
+
+						if v394 == true then
+							Experiment = KeystoreConstants.Experiment
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsExperimentGroup, (tostring(p46.id)))
+						else
+							Experiment = KeystoreConstants.Control
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsControlGroup, (tostring(p46.id)))
+						end
+
+						json3 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p46.id),
+							password = tostring(data.password),
+							experimentGroup = tostring(Experiment)
+						})
+					end
+
+					return default:registerCredentials(default.CredentialsTypes.keystore, json3, KeystoreConstants.KeystoreTimeout)
+				end):andThen(function(_) -- line: 756
+					-- upvalues: p42 (copy)
+					p42()
+				end):catch(function(p48) -- line: 759
+					-- upvalues: GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), p43 (copy)
+					if GetFFlagAddPromCounterToKeystoreOps() then
+						TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+							customFields = {
+								result = "error"
+							}
+						}, 1)
+					end
+
+					p43(p48)
+				end)
+			end):finally(function() -- line: 775
+				-- upvalues: LoginResult (copy), p41 (copy), v124 (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v302 (copy), v300 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+				if LoginResult.hasTwoStepData(p41) then
+					local v397 = p41
+
+					v124(SetLoginResult(v397))
+					reportEphemeralCounter(AppLoginCounterNames.FailureTwoStepVerification, 1)
+					spawn(function() -- line: 782
+						-- upvalues: v140 (copy), p41 (copy), v302 (copy), v300 (copy)
+						v140(p41, v302, v300)
+					end)
+				else
+					reportEphemeralCounter(AppLoginCounterNames.Success, 1)
+
+					if v302 then
+						if v62 then
+							local v398 = v138(v302)
+
+							if v398 then
+								v398:await()
+							end
+						else
+							v138(v302)
+						end
+					end
+
+					if FFlagEnableLuaAccountSwitch then
+						v137(p41.accountBlob)
+					else
+						v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+					end
+				end
+
+				if GetFFlagEnableLoginAccountSelector() then
+					v124(CloseCentralOverlay())
+				end
+			end)
+		end, function(p49) -- line: 896
+			-- upvalues: v212 (copy), p39 (copy)
+			v212(p49, p39, nil)
+		end)
+	end
+
+	function handleLoginWithCode(p50, p51, p52, p53, t12: {[any]: any}) -- line: 901
+		-- upvalues: u142 (ref), v124 (copy), SetBackNavigationDisabled (copy), handleLoginWithCode (copy), LoginByCode (copy), v125 (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+		local v218 = u142(t12)
+
+		v124(SetBackNavigationDisabled(true))
+
+		return v124(LoginByCode(v125, p50, p51, function(p54, p55) -- line: 912
+			-- upvalues: handleLoginWithCode (copy), p50 (copy), p51 (copy), t12 (copy)
+			if p54 then
+				handleLoginWithCode(p50, p51, p55, nil, t12)
+			end
+		end, p52, function(p56) -- line: 918
+			-- upvalues: handleLoginWithCode (copy), p50 (copy), p51 (copy), t12 (copy)
+			handleLoginWithCode(p50, p51, nil, p56, t12)
+		end, p53)):andThen(function(p57) -- line: 929
+			-- upvalues: t12 (copy), v124 (copy), SetBackNavigationDisabled (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+			local v308 = t12
+
+			v124(SetBackNavigationDisabled(false))
+
+			local v309 = nil
+			local v310 = nil
+
+			Promise.new(function(p58, p59) -- line: 644
+				-- upvalues: GetFFlagKeystoreAutoLoginAvailable (copy), v309 (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), Promise (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy)
+				if GetFFlagKeystoreAutoLoginAvailable() == false or v309 == nil then
+					p58()
+
+					return
+				end
+
+				local v401 = not not GetFFlagRemoveKeystoreIxpLogic() or (v121.shouldLoginWithKeystoreCredentials or GetFFlagBypassKeystoreLoginIxpV2())
+				local json = HttpService:JSONEncode({
+					server = ContentProvider.BaseUrl
+				})
+				local data = HttpService:JSONDecode(v309)
+
+				GetUserByUsername(v125, data.cvalue)():andThen(function(p60) -- line: 666
+					-- upvalues: p59 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), json (copy), Promise (copy)
+					if not p60 or not p60.id then
+						return p59("Invalid usernameInfo")
+					end
+
+					if GetFFlagCheckIsAvailableForKeystoreOperations() then
+						return default:isAvailable(default.CredentialsTypes.keystore, KeystoreConstants.KeystoreTimeout):andThen(function(p61) -- line: 676
+							-- upvalues: default (copy), json (copy), KeystoreConstants (copy), Promise (copy)
+							if p61 and (p61.keystore and p61.keystore.isAvailable) then
+								return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout)
+							end
+
+							return Promise.resolve(nil)
+						end):andThen(function() -- line: 691
+							-- upvalues: p60 (copy)
+							return p60
+						end)
+					end
+
+					return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout):andThen(function() -- line: 699
+						-- upvalues: p60 (copy)
+						return p60
+					end)
+				end):andThen(function(p62) -- line: 704
+					-- upvalues: GetFFlagRemoveKeystoreIxpLogic (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), HttpService (copy), ContentProvider (copy), data (copy), v401 (copy), KeystoreConstants (copy), default (copy)
+					local json4
+
+					if GetFFlagRemoveKeystoreIxpLogic() then
+						KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentials, (tostring(p62.id)))
+
+						if GetFFlagAddPromCounterToKeystoreOps() then
+							TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+								customFields = {
+									result = "attempt"
+								}
+							}, 1)
+						end
+
+						json4 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p62.id),
+							password = tostring(data.password)
+						})
+					else
+						local Experiment
+
+						if v401 == true then
+							Experiment = KeystoreConstants.Experiment
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsExperimentGroup, (tostring(p62.id)))
+						else
+							Experiment = KeystoreConstants.Control
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsControlGroup, (tostring(p62.id)))
+						end
+
+						json4 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p62.id),
+							password = tostring(data.password),
+							experimentGroup = tostring(Experiment)
+						})
+					end
+
+					return default:registerCredentials(default.CredentialsTypes.keystore, json4, KeystoreConstants.KeystoreTimeout)
+				end):andThen(function(_) -- line: 756
+					-- upvalues: p58 (copy)
+					p58()
+				end):catch(function(p64) -- line: 759
+					-- upvalues: GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), p59 (copy)
+					if GetFFlagAddPromCounterToKeystoreOps() then
+						TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+							customFields = {
+								result = "error"
+							}
+						}, 1)
+					end
+
+					p59(p64)
+				end)
+			end):finally(function() -- line: 775
+				-- upvalues: LoginResult (copy), p57 (copy), v124 (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v310 (copy), v308 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+				if LoginResult.hasTwoStepData(p57) then
+					local v404 = p57
+
+					v124(SetLoginResult(v404))
+					reportEphemeralCounter(AppLoginCounterNames.FailureTwoStepVerification, 1)
+					spawn(function() -- line: 782
+						-- upvalues: v140 (copy), p57 (copy), v310 (copy), v308 (copy)
+						v140(p57, v310, v308)
+					end)
+				else
+					reportEphemeralCounter(AppLoginCounterNames.Success, 1)
+
+					if v310 then
+						if v62 then
+							local v405 = v138(v310)
+
+							if v405 then
+								v405:await()
+							end
+						else
+							v138(v310)
+						end
+					end
+
+					if FFlagEnableLuaAccountSwitch then
+						v137(p57.accountBlob)
+					else
+						v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+					end
+				end
+
+				if GetFFlagEnableLoginAccountSelector() then
+					v124(CloseCentralOverlay())
+				end
+			end)
+		end, function(p65) -- line: 931
+			-- upvalues: reportEphemeralCounter (copy), AppLoginCounterNames (copy), v218 (copy), p50 (copy), p51 (copy)
+			reportEphemeralCounter(AppLoginCounterNames.FailureAuthCode, 1)
+			v218(p65, p50, p51)
+		end)
+	end
+	function handleLoginWithOtp(s3: string, s4: string, p66, p67, t13: {[any]: any}) -- line: 937
+		-- upvalues: u142 (ref), v124 (copy), SetBackNavigationDisabled (copy), handleLoginWithOtp (copy), LoginByOtp (copy), v125 (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), v118 (copy), FFlagEnableRecordLogin (copy), recordLogin (copy), LoginMethods (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+		local v224 = u142(t13)
+
+		v124(SetBackNavigationDisabled(true))
+
+		return v124(LoginByOtp(v125, s3, s4, function(p68) -- line: 948
+			-- upvalues: handleLoginWithOtp (copy), s3 (copy), s4 (copy), p67 (copy), t13 (copy)
+			handleLoginWithOtp(s3, s4, p68, p67, t13)
+		end, p66, p67)):andThen(function(p69) -- line: 953
+			-- upvalues: AppStorageService (copy), AuthLocalStorageKeys (copy), v118 (copy), FFlagEnableRecordLogin (copy), recordLogin (copy), LoginMethods (copy), t13 (copy), v124 (copy), SetBackNavigationDisabled (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+			AppStorageService:SetItem(AuthLocalStorageKeys.CredentialValue, v118.userIdentifier)
+
+			if FFlagEnableRecordLogin then
+				pcall(function() -- line: 956
+					-- upvalues: recordLogin (copy), p69 (copy), LoginMethods (copy), v118 (copy)
+					recordLogin(p69, LoginMethods.EmailOtp, v118.userIdentifier)
+				end)
+			end
+
+			local v314 = t13
+
+			v124(SetBackNavigationDisabled(false))
+
+			local v315 = nil
+			local v316 = nil
+
+			Promise.new(function(p70, p71) -- line: 644
+				-- upvalues: GetFFlagKeystoreAutoLoginAvailable (copy), v315 (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), Promise (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy)
+				if GetFFlagKeystoreAutoLoginAvailable() == false or v315 == nil then
+					p70()
+
+					return
+				end
+
+				local v408 = not not GetFFlagRemoveKeystoreIxpLogic() or (v121.shouldLoginWithKeystoreCredentials or GetFFlagBypassKeystoreLoginIxpV2())
+				local json = HttpService:JSONEncode({
+					server = ContentProvider.BaseUrl
+				})
+				local data = HttpService:JSONDecode(v315)
+
+				GetUserByUsername(v125, data.cvalue)():andThen(function(p72) -- line: 666
+					-- upvalues: p71 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), json (copy), Promise (copy)
+					if not p72 or not p72.id then
+						return p71("Invalid usernameInfo")
+					end
+
+					if GetFFlagCheckIsAvailableForKeystoreOperations() then
+						return default:isAvailable(default.CredentialsTypes.keystore, KeystoreConstants.KeystoreTimeout):andThen(function(p73) -- line: 676
+							-- upvalues: default (copy), json (copy), KeystoreConstants (copy), Promise (copy)
+							if p73 and (p73.keystore and p73.keystore.isAvailable) then
+								return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout)
+							end
+
+							return Promise.resolve(nil)
+						end):andThen(function() -- line: 691
+							-- upvalues: p72 (copy)
+							return p72
+						end)
+					end
+
+					return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout):andThen(function() -- line: 699
+						-- upvalues: p72 (copy)
+						return p72
+					end)
+				end):andThen(function(p74) -- line: 704
+					-- upvalues: GetFFlagRemoveKeystoreIxpLogic (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), HttpService (copy), ContentProvider (copy), data (copy), v408 (copy), KeystoreConstants (copy), default (copy)
+					local json5
+
+					if GetFFlagRemoveKeystoreIxpLogic() then
+						KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentials, (tostring(p74.id)))
+
+						if GetFFlagAddPromCounterToKeystoreOps() then
+							TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+								customFields = {
+									result = "attempt"
+								}
+							}, 1)
+						end
+
+						json5 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p74.id),
+							password = tostring(data.password)
+						})
+					else
+						local Experiment
+
+						if v408 == true then
+							Experiment = KeystoreConstants.Experiment
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsExperimentGroup, (tostring(p74.id)))
+						else
+							Experiment = KeystoreConstants.Control
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsControlGroup, (tostring(p74.id)))
+						end
+
+						json5 = HttpService:JSONEncode({
+							server = tostring(ContentProvider.BaseUrl),
+							username = tostring(data.cvalue),
+							userId = tostring(p74.id),
+							password = tostring(data.password),
+							experimentGroup = tostring(Experiment)
+						})
+					end
+
+					return default:registerCredentials(default.CredentialsTypes.keystore, json5, KeystoreConstants.KeystoreTimeout)
+				end):andThen(function(_) -- line: 756
+					-- upvalues: p70 (copy)
+					p70()
+				end):catch(function(p76) -- line: 759
+					-- upvalues: GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), p71 (copy)
+					if GetFFlagAddPromCounterToKeystoreOps() then
+						TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+							customFields = {
+								result = "error"
+							}
+						}, 1)
+					end
+
+					p71(p76)
+				end)
+			end):finally(function() -- line: 775
+				-- upvalues: LoginResult (copy), p69 (copy), v124 (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v316 (copy), v314 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+				if LoginResult.hasTwoStepData(p69) then
+					local v411 = p69
+
+					v124(SetLoginResult(v411))
+					reportEphemeralCounter(AppLoginCounterNames.FailureTwoStepVerification, 1)
+					spawn(function() -- line: 782
+						-- upvalues: v140 (copy), p69 (copy), v316 (copy), v314 (copy)
+						v140(p69, v316, v314)
+					end)
+				else
+					reportEphemeralCounter(AppLoginCounterNames.Success, 1)
+
+					if v316 then
+						if v62 then
+							local v412 = v138(v316)
+
+							if v412 then
+								v412:await()
+							end
+						else
+							v138(v316)
+						end
+					end
+
+					if FFlagEnableLuaAccountSwitch then
+						v137(p69.accountBlob)
+					else
+						v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+					end
+				end
+
+				if GetFFlagEnableLoginAccountSelector() then
+					v124(CloseCentralOverlay())
+				end
+			end)
+		end, function(p77) -- line: 962
+			-- upvalues: v224 (copy), s3 (copy), s4 (copy)
+			v224(p77, s3, s4)
+		end)
+	end
+
+	local function v147() -- line: 1320
+		-- upvalues: v124 (copy), SetCentralOverlay (copy), CentralOverlayType (copy), v127 (copy), GetFStringVNGDownloadNowUrl (copy)
+		return v124(SetCentralOverlay(CentralOverlayType.NewAppAvailableModal, {
+			onButtonActivated = function() --[[ onButtonActivated ]] -- line: 1322
+				-- upvalues: v127 (copy), GetFStringVNGDownloadNowUrl (copy)
+				v127:openURL(GetFStringVNGDownloadNowUrl())
+			end
+		}))
+	end
+	local function v148(p78, p79, p80, t14: {[any]: any}) -- line: 1329
+		-- upvalues: EventStreamConstants (copy), v118 (copy), UserIdentifierType (copy), handleLoginWithOtp (copy), handleLoginWithFormData (copy), v124 (copy), CloseCentralOverlay (copy), OpenAccountSelector (copy)
+		local s5 = ""
+
+		if t14.isLoginByOtp then
+			s5 = EventStreamConstants.Context.DisambiguationOTP
+		elseif v118.userIdentifierType == UserIdentifierType.Email then
+			s5 = EventStreamConstants.Context.DisambiguationEmail
+		elseif v118.userIdentifierType == UserIdentifierType.Phone then
+			s5 = EventStreamConstants.Context.DisambiguationPhone
+		end
+
+		local t15 = {
+			origin = EventStreamConstants.Context.Login,
+			context = s5,
+			users = p78,
+			onAccountSelection = function(p81) --[[ onAccountSelection ]] -- line: 1348
+				-- upvalues: t14 (copy), handleLoginWithOtp (copy), p79 (copy), p80 (copy), handleLoginWithFormData (copy)
+				if t14.isLoginByOtp then
+					handleLoginWithOtp(p79, p80, nil, p81, t14)
+
+					return
+				end
+
+				handleLoginWithFormData(p79, p80, nil, nil, p81, false, t14):await()
+			end,
+			onAccountSelectionAbandoned = function() --[[ onAccountSelectionAbandoned ]] -- line: 1355
+				-- upvalues: t14 (copy), v124 (copy), CloseCentralOverlay (copy)
+				t14.setInProgress(false)
+				v124(CloseCentralOverlay())
+			end,
+			titleTextKey = "Authentication.Login.Label.AccountSelectorTitle"
+		}
+
+		v124(OpenAccountSelector(t15, true, false))
+	end
+	local function v149(p82) -- line: 1365
+		-- upvalues: v134 (copy), v119 (copy), LoginActionType (copy), LoginPageState (copy)
+		v134()
+		v119({
+			type = LoginActionType.SetComponentState,
+			data = {
+				component = LoginPageState.LoginScreenV2,
+				payload = {
+					errorKey = p82.errorKey
+				}
+			}
+		})
+		v119({
+			type = LoginActionType.ForceLoginByUsername
+		})
+	end
+	local function v150(p83) -- line: 1381
+		-- upvalues: LoginErrorCodes (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), StatusCodes (copy)
+		if p83.errorCode == LoginErrorCodes.IncorrectCValueOrPassword then
+			reportEphemeralCounter(AppLoginCounterNames.FailureCredentials, 1)
+
+			return
+		end
+
+		if p83.errorCode == LoginErrorCodes.AccountLocked then
+			reportEphemeralCounter(AppLoginCounterNames.FailurePasswordReset, 1)
+
+			return
+		end
+
+		if p83.errorCode == LoginErrorCodes.CTypeNotSupported then
+			reportEphemeralCounter(AppLoginCounterNames.FailureBadRequest, 1)
+
+			return
+		end
+
+		if p83.errorCode == LoginErrorCodes.CValueAndPasswordRequired then
+			reportEphemeralCounter(AppLoginCounterNames.FailureBadRequest, 1)
+
+			return
+		end
+
+		if p83.errorCode == LoginErrorCodes.SecurityQuestions then
+			reportEphemeralCounter(AppLoginCounterNames.FailureSecurityQuestions, 1)
+
+			return
+		end
+
+		if p83.errorCode == LoginErrorCodes.MultipleUsersPerCredential then
+			reportEphemeralCounter(AppLoginCounterNames.FailureMultipleUsersPerCredential, 1)
+
+			return
+		end
+
+		if p83.HttpError == Enum.HttpError.OK and p83.StatusCode == StatusCodes.TOO_MANY_REQUESTS then
+			reportEphemeralCounter(AppLoginCounterNames.FailureThrottled, 1)
+
+			return
+		end
+
+		if p83.HttpError == Enum.HttpError.OK and p83.StatusCode == StatusCodes.REQUEST_TIMEOUT then
+			reportEphemeralCounter(AppLoginCounterNames.FailureTimeout, 1)
+
+			return
+		end
+
+		if p83.HttpError == Enum.HttpError.OK and p83.StatusCode == StatusCodes.BAD_REQUEST then
+			reportEphemeralCounter(AppLoginCounterNames.FailureBadRequest, 1)
+
+			return
+		end
+
+		if p83.HttpError == Enum.HttpError.OK and p83.StatusCode == StatusCodes.NOT_FOUND then
+			reportEphemeralCounter(AppLoginCounterNames.FailureNotFound, 1)
+
+			return
+		end
+
+		if p83.HttpError == Enum.HttpError.OK and p83.StatusCode == StatusCodes.INTERNAL_SERVER_ERROR then
+			reportEphemeralCounter(AppLoginCounterNames.FailureInternalServerError, 1)
+
+			return
+		end
+
+		reportEphemeralCounter(AppLoginCounterNames.FailureUnknownError, 1)
+	end
+
+	function u142(t16: {[any]: any}) -- line: 1409
+		-- upvalues: LoginErrorCodes (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v150 (copy), authClientError (copy), v124 (copy), CloseCentralOverlay (copy), AppStorageUtilities (copy), User (copy), v125 (copy), LogoutAllLoggedInUsers (copy), FFlagEnableNavigateToLoginAfterLogoutAll (copy), v136 (copy), LoginResult (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), ResetAppState (copy), Promise (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), AccountSwitcherConstants (copy), FFlagAddReasonToEveryLogout (copy), GuiService (copy), LogoutReasonNames (copy), Logout (copy), u120 (ref), v123 (copy), OpenAccountSwitchingErrorOverlay (copy), v149 (copy), LoginPageState (copy), OpenCentralOverlayForLoginPasswordResetPrompt (copy), v147 (copy), v141 (copy), v148 (copy)
+		return function(p84, s6: string?, s7: string?, b1: boolean?) --[[ handleLoginError ]] -- line: 1410
+			-- upvalues: LoginErrorCodes (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v150 (copy), authClientError (copy), t16 (copy), v124 (copy), CloseCentralOverlay (copy), AppStorageUtilities (copy), User (copy), v125 (copy), LogoutAllLoggedInUsers (copy), FFlagEnableNavigateToLoginAfterLogoutAll (copy), v136 (copy), LoginResult (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), ResetAppState (copy), Promise (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), AccountSwitcherConstants (copy), FFlagAddReasonToEveryLogout (copy), GuiService (copy), LogoutReasonNames (copy), Logout (copy), u120 (ref), v123 (copy), OpenAccountSwitchingErrorOverlay (copy), v149 (copy), LoginPageState (copy), OpenCentralOverlayForLoginPasswordResetPrompt (copy), v147 (copy), v141 (copy), v148 (copy)
+			local u351 = false
+			local v352 = p84.errorCode == LoginErrorCodes.MultipleUsersPerCredential
+			local v353 = p84.errorCode == LoginErrorCodes.SecurityQuestions
+
+			if v352 or v353 then
+				u351 = true
+			end
+
+			reportEphemeralCounter(AppLoginCounterNames.Failure, 1)
+			v150(p84)
+			authClientError(t16.eventContext, p84.errorCode)
+
+			local function v354() -- line: 1428
+				-- upvalues: t16 (copy), u351 (ref), v124 (copy), CloseCentralOverlay (copy)
+				t16.setInProgress(u351)
+				v124(CloseCentralOverlay())
+			end
+			local function v355() -- line: 1433
+				-- upvalues: AppStorageUtilities (copy), User (copy), t16 (copy), v125 (copy), LogoutAllLoggedInUsers (copy), FFlagEnableNavigateToLoginAfterLogoutAll (copy), b1 (copy), v136 (copy), s6 (copy), s7 (copy), LoginResult (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), v124 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), ResetAppState (copy), Promise (copy), AppStorageService (copy), AuthLocalStorageKeys (copy), AccountSwitcherConstants (copy), FFlagAddReasonToEveryLogout (copy), GuiService (copy), LogoutReasonNames (copy), Logout (copy), CloseCentralOverlay (copy)
+				local v418 = AppStorageUtilities.getAccountBlob()
+				local v419 = User.fromLocalStorage().userId ~= -1
+
+				t16.setInProgress(true)
+
+				local v420 = v125
+
+				LogoutAllLoggedInUsers(v420, v418):await()
+
+				local v421 = false
+
+				if FFlagEnableNavigateToLoginAfterLogoutAll then
+					if b1 then
+						local ok, result = pcall(function() -- line: 1442
+							-- upvalues: v136 (copy), v125 (copy), s6 (copy), s7 (copy)
+							return v136(v125, s6, s7):expect()
+						end)
+
+						if ok and result and not LoginResult.hasTwoStepData(result) then
+							if FFlagEnableLuaAccountSwitch then
+								v137(result.accountBlob)
+
+								return
+							end
+
+							v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+
+							return
+						end
+					elseif type(s6) ~= "string" then
+						v421 = true
+					end
+				end
+
+				if v419 == true then
+					v124(ResetAppState())
+					Promise.resolve()
+					AppStorageService:SetItem(AuthLocalStorageKeys.CredentialValue, "")
+					AppStorageService:Flush()
+
+					if FFlagEnableNavigateToLoginAfterLogoutAll then
+						local v424 = if not v421 then AccountSwitcherConstants.AccountSwitcherPendingLoginV2AfterLogoutAll else AccountSwitcherConstants.AccountSwitcherPendingPasskeyLoginV2AfterLogoutAll
+
+						AppStorageUtilities.setAccountSwitchStatus(v424)
+						AppStorageUtilities.flush()
+					end
+
+					if FFlagAddReasonToEveryLogout then
+						local v425 = v125
+						local v426 = GuiService
+						local LoginContextAccountSwitchingErrorOverlay = LogoutReasonNames.LoginContextAccountSwitchingErrorOverlay
+
+						v124(Logout(v425, v426, LoginContextAccountSwitchingErrorOverlay))
+					else
+						local v428 = v125
+						local v429 = GuiService
+
+						v124(Logout(v428, v429, nil))
+					end
+				end
+
+				t16.setInProgress(false)
+				v124(CloseCentralOverlay())
+			end
+
+			if FFlagEnableLuaAccountSwitch and p84.errorCode == LoginErrorCodes.EmptyAccountSwitchBlobRequired then
+				t16.setErrorKey("")
+
+				local v356 = if not FFlagEnableNavigateToLoginAfterLogoutAll or b1 then s6 else u120.current
+
+				if FFlagEnableNavigateToLoginAfterLogoutAll then
+					AppStorageUtilities.setAccountSwitchTargetUsername(v356)
+				end
+
+				local v357 = not v123 and "Authentication.AccountSwitch.Header.LogoutAllAccounts" or "Authentication.AccountSwitch.Header.SignOutOtherAccounts"
+				local v358 = not v123 and "Authentication.AccountSwitch.Description.LogoutConfirmation" or "Authentication.AccountSwitch.Description.ContinueSignOutOthers"
+				local v359 = not v123 and "Authentication.AccountSwitch.Action.LogoutAllAccounts" or "Authentication.AccountSwitch.Action.Continue"
+				local AccountSwitcherLoginEmptyBlobRequiredError = AccountSwitcherConstants.AccountSwitcherLoginEmptyBlobRequiredError
+				local v361 = v356 or nil
+
+				v124(OpenAccountSwitchingErrorOverlay(v357, v358, v359, "Authentication.CrossDevice.Action.CancelLogin", v355, v354, AccountSwitcherLoginEmptyBlobRequiredError, v361))
+
+				return
+			end
+
+			if FFlagEnableLuaAccountSwitch and p84.errorCode == LoginErrorCodes.ParentEmptyAccountSwitchBlobRequired then
+				t16.setErrorKey("")
+
+				local v362 = if not FFlagEnableNavigateToLoginAfterLogoutAll or b1 then s6 else u120.current
+
+				if FFlagEnableNavigateToLoginAfterLogoutAll then
+					AppStorageUtilities.setAccountSwitchTargetUsername(v362)
+				end
+
+				local v363 = not v123 and "Authentication.AccountSwitch.Header.LogoutAllAccounts" or "Authentication.AccountSwitch.Header.SignOutOtherAccounts"
+				local v364 = not v123 and "Authentication.AccountSwitch.Description.ParentLogoutConfirmation" or "Authentication.AccountSwitch.Description.ContinueSignOutOthers"
+				local v365 = not v123 and "Authentication.AccountSwitch.Action.LogoutAllAccounts" or "Authentication.AccountSwitch.Action.Continue"
+				local AccountSwitcherParentLoginEmptyBlobRequiredError = AccountSwitcherConstants.AccountSwitcherParentLoginEmptyBlobRequiredError
+				local v367 = v362 or nil
+
+				v124(OpenAccountSwitchingErrorOverlay(v363, v364, v365, "Authentication.CrossDevice.Action.CancelLogin", v355, v354, AccountSwitcherParentLoginEmptyBlobRequiredError, v367))
+
+				return
+			end
+
+			if p84.errorCode == LoginErrorCodes.MoreThanOneUsername then
+				v149(p84)
+				t16.navigation.navigate(LoginPageState.LoginScreenV2)
+
+				return
+			end
+
+			if p84.errorCode == LoginErrorCodes.AccountLocked then
+				v124(OpenCentralOverlayForLoginPasswordResetPrompt())
+			end
+
+			if p84.errorCode == LoginErrorCodes.GlobalAppAccessDeniedVNG then
+				v147()
+			end
+
+			if v353 and p84.securityQuestionsData and p84.securityQuestionsCallback then
+				spawn(function() -- line: 1560
+					-- upvalues: v141 (copy), s6 (copy), s7 (copy), p84 (copy), t16 (copy)
+					v141(s6, s7, p84.securityQuestionsData, p84.securityQuestionsCallback, t16)
+				end)
+
+				return
+			end
+
+			if v352 and p84.usersData and s6 and s7 then
+				v148(p84.usersData, s6, s7, t16)
+
+				return
+			end
+
+			t16.setErrorKey(p84.errorKey or "Authentication.Login.Response.SomethingWentWrong")
+			t16.setInProgress(u351)
+		end
+	end
+
+	return React.createElement(LoginContext.Provider, {
+		value = {
+			state = v118,
+			dispatch = v119,
+			parentNavigation = t1.parentNavigation,
+			utils = {
+				handleLoginCompletionWithAccountSwitching = v137,
+				handleLoginResult = function(p85, s8: string?, t17: {[any]: any}) -- line: 772
+					-- upvalues: v124 (copy), SetBackNavigationDisabled (copy), Promise (copy), GetFFlagKeystoreAutoLoginAvailable (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), LoginResult (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+					v124(SetBackNavigationDisabled(false))
+					Promise.new(function(p86, p87) -- line: 644
+						-- upvalues: GetFFlagKeystoreAutoLoginAvailable (copy), s8 (copy), GetFFlagRemoveKeystoreIxpLogic (copy), v121 (copy), GetFFlagBypassKeystoreLoginIxpV2 (copy), HttpService (copy), ContentProvider (copy), GetUserByUsername (copy), v125 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), Promise (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy)
+						if GetFFlagKeystoreAutoLoginAvailable() == false or s8 == nil then
+							p86()
+
+							return
+						end
+
+						local v287 = not not GetFFlagRemoveKeystoreIxpLogic() or (v121.shouldLoginWithKeystoreCredentials or GetFFlagBypassKeystoreLoginIxpV2())
+						local json = HttpService:JSONEncode({
+							server = ContentProvider.BaseUrl
+						})
+						local data = HttpService:JSONDecode(s8)
+
+						GetUserByUsername(v125, data.cvalue)():andThen(function(p88) -- line: 666
+							-- upvalues: p87 (copy), GetFFlagCheckIsAvailableForKeystoreOperations (copy), default (copy), KeystoreConstants (copy), json (copy), Promise (copy)
+							if not p88 or not p88.id then
+								return p87("Invalid usernameInfo")
+							end
+
+							if GetFFlagCheckIsAvailableForKeystoreOperations() then
+								return default:isAvailable(default.CredentialsTypes.keystore, KeystoreConstants.KeystoreTimeout):andThen(function(p89) -- line: 676
+									-- upvalues: default (copy), json (copy), KeystoreConstants (copy), Promise (copy)
+									if p89 and (p89.keystore and p89.keystore.isAvailable) then
+										return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout)
+									end
+
+									return Promise.resolve(nil)
+								end):andThen(function() -- line: 691
+									-- upvalues: p88 (copy)
+									return p88
+								end)
+							end
+
+							return default:deleteAllCredentialsFromKeystore(default.CredentialsTypes.keystore, json, KeystoreConstants.KeystoreTimeout):andThen(function() -- line: 699
+								-- upvalues: p88 (copy)
+								return p88
+							end)
+						end):andThen(function(p90) -- line: 704
+							-- upvalues: GetFFlagRemoveKeystoreIxpLogic (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), HttpService (copy), ContentProvider (copy), data (copy), v287 (copy), KeystoreConstants (copy), default (copy)
+							local json6
+
+							if GetFFlagRemoveKeystoreIxpLogic() then
+								KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentials, (tostring(p90.id)))
+
+								if GetFFlagAddPromCounterToKeystoreOps() then
+									TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+										customFields = {
+											result = "attempt"
+										}
+									}, 1)
+								end
+
+								json6 = HttpService:JSONEncode({
+									server = tostring(ContentProvider.BaseUrl),
+									username = tostring(data.cvalue),
+									userId = tostring(p90.id),
+									password = tostring(data.password)
+								})
+							else
+								local Experiment
+
+								if v287 == true then
+									Experiment = KeystoreConstants.Experiment
+									KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsExperimentGroup, (tostring(p90.id)))
+								else
+									Experiment = KeystoreConstants.Control
+									KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.saveCredentialsControlGroup, (tostring(p90.id)))
+								end
+
+								json6 = HttpService:JSONEncode({
+									server = tostring(ContentProvider.BaseUrl),
+									username = tostring(data.cvalue),
+									userId = tostring(p90.id),
+									password = tostring(data.password),
+									experimentGroup = tostring(Experiment)
+								})
+							end
+
+							return default:registerCredentials(default.CredentialsTypes.keystore, json6, KeystoreConstants.KeystoreTimeout)
+						end):andThen(function(_) -- line: 756
+							-- upvalues: p86 (copy)
+							p86()
+						end):catch(function(p92) -- line: 759
+							-- upvalues: GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreSaveCredentialsTelemetryConfig (copy), p87 (copy)
+							if GetFFlagAddPromCounterToKeystoreOps() then
+								TelemetryService:LogCounter(KeystoreSaveCredentialsTelemetryConfig, {
+									customFields = {
+										result = "error"
+									}
+								}, 1)
+							end
+
+							p87(p92)
+						end)
+					end):finally(function() -- line: 775
+						-- upvalues: LoginResult (copy), p85 (copy), v124 (copy), SetLoginResult (copy), reportEphemeralCounter (copy), AppLoginCounterNames (copy), v140 (copy), s8 (copy), t17 (copy), v62 (copy), v138 (copy), FFlagEnableLuaAccountSwitch (copy), v137 (copy), LaunchApp (copy), v125 (copy), v126 (copy), v128 (copy), LaunchContext (copy), GetFFlagEnableLoginAccountSelector (copy), CloseCentralOverlay (copy)
+						if LoginResult.hasTwoStepData(p85) then
+							local v290 = p85
+
+							v124(SetLoginResult(v290))
+							reportEphemeralCounter(AppLoginCounterNames.FailureTwoStepVerification, 1)
+							spawn(function() -- line: 782
+								-- upvalues: v140 (copy), p85 (copy), s8 (copy), t17 (copy)
+								v140(p85, s8, t17)
+							end)
+						else
+							reportEphemeralCounter(AppLoginCounterNames.Success, 1)
+
+							if s8 then
+								if v62 then
+									local v291 = v138(s8)
+
+									if v291 then
+										v291:await()
+									end
+								else
+									v138(s8)
+								end
+							end
+
+							if FFlagEnableLuaAccountSwitch then
+								v137(p85.accountBlob)
+							else
+								v124(LaunchApp(v125, nil, v126, v128, LaunchContext.Login))
+							end
+						end
+
+						if GetFFlagEnableLoginAccountSelector() then
+							v124(CloseCentralOverlay())
+						end
+					end)
+				end,
+				showPasskeyLoginPopup = function(t18: {[any]: any}, b2: boolean, b3: boolean) -- line: 1015
+					-- upvalues: v133 (copy), v118 (copy), v132 (copy), HttpService (copy), Constants (copy), UserInputService (copy), Base64 (copy), default (copy), Logger (copy), CredentialsProtocolErrorCodes (copy), authClientError (copy), EventStreamConstants (copy), PasskeyConstants (copy), v144 (copy)
+					local v235 = not b2 and function() -- line: 1028
+						-- upvalues: v132 (copy)
+						return v132()
+					end or function() -- line: 1022
+						-- upvalues: v133 (copy), v118 (copy)
+						return v133({
+							cvalue = v118.userIdentifier,
+							ctype = v118.userIdentifierType
+						})
+					end
+					local u236 = false
+
+					return v235():andThen(function(p93) -- line: 1035
+						-- upvalues: HttpService (copy), Constants (copy), b3 (copy), UserInputService (copy), Base64 (copy), default (copy), Logger (copy), CredentialsProtocolErrorCodes (copy), authClientError (copy), EventStreamConstants (copy), PasskeyConstants (copy), t18 (copy), u236 (ref), v144 (copy)
+						local data = HttpService:JSONDecode(p93.authenticationOptions)
+						local sessionId = p93.sessionId
+						local num = tonumber(data.publicKey.timeout)
+						local v332 = if not num then Constants.Defaults.CREDENTIALSPROTOCOL_GETCREDENTIALS_DEFAULTTIMEOUT else num / 1000
+
+						data.keyType = "platform"
+						data.deviceBoundOnly = b3
+
+						if UserInputService:GetPlatform() ~= Enum.Platform.Android then
+							data.publicKey.challenge = Base64.FromUrlSafeBase64(data.publicKey.challenge)
+
+							if data.publicKey.allowCredentials then
+								for _, v in ipairs(data.publicKey.allowCredentials) do
+									v.id = Base64.FromUrlSafeBase64(v.id)
+								end
+							end
+						end
+
+						local json = HttpService:JSONEncode(data)
+
+						default:getCredentials(default.CredentialsTypes.FIDO2, json, v332):andThen(function(p94) -- line: 1061
+							-- upvalues: HttpService (copy), Logger (copy), CredentialsProtocolErrorCodes (copy), authClientError (copy), EventStreamConstants (copy), PasskeyConstants (copy), Base64 (copy), t18 (copy), u236 (ref), v144 (copy), sessionId (copy)
+							if p94 ~= nil then
+								local data3 = HttpService:JSONDecode(p94)
+
+								if data3 == nil or next(data3) == nil then
+									Logger:info("Passkey credential signing failed. No result returned.")
+
+									return
+								end
+
+								if data3.errorCode ~= nil then
+									Logger:info("Passkey credential signing failed. Error {} (msg: {}) returned.", data3.errorCode, data3.errorMsg)
+
+									local num2 = tonumber(data3.errorCode)
+									local v416 = CredentialsProtocolErrorCodes.GetCredentialsErrorCodes[num2 or -1] or string.format(CredentialsProtocolErrorCodes.UNMAPPED_ERROR_CODE, (tostring(data3.errorCode)))
+
+									authClientError(EventStreamConstants.Context.PasskeyLoginAttempt, v416, PasskeyConstants.PASSKEY_FETCH_LOGIN_V2)
+
+									return
+								end
+
+								Logger:info("Passkey credential signing completed. Attempting login.")
+								data3.id = Base64.ToUrlSafeBase64(data3.id)
+								data3.rawId = Base64.ToUrlSafeBase64(data3.rawId)
+								data3.response.signature = Base64.ToUrlSafeBase64(data3.response.signature)
+								data3.response.userHandle = Base64.ToUrlSafeBase64(data3.response.userHandle)
+								data3.response.authenticatorData = Base64.ToUrlSafeBase64(data3.response.authenticatorData)
+								data3.response.clientDataJSON = Base64.ToUrlSafeBase64(data3.response.clientDataJSON)
+								t18.setInProgress(true)
+								u236 = true
+								v144(data3, sessionId, t18)
+							end
+						end, function(p95) -- line: 1100
+							-- upvalues: Logger (copy)
+							Logger:warning("Passkey credential signing failed. Error: {}", p95)
+						end):await()
+					end, function(p96) -- line: 1104
+						-- upvalues: Logger (copy), b2 (copy), b3 (copy), t18 (copy)
+						Logger:warning("Fetching passkey login options failed with error code: {}", p96.errorCode)
+
+						if b2 and not b3 then
+							t18.setErrorKey("Authentication.Login.Response.UnableToSignIn")
+						end
+					end):finally(function() -- line: 1111
+						-- upvalues: t18 (copy), u236 (ref)
+						if t18.onCredentialsPopupAbandoned and not u236 then
+							t18.onCredentialsPopupAbandoned()
+						end
+					end)
+				end,
+				showGenericCredentialLoginPopup = function(b4: boolean, b5: boolean, b6: boolean, t19: {[any]: any}) -- line: 1118
+					-- upvalues: v133 (copy), v118 (copy), v132 (copy), HttpService (copy), Constants (copy), UserInputService (copy), Base64 (copy), Logger (copy), default2 (copy), TelemetryConfigs (copy), default (copy), FFlagEnablePasskeyLoginErrorLogging (copy), authClientError (copy), EventStreamConstants (copy), PasskeyConstants (copy), handleLoginWithFormData (copy), v144 (copy)
+					if not b4 and not b5 then
+						return
+					end
+
+					local v241 = not b6 and function() -- line: 1136
+						-- upvalues: v132 (copy)
+						return v132()
+					end or function() -- line: 1130
+						-- upvalues: v133 (copy), v118 (copy)
+						return v133({
+							cvalue = v118.userIdentifier,
+							ctype = v118.userIdentifierType
+						})
+					end
+					local data = nil
+					local sessionId = nil
+					local u244 = nil
+					local t20 = {}
+
+					if b4 then
+						v241():andThen(function(p97) -- line: 1146
+							-- upvalues: data (ref), HttpService (copy), sessionId (ref), u244 (ref), Constants (copy), UserInputService (copy), Base64 (copy)
+							data = HttpService:JSONDecode(p97.authenticationOptions)
+							sessionId = p97.sessionId
+							u244 = tonumber(data.publicKey.timeout) or Constants.Defaults.CREDENTIALSPROTOCOL_GETCREDENTIALS_DEFAULTTIMEOUT
+							data.keyType = "platform"
+							data.deviceBoundOnly = true
+
+							if UserInputService:GetPlatform() ~= Enum.Platform.Android then
+								data.publicKey.challenge = Base64.FromUrlSafeBase64(data.publicKey.challenge)
+
+								if data.publicKey.allowCredentials then
+									for _, v in ipairs(data.publicKey.allowCredentials) do
+										v.id = Base64.FromUrlSafeBase64(v.id)
+									end
+								end
+							end
+						end, function(p98) -- line: 1167
+							-- upvalues: Logger (copy)
+							Logger:warning("Fetching passkey login options failed with error code: {}", p98.errorCode)
+						end):await()
+
+						if data ~= nil then
+							t20.FIDO2 = data
+						end
+					end
+
+					if b5 then
+						t20.password = {}
+
+						if b6 then
+							t20.password.username = v118.userIdentifier
+						end
+					end
+
+					local v246 = if not u244 then Constants.Defaults.CREDENTIALSPROTOCOL_GETCREDENTIALS_DEFAULTTIMEOUT else u244 / 1000
+					local u247 = false
+					local json = HttpService:JSONEncode(t20)
+
+					default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginCredentialSheetShownConfig, 1)
+
+					return default:getCredentials(default.CredentialsTypes.all, json, v246):andThen(function(p99) -- line: 1197
+						-- upvalues: HttpService (copy), Logger (copy), default2 (copy), TelemetryConfigs (copy), FFlagEnablePasskeyLoginErrorLogging (copy), authClientError (copy), EventStreamConstants (copy), PasskeyConstants (copy), default (copy), t19 (copy), u247 (ref), handleLoginWithFormData (copy), Base64 (copy), v144 (copy), sessionId (ref)
+						if p99 ~= nil then
+							local data4 = HttpService:JSONDecode(p99)
+
+							if data4 == nil or not data4.response and not data4.errorCode then
+								Logger:info("Generic credential fetch failed. No result returned.")
+								default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginCredentialSheetDismissedConfig, 1)
+
+								return
+							end
+
+							if data4.errorCode ~= nil then
+								Logger:info("Generic credential fetch failed. Error {} (msg: {}) returned.", data4.errorCode, data4.errorMsg)
+								default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginCredentialSheetErrorConfig, 1, {
+									errorCode = tostring(data4.errorCode)
+								})
+
+								if FFlagEnablePasskeyLoginErrorLogging and type(data4.errorMsg) == "string" then
+									authClientError(EventStreamConstants.Context.PasskeyLoginAttempt, data4.errorMsg, PasskeyConstants.GENERIC_CREDENTIAL_FETCH_LOGIN_V2)
+
+									return
+								end
+							else
+								if data4.credentialType == default.CredentialsTypes.password then
+									default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginCredentialSheetPasswordSelectedConfig, 1)
+									t19.setInProgress(true)
+									u247 = true
+									handleLoginWithFormData(data4.response.username, data4.response.password, nil, nil, nil, true, t19)
+
+									return
+								end
+
+								if data4.credentialType == default.CredentialsTypes.FIDO2 then
+									default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginCredentialSheetPasskeySelectedConfig, 1)
+									data4.response.id = Base64.ToUrlSafeBase64(data4.response.id)
+									data4.response.rawId = Base64.ToUrlSafeBase64(data4.response.rawId)
+									data4.response.response.signature = Base64.ToUrlSafeBase64(data4.response.response.signature)
+									data4.response.response.userHandle = Base64.ToUrlSafeBase64(data4.response.response.userHandle)
+									data4.response.response.authenticatorData = Base64.ToUrlSafeBase64(data4.response.response.authenticatorData)
+									data4.response.response.clientDataJSON = Base64.ToUrlSafeBase64(data4.response.response.clientDataJSON)
+									t19.setInProgress(true)
+									u247 = true
+									v144(data4.response, sessionId, t19)
+								end
+							end
+						end
+					end, function(p100) -- line: 1262
+						-- upvalues: Logger (copy), default2 (copy), TelemetryConfigs (copy)
+						Logger:warning("Generic credential signing failed. Error: {}", p100)
+						default2:logRobloxTelemetryCounter(TelemetryConfigs.IosAuthServiceLoginCredentialSheetDismissedConfig, 1)
+					end):andThen(function(_) -- line: 1271
+						-- upvalues: t19 (copy), u247 (ref)
+						if t19.onCredentialsPopupAbandoned and not u247 then
+							t19.onCredentialsPopupAbandoned()
+						end
+					end):catch(function(_) -- line: 1277
+						-- upvalues: t19 (copy), u247 (ref)
+						if t19.onCredentialsPopupAbandoned and not u247 then
+							t19.onCredentialsPopupAbandoned()
+						end
+					end)
+				end,
+				handleLoginWithCode = handleLoginWithCode,
+				handleLoginWithFormData = handleLoginWithFormData,
+				handleLoginWithPasskey = v144,
+				handleLoginWithOtp = handleLoginWithOtp,
+				handleSendEmailOtp = function(p103: ((...any) -> ...any), t21: {[any]: any}) -- line: 968
+					-- upvalues: v124 (copy), SetBackNavigationDisabled (copy), Constants2 (copy), v118 (copy), SendCode (copy), v125 (copy)
+					v124(SetBackNavigationDisabled(true))
+
+					local t22 = {
+						origin = Constants2.otpServiceOrigin,
+						contactType = Constants2.otpServiceContactType,
+						contactValue = v118.userIdentifier
+					}
+
+					return v124(SendCode(v125, t22)):andThen(function(p104) -- line: 979
+						-- upvalues: p103 (copy)
+						p103(p104.otpSessionToken)
+					end, function(p105) -- line: 982
+						-- upvalues: t21 (copy), Constants2 (copy)
+						t21.setInProgress(false)
+
+						local v320 = tonumber(p105) or 0
+						local v321 = Constants2.statusCodeMap[v320] or "Unknown"
+						local v322 = Constants2.errorMessageKeys[v321] or Constants2.errorMessageKeys.Unknown
+
+						t21.setErrorKey(v322)
+					end)
+				end,
+				handleResendEmailOtp = function(s9: string, p106: ((...any) -> ...any), t23: {[any]: any}) -- line: 991
+					-- upvalues: v124 (copy), SetBackNavigationDisabled (copy), Constants2 (copy), ResendCode (copy), v125 (copy)
+					v124(SetBackNavigationDisabled(true))
+
+					local t24 = {
+						origin = Constants2.otpServiceOrigin,
+						contactType = Constants2.otpServiceContactType,
+						otpSessionToken = s9
+					}
+
+					return v124(ResendCode(v125, t24)):andThen(function(p107) -- line: 1003
+						-- upvalues: p106 (copy)
+						p106(p107.otpSessionToken)
+					end, function(p108) -- line: 1006
+						-- upvalues: t23 (copy), Constants2 (copy)
+						t23.setInProgress(false)
+
+						local v325 = tonumber(p108) or 0
+						local v326 = Constants2.statusCodeMap[v325] or "Unknown"
+						local v327 = Constants2.errorMessageKeys[v326] or Constants2.errorMessageKeys.Unknown
+
+						t23.setErrorKey(v327)
+					end)
+				end,
+				openAccountSwitchingErrorOverlay = function(p109, p110, p111, p112, p113, p114, p115, p116) -- line: 1284
+					-- upvalues: v124 (copy), OpenAccountSwitchingErrorOverlay (copy)
+					return v124(OpenAccountSwitchingErrorOverlay(p109, p110, p111, p112, p113, p114, p115, p116))
+				end,
+				openPasswordResetPrompt = function() -- line: 1308
+					-- upvalues: v124 (copy), OpenCentralOverlayForLoginPasswordResetPrompt (copy)
+					return v124(OpenCentralOverlayForLoginPasswordResetPrompt())
+				end,
+				openWebView = function(s10: string) -- line: 377
+					-- upvalues: v124 (copy), NavigateDown (copy), AppPage (copy)
+					v124(NavigateDown({
+						name = AppPage.GenericWebPage,
+						detail = s10,
+						extraProps = {
+							title = "",
+							transitionAnimation = "SlideInFromBottom"
+						}
+					}))
+				end,
+				openAccountRecovery = function(s11: string) -- line: 388
+					-- upvalues: v124 (copy), NavigateDown (copy), AppPage (copy)
+					v124(NavigateDown({
+						name = AppPage.AccountRecovery,
+						extraProps = {
+							identifier = s11,
+							recoverPassword = true
+						}
+					}))
+				end,
+				logoutAllLoggedInUsers = function(p117, p118) -- line: 1312
+					-- upvalues: LogoutAllLoggedInUsers (copy)
+					return LogoutAllLoggedInUsers(p117, p118)
+				end,
+				logoutWithoutShowConfirmation = function(p119, p120, s12: string?) -- line: 1316
+					-- upvalues: v124 (copy), Logout (copy)
+					return v124(Logout(p119, p120, s12))
+				end,
+				openNewAppAvailableModal = v147,
+				closeCentralOverlay = function() -- line: 357
+					-- upvalues: v124 (copy), CloseCentralOverlay (copy)
+					return v124(CloseCentralOverlay())
+				end,
+				clearApp = function() -- line: 267
+					-- upvalues: v124 (copy), ResetAppState (copy), Promise (copy)
+					v124(ResetAppState())
+
+					return Promise.resolve()
+				end,
+				openAccountSelector = v148,
+				handleCredentialsCollision = v149,
+				registerPassword = v138,
+				isUserAuthenticated = function() -- line: 369
+					-- upvalues: User (copy)
+					return User.fromLocalStorage().userId ~= -1
+				end
+			}
+		}
+	}, t1.children)
+end

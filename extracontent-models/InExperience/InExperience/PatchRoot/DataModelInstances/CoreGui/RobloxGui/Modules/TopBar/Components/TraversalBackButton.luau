@@ -1,235 +1,247 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_TeleportService_0 = game:GetService("TeleportService");
-local l_UserGameSettings_0 = UserSettings():GetService("UserGameSettings");
-local v3 = require(l_CorePackages_0.Packages.Foundation);
-local v4 = require(l_CorePackages_0.Packages.React);
-local v5 = require(l_CorePackages_0.Packages.ReactOtter);
-local v6 = require(l_CorePackages_0.Packages.SignalsReact);
-local v7 = require(l_CorePackages_0.Workspace.Packages.CoreScriptsCommon);
-local v8 = require(l_CorePackages_0.Workspace.Packages.CoreScriptsRoactCommon);
-local v9 = require(l_CorePackages_0.Workspace.Packages.DataHydration);
-local v10 = require(l_CorePackages_0.Workspace.Packages.Localization);
-local l_View_0 = v3.View;
-local l_useTokens_0 = v3.Hooks.useTokens;
-local l_SettingsShowSignal_0 = v7.SettingsShowSignal;
-local l_Traversal_0 = v8.Traversal;
-local l_DataHydrationTypes_0 = v9.DataHydrationTypes;
-local l_getGameInfoStore_0 = v9.Game.getGameInfoStore;
-local l_Constants_0 = l_Traversal_0.Constants;
-local l_TeleportBackButton_0 = l_Traversal_0.TeleportBackButton;
-local l_TraversalTelemetry_0 = l_Traversal_0.TraversalTelemetry;
-local l_useHistoryItems_0 = l_Traversal_0.useHistoryItems;
-local l_useLocalization_0 = v10.Hooks.useLocalization;
-local l_FFlagUseTeleportTraversalHistory_0 = l_Traversal_0.Flags.FFlagUseTeleportTraversalHistory;
-local l_FFlagUseLocalTraversalHistory_0 = l_Traversal_0.Flags.FFlagUseLocalTraversalHistory;
-local l_FFlagAddTraversalBackButtonAnimation_0 = l_Traversal_0.Flags.FFlagAddTraversalBackButtonAnimation;
-local v25 = game:DefineFastFlag("FixTraversalBackButtonAnimation", false);
-local v26 = game:DefineFastFlag("FixTraversalBackPlaceName", false);
-return v4.memo(function(_) --[[ Line: 37 ]] --[[ Name: TraversalBackButton ]]
-    -- upvalues: l_useTokens_0 (copy), v4 (copy), l_TeleportService_0 (copy), l_Constants_0 (copy), l_SettingsShowSignal_0 (copy), l_TraversalTelemetry_0 (copy), l_useLocalization_0 (copy), v26 (copy), l_getGameInfoStore_0 (copy), l_DataHydrationTypes_0 (copy), v6 (copy), l_useHistoryItems_0 (copy), l_FFlagUseLocalTraversalHistory_0 (copy), l_FFlagUseTeleportTraversalHistory_0 (copy), v25 (copy), l_FFlagAddTraversalBackButtonAnimation_0 (copy), v5 (copy), l_UserGameSettings_0 (copy), l_View_0 (copy), l_TeleportBackButton_0 (copy)
-    local v28 = l_useTokens_0();
-    local v29 = v4.useRef(nil);
-    local l_l_TeleportService_0_ThirdPartyTeleportInfo_0, v31 = l_TeleportService_0:GetThirdPartyTeleportInfo(false);
-    if l_l_TeleportService_0_ThirdPartyTeleportInfo_0 <= l_Constants_0.NO_UNIVERSE_ID or v31 <= l_Constants_0.NO_PLACE_ID then
-        return nil;
-    else
-        local v32, v33 = v4.useState(false);
-        v4.useEffect(function() --[[ Line: 47 ]]
-            -- upvalues: l_SettingsShowSignal_0 (ref), v33 (copy)
-            local v35 = l_SettingsShowSignal_0:connect(function(v34) --[[ Line: 48 ]]
-                -- upvalues: v33 (ref)
-                v33(v34);
-            end);
-            return function() --[[ Line: 51 ]]
-                -- upvalues: v35 (copy)
-                v35:Disconnect();
-            end;
-        end, {});
-        v4.useEffect(function() --[[ Line: 56 ]]
-            -- upvalues: v32 (copy), l_TraversalTelemetry_0 (ref), l_l_TeleportService_0_ThirdPartyTeleportInfo_0 (copy)
-            if v32 then
-                l_TraversalTelemetry_0.sendBackButtonActionEvent({
-                    integration_id = "back_button", 
-                    destination_universe_id = l_l_TeleportService_0_ThirdPartyTeleportInfo_0, 
-                    event_type = "impression"
-                });
-            end;
-        end, {
-            v32, 
-            l_l_TeleportService_0_ThirdPartyTeleportInfo_0
-        });
-        local v36 = l_useLocalization_0({
-            defaultBackButtonText = "CoreScripts.TopBar.Traversal.BackButtonDefault"
-        });
-        local v37 = nil;
-        if v26 then
-            local v42 = v4.useCallback(function(v38) --[[ Line: 72 ]]
-                -- upvalues: l_getGameInfoStore_0 (ref), l_l_TeleportService_0_ThirdPartyTeleportInfo_0 (copy), l_DataHydrationTypes_0 (ref), v36 (copy)
-                local v39 = l_getGameInfoStore_0(v38).getAndFetchGameInfo((tostring(l_l_TeleportService_0_ThirdPartyTeleportInfo_0)));
-                local v40 = v39.data(v38);
-                local v41 = v39.status(v38);
-                if not v40 or v41 ~= l_DataHydrationTypes_0.DataStatus.Ready then
-                    return v36.defaultBackButtonText;
-                else
-                    return v40.name;
-                end;
-            end, {
-                l_l_TeleportService_0_ThirdPartyTeleportInfo_0, 
-                l_getGameInfoStore_0
-            });
-            v37 = v6.useSignalState(v42);
-        else
-            local v43 = l_useHistoryItems_0(2);
-            v37 = if l_FFlagUseLocalTraversalHistory_0 and typeof(v43[2]) == "table" and v43[2].name then v43[2].name else if l_FFlagUseTeleportTraversalHistory_0 and typeof(v43[1]) == "table" and v43[1].name then v43[1].name else v36.defaultBackButtonText;
-        end;
-        local v44 = nil;
-        if v25 then
-            v44 = v4.useRef(nil);
-        end;
-        local v45 = v28.Size.Size_2500 * 2;
-        local v46 = nil;
-        local v47 = nil;
-        local v48 = nil;
-        local v49 = nil;
-        local v50 = nil;
-        local v51 = nil;
-        local v52 = nil;
-        if l_FFlagAddTraversalBackButtonAnimation_0 then
-            v46 = v4.useRef(nil);
-            v47 = v4.useRef(nil);
-            if v25 then
-                v48 = v4.useRef(nil);
-            end;
-            local v53 = v4.useMemo(function() --[[ Line: 113 ]]
-                -- upvalues: v28 (copy)
-                return {
-                    duration = v28.Time.Time_300, 
-                    easingStyle = v28.Ease.StandardOut
-                };
-            end, {
-                v28
-            });
-            local v55, v56 = v5.useAnimatedBinding(0, function(v54) --[[ Line: 119 ]]
-                -- upvalues: v46 (ref), v25 (ref), v48 (ref), v47 (ref)
-                v46.current = nil;
-                if v25 then
-                    if not v48.current and v47.current and v54 == 1 then
-                        v48.current = v47.current;
-                    end;
-                    if v54 == 0 then
-                        v47.current = 0;
-                        return;
-                    end;
-                else
-                    v47.current = nil;
-                end;
-            end);
-            v49 = v55;
-            v50 = v56;
-            v4.useEffect(function() --[[ Line: 132 ]]
-                -- upvalues: v32 (copy), v25 (ref), v44 (ref), v37 (ref), v48 (ref), v29 (copy), v50 (ref), v5 (ref), v53 (copy)
-                if v32 then
-                    if v25 then
-                        if v44.current ~= v37 then
-                            v48.current = nil;
-                            v44.current = v37;
-                            if v29.current then
-                                v50(v5.ease(0.99, v53));
-                            end;
-                        else
-                            v50(v5.ease(1, v53));
-                        end;
-                    else
-                        v50(v5.ease(1, v53));
-                    end;
-                else
-                    v50(v5.ease(0, v53));
-                end;
-                if v25 and v44.current == nil then
-                    v44.current = v37;
-                end;
-            end, {
-                v32, 
-                v53, 
-                v37
-            });
-            v51 = v4.useCallback(function(v57) --[[ Line: 155 ]]
-                -- upvalues: v25 (ref), v48 (ref), v32 (copy), v29 (copy), v46 (ref), v47 (ref), v45 (copy)
-                if v25 then
-                    if v48.current then
-                        return UDim2.new(0, v57 * v48.current, 0, 0);
-                    else
-                        local v58 = nil;
-                        if v32 and v29.current then
-                            local l_X_0 = v29.current.AbsoluteSize.X;
-                            if not v46.current then
-                                v46.current = v29.current.AbsoluteSize.X;
-                            end;
-                            if v47.current and l_X_0 <= v47.current then
-                                return UDim2.new(0, if v25 then l_X_0 else v47.current, 0, 0);
-                            else
-                                if v46.current and v46.current ~= l_X_0 then
-                                    v47.current = l_X_0;
-                                end;
-                                v58 = v57 * v45;
-                            end;
-                        else
-                            v58 = v57 * (v47.current or v45);
-                        end;
-                        return UDim2.new(0, v58, 0, 0);
-                    end;
-                else
-                    if v32 and v29.current then
-                        local l_X_1 = v29.current.AbsoluteSize.X;
-                        if not v46.current then
-                            v46.current = v29.current.AbsoluteSize.X;
-                        end;
-                        if v47.current and l_X_1 <= v47.current then
-                            return UDim2.new(0, v47.current, 0, 0);
-                        elseif v46.current and v46.current ~= l_X_1 then
-                            v47.current = l_X_1;
-                        end;
-                    end;
-                    local v61 = v57 * v45;
-                    return UDim2.new(0, v61, 0, 0);
-                end;
-            end, {
-                v32
-            });
-            v52 = v4.useCallback(function(v62) --[[ Line: 195 ]]
-                -- upvalues: v32 (copy)
-                local v63 = true;
-                if v62 <= 0 then
-                    v63 = v32;
-                end;
-                return v63;
-            end, {
-                v32
-            });
-        end;
-        if l_FFlagAddTraversalBackButtonAnimation_0 and not l_UserGameSettings_0.ReducedMotion then
-            return v4.createElement(l_View_0, {
-                tag = "auto-y", 
-                Visible = v49:map(v52), 
-                Size = v49:map(v51), 
-                ZIndex = -1
-            }, {
-                TraversalBackButton = v4.createElement(l_TeleportBackButton_0, {
-                    text = v37, 
-                    textLimitWidth = v45, 
-                    ref = v29
-                })
-            });
-        else
-            return v32 and v4.createElement(l_View_0, {
-                tag = "auto-xy shrink"
-            }, {
-                TraversalBackButton = v4.createElement(l_TeleportBackButton_0, {
-                    text = v37, 
-                    textLimitWidth = v45, 
-                    ref = v29
-                })
-            });
-        end;
-    end;
-end);
+local CorePackages = game:GetService("CorePackages")
+local TeleportService = game:GetService("TeleportService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local Foundation = require(CorePackages.Packages.Foundation)
+local React = require(CorePackages.Packages.React)
+local ReactOtter = require(CorePackages.Packages.ReactOtter)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local DataHydration = require(CorePackages.Workspace.Packages.DataHydration)
+local Localization = require(CorePackages.Workspace.Packages.Localization)
+local View = Foundation.View
+local useTokens = Foundation.Hooks.useTokens
+local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
+local Traversal = CoreScriptsRoactCommon.Traversal
+local DataHydrationTypes = DataHydration.DataHydrationTypes
+local getGameInfoStore = DataHydration.Game.getGameInfoStore
+local Constants = Traversal.Constants
+local TeleportBackButton = Traversal.TeleportBackButton
+local TraversalTelemetry = Traversal.TraversalTelemetry
+local _ = Traversal.useHistoryItems
+local useLocalization = Localization.Hooks.useLocalization
+local _ = Traversal.Flags.FFlagUseTeleportTraversalHistory
+local _ = Traversal.Flags.FFlagUseLocalTraversalHistory
+local FFlagAddTraversalBackButtonAnimation = Traversal.Flags.FFlagAddTraversalBackButtonAnimation
+local v26 = game:DefineFastFlag("FixTraversalBackButtonAnimation", false)
+
+return React.memo(function(_: {[any]: any}) --[[ TraversalBackButton ]] -- line: 36
+	-- upvalues: useTokens (copy), React (copy), TeleportService (copy), Constants (copy), SettingsShowSignal (copy), TraversalTelemetry (copy), useLocalization (copy), getGameInfoStore (copy), DataHydrationTypes (copy), SignalsReact (copy), v26 (copy), FFlagAddTraversalBackButtonAnimation (copy), ReactOtter (copy), UserGameSettings (copy), View (copy), TeleportBackButton (copy)
+	local v28 = useTokens()
+	local v29 = React.useRef(nil)
+	local v30, v31 = TeleportService:GetThirdPartyTeleportInfo(false)
+
+	if v30 <= Constants.NO_UNIVERSE_ID or v31 <= Constants.NO_PLACE_ID then
+		return nil
+	end
+
+	local v32, v33 = React.useState(false)
+
+	React.useEffect(function() -- line: 46
+		-- upvalues: SettingsShowSignal (copy), v33 (copy)
+		local v48 = SettingsShowSignal:connect(function(p1) -- line: 47
+			-- upvalues: v33 (copy)
+			v33(p1)
+		end)
+
+		return function() -- line: 50
+			-- upvalues: v48 (copy)
+			v48:Disconnect()
+		end
+	end, {})
+	React.useEffect(function() -- line: 55
+		-- upvalues: v32 (copy), TraversalTelemetry (copy), v30 (copy)
+		if v32 then
+			TraversalTelemetry.sendBackButtonActionEvent({
+				integration_id = "back_button",
+				destination_universe_id = v30,
+				event_type = "impression"
+			})
+		end
+	end, {
+		v32,
+		v30
+	})
+
+	local v34 = useLocalization({
+		defaultBackButtonText = "CoreScripts.TopBar.Traversal.BackButtonDefault"
+	})
+	local v35 = React.useCallback(function(p2) -- line: 69
+		-- upvalues: getGameInfoStore (copy), v30 (copy), DataHydrationTypes (copy), v34 (copy)
+		local v50 = getGameInfoStore(p2).getAndFetchGameInfo((tostring(v30)))
+		local v51 = v50.data(p2)
+		local v52 = v50.status(p2)
+
+		if not v51 or v52 ~= DataHydrationTypes.DataStatus.Ready then
+			return v34.defaultBackButtonText
+		end
+
+		return v51.name
+	end, {
+		v30,
+		getGameInfoStore
+	})
+	local v36 = SignalsReact.useSignalState(v35)
+	local u37 = nil
+
+	if v26 then
+		u37 = React.useRef(nil)
+	end
+
+	local v38 = v28.Size.Size_2500 * 2
+	local u39 = nil
+	local u40 = nil
+	local u41 = nil
+	local v42 = nil
+	local u43 = nil
+	local v44 = nil
+	local v45 = nil
+
+	if FFlagAddTraversalBackButtonAnimation then
+		u39 = React.useRef(nil)
+		u40 = React.useRef(nil)
+
+		if v26 then
+			u41 = React.useRef(nil)
+		end
+
+		local v46 = React.useMemo(function() -- line: 100
+			-- upvalues: v28 (copy)
+			return {
+				duration = v28.Time.Time_300,
+				easingStyle = v28.Ease.StandardOut
+			}
+		end, { v28 })
+		local v47
+
+		v42, v47 = ReactOtter.useAnimatedBinding(0, function(n1: number) -- line: 106
+			-- upvalues: u39 (ref), v26 (copy), u41 (ref), u40 (ref)
+			u39.current = nil
+
+			if v26 then
+				if not u41.current and u40.current and n1 == 1 then
+					u41.current = u40.current
+				end
+
+				if n1 == 0 then
+					u40.current = 0
+
+					return
+				end
+			else
+				u40.current = nil
+			end
+		end)
+		u43 = v47
+		React.useEffect(function() -- line: 119
+			-- upvalues: v32 (copy), v26 (copy), u37 (ref), v36 (copy), u41 (ref), v29 (copy), u43 (ref), ReactOtter (copy), v46 (copy)
+			if v32 then
+				if v26 then
+					if u37.current ~= v36 then
+						u41.current = nil
+						u37.current = v36
+
+						if v29.current then
+							u43(ReactOtter.ease(0.99, v46))
+						end
+					else
+						u43(ReactOtter.ease(1, v46))
+					end
+				else
+					u43(ReactOtter.ease(1, v46))
+				end
+			else
+				u43(ReactOtter.ease(0, v46))
+			end
+
+			if v26 and u37.current == nil then
+				u37.current = v36
+			end
+		end, {
+			v32,
+			v46,
+			v36
+		})
+		v44 = React.useCallback(function(n2: number) -- line: 142
+			-- upvalues: v26 (copy), u41 (ref), v32 (copy), v29 (copy), u39 (ref), u40 (ref), v38 (copy)
+			if v26 then
+				if u41.current then
+					return UDim2.new(0, n2 * u41.current, 0, 0)
+				end
+
+				local v56
+
+				if v32 and v29.current then
+					local AbsoluteSizeX = v29.current.AbsoluteSize.X
+
+					if not u39.current then
+						u39.current = v29.current.AbsoluteSize.X
+					end
+
+					if u40.current and AbsoluteSizeX <= u40.current then
+						return UDim2.new(0, if not v26 then u40.current else AbsoluteSizeX, 0, 0)
+					end
+
+					if u39.current and AbsoluteSizeX ~= u39.current then
+						u40.current = AbsoluteSizeX
+					end
+
+					v56 = n2 * v38
+				else
+					v56 = n2 * (u40.current or v38)
+				end
+
+				return UDim2.new(0, v56, 0, 0)
+			end
+
+			if v32 and v29.current then
+				local AbsoluteSizeX = v29.current.AbsoluteSize.X
+
+				if not u39.current then
+					u39.current = v29.current.AbsoluteSize.X
+				end
+
+				if u40.current and AbsoluteSizeX <= u40.current then
+					return UDim2.new(0, u40.current, 0, 0)
+				end
+
+				if u39.current and AbsoluteSizeX ~= u39.current then
+					u40.current = AbsoluteSizeX
+				end
+			end
+
+			local v58 = n2 * v38
+
+			return UDim2.new(0, v58, 0, 0)
+		end, { v32 })
+		v45 = React.useCallback(function(p3) -- line: 182
+			-- upvalues: v32 (copy)
+			return p3 > 0 or v32
+		end, { v32 })
+	end
+
+	if FFlagAddTraversalBackButtonAnimation and not UserGameSettings.ReducedMotion then
+		return React.createElement(View, {
+			tag = "auto-y",
+			Visible = v42:map(v45),
+			Size = v42:map(v44),
+			ZIndex = -1
+		}, {
+			TraversalBackButton = React.createElement(TeleportBackButton, {
+				text = v36,
+				textLimitWidth = v38,
+				ref = v29
+			})
+		})
+	end
+
+	return v32 and React.createElement(View, {
+		tag = "auto-xy shrink"
+	}, {
+		TraversalBackButton = React.createElement(TeleportBackButton, {
+			text = v36,
+			textLimitWidth = v38,
+			ref = v29
+		})
+	})
+end)

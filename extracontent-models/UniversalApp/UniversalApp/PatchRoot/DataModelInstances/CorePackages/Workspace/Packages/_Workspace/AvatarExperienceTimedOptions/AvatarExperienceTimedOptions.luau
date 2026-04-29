@@ -1,21 +1,18 @@
-local v0 = require(script.Components.ItemExpirationDisplay);
-local v1 = require(script.Components.WearTimeConstants);
-local v2 = require(script.Components.WearTimeInfoModal);
-local v3 = require(script.Components.WearTimeOptionButton);
-local v4 = require(script.Components.WearTimeOptionsCarousel);
-local v5 = require(script.Components.WearTimeSelectedOption);
-local v6 = require(script.Components.WearTimeSelectedOptionInList);
-local v7 = require(script.Types.TimedOptionType);
-local v8 = require(script.Types.DiscountInformationType);
+local ItemExpirationDisplay = require(script.Components.ItemExpirationDisplay)
+local WearTimeConstants = require(script.Components.WearTimeConstants)
+local WearTimeInfoModal = require(script.Components.WearTimeInfoModal)
+local WearTimeOptionButton = require(script.Components.WearTimeOptionButton)
+local WearTimeOptionsCarousel = require(script.Components.WearTimeOptionsCarousel)
+local WearTimeSelectedOption = require(script.Components.WearTimeSelectedOption)
+local WearTimeSelectedOptionInList = require(script.Components.WearTimeSelectedOptionInList)
+
 return {
-    ItemExpirationDisplay = v0, 
-    WearTimeConstants = v1, 
-    WearTimeInfoModal = v2, 
-    WearTimeOptionButton = v3, 
-    WearTimeOptionsCarousel = v4, 
-    WearTimeSelectedOption = v5, 
-    WearTimeSelectedOptionInList = v6, 
-    TimedOptionType = v7, 
-    DiscountInformationType = v8, 
-    ["jest.config"] = script["jest.config"]
-};
+	ItemExpirationDisplay = ItemExpirationDisplay,
+	WearTimeConstants = WearTimeConstants,
+	WearTimeInfoModal = WearTimeInfoModal,
+	WearTimeOptionButton = WearTimeOptionButton,
+	WearTimeOptionsCarousel = WearTimeOptionsCarousel,
+	WearTimeSelectedOption = WearTimeSelectedOption,
+	WearTimeSelectedOptionInList = WearTimeSelectedOptionInList,
+	["jest.config"] = script["jest.config"]
+}

@@ -1,138 +1,209 @@
-local l_HttpService_0 = game:GetService("HttpService");
-local l_MemStorageService_0 = game:GetService("MemStorageService");
-local l_Players_0 = game:GetService("Players");
-local v3 = game:DefineFastFlag("FFlagLogFirstGuacRead", false);
-local v4 = game:DefineFastFlag("FFlagLogAllGuacRead", false);
-local v5 = game:DefineFastFlag("CacheReadParsePolicy", false);
-local v6 = nil;
-local v7 = nil;
-if v3 then
-    v6 = game:GetService("CorePackages");
-    v7 = require(v6.Workspace.Packages.LoggingProtocol).default;
-end;
-return function(v8) --[[ Line: 16 ]]
-    -- upvalues: l_HttpService_0 (copy), l_MemStorageService_0 (copy), l_Players_0 (copy), v5 (copy), v4 (copy), v7 (ref), v3 (copy)
-    v8 = v8 or {};
-    v8.HttpService = v8.HttpService or l_HttpService_0;
-    v8.MemStorageService = v8.MemStorageService or l_MemStorageService_0;
-    v8.PlayersService = v8.PlayersService or l_Players_0;
-    assert(v8.HttpService, "expected dependencies.HttpService");
-    assert(v8.MemStorageService, "expected dependencies.MemStorageService");
-    assert(v8.PlayersService, "expected dependencies.PlayersService");
-    local l_HttpService_1 = v8.HttpService;
-    local l_MemStorageService_1 = v8.MemStorageService;
-    local l_PlayersService_0 = v8.PlayersService;
-    local v12 = false;
-    return function(v13) --[[ Line: 31 ]]
-        -- upvalues: l_PlayersService_0 (copy), v5 (ref), l_HttpService_1 (copy), l_MemStorageService_1 (copy), v4 (ref), v7 (ref), v3 (ref), v12 (ref)
-        assert(v13, "expected behavior");
-        local function _() --[[ Line: 34 ]] --[[ Name: getStoreKey ]]
-            -- upvalues: l_PlayersService_0 (ref), v13 (copy)
-            local v14 = -1;
-            local l_LocalPlayer_0 = l_PlayersService_0.LocalPlayer;
-            if l_LocalPlayer_0 and l_LocalPlayer_0.UserId > 0 then
-                v14 = l_LocalPlayer_0.UserId;
-            end;
-            return "GUAC:" .. v14 .. ":" .. v13;
-        end;
-        local v17 = nil;
-        local v18 = nil;
-        local v19 = nil;
-        local v20 = nil;
-        local l_BindableEvent_0 = Instance.new("BindableEvent");
-        if v5 then
-            local v22 = nil;
-            do
-                local l_v22_0 = v22;
-                local function v24() --[[ Line: 54 ]] --[[ Name: localPlayerChanged ]]
-                    -- upvalues: l_v22_0 (ref), l_PlayersService_0 (ref), v20 (ref)
-                    if l_v22_0 then
-                        l_v22_0:Disconnect();
-                        l_v22_0 = nil;
-                    end;
-                    if l_PlayersService_0.LocalPlayer then
-                        l_v22_0 = l_PlayersService_0.LocalPlayer:GetPropertyChangedSignal("UserId"):Connect(function() --[[ Line: 60 ]]
-                            -- upvalues: v20 (ref)
-                            v20 = nil;
-                        end);
-                    end;
-                    v20 = nil;
-                end;
-                l_PlayersService_0:GetPropertyChangedSignal("LocalPlayer"):Connect(v24);
-                v24();
-            end;
-        end;
-        local function v28(v25) --[[ Line: 70 ]] --[[ Name: onPolicyUpdated ]]
-            -- upvalues: v19 (ref), l_HttpService_1 (ref), v20 (ref), l_BindableEvent_0 (copy)
-            if v25 ~= v19 and v25 and #v25 > 0 then
-                local l_status_0, l_result_0 = pcall(function() --[[ Line: 74 ]]
-                    -- upvalues: l_HttpService_1 (ref), v25 (copy)
-                    return l_HttpService_1:JSONDecode(v25);
-                end);
-                if l_status_0 then
-                    v19 = v25;
-                    v20 = l_result_0;
-                    l_BindableEvent_0:Fire(l_result_0);
-                end;
-            end;
-        end;
-        return {
-            read = function() --[[ Line: 88 ]] --[[ Name: read ]]
-                -- upvalues: v5 (ref), v20 (ref), l_PlayersService_0 (ref), v13 (copy), l_MemStorageService_1 (ref), l_HttpService_1 (ref), v4 (ref), v7 (ref), v3 (ref), v12 (ref), v19 (ref)
-                if v5 and v20 then
-                    return v20;
-                else
-                    local v29 = -1;
-                    local l_LocalPlayer_1 = l_PlayersService_0.LocalPlayer;
-                    if l_LocalPlayer_1 and l_LocalPlayer_1.UserId > 0 then
-                        v29 = l_LocalPlayer_1.UserId;
-                    end;
-                    local v31 = "GUAC:" .. v29 .. ":" .. v13;
-                    v29 = l_MemStorageService_1:GetItem(v31);
-                    if v29 and #v29 > 0 then
-                        local v32;
-                        l_LocalPlayer_1, v32 = pcall(function() --[[ Line: 95 ]]
-                            -- upvalues: l_HttpService_1 (ref), v29 (copy)
-                            return l_HttpService_1:JSONDecode(v29);
-                        end);
-                        if l_LocalPlayer_1 then
-                            if v4 then
-                                v7:logEvent("lua_policy_read_success");
-                            elseif v3 and not v12 then
-                                v7:logEvent("lua_policy_read_success");
-                                v12 = true;
-                            end;
-                            v20 = v32;
-                            v19 = v29;
-                            return v32;
-                        end;
-                    end;
-                    return nil;
-                end;
-            end, 
-            onPolicyChanged = function(v33) --[[ Line: 117 ]] --[[ Name: onPolicyChanged ]]
-                -- upvalues: l_PlayersService_0 (ref), v13 (copy), l_BindableEvent_0 (copy), v18 (ref), v17 (ref), v20 (ref), l_MemStorageService_1 (ref), v28 (copy)
-                local v34 = -1;
-                local l_LocalPlayer_2 = l_PlayersService_0.LocalPlayer;
-                if l_LocalPlayer_2 and l_LocalPlayer_2.UserId > 0 then
-                    v34 = l_LocalPlayer_2.UserId;
-                end;
-                local v36 = "GUAC:" .. v34 .. ":" .. v13;
-                v34 = l_BindableEvent_0.Event:Connect(v33);
-                if v18 and v17 == v36 then
-                    if v20 then
-                        v33(v20);
-                        return v34;
-                    end;
-                else
-                    if v18 then
-                        v18:Disconnect();
-                    end;
-                    v17 = v36;
-                    v18 = l_MemStorageService_1:BindAndFire(v36, v28);
-                end;
-                return v34;
-            end
-        };
-    end;
-end;
+local HttpService = game:GetService("HttpService")
+local MemStorageService = game:GetService("MemStorageService")
+local Players = game:GetService("Players")
+local v4 = game:DefineFastFlag("FFlagLogFirstGuacRead", false)
+local v5 = game:DefineFastFlag("FFlagLogAllGuacRead", false)
+local v6 = game:DefineFastFlag("CacheReadParsePolicy", false)
+local v7 = game:DefineFastFlag("FixPolicyStalePlayerUpdates", false)
+local default = nil
+
+if v4 then
+	local CorePackages = game:GetService("CorePackages")
+
+	default = require(CorePackages.Workspace.Packages.LoggingProtocol).default
+end
+
+return function(p1) -- line: 17
+	-- upvalues: HttpService (copy), MemStorageService (copy), Players (copy), v6 (copy), v7 (copy), v5 (copy), default (ref), v4 (copy)
+	local v11 = p1 or {}
+
+	v11.HttpService = v11.HttpService or HttpService
+	v11.MemStorageService = v11.MemStorageService or MemStorageService
+	v11.PlayersService = v11.PlayersService or Players
+	assert(v11.HttpService, "expected dependencies.HttpService")
+	assert(v11.MemStorageService, "expected dependencies.MemStorageService")
+	assert(v11.PlayersService, "expected dependencies.PlayersService")
+
+	local HttpService2 = v11.HttpService
+	local MemStorageService2 = v11.MemStorageService
+	local PlayersService = v11.PlayersService
+	local u15 = false
+
+	return function(p2) -- line: 32
+		-- upvalues: PlayersService (copy), HttpService2 (copy), v6 (copy), MemStorageService2 (copy), v7 (copy), v5 (copy), default (ref), v4 (copy), u15 (ref)
+		assert(p2, "expected behavior")
+
+		local u17 = nil
+		local u18 = nil
+		local u19 = nil
+		local u20 = nil
+		local BindableEvent = Instance.new("BindableEvent")
+
+		local function onPolicyUpdated(p3) -- line: 52
+			-- upvalues: u19 (ref), HttpService2 (copy), u20 (ref), BindableEvent (copy)
+			if p3 ~= u19 and (p3 and #p3 > 0) then
+				local ok, result = pcall(function() -- line: 56
+					-- upvalues: HttpService2 (copy), p3 (copy)
+					return HttpService2:JSONDecode(p3)
+				end)
+
+				if ok then
+					u19 = p3
+					u20 = result
+					BindableEvent:Fire(result)
+				end
+			end
+		end
+
+		if v6 then
+			local u23 = nil
+
+			local function localPlayerChanged() -- line: 87
+				-- upvalues: u23 (ref), PlayersService (copy), v7 (copy), u20 (ref), u19 (ref), u18 (ref), p2 (copy), u17 (ref), MemStorageService2 (copy), onPolicyUpdated (copy)
+				if u23 then
+					u23:Disconnect()
+					u23 = nil
+				end
+
+				if PlayersService.LocalPlayer then
+					u23 = PlayersService.LocalPlayer:GetPropertyChangedSignal("UserId"):Connect(function() -- line: 93
+						-- upvalues: v7 (copy), u20 (ref), u19 (ref), u18 (ref), PlayersService (copy), p2 (copy), u17 (ref), MemStorageService2 (copy), onPolicyUpdated (copy)
+						if v7 then
+							u20 = nil
+							u19 = nil
+
+							if u18 then
+								u18:Disconnect()
+								u18 = nil
+
+								local n1 = -1
+								local LocalPlayer = PlayersService.LocalPlayer
+
+								if LocalPlayer and LocalPlayer.UserId > 0 then
+									n1 = LocalPlayer.UserId
+								end
+
+								local v49 = "GUAC:" .. n1 .. ":" .. p2
+
+								u17 = v49
+								u18 = MemStorageService2:BindAndFire(v49, onPolicyUpdated)
+
+								return
+							end
+
+							u17 = nil
+
+							return
+						end
+
+						u20 = nil
+					end)
+				end
+
+				if v7 then
+					u20 = nil
+					u19 = nil
+
+					if u18 then
+						u18:Disconnect()
+						u18 = nil
+
+						local n2 = -1
+						local LocalPlayer = PlayersService.LocalPlayer
+
+						if LocalPlayer and LocalPlayer.UserId > 0 then
+							n2 = LocalPlayer.UserId
+						end
+
+						local v35 = "GUAC:" .. n2 .. ":" .. p2
+
+						u17 = v35
+						u18 = MemStorageService2:BindAndFire(v35, onPolicyUpdated)
+
+						return
+					end
+
+					u17 = nil
+
+					return
+				end
+
+				u20 = nil
+			end
+
+			PlayersService:GetPropertyChangedSignal("LocalPlayer"):Connect(localPlayerChanged)
+			localPlayerChanged()
+		end
+
+		return {
+			read = function() --[[ read ]] -- line: 112
+				-- upvalues: v6 (copy), u20 (ref), PlayersService (copy), p2 (copy), MemStorageService2 (copy), HttpService2 (copy), v5 (copy), default (ref), v4 (copy), u15 (ref), u19 (ref)
+				if v6 and u20 then
+					return u20
+				end
+
+				local n3 = -1
+				local LocalPlayer = PlayersService.LocalPlayer
+
+				if LocalPlayer and LocalPlayer.UserId > 0 then
+					n3 = LocalPlayer.UserId
+				end
+
+				local v38 = "GUAC:" .. n3 .. ":" .. p2
+				local Item = MemStorageService2:GetItem(v38)
+
+				if Item and #Item > 0 then
+					local ok, result = pcall(function() -- line: 119
+						-- upvalues: HttpService2 (copy), Item (copy)
+						return HttpService2:JSONDecode(Item)
+					end)
+
+					if ok then
+						if v5 then
+							default:logEvent("lua_policy_read_success")
+						elseif v4 and not u15 then
+							default:logEvent("lua_policy_read_success")
+							u15 = true
+						end
+
+						u20 = result
+						u19 = Item
+
+						return result
+					end
+				end
+
+				return nil
+			end,
+			onPolicyChanged = function(p4) --[[ onPolicyChanged ]] -- line: 141
+				-- upvalues: PlayersService (copy), p2 (copy), BindableEvent (copy), u18 (ref), u17 (ref), u20 (ref), MemStorageService2 (copy), onPolicyUpdated (copy)
+				local n4 = -1
+				local LocalPlayer = PlayersService.LocalPlayer
+
+				if LocalPlayer and LocalPlayer.UserId > 0 then
+					n4 = LocalPlayer.UserId
+				end
+
+				local v45 = "GUAC:" .. n4 .. ":" .. p2
+				local connection = BindableEvent.Event:Connect(p4)
+
+				if u18 and v45 == u17 then
+					if u20 then
+						p4(u20)
+
+						return connection
+					end
+				else
+					if u18 then
+						u18:Disconnect()
+					end
+
+					u17 = v45
+					u18 = MemStorageService2:BindAndFire(v45, onPolicyUpdated)
+				end
+
+				return connection
+			end
+		}
+	end
+end

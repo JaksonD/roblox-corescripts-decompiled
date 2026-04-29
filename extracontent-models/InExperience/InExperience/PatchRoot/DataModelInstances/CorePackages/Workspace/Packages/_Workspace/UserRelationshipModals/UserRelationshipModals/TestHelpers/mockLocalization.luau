@@ -1,17 +1,28 @@
-local l_Parent_0 = script:FindFirstAncestor("UserRelationshipModals").Parent;
-local l_Signal_0 = require(l_Parent_0.AppCommonLib).Signal;
+local Parent = script:FindFirstAncestor("UserRelationshipModals").Parent
+local Signal = require(Parent.AppCommonLib).Signal
+
 return {
-    Format = function(_, v3) --[[ Line: 8 ]] --[[ Name: Format ]]
-        if v3 == "InGame.FriendPlayerPrompt.Title.SendFriendRequest" or v3 == "InGame.FriendPlayerPrompt.Title.SendFriendRequest.FriendsRename" then
-            return "Send Friend Request";
-        elseif v3 == "InGame.FriendPlayerPrompt.Action.Send" then
-            return "Send";
-        else
-            return v3;
-        end;
-    end, 
-    GetLocale = function() --[[ Line: 20 ]] --[[ Name: GetLocale ]]
-        return "en-us";
-    end, 
-    changed = l_Signal_0.new()
-};
+	Format = function(_, s1: string) --[[ Format ]] -- line: 8
+		if s1 == "InGame.FriendPlayerPrompt.Title.SendFriendRequest" or s1 == "InGame.FriendPlayerPrompt.Title.SendFriendRequest.FriendsRename" then
+			return "Send Friend Request"
+		end
+
+		if s1 == "InGame.FriendPlayerPrompt.Action.Send" then
+			return "Send"
+		end
+
+		if s1 == "Feature.Friends.Action.FriendRequestSent" then
+			return "Friend Request Sent"
+		end
+
+		if s1 == "CommonUI.Messages.Response.SomethingWentWrong" then
+			return "Something Went Wrong"
+		end
+
+		return s1
+	end,
+	GetLocale = function() --[[ GetLocale ]] -- line: 26
+		return "en-us"
+	end,
+	changed = Signal.new()
+}

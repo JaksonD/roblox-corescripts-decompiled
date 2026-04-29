@@ -1,268 +1,413 @@
-local l_RunService_0 = game:GetService("RunService");
-local l_Parent_0 = script:FindFirstAncestor("ScrollTelemetry").Parent;
-local v2 = require(l_Parent_0.React);
-local l_FFlagLuaAppScrollDetectorLifecycleHardening_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppScrollDetectorLifecycleHardening;
-game:DefineFastInt("ScrollDetectorTimeThresholdMillis", 300000);
-game:DefineFastInt("ScrollDetectorDelayMillis", 250);
-local function _() --[[ Line: 12 ]] --[[ Name: getDelaySeconds ]]
-    return game:GetFastInt("ScrollDetectorDelayMillis") / 1000;
-end;
-local function _() --[[ Line: 16 ]] --[[ Name: getThresholdSeconds ]]
-    return game:GetFastInt("ScrollDetectorTimeThresholdMillis") / 1000;
-end;
-return function(v6) --[[ Line: 25 ]]
-    -- upvalues: v2 (copy), l_FFlagLuaAppScrollDetectorLifecycleHardening_0 (copy), l_RunService_0 (copy)
-    local v7 = v2.useRef(0);
-    local v8 = v2.useRef(0);
-    local v9 = v2.useRef(nil);
-    local v10 = v2.useRef(nil);
-    local v11 = v2.useRef(0);
-    local v12 = v2.useRef(0);
-    local v13 = v2.useRef(nil);
-    if l_FFlagLuaAppScrollDetectorLifecycleHardening_0 then
-        local v14 = v2.useRef(v6.sendScrollEvent);
-        v14.current = v6.sendScrollEvent;
-        v2.useEffect(function() --[[ Line: 38 ]]
-            -- upvalues: v7 (copy), v8 (copy), v14 (copy), v11 (copy), v6 (copy), v12 (copy), v9 (copy), v13 (copy), l_RunService_0 (ref), v10 (copy)
-            local function _(v15) --[[ Line: 39 ]]
-                -- upvalues: v7 (ref), v8 (ref), v14 (ref), v11 (ref)
-                local v16 = v7.current - v8.current;
-                if v16 == 0 then
-                    return;
-                else
-                    v14.current(v16, v15 - v11.current, v8.current);
-                    return;
-                end;
-            end;
-            local function v30() --[[ Line: 48 ]]
-                -- upvalues: v6 (ref), v12 (ref), v7 (ref), v8 (ref), v14 (ref), v11 (ref), v9 (ref), v13 (ref)
-                if not v6.scrollingFrameRef or not v6.scrollingFrameRef.current then
-                    local l_current_0 = v12.current;
-                    local v19 = v7.current - v8.current;
-                    if v19 ~= 0 then
-                        v14.current(v19, l_current_0 - v11.current, v8.current);
-                    end;
-                    if v9.current then
-                        v9.current:Disconnect();
-                    end;
-                    v9.current = nil;
-                    return;
-                else
-                    local v20 = nil;
-                    local v21 = time();
-                    local v22 = v21 - v11.current;
-                    if v6.scrollingFrameRef and v6.scrollingFrameRef.current then
-                        v20 = if v6.scrollingFrameRef.current.ScrollingDirection == Enum.ScrollingDirection.Y then v6.scrollingFrameRef.current.CanvasPosition.Y else v6.scrollingFrameRef.current.CanvasPosition.X;
-                    end;
-                    local v23 = v7.current - v8.current;
-                    local v24 = v20 - v7.current;
-                    if not v13.current and v24 == 0 then
-                        v13.current = v12.current;
-                    elseif v13.current and v24 ~= 0 then
-                        v13.current = nil;
-                    end;
-                    if v13.current and v13.current + game:GetFastInt("ScrollDetectorDelayMillis") / 1000 < v21 then
-                        v7.current = v20;
-                        local l_current_1 = v13.current;
-                        local v26 = v7.current - v8.current;
-                        if v26 ~= 0 then
-                            v14.current(v26, l_current_1 - v11.current, v8.current);
-                        end;
-                        v8.current = v20;
-                        l_current_1 = v9.current;
-                        if l_current_1 then
-                            l_current_1:Disconnect();
-                        end;
-                        v9.current = nil;
-                        return;
-                    else
-                        if v23 ~= 0 and v24 ~= 0 and math.sign(v23) ~= math.sign(v24) then
-                            local l_current_2 = v12.current;
-                            local v28 = v7.current - v8.current;
-                            if v28 ~= 0 then
-                                v14.current(v28, l_current_2 - v11.current, v8.current);
-                            end;
-                            v8.current = v7.current;
-                            v11.current = v12.current;
-                        elseif not v13.current and game:GetFastInt("ScrollDetectorTimeThresholdMillis") / 1000 <= v22 then
-                            v7.current = v20;
-                            local v29 = v7.current - v8.current;
-                            if v29 ~= 0 then
-                                v14.current(v29, v21 - v11.current, v8.current);
-                            end;
-                            v8.current = v20;
-                            v11.current = v21;
-                        end;
-                        v7.current = v20;
-                        v12.current = v21;
-                        return;
-                    end;
-                end;
-            end;
-            local function v31() --[[ Line: 113 ]]
-                -- upvalues: v9 (ref), v11 (ref), v12 (ref), v8 (ref), v7 (ref), l_RunService_0 (ref), v30 (copy)
-                if not v9.current then
-                    v11.current = time();
-                    v12.current = v11.current;
-                    v8.current = v7.current;
-                    v9.current = l_RunService_0.Stepped:Connect(function() --[[ Line: 119 ]]
-                        -- upvalues: v30 (ref)
-                        v30();
-                    end);
-                end;
-            end;
-            local v32 = nil;
-            if v6.scrollingFrameRef and v6.scrollingFrameRef.current and v10.current ~= v6.scrollingFrameRef.current then
-                v7.current = if v6.scrollingFrameRef.current.ScrollingDirection == Enum.ScrollingDirection.Y then v6.scrollingFrameRef.current.CanvasPosition.Y else v6.scrollingFrameRef.current.CanvasPosition.X;
-                v32 = v6.scrollingFrameRef.current:GetPropertyChangedSignal("CanvasPosition"):Connect(function() --[[ Line: 137 ]]
-                    -- upvalues: v31 (copy)
-                    v31();
-                end);
-                v10.current = v6.scrollingFrameRef.current;
-            end;
-            return function() --[[ Line: 144 ]]
-                -- upvalues: v9 (ref), v12 (ref), v7 (ref), v8 (ref), v14 (ref), v11 (ref), v32 (ref), v6 (ref), v10 (ref)
-                if v9.current then
-                    local l_current_3 = v12.current;
-                    local v34 = v7.current - v8.current;
-                    if v34 ~= 0 then
-                        v14.current(v34, l_current_3 - v11.current, v8.current);
-                    end;
-                    v9.current:Disconnect();
-                end;
-                v9.current = nil;
-                if v32 then
-                    v32:Disconnect();
-                end;
-                v32 = nil;
-                if not v6.scrollingFrameRef or not v6.scrollingFrameRef.current then
-                    v10.current = nil;
-                end;
-            end;
-        end, {
-            v6.scrollingFrameRef
-        });
-    else
-        local function _(v35) --[[ Line: 162 ]]
-            -- upvalues: v7 (copy), v8 (copy), v6 (copy), v11 (copy)
-            local v36 = v7.current - v8.current;
-            if v36 == 0 then
-                return;
-            else
-                v6.sendScrollEvent(v36, v35 - v11.current, v8.current);
-                return;
-            end;
-        end;
-        local function v50() --[[ Line: 171 ]]
-            -- upvalues: v6 (copy), v12 (copy), v7 (copy), v8 (copy), v11 (copy), v9 (copy), v13 (copy)
-            if not v6.scrollingFrameRef or not v6.scrollingFrameRef.current then
-                local l_current_4 = v12.current;
-                local v39 = v7.current - v8.current;
-                if v39 ~= 0 then
-                    v6.sendScrollEvent(v39, l_current_4 - v11.current, v8.current);
-                end;
-                if v9.current then
-                    v9.current:Disconnect();
-                end;
-                v9.current = nil;
-                return;
-            else
-                local v40 = nil;
-                local v41 = time();
-                local v42 = v41 - v11.current;
-                if v6.scrollingFrameRef and v6.scrollingFrameRef.current then
-                    v40 = if v6.scrollingFrameRef.current.ScrollingDirection == Enum.ScrollingDirection.Y then v6.scrollingFrameRef.current.CanvasPosition.Y else v6.scrollingFrameRef.current.CanvasPosition.X;
-                end;
-                local v43 = v7.current - v8.current;
-                local v44 = v40 - v7.current;
-                if not v13.current and v44 == 0 then
-                    v13.current = v12.current;
-                elseif v13.current and v44 ~= 0 then
-                    v13.current = nil;
-                end;
-                if v13.current and v13.current + game:GetFastInt("ScrollDetectorDelayMillis") / 1000 < v41 then
-                    v7.current = v40;
-                    local l_current_5 = v13.current;
-                    local v46 = v7.current - v8.current;
-                    if v46 ~= 0 then
-                        v6.sendScrollEvent(v46, l_current_5 - v11.current, v8.current);
-                    end;
-                    v8.current = v40;
-                    l_current_5 = v9.current;
-                    if l_current_5 then
-                        l_current_5:Disconnect();
-                    end;
-                    v9.current = nil;
-                    return;
-                else
-                    if v43 ~= 0 and v44 ~= 0 and math.sign(v43) ~= math.sign(v44) then
-                        local l_current_6 = v12.current;
-                        local v48 = v7.current - v8.current;
-                        if v48 ~= 0 then
-                            v6.sendScrollEvent(v48, l_current_6 - v11.current, v8.current);
-                        end;
-                        v8.current = v7.current;
-                        v11.current = v12.current;
-                    elseif not v13.current and game:GetFastInt("ScrollDetectorTimeThresholdMillis") / 1000 <= v42 then
-                        v7.current = v40;
-                        local v49 = v7.current - v8.current;
-                        if v49 ~= 0 then
-                            v6.sendScrollEvent(v49, v41 - v11.current, v8.current);
-                        end;
-                        v8.current = v40;
-                        v11.current = v41;
-                    end;
-                    v7.current = v40;
-                    v12.current = v41;
-                    return;
-                end;
-            end;
-        end;
-        local function v51() --[[ Line: 236 ]]
-            -- upvalues: v9 (copy), v11 (copy), v12 (copy), v8 (copy), v7 (copy), l_RunService_0 (ref), v50 (copy)
-            if not v9.current then
-                v11.current = time();
-                v12.current = v11.current;
-                v8.current = v7.current;
-                v9.current = l_RunService_0.Stepped:Connect(function() --[[ Line: 242 ]]
-                    -- upvalues: v50 (ref)
-                    v50();
-                end);
-            end;
-        end;
-        v2.useEffect(function() --[[ Line: 248 ]]
-            -- upvalues: v6 (copy), v10 (copy), v7 (copy), v51 (copy), v9 (copy), v12 (copy), v8 (copy), v11 (copy)
-            local v52 = nil;
-            if v6.scrollingFrameRef and v6.scrollingFrameRef.current and v10.current ~= v6.scrollingFrameRef.current then
-                v7.current = if v6.scrollingFrameRef.current.ScrollingDirection == Enum.ScrollingDirection.Y then v6.scrollingFrameRef.current.CanvasPosition.Y else v6.scrollingFrameRef.current.CanvasPosition.X;
-                v52 = v6.scrollingFrameRef.current:GetPropertyChangedSignal("CanvasPosition"):Connect(function() --[[ Line: 261 ]]
-                    -- upvalues: v51 (ref)
-                    v51();
-                end);
-                v10.current = v6.scrollingFrameRef.current;
-            end;
-            return function() --[[ Line: 268 ]]
-                -- upvalues: v9 (ref), v12 (ref), v7 (ref), v8 (ref), v6 (ref), v11 (ref), v52 (ref), v10 (ref)
-                if v9.current then
-                    local l_current_7 = v12.current;
-                    local v54 = v7.current - v8.current;
-                    if v54 ~= 0 then
-                        v6.sendScrollEvent(v54, l_current_7 - v11.current, v8.current);
-                    end;
-                    v9.current:Disconnect();
-                end;
-                v9.current = nil;
-                if v52 then
-                    v52:Disconnect();
-                end;
-                v52 = nil;
-                if not v6.scrollingFrameRef or not v6.scrollingFrameRef.current then
-                    v10.current = nil;
-                end;
-            end;
-        end, {
-            v6.scrollingFrameRef
-        });
-    end;
-    return nil;
-end;
+local RunService = game:GetService("RunService")
+local Parent = script:FindFirstAncestor("ScrollTelemetry").Parent
+local React = require(Parent.React)
+local FFlagLuaAppScrollDetectorLifecycleHardening = require(Parent.SharedFlags).FFlagLuaAppScrollDetectorLifecycleHardening
+local FFlagLuaAppHomeTouchAutoplay = require(Parent.SharedFlags).FFlagLuaAppHomeTouchAutoplay
+
+game:DefineFastInt("ScrollDetectorTimeThresholdMillis", 300000)
+game:DefineFastInt("ScrollDetectorDelayMillis", 250)
+
+return function(t1: {[any]: any}) -- line: 28
+	-- upvalues: React (copy), FFlagLuaAppHomeTouchAutoplay (copy), FFlagLuaAppScrollDetectorLifecycleHardening (copy), RunService (copy)
+	local v7 = React.useRef(0)
+	local v8 = React.useRef(0)
+	local v9 = React.useRef(nil)
+	local v10 = React.useRef(nil)
+	local v11 = React.useRef(0)
+	local v12 = React.useRef(0)
+	local v13 = React.useRef(nil)
+	local u14 = nil
+	local u15 = nil
+
+	if FFlagLuaAppHomeTouchAutoplay then
+		u14 = React.useRef(t1.onScrollStart)
+		u14.current = t1.onScrollStart
+		u15 = React.useRef(t1.onScrollSettled)
+		u15.current = t1.onScrollSettled
+	end
+
+	if FFlagLuaAppScrollDetectorLifecycleHardening then
+		local v16 = React.useRef(t1.sendScrollEvent)
+
+		v16.current = t1.sendScrollEvent
+		React.useEffect(function() -- line: 56
+			-- upvalues: v7 (copy), v8 (copy), FFlagLuaAppHomeTouchAutoplay (copy), v16 (copy), v11 (copy), t1 (copy), v12 (copy), v9 (copy), v13 (copy), u15 (ref), u14 (ref), RunService (copy), v10 (copy)
+			local function v19() -- line: 80
+				-- upvalues: t1 (copy), v12 (copy), v7 (copy), v8 (copy), FFlagLuaAppHomeTouchAutoplay (copy), v16 (copy), v11 (copy), v9 (copy), v13 (copy), u15 (ref)
+				if not t1.scrollingFrameRef or not t1.scrollingFrameRef.current then
+					local current = v12.current
+					local v42 = v7.current - v8.current
+
+					if v42 ~= 0 then
+						if FFlagLuaAppHomeTouchAutoplay then
+							if v16.current then
+								v16.current(v42, current - v11.current, v8.current)
+							end
+						else
+							v16.current(v42, current - v11.current, v8.current)
+						end
+					end
+
+					if v9.current then
+						v9.current:Disconnect()
+					end
+
+					v9.current = nil
+
+					return
+				end
+
+				local v43 = nil
+				local v44 = time()
+				local v45 = v44 - v11.current
+
+				if t1.scrollingFrameRef and t1.scrollingFrameRef.current then
+					v43 = if t1.scrollingFrameRef.current.ScrollingDirection ~= Enum.ScrollingDirection.Y then t1.scrollingFrameRef.current.CanvasPosition.X else t1.scrollingFrameRef.current.CanvasPosition.Y
+				end
+
+				local v46 = v7.current - v8.current
+				local v47 = v43 - v7.current
+
+				if not v13.current and v47 == 0 then
+					v13.current = v12.current
+				elseif v13.current and v47 ~= 0 then
+					v13.current = nil
+				end
+
+				if v13.current and v44 > v13.current + game:GetFastInt("ScrollDetectorDelayMillis") / 1000 then
+					v7.current = v43
+
+					local current = v13.current
+					local v49 = v7.current - v8.current
+
+					if v49 ~= 0 then
+						if FFlagLuaAppHomeTouchAutoplay then
+							if v16.current then
+								v16.current(v49, current - v11.current, v8.current)
+							end
+						else
+							v16.current(v49, current - v11.current, v8.current)
+						end
+					end
+
+					if FFlagLuaAppHomeTouchAutoplay and u15.current then
+						local v50 = v7.current - v8.current
+
+						u15.current(v50)
+					end
+
+					v8.current = v43
+
+					local current2 = v9.current
+
+					if current2 then
+						current2:Disconnect()
+					end
+
+					v9.current = nil
+
+					return
+				end
+
+				if v46 ~= 0 and v47 ~= 0 and math.sign(v46) ~= math.sign(v47) then
+					local current = v12.current
+					local v53 = v7.current - v8.current
+
+					if v53 ~= 0 then
+						if FFlagLuaAppHomeTouchAutoplay then
+							if v16.current then
+								v16.current(v53, current - v11.current, v8.current)
+							end
+						else
+							v16.current(v53, current - v11.current, v8.current)
+						end
+					end
+
+					v8.current = v7.current
+					v11.current = v12.current
+				elseif not v13.current and v45 >= game:GetFastInt("ScrollDetectorTimeThresholdMillis") / 1000 then
+					v7.current = v43
+
+					local v54 = v7.current - v8.current
+
+					if v54 ~= 0 then
+						if FFlagLuaAppHomeTouchAutoplay then
+							if v16.current then
+								v16.current(v54, v44 - v11.current, v8.current)
+							end
+						else
+							v16.current(v54, v44 - v11.current, v8.current)
+						end
+					end
+
+					v8.current = v43
+					v11.current = v44
+				end
+
+				v7.current = v43
+				v12.current = v44
+			end
+			local function v20() -- line: 154
+				-- upvalues: v9 (copy), v11 (copy), v12 (copy), v8 (copy), v7 (copy), FFlagLuaAppHomeTouchAutoplay (copy), v13 (copy), u14 (ref), RunService (copy), v19 (copy)
+				if not v9.current then
+					v11.current = time()
+					v12.current = v11.current
+					v8.current = v7.current
+
+					if FFlagLuaAppHomeTouchAutoplay then
+						v13.current = nil
+
+						if u14.current then
+							u14.current()
+						end
+					end
+
+					v9.current = RunService.Stepped:Connect(function() -- line: 169
+						-- upvalues: v19 (copy)
+						v19()
+					end)
+				end
+			end
+
+			local connection = nil
+
+			if t1.scrollingFrameRef and (t1.scrollingFrameRef.current and v10.current ~= t1.scrollingFrameRef.current) then
+				v7.current = if t1.scrollingFrameRef.current.ScrollingDirection ~= Enum.ScrollingDirection.Y then t1.scrollingFrameRef.current.CanvasPosition.X else t1.scrollingFrameRef.current.CanvasPosition.Y
+				connection = t1.scrollingFrameRef.current:GetPropertyChangedSignal("CanvasPosition"):Connect(function() -- line: 187
+					-- upvalues: v20 (copy)
+					v20()
+				end)
+				v10.current = t1.scrollingFrameRef.current
+			end
+
+			return function() -- line: 194
+				-- upvalues: v9 (copy), v12 (copy), v7 (copy), v8 (copy), FFlagLuaAppHomeTouchAutoplay (copy), v16 (copy), v11 (copy), u15 (ref), connection (ref), t1 (copy), v10 (copy)
+				if v9.current then
+					local current = v12.current
+					local v56 = v7.current - v8.current
+
+					if v56 ~= 0 then
+						if FFlagLuaAppHomeTouchAutoplay then
+							if v16.current then
+								v16.current(v56, current - v11.current, v8.current)
+							end
+						else
+							v16.current(v56, current - v11.current, v8.current)
+						end
+					end
+
+					v9.current:Disconnect()
+
+					if FFlagLuaAppHomeTouchAutoplay and u15.current then
+						local v57 = v7.current - v8.current
+
+						u15.current(v57)
+					end
+				end
+
+				v9.current = nil
+
+				if connection then
+					connection:Disconnect()
+				end
+
+				connection = nil
+
+				if not t1.scrollingFrameRef or not t1.scrollingFrameRef.current then
+					v10.current = nil
+				end
+			end
+		end, { t1.scrollingFrameRef })
+	else
+		local function v17() -- line: 239
+			-- upvalues: t1 (copy), v12 (copy), v7 (copy), v8 (copy), FFlagLuaAppHomeTouchAutoplay (copy), v11 (copy), v9 (copy), v13 (copy), u15 (ref)
+			if not t1.scrollingFrameRef or not t1.scrollingFrameRef.current then
+				local current = v12.current
+				local v25 = v7.current - v8.current
+
+				if v25 ~= 0 then
+					if FFlagLuaAppHomeTouchAutoplay then
+						if t1.sendScrollEvent then
+							t1.sendScrollEvent(v25, current - v11.current, v8.current)
+						end
+					else
+						t1.sendScrollEvent(v25, current - v11.current, v8.current)
+					end
+				end
+
+				if v9.current then
+					v9.current:Disconnect()
+				end
+
+				v9.current = nil
+
+				return
+			end
+
+			local v26 = nil
+			local v27 = time()
+			local v28 = v27 - v11.current
+
+			if t1.scrollingFrameRef and t1.scrollingFrameRef.current then
+				v26 = if t1.scrollingFrameRef.current.ScrollingDirection ~= Enum.ScrollingDirection.Y then t1.scrollingFrameRef.current.CanvasPosition.X else t1.scrollingFrameRef.current.CanvasPosition.Y
+			end
+
+			local v29 = v7.current - v8.current
+			local v30 = v26 - v7.current
+
+			if not v13.current and v30 == 0 then
+				v13.current = v12.current
+			elseif v13.current and v30 ~= 0 then
+				v13.current = nil
+			end
+
+			if v13.current and v27 > v13.current + game:GetFastInt("ScrollDetectorDelayMillis") / 1000 then
+				v7.current = v26
+
+				local current = v13.current
+				local v32 = v7.current - v8.current
+
+				if v32 ~= 0 then
+					if FFlagLuaAppHomeTouchAutoplay then
+						if t1.sendScrollEvent then
+							t1.sendScrollEvent(v32, current - v11.current, v8.current)
+						end
+					else
+						t1.sendScrollEvent(v32, current - v11.current, v8.current)
+					end
+				end
+
+				if FFlagLuaAppHomeTouchAutoplay and u15.current then
+					local v33 = v7.current - v8.current
+
+					u15.current(v33)
+				end
+
+				v8.current = v26
+
+				local current3 = v9.current
+
+				if current3 then
+					current3:Disconnect()
+				end
+
+				v9.current = nil
+
+				return
+			end
+
+			if v29 ~= 0 and v30 ~= 0 and math.sign(v29) ~= math.sign(v30) then
+				local current = v12.current
+				local v36 = v7.current - v8.current
+
+				if v36 ~= 0 then
+					if FFlagLuaAppHomeTouchAutoplay then
+						if t1.sendScrollEvent then
+							t1.sendScrollEvent(v36, current - v11.current, v8.current)
+						end
+					else
+						t1.sendScrollEvent(v36, current - v11.current, v8.current)
+					end
+				end
+
+				v8.current = v7.current
+				v11.current = v12.current
+			elseif not v13.current and v28 >= game:GetFastInt("ScrollDetectorTimeThresholdMillis") / 1000 then
+				v7.current = v26
+
+				local v37 = v7.current - v8.current
+
+				if v37 ~= 0 then
+					if FFlagLuaAppHomeTouchAutoplay then
+						if t1.sendScrollEvent then
+							t1.sendScrollEvent(v37, v27 - v11.current, v8.current)
+						end
+					else
+						t1.sendScrollEvent(v37, v27 - v11.current, v8.current)
+					end
+				end
+
+				v8.current = v26
+				v11.current = v27
+			end
+
+			v7.current = v26
+			v12.current = v27
+		end
+		local function v18() -- line: 313
+			-- upvalues: v9 (copy), v11 (copy), v12 (copy), v8 (copy), v7 (copy), FFlagLuaAppHomeTouchAutoplay (copy), v13 (copy), u14 (ref), RunService (copy), v17 (copy)
+			if not v9.current then
+				v11.current = time()
+				v12.current = v11.current
+				v8.current = v7.current
+
+				if FFlagLuaAppHomeTouchAutoplay then
+					v13.current = nil
+
+					if u14.current then
+						u14.current()
+					end
+				end
+
+				v9.current = RunService.Stepped:Connect(function() -- line: 328
+					-- upvalues: v17 (copy)
+					v17()
+				end)
+			end
+		end
+
+		React.useEffect(function() -- line: 334
+			-- upvalues: t1 (copy), v10 (copy), v7 (copy), v18 (copy), v9 (copy), v12 (copy), v8 (copy), FFlagLuaAppHomeTouchAutoplay (copy), v11 (copy), u15 (ref)
+			local connection = nil
+
+			if t1.scrollingFrameRef and (t1.scrollingFrameRef.current and v10.current ~= t1.scrollingFrameRef.current) then
+				v7.current = if t1.scrollingFrameRef.current.ScrollingDirection ~= Enum.ScrollingDirection.Y then t1.scrollingFrameRef.current.CanvasPosition.X else t1.scrollingFrameRef.current.CanvasPosition.Y
+				connection = t1.scrollingFrameRef.current:GetPropertyChangedSignal("CanvasPosition"):Connect(function() -- line: 347
+					-- upvalues: v18 (copy)
+					v18()
+				end)
+				v10.current = t1.scrollingFrameRef.current
+			end
+
+			return function() -- line: 354
+				-- upvalues: v9 (copy), v12 (copy), v7 (copy), v8 (copy), FFlagLuaAppHomeTouchAutoplay (copy), t1 (copy), v11 (copy), u15 (ref), connection (ref), v10 (copy)
+				if v9.current then
+					local current = v12.current
+					local v59 = v7.current - v8.current
+
+					if v59 ~= 0 then
+						if FFlagLuaAppHomeTouchAutoplay then
+							if t1.sendScrollEvent then
+								t1.sendScrollEvent(v59, current - v11.current, v8.current)
+							end
+						else
+							t1.sendScrollEvent(v59, current - v11.current, v8.current)
+						end
+					end
+
+					v9.current:Disconnect()
+
+					if FFlagLuaAppHomeTouchAutoplay and u15.current then
+						local v60 = v7.current - v8.current
+
+						u15.current(v60)
+					end
+				end
+
+				v9.current = nil
+
+				if connection then
+					connection:Disconnect()
+				end
+
+				connection = nil
+
+				if not t1.scrollingFrameRef or not t1.scrollingFrameRef.current then
+					v10.current = nil
+				end
+			end
+		end, { t1.scrollingFrameRef })
+	end
+
+	return nil
+end

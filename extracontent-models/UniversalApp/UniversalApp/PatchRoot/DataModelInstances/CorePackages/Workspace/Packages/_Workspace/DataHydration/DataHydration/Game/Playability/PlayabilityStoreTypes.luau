@@ -1,13 +1,16 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("DataHydration");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_script_FirstAncestor_0.DataHydrationTypes);
-local v3 = require(l_Parent_0.t);
-local v4 = require(l_Parent_0.DiscoveryTypes);
+local DataHydration = script:FindFirstAncestor("DataHydration")
+local DataHydrationParent = DataHydration.Parent
+
+require(DataHydration.DataHydrationTypes)
+
+local t = require(DataHydrationParent.t)
+local DiscoveryTypes = require(DataHydrationParent.DiscoveryTypes)
+
 return {
-    playabilityResponseValidator = v3.array(v3.interface({
-        universeId = v3.number, 
-        isPlayable = v3.boolean, 
-        playabilityStatus = v3.optional(v3.string)
-    })), 
-    PlayabilityStatusEnum = v4.PlayabilityStatusEnum
-};
+	playabilityResponseValidator = t.array(t.interface({
+		universeId = t.number,
+		isPlayable = t.boolean,
+		playabilityStatus = t.optional(t.string)
+	})),
+	PlayabilityStatusEnum = DiscoveryTypes.PlayabilityStatusEnum
+}

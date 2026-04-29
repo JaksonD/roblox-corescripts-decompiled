@@ -1,138 +1,147 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_PerformFetch_0 = require(l_CorePackages_0.Workspace.Packages.Http).PerformFetch;
-local v3 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
-local l_Logging_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Logging;
-local v5 = require(l_CorePackages_0.Packages.Promise);
-local v6 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetOutfitInfo);
-local v7 = require(l_Modules_0.AvatarExperience.AvatarEditor.Models.OutfitInfo);
-local v8 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v9 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v10 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetAssetInfoFromOutfitDetails);
-local v11 = require(l_Modules_0.AvatarExperience.Common.Actions.ReceivedBundleInfoForTryOn);
-local v12 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.UpdateSortOrderDueToLCBundleLoaded);
-local _ = require(l_Modules_0.LuaApp.Types.RoduxTypes);
-local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local v15 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetOutfitOrAsset);
-local v16 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
-local v17 = require(l_Modules_0.LuaApp.mutedError);
-local l_reportAvatarEventCounterNoAnalyticsArgument_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).reportAvatarEventCounterNoAnalyticsArgument;
-local v19 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v20 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableAvatarEditorServiceAPIErrorLogging);
-local v21 = game:DefineFastFlag("AXSilenceGetOutfitMutedError", false);
-local l_FFlagAXModeratedItemsFlow_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXModeratedItemsFlow;
-local l_FFlagAXEnableModeratedItemsFlowForDurables_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableModeratedItemsFlowForDurables;
-local v24 = require(l_Modules_0.AvatarExperience.AvatarEditor.Http.WebApi);
-local function _(v25) --[[ Line: 40 ]] --[[ Name: keyMapper ]]
-    -- upvalues: v8 (copy)
-    return v8.OutfitInfoKey .. tostring(v25);
-end;
-local function _(v27, v28) --[[ Line: 44 ]] --[[ Name: checkAssetExists ]]
-    local v29 = v27.AvatarExperience.Common.AssetInfos[v28];
-    if v29 and v29.receivedFromOutfitDetails then
-        if v29.outfitModerationStatus == Enum.ModerationStatus.NotReviewed then
-            return false;
-        else
-            return true;
-        end;
-    else
-        return false;
-    end;
-end;
-return function(v31, v32, v33, v34) --[[ Line: 58 ]]
-    -- upvalues: v3 (copy), l_PerformFetch_0 (copy), v8 (copy), v5 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (copy), v24 (copy), v9 (copy), v7 (copy), v10 (copy), v6 (copy), v15 (copy), v16 (copy), v11 (copy), v12 (copy), v20 (copy), l_reportAvatarEventCounterNoAnalyticsArgument_0 (copy), v19 (copy), l_Logging_0 (copy), v21 (copy), v17 (copy)
-    v3.isType(v31, "string", "GetOutfit thunk expects outfitId to be a string");
-    return function(v35, v36) --[[ Line: 60 ]]
-        -- upvalues: l_PerformFetch_0 (ref), v31 (copy), v8 (ref), v5 (ref), l_FFlagAXModeratedItemsFlow_0 (ref), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (ref), v34 (copy), v24 (ref), v9 (ref), v7 (ref), v32 (copy), v10 (ref), v6 (ref), v15 (ref), v16 (ref), v33 (copy), v11 (ref), v12 (ref), v20 (ref), l_reportAvatarEventCounterNoAnalyticsArgument_0 (ref), v19 (ref), l_Logging_0 (ref), v21 (ref), v17 (ref)
-        local l_avatarEditorService_0 = v36.avatarEditorService;
-        local l_Single_0 = l_PerformFetch_0.Single;
-        local l_v31_0 = v31;
-        return l_Single_0(v8.OutfitInfoKey .. tostring(l_v31_0), function(v40) --[[ Line: 62 ]]
-            -- upvalues: v31 (ref), v5 (ref), l_FFlagAXModeratedItemsFlow_0 (ref), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (ref), v34 (ref), l_avatarEditorService_0 (copy), v24 (ref), v9 (ref), v7 (ref), v32 (ref), v10 (ref), v6 (ref), v15 (ref), v16 (ref), v33 (ref), v11 (ref), v12 (ref), v20 (ref), l_reportAvatarEventCounterNoAnalyticsArgument_0 (ref), v19 (ref), l_Logging_0 (ref), v21 (ref), v17 (ref)
-            local v41 = v40:getState();
-            if v41.AvatarExperience.AvatarEditor.OutfitInfos[v31] then
-                return v5.resolve();
-            else
-                return v5.new(function(v42, v43) --[[ Line: 67 ]]
-                    -- upvalues: l_FFlagAXModeratedItemsFlow_0 (ref), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (ref), v34 (ref), l_avatarEditorService_0 (ref), v31 (ref), v24 (ref), v9 (ref), v7 (ref), v32 (ref), v41 (copy), v40 (copy), v10 (ref), v6 (ref), v15 (ref), v16 (ref), v33 (ref), v11 (ref), v12 (ref), v20 (ref), l_reportAvatarEventCounterNoAnalyticsArgument_0 (ref), v19 (ref), l_Logging_0 (ref), v21 (ref), v17 (ref)
-                    local v44 = l_FFlagAXModeratedItemsFlow_0 or l_FFlagAXEnableModeratedItemsFlowForDurables_0;
-                    local l_status_0, l_result_0 = pcall(function() --[[ Line: 70 ]]
-                        -- upvalues: v44 (copy), v34 (ref), l_avatarEditorService_0 (ref), v31 (ref), v24 (ref), v43 (copy)
-                        if not v44 or not v34 then
-                            if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-                                return l_avatarEditorService_0:GetOutfitDetailsAsync(tonumber(v31) or 0);
-                            else
-                                return l_avatarEditorService_0:GetOutfitDetails(tonumber(v31) or 0);
-                            end;
-                        else
-                            local v45, v46 = v24.GetOutfit(v34, v31, {
-                                checkAssetAvailability = true
-                            }):await();
-                            if not v45 then
-                                return v43((("AvatarEditorWebApi failure in GetOutfit: %*"):format((tostring(v46)))));
-                            else
-                                return v46[1];
-                            end;
-                        end;
-                    end);
-                    if l_status_0 then
-                        local v49 = v9.tableToCamelCaseKeys(l_result_0);
-                        if v49 then
-                            if not v44 or not v34 then
-                                v49.bodyColor3s = {};
-                                if v49.bodyColors then
-                                    for v50, v51 in v49.bodyColors do
-                                        v49.bodyColor3s[v50 .. "3"] = v51:ToHex();
-                                    end;
-                                    v49.bodyColors = nil;
-                                end;
-                            end;
-                            local v52 = {};
-                            local l_assets_0 = v49.assets;
-                            local v54 = {};
-                            local v55 = v7.fromWebApi(v31, v32, v49);
-                            if l_assets_0 then
-                                for _, v57 in l_assets_0 do
-                                    local v58 = tostring(v57.assetType.id);
-                                    local v59 = tostring(v57.id);
-                                    v52[v58] = v52[v58] or {};
-                                    table.insert(v52[v58], v59);
-                                    local v60 = v41.AvatarExperience.Common.AssetInfos[v59];
-                                    if not if v60 and v60.receivedFromOutfitDetails then v60.outfitModerationStatus ~= Enum.ModerationStatus.NotReviewed else false then
-                                        v54[#v54 + 1] = v57;
-                                    end;
-                                end;
-                            end;
-                            if #v54 > 0 then
-                                v40:dispatch(v10(v54, v55.moderationStatus));
-                            end;
-                            v40:dispatch(v6(v55));
-                            local l_OutfitOrAsset_0 = v41.AvatarExperience.AvatarEditor.Character.OutfitOrAsset;
-                            if l_OutfitOrAsset_0 and not l_OutfitOrAsset_0[v31] then
-                                v40:dispatch(v15({
-                                    (tostring(v31))
-                                }, v16.OutfitOrAsset.Outfit));
-                            end;
-                            if v33 then
-                                v40:dispatch(v11(v33, (tostring(v31))));
-                                v40:dispatch(v12(v33));
-                            end;
-                        end;
-                        v42(l_result_0);
-                        return;
-                    else
-                        if v20() then
-                            l_reportAvatarEventCounterNoAnalyticsArgument_0(v19.Counter.AvatarEditorServiceErrors.GetOutfitDetails);
-                        end;
-                        l_Logging_0.warn("AvatarEditorService failure in GetOutfitDetails for id " .. v31);
-                        if not v21 then
-                            v17((("[AvatarExperience] Error fetching outfit details for ID %*. Reason: %*"):format(v31, (tostring(l_result_0)))));
-                        end;
-                        v43((("AvatarEditorService failure in GetOutfitDetails for outfit ID %*: %*"):format(v31, (tostring(l_result_0)))));
-                        return;
-                    end;
-                end);
-            end;
-        end)(v35);
-    end;
-end;
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
+local Promise = require(CorePackages.Packages.Promise)
+local SetOutfitInfo = require(Modules.AvatarExperience.AvatarEditor.Actions.SetOutfitInfo)
+local OutfitInfo = require(Modules.AvatarExperience.AvatarEditor.Models.OutfitInfo)
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+local SetAssetInfoFromOutfitDetails = require(Modules.AvatarExperience.AvatarEditor.Actions.SetAssetInfoFromOutfitDetails)
+local ReceivedBundleInfoForTryOn = require(Modules.AvatarExperience.Common.Actions.ReceivedBundleInfoForTryOn)
+local UpdateSortOrderDueToLCBundleLoaded = require(Modules.AvatarExperience.Catalog.Thunks.UpdateSortOrderDueToLCBundleLoaded)
+
+require(Modules.LuaApp.Types.RoduxTypes)
+require(Modules.AvatarExperience.Common.AvatarExperienceState)
+
+local SetOutfitOrAsset = require(Modules.AvatarExperience.AvatarEditor.Actions.SetOutfitOrAsset)
+local Constants2 = require(Modules.AvatarExperience.AvatarEditor.Constants)
+local mutedError = require(Modules.LuaApp.mutedError)
+local reportAvatarEventCounterNoAnalyticsArgument = require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).reportAvatarEventCounterNoAnalyticsArgument
+local Constants3 = require(Modules.AvatarExperience.Common.Constants)
+local GetFFlagEnableAvatarEditorServiceAPIErrorLogging = require(Modules.AvatarExperience.Flags.GetFFlagEnableAvatarEditorServiceAPIErrorLogging)
+local v20 = game:DefineFastFlag("AXSilenceGetOutfitMutedError", false)
+local FFlagAXModeratedItemsFlow = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXModeratedItemsFlow
+local FFlagAXEnableModeratedItemsFlowForDurables = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableModeratedItemsFlowForDurables
+local FFlagAXEnableExpiredUserLookCheckout = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableExpiredUserLookCheckout
+local WebApi = require(Modules.AvatarExperience.AvatarEditor.Http.WebApi)
+
+return function(s1: string, n1: number?, s2: string?, p1, b1: boolean?) -- line: 60
+	-- upvalues: ArgCheck (copy), PerformFetch (copy), Constants (copy), FFlagAXEnableExpiredUserLookCheckout (copy), Promise (copy), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), WebApi (copy), Utils (copy), OutfitInfo (copy), SetAssetInfoFromOutfitDetails (copy), SetOutfitInfo (copy), SetOutfitOrAsset (copy), Constants2 (copy), ReceivedBundleInfoForTryOn (copy), UpdateSortOrderDueToLCBundleLoaded (copy), GetFFlagEnableAvatarEditorServiceAPIErrorLogging (copy), reportAvatarEventCounterNoAnalyticsArgument (copy), Constants3 (copy), Logging (copy), v20 (copy), mutedError (copy)
+	ArgCheck.isType(s1, "string", "GetOutfit thunk expects outfitId to be a string")
+	ArgCheck.isTypeOrNil(b1, "boolean", "GetOutfit thunk expects forceRefresh to be a boolean or nil")
+
+	return function(p2, p3) -- line: 69
+		-- upvalues: PerformFetch (copy), s1 (copy), Constants (copy), FFlagAXEnableExpiredUserLookCheckout (copy), b1 (copy), Promise (copy), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), p1 (copy), WebApi (copy), Utils (copy), OutfitInfo (copy), n1 (copy), SetAssetInfoFromOutfitDetails (copy), SetOutfitInfo (copy), SetOutfitOrAsset (copy), Constants2 (copy), s2 (copy), ReceivedBundleInfoForTryOn (copy), UpdateSortOrderDueToLCBundleLoaded (copy), GetFFlagEnableAvatarEditorServiceAPIErrorLogging (copy), reportAvatarEventCounterNoAnalyticsArgument (copy), Constants3 (copy), Logging (copy), v20 (copy), mutedError (copy)
+		local avatarEditorService = p3.avatarEditorService
+		local Single = PerformFetch.Single
+		local v38 = s1
+
+		return Single(Constants.OutfitInfoKey .. tostring(v38), function(p4) -- line: 71
+			-- upvalues: FFlagAXEnableExpiredUserLookCheckout (copy), b1 (copy), s1 (copy), Promise (copy), FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), p1 (copy), avatarEditorService (copy), WebApi (copy), Utils (copy), OutfitInfo (copy), n1 (copy), SetAssetInfoFromOutfitDetails (copy), SetOutfitInfo (copy), SetOutfitOrAsset (copy), Constants2 (copy), s2 (copy), ReceivedBundleInfoForTryOn (copy), UpdateSortOrderDueToLCBundleLoaded (copy), GetFFlagEnableAvatarEditorServiceAPIErrorLogging (copy), reportAvatarEventCounterNoAnalyticsArgument (copy), Constants3 (copy), Logging (copy), v20 (copy), mutedError (copy)
+			local v40 = p4:getState()
+
+			if (not FFlagAXEnableExpiredUserLookCheckout or not b1) and v40.AvatarExperience.AvatarEditor.OutfitInfos[s1] then
+				return Promise.resolve()
+			end
+
+			return Promise.new(function(p5, p6) -- line: 81
+				-- upvalues: FFlagAXModeratedItemsFlow (copy), FFlagAXEnableModeratedItemsFlowForDurables (copy), p1 (copy), avatarEditorService (copy), s1 (copy), WebApi (copy), Utils (copy), OutfitInfo (copy), n1 (copy), v40 (copy), p4 (copy), SetAssetInfoFromOutfitDetails (copy), SetOutfitInfo (copy), SetOutfitOrAsset (copy), Constants2 (copy), s2 (copy), ReceivedBundleInfoForTryOn (copy), UpdateSortOrderDueToLCBundleLoaded (copy), GetFFlagEnableAvatarEditorServiceAPIErrorLogging (copy), reportAvatarEventCounterNoAnalyticsArgument (copy), Constants3 (copy), Logging (copy), v20 (copy), mutedError (copy)
+				local v43 = FFlagAXModeratedItemsFlow or FFlagAXEnableModeratedItemsFlowForDurables
+				local ok, result = pcall(function() -- line: 84
+					-- upvalues: v43 (copy), p1 (copy), avatarEditorService (copy), s1 (copy), WebApi (copy), p6 (copy)
+					if not v43 or not p1 then
+						if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+							return avatarEditorService:GetOutfitDetailsAsync(tonumber(s1) or 0)
+						end
+
+						return avatarEditorService:GetOutfitDetails(tonumber(s1) or 0)
+					end
+
+					local v59, v60 = WebApi.GetOutfit(p1, s1, {
+						checkAssetAvailability = true
+					}):await()
+
+					if not v59 then
+						return p6(`AvatarEditorWebApi failure in GetOutfit: { tostring(v60) }`)
+					end
+
+					return v60[1]
+				end)
+
+				if ok then
+					local v46 = Utils.tableToCamelCaseKeys(result)
+
+					if v46 then
+						if not v43 or not p1 then
+							v46.bodyColor3s = {}
+
+							if v46.bodyColors then
+								for v47, v48 in v46.bodyColors do
+									v46.bodyColor3s[v47 .. "3"] = v48:ToHex()
+								end
+
+								v46.bodyColors = nil
+							end
+						end
+
+						local t1 = {}
+						local assets = v46.assets
+						local t2 = {}
+						local v52 = OutfitInfo.fromWebApi(s1, n1, v46)
+
+						if assets then
+							for _, v54 in assets do
+								local str = tostring(v54.assetType.id)
+								local str2 = tostring(v54.id)
+
+								t1[str] = t1[str] or {}
+								table.insert(t1[str], str2)
+
+								local v57 = v40.AvatarExperience.Common.AssetInfos[str2]
+
+								if not v57 or (not v57.receivedFromOutfitDetails or v57.outfitModerationStatus == Enum.ModerationStatus.NotReviewed) then
+									t2[#t2 + 1] = v54
+								end
+							end
+						end
+
+						if #t2 > 0 then
+							p4:dispatch(SetAssetInfoFromOutfitDetails(t2, v52.moderationStatus))
+						end
+
+						p4:dispatch(SetOutfitInfo(v52))
+
+						local OutfitOrAsset = v40.AvatarExperience.AvatarEditor.Character.OutfitOrAsset
+
+						if OutfitOrAsset and not OutfitOrAsset[s1] then
+							p4:dispatch(SetOutfitOrAsset({ (tostring(s1)) }, Constants2.OutfitOrAsset.Outfit))
+						end
+
+						if s2 then
+							p4:dispatch(ReceivedBundleInfoForTryOn(s2, (tostring(s1))))
+							p4:dispatch(UpdateSortOrderDueToLCBundleLoaded(s2))
+						end
+					end
+
+					p5(result)
+
+					return
+				end
+
+				if GetFFlagEnableAvatarEditorServiceAPIErrorLogging() then
+					reportAvatarEventCounterNoAnalyticsArgument(Constants3.Counter.AvatarEditorServiceErrors.GetOutfitDetails)
+				end
+
+				Logging.warn("AvatarEditorService failure in GetOutfitDetails for id " .. s1)
+
+				if not v20 then
+					mutedError(`[AvatarExperience] Error fetching outfit details for ID { s1 }. Reason: { tostring(result) }`)
+				end
+
+				p6(`AvatarEditorService failure in GetOutfitDetails for outfit ID { s1 }: { tostring(result) }`)
+			end)
+		end)(p2)
+	end
+end

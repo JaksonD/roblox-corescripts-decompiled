@@ -1,26 +1,41 @@
-local l_Parent_0 = script:FindFirstAncestor("AmpUpsell").Parent;
-local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local l_NavigateDown_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateDown;
-local l_NavigateBack_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateBack;
-return function(v4, v5, v6, v7, v8, v9, v10) --[[ Line: 8 ]]
-    -- upvalues: l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_NavigateBack_0 (copy)
-    return function(v11) --[[ Line: 17 ]]
-        -- upvalues: l_NavigateDown_0 (ref), l_AppPage_0 (ref), v4 (copy), v6 (copy), v7 (copy), v9 (copy), v8 (copy), l_NavigateBack_0 (ref), v5 (copy), v10 (copy)
-        v11:dispatch(l_NavigateDown_0({
-            name = l_AppPage_0.AmpWizardContainer, 
-            extraProps = {
-                featureName = v4, 
-                recourseData = v6, 
-                entryPointEventCtx = v7, 
-                nameSpace = v9, 
-                extraParameters = v8, 
-                completionCallback = function(v12, v13) --[[ Line: 26 ]] --[[ Name: completionCallback ]]
-                    -- upvalues: v11 (copy), l_NavigateBack_0 (ref), v5 (ref)
-                    v11:dispatch(l_NavigateBack_0());
-                    v5(v12, v13);
-                end, 
-                skipFacialAgeEstimationWebLinkModal = v10
-            }
-        }, true));
-    end;
-end;
+local Parent = script:FindFirstAncestor("AmpUpsell").Parent
+local AppPage = require(Parent.RobloxAppEnums).AppPage
+local NavigateDown = require(Parent.NavigationRodux).Thunks.NavigateDown
+local NavigateFromWebView = require(Parent.NavigationRodux).Thunks.NavigateFromWebView
+local NavigateBack = require(Parent.NavigationRodux).Thunks.NavigateBack
+local FFlagEnableAmpWizardDeepLink = require(Parent.SharedFlags).FFlagEnableAmpWizardDeepLink
+local FFlagLuaAppWizardContainerBypassNavigationLock = require(Parent.SharedFlags).FFlagLuaAppWizardContainerBypassNavigationLock
+
+return function(p1, p2, p3, p4, p5, s1: string?, b1: boolean?, p6) -- line: 14
+	-- upvalues: FFlagEnableAmpWizardDeepLink (copy), AppPage (copy), NavigateBack (copy), FFlagLuaAppWizardContainerBypassNavigationLock (copy), NavigateFromWebView (copy), NavigateDown (copy)
+	local v16 = FFlagEnableAmpWizardDeepLink and (p6 ~= nil and p6.returnPage ~= nil)
+
+	return function(p7) -- line: 26
+		-- upvalues: AppPage (copy), p1 (copy), p3 (copy), p4 (copy), s1 (copy), p5 (copy), p6 (copy), NavigateBack (copy), FFlagLuaAppWizardContainerBypassNavigationLock (copy), p2 (copy), b1 (copy), v16 (copy), NavigateFromWebView (copy), NavigateDown (copy)
+		local t1 = {
+			name = AppPage.AmpWizardContainer,
+			extraProps = {
+				featureName = p1,
+				recourseData = p3,
+				entryPointEventCtx = p4,
+				nameSpace = s1,
+				extraParameters = p5,
+				metadata = p6,
+				completionCallback = function(p8, p9) --[[ completionCallback ]] -- line: 36
+					-- upvalues: p7 (copy), NavigateBack (copy), FFlagLuaAppWizardContainerBypassNavigationLock (copy), p2 (copy)
+					p7:dispatch(NavigateBack(not not FFlagLuaAppWizardContainerBypassNavigationLock or nil))
+					p2(p8, p9)
+				end,
+				skipFacialAgeEstimationWebLinkModal = b1
+			}
+		}
+
+		if v16 then
+			p7:dispatch(NavigateFromWebView(t1, true))
+
+			return
+		end
+
+		p7:dispatch(NavigateDown(t1, true))
+	end
+end

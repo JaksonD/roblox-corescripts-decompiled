@@ -1,2313 +1,2441 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_UserInputService_0 = game:GetService("UserInputService");
-local l_GuiService_0 = game:GetService("GuiService");
-local l_AppStorageService_0 = game:GetService("AppStorageService");
-local l_HttpService_0 = game:GetService("HttpService");
-local l_LocalStorageKey_0 = require(l_CorePackages_0.Workspace.Packages.LocalStorage).Enums.LocalStorageKey;
-local v7 = require(l_CorePackages_0.Packages.Roact);
-local v8 = require(l_CorePackages_0.Packages.React);
-local v9 = require(l_CorePackages_0.Packages.RoactRodux);
-local l_RobloxLocaleIdKey_0 = require(l_CorePackages_0.Workspace.Packages.Localization).RobloxLocaleIdKey;
-local v11 = require(l_CorePackages_0.Workspace.Packages.Responsive);
-local l_usePreferredInput_0 = v11.usePreferredInput;
-local l_useBreakpointXOrSmaller_0 = v11.useBreakpointXOrSmaller;
-local v14 = require(l_CorePackages_0.Packages.ReactFocusNavigation);
-local l_AppGuiService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppGuiService;
-local v16 = require(l_Modules_0.LuaApp.Services.RoactAnalyticsAuthEvents);
-local v17 = require(l_Modules_0.LuaApp.Services.RoactAnalytics);
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local v19 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
-local v21 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local v22 = require(script.Parent.Enum.DisplayNameCounters);
-local v23 = require(l_CorePackages_0.Packages.Cryo);
-local v24 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
-local v25 = require(l_CorePackages_0.Packages.UIBlox);
-local l_Button_0 = v25.App.Button.Button;
-local l_ButtonType_0 = v25.App.Button.Enum.ButtonType;
-local l_Constants_0 = v25.App.Style.Constants;
-local l_withStyle_0 = v25.Style.withStyle;
-local v30 = require(l_Modules_0.LuaApp.withLocalization);
-local l_withNavigationProps_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppNavigation).withNavigationProps;
-local v32 = require(l_CorePackages_0.Workspace.Packages.AuthCommon);
-local l_DisclaimerLinksVariant_0 = v32.Enums.DisclaimerLinksVariant;
-local v34 = require(l_Modules_0.LuaApp.Components.Authentication.UnderAgeInteractiveAlert);
-local v35 = require(l_Modules_0.LuaApp.FitChildren);
-local v36 = require(l_Modules_0.LuaApp.Components.FitTextLabel);
-local v37 = require(l_Modules_0.LuaApp.Components.FullscreenPageWithSafeArea);
-local v38 = require(l_Modules_0.LuaApp.Components.Authentication.AuthBirthdayBar);
-local l_AuditContentContext_0 = v32.Stores.AuditContentContext.AuditContentContext;
-local v40 = require(l_Modules_0.LuaApp.Components.Authentication.CollapsingTextInputValidator);
-local v41 = require(l_Modules_0.LuaApp.Components.Authentication.SignUpGenderSelector);
-local v42 = require(l_Modules_0.LuaApp.Components.Authentication.TitleAndParagraph);
-local v43 = require(l_Modules_0.LuaApp.Components.Authentication.DisclaimerLinks);
-local v44 = require(l_Modules_0.LuaApp.Components.Authentication.ContactInfoField);
-local v45 = require(l_Modules_0.LuaApp.Components.Authentication.Birthday.BirthdayField);
-local l_BackgroundFill_0 = v32.Components.BackgroundFill;
-local l_AccountLinkingAlertType_0 = v32.Enums.AccountLinkingAlertType;
-local l_GetCredentialsAvailabilityStore_0 = v32.Stores.GetCredentialsAvailabilityStore;
-local l_FormFactor_0 = require(l_CorePackages_0.Workspace.Packages.FormFactor).Enums.FormFactor;
-local v50 = require(l_Modules_0.LuaApp.Thunks.NavigateBack);
-local v51 = require(l_Modules_0.LuaApp.Actions.SetBackNavigationDisabled);
-local l_useSignUpPageNavigationBindings_0 = v32.Hooks.useSignUpPageNavigationBindings;
-local v53 = require(l_Modules_0.LuaApp.Actions.SetCentralOverlay);
-local v54 = require(l_Modules_0.LuaApp.Enum.OverlayType);
-local v55 = require(l_Modules_0.LuaApp.Thunks.Authentication.UsernameValidator);
-local v56 = require(l_Modules_0.LuaApp.Thunks.Authentication.PasswordValidator);
-local v57 = require(l_Modules_0.LuaApp.Thunks.Authentication.AuthIntent.GetMetaDataFromShareLink);
-local v58 = require(l_Modules_0.LuaApp.Thunks.Authentication.AuthIntent.ApiFetchAuthMetaData);
-local v59 = require(l_Modules_0.LuaApp.Thunks.Authentication.SignUpV2);
-local v60 = require(l_Modules_0.LuaApp.Flags.FFlagEnableLuaAccountSwitch);
-local v61 = require(script.Parent.Parent.Parent.Thunks.Authentication.User);
-local l_MemStorageService_0 = game:GetService("MemStorageService");
-local v63 = require(l_Modules_0.LuaApp.Enum.MemStorageKeys);
-local v64 = require(l_Modules_0.LuaApp.Thunks.Authentication.AppStorageUtilities);
-local v65 = require(l_Modules_0.LuaApp.Thunks.Authentication.OpenAccountSwitchingErrorOverlay);
-local v66 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
-local v67 = require(l_Modules_0.LuaApp.Thunks.Authentication.AccountSwitcher.LogoutAllLoggedInUsers);
-local v68 = require(l_Modules_0.LuaApp.Thunks.Authentication.ResetAppState);
-local v69 = require(l_Modules_0.LuaApp.Thunks.Authentication.Logout);
-local v70 = require(l_Modules_0.LuaApp.Flags.FFlagEnableKoreaKISACompliance);
-local v71 = require(l_Modules_0.LuaApp.Flags.FFlagBypassIXPKoreaCompliance);
-local v72 = require(l_Modules_0.LuaApp.Flags.FFlagBypassGUACKoreaCompliance);
-local v73 = require(l_Modules_0.LuaApp.Thunks.Authentication.OpenKISAPopUpAgreements);
-local l_KISAComplianceUtils_0 = require(l_CorePackages_0.Workspace.Packages.AuthCompliance).KISAComplianceUtils;
-local l_AnalyticsEvents_0 = require(l_CorePackages_0.Workspace.Packages.AuthCompliance).Analytics.AnalyticsEvents;
-local l_EventConstants_0 = require(l_CorePackages_0.Workspace.Packages.AuthCompliance).Analytics.EventConstants;
-local v77 = require(l_Modules_0.LuaApp.Thunks.Authentication.OpenEmailOtp);
-local l_ValidateCode_0 = require(l_CorePackages_0.Workspace.Packages.OtpLogin).Thunks.ValidateCode;
-local l_Constants_1 = require(l_CorePackages_0.Workspace.Packages.OtpLogin).Constants;
-local v80 = require(l_CorePackages_0.Packages.Promise);
-local l_ImageSetLabel_0 = v25.Core.ImageSet.ImageSetLabel;
-local l_GetImageData_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppAssets).GetImageData;
-local l_Images_0 = v25.App.ImageSet.Images;
-local l_ImageSetButton_0 = v25.Core.ImageSet.ImageSetButton;
-local l_Birthday_0 = require(l_CorePackages_0.Workspace.Packages.AuthCommon).Models.Birthday;
-local l_DateHelper_0 = require(l_CorePackages_0.Workspace.Packages.Time).DateHelper;
-local v87 = require(l_Modules_0.LuaApp.Enum.UsernameValidationContext);
-local v88 = require(l_Modules_0.LuaApp.EventStreamConstants);
-local v89 = require(l_Modules_0.LuaApp.Constants);
-local l_AppBtidLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppBtidLayers;
-local v91 = require(l_Modules_0.LuaApp.Components.Authentication.Enum.CredentialType);
-local v92 = require(l_Modules_0.LuaApp.Components.Authentication.Enum.UserGender);
-local v93 = require(l_Modules_0.LuaApp.Components.Authentication.Enum.SignUpV2ErrorCodes);
-local v94 = require(l_Modules_0.LuaApp.Components.Authentication.Enum.InputValidity);
-local v95 = require(l_Modules_0.LuaApp.Components.Authentication.Enum.VerifiedSignupErrorCodes);
-local v96 = require(l_Modules_0.LuaApp.Components.Authentication.Enum.UsernameIssue);
-local v97 = require(l_Modules_0.LuaApp.Components.Authentication.Enum.IssueCondition);
-local l_default_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default;
-local l_LinkingProtocol_0 = require(l_CorePackages_0.Workspace.Packages.LinkingProtocol).LinkingProtocol;
-local l_ExperienceService_0 = require(l_CorePackages_0.Workspace.Packages.ExperienceService).ExperienceService;
-local l_UiModeStyleProvider_0 = require(l_CorePackages_0.Workspace.Packages.Style).UiModeStyleProvider;
-local v102 = require(l_CorePackages_0.Packages.Foundation);
-local l_Checkbox_0 = v102.Checkbox;
-local l_InputSize_0 = v102.Enums.InputSize;
-local l_View_0 = v102.View;
-local l_Text_0 = v102.Text;
-local l_useTokens_0 = v102.Hooks.useTokens;
-local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_GetFFlagEnableTextFieldContentType_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableTextFieldContentType;
-local v110 = require(l_Modules_0.LuaApp.Flags.GetFFlagMinimalSignupAuthEnabled);
-local v111 = require(l_Modules_0.LuaApp.Flags.GetFFlagPasswordlessSignupAuthEnabled);
-local v112 = require(l_Modules_0.LuaApp.Flags.GetFFlagPasskeySignupEnabled);
-local l_FFlagFoundationStylingOnSignUp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagFoundationStylingOnSignUp;
-local v114 = require(l_Modules_0.LuaApp.Flags.GetFFlagAuthIntentLoggingAtSignupEnabled);
-local v115 = require(l_Modules_0.LuaApp.Flags.GetFFlagAuthIntentLoggingAtSignupButtonClickEnabled);
-local v116 = require(l_Modules_0.LuaApp.Flags.GetFFlagAuthIntentLoggingForShareLinkMetadataAtSignupButtonClickEnabled);
-local v117 = require(l_Modules_0.LuaApp.Flags.GetFIntLuaLoginGenderSelector);
-local v118 = require(l_Modules_0.LuaApp.Flags.GetFFlagAuthIntentLoggingForGameJoinEnabled);
-local v119 = require(l_Modules_0.LuaApp.Flags.GetFFlagIsAltAttemptLoggingAtSignup);
-local v120 = require(l_Modules_0.LuaApp.Flags.FFlagKoreaKISAUnderAgeNumber);
-local l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).Flags.GetFIntLuaAppCredentialsProtocolAvailableTimeout;
-local v122 = require(l_Modules_0.LuaApp.Flags.GetFFlagCredProtocolRegisterPasswordOnSignup);
-local v123 = game:DefineFastFlag("UsePackageFetchSignupUserAgreements", false);
-local l_game_EngineFeature_0 = game:GetEngineFeature("EnableAndroidPasswordSuggestion");
-local v125 = require(l_Modules_0.LuaApp.Flags.GetFFlagUsernameSuggestionRefreshButtonEnabled);
-local v126 = require(l_Modules_0.LuaApp.Components.Authentication.SuggestionsFrame);
-local v127 = require(l_Modules_0.LuaApp.Thunks.Authentication.UsernameSuggestor);
-local v128 = {
-    suggestionsShown = "usernameSuggestionsShown", 
-    suggestableInput = "suggestableUsernameInput", 
-    refreshButton = "usernameSuggestionRefreshButton"
-};
-local l_AppLogging_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppLogging;
-local v130 = require(l_Modules_0.LuaApp.Thunks.Authentication.OpenCentralOverlayForAgreeToPhoneNumberVerification);
-local v131 = require(l_Modules_0.LuaApp.Thunks.Authentication.OpenCentralOverlayForPhoneNumberVerification);
-local v132 = require(l_Modules_0.LuaApp.Thunks.Authentication.GetVerifiedSignupChallenge);
-local v133 = require(l_Modules_0.LuaApp.Thunks.SetNetworkingErrorToast);
-local v134 = require(l_Modules_0.LuaApp.Enum.ToastType);
-local v135 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
-local v136 = if v123 then require(l_CorePackages_0.Workspace.Packages.UserAgreements).FetchSignupUserAgreements else require(l_Modules_0.LuaApp.Http.Requests.FetchSignupUserAgreements);
-local v137 = require(l_Modules_0.LuaApp.Analytics.Events.reportEphemeralCounter);
-local l_UserAgreementsCounterNames_0 = require(l_CorePackages_0.Workspace.Packages.UserAgreements).UserAgreementsCounterNames;
-local v139 = require(l_Modules_0.LuaApp.Components.Authentication.SignUpPageView);
-local v140 = require(l_Modules_0.LuaApp.Components.Authentication.DisplayNameField);
-local v141 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableSignupBirthdayExperiments);
-local v142 = game:DefineFastFlag("DisplayNamesOnSignupExperiment_v3", false);
-local v143 = game:DefineFastFlag("MoveCredentialsProtocolCheckToDidMount", false);
-local v144 = game:DefineFastFlag("HideUsernameAutofillSignupExperiment", false);
-local v145 = game:DefineFastFlag("EnableDisplayNamesOnSignupExperimentv1_Dev", false);
-local v146 = game:DefineFastInt("DisplayNameEligabilityAgeYears", 17);
-local v147 = game:DefineFastFlag("DisplayNamesDiagLogging", false);
-local v148 = require(l_Modules_0.LuaApp.Components.Authentication.Flags.FFlagSignupDisplayNameLogging);
-local v149 = game:DefineFastFlag("DisablePasskeySignupForLuaDeepLinks", false);
-local l_FFlagEnableAuthDeepLinkReceiver_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableAuthDeepLinkReceiver;
-local l_PreAuthDeepLinkUrlStore_0 = v32.Stores.PreAuthDeepLinkUrlStore;
-local l_TelemetryConfigs_0 = require(l_CorePackages_0.Workspace.Packages.AuthAnalytics).TelemetryConfigs;
-local v153 = require(l_Modules_0.LuaApp.Flags.FFlagEnableVNGDUARSignupCompliance);
-local l_GetFFlagEnablePreferredInputForSignUp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnablePreferredInputForSignUp;
-local l_FFlagEnableSignUpExitModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSignUpExitModal;
-local v156 = game:DefineFastFlag("FixSignUpConditionalHooks", false);
-local l_FFlagHideBackButtonOnSignUpPage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagHideBackButtonOnSignUpPage;
-local l_FFlagUsePrefetchedCredProtocolIsAvailableOnSignUp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUsePrefetchedCredProtocolIsAvailableOnSignUp;
-local l_FFlagUseBirthdayDropdownForGamepad_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseBirthdayDropdownForGamepad;
-local v160 = game:DefineFastFlag("SignUpPageThemeSwitchFix", false);
-local v161 = game:DefineFastFlag("UseBreakpointOnSignUp", false);
-local l_GetFFlagEnableAccountSwitcherFoundationDesign_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableAccountSwitcherFoundationDesign;
-local l_GetFFlagEnableAuditForSinglePageSignUp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableAuditForSinglePageSignUp;
-local l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSignupFoundationalizeBackgroundAndText;
-local v165 = game:DefineFastFlag("UseLongFormSignupComplianceTextByDefault", false);
-local v166 = UDim2.new(0, 36, 0, 36);
-local v167 = l_Images_0["icons/navigation/close"];
-local v168 = Vector2.new(540, 1080);
-game:DefineFastFlag("LuaVerifiedSignup2", false);
-game:DefineFastFlag("LuaVerifiedSignupExperiment2", false);
-game:DefineFastFlag("CheckSignupValidityOnRender", false);
-local v169 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppSignUpPageRefactor);
-local v170 = v7.PureComponent:extend("SinglePageSignUp");
-v170.init = function(v171) --[[ Line: 266 ]] --[[ Name: init ]]
-    -- upvalues: l_FFlagUsePrefetchedCredProtocolIsAvailableOnSignUp_0 (copy), l_GetCredentialsAvailabilityStore_0 (copy), v94 (copy), v92 (copy), v7 (copy), v60 (copy), v61 (copy), v64 (copy), l_MemStorageService_0 (copy), v63 (copy), v67 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), l_GuiService_0 (copy), v160 (copy), v153 (copy), v70 (copy), v72 (copy), v71 (copy), l_AnalyticsEvents_0 (copy), l_EventConstants_0 (copy), l_KISAComplianceUtils_0 (copy), v23 (copy), v110 (copy), v111 (copy), v112 (copy), v141 (copy), v142 (copy), l_FFlagUseBirthdayDropdownForGamepad_0 (copy), v88 (copy), v24 (copy), l_Birthday_0 (copy), l_DateHelper_0 (copy), v128 (copy), v96 (copy), v97 (copy), v148 (copy), v132 (copy), v91 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PreAuthDeepLinkUrlStore_0 (copy), l_LinkingProtocol_0 (copy), v149 (copy), v122 (copy), v95 (copy), v93 (copy), l_GetFFlagEnableAccountSwitcherFoundationDesign_0 (copy), v89 (copy), l_AccountLinkingAlertType_0 (copy), v115 (copy), v116 (copy), v57 (copy), l_HttpService_0 (copy), v118 (copy), l_ExperienceService_0 (copy), v147 (copy), v137 (copy), v22 (copy), l_UserAgreementsCounterNames_0 (copy), v120 (copy), v125 (copy), v146 (copy), l_Constants_1 (copy), l_ValidateCode_0 (copy), v80 (copy), v143 (copy), l_default_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy)
-    local v172 = nil;
-    local v173 = nil;
-    if l_FFlagUsePrefetchedCredProtocolIsAvailableOnSignUp_0 then
-        local v174 = l_GetCredentialsAvailabilityStore_0(false);
-        v172 = v174.getFido2Available(false);
-        v173 = v174.getPasswordsAvailable(false);
-    end;
-    v171.state = {
-        birthday = nil, 
-        shouldHideBirthdayEntry = false, 
-        username = "", 
-        displayName = "", 
-        password = "", 
-        birthdayValid = v94.Unvalidated, 
-        usernameValid = v94.Unvalidated, 
-        passwordValid = v94.Unvalidated, 
-        displayNameValid = v94.Unvalidated, 
-        isSignUpButtonEnabled = false, 
-        isSignUpInProgress = false, 
-        gender = v92.Unknown, 
-        onScreenKeyboardHeight = 0, 
-        isUsernameAnimating = false, 
-        isPasswordAnimating = false, 
-        birthdayFocused = false, 
-        contactMethod = "", 
-        emailInput = "", 
-        emailValid = false, 
-        phoneCountryCode = {}, 
-        phoneInput = "", 
-        phoneValid = false, 
-        verifiedSignupVoucher = "", 
-        isCountryCodeSearchVisible = false, 
-        hidePassword = nil, 
-        agreements = {}, 
-        passkeysAvailable = v172, 
-        isCredentialsProtocolRegisterPasswordAvailable = v173, 
-        pillClicked = false, 
-        issueCondition = nil, 
-        suggestionControlState = nil, 
-        loadingSuggestions = false, 
-        signUpError = false, 
-        shouldShowUnderAgeAlert = false, 
-        shouldShowVngTosAlert = false, 
-        showU13AccountSwitcherAlert = false, 
-        showParentAccountSwitcherAlert = false, 
-        hasSetIneligibleAgeAtLeastOnce = false, 
-        recommendedUsername = nil, 
-        hasEditedUsername = false, 
-        bypassDisplayNameField = false, 
-        isUsernameFocused = false, 
-        otpSessionToken = "", 
-        otpCode = "", 
-        signupAgreementsChecked = false
-    };
-    v171.backButtonRef = v7.createRef();
-    v171.isAlreadyAuthenticated = false;
-    if v60 == true then
-        v171.isAlreadyAuthenticated = v61.fromLocalStorage().userId ~= -1;
-    end;
-    v171.resetDefaultTheme = function() --[[ Line: 335 ]]
-        -- upvalues: v64 (ref), l_MemStorageService_0 (ref), v63 (ref)
-        local v175 = v64.getAuthenticatedTheme();
-        if v175 ~= "" then
-            l_MemStorageService_0:Fire(v63.ThemeUpdate, v175);
-        end;
-    end;
-    v171.logoutAllLoggedInUsersCallback = function() --[[ Line: 343 ]]
-        -- upvalues: v171 (copy), v64 (ref), v61 (ref), v67 (ref), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref), l_GuiService_0 (ref)
-        local l_networking_0 = v171.props.networking;
-        local v177 = v64.getAccountBlob();
-        local v178 = v61.fromLocalStorage().userId ~= -1;
-        v171:setState({
-            signUpError = false, 
-            isSignUpButtonEnabled = false, 
-            isSignUpInProgress = false
-        });
-        v67(l_networking_0, v177):await();
-        if v178 == true then
-            v171.props.resetAppState();
-            l_AppStorageService_0:SetItem(l_LocalStorageKey_0.CredentialValue, "");
-            l_AppStorageService_0:Flush();
-            v171.props.logoutWithoutShowConfirmation(l_networking_0, l_GuiService_0);
-        end;
-        v171:setState({
-            signUpError = false
-        });
-        v171.props.closeCentralOverlay();
-    end;
-    v171.closeOverlayAndDisableSwitcherErrors = function() --[[ Line: 371 ]]
-        -- upvalues: v171 (copy)
-        v171.props.closeCentralOverlay();
-    end;
-    v171.onCloseButtonClicked = function() --[[ Line: 375 ]]
-        -- upvalues: v160 (ref), v60 (ref), v171 (copy)
-        if not v160 and v60 == true and v171.isAlreadyAuthenticated == true then
-            v171.resetDefaultTheme();
-        end;
-        v171.props.navigateBack();
-    end;
-    v171.getShouldShowVNGAgreements = function() --[[ Line: 387 ]]
-        -- upvalues: v171 (copy)
-        return v171.props.appPolicy.getUseVNGUserAgreementPopup();
-    end;
-    v171.getShouldBlockVNGU12SignUpOnClientSide = function() --[[ Line: 391 ]]
-        -- upvalues: v171 (copy)
-        return v171.props.appPolicy.getBlockVNGU12SignUpOnClientSide();
-    end;
-    v171.getShouldUseAgeInput = function() --[[ Line: 395 ]]
-        -- upvalues: v171 (copy), v153 (ref)
-        return v171.props.appPolicy.getUseAgeInput() and v153;
-    end;
-    v171.getShouldShowKISAAgreements = function() --[[ Line: 399 ]]
-        -- upvalues: v70 (ref), v171 (copy), v72 (ref), v71 (ref)
-        return v70 and (v171.props.appPolicy.getUseKoreaKISAUserAgreementPopup() or v72) and (v171.props.shouldShowKoreanKISASignUpFlow or v71);
-    end;
-    v171.getShouldAddParentalConsentAgreementId = function() --[[ Line: 405 ]]
-        -- upvalues: v171 (copy)
-        return v171.props.appPolicy.getParentalConsentAgreementId();
-    end;
-    v171.getSignupCheckboxDisabled = function() --[[ Line: 409 ]]
-        -- upvalues: v171 (copy)
-        return v171.props.appPolicy.getSignupCheckboxDisabled();
-    end;
-    v171.launchKISATermsOfService = function(v179, v180) --[[ Line: 413 ]]
-        -- upvalues: v171 (copy), l_AnalyticsEvents_0 (ref), l_EventConstants_0 (ref), l_KISAComplianceUtils_0 (ref), v23 (ref)
-        local v185 = {
-            agreements = v171.state.agreements, 
-            onAgreeFunction = function(v181) --[[ Line: 417 ]] --[[ Name: onAgreeFunction ]]
-                -- upvalues: l_AnalyticsEvents_0 (ref), l_EventConstants_0 (ref), l_KISAComplianceUtils_0 (ref), v23 (ref), v179 (copy), v171 (ref), v180 (copy)
-                l_AnalyticsEvents_0.sendButtonClickEvent(l_EventConstants_0.ctx.kisaAgreements, l_EventConstants_0.origin.signup, l_EventConstants_0.btn.agree);
-                local v182 = l_KISAComplianceUtils_0.getAgreedUserAgreements(v181);
-                local v183 = v23.Dictionary.join(v179, {
-                    agreementIds = v182
-                });
-                local v184 = v171.getShouldAddParentalConsentAgreementId();
-                if v180 and v184 and v184 ~= "" then
-                    table.insert(v183.agreementIds, v184);
-                end;
-                v171.requestSignUp(v183);
-            end, 
-            onAbandonFunction = v171.onAbandonKISASignUpFlow, 
-            isUnderAgeFlow = v180
-        };
-        v171.props.openKISAUserAgreements(v185);
-    end;
-    v171.getIsSignUpButtonEnabled = function() --[[ Line: 442 ]]
-        -- upvalues: v171 (copy), v110 (ref), v111 (ref), v112 (ref), v141 (ref), v94 (ref), v142 (ref), l_FFlagUseBirthdayDropdownForGamepad_0 (ref)
-        local l_birthday_0 = v171.state.birthday;
-        local l_username_0 = v171.state.username;
-        local l_password_0 = v171.state.password;
-        local l_displayName_0 = v171.state.displayName;
-        local l_birthdayValid_0 = v171.state.birthdayValid;
-        local l_usernameValid_0 = v171.state.usernameValid;
-        local l_passwordValid_0 = v171.state.passwordValid;
-        local l_displayNameValid_0 = v171.state.displayNameValid;
-        local l_validBirthday_0 = v171.state.validBirthday;
-        local v195 = v171.props.shouldUseMinimalSignup and v110();
-        local v196 = v171.props.shouldUsePasswordlessSignup and v111();
-        if v112() and v171.props.shouldUsePasskeySignup and not v171.state.passkeysAvailable then
-            v196 = false;
-        end;
-        local v197 = v141() and v171.props.birthdayPickerVariant and v171.props.birthdayPickerVariant > 0;
-        if not v171.getSignupCheckboxDisabled() and v171.props.shouldRequireSignupCheckbox and not v171.state.signupAgreementsChecked then
-            return false;
-        else
-            local v198 = true;
-            if l_usernameValid_0 == v94.Valid then
-                v198 = true;
-                if l_passwordValid_0 == v94.Valid then
-                    v198 = v197 and l_birthdayValid_0 ~= v94.Valid or if v142 and v171.isDisplayNameFieldRequired() then l_displayNameValid_0 ~= v94.Valid else nil;
-                end;
-            end;
-            if l_FFlagUseBirthdayDropdownForGamepad_0 and l_birthday_0 and l_validBirthday_0 == false then
-                return false;
-            elseif v195 and l_birthday_0 then
-                if v197 and l_birthdayValid_0 ~= v94.Valid then
-                    return false;
-                else
-                    return true;
-                end;
-            elseif v196 and l_birthday_0 and l_username_0 ~= "" and l_usernameValid_0 == v94.Valid then
-                if v197 and l_birthdayValid_0 ~= v94.Valid then
-                    return false;
-                else
-                    return true;
-                end;
-            elseif not l_birthday_0 or v198 or l_username_0 == "" or l_password_0 == "" or v142 and v171.isDisplayNameFieldRequired() and l_displayName_0 == "" or nil then
-                return false;
-            elseif l_validBirthday_0 == false then
-                return false;
-            else
-                return true;
-            end;
-        end;
-    end;
-    v171.updateState = function(v199) --[[ Line: 527 ]]
-        -- upvalues: v171 (copy)
-        spawn(function() --[[ Line: 528 ]]
-            -- upvalues: v171 (ref), v199 (copy)
-            if v171.isMounted then
-                v171:setState(v199);
-            end;
-        end);
-    end;
-    v171.getHidePassword = function() --[[ Line: 538 ]]
-        -- upvalues: v171 (copy)
-        if v171.state.hidePassword == nil then
-            return not v171.props.arePasswordFieldsPlaintext;
-        else
-            return v171.state.hidePassword;
-        end;
-    end;
-    v171.passwordVisibilityToggleCallback = function() --[[ Line: 545 ]]
-        -- upvalues: v171 (copy), v88 (ref)
-        local v200 = v171.getHidePassword();
-        if v200 then
-            v171.props.authEventAnalytics.reportButtonClicked(v88.Context.SinglePageSignUpScreen, v88.Button.ShowPassword);
-        else
-            v171.props.authEventAnalytics.reportButtonClicked(v88.Context.SinglePageSignUpScreen, v88.Button.HidePassword);
-        end;
-        v171:setState({
-            hidePassword = not v200
-        });
-    end;
-    v171.onBirthdaySelected = function(v201, v202) --[[ Line: 563 ]]
-        -- upvalues: v24 (ref), l_Birthday_0 (ref), v171 (copy), v88 (ref)
-        v24.assert(l_Birthday_0.is(v201), "CentralOverlayForSignUpBirthdayPicker should pass back a Birthday when closing.");
-        v171.updateState({
-            birthday = v201, 
-            validBirthday = v202
-        });
-        if v171.useVerifiedSignup() then
-            v171.props.authEventAnalytics.reportButtonClicked(v88.Context.SinglePageSignUpScreen, v88.Button.ConfirmBirthday);
-        end;
-        v171.updateSignUpFieldFilled();
-    end;
-    v171.onAgeChanged = function(v203) --[[ Line: 584 ]]
-        -- upvalues: v171 (copy), v94 (ref), l_Birthday_0 (ref), l_DateHelper_0 (ref)
-        local v204 = tonumber(v203);
-        if v204 == nil or v204 < 1 or v204 > 99 then
-            v171.updateState({
-                birthday = nil, 
-                birthdayValid = v94.Invalid
-            });
-            return;
-        else
-            local v205 = DateTime.now():ToLocalTime();
-            local v206 = l_Birthday_0.new({
-                Year = v205.Year - v204, 
-                Month = v205.Month, 
-                Day = v205.Day
-            });
-            if v206.Month == 2 and v206.Day == 29 and not l_DateHelper_0:isLeapYear(v206.Year) then
-                v206.Day = 28;
-            end;
-            if l_DateHelper_0:isValidDate(v206.Month, v206.Day, v206.Year) then
-                v171.updateState({
-                    birthday = v206, 
-                    birthdayValid = v94.Valid
-                });
-                return;
-            else
-                v171.updateState({
-                    birthday = nil, 
-                    birthdayValid = v94.Invalid
-                });
-                return;
-            end;
-        end;
-    end;
-    v171.onAgeAndMonthChanged = function(v207, v208) --[[ Line: 615 ]]
-        -- upvalues: v171 (copy), v94 (ref), l_Birthday_0 (ref), l_DateHelper_0 (ref)
-        if v207 == nil or v207 < 1 or v207 > 99 then
-            v171.updateState({
-                birthday = nil, 
-                birthdayValid = v94.Invalid
-            });
-            return;
-        else
-            local v209 = DateTime.now():ToLocalTime().Year - v207;
-            local v210 = l_Birthday_0.new({
-                Year = v209, 
-                Month = v208, 
-                Day = l_DateHelper_0:getLastDayOfTheMonthInYear(v208, v209)
-            });
-            if l_DateHelper_0:isValidDate(v210.Month, v210.Day, v210.Year) then
-                v171.updateState({
-                    birthday = v210, 
-                    birthdayValid = v94.Valid
-                });
-                return;
-            else
-                v171.updateState({
-                    birthday = nil, 
-                    birthdayValid = v94.Invalid
-                });
-                return;
-            end;
-        end;
-    end;
-    v171.onMonthAndYearChanged = function(v211, v212) --[[ Line: 643 ]]
-        -- upvalues: v171 (copy), v94 (ref), l_Birthday_0 (ref), l_DateHelper_0 (ref)
-        local v213 = DateTime.now():ToLocalTime();
-        if v212 == nil or v212 < v213.Year - 100 or v213.Year < v212 then
-            v171.updateState({
-                birthday = nil, 
-                birthdayValid = v94.Invalid
-            });
-            return;
-        else
-            local v214 = l_Birthday_0.new({
-                Year = v212, 
-                Month = v211, 
-                Day = l_DateHelper_0:getLastDayOfTheMonthInYear(v211, v212)
-            });
-            if l_DateHelper_0:isValidDate(v214.Month, v214.Day, v214.Year) then
-                v171.updateState({
-                    birthday = v214, 
-                    birthdayValid = v94.Valid
-                });
-                return;
-            else
-                v171.updateState({
-                    birthday = nil, 
-                    birthdayValid = v94.Invalid
-                });
-                return;
-            end;
-        end;
-    end;
-    v171.usernameSuggestionClicked = function(v215, v216) --[[ Line: 671 ]]
-        -- upvalues: v171 (copy), v88 (ref)
-        v171.props.authEventAnalytics.reportUsernameSuggestionClicked(v88.Context.SinglePageSignUpScreen, v88.Button.UsernameSuggestion, v215, v216);
-    end;
-    v171.logRefreshButtonClicked = function() --[[ Line: 680 ]]
-        -- upvalues: v171 (copy), v88 (ref), v128 (ref)
-        v171.props.authEventAnalytics.reportButtonClicked(v88.Context.SinglePageSignUpScreen, v128.refreshButton);
-    end;
-    v171.usernameSuggestionsShown = function(v217, v218) --[[ Line: 687 ]]
-        -- upvalues: v171 (copy), v88 (ref), v128 (ref)
-        v171.props.authEventAnalytics.reportInteractWithActionAndSection(v88.Context.SinglePageSignUpScreen, v88.Field.Username, v88.ActionType.Shown, v128.suggestionsShown, v217, v218);
-    end;
-    v171.logSuggestableUsername = function(v219) --[[ Line: 698 ]]
-        -- upvalues: v171 (copy), v88 (ref), v128 (ref)
-        v171.props.authEventAnalytics.reportInteractWithAction(v88.Context.SinglePageSignUpScreen, v88.Field.Username, v88.ActionType.Shown, v128.suggestableInput, v219);
-    end;
-    v171.shouldSuggest = function() --[[ Line: 708 ]]
-        -- upvalues: v171 (copy), v96 (ref), v97 (ref)
-        local v220 = false;
-        local l_issueCondition_0 = v171.state.issueCondition;
-        if l_issueCondition_0 then
-            v220 = l_issueCondition_0[v96.AlreadyInUse] == v97.Problematic;
-            for v222, v223 in pairs(l_issueCondition_0) do
-                if v222 ~= v96.AlreadyInUse and v223 == v97.Problematic then
-                    return false;
-                end;
-            end;
-        end;
-        return v220;
-    end;
-    v171.onBirthdayFocused = function(v224) --[[ Line: 723 ]]
-        -- upvalues: v171 (copy)
-        if v171.isMounted then
-            v171:setState({
-                birthdayFocused = v224
-            });
-        end;
-    end;
-    v171.onUsernameTextChanged = function(v225, v226) --[[ Line: 731 ]]
-        -- upvalues: v142 (ref), v171 (copy)
-        local v227 = nil;
-        if v142 and v171.shouldShowDisplayNameField() and not v171.state.hasEditedUsername then
-            v227 = v171.state.recommendedUsername ~= v225;
-        end;
-        v171.updateState({
-            username = v225, 
-            usernameValid = v226, 
-            hasEditedUsername = if v142 then v227 else nil
-        });
-        if v171.shouldSuggest() then
-            v171.logSuggestableUsername(v225);
-        end;
-        v171.updateSignUpFieldFilled();
-    end;
-    v171.updateSignUpFieldFilled = function() --[[ Line: 753 ]]
-        -- upvalues: v171 (copy)
-        if v171.props.signUpStarted == nil then
-            return;
-        else
-            local v228 = false;
-            if v171.state.username ~= "" or v171.state.password ~= "" or v171.state.birthday ~= nil then
-                v228 = true;
-            end;
-            if v228 ~= v171.state.signUpStarted then
-                v171.props.setSignUpStarted(v228);
-            end;
-            return;
-        end;
-    end;
-    v171.onDisplayNameTextChanged = function(v229, v230) --[[ Line: 768 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            displayName = v229, 
-            displayNameValid = v230
-        });
-    end;
-    v171.updateBypassDisplayNameField = function(v231) --[[ Line: 775 ]]
-        -- upvalues: v171 (copy)
-        v171:setState({
-            bypassDisplayNameField = v231
-        });
-    end;
-    v171.onUsernameTextValidated = function(v232, v233) --[[ Line: 781 ]]
-        -- upvalues: v171 (copy), v94 (ref), v88 (ref)
-        v171.onUsernameTextChanged(v232, v233);
-        if v233 == v94.Valid then
-            v171.props.authEventAnalytics.reportInteractWithAction(v88.Context.SinglePageSignUpScreen, v88.Field.Username, v88.ActionType.Submit, v233, v232);
-        end;
-    end;
-    v171.onPasswordTextChanged = function(v234, v235) --[[ Line: 794 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            password = v234, 
-            passwordValid = v235
-        });
-        v171.updateSignUpFieldFilled();
-    end;
-    v171.cachedScrollCanvasPositionY = 0;
-    v171.cachedScrollCanvasInitialSizeY = 0;
-    local v236, v237 = v7.createBinding(0);
-    v171.scrollCanvasTargetPositionY = v236;
-    v171.updateScrollCanvasTargetPositionY = v237;
-    v171.scrollingFrameRef = v7.createRef();
-    v171.ageTextFieldRef = v7.createRef();
-    v171.usernameTextFieldRef = v7.createRef();
-    v171.displayNameTextFieldRef = if v142 then v7.createRef() else nil;
-    v171.passwordTextFieldRef = v7.createRef();
-    v171.passwordFrameRef = v7.createRef();
-    v171.onDisplayNameTextChangeCompletedFromKeyboard = function() --[[ Line: 814 ]]
-        -- upvalues: v171 (copy), v148 (ref), v88 (ref)
-        task.spawn(function() --[[ Line: 815 ]]
-            -- upvalues: v171 (ref), v148 (ref), v88 (ref)
-            if v171.displayNameTextFieldRef.current then
-                v171.displayNameTextFieldRef.current:ReleaseFocus();
-            end;
-            task.defer(function() --[[ Line: 820 ]]
-                -- upvalues: v171 (ref)
-                if v171.usernameTextFieldRef.current then
-                    v171.usernameTextFieldRef.current:CaptureFocus();
-                end;
-            end);
-            if v148 then
-                v171.props.authEventAnalytics.reportAuthButtonClick(v88.Context.SinglePageSignUpScreen, v88.Button.DisplayNameNext, v88.State.KeyboardInput);
-            end;
-        end);
-    end;
-    v171.onUsernameTextChangeCompletedFromKeyboard = function() --[[ Line: 836 ]]
-        -- upvalues: v171 (copy), v88 (ref)
-        spawn(function() --[[ Line: 837 ]]
-            -- upvalues: v171 (ref), v88 (ref)
-            if v171.usernameTextFieldRef.current then
-                v171.usernameTextFieldRef.current:ReleaseFocus();
-            end;
-            if v171.passwordTextFieldRef.current then
-                v171.passwordTextFieldRef.current:CaptureFocus();
-            end;
-            v171.props.authEventAnalytics.reportButtonClicked(v88.Context.SinglePageSignUpScreen, v88.Button.UsernameNext);
-        end);
-    end;
-    v171.onPasswordTextChangeCompletedFromKeyboard = function() --[[ Line: 852 ]]
-        -- upvalues: v171 (copy), v88 (ref)
-        spawn(function() --[[ Line: 853 ]]
-            -- upvalues: v171 (ref), v88 (ref)
-            if v171.passwordTextFieldRef.current then
-                v171.passwordTextFieldRef.current:ReleaseFocus();
-            end;
-            v171.props.authEventAnalytics.reportButtonClicked(v88.Context.SinglePageSignUpScreen, v88.Button.PasswordNext);
-        end);
-    end;
-    v171.cacheScrollCanvasInitialSizeIfNecessary = function() --[[ Line: 867 ]]
-        -- upvalues: v171 (copy)
-        if v171.cachedScrollCanvasInitialSizeY == 0 then
-            local l_Parent_0 = v171.scrollingFrameRef.current.Parent;
-            local l_CanvasSize_0 = v171.scrollingFrameRef.current.CanvasSize;
-            local v240 = l_Parent_0 and l_Parent_0.AbsoluteSize or Vector2.new(0, 0);
-            v171.cachedScrollCanvasInitialSizeY = l_CanvasSize_0.Y.Scale * v240.Y + l_CanvasSize_0.Y.Offset;
-        end;
-    end;
-    v171.agreeToPhoneNumberVerification = function() --[[ Line: 877 ]]
-        -- upvalues: v171 (copy), v132 (ref)
-        local l_agreeToPhoneNumberVerification_0 = v171.props.agreeToPhoneNumberVerification;
-        local l_networking_1 = v171.props.networking;
-        local v243 = v171.state.phoneCountryCode.prefix .. "," .. v171.state.phoneInput .. "," .. v171.state.phoneCountryCode.code;
-        l_agreeToPhoneNumberVerification_0(l_networking_1, function() --[[ Line: 886 ]]
-            -- upvalues: v132 (ref), l_networking_1 (copy), v243 (copy), v171 (ref)
-            v132(l_networking_1, v243):andThen(function(v244) --[[ Line: 887 ]]
-                -- upvalues: v171 (ref), v243 (ref)
-                local l_challenge_0 = v244.challenge;
-                v171.verifyPhoneNumber(l_challenge_0, v171.state.phoneInput, v243);
-            end, function(v246) --[[ Line: 890 ]]
-                -- upvalues: v171 (ref)
-                if v246 == "Authentication.TwoStepVerification.Response.TooManyAttempts" or v246 == "Authentication.SignUp.Response.PhoneNumberAlreadyLinked" or v246 == "Authentication.SignUp.Response.InvalidPhoneNumber" then
-                    v171.props.showErrorMessageToast(v246);
-                    return;
-                else
-                    v171.props.showErrorToast();
-                    return;
-                end;
-            end);
-        end, v171.state.phoneInput);
-    end;
-    v171.onSignUpClick = function() --[[ Line: 905 ]]
-        -- upvalues: v171 (copy), v91 (ref)
-        if v171.useVerifiedSignup() and v171.state.contactMethod == v91.PhoneNumber then
-            v171.agreeToPhoneNumberVerification();
-            return;
-        else
-            v171.onSignUpButtonActivated();
-            return;
-        end;
-    end;
-    v171.verifyPhoneNumber = function(v247, v248, v249) --[[ Line: 913 ]]
-        -- upvalues: v171 (copy)
-        v171.props.verifyPhoneNumber(v171.props.networking, v171.verifyPhoneNumberCallback, v247, v248, v249, v171.useEmailOptionClickedCallback);
-    end;
-    v171.verifyPhoneNumberCallback = function(v250) --[[ Line: 928 ]]
-        -- upvalues: v171 (copy)
-        v171.verifiedSignupVoucher = v250;
-        v171.onSignUpButtonActivated();
-    end;
-    v171.useEmailOptionClickedCallback = function() --[[ Line: 933 ]]
-        -- upvalues: v171 (copy), v91 (ref)
-        v171:setState({
-            contactMethod = v91.Email
-        });
-    end;
-    v171.phoneCountryCodeSelectorCallback = function(v251) --[[ Line: 939 ]]
-        -- upvalues: v171 (copy)
-        v171:setState({
-            isCountryCodeSearchVisible = v251
-        });
-    end;
-    v171.onTextBoxFocused = function(v252) --[[ Line: 947 ]]
-        -- upvalues: v171 (copy)
-        v171.cacheScrollCanvasInitialSizeIfNecessary();
-        local v253 = math.clamp(v171.scrollingFrameRef.current.CanvasPosition.Y, 0, v171.cachedScrollCanvasInitialSizeY);
-        if v171.isMounted then
-            local v254 = v252.Y - v171.scrollingFrameRef.current.absolutePosition.Y + v253;
-            v171.updateScrollCanvasTargetPositionY(v254);
-        end;
-    end;
-    v171.onTextBoxFocusLost = function() --[[ Line: 958 ]]
-        -- upvalues: v171 (copy)
-        if v171.isMounted then
-            v171.updateScrollCanvasTargetPositionY(0);
-        end;
-    end;
-    v171.onUsernameTextBoxFocusLost = function() --[[ Line: 964 ]]
-        -- upvalues: v171 (copy)
-        v171.onTextBoxFocusLost();
-        v171.updateState({
-            isUsernameFocused = false
-        });
-    end;
-    v171.onAnimationStateChangeCallback = function(v255, v256) --[[ Line: 974 ]]
-        -- upvalues: v171 (copy)
-        if v255 == Enum.TextInputType.Password then
-            v171:setState({
-                isPasswordAnimating = v256
-            });
-            return;
-        else
-            v171:setState({
-                isUsernameAnimating = v256
-            });
-            return;
-        end;
-    end;
-    v171.onFocusedTextBoxPositionChanged = function(v257) --[[ Line: 988 ]]
-        -- upvalues: v171 (copy)
-        if v171.state.isUsernameAnimating or v171.state.isPasswordAnimating then
-            v171.onTextBoxFocused(v257);
-        end;
-    end;
-    v171.getScrollingFrameCanvasPosition = function(v258) --[[ Line: 997 ]]
-        -- upvalues: v171 (copy)
-        if v258 > 0 then
-            return Vector2.new(0, v258);
-        elseif v171.scrollingFrameRef and v171.scrollingFrameRef.current then
-            return v171.scrollingFrameRef.current.CanvasPosition;
-        else
-            return Vector2.new(0, 0);
-        end;
-    end;
-    v171.onUsernameTextBoxFocused = function(v259) --[[ Line: 1009 ]]
-        -- upvalues: v171 (copy), v88 (ref)
-        v171:setState({
-            isUsernameFocused = true
-        });
-        v171.props.authEventAnalytics.reportUsernameFocus(v88.Context.SinglePageSignUpScreen);
-        v171.onTextBoxFocused(v259);
-    end;
-    v171.onDisplayNameTextBoxFocused = function(v260) --[[ Line: 1019 ]]
-        -- upvalues: v148 (ref), v171 (copy), v88 (ref)
-        if v148 then
-            v171.props.authEventAnalytics.reportDisplayNameFocus(v88.Context.SinglePageSignUpScreen);
-        end;
-        v171.onTextBoxFocused(v260);
-    end;
-    v171.onPasswordTextBoxFocused = function(v261) --[[ Line: 1027 ]]
-        -- upvalues: v171 (copy), v88 (ref)
-        v171.props.authEventAnalytics.reportPasswordFocus(v88.Context.SinglePageSignUpScreen);
-        v171.onTextBoxFocused(v261);
-    end;
-    v171.updateIsSignUpInProgress = function(v262) --[[ Line: 1032 ]]
-        -- upvalues: v171 (copy)
-        spawn(function() --[[ Line: 1033 ]]
-            -- upvalues: v171 (ref), v262 (copy)
-            if v171.isMounted then
-                v171:setState({
-                    isSignUpInProgress = v262
-                });
-            end;
-        end);
-    end;
-    v171.requestSignUp = function(v263, v264) --[[ Line: 1042 ]]
-        -- upvalues: v171 (copy), v91 (ref), l_FFlagEnableAuthDeepLinkReceiver_0 (ref), l_PreAuthDeepLinkUrlStore_0 (ref), l_LinkingProtocol_0 (ref), v149 (ref), v112 (ref), v122 (ref), v95 (ref), v93 (ref), v60 (ref), l_GetFFlagEnableAccountSwitcherFoundationDesign_0 (ref), v89 (ref), l_AccountLinkingAlertType_0 (ref)
-        local l_networking_2 = v171.props.networking;
-        local l_guiService_0 = v171.props.guiService;
-        local l_analytics_0 = v171.props.analytics;
-        local l_appPolicy_0 = v171.props.appPolicy;
-        local l_omniRecommendationsRequest_0 = v171.props.omniRecommendationsRequest;
-        local l_authEventAnalytics_0 = v171.props.authEventAnalytics;
-        local l_signUp_0 = v171.props.signUp;
-        local l_setBackNavigationDisabled_0 = v171.props.setBackNavigationDisabled;
-        local function v275(v273, v274) --[[ Line: 1053 ]]
-            -- upvalues: l_setBackNavigationDisabled_0 (copy), v171 (ref), v263 (copy)
-            if v273 then
-                l_setBackNavigationDisabled_0(true);
-                v171.requestSignUp(v263, v274);
-                return;
-            else
-                v171.updateIsSignUpInProgress(false);
-                return;
-            end;
-        end;
-        local v276 = v171.useVerifiedSignup() and v171.state.contactMethod == v91.PhoneNumber;
-        local v277 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
-        local v278 = v149 and v277 ~= nil and v277 ~= "";
-        local v279 = not v171.state.passkeysAvailable or v278;
-        local v280 = v112();
-        l_signUp_0(l_networking_2, l_omniRecommendationsRequest_0, l_guiService_0, v275, v264, l_analytics_0, l_appPolicy_0, v263, v276, v171.props.shouldUsePasskeySignup and v280 and game:GetEngineFeature("SignupActionRequiredKeyAvailable") and not v279, v171.props.shouldAutomaticallyPromptForPasskey, v122() and v171.state.isCredentialsProtocolRegisterPasswordAvailable, l_authEventAnalytics_0, v171.props.isIosAuthServiceEnabled):andThen(function() --[[ Line: 1107 ]]
-            -- upvalues: l_setBackNavigationDisabled_0 (copy)
-            l_setBackNavigationDisabled_0(false);
-        end, function(v281) --[[ Line: 1111 ]]
-            -- upvalues: l_setBackNavigationDisabled_0 (copy), v276 (copy), v95 (ref), v171 (ref), v93 (ref), v60 (ref), l_GetFFlagEnableAccountSwitcherFoundationDesign_0 (ref), v89 (ref), l_AccountLinkingAlertType_0 (ref)
-            l_setBackNavigationDisabled_0(false);
-            if v276 then
-                if v281 ~= v95.Captcha then
-                    v171.updateIsSignUpInProgress(false);
-                    v171:setState({
-                        signUpError = true
-                    });
-                end;
-            else
-                if v281 ~= v93.Captcha then
-                    v171.updateIsSignUpInProgress(false);
-                    v171:setState({
-                        signUpError = true
-                    });
-                end;
-                if v281 == v93.VNGAgeUnder12 then
-                    v171:setState({
-                        shouldShowUnderAgeAlert = true
-                    });
-                end;
-                if v60 == true and v281 == v93.EmptyAccountSwitchBlobRequired then
-                    v171.props.openAccountSwitchingErrorOverlay(l_GetFFlagEnableAccountSwitcherFoundationDesign_0() and "Authentication.AccountSwitch.Header.SignOutOtherAccounts" or "Authentication.AccountSwitch.Header.LogoutAllAccounts", l_GetFFlagEnableAccountSwitcherFoundationDesign_0() and "Authentication.AccountSwitch.Description.ContinueSignOutOthers" or "Authentication.AccountSwitch.Description.LogoutConfirmation", l_GetFFlagEnableAccountSwitcherFoundationDesign_0() and "Authentication.AccountSwitch.Action.Continue" or "Authentication.AccountSwitch.Action.LogoutAllAccounts", "Authentication.CrossDevice.Action.CancelLogin", v171.logoutAllLoggedInUsersCallback, v171.props.closeCentralOverlay, v89.Auth.AccountSwitcherSignupEmptyBlobRequiredError, v171.state.username);
-                    v171:setState({
-                        signUpError = false
-                    });
-                end;
-                if v60 == true and v281 == v93.ParentEmptyAccountSwitchBlobRequired then
-                    v171.props.openAccountSwitchingErrorOverlay(l_GetFFlagEnableAccountSwitcherFoundationDesign_0() and "Authentication.AccountSwitch.Header.SignOutOtherAccounts" or "Authentication.AccountSwitch.Header.LogoutAllAccounts", l_GetFFlagEnableAccountSwitcherFoundationDesign_0() and "Authentication.AccountSwitch.Description.ContinueSignOutOthers" or "Authentication.AccountSwitch.Description.ParentLogoutConfirmation", l_GetFFlagEnableAccountSwitcherFoundationDesign_0() and "Authentication.AccountSwitch.Action.Continue" or "Authentication.AccountSwitch.Action.LogoutAllAccounts", "Authentication.CrossDevice.Action.CancelLogin", v171.logoutAllLoggedInUsersCallback, v171.props.closeCentralOverlay, v89.Auth.AccountSwitcherParentSignupEmptyBlobRequiredError, v171.state.username);
-                    v171:setState({
-                        signUpError = false
-                    });
-                end;
-            end;
-            if v281 == v93.AccountLinkingRequired then
-                v171.props.showAccountLinkingAlert(l_AccountLinkingAlertType_0.RetryLogInAlreadyLinked);
-                return;
-            else
-                if v281 == v93.AccountLinkingFailed then
-                    v171.props.showAccountLinkingAlert(l_AccountLinkingAlertType_0.RetryLogInGenericError);
-                end;
-                return;
-            end;
-        end);
-    end;
-    v171.onSignUpButtonActivated = function() --[[ Line: 1197 ]]
-        -- upvalues: v171 (copy), v88 (ref), v115 (ref), l_FFlagEnableAuthDeepLinkReceiver_0 (ref), l_PreAuthDeepLinkUrlStore_0 (ref), l_LinkingProtocol_0 (ref), v116 (ref), v57 (ref), l_HttpService_0 (ref), v118 (ref), l_ExperienceService_0 (ref), v147 (ref), v137 (ref), v22 (ref), v142 (ref), v91 (ref), l_UserAgreementsCounterNames_0 (ref), v120 (ref)
-        local l_setBackNavigationDisabled_1 = v171.props.setBackNavigationDisabled;
-        local l_birthday_1 = v171.state.birthday;
-        local l_username_1 = v171.state.username;
-        local l_password_1 = v171.state.password;
-        local l_gender_0 = v171.state.gender;
-        local v287 = v171.getIsSignUpButtonEnabled();
-        local l_locale_0 = v171.locale;
-        local l_emailInput_0 = v171.state.emailInput;
-        local _ = function(v290) --[[ Line: 1208 ]]
-            local v291 = {};
-            for _, v293 in ipairs(v290) do
-                table.insert(v291, v293.id);
-            end;
-            return v291;
-        end;
-        if v287 then
-            v171.props.authEventAnalytics.reportSignUpButtonClicked(v88.Context.SinglePageSignUpScreen);
-            if v171.getShouldBlockVNGU12SignUpOnClientSide() then
-                local v295 = v171.getUserAge();
-                if v295 == nil or v295 < 12 then
-                    v171:setState({
-                        shouldShowUnderAgeAlert = true
-                    });
-                    return;
-                end;
-            end;
-            if v115() then
-                local v296 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
-                local v297 = "";
-                do
-                    local l_v297_0 = v297;
-                    if v116() and v296 and string.find(v296, "share") then
-                        local v299, v300, v301 = v296:match("code=(.-)&type=(.-)&stamp=(.*)");
-                        if not v301 then
-                            local v302, v303 = v296:match("code=(.-)&type=(.*)");
-                            v299 = v302;
-                            v300 = v303;
-                        end;
-                        if v299 and v300 then
-                            v57(v171.props.networking, v299, v300):andThen(function(v304) --[[ Line: 1248 ]]
-                                -- upvalues: l_v297_0 (ref), l_HttpService_0 (ref)
-                                if v304 and v304 ~= nil then
-                                    l_v297_0 = l_HttpService_0:JSONEncode(v304);
-                                end;
-                            end, function(v305) --[[ Line: 1252 ]]
-                                warn("Error fetching share link metadata: ", v305);
-                            end):await();
-                        end;
-                    elseif v118() then
-                        local l_l_ExperienceService_0_PendingJoinAttempt_0 = l_ExperienceService_0:GetPendingJoinAttempt();
-                        if l_l_ExperienceService_0_PendingJoinAttempt_0 and l_l_ExperienceService_0_PendingJoinAttempt_0 ~= nil then
-                            l_v297_0 = l_HttpService_0:JSONEncode(l_l_ExperienceService_0_PendingJoinAttempt_0);
-                        end;
-                    end;
-                    v171.props.authEventAnalytics.reportAuthButtonClick(v88.Context.SinglePageSignUpScreen, v88.Button.SignUp, l_v297_0, v296, v171.isAltAttempt);
-                end;
-            end;
-            if v147 and v171.props.shouldSeeDisplayNamesOnSignup then
-                if v171.state.recommendedUsername == l_username_1 then
-                    v137(v22.SignUpWithRecommendedUsernames, 1);
-                elseif v171.state.hasEditedUsername then
-                    v137(v22.SignUpWithEditedUsernames, 1);
-                end;
-                if v171.state.bypassDisplayNameField then
-                    v137(v22.SignupBypassingDisplayNames, 1);
-                end;
-            end;
-            v171.updateIsSignUpInProgress(true);
-            l_setBackNavigationDisabled_1(true);
-            v171:setState({
-                signUpError = false
-            });
-            local v307 = {
-                birthday = l_birthday_1 and l_birthday_1:FormatForEndpoint() or "", 
-                username = l_username_1, 
-                password = l_password_1, 
-                displayName = if v142 and v171.isDisplayNameFieldRequired() then v171.state.displayName else nil, 
-                gender = l_gender_0, 
-                locale = l_locale_0, 
-                capturedAuditContent = v171.props.capturedAuditContent, 
-                additionalAuditContent = v171.props.additionalAuditContent
-            };
-            local v308 = v171.useVerifiedSignup();
-            if v308 and v171.state.contactMethod == v91.Email then
-                v307.email = l_emailInput_0;
-            elseif v308 and v171.state.contactMethod == v91.PhoneNumber then
-                v307.verifiedSignupVoucher = v171.verifiedSignupVoucher;
-            end;
-            if v171.props.appPolicy.getAddUserAgreementIdsToSignupRequest() then
-                local l_agreements_0 = v171.state.agreements;
-                if #l_agreements_0 > 0 then
-                    local v310 = {};
-                    for _, v312 in ipairs(l_agreements_0) do
-                        table.insert(v310, v312.id);
-                    end;
-                    v307.agreementIds = v310;
-                else
-                    v137(l_UserAgreementsCounterNames_0.AgreementsIdsEmptyOnSignup, 1);
-                end;
-            end;
-            if v171.getShouldShowVNGAgreements() then
-                v171.props.showVNGUserAgreementsPopup(v171.state.agreements, function(v313) --[[ Line: 1323 ]]
-                    -- upvalues: v307 (copy), v171 (ref)
-                    local l_v307_0 = v307;
-                    local v315 = {};
-                    for _, v317 in ipairs(v313) do
-                        table.insert(v315, v317.id);
-                    end;
-                    l_v307_0.agreementIds = v315;
-                    v171.requestSignUp(v307);
-                end, function() --[[ Line: 1326 ]]
-                    -- upvalues: v171 (ref), l_setBackNavigationDisabled_1 (copy)
-                    v171.updateIsSignUpInProgress(false);
-                    l_setBackNavigationDisabled_1(false);
-                end);
-                return;
-            elseif v171.getShouldShowKISAAgreements() then
-                local v318 = v171.getUserAge();
-                if v318 and v318 < v120 then
-                    v171.launchParentSignUpOtp(v307);
-                    return;
-                else
-                    v171.launchKISATermsOfService(v307, false);
-                    return;
-                end;
-            else
-                v171.requestSignUp(v307);
-            end;
-        end;
-    end;
-    v171.onGenderChanged = function(v319) --[[ Line: 1345 ]]
-        -- upvalues: v171 (copy)
-        if v171.isMounted then
-            v171.updateState({
-                gender = v319
-            });
-        end;
-    end;
-    v171.validUsernameEntered = function(_) --[[ Line: 1353 ]]
-        -- upvalues: v171 (copy), v94 (ref)
-        local v321 = false;
-        if v171.state.username ~= "" then
-            v321 = v171.state.usernameValid ~= v94.Invalid;
-        end;
-        return v321;
-    end;
-    v171.validPasswordEntered = function() --[[ Line: 1357 ]]
-        -- upvalues: v171 (copy), v94 (ref)
-        local v322 = false;
-        if v171.state.password ~= "" then
-            v322 = v171.state.passwordValid ~= v94.Invalid;
-        end;
-        return v322;
-    end;
-    v171.useVerifiedSignup = function() --[[ Line: 1361 ]]
-        -- upvalues: v171 (copy), l_GuiService_0 (ref)
-        return game:GetFastFlag("LuaVerifiedSignup2") or game:GetFastFlag("LuaVerifiedSignupExperiment2") and v171.props.useVerifiedSignupPage and not l_GuiService_0:IsTenFootInterface();
-    end;
-    v171.useUsernameSuggestions = function() --[[ Line: 1368 ]]
-        -- upvalues: v171 (copy)
-        return v171.props.shouldUseUsernameSuggestions;
-    end;
-    v171.useRefreshButton = function() --[[ Line: 1372 ]]
-        -- upvalues: v125 (ref), v171 (copy)
-        return v125() and v171.props.enableRefreshButton;
-    end;
-    v171.getBirthdayVariant = function() --[[ Line: 1376 ]]
-        -- upvalues: v171 (copy), v141 (ref)
-        if v171.getShouldUseAgeInput() then
-            return 1;
-        elseif v141() and v171.props.birthdayPickerVariant ~= nil then
-            return v171.props.birthdayPickerVariant;
-        else
-            return 0;
-        end;
-    end;
-    v171.SetContactMethod = function(v323) --[[ Line: 1386 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            contactMethod = v323
-        });
-    end;
-    v171.SetPhoneNumber = function(v324, v325, v326) --[[ Line: 1392 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            phoneCountryCode = v324, 
-            phoneInput = v325, 
-            phoneValid = v326
-        });
-    end;
-    v171.SetEmail = function(v327, v328) --[[ Line: 1400 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            emailInput = v327, 
-            emailValid = v328
-        });
-    end;
-    v171.updatePillClicked = function() --[[ Line: 1408 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            pillClicked = true
-        });
-    end;
-    v171.resetPillClicked = function() --[[ Line: 1414 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            pillClicked = false
-        });
-    end;
-    v171.updateIssueCondition = function(v329) --[[ Line: 1420 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            issueCondition = v329
-        });
-    end;
-    v171.updateSuggestionControlState = function(_, v331) --[[ Line: 1426 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            suggestionControlState = v331
-        });
-    end;
-    v171.loadSuggestions = function() --[[ Line: 1432 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            loadingSuggestions = true
-        });
-    end;
-    v171.finishSuggestions = function() --[[ Line: 1436 ]]
-        -- upvalues: v171 (copy)
-        v171.updateState({
-            loadingSuggestions = false
-        });
-    end;
-    v171.onSignUpContentFrameCanvasSizeChange = function(_) --[[ Line: 1440 ]]
-        -- upvalues: v171 (copy)
-        local v333 = v171.scrollCanvasTargetPositionY:getValue();
-        v171.scrollingFrameRef.current.CanvasPosition = v171.getScrollingFrameCanvasPosition(v333);
-    end;
-    v171.getUserAge = function() --[[ Line: 1445 ]]
-        -- upvalues: v171 (copy)
-        if v171.state.birthday then
-            return v171.state.birthday:GetAgeInYears();
-        else
-            return nil;
-        end;
-    end;
-    v171.getUsernamePlaceholder = function(v334) --[[ Line: 1453 ]]
-        -- upvalues: v171 (copy), v146 (ref)
-        if v171.props.shouldSeeDisplayNamesOnSignup then
-            if not v171.state.birthday then
-                return "";
-            elseif v171.getUserAge() >= v146 and not v171.state.hasSetIneligibleAgeAtLeastOnce then
-                return v334.agedUpUsernamePlaceholder;
-            else
-                return v334.usernamePlaceholder;
-            end;
-        else
-            return v334.usernamePlaceholder;
-        end;
-    end;
-    v171.shouldShowUsernameField = function() --[[ Line: 1477 ]]
-        -- upvalues: v171 (copy), v146 (ref)
-        if v171.props.shouldSeeDisplayNamesOnSignup then
-            if not v171.state.birthday or v171.getUserAge() < v146 or v171.state.hasSetIneligibleAgeAtLeastOnce then
-                return true;
-            else
-                return v171.state.recommendedUsername ~= nil;
-            end;
-        else
-            return true;
-        end;
-    end;
-    v171.shouldShowDisplayNameField = function() --[[ Line: 1493 ]]
-        -- upvalues: v171 (copy), v146 (ref)
-        return v171.props.shouldSeeDisplayNamesOnSignup and v171.state.birthday and v171.getUserAge() >= v146 and not v171.state.hasSetIneligibleAgeAtLeastOnce;
-    end;
-    v171.isDisplayNameFieldRequired = function() --[[ Line: 1500 ]]
-        -- upvalues: v171 (copy)
-        return v171.shouldShowDisplayNameField() and not v171.state.bypassDisplayNameField;
-    end;
-    v171.isValidDisplayNameEntered = function() --[[ Line: 1504 ]]
-        -- upvalues: v171 (copy), v94 (ref)
-        local v335 = false;
-        if v171.state.displayName ~= "" then
-            v335 = v171.state.displayNameValid ~= v94.Invalid;
-        end;
-        return v335;
-    end;
-    v171.setUsernameRecommendation = function(v336) --[[ Line: 1508 ]]
-        -- upvalues: v171 (copy)
-        v171:setState(function(v337) --[[ Line: 1509 ]]
-            -- upvalues: v336 (copy)
-            return {
-                recommendedUsername = if v337.recommendedUsername ~= nil and v336 == "" then nil else v336
-            };
-        end);
-    end;
-    v171.getUsernameGuidanceText = function(v338) --[[ Line: 1519 ]]
-        -- upvalues: v171 (copy)
-        if v171.shouldShowDisplayNameField() and v171.state.recommendedUsername ~= "" and v171.state.recommendedUsername ~= nil and not v171.state.hasEditedUsername and not v171.state.isUsernameFocused then
-            return v338.autogeneratedUsernameGuidance;
-        else
-            return nil;
-        end;
-    end;
-    v171.validateOtpCode = function(v339, v340, v341) --[[ Line: 1531 ]]
-        -- upvalues: v171 (copy), l_Constants_1 (ref), l_ValidateCode_0 (ref), v80 (ref)
-        v171.state.otpSessionToken = v339;
-        v171.state.otpCode = v340;
-        local l_networking_3 = v171.props.networking;
-        local v343 = {
-            origin = l_Constants_1.otpServiceOriginSignup, 
-            contactType = l_Constants_1.otpServiceContactType, 
-            passCode = v171.state.otpCode, 
-            otpSessionToken = v171.state.otpSessionToken
-        };
-        local v344 = {
-            otpSessionToken = tostring(v171.state.otpSessionToken), 
-            otpContactType = l_Constants_1.otpServiceContactType
-        };
-        return l_ValidateCode_0(l_networking_3, v343)():andThen(function(_) --[[ Line: 1551 ]]
-            -- upvalues: v171 (ref), v341 (copy), v344 (copy)
-            v171.props.closeCentralOverlay();
-            v341.otpSession = v344;
-            v171.launchKISATermsOfService(v341, true);
-        end):catch(function(v346) --[[ Line: 1556 ]]
-            -- upvalues: v80 (ref)
-            return v80.reject(v346);
-        end);
-    end;
-    v171.onAbandonKISASignUpFlow = function() --[[ Line: 1561 ]]
-        -- upvalues: l_AnalyticsEvents_0 (ref), l_EventConstants_0 (ref), v171 (copy)
-        l_AnalyticsEvents_0.sendButtonClickEvent(l_EventConstants_0.ctx.kisaAgreements, l_EventConstants_0.origin.signup, l_EventConstants_0.btn.cancel);
-        v171.updateIsSignUpInProgress(false);
-    end;
-    v171.launchParentSignUpOtp = function(v347) --[[ Line: 1571 ]]
-        -- upvalues: l_Constants_1 (ref), v171 (copy)
-        local v350 = {
-            origin = l_Constants_1.otpServiceOriginSignup, 
-            codeLength = 6, 
-            enterEmailTitleKey = l_Constants_1.translationKeys.parentEmailTitleKey, 
-            enterEmailDescriptionKey = l_Constants_1.translationKeys.sendParentVerificationCodeKey, 
-            enterCodeTitleKey = l_Constants_1.translationKeys.oneTimeCodeTitleKey, 
-            enterCodeDescriptionKey = l_Constants_1.translationKeys.oneTimeCodeHelpDescriptionKey, 
-            complianceCheckboxMessageKey = l_Constants_1.translationKeys.parentalConsentModalDescriptionKey, 
-            onSubmitCode = function(v348, v349) --[[ Line: 1582 ]] --[[ Name: onSubmitCode ]]
-                -- upvalues: v171 (ref), v347 (copy)
-                return v171.validateOtpCode(v348, v349, v347);
-            end, 
-            onModalAbandoned = v171.onAbandonKISASignUpFlow, 
-            screenSize = v171.props.screenSize
-        };
-        v171.props.openEmailOtp(v350);
-    end;
-    if not v143 then
-        l_default_0:isAvailable(l_default_0.CredentialsTypes.FIDO2, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v351) --[[ Line: 1595 ]]
-            -- upvalues: v171 (copy), v88 (ref)
-            local v352 = v351.isAvailable or false;
-            local v353 = false;
-            if v351.password and v351.password.isAvailable then
-                v353 = true;
-            end;
-            if v171.isMounted then
-                v171:setState({
-                    passkeysAvailable = v352, 
-                    isCredentialsProtocolRegisterPasswordAvailable = v353
-                });
-            end;
-            v171.props.authEventAnalytics.reportAuthPageload(v88.Context.PasskeySignup, (tostring(v352)));
-            v171.props.authEventAnalytics.reportAuthPageload(v88.Context.CMPasswordSignup, (tostring(v353)));
-        end):catch(function(v354) --[[ Line: 1621 ]]
-            warn("Error checking for available credential types. Error: ", v354);
-        end);
-    end;
-    v171.isMounted = false;
-end;
-v170.didMount = function(v355) --[[ Line: 1629 ]] --[[ Name: didMount ]]
-    -- upvalues: v143 (copy), l_default_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), v88 (copy), v160 (copy), v60 (copy), l_MemStorageService_0 (copy), v63 (copy), l_UserInputService_0 (copy), v137 (copy), l_UserAgreementsCounterNames_0 (copy), v136 (copy), l_TelemetryConfigs_0 (copy), v114 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PreAuthDeepLinkUrlStore_0 (copy), l_LinkingProtocol_0 (copy), v119 (copy), v58 (copy)
-    v355.isMounted = true;
-    v355.isAltAttempt = nil;
-    if v143 then
-        l_default_0:isAvailable(l_default_0.CredentialsTypes.FIDO2, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v356) --[[ Line: 1636 ]]
-            -- upvalues: v355 (copy), v88 (ref)
-            local v357 = v356.isAvailable or false;
-            local v358 = false;
-            if v356.password and v356.password.isAvailable then
-                v358 = true;
-            end;
-            if v355.isMounted then
-                v355:setState({
-                    passkeysAvailable = v357, 
-                    isCredentialsProtocolRegisterPasswordAvailable = v358
-                });
-            end;
-            v355.props.authEventAnalytics.reportAuthPageload(v88.Context.PasskeySignup, (tostring(v357)));
-            v355.props.authEventAnalytics.reportAuthPageload(v88.Context.CMPasswordSignup, (tostring(v358)));
-        end):catch(function(v359) --[[ Line: 1662 ]]
-            warn("Error checking for available credential types. Error: ", v359);
-        end);
-    end;
-    if not v160 and v60 == true and v355.isAlreadyAuthenticated == true then
-        l_MemStorageService_0:Fire(v63.ThemeUpdate, "dark");
-    end;
-    v355.keyboardVisibleChanged = l_UserInputService_0:GetPropertyChangedSignal("OnScreenKeyboardVisible"):Connect(function() --[[ Line: 1679 ]]
-        -- upvalues: l_UserInputService_0 (ref), v355 (copy)
-        local v360 = l_UserInputService_0.OnScreenKeyboardVisible and l_UserInputService_0.OnScreenKeyboardSize.Y or 0;
-        v355:setState({
-            onScreenKeyboardHeight = v360
-        });
-    end);
-    local v361 = v355.props.appPolicy.getAddUserAgreementIdsToSignupRequest();
-    local v362 = v355.getShouldShowVNGAgreements();
-    local v363 = v355.getShouldShowKISAAgreements();
-    if v361 or v362 or v363 then
-        local function v365(v364) --[[ Line: 1692 ]]
-            -- upvalues: v137 (ref), l_UserAgreementsCounterNames_0 (ref), v355 (copy)
-            if not v364 then
-                v137(l_UserAgreementsCounterNames_0.FetchAgreementsHttpRequestFailureOnSignup, 1);
-                return;
-            elseif #v364 > 0 then
-                v355.updateState({
-                    agreements = v364
-                });
-                return;
-            else
-                v137(l_UserAgreementsCounterNames_0.FetchAgreementsEmptyResponseOnSignup, 1);
-                return;
-            end;
-        end;
-        v136(v355.props.networking, v355.props.analytics):andThen(v365, function() --[[ Line: 1709 ]]
+local UserInputService, Roact, React, RoactRodux, RobloxLocaleIdKey, Responsive, usePreferredInput, useBreakpointXOrSmaller, ReactFocusNavigation, AppGuiService, RoactAnalyticsAuthEvents, RoactAnalytics, RoactServices, RoactNetworking, RoactAppPolicy, RoactAppExperiment, DisplayNameCounters, Cryo, Button, ButtonType, Constants, withStyle, withLocalization, withNavigationProps, DisclaimerLinksVariant, UnderAgeInteractiveAlert, FitChildren, FitTextLabel, FullscreenPageWithSafeArea, AuthBirthdayBar, AuditContentContext, CollapsingTextInputValidator, SignUpGenderSelector, TitleAndParagraph, DisclaimerLinks, ContactInfoField, BirthdayField, BackgroundFill, FormFactor, NavigateBack, SetBackNavigationDisabled, useSignUpPageNavigationBindings, SetCentralOverlay, OverlayType, UsernameValidator, PasswordValidator, ApiFetchAuthMetaData, SignUpV2, FFlagEnableLuaAccountSwitch, MemStorageService, MemStorageKeys, OpenAccountSwitchingErrorOverlay, CloseCentralOverlay, ResetAppState, Logout, OpenKISAPopUpAgreements, AnalyticsEvents, EventConstants, OpenEmailOtp, ImageSetLabel, GetImageData, ImageSetButton, DateHelper, UsernameValidationContext, EventStreamConstants, AppBtidLayers, InputValidity, default, LinkingProtocol, UiModeStyleProvider, Foundation, Checkbox, InputSize, View, FoundationText, useTokens, useDispatch, GetFFlagEnableTextFieldContentType, GetFFlagMinimalSignupAuthEnabled, GetFFlagPasswordlessSignupAuthEnabled, GetFFlagPasskeySignupEnabled, FFlagFoundationStylingOnSignUp, GetFFlagAuthIntentLoggingAtSignupEnabled, GetFIntLuaLoginGenderSelector, GetFFlagIsAltAttemptLoggingAtSignup, GetFIntLuaAppCredentialsProtocolAvailableTimeout, EngineFeature, SuggestionsFrame, UsernameSuggestor, AppLogging, OpenCentralOverlayForAgreeToPhoneNumberVerification, OpenCentralOverlayForPhoneNumberVerification, SetNetworkingErrorToast, ToastType, SetCurrentToastMessage, v136, reportEphemeralCounter, UserAgreementsCounterNames, SignUpPageView, DisplayNameField, v142, v143, v144, v145, v146, v147, v149, FFlagEnableAuthDeepLinkReceiver, PreAuthDeepLinkUrlStore, TelemetryConfigs, GetFFlagEnablePreferredInputForSignUp, FFlagEnableSignUpExitModal, v156, FFlagHideBackButtonOnSignUpPage, v159, v160, GetFFlagEnableAccountSwitcherFoundationDesign, GetFFlagEnableAccountSwitcherRedesignIXP, GetFFlagEnableAccountSwitcherIXPTextGatingFix, GetFFlagEnableAuditForSinglePageSignUp, FFlagEnableSignupFoundationalizeBackgroundAndText, v166, uDim2, v168, vector2, GetFFlagLuaAppSignUpPageRefactor, v171
 
-        end);
-    end;
-    v355.props.authEventAnalytics.reportScreenLoaded(v88.Context.SinglePageSignUpScreen);
-    v355.props.loggingProtocol:logEventOnce("signup_page_did_mount");
-    v355.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.SignupPageMountTelemetryConfig, 1, {
-        version = 1
-    });
-    if v114() then
-        local v366 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
-        if v119() then
-            v58(v355.props.networking):andThen(function(v367) --[[ Line: 1727 ]]
-                -- upvalues: v355 (copy), v88 (ref), v366 (copy)
-                if v367 and v367.IsAltBrowserTracker ~= nil then
-                    v355.isAltAttempt = v367.IsAltBrowserTracker;
-                    v355.props.authEventAnalytics.reportAuthPageload(v88.Context.SinglePageSignUpScreen, v366, v355.isAltAttempt);
-                end;
-            end, function(_) --[[ Line: 1736 ]]
-                -- upvalues: v355 (copy), v88 (ref), v366 (copy)
-                warn("Error auth metadata: ", error);
-                v355.props.authEventAnalytics.reportAuthPageload(v88.Context.SinglePageSignUpScreen, v366, v355.isAltAttempt);
-            end);
-        else
-            v355.props.authEventAnalytics.reportAuthPageload(v88.Context.SinglePageSignUpScreen, v366, v355.isAltAttempt);
-        end;
-    end;
-    if v355.props.focusedGuiObject and v355.backButtonRef and v355.backButtonRef.current then
-        v355.props.focusGuiObject(v355.backButtonRef.current);
-    end;
-end;
-v170.willUnmount = function(v369) --[[ Line: 1758 ]] --[[ Name: willUnmount ]]
-    -- upvalues: v60 (copy)
-    v369.isMounted = false;
-    v369.isAltAttempt = nil;
-    if v60 == true and v369.isAlreadyAuthenticated == true then
-        v369.resetDefaultTheme();
-    end;
-    if v369.keyboardVisibleChanged then
-        v369.keyboardVisibleChanged:disconnect();
-        v369.keyboardVisibleChanged = nil;
-    end;
-end;
-v170.didUpdate = function(v370, _, v372) --[[ Line: 1772 ]] --[[ Name: didUpdate ]]
-    -- upvalues: v142 (copy), v146 (copy), v147 (copy), v137 (copy), v22 (copy)
-    if v370.props.focusedGuiObject and v370.props.birthdayContainerRef.current and v370.props.focusedGuiObject:IsDescendantOf(v370.props.birthdayContainerRef.current) then
-        v370.updateScrollCanvasTargetPositionY(10);
-    else
-        v370.updateScrollCanvasTargetPositionY(0);
-    end;
-    if v142 and v370.state.birthday ~= nil and not v370.state.hasSetIneligibleAgeAtLeastOnce and v370.getUserAge() < v146 then
-        v370:setState({
-            hasSetIneligibleAgeAtLeastOnce = true
-        });
-    end;
-    if v147 and v370.props.shouldSeeDisplayNamesOnSignup then
-        if v370.state.recommendedUsername ~= "" and v370.state.hasEditedUsername and v370.state.hasEditedUsername ~= v372.hasEditedUsername then
-            v137(v22.ReccomendedNameEdited, 1);
-        end;
-        if v370.state.recommendedUsername ~= nil and v370.state.recommendedUsername ~= "" and v370.state.hasEditedUsername == true and v370.state.username == "" and v372.username ~= "" and v370.props.shouldSeeDisplayNamesOnSignup then
-            v137(v22.ReccomendedNameManuallyCleared, 1);
-        end;
-        if v370.state.birthday ~= nil and v372.birthday ~= nil and v370.state.birthday ~= v372.birthday then
-            if v370.getUserAge() >= v146 and v372.birthday:GetAgeInYears() < v146 then
-                v137(v22.BirthdayChangedToAboveDisplayAge, 1);
-            end;
-            if v370.getUserAge() < v146 and v372.birthday:GetAgeInYears() >= v146 then
-                v137(v22.BirthdayChangedToAboveDisplayAge, 1);
-            end;
-        end;
-    end;
-end;
-v170.render = function(v373) --[[ Line: 1834 ]] --[[ Name: render ]]
-    -- upvalues: v160 (copy), v60 (copy), v7 (copy), l_UiModeStyleProvider_0 (copy), l_Constants_0 (copy), v169 (copy)
-    if v160 and v60 and v373.isAlreadyAuthenticated then
-        return v7.createElement(l_UiModeStyleProvider_0, {
-            style = {
-                themeName = l_Constants_0.ThemeName.Dark, 
-                fontName = l_Constants_0.FontName.Gotham
-            }
-        }, {
-            Child = if v169() then v373:renderWithView() else v373:renderDeprecated()
-        });
-    elseif v169() then
-        return v373:renderWithView();
-    else
-        return v373:renderDeprecated();
-    end;
-end;
-v170.renderWithView = function(v374) --[[ Line: 1853 ]] --[[ Name: renderWithView ]]
-    -- upvalues: v30 (copy), l_RobloxLocaleIdKey_0 (copy), v7 (copy), v139 (copy), v55 (copy), v56 (copy)
-    local v375 = v374.getIsSignUpButtonEnabled();
-    return v30({})(function(v376) --[[ Line: 1856 ]]
-        -- upvalues: v374 (copy), l_RobloxLocaleIdKey_0 (ref), v7 (ref), v139 (ref), v375 (copy), v55 (ref), v56 (ref)
-        v374.locale = v376[l_RobloxLocaleIdKey_0];
-        return v7.createElement(v139, {
-            navigateBack = v374.props.navigateBack, 
-            useVerifiedSignup = v374.useVerifiedSignup, 
-            useUsernameSuggestions = v374.useUsernameSuggestions, 
-            useRefreshButton = v374.useRefreshButton, 
-            onGenderChanged = v374.onGenderChanged, 
-            getHidePassword = v374.getHidePassword, 
-            passwordVisibilityToggleCallback = v374.passwordVisibilityToggleCallback, 
-            onBirthdaySelected = v374.onBirthdaySelected, 
-            onBirthdayFocused = v374.onBirthdayFocused, 
-            onSignUpClick = v374.onSignUpClick, 
-            usernameSuggestionClicked = v374.usernameSuggestionClicked, 
-            usernameSuggestionsShown = v374.usernameSuggestionsShown, 
-            shouldSuggest = v374.shouldSuggest, 
-            updateIssueCondition = v374.updateIssueCondition, 
-            updateSuggestionControlState = v374.updateSuggestionControlState, 
-            logRefreshButtonClicked = v374.logRefreshButtonClicked, 
-            loadSuggestions = v374.loadSuggestions, 
-            finishSuggestions = v374.finishSuggestions, 
-            validUsernameEntered = v374.validUsernameEntered, 
-            validPasswordEntered = v374.validPasswordEntered, 
-            onUsernameTextBoxFocused = v374.onUsernameTextBoxFocused, 
-            onPasswordTextBoxFocused = v374.onPasswordTextBoxFocused, 
-            onUsernameTextChanged = v374.onUsernameTextChanged, 
-            onUsernameTextValidated = v374.onUsernameTextValidated, 
-            onPasswordTextChanged = v374.onPasswordTextChanged, 
-            onTextBoxFocusLost = v374.onTextBoxFocusLost, 
-            onFocusedTextBoxPositionChanged = v374.onFocusedTextBoxPositionChanged, 
-            onAnimationStateChangeCallback = v374.onAnimationStateChangeCallback, 
-            onUsernameTextChangeCompletedFromKeyboard = v374.onUsernameTextChangeCompletedFromKeyboard, 
-            onPasswordTextChangeCompletedFromKeyboard = v374.onPasswordTextChangeCompletedFromKeyboard, 
-            phoneCountryCodeSelectorCallback = v374.phoneCountryCodeSelectorCallback, 
-            SetContactMethod = v374.SetContactMethod, 
-            SetPhoneNumber = v374.SetPhoneNumber, 
-            SetEmail = v374.SetEmail, 
-            isUsernameAnimating = v374.state.isUsernameAnimating, 
-            isPasswordAnimating = v374.state.isPasswordAnimating, 
-            birthday = v374.state.birthday, 
-            username = v374.state.username, 
-            isSignUpInProgress = v374.state.isSignUpInProgress, 
-            onScreenKeyboardHeight = v374.state.onScreenKeyboardHeight, 
-            usernameValid = v374.state.usernameValid, 
-            passwordValid = v374.state.passwordValid, 
-            issueCondition = v374.state.issueCondition, 
-            loadingSuggestions = v374.state.loadingSuggestions, 
-            isSignUpButtonEnabled = v375, 
-            birthdayFocused = v374.state.birthdayFocused, 
-            isCountryCodeSearchVisible = v374.state.isCountryCodeSearchVisible, 
-            contactMethod = v374.state.contactMethod, 
-            signUpError = v374.state.signUpError, 
-            UsernameValidator = v55, 
-            PasswordValidator = v56, 
-            signUpContentFrameRef = v374.scrollingFrameRef, 
-            ageTextFieldRef = v374.ageTextFieldRef, 
-            usernameTextFieldRef = v374.usernameTextFieldRef, 
-            passwordTextFieldRef = v374.passwordTextFieldRef, 
-            passwordFrameRef = v374.passwordFrameRef, 
-            onSignUpContentFrameCanvasSizeChange = v374.onSignUpContentFrameCanvasSizeChange, 
-            scrollCanvasTargetPositionY = v374.scrollCanvasTargetPositionY, 
-            updateScrollCanvasTargetPositionY = v374.updateScrollCanvasTargetPositionY, 
-            getScrollingFrameCanvasPosition = v374.getScrollingFrameCanvasPosition
-        });
-    end);
-end;
-v170.renderDeprecated = function(v377) --[[ Line: 1942 ]] --[[ Name: renderDeprecated ]]
-    -- upvalues: l_FormFactor_0 (copy), l_GetFFlagEnableTextFieldContentType_0 (copy), l_FFlagFoundationStylingOnSignUp_0 (copy), v142 (copy), l_DisclaimerLinksVariant_0 (copy), v110 (copy), v111 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PreAuthDeepLinkUrlStore_0 (copy), l_LinkingProtocol_0 (copy), v149 (copy), v112 (copy), v144 (copy), v167 (copy), l_withStyle_0 (copy), v30 (copy), l_RobloxLocaleIdKey_0 (copy), v165 (copy), v7 (copy), v37 (copy), l_BackgroundFill_0 (copy), v34 (copy), l_ImageSetLabel_0 (copy), l_GetImageData_0 (copy), v168 (copy), l_ImageSetButton_0 (copy), v166 (copy), l_Text_0 (copy), v36 (copy), v35 (copy), v38 (copy), v160 (copy), v60 (copy), l_GetFFlagEnableAuditForSinglePageSignUp_0 (copy), v45 (copy), v94 (copy), v44 (copy), l_DateHelper_0 (copy), v8 (copy), v140 (copy), v40 (copy), v55 (copy), v87 (copy), v126 (copy), v127 (copy), l_game_EngineFeature_0 (copy), v56 (copy), v117 (copy), v41 (copy), v102 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), l_View_0 (copy), l_Checkbox_0 (copy), v88 (copy), l_InputSize_0 (copy), v42 (copy), v43 (copy)
-    local l_birthday_2 = v377.state.birthday;
-    local l_username_2 = v377.state.username;
-    local v380 = v377.getIsSignUpButtonEnabled();
-    local l_isSignUpInProgress_0 = v377.state.isSignUpInProgress;
-    local l_gender_1 = v377.state.gender;
-    local v383 = v377.props.formFactor == l_FormFactor_0.WIDE;
-    local l_isCompactView_0 = v377.props.isCompactView;
-    local v385 = 0;
-    local v386 = 0;
-    local v387 = v377.state.onScreenKeyboardHeight > 0;
-    local l_contactMethod_0 = v377.state.contactMethod;
-    local l_foundationTokens_0 = v377.props.foundationTokens;
-    local l_shouldUseFoundationBackgroundColor_0 = v377.props.shouldUseFoundationBackgroundColor;
-    local v391 = l_GetFFlagEnableTextFieldContentType_0() and Enum.TextInputType.Username or Enum.TextInputType.NoSuggestions;
-    local v392 = not v377.validUsernameEntered();
-    local v393 = v377.useVerifiedSignup();
-    local v394 = v383 and v393 and 12 or 0;
-    local v395 = "Authentication.SignUp.Label.ErrorsWithUsername";
-    local v396 = "Authentication.SignUp.Label.ErrorsWithPassword";
-    local v397 = v377.useUsernameSuggestions();
-    local v398 = v377.useRefreshButton();
-    local v399 = l_FFlagFoundationStylingOnSignUp_0 and l_isCompactView_0;
-    if not l_birthday_2 then
-        v395 = "Authentication.SignUp.Response.BirthdayMustBeSetFirst";
-        v396 = v395;
-        v392 = true;
-    elseif v142 and v377.isDisplayNameFieldRequired() and not v377.isValidDisplayNameEntered() then
-        v392 = true;
-        v396 = "Authentication.SignUp.Response.AgedUpDisplayNameSetFirst";
-    elseif v392 then
-        v396 = "Authentication.SignUp.Response.UsernameMustBeSetFirst";
-    end;
-    if v383 then
-        if v387 then
-            v385 = v377.state.onScreenKeyboardHeight + 10;
-        else
-            v385 = 48;
-            v386 = 24;
-        end;
-    end;
-    local v400 = nil;
-    if v399 then
-        v400 = l_DisclaimerLinksVariant_0.Default;
-    end;
-    local v401 = v110();
-    local v402 = v377.props.shouldUseMinimalSignup and v401;
-    local v403 = v377.props.shouldHideGenderOption and v401;
-    local v404 = v377.props.shouldAutofocusOnBirthday and v401;
-    local v405 = v111();
-    local v406 = v377.props.shouldUsePasswordlessSignup and v405;
-    local v407 = v377.getShouldShowVNGAgreements();
-    local v408 = v377.getShouldShowKISAAgreements();
-    local v409 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
-    local v410 = v149 and v409 ~= nil and v409 ~= "";
-    local v411 = not v377.state.passkeysAvailable or v410;
-    if v112() and v377.props.shouldUsePasskeySignup and v411 then
-        v406 = false;
-    end;
-    local v412 = v144 and v377.props.shouldDisableUsernameAutofill;
-    local v413 = v112();
-    local v414 = v377.props.shouldUsePasskeySignup and v413 and game:GetEngineFeature("SignupActionRequiredKeyAvailable") and not v411;
-    local l_v167_0 = v167;
-    local function _(v416) --[[ Line: 2040 ]] --[[ Name: getVerificationLinkingText ]]
-        -- upvalues: v377 (copy)
-        local v417 = nil;
-        local v418 = v377.props.appPolicy.getPlatformAccountName();
-        if v418 and v377.props.appPolicy.getUseSingleSignOn() then
-            v417 = {
-                "Authentication.SignUp.Description.VerificationLinkingText.VariableButtonName"; 
-                platform = v418, 
-                ctaButton = v416
-            };
-        end;
-        return v417;
-    end;
-    return l_withStyle_0(function(v420) --[[ Line: 2053 ]]
-        -- upvalues: v30 (ref), v142 (ref), v377 (copy), l_RobloxLocaleIdKey_0 (ref), v402 (copy), v383 (copy), v399 (copy), l_foundationTokens_0 (copy), v165 (ref), v414 (copy), v7 (ref), v37 (ref), l_shouldUseFoundationBackgroundColor_0 (copy), l_BackgroundFill_0 (ref), l_isSignUpInProgress_0 (copy), v34 (ref), l_ImageSetLabel_0 (ref), v385 (ref), v386 (ref), l_GetImageData_0 (ref), v168 (ref), l_ImageSetButton_0 (ref), v166 (ref), l_v167_0 (copy), l_Text_0 (ref), v36 (ref), v35 (ref), v394 (copy), v38 (ref), v393 (copy), v404 (copy), v160 (ref), v60 (ref), l_GetFFlagEnableAuditForSinglePageSignUp_0 (ref), v45 (ref), v94 (ref), v44 (ref), l_birthday_2 (copy), l_DateHelper_0 (ref), l_contactMethod_0 (copy), v8 (ref), v140 (ref), v40 (ref), v395 (ref), v412 (copy), v391 (copy), v397 (copy), v55 (ref), v87 (ref), v126 (ref), v127 (ref), v398 (copy), v406 (ref), v396 (ref), v392 (ref), l_game_EngineFeature_0 (ref), v56 (ref), l_username_2 (copy), v403 (copy), v117 (ref), v41 (ref), l_gender_1 (copy), v102 (ref), v380 (copy), l_Button_0 (ref), l_ButtonType_0 (ref), l_View_0 (ref), l_Checkbox_0 (ref), v88 (ref), l_InputSize_0 (ref), v407 (copy), v408 (copy), v42 (ref), v43 (ref), l_FFlagFoundationStylingOnSignUp_0 (ref), v400 (ref), v387 (copy)
-        return v30({
-            signUpText = "Authentication.SignUp.Action.CreateAccount", 
-            continueText = "Authentication.SignUp.Action.Continue", 
-            usernamePlaceholder = "Authentication.SignUp.Message.Username.NoRealNameUse", 
-            agedUpUsernamePlaceholder = "Authentication.Login.Label.AgedUpUsername", 
-            passwordPlaceholder = "Authentication.SignUp.Label.PasswordPlaceholder", 
-            autogeneratedUsernameGuidance = v142 and "Feature.DisplayName.Label.GeneratedUserName" or nil, 
-            usernameHelperTitleText = "Authentication.SignUp.Heading.PickAUsername", 
-            usernameHelperDescriptionText = "Authentication.SignUp.Description.UsernameHelp", 
-            signUpAgreementFullCopyCheckboxText = "Authentication.SignUp.Description.AgreeToTermsWithGuardian.NoParameters", 
-            signUpAgreementShortCopyCheckboxText = "Authentication.SignUp.Description.SignUpAgreement.ShortCopy"
-        })(function(v421) --[[ Line: 2067 ]]
-            -- upvalues: v377 (ref), l_RobloxLocaleIdKey_0 (ref), v402 (ref), v383 (ref), v399 (ref), l_foundationTokens_0 (ref), v142 (ref), v165 (ref), v414 (ref), v7 (ref), v37 (ref), l_shouldUseFoundationBackgroundColor_0 (ref), v420 (copy), l_BackgroundFill_0 (ref), l_isSignUpInProgress_0 (ref), v34 (ref), l_ImageSetLabel_0 (ref), v385 (ref), v386 (ref), l_GetImageData_0 (ref), v168 (ref), l_ImageSetButton_0 (ref), v166 (ref), l_v167_0 (ref), l_Text_0 (ref), v36 (ref), v35 (ref), v394 (ref), v38 (ref), v393 (ref), v404 (ref), v160 (ref), v60 (ref), l_GetFFlagEnableAuditForSinglePageSignUp_0 (ref), v45 (ref), v94 (ref), v44 (ref), l_birthday_2 (ref), l_DateHelper_0 (ref), l_contactMethod_0 (ref), v8 (ref), v140 (ref), v40 (ref), v395 (ref), v412 (ref), v391 (ref), v397 (ref), v55 (ref), v87 (ref), v126 (ref), v127 (ref), v398 (ref), v406 (ref), v396 (ref), v392 (ref), l_game_EngineFeature_0 (ref), v56 (ref), l_username_2 (ref), v403 (ref), v117 (ref), v41 (ref), l_gender_1 (ref), v102 (ref), v380 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), l_View_0 (ref), l_Checkbox_0 (ref), v88 (ref), l_InputSize_0 (ref), v407 (ref), v408 (ref), v42 (ref), v43 (ref), l_FFlagFoundationStylingOnSignUp_0 (ref), v400 (ref), v387 (ref)
-            v377.locale = v421[l_RobloxLocaleIdKey_0];
-            local v422 = not v402;
-            local v423 = v383 and 25 or 48;
-            local v424 = UDim2.new(0.5, 0, 0, 49);
-            if v399 then
-                v423 = v423 + l_foundationTokens_0.Padding.Medium;
-                v424 = UDim2.new(0.5, 0, 0, 1 + l_foundationTokens_0.Padding.Medium);
-            end;
-            if v142 then
-                v422 = v377.shouldShowUsernameField() and not v402;
-            end;
-            local v425 = not v377.getSignupCheckboxDisabled() and v377.props.shouldRequireSignupCheckbox;
-            local v426 = v165 and "Authentication.SignUp.Description.SignUpAgreement.FullCopy.CreateAccount" or "Authentication.SignUp.Description.VerificationPage.CreateAccount";
-            if v414 then
-                v426 = "Authentication.SignUp.Description.VerificationPageMultiStep";
-            else
-                local l_signUpText_0 = v421.signUpText;
-                local v428 = nil;
-                local v429 = v377.props.appPolicy.getPlatformAccountName();
-                if v429 and v377.props.appPolicy.getUseSingleSignOn() then
-                    v428 = {
-                        "Authentication.SignUp.Description.VerificationLinkingText.VariableButtonName"; 
-                        platform = v429, 
-                        ctaButton = l_signUpText_0
-                    };
-                end;
-                if v428 then
-                    local l_signUpText_1 = v421.signUpText;
-                    l_signUpText_0 = nil;
-                    v428 = v377.props.appPolicy.getPlatformAccountName();
-                    if v428 and v377.props.appPolicy.getUseSingleSignOn() then
-                        l_signUpText_0 = {
-                            "Authentication.SignUp.Description.VerificationLinkingText.VariableButtonName"; 
-                            platform = v428, 
-                            ctaButton = l_signUpText_1
-                        };
-                    end;
-                    v426 = l_signUpText_0;
-                end;
-            end;
-            local v431 = "";
-            if not v377.getSignupCheckboxDisabled() then
-                if v377.props.signupLegalDisclaimerTextVariant == 1 then
-                    if v425 then
-                        v431 = v421.signUpAgreementFullCopyCheckboxText;
-                    else
-                        v426 = v414 and "Authentication.SignUp.Description.SignUpAgreement.FullCopy.Continue" or "Authentication.SignUp.Description.SignupAgreement.FullCopy.CreateAccount";
-                    end;
-                elseif v377.props.signupLegalDisclaimerTextVariant == 2 and v425 then
-                    v431 = v421.signUpAgreementShortCopyCheckboxText;
-                end;
-            end;
-            local v432 = true;
-            if v377.props.shouldShowBackButton ~= nil then
-                v432 = v377.props.shouldShowBackButton;
-            end;
-            local l_createElement_0 = v7.createElement;
-            local l_v37_0 = v37;
-            local v435 = {
-                BackgroundTransparency = 1, 
-                includeStatusBar = true, 
-                buttonRef = v377.props.containerRef, 
-                renderFullscreenBackground = function() --[[ Line: 2127 ]] --[[ Name: renderFullscreenBackground ]]
-                    -- upvalues: v7 (ref), v383 (ref), l_shouldUseFoundationBackgroundColor_0 (ref), l_foundationTokens_0 (ref), v420 (ref), l_BackgroundFill_0 (ref)
-                    return v7.createElement("Frame", {
-                        Size = UDim2.new(1, 0, 1, 0), 
-                        BackgroundTransparency = v383 and 1 or 0, 
-                        BackgroundColor3 = if l_shouldUseFoundationBackgroundColor_0 then l_foundationTokens_0.Color.Surface.Surface_0.Color3 else v420.Theme.BackgroundUIDefault.Color
-                    }, {
-                        Background = v383 and v7.createElement(l_BackgroundFill_0, {
-                            Image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg"
-                        }), 
-                        Mask = v383 and v7.createElement("ImageLabel", {
-                            ZIndex = 2, 
-                            Size = UDim2.new(1, 0, 1, 0), 
-                            BackgroundColor3 = Color3.new(0, 0, 0), 
-                            BackgroundTransparency = 0.5
-                        })
-                    });
-                end
-            };
-            local v436 = {
-                UserInputSink = l_isSignUpInProgress_0 and v7.createElement("ImageButton", {
-                    ZIndex = 2, 
-                    Size = UDim2.new(1, 0, 1, 0), 
-                    BackgroundTransparency = 1, 
-                    Image = ""
-                }), 
-                UnderAgeAlert = v377.state.shouldShowUnderAgeAlert and v7.createElement(v34, {
-                    ZIndex = 3, 
-                    onDismiss = function() --[[ Line: 2156 ]] --[[ Name: onDismiss ]]
-                        -- upvalues: v377 (ref)
-                        v377:setState({
-                            shouldShowUnderAgeAlert = false
-                        });
-                    end
-                })
-            };
-            local l_createElement_1 = v7.createElement;
-            local l_l_ImageSetLabel_0_0 = l_ImageSetLabel_0;
-            local v439 = {
-                Size = UDim2.new(1, 0, 1, -v385), 
-                Position = UDim2.new(0.5, 0, 0, v386), 
-                AnchorPoint = Vector2.new(0.5, 0), 
-                BackgroundTransparency = 1, 
-                ScaleType = Enum.ScaleType.Slice, 
-                SliceCenter = Rect.new(9, 9, 9, 9), 
-                Image = l_GetImageData_0("LuaApp/buttons/buttonFill") or "LuaApp/buttons/buttonFill", 
-                ImageColor3 = if l_shouldUseFoundationBackgroundColor_0 then l_foundationTokens_0.Color.Surface.Surface_0.Color3 else v420.Theme.BackgroundUIDefault.Color, 
-                ClipsDescendants = true
-            };
-            local v440 = {
-                SizeConstraint = v7.createElement("UISizeConstraint", {
-                    MaxSize = v168
-                }), 
-                HeaderFrame = v7.createElement("Frame", {
-                    Size = UDim2.new(1, 0, 0, 48), 
-                    Position = UDim2.new(0.5, 0, 0, 0), 
-                    AnchorPoint = Vector2.new(0.5, 0), 
-                    BackgroundTransparency = 1
-                }, {
-                    BackButton = v432 and v7.createElement(l_ImageSetButton_0, {
-                        Size = v166, 
-                        AutoButtonColor = false, 
-                        BorderSizePixel = 0, 
-                        BackgroundTransparency = 1, 
-                        Position = UDim2.new(0, 12, 0.5, 0), 
-                        AnchorPoint = Vector2.new(0, 0.5), 
-                        ScaleType = Enum.ScaleType.Fit, 
-                        Image = l_v167_0, 
-                        ImageColor3 = v420.Theme.UIEmphasis.Color, 
-                        ImageTransparency = 0, 
-                        [v7.Event.Activated] = v377.onCloseButtonClicked, 
-                        [v7.Ref] = v377.backButtonRef
-                    }), 
-                    Title = v421.signUpText and if v399 then v7.createElement(l_Text_0, {
-                        Position = UDim2.new(0, 0, 0.5, 0), 
-                        Size = UDim2.new(1, 0, 0, 0), 
-                        AnchorPoint = Vector2.new(0, 0.5), 
-                        Text = v421.signUpText or "", 
-                        fontStyle = l_foundationTokens_0.Typography.HeadingSmall, 
-                        TextXAlignment = Enum.TextXAlignment.Center
-                    }) else v7.createElement(v36, {
-                        Position = UDim2.new(0, 0, 0.5, 0), 
-                        Size = UDim2.new(1, 0, 0, 0), 
-                        AnchorPoint = Vector2.new(0, 0.5), 
-                        fitAxis = v35.FitAxis.Height, 
-                        BackgroundTransparency = 1, 
-                        Text = v421.signUpText or "", 
-                        TextWrapped = true, 
-                        Font = v420.Font.CaptionHeader.Font, 
-                        TextSize = v420.Font.BaseSize * v420.Font.Header1.RelativeSize, 
-                        TextColor3 = v420.Theme.TextEmphasis.Color, 
-                        TextTransparency = v420.Theme.TextEmphasis.Transparency, 
-                        TextXAlignment = Enum.TextXAlignment.Center
-                    })
-                }), 
-                Divider = not v399 and v7.createElement("Frame", {
-                    Size = UDim2.new(1, 0, 0, 1), 
-                    Position = UDim2.new(0.5, 0, 0, 48), 
-                    AnchorPoint = Vector2.new(0.5, 0), 
-                    BackgroundTransparency = l_shouldUseFoundationBackgroundColor_0 and 1 or 0, 
-                    BackgroundColor3 = v420.Theme.UIEmphasis.Color
-                })
-            };
-            local l_createElement_2 = v7.createElement;
-            local l_FitScrollingFrame_0 = v35.FitScrollingFrame;
-            local v446 = {
-                Size = UDim2.new(1, 0, 1, -(49 + v394)), 
-                Position = v424, 
-                AnchorPoint = Vector2.new(0.5, 0), 
-                fitFields = {
-                    CanvasSize = v35.FitAxis.Height
-                }, 
-                ScrollBarThickness = 0, 
-                BackgroundTransparency = 1, 
-                BorderSizePixel = 0, 
-                Selectable = false, 
-                ScrollingEnabled = not (v377.state.isUsernameAnimating or v377.state.isPasswordAnimating), 
-                CanvasPosition = v377.scrollCanvasTargetPositionY:map(function(v443) --[[ Line: 2246 ]]
-                    -- upvalues: v377 (ref)
-                    return v377.getScrollingFrameCanvasPosition(v443);
-                end), 
-                [v7.Ref] = v377.scrollingFrameRef, 
-                [v7.Change.CanvasSize] = function(_) --[[ Line: 2250 ]]
-                    -- upvalues: v377 (ref)
-                    local v445 = v377.scrollCanvasTargetPositionY:getValue();
-                    v377.scrollingFrameRef.current.CanvasPosition = v377.getScrollingFrameCanvasPosition(v445);
-                end
-            };
-            local v447 = {
-                ContentPadding = v7.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, 24), 
-                    PaddingRight = UDim.new(0, 24), 
-                    PaddingTop = UDim.new(0, v423)
-                }), 
-                ListLayout = v7.createElement("UIListLayout", {
-                    SortOrder = Enum.SortOrder.LayoutOrder, 
-                    HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                    Padding = UDim.new(0, 5)
-                })
-            };
-            local v448 = false;
-            if v377.getBirthdayVariant() == 0 then
-                v448 = v7.createElement(v38, {
-                    layoutOrder = 1, 
-                    onBirthdaySelected = v377.onBirthdaySelected, 
-                    onBirthdayFocused = v377.onBirthdayFocused, 
-                    autoFocusOnMount = v393 or v404, 
-                    buttonRef = v377.props.defaultRef, 
-                    preferredInput = v377.props.preferredInput, 
-                    birthdayContainerRef = v377.props.birthdayContainerRef, 
-                    forceDarkTheme = v160 and v60 and v377.isAlreadyAuthenticated, 
-                    enableAuditContentCapture = l_GetFFlagEnableAuditForSinglePageSignUp_0()
-                });
-            end;
-            v447.BirthdayBar = v448;
-            v448 = false;
-            if v377.getBirthdayVariant() ~= 0 then
-                v448 = v7.createElement(v45, {
-                    layoutOrder = 1, 
-                    variant = v377.getBirthdayVariant(), 
-                    textInputHeight = 36, 
-                    hasBirthdayError = v377.state.birthdayValid == v94.Invalid, 
-                    onAgeChange = v377.onAgeChanged, 
-                    onAgeAndMonthChange = v377.onAgeAndMonthChanged, 
-                    onMonthAndYearChange = v377.onMonthAndYearChanged, 
-                    ageTextFieldRef = v377.ageTextFieldRef, 
-                    screenSize = v377.props.screenSize
-                });
-            end;
-            v447.AgeInput = v448;
-            v447.ContactInfoField = v393 and v7.createElement(v44, {
-                layoutOrder = 2, 
-                Under13 = l_birthday_2 and l_DateHelper_0:isRecentOrFutureDate(l_birthday_2.Month, l_birthday_2.Day, l_birthday_2.Year + 13), 
-                SetContactMethod = v377.SetContactMethod, 
-                SetPhoneNumber = v377.SetPhoneNumber, 
-                SetEmail = v377.SetEmail, 
-                contactMethod = l_contactMethod_0, 
-                phoneCountryCodeSelectorCallback = v377.phoneCountryCodeSelectorCallback
-            });
-            v447.BackgroundPanel = v393 and v7.createElement("Frame", {
-                Size = UDim2.new(0, 0, 0, 6), 
-                LayoutOrder = 3, 
-                BackgroundTransparency = 1
-            }, {
-                LightPanel = v7.createElement("Frame", {
-                    BorderSizePixel = 0, 
-                    Size = UDim2.new(0, 100000, 0, 100000), 
-                    Position = UDim2.new(0, 0, 1, 0), 
-                    BackgroundColor3 = v420.Theme.UIDefault.Color, 
-                    AnchorPoint = Vector2.new(0.5, 0)
-                })
-            });
-            v447.DisplayName = if v142 and v377.shouldShowDisplayNameField() then v8.createElement(v140, {
-                authEventAnalytics = v377.props.authEventAnalytics, 
-                birthday = if l_birthday_2 then l_birthday_2:FormatForEndpoint() else "", 
-                bypassDisplayNameField = v377.state.bypassDisplayNameField, 
-                focusedTextBoxPositionChangedCallback = v377.onFocusedTextBoxPositionChanged, 
-                layoutOrder = 4, 
-                onAnimationStateChangeCallback = v377.onAnimationStateChangeCallback, 
-                onDisplayNameTextChanged = v377.onDisplayNameTextChanged, 
-                onReturnPressedFromOnScreenKeyboard = v377.onDisplayNameTextChangeCompletedFromKeyboard, 
-                pillClicked = v377.state.pillClicked, 
-                resetPillClicked = v377.resetPillClicked, 
-                returnKeyType = Enum.ReturnKeyType.Next, 
-                setUsernameRecommendation = v377.setUsernameRecommendation, 
-                shouldDisableRecommendation = v377.state.hasEditedUsername, 
-                textBoxFocusedCallback = v377.onDisplayNameTextBoxFocused, 
-                textBoxFocusLostCallback = v377.onTextBoxFocusLost, 
-                textBoxRef = v377.displayNameTextFieldRef, 
-                updateBypassDisplayNameField = v377.updateBypassDisplayNameField, 
-                updatePillClicked = v377.updatePillClicked
-            }) else nil;
-            v447.UsernameValidator = v422 and v7.createElement(v40, {
-                layoutOrder = v142 and 5 or 4, 
-                titleTextKey = "Authentication.Login.Label.Username", 
-                summaryErrorTextKey = v395, 
-                prerequisiteMet = l_birthday_2 and true or false, 
-                textInputType = if v412 then nil else v391, 
-                onInputTextChanged = v377.onUsernameTextChanged, 
-                onInputTextValidated = v397 and v377.onUsernameTextValidated or v377.onUsernameTextChanged, 
-                validator = v55, 
-                prefilledText = if v142 then v377.state.recommendedUsername else nil, 
-                placeholderText = if v142 then v377.getUsernamePlaceholder(v421) else v421.usernamePlaceholder, 
-                validatorAdditionalProps = {
-                    birthday = l_birthday_2 and l_birthday_2:FormatForEndpoint() or "", 
-                    context = v87.Signup
-                }, 
-                textBoxFocusedCallback = v377.onUsernameTextBoxFocused, 
-                textBoxFocusLostCallback = if v142 then v377.onUsernameTextBoxFocusLost else v377.onTextBoxFocusLost, 
-                focusedTextBoxPositionChangedCallback = v377.onFocusedTextBoxPositionChanged, 
-                returnKeyType = Enum.ReturnKeyType.Next, 
-                onReturnPressedFromOnScreenKeyboard = v377.onUsernameTextChangeCompletedFromKeyboard, 
-                onAnimationStateChangeCallback = v377.onAnimationStateChangeCallback, 
-                textBoxRef = v377.usernameTextFieldRef, 
-                pillClicked = v377.state.pillClicked, 
-                updatePillClicked = v377.updatePillClicked, 
-                resetPillClicked = v377.resetPillClicked, 
-                issueCondition = v377.state.issueCondition, 
-                updateIssueCondition = v377.updateIssueCondition, 
-                loadingSuggestions = v377.state.loadingSuggestions, 
-                paddingBottomOverride = v142 and v377.props.shouldSeeDisplayNamesOnSignup and v377.getUsernameGuidanceText(v421) and -5 or nil, 
-                enableAuditContentCapture = l_GetFFlagEnableAuditForSinglePageSignUp_0()
-            });
-            v447.UsernameGuidanceText = if v142 and v377.props.shouldSeeDisplayNamesOnSignup and v377.getUsernameGuidanceText(v421) then v7.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, 1), 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundTransparency = 1, 
-                LayoutOrder = 5
-            }, {
-                Padding = v7.createElement("UIPadding", {
-                    PaddingBottom = UDim.new(0, 5)
-                }), 
-                Label = v7.createElement("TextLabel", {
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    BackgroundTransparency = 1, 
-                    Font = v420.Font.CaptionBody.Font, 
-                    Size = UDim2.new(1, 0, 0, 0), 
-                    Text = v377.getUsernameGuidanceText(v421), 
-                    TextColor3 = v420.Theme.TextDefault.Color, 
-                    TextSize = v420.Font.BaseSize * v420.Font.CaptionBody.RelativeSize, 
-                    TextWrapped = true, 
-                    TextXAlignment = Enum.TextXAlignment.Left, 
-                    TextYAlignment = Enum.TextYAlignment.Top
-                })
-            }) else nil;
-            v447.SuggestionsFrame = v422 and v397 and v7.createElement(v126, {
-                layoutOrder = v142 and 5 or 4, 
-                textBoxRef = v377.usernameTextFieldRef, 
-                usernameValid = v377.state.usernameValid, 
-                birthday = l_birthday_2 and l_birthday_2:FormatForEndpoint() or "", 
-                suggest = v127, 
-                context = v87.Signup, 
-                pillClicked = v377.state.pillClicked, 
-                updatePillClicked = v377.updatePillClicked, 
-                resetPillClicked = v377.resetPillClicked, 
-                issueCondition = v377.state.issueCondition, 
-                usernameSuggestionClicked = v377.usernameSuggestionClicked, 
-                usernameSuggestionsShown = v377.usernameSuggestionsShown, 
-                shouldSuggest = v377.shouldSuggest, 
-                updateSuggestionControlState = v377.updateSuggestionControlState, 
-                useRefreshButton = v398, 
-                logRefreshButtonClicked = v377.logRefreshButtonClicked, 
-                loadSuggestions = v377.loadSuggestions, 
-                finishSuggestions = v377.finishSuggestions, 
-                loadingSuggestions = v377.state.loadingSuggestions, 
-                padding = {
-                    PaddingLeft = UDim.new(0, 24), 
-                    PaddingRight = UDim.new(0, 24)
-                }
-            });
-            v447.PasswordValidator = not v402 and not v406 and v7.createElement(v40, {
-                disabled = v377.state.birthdayFocused, 
-                layoutOrder = v142 and 6 or 5, 
-                titleTextKey = "CommonUI.Messages.Label.Password", 
-                summaryErrorTextKey = v396, 
-                prerequisiteMet = not v392, 
-                textInputType = l_game_EngineFeature_0 and Enum.TextInputType.NewPassword or Enum.TextInputType.Password, 
-                onInputTextChanged = v377.onPasswordTextChanged, 
-                onInputTextValidated = v377.onPasswordTextChanged, 
-                validator = v56, 
-                placeholderText = v421.passwordPlaceholder, 
-                validatorAdditionalProps = {
-                    username = l_username_2
-                }, 
-                returnKeyType = Enum.ReturnKeyType.Next, 
-                textBoxFocusedCallback = v377.onPasswordTextBoxFocused, 
-                textBoxFocusLostCallback = v377.onTextBoxFocusLost, 
-                focusedTextBoxPositionChangedCallback = v377.onFocusedTextBoxPositionChanged, 
-                onReturnPressedFromOnScreenKeyboard = v377.onPasswordTextChangeCompletedFromKeyboard, 
-                onAnimationStateChangeCallback = v377.onAnimationStateChangeCallback, 
-                textBoxRef = v377.passwordTextFieldRef, 
-                centralOverlayBlocksInput = v393, 
-                captureFocusOnTapStart = not v377.state.isCountryCodeSearchVisible
-            });
-            v447.GenderSelector = not v403 and v117() ~= 2 and v7.createElement(v41, {
-                layoutOrder = v142 and 8 or 7, 
-                gender = l_gender_1, 
-                onGenderChanged = v377.onGenderChanged, 
-                enableAuditContentCapture = l_GetFFlagEnableAuditForSinglePageSignUp_0()
-            });
-            v447.Spacing = v7.createElement("Frame", {
-                LayoutOrder = v142 and 9 or 8, 
-                BackgroundTransparency = 1, 
-                Size = UDim2.new(1, 0, 0, 38)
-            });
-            v447.SignUpButton = if v399 then v7.createElement(v102.Button, {
-                variant = v102.Enums.ButtonVariant.Emphasis, 
-                LayoutOrder = v142 and 10 or 9, 
-                text = if v414 then v421.continueText else v421.signUpText, 
-                size = v102.Enums.InputSize.Medium, 
-                width = UDim.new(1, 0), 
-                isDisabled = not v380, 
-                isLoading = l_isSignUpInProgress_0, 
-                onActivated = v377.onSignUpClick
-            }) else v7.createElement(l_Button_0, {
-                buttonType = l_ButtonType_0.PrimaryContextual, 
-                layoutOrder = v142 and 10 or 9, 
-                size = UDim2.new(1, 0, 0, 36), 
-                text = if v414 then v421.continueText else v421.signUpText, 
-                isDisabled = not v380, 
-                isLoading = l_isSignUpInProgress_0, 
-                onActivated = v377.onSignUpClick
-            });
-            v447.CheckboxContainer = v425 and v8.createElement(l_View_0, {
-                tag = "auto-xy padding-x-xxlarge padding-y-large row gap-medium", 
-                LayoutOrder = v142 and 11 or 10
-            }, {
-                SignUpAgreementCheckbox = v8.createElement(l_Checkbox_0, {
-                    isChecked = v377.state.signupAgreementsChecked, 
-                    isDisabled = false, 
-                    onActivated = function() --[[ Line: 2507 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v377 (ref), v88 (ref)
-                        v377.props.authEventAnalytics.reportAuthFormInteraction(v88.Context.SinglePageSignUpScreen, v88.Field.TosCheckbox, (tostring(not v377.state.signupAgreementsChecked)));
-                        v377:setState({
-                            signupAgreementsChecked = not v377.state.signupAgreementsChecked
-                        });
-                    end, 
-                    size = l_InputSize_0.Small, 
-                    LayoutOrder = 1, 
-                    label = ""
-                }), 
-                Text = v8.createElement(l_Text_0, {
-                    tag = "text-body-small text-align-x-left text-wrap auto-xy shrink", 
-                    LayoutOrder = 2, 
-                    Text = v431
-                })
-            });
-            v447.DisclaimerText = not (v407 or v408 or v425) and v7.createElement(v42, {
-                layoutOrder = v142 and 11 or 10, 
-                textXAlignment = Enum.TextXAlignment.Center, 
-                paragraphTextKeys = {
-                    v426
-                }, 
-                enableAuditContentCapture = l_GetFFlagEnableAuditForSinglePageSignUp_0()
-            });
-            v447.DisclaimerLinks = not (v407 or v408) and v7.createElement(v43, {
-                LayoutOrder = v142 and 12 or 11, 
-                variant = if l_FFlagFoundationStylingOnSignUp_0 then v400 else nil, 
-                enableAuditContentCapture = l_GetFFlagEnableAuditForSinglePageSignUp_0()
-            });
-            v447.ScrollPadding = v387 and v7.createElement("Frame", {
-                LayoutOrder = v142 and 13 or 12, 
-                BackgroundTransparency = 1, 
-                Size = UDim2.new(1, 0, 0, v377.state.onScreenKeyboardHeight * 2)
-            });
-            v440.SignUpContentFrame = l_createElement_2(l_FitScrollingFrame_0, v446, v447);
-            v440.Footer = v393 and v383 and v7.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, 12), 
-                Position = UDim2.new(0, 0, 1, -12), 
-                BackgroundTransparency = 1, 
-                ClipsDescendants = true
-            }, {
-                Rounding = v7.createElement(l_ImageSetLabel_0, {
-                    Size = UDim2.new(1, 0, 2, 0), 
-                    Position = UDim2.new(0, 0, -1, 0), 
-                    BackgroundTransparency = 1, 
-                    ScaleType = Enum.ScaleType.Slice, 
-                    SliceCenter = Rect.new(9, 9, 9, 9), 
-                    Image = l_GetImageData_0("LuaApp/buttons/buttonFill") or "LuaApp/buttons/buttonFill", 
-                    ImageColor3 = v420.Theme.UIDefault.Color
-                })
-            });
-            v436.Container = l_createElement_1(l_l_ImageSetLabel_0_0, v439, v440);
-            return l_createElement_0(l_v37_0, v435, v436);
-        end);
-    end);
-end;
-v170 = v9.connect(function(v449, _) --[[ Line: 2578 ]]
-    return {
-        formFactor = v449.FormFactor, 
-        screenSize = v449.ScreenSize
-    };
-end, function(v451) --[[ Line: 2583 ]]
-    -- upvalues: v59 (copy), v130 (copy), l_AnalyticsEvents_0 (copy), l_EventConstants_0 (copy), v73 (copy), v51 (copy), v50 (copy), v133 (copy), v131 (copy), v135 (copy), v134 (copy), v53 (copy), v54 (copy), v66 (copy), v65 (copy), v68 (copy), v69 (copy), v77 (copy)
-    return {
-        signUp = function(v452, v453, v454, v455, v456, v457, v458, v459, v460, v461, v462, v463, v464, v465) --[[ Line: 2585 ]] --[[ Name: signUp ]]
-            -- upvalues: v451 (copy), v59 (ref)
-            return v451(v59(v452, v453, v454, v455, v456, v457, v458, v459, v460, v461, v462, v463, v464, v465));
-        end, 
-        agreeToPhoneNumberVerification = function(_, v467, v468) --[[ Line: 2620 ]] --[[ Name: agreeToPhoneNumberVerification ]]
-            -- upvalues: v451 (copy), v130 (ref)
-            return v451(v130({
-                verificationChallengeCallback = v467, 
-                phoneNumber = v468
-            }));
-        end, 
-        openKISAUserAgreements = function(v469) --[[ Line: 2627 ]] --[[ Name: openKISAUserAgreements ]]
-            -- upvalues: l_AnalyticsEvents_0 (ref), l_EventConstants_0 (ref), v451 (copy), v73 (ref)
-            l_AnalyticsEvents_0.sendPageLoadEvent(l_EventConstants_0.ctx.kisaAgreements, l_EventConstants_0.origin.signup);
-            return v451(v73(v469));
-        end, 
-        setBackNavigationDisabled = function(v470) --[[ Line: 2632 ]] --[[ Name: setBackNavigationDisabled ]]
-            -- upvalues: v451 (copy), v51 (ref)
-            return v451(v51(v470));
-        end, 
-        navigateBack = function() --[[ Line: 2635 ]] --[[ Name: navigateBack ]]
-            -- upvalues: v451 (copy), v50 (ref)
-            return v451(v50());
-        end, 
-        showErrorToast = function() --[[ Line: 2638 ]] --[[ Name: showErrorToast ]]
-            -- upvalues: v451 (copy), v133 (ref)
-            return v451(v133({
-                HttpError = Enum.HttpError.OK
-            }));
-        end, 
-        verifyPhoneNumber = function(_, v472, v473, v474, v475, v476) --[[ Line: 2641 ]] --[[ Name: verifyPhoneNumber ]]
-            -- upvalues: v451 (copy), v131 (ref)
-            return v451(v131({
-                verifyPhoneNumberCallback = v472, 
-                phoneNumber = v474, 
-                deliveryTarget = v475, 
-                challenge = v473, 
-                useEmailOptionClickedCallback = v476
-            }));
-        end, 
-        showErrorMessageToast = function(v477) --[[ Line: 2657 ]] --[[ Name: showErrorMessageToast ]]
-            -- upvalues: v451 (copy), v135 (ref), v134 (ref)
-            return v451(v135({
-                toastType = v134.NetworkingError, 
-                toastMessage = v477
-            }));
-        end, 
-        showVNGUserAgreementsPopup = function(v478, v479, v480) --[[ Line: 2663 ]] --[[ Name: showVNGUserAgreementsPopup ]]
-            -- upvalues: v451 (copy), v53 (ref), v54 (ref)
-            return v451(v53(v54.VNGUserAgreementsPopup, {
-                agreements = v478, 
-                isSignup = true, 
-                agreementAccepted = v479, 
-                agreementDeclined = v480
-            }, {
-                DisableBackButtonClose = true
-            }));
-        end, 
-        showVNGDCForm = function() --[[ Line: 2673 ]] --[[ Name: showVNGDCForm ]]
-            -- upvalues: v451 (copy), v53 (ref), v54 (ref)
-            v451(v53(v54.VngContactInfoFormWebviewPopup, {}, {
-                DisableBackButtonClose = true
-            }));
-        end, 
-        closeCentralOverlay = function() --[[ Line: 2678 ]] --[[ Name: closeCentralOverlay ]]
-            -- upvalues: v451 (copy), v66 (ref)
-            return v451(v66());
-        end, 
-        openAccountSwitchingErrorOverlay = function(v481, v482, v483, v484, v485, v486, v487, v488) --[[ Line: 2681 ]] --[[ Name: openAccountSwitchingErrorOverlay ]]
-            -- upvalues: v451 (copy), v65 (ref)
-            return v451(v65(v481, v482, v483, v484, v485, v486, v487, v488, true));
-        end, 
-        resetAppState = function() --[[ Line: 2703 ]] --[[ Name: resetAppState ]]
-            -- upvalues: v451 (copy), v68 (ref)
-            return v451(v68());
-        end, 
-        logoutWithoutShowConfirmation = function(v489, v490) --[[ Line: 2706 ]] --[[ Name: logoutWithoutShowConfirmation ]]
-            -- upvalues: v451 (copy), v69 (ref)
-            return v451(v69(v489, v490));
-        end, 
-        openEmailOtp = function(v491) --[[ Line: 2710 ]] --[[ Name: openEmailOtp ]]
-            -- upvalues: v451 (copy), v77 (ref)
-            v451(v77(v491));
-        end, 
-        showAccountLinkingAlert = function(v492) --[[ Line: 2713 ]] --[[ Name: showAccountLinkingAlert ]]
-            -- upvalues: v451 (copy), v53 (ref), v54 (ref)
-            return v451(v53(v54.AccountLinkingAlert, {
-                alertType = v492
-            }));
-        end
-    };
-end)(v170);
-v170 = l_RoactServices_0.connect({
-    networking = v19, 
-    guiService = l_AppGuiService_0, 
-    authEventAnalytics = v16, 
-    analytics = v17, 
-    loggingProtocol = l_AppLogging_0
-})(v170);
-v170 = l_RoactAppPolicy_0.connect(function(v493, _) --[[ Line: 2729 ]]
-    return {
-        appPolicy = v493
-    };
-end)(v170);
-v170 = v21.connectBrowserTrackerLayer({
-    l_AppBtidLayers_0.SignupLayer, 
-    l_AppBtidLayers_0.IosPasswordSavingLayer
-}, function(v495, _) --[[ Line: 2738 ]]
-    -- upvalues: l_AppBtidLayers_0 (copy), v142 (copy), v145 (copy)
-    local v497 = v495[l_AppBtidLayers_0.SignupLayer] or {};
-    local v498 = v495[l_AppBtidLayers_0.IosPasswordSavingLayer] or {};
-    local v499 = if v142 then v497.shouldSeeDisplayNamesOnSignup else nil;
-    if v145 then
-        v499 = true;
-    end;
-    return {
-        useVerifiedSignupPage = v497.contactMethodRequired, 
-        arePasswordFieldsPlaintext = v497.ArePasswordFieldsPlaintext, 
-        shouldUseUsernameSuggestions = v497.usernameSuggestionsEnabled, 
-        enableRefreshButton = v497.suggestionRefreshButtonEnabled, 
-        shouldUseMinimalSignup = v497.shouldUseMinimalSignup, 
-        shouldHideGenderOption = v497.shouldHideGenderOption, 
-        shouldAutofocusOnBirthday = v497.shouldAutofocusOnBirthday, 
-        shouldUsePasswordlessSignup = v497.shouldUsePasswordlessSignup, 
-        shouldUsePasskeySignup = v497.shouldUsePasskeySignup, 
-        shouldAutomaticallyPromptForPasskey = v497.shouldAutomaticallyPromptForPasskey, 
-        birthdayPickerVariant = v497.birthdayPickerVariant, 
-        shouldSeeDisplayNamesOnSignup = v499, 
-        shouldShowKoreanKISASignUpFlow = v497.shouldShowKoreanKISASignUpFlow, 
-        shouldDisableUsernameAutofill = v497.shouldDisableUsernameAutofill, 
-        shouldRequireSignupCheckbox = v497.shouldRequireSignupCheckbox, 
-        signupLegalDisclaimerTextVariant = v497.signupLegalDisclaimerTextVariant, 
-        isIosAuthServiceEnabled = v498.enableNewIosPasswordSaving or false
-    };
-end)(v170);
-v170 = l_withNavigationProps_0(function(_, v501) --[[ Line: 2769 ]]
-    return v501;
-end)(v170);
-local function v504(v502) --[[ Line: 2774 ]] --[[ Name: SinglePageSignUpWithAuditContent ]]
-    -- upvalues: l_AuditContentContext_0 (copy), v7 (copy), v170 (ref), v23 (copy)
-    local v503 = l_AuditContentContext_0.useAuditContentContext();
-    return v7.createElement(v170, v23.Dictionary.join(v502, {
-        capturedAuditContent = v503.capturedAuditContent, 
-        additionalAuditContent = v503.additionalAuditContent
-    }));
-end;
-return function(v505) --[[ Line: 2786 ]]
-    -- upvalues: v14 (copy), v161 (copy), l_useBreakpointXOrSmaller_0 (copy), v11 (copy), l_FFlagFoundationStylingOnSignUp_0 (copy), l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 (copy), l_useTokens_0 (copy), v21 (copy), l_AppBtidLayers_0 (copy), v8 (copy), l_GetFFlagEnablePreferredInputForSignUp_0 (copy), l_usePreferredInput_0 (copy), l_FFlagEnableSignUpExitModal_0 (copy), v156 (copy), l_useDispatch_0 (copy), v50 (copy), v53 (copy), v54 (copy), v66 (copy), l_useSignUpPageNavigationBindings_0 (copy), l_GetFFlagEnableAuditForSinglePageSignUp_0 (copy), v7 (copy), l_AuditContentContext_0 (copy), v504 (copy), v23 (copy), l_FFlagHideBackButtonOnSignUpPage_0 (copy), v170 (ref)
-    local v506 = v14.useFocusedGuiObject();
-    local v507 = v14.useFocusGuiObject();
-    local v508 = if v161 then l_useBreakpointXOrSmaller_0(v11.Keys.Medium) else nil;
-    local v509 = if not not l_FFlagFoundationStylingOnSignUp_0 or l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 then l_useTokens_0() else nil;
-    local v511 = v21.useBrowserTrackerExperiment({
-        l_AppBtidLayers_0.AuthenticationStylingLayer
-    }, function(v510) --[[ Line: 2796 ]]
-        -- upvalues: l_AppBtidLayers_0 (ref)
-        return {
-            shouldUseFoundationBackgroundColor = (v510[l_AppBtidLayers_0.AuthenticationStylingLayer] or {}).shouldUseFoundationBackgroundColor
-        };
-    end);
-    local v512 = l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 and v511.shouldUseFoundationBackgroundColor;
-    local v513, v514 = v8.useState(false);
-    local v515 = if l_GetFFlagEnablePreferredInputForSignUp_0() then l_usePreferredInput_0() else nil;
-    local v516 = l_FFlagEnableSignUpExitModal_0 and v515 == v11.Input.Directional;
-    local v517 = nil;
-    if v156 then
-        local v518 = l_useDispatch_0();
-        local l_v518_0 = v518 --[[ copy: 12 -> 17 ]];
-        local v520 = v8.useCallback(function() --[[ Line: 2814 ]]
-            -- upvalues: v516 (copy), v513 (copy), l_v518_0 (copy), v50 (ref), v53 (ref), v54 (ref), v66 (ref), v507 (copy), v506 (copy)
-            if not v516 then
-                return;
-            elseif not v513 then
-                l_v518_0(v50());
-                return;
-            else
-                l_v518_0(v53(v54.SignUpExitModal, {
-                    onClose = function() --[[ Line: 2823 ]] --[[ Name: onClose ]]
-                        -- upvalues: l_v518_0 (ref), v66 (ref), v507 (ref), v506 (ref)
-                        l_v518_0(v66());
-                        l_v518_0(function() --[[ Line: 2825 ]]
-                            -- upvalues: v507 (ref), v506 (ref)
-                            v507(v506);
-                        end);
-                    end, 
-                    onConfirm = function() --[[ Line: 2829 ]] --[[ Name: onConfirm ]]
-                        -- upvalues: l_v518_0 (ref), v66 (ref), v50 (ref)
-                        l_v518_0(v66());
-                        l_v518_0(v50());
-                    end
-                }));
-                return;
-            end;
-        end, {
-            v513, 
-            v516, 
-            v506, 
-            v507, 
-            v518
-        });
-        v517 = l_useSignUpPageNavigationBindings_0(if v516 then v520 else nil);
-    elseif v516 then
-        local v521 = l_useDispatch_0();
-        local l_v521_0 = v521 --[[ copy: 12 -> 16 ]];
-        local v523 = v8.useCallback(function() --[[ Line: 2848 ]]
-            -- upvalues: v513 (copy), l_v521_0 (copy), v50 (ref), v53 (ref), v54 (ref), v66 (ref), v507 (copy), v506 (copy)
-            if not v513 then
-                l_v521_0(v50());
-                return;
-            else
-                l_v521_0(v53(v54.SignUpExitModal, {
-                    onClose = function() --[[ Line: 2854 ]] --[[ Name: onClose ]]
-                        -- upvalues: l_v521_0 (ref), v66 (ref), v507 (ref), v506 (ref)
-                        l_v521_0(v66());
-                        l_v521_0(function() --[[ Line: 2856 ]]
-                            -- upvalues: v507 (ref), v506 (ref)
-                            v507(v506);
-                        end);
-                    end, 
-                    onConfirm = function() --[[ Line: 2860 ]] --[[ Name: onConfirm ]]
-                        -- upvalues: l_v521_0 (ref), v66 (ref), v50 (ref)
-                        l_v521_0(v66());
-                        l_v521_0(v50());
-                    end
-                }));
-                return;
-            end;
-        end, {
-            v513
-        });
-        v517 = l_useSignUpPageNavigationBindings_0(v523);
-    else
-        v517 = l_useSignUpPageNavigationBindings_0();
-    end;
-    local v524 = nil;
-    local v525 = nil;
-    local v526, v527 = v14.useDefaultFocusBehavior(v517);
-    v524 = v526;
-    v525 = v527;
-    v526 = v8.useRef(nil);
-    if l_GetFFlagEnableAuditForSinglePageSignUp_0() then
-        return v7.createElement(l_AuditContentContext_0.Provider, nil, {
-            SignUpPage = v7.createElement(v504, v23.Dictionary.join(v505, {
-                signUpStarted = if v516 then v513 else nil, 
-                setSignUpStarted = if v516 then v514 else nil, 
-                shouldShowBackButton = if l_FFlagHideBackButtonOnSignUpPage_0 then not v516 else nil, 
-                preferredInput = v515, 
-                focusedGuiObject = v506, 
-                focusGuiObject = v507, 
-                defaultRef = v524, 
-                containerRef = v525, 
-                birthdayContainerRef = v526, 
-                isCompactView = v508, 
-                foundationTokens = v509, 
-                shouldUseFoundationBackgroundColor = v512
-            }))
-        });
-    else
-        return v7.createElement(v170, v23.Dictionary.join(v505, {
-            signUpStarted = if v516 then v513 else nil, 
-            setSignUpStarted = if v516 then v514 else nil, 
-            shouldShowBackButton = if l_FFlagHideBackButtonOnSignUpPage_0 then not v516 else nil, 
-            preferredInput = v515, 
-            focusedGuiObject = v506, 
-            focusGuiObject = v507, 
-            defaultRef = v524, 
-            containerRef = v525, 
-            birthdayContainerRef = v526, 
-            isCompactView = v508, 
-            foundationTokens = v509, 
-            shouldUseFoundationBackgroundColor = v512
-        }));
-    end;
-end;
+do
+	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+	local CorePackages = game:GetService("CorePackages")
+
+	UserInputService = game:GetService("UserInputService")
+
+	local GuiService = game:GetService("GuiService")
+	local AppStorageService = game:GetService("AppStorageService")
+	local HttpService = game:GetService("HttpService")
+	local LocalStorageKey = require(CorePackages.Workspace.Packages.LocalStorage).Enums.LocalStorageKey
+
+	Roact = require(CorePackages.Packages.Roact)
+	React = require(CorePackages.Packages.React)
+	RoactRodux = require(CorePackages.Packages.RoactRodux)
+	RobloxLocaleIdKey = require(CorePackages.Workspace.Packages.Localization).RobloxLocaleIdKey
+	Responsive = require(CorePackages.Workspace.Packages.Responsive)
+	usePreferredInput = Responsive.usePreferredInput
+	useBreakpointXOrSmaller = Responsive.useBreakpointXOrSmaller
+	ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
+	AppGuiService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppGuiService
+	RoactAnalyticsAuthEvents = require(Modules.LuaApp.Services.RoactAnalyticsAuthEvents)
+	RoactAnalytics = require(Modules.LuaApp.Services.RoactAnalytics)
+	RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+	RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
+	RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
+	RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+	DisplayNameCounters = require(script.Parent.Enum.DisplayNameCounters)
+	Cryo = require(CorePackages.Packages.Cryo)
+
+	local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+	local AccountLinkingAlertType, GetCredentialsAvailabilityStore, GetMetaDataFromShareLink, User, AppStorageUtilities, LogoutAllLoggedInUsers, FFlagEnableKoreaKISACompliance, FFlagBypassIXPKoreaCompliance, FFlagBypassGUACKoreaCompliance, KISAComplianceUtils, ValidateCode, Constants2, Promise, Images, Birthday, Constants3, CredentialType, UserGender, SignUpV2ErrorCodes, VerifiedSignupErrorCodes, UsernameIssue, IssueCondition, ExperienceService, GetFFlagAuthIntentLoggingAtSignupButtonClickEnabled, GetFFlagAuthIntentLoggingForShareLinkMetadataAtSignupButtonClickEnabled, GetFFlagAuthIntentLoggingForGameJoinEnabled, FFlagKoreaKISAUnderAgeNumber, GetFFlagCredProtocolRegisterPasswordOnSignup, t1, GetVerifiedSignupChallenge, GetFFlagEnableSignupBirthdayExperiments, FFlagSignupDisplayNameLogging
+
+	do
+		local AuthCommon
+
+		do
+			local UIBlox = require(CorePackages.Packages.UIBlox)
+
+			Button = UIBlox.App.Button.Button
+			ButtonType = UIBlox.App.Button.Enum.ButtonType
+			Constants = UIBlox.App.Style.Constants
+			withStyle = UIBlox.Style.withStyle
+			withLocalization = require(Modules.LuaApp.withLocalization)
+			withNavigationProps = require(CorePackages.Workspace.Packages.RobloxAppNavigation).withNavigationProps
+			AuthCommon = require(CorePackages.Workspace.Packages.AuthCommon)
+			DisclaimerLinksVariant = AuthCommon.Enums.DisclaimerLinksVariant
+			UnderAgeInteractiveAlert = require(Modules.LuaApp.Components.Authentication.UnderAgeInteractiveAlert)
+			FitChildren = require(Modules.LuaApp.FitChildren)
+			FitTextLabel = require(Modules.LuaApp.Components.FitTextLabel)
+			FullscreenPageWithSafeArea = require(Modules.LuaApp.Components.FullscreenPageWithSafeArea)
+			AuthBirthdayBar = require(Modules.LuaApp.Components.Authentication.AuthBirthdayBar)
+			AuditContentContext = AuthCommon.Stores.AuditContentContext.AuditContentContext
+			CollapsingTextInputValidator = require(Modules.LuaApp.Components.Authentication.CollapsingTextInputValidator)
+			SignUpGenderSelector = require(Modules.LuaApp.Components.Authentication.SignUpGenderSelector)
+			TitleAndParagraph = require(Modules.LuaApp.Components.Authentication.TitleAndParagraph)
+			DisclaimerLinks = require(Modules.LuaApp.Components.Authentication.DisclaimerLinks)
+			ContactInfoField = require(Modules.LuaApp.Components.Authentication.ContactInfoField)
+			BirthdayField = require(Modules.LuaApp.Components.Authentication.Birthday.BirthdayField)
+			BackgroundFill = AuthCommon.Components.BackgroundFill
+			AccountLinkingAlertType = AuthCommon.Enums.AccountLinkingAlertType
+			GetCredentialsAvailabilityStore = AuthCommon.Stores.GetCredentialsAvailabilityStore
+			FormFactor = require(CorePackages.Workspace.Packages.FormFactor).Enums.FormFactor
+			NavigateBack = require(Modules.LuaApp.Thunks.NavigateBack)
+			SetBackNavigationDisabled = require(Modules.LuaApp.Actions.SetBackNavigationDisabled)
+			useSignUpPageNavigationBindings = AuthCommon.Hooks.useSignUpPageNavigationBindings
+			SetCentralOverlay = require(Modules.LuaApp.Actions.SetCentralOverlay)
+			OverlayType = require(Modules.LuaApp.Enum.OverlayType)
+			UsernameValidator = require(Modules.LuaApp.Thunks.Authentication.UsernameValidator)
+			PasswordValidator = require(Modules.LuaApp.Thunks.Authentication.PasswordValidator)
+			GetMetaDataFromShareLink = require(Modules.LuaApp.Thunks.Authentication.AuthIntent.GetMetaDataFromShareLink)
+			ApiFetchAuthMetaData = require(Modules.LuaApp.Thunks.Authentication.AuthIntent.ApiFetchAuthMetaData)
+			SignUpV2 = require(Modules.LuaApp.Thunks.Authentication.SignUpV2)
+			FFlagEnableLuaAccountSwitch = require(Modules.LuaApp.Flags.FFlagEnableLuaAccountSwitch)
+			User = require(script.Parent.Parent.Parent.Thunks.Authentication.User)
+			MemStorageService = game:GetService("MemStorageService")
+			MemStorageKeys = require(Modules.LuaApp.Enum.MemStorageKeys)
+			AppStorageUtilities = require(Modules.LuaApp.Thunks.Authentication.AppStorageUtilities)
+			OpenAccountSwitchingErrorOverlay = require(Modules.LuaApp.Thunks.Authentication.OpenAccountSwitchingErrorOverlay)
+			CloseCentralOverlay = require(Modules.LuaApp.Thunks.CloseCentralOverlay)
+			LogoutAllLoggedInUsers = require(Modules.LuaApp.Thunks.Authentication.AccountSwitcher.LogoutAllLoggedInUsers)
+			ResetAppState = require(Modules.LuaApp.Thunks.Authentication.ResetAppState)
+			Logout = require(Modules.LuaApp.Thunks.Authentication.Logout)
+			FFlagEnableKoreaKISACompliance = require(Modules.LuaApp.Flags.FFlagEnableKoreaKISACompliance)
+			FFlagBypassIXPKoreaCompliance = require(Modules.LuaApp.Flags.FFlagBypassIXPKoreaCompliance)
+			FFlagBypassGUACKoreaCompliance = require(Modules.LuaApp.Flags.FFlagBypassGUACKoreaCompliance)
+			OpenKISAPopUpAgreements = require(Modules.LuaApp.Thunks.Authentication.OpenKISAPopUpAgreements)
+			KISAComplianceUtils = require(CorePackages.Workspace.Packages.AuthCompliance).KISAComplianceUtils
+			AnalyticsEvents = require(CorePackages.Workspace.Packages.AuthCompliance).Analytics.AnalyticsEvents
+			EventConstants = require(CorePackages.Workspace.Packages.AuthCompliance).Analytics.EventConstants
+			OpenEmailOtp = require(Modules.LuaApp.Thunks.Authentication.OpenEmailOtp)
+			ValidateCode = require(CorePackages.Workspace.Packages.OtpLogin).Thunks.ValidateCode
+			Constants2 = require(CorePackages.Workspace.Packages.OtpLogin).Constants
+			Promise = require(CorePackages.Packages.Promise)
+			ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+			GetImageData = require(CorePackages.Workspace.Packages.RobloxAppAssets).GetImageData
+			Images = UIBlox.App.ImageSet.Images
+			ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
+		end
+
+		Birthday = require(CorePackages.Workspace.Packages.AuthCommon).Models.Birthday
+		DateHelper = require(CorePackages.Workspace.Packages.Time).DateHelper
+		UsernameValidationContext = require(Modules.LuaApp.Enum.UsernameValidationContext)
+		EventStreamConstants = require(Modules.LuaApp.EventStreamConstants)
+		Constants3 = require(Modules.LuaApp.Constants)
+		AppBtidLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppBtidLayers
+		CredentialType = require(Modules.LuaApp.Components.Authentication.Enum.CredentialType)
+		UserGender = require(Modules.LuaApp.Components.Authentication.Enum.UserGender)
+		SignUpV2ErrorCodes = require(Modules.LuaApp.Components.Authentication.Enum.SignUpV2ErrorCodes)
+		InputValidity = require(Modules.LuaApp.Components.Authentication.Enum.InputValidity)
+		VerifiedSignupErrorCodes = require(Modules.LuaApp.Components.Authentication.Enum.VerifiedSignupErrorCodes)
+		UsernameIssue = require(Modules.LuaApp.Components.Authentication.Enum.UsernameIssue)
+		IssueCondition = require(Modules.LuaApp.Components.Authentication.Enum.IssueCondition)
+		default = require(CorePackages.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default
+		LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
+		ExperienceService = require(CorePackages.Workspace.Packages.ExperienceService).ExperienceService
+		UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
+		Foundation = require(CorePackages.Packages.Foundation)
+		Checkbox = Foundation.Checkbox
+		InputSize = Foundation.Enums.InputSize
+		View = Foundation.View
+		FoundationText = Foundation.Text
+		useTokens = Foundation.Hooks.useTokens
+		useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
+		GetFFlagEnableTextFieldContentType = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableTextFieldContentType
+		GetFFlagMinimalSignupAuthEnabled = require(Modules.LuaApp.Flags.GetFFlagMinimalSignupAuthEnabled)
+		GetFFlagPasswordlessSignupAuthEnabled = require(Modules.LuaApp.Flags.GetFFlagPasswordlessSignupAuthEnabled)
+		GetFFlagPasskeySignupEnabled = require(Modules.LuaApp.Flags.GetFFlagPasskeySignupEnabled)
+		FFlagFoundationStylingOnSignUp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagFoundationStylingOnSignUp
+		GetFFlagAuthIntentLoggingAtSignupEnabled = require(Modules.LuaApp.Flags.GetFFlagAuthIntentLoggingAtSignupEnabled)
+		GetFFlagAuthIntentLoggingAtSignupButtonClickEnabled = require(Modules.LuaApp.Flags.GetFFlagAuthIntentLoggingAtSignupButtonClickEnabled)
+		GetFFlagAuthIntentLoggingForShareLinkMetadataAtSignupButtonClickEnabled = require(Modules.LuaApp.Flags.GetFFlagAuthIntentLoggingForShareLinkMetadataAtSignupButtonClickEnabled)
+		GetFIntLuaLoginGenderSelector = require(Modules.LuaApp.Flags.GetFIntLuaLoginGenderSelector)
+		GetFFlagAuthIntentLoggingForGameJoinEnabled = require(Modules.LuaApp.Flags.GetFFlagAuthIntentLoggingForGameJoinEnabled)
+		GetFFlagIsAltAttemptLoggingAtSignup = require(Modules.LuaApp.Flags.GetFFlagIsAltAttemptLoggingAtSignup)
+		FFlagKoreaKISAUnderAgeNumber = require(Modules.LuaApp.Flags.FFlagKoreaKISAUnderAgeNumber)
+		GetFIntLuaAppCredentialsProtocolAvailableTimeout = require(CorePackages.Workspace.Packages.CredentialsProtocol).Flags.GetFIntLuaAppCredentialsProtocolAvailableTimeout
+		GetFFlagCredProtocolRegisterPasswordOnSignup = require(Modules.LuaApp.Flags.GetFFlagCredProtocolRegisterPasswordOnSignup)
+
+		local v124 = game:DefineFastFlag("UsePackageFetchSignupUserAgreements", false)
+
+		EngineFeature = game:GetEngineFeature("EnableAndroidPasswordSuggestion")
+		SuggestionsFrame = require(Modules.LuaApp.Components.Authentication.SuggestionsFrame)
+		UsernameSuggestor = require(Modules.LuaApp.Thunks.Authentication.UsernameSuggestor)
+		t1 = {
+			suggestionsShown = "usernameSuggestionsShown",
+			suggestableInput = "suggestableUsernameInput",
+			refreshButton = "usernameSuggestionRefreshButton"
+		}
+		AppLogging = require(CorePackages.Workspace.Packages.RoactServiceTags).AppLogging
+		OpenCentralOverlayForAgreeToPhoneNumberVerification = require(Modules.LuaApp.Thunks.Authentication.OpenCentralOverlayForAgreeToPhoneNumberVerification)
+		OpenCentralOverlayForPhoneNumberVerification = require(Modules.LuaApp.Thunks.Authentication.OpenCentralOverlayForPhoneNumberVerification)
+		GetVerifiedSignupChallenge = require(Modules.LuaApp.Thunks.Authentication.GetVerifiedSignupChallenge)
+		SetNetworkingErrorToast = require(Modules.LuaApp.Thunks.SetNetworkingErrorToast)
+		ToastType = require(Modules.LuaApp.Enum.ToastType)
+		SetCurrentToastMessage = require(Modules.LuaApp.Actions.SetCurrentToastMessage)
+		v136 = if not v124 then require(Modules.LuaApp.Http.Requests.FetchSignupUserAgreements) else require(CorePackages.Workspace.Packages.UserAgreements).FetchSignupUserAgreements
+		reportEphemeralCounter = require(Modules.LuaApp.Analytics.Events.reportEphemeralCounter)
+		UserAgreementsCounterNames = require(CorePackages.Workspace.Packages.UserAgreements).UserAgreementsCounterNames
+		SignUpPageView = require(Modules.LuaApp.Components.Authentication.SignUpPageView)
+		DisplayNameField = require(Modules.LuaApp.Components.Authentication.DisplayNameField)
+		GetFFlagEnableSignupBirthdayExperiments = require(Modules.LuaApp.Flags.GetFFlagEnableSignupBirthdayExperiments)
+		v142 = game:DefineFastFlag("DisplayNamesOnSignupExperiment_v3", false)
+		v143 = game:DefineFastFlag("MoveCredentialsProtocolCheckToDidMount", false)
+		v144 = game:DefineFastFlag("HideUsernameAutofillSignupExperiment", false)
+		v145 = game:DefineFastFlag("EnableDisplayNamesOnSignupExperimentv1_Dev", false)
+		v146 = game:DefineFastInt("DisplayNameEligabilityAgeYears", 17)
+		v147 = game:DefineFastFlag("DisplayNamesDiagLogging", false)
+		FFlagSignupDisplayNameLogging = require(Modules.LuaApp.Components.Authentication.Flags.FFlagSignupDisplayNameLogging)
+		v149 = game:DefineFastFlag("DisablePasskeySignupForLuaDeepLinks", false)
+		FFlagEnableAuthDeepLinkReceiver = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAuthDeepLinkReceiver
+		PreAuthDeepLinkUrlStore = AuthCommon.Stores.PreAuthDeepLinkUrlStore
+	end
+
+	TelemetryConfigs = require(CorePackages.Workspace.Packages.AuthAnalytics).TelemetryConfigs
+
+	local FFlagEnableVNGDUARSignupCompliance = require(Modules.LuaApp.Flags.FFlagEnableVNGDUARSignupCompliance)
+
+	GetFFlagEnablePreferredInputForSignUp = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnablePreferredInputForSignUp
+	FFlagEnableSignUpExitModal = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSignUpExitModal
+	v156 = game:DefineFastFlag("FixSignUpConditionalHooks", false)
+	FFlagHideBackButtonOnSignUpPage = require(CorePackages.Workspace.Packages.SharedFlags).FFlagHideBackButtonOnSignUpPage
+
+	local FFlagUseBirthdayDropdownForGamepad = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseBirthdayDropdownForGamepad
+
+	v159 = game:DefineFastFlag("SignUpPageThemeSwitchFix", false)
+	v160 = game:DefineFastFlag("UseBreakpointOnSignUp", false)
+	GetFFlagEnableAccountSwitcherFoundationDesign = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAccountSwitcherFoundationDesign
+	GetFFlagEnableAccountSwitcherRedesignIXP = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAccountSwitcherRedesignIXP
+	GetFFlagEnableAccountSwitcherIXPTextGatingFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAccountSwitcherIXPTextGatingFix
+	GetFFlagEnableAuditForSinglePageSignUp = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAuditForSinglePageSignUp
+	FFlagEnableSignupFoundationalizeBackgroundAndText = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSignupFoundationalizeBackgroundAndText
+	v166 = game:DefineFastFlag("UseLongFormSignupComplianceTextByDefault", false)
+	uDim2 = UDim2.new(0, 36, 0, 36)
+	v168 = Images["icons/navigation/close"]
+	vector2 = Vector2.new(540, 1080)
+	game:DefineFastFlag("LuaVerifiedSignup2", false)
+	game:DefineFastFlag("LuaVerifiedSignupExperiment2", false)
+	GetFFlagLuaAppSignUpPageRefactor = require(Modules.LuaApp.Flags.GetFFlagLuaAppSignUpPageRefactor)
+	v171 = Roact.PureComponent:extend("SinglePageSignUp")
+
+	function v171.init(p1) -- line: 264
+		-- upvalues: GetCredentialsAvailabilityStore (copy), InputValidity (copy), UserGender (copy), Roact (copy), FFlagEnableLuaAccountSwitch (copy), User (copy), AppStorageUtilities (copy), MemStorageService (copy), MemStorageKeys (copy), LogoutAllLoggedInUsers (copy), AppStorageService (copy), LocalStorageKey (copy), GuiService (copy), v159 (copy), FFlagEnableVNGDUARSignupCompliance (copy), FFlagEnableKoreaKISACompliance (copy), FFlagBypassGUACKoreaCompliance (copy), FFlagBypassIXPKoreaCompliance (copy), AnalyticsEvents (copy), EventConstants (copy), KISAComplianceUtils (copy), Cryo (copy), GetFFlagMinimalSignupAuthEnabled (copy), GetFFlagPasswordlessSignupAuthEnabled (copy), GetFFlagPasskeySignupEnabled (copy), GetFFlagEnableSignupBirthdayExperiments (copy), v142 (copy), FFlagUseBirthdayDropdownForGamepad (copy), EventStreamConstants (copy), ArgCheck (copy), Birthday (copy), DateHelper (copy), t1 (copy), UsernameIssue (copy), IssueCondition (copy), FFlagSignupDisplayNameLogging (copy), GetVerifiedSignupChallenge (copy), CredentialType (copy), FFlagEnableAuthDeepLinkReceiver (copy), PreAuthDeepLinkUrlStore (copy), LinkingProtocol (copy), v149 (copy), GetFFlagCredProtocolRegisterPasswordOnSignup (copy), VerifiedSignupErrorCodes (copy), SignUpV2ErrorCodes (copy), Constants3 (copy), AccountLinkingAlertType (copy), GetFFlagAuthIntentLoggingAtSignupButtonClickEnabled (copy), GetFFlagAuthIntentLoggingForShareLinkMetadataAtSignupButtonClickEnabled (copy), GetMetaDataFromShareLink (copy), HttpService (copy), GetFFlagAuthIntentLoggingForGameJoinEnabled (copy), ExperienceService (copy), v147 (copy), reportEphemeralCounter (copy), DisplayNameCounters (copy), UserAgreementsCounterNames (copy), FFlagKoreaKISAUnderAgeNumber (copy), v146 (copy), Constants2 (copy), ValidateCode (copy), Promise (copy), v143 (copy), default (copy), GetFIntLuaAppCredentialsProtocolAvailableTimeout (copy)
+		local v179 = GetCredentialsAvailabilityStore(false)
+		local v180 = v179.getFido2Available(false)
+		local v181 = v179.getPasswordsAvailable(false)
+
+		p1.state = {
+			birthday = nil,
+			shouldHideBirthdayEntry = false,
+			username = "",
+			displayName = "",
+			password = "",
+			birthdayValid = InputValidity.Unvalidated,
+			usernameValid = InputValidity.Unvalidated,
+			passwordValid = InputValidity.Unvalidated,
+			displayNameValid = InputValidity.Unvalidated,
+			isSignUpButtonEnabled = false,
+			isSignUpInProgress = false,
+			gender = UserGender.Unknown,
+			onScreenKeyboardHeight = 0,
+			isUsernameAnimating = false,
+			isPasswordAnimating = false,
+			birthdayFocused = false,
+			contactMethod = "",
+			emailInput = "",
+			emailValid = false,
+			phoneCountryCode = {},
+			phoneInput = "",
+			phoneValid = false,
+			verifiedSignupVoucher = "",
+			isCountryCodeSearchVisible = false,
+			hidePassword = nil,
+			agreements = {},
+			passkeysAvailable = v180,
+			isCredentialsProtocolRegisterPasswordAvailable = v181,
+			pillClicked = false,
+			issueCondition = nil,
+			suggestionControlState = nil,
+			loadingSuggestions = false,
+			signUpError = false,
+			shouldShowUnderAgeAlert = false,
+			shouldShowVngTosAlert = false,
+			showU13AccountSwitcherAlert = false,
+			showParentAccountSwitcherAlert = false,
+			hasSetIneligibleAgeAtLeastOnce = false,
+			recommendedUsername = nil,
+			hasEditedUsername = false,
+			bypassDisplayNameField = false,
+			isUsernameFocused = false,
+			otpSessionToken = "",
+			otpCode = "",
+			signupAgreementsChecked = false
+		}
+		p1.backButtonRef = Roact.createRef()
+		p1.isAlreadyAuthenticated = false
+
+		if FFlagEnableLuaAccountSwitch == true then
+			p1.isAlreadyAuthenticated = User.fromLocalStorage().userId ~= -1
+		end
+
+		function p1.resetDefaultTheme() -- line: 328
+			-- upvalues: AppStorageUtilities (copy), MemStorageService (copy), MemStorageKeys (copy)
+			local v271 = AppStorageUtilities.getAuthenticatedTheme()
+
+			if v271 ~= "" then
+				MemStorageService:Fire(MemStorageKeys.ThemeUpdate, v271)
+			end
+		end
+		function p1.logoutAllLoggedInUsersCallback() -- line: 336
+			-- upvalues: p1 (copy), AppStorageUtilities (copy), User (copy), LogoutAllLoggedInUsers (copy), AppStorageService (copy), LocalStorageKey (copy), GuiService (copy)
+			local networking = p1.props.networking
+			local v273 = AppStorageUtilities.getAccountBlob()
+			local v274 = User.fromLocalStorage().userId ~= -1
+
+			p1:setState({
+				signUpError = false,
+				isSignUpButtonEnabled = false,
+				isSignUpInProgress = false
+			})
+			LogoutAllLoggedInUsers(networking, v273):await()
+
+			if v274 == true then
+				p1.props.resetAppState()
+				AppStorageService:SetItem(LocalStorageKey.CredentialValue, "")
+				AppStorageService:Flush()
+				p1.props.logoutWithoutShowConfirmation(networking, GuiService)
+			end
+
+			p1:setState({
+				signUpError = false
+			})
+			p1.props.closeCentralOverlay()
+		end
+		function p1.closeOverlayAndDisableSwitcherErrors() -- line: 364
+			-- upvalues: p1 (copy)
+			p1.props.closeCentralOverlay()
+		end
+		function p1.onCloseButtonClicked() -- line: 368
+			-- upvalues: v159 (copy), FFlagEnableLuaAccountSwitch (copy), p1 (copy)
+			if not v159 and (FFlagEnableLuaAccountSwitch == true and p1.isAlreadyAuthenticated == true) then
+				p1.resetDefaultTheme()
+			end
+
+			p1.props.navigateBack()
+		end
+		function p1.getShouldShowVNGAgreements() -- line: 380
+			-- upvalues: p1 (copy)
+			return p1.props.appPolicy.getUseVNGUserAgreementPopup()
+		end
+		function p1.getShouldBlockVNGU12SignUpOnClientSide() -- line: 384
+			-- upvalues: p1 (copy)
+			return p1.props.appPolicy.getBlockVNGU12SignUpOnClientSide()
+		end
+		function p1.getShouldUseAgeInput() -- line: 388
+			-- upvalues: p1 (copy), FFlagEnableVNGDUARSignupCompliance (copy)
+			return p1.props.appPolicy.getUseAgeInput() and FFlagEnableVNGDUARSignupCompliance
+		end
+		function p1.getShouldShowKISAAgreements() -- line: 392
+			-- upvalues: FFlagEnableKoreaKISACompliance (copy), p1 (copy), FFlagBypassGUACKoreaCompliance (copy), FFlagBypassIXPKoreaCompliance (copy)
+			return FFlagEnableKoreaKISACompliance and ((p1.props.appPolicy.getUseKoreaKISAUserAgreementPopup() or FFlagBypassGUACKoreaCompliance) and (p1.props.shouldShowKoreanKISASignUpFlow or FFlagBypassIXPKoreaCompliance))
+		end
+		function p1.getShouldAddParentalConsentAgreementId() -- line: 398
+			-- upvalues: p1 (copy)
+			return p1.props.appPolicy.getParentalConsentAgreementId()
+		end
+		function p1.getSignupCheckboxDisabled() -- line: 402
+			-- upvalues: p1 (copy)
+			return p1.props.appPolicy.getSignupCheckboxDisabled()
+		end
+		function p1.launchKISATermsOfService(p2, p3) -- line: 406
+			-- upvalues: p1 (copy), AnalyticsEvents (copy), EventConstants (copy), KISAComplianceUtils (copy), Cryo (copy)
+			local t2 = {
+				agreements = p1.state.agreements,
+				onAgreeFunction = function(p4) --[[ onAgreeFunction ]] -- line: 410
+					-- upvalues: AnalyticsEvents (copy), EventConstants (copy), KISAComplianceUtils (copy), Cryo (copy), p2 (copy), p1 (copy), p3 (copy)
+					AnalyticsEvents.sendButtonClickEvent(EventConstants.ctx.kisaAgreements, EventConstants.origin.signup, EventConstants.btn.agree)
+
+					local v471 = KISAComplianceUtils.getAgreedUserAgreements(p4)
+					local v472 = Cryo.Dictionary.join(p2, {
+						agreementIds = v471
+					})
+					local v473 = p1.getShouldAddParentalConsentAgreementId()
+
+					if p3 and (v473 and v473 ~= "") then
+						table.insert(v472.agreementIds, v473)
+					end
+
+					p1.requestSignUp(v472)
+				end,
+				onAbandonFunction = p1.onAbandonKISASignUpFlow,
+				isUnderAgeFlow = p3
+			}
+
+			p1.props.openKISAUserAgreements(t2)
+		end
+		function p1.getIsSignUpButtonEnabled() -- line: 435
+			-- upvalues: p1 (copy), GetFFlagMinimalSignupAuthEnabled (copy), GetFFlagPasswordlessSignupAuthEnabled (copy), GetFFlagPasskeySignupEnabled (copy), GetFFlagEnableSignupBirthdayExperiments (copy), InputValidity (copy), v142 (copy), FFlagUseBirthdayDropdownForGamepad (copy)
+			local birthday = p1.state.birthday
+			local username = p1.state.username
+			local password = p1.state.password
+			local displayName = p1.state.displayName
+			local birthdayValid = p1.state.birthdayValid
+			local usernameValid = p1.state.usernameValid
+			local passwordValid = p1.state.passwordValid
+			local displayNameValid = p1.state.displayNameValid
+			local validBirthday = p1.state.validBirthday
+			local v287 = p1.props.shouldUseMinimalSignup and GetFFlagMinimalSignupAuthEnabled()
+			local v288 = p1.props.shouldUsePasswordlessSignup and GetFFlagPasswordlessSignupAuthEnabled()
+
+			if GetFFlagPasskeySignupEnabled() and (p1.props.shouldUsePasskeySignup and not p1.state.passkeysAvailable) then
+				v288 = false
+			end
+
+			local v289 = GetFFlagEnableSignupBirthdayExperiments() and (p1.props.birthdayPickerVariant and p1.props.birthdayPickerVariant > 0)
+
+			if not p1.getSignupCheckboxDisabled() and p1.props.shouldRequireSignupCheckbox and not p1.state.signupAgreementsChecked then
+				return false
+			end
+
+			local v290 = usernameValid ~= InputValidity.Valid or (passwordValid ~= InputValidity.Valid or not not v289 and birthdayValid ~= InputValidity.Valid) or if not v142 or not p1.isDisplayNameFieldRequired() then nil else displayNameValid ~= InputValidity.Valid
+
+			if FFlagUseBirthdayDropdownForGamepad and birthday and validBirthday == false then
+				return false
+			end
+
+			if v287 and birthday then
+				if v289 and birthdayValid ~= InputValidity.Valid then
+					return false
+				end
+
+				return true
+			end
+
+			if v288 and birthday and username ~= "" and usernameValid == InputValidity.Valid then
+				if v289 and birthdayValid ~= InputValidity.Valid then
+					return false
+				end
+
+				return true
+			end
+
+			if not birthday or v290 or username == "" or password == "" or (v142 and (p1.isDisplayNameFieldRequired() and displayName == "") or nil) then
+				return false
+			end
+
+			if validBirthday == false then
+				return false
+			end
+
+			return true
+		end
+		function p1.updateState(p5) -- line: 520
+			-- upvalues: p1 (copy)
+			spawn(function() -- line: 521
+				-- upvalues: p1 (copy), p5 (copy)
+				if p1.isMounted then
+					p1:setState(p5)
+				end
+			end)
+		end
+		function p1.getHidePassword() -- line: 531
+			-- upvalues: p1 (copy)
+			if p1.state.hidePassword == nil then
+				return not p1.props.arePasswordFieldsPlaintext
+			end
+
+			return p1.state.hidePassword
+		end
+		function p1.passwordVisibilityToggleCallback() -- line: 538
+			-- upvalues: p1 (copy), EventStreamConstants (copy)
+			local v292 = p1.getHidePassword()
+
+			if v292 then
+				p1.props.authEventAnalytics.reportButtonClicked(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.ShowPassword)
+			else
+				p1.props.authEventAnalytics.reportButtonClicked(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.HidePassword)
+			end
+
+			p1:setState({
+				hidePassword = not v292
+			})
+		end
+		function p1.onBirthdaySelected(p6, p7) -- line: 556
+			-- upvalues: ArgCheck (copy), Birthday (copy), p1 (copy), EventStreamConstants (copy)
+			ArgCheck.assert(Birthday.is(p6), "CentralOverlayForSignUpBirthdayPicker should pass back a Birthday when closing.")
+			p1.updateState({
+				birthday = p6,
+				validBirthday = p7
+			})
+
+			if p1.useVerifiedSignup() then
+				p1.props.authEventAnalytics.reportButtonClicked(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.ConfirmBirthday)
+			end
+
+			p1.updateSignUpFieldFilled()
+		end
+		function p1.onAgeChanged(p8) -- line: 577
+			-- upvalues: p1 (copy), InputValidity (copy), Birthday (copy), DateHelper (copy)
+			local num = tonumber(p8)
+
+			if num == nil or num < 1 or num > 99 then
+				p1.updateState({
+					birthday = nil,
+					birthdayValid = InputValidity.Invalid
+				})
+
+				return
+			end
+
+			local v297 = DateTime.now():ToLocalTime()
+			local v298 = Birthday.new({
+				Year = v297.Year - num,
+				Month = v297.Month,
+				Day = v297.Day
+			})
+
+			if v298.Month == 2 and v298.Day == 29 and not DateHelper:isLeapYear(v298.Year) then
+				v298.Day = 28
+			end
+
+			if DateHelper:isValidDate(v298.Month, v298.Day, v298.Year) then
+				p1.updateState({
+					birthday = v298,
+					birthdayValid = InputValidity.Valid
+				})
+
+				return
+			end
+
+			p1.updateState({
+				birthday = nil,
+				birthdayValid = InputValidity.Invalid
+			})
+		end
+		function p1.onAgeAndMonthChanged(p9, p10) -- line: 608
+			-- upvalues: p1 (copy), InputValidity (copy), Birthday (copy), DateHelper (copy)
+			if p9 == nil or (p9 < 1 or p9 > 99) then
+				p1.updateState({
+					birthday = nil,
+					birthdayValid = InputValidity.Invalid
+				})
+
+				return
+			end
+
+			local v301 = DateTime.now():ToLocalTime().Year - p9
+			local v302 = Birthday.new({
+				Year = v301,
+				Month = p10,
+				Day = DateHelper:getLastDayOfTheMonthInYear(p10, v301)
+			})
+
+			if DateHelper:isValidDate(v302.Month, v302.Day, v302.Year) then
+				p1.updateState({
+					birthday = v302,
+					birthdayValid = InputValidity.Valid
+				})
+
+				return
+			end
+
+			p1.updateState({
+				birthday = nil,
+				birthdayValid = InputValidity.Invalid
+			})
+		end
+		function p1.onMonthAndYearChanged(p11, p12) -- line: 636
+			-- upvalues: p1 (copy), InputValidity (copy), Birthday (copy), DateHelper (copy)
+			local v305 = DateTime.now():ToLocalTime()
+
+			if p12 == nil or (p12 < v305.Year - 100 or p12 > v305.Year) then
+				p1.updateState({
+					birthday = nil,
+					birthdayValid = InputValidity.Invalid
+				})
+
+				return
+			end
+
+			local v306 = Birthday.new({
+				Year = p12,
+				Month = p11,
+				Day = DateHelper:getLastDayOfTheMonthInYear(p11, p12)
+			})
+
+			if DateHelper:isValidDate(v306.Month, v306.Day, v306.Year) then
+				p1.updateState({
+					birthday = v306,
+					birthdayValid = InputValidity.Valid
+				})
+
+				return
+			end
+
+			p1.updateState({
+				birthday = nil,
+				birthdayValid = InputValidity.Invalid
+			})
+		end
+		function p1.usernameSuggestionClicked(p13, p14) -- line: 664
+			-- upvalues: p1 (copy), EventStreamConstants (copy)
+			p1.props.authEventAnalytics.reportUsernameSuggestionClicked(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.UsernameSuggestion, p13, p14)
+		end
+		function p1.logRefreshButtonClicked() -- line: 673
+			-- upvalues: p1 (copy), EventStreamConstants (copy), t1 (copy)
+			p1.props.authEventAnalytics.reportButtonClicked(EventStreamConstants.Context.SinglePageSignUpScreen, t1.refreshButton)
+		end
+		function p1.usernameSuggestionsShown(p15, p16) -- line: 680
+			-- upvalues: p1 (copy), EventStreamConstants (copy), t1 (copy)
+			p1.props.authEventAnalytics.reportInteractWithActionAndSection(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Field.Username, EventStreamConstants.ActionType.Shown, t1.suggestionsShown, p15, p16)
+		end
+		function p1.logSuggestableUsername(p17) -- line: 691
+			-- upvalues: p1 (copy), EventStreamConstants (copy), t1 (copy)
+			p1.props.authEventAnalytics.reportInteractWithAction(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Field.Username, EventStreamConstants.ActionType.Shown, t1.suggestableInput, p17)
+		end
+		function p1.shouldSuggest() -- line: 701
+			-- upvalues: p1 (copy), UsernameIssue (copy), IssueCondition (copy)
+			local v312 = false
+			local issueCondition = p1.state.issueCondition
+
+			if issueCondition then
+				v312 = issueCondition[UsernameIssue.AlreadyInUse] == IssueCondition.Problematic
+
+				for k, v in pairs(issueCondition) do
+					if k ~= UsernameIssue.AlreadyInUse and v == IssueCondition.Problematic then
+						return false
+					end
+				end
+			end
+
+			return v312
+		end
+		function p1.onBirthdayFocused(p18) -- line: 716
+			-- upvalues: p1 (copy)
+			if p1.isMounted then
+				p1:setState({
+					birthdayFocused = p18
+				})
+			end
+		end
+		function p1.onUsernameTextChanged(p19, p20) -- line: 724
+			-- upvalues: v142 (copy), p1 (copy)
+			local v319 = nil
+
+			if v142 and (p1.shouldShowDisplayNameField() and not p1.state.hasEditedUsername) then
+				v319 = p19 ~= p1.state.recommendedUsername
+			end
+
+			p1.updateState({
+				username = p19,
+				usernameValid = p20,
+				hasEditedUsername = if not v142 then nil else v319
+			})
+
+			if p1.shouldSuggest() then
+				p1.logSuggestableUsername(p19)
+			end
+
+			p1.updateSignUpFieldFilled()
+		end
+		function p1.updateSignUpFieldFilled() -- line: 746
+			-- upvalues: p1 (copy)
+			if p1.props.signUpStarted == nil then
+				return
+			end
+
+			local v320 = false
+
+			if p1.state.username ~= "" or p1.state.password ~= "" or p1.state.birthday ~= nil then
+				v320 = true
+			end
+
+			if v320 ~= p1.state.signUpStarted then
+				p1.props.setSignUpStarted(v320)
+			end
+		end
+		function p1.onDisplayNameTextChanged(p21, p22) -- line: 761
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				displayName = p21,
+				displayNameValid = p22
+			})
+		end
+		function p1.updateBypassDisplayNameField(b1: boolean) -- line: 768
+			-- upvalues: p1 (copy)
+			p1:setState({
+				bypassDisplayNameField = b1
+			})
+		end
+		function p1.onUsernameTextValidated(p23, p24) -- line: 774
+			-- upvalues: p1 (copy), InputValidity (copy), EventStreamConstants (copy)
+			p1.onUsernameTextChanged(p23, p24)
+
+			if p24 == InputValidity.Valid then
+				p1.props.authEventAnalytics.reportInteractWithAction(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Field.Username, EventStreamConstants.ActionType.Submit, p24, p23)
+			end
+		end
+		function p1.onPasswordTextChanged(p25, p26) -- line: 787
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				password = p25,
+				passwordValid = p26
+			})
+			p1.updateSignUpFieldFilled()
+		end
+
+		p1.cachedScrollCanvasPositionY = 0
+		p1.cachedScrollCanvasInitialSizeY = 0
+
+		local v182, v183 = Roact.createBinding(0)
+
+		p1.scrollCanvasTargetPositionY = v182
+		p1.updateScrollCanvasTargetPositionY = v183
+		p1.scrollingFrameRef = Roact.createRef()
+		p1.ageTextFieldRef = Roact.createRef()
+		p1.usernameTextFieldRef = Roact.createRef()
+		p1.displayNameTextFieldRef = if not v142 then nil else Roact.createRef()
+		p1.passwordTextFieldRef = Roact.createRef()
+		p1.passwordFrameRef = Roact.createRef()
+
+		function p1.onDisplayNameTextChangeCompletedFromKeyboard() -- line: 807
+			-- upvalues: p1 (copy), FFlagSignupDisplayNameLogging (copy), EventStreamConstants (copy)
+			task.spawn(function() -- line: 808
+				-- upvalues: p1 (copy), FFlagSignupDisplayNameLogging (copy), EventStreamConstants (copy)
+				if p1.displayNameTextFieldRef.current then
+					p1.displayNameTextFieldRef.current:ReleaseFocus()
+				end
+
+				task.defer(function() -- line: 813
+					-- upvalues: p1 (copy)
+					if p1.usernameTextFieldRef.current then
+						p1.usernameTextFieldRef.current:CaptureFocus()
+					end
+				end)
+
+				if FFlagSignupDisplayNameLogging then
+					p1.props.authEventAnalytics.reportAuthButtonClick(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.DisplayNameNext, EventStreamConstants.State.KeyboardInput)
+				end
+			end)
+		end
+		function p1.onUsernameTextChangeCompletedFromKeyboard() -- line: 829
+			-- upvalues: p1 (copy), EventStreamConstants (copy)
+			spawn(function() -- line: 830
+				-- upvalues: p1 (copy), EventStreamConstants (copy)
+				if p1.usernameTextFieldRef.current then
+					p1.usernameTextFieldRef.current:ReleaseFocus()
+				end
+
+				if p1.passwordTextFieldRef.current then
+					p1.passwordTextFieldRef.current:CaptureFocus()
+				end
+
+				p1.props.authEventAnalytics.reportButtonClicked(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.UsernameNext)
+			end)
+		end
+		function p1.onPasswordTextChangeCompletedFromKeyboard() -- line: 845
+			-- upvalues: p1 (copy), EventStreamConstants (copy)
+			spawn(function() -- line: 846
+				-- upvalues: p1 (copy), EventStreamConstants (copy)
+				if p1.passwordTextFieldRef.current then
+					p1.passwordTextFieldRef.current:ReleaseFocus()
+				end
+
+				p1.props.authEventAnalytics.reportButtonClicked(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.PasswordNext)
+			end)
+		end
+		function p1.cacheScrollCanvasInitialSizeIfNecessary() -- line: 860
+			-- upvalues: p1 (copy)
+			if p1.cachedScrollCanvasInitialSizeY == 0 then
+				local currentParent = p1.scrollingFrameRef.current.Parent
+				local CanvasSize = p1.scrollingFrameRef.current.CanvasSize
+				local v330 = currentParent and currentParent.AbsoluteSize or Vector2.new(0, 0)
+
+				p1.cachedScrollCanvasInitialSizeY = CanvasSize.Y.Scale * v330.Y + CanvasSize.Y.Offset
+			end
+		end
+		function p1.agreeToPhoneNumberVerification() -- line: 870
+			-- upvalues: p1 (copy), GetVerifiedSignupChallenge (copy)
+			local agreeToPhoneNumberVerification = p1.props.agreeToPhoneNumberVerification
+			local networking = p1.props.networking
+			local v333 = p1.state.phoneCountryCode.prefix .. "," .. p1.state.phoneInput .. "," .. p1.state.phoneCountryCode.code
+
+			agreeToPhoneNumberVerification(networking, function() -- line: 879
+				-- upvalues: GetVerifiedSignupChallenge (copy), networking (copy), v333 (copy), p1 (copy)
+				GetVerifiedSignupChallenge(networking, v333):andThen(function(p27) -- line: 880
+					-- upvalues: p1 (copy), v333 (copy)
+					local challenge = p27.challenge
+
+					p1.verifyPhoneNumber(challenge, p1.state.phoneInput, v333)
+				end, function(p28) -- line: 883
+					-- upvalues: p1 (copy)
+					if p28 == "Authentication.TwoStepVerification.Response.TooManyAttempts" or (p28 == "Authentication.SignUp.Response.PhoneNumberAlreadyLinked" or p28 == "Authentication.SignUp.Response.InvalidPhoneNumber") then
+						p1.props.showErrorMessageToast(p28)
+
+						return
+					end
+
+					p1.props.showErrorToast()
+				end)
+			end, p1.state.phoneInput)
+		end
+		function p1.onSignUpClick() -- line: 898
+			-- upvalues: p1 (copy), CredentialType (copy)
+			if p1.useVerifiedSignup() and p1.state.contactMethod == CredentialType.PhoneNumber then
+				p1.agreeToPhoneNumberVerification()
+
+				return
+			end
+
+			p1.onSignUpButtonActivated()
+		end
+		function p1.verifyPhoneNumber(p29, p30, p31) -- line: 906
+			-- upvalues: p1 (copy)
+			p1.props.verifyPhoneNumber(p1.props.networking, p1.verifyPhoneNumberCallback, p29, p30, p31, p1.useEmailOptionClickedCallback)
+		end
+		function p1.verifyPhoneNumberCallback(p32) -- line: 921
+			-- upvalues: p1 (copy)
+			p1.verifiedSignupVoucher = p32
+			p1.onSignUpButtonActivated()
+		end
+		function p1.useEmailOptionClickedCallback() -- line: 926
+			-- upvalues: p1 (copy), CredentialType (copy)
+			p1:setState({
+				contactMethod = CredentialType.Email
+			})
+		end
+		function p1.phoneCountryCodeSelectorCallback(p33) -- line: 932
+			-- upvalues: p1 (copy)
+			p1:setState({
+				isCountryCodeSearchVisible = p33
+			})
+		end
+		function p1.onTextBoxFocused(vector2_2: Vector2) -- line: 940
+			-- upvalues: p1 (copy)
+			p1.cacheScrollCanvasInitialSizeIfNecessary()
+
+			local v340 = math.clamp(p1.scrollingFrameRef.current.CanvasPosition.Y, 0, p1.cachedScrollCanvasInitialSizeY)
+
+			if p1.isMounted then
+				local v341 = vector2_2.Y - p1.scrollingFrameRef.current.absolutePosition.Y + v340
+
+				p1.updateScrollCanvasTargetPositionY(v341)
+			end
+		end
+		function p1.onTextBoxFocusLost() -- line: 951
+			-- upvalues: p1 (copy)
+			if p1.isMounted then
+				p1.updateScrollCanvasTargetPositionY(0)
+			end
+		end
+		function p1.onUsernameTextBoxFocusLost() -- line: 957
+			-- upvalues: p1 (copy)
+			p1.onTextBoxFocusLost()
+			p1.updateState({
+				isUsernameFocused = false
+			})
+		end
+		function p1.onAnimationStateChangeCallback(p34, p35) -- line: 967
+			-- upvalues: p1 (copy)
+			if p34 == Enum.TextInputType.Password then
+				p1:setState({
+					isPasswordAnimating = p35
+				})
+
+				return
+			end
+
+			p1:setState({
+				isUsernameAnimating = p35
+			})
+		end
+		function p1.onFocusedTextBoxPositionChanged(p36) -- line: 981
+			-- upvalues: p1 (copy)
+			if p1.state.isUsernameAnimating or p1.state.isPasswordAnimating then
+				p1.onTextBoxFocused(p36)
+			end
+		end
+		function p1.getScrollingFrameCanvasPosition(p37) -- line: 990
+			-- upvalues: p1 (copy)
+			if p37 > 0 then
+				return Vector2.new(0, p37)
+			end
+
+			if p1.scrollingFrameRef and p1.scrollingFrameRef.current then
+				return p1.scrollingFrameRef.current.CanvasPosition
+			end
+
+			return Vector2.new(0, 0)
+		end
+		function p1.onUsernameTextBoxFocused(p38) -- line: 1002
+			-- upvalues: p1 (copy), EventStreamConstants (copy)
+			p1:setState({
+				isUsernameFocused = true
+			})
+			p1.props.authEventAnalytics.reportUsernameFocus(EventStreamConstants.Context.SinglePageSignUpScreen)
+			p1.onTextBoxFocused(p38)
+		end
+		function p1.onDisplayNameTextBoxFocused(p39) -- line: 1012
+			-- upvalues: FFlagSignupDisplayNameLogging (copy), p1 (copy), EventStreamConstants (copy)
+			if FFlagSignupDisplayNameLogging then
+				p1.props.authEventAnalytics.reportDisplayNameFocus(EventStreamConstants.Context.SinglePageSignUpScreen)
+			end
+
+			p1.onTextBoxFocused(p39)
+		end
+		function p1.onPasswordTextBoxFocused(p40) -- line: 1020
+			-- upvalues: p1 (copy), EventStreamConstants (copy)
+			p1.props.authEventAnalytics.reportPasswordFocus(EventStreamConstants.Context.SinglePageSignUpScreen)
+			p1.onTextBoxFocused(p40)
+		end
+		function p1.updateIsSignUpInProgress(p41) -- line: 1025
+			-- upvalues: p1 (copy)
+			spawn(function() -- line: 1026
+				-- upvalues: p1 (copy), p41 (copy)
+				if p1.isMounted then
+					p1:setState({
+						isSignUpInProgress = p41
+					})
+				end
+			end)
+		end
+		function p1.requestSignUp(p42, p43) -- line: 1035
+			-- upvalues: p1 (copy), CredentialType (copy), FFlagEnableAuthDeepLinkReceiver (copy), PreAuthDeepLinkUrlStore (copy), LinkingProtocol (copy), v149 (copy), GetFFlagPasskeySignupEnabled (copy), GetFFlagCredProtocolRegisterPasswordOnSignup (copy), VerifiedSignupErrorCodes (copy), SignUpV2ErrorCodes (copy), FFlagEnableLuaAccountSwitch (copy), Constants3 (copy), AccountLinkingAlertType (copy)
+			local networking = p1.props.networking
+			local guiService = p1.props.guiService
+			local analytics = p1.props.analytics
+			local appPolicy = p1.props.appPolicy
+			local omniRecommendationsRequest = p1.props.omniRecommendationsRequest
+			local authEventAnalytics = p1.props.authEventAnalytics
+			local signUp = p1.props.signUp
+			local setBackNavigationDisabled = p1.props.setBackNavigationDisabled
+			local v360 = p1.useVerifiedSignup() and p1.state.contactMethod == CredentialType.PhoneNumber
+			local v361 = if not FFlagEnableAuthDeepLinkReceiver then LinkingProtocol:getLastLuaURL() else PreAuthDeepLinkUrlStore.getUrl()
+			local v362 = v149 and (v361 ~= nil and v361 ~= "")
+			local v363 = not p1.state.passkeysAvailable or v362
+			local v364 = GetFFlagPasskeySignupEnabled()
+
+			signUp(networking, omniRecommendationsRequest, guiService, function(p44, p45) -- line: 1046
+				-- upvalues: setBackNavigationDisabled (copy), p1 (copy), p42 (copy)
+				if p44 then
+					setBackNavigationDisabled(true)
+					p1.requestSignUp(p42, p45)
+
+					return
+				end
+
+				p1.updateIsSignUpInProgress(false)
+			end, p43, analytics, appPolicy, p42, v360, p1.props.shouldUsePasskeySignup and (v364 and (game:GetEngineFeature("SignupActionRequiredKeyAvailable") and not v363)), p1.props.shouldAutomaticallyPromptForPasskey, GetFFlagCredProtocolRegisterPasswordOnSignup() and p1.state.isCredentialsProtocolRegisterPasswordAvailable, authEventAnalytics, p1.props.isIosAuthServiceEnabled):andThen(function() -- line: 1100
+				-- upvalues: setBackNavigationDisabled (copy)
+				setBackNavigationDisabled(false)
+			end, function(p46) -- line: 1104
+				-- upvalues: setBackNavigationDisabled (copy), v360 (copy), VerifiedSignupErrorCodes (copy), p1 (copy), SignUpV2ErrorCodes (copy), FFlagEnableLuaAccountSwitch (copy), Constants3 (copy), AccountLinkingAlertType (copy)
+				setBackNavigationDisabled(false)
+
+				if v360 then
+					if p46 ~= VerifiedSignupErrorCodes.Captcha then
+						p1.updateIsSignUpInProgress(false)
+						p1:setState({
+							signUpError = true
+						})
+					end
+				else
+					if p46 ~= SignUpV2ErrorCodes.Captcha then
+						p1.updateIsSignUpInProgress(false)
+						p1:setState({
+							signUpError = true
+						})
+					end
+
+					if p46 == SignUpV2ErrorCodes.VNGAgeUnder12 then
+						p1:setState({
+							shouldShowUnderAgeAlert = true
+						})
+					end
+
+					if FFlagEnableLuaAccountSwitch == true and p46 == SignUpV2ErrorCodes.EmptyAccountSwitchBlobRequired then
+						p1.props.openAccountSwitchingErrorOverlay(not p1.props.showAccountSwitcherFoundationDesign and "Authentication.AccountSwitch.Header.LogoutAllAccounts" or "Authentication.AccountSwitch.Header.SignOutOtherAccounts", not p1.props.showAccountSwitcherFoundationDesign and "Authentication.AccountSwitch.Description.LogoutConfirmation" or "Authentication.AccountSwitch.Description.ContinueSignOutOthers", not p1.props.showAccountSwitcherFoundationDesign and "Authentication.AccountSwitch.Action.LogoutAllAccounts" or "Authentication.AccountSwitch.Action.Continue", "Authentication.CrossDevice.Action.CancelLogin", p1.logoutAllLoggedInUsersCallback, p1.props.closeCentralOverlay, Constants3.Auth.AccountSwitcherSignupEmptyBlobRequiredError, p1.state.username)
+						p1:setState({
+							signUpError = false
+						})
+					end
+
+					if FFlagEnableLuaAccountSwitch == true and p46 == SignUpV2ErrorCodes.ParentEmptyAccountSwitchBlobRequired then
+						p1.props.openAccountSwitchingErrorOverlay(not p1.props.showAccountSwitcherFoundationDesign and "Authentication.AccountSwitch.Header.LogoutAllAccounts" or "Authentication.AccountSwitch.Header.SignOutOtherAccounts", not p1.props.showAccountSwitcherFoundationDesign and "Authentication.AccountSwitch.Description.ParentLogoutConfirmation" or "Authentication.AccountSwitch.Description.ContinueSignOutOthers", not p1.props.showAccountSwitcherFoundationDesign and "Authentication.AccountSwitch.Action.LogoutAllAccounts" or "Authentication.AccountSwitch.Action.Continue", "Authentication.CrossDevice.Action.CancelLogin", p1.logoutAllLoggedInUsersCallback, p1.props.closeCentralOverlay, Constants3.Auth.AccountSwitcherParentSignupEmptyBlobRequiredError, p1.state.username)
+						p1:setState({
+							signUpError = false
+						})
+					end
+				end
+
+				if p46 == SignUpV2ErrorCodes.AccountLinkingRequired then
+					p1.props.showAccountLinkingAlert(AccountLinkingAlertType.RetryLogInAlreadyLinked)
+
+					return
+				end
+
+				if p46 == SignUpV2ErrorCodes.AccountLinkingFailed then
+					p1.props.showAccountLinkingAlert(AccountLinkingAlertType.RetryLogInGenericError)
+				end
+			end)
+		end
+		function p1.onSignUpButtonActivated() -- line: 1190
+			-- upvalues: p1 (copy), EventStreamConstants (copy), GetFFlagAuthIntentLoggingAtSignupButtonClickEnabled (copy), FFlagEnableAuthDeepLinkReceiver (copy), PreAuthDeepLinkUrlStore (copy), LinkingProtocol (copy), GetFFlagAuthIntentLoggingForShareLinkMetadataAtSignupButtonClickEnabled (copy), GetMetaDataFromShareLink (copy), HttpService (copy), GetFFlagAuthIntentLoggingForGameJoinEnabled (copy), ExperienceService (copy), v147 (copy), reportEphemeralCounter (copy), DisplayNameCounters (copy), v142 (copy), CredentialType (copy), UserAgreementsCounterNames (copy), FFlagKoreaKISAUnderAgeNumber (copy)
+			local setBackNavigationDisabled = p1.props.setBackNavigationDisabled
+			local birthday = p1.state.birthday
+			local username = p1.state.username
+			local password = p1.state.password
+			local gender = p1.state.gender
+			local v370 = p1.getIsSignUpButtonEnabled()
+			local locale = p1.locale
+			local emailInput = p1.state.emailInput
+
+			if v370 then
+				p1.props.authEventAnalytics.reportSignUpButtonClicked(EventStreamConstants.Context.SinglePageSignUpScreen)
+
+				if p1.getShouldBlockVNGU12SignUpOnClientSide() then
+					local v373 = p1.getUserAge()
+
+					if v373 == nil or v373 < 12 then
+						p1:setState({
+							shouldShowUnderAgeAlert = true
+						})
+
+						return
+					end
+				end
+
+				if GetFFlagAuthIntentLoggingAtSignupButtonClickEnabled() then
+					local v374 = if not FFlagEnableAuthDeepLinkReceiver then LinkingProtocol:getLastLuaURL() else PreAuthDeepLinkUrlStore.getUrl()
+					local s1 = ""
+
+					if GetFFlagAuthIntentLoggingForShareLinkMetadataAtSignupButtonClickEnabled() and v374 and string.find(v374, "share") then
+						local v376, v377, v378 = v374:match("code=(.-)&type=(.-)&stamp=(.*)")
+
+						if not v378 then
+							v376, v377 = v374:match("code=(.-)&type=(.*)")
+						end
+
+						if v376 and v377 then
+							GetMetaDataFromShareLink(p1.props.networking, v376, v377):andThen(function(p47) -- line: 1241
+								-- upvalues: s1 (ref), HttpService (copy)
+								if p47 and p47 ~= nil then
+									s1 = HttpService:JSONEncode(p47)
+								end
+							end, function(p48) -- line: 1245
+								warn("Error fetching share link metadata: ", p48)
+							end):await()
+						end
+					elseif GetFFlagAuthIntentLoggingForGameJoinEnabled() then
+						local PendingJoinAttempt = ExperienceService:GetPendingJoinAttempt()
+
+						if PendingJoinAttempt and PendingJoinAttempt ~= nil then
+							s1 = HttpService:JSONEncode(PendingJoinAttempt)
+						end
+					end
+
+					p1.props.authEventAnalytics.reportAuthButtonClick(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Button.SignUp, s1, v374, p1.isAltAttempt)
+				end
+
+				if v147 and p1.props.shouldSeeDisplayNamesOnSignup then
+					if username == p1.state.recommendedUsername then
+						reportEphemeralCounter(DisplayNameCounters.SignUpWithRecommendedUsernames, 1)
+					elseif p1.state.hasEditedUsername then
+						reportEphemeralCounter(DisplayNameCounters.SignUpWithEditedUsernames, 1)
+					end
+
+					if p1.state.bypassDisplayNameField then
+						reportEphemeralCounter(DisplayNameCounters.SignupBypassingDisplayNames, 1)
+					end
+				end
+
+				p1.updateIsSignUpInProgress(true)
+				setBackNavigationDisabled(true)
+				p1:setState({
+					signUpError = false
+				})
+
+				local t3 = {
+					birthday = birthday and birthday:FormatForEndpoint() or "",
+					username = username,
+					password = password,
+					displayName = if not v142 or not p1.isDisplayNameFieldRequired() then nil else p1.state.displayName,
+					gender = gender,
+					locale = locale,
+					capturedAuditContent = p1.props.capturedAuditContent,
+					additionalAuditContent = p1.props.additionalAuditContent
+				}
+				local v381 = p1.useVerifiedSignup()
+
+				if v381 and p1.state.contactMethod == CredentialType.Email then
+					t3.email = emailInput
+				elseif v381 and p1.state.contactMethod == CredentialType.PhoneNumber then
+					t3.verifiedSignupVoucher = p1.verifiedSignupVoucher
+				end
+
+				if p1.props.appPolicy.getAddUserAgreementIdsToSignupRequest() then
+					local agreements = p1.state.agreements
+
+					if #agreements > 0 then
+						local t4 = {}
+
+						for _, v in ipairs(agreements) do
+							table.insert(t4, v.id)
+						end
+
+						t3.agreementIds = t4
+					else
+						reportEphemeralCounter(UserAgreementsCounterNames.AgreementsIdsEmptyOnSignup, 1)
+					end
+				end
+
+				if p1.getShouldShowVNGAgreements() then
+					p1.props.showVNGUserAgreementsPopup(p1.state.agreements, function(p49) -- line: 1316
+						-- upvalues: t3 (copy), p1 (copy)
+						local v484 = t3
+						local t5 = {}
+
+						for _, v in ipairs(p49) do
+							table.insert(t5, v.id)
+						end
+
+						v484.agreementIds = t5
+						p1.requestSignUp(t3)
+					end, function() -- line: 1319
+						-- upvalues: p1 (copy), setBackNavigationDisabled (copy)
+						p1.updateIsSignUpInProgress(false)
+						setBackNavigationDisabled(false)
+					end)
+
+					return
+				end
+
+				if p1.getShouldShowKISAAgreements() then
+					local v386 = p1.getUserAge()
+
+					if v386 and v386 < FFlagKoreaKISAUnderAgeNumber then
+						p1.launchParentSignUpOtp(t3)
+
+						return
+					end
+
+					p1.launchKISATermsOfService(t3, false)
+
+					return
+				end
+
+				p1.requestSignUp(t3)
+			end
+		end
+		function p1.onGenderChanged(p50) -- line: 1338
+			-- upvalues: p1 (copy)
+			if p1.isMounted then
+				p1.updateState({
+					gender = p50
+				})
+			end
+		end
+		function p1.validUsernameEntered(_) -- line: 1346
+			-- upvalues: p1 (copy), InputValidity (copy)
+			return p1.state.username ~= "" and p1.state.usernameValid ~= InputValidity.Invalid
+		end
+		function p1.validPasswordEntered() -- line: 1350
+			-- upvalues: p1 (copy), InputValidity (copy)
+			return p1.state.password ~= "" and p1.state.passwordValid ~= InputValidity.Invalid
+		end
+		function p1.useVerifiedSignup() -- line: 1354
+			-- upvalues: p1 (copy), GuiService (copy)
+			return game:GetFastFlag("LuaVerifiedSignup2") or game:GetFastFlag("LuaVerifiedSignupExperiment2") and (p1.props.useVerifiedSignupPage and not GuiService:IsTenFootInterface())
+		end
+		function p1.useUsernameSuggestions() -- line: 1361
+			-- upvalues: p1 (copy)
+			return p1.props.shouldUseUsernameSuggestions
+		end
+		function p1.useRefreshButton() -- line: 1365
+			-- upvalues: p1 (copy)
+			return p1.props.enableRefreshButton
+		end
+		function p1.getBirthdayVariant() -- line: 1369
+			-- upvalues: p1 (copy), GetFFlagEnableSignupBirthdayExperiments (copy)
+			if p1.getShouldUseAgeInput() then
+				return 1
+			end
+
+			if GetFFlagEnableSignupBirthdayExperiments() and p1.props.birthdayPickerVariant ~= nil then
+				return p1.props.birthdayPickerVariant
+			end
+
+			return 0
+		end
+		function p1.SetContactMethod(p52) -- line: 1379
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				contactMethod = p52
+			})
+		end
+		function p1.SetPhoneNumber(p53, p54, p55) -- line: 1385
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				phoneCountryCode = p53,
+				phoneInput = p54,
+				phoneValid = p55
+			})
+		end
+		function p1.SetEmail(p56, p57) -- line: 1393
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				emailInput = p56,
+				emailValid = p57
+			})
+		end
+		function p1.updatePillClicked() -- line: 1401
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				pillClicked = true
+			})
+		end
+		function p1.resetPillClicked() -- line: 1407
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				pillClicked = false
+			})
+		end
+		function p1.updateIssueCondition(p58) -- line: 1413
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				issueCondition = p58
+			})
+		end
+		function p1.updateSuggestionControlState(_, p60) -- line: 1419
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				suggestionControlState = p60
+			})
+		end
+		function p1.loadSuggestions() -- line: 1425
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				loadingSuggestions = true
+			})
+		end
+		function p1.finishSuggestions() -- line: 1429
+			-- upvalues: p1 (copy)
+			p1.updateState({
+				loadingSuggestions = false
+			})
+		end
+		function p1.onSignUpContentFrameCanvasSizeChange(_) -- line: 1433
+			-- upvalues: p1 (copy)
+			local v399 = p1.scrollCanvasTargetPositionY:getValue()
+
+			p1.scrollingFrameRef.current.CanvasPosition = p1.getScrollingFrameCanvasPosition(v399)
+		end
+		function p1.getUserAge() -- line: 1438
+			-- upvalues: p1 (copy)
+			if p1.state.birthday then
+				return p1.state.birthday:GetAgeInYears()
+			end
+
+			return nil
+		end
+		function p1.getUsernamePlaceholder(t6: {[any]: any}) -- line: 1446
+			-- upvalues: p1 (copy), v146 (copy)
+			if p1.props.shouldSeeDisplayNamesOnSignup then
+				if not p1.state.birthday then
+					return ""
+				end
+
+				if p1.getUserAge() >= v146 and not p1.state.hasSetIneligibleAgeAtLeastOnce then
+					return t6.agedUpUsernamePlaceholder
+				end
+
+				return t6.usernamePlaceholder
+			end
+
+			return t6.usernamePlaceholder
+		end
+		function p1.shouldShowUsernameField() -- line: 1470
+			-- upvalues: p1 (copy), v146 (copy)
+			if p1.props.shouldSeeDisplayNamesOnSignup then
+				if not p1.state.birthday or p1.getUserAge() < v146 or p1.state.hasSetIneligibleAgeAtLeastOnce then
+					return true
+				end
+
+				return p1.state.recommendedUsername ~= nil
+			end
+
+			return true
+		end
+		function p1.shouldShowDisplayNameField() -- line: 1486
+			-- upvalues: p1 (copy), v146 (copy)
+			return p1.props.shouldSeeDisplayNamesOnSignup and (p1.state.birthday and (p1.getUserAge() >= v146 and not p1.state.hasSetIneligibleAgeAtLeastOnce))
+		end
+		function p1.isDisplayNameFieldRequired() -- line: 1493
+			-- upvalues: p1 (copy)
+			return p1.shouldShowDisplayNameField() and not p1.state.bypassDisplayNameField
+		end
+		function p1.isValidDisplayNameEntered() -- line: 1497
+			-- upvalues: p1 (copy), InputValidity (copy)
+			return p1.state.displayName ~= "" and p1.state.displayNameValid ~= InputValidity.Invalid
+		end
+		function p1.setUsernameRecommendation(s2: string) -- line: 1501
+			-- upvalues: p1 (copy)
+			p1:setState(function(p62) -- line: 1502
+				-- upvalues: s2 (copy)
+				return {
+					recommendedUsername = if p62.recommendedUsername == nil or s2 ~= "" then s2 else nil
+				}
+			end)
+		end
+		function p1.getUsernameGuidanceText(t7: {[any]: any}) -- line: 1512
+			-- upvalues: p1 (copy)
+			if p1.shouldShowDisplayNameField() and (p1.state.recommendedUsername ~= "" and p1.state.recommendedUsername ~= nil and not p1.state.hasEditedUsername and not p1.state.isUsernameFocused) then
+				return t7.autogeneratedUsernameGuidance
+			end
+
+			return nil
+		end
+		function p1.validateOtpCode(p63, p64, p65) -- line: 1524
+			-- upvalues: p1 (copy), Constants2 (copy), ValidateCode (copy), Promise (copy)
+			p1.state.otpSessionToken = p63
+			p1.state.otpCode = p64
+
+			local networking = p1.props.networking
+			local t8 = {
+				origin = Constants2.otpServiceOriginSignup,
+				contactType = Constants2.otpServiceContactType,
+				passCode = p1.state.otpCode,
+				otpSessionToken = p1.state.otpSessionToken
+			}
+			local t9 = {
+				otpSessionToken = tostring(p1.state.otpSessionToken),
+				otpContactType = Constants2.otpServiceContactType
+			}
+
+			return ValidateCode(networking, t8)():andThen(function(_) -- line: 1544
+				-- upvalues: p1 (copy), p65 (copy), t9 (copy)
+				p1.props.closeCentralOverlay()
+				p65.otpSession = t9
+				p1.launchKISATermsOfService(p65, true)
+			end):catch(function(p67) -- line: 1549
+				-- upvalues: Promise (copy)
+				return Promise.reject(p67)
+			end)
+		end
+		function p1.onAbandonKISASignUpFlow() -- line: 1554
+			-- upvalues: AnalyticsEvents (copy), EventConstants (copy), p1 (copy)
+			AnalyticsEvents.sendButtonClickEvent(EventConstants.ctx.kisaAgreements, EventConstants.origin.signup, EventConstants.btn.cancel)
+			p1.updateIsSignUpInProgress(false)
+		end
+		function p1.launchParentSignUpOtp(p68) -- line: 1564
+			-- upvalues: Constants2 (copy), p1 (copy)
+			local t10 = {
+				origin = Constants2.otpServiceOriginSignup,
+				codeLength = 6,
+				enterEmailTitleKey = Constants2.translationKeys.parentEmailTitleKey,
+				enterEmailDescriptionKey = Constants2.translationKeys.sendParentVerificationCodeKey,
+				enterCodeTitleKey = Constants2.translationKeys.oneTimeCodeTitleKey,
+				enterCodeDescriptionKey = Constants2.translationKeys.oneTimeCodeHelpDescriptionKey,
+				complianceCheckboxMessageKey = Constants2.translationKeys.parentalConsentModalDescriptionKey,
+				onSubmitCode = function(p69, p70) --[[ onSubmitCode ]] -- line: 1575
+					-- upvalues: p1 (copy), p68 (copy)
+					return p1.validateOtpCode(p69, p70, p68)
+				end,
+				onModalAbandoned = p1.onAbandonKISASignUpFlow,
+				screenSize = p1.props.screenSize
+			}
+
+			p1.props.openEmailOtp(t10)
+		end
+
+		if not v143 then
+			default:isAvailable(default.CredentialsTypes.FIDO2, GetFIntLuaAppCredentialsProtocolAvailableTimeout()):andThen(function(p71) -- line: 1588
+				-- upvalues: p1 (copy), EventStreamConstants (copy)
+				local v412 = p71.isAvailable or false
+				local v413 = false
+
+				if p71.password and p71.password.isAvailable then
+					v413 = true
+				end
+
+				if p1.isMounted then
+					p1:setState({
+						passkeysAvailable = v412,
+						isCredentialsProtocolRegisterPasswordAvailable = v413
+					})
+				end
+
+				p1.props.authEventAnalytics.reportAuthPageload(EventStreamConstants.Context.PasskeySignup, (tostring(v412)))
+				p1.props.authEventAnalytics.reportAuthPageload(EventStreamConstants.Context.CMPasswordSignup, (tostring(v413)))
+			end):catch(function(p72) -- line: 1614
+				warn("Error checking for available credential types. Error: ", p72)
+			end)
+		end
+
+		p1.isMounted = false
+	end
+end
+
+function v171.didMount(p73) -- line: 1622
+	-- upvalues: v143 (copy), default (copy), GetFIntLuaAppCredentialsProtocolAvailableTimeout (copy), EventStreamConstants (copy), v159 (copy), FFlagEnableLuaAccountSwitch (copy), MemStorageService (copy), MemStorageKeys (copy), UserInputService (copy), reportEphemeralCounter (copy), UserAgreementsCounterNames (copy), v136 (copy), TelemetryConfigs (copy), GetFFlagAuthIntentLoggingAtSignupEnabled (copy), FFlagEnableAuthDeepLinkReceiver (copy), PreAuthDeepLinkUrlStore (copy), LinkingProtocol (copy), GetFFlagIsAltAttemptLoggingAtSignup (copy), ApiFetchAuthMetaData (copy)
+	p73.isMounted = true
+	p73.isAltAttempt = nil
+
+	if v143 then
+		default:isAvailable(default.CredentialsTypes.FIDO2, GetFIntLuaAppCredentialsProtocolAvailableTimeout()):andThen(function(p74) -- line: 1629
+			-- upvalues: p73 (copy), EventStreamConstants (copy)
+			local v416 = p74.isAvailable or false
+			local v417 = false
+
+			if p74.password and p74.password.isAvailable then
+				v417 = true
+			end
+
+			if p73.isMounted then
+				p73:setState({
+					passkeysAvailable = v416,
+					isCredentialsProtocolRegisterPasswordAvailable = v417
+				})
+			end
+
+			p73.props.authEventAnalytics.reportAuthPageload(EventStreamConstants.Context.PasskeySignup, (tostring(v416)))
+			p73.props.authEventAnalytics.reportAuthPageload(EventStreamConstants.Context.CMPasswordSignup, (tostring(v417)))
+		end):catch(function(p75) -- line: 1655
+			warn("Error checking for available credential types. Error: ", p75)
+		end)
+	end
+
+	if not v159 and FFlagEnableLuaAccountSwitch == true and p73.isAlreadyAuthenticated == true then
+		MemStorageService:Fire(MemStorageKeys.ThemeUpdate, "dark")
+	end
+
+	p73.keyboardVisibleChanged = UserInputService:GetPropertyChangedSignal("OnScreenKeyboardVisible"):Connect(function() -- line: 1672
+		-- upvalues: UserInputService (copy), p73 (copy)
+		local v419 = UserInputService.OnScreenKeyboardVisible and UserInputService.OnScreenKeyboardSize.Y or 0
+
+		p73:setState({
+			onScreenKeyboardHeight = v419
+		})
+	end)
+
+	local v185 = p73.props.appPolicy.getAddUserAgreementIdsToSignupRequest()
+	local v186 = p73.getShouldShowVNGAgreements()
+	local v187 = p73.getShouldShowKISAAgreements()
+
+	if v185 or v186 or v187 then
+		v136(p73.props.networking, p73.props.analytics):andThen(function(p76) -- line: 1685
+			-- upvalues: reportEphemeralCounter (copy), UserAgreementsCounterNames (copy), p73 (copy)
+			if not p76 then
+				reportEphemeralCounter(UserAgreementsCounterNames.FetchAgreementsHttpRequestFailureOnSignup, 1)
+
+				return
+			end
+
+			if #p76 > 0 then
+				p73.updateState({
+					agreements = p76
+				})
+
+				return
+			end
+
+			reportEphemeralCounter(UserAgreementsCounterNames.FetchAgreementsEmptyResponseOnSignup, 1)
+		end, function() -- line: 1702
+		end)
+	end
+
+	p73.props.authEventAnalytics.reportScreenLoaded(EventStreamConstants.Context.SinglePageSignUpScreen)
+	p73.props.loggingProtocol:logEventOnce("signup_page_did_mount")
+	p73.props.loggingProtocol:logRobloxTelemetryCounter(TelemetryConfigs.SignupPageMountTelemetryConfig, 1, {
+		version = 1
+	})
+
+	if GetFFlagAuthIntentLoggingAtSignupEnabled() then
+		local v188 = if not FFlagEnableAuthDeepLinkReceiver then LinkingProtocol:getLastLuaURL() else PreAuthDeepLinkUrlStore.getUrl()
+
+		if GetFFlagIsAltAttemptLoggingAtSignup() then
+			ApiFetchAuthMetaData(p73.props.networking):andThen(function(p77) -- line: 1720
+				-- upvalues: p73 (copy), EventStreamConstants (copy), v188 (copy)
+				if p77 and p77.IsAltBrowserTracker ~= nil then
+					p73.isAltAttempt = p77.IsAltBrowserTracker
+					p73.props.authEventAnalytics.reportAuthPageload(EventStreamConstants.Context.SinglePageSignUpScreen, v188, p73.isAltAttempt)
+				end
+			end, function(_) -- line: 1729
+				-- upvalues: p73 (copy), EventStreamConstants (copy), v188 (copy)
+				warn("Error auth metadata: ", error)
+				p73.props.authEventAnalytics.reportAuthPageload(EventStreamConstants.Context.SinglePageSignUpScreen, v188, p73.isAltAttempt)
+			end)
+		else
+			p73.props.authEventAnalytics.reportAuthPageload(EventStreamConstants.Context.SinglePageSignUpScreen, v188, p73.isAltAttempt)
+		end
+	end
+
+	if p73.props.focusedGuiObject and p73.backButtonRef and p73.backButtonRef.current then
+		p73.props.focusGuiObject(p73.backButtonRef.current)
+	end
+end
+function v171.willUnmount(p79) -- line: 1751
+	-- upvalues: FFlagEnableLuaAccountSwitch (copy)
+	p79.isMounted = false
+	p79.isAltAttempt = nil
+
+	if FFlagEnableLuaAccountSwitch == true and p79.isAlreadyAuthenticated == true then
+		p79.resetDefaultTheme()
+	end
+
+	if p79.keyboardVisibleChanged then
+		p79.keyboardVisibleChanged:disconnect()
+		p79.keyboardVisibleChanged = nil
+	end
+end
+function v171.didUpdate(p80, _, p82) -- line: 1765
+	-- upvalues: v142 (copy), v146 (copy), v147 (copy), reportEphemeralCounter (copy), DisplayNameCounters (copy)
+	if p80.props.focusedGuiObject and (p80.props.birthdayContainerRef.current and p80.props.focusedGuiObject:IsDescendantOf(p80.props.birthdayContainerRef.current)) then
+		p80.updateScrollCanvasTargetPositionY(10)
+	else
+		p80.updateScrollCanvasTargetPositionY(0)
+	end
+
+	if v142 and p80.state.birthday ~= nil and not p80.state.hasSetIneligibleAgeAtLeastOnce and p80.getUserAge() < v146 then
+		p80:setState({
+			hasSetIneligibleAgeAtLeastOnce = true
+		})
+	end
+
+	if v147 and p80.props.shouldSeeDisplayNamesOnSignup then
+		if p80.state.recommendedUsername ~= "" and p80.state.hasEditedUsername and p80.state.hasEditedUsername ~= p82.hasEditedUsername then
+			reportEphemeralCounter(DisplayNameCounters.ReccomendedNameEdited, 1)
+		end
+
+		if p80.state.recommendedUsername ~= nil and p80.state.recommendedUsername ~= "" and p80.state.hasEditedUsername == true and p80.state.username == "" and p82.username ~= "" and p80.props.shouldSeeDisplayNamesOnSignup then
+			reportEphemeralCounter(DisplayNameCounters.ReccomendedNameManuallyCleared, 1)
+		end
+
+		if p80.state.birthday ~= nil and p82.birthday ~= nil and p80.state.birthday ~= p82.birthday then
+			if p80.getUserAge() >= v146 and p82.birthday:GetAgeInYears() < v146 then
+				reportEphemeralCounter(DisplayNameCounters.BirthdayChangedToAboveDisplayAge, 1)
+			end
+
+			if p80.getUserAge() < v146 and p82.birthday:GetAgeInYears() >= v146 then
+				reportEphemeralCounter(DisplayNameCounters.BirthdayChangedToAboveDisplayAge, 1)
+			end
+		end
+	end
+end
+function v171.render(p83) -- line: 1827
+	-- upvalues: v159 (copy), FFlagEnableLuaAccountSwitch (copy), Roact (copy), UiModeStyleProvider (copy), Constants (copy), GetFFlagLuaAppSignUpPageRefactor (copy)
+	if v159 and (FFlagEnableLuaAccountSwitch and p83.isAlreadyAuthenticated) then
+		return Roact.createElement(UiModeStyleProvider, {
+			style = {
+				themeName = Constants.ThemeName.Dark,
+				fontName = Constants.FontName.Gotham
+			}
+		}, {
+			Child = if not GetFFlagLuaAppSignUpPageRefactor() then p83:renderDeprecated() else p83:renderWithView()
+		})
+	end
+
+	if GetFFlagLuaAppSignUpPageRefactor() then
+		return p83:renderWithView()
+	end
+
+	return p83:renderDeprecated()
+end
+function v171.renderWithView(p84) -- line: 1846
+	-- upvalues: withLocalization (copy), RobloxLocaleIdKey (copy), Roact (copy), SignUpPageView (copy), UsernameValidator (copy), PasswordValidator (copy)
+	local v195 = p84.getIsSignUpButtonEnabled()
+
+	return withLocalization({})(function(p85) -- line: 1849
+		-- upvalues: p84 (copy), RobloxLocaleIdKey (copy), Roact (copy), SignUpPageView (copy), v195 (copy), UsernameValidator (copy), PasswordValidator (copy)
+		p84.locale = p85[RobloxLocaleIdKey]
+
+		return Roact.createElement(SignUpPageView, {
+			navigateBack = p84.props.navigateBack,
+			useVerifiedSignup = p84.useVerifiedSignup,
+			useUsernameSuggestions = p84.useUsernameSuggestions,
+			useRefreshButton = p84.useRefreshButton,
+			onGenderChanged = p84.onGenderChanged,
+			getHidePassword = p84.getHidePassword,
+			passwordVisibilityToggleCallback = p84.passwordVisibilityToggleCallback,
+			onBirthdaySelected = p84.onBirthdaySelected,
+			onBirthdayFocused = p84.onBirthdayFocused,
+			onSignUpClick = p84.onSignUpClick,
+			usernameSuggestionClicked = p84.usernameSuggestionClicked,
+			usernameSuggestionsShown = p84.usernameSuggestionsShown,
+			shouldSuggest = p84.shouldSuggest,
+			updateIssueCondition = p84.updateIssueCondition,
+			updateSuggestionControlState = p84.updateSuggestionControlState,
+			logRefreshButtonClicked = p84.logRefreshButtonClicked,
+			loadSuggestions = p84.loadSuggestions,
+			finishSuggestions = p84.finishSuggestions,
+			validUsernameEntered = p84.validUsernameEntered,
+			validPasswordEntered = p84.validPasswordEntered,
+			onUsernameTextBoxFocused = p84.onUsernameTextBoxFocused,
+			onPasswordTextBoxFocused = p84.onPasswordTextBoxFocused,
+			onUsernameTextChanged = p84.onUsernameTextChanged,
+			onUsernameTextValidated = p84.onUsernameTextValidated,
+			onPasswordTextChanged = p84.onPasswordTextChanged,
+			onTextBoxFocusLost = p84.onTextBoxFocusLost,
+			onFocusedTextBoxPositionChanged = p84.onFocusedTextBoxPositionChanged,
+			onAnimationStateChangeCallback = p84.onAnimationStateChangeCallback,
+			onUsernameTextChangeCompletedFromKeyboard = p84.onUsernameTextChangeCompletedFromKeyboard,
+			onPasswordTextChangeCompletedFromKeyboard = p84.onPasswordTextChangeCompletedFromKeyboard,
+			phoneCountryCodeSelectorCallback = p84.phoneCountryCodeSelectorCallback,
+			SetContactMethod = p84.SetContactMethod,
+			SetPhoneNumber = p84.SetPhoneNumber,
+			SetEmail = p84.SetEmail,
+			isUsernameAnimating = p84.state.isUsernameAnimating,
+			isPasswordAnimating = p84.state.isPasswordAnimating,
+			birthday = p84.state.birthday,
+			username = p84.state.username,
+			isSignUpInProgress = p84.state.isSignUpInProgress,
+			onScreenKeyboardHeight = p84.state.onScreenKeyboardHeight,
+			usernameValid = p84.state.usernameValid,
+			passwordValid = p84.state.passwordValid,
+			issueCondition = p84.state.issueCondition,
+			loadingSuggestions = p84.state.loadingSuggestions,
+			isSignUpButtonEnabled = v195,
+			birthdayFocused = p84.state.birthdayFocused,
+			isCountryCodeSearchVisible = p84.state.isCountryCodeSearchVisible,
+			contactMethod = p84.state.contactMethod,
+			signUpError = p84.state.signUpError,
+			UsernameValidator = UsernameValidator,
+			PasswordValidator = PasswordValidator,
+			signUpContentFrameRef = p84.scrollingFrameRef,
+			ageTextFieldRef = p84.ageTextFieldRef,
+			usernameTextFieldRef = p84.usernameTextFieldRef,
+			passwordTextFieldRef = p84.passwordTextFieldRef,
+			passwordFrameRef = p84.passwordFrameRef,
+			onSignUpContentFrameCanvasSizeChange = p84.onSignUpContentFrameCanvasSizeChange,
+			scrollCanvasTargetPositionY = p84.scrollCanvasTargetPositionY,
+			updateScrollCanvasTargetPositionY = p84.updateScrollCanvasTargetPositionY,
+			getScrollingFrameCanvasPosition = p84.getScrollingFrameCanvasPosition
+		})
+	end)
+end
+function v171.renderDeprecated(p86) -- line: 1935
+	-- upvalues: FormFactor (copy), GetFFlagEnableTextFieldContentType (copy), FFlagFoundationStylingOnSignUp (copy), v142 (copy), DisclaimerLinksVariant (copy), GetFFlagMinimalSignupAuthEnabled (copy), GetFFlagPasswordlessSignupAuthEnabled (copy), FFlagEnableAuthDeepLinkReceiver (copy), PreAuthDeepLinkUrlStore (copy), LinkingProtocol (copy), v149 (copy), GetFFlagPasskeySignupEnabled (copy), v144 (copy), v168 (copy), withStyle (copy), withLocalization (copy), RobloxLocaleIdKey (copy), v166 (copy), Roact (copy), FullscreenPageWithSafeArea (copy), BackgroundFill (copy), UnderAgeInteractiveAlert (copy), ImageSetLabel (copy), GetImageData (copy), vector2 (copy), ImageSetButton (copy), uDim2 (copy), FoundationText (copy), FitTextLabel (copy), FitChildren (copy), AuthBirthdayBar (copy), v159 (copy), FFlagEnableLuaAccountSwitch (copy), GetFFlagEnableAuditForSinglePageSignUp (copy), BirthdayField (copy), InputValidity (copy), ContactInfoField (copy), DateHelper (copy), React (copy), DisplayNameField (copy), CollapsingTextInputValidator (copy), UsernameValidator (copy), UsernameValidationContext (copy), SuggestionsFrame (copy), UsernameSuggestor (copy), EngineFeature (copy), PasswordValidator (copy), GetFIntLuaLoginGenderSelector (copy), SignUpGenderSelector (copy), Foundation (copy), Button (copy), ButtonType (copy), View (copy), Checkbox (copy), EventStreamConstants (copy), InputSize (copy), TitleAndParagraph (copy), DisclaimerLinks (copy)
+	local birthday = p86.state.birthday
+	local username = p86.state.username
+	local v199 = p86.getIsSignUpButtonEnabled()
+	local isSignUpInProgress = p86.state.isSignUpInProgress
+	local gender = p86.state.gender
+	local v202 = p86.props.formFactor == FormFactor.WIDE
+	local isCompactView = p86.props.isCompactView
+	local n1 = 0
+	local n2 = 0
+	local v206 = p86.state.onScreenKeyboardHeight > 0
+	local contactMethod = p86.state.contactMethod
+	local foundationTokens = p86.props.foundationTokens
+	local shouldUseFoundationBackgroundColor = p86.props.shouldUseFoundationBackgroundColor
+	local v210 = GetFFlagEnableTextFieldContentType() and Enum.TextInputType.Username or Enum.TextInputType.NoSuggestions
+	local u211 = not p86.validUsernameEntered()
+	local v212 = p86.useVerifiedSignup()
+	local v213 = (not v202 or not v212) and 0 or 12
+	local s3 = "Authentication.SignUp.Label.ErrorsWithUsername"
+	local s4 = "Authentication.SignUp.Label.ErrorsWithPassword"
+	local v216 = p86.useUsernameSuggestions()
+	local v217 = p86.useRefreshButton()
+	local v218 = FFlagFoundationStylingOnSignUp and isCompactView
+
+	if not birthday then
+		s3 = "Authentication.SignUp.Response.BirthdayMustBeSetFirst"
+		s4 = s3
+		u211 = true
+	elseif v142 and p86.isDisplayNameFieldRequired() and not p86.isValidDisplayNameEntered() then
+		u211 = true
+		s4 = "Authentication.SignUp.Response.AgedUpDisplayNameSetFirst"
+	elseif u211 then
+		s4 = "Authentication.SignUp.Response.UsernameMustBeSetFirst"
+	end
+
+	if v202 then
+		if v206 then
+			n1 = p86.state.onScreenKeyboardHeight + 10
+		else
+			n1 = 48
+			n2 = 24
+		end
+	end
+
+	local Default = nil
+
+	if v218 then
+		Default = DisclaimerLinksVariant.Default
+	end
+
+	local v220 = GetFFlagMinimalSignupAuthEnabled()
+	local v221 = p86.props.shouldUseMinimalSignup and v220
+	local v222 = p86.props.shouldHideGenderOption and v220
+	local v223 = p86.props.shouldAutofocusOnBirthday and v220
+	local v224 = GetFFlagPasswordlessSignupAuthEnabled()
+	local u225 = p86.props.shouldUsePasswordlessSignup and v224
+	local v226 = p86.getShouldShowVNGAgreements()
+	local v227 = p86.getShouldShowKISAAgreements()
+	local v228 = if not FFlagEnableAuthDeepLinkReceiver then LinkingProtocol:getLastLuaURL() else PreAuthDeepLinkUrlStore.getUrl()
+	local v229 = v149 and (v228 ~= nil and v228 ~= "")
+	local v230 = not p86.state.passkeysAvailable or v229
+
+	if GetFFlagPasskeySignupEnabled() and p86.props.shouldUsePasskeySignup and v230 then
+		u225 = false
+	end
+
+	local v231 = v144 and p86.props.shouldDisableUsernameAutofill
+	local v232 = GetFFlagPasskeySignupEnabled()
+	local v233 = p86.props.shouldUsePasskeySignup and (v232 and (game:GetEngineFeature("SignupActionRequiredKeyAvailable") and not v230))
+	local v234 = v168
+
+	return withStyle(function(t11: {[any]: any}) -- line: 2046
+		-- upvalues: withLocalization (copy), v142 (copy), p86 (copy), RobloxLocaleIdKey (copy), v221 (copy), v202 (copy), v218 (copy), foundationTokens (copy), v166 (copy), v233 (copy), Roact (copy), FullscreenPageWithSafeArea (copy), shouldUseFoundationBackgroundColor (copy), BackgroundFill (copy), isSignUpInProgress (copy), UnderAgeInteractiveAlert (copy), ImageSetLabel (copy), n1 (ref), n2 (ref), GetImageData (copy), vector2 (copy), ImageSetButton (copy), uDim2 (copy), v234 (copy), FoundationText (copy), FitTextLabel (copy), FitChildren (copy), v213 (copy), AuthBirthdayBar (copy), v212 (copy), v223 (copy), v159 (copy), FFlagEnableLuaAccountSwitch (copy), GetFFlagEnableAuditForSinglePageSignUp (copy), BirthdayField (copy), InputValidity (copy), ContactInfoField (copy), birthday (copy), DateHelper (copy), contactMethod (copy), React (copy), DisplayNameField (copy), CollapsingTextInputValidator (copy), s3 (ref), v231 (copy), v210 (copy), v216 (copy), UsernameValidator (copy), UsernameValidationContext (copy), SuggestionsFrame (copy), UsernameSuggestor (copy), v217 (copy), u225 (ref), s4 (ref), u211 (ref), EngineFeature (copy), PasswordValidator (copy), username (copy), v222 (copy), GetFIntLuaLoginGenderSelector (copy), SignUpGenderSelector (copy), gender (copy), Foundation (copy), v199 (copy), Button (copy), ButtonType (copy), View (copy), Checkbox (copy), EventStreamConstants (copy), InputSize (copy), v226 (copy), v227 (copy), TitleAndParagraph (copy), DisclaimerLinks (copy), FFlagFoundationStylingOnSignUp (copy), Default (ref), v206 (copy)
+		return withLocalization({
+			signUpText = "Authentication.SignUp.Action.CreateAccount",
+			continueText = "Authentication.SignUp.Action.Continue",
+			usernamePlaceholder = "Authentication.SignUp.Message.Username.NoRealNameUse",
+			agedUpUsernamePlaceholder = "Authentication.Login.Label.AgedUpUsername",
+			passwordPlaceholder = "Authentication.SignUp.Label.PasswordPlaceholder",
+			autogeneratedUsernameGuidance = if not v142 then nil else "Feature.DisplayName.Label.GeneratedUserName",
+			usernameHelperTitleText = "Authentication.SignUp.Heading.PickAUsername",
+			usernameHelperDescriptionText = "Authentication.SignUp.Description.UsernameHelp",
+			signUpAgreementFullCopyCheckboxText = "Authentication.SignUp.Description.AgreeToTermsWithGuardian.NoParameters",
+			signUpAgreementShortCopyCheckboxText = "Authentication.SignUp.Description.SignUpAgreement.ShortCopy"
+		})(function(p87) -- line: 2060
+			-- upvalues: p86 (copy), RobloxLocaleIdKey (copy), v221 (copy), v202 (copy), v218 (copy), foundationTokens (copy), v142 (copy), v166 (copy), v233 (copy), Roact (copy), FullscreenPageWithSafeArea (copy), shouldUseFoundationBackgroundColor (copy), t11 (copy), BackgroundFill (copy), isSignUpInProgress (copy), UnderAgeInteractiveAlert (copy), ImageSetLabel (copy), n1 (ref), n2 (ref), GetImageData (copy), vector2 (copy), ImageSetButton (copy), uDim2 (copy), v234 (copy), FoundationText (copy), FitTextLabel (copy), FitChildren (copy), v213 (copy), AuthBirthdayBar (copy), v212 (copy), v223 (copy), v159 (copy), FFlagEnableLuaAccountSwitch (copy), GetFFlagEnableAuditForSinglePageSignUp (copy), BirthdayField (copy), InputValidity (copy), ContactInfoField (copy), birthday (copy), DateHelper (copy), contactMethod (copy), React (copy), DisplayNameField (copy), CollapsingTextInputValidator (copy), s3 (ref), v231 (copy), v210 (copy), v216 (copy), UsernameValidator (copy), UsernameValidationContext (copy), SuggestionsFrame (copy), UsernameSuggestor (copy), v217 (copy), u225 (ref), s4 (ref), u211 (ref), EngineFeature (copy), PasswordValidator (copy), username (copy), v222 (copy), GetFIntLuaLoginGenderSelector (copy), SignUpGenderSelector (copy), gender (copy), Foundation (copy), v199 (copy), Button (copy), ButtonType (copy), View (copy), Checkbox (copy), EventStreamConstants (copy), InputSize (copy), v226 (copy), v227 (copy), TitleAndParagraph (copy), DisclaimerLinks (copy), FFlagFoundationStylingOnSignUp (copy), Default (ref), v206 (copy)
+			p86.locale = p87[RobloxLocaleIdKey]
+
+			local v494 = not v221
+			local v495 = not v202 and 48 or 25
+			local uDim2_2 = UDim2.new(0.5, 0, 0, 49)
+
+			if v218 then
+				v495 += foundationTokens.Padding.Medium
+				uDim2_2 = UDim2.new(0.5, 0, 0, 1 + foundationTokens.Padding.Medium)
+			end
+
+			if v142 then
+				v494 = p86.shouldShowUsernameField() and not v221
+			end
+
+			local v497 = not p86.getSignupCheckboxDisabled() and p86.props.shouldRequireSignupCheckbox
+			local v498 = not v166 and "Authentication.SignUp.Description.VerificationPage.CreateAccount" or "Authentication.SignUp.Description.SignUpAgreement.FullCopy.CreateAccount"
+
+			if v233 then
+				v498 = "Authentication.SignUp.Description.VerificationPageMultiStep"
+			else
+				local signUpText = p87.signUpText
+				local t12 = nil
+				local v501 = p86.props.appPolicy.getPlatformAccountName()
+
+				if v501 and p86.props.appPolicy.getUseSingleSignOn() then
+					t12 = {
+						"Authentication.SignUp.Description.VerificationLinkingText.VariableButtonName",
+						platform = v501,
+						ctaButton = signUpText
+					}
+				end
+
+				if t12 then
+					local signUpText2 = p87.signUpText
+
+					v498 = nil
+
+					local v503 = p86.props.appPolicy.getPlatformAccountName()
+
+					if v503 and p86.props.appPolicy.getUseSingleSignOn() then
+						v498 = {
+							"Authentication.SignUp.Description.VerificationLinkingText.VariableButtonName",
+							platform = v503,
+							ctaButton = signUpText2
+						}
+					end
+				end
+			end
+
+			local s5 = ""
+
+			if not p86.getSignupCheckboxDisabled() then
+				if p86.props.signupLegalDisclaimerTextVariant == 1 then
+					if v497 then
+						s5 = p87.signUpAgreementFullCopyCheckboxText
+					else
+						v498 = not v233 and "Authentication.SignUp.Description.SignupAgreement.FullCopy.CreateAccount" or "Authentication.SignUp.Description.SignUpAgreement.FullCopy.Continue"
+					end
+				elseif p86.props.signupLegalDisclaimerTextVariant == 2 and v497 then
+					s5 = p87.signUpAgreementShortCopyCheckboxText
+				end
+			end
+
+			local v505 = p86.props.shouldShowBackButton == nil or p86.props.shouldShowBackButton
+
+			return Roact.createElement(FullscreenPageWithSafeArea, {
+				BackgroundTransparency = 1,
+				includeStatusBar = true,
+				buttonRef = p86.props.containerRef,
+				renderFullscreenBackground = function() --[[ renderFullscreenBackground ]] -- line: 2120
+					-- upvalues: Roact (copy), v202 (copy), shouldUseFoundationBackgroundColor (copy), foundationTokens (copy), t11 (copy), BackgroundFill (copy)
+					return Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = not v202 and 0 or 1,
+						BackgroundColor3 = if not shouldUseFoundationBackgroundColor then t11.Theme.BackgroundUIDefault.Color else foundationTokens.Color.Surface.Surface_0.Color3
+					}, {
+						Background = v202 and Roact.createElement(BackgroundFill, {
+							Image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg"
+						}),
+						Mask = v202 and Roact.createElement("ImageLabel", {
+							ZIndex = 2,
+							Size = UDim2.new(1, 0, 1, 0),
+							BackgroundColor3 = Color3.new(0, 0, 0),
+							BackgroundTransparency = 0.5
+						})
+					})
+				end
+			}, {
+				UserInputSink = isSignUpInProgress and Roact.createElement("ImageButton", {
+					ZIndex = 2,
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					Image = ""
+				}),
+				UnderAgeAlert = p86.state.shouldShowUnderAgeAlert and Roact.createElement(UnderAgeInteractiveAlert, {
+					ZIndex = 3,
+					onDismiss = function() --[[ onDismiss ]] -- line: 2149
+						-- upvalues: p86 (copy)
+						p86:setState({
+							shouldShowUnderAgeAlert = false
+						})
+					end
+				}),
+				Container = Roact.createElement(ImageSetLabel, {
+					Size = UDim2.new(1, 0, 1, -n1),
+					Position = UDim2.new(0.5, 0, 0, n2),
+					AnchorPoint = Vector2.new(0.5, 0),
+					BackgroundTransparency = 1,
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = Rect.new(9, 9, 9, 9),
+					Image = GetImageData("LuaApp/buttons/buttonFill") or "LuaApp/buttons/buttonFill",
+					ImageColor3 = if not shouldUseFoundationBackgroundColor then t11.Theme.BackgroundUIDefault.Color else foundationTokens.Color.Surface.Surface_0.Color3,
+					ClipsDescendants = true
+				}, {
+					SizeConstraint = Roact.createElement("UISizeConstraint", {
+						MaxSize = vector2
+					}),
+					HeaderFrame = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 48),
+						Position = UDim2.new(0.5, 0, 0, 0),
+						AnchorPoint = Vector2.new(0.5, 0),
+						BackgroundTransparency = 1
+					}, {
+						BackButton = v505 and Roact.createElement(ImageSetButton, {
+							Size = uDim2,
+							AutoButtonColor = false,
+							BorderSizePixel = 0,
+							BackgroundTransparency = 1,
+							Position = UDim2.new(0, 12, 0.5, 0),
+							AnchorPoint = Vector2.new(0, 0.5),
+							ScaleType = Enum.ScaleType.Fit,
+							Image = v234,
+							ImageColor3 = t11.Theme.UIEmphasis.Color,
+							ImageTransparency = 0,
+							[Roact.Event.Activated] = p86.onCloseButtonClicked,
+							[Roact.Ref] = p86.backButtonRef
+						}),
+						Title = p87.signUpText and if not v218 then Roact.createElement(FitTextLabel, {
+							Position = UDim2.new(0, 0, 0.5, 0),
+							Size = UDim2.new(1, 0, 0, 0),
+							AnchorPoint = Vector2.new(0, 0.5),
+							fitAxis = FitChildren.FitAxis.Height,
+							BackgroundTransparency = 1,
+							Text = p87.signUpText or "",
+							TextWrapped = true,
+							Font = t11.Font.CaptionHeader.Font,
+							TextSize = t11.Font.BaseSize * t11.Font.Header1.RelativeSize,
+							TextColor3 = t11.Theme.TextEmphasis.Color,
+							TextTransparency = t11.Theme.TextEmphasis.Transparency,
+							TextXAlignment = Enum.TextXAlignment.Center
+						}) else Roact.createElement(FoundationText, {
+							Position = UDim2.new(0, 0, 0.5, 0),
+							Size = UDim2.new(1, 0, 0, 0),
+							AnchorPoint = Vector2.new(0, 0.5),
+							Text = p87.signUpText or "",
+							fontStyle = foundationTokens.Typography.HeadingSmall,
+							TextXAlignment = Enum.TextXAlignment.Center
+						})
+					}),
+					Divider = not v218 and Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 1),
+						Position = UDim2.new(0.5, 0, 0, 48),
+						AnchorPoint = Vector2.new(0.5, 0),
+						BackgroundTransparency = not shouldUseFoundationBackgroundColor and 0 or 1,
+						BackgroundColor3 = t11.Theme.UIEmphasis.Color
+					}),
+					SignUpContentFrame = Roact.createElement(FitChildren.FitScrollingFrame, {
+						Size = UDim2.new(1, 0, 1, -(49 + v213)),
+						Position = uDim2_2,
+						AnchorPoint = Vector2.new(0.5, 0),
+						fitFields = {
+							CanvasSize = FitChildren.FitAxis.Height
+						},
+						ScrollBarThickness = 0,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						Selectable = false,
+						ScrollingEnabled = not (p86.state.isUsernameAnimating or p86.state.isPasswordAnimating),
+						CanvasPosition = p86.scrollCanvasTargetPositionY:map(function(p88) -- line: 2239
+							-- upvalues: p86 (copy)
+							return p86.getScrollingFrameCanvasPosition(p88)
+						end),
+						[Roact.Ref] = p86.scrollingFrameRef,
+						[Roact.Change.CanvasSize] = function(_) -- line: 2243
+							-- upvalues: p86 (copy)
+							local v511 = p86.scrollCanvasTargetPositionY:getValue()
+
+							p86.scrollingFrameRef.current.CanvasPosition = p86.getScrollingFrameCanvasPosition(v511)
+						end
+					}, {
+						ContentPadding = Roact.createElement("UIPadding", {
+							PaddingLeft = UDim.new(0, 24),
+							PaddingRight = UDim.new(0, 24),
+							PaddingTop = UDim.new(0, v495)
+						}),
+						ListLayout = Roact.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
+							Padding = UDim.new(0, 5)
+						}),
+						BirthdayBar = p86.getBirthdayVariant() == 0 and Roact.createElement(AuthBirthdayBar, {
+							layoutOrder = 1,
+							onBirthdaySelected = p86.onBirthdaySelected,
+							onBirthdayFocused = p86.onBirthdayFocused,
+							autoFocusOnMount = v212 or v223,
+							buttonRef = p86.props.defaultRef,
+							preferredInput = p86.props.preferredInput,
+							birthdayContainerRef = p86.props.birthdayContainerRef,
+							forceDarkTheme = v159 and (FFlagEnableLuaAccountSwitch and p86.isAlreadyAuthenticated),
+							enableAuditContentCapture = GetFFlagEnableAuditForSinglePageSignUp()
+						}),
+						AgeInput = p86.getBirthdayVariant() ~= 0 and Roact.createElement(BirthdayField, {
+							layoutOrder = 1,
+							variant = p86.getBirthdayVariant(),
+							textInputHeight = 36,
+							hasBirthdayError = p86.state.birthdayValid == InputValidity.Invalid,
+							onAgeChange = p86.onAgeChanged,
+							onAgeAndMonthChange = p86.onAgeAndMonthChanged,
+							onMonthAndYearChange = p86.onMonthAndYearChanged,
+							ageTextFieldRef = p86.ageTextFieldRef,
+							screenSize = p86.props.screenSize
+						}),
+						ContactInfoField = v212 and Roact.createElement(ContactInfoField, {
+							layoutOrder = 2,
+							Under13 = birthday and DateHelper:isRecentOrFutureDate(birthday.Month, birthday.Day, birthday.Year + 13),
+							SetContactMethod = p86.SetContactMethod,
+							SetPhoneNumber = p86.SetPhoneNumber,
+							SetEmail = p86.SetEmail,
+							contactMethod = contactMethod,
+							phoneCountryCodeSelectorCallback = p86.phoneCountryCodeSelectorCallback
+						}),
+						BackgroundPanel = v212 and Roact.createElement("Frame", {
+							Size = UDim2.new(0, 0, 0, 6),
+							LayoutOrder = 3,
+							BackgroundTransparency = 1
+						}, {
+							LightPanel = Roact.createElement("Frame", {
+								BorderSizePixel = 0,
+								Size = UDim2.new(0, 100000, 0, 100000),
+								Position = UDim2.new(0, 0, 1, 0),
+								BackgroundColor3 = t11.Theme.UIDefault.Color,
+								AnchorPoint = Vector2.new(0.5, 0)
+							})
+						}),
+						DisplayName = if not v142 or not p86.shouldShowDisplayNameField() then nil else React.createElement(DisplayNameField, {
+							authEventAnalytics = p86.props.authEventAnalytics,
+							birthday = not birthday and "" or birthday:FormatForEndpoint(),
+							bypassDisplayNameField = p86.state.bypassDisplayNameField,
+							focusedTextBoxPositionChangedCallback = p86.onFocusedTextBoxPositionChanged,
+							layoutOrder = 4,
+							onAnimationStateChangeCallback = p86.onAnimationStateChangeCallback,
+							onDisplayNameTextChanged = p86.onDisplayNameTextChanged,
+							onReturnPressedFromOnScreenKeyboard = p86.onDisplayNameTextChangeCompletedFromKeyboard,
+							pillClicked = p86.state.pillClicked,
+							resetPillClicked = p86.resetPillClicked,
+							returnKeyType = Enum.ReturnKeyType.Next,
+							setUsernameRecommendation = p86.setUsernameRecommendation,
+							shouldDisableRecommendation = p86.state.hasEditedUsername,
+							textBoxFocusedCallback = p86.onDisplayNameTextBoxFocused,
+							textBoxFocusLostCallback = p86.onTextBoxFocusLost,
+							textBoxRef = p86.displayNameTextFieldRef,
+							updateBypassDisplayNameField = p86.updateBypassDisplayNameField,
+							updatePillClicked = p86.updatePillClicked
+						}),
+						UsernameValidator = v494 and Roact.createElement(CollapsingTextInputValidator, {
+							layoutOrder = not v142 and 4 or 5,
+							titleTextKey = "Authentication.Login.Label.Username",
+							summaryErrorTextKey = s3,
+							prerequisiteMet = not not birthday,
+							textInputType = if not v231 then v210 else nil,
+							onInputTextChanged = p86.onUsernameTextChanged,
+							onInputTextValidated = v216 and p86.onUsernameTextValidated or p86.onUsernameTextChanged,
+							validator = UsernameValidator,
+							prefilledText = if not v142 then nil else p86.state.recommendedUsername,
+							placeholderText = if not v142 then p87.usernamePlaceholder else p86.getUsernamePlaceholder(p87),
+							validatorAdditionalProps = {
+								birthday = birthday and birthday:FormatForEndpoint() or "",
+								context = UsernameValidationContext.Signup
+							},
+							textBoxFocusedCallback = p86.onUsernameTextBoxFocused,
+							textBoxFocusLostCallback = if not v142 then p86.onTextBoxFocusLost else p86.onUsernameTextBoxFocusLost,
+							focusedTextBoxPositionChangedCallback = p86.onFocusedTextBoxPositionChanged,
+							returnKeyType = Enum.ReturnKeyType.Next,
+							onReturnPressedFromOnScreenKeyboard = p86.onUsernameTextChangeCompletedFromKeyboard,
+							onAnimationStateChangeCallback = p86.onAnimationStateChangeCallback,
+							textBoxRef = p86.usernameTextFieldRef,
+							pillClicked = p86.state.pillClicked,
+							updatePillClicked = p86.updatePillClicked,
+							resetPillClicked = p86.resetPillClicked,
+							issueCondition = p86.state.issueCondition,
+							updateIssueCondition = p86.updateIssueCondition,
+							loadingSuggestions = p86.state.loadingSuggestions,
+							paddingBottomOverride = if not v142 or (not p86.props.shouldSeeDisplayNamesOnSignup or not p86.getUsernameGuidanceText(p87)) then nil else -5,
+							enableAuditContentCapture = GetFFlagEnableAuditForSinglePageSignUp()
+						}),
+						UsernameGuidanceText = if not v142 or (not p86.props.shouldSeeDisplayNamesOnSignup or not p86.getUsernameGuidanceText(p87)) then nil else Roact.createElement("Frame", {
+							Size = UDim2.new(1, 0, 0, 1),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							BackgroundTransparency = 1,
+							LayoutOrder = 5
+						}, {
+							Padding = Roact.createElement("UIPadding", {
+								PaddingBottom = UDim.new(0, 5)
+							}),
+							Label = Roact.createElement("TextLabel", {
+								AutomaticSize = Enum.AutomaticSize.Y,
+								BackgroundTransparency = 1,
+								Font = t11.Font.CaptionBody.Font,
+								Size = UDim2.new(1, 0, 0, 0),
+								Text = p86.getUsernameGuidanceText(p87),
+								TextColor3 = t11.Theme.TextDefault.Color,
+								TextSize = t11.Font.BaseSize * t11.Font.CaptionBody.RelativeSize,
+								TextWrapped = true,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Top
+							})
+						}),
+						SuggestionsFrame = v494 and (v216 and Roact.createElement(SuggestionsFrame, {
+							layoutOrder = not v142 and 4 or 5,
+							textBoxRef = p86.usernameTextFieldRef,
+							usernameValid = p86.state.usernameValid,
+							birthday = birthday and birthday:FormatForEndpoint() or "",
+							suggest = UsernameSuggestor,
+							context = UsernameValidationContext.Signup,
+							pillClicked = p86.state.pillClicked,
+							updatePillClicked = p86.updatePillClicked,
+							resetPillClicked = p86.resetPillClicked,
+							issueCondition = p86.state.issueCondition,
+							usernameSuggestionClicked = p86.usernameSuggestionClicked,
+							usernameSuggestionsShown = p86.usernameSuggestionsShown,
+							shouldSuggest = p86.shouldSuggest,
+							updateSuggestionControlState = p86.updateSuggestionControlState,
+							useRefreshButton = v217,
+							logRefreshButtonClicked = p86.logRefreshButtonClicked,
+							loadSuggestions = p86.loadSuggestions,
+							finishSuggestions = p86.finishSuggestions,
+							loadingSuggestions = p86.state.loadingSuggestions,
+							padding = {
+								PaddingLeft = UDim.new(0, 24),
+								PaddingRight = UDim.new(0, 24)
+							}
+						})),
+						PasswordValidator = not v221 and (not u225 and Roact.createElement(CollapsingTextInputValidator, {
+							disabled = p86.state.birthdayFocused,
+							layoutOrder = not v142 and 5 or 6,
+							titleTextKey = "CommonUI.Messages.Label.Password",
+							summaryErrorTextKey = s4,
+							prerequisiteMet = not u211,
+							textInputType = EngineFeature and Enum.TextInputType.NewPassword or Enum.TextInputType.Password,
+							onInputTextChanged = p86.onPasswordTextChanged,
+							onInputTextValidated = p86.onPasswordTextChanged,
+							validator = PasswordValidator,
+							placeholderText = p87.passwordPlaceholder,
+							validatorAdditionalProps = {
+								username = username
+							},
+							returnKeyType = Enum.ReturnKeyType.Next,
+							textBoxFocusedCallback = p86.onPasswordTextBoxFocused,
+							textBoxFocusLostCallback = p86.onTextBoxFocusLost,
+							focusedTextBoxPositionChangedCallback = p86.onFocusedTextBoxPositionChanged,
+							onReturnPressedFromOnScreenKeyboard = p86.onPasswordTextChangeCompletedFromKeyboard,
+							onAnimationStateChangeCallback = p86.onAnimationStateChangeCallback,
+							textBoxRef = p86.passwordTextFieldRef,
+							centralOverlayBlocksInput = v212,
+							captureFocusOnTapStart = not p86.state.isCountryCodeSearchVisible
+						})),
+						GenderSelector = not v222 and (GetFIntLuaLoginGenderSelector() ~= 2 and Roact.createElement(SignUpGenderSelector, {
+							layoutOrder = not v142 and 7 or 8,
+							gender = gender,
+							onGenderChanged = p86.onGenderChanged,
+							enableAuditContentCapture = GetFFlagEnableAuditForSinglePageSignUp()
+						})),
+						Spacing = Roact.createElement("Frame", {
+							LayoutOrder = not v142 and 8 or 9,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 0, 38)
+						}),
+						SignUpButton = if not v218 then Roact.createElement(Button, {
+							buttonType = ButtonType.PrimaryContextual,
+							layoutOrder = not v142 and 9 or 10,
+							size = UDim2.new(1, 0, 0, 36),
+							text = if not v233 then p87.signUpText else p87.continueText,
+							isDisabled = not v199,
+							isLoading = isSignUpInProgress,
+							onActivated = p86.onSignUpClick
+						}) else Roact.createElement(Foundation.Button, {
+							variant = Foundation.Enums.ButtonVariant.Emphasis,
+							LayoutOrder = not v142 and 9 or 10,
+							text = if not v233 then p87.signUpText else p87.continueText,
+							size = Foundation.Enums.InputSize.Medium,
+							width = UDim.new(1, 0),
+							isDisabled = not v199,
+							isLoading = isSignUpInProgress,
+							onActivated = p86.onSignUpClick
+						}),
+						CheckboxContainer = v497 and React.createElement(View, {
+							tag = "auto-xy padding-x-xxlarge padding-y-large row gap-medium",
+							LayoutOrder = not v142 and 10 or 11
+						}, {
+							SignUpAgreementCheckbox = React.createElement(Checkbox, {
+								isChecked = p86.state.signupAgreementsChecked,
+								isDisabled = false,
+								onActivated = function() --[[ onActivated ]] -- line: 2500
+									-- upvalues: p86 (copy), EventStreamConstants (copy)
+									p86.props.authEventAnalytics.reportAuthFormInteraction(EventStreamConstants.Context.SinglePageSignUpScreen, EventStreamConstants.Field.TosCheckbox, (tostring(not p86.state.signupAgreementsChecked)))
+									p86:setState({
+										signupAgreementsChecked = not p86.state.signupAgreementsChecked
+									})
+								end,
+								size = InputSize.Small,
+								LayoutOrder = 1,
+								label = ""
+							}),
+							Text = React.createElement(FoundationText, {
+								tag = "text-body-small text-align-x-left text-wrap auto-xy shrink",
+								LayoutOrder = 2,
+								Text = s5
+							})
+						}),
+						DisclaimerText = not (v226 or (v227 or v497)) and Roact.createElement(TitleAndParagraph, {
+							layoutOrder = not v142 and 10 or 11,
+							textXAlignment = Enum.TextXAlignment.Center,
+							paragraphTextKeys = { v498 },
+							enableAuditContentCapture = GetFFlagEnableAuditForSinglePageSignUp()
+						}),
+						DisclaimerLinks = not (v226 or v227) and Roact.createElement(DisclaimerLinks, {
+							LayoutOrder = not v142 and 11 or 12,
+							variant = if not FFlagFoundationStylingOnSignUp then nil else Default,
+							enableAuditContentCapture = GetFFlagEnableAuditForSinglePageSignUp()
+						}),
+						ScrollPadding = v206 and Roact.createElement("Frame", {
+							LayoutOrder = not v142 and 12 or 13,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 0, p86.state.onScreenKeyboardHeight * 2)
+						})
+					}),
+					Footer = v212 and (v202 and Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 12),
+						Position = UDim2.new(0, 0, 1, -12),
+						BackgroundTransparency = 1,
+						ClipsDescendants = true
+					}, {
+						Rounding = Roact.createElement(ImageSetLabel, {
+							Size = UDim2.new(1, 0, 2, 0),
+							Position = UDim2.new(0, 0, -1, 0),
+							BackgroundTransparency = 1,
+							ScaleType = Enum.ScaleType.Slice,
+							SliceCenter = Rect.new(9, 9, 9, 9),
+							Image = GetImageData("LuaApp/buttons/buttonFill") or "LuaApp/buttons/buttonFill",
+							ImageColor3 = t11.Theme.UIDefault.Color
+						})
+					}))
+				})
+			})
+		end)
+	end)
+end
+
+local v172 = RoactRodux.connect(function(p90, _) -- line: 2571
+	return {
+		formFactor = p90.FormFactor,
+		screenSize = p90.ScreenSize
+	}
+end, function(p92) -- line: 2576
+	-- upvalues: SignUpV2 (copy), OpenCentralOverlayForAgreeToPhoneNumberVerification (copy), AnalyticsEvents (copy), EventConstants (copy), OpenKISAPopUpAgreements (copy), SetBackNavigationDisabled (copy), NavigateBack (copy), SetNetworkingErrorToast (copy), OpenCentralOverlayForPhoneNumberVerification (copy), SetCurrentToastMessage (copy), ToastType (copy), SetCentralOverlay (copy), OverlayType (copy), CloseCentralOverlay (copy), OpenAccountSwitchingErrorOverlay (copy), ResetAppState (copy), Logout (copy), OpenEmailOtp (copy)
+	return {
+		signUp = function(p93, p94, p95, p96, p97, p98, p99, p100, p101, p102, p103, p104, p105, p106) --[[ signUp ]] -- line: 2578
+			-- upvalues: p92 (copy), SignUpV2 (copy)
+			return p92(SignUpV2(p93, p94, p95, p96, p97, p98, p99, p100, p101, p102, p103, p104, p105, p106))
+		end,
+		agreeToPhoneNumberVerification = function(_, p108, p109) --[[ agreeToPhoneNumberVerification ]] -- line: 2613
+			-- upvalues: p92 (copy), OpenCentralOverlayForAgreeToPhoneNumberVerification (copy)
+			return p92(OpenCentralOverlayForAgreeToPhoneNumberVerification({
+				verificationChallengeCallback = p108,
+				phoneNumber = p109
+			}))
+		end,
+		openKISAUserAgreements = function(p110) --[[ openKISAUserAgreements ]] -- line: 2620
+			-- upvalues: AnalyticsEvents (copy), EventConstants (copy), p92 (copy), OpenKISAPopUpAgreements (copy)
+			AnalyticsEvents.sendPageLoadEvent(EventConstants.ctx.kisaAgreements, EventConstants.origin.signup)
+
+			return p92(OpenKISAPopUpAgreements(p110))
+		end,
+		setBackNavigationDisabled = function(p111) --[[ setBackNavigationDisabled ]] -- line: 2625
+			-- upvalues: p92 (copy), SetBackNavigationDisabled (copy)
+			return p92(SetBackNavigationDisabled(p111))
+		end,
+		navigateBack = function() --[[ navigateBack ]] -- line: 2628
+			-- upvalues: p92 (copy), NavigateBack (copy)
+			return p92(NavigateBack())
+		end,
+		showErrorToast = function() --[[ showErrorToast ]] -- line: 2631
+			-- upvalues: p92 (copy), SetNetworkingErrorToast (copy)
+			return p92(SetNetworkingErrorToast({
+				HttpError = Enum.HttpError.OK
+			}))
+		end,
+		verifyPhoneNumber = function(_, p113, p114, p115, p116, p117) --[[ verifyPhoneNumber ]] -- line: 2634
+			-- upvalues: p92 (copy), OpenCentralOverlayForPhoneNumberVerification (copy)
+			return p92(OpenCentralOverlayForPhoneNumberVerification({
+				verifyPhoneNumberCallback = p113,
+				phoneNumber = p115,
+				deliveryTarget = p116,
+				challenge = p114,
+				useEmailOptionClickedCallback = p117
+			}))
+		end,
+		showErrorMessageToast = function(p118) --[[ showErrorMessageToast ]] -- line: 2650
+			-- upvalues: p92 (copy), SetCurrentToastMessage (copy), ToastType (copy)
+			return p92(SetCurrentToastMessage({
+				toastType = ToastType.NetworkingError,
+				toastMessage = p118
+			}))
+		end,
+		showVNGUserAgreementsPopup = function(p119, p120, p121) --[[ showVNGUserAgreementsPopup ]] -- line: 2656
+			-- upvalues: p92 (copy), SetCentralOverlay (copy), OverlayType (copy)
+			return p92(SetCentralOverlay(OverlayType.VNGUserAgreementsPopup, {
+				agreements = p119,
+				isSignup = true,
+				agreementAccepted = p120,
+				agreementDeclined = p121
+			}, {
+				DisableBackButtonClose = true
+			}))
+		end,
+		showVNGDCForm = function() --[[ showVNGDCForm ]] -- line: 2666
+			-- upvalues: p92 (copy), SetCentralOverlay (copy), OverlayType (copy)
+			p92(SetCentralOverlay(OverlayType.VngContactInfoFormWebviewPopup, {}, {
+				DisableBackButtonClose = true
+			}))
+		end,
+		closeCentralOverlay = function() --[[ closeCentralOverlay ]] -- line: 2671
+			-- upvalues: p92 (copy), CloseCentralOverlay (copy)
+			return p92(CloseCentralOverlay())
+		end,
+		openAccountSwitchingErrorOverlay = function(p122, p123, p124, p125, p126, p127, p128, p129) --[[ openAccountSwitchingErrorOverlay ]] -- line: 2674
+			-- upvalues: p92 (copy), OpenAccountSwitchingErrorOverlay (copy)
+			return p92(OpenAccountSwitchingErrorOverlay(p122, p123, p124, p125, p126, p127, p128, p129, true))
+		end,
+		resetAppState = function() --[[ resetAppState ]] -- line: 2696
+			-- upvalues: p92 (copy), ResetAppState (copy)
+			return p92(ResetAppState())
+		end,
+		logoutWithoutShowConfirmation = function(p130, p131) --[[ logoutWithoutShowConfirmation ]] -- line: 2699
+			-- upvalues: p92 (copy), Logout (copy)
+			return p92(Logout(p130, p131))
+		end,
+		openEmailOtp = function(p132) --[[ openEmailOtp ]] -- line: 2703
+			-- upvalues: p92 (copy), OpenEmailOtp (copy)
+			p92(OpenEmailOtp(p132))
+		end,
+		showAccountLinkingAlert = function(p133) --[[ showAccountLinkingAlert ]] -- line: 2706
+			-- upvalues: p92 (copy), SetCentralOverlay (copy), OverlayType (copy)
+			return p92(SetCentralOverlay(OverlayType.AccountLinkingAlert, {
+				alertType = p133
+			}))
+		end
+	}
+end)(v171)
+local v173 = RoactServices.connect({
+	networking = RoactNetworking,
+	guiService = AppGuiService,
+	authEventAnalytics = RoactAnalyticsAuthEvents,
+	analytics = RoactAnalytics,
+	loggingProtocol = AppLogging
+})(v172)
+local v174 = RoactAppPolicy.connect(function(p134, _) -- line: 2722
+	return {
+		appPolicy = p134
+	}
+end)(v173)
+local v175 = RoactAppExperiment.connectBrowserTrackerLayer({
+	AppBtidLayers.SignupLayer,
+	AppBtidLayers.IosPasswordSavingLayer,
+	AppBtidLayers.AccountSwitcherLayer
+}, function(p136, _) -- line: 2732
+	-- upvalues: AppBtidLayers (copy), v142 (copy), v145 (copy), GetFFlagEnableAccountSwitcherIXPTextGatingFix (copy), GetFFlagEnableAccountSwitcherRedesignIXP (copy), GetFFlagEnableAccountSwitcherFoundationDesign (copy)
+	local v242 = p136[AppBtidLayers.SignupLayer] or {}
+	local v243 = p136[AppBtidLayers.IosPasswordSavingLayer] or {}
+	local v244 = if not v142 then nil else v242.shouldSeeDisplayNamesOnSignup
+
+	if v145 then
+		v244 = true
+	end
+
+	local v247
+
+	if GetFFlagEnableAccountSwitcherIXPTextGatingFix() then
+		local v245 = p136[AppBtidLayers.AccountSwitcherLayer] or {}
+		local v246 = not GetFFlagEnableAccountSwitcherRedesignIXP() or v245.enableAccountSwitcherFoundationDesign == true
+
+		v247 = GetFFlagEnableAccountSwitcherFoundationDesign() and v246
+	else
+		v247 = GetFFlagEnableAccountSwitcherFoundationDesign()
+	end
+
+	return {
+		useVerifiedSignupPage = v242.contactMethodRequired,
+		arePasswordFieldsPlaintext = v242.ArePasswordFieldsPlaintext,
+		shouldUseUsernameSuggestions = v242.usernameSuggestionsEnabled,
+		enableRefreshButton = v242.suggestionRefreshButtonEnabled,
+		shouldUseMinimalSignup = v242.shouldUseMinimalSignup,
+		shouldHideGenderOption = v242.shouldHideGenderOption,
+		shouldAutofocusOnBirthday = v242.shouldAutofocusOnBirthday,
+		shouldUsePasswordlessSignup = v242.shouldUsePasswordlessSignup,
+		shouldUsePasskeySignup = v242.shouldUsePasskeySignup,
+		shouldAutomaticallyPromptForPasskey = v242.shouldAutomaticallyPromptForPasskey,
+		birthdayPickerVariant = v242.birthdayPickerVariant,
+		shouldSeeDisplayNamesOnSignup = v244,
+		shouldShowKoreanKISASignUpFlow = v242.shouldShowKoreanKISASignUpFlow,
+		shouldDisableUsernameAutofill = v242.shouldDisableUsernameAutofill,
+		shouldRequireSignupCheckbox = v242.shouldRequireSignupCheckbox,
+		signupLegalDisclaimerTextVariant = v242.signupLegalDisclaimerTextVariant,
+		isIosAuthServiceEnabled = v243.enableNewIosPasswordSaving or false,
+		showAccountSwitcherFoundationDesign = v247
+	}
+end)(v174)
+local u176 = withNavigationProps(function(_, p139) -- line: 2776
+	return p139
+end)(v175)
+
+local function SinglePageSignUpWithAuditContent(p140) -- line: 2781
+	-- upvalues: AuditContentContext (copy), Roact (copy), u176 (ref), Cryo (copy)
+	local v251 = AuditContentContext.useAuditContentContext()
+
+	return Roact.createElement(u176, Cryo.Dictionary.join(p140, {
+		capturedAuditContent = v251.capturedAuditContent,
+		additionalAuditContent = v251.additionalAuditContent
+	}))
+end
+
+return function(p141) -- line: 2793
+	-- upvalues: ReactFocusNavigation (copy), v160 (copy), useBreakpointXOrSmaller (copy), Responsive (copy), FFlagFoundationStylingOnSignUp (copy), FFlagEnableSignupFoundationalizeBackgroundAndText (copy), useTokens (copy), RoactAppExperiment (copy), AppBtidLayers (copy), React (copy), GetFFlagEnablePreferredInputForSignUp (copy), usePreferredInput (copy), FFlagEnableSignUpExitModal (copy), v156 (copy), useDispatch (copy), NavigateBack (copy), SetCentralOverlay (copy), OverlayType (copy), CloseCentralOverlay (copy), useSignUpPageNavigationBindings (copy), GetFFlagEnableAuditForSinglePageSignUp (copy), Roact (copy), AuditContentContext (copy), SinglePageSignUpWithAuditContent (copy), Cryo (copy), FFlagHideBackButtonOnSignUpPage (copy), u176 (ref)
+	local v253 = ReactFocusNavigation.useFocusedGuiObject()
+	local v254 = ReactFocusNavigation.useFocusGuiObject()
+	local v255 = if not v160 then nil else useBreakpointXOrSmaller(Responsive.Keys.Medium)
+	local v256 = if not FFlagFoundationStylingOnSignUp and not FFlagEnableSignupFoundationalizeBackgroundAndText then nil else useTokens()
+	local v257 = RoactAppExperiment.useBrowserTrackerExperiment({ AppBtidLayers.AuthenticationStylingLayer }, function(p142) -- line: 2803
+		-- upvalues: AppBtidLayers (copy)
+		return {
+			shouldUseFoundationBackgroundColor = (p142[AppBtidLayers.AuthenticationStylingLayer] or {}).shouldUseFoundationBackgroundColor
+		}
+	end)
+	local v258 = FFlagEnableSignupFoundationalizeBackgroundAndText and v257.shouldUseFoundationBackgroundColor
+	local v259, v260 = React.useState(false)
+	local v261 = if not GetFFlagEnablePreferredInputForSignUp() then nil else usePreferredInput()
+	local v262 = FFlagEnableSignUpExitModal and v261 == Responsive.Input.Directional
+	local v265
+
+	if v156 then
+		local v263 = useDispatch()
+		local v264 = React.useCallback(function() -- line: 2821
+			-- upvalues: v262 (copy), v259 (copy), v263 (copy), NavigateBack (copy), SetCentralOverlay (copy), OverlayType (copy), CloseCentralOverlay (copy), v254 (copy), v253 (copy)
+			if not v262 then
+				return
+			end
+
+			if not v259 then
+				v263(NavigateBack())
+
+				return
+			end
+
+			v263(SetCentralOverlay(OverlayType.SignUpExitModal, {
+				onClose = function() --[[ onClose ]] -- line: 2830
+					-- upvalues: v263 (copy), CloseCentralOverlay (copy), v254 (copy), v253 (copy)
+					v263(CloseCentralOverlay())
+					v263(function() -- line: 2832
+						-- upvalues: v254 (copy), v253 (copy)
+						v254(v253)
+					end)
+				end,
+				onConfirm = function() --[[ onConfirm ]] -- line: 2836
+					-- upvalues: v263 (copy), CloseCentralOverlay (copy), NavigateBack (copy)
+					v263(CloseCentralOverlay())
+					v263(NavigateBack())
+				end
+			}))
+		end, {
+			v259,
+			v262,
+			v253,
+			v254,
+			v263
+		})
+
+		v265 = useSignUpPageNavigationBindings(if not v262 then nil else v264)
+	elseif v262 then
+		local v266 = useDispatch()
+		local v267 = React.useCallback(function() -- line: 2855
+			-- upvalues: v259 (copy), v266 (copy), NavigateBack (copy), SetCentralOverlay (copy), OverlayType (copy), CloseCentralOverlay (copy), v254 (copy), v253 (copy)
+			if not v259 then
+				v266(NavigateBack())
+
+				return
+			end
+
+			v266(SetCentralOverlay(OverlayType.SignUpExitModal, {
+				onClose = function() --[[ onClose ]] -- line: 2861
+					-- upvalues: v266 (copy), CloseCentralOverlay (copy), v254 (copy), v253 (copy)
+					v266(CloseCentralOverlay())
+					v266(function() -- line: 2863
+						-- upvalues: v254 (copy), v253 (copy)
+						v254(v253)
+					end)
+				end,
+				onConfirm = function() --[[ onConfirm ]] -- line: 2867
+					-- upvalues: v266 (copy), CloseCentralOverlay (copy), NavigateBack (copy)
+					v266(CloseCentralOverlay())
+					v266(NavigateBack())
+				end
+			}))
+		end, { v259 })
+
+		v265 = useSignUpPageNavigationBindings(v267)
+	else
+		v265 = useSignUpPageNavigationBindings()
+	end
+
+	local v268, v269 = ReactFocusNavigation.useDefaultFocusBehavior(v265)
+	local v270 = React.useRef(nil)
+
+	if GetFFlagEnableAuditForSinglePageSignUp() then
+		return Roact.createElement(AuditContentContext.Provider, nil, {
+			SignUpPage = Roact.createElement(SinglePageSignUpWithAuditContent, Cryo.Dictionary.join(p141, {
+				signUpStarted = if not v262 then nil else v259,
+				setSignUpStarted = if not v262 then nil else v260,
+				shouldShowBackButton = if not FFlagHideBackButtonOnSignUpPage then nil else not v262,
+				preferredInput = v261,
+				focusedGuiObject = v253,
+				focusGuiObject = v254,
+				defaultRef = v268,
+				containerRef = v269,
+				birthdayContainerRef = v270,
+				isCompactView = v255,
+				foundationTokens = v256,
+				shouldUseFoundationBackgroundColor = v258
+			}))
+		})
+	end
+
+	return Roact.createElement(u176, Cryo.Dictionary.join(p141, {
+		signUpStarted = if not v262 then nil else v259,
+		setSignUpStarted = if not v262 then nil else v260,
+		shouldShowBackButton = if not FFlagHideBackButtonOnSignUpPage then nil else not v262,
+		preferredInput = v261,
+		focusedGuiObject = v253,
+		focusGuiObject = v254,
+		defaultRef = v268,
+		containerRef = v269,
+		birthdayContainerRef = v270,
+		isCompactView = v255,
+		foundationTokens = v256,
+		shouldUseFoundationBackgroundColor = v258
+	}))
+end

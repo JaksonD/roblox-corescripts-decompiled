@@ -1,204 +1,208 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v1 = require(l_CorePackages_0.Packages.Cryo);
-local v2 = require(l_CorePackages_0.Packages.Roact);
-local v3 = require(l_CorePackages_0.Packages.t);
-local v4 = require(l_CorePackages_0.Workspace.Packages.GamePlayButton);
-local l_PlayButton_0 = v4.PlayButton;
-local l_usePlayButtonState_0 = v4.usePlayButtonState;
-local l_usePlayButtonContextualMessage_0 = v4.usePlayButtonContextualMessage;
-local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
-local l_ButtonSize_0 = require(l_CorePackages_0.Packages.Foundation).Enums.ButtonSize;
-local l_withStyle_0 = require(l_CorePackages_0.Packages.UIBlox).Style.withStyle;
-local l_useRoactService_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useRoactService;
-local l_RoactNetworking_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).RoactNetworking;
-local v13 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
-local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
-local l_useUserExperiment_0 = require(l_CorePackages_0.Packages.RoactAppExperiment).useUserExperiment;
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v17 = require(l_Modules_0.LuaApp.Components.Games.PlayButtonContainer);
-local v18 = require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailMoreButton);
-local v19 = require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailsPlayWithFriendsButton);
-local l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyPlayButtonMobileEdp;
-local l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyPlayButtonAllSurfacesIxp;
-local l_GetFFlagUIBloxUseFoundationButton_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseFoundationButton;
-local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp;
-local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnableCustomSpawnSponsored;
-local l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 = v13.Constants.GAME_DETAILS_ACTION_BAR_HEIGHT;
-local v26 = v2.PureComponent:extend("ActionBar");
-v26.defaultProps = {
-    bottomPadding = 0, 
-    showMorePage = true
-};
-v26.validateProps = v3.strictInterface({
-    leftPadding = v3.number, 
-    rightPadding = v3.number, 
-    bottomPadding = v3.number, 
-    universeId = v3.string, 
-    referralSource = v3.optional(v3.string), 
-    experienceJoinData = v3.optional(v3.table), 
-    placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v3.optional(v3.string) else nil, 
-    containerRef = v3.optional(v3.table), 
-    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v3.optional(v3.boolean) else nil, 
-    showMorePage = v3.optional(v3.boolean), 
-    shouldShowPlayWithFriendsPolicy = v3.optional(v3.boolean), 
-    contextualMessage = v3.optional(v3.string), 
-    hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v3.optional(v3.boolean) else nil, 
-    unifyToUIBloxIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v3.optional(v3.boolean) else nil
-});
-v26.init = function(_) --[[ Line: 71 ]] --[[ Name: init ]]
+local CorePackages = game:GetService("CorePackages")
+local Cryo = require(CorePackages.Packages.Cryo)
+local Roact = require(CorePackages.Packages.Roact)
+local t = require(CorePackages.Packages.t)
+local GamePlayButton = require(CorePackages.Workspace.Packages.GamePlayButton)
+local PlayButton = GamePlayButton.PlayButton
+local usePlayButtonState = GamePlayButton.usePlayButtonState
+local usePlayButtonContextualMessage = GamePlayButton.usePlayButtonContextualMessage
+local RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
+local ButtonSize = require(CorePackages.Packages.Foundation).Enums.ButtonSize
+local withStyle = require(CorePackages.Packages.UIBlox).Style.withStyle
+local useRoactService = require(CorePackages.Workspace.Packages.RobloxAppHooks).useRoactService
+local RoactNetworking = require(CorePackages.Workspace.Packages.RoactServiceTags).RoactNetworking
+local DiscoveryTypes = require(CorePackages.Workspace.Packages.DiscoveryTypes)
+local AppUserLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local useUserExperiment = require(CorePackages.Packages.RoactAppExperiment).useUserExperiment
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local PlayButtonContainer = require(Modules.LuaApp.Components.Games.PlayButtonContainer)
+local GameDetailMoreButton = require(Modules.LuaApp.Components.GameDetails.GameDetailMoreButton)
+local GameDetailsPlayWithFriendsButton = require(Modules.LuaApp.Components.GameDetails.GameDetailsPlayWithFriendsButton)
+local FFlagLuaAppUnifyPlayButtonMobileEdp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyPlayButtonMobileEdp
+local FFlagLuaAppUnifyPlayButtonAllSurfacesIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyPlayButtonAllSurfacesIxp
+local GetFFlagUIBloxUseFoundationButton = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseFoundationButton
+local FFlagLuaAppEdpBackendV2HydrateLegacyIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp
+local FFlagLuaAppPlayabilityMessageUpdate = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppPlayabilityMessageUpdate
+local GAME_DETAILS_ACTION_BAR_HEIGHT = DiscoveryTypes.Constants.GAME_DETAILS_ACTION_BAR_HEIGHT
+local v27 = Roact.PureComponent:extend("ActionBar")
 
-end;
-v26.willUnmount = function(_) --[[ Line: 73 ]] --[[ Name: willUnmount ]]
+v27.defaultProps = {
+	bottomPadding = 0,
+	showMorePage = true
+}
+v27.validateProps = t.strictInterface({
+	leftPadding = t.number,
+	rightPadding = t.number,
+	bottomPadding = t.number,
+	universeId = t.string,
+	referralSource = t.optional(t.string),
+	experienceJoinData = t.optional(t.table),
+	placeIdOverride = t.optional(t.string),
+	containerRef = t.optional(t.table),
+	shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else t.optional(t.boolean),
+	showMorePage = t.optional(t.boolean),
+	shouldShowPlayWithFriendsPolicy = t.optional(t.boolean),
+	contextualMessage = t.optional(t.string),
+	hasUnifiedPlayButtonIxp = if not FFlagLuaAppUnifyPlayButtonAllSurfacesIxp then nil else t.optional(t.boolean),
+	unifyToUIBloxIxp = if not FFlagLuaAppUnifyPlayButtonAllSurfacesIxp then nil else t.optional(t.boolean)
+})
 
-end;
-v26.render = function(v29) --[[ Line: 75 ]] --[[ Name: render ]]
-    -- upvalues: l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 (copy), l_withStyle_0 (copy), v2 (copy), l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 (copy), l_GetFFlagUIBloxUseFoundationButton_0 (copy), l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 (copy), v18 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v19 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), v17 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_PlayButton_0 (copy), l_ButtonSize_0 (copy)
-    local l_leftPadding_0 = v29.props.leftPadding;
-    local l_rightPadding_0 = v29.props.rightPadding;
-    local l_bottomPadding_0 = v29.props.bottomPadding;
-    local l_universeId_0 = v29.props.universeId;
-    local l_experienceJoinData_0 = v29.props.experienceJoinData;
-    local l_showMorePage_0 = v29.props.showMorePage;
-    local l_shouldShowPlayWithFriendsPolicy_0 = v29.props.shouldShowPlayWithFriendsPolicy;
-    local v37 = l_showMorePage_0 and l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 or 0;
-    local v38 = l_showMorePage_0 and 10 or 0;
-    local v39 = -v37 - v38;
-    if l_shouldShowPlayWithFriendsPolicy_0 then
-        v39 = 2 * v39;
-    end;
-    return l_withStyle_0(function(v40) --[[ Line: 95 ]]
-        -- upvalues: v2 (ref), v29 (copy), l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 (ref), l_GetFFlagUIBloxUseFoundationButton_0 (ref), l_leftPadding_0 (copy), l_rightPadding_0 (copy), l_bottomPadding_0 (copy), l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 (ref), v38 (copy), l_showMorePage_0 (copy), v18 (ref), l_universeId_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_shouldShowPlayWithFriendsPolicy_0 (copy), v19 (ref), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (ref), v17 (ref), v39 (ref), l_experienceJoinData_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), l_PlayButton_0 (ref), l_ButtonSize_0 (ref)
-        return v2.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            AnchorPoint = Vector2.new(0, 1), 
-            Position = UDim2.new(0, 0, 1, 0), 
-            BackgroundTransparency = 1, 
-            [v2.Ref] = v29.props.containerRef
-        }, {
-            ListLayout = v2.createElement("UIListLayout", {
-                FillDirection = Enum.FillDirection.Vertical, 
-                SortOrder = Enum.SortOrder.LayoutOrder, 
-                VerticalAlignment = Enum.VerticalAlignment.Center
-            }), 
-            Gradient = v2.createElement("ImageLabel", {
-                Size = UDim2.new(1, 0, 0, 40), 
-                BackgroundTransparency = 1, 
-                Image = "rbxasset://textures/ui/LuaApp/graphic/gradient_0_100.png", 
-                ImageColor3 = v40.Theme.BackgroundDefault.Color, 
-                LayoutOrder = 1, 
-                ZIndex = (not not l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 or l_GetFFlagUIBloxUseFoundationButton_0()) and 1 or nil
-            }), 
-            ContentFrame = v2.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, 0), 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                LayoutOrder = 2, 
-                BackgroundColor3 = v40.Theme.BackgroundDefault.Color, 
-                BackgroundTransparency = 0, 
-                BorderSizePixel = 0, 
-                ZIndex = (not not l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 or l_GetFFlagUIBloxUseFoundationButton_0()) and 2 or nil
-            }, {
-                ContentListLayout = v2.createElement("UIListLayout", {
-                    FillDirection = Enum.FillDirection.Vertical, 
-                    SortOrder = Enum.SortOrder.LayoutOrder, 
-                    VerticalAlignment = Enum.VerticalAlignment.Center, 
-                    Padding = UDim.new(0, v40.Tokens.Global.Space_150)
-                }), 
-                ContentPadding = v2.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, l_leftPadding_0), 
-                    PaddingRight = UDim.new(0, l_rightPadding_0), 
-                    PaddingBottom = UDim.new(0, l_bottomPadding_0)
-                }), 
-                ActionBar = v2.createElement("Frame", {
-                    Size = UDim2.new(1, 0, 0, l_GAME_DETAILS_ACTION_BAR_HEIGHT_0), 
-                    BackgroundTransparency = 1, 
-                    LayoutOrder = 1
-                }, {
-                    ActionListLayout = v2.createElement("UIListLayout", {
-                        FillDirection = Enum.FillDirection.Horizontal, 
-                        HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-                        VerticalAlignment = if not not l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 or l_GetFFlagUIBloxUseFoundationButton_0() then Enum.VerticalAlignment.Center else nil, 
-                        SortOrder = Enum.SortOrder.LayoutOrder, 
-                        Padding = UDim.new(0, v38)
-                    }), 
-                    MoreButton = l_showMorePage_0 and v2.createElement(v18, {
-                        universeId = l_universeId_0, 
-                        leftPadding = l_leftPadding_0, 
-                        shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v29.props.shouldHydrateLegacyIxp else nil, 
-                        testId = "--experience-details--more-button"
-                    }), 
-                    PlayWithFriendsButton = l_shouldShowPlayWithFriendsPolicy_0 and v2.createElement(v19, {
-                        universeId = l_universeId_0, 
-                        leftPadding = l_leftPadding_0, 
-                        shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v29.props.shouldHydrateLegacyIxp else nil
-                    }) or nil, 
-                    PlayButtonContainer = if l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v29.props.hasUnifiedPlayButtonIxp) then nil else v2.createElement(v17, {
-                        Size = UDim2.new(1, v39, l_GetFFlagUIBloxUseFoundationButton_0() and 0 or 1, if l_GetFFlagUIBloxUseFoundationButton_0() then l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 else 0), 
-                        LayoutOrder = 4, 
-                        universeId = l_universeId_0, 
-                        referralSource = v29.props.referralSource, 
-                        experienceJoinData = l_experienceJoinData_0, 
-                        placeId = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v29.props.placeIdOverride else nil, 
-                        testId = "--experience-details--play-button"
-                    }), 
-                    PlayButton = if l_FFlagLuaAppUnifyPlayButtonMobileEdp_0 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v29.props.hasUnifiedPlayButtonIxp) then v2.createElement(l_PlayButton_0, {
-                        universeId = l_universeId_0, 
-                        referralSource = v29.props.referralSource, 
-                        launchSource = "LuaGameCard", 
-                        experienceJoinData = l_experienceJoinData_0, 
-                        placeId = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v29.props.placeIdOverride else nil, 
-                        buttonSize = l_ButtonSize_0.Large, 
-                        width = UDim.new(1, v39), 
-                        useUIBloxButton = v29.props.unifyToUIBloxIxp, 
-                        LayoutOrder = 4, 
-                        testId = "--experience-details--play-button"
-                    }) else nil
-                }), 
-                ContextLabel = if v29.props.contextualMessage then v2.createElement("TextLabel", {
-                    Size = UDim2.new(1, 0, 0, 0), 
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    Text = v29.props.contextualMessage, 
-                    TextXAlignment = Enum.TextXAlignment.Left, 
-                    TextWrapped = true, 
-                    BackgroundTransparency = 1, 
-                    Font = v40.Tokens.Semantic.Typography.CaptionHeader.Font, 
-                    TextSize = v40.Tokens.Semantic.Typography.CaptionHeader.FontSize, 
-                    TextColor3 = v40.Tokens.Semantic.Color.Text.Emphasis.Color3, 
-                    TextTransparency = v40.Tokens.Semantic.Color.Text.Emphasis.Transparency, 
-                    LayoutOrder = 2
-                }) else nil
-            })
-        });
-    end);
-end;
-local v43 = l_RoactAppPolicy_0.connect(function(v41, _) --[[ Line: 222 ]]
-    return {
-        showMorePage = v41.getGameDetailsMorePage(), 
-        shouldShowPlayWithFriendsPolicy = v41.getGameDetailsPlayWithFriends()
-    };
-end)(v26);
-return function(v44) --[[ Line: 230 ]]
-    -- upvalues: l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_usePlayButtonState_0 (copy), l_usePlayButtonContextualMessage_0 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), v1 (copy), v2 (copy), v43 (copy)
-    local v45 = l_useRoactService_0(l_RoactNetworking_0);
-    local v46 = l_usePlayButtonState_0(v45, v44.universeId, nil);
-    local v47 = l_usePlayButtonContextualMessage_0(v44.universeId, v46.playButtonState, v46.playabilityStatus);
-    local v48 = nil;
-    local v49 = nil;
-    if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then
-        local v52, v53 = l_useUserExperiment_0({
-            l_AppUserLayers_0.PlayButtonUXExposureLayer
-        }, function(v50) --[[ Line: 244 ]]
-            -- upvalues: l_AppUserLayers_0 (ref)
-            local v51 = v50[l_AppUserLayers_0.PlayButtonUXExposureLayer] or {};
-            return v51.HasUnifiedPlayButton, v51.UnifyToUIBlox;
-        end, true);
-        v48 = v52;
-        v49 = v53;
-    end;
-    local v54 = v1.Dictionary.join(v44, {
-        contextualMessage = v47, 
-        hasUnifiedPlayButtonIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v48 else nil, 
-        unifyToUIBloxIxp = if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then v49 else nil
-    });
-    return v2.createElement(v43, v54);
-end;
+function v27.init(_) -- line: 71
+end
+function v27.willUnmount(_) -- line: 73
+end
+function v27.render(p3) -- line: 75
+	-- upvalues: GAME_DETAILS_ACTION_BAR_HEIGHT (copy), withStyle (copy), Roact (copy), FFlagLuaAppUnifyPlayButtonMobileEdp (copy), GetFFlagUIBloxUseFoundationButton (copy), GAME_DETAILS_ACTION_BAR_HEIGHT (copy), GameDetailMoreButton (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), GameDetailsPlayWithFriendsButton (copy), FFlagLuaAppUnifyPlayButtonAllSurfacesIxp (copy), PlayButtonContainer (copy), PlayButton (copy), ButtonSize (copy), FFlagLuaAppPlayabilityMessageUpdate (copy)
+	local leftPadding = p3.props.leftPadding
+	local rightPadding = p3.props.rightPadding
+	local bottomPadding = p3.props.bottomPadding
+	local universeId = p3.props.universeId
+	local experienceJoinData = p3.props.experienceJoinData
+	local showMorePage = p3.props.showMorePage
+	local shouldShowPlayWithFriendsPolicy = p3.props.shouldShowPlayWithFriendsPolicy
+	local v39 = showMorePage and GAME_DETAILS_ACTION_BAR_HEIGHT or 0
+	local v40 = not showMorePage and 0 or 10
+	local u41 = -v39 - v40
+
+	if shouldShowPlayWithFriendsPolicy then
+		u41 = 2 * u41
+	end
+
+	return withStyle(function(p4) -- line: 95
+		-- upvalues: Roact (copy), p3 (copy), FFlagLuaAppUnifyPlayButtonMobileEdp (copy), GetFFlagUIBloxUseFoundationButton (copy), leftPadding (copy), rightPadding (copy), bottomPadding (copy), GAME_DETAILS_ACTION_BAR_HEIGHT (copy), v40 (copy), showMorePage (copy), GameDetailMoreButton (copy), universeId (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), shouldShowPlayWithFriendsPolicy (copy), GameDetailsPlayWithFriendsButton (copy), FFlagLuaAppUnifyPlayButtonAllSurfacesIxp (copy), PlayButtonContainer (copy), u41 (ref), experienceJoinData (copy), PlayButton (copy), ButtonSize (copy), FFlagLuaAppPlayabilityMessageUpdate (copy)
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			AnchorPoint = Vector2.new(0, 1),
+			Position = UDim2.new(0, 0, 1, 0),
+			BackgroundTransparency = 1,
+			[Roact.Ref] = p3.props.containerRef
+		}, {
+			ListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center
+			}),
+			Gradient = Roact.createElement("ImageLabel", {
+				Size = UDim2.new(1, 0, 0, 40),
+				BackgroundTransparency = 1,
+				Image = "rbxasset://textures/ui/LuaApp/graphic/gradient_0_100.png",
+				ImageColor3 = p4.Theme.BackgroundDefault.Color,
+				LayoutOrder = 1,
+				ZIndex = if not FFlagLuaAppUnifyPlayButtonMobileEdp and not GetFFlagUIBloxUseFoundationButton() then nil else 1
+			}),
+			ContentFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				LayoutOrder = 2,
+				BackgroundColor3 = p4.Theme.BackgroundDefault.Color,
+				BackgroundTransparency = 0,
+				BorderSizePixel = 0,
+				ZIndex = if not FFlagLuaAppUnifyPlayButtonMobileEdp and not GetFFlagUIBloxUseFoundationButton() then nil else 2
+			}, {
+				ContentListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					Padding = UDim.new(0, p4.Tokens.Global.Space_150)
+				}),
+				ContentPadding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, leftPadding),
+					PaddingRight = UDim.new(0, rightPadding),
+					PaddingBottom = UDim.new(0, bottomPadding)
+				}),
+				ActionBar = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, GAME_DETAILS_ACTION_BAR_HEIGHT),
+					BackgroundTransparency = 1,
+					LayoutOrder = 1
+				}, {
+					ActionListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						VerticalAlignment = if not FFlagLuaAppUnifyPlayButtonMobileEdp and not GetFFlagUIBloxUseFoundationButton() then nil else Enum.VerticalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, v40)
+					}),
+					MoreButton = showMorePage and Roact.createElement(GameDetailMoreButton, {
+						universeId = universeId,
+						leftPadding = leftPadding,
+						shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p3.props.shouldHydrateLegacyIxp,
+						testId = "--experience-details--more-button"
+					}),
+					PlayWithFriendsButton = shouldShowPlayWithFriendsPolicy and Roact.createElement(GameDetailsPlayWithFriendsButton, {
+						universeId = universeId,
+						leftPadding = leftPadding,
+						shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else p3.props.shouldHydrateLegacyIxp
+					}) or nil,
+					PlayButtonContainer = if not FFlagLuaAppUnifyPlayButtonMobileEdp or not not FFlagLuaAppUnifyPlayButtonAllSurfacesIxp and not p3.props.hasUnifiedPlayButtonIxp then Roact.createElement(PlayButtonContainer, {
+						Size = UDim2.new(1, u41, not GetFFlagUIBloxUseFoundationButton() and 1 or 0, not GetFFlagUIBloxUseFoundationButton() and 0 or GAME_DETAILS_ACTION_BAR_HEIGHT),
+						LayoutOrder = 4,
+						universeId = universeId,
+						referralSource = p3.props.referralSource,
+						experienceJoinData = experienceJoinData,
+						placeId = p3.props.placeIdOverride,
+						testId = "--experience-details--play-button"
+					}) else nil,
+					PlayButton = if not FFlagLuaAppUnifyPlayButtonMobileEdp or not not FFlagLuaAppUnifyPlayButtonAllSurfacesIxp and not p3.props.hasUnifiedPlayButtonIxp then nil else Roact.createElement(PlayButton, {
+						universeId = universeId,
+						referralSource = p3.props.referralSource,
+						launchSource = "LuaGameCard",
+						experienceJoinData = experienceJoinData,
+						placeId = p3.props.placeIdOverride,
+						buttonSize = ButtonSize.Large,
+						width = UDim.new(1, u41),
+						useUIBloxButton = p3.props.unifyToUIBloxIxp,
+						LayoutOrder = 4,
+						testId = "--experience-details--play-button"
+					})
+				}),
+				ContextLabel = if not p3.props.contextualMessage then nil else Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 0, 0),
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Text = p3.props.contextualMessage,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextWrapped = true,
+					BackgroundTransparency = 1,
+					Font = if not FFlagLuaAppPlayabilityMessageUpdate then p4.Tokens.Semantic.Typography.CaptionHeader.Font else p4.Tokens.Semantic.Typography.Body.Font,
+					TextSize = if not FFlagLuaAppPlayabilityMessageUpdate then p4.Tokens.Semantic.Typography.CaptionHeader.FontSize else p4.Tokens.Global.FontSize_75,
+					TextColor3 = p4.Tokens.Semantic.Color.Text.Emphasis.Color3,
+					TextTransparency = p4.Tokens.Semantic.Color.Text.Emphasis.Transparency,
+					LayoutOrder = 2
+				})
+			})
+		})
+	end)
+end
+
+local v28 = RoactAppPolicy.connect(function(p5, _) -- line: 227
+	return {
+		showMorePage = p5.getGameDetailsMorePage(),
+		shouldShowPlayWithFriendsPolicy = p5.getGameDetailsPlayWithFriends()
+	}
+end)(v27)
+
+return function(p7) -- line: 235
+	-- upvalues: useRoactService (copy), RoactNetworking (copy), usePlayButtonState (copy), usePlayButtonContextualMessage (copy), FFlagLuaAppUnifyPlayButtonAllSurfacesIxp (copy), useUserExperiment (copy), AppUserLayers (copy), Cryo (copy), Roact (copy), v28 (copy)
+	local v45 = useRoactService(RoactNetworking)
+	local v46 = usePlayButtonState(v45, p7.universeId, nil)
+	local v47 = usePlayButtonContextualMessage(p7.universeId, v46.playButtonState, v46.playabilityStatus)
+	local v48 = nil
+	local v49 = nil
+
+	if FFlagLuaAppUnifyPlayButtonAllSurfacesIxp then
+		v48, v49 = useUserExperiment({ AppUserLayers.PlayButtonUXExposureLayer }, function(p8) -- line: 249
+			-- upvalues: AppUserLayers (copy)
+			local v53 = p8[AppUserLayers.PlayButtonUXExposureLayer] or {}
+
+			return v53.HasUnifiedPlayButton, v53.UnifyToUIBlox
+		end, true)
+	end
+
+	local v50 = Cryo.Dictionary.join(p7, {
+		contextualMessage = v47,
+		hasUnifiedPlayButtonIxp = if not FFlagLuaAppUnifyPlayButtonAllSurfacesIxp then nil else v48,
+		unifyToUIBloxIxp = if not FFlagLuaAppUnifyPlayButtonAllSurfacesIxp then nil else v49
+	})
+
+	return Roact.createElement(v28, v50)
+end

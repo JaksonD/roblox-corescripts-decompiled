@@ -1,281 +1,296 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v1 = require(l_CorePackages_0.Packages.Roact);
-local v2 = require(l_CorePackages_0.Packages.RoactRodux);
-local l_AppPage_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).AppPage;
-local l_PeekViewState_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).PeekViewState;
-local l_PeekViewWithTopBar_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).PeekViewWithTopBar;
-local l_SessionType_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppSessionization).SessionType;
-local l_getSafeAreaSize_0 = require(l_CorePackages_0.Workspace.Packages.InputUi).getSafeAreaSize;
-local v8 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
-local v10 = require(l_CorePackages_0.Packages.RoactNavigation);
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local l_AppEventIngestService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppEventIngestService;
-local l_AppSessionService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppSessionService;
-local l_peekViewDismissedEvent_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).analytics.peekViewDismissedEvent;
-local v15 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
-local l_EnumGameDetailErrorTypes_0 = v15.EnumGameDetailErrorTypes;
-local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
-local l_gameDetailsPeekViewEvents_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryAnalytics).Events.gameDetailsPeekViewEvents;
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v20 = require(l_Modules_0.LuaApp.Constants);
-local v21 = require(l_Modules_0.LuaApp.Actions.Games.SetGameDetailsPeekViewState);
-local v22 = require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailsTopBar);
-local v23 = require(l_Modules_0.LuaApp.Components.GameDetails.ActionBar);
-local v24 = require(l_Modules_0.LuaApp.Components.GameDetails.GameDetailsCard);
-local v25 = require(l_Modules_0.LuaApp.Components.ExperienceDetails.ExperienceDetailsExperimentation);
-local l_GetFFlagIsSquadEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled;
-local v27 = game:DefineFastFlag("EnableGameDetailsFullViewIXP", false);
-local v28 = game:DefineFastFlag("ForceEnableGameDetailsFullView", false);
-local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp;
-local v30 = game:DefineFastFlag("SduiSocialProofRaisePeekViewBriefHeightIxp", false);
-local v31 = game:DefineFastFlag("SduiSocialProofRaisePeekViewBriefHeightDefault", false);
-local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnableCustomSpawnSponsored;
-local l_FFlagLuaAppExpandableTextImpressionsEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppExpandableTextImpressionsEnabled;
-local l_FFlagUseNavigationSelectors_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors;
-local l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 = v15.Constants.GAME_DETAILS_ACTION_BAR_HEIGHT;
-local function _(v36) --[[ Line: 53 ]] --[[ Name: getInnerPaddingSize ]]
-    if v36 < 600 then
-        return 20;
-    else
-        return 40;
-    end;
-end;
-local v38 = v1.PureComponent:extend("GameDetailsPeekView");
-v38.init = function(v39) --[[ Line: 59 ]] --[[ Name: init ]]
-    -- upvalues: v1 (copy), l_peekViewDismissedEvent_0 (copy), l_AppPage_0 (copy), l_SessionType_0 (copy), l_PeekViewState_0 (copy), l_gameDetailsPeekViewEvents_0 (copy)
-    v39.state = {
-        topBarOpacity = 0
-    };
-    v39.actionBarRef = v1.createRef();
-    local v40, v41 = v1.createBinding(0);
-    v39.transitionPercent = v40;
-    v39.setTransitionPercent = v41;
-    v39.briefToFullTransitionPercent = function(v42) --[[ Line: 67 ]]
-        -- upvalues: v39 (copy)
-        v39:setState({
-            topBarOpacity = v42
-        });
-    end;
-    v39.getPeekViewEventMeta = function() --[[ Line: 73 ]]
-        -- upvalues: v39 (copy)
-        return {
-            universeId = v39.props.universeId, 
-            source = v39.props.source or "None", 
-            index = v39.props.index or -1
-        };
-    end;
-    v39.eventTopBarClosePeekView = function() --[[ Line: 81 ]]
-        -- upvalues: v39 (copy), l_peekViewDismissedEvent_0 (ref)
-        local l_eventIngest_0 = v39.props.eventIngest;
-        local l_routeName_0 = v39.props.navigation.state.routeName;
-        local v45 = v39.getPeekViewEventMeta();
-        l_peekViewDismissedEvent_0.logEvent(l_eventIngest_0, "ProfilePeekView", {
-            dismissMethod = l_peekViewDismissedEvent_0.dismissMethodEnum.topBarTap, 
-            page = l_routeName_0, 
-            locale = v45.RobloxLocaleId, 
-            universeId = v45.universeId, 
-            source = v45.source or "None", 
-            index = v45.index or -1
-        });
-    end;
-    v39.closeGameDetailsPeekViewInNavigation = function(v46) --[[ Line: 96 ]]
-        -- upvalues: v39 (copy), l_AppPage_0 (ref), l_SessionType_0 (ref)
-        v39.props.navigation.clearAppScreens({
-            l_AppPage_0.GameDetail
-        });
-        if v39.props.onClose ~= nil then
-            v39.props.onClose();
-        end;
-        if v39.props.onPeekViewClosed and (not v46 or not v46.backButtonNavigation) then
-            v39.props.onPeekViewClosed();
-        end;
-        v39.props.sessionService:RemoveSession(l_SessionType_0.StructuralIdentifier.GameDetailSource);
-    end;
-    v39.viewStateChanged = function(v47, v48) --[[ Line: 112 ]]
-        -- upvalues: l_PeekViewState_0 (ref), v39 (copy)
-        if v47 == l_PeekViewState_0.Brief then
-            local l_gameDetailsPeekViewState_0 = v39.props.gameDetailsPeekViewState;
-            if l_gameDetailsPeekViewState_0 == l_PeekViewState_0.Brief then
-                v39.eventSwitchGame();
-            elseif l_gameDetailsPeekViewState_0 == l_PeekViewState_0.Closed then
-                v39.eventOpenPeekView();
-            end;
-        end;
-        v39.props.setGameDetailsPeekViewState(v47);
-        if v47 == l_PeekViewState_0.Closed then
-            v39.closeGameDetailsPeekViewInNavigation();
-            return;
-        else
-            if v48 == l_PeekViewState_0.Brief and v47 == l_PeekViewState_0.Full then
-                v39.eventGoToFullView();
-            end;
-            return;
-        end;
-    end;
-    v39.eventOpenPeekView = function() --[[ Line: 131 ]]
-        -- upvalues: v39 (copy), l_gameDetailsPeekViewEvents_0 (ref)
-        local l_eventIngest_1 = v39.props.eventIngest;
-        local l_universeId_0 = v39.props.universeId;
-        local v52 = v39.props.source or "None";
-        local v53 = v39.props.index or -1;
-        l_gameDetailsPeekViewEvents_0(l_eventIngest_1, "OpenPeekView", l_universeId_0, v52, v53);
-    end;
-    v39.eventSwitchGame = function() --[[ Line: 139 ]]
-        -- upvalues: v39 (copy), l_gameDetailsPeekViewEvents_0 (ref)
-        local l_eventIngest_2 = v39.props.eventIngest;
-        local l_universeId_1 = v39.props.universeId;
-        local v56 = v39.props.source or "None";
-        local v57 = v39.props.index or -1;
-        l_gameDetailsPeekViewEvents_0(l_eventIngest_2, "SwitchGame", l_universeId_1, v56, v57);
-    end;
-    v39.eventGoToFullView = function() --[[ Line: 147 ]]
-        -- upvalues: v39 (copy), l_gameDetailsPeekViewEvents_0 (ref)
-        local l_eventIngest_3 = v39.props.eventIngest;
-        local l_universeId_2 = v39.props.universeId;
-        local v60 = v39.props.source or "None";
-        local v61 = v39.props.index or -1;
-        l_gameDetailsPeekViewEvents_0(l_eventIngest_3, "GoToFullView", l_universeId_2, v60, v61);
-    end;
-end;
-v38.willUnmount = function(v62) --[[ Line: 156 ]] --[[ Name: willUnmount ]]
-    -- upvalues: l_AppPage_0 (copy), l_PeekViewState_0 (copy)
-    if (function(_) --[[ Line: 157 ]]
-        -- upvalues: v62 (copy), l_AppPage_0 (ref)
-        local l_history_0 = v62.props.history;
-        local v65 = l_history_0[#l_history_0];
-        local v66 = 0;
-        for v67 = 1, #v65 do
-            if v65[v67].name == l_AppPage_0.GameDetail then
-                v66 = v66 + 1;
-                if v66 > 1 then
-                    return false;
-                end;
-            end;
-        end;
-        return true;
-    end)(v62.props.universeId) then
-        v62.props.setGameDetailsPeekViewState(l_PeekViewState_0.Closed);
-    end;
-    if v62.props.onClose ~= nil then
-        v62.props.onClose();
-    end;
-end;
-v38.render = function(v68) --[[ Line: 183 ]] --[[ Name: render ]]
-    -- upvalues: v20 (copy), l_getSafeAreaSize_0 (copy), v27 (copy), v28 (copy), l_PeekViewState_0 (copy), l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 (copy), v30 (copy), v25 (copy), v31 (copy), v1 (copy), l_PeekViewWithTopBar_0 (copy), v23 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v24 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (copy), v22 (copy)
-    local l_universeId_3 = v68.props.universeId;
-    local l_experienceJoinData_0 = v68.props.experienceJoinData;
-    local v71 = v68.props.statusBarHeight + v20.NAV_BAR_SIZE;
-    local l_gameDetailsPeekViewState_1 = v68.props.gameDetailsPeekViewState;
-    local l_screenSize_0 = v68.props.screenSize;
-    local l_globalGuiInset_0 = v68.props.globalGuiInset;
-    local v75 = math.min(l_getSafeAreaSize_0(l_screenSize_0, l_globalGuiInset_0).X.Offset, 640);
-    local v76 = v75 < 600 and 20 or 40;
-    local l_mountAsFullView_0 = v68.props.mountAsFullView;
-    local l_isExperienceUnavailable_0 = v68.props.isExperienceUnavailable;
-    if l_mountAsFullView_0 == nil then
-        if v27 and v68.props.defaultMountAsFullView or v28 then
-            l_mountAsFullView_0 = true;
-        else
-            local v79 = true;
-            if l_gameDetailsPeekViewState_1 ~= l_PeekViewState_0.Full then
-                v79 = l_gameDetailsPeekViewState_1 == l_PeekViewState_0.Extended;
-            end;
-            l_mountAsFullView_0 = v79;
-        end;
-    end;
-    local l_mountAnimation_0 = v68.props.mountAnimation;
-    if l_mountAnimation_0 == nil then
-        l_mountAnimation_0 = l_gameDetailsPeekViewState_1 == l_PeekViewState_0.Closed;
-    end;
-    local v81 = nil;
-    if v68.props.showBackButton ~= nil then
-        v81 = not v68.props.showBackButton;
-    end;
-    local v82 = v68.actionBarRef.current and v68.actionBarRef.current.AbsoluteSize.Y or l_GAME_DETAILS_ACTION_BAR_HEIGHT_0;
-    local v83 = if v30 and v25.getShouldRaisePeekViewBriefHeight() or v31 then 24 + v76 else 0;
-    return v1.createElement(l_PeekViewWithTopBar_0, {
-        topBarHeight = v71, 
-        bottomDockedContainerHeight = v82, 
-        fullViewContentHeight = UDim.new(1, -v71), 
-        briefViewContentHeight = UDim.new(0, v75 + l_GAME_DETAILS_ACTION_BAR_HEIGHT_0 + v83), 
-        onViewStateChanged = v68.viewStateChanged, 
-        viewChangedEventMeta = v68.getPeekViewEventMeta(), 
-        mountAsFullView = l_mountAsFullView_0, 
-        mountAnimation = l_mountAnimation_0, 
-        transitionPercentCallback = v68.setTransitionPercent, 
-        bottomBarSlot = if l_isExperienceUnavailable_0 then nil else v1.createElement(v23, {
-            leftPadding = v76, 
-            rightPadding = v76, 
-            bottomPadding = 10, 
-            universeId = l_universeId_3, 
-            referralSource = v68.props.referralSource, 
-            experienceJoinData = l_experienceJoinData_0, 
-            placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v68.props.placeIdOverride else nil, 
-            shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v25.getShouldHydrateLegacy() else nil, 
-            containerRef = v68.actionBarRef
-        }), 
-        contentSlot = v1.createElement(v24, {
-            universeId = l_universeId_3, 
-            source = v68.props.source, 
-            index = v68.props.index, 
-            viewportBoundsOffset = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then {
-                min = Vector2.zero, 
-                max = Vector2.new(0, -v82)
-            } else nil, 
-            onPeekViewClosed = v68.props.onPeekViewClosed
-        }), 
-        topBarSlot = v1.createElement(v22, {
-            universeId = l_universeId_3, 
-            showCloseIcon = v81, 
-            onCloseButtonActivated = function(v84) --[[ Line: 272 ]] --[[ Name: onCloseButtonActivated ]]
-                -- upvalues: v68 (copy)
-                v68.eventTopBarClosePeekView();
-                v68.closeGameDetailsPeekViewInNavigation(v84);
-            end, 
-            transitionPercentBinding = v68.transitionPercent
-        })
-    });
-end;
-v38.didUpdate = function(v85, v86) --[[ Line: 281 ]] --[[ Name: didUpdate ]]
-    if v85.props.searchBarFocused ~= v86.searchBarFocused and v85.props.searchBarFocused then
-        v85.closeGameDetailsPeekViewInNavigation();
-    end;
-end;
-v38 = v2.connect(function(v87, v88) --[[ Line: 287 ]]
-    -- upvalues: l_EnumGameDetailErrorTypes_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy)
-    local v89 = v87.GameDetailErrors[v88.universeId] and v87.GameDetailErrors[v88.universeId].errorType == l_EnumGameDetailErrorTypes_0.ExperienceUnavailable;
-    return {
-        currentSquad = if l_GetFFlagIsSquadEnabled_0() then v87.Squad and v87.Squad.Squad and v87.Squad.Squad.currentSquad else nil, 
-        history = if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectLegacyHistory(v87) else v87.Navigation.history, 
-        gameDetailsPeekViewState = v87.GameDetailsPeekView.viewState, 
-        statusBarHeight = v87.TopBar.statusBarHeight, 
-        screenSize = v87.ScreenSize, 
-        globalGuiInset = v87.GlobalGuiInset, 
-        searchBarFocused = v87.SearchBar.focused, 
-        isExperienceUnavailable = v89
-    };
-end, function(v90) --[[ Line: 304 ]]
-    -- upvalues: v21 (copy)
-    return {
-        setGameDetailsPeekViewState = function(v91) --[[ Line: 306 ]] --[[ Name: setGameDetailsPeekViewState ]]
-            -- upvalues: v90 (copy), v21 (ref)
-            return v90(v21(v91));
-        end
-    };
-end)(v38);
-if v27 then
-    v38 = v8.connectUserLayer({
-        l_AppUserLayers_0.ExperienceDetailsPageExposureLayer
-    }, function(v92, _) --[[ Line: 315 ]]
-        -- upvalues: l_AppUserLayers_0 (copy)
-        return {
-            defaultMountAsFullView = (v92[l_AppUserLayers_0.ExperienceDetailsPageExposureLayer] or {}).DefaultMountAsFullView
-        };
-    end)(v38);
-end;
-v38 = l_RoactServices_0.connect({
-    eventIngest = l_AppEventIngestService_0, 
-    sessionService = l_AppSessionService_0
-})(v38);
-return (v10.withNavigation(v38));
+local CorePackages = game:GetService("CorePackages")
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local AppPage = require(CorePackages.Workspace.Packages.RobloxAppEnums).AppPage
+local PeekViewState = require(CorePackages.Workspace.Packages.PeekView).PeekViewState
+local PeekViewWithTopBar = require(CorePackages.Workspace.Packages.PeekView).PeekViewWithTopBar
+local SessionType = require(CorePackages.Workspace.Packages.RobloxAppSessionization).SessionType
+local getSafeAreaSize = require(CorePackages.Workspace.Packages.InputUi).getSafeAreaSize
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+local AppUserLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local RoactNavigation = require(CorePackages.Packages.RoactNavigation)
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local AppEventIngestService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppEventIngestService
+local AppSessionService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppSessionService
+local peekViewDismissedEvent = require(CorePackages.Workspace.Packages.PeekView).analytics.peekViewDismissedEvent
+local DiscoveryTypes = require(CorePackages.Workspace.Packages.DiscoveryTypes)
+local EnumGameDetailErrorTypes = DiscoveryTypes.EnumGameDetailErrorTypes
+local Selectors = require(CorePackages.Workspace.Packages.NavigationRodux).Selectors
+local gameDetailsPeekViewEvents = require(CorePackages.Workspace.Packages.DiscoveryAnalytics).Events.gameDetailsPeekViewEvents
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Constants = require(Modules.LuaApp.Constants)
+local SetGameDetailsPeekViewState = require(Modules.LuaApp.Actions.Games.SetGameDetailsPeekViewState)
+local GameDetailsTopBar = require(Modules.LuaApp.Components.GameDetails.GameDetailsTopBar)
+local ActionBar = require(Modules.LuaApp.Components.GameDetails.ActionBar)
+local GameDetailsCard = require(Modules.LuaApp.Components.GameDetails.GameDetailsCard)
+local ExperienceDetailsExperimentation = require(Modules.LuaApp.Components.ExperienceDetails.ExperienceDetailsExperimentation)
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
+local v28 = game:DefineFastFlag("EnableGameDetailsFullViewIXP", false)
+local v29 = game:DefineFastFlag("ForceEnableGameDetailsFullView", false)
+local FFlagLuaAppEdpBackendV2HydrateLegacyIxp = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp
+local v31 = game:DefineFastFlag("SduiSocialProofRaisePeekViewBriefHeightIxp", false)
+local v32 = game:DefineFastFlag("SduiSocialProofRaisePeekViewBriefHeightDefault", false)
+local FFlagLuaAppExpandableTextImpressionsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppExpandableTextImpressionsEnabled
+local FFlagUseNavigationSelectors = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors
+local FFlagEnablePlayWithRewardComponent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePlayWithRewardComponent
+local GAME_DETAILS_ACTION_BAR_HEIGHT = DiscoveryTypes.Constants.GAME_DETAILS_ACTION_BAR_HEIGHT
+local v37 = Roact.PureComponent:extend("GameDetailsPeekView")
+
+function v37.init(p1) -- line: 59
+	-- upvalues: Roact (copy), peekViewDismissedEvent (copy), AppPage (copy), SessionType (copy), PeekViewState (copy), gameDetailsPeekViewEvents (copy)
+	p1.state = {
+		topBarOpacity = 0
+	}
+	p1.actionBarRef = Roact.createRef()
+
+	local v42, v43 = Roact.createBinding(0)
+
+	p1.transitionPercent = v42
+	p1.setTransitionPercent = v43
+
+	function p1.briefToFullTransitionPercent(p2) -- line: 67
+		-- upvalues: p1 (copy)
+		p1:setState({
+			topBarOpacity = p2
+		})
+	end
+	function p1.getPeekViewEventMeta() -- line: 73
+		-- upvalues: p1 (copy)
+		return {
+			universeId = p1.props.universeId,
+			source = p1.props.source or "None",
+			index = p1.props.index or -1
+		}
+	end
+	function p1.eventTopBarClosePeekView() -- line: 81
+		-- upvalues: p1 (copy), peekViewDismissedEvent (copy)
+		local eventIngest = p1.props.eventIngest
+		local routeName = p1.props.navigation.state.routeName
+		local v71 = p1.getPeekViewEventMeta()
+
+		peekViewDismissedEvent.logEvent(eventIngest, "ProfilePeekView", {
+			dismissMethod = peekViewDismissedEvent.dismissMethodEnum.topBarTap,
+			page = routeName,
+			locale = v71.RobloxLocaleId,
+			universeId = v71.universeId,
+			source = v71.source or "None",
+			index = v71.index or -1
+		})
+	end
+	function p1.closeGameDetailsPeekViewInNavigation(p3) -- line: 96
+		-- upvalues: p1 (copy), AppPage (copy), SessionType (copy)
+		p1.props.navigation.clearAppScreens({ AppPage.GameDetail })
+
+		if p1.props.onClose ~= nil then
+			p1.props.onClose()
+		end
+
+		if p1.props.onPeekViewClosed and (not p3 or not p3.backButtonNavigation) then
+			p1.props.onPeekViewClosed()
+		end
+
+		p1.props.sessionService:RemoveSession(SessionType.StructuralIdentifier.GameDetailSource)
+	end
+	function p1.viewStateChanged(p4, p5) -- line: 112
+		-- upvalues: PeekViewState (copy), p1 (copy)
+		if p4 == PeekViewState.Brief then
+			local gameDetailsPeekViewState = p1.props.gameDetailsPeekViewState
+
+			if gameDetailsPeekViewState == PeekViewState.Brief then
+				p1.eventSwitchGame()
+			elseif gameDetailsPeekViewState == PeekViewState.Closed then
+				p1.eventOpenPeekView()
+			end
+		end
+
+		p1.props.setGameDetailsPeekViewState(p4)
+
+		if p4 == PeekViewState.Closed then
+			p1.closeGameDetailsPeekViewInNavigation()
+
+			return
+		end
+
+		if p5 == PeekViewState.Brief and p4 == PeekViewState.Full then
+			p1.eventGoToFullView()
+		end
+	end
+	function p1.eventOpenPeekView() -- line: 131
+		-- upvalues: p1 (copy), gameDetailsPeekViewEvents (copy)
+		local eventIngest = p1.props.eventIngest
+		local universeId = p1.props.universeId
+		local v78 = p1.props.source or "None"
+		local v79 = p1.props.index or -1
+
+		gameDetailsPeekViewEvents(eventIngest, "OpenPeekView", universeId, v78, v79)
+	end
+	function p1.eventSwitchGame() -- line: 139
+		-- upvalues: p1 (copy), gameDetailsPeekViewEvents (copy)
+		local eventIngest = p1.props.eventIngest
+		local universeId = p1.props.universeId
+		local v82 = p1.props.source or "None"
+		local v83 = p1.props.index or -1
+
+		gameDetailsPeekViewEvents(eventIngest, "SwitchGame", universeId, v82, v83)
+	end
+	function p1.eventGoToFullView() -- line: 147
+		-- upvalues: p1 (copy), gameDetailsPeekViewEvents (copy)
+		local eventIngest = p1.props.eventIngest
+		local universeId = p1.props.universeId
+		local v86 = p1.props.source or "None"
+		local v87 = p1.props.index or -1
+
+		gameDetailsPeekViewEvents(eventIngest, "GoToFullView", universeId, v86, v87)
+	end
+end
+function v37.willUnmount(p6) -- line: 156
+	-- upvalues: AppPage (copy), PeekViewState (copy)
+	if (function(_) -- line: 157
+		-- upvalues: p6 (copy), AppPage (copy)
+		local history = p6.props.history
+		local v90 = history[#history]
+		local n1 = 0
+
+		for i = 1, #v90 do
+			if v90[i].name ~= AppPage.GameDetail then
+				continue
+			end
+
+			n1 += 1
+
+			if n1 > 1 then
+				return false
+			end
+		end
+
+		return true
+	end)(p6.props.universeId) then
+		p6.props.setGameDetailsPeekViewState(PeekViewState.Closed)
+	end
+
+	if p6.props.onClose ~= nil then
+		p6.props.onClose()
+	end
+end
+function v37.render(p8) -- line: 183
+	-- upvalues: Constants (copy), getSafeAreaSize (copy), v28 (copy), v29 (copy), PeekViewState (copy), GAME_DETAILS_ACTION_BAR_HEIGHT (copy), v31 (copy), ExperienceDetailsExperimentation (copy), v32 (copy), Roact (copy), PeekViewWithTopBar (copy), ActionBar (copy), FFlagLuaAppEdpBackendV2HydrateLegacyIxp (copy), GameDetailsCard (copy), FFlagEnablePlayWithRewardComponent (copy), FFlagLuaAppExpandableTextImpressionsEnabled (copy), GameDetailsTopBar (copy)
+	local universeId = p8.props.universeId
+	local experienceJoinData = p8.props.experienceJoinData
+	local v48 = p8.props.statusBarHeight + Constants.NAV_BAR_SIZE
+	local gameDetailsPeekViewState = p8.props.gameDetailsPeekViewState
+	local screenSize = p8.props.screenSize
+	local globalGuiInset = p8.props.globalGuiInset
+	local v52 = math.min(getSafeAreaSize(screenSize, globalGuiInset).X.Offset, 640)
+	local v53 = not (v52 < 600) and 40 or 20
+	local mountAsFullView = p8.props.mountAsFullView
+	local isExperienceUnavailable = p8.props.isExperienceUnavailable
+
+	if mountAsFullView == nil then
+		mountAsFullView = not not v28 and p8.props.defaultMountAsFullView and true or (not not v29 or (gameDetailsPeekViewState == PeekViewState.Full or gameDetailsPeekViewState == PeekViewState.Extended))
+	end
+
+	local mountAnimation = p8.props.mountAnimation
+
+	if mountAnimation == nil then
+		mountAnimation = gameDetailsPeekViewState == PeekViewState.Closed
+	end
+
+	local v57 = nil
+
+	if p8.props.showBackButton ~= nil then
+		v57 = not p8.props.showBackButton
+	end
+
+	local v58 = p8.actionBarRef.current and p8.actionBarRef.current.AbsoluteSize.Y or GAME_DETAILS_ACTION_BAR_HEIGHT
+	local v59 = not (not not v31 and ExperienceDetailsExperimentation.getShouldRaisePeekViewBriefHeight()) and not v32 and 0 or 24 + v53
+
+	return Roact.createElement(PeekViewWithTopBar, {
+		topBarHeight = v48,
+		bottomDockedContainerHeight = v58,
+		fullViewContentHeight = UDim.new(1, -v48),
+		briefViewContentHeight = UDim.new(0, v52 + GAME_DETAILS_ACTION_BAR_HEIGHT + v59),
+		onViewStateChanged = p8.viewStateChanged,
+		viewChangedEventMeta = p8.getPeekViewEventMeta(),
+		mountAsFullView = mountAsFullView,
+		mountAnimation = mountAnimation,
+		transitionPercentCallback = p8.setTransitionPercent,
+		bottomBarSlot = if not isExperienceUnavailable then Roact.createElement(ActionBar, {
+			leftPadding = v53,
+			rightPadding = v53,
+			bottomPadding = 10,
+			universeId = universeId,
+			referralSource = p8.props.referralSource,
+			experienceJoinData = experienceJoinData,
+			placeIdOverride = p8.props.placeIdOverride,
+			shouldHydrateLegacyIxp = if not FFlagLuaAppEdpBackendV2HydrateLegacyIxp then nil else ExperienceDetailsExperimentation.getShouldHydrateLegacy(),
+			containerRef = p8.actionBarRef
+		}) else nil,
+		contentSlot = Roact.createElement(GameDetailsCard, {
+			universeId = universeId,
+			source = p8.props.source,
+			index = p8.props.index,
+			placeIdOverride = if not FFlagEnablePlayWithRewardComponent then nil else p8.props.placeIdOverride,
+			experienceJoinData = if not FFlagEnablePlayWithRewardComponent then nil else experienceJoinData,
+			viewportBoundsOffset = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else {
+				min = Vector2.zero,
+				max = Vector2.new(0, -v58)
+			},
+			onPeekViewClosed = p8.props.onPeekViewClosed
+		}),
+		topBarSlot = Roact.createElement(GameDetailsTopBar, {
+			universeId = universeId,
+			showCloseIcon = v57,
+			onCloseButtonActivated = function(p9) --[[ onCloseButtonActivated ]] -- line: 274
+				-- upvalues: p8 (copy)
+				p8.eventTopBarClosePeekView()
+				p8.closeGameDetailsPeekViewInNavigation(p9)
+			end,
+			transitionPercentBinding = p8.transitionPercent
+		})
+	})
+end
+function v37.didUpdate(p10, p11) -- line: 283
+	if p10.props.searchBarFocused ~= p11.searchBarFocused and p10.props.searchBarFocused then
+		p10.closeGameDetailsPeekViewInNavigation()
+	end
+end
+
+local v38 = RoactRodux.connect(function(p12, p13) -- line: 289
+	-- upvalues: EnumGameDetailErrorTypes (copy), GetFFlagIsSquadEnabled (copy), FFlagUseNavigationSelectors (copy), Selectors (copy)
+	local v64 = p12.GameDetailErrors[p13.universeId] and p12.GameDetailErrors[p13.universeId].errorType == EnumGameDetailErrorTypes.ExperienceUnavailable
+
+	return {
+		currentSquad = if not GetFFlagIsSquadEnabled() then nil else p12.Squad and (p12.Squad.Squad and p12.Squad.Squad.currentSquad),
+		history = if not FFlagUseNavigationSelectors then p12.Navigation.history else Selectors.selectLegacyHistory(p12),
+		gameDetailsPeekViewState = p12.GameDetailsPeekView.viewState,
+		statusBarHeight = p12.TopBar.statusBarHeight,
+		screenSize = p12.ScreenSize,
+		globalGuiInset = p12.GlobalGuiInset,
+		searchBarFocused = p12.SearchBar.focused,
+		isExperienceUnavailable = v64
+	}
+end, function(p14) -- line: 306
+	-- upvalues: SetGameDetailsPeekViewState (copy)
+	return {
+		setGameDetailsPeekViewState = function(p15) --[[ setGameDetailsPeekViewState ]] -- line: 308
+			-- upvalues: p14 (copy), SetGameDetailsPeekViewState (copy)
+			return p14(SetGameDetailsPeekViewState(p15))
+		end
+	}
+end)(v37)
+
+if v28 then
+	v38 = RoactAppExperiment.connectUserLayer({ AppUserLayers.ExperienceDetailsPageExposureLayer }, function(p16, _) -- line: 317
+		-- upvalues: AppUserLayers (copy)
+		return {
+			defaultMountAsFullView = (p16[AppUserLayers.ExperienceDetailsPageExposureLayer] or {}).DefaultMountAsFullView
+		}
+	end)(v38)
+end
+
+local v39 = RoactServices.connect({
+	eventIngest = AppEventIngestService,
+	sessionService = AppSessionService
+})(v38)
+
+return (RoactNavigation.withNavigation(v39))

@@ -1,10 +1,18 @@
-game:DefineFastString("ContactsDeepLinkPrefix", "roblox://navigation/contacts");
-game:DefineFastString("AppealsPortalPrefix", "roblox://navigation/appeals");
-game:DefineFastString("SecurityAlertDeepLinkPrefix", "roblox://navigation/security_alert");
-game:DefineFastString("SortDeeplinkPrefix", "roblox://navigation/experience_sort");
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local FFlagEnableSearchDeepLink = require(Modules.LuaApp.Flags.FFlagEnableSearchDeepLink)
+
+game:DefineFastString("ContactsDeepLinkPrefix", "roblox://navigation/contacts")
+game:DefineFastString("AppealsPortalPrefix", "roblox://navigation/appeals")
+game:DefineFastString("SecurityAlertDeepLinkPrefix", "roblox://navigation/security_alert")
+game:DefineFastString("SortDeeplinkPrefix", "roblox://navigation/experience_sort")
+game:DefineFastString("AmpWizardDeepLinkPrefix", "roblox://navigation/amp_wizard")
+game:DefineFastString("SearchDeepLinkPrefix", "roblox://navigation/search")
+
 return {
-    game:GetFastString("ContactsDeepLinkPrefix"), 
-    game:GetFastString("AppealsPortalPrefix"), 
-    game:GetFastString("SecurityAlertDeepLinkPrefix"), 
-    game:GetFastString("SortDeeplinkPrefix")
-};
+	game:GetFastString("ContactsDeepLinkPrefix"),
+	game:GetFastString("AppealsPortalPrefix"),
+	game:GetFastString("SecurityAlertDeepLinkPrefix"),
+	game:GetFastString("SortDeeplinkPrefix"),
+	game:GetFastString("AmpWizardDeepLinkPrefix"),
+	if not FFlagEnableSearchDeepLink then nil else game:GetFastString("SearchDeepLinkPrefix")
+}

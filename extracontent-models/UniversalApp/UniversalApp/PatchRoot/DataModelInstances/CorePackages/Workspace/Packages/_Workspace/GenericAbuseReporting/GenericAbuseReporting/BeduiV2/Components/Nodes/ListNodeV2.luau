@@ -1,314 +1,360 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("GenericAbuseReporting");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Dash);
-local v3 = require(l_Parent_0.Foundation);
-local v4 = require(l_Parent_0.React);
-local l_Button_0 = v3.Button;
-local l_ButtonVariant_0 = v3.Enums.ButtonVariant;
-local l_Empty_0 = v3.Empty;
-local l_FillBehavior_0 = v3.Enums.FillBehavior;
-local l_IconName_0 = v3.Enums.IconName;
-local l_List_0 = v3.List;
-local l_ListItemInputType_0 = v3.Enums.ListItemInputType;
-local l_Skeleton_0 = v3.Skeleton;
-local l_Radius_0 = v3.Enums.Radius;
-local l_useTokens_0 = v3.Hooks.useTokens;
-local l_View_0 = v3.View;
-local v16 = require(l_script_FirstAncestor_0.BeduiV2.Analytics.AbuseReportAnalyticsContext);
-local v17 = require(l_script_FirstAncestor_0.BeduiV2.Analytics.analyticsService);
-local v18 = require(l_script_FirstAncestor_0.BeduiV2.Components.Eyebrow);
-local v19 = require(l_script_FirstAncestor_0.BeduiV2.Components.LayoutSlots);
-local v20 = require(l_script_FirstAncestor_0.BeduiV2.Utils.scrollToItem);
-local v21 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.TextWithTranslation);
-local _ = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.translate);
-local l_useArTranslation_0 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.arTranslation).useArTranslation;
-local l_useListLoader_0 = require(l_script_FirstAncestor_0.BeduiV2.Loaders.useLoader).useListLoader;
-local l_TelemetryEventType_0 = v17.TelemetryEventType;
-local l_useAbuseReportAnalytics_0 = v16.useAbuseReportAnalytics;
-local l_useLayoutSlots_0 = v19.useLayoutSlots;
-local v28 = {
-    chevron = nil, 
-    radio = l_ListItemInputType_0.Radio, 
-    toggle = l_ListItemInputType_0.Toggle, 
-    checkbox = l_ListItemInputType_0.Checkbox
-};
-local function v34(v29) --[[ Line: 69 ]] --[[ Name: ListNodeLoading ]]
-    -- upvalues: v4 (copy), v18 (copy), v21 (copy), l_View_0 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy)
-    local l_body_0 = v29.body;
-    local l_title_0 = v29.title;
-    local l_eyebrow_0 = v29.eyebrow;
-    local l_tokens_0 = v29.tokens;
-    return v4.createElement(l_body_0, nil, {
-        Eyebrow = l_eyebrow_0 and v4.createElement(v18, {
-            eyebrow = l_eyebrow_0, 
-            layoutOrder = 0
-        }), 
-        Title = v4.createElement(v21, {
-            input = l_title_0, 
-            tag = "size-full-0 auto-y text-heading-medium", 
-            layoutOrder = 1
-        }), 
-        SkeletonContainer = v4.createElement(l_View_0, {
-            tag = "col size-full-0 auto-y gap-medium", 
-            LayoutOrder = 2
-        }, {
-            Skeleton1 = v4.createElement(l_Skeleton_0, {
-                radius = l_Radius_0.Medium, 
-                Size = UDim2.new(1, 0, 0, l_tokens_0.Size.Size_600)
-            }), 
-            Skeleton2 = v4.createElement(l_Skeleton_0, {
-                radius = l_Radius_0.Medium, 
-                Size = UDim2.new(1, 0, 0, l_tokens_0.Size.Size_600)
-            }), 
-            Skeleton3 = v4.createElement(l_Skeleton_0, {
-                radius = l_Radius_0.Medium, 
-                Size = UDim2.new(1, 0, 0, l_tokens_0.Size.Size_600)
-            }), 
-            Skeleton4 = v4.createElement(l_Skeleton_0, {
-                radius = l_Radius_0.Medium, 
-                Size = UDim2.new(1, 0, 0, l_tokens_0.Size.Size_600)
-            }), 
-            Skeleton5 = v4.createElement(l_Skeleton_0, {
-                radius = l_Radius_0.Medium, 
-                Size = UDim2.new(1, 0, 0, l_tokens_0.Size.Size_600)
-            })
-        })
-    });
-end;
-local function v37(v35) --[[ Line: 117 ]] --[[ Name: ListNodeError ]]
-    -- upvalues: l_useArTranslation_0 (copy), v4 (copy), v18 (copy), v21 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), v3 (copy)
-    local l_translateIntoString_0 = l_useArTranslation_0().translateIntoString;
-    return v4.createElement(v35.body, nil, {
-        Eyebrow = v35.eyebrow and v4.createElement(v18, {
-            eyebrow = v35.eyebrow, 
-            layoutOrder = 0
-        }), 
-        Title = v4.createElement(v21, {
-            input = v35.title, 
-            tag = "size-full-0 auto-y text-heading-medium", 
-            layoutOrder = 1
-        }), 
-        ErrorText = v4.createElement(v21, {
-            input = l_translateIntoString_0(v35.errorText), 
-            tag = "size-full-0 auto-y text-body-small", 
-            layoutOrder = 2
-        }), 
-        RetryButton = v4.createElement(l_Button_0, {
-            text = l_translateIntoString_0(v35.retryButtonText), 
-            variant = l_ButtonVariant_0.Standard, 
-            fillBehavior = v3.Enums.FillBehavior.Fit, 
-            onActivated = v35.retry, 
-            LayoutOrder = 3
-        })
-    });
-end;
-return v4.memo(function(v38) --[[ Line: 156 ]] --[[ Name: ListNode ]]
-    -- upvalues: l_useTokens_0 (copy), v4 (copy), l_useArTranslation_0 (copy), l_useAbuseReportAnalytics_0 (copy), l_useLayoutSlots_0 (copy), v20 (copy), l_useListLoader_0 (copy), v2 (copy), l_TelemetryEventType_0 (copy), v34 (copy), v37 (copy), l_Empty_0 (copy), v18 (copy), v21 (copy), l_View_0 (copy), l_List_0 (copy), l_IconName_0 (copy), v28 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy)
-    local v39 = l_useTokens_0();
-    local v40, v41 = v4.useState(v38.initialValue or nil);
-    local l_translateIntoString_1 = l_useArTranslation_0().translateIntoString;
-    local l_sendEvent_0 = l_useAbuseReportAnalytics_0().sendEvent;
-    local v44 = v4.useRef(nil);
-    local v45, v46 = v4.useState(false);
-    local v47, v48 = v4.useState(false);
-    local v49 = l_useLayoutSlots_0();
-    local l_Body_0 = v49.Body;
-    local l_Actions_0 = v49.Actions;
-    v4.useEffect(function() --[[ Line: 170 ]]
-        -- upvalues: v44 (copy), v46 (copy), v48 (copy)
-        local l_current_0 = v44.current;
-        if not l_current_0 then
-            return;
-        else
-            local l_l_current_0_FirstChildWhichIsA_0 = l_current_0:FindFirstChildWhichIsA("ScrollingFrame", true);
-            if not l_l_current_0_FirstChildWhichIsA_0 then
-                return;
-            else
-                local function v55() --[[ Line: 183 ]] --[[ Name: checkScrollbar ]]
-                    -- upvalues: l_l_current_0_FirstChildWhichIsA_0 (copy), v46 (ref)
-                    local v54 = l_l_current_0_FirstChildWhichIsA_0.AbsoluteCanvasSize.Y > l_l_current_0_FirstChildWhichIsA_0.AbsoluteWindowSize.Y;
-                    v46(v54);
-                end;
-                local function v56() --[[ Line: 188 ]] --[[ Name: onScroll ]]
-                    -- upvalues: l_l_current_0_FirstChildWhichIsA_0 (copy), v48 (ref)
-                    if l_l_current_0_FirstChildWhichIsA_0.CanvasPosition.Y > 0 then
-                        v48(true);
-                    end;
-                end;
-                local v57 = l_l_current_0_FirstChildWhichIsA_0.AbsoluteCanvasSize.Y > l_l_current_0_FirstChildWhichIsA_0.AbsoluteWindowSize.Y;
-                v46(v57);
-                v57 = l_l_current_0_FirstChildWhichIsA_0:GetPropertyChangedSignal("AbsoluteCanvasSize"):Connect(v55);
-                local v58 = l_l_current_0_FirstChildWhichIsA_0:GetPropertyChangedSignal("AbsoluteWindowSize"):Connect(v55);
-                local v59 = l_l_current_0_FirstChildWhichIsA_0:GetPropertyChangedSignal("CanvasPosition"):Connect(v56);
-                return function() --[[ Line: 201 ]]
-                    -- upvalues: v57 (copy), v58 (copy), v59 (copy)
-                    v57:Disconnect();
-                    v58:Disconnect();
-                    v59:Disconnect();
-                end;
-            end;
-        end;
-    end, {});
-    local v60 = v4.useRef({});
-    local v61 = v4.useRef(nil);
-    v4.useEffect(function() --[[ Line: 211 ]]
-        -- upvalues: v40 (copy), v61 (copy), v60 (copy), v20 (ref), v44 (copy)
-        if v40 then
-            v61.current = v60.current[v40];
-            v20(v44, v61);
-            return;
-        else
-            v61.current = nil;
-            return;
-        end;
-    end, {
-        v40
-    });
-    local v62 = l_useListLoader_0(v38.items);
-    local l_loading_0 = v62.loading;
-    local l_error_0 = v62.error;
-    local l_retry_0 = v62.retry;
-    local l_data_0 = v62.data;
-    local v67 = v38.variant or "radio";
-    local v68 = v67 == "chevron";
-    local v73 = v4.useCallback(function(v69) --[[ Line: 229 ]]
-        -- upvalues: l_data_0 (copy), v41 (copy), v2 (ref), l_sendEvent_0 (copy), l_TelemetryEventType_0 (ref), v45 (copy), v47 (copy)
-        if not l_data_0 then
-            return;
-        else
-            v41(v69);
-            local v70 = 0;
-            v2.forEach(l_data_0, function(v71, v72) --[[ Line: 237 ]]
-                -- upvalues: v69 (copy), v70 (ref)
-                if v71.id == v69 then
-                    v70 = v72;
-                    return;
-                else
-                    return;
-                end;
-            end);
-            l_sendEvent_0({
-                sub_event_type = l_TelemetryEventType_0.SelectItem, 
-                select_item_detail = {
-                    selected_index = v70, 
-                    list_length = #l_data_0, 
-                    has_scroll = v45, 
-                    did_scroll = v47
-                }
-            });
-            return;
-        end;
-    end, {
-        l_sendEvent_0, 
-        v45, 
-        v47, 
-        l_data_0
-    });
-    local v76 = v4.useCallback(function() --[[ Line: 254 ]]
-        -- upvalues: l_data_0 (copy), v2 (ref), v40 (copy), v38 (copy)
-        if not l_data_0 then
-            return;
-        else
-            local v75 = v2.find(l_data_0, function(v74) --[[ Line: 259 ]]
-                -- upvalues: v40 (ref)
-                return v74.id == v40;
-            end);
-            if v38.onNext then
-                v38.onNext(v40, v75);
-            end;
-            return;
-        end;
-    end, {
-        l_data_0, 
-        v38.onNext, 
-        v40
-    });
-    if l_loading_0 then
-        return v4.createElement(v34, {
-            body = l_Body_0, 
-            title = v38.title, 
-            eyebrow = v38.eyebrow, 
-            tokens = v39
-        });
-    elseif l_error_0 then
-        return v4.createElement(v37, {
-            body = l_Body_0, 
-            title = v38.title, 
-            eyebrow = v38.eyebrow, 
-            errorText = v38.errorText, 
-            retryButtonText = v38.retryButtonText, 
-            tokens = v39, 
-            retry = l_retry_0
-        });
-    else
-        return v4.createElement(v4.Fragment, nil, {
-            Content = v4.createElement(l_Body_0, {
-                ref = v44
-            }, if not (l_data_0 ~= nil) or #l_data_0 == 0 then {
-                Empty = v4.createElement(l_Empty_0)
-            } else {
-                Eyebrow = v4.createElement(v18, {
-                    eyebrow = v38.eyebrow, 
-                    layoutOrder = 0
-                }), 
-                Title = v4.createElement(v21, {
-                    input = v38.title, 
-                    tag = "size-full-0 auto-y text-heading-medium", 
-                    layoutOrder = 1
-                }), 
-                ItemListContainer = v4.createElement(l_View_0, {
-                    tag = "size-full-0 auto-y", 
-                    LayoutOrder = 2
-                }, {
-                    ItemList = v4.createElement(l_List_0.Root, {
-                        hasDivider = {
-                            hasDivider = true, 
-                            isInset = false
-                        }, 
-                        isContained = {
-                            isContained = false, 
-                            hasMargin = true
-                        }
-                    }, {
-                        v2.map(l_data_0, function(v77, v78) --[[ Line: 323 ]]
-                            -- upvalues: v4 (ref), l_List_0 (ref), l_IconName_0 (ref), l_translateIntoString_1 (copy), v68 (copy), v38 (copy), v73 (copy), v28 (ref), v67 (copy), v40 (copy), v60 (copy)
-                            return v4.createElement(l_List_0.Item, {
-                                leading = if type(v77.leading) == "string" then l_IconName_0[v77.leading] else v77.leading, 
-                                title = l_translateIntoString_1(v77.label), 
-                                description = if v77.description then l_translateIntoString_1(v77.description) else nil, 
-                                onActivated = {
-                                    onActivated = v68 and function() --[[ Line: 334 ]]
-                                        -- upvalues: v38 (ref), v77 (copy)
-                                        if v38.onNext then
-                                            v38.onNext(v77.id, v77);
-                                        end;
-                                    end or function() --[[ Line: 339 ]]
-                                        -- upvalues: v73 (ref), v77 (copy)
-                                        v73(v77.id);
-                                    end, 
-                                    inputType = v28[v67], 
-                                    isChecked = v40 == v77.id
-                                }, 
-                                LayoutOrder = v78, 
-                                ref = function(v79) --[[ Line: 346 ]] --[[ Name: ref ]]
-                                    -- upvalues: v60 (ref), v77 (copy)
-                                    v60.current[v77.id] = v79;
-                                end
-                            });
-                        end)
-                    })
-                })
-            }), 
-            Actions = if not (not v38.onNext or v68) and v40 ~= nil then v4.createElement(l_Actions_0, nil, {
-                Button = v4.createElement(l_Button_0, {
-                    text = l_translateIntoString_1(v38.nextButtonText), 
-                    variant = l_ButtonVariant_0.Emphasis, 
-                    fillBehavior = l_FillBehavior_0.Fill, 
-                    isLoading = v38.isSubmitting, 
-                    isDisabled = v38.isSubmitting, 
-                    onActivated = v76
-                })
-            }) else nil
-        });
-    end;
-end);
+local GenericAbuseReporting = script:FindFirstAncestor("GenericAbuseReporting")
+local GenericAbuseReportingParent = GenericAbuseReporting.Parent
+local Dash = require(GenericAbuseReportingParent.Dash)
+local Foundation = require(GenericAbuseReportingParent.Foundation)
+local React = require(GenericAbuseReportingParent.React)
+local Button = Foundation.Button
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local Empty = Foundation.Empty
+local FillBehavior = Foundation.Enums.FillBehavior
+local IconName = Foundation.Enums.IconName
+local List = Foundation.List
+local ListItemInputType = Foundation.Enums.ListItemInputType
+local Skeleton = Foundation.Skeleton
+local EnumsRadius = Foundation.Enums.Radius
+local useTokens = Foundation.Hooks.useTokens
+local View = Foundation.View
+local AbuseReportAnalyticsContext = require(GenericAbuseReporting.BeduiV2.Analytics.AbuseReportAnalyticsContext)
+local analyticsService = require(GenericAbuseReporting.BeduiV2.Analytics.analyticsService)
+local Eyebrow = require(GenericAbuseReporting.BeduiV2.Components.Eyebrow)
+local LayoutSlots = require(GenericAbuseReporting.BeduiV2.Components.LayoutSlots)
+local scrollToItem = require(GenericAbuseReporting.BeduiV2.Utils.scrollToItem)
+local TextWithTranslation = require(GenericAbuseReporting.BeduiV2.Utils.Translate.TextWithTranslation)
+
+require(GenericAbuseReporting.BeduiV2.Utils.Translate.translate)
+
+local useArTranslation = require(GenericAbuseReporting.BeduiV2.Utils.Translate.arTranslation).useArTranslation
+local useListLoader = require(GenericAbuseReporting.BeduiV2.Loaders.useLoader).useListLoader
+local TelemetryEventType = analyticsService.TelemetryEventType
+local useAbuseReportAnalytics = AbuseReportAnalyticsContext.useAbuseReportAnalytics
+local useLayoutSlots = LayoutSlots.useLayoutSlots
+local t1 = {
+	chevron = nil,
+	radio = ListItemInputType.Radio,
+	toggle = ListItemInputType.Toggle,
+	checkbox = ListItemInputType.Checkbox
+}
+
+local function ListNodeLoading(t2: {[any]: any}) -- line: 69
+	-- upvalues: React (copy), Eyebrow (copy), TextWithTranslation (copy), View (copy), Skeleton (copy), EnumsRadius (copy)
+	local body = t2.body
+	local title = t2.title
+	local eyebrow = t2.eyebrow
+	local tokens = t2.tokens
+
+	return React.createElement(body, nil, {
+		Eyebrow = eyebrow and React.createElement(Eyebrow, {
+			eyebrow = eyebrow,
+			layoutOrder = 0
+		}),
+		Title = React.createElement(TextWithTranslation, {
+			input = title,
+			tag = "size-full-0 auto-y text-heading-medium",
+			layoutOrder = 1
+		}),
+		SkeletonContainer = React.createElement(View, {
+			tag = "col size-full-0 auto-y gap-medium",
+			LayoutOrder = 2
+		}, {
+			Skeleton1 = React.createElement(Skeleton, {
+				radius = EnumsRadius.Medium,
+				Size = UDim2.new(1, 0, 0, tokens.Size.Size_600)
+			}),
+			Skeleton2 = React.createElement(Skeleton, {
+				radius = EnumsRadius.Medium,
+				Size = UDim2.new(1, 0, 0, tokens.Size.Size_600)
+			}),
+			Skeleton3 = React.createElement(Skeleton, {
+				radius = EnumsRadius.Medium,
+				Size = UDim2.new(1, 0, 0, tokens.Size.Size_600)
+			}),
+			Skeleton4 = React.createElement(Skeleton, {
+				radius = EnumsRadius.Medium,
+				Size = UDim2.new(1, 0, 0, tokens.Size.Size_600)
+			}),
+			Skeleton5 = React.createElement(Skeleton, {
+				radius = EnumsRadius.Medium,
+				Size = UDim2.new(1, 0, 0, tokens.Size.Size_600)
+			})
+		})
+	})
+end
+local function ListNodeError(t3: {[any]: any}) -- line: 117
+	-- upvalues: useArTranslation (copy), React (copy), Eyebrow (copy), TextWithTranslation (copy), Button (copy), ButtonVariant (copy), Foundation (copy)
+	local translateIntoString = useArTranslation().translateIntoString
+
+	return React.createElement(t3.body, nil, {
+		Eyebrow = t3.eyebrow and React.createElement(Eyebrow, {
+			eyebrow = t3.eyebrow,
+			layoutOrder = 0
+		}),
+		Title = React.createElement(TextWithTranslation, {
+			input = t3.title,
+			tag = "size-full-0 auto-y text-heading-medium",
+			layoutOrder = 1
+		}),
+		ErrorText = React.createElement(TextWithTranslation, {
+			input = translateIntoString(t3.errorText),
+			tag = "size-full-0 auto-y text-body-small",
+			layoutOrder = 2
+		}),
+		RetryButton = React.createElement(Button, {
+			text = translateIntoString(t3.retryButtonText),
+			variant = ButtonVariant.Standard,
+			fillBehavior = Foundation.Enums.FillBehavior.Fit,
+			onActivated = t3.retry,
+			LayoutOrder = 3
+		})
+	})
+end
+
+return React.memo(function(t4: {[any]: any}) --[[ ListNode ]] -- line: 156
+	-- upvalues: useTokens (copy), React (copy), useArTranslation (copy), useAbuseReportAnalytics (copy), useListLoader (copy), useLayoutSlots (copy), scrollToItem (copy), TelemetryEventType (copy), Dash (copy), ListNodeLoading (copy), ListNodeError (copy), Empty (copy), Eyebrow (copy), TextWithTranslation (copy), View (copy), List (copy), IconName (copy), t1 (copy), Button (copy), ButtonVariant (copy), FillBehavior (copy)
+	local v39 = useTokens()
+	local v40, v41 = React.useState(t4.initialValue or nil)
+	local translateIntoString = useArTranslation().translateIntoString
+	local sendEvent = useAbuseReportAnalytics().sendEvent
+	local v44 = React.useRef(nil)
+	local v45, v46 = React.useState(false)
+	local v47, v48 = React.useState(false)
+	local v49 = React.useRef(false)
+	local v50 = React.useRef(false)
+	local v51 = useListLoader(t4.items)
+	local loading = v51.loading
+	local error = v51.error
+	local retry = v51.retry
+	local data = v51.data
+	local v56 = useLayoutSlots()
+	local Body = v56.Body
+	local Actions = v56.Actions
+
+	React.useEffect(function() -- line: 178
+		-- upvalues: v44 (copy), v46 (copy), v48 (copy)
+		local current = v44.current
+
+		if not current then
+			return
+		end
+
+		local ScrollingFrame = current:FindFirstChildWhichIsA("ScrollingFrame", true)
+
+		if not ScrollingFrame then
+			return
+		end
+
+		local function checkScrollbar() -- line: 191
+			-- upvalues: ScrollingFrame (copy), v46 (copy)
+			local v77 = ScrollingFrame.AbsoluteCanvasSize.Y > ScrollingFrame.AbsoluteWindowSize.Y
+
+			v46(v77)
+		end
+
+		local v68 = ScrollingFrame.AbsoluteCanvasSize.Y > ScrollingFrame.AbsoluteWindowSize.Y
+
+		v46(v68)
+
+		local connection = ScrollingFrame:GetPropertyChangedSignal("AbsoluteCanvasSize"):Connect(checkScrollbar)
+		local connection2 = ScrollingFrame:GetPropertyChangedSignal("AbsoluteWindowSize"):Connect(checkScrollbar)
+		local connection3 = ScrollingFrame:GetPropertyChangedSignal("CanvasPosition"):Connect(function() --[[ onScroll ]] -- line: 196
+			-- upvalues: ScrollingFrame (copy), v48 (copy)
+			if ScrollingFrame.CanvasPosition.Y > 0 then
+				v48(true)
+			end
+		end)
+
+		return function() -- line: 209
+			-- upvalues: connection (copy), connection2 (copy), connection3 (copy)
+			connection:Disconnect()
+			connection2:Disconnect()
+			connection3:Disconnect()
+		end
+	end, { loading })
+
+	local v59 = React.useRef({})
+	local v60 = React.useRef(nil)
+
+	React.useEffect(function() -- line: 219
+		-- upvalues: v40 (copy), v60 (copy), v59 (copy), scrollToItem (copy), v44 (copy)
+		if v40 then
+			v60.current = v59.current[v40]
+			scrollToItem(v44, v60)
+
+			return
+		end
+
+		v60.current = nil
+	end, { v40 })
+	React.useEffect(function() -- line: 228
+		-- upvalues: error (copy), v49 (copy), sendEvent (copy), TelemetryEventType (copy)
+		if error and not v49.current then
+			v49.current = true
+			sendEvent({
+				sub_event_type = TelemetryEventType.Error,
+				error_detail = {
+					error_message = "list: async load failed: " .. error
+				}
+			})
+		end
+	end, {
+		error,
+		sendEvent
+	})
+	React.useEffect(function() -- line: 238
+		-- upvalues: loading (copy), error (copy), data (copy), v50 (copy), sendEvent (copy), TelemetryEventType (copy)
+		if not loading and not error and ((data == nil or #data == 0) and not v50.current) then
+			v50.current = true
+			sendEvent({
+				sub_event_type = TelemetryEventType.EmptyState
+			})
+		end
+	end, {
+		loading,
+		error,
+		data,
+		sendEvent
+	})
+
+	local v61 = t4.variant or "radio"
+	local v62 = v61 == "chevron"
+	local v63 = React.useCallback(function(s1: string) -- line: 255
+		-- upvalues: data (copy), v41 (copy), Dash (copy), sendEvent (copy), TelemetryEventType (copy), v45 (copy), v47 (copy)
+		if not data then
+			return
+		end
+
+		v41(s1)
+
+		local n1 = 0
+
+		Dash.forEach(data, function(p1, p2) -- line: 263
+			-- upvalues: s1 (copy), n1 (ref)
+			if p1.id == s1 then
+				n1 = p2
+
+				return
+			end
+		end)
+		sendEvent({
+			sub_event_type = TelemetryEventType.SelectItem,
+			select_item_detail = {
+				selected_index = n1,
+				list_length = #data,
+				has_scroll = v45,
+				did_scroll = v47
+			}
+		})
+	end, {
+		sendEvent,
+		v45,
+		v47,
+		data
+	})
+	local v64 = React.useCallback(function() -- line: 280
+		-- upvalues: data (copy), Dash (copy), v40 (copy), t4 (copy)
+		if not data then
+			return
+		end
+
+		local v74 = Dash.find(data, function(p3) -- line: 285
+			-- upvalues: v40 (copy)
+			return p3.id == v40
+		end)
+
+		if t4.onNext then
+			t4.onNext(v40, v74)
+		end
+	end, {
+		data,
+		t4.onNext,
+		v40
+	})
+
+	if loading then
+		return React.createElement(ListNodeLoading, {
+			body = Body,
+			title = t4.title,
+			eyebrow = t4.eyebrow,
+			tokens = v39
+		})
+	end
+
+	if error then
+		return React.createElement(ListNodeError, {
+			body = Body,
+			title = t4.title,
+			eyebrow = t4.eyebrow,
+			errorText = t4.errorText,
+			retryButtonText = t4.retryButtonText,
+			tokens = v39,
+			retry = retry
+		})
+	end
+
+	return React.createElement(React.Fragment, nil, {
+		Content = React.createElement(Body, {
+			ref = v44
+		}, if data ~= nil and #data ~= 0 then {
+			Eyebrow = React.createElement(Eyebrow, {
+				eyebrow = t4.eyebrow,
+				layoutOrder = 0
+			}),
+			Title = React.createElement(TextWithTranslation, {
+				input = t4.title,
+				tag = "size-full-0 auto-y text-heading-medium",
+				layoutOrder = 1
+			}),
+			ItemListContainer = React.createElement(View, {
+				tag = "size-full-0 auto-y",
+				LayoutOrder = 2
+			}, {
+				ItemList = React.createElement(List.Root, {
+					hasDivider = {
+						hasDivider = true,
+						isInset = false
+					},
+					isContained = {
+						isContained = false,
+						hasMargin = true
+					}
+				}, { Dash.map(data, function(t5: {[any]: any}, n2: number) -- line: 349
+					-- upvalues: React (copy), List (copy), IconName (copy), translateIntoString (copy), v62 (copy), t4 (copy), v63 (copy), t1 (copy), v61 (copy), v40 (copy), v59 (copy)
+					return React.createElement(List.Item, {
+						leading = if type(t5.leading) ~= "string" then t5.leading else IconName[t5.leading],
+						title = translateIntoString(t5.label),
+						description = if not t5.description then nil else translateIntoString(t5.description),
+						onActivated = {
+							onActivated = not v62 and function() -- line: 365
+								-- upvalues: v63 (copy), t5 (copy)
+								v63(t5.id)
+							end or function() -- line: 360
+								-- upvalues: t4 (copy), t5 (copy)
+								if t4.onNext then
+									t4.onNext(t5.id, t5)
+								end
+							end,
+							inputType = t1[v61],
+							isChecked = v40 == t5.id
+						},
+						LayoutOrder = n2,
+						ref = function(p4) --[[ ref ]] -- line: 372
+							-- upvalues: v59 (copy), t5 (copy)
+							v59.current[t5.id] = p4
+						end
+					})
+				end) })
+			})
+		} else {
+			Empty = React.createElement(Empty)
+		}),
+		Actions = if not t4.onNext or (v62 or v40 == nil) then nil else React.createElement(Actions, nil, {
+			Button = React.createElement(Button, {
+				text = translateIntoString(t4.nextButtonText),
+				variant = ButtonVariant.Emphasis,
+				fillBehavior = FillBehavior.Fill,
+				isLoading = t4.isSubmitting,
+				isDisabled = t4.isSubmitting,
+				onActivated = v64
+			})
+		})
+	})
+end)

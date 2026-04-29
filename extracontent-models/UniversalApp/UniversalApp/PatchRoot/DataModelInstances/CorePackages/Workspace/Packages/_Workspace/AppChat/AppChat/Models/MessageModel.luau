@@ -1,249 +1,278 @@
-local l_Players_0 = game:GetService("Players");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_DateTime_0 = require(l_Parent_0.Time).DateTime;
-local l_GenerateStringId_0 = require(l_Parent_0.AppCommonLib).GenerateStringId;
-local v5 = require(l_Parent_0.SharedFlags);
-local v6 = require(script.Parent.Logger);
-local v7 = require(l_script_FirstAncestor_0.Flags.getFFlagAppChatEnableRepliesUI);
-local l_GetFFlagEnableSocialCards_0 = v5.GetFFlagEnableSocialCards;
-local l_FFlagEnableAppChatMessageVisibility_0 = v5.FFlagEnableAppChatMessageVisibility;
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableAutotranslation);
-local v12 = {
-    new = function(v11) --[[ Line: 21 ]] --[[ Name: new ]]
-        return {
-            universeId = tostring(v11)
-        };
-    end
-};
-local v13 = {
-    SenderTypes = {
-        User = "user", 
-        System = "system", 
-        UnknownType = "unknown_type"
-    }, 
-    MessageTypes = {
-        PlainText = "PlainText", 
-        Link = "Link", 
-        System = "System"
-    }, 
-    LinkTypes = {
-        Game = "Game"
-    }, 
-    ModerationTypes = {
-        TrustedComms = "trusted_comms", 
-        Moderated = "moderated", 
-        Invalid = "invalid", 
-        UnknownType = "unknown_type"
-    }, 
-    VisibilityTypes = {
-        Visible = "visible", 
-        Hidden = "hidden", 
-        Invalid = "invalid"
-    }
-};
-v13.new = function(v14) --[[ Line: 54 ]] --[[ Name: new ]]
-    -- upvalues: v13 (copy)
-    v13.__index = v13;
-    local v15 = v14 or {};
-    setmetatable(v15, v13);
-    return v15;
-end;
-v13.fromWeb = function(v16, v17, v18) --[[ Line: 64 ]] --[[ Name: fromWeb ]]
-    -- upvalues: v13 (copy), l_DateTime_0 (copy)
-    if not v13.DoRequiredFieldsPresent(v16) then
-        return nil;
-    else
-        local v19 = v13.new();
-        v19.id = v16.id;
-        v19.senderTargetId = tostring(v16.senderTargetId);
-        v19.senderType = v16.senderType;
-        v19.read = v16.read;
-        v19.sent = l_DateTime_0.fromIsoDate(v16.sent);
-        v19.conversationId = tostring(v17);
-        v19.previousMessageId = v18;
-        v19.filteredForReceivers = false;
-        v19:parseContentWeb(v16);
-        return v19;
-    end;
-end;
-v13.fromSentWeb = function(v20, v21) --[[ Line: 84 ]] --[[ Name: fromSentWeb ]]
-    -- upvalues: v13 (copy), l_Players_0 (copy), l_DateTime_0 (copy)
-    if not v13.DoRequiredFieldsPresentForSent(v20) then
-        return nil;
-    else
-        local v22 = v13.new();
-        v22.id = v20.messageId;
-        v22.senderTargetId = tostring(l_Players_0.LocalPlayer.UserId);
-        v22.senderType = "User";
-        v22.read = true;
-        v22.sent = l_DateTime_0.fromIsoDate(v20.sent);
-        v22.conversationId = tostring(v21);
-        v22.previousMessageId = "";
-        v22.filteredForReceivers = v20.filteredForReceivers;
-        v22:parseContentSentWeb(v20);
-        return v22;
-    end;
-end;
-v13.newSendingId = function() --[[ Line: 105 ]] --[[ Name: newSendingId ]]
-    -- upvalues: l_GenerateStringId_0 (copy)
-    return "sending-message-" .. l_GenerateStringId_0();
-end;
-v13.newSending = function(v23) --[[ Line: 109 ]] --[[ Name: newSending ]]
-    -- upvalues: v13 (copy), l_Players_0 (copy)
-    assert(v23, "props argument is missing");
-    assert(v23.id, "props.id argument is missing");
-    assert(v23.messageType, "props.messageType argument is missing");
-    assert(v23.order, "props.order argument is missing");
-    assert(v23.conversationId, "props.conversationId argument is missing");
-    assert(v23.sent, "props.sent argument is missing");
-    local v24 = v13.new(v23);
-    v24.senderTargetId = tostring(l_Players_0.LocalPlayer.UserId);
-    v24.senderType = v13.SenderTypes.User;
-    v24.moderated = false;
-    v24.failed = false;
-    v24.stableKey = v24.id;
-    return v24;
-end;
-v13.DoRequiredFieldsPresent = function(v25) --[[ Line: 129 ]] --[[ Name: DoRequiredFieldsPresent ]]
-    return v25 and v25.id and v25.messageType and v25.senderTargetId and v25.sent;
-end;
-v13.DoRequiredFieldsPresentForSent = function(v26) --[[ Line: 132 ]] --[[ Name: DoRequiredFieldsPresentForSent ]]
-    return v26 and v26.messageId and v26.messageType and v26.sent;
-end;
-v13.parseContentWeb = function(v27, v28) --[[ Line: 136 ]] --[[ Name: parseContentWeb ]]
-    -- upvalues: v13 (copy), v12 (copy)
-    v27:parseContent(v28);
-    if v28.messageType == v13.MessageTypes.Link and v28.link and v28.link.type == v13.LinkTypes.Game and v28.link.game then
-        v27.gameLink = v12.new(v28.link.game.universeId);
-    end;
-end;
-v13.parseContentSentWeb = function(v29, v30) --[[ Line: 145 ]] --[[ Name: parseContentSentWeb ]]
-    -- upvalues: v13 (copy), v12 (copy)
-    v29:parseContent(v30);
-    if v30.messageType == v13.MessageTypes.Link and v30.chatMessageLinkType == v13.LinkTypes.Game then
-        v29.gameLink = v12.new(v30.universeId);
-    end;
-end;
-v13.parseContent = function(v31, v32) --[[ Line: 154 ]] --[[ Name: parseContent ]]
-    -- upvalues: v13 (copy)
-    v31.messageType = v32.messageType;
-    if v32.messageType == v13.MessageTypes.PlainText then
-        v31.content = v32.content;
-        return;
-    else
-        v31.content = nil;
-        return;
-    end;
-end;
-v13.fromChannelsApi = function(v33, v34, v35, _) --[[ Line: 167 ]] --[[ Name: fromChannelsApi ]]
-    -- upvalues: v13 (copy), l_DateTime_0 (copy), l_GetFFlagEnableSocialCards_0 (copy), v10 (copy)
-    if not v13.DoRequiredFieldsPresentFromChannelsApi(v33) then
-        return nil;
-    else
-        local v37 = v13.new();
-        v37.id = v33.id;
-        v37.read = true;
-        v37.sent = l_DateTime_0.fromIsoDate(v33.created_at);
-        v37.conversationId = tostring(v34);
-        v37.previousMessageId = v35;
-        v37.filteredForReceivers = false;
-        v37.content = v33.content;
-        v37.previewContent = v33.preview_content;
-        if v33.type == v13.SenderTypes.User then
-            v37:serializeForUserMessage(v33);
-        elseif v33.type == v13.SenderTypes.System then
-            v37:serializeForSystemMessage(v33);
-        end;
-        v37.cards = if l_GetFFlagEnableSocialCards_0() then v33.cards else nil;
-        if l_GetFFlagEnableSocialCards_0() then
-            v37.senderTargetId = tostring(v33.sender_user_id);
-        end;
-        v37.stableKey = v37.id;
-        v37.isBadgeable = v33.is_badgeable;
-        v37.isPreviewable = v33.is_previewable;
-        if v10 then
-            v37.contentToDisplay = v33.content_to_display;
-        end;
-        return v37;
-    end;
-end;
-v13.serializeForUserMessage = function(v38, v39) --[[ Line: 204 ]] --[[ Name: serializeForUserMessage ]]
-    -- upvalues: v13 (copy), v7 (copy), l_FFlagEnableAppChatMessageVisibility_0 (copy), v6 (copy)
-    v38.senderTargetId = tostring(v39.sender_user_id);
-    v38.senderType = v13.SenderTypes.User;
-    v38.moderationType = v39.moderation_type;
-    if v7() then
-        v38.repliesTo = v13.fromChannelsApi(v39.replies_to, nil, nil, true);
-    end;
-    if l_FFlagEnableAppChatMessageVisibility_0 then
-        if v39.visibility and (v39.visibility == v13.VisibilityTypes.Visible or v39.visibility == v13.VisibilityTypes.Hidden) then
-            v38.visibility = v39.visibility;
-        else
-            v38.visibility = v13.VisibilityTypes.Invalid;
-            v6:debug("Message visibility type is invalid for message id: " .. v38.id);
-        end;
-    end;
-    v38.messageType = v13.MessageTypes.PlainText;
-end;
-v13.serializeForSystemMessage = function(v40, _) --[[ Line: 229 ]] --[[ Name: serializeForSystemMessage ]]
-    -- upvalues: v13 (copy)
-    v40.senderType = v13.SenderTypes.System;
-    v40.messageType = v13.MessageTypes.System;
-end;
-v13.DoRequiredFieldsPresentFromChannelsApi = function(v42) --[[ Line: 235 ]] --[[ Name: DoRequiredFieldsPresentFromChannelsApi ]]
-    -- upvalues: v13 (copy)
-    if not v42 then
-        return false;
-    elseif v42.type == v13.SenderTypes.User then
-        return v42.id and v42.sender_user_id and v42.created_at;
-    elseif v42.type == v13.SenderTypes.System then
-        return v42.id and v42.created_at;
-    else
-        return false;
-    end;
-end;
-v13.parseContentFromChannelsApi = function(v43, v44) --[[ Line: 249 ]] --[[ Name: parseContentFromChannelsApi ]]
-    -- upvalues: v13 (copy)
-    v43.messageType = v13.MessageTypes.PlainText;
-    v43.content = v44.content;
-end;
-v13.fromSentChannelsApi = function(v45, v46, v47) --[[ Line: 255 ]] --[[ Name: fromSentChannelsApi ]]
-    -- upvalues: v13 (copy), l_DateTime_0 (copy), v7 (copy), l_FFlagEnableAppChatMessageVisibility_0 (copy), v6 (copy)
-    if not v13.DoRequiredFieldsPresentForSentFromChannelsApi(v45) then
-        return nil;
-    else
-        local v48 = v13.new();
-        v48.id = v45.messages[1].id;
-        v48.senderTargetId = tostring(v45.messages[1].sender_user_id);
-        v48.senderType = v13.SenderTypes.User;
-        v48.read = true;
-        v48.sent = l_DateTime_0.fromIsoDate(v45.messages[1].created_at);
-        v48.conversationId = tostring(v46);
-        v48.previousMessageId = "";
-        v48.moderationType = v45.messages[1].moderation_type;
-        v48.stableKey = v47 or v48.id;
-        v48.isBadgeable = v45.messages[1].is_badgeable;
-        v48.isPreviewable = v45.messages[1].is_previewable;
-        v48.filteredForReceivers = false;
-        v48.messageType = v13.MessageTypes.PlainText;
-        v48.content = v45.messages[1].content;
-        if v7() then
-            v48.repliesTo = v13.fromChannelsApi(v45.messages[1].replies_to, nil, nil, true);
-        end;
-        if l_FFlagEnableAppChatMessageVisibility_0 then
-            if v45.visibility and (v45.visibility == v13.VisibilityTypes.Visible or v45.visibility == v13.VisibilityTypes.Hidden) then
-                v48.visibility = v45.visibility;
-                return v48;
-            else
-                v48.visibility = v13.VisibilityTypes.Visible;
-                v6:debug("Message visibility type is invalid for message id: " .. v48.id);
-            end;
-        end;
-        return v48;
-    end;
-end;
-v13.DoRequiredFieldsPresentForSentFromChannelsApi = function(v49) --[[ Line: 302 ]] --[[ Name: DoRequiredFieldsPresentForSentFromChannelsApi ]]
-    return v49 and v49.messages and #v49.messages > 0 and v49.messages[1].id and v49.messages[1].created_at;
-end;
-return v13;
+local Players = game:GetService("Players")
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local DateTime = require(AppChatParent.Time).DateTime
+local GenerateStringId = require(AppChatParent.AppCommonLib).GenerateStringId
+local SharedFlags = require(AppChatParent.SharedFlags)
+local Logger = require(script.Parent.Logger)
+local getFFlagAppChatEnableRepliesUI = require(AppChat.Flags.getFFlagAppChatEnableRepliesUI)
+local GetFFlagEnableSocialCards = SharedFlags.GetFFlagEnableSocialCards
+local FFlagAppChatEnableAutotranslation = require(AppChat.Flags.FFlagAppChatEnableAutotranslation)
+local t1 = {
+	new = function(p1) --[[ new ]] -- line: 20
+		return {
+			universeId = tostring(p1)
+		}
+	end
+}
+local t2 = {
+	SenderTypes = {
+		User = "user",
+		System = "system",
+		UnknownType = "unknown_type"
+	},
+	MessageTypes = {
+		PlainText = "PlainText",
+		Link = "Link",
+		System = "System"
+	},
+	LinkTypes = {
+		Game = "Game"
+	},
+	ModerationTypes = {
+		TrustedComms = "trusted_comms",
+		Moderated = "moderated",
+		Invalid = "invalid",
+		UnknownType = "unknown_type"
+	},
+	VisibilityTypes = {
+		Visible = "visible",
+		Hidden = "hidden",
+		Invalid = "invalid"
+	}
+}
+
+function t2.new(p2) -- line: 53
+	-- upvalues: t2 (copy)
+	t2.__index = t2
+
+	local v15 = p2 or {}
+
+	setmetatable(v15, t2)
+
+	return v15
+end
+function t2.fromWeb(p3, p4, p5) -- line: 63
+	-- upvalues: t2 (copy), DateTime (copy)
+	if not t2.DoRequiredFieldsPresent(p3) then
+		return nil
+	end
+
+	local v19 = t2.new()
+
+	v19.id = p3.id
+	v19.senderTargetId = tostring(p3.senderTargetId)
+	v19.senderType = p3.senderType
+	v19.read = p3.read
+	v19.sent = DateTime.fromIsoDate(p3.sent)
+	v19.conversationId = tostring(p4)
+	v19.previousMessageId = p5
+	v19.filteredForReceivers = false
+	v19:parseContentWeb(p3)
+
+	return v19
+end
+function t2.fromSentWeb(p6, p7) -- line: 83
+	-- upvalues: t2 (copy), Players (copy), DateTime (copy)
+	if not t2.DoRequiredFieldsPresentForSent(p6) then
+		return nil
+	end
+
+	local v22 = t2.new()
+
+	v22.id = p6.messageId
+	v22.senderTargetId = tostring(Players.LocalPlayer.UserId)
+	v22.senderType = "User"
+	v22.read = true
+	v22.sent = DateTime.fromIsoDate(p6.sent)
+	v22.conversationId = tostring(p7)
+	v22.previousMessageId = ""
+	v22.filteredForReceivers = p6.filteredForReceivers
+	v22:parseContentSentWeb(p6)
+
+	return v22
+end
+function t2.newSendingId() -- line: 104
+	-- upvalues: GenerateStringId (copy)
+	return "sending-message-" .. GenerateStringId()
+end
+function t2.newSending(p8) -- line: 108
+	-- upvalues: t2 (copy), Players (copy)
+	assert(p8, "props argument is missing")
+	assert(p8.id, "props.id argument is missing")
+	assert(p8.messageType, "props.messageType argument is missing")
+	assert(p8.order, "props.order argument is missing")
+	assert(p8.conversationId, "props.conversationId argument is missing")
+	assert(p8.sent, "props.sent argument is missing")
+
+	local v24 = t2.new(p8)
+
+	v24.senderTargetId = tostring(Players.LocalPlayer.UserId)
+	v24.senderType = t2.SenderTypes.User
+	v24.moderated = false
+	v24.failed = false
+	v24.stableKey = v24.id
+
+	return v24
+end
+function t2.DoRequiredFieldsPresent(p9) -- line: 128
+	return p9 and (p9.id and (p9.messageType and (p9.senderTargetId and p9.sent)))
+end
+function t2.DoRequiredFieldsPresentForSent(p10) -- line: 131
+	return p10 and (p10.messageId and (p10.messageType and p10.sent))
+end
+function t2.parseContentWeb(p11, p12) -- line: 135
+	-- upvalues: t2 (copy), t1 (copy)
+	p11:parseContent(p12)
+
+	if p12.messageType == t2.MessageTypes.Link and (p12.link and p12.link.type == t2.LinkTypes.Game and p12.link.game) then
+		p11.gameLink = t1.new(p12.link.game.universeId)
+	end
+end
+function t2.parseContentSentWeb(p13, p14) -- line: 144
+	-- upvalues: t2 (copy), t1 (copy)
+	p13:parseContent(p14)
+
+	if p14.messageType == t2.MessageTypes.Link and p14.chatMessageLinkType == t2.LinkTypes.Game then
+		p13.gameLink = t1.new(p14.universeId)
+	end
+end
+function t2.parseContent(p15, p16) -- line: 153
+	-- upvalues: t2 (copy)
+	p15.messageType = p16.messageType
+
+	if p16.messageType == t2.MessageTypes.PlainText then
+		p15.content = p16.content
+
+		return
+	end
+
+	p15.content = nil
+end
+function t2.fromChannelsApi(p17, p18, p19, _) -- line: 166
+	-- upvalues: t2 (copy), DateTime (copy), GetFFlagEnableSocialCards (copy), FFlagAppChatEnableAutotranslation (copy)
+	if not t2.DoRequiredFieldsPresentFromChannelsApi(p17) then
+		return nil
+	end
+
+	local v37 = t2.new()
+
+	v37.id = p17.id
+	v37.read = true
+	v37.sent = DateTime.fromIsoDate(p17.created_at)
+	v37.conversationId = tostring(p18)
+	v37.previousMessageId = p19
+	v37.filteredForReceivers = false
+	v37.content = p17.content
+	v37.previewContent = p17.preview_content
+
+	if p17.type == t2.SenderTypes.User then
+		v37:serializeForUserMessage(p17)
+	elseif p17.type == t2.SenderTypes.System then
+		v37:serializeForSystemMessage(p17)
+	end
+
+	v37.cards = if not GetFFlagEnableSocialCards() then nil else p17.cards
+
+	if GetFFlagEnableSocialCards() then
+		v37.senderTargetId = tostring(p17.sender_user_id)
+	end
+
+	v37.stableKey = v37.id
+	v37.isBadgeable = p17.is_badgeable
+	v37.isPreviewable = p17.is_previewable
+
+	if FFlagAppChatEnableAutotranslation then
+		v37.contentToDisplay = p17.content_to_display
+	end
+
+	return v37
+end
+function t2.serializeForUserMessage(p21, p22) -- line: 203
+	-- upvalues: t2 (copy), getFFlagAppChatEnableRepliesUI (copy), Logger (copy)
+	p21.senderTargetId = tostring(p22.sender_user_id)
+	p21.senderType = t2.SenderTypes.User
+	p21.moderationType = p22.moderation_type
+
+	if getFFlagAppChatEnableRepliesUI() then
+		p21.repliesTo = t2.fromChannelsApi(p22.replies_to, nil, nil, true)
+	end
+
+	if p22.visibility and (p22.visibility == t2.VisibilityTypes.Visible or p22.visibility == t2.VisibilityTypes.Hidden) then
+		p21.visibility = p22.visibility
+	else
+		p21.visibility = t2.VisibilityTypes.Invalid
+		Logger:debug("Message visibility type is invalid for message id: " .. p21.id)
+	end
+
+	p21.messageType = t2.MessageTypes.PlainText
+end
+function t2.serializeForSystemMessage(p23, _) -- line: 223
+	-- upvalues: t2 (copy)
+	p23.senderType = t2.SenderTypes.System
+	p23.messageType = t2.MessageTypes.System
+end
+function t2.DoRequiredFieldsPresentFromChannelsApi(p25) -- line: 229
+	-- upvalues: t2 (copy)
+	if not p25 then
+		return false
+	end
+
+	if p25.type == t2.SenderTypes.User then
+		return p25.id and (p25.sender_user_id and p25.created_at)
+	end
+
+	if p25.type == t2.SenderTypes.System then
+		return p25.id and p25.created_at
+	end
+
+	return false
+end
+function t2.parseContentFromChannelsApi(p26, p27) -- line: 243
+	-- upvalues: t2 (copy)
+	p26.messageType = t2.MessageTypes.PlainText
+	p26.content = p27.content
+end
+function t2.fromSentChannelsApi(p28, p29, p30) -- line: 249
+	-- upvalues: t2 (copy), DateTime (copy), getFFlagAppChatEnableRepliesUI (copy), Logger (copy)
+	if not t2.DoRequiredFieldsPresentForSentFromChannelsApi(p28) then
+		return nil
+	end
+
+	local v48 = t2.new()
+
+	v48.id = p28.messages[1].id
+	v48.senderTargetId = tostring(p28.messages[1].sender_user_id)
+	v48.senderType = t2.SenderTypes.User
+	v48.read = true
+	v48.sent = DateTime.fromIsoDate(p28.messages[1].created_at)
+	v48.conversationId = tostring(p29)
+	v48.previousMessageId = ""
+	v48.moderationType = p28.messages[1].moderation_type
+	v48.stableKey = p30 or v48.id
+	v48.isBadgeable = p28.messages[1].is_badgeable
+	v48.isPreviewable = p28.messages[1].is_previewable
+	v48.filteredForReceivers = false
+	v48.messageType = t2.MessageTypes.PlainText
+	v48.content = p28.messages[1].content
+
+	if getFFlagAppChatEnableRepliesUI() then
+		v48.repliesTo = t2.fromChannelsApi(p28.messages[1].replies_to, nil, nil, true)
+	end
+
+	if p28.visibility and (p28.visibility == t2.VisibilityTypes.Visible or p28.visibility == t2.VisibilityTypes.Hidden) then
+		v48.visibility = p28.visibility
+
+		return v48
+	end
+
+	v48.visibility = t2.VisibilityTypes.Visible
+	Logger:debug("Message visibility type is invalid for message id: " .. v48.id)
+
+	return v48
+end
+function t2.DoRequiredFieldsPresentForSentFromChannelsApi(p31) -- line: 290
+	return p31 and (p31.messages and (#p31.messages > 0 and (p31.messages[1].id and p31.messages[1].created_at)))
+end
+
+return t2

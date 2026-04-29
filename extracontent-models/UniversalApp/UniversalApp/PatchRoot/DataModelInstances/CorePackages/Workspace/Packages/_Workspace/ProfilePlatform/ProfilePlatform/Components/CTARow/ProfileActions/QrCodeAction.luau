@@ -1,21 +1,27 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_IconName_0 = require(l_Parent_0.Foundation).Enums.IconName;
-local v3 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-local v5 = require(l_script_FirstAncestor_0.Analytics.EventNames);
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local IconName = require(ProfilePlatformParent.Foundation).Enums.IconName
+local Enums = require(ProfilePlatform.Common.Enums)
+
+require(ProfilePlatform.Components.CTARow.Types)
+
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local ProfileTypes = Enums.ProfileTypes
+
 return {
-    [v3.ProfileActions.QrCode] = function(v6) --[[ Line: 13 ]]
-        -- upvalues: l_IconName_0 (copy), v5 (copy)
-        return {
-            icon = l_IconName_0.SquaresGridQr, 
-            onActivated = function() --[[ Line: 16 ]] --[[ Name: onActivated ]]
-                -- upvalues: v6 (copy), v5 (ref)
-                v6.analytics.fireAnalyticsEvent(v5.CTAButtonShareProfileQRCode, {
-                    buttonSurface = v6.buttonSurface
-                });
-                v6.navigateTo.qRCodePage();
-            end
-        };
-    end
-};
+	[Enums.ProfileActions.QrCode] = function(p1) -- line: 14
+		-- upvalues: IconName (copy), ProfileTypes (copy), EventNames (copy)
+		return {
+			icon = IconName.SquaresGridQr,
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 18
+					-- upvalues: p1 (copy), EventNames (copy)
+					p1.analytics.fireAnalyticsEvent(EventNames.CTAButtonShareProfileQRCode, {
+						buttonSurface = p1.buttonSurface
+					})
+					p1.navigateTo.qRCodePage()
+				end
+			}
+		}
+	end
+}

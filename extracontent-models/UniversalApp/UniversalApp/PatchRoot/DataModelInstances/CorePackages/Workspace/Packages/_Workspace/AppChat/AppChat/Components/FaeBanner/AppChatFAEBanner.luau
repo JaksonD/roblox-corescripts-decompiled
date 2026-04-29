@@ -1,104 +1,106 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.AppChatNetworking);
-local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local v4 = require(l_script_FirstAncestor_0.Hooks.useIsInExperience);
-local v5 = require(l_script_FirstAncestor_0.Utils.createBannerConfigFromModalConfiguration);
-local v6 = require(l_script_FirstAncestor_0.Conversations.Thunks.fetchChatMetadata);
-local v7 = require(l_Parent_0.React);
-local _ = require(l_script_FirstAncestor_0.types);
-local v9 = require(l_script_FirstAncestor_0.Logger):new(script.Name);
-local l_useCallback_0 = v7.useCallback;
-local v11 = require(l_Parent_0.SocialUpsell);
-local v12 = require(l_Parent_0.Foundation);
-local l_UpsellBanner_0 = v11.UpsellBanner;
-local l_startFacialAgeEstimation_0 = v11.Thunks.startFacialAgeEstimation;
-local l_useSocialUpsellOverlayController_0 = v11.Hooks.useSocialUpsellOverlayController;
-local l_UpsellComponent_0 = v11.Analytics.Enum.UpsellComponent;
-local l_UpsellEntrySurfaceType_0 = v11.Analytics.Enum.UpsellEntrySurfaceType;
-local l_ChatLandingModalVariant_0 = v2.Constants.ChatLandingModalVariant;
-local l_ConversationBottomModal_0 = v2.Constants.ConversationBottomModal;
-local v20 = game:DefineFastFlag("AEGIS2AppChatBannerFetchMetadataOnSuccess", false);
-local v21 = game:DefineFastFlag("AEGIS2AppChatBannerUITagFix", false);
-local v22 = {
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsTimedModal] = l_UpsellEntrySurfaceType_0.PartyTab, 
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsUpsellModal] = l_UpsellEntrySurfaceType_0.PartyTab, 
-    [l_ConversationBottomModal_0.ConversationBottomAgeVerificationRequiredModal] = l_UpsellEntrySurfaceType_0.PartyChatConversationUA, 
-    [l_ConversationBottomModal_0.NudgeToChatUpsell] = l_UpsellEntrySurfaceType_0.PartyChatConversationUA
-};
-local v23 = {
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsTimedModal] = l_UpsellEntrySurfaceType_0.PartyTabInExperience, 
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsUpsellModal] = l_UpsellEntrySurfaceType_0.PartyTabInExperience, 
-    [l_ConversationBottomModal_0.ConversationBottomAgeVerificationRequiredModal] = l_UpsellEntrySurfaceType_0.PartyChatConversationInExperience, 
-    [l_ConversationBottomModal_0.NudgeToChatUpsell] = l_UpsellEntrySurfaceType_0.PartyChatConversationInExperience
-};
-local v24 = {
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsTimedModal] = true, 
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsUpsellModal] = true, 
-    [l_ConversationBottomModal_0.ConversationBottomAgeVerificationRequiredModal] = false, 
-    [l_ConversationBottomModal_0.NudgeToChatUpsell] = false
-};
-local v25 = {
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsTimedModal] = "padding-x-medium padding-top-xxsmall padding-bottom-large align-x-center auto-y size-full-0", 
-    [l_ChatLandingModalVariant_0.ChatLandingAgeVerifiedCommsUpsellModal] = "padding-x-medium padding-top-xxsmall padding-bottom-large align-x-center auto-y size-full-0", 
-    [l_ConversationBottomModal_0.ConversationBottomAgeVerificationRequiredModal] = "padding-large align-x-center auto-y size-full-0 stroke-standard stroke-default bg-shift-100", 
-    [l_ConversationBottomModal_0.NudgeToChatUpsell] = "padding-large align-x-center auto-y size-full-0 stroke-standard stroke-default bg-shift-100"
-};
-return v7.memo(function(v26) --[[ Line: 74 ]] --[[ Name: AppChatFAEBanner ]]
-    -- upvalues: l_useDispatch_0 (copy), v4 (copy), l_useCallback_0 (copy), v6 (copy), v23 (copy), v22 (copy), l_useSocialUpsellOverlayController_0 (copy), v7 (copy), l_startFacialAgeEstimation_0 (copy), v11 (copy), v20 (copy), l_UpsellComponent_0 (copy), v5 (copy), v9 (copy), v24 (copy), v21 (copy), v25 (copy), v12 (copy), l_UpsellBanner_0 (copy)
-    local v27 = l_useDispatch_0();
-    local v28 = v4();
-    local v29 = l_useCallback_0(function() --[[ Line: 77 ]]
-        -- upvalues: v27 (copy), v6 (ref)
-        v27(v6());
-    end, {
-        v27, 
-        v6
-    });
-    local l_modalConfiguration_0 = v26.modalConfiguration;
-    local v31 = if v28 then v23[l_modalConfiguration_0.modal_variant] else v22[l_modalConfiguration_0.modal_variant];
-    local v32 = l_useSocialUpsellOverlayController_0(v28);
-    local v34 = v7.useCallback(function(_) --[[ Line: 87 ]]
-        -- upvalues: v27 (copy), l_startFacialAgeEstimation_0 (ref), v11 (ref), v31 (copy), v20 (ref), v29 (copy), v28 (copy)
-        v27(l_startFacialAgeEstimation_0(v11.Enums.SocialUpsellType.FacialAgeEstimation .. v31, if v20 then v29 else nil, nil, v31, v28));
-    end, {
-        v27, 
-        v31, 
-        v28
-    });
-    local v36 = v7.useCallback(function(v35) --[[ Line: 98 ]]
-        -- upvalues: v32 (copy), v11 (ref), v31 (copy), l_UpsellComponent_0 (ref)
-        v32.openSocialOverlay(v11.Enums.SocialUpsellType.FacialAgeEstimation, {
-            upsellEntrySurface = v31, 
-            upsellEntryComponent = l_UpsellComponent_0.Banner, 
-            impressionId = v35
-        });
-    end, {
-        v32.openSocialOverlay, 
-        v31
-    });
-    local v37 = v5(l_modalConfiguration_0);
-    local v39 = v7.useCallback(function(_) --[[ Line: 108 ]]
-        -- upvalues: v37 (copy), v9 (ref)
-        if not v37.isDismissable then
-            v9:warning("attempt to call AppChatFAEBanner onDismiss not provided and banner is not dismissable");
-        end;
-    end, {});
-    local v40 = v26.onDismiss or v39;
-    local v41 = v24[l_modalConfiguration_0.modal_variant];
-    local v42 = if v21 then v25[l_modalConfiguration_0.modal_variant] else v41 and "padding-large align-x-center auto-y size-full-0" or "padding-large align-x-center auto-y size-full-0 stroke-standard stroke-default bg-shift-100";
-    return v7.createElement(v12.View, {
-        tag = v42
-    }, {
-        UpsellBanner = v7.createElement(l_UpsellBanner_0, {
-            config = v37, 
-            isContained = v41, 
-            onPrimaryAction = v34, 
-            onSecondaryAction = v36, 
-            onDismiss = v40, 
-            upsellEntrySurface = v31, 
-            upsellEntryComponent = l_UpsellComponent_0.Banner, 
-            conversationId = v26.conversationId
-        })
-    });
-end);
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local AppChatNetworking = require(AppChatParent.AppChatNetworking)
+local useDispatch = require(AppChatParent.RoactUtils).Hooks.RoactRodux.useDispatch
+local useIsInExperience = require(AppChat.Hooks.useIsInExperience)
+local createBannerConfigFromModalConfiguration = require(AppChat.Utils.createBannerConfigFromModalConfiguration)
+local fetchChatMetadata = require(AppChat.Conversations.Thunks.fetchChatMetadata)
+local React = require(AppChatParent.React)
+
+require(AppChat.types)
+
+local v9 = require(AppChat.Logger):new(script.Name)
+local useCallback = React.useCallback
+local SocialUpsell = require(AppChatParent.SocialUpsell)
+local Foundation = require(AppChatParent.Foundation)
+local UpsellBanner = SocialUpsell.UpsellBanner
+local startFacialAgeEstimation = SocialUpsell.Thunks.startFacialAgeEstimation
+local useSocialUpsellOverlayController = SocialUpsell.Hooks.useSocialUpsellOverlayController
+local UpsellComponent = SocialUpsell.Analytics.Enum.UpsellComponent
+local UpsellEntrySurfaceType = SocialUpsell.Analytics.Enum.UpsellEntrySurfaceType
+local ChatLandingModalVariant = AppChatNetworking.Constants.ChatLandingModalVariant
+local ConversationBottomModal = AppChatNetworking.Constants.ConversationBottomModal
+local t1 = {
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsTimedModal] = UpsellEntrySurfaceType.PartyTab,
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsUpsellModal] = UpsellEntrySurfaceType.PartyTab,
+	[ConversationBottomModal.ConversationBottomAgeVerificationRequiredModal] = UpsellEntrySurfaceType.PartyChatConversationUA,
+	[ConversationBottomModal.NudgeToBottomChatUpsell] = UpsellEntrySurfaceType.PartyChatConversationUA
+}
+local t2 = {
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsTimedModal] = UpsellEntrySurfaceType.PartyTabInExperience,
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsUpsellModal] = UpsellEntrySurfaceType.PartyTabInExperience,
+	[ConversationBottomModal.ConversationBottomAgeVerificationRequiredModal] = UpsellEntrySurfaceType.PartyChatConversationInExperience,
+	[ConversationBottomModal.NudgeToBottomChatUpsell] = UpsellEntrySurfaceType.PartyChatConversationInExperience
+}
+local t3 = {
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsTimedModal] = true,
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsUpsellModal] = true,
+	[ConversationBottomModal.ConversationBottomAgeVerificationRequiredModal] = false,
+	[ConversationBottomModal.NudgeToBottomChatUpsell] = false
+}
+local t4 = {
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsTimedModal] = "padding-x-medium padding-top-xxsmall padding-bottom-large align-x-center auto-y size-full-0",
+	[ChatLandingModalVariant.ChatLandingAgeVerifiedCommsUpsellModal] = "padding-x-medium padding-top-xxsmall padding-bottom-large align-x-center auto-y size-full-0",
+	[ConversationBottomModal.ConversationBottomAgeVerificationRequiredModal] = "padding-large align-x-center auto-y size-full-0 stroke-standard stroke-default bg-shift-100",
+	[ConversationBottomModal.NudgeToBottomChatUpsell] = "padding-large align-x-center auto-y size-full-0 stroke-standard stroke-default bg-shift-100"
+}
+
+return React.memo(function(t5: {[any]: any}) --[[ AppChatFAEBanner ]] -- line: 71
+	-- upvalues: useDispatch (copy), useIsInExperience (copy), useCallback (copy), fetchChatMetadata (copy), t2 (copy), t1 (copy), useSocialUpsellOverlayController (copy), React (copy), startFacialAgeEstimation (copy), SocialUpsell (copy), UpsellComponent (copy), createBannerConfigFromModalConfiguration (copy), v9 (copy), t3 (copy), t4 (copy), Foundation (copy), UpsellBanner (copy)
+	local v25 = useDispatch()
+	local v26 = useIsInExperience()
+	local v27 = useCallback(function() -- line: 74
+		-- upvalues: v25 (copy), fetchChatMetadata (copy)
+		v25(fetchChatMetadata())
+	end, {
+		v25,
+		fetchChatMetadata
+	})
+	local modalConfiguration = t5.modalConfiguration
+	local v29 = if not v26 then t1[modalConfiguration.modal_variant] else t2[modalConfiguration.modal_variant]
+	local v30 = useSocialUpsellOverlayController(v26)
+	local v31 = React.useCallback(function(_: string) -- line: 84
+		-- upvalues: v25 (copy), startFacialAgeEstimation (copy), SocialUpsell (copy), v29 (copy), v27 (copy), v26 (copy)
+		v25(startFacialAgeEstimation(SocialUpsell.Enums.SocialUpsellType.FacialAgeEstimation .. v29, v27, nil, v29, v26))
+	end, {
+		v25,
+		v29,
+		v26
+	})
+	local v32 = React.useCallback(function(s2: string) -- line: 95
+		-- upvalues: v30 (copy), SocialUpsell (copy), v29 (copy), UpsellComponent (copy)
+		v30.openSocialOverlay(SocialUpsell.Enums.SocialUpsellType.FacialAgeEstimation, {
+			upsellEntrySurface = v29,
+			upsellEntryComponent = UpsellComponent.Banner,
+			impressionId = s2
+		})
+	end, {
+		v30.openSocialOverlay,
+		v29
+	})
+	local v33 = createBannerConfigFromModalConfiguration(modalConfiguration)
+	local v34 = React.useCallback(function(_: string) -- line: 105
+		-- upvalues: v33 (copy), v9 (copy)
+		if not v33.isDismissable then
+			v9:warning("attempt to call AppChatFAEBanner onDismiss not provided and banner is not dismissable")
+		end
+	end, {})
+	local v35 = t5.onDismiss or v34
+	local v36 = t3[modalConfiguration.modal_variant]
+	local v37 = t4[modalConfiguration.modal_variant]
+
+	return React.createElement(Foundation.View, {
+		tag = v37
+	}, {
+		UpsellBanner = React.createElement(UpsellBanner, {
+			config = v33,
+			isContained = v36,
+			onPrimaryAction = v31,
+			onSecondaryAction = v32,
+			onDismiss = v35,
+			upsellEntrySurface = v29,
+			upsellEntryComponent = UpsellComponent.Banner,
+			conversationId = t5.conversationId
+		})
+	})
+end)

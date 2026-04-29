@@ -1,97 +1,117 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Style");
-local l_UserGameSettings_0 = UserSettings():GetService("UserGameSettings");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.Cryo);
-local v4 = require(l_Parent_0.React);
-local v5 = require(l_Parent_0.SignalsReact);
-local l_dependencyArray_0 = require(l_Parent_0.RoactUtils).Hooks.dependencyArray;
-local l_useDeviceType_0 = require(l_Parent_0.RobloxAppHooks).useDeviceType;
-local v8 = require(script.Parent.ThemeContext);
-local l_AppStyleProvider_0 = require(l_Parent_0.UIBlox).App.Style.AppStyleProvider;
-local v10 = require(l_Parent_0.Foundation);
-local l_FoundationProvider_0 = v10.FoundationProvider;
-local l_Theme_0 = v10.Enums.Theme;
-local l_getUIScale_0 = require(l_Parent_0.Display).GetDisplayStore(false).getUIScale;
-local v14 = game:DefineFastFlag("LuaAppEnableWindowsHandheldTokenScale", false) and game:GetEngineFeature("EnableDisplaySize");
-local v15 = game:DefineFastFlag("DebugLuaAppEnableTokenScale", false);
-local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
-local v17 = v14 or v15;
-local v18 = {
-    dark = l_Theme_0.Dark, 
-    light = l_Theme_0.Light
-};
-local function _() --[[ Line: 50 ]] --[[ Name: useTokenScale ]]
-    -- upvalues: v5 (copy), l_getUIScale_0 (copy)
-    return (v5.useSignalState(l_getUIScale_0));
-end;
-local function v31(v20) --[[ Line: 55 ]] --[[ Name: UiModeStyleProvider ]]
-    -- upvalues: l_useDeviceType_0 (copy), v17 (copy), v5 (copy), l_getUIScale_0 (copy), v4 (copy), l_UserGameSettings_0 (copy), v3 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_FoundationProvider_0 (copy), v18 (copy), l_AppStyleProvider_0 (copy)
-    local v21 = l_useDeviceType_0();
-    local v22 = nil;
-    if v17 then
-        v22 = v5.useSignalState(l_getUIScale_0);
-    end;
-    local v23, v24 = v4.useState({
-        preferredTransparency = l_UserGameSettings_0.PreferredTransparency, 
-        reducedMotion = l_UserGameSettings_0.ReducedMotion, 
-        preferredTextSize = l_UserGameSettings_0.PreferredTextSize
-    });
-    v4.useEffect(function() --[[ Line: 69 ]]
-        -- upvalues: v24 (copy), l_UserGameSettings_0 (ref)
-        local function v25() --[[ Line: 70 ]] --[[ Name: updateSettings ]]
-            -- upvalues: v24 (ref), l_UserGameSettings_0 (ref)
-            v24({
-                preferredTransparency = l_UserGameSettings_0.PreferredTransparency, 
-                reducedMotion = l_UserGameSettings_0.ReducedMotion, 
-                preferredTextSize = l_UserGameSettings_0.PreferredTextSize
-            });
-        end;
-        local v26 = l_UserGameSettings_0:GetPropertyChangedSignal("PreferredTransparency"):Connect(v25);
-        local v27 = l_UserGameSettings_0:GetPropertyChangedSignal("ReducedMotion"):Connect(v25);
-        local v28 = l_UserGameSettings_0:GetPropertyChangedSignal("PreferredTextSize"):Connect(v25);
-        return function() --[[ Line: 84 ]]
-            -- upvalues: v26 (copy), v27 (copy), v28 (copy)
-            v26:Disconnect();
-            v27:Disconnect();
-            v28:Disconnect();
-        end;
-    end, {});
-    local l_style_0 = v20.style;
-    local v30 = v4.useMemo(function() --[[ Line: 93 ]]
-        -- upvalues: v3 (ref), l_style_0 (copy), v21 (copy), v17 (ref), v23 (copy), v22 (ref)
-        return v3.Dictionary.join({
-            deviceType = l_style_0.deviceType or v21
-        }, l_style_0, {
-            settings = if v17 then v3.Dictionary.join(v23, {
-                scale = v22
-            }) else v23
-        });
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        l_style_0, 
-        v21, 
-        v23, 
-        v22
-    } else l_dependencyArray_0(l_style_0, v21, v23, v22));
-    return v4.createElement(l_FoundationProvider_0, {
-        device = v30.deviceType, 
-        theme = v18[v30.themeName:lower()], 
-        preferences = v30.settings, 
-        DONOTUSE_colorUpdate = true
-    }, v4.createElement(l_AppStyleProvider_0, {
-        style = v30
-    }, v20.children));
-end;
-return function(v32) --[[ Line: 127 ]] --[[ Name: ThemeProvider ]]
-    -- upvalues: v4 (copy), v3 (copy), v8 (copy), v31 (copy)
-    local v33, v34 = v4.useState(v32.style.themeName);
-    local v35 = table.clone(v32);
-    v35.style = v3.Dictionary.join(v35.style, {
-        themeName = v33
-    });
-    return v4.createElement(v8.Provider, {
-        value = {
-            theme = v33, 
-            setTheme = v34
-        }
-    }, v4.createElement(v31, v35));
-end;
+local Style = script:FindFirstAncestor("Style")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local StyleParent = Style.Parent
+local Cryo = require(StyleParent.Cryo)
+local React = require(StyleParent.React)
+local SignalsReact = require(StyleParent.SignalsReact)
+local dependencyArray = require(StyleParent.RoactUtils).Hooks.dependencyArray
+local useDeviceType = require(StyleParent.RobloxAppHooks).useDeviceType
+local ThemeContext = require(script.Parent.ThemeContext)
+local SceneOverridesRegistry = require(script.Parent.SceneOverridesRegistry)
+local AppStyleProvider = require(StyleParent.UIBlox).App.Style.AppStyleProvider
+local Foundation = require(StyleParent.Foundation)
+local FoundationProvider = Foundation.FoundationProvider
+local Theme = Foundation.Enums.Theme
+local getUIScale = require(StyleParent.Display).GetDisplayStore(false).getUIScale
+local v16 = game:DefineFastFlag("LuaAppEnableWindowsHandheldTokenScale", false) and game:GetEngineFeature("EnableDisplaySize")
+local v17 = game:DefineFastFlag("DebugLuaAppEnableTokenScale", false)
+local FFlagRemoveDependencyArrayAntipattern = require(StyleParent.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+local FFlagEnableCoreContentTheme = require(StyleParent.SharedFlags).FFlagEnableCoreContentTheme
+local v20 = v16 or v17
+local t1 = {
+	dark = Theme.Dark,
+	light = Theme.Light
+}
+
+local function UiModeStyleProvider(t2: {[any]: any}) -- line: 59
+	-- upvalues: useDeviceType (copy), v20 (copy), SignalsReact (copy), getUIScale (copy), React (copy), UserGameSettings (copy), Cryo (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), FoundationProvider (copy), t1 (copy), FFlagEnableCoreContentTheme (copy), SceneOverridesRegistry (copy), AppStyleProvider (copy)
+	local v24 = useDeviceType()
+	local u25 = nil
+
+	if v20 then
+		u25 = SignalsReact.useSignalState(getUIScale)
+	end
+
+	local v26, v27 = React.useState({
+		preferredTransparency = UserGameSettings.PreferredTransparency,
+		reducedMotion = UserGameSettings.ReducedMotion,
+		preferredTextSize = UserGameSettings.PreferredTextSize
+	})
+
+	React.useEffect(function() -- line: 73
+		-- upvalues: v27 (copy), UserGameSettings (copy)
+		local function updateSettings() -- line: 74
+			-- upvalues: v27 (copy), UserGameSettings (copy)
+			v27({
+				preferredTransparency = UserGameSettings.PreferredTransparency,
+				reducedMotion = UserGameSettings.ReducedMotion,
+				preferredTextSize = UserGameSettings.PreferredTextSize
+			})
+		end
+
+		local connection = UserGameSettings:GetPropertyChangedSignal("PreferredTransparency"):Connect(updateSettings)
+		local connection2 = UserGameSettings:GetPropertyChangedSignal("ReducedMotion"):Connect(updateSettings)
+		local connection3 = UserGameSettings:GetPropertyChangedSignal("PreferredTextSize"):Connect(updateSettings)
+
+		return function() -- line: 88
+			-- upvalues: connection (copy), connection2 (copy), connection3 (copy)
+			connection:Disconnect()
+			connection2:Disconnect()
+			connection3:Disconnect()
+		end
+	end, {})
+
+	local style = t2.style
+	local v29 = React.useMemo(function() -- line: 97
+		-- upvalues: Cryo (copy), style (copy), v24 (copy), v20 (copy), v26 (copy), u25 (ref)
+		return Cryo.Dictionary.join({
+			deviceType = style.deviceType or v24
+		}, style, {
+			settings = if not v20 then v26 else Cryo.Dictionary.join(v26, {
+				scale = u25
+			})
+		})
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(style, v24, v26, u25) else {
+		style,
+		v24,
+		v26,
+		u25
+	})
+
+	return React.createElement(FoundationProvider, {
+		device = v29.deviceType,
+		theme = t1[v29.themeName:lower()],
+		preferences = v29.settings,
+		tokenOverrides = if not FFlagEnableCoreContentTheme then nil else v29.tokenOverrides,
+		DONOTUSE_colorUpdate = true
+	}, if not FFlagEnableCoreContentTheme or v29.tokenOverrides == nil then React.createElement(AppStyleProvider, {
+		style = v29
+	}, t2.children) else React.createElement(SceneOverridesRegistry, nil, React.createElement(AppStyleProvider, {
+		style = v29
+	}, t2.children)))
+end
+
+return function(t3: {[any]: any}) --[[ ThemeProvider ]] -- line: 136
+	-- upvalues: React (copy), FFlagEnableCoreContentTheme (copy), t1 (copy), Cryo (copy), ThemeContext (copy), UiModeStyleProvider (copy)
+	local v31, v32 = React.useState(t3.style.themeName)
+	local v33 = table.clone(t3)
+	local v34 = if not FFlagEnableCoreContentTheme then nil else t3.style.tokenOverrides
+
+	if FFlagEnableCoreContentTheme and t3.tokenOverridesByTheme then
+		local v35 = t1[v31:lower()]
+
+		v34 = t3.tokenOverridesByTheme[v35] or v34
+	end
+
+	v33.style = Cryo.Dictionary.join(v33.style, {
+		themeName = v31,
+		tokenOverrides = if not FFlagEnableCoreContentTheme then nil else v34
+	})
+
+	return React.createElement(ThemeContext.Provider, {
+		value = {
+			theme = v31,
+			setTheme = v32
+		}
+	}, React.createElement(UiModeStyleProvider, v33))
+end

@@ -1,61 +1,63 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Foundation);
-local v3 = require(l_Parent_0.Cryo);
-local v4 = require(l_Parent_0.React);
-local _ = require(l_script_FirstAncestor_0.types);
-local l_ConversationBottomModal_0 = require(l_Parent_0.AppChatNetworking).Constants.ConversationBottomModal;
-local v7 = require(l_script_FirstAncestor_0.Models.ModalConfiguration);
-local l_useSelector_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useSelector;
-local v9 = require(l_script_FirstAncestor_0.Utils.getDeepValue2);
-local v10 = require(l_Parent_0.SocialExperiments);
-local l_FFlagTestDeviceForFAEUpsell_0 = v10.FFlagTestDeviceForFAEUpsell;
-local l_deviceMeetsRequirementsForFAE_0 = v10.deviceMeetsRequirementsForFAE;
-local l_FFlagEnableAEGIS2AppChatConversationBanner_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2AppChatConversationBanner;
-local v14 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatNudgeToChatUpsellEnabled);
-local v15 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatNudgeToChatUpsell_DEV);
-local v16 = require(script.Parent.ConversationModal);
-local v17 = require(l_script_FirstAncestor_0.Components.FaeBanner.AppChatFAEBanner);
-local v19 = {
-    shouldShowLegacyBottomModal = false, 
-    onHeightChanged = function(_) --[[ Line: 39 ]] --[[ Name: onHeightChanged ]]
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local Foundation = require(AppChatParent.Foundation)
+local Cryo = require(AppChatParent.Cryo)
+local React = require(AppChatParent.React)
 
-    end
-};
-return v4.memo(function(v20) --[[ Line: 42 ]] --[[ Name: ConversationBottomModalContainer ]]
-    -- upvalues: v3 (copy), v19 (copy), l_useSelector_0 (copy), v9 (copy), v7 (copy), v4 (copy), l_FFlagEnableAEGIS2AppChatConversationBanner_0 (copy), v14 (copy), v15 (copy), l_ConversationBottomModal_0 (copy), v17 (copy), l_FFlagTestDeviceForFAEUpsell_0 (copy), l_deviceMeetsRequirementsForFAE_0 (copy), v16 (copy), v2 (copy)
-    local v21 = v3.Dictionary.union(v19, v20);
-    local v23 = l_useSelector_0(function(v22) --[[ Line: 46 ]]
-        -- upvalues: v9 (ref), v21 (copy), v7 (ref)
-        return v9(v22, (("ChatAppReducer.Modals.conversationBottomModals.%*"):format(v21.conversationId))) or v7.default;
-    end);
-    local v25 = v4.useCallback(function(v24) --[[ Line: 51 ]]
-        -- upvalues: v21 (copy)
-        v21.onHeightChanged(v24.AbsoluteSize.Y);
-    end, {
-        v21.onHeightChanged
-    });
-    local v26 = nil;
-    if (l_FFlagEnableAEGIS2AppChatConversationBanner_0 or v14) and (not v21.shouldShowChatInputBar or v15) and v23 and v23.modal_variant ~= nil and v23.modal_variant ~= l_ConversationBottomModal_0.None then
-        v26 = v4.createElement(v17, {
-            modalConfiguration = v23, 
-            conversationId = v21.conversationId
-        });
-    end;
-    if l_FFlagTestDeviceForFAEUpsell_0 and not l_deviceMeetsRequirementsForFAE_0() then
-        return nil;
-    else
-        if not v26 and v21.shouldShowLegacyBottomModal then
-            v26 = v4.createElement(v16, {
-                bodyText = v21.legacyBottomModalText
-            });
-        end;
-        return v4.createElement(v2.View, {
-            LayoutOrder = v21.layoutOrder, 
-            onAbsoluteSizeChanged = v25, 
-            tag = "auto-y size-full-0"
-        }, {
-            ConversationBottomModal = v26
-        });
-    end;
-end);
+require(AppChat.types)
+
+local ConversationBottomModal = require(AppChatParent.AppChatNetworking).Constants.ConversationBottomModal
+local ModalConfiguration = require(AppChat.Models.ModalConfiguration)
+local useSelector = require(AppChatParent.RoactUtils).Hooks.RoactRodux.useSelector
+local getDeepValue2 = require(AppChat.Utils.getDeepValue2)
+local SocialExperiments = require(AppChatParent.SocialExperiments)
+local FFlagTestDeviceForFAEUpsell = SocialExperiments.FFlagTestDeviceForFAEUpsell
+local deviceMeetsRequirementsForFAE = SocialExperiments.deviceMeetsRequirementsForFAE
+local FFlagEnableAEGIS2AppChatConversationBanner = require(AppChatParent.SharedFlags).FFlagEnableAEGIS2AppChatConversationBanner
+local FFlagAppChatNudgeToChatUpsellEnabled = require(AppChat.Flags.FFlagAppChatNudgeToChatUpsellEnabled)
+local ConversationModal = require(script.Parent.ConversationModal)
+local AppChatFAEBanner = require(AppChat.Components.FaeBanner.AppChatFAEBanner)
+local t1 = {
+	shouldShowLegacyBottomModal = false,
+	onHeightChanged = function(_) --[[ onHeightChanged ]] -- line: 38
+	end
+}
+
+return React.memo(function(t2: {[any]: any}) --[[ ConversationBottomModalContainer ]] -- line: 41
+	-- upvalues: Cryo (copy), t1 (copy), useSelector (copy), getDeepValue2 (copy), ModalConfiguration (copy), React (copy), FFlagEnableAEGIS2AppChatConversationBanner (copy), FFlagAppChatNudgeToChatUpsellEnabled (copy), ConversationBottomModal (copy), AppChatFAEBanner (copy), FFlagTestDeviceForFAEUpsell (copy), deviceMeetsRequirementsForFAE (copy), ConversationModal (copy), Foundation (copy)
+	local v20 = Cryo.Dictionary.union(t1, t2)
+	local v21 = useSelector(function(p2) -- line: 45
+		-- upvalues: getDeepValue2 (copy), v20 (copy), ModalConfiguration (copy)
+		return getDeepValue2(p2, `ChatAppReducer.Modals.conversationBottomModals.{ v20.conversationId }`) or ModalConfiguration.default
+	end)
+	local v22 = React.useCallback(function(p3) -- line: 50
+		-- upvalues: v20 (copy)
+		v20.onHeightChanged(p3.AbsoluteSize.Y)
+	end, { v20.onHeightChanged })
+	local v23 = nil
+
+	if (FFlagEnableAEGIS2AppChatConversationBanner or FFlagAppChatNudgeToChatUpsellEnabled) and (not v20.shouldShowChatInputBar and v21 and v21.modal_variant ~= nil and v21.modal_variant ~= ConversationBottomModal.None) then
+		v23 = React.createElement(AppChatFAEBanner, {
+			modalConfiguration = v21,
+			conversationId = v20.conversationId
+		})
+	end
+
+	if FFlagTestDeviceForFAEUpsell and not deviceMeetsRequirementsForFAE() then
+		return nil
+	end
+
+	if not v23 and v20.shouldShowLegacyBottomModal then
+		v23 = React.createElement(ConversationModal, {
+			bodyText = v20.legacyBottomModalText
+		})
+	end
+
+	return React.createElement(Foundation.View, {
+		LayoutOrder = v20.layoutOrder,
+		onAbsoluteSizeChanged = v22,
+		tag = "auto-y size-full-0"
+	}, {
+		ConversationBottomModal = v23
+	})
+end)

@@ -1,10 +1,17 @@
-local v0 = require(script.FetchPlayWithRewardState);
-local v1 = require(script.PlayWithRewardBlackoutCurtain);
-local v2 = require(script.PlayWithRewardComponent);
-local v3 = require(script.PlayWithRewardTelemetry);
+local FetchPlayWithRewardState = require(script.FetchPlayWithRewardState)
+local PlayWithRewardBlackoutCurtain = require(script.PlayWithRewardBlackoutCurtain)
+local PlayWithRewardCoachmark = require(script.PlayWithRewardCoachmark)
+local PlayWithRewardComponent = require(script.PlayWithRewardComponent)
+local PlayWithRewardTelemetry = require(script.PlayWithRewardTelemetry)
+local shouldRenderPlayWithRewardBanner = require(script.shouldRenderPlayWithRewardBanner)
+local usePlayWithRewardData = require(script.usePlayWithRewardData)
+
 return {
-    FetchPlayWithRewardState = v0, 
-    PlayWithRewardBlackoutCurtain = v1, 
-    PlayWithRewardComponent = v2, 
-    PlayWithRewardTelemetry = v3
-};
+	FetchPlayWithRewardState = FetchPlayWithRewardState,
+	PlayWithRewardBlackoutCurtain = PlayWithRewardBlackoutCurtain,
+	PlayWithRewardCoachmark = PlayWithRewardCoachmark,
+	PlayWithRewardComponent = PlayWithRewardComponent,
+	PlayWithRewardTelemetry = PlayWithRewardTelemetry,
+	shouldRenderPlayWithRewardBanner = shouldRenderPlayWithRewardBanner,
+	usePlayWithRewardData = usePlayWithRewardData
+}

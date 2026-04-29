@@ -1,9 +1,10 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v2 = require(l_CorePackages_0.Packages.Rodux);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.WearTimeFilter);
-return (v2.makeActionCreator(script.Name, function(v4) --[[ Line: 20 ]]
-    return {
-        wearTimeFilter = v4
-    };
-end));
+local CorePackages = game:GetService("CorePackages")
+local Rodux = require(CorePackages.Packages.Rodux)
+
+require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+
+return (Rodux.makeActionCreator(script.Name, function(p1) -- line: 19
+	return {
+		wearTimeFilter = p1
+	}
+end))

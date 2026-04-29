@@ -1,110 +1,115 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.React);
-local v3 = require(l_CorePackages_0.Packages.Cryo);
-local v4 = require(l_CorePackages_0.Packages.Foundation);
-local l_ScrollView_0 = v4.ScrollView;
-local l_ScrollBarVisibility_0 = v4.Enums.ScrollBarVisibility;
-local v7 = require(l_Modules_0.LuaApp.Components.Authentication.DualLayoutBackButton);
-local v8 = require(l_Modules_0.LuaApp.FitChildren);
-local v9 = require(l_Modules_0.LuaApp.Enum.Alignment);
-local l_useStyle_0 = require(l_CorePackages_0.Packages.UIBlox).Core.Style.useStyle;
-local v11 = require(l_Modules_0.LuaApp.Hooks.useLocalization);
-local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
-local l_useUiModeInfo_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useUiModeInfo;
-local l_UiMode_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).UiMode;
-local function v30(v15) --[[ Line: 23 ]]
-    -- upvalues: l_useStyle_0 (copy), l_useDesignTokens_0 (copy), v9 (copy), l_useUiModeInfo_0 (copy), v2 (copy), l_UiMode_0 (copy), v7 (copy), v8 (copy), l_ScrollView_0 (copy), l_ScrollBarVisibility_0 (copy)
-    local v16 = l_useStyle_0();
-    local v17 = l_useDesignTokens_0();
-    local l_Font_0 = v16.Font;
-    local l_Theme_0 = v16.Theme;
-    local l_children_0 = v15.children;
-    local v21 = v15.ContentAlign or v9.Top;
-    local l_Space_800_0 = v17.Global.Space_800;
-    local l_Space_1000_0 = v17.Global.Space_1000;
-    local l_Space_400_0 = v17.Global.Space_400;
-    local v25 = v17.Global.FontSize_500 + l_Space_400_0;
-    local v26 = l_useUiModeInfo_0();
-    local l_buttonRef_0 = v15.buttonRef;
-    local v28 = {
-        [v9.Top] = {
-            Position = UDim2.new(0.5, 0, 0, 0), 
-            AnchorPoint = Vector2.new(0.5, 0)
-        }, 
-        [v9.Bottom] = {
-            Position = UDim2.new(0.5, 0, 1, 0), 
-            AnchorPoint = Vector2.new(0.5, 1)
-        }
-    };
-    local v29 = {
-        Title = v2.createElement("Frame", {
-            Size = UDim2.new(1, 0, 1, 0), 
-            AnchorPoint = Vector2.new(0, 0.5), 
-            BackgroundTransparency = 1
-        }, {
-            BackButton = if v26.uiMode == l_UiMode_0.VR then v2.createElement(v7, {
-                navigateBack = v15.navigateBack
-            }) else nil, 
-            TitleLabel = v2.createElement("TextLabel", {
-                Text = v15.localized.title, 
-                TextSize = v17.Global.FontSize_500, 
-                Font = l_Font_0.Title.Font, 
-                TextXAlignment = Enum.TextXAlignment.Center, 
-                TextYAlignment = Enum.TextYAlignment.Center, 
-                TextTransparency = l_Theme_0.TextEmphasis.Transparency, 
-                TextColor3 = l_Theme_0.TextEmphasis.Color, 
-                Size = UDim2.new(1, 0, 1, 0), 
-                BackgroundTransparency = 1
-            })
-        }), 
-        AlignmentContainer = v2.createElement("Frame", {
-            BackgroundTransparency = 1, 
-            Position = UDim2.new(0.5, 0, 0, v25), 
-            Size = UDim2.new(1, 0, 1, -v25), 
-            AnchorPoint = Vector2.new(0.5, 0), 
-            ZIndex = 2
-        }, {
-            Content = v2.createElement(v8.FitFrame, {
-                Position = v28[v21].Position, 
-                Size = UDim2.new(1, 0, 1, 0), 
-                fitAxis = v8.FitAxis.Height, 
-                AnchorPoint = v28[v21].AnchorPoint, 
-                BackgroundTransparency = 1
-            }, {
-                l_children_0
-            })
-        })
-    };
-    return v2.createElement(l_ScrollView_0, {
-        BorderSizePixel = 0, 
-        scroll = {
-            AutomaticCanvasSize = Enum.AutomaticSize.Y, 
-            CanvasSize = UDim2.fromScale(1, 0), 
-            ScrollingDirection = Enum.ScrollingDirection.Y, 
-            scrollBarVisibility = l_ScrollBarVisibility_0.None
-        }, 
-        Size = UDim2.new(1, 0, 1, 0), 
-        tag = "bg-action-subtle"
-    }, {
-        ContentFrame = v2.createElement("Frame", {
-            Position = UDim2.new(0, l_Space_800_0, 0, l_Space_1000_0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            Size = UDim2.new(1, -(2 * l_Space_800_0), 1, -(2 * l_Space_1000_0)), 
-            AnchorPoint = Vector2.new(0, 0), 
-            BackgroundTransparency = 1, 
-            ref = l_buttonRef_0
-        }, {
-            v29
-        })
-    });
-end;
-return function(v31) --[[ Line: 114 ]]
-    -- upvalues: v11 (copy), v2 (copy), v30 (copy), v3 (copy)
-    local v32 = v11({
-        title = "Authentication.Login.Heading.LoginRoblox"
-    });
-    return v2.createElement(v30, v3.Dictionary.join({
-        localized = v32
-    }, v31));
-end;
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+local Cryo = require(CorePackages.Packages.Cryo)
+local Foundation = require(CorePackages.Packages.Foundation)
+local ScrollView = Foundation.ScrollView
+local ScrollBarVisibility = Foundation.Enums.ScrollBarVisibility
+local DualLayoutBackButton = require(Modules.LuaApp.Components.Authentication.DualLayoutBackButton)
+local FitChildren = require(Modules.LuaApp.FitChildren)
+local Alignment = require(Modules.LuaApp.Enum.Alignment)
+local useStyle = require(CorePackages.Packages.UIBlox).Core.Style.useStyle
+local useLocalization = require(Modules.LuaApp.Hooks.useLocalization)
+local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local useUiModeInfo = require(CorePackages.Workspace.Packages.RobloxAppHooks).useUiModeInfo
+local UiMode = require(CorePackages.Workspace.Packages.RobloxAppEnums).UiMode
+local useSignalState = require(CorePackages.Packages.SignalsReact).useSignalState
+local Display = require(CorePackages.Workspace.Packages.Display)
+local FFlagEnableLeftNavOnConsole = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableLeftNavOnConsole
+
+local function v19(p1) -- line: 26
+	-- upvalues: useStyle (copy), useDesignTokens (copy), Alignment (copy), useUiModeInfo (copy), React (copy), UiMode (copy), DualLayoutBackButton (copy), FitChildren (copy), FFlagEnableLeftNavOnConsole (copy), useSignalState (copy), Display (copy), ScrollView (copy), ScrollBarVisibility (copy)
+	local v21 = useStyle()
+	local v22 = useDesignTokens()
+	local Font = v21.Font
+	local Theme = v21.Theme
+	local children = p1.children
+	local v26 = p1.ContentAlign or Alignment.Top
+	local Space_800 = v22.Global.Space_800
+	local Space_1000 = v22.Global.Space_1000
+	local Space_400 = v22.Global.Space_400
+	local v30 = v22.Global.FontSize_500 + Space_400
+	local v31 = useUiModeInfo()
+	local buttonRef = p1.buttonRef
+	local t1 = {
+		[Alignment.Top] = {
+			Position = UDim2.new(0.5, 0, 0, 0),
+			AnchorPoint = Vector2.new(0.5, 0)
+		},
+		[Alignment.Bottom] = {
+			Position = UDim2.new(0.5, 0, 1, 0),
+			AnchorPoint = Vector2.new(0.5, 1)
+		}
+	}
+	local t2 = {
+		Title = React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			AnchorPoint = Vector2.new(0, 0.5),
+			BackgroundTransparency = 1
+		}, {
+			BackButton = if v31.uiMode ~= UiMode.VR then nil else React.createElement(DualLayoutBackButton, {
+				navigateBack = p1.navigateBack
+			}),
+			TitleLabel = React.createElement("TextLabel", {
+				Text = p1.localized.title,
+				TextSize = v22.Global.FontSize_500,
+				Font = Font.Title.Font,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextTransparency = Theme.TextEmphasis.Transparency,
+				TextColor3 = Theme.TextEmphasis.Color,
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1
+			})
+		}),
+		AlignmentContainer = React.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0.5, 0, 0, v30),
+			Size = UDim2.new(1, 0, 1, -v30),
+			AnchorPoint = Vector2.new(0.5, 0),
+			ZIndex = 2
+		}, {
+			Content = React.createElement(FitChildren.FitFrame, {
+				Position = t1[v26].Position,
+				Size = UDim2.new(1, 0, 1, 0),
+				fitAxis = FitChildren.FitAxis.Height,
+				AnchorPoint = t1[v26].AnchorPoint,
+				BackgroundTransparency = 1
+			}, { children })
+		})
+	}
+	local v35 = if not FFlagEnableLeftNavOnConsole then nil else useSignalState(Display.GetDisplayStore().getDeviceSafePadding)
+
+	return React.createElement(ScrollView, {
+		BorderSizePixel = 0,
+		scroll = {
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			CanvasSize = UDim2.fromScale(1, 0),
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+			scrollBarVisibility = ScrollBarVisibility.None
+		},
+		Position = if not FFlagEnableLeftNavOnConsole then nil else UDim2.new(0, -v35.left, 0, -v35.top),
+		Size = if not FFlagEnableLeftNavOnConsole then UDim2.new(1, 0, 1, 0) else UDim2.new(1, v35.left + v35.right, 1, v35.top + v35.bottom),
+		tag = (not FFlagEnableLeftNavOnConsole or v31.uiMode ~= UiMode.TenFoot) and "bg-action-subtle" or "bg-surface-0"
+	}, {
+		ContentFrame = React.createElement("Frame", {
+			Position = UDim2.new(0, Space_800, 0, Space_1000),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = UDim2.new(1, -(2 * Space_800), 1, -(2 * Space_1000)),
+			AnchorPoint = Vector2.new(0, 0),
+			BackgroundTransparency = 1,
+			ref = buttonRef
+		}, { t2 })
+	})
+end
+
+return function(p2) -- line: 134
+	-- upvalues: useLocalization (copy), React (copy), v19 (copy), Cryo (copy)
+	local v37 = useLocalization({
+		title = "Authentication.Login.Heading.LoginRoblox"
+	})
+
+	return React.createElement(v19, Cryo.Dictionary.join({
+		localized = v37
+	}, p2))
+end

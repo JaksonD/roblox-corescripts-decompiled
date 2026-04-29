@@ -1,1 +1,1 @@
-return game:DefineFastFlag("TCUnifyNavigationEntry_v1", false);
+return game:DefineFastFlag("TCUnifyNavigationEntry_v2", false)

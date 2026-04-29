@@ -1,0 +1,4 @@
+local FFlagLuaAppGameTileWideVideoThumbnail = require(script.Parent.FFlagLuaAppGameTileWideVideoThumbnail)
+local FFlagLuaAppRefactorVideoPlaybackDetector = require(script.Parent.FFlagLuaAppRefactorVideoPlaybackDetector)
+
+return game:DefineFastFlag("LuaAppHomeTouchAutoplay", false) and (FFlagLuaAppGameTileWideVideoThumbnail and FFlagLuaAppRefactorVideoPlaybackDetector)

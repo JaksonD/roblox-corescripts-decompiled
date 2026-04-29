@@ -1,3 +1,4 @@
-local v0 = require(script.Parent.FFlagAXEnableModeratedItemsFlowForDurables);
-local v1 = require(script.Parent.FFlagAXInventoryDurablesSupport);
-return game:DefineFastFlag("AXEnableExpiredUserLookCheckout4", false) and v0 and v1;
+local FFlagAXEnableModeratedItemsFlowForDurables = require(script.Parent.FFlagAXEnableModeratedItemsFlowForDurables)
+local FFlagAXInventoryDurablesSupport = require(script.Parent.FFlagAXInventoryDurablesSupport)
+
+return game:DefineFastFlag("AXEnableExpiredUserLookCheckout7", false) and (FFlagAXEnableModeratedItemsFlowForDurables and FFlagAXInventoryDurablesSupport)

@@ -1,59 +1,72 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("TrustedContacts");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_Parent_0.NotificationModalsManager);
-local l_default_0 = require(l_Parent_0.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default;
-local l_OpenAmpWizardContainer_0 = require(l_Parent_0.AmpUpsell).OpenAmpWizardContainer;
-local l_NavigateBack_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateBack;
-local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_useOpenWebView_0 = require(l_Parent_0.WebViewUtils).useOpenWebView;
-local _ = require(l_script_FirstAncestor_0.Common.Types);
-return function(v10) --[[ Line: 25 ]] --[[ Name: useExternalNavigationSetUp ]]
-    -- upvalues: l_useDispatch_0 (copy), v2 (copy), v3 (copy), l_useOpenWebView_0 (copy), l_NavigateBack_0 (copy), l_OpenAmpWizardContainer_0 (copy), l_default_0 (copy)
-    local v11 = l_useDispatch_0();
-    local v13 = v2.useCallback(function(v12) --[[ Line: 28 ]]
-        -- upvalues: v3 (ref)
-        v3.SetUIBloxToast({
-            sequenceNumber = DateTime.now().UnixTimestamp, 
-            toastTitle = v12
-        });
-    end, {});
-    local v14 = l_useOpenWebView_0();
-    local v17 = v2.useCallback(function(v15) --[[ Line: 37 ]]
-        -- upvalues: v11 (copy), l_NavigateBack_0 (ref), l_OpenAmpWizardContainer_0 (ref)
-        local function v16() --[[ Line: 38 ]]
-            -- upvalues: v11 (ref), l_NavigateBack_0 (ref), v15 (copy)
-            v11(l_NavigateBack_0(true));
-            v15.completionCallback();
-        end;
-        v11(l_OpenAmpWizardContainer_0(v15.featureName, v16, v15.recourseData, v15.entryPointEventCtx, v15.extraParameters, v15.nameSpace));
-    end, {
-        v11
-    });
-    local v18 = v2.useCallback(function() --[[ Line: 55 ]]
-        -- upvalues: v10 (copy)
-        if v10.onClosed then
-            v10.onClosed();
-            return;
-        else
-            if v10.navigation then
-                v10.navigation.pop();
-            end;
-            return;
-        end;
-    end, {
-        v10, 
-        v10.navigation
-    });
-    local v20 = v2.useCallback(function(v19) --[[ Line: 63 ]]
-        -- upvalues: l_default_0 (ref)
-        l_default_0:shareUrl(v19);
-    end, {});
-    return {
-        closeModal = v18, 
-        openAmpWizard = v17, 
-        showToast = v13, 
-        openWebView = v14, 
-        shareUrl = v20
-    };
-end;
+local TrustedContacts = script:FindFirstAncestor("TrustedContacts")
+local TrustedContactsParent = TrustedContacts.Parent
+local React = require(TrustedContactsParent.React)
+local NotificationModalsManager = require(TrustedContactsParent.NotificationModalsManager)
+local default = require(TrustedContactsParent.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default
+local OpenAmpWizardContainer = require(TrustedContactsParent.AmpUpsell).OpenAmpWizardContainer
+local InExpAmpWizardController = require(TrustedContactsParent.AmpUpsell).InExpAmpWizardController
+local NavigateBack = require(TrustedContactsParent.NavigationRodux).Thunks.NavigateBack
+local useDispatch = require(TrustedContactsParent.RoactUtils).Hooks.RoactRodux.useDispatch
+local useOpenWebView = require(TrustedContactsParent.WebViewUtils).useOpenWebView
+local v11 = game:DefineFastFlag("TCOpenAmpInGame", false)
+
+require(TrustedContacts.Common.Types)
+
+return function(t1: {[any]: any}) --[[ useExternalNavigationSetUp ]] -- line: 30
+	-- upvalues: useDispatch (copy), React (copy), NotificationModalsManager (copy), useOpenWebView (copy), v11 (copy), NavigateBack (copy), InExpAmpWizardController (copy), OpenAmpWizardContainer (copy), default (copy)
+	local v13 = useDispatch()
+	local v14 = React.useCallback(function(s1: string) -- line: 33
+		-- upvalues: NotificationModalsManager (copy)
+		NotificationModalsManager.SetUIBloxToast({
+			sequenceNumber = DateTime.now().UnixTimestamp,
+			toastTitle = s1
+		})
+	end, {})
+	local v15 = useOpenWebView()
+	local v16 = React.useCallback(function(p1) -- line: 42
+		-- upvalues: v11 (copy), v13 (copy), NavigateBack (copy), InExpAmpWizardController (copy), OpenAmpWizardContainer (copy)
+		local function v21(p2, p3) -- line: 43
+			-- upvalues: v11 (copy), v13 (copy), NavigateBack (copy), p1 (copy)
+			if not v11 then
+				v13(NavigateBack(true))
+			end
+
+			p1.completionCallback(p2, p3)
+		end
+
+		if v11 then
+			InExpAmpWizardController.OpenAmpWizardContainerInExp(p1.featureName, v21, p1.recourseData, p1.entryPointEventCtx, p1.extraParameters, p1.nameSpace)
+
+			return
+		end
+
+		v13(OpenAmpWizardContainer(p1.featureName, v21, p1.recourseData, p1.entryPointEventCtx, p1.extraParameters, p1.nameSpace))
+	end, { v13 })
+	local v17 = React.useCallback(function() -- line: 74
+		-- upvalues: t1 (copy)
+		if t1.onClosed then
+			t1.onClosed()
+
+			return
+		end
+
+		if t1.navigation then
+			t1.navigation.pop()
+		end
+	end, {
+		t1,
+		t1.navigation
+	})
+	local v18 = React.useCallback(function(p4) -- line: 82
+		-- upvalues: default (copy)
+		default:shareUrl(p4)
+	end, {})
+
+	return {
+		closeModal = v17,
+		openAmpWizard = v16,
+		showToast = v14,
+		openWebView = v15,
+		shareUrl = v18
+	}
+end

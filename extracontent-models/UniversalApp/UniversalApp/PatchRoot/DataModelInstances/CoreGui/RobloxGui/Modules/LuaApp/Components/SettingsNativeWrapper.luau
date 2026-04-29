@@ -1,98 +1,104 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_HttpService_0 = game:GetService("HttpService");
-local l_Logging_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Logging;
-local v4 = require(l_CorePackages_0.Packages.Roact);
-local v5 = require(l_CorePackages_0.Packages.RoactNavigation);
-local l_default_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default;
-local v7 = require(l_Modules_0.LuaApp.Enum.JavascriptHybrid);
-local v8 = require(l_Modules_0.LuaApp.Util.ExecuteJavaScriptInWebView);
-local v9 = require(l_Modules_0.LuaApp.Components.BrowserServiceWrapper);
-local v10 = require(l_Modules_0.LuaApp.withLocalization);
-local l_GetFFlagLuaAppEnableCredentialsProtocol_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).Flags.GetFFlagLuaAppEnableCredentialsProtocol;
-local v12 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppRenderSettingsAsModal);
-local l_GetFIntLuaAppCredentialsProtocolTimeout_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).Flags.GetFIntLuaAppCredentialsProtocolTimeout;
-local l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).Flags.GetFIntLuaAppCredentialsProtocolAvailableTimeout;
-local v15 = game:DefineFastFlag("RequireDeviceBoundOnlyForFIDO2", false);
-local v16 = v4.PureComponent:extend("SettingsNativeWrapper");
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local HttpService = game:GetService("HttpService")
+local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
+local Roact = require(CorePackages.Packages.Roact)
+local RoactNavigation = require(CorePackages.Packages.RoactNavigation)
+local default = require(CorePackages.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default
+local JavascriptHybrid = require(Modules.LuaApp.Enum.JavascriptHybrid)
+local ExecuteJavaScriptInWebView = require(Modules.LuaApp.Util.ExecuteJavaScriptInWebView)
+local BrowserServiceWrapper = require(Modules.LuaApp.Components.BrowserServiceWrapper)
+local withLocalization = require(Modules.LuaApp.withLocalization)
+local GetFFlagLuaAppEnableCredentialsProtocol = require(CorePackages.Workspace.Packages.CredentialsProtocol).Flags.GetFFlagLuaAppEnableCredentialsProtocol
+local GetFIntLuaAppCredentialsProtocolTimeout = require(CorePackages.Workspace.Packages.CredentialsProtocol).Flags.GetFIntLuaAppCredentialsProtocolTimeout
+local GetFIntLuaAppCredentialsProtocolAvailableTimeout = require(CorePackages.Workspace.Packages.CredentialsProtocol).Flags.GetFIntLuaAppCredentialsProtocolAvailableTimeout
+local v15 = game:DefineFastFlag("RequireDeviceBoundOnlyForFIDO2", false)
+local v16 = Roact.PureComponent:extend("SettingsNativeWrapper")
+
 v16.defaultProps = {
-    BrowserWrapperComponent = v9, 
-    url = nil, 
-    titleKey = nil, 
-    isVisible = false, 
-    windowClosedCallback = nil, 
-    displayOrder = nil
-};
-local function _(v17) --[[ Line: 34 ]] --[[ Name: getFeatureStringFromHybridEvent ]]
-    -- upvalues: v7 (copy)
-    if v17.moduleID == v7.Module.Navigation and v17.functionName == v7.Function.navigateToFeature and v17.params and v17.params.params then
-        return v17.params.params.feature;
-    else
-        return nil;
-    end;
-end;
-v16.render = function(v19) --[[ Line: 46 ]] --[[ Name: render ]]
-    -- upvalues: v10 (copy), v4 (copy), v12 (copy), l_HttpService_0 (copy), l_GetFFlagLuaAppEnableCredentialsProtocol_0 (copy), v7 (copy), l_default_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), v15 (copy), v8 (copy), l_GetFIntLuaAppCredentialsProtocolTimeout_0 (copy), l_Logging_0 (copy)
-    return v10({
-        title = v19.props.titleKey
-    })(function(v20) --[[ Line: 47 ]]
-        -- upvalues: v4 (ref), v19 (copy), v12 (ref), l_HttpService_0 (ref), l_GetFFlagLuaAppEnableCredentialsProtocol_0 (ref), v7 (ref), l_default_0 (ref), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (ref), v15 (ref), v8 (ref), l_GetFIntLuaAppCredentialsProtocolTimeout_0 (ref), l_Logging_0 (ref)
-        return v4.createElement(v19.props.BrowserWrapperComponent, {
-            isVisible = v19.props.isVisible, 
-            modal = not v12(), 
-            title = v20.title, 
-            webViewVisible = true, 
-            displayOrder = v19.props.displayOrder, 
-            url = v19.props.url, 
-            isGenericWebview = true, 
-            windowClosedCallback = v19.props.windowClosedCallback, 
-            javaScriptCallback = function(v21) --[[ Line: 57 ]] --[[ Name: javaScriptCallback ]]
-                -- upvalues: l_HttpService_0 (ref), l_GetFFlagLuaAppEnableCredentialsProtocol_0 (ref), v7 (ref), l_default_0 (ref), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (ref), v15 (ref), v8 (ref), l_GetFIntLuaAppCredentialsProtocolTimeout_0 (ref), l_Logging_0 (ref)
-                local v22 = l_HttpService_0:JSONDecode(v21);
-                if l_GetFFlagLuaAppEnableCredentialsProtocol_0() and (if v22.moduleID == v7.Module.Navigation and v22.functionName == v7.Function.navigateToFeature and v22.params and v22.params.params then v22.params.params.feature else nil) == v7.Feature.CredentialsProtocolAvailable then
-                    l_default_0:isAvailable(l_default_0.CredentialsTypes.FIDO2, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v23) --[[ Line: 70 ]]
-                        -- upvalues: v15 (ref), v8 (ref), v22 (copy)
-                        local v24 = v23.isAvailable or false;
-                        if v15 then
-                            v24 = v24 and v23.supportsDeviceBoundOnly or false;
-                        end;
-                        v8.Execute(v22.params.params.data.callId, (tostring(v24)));
-                    end):catch(function() --[[ Line: 78 ]]
-                        -- upvalues: v8 (ref), v22 (copy)
-                        v8.Execute(v22.params.params.data.callId, "false");
-                    end);
-                    return;
-                elseif l_GetFFlagLuaAppEnableCredentialsProtocol_0() and (if v22.moduleID == v7.Module.Navigation and v22.functionName == v7.Function.navigateToFeature and v22.params and v22.params.params then v22.params.params.feature else nil) == v7.Feature.RegisterCredentials then
-                    l_default_0:registerCredentials(l_default_0.CredentialsTypes.FIDO2, v22.params.params.data.creationOptionsJSON, l_GetFIntLuaAppCredentialsProtocolTimeout_0()):andThen(function(v25) --[[ Line: 94 ]]
-                        -- upvalues: l_Logging_0 (ref), l_HttpService_0 (ref), v8 (ref), v22 (copy)
-                        if v25 ~= nil then
-                            l_Logging_0.warn("Executing javascript on webview to return RegisterCredentialsResponse");
-                            local v26 = l_HttpService_0:JSONEncode(v25);
-                            v8.Execute(v22.params.params.data.callId, v26);
-                        end;
-                    end):catch(function() --[[ Line: 101 ]]
-                        -- upvalues: v8 (ref), v22 (copy)
-                        v8.Execute(v22.params.params.data.callId, "");
-                    end);
-                    return;
-                elseif l_GetFFlagLuaAppEnableCredentialsProtocol_0() and (if v22.moduleID == v7.Module.Navigation and v22.functionName == v7.Function.navigateToFeature and v22.params and v22.params.params then v22.params.params.feature else nil) == v7.Feature.GetCredentials then
-                    l_default_0:getCredentials(l_default_0.CredentialsTypes.FIDO2, v22.params.params.data.authenticationOptionsJSON, l_GetFIntLuaAppCredentialsProtocolTimeout_0()):andThen(function(v27) --[[ Line: 117 ]]
-                        -- upvalues: l_Logging_0 (ref), l_HttpService_0 (ref), v8 (ref), v22 (copy)
-                        if v27 ~= nil then
-                            l_Logging_0.warn("Executing javascript on webview to return GetCredentialsResponse");
-                            local v28 = l_HttpService_0:JSONEncode(v27);
-                            v8.Execute(v22.params.params.data.callId, v28);
-                        end;
-                    end):catch(function() --[[ Line: 124 ]]
-                        -- upvalues: v8 (ref), v22 (copy)
-                        v8.Execute(v22.params.params.data.callId, "");
-                    end);
-                    return;
-                else
-                    return;
-                end;
-            end
-        });
-    end);
-end;
-return (v5.withNavigation(v16));
+	BrowserWrapperComponent = BrowserServiceWrapper,
+	url = nil,
+	titleKey = nil,
+	isVisible = false,
+	windowClosedCallback = nil,
+	displayOrder = nil
+}
+
+function v16.render(p1) -- line: 45
+	-- upvalues: withLocalization (copy), Roact (copy), HttpService (copy), GetFFlagLuaAppEnableCredentialsProtocol (copy), JavascriptHybrid (copy), default (copy), GetFIntLuaAppCredentialsProtocolAvailableTimeout (copy), v15 (copy), ExecuteJavaScriptInWebView (copy), GetFIntLuaAppCredentialsProtocolTimeout (copy), Logging (copy)
+	return withLocalization({
+		title = p1.props.titleKey
+	})(function(p2) -- line: 46
+		-- upvalues: Roact (copy), p1 (copy), HttpService (copy), GetFFlagLuaAppEnableCredentialsProtocol (copy), JavascriptHybrid (copy), default (copy), GetFIntLuaAppCredentialsProtocolAvailableTimeout (copy), v15 (copy), ExecuteJavaScriptInWebView (copy), GetFIntLuaAppCredentialsProtocolTimeout (copy), Logging (copy)
+		return Roact.createElement(p1.props.BrowserWrapperComponent, {
+			isVisible = p1.props.isVisible,
+			modal = false,
+			title = p2.title,
+			webViewVisible = true,
+			displayOrder = p1.props.displayOrder,
+			url = p1.props.url,
+			isGenericWebview = true,
+			windowClosedCallback = p1.props.windowClosedCallback,
+			javaScriptCallback = function(p3) --[[ javaScriptCallback ]] -- line: 56
+				-- upvalues: HttpService (copy), GetFFlagLuaAppEnableCredentialsProtocol (copy), JavascriptHybrid (copy), default (copy), GetFIntLuaAppCredentialsProtocolAvailableTimeout (copy), v15 (copy), ExecuteJavaScriptInWebView (copy), GetFIntLuaAppCredentialsProtocolTimeout (copy), Logging (copy)
+				local data = HttpService:JSONDecode(p3)
+
+				if GetFFlagLuaAppEnableCredentialsProtocol() and ((if data.moduleID ~= JavascriptHybrid.Module.Navigation or (data.functionName ~= JavascriptHybrid.Function.navigateToFeature or (not data.params or not data.params.params)) then nil else data.params.params.feature)) == JavascriptHybrid.Feature.CredentialsProtocolAvailable then
+					default:isAvailable(default.CredentialsTypes.FIDO2, GetFIntLuaAppCredentialsProtocolAvailableTimeout()):andThen(function(p4) -- line: 69
+						-- upvalues: v15 (copy), ExecuteJavaScriptInWebView (copy), data (copy)
+						local v23 = p4.isAvailable or false
+
+						if v15 then
+							v23 = not not v23 and (p4.supportsDeviceBoundOnly or false)
+						end
+
+						ExecuteJavaScriptInWebView.Execute(data.params.params.data.callId, (tostring(v23)))
+					end):catch(function() -- line: 77
+						-- upvalues: ExecuteJavaScriptInWebView (copy), data (copy)
+						ExecuteJavaScriptInWebView.Execute(data.params.params.data.callId, "false")
+					end)
+
+					return
+				end
+
+				if GetFFlagLuaAppEnableCredentialsProtocol() and ((if data.moduleID ~= JavascriptHybrid.Module.Navigation or (data.functionName ~= JavascriptHybrid.Function.navigateToFeature or (not data.params or not data.params.params)) then nil else data.params.params.feature)) == JavascriptHybrid.Feature.RegisterCredentials then
+					default:registerCredentials(default.CredentialsTypes.FIDO2, data.params.params.data.creationOptionsJSON, GetFIntLuaAppCredentialsProtocolTimeout()):andThen(function(p5) -- line: 93
+						-- upvalues: Logging (copy), HttpService (copy), ExecuteJavaScriptInWebView (copy), data (copy)
+						if p5 ~= nil then
+							Logging.warn("Executing javascript on webview to return RegisterCredentialsResponse")
+
+							local json = HttpService:JSONEncode(p5)
+
+							ExecuteJavaScriptInWebView.Execute(data.params.params.data.callId, json)
+						end
+					end):catch(function() -- line: 100
+						-- upvalues: ExecuteJavaScriptInWebView (copy), data (copy)
+						ExecuteJavaScriptInWebView.Execute(data.params.params.data.callId, "")
+					end)
+
+					return
+				end
+
+				if GetFFlagLuaAppEnableCredentialsProtocol() and ((if data.moduleID ~= JavascriptHybrid.Module.Navigation or (data.functionName ~= JavascriptHybrid.Function.navigateToFeature or (not data.params or not data.params.params)) then nil else data.params.params.feature)) == JavascriptHybrid.Feature.GetCredentials then
+					default:getCredentials(default.CredentialsTypes.FIDO2, data.params.params.data.authenticationOptionsJSON, GetFIntLuaAppCredentialsProtocolTimeout()):andThen(function(p6) -- line: 116
+						-- upvalues: Logging (copy), HttpService (copy), ExecuteJavaScriptInWebView (copy), data (copy)
+						if p6 ~= nil then
+							Logging.warn("Executing javascript on webview to return GetCredentialsResponse")
+
+							local json = HttpService:JSONEncode(p6)
+
+							ExecuteJavaScriptInWebView.Execute(data.params.params.data.callId, json)
+						end
+					end):catch(function() -- line: 123
+						-- upvalues: ExecuteJavaScriptInWebView (copy), data (copy)
+						ExecuteJavaScriptInWebView.Execute(data.params.params.data.callId, "")
+					end)
+
+					return
+				end
+			end
+		})
+	end)
+end
+
+return (RoactNavigation.withNavigation(v16))

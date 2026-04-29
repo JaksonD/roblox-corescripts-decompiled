@@ -1,108 +1,139 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("GenericAbuseReporting");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Foundation);
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.SharedFlags);
-local l_Button_0 = v2.Button;
-local l_ButtonVariant_0 = v2.Enums.ButtonVariant;
-local l_FillBehavior_0 = v2.Enums.FillBehavior;
-local l_Sheet_0 = v2.Sheet;
-local l_TextArea_0 = v2.TextArea;
-local v10 = require(l_script_FirstAncestor_0.BeduiV2.Components.Eyebrow);
-local v11 = require(l_script_FirstAncestor_0.BeduiV2.Utils.getCodePointLength);
-local v12 = require(l_script_FirstAncestor_0.BeduiV2.Components.LayoutSlots);
-local v13 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.TextWithTranslation);
-local v14 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.translate);
-local l_useArTranslation_0 = require(l_script_FirstAncestor_0.BeduiV2.Utils.Translate.arTranslation).useArTranslation;
-local l_useLayoutSlots_0 = v12.useLayoutSlots;
-local l_FFlagRemoveTitleAddEyebrowReport_0 = v4.FFlagRemoveTitleAddEyebrowReport;
-local l_FFlagAddReportCharacterLimit_0 = v4.FFlagAddReportCharacterLimit;
-local l_FFlagAddLayoutSlotsToReport_0 = v4.FFlagAddLayoutSlotsToReport;
-return v3.memo(function(v20) --[[ Line: 46 ]] --[[ Name: CommentNode ]]
-    -- upvalues: v3 (copy), l_FFlagAddReportCharacterLimit_0 (copy), v14 (copy), l_useArTranslation_0 (copy), l_FFlagAddLayoutSlotsToReport_0 (copy), l_useLayoutSlots_0 (copy), v11 (copy), l_Sheet_0 (copy), l_FFlagRemoveTitleAddEyebrowReport_0 (copy), v10 (copy), v13 (copy), l_TextArea_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy)
-    local v21, v22 = v3.useBinding(v20.initialValue or "");
-    local v23, v24 = v3.useState(false);
-    local v25 = if l_FFlagAddReportCharacterLimit_0 then v14.mergeTranslationParams else nil;
-    local l_translateIntoString_0 = l_useArTranslation_0().translateIntoString;
-    local v27 = nil;
-    local v28 = nil;
-    local v29 = nil;
-    if l_FFlagAddLayoutSlotsToReport_0 then
-        v27 = l_useLayoutSlots_0();
-        v28 = v27.Body;
-        v29 = v27.Actions;
-    end;
-    local v31 = v3.useCallback(function(v30) --[[ Line: 59 ]]
-        -- upvalues: v22 (copy), l_FFlagAddReportCharacterLimit_0 (ref), v20 (copy), v24 (copy), v11 (ref)
-        v22(v30);
-        if l_FFlagAddReportCharacterLimit_0 and v20.maxLength then
-            v24(v11(v30) > v20.maxLength);
-        end;
-    end, {
-        v20.maxLength
-    });
-    local v32 = v3.useCallback(function() --[[ Line: 66 ]]
-        -- upvalues: v20 (copy), v21 (copy)
-        if v20.onNext then
-            v20.onNext(v21:getValue());
-        end;
-    end, {
-        v21, 
-        v20.onNext
-    });
-    local v34 = v3.useCallback(function(v33) --[[ Line: 77 ]]
-        -- upvalues: v20 (copy), v25 (copy), l_translateIntoString_0 (copy), v11 (ref)
-        if v20.helperText and v20.maxLength and v25 then
-            return l_translateIntoString_0(v25(v20.helperText, {
-                currentLength = tostring(v11(v33)), 
-                maxLength = tostring(v20.maxLength)
-            }));
-        elseif v20.helperText then
-            return l_translateIntoString_0(v20.helperText);
-        else
-            return nil;
-        end;
-    end, {
-        v20.helperText, 
-        v20.maxLength
-    });
-    return v3.createElement(v3.Fragment, nil, {
-        Content = v3.createElement(if l_FFlagAddLayoutSlotsToReport_0 then v28 else l_Sheet_0.Content, nil, {
-            Eyebrow = if l_FFlagRemoveTitleAddEyebrowReport_0 then v3.createElement(v10, {
-                eyebrow = v20.eyebrow, 
-                layoutOrder = 0
-            }) else nil, 
-            Title = v3.createElement(v13, {
-                input = v20.title, 
-                tag = "size-full-0 auto-y text-heading-medium padding-bottom-small", 
-                LayoutOrder = 1, 
-                layoutOrder = l_FFlagRemoveTitleAddEyebrowReport_0 and 1 or nil
-            }), 
-            TextArea = v3.createElement(l_TextArea_0, {
-                text = v21, 
-                hint = if l_FFlagAddReportCharacterLimit_0 and v20.helperText then v21:map(function(v35) --[[ Line: 107 ]]
-                    -- upvalues: v34 (copy)
-                    return v34(v35);
-                end) else nil, 
-                numLines = 6, 
-                onChanged = v31, 
-                label = l_translateIntoString_0(v20.textAreaLabel), 
-                placeholder = l_translateIntoString_0(v20.placeholder or ""), 
-                hasError = if l_FFlagAddReportCharacterLimit_0 then v23 else false, 
-                width = UDim.new(1, 0), 
-                LayoutOrder = 2, 
-                layoutOrder = l_FFlagRemoveTitleAddEyebrowReport_0 and 2 or nil
-            })
-        }), 
-        Actions = if v20.onNext then v3.createElement(if l_FFlagAddLayoutSlotsToReport_0 then v29 else l_Sheet_0.Actions, nil, {
-            Button = v3.createElement(l_Button_0, {
-                text = l_translateIntoString_0(v20.nextButtonText or ""), 
-                variant = l_ButtonVariant_0.Emphasis, 
-                fillBehavior = l_FillBehavior_0.Fill, 
-                isLoading = v20.isSubmitting, 
-                isDisabled = if l_FFlagAddReportCharacterLimit_0 then v20.isSubmitting or v23 else v20.isSubmitting, 
-                onActivated = v32
-            })
-        }) else nil
-    });
-end);
+local GenericAbuseReporting = script:FindFirstAncestor("GenericAbuseReporting")
+local GenericAbuseReportingParent = GenericAbuseReporting.Parent
+local Foundation = require(GenericAbuseReportingParent.Foundation)
+local React = require(GenericAbuseReportingParent.React)
+local SharedFlags = require(GenericAbuseReportingParent.SharedFlags)
+local Button = Foundation.Button
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local FillBehavior = Foundation.Enums.FillBehavior
+local Sheet = Foundation.Sheet
+local TextArea = Foundation.TextArea
+local AbuseReportAnalyticsContext = require(GenericAbuseReporting.BeduiV2.Analytics.AbuseReportAnalyticsContext)
+local analyticsService = require(GenericAbuseReporting.BeduiV2.Analytics.analyticsService)
+local Eyebrow = require(GenericAbuseReporting.BeduiV2.Components.Eyebrow)
+local getCodePointLength = require(GenericAbuseReporting.BeduiV2.Utils.getCodePointLength)
+local LayoutSlots = require(GenericAbuseReporting.BeduiV2.Components.LayoutSlots)
+local TextWithTranslation = require(GenericAbuseReporting.BeduiV2.Utils.Translate.TextWithTranslation)
+local translate = require(GenericAbuseReporting.BeduiV2.Utils.Translate.translate)
+local useArTranslation = require(GenericAbuseReporting.BeduiV2.Utils.Translate.arTranslation).useArTranslation
+local TelemetryEventType = analyticsService.TelemetryEventType
+local useAbuseReportAnalytics = AbuseReportAnalyticsContext.useAbuseReportAnalytics
+local useLayoutSlots = LayoutSlots.useLayoutSlots
+local FFlagAddReportCharacterLimit = SharedFlags.FFlagAddReportCharacterLimit
+local FFlagAddLayoutSlotsToReport = SharedFlags.FFlagAddLayoutSlotsToReport
+local v24 = game:DefineFastFlag("AbuseReportCommentNodeAnalyticsIntegration", false)
+
+return React.memo(function(t1: {[any]: any}) --[[ CommentNode ]] -- line: 51
+	-- upvalues: React (copy), FFlagAddReportCharacterLimit (copy), translate (copy), useArTranslation (copy), v24 (copy), useAbuseReportAnalytics (copy), FFlagAddLayoutSlotsToReport (copy), useLayoutSlots (copy), getCodePointLength (copy), TelemetryEventType (copy), Sheet (copy), Eyebrow (copy), TextWithTranslation (copy), TextArea (copy), Button (copy), ButtonVariant (copy), FillBehavior (copy)
+	local v26, v27 = React.useBinding(t1.initialValue or "")
+	local v28, v29 = React.useState(false)
+	local v30 = if not FFlagAddReportCharacterLimit then nil else translate.mergeTranslationParams
+	local translateIntoString = useArTranslation().translateIntoString
+	local v32 = if not v24 then nil else useAbuseReportAnalytics().sendEvent
+	local v33 = React.useRef(false)
+	local Body = nil
+	local Actions = nil
+
+	if FFlagAddLayoutSlotsToReport then
+		local v36 = useLayoutSlots()
+
+		Body = v36.Body
+		Actions = v36.Actions
+	end
+
+	local v37 = React.useCallback(function(s1: string) -- line: 68
+		-- upvalues: v27 (copy), FFlagAddReportCharacterLimit (copy), t1 (copy), getCodePointLength (copy), v29 (copy), v24 (copy), v33 (copy)
+		v27(s1)
+
+		if FFlagAddReportCharacterLimit and t1.maxLength then
+			local v41 = getCodePointLength(s1) > t1.maxLength
+
+			v29(v41)
+
+			if v24 and v41 then
+				v33.current = true
+			end
+		end
+	end, { t1.maxLength })
+	local v38 = React.useCallback(function() -- line: 80
+		-- upvalues: v24 (copy), v32 (copy), TelemetryEventType (copy), getCodePointLength (copy), v26 (copy), t1 (copy), v33 (copy)
+		if v24 and v32 then
+			v32({
+				sub_event_type = TelemetryEventType.CommentInput,
+				comment_input_detail = {
+					comment_length = getCodePointLength(v26:getValue()),
+					has_initial_value = t1.initialValue ~= nil and t1.initialValue ~= "",
+					did_modify_initial = t1.initialValue ~= nil and v26:getValue() ~= t1.initialValue,
+					hit_character_limit = v33.current,
+					max_length = t1.maxLength or 0
+				}
+			})
+		end
+
+		if t1.onNext then
+			t1.onNext(v26:getValue())
+		end
+	end, {
+		v26,
+		t1.onNext,
+		if not v24 then nil else v32,
+		if not v24 then nil else t1.initialValue,
+		if not v24 then nil else t1.maxLength
+	})
+	local v39 = React.useCallback(function(s2: string) -- line: 111
+		-- upvalues: t1 (copy), v30 (copy), translateIntoString (copy), getCodePointLength (copy)
+		if t1.helperText and (t1.maxLength and v30) then
+			return translateIntoString(v30(t1.helperText, {
+				currentLength = tostring(getCodePointLength(s2)),
+				maxLength = tostring(t1.maxLength)
+			}))
+		end
+
+		if t1.helperText then
+			return translateIntoString(t1.helperText)
+		end
+
+		return nil
+	end, {
+		t1.helperText,
+		t1.maxLength
+	})
+
+	return React.createElement(React.Fragment, nil, {
+		Content = React.createElement(if not FFlagAddLayoutSlotsToReport then Sheet.Content else Body, nil, {
+			Eyebrow = React.createElement(Eyebrow, {
+				eyebrow = t1.eyebrow,
+				layoutOrder = 0
+			}),
+			Title = React.createElement(TextWithTranslation, {
+				input = t1.title,
+				tag = "size-full-0 auto-y text-heading-medium padding-bottom-small",
+				layoutOrder = 1
+			}),
+			TextArea = React.createElement(TextArea, {
+				text = v26,
+				hint = if not FFlagAddReportCharacterLimit or not t1.helperText then nil else v26:map(function(p1) -- line: 138
+					-- upvalues: v39 (copy)
+					return v39(p1)
+				end),
+				numLines = 6,
+				onChanged = v37,
+				label = translateIntoString(t1.textAreaLabel),
+				placeholder = translateIntoString(t1.placeholder or ""),
+				hasError = not not FFlagAddReportCharacterLimit and v28,
+				width = UDim.new(1, 0),
+				LayoutOrder = 2
+			})
+		}),
+		Actions = if not t1.onNext then nil else React.createElement(if not FFlagAddLayoutSlotsToReport then Sheet.Actions else Actions, nil, {
+			Button = React.createElement(Button, {
+				text = translateIntoString(t1.nextButtonText or ""),
+				variant = ButtonVariant.Emphasis,
+				fillBehavior = FillBehavior.Fill,
+				isLoading = t1.isSubmitting,
+				isDisabled = if not FFlagAddReportCharacterLimit then t1.isSubmitting else t1.isSubmitting or v28,
+				onActivated = v38
+			})
+		})
+	})
+end)

@@ -1,162 +1,151 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("InExperienceIntervention");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_script_FirstAncestor_0.Components.InterventionContestFeedbackFooter);
-local v4 = require(l_Parent_0.UIBlox);
-local v5 = require(l_Parent_0.Foundation);
-local l_Text_0 = v5.Text;
-local l_PartialPageModal_0 = v4.App.Dialog.Modal.PartialPageModal;
-local l_useLayerCollector_0 = v4.Core.Layout.LayerCollector.useLayerCollector;
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local l_useStyle_0 = v4.Core.Style.useStyle;
-local v11 = require(l_script_FirstAncestor_0.Utils.Constants);
-local v12 = require(l_script_FirstAncestor_0.InExperienceInterventionAnalytics);
-local l_View_0 = v5.View;
-local l_Button_0 = v5.Button;
-local l_ScrollView_0 = v5.ScrollView;
-local l_ScrollBarVisibility_0 = v5.Enums.ScrollBarVisibility;
-local l_ButtonVariant_0 = v5.Enums.ButtonVariant;
-local l_FillBehavior_0 = v5.Enums.FillBehavior;
-local l_useTokens_0 = v5.Hooks.useTokens;
-local l_useProperty_0 = require(l_Parent_0.GuiObjectUtils).useProperty;
-local l_dependencyArray_0 = require(l_Parent_0.RoactUtils).Hooks.dependencyArray;
-local v22 = require(l_Parent_0.ReactFocusNavigation);
-local v23 = require(l_Parent_0.FocusNavigationUtils);
-local l_FocusRoot_0 = v23.FocusRoot;
-local l_FocusNavigableSurfaceIdentifierEnum_0 = v23.FocusNavigableSurfaceIdentifierEnum;
-local v26 = v22.FocusNavigationService.new(v22.EngineInterface.CoreGui);
-local l_FFlagFixScrollFrameHeightCalculation_0 = require(l_Parent_0.InterventionShared).Flags.FFlagFixScrollFrameHeightCalculation;
-local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
-ChatTimeoutCustomDialog = function(v29) --[[ Line: 45 ]] --[[ Name: ChatTimeoutCustomDialog ]]
-    -- upvalues: l_useLayerCollector_0 (copy), v2 (copy), l_useTokens_0 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), v11 (copy), l_FFlagFixScrollFrameHeightCalculation_0 (copy), l_useProperty_0 (copy), v12 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_PartialPageModal_0 (copy), l_ScrollView_0 (copy), l_ScrollBarVisibility_0 (copy), v22 (copy), v26 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_View_0 (copy), l_Text_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy), v3 (copy)
-    local v30 = l_useLayerCollector_0();
-    local v31 = v2.useRef(DateTime.now().UnixTimestampMillis);
-    local v32 = v2.useRef(nil);
-    local v33, v34 = v2.useState(0);
-    local v35 = l_useTokens_0();
-    local v36 = l_useStyle_0();
-    local v37 = l_useLocalization_0(v11.localizationKeys);
-    local v38 = if l_FFlagFixScrollFrameHeightCalculation_0 then l_useProperty_0(v32, "AbsoluteSize") else nil;
-    local v39 = v2.useCallback(function() --[[ Line: 61 ]]
-        -- upvalues: v12 (ref), v31 (copy), v29 (copy)
-        v12.sendAnalyticsEvent(v12.Constants.EventTypes.CtaClicked, v12.Constants.InterventionTypes.Timeout, v31.current, v29.eventId, v29.violatingChatLine, v29.duration);
-        v29.onDismiss();
-    end, {
-        v31
-    });
-    v2.useEffect(function() --[[ Line: 73 ]]
-        -- upvalues: v12 (ref), v31 (copy), v29 (copy)
-        v12.sendAnalyticsEvent(v12.Constants.EventTypes.ModalAppeared, v12.Constants.InterventionTypes.Timeout, v31.current, v29.eventId, v29.violatingChatLine, v29.duration);
-    end, {
-        v31
-    });
-    v2.useEffect(function() --[[ Line: 85 ]]
-        -- upvalues: l_FFlagFixScrollFrameHeightCalculation_0 (ref), v38 (copy), v30 (copy), v11 (ref), v34 (copy), v32 (copy)
-        if l_FFlagFixScrollFrameHeightCalculation_0 then
-            local v40 = if v38 then v38.Y else 0;
-            local v41 = math.min(v30.absoluteSize.Y - v11.UNIBAR_HEIGHT - v11.DIALOG_HEADER_HEIGHT, v40);
-            v34(v41);
-            return;
-        else
-            local v42 = if v32.current then v32.current.AbsoluteSize.Y else 0;
-            local v43 = math.min(v30.absoluteSize.Y - v11.UNIBAR_HEIGHT - v11.DIALOG_HEADER_HEIGHT, v42);
-            v34(v43);
-            return;
-        end;
-    end, if l_FFlagFixScrollFrameHeightCalculation_0 then if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v30.absoluteSize.Y, 
-        v38
-    } else l_dependencyArray_0(v30.absoluteSize.Y, v38) else {
-        v30.absoluteSize.Y, 
-        v32.current
-    });
-    local v44 = nil;
-    v44 = if v29.duration <= 60 then v37.CannotSend1MinText else l_useLocalization_0({
-        value = {
-            v11.localizationKeys.CannotSendText; 
-            number = math.ceil(v29.duration / 60)
-        }
-    }).value;
-    return v2.createElement(l_PartialPageModal_0, {
-        title = v37.TextChatSuspensionText, 
-        screenSize = v30.absoluteSize
-    }, {
-        ScrollView = v2.createElement(l_ScrollView_0, {
-            Size = UDim2.new(1, 0, 0, v33), 
-            scroll = {
-                AutomaticCanvasSize = Enum.AutomaticSize.Y, 
-                CanvasSize = UDim2.new(1, 0, 1, 0), 
-                scrollBarVisibility = l_ScrollBarVisibility_0.Always, 
-                ScrollingDirection = Enum.ScrollingDirection.Y
-            }
-        }, {
-            FocusNavigationCoreScriptsProvider = v2.createElement(v22.FocusNavigationContext.Provider, {
-                value = v26
-            }, {
-                FocusNavigationCoreScriptsWrapper = v2.createElement(l_FocusRoot_0, {
-                    surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.PopUp, 
-                    isIsolated = true, 
-                    isAutoFocusRoot = true, 
-                    frameProps = {
-                        Size = UDim2.new(1, 0, 0, 0), 
-                        AutomaticSize = Enum.AutomaticSize.Y
-                    }
-                }, {
-                    InnerContent = v2.createElement(l_View_0, {
-                        ref = v32, 
-                        Size = UDim2.new(1, -v11.SCROLL_BAR_WIDTH, 0, 0), 
-                        AutomaticSize = Enum.AutomaticSize.Y, 
-                        tag = "col gap-large align-x-center align-y-center padding-x-small padding-top-large"
-                    }, {
-                        ChatDisabledText = v2.createElement(l_Text_0, {
-                            LayoutOrder = 1, 
-                            Text = v44, 
-                            textStyle = v36.Theme.TextEmphasis, 
-                            fontStyle = v35.Typography.LabelLarge, 
-                            Size = UDim2.new(1, 0, 0, 0), 
-                            TextXAlignment = Enum.TextXAlignment.Center, 
-                            TextYAlignment = Enum.TextYAlignment.Center, 
-                            AutomaticSize = Enum.AutomaticSize.Y, 
-                            TextWrapped = true
-                        }), 
-                        WarningTextLabel = v2.createElement(l_Text_0, {
-                            LayoutOrder = 2, 
-                            Text = v37.MayLoseAccessText, 
-                            tag = "padding-small size-full-800 text-wrap", 
-                            TextWrapped = true, 
-                            AutomaticSize = Enum.AutomaticSize.Y
-                        }), 
-                        UnderstandButtonFrame = v2.createElement(l_View_0, {
-                            Size = UDim2.new(1, 0, 0, 0), 
-                            AutomaticSize = Enum.AutomaticSize.Y, 
-                            LayoutOrder = 3
-                        }, {
-                            UnderstandButton = v2.createElement(l_Button_0, {
-                                text = v37.IUnderstandText, 
-                                variant = l_ButtonVariant_0.Standard, 
-                                onActivated = v39, 
-                                fillBehavior = l_FillBehavior_0.Fill, 
-                                FillDirection = Enum.FillDirection.Horizontal
-                            })
-                        }), 
-                        FeedbackFrame = v2.createElement(l_View_0, {
-                            Size = UDim2.new(1, 0, 0, 0), 
-                            AutomaticSize = Enum.AutomaticSize.Y, 
-                            LayoutOrder = 4
-                        }, {
-                            FeedbackFooter = v2.createElement(v3, {
-                                onDismiss = v29.onDismiss, 
-                                renderTimestamp = v31.current, 
-                                interventionType = v12.Constants.InterventionTypes.Timeout, 
-                                eventId = v29.eventId, 
-                                violatingChatLine = v29.violatingChatLine, 
-                                duration = v29.duration
-                            })
-                        })
-                    })
-                })
-            })
-        })
-    });
-end;
-return ChatTimeoutCustomDialog;
+local InExperienceIntervention = script:FindFirstAncestor("InExperienceIntervention")
+local InExperienceInterventionParent = InExperienceIntervention.Parent
+local React = require(InExperienceInterventionParent.React)
+local InterventionContestFeedbackFooter = require(InExperienceIntervention.Components.InterventionContestFeedbackFooter)
+local UIBlox = require(InExperienceInterventionParent.UIBlox)
+local Foundation = require(InExperienceInterventionParent.Foundation)
+local FoundationText = Foundation.Text
+local PartialPageModal = UIBlox.App.Dialog.Modal.PartialPageModal
+local useLayerCollector = UIBlox.Core.Layout.LayerCollector.useLayerCollector
+local useLocalization = require(InExperienceInterventionParent.Localization).Hooks.useLocalization
+local useStyle = UIBlox.Core.Style.useStyle
+local Constants = require(InExperienceInterventionParent.InterventionShared).Utils.Constants
+local InExperienceInterventionAnalytics = require(InExperienceIntervention.InExperienceInterventionAnalytics)
+local View = Foundation.View
+local Button = Foundation.Button
+local ScrollView = Foundation.ScrollView
+local ScrollBarVisibility = Foundation.Enums.ScrollBarVisibility
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local FillBehavior = Foundation.Enums.FillBehavior
+local useTokens = Foundation.Hooks.useTokens
+local useProperty = require(InExperienceInterventionParent.GuiObjectUtils).useProperty
+local dependencyArray = require(InExperienceInterventionParent.RoactUtils).Hooks.dependencyArray
+local ReactFocusNavigation = require(InExperienceInterventionParent.ReactFocusNavigation)
+local FocusNavigationUtils = require(InExperienceInterventionParent.FocusNavigationUtils)
+local FocusRoot = FocusNavigationUtils.FocusRoot
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+local v27 = ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
+local FFlagRemoveDependencyArrayAntipattern = require(InExperienceInterventionParent.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+
+function ChatTimeoutCustomDialog(t1: {[any]: any}) -- line: 42
+	-- upvalues: useLayerCollector (copy), React (copy), useTokens (copy), useStyle (copy), useLocalization (copy), Constants (copy), useProperty (copy), InExperienceInterventionAnalytics (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), PartialPageModal (copy), ScrollView (copy), ScrollBarVisibility (copy), ReactFocusNavigation (copy), v27 (copy), FocusRoot (copy), FocusNavigableSurfaceIdentifierEnum (copy), View (copy), FoundationText (copy), Button (copy), ButtonVariant (copy), FillBehavior (copy), InterventionContestFeedbackFooter (copy)
+	local v30 = useLayerCollector()
+	local v31 = React.useRef(DateTime.now().UnixTimestampMillis)
+	local v32 = React.useRef(nil)
+	local v33, v34 = React.useState(0)
+	local v35 = useTokens()
+	local v36 = useStyle()
+	local v37 = useLocalization(Constants.localizationKeys)
+	local v38 = useProperty(v32, "AbsoluteSize")
+	local v39 = React.useCallback(function() -- line: 56
+		-- upvalues: InExperienceInterventionAnalytics (copy), v31 (copy), t1 (copy)
+		InExperienceInterventionAnalytics.sendAnalyticsEvent(InExperienceInterventionAnalytics.Constants.EventTypes.CtaClicked, InExperienceInterventionAnalytics.Constants.InterventionTypes.Timeout, v31.current, t1.eventId, t1.violatingChatLine, t1.duration)
+		t1.onDismiss()
+	end, { v31 })
+
+	React.useEffect(function() -- line: 68
+		-- upvalues: InExperienceInterventionAnalytics (copy), v31 (copy), t1 (copy)
+		InExperienceInterventionAnalytics.sendAnalyticsEvent(InExperienceInterventionAnalytics.Constants.EventTypes.ModalAppeared, InExperienceInterventionAnalytics.Constants.InterventionTypes.Timeout, v31.current, t1.eventId, t1.violatingChatLine, t1.duration)
+	end, { v31 })
+	React.useEffect(function() -- line: 80
+		-- upvalues: v38 (copy), v30 (copy), Constants (copy), v34 (copy)
+		local v41 = not v38 and 0 or v38.Y
+		local v42 = math.min(v30.absoluteSize.Y - Constants.UNIBAR_HEIGHT - Constants.DIALOG_HEADER_HEIGHT, v41)
+
+		v34(v42)
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v30.absoluteSize.Y, v38) else {
+		v30.absoluteSize.Y,
+		v38
+	})
+
+	local v40 = if not (t1.duration <= 60) then useLocalization({
+		value = {
+			Constants.localizationKeys.CannotSendText,
+			number = math.ceil(t1.duration / 60)
+		}
+	}).value else v37.CannotSend1MinText
+
+	return React.createElement(PartialPageModal, {
+		title = v37.TextChatSuspensionText,
+		screenSize = v30.absoluteSize
+	}, {
+		ScrollView = React.createElement(ScrollView, {
+			Size = UDim2.new(1, 0, 0, v33),
+			scroll = {
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				CanvasSize = UDim2.new(1, 0, 1, 0),
+				scrollBarVisibility = ScrollBarVisibility.Always,
+				ScrollingDirection = Enum.ScrollingDirection.Y
+			}
+		}, {
+			FocusNavigationCoreScriptsProvider = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
+				value = v27
+			}, {
+				FocusNavigationCoreScriptsWrapper = React.createElement(FocusRoot, {
+					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.PopUp,
+					isIsolated = true,
+					isAutoFocusRoot = true,
+					frameProps = {
+						Size = UDim2.new(1, 0, 0, 0),
+						AutomaticSize = Enum.AutomaticSize.Y
+					}
+				}, {
+					InnerContent = React.createElement(View, {
+						ref = v32,
+						Size = UDim2.new(1, -Constants.SCROLL_BAR_WIDTH, 0, 0),
+						AutomaticSize = Enum.AutomaticSize.Y,
+						tag = "col gap-large align-x-center align-y-center padding-x-small padding-top-large"
+					}, {
+						ChatDisabledText = React.createElement(FoundationText, {
+							LayoutOrder = 1,
+							Text = v40,
+							textStyle = v36.Theme.TextEmphasis,
+							fontStyle = v35.Typography.LabelLarge,
+							Size = UDim2.new(1, 0, 0, 0),
+							TextXAlignment = Enum.TextXAlignment.Center,
+							TextYAlignment = Enum.TextYAlignment.Center,
+							AutomaticSize = Enum.AutomaticSize.Y,
+							TextWrapped = true
+						}),
+						WarningTextLabel = React.createElement(FoundationText, {
+							LayoutOrder = 2,
+							Text = v37.MayLoseAccessText,
+							tag = "padding-small size-full-800 text-wrap",
+							TextWrapped = true,
+							AutomaticSize = Enum.AutomaticSize.Y
+						}),
+						UnderstandButtonFrame = React.createElement(View, {
+							Size = UDim2.new(1, 0, 0, 0),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							LayoutOrder = 3
+						}, {
+							UnderstandButton = React.createElement(Button, {
+								text = v37.IUnderstandText,
+								variant = ButtonVariant.Standard,
+								onActivated = v39,
+								fillBehavior = FillBehavior.Fill,
+								FillDirection = Enum.FillDirection.Horizontal
+							})
+						}),
+						FeedbackFrame = React.createElement(View, {
+							Size = UDim2.new(1, 0, 0, 0),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							LayoutOrder = 4
+						}, {
+							FeedbackFooter = React.createElement(InterventionContestFeedbackFooter, {
+								onDismiss = t1.onDismiss,
+								renderTimestamp = v31.current,
+								interventionType = InExperienceInterventionAnalytics.Constants.InterventionTypes.Timeout,
+								eventId = t1.eventId,
+								violatingChatLine = t1.violatingChatLine,
+								duration = t1.duration
+							})
+						})
+					})
+				})
+			})
+		})
+	})
+end
+
+return ChatTimeoutCustomDialog

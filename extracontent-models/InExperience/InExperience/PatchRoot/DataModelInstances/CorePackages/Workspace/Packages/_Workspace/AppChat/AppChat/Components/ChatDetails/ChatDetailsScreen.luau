@@ -1,110 +1,119 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_script_FirstAncestor_0.EnumScreens);
-local v3 = require(l_Parent_0.Roact);
-local v4 = require(script.Parent.ChatDetailsContainer);
-local v5 = require(script.Parent.Logger);
-local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
-local v8 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatEnableDomLocators);
-local v9 = require(l_script_FirstAncestor_0.Utils.DomLocators);
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarConfigDriven);
-local v11 = require(l_script_FirstAncestor_0.Stores.GetTopBarStore);
-local v12 = v3.PureComponent:extend("ChatDetailsScreen");
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local EnumScreens = require(AppChat.EnumScreens)
+local Roact = require(AppChatParent.Roact)
+local ChatDetailsContainer = require(script.Parent.ChatDetailsContainer)
+local Logger = require(script.Parent.Logger)
+local GetFFlagIsSquadEnabled = require(AppChatParent.SharedFlags).GetFFlagIsSquadEnabled
+local FFlagDebugAppChatEnableDomLocators = require(AppChat.Flags.FFlagDebugAppChatEnableDomLocators)
+local DomLocators = require(AppChat.Utils.DomLocators)
+local FFlagAppChatTopBarConfigDriven = require(AppChat.Flags.FFlagAppChatTopBarConfigDriven)
+local GetTopBarStore = require(AppChat.Stores.GetTopBarStore)
+local v12 = Roact.PureComponent:extend("ChatDetailsScreen")
+
 v12.defaultProps = {
-    navigation = nil
-};
-v12.navigationOptions = function() --[[ Line: 21 ]]
-    -- upvalues: l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v8 (copy), v9 (copy)
-    return {
-        headerText = {
-            raw = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Label.Details" or "Feature.Chat.Label.ChatDetails", 
-            shouldLocalize = true
-        }, 
-        backButtonTestId = if v8 then v9.chatDetailsTopBarActionButton("back") else nil
-    };
-end;
-v12.init = function(v13) --[[ Line: 35 ]] --[[ Name: init ]]
-    -- upvalues: v5 (copy), v2 (copy)
-    v13.navigateToEditChatMembers = function(v14) --[[ Line: 36 ]]
-        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
-        v5:info("Navigate To EditChatMembers from {screen}");
-        v13.props.navigation.navigate(v2.EditChatMembers, {
-            conversation = v14
-        });
-    end;
-    v13.navigateToToast = function(v15) --[[ Line: 41 ]]
-        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
-        v5:info("Navigate To Toast from {screen}");
-        v13.props.navigation.navigate(v2.RoactChatToast, v15);
-    end;
-    v13.navigateToDialog = function(v16, v17) --[[ Line: 46 ]]
-        -- upvalues: v5 (ref), v13 (copy)
-        v5:info("Navigate To {} from {screen}", v16);
-        v13.props.navigation.navigate(v16, v17);
-    end;
-    v13.navigateBack = function() --[[ Line: 51 ]]
-        -- upvalues: v13 (copy)
-        if v13.props.navigation.isFocused() then
-            v13.props.navigation.goBack();
-        end;
-    end;
-    v13.navigateToConversation = function(v18) --[[ Line: 57 ]]
-        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
-        v5:info("Navigate To Conversation from {screen}");
-        v13.props.navigation.navigate(v2.ChatConversation, {
-            conversationId = v18
-        });
-    end;
-    v13.navigateToChatLanding = function() --[[ Line: 62 ]]
-        -- upvalues: v5 (ref), v13 (copy), v2 (ref)
-        v5:info("Navigate To ChatLanding from {screen}");
-        if v13.props.navigation.getScreenProps("wideMode", false) then
-            v13.props.navigation.navigate(v2.EmptyConversation);
-            return;
-        else
-            v13.props.navigation.navigate(v2.ChatLanding);
-            return;
-        end;
-    end;
-end;
-v12.render = function(v19) --[[ Line: 73 ]] --[[ Name: render ]]
-    -- upvalues: v5 (copy), v3 (copy), v4 (copy)
-    local l_navigation_0 = v19.props.navigation;
-    assert(type(l_navigation_0) ~= "nil", "ChatDetailsScreen should be wrapped with Roact Navigation");
-    local v21 = l_navigation_0.getParam("conversationId", nil);
-    if v21 == nil then
-        v5:warning("ConversationId is required to open {screen}");
-        return nil;
-    else
-        return v3.createElement(v4, {
-            topBarHeight = l_navigation_0.getScreenProps("topBarHeight", 0), 
-            wideMode = l_navigation_0.getScreenProps("wideMode", false), 
-            conversationId = v21, 
-            navigateBack = v19.navigateBack, 
-            navigateToEditChatMembers = v19.navigateToEditChatMembers, 
-            navigateToDialog = v19.navigateToDialog, 
-            navigateToToast = v19.navigateToToast, 
-            navigateToConversation = v19.navigateToConversation, 
-            navigateToChatLanding = v19.navigateToChatLanding
-        });
-    end;
-end;
-v12.didMount = function(_) --[[ Line: 96 ]] --[[ Name: didMount ]]
-    -- upvalues: v5 (copy), v10 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v11 (copy), v2 (copy)
-    v5:info("{screen} mounted");
-    if v10() then
-        local v23 = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then {
-            raw = "Feature.Chat.Label.Details", 
-            shouldLocalize = true
-        } else {
-            raw = "Feature.Chat.Label.ChatDetails", 
-            shouldLocalize = true
-        };
-        v11(false).setScreenTopBar(v2.ChatDetails, {
-            headerText = v23, 
-            backButtonEnabled = true
-        });
-    end;
-end;
-return v12;
+	navigation = nil
+}
+
+function v12.navigationOptions() -- line: 20
+	-- upvalues: GetFFlagIsSquadEnabled (copy), FFlagDebugAppChatEnableDomLocators (copy), DomLocators (copy)
+	return {
+		headerText = {
+			raw = not GetFFlagIsSquadEnabled() and "Feature.Chat.Label.ChatDetails" or "Feature.Chat.Label.Details",
+			shouldLocalize = true
+		},
+		backButtonTestId = if not FFlagDebugAppChatEnableDomLocators then nil else DomLocators.chatDetailsTopBarActionButton("back")
+	}
+end
+function v12.init(p1) -- line: 32
+	-- upvalues: Logger (copy), EnumScreens (copy)
+	function p1.navigateToEditChatMembers(p2) -- line: 33
+		-- upvalues: Logger (copy), p1 (copy), EnumScreens (copy)
+		Logger:info("Navigate To EditChatMembers from {screen}")
+		p1.props.navigation.navigate(EnumScreens.EditChatMembers, {
+			conversation = p2
+		})
+	end
+	function p1.navigateToToast(p3) -- line: 38
+		-- upvalues: Logger (copy), p1 (copy), EnumScreens (copy)
+		Logger:info("Navigate To Toast from {screen}")
+		p1.props.navigation.navigate(EnumScreens.RoactChatToast, p3)
+	end
+	function p1.navigateToDialog(p4, p5) -- line: 43
+		-- upvalues: Logger (copy), p1 (copy)
+		Logger:info("Navigate To {} from {screen}", p4)
+		p1.props.navigation.navigate(p4, p5)
+	end
+	function p1.navigateBack() -- line: 48
+		-- upvalues: p1 (copy)
+		if p1.props.navigation.isFocused() then
+			p1.props.navigation.goBack()
+		end
+	end
+	function p1.navigateToConversation(p6) -- line: 54
+		-- upvalues: Logger (copy), p1 (copy), EnumScreens (copy)
+		Logger:info("Navigate To Conversation from {screen}")
+		p1.props.navigation.navigate(EnumScreens.ChatConversation, {
+			conversationId = p6
+		})
+	end
+	function p1.navigateToChatLanding() -- line: 59
+		-- upvalues: Logger (copy), p1 (copy), EnumScreens (copy)
+		Logger:info("Navigate To ChatLanding from {screen}")
+
+		if p1.props.navigation.getScreenProps("wideMode", false) then
+			p1.props.navigation.navigate(EnumScreens.EmptyConversation)
+
+			return
+		end
+
+		p1.props.navigation.navigate(EnumScreens.ChatLanding)
+	end
+end
+function v12.render(p7) -- line: 70
+	-- upvalues: Logger (copy), Roact (copy), ChatDetailsContainer (copy)
+	local navigation = p7.props.navigation
+
+	assert(type(navigation) ~= "nil", "ChatDetailsScreen should be wrapped with Roact Navigation")
+
+	local v16 = navigation.getParam("conversationId", nil)
+
+	if v16 == nil then
+		Logger:warning("ConversationId is required to open {screen}")
+
+		return nil
+	end
+
+	return Roact.createElement(ChatDetailsContainer, {
+		topBarHeight = navigation.getScreenProps("topBarHeight", 0),
+		wideMode = navigation.getScreenProps("wideMode", false),
+		conversationId = v16,
+		navigateBack = p7.navigateBack,
+		navigateToEditChatMembers = p7.navigateToEditChatMembers,
+		navigateToDialog = p7.navigateToDialog,
+		navigateToToast = p7.navigateToToast,
+		navigateToConversation = p7.navigateToConversation,
+		navigateToChatLanding = p7.navigateToChatLanding
+	})
+end
+function v12.didMount(_) -- line: 93
+	-- upvalues: Logger (copy), FFlagAppChatTopBarConfigDriven (copy), GetFFlagIsSquadEnabled (copy), GetTopBarStore (copy), EnumScreens (copy)
+	Logger:info("{screen} mounted")
+
+	if FFlagAppChatTopBarConfigDriven() then
+		local v18 = if not GetFFlagIsSquadEnabled() then {
+			raw = "Feature.Chat.Label.ChatDetails",
+			shouldLocalize = true
+		} else {
+			raw = "Feature.Chat.Label.Details",
+			shouldLocalize = true
+		}
+
+		GetTopBarStore(false).setScreenTopBar(EnumScreens.ChatDetails, {
+			headerText = v18,
+			backButtonEnabled = true
+		})
+	end
+end
+
+return v12

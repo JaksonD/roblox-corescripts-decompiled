@@ -1,139 +1,146 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Squads");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.AppTopBanner);
-local l_AppTopBannerType_0 = v2.Enums.AppTopBannerType;
-local l_SetAppTopBanner_0 = v2.Actions.SetAppTopBanner;
-local v5 = require(l_script_FirstAncestor_0.dependencies);
-local l_Cryo_0 = v5.Cryo;
-local l_React_0 = v5.React;
-local l_SharedFlags_0 = v5.SharedFlags;
-local l_EventNames_0 = v5.SquadsCore.Analytics.EventNames;
-local l_SquadExternalContractContext_0 = v5.SquadsCore.SquadExternalContractProvider.SquadExternalContractContext;
-local l_SquadViewFlags_0 = v5.SquadsCore.SquadExternalContractProvider.SquadViewFlags;
-local l_SquadRootViewType_0 = v5.SquadsCore.Enums.SquadRootViewType;
-local l_dependencyArray_0 = v5.Hooks.dependencyArray;
-local l_encodeSquadMembers_0 = v5.SquadsCore.Common.encodeSquadMembers;
-local l_useCurrentSquadId_0 = v5.SquadsCore.Hooks.useCurrentSquadId;
-local l_useCurrentSquadMembers_0 = v5.SquadsCore.Hooks.useCurrentSquadMembers;
-local l_useCurrentSquadParentChannelId_0 = v5.SquadsCore.Hooks.useCurrentSquadParentChannelId;
-local l_useDispatch_0 = v5.Hooks.useDispatch;
-local l_useCanAccessParty_0 = require(l_Parent_0.Squads).Hooks.useCanAccessParty;
-local l_FFlagEnableSquadTopBannerWideMode_0 = l_SharedFlags_0.FFlagEnableSquadTopBannerWideMode;
-local v21 = require(l_script_FirstAncestor_0.Flags.FFlagIntroduceTopBannerPartyStates);
-local v22 = require(l_script_FirstAncestor_0.Flags.FFlagIntroduceNameToOneToOneWaitingState);
-local v23 = game:DefineFastFlag("FixSquadTopBannerMemo", false);
-local l_FFlagIsSquadEnabledAMP_0 = l_SharedFlags_0.FFlagIsSquadEnabledAMP;
-local l_FFlagRemoveDependencyArrayAntipattern_0 = l_SharedFlags_0.FFlagRemoveDependencyArrayAntipattern;
-return function() --[[ Line: 37 ]]
-    -- upvalues: l_useDispatch_0 (copy), l_React_0 (copy), l_SquadExternalContractContext_0 (copy), l_useCurrentSquadId_0 (copy), l_useCurrentSquadParentChannelId_0 (copy), v21 (copy), l_useCurrentSquadMembers_0 (copy), v23 (copy), l_Cryo_0 (copy), l_encodeSquadMembers_0 (copy), l_EventNames_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v22 (copy), l_FFlagIsSquadEnabledAMP_0 (copy), l_useCanAccessParty_0 (copy), l_FFlagEnableSquadTopBannerWideMode_0 (copy), l_SquadRootViewType_0 (copy), l_SetAppTopBanner_0 (copy), l_AppTopBannerType_0 (copy), l_SquadViewFlags_0 (copy)
-    local v26 = l_useDispatch_0();
-    local v27 = l_React_0.useContext(l_SquadExternalContractContext_0);
-    local v28 = l_useCurrentSquadId_0();
-    local v29 = l_useCurrentSquadParentChannelId_0();
-    local v30 = if v21 then l_useCurrentSquadMembers_0() else nil;
-    local v31 = nil;
-    v31 = if v23 then l_React_0.useMemo(function() --[[ Line: 47 ]]
-        -- upvalues: v21 (ref), v30 (copy), l_Cryo_0 (ref)
-        if v21 and v30 then
-            return (l_Cryo_0.List.map(v30, function(v32) --[[ Line: 49 ]]
-                return v32.userId;
-            end));
-        else
-            return {};
-        end;
-    end, {
-        if v21 then v30 else nil
-    }) else if v21 and v30 then l_Cryo_0.List.map(v30, function(v33) --[[ Line: 56 ]]
-        return v33.userId;
-    end) else {};
-    local v34 = if v21 then l_React_0.useRef(os.clock()) else nil;
-    local v36 = l_React_0.useCallback(function() --[[ Line: 68 ]]
-        -- upvalues: v27 (copy), v29 (copy), v26 (copy), v21 (ref), l_encodeSquadMembers_0 (ref), v30 (copy), l_EventNames_0 (ref), v28 (copy), v34 (copy)
-        if v27.navigateIntoSquadLobby and v29 then
-            v26(v27.navigateIntoSquadLobby({
-                conversationId = v29
-            }, true));
-        end;
-        if v21 then
-            local v35 = l_encodeSquadMembers_0(v30);
-            v27.fireSquadAnalytics(l_EventNames_0.SquadTopBannerClicked, {
-                squadId = v28, 
-                parentChannelId = v29, 
-                squadMembers = v35, 
-                timePassedSinceLastStateUpdatedInSec = os.clock() - v34.current
-            });
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        if v21 then v28 else nil, 
-        v29, 
-        v26, 
-        v27.navigateIntoSquadLobby, 
-        if v21 then v27.fireSquadAnalytics else nil, 
-        if v21 then v30 else nil
-    } else l_dependencyArray_0(if v21 then v28 else nil, v29, v26, v27.navigateIntoSquadLobby, if v21 then v27.fireSquadAnalytics else nil, if v21 then v30 else nil));
-    local v37 = if v22 then v27.useGetConversationFromId(v29) else nil;
-    local v38 = if v22 then v37 and v37.type else nil;
-    local v39 = if v22 then v37 and v37.participants else nil;
-    local v40 = if l_FFlagIsSquadEnabledAMP_0 then l_useCanAccessParty_0() else nil;
-    local v41 = v27.useSquadRootView();
-    if l_FFlagEnableSquadTopBannerWideMode_0 then
-        local v42 = v27.useSquadTopBannerDisabled();
-        l_React_0.useEffect(function() --[[ Line: 121 ]]
-            -- upvalues: v28 (copy), v42 (copy), v41 (copy), l_SquadRootViewType_0 (ref), l_FFlagIsSquadEnabledAMP_0 (ref), v40 (copy), v21 (ref), v34 (copy), v26 (copy), l_SetAppTopBanner_0 (ref), l_AppTopBannerType_0 (ref), v31 (ref), v38 (copy), v39 (copy), v36 (copy)
-            local v43 = v28 and (not v42 or v41 == l_SquadRootViewType_0.None);
-            if if l_FFlagIsSquadEnabledAMP_0 then v40 and v43 else v43 then
-                if v21 then
-                    v34.current = os.clock();
-                end;
-                v26(l_SetAppTopBanner_0(true, l_AppTopBannerType_0.ActiveSquad, if v21 then {
-                    squadMemberList = v31, 
-                    parentChannelType = v38, 
-                    parentChannelParticipants = v39
-                } else nil, v36));
-                return;
-            else
-                v26(l_SetAppTopBanner_0(false, l_AppTopBannerType_0.None, nil));
-                return;
-            end;
-        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-            v28, 
-            if v21 then v31 else nil, 
-            v26, 
-            v36, 
-            if v22 then v38 else nil, 
-            if v22 then v39 else nil, 
-            v42, 
-            v41
-        } else l_dependencyArray_0(v28, if v21 then v31 else nil, v26, v36, if v22 then v38 else nil, if v22 then v39 else nil, v42, v41));
-    else
-        local v44 = v27.useSquadViewFlags();
-        l_React_0.useEffect(function() --[[ Line: 178 ]]
-            -- upvalues: v28 (copy), v44 (copy), l_SquadViewFlags_0 (ref), v41 (copy), l_SquadRootViewType_0 (ref), l_FFlagIsSquadEnabledAMP_0 (ref), v40 (copy), v21 (ref), v34 (copy), v26 (copy), l_SetAppTopBanner_0 (ref), l_AppTopBannerType_0 (ref), v31 (ref), v38 (copy), v39 (copy), v36 (copy)
-            local v45 = v28 and (bit32.band(v44, l_SquadViewFlags_0.SquadLobby) == 0 or v41 == l_SquadRootViewType_0.None);
-            if if l_FFlagIsSquadEnabledAMP_0 then v40 and v45 else v45 then
-                if v21 then
-                    v34.current = os.clock();
-                end;
-                v26(l_SetAppTopBanner_0(true, l_AppTopBannerType_0.ActiveSquad, if v21 then {
-                    squadMemberList = v31, 
-                    parentChannelType = v38, 
-                    parentChannelParticipants = v39
-                } else nil, v36));
-                return;
-            else
-                v26(l_SetAppTopBanner_0(false, l_AppTopBannerType_0.None, nil));
-                return;
-            end;
-        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-            v28, 
-            if v21 then v31 else nil, 
-            v26, 
-            v36, 
-            v44, 
-            if v22 then v38 else nil, 
-            if v22 then v39 else nil, 
-            v41
-        } else l_dependencyArray_0(v28, if v21 then v31 else nil, v26, v36, v44, if v22 then v38 else nil, if v22 then v39 else nil, v41));
-    end;
-    return nil;
-end;
+local Squads = script:FindFirstAncestor("Squads")
+local SquadsParent = Squads.Parent
+local AppTopBanner = require(SquadsParent.AppTopBanner)
+local AppTopBannerType = AppTopBanner.Enums.AppTopBannerType
+local SetAppTopBanner = AppTopBanner.Actions.SetAppTopBanner
+local dependencies = require(Squads.dependencies)
+local Cryo = dependencies.Cryo
+local React = dependencies.React
+local SharedFlags = dependencies.SharedFlags
+local EventNames = dependencies.SquadsCore.Analytics.EventNames
+local SquadExternalContractContext = dependencies.SquadsCore.SquadExternalContractProvider.SquadExternalContractContext
+local SquadViewFlags = dependencies.SquadsCore.SquadExternalContractProvider.SquadViewFlags
+local SquadRootViewType = dependencies.SquadsCore.Enums.SquadRootViewType
+local dependencyArray = dependencies.Hooks.dependencyArray
+local encodeSquadMembers = dependencies.SquadsCore.Common.encodeSquadMembers
+local useCurrentSquadId = dependencies.SquadsCore.Hooks.useCurrentSquadId
+local useCurrentSquadMembers = dependencies.SquadsCore.Hooks.useCurrentSquadMembers
+local useCurrentSquadParentChannelId = dependencies.SquadsCore.Hooks.useCurrentSquadParentChannelId
+local useDispatch = dependencies.Hooks.useDispatch
+local useCanAccessParty = require(SquadsParent.Squads).Hooks.useCanAccessParty
+local FFlagEnableSquadTopBannerWideMode = SharedFlags.FFlagEnableSquadTopBannerWideMode
+local FFlagIntroduceTopBannerPartyStates = require(Squads.Flags.FFlagIntroduceTopBannerPartyStates)
+local v23 = game:DefineFastFlag("FixSquadTopBannerMemo", false)
+local FFlagIsSquadEnabledAMP = SharedFlags.FFlagIsSquadEnabledAMP
+local FFlagRemoveDependencyArrayAntipattern = SharedFlags.FFlagRemoveDependencyArrayAntipattern
+
+return function() -- line: 36
+	-- upvalues: useDispatch (copy), React (copy), SquadExternalContractContext (copy), useCurrentSquadId (copy), useCurrentSquadParentChannelId (copy), FFlagIntroduceTopBannerPartyStates (copy), useCurrentSquadMembers (copy), v23 (copy), Cryo (copy), encodeSquadMembers (copy), EventNames (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), FFlagIsSquadEnabledAMP (copy), useCanAccessParty (copy), FFlagEnableSquadTopBannerWideMode (copy), SquadRootViewType (copy), SetAppTopBanner (copy), AppTopBannerType (copy), SquadViewFlags (copy)
+	local v26 = useDispatch()
+	local v27 = React.useContext(SquadExternalContractContext)
+	local v28 = useCurrentSquadId()
+	local v29 = useCurrentSquadParentChannelId()
+	local v30 = if not FFlagIntroduceTopBannerPartyStates then nil else useCurrentSquadMembers()
+	local u31 = if not v23 then if not FFlagIntroduceTopBannerPartyStates or not v30 then {} else Cryo.List.map(v30, function(p1) -- line: 55
+		return p1.userId
+	end) else React.useMemo(function() -- line: 46
+		-- upvalues: FFlagIntroduceTopBannerPartyStates (copy), v30 (copy), Cryo (copy)
+		if FFlagIntroduceTopBannerPartyStates and v30 then
+			return (Cryo.List.map(v30, function(p2) -- line: 48
+				return p2.userId
+			end))
+		end
+
+		return {}
+	end, { if not FFlagIntroduceTopBannerPartyStates then nil else v30 })
+	local v32 = if not FFlagIntroduceTopBannerPartyStates then nil else React.useRef(os.clock())
+	local v33 = React.useCallback(function() -- line: 67
+		-- upvalues: v27 (copy), v29 (copy), v26 (copy), FFlagIntroduceTopBannerPartyStates (copy), encodeSquadMembers (copy), v30 (copy), EventNames (copy), v28 (copy), v32 (copy)
+		if v27.navigateIntoSquadLobby and v29 then
+			v26(v27.navigateIntoSquadLobby({
+				conversationId = v29
+			}, true))
+		end
+
+		if FFlagIntroduceTopBannerPartyStates then
+			local v42 = encodeSquadMembers(v30)
+
+			v27.fireSquadAnalytics(EventNames.SquadTopBannerClicked, {
+				squadId = v28,
+				parentChannelId = v29,
+				squadMembers = v42,
+				timePassedSinceLastStateUpdatedInSec = os.clock() - v32.current
+			})
+		end
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(if not FFlagIntroduceTopBannerPartyStates then nil else v28, v29, v26, v27.navigateIntoSquadLobby, if not FFlagIntroduceTopBannerPartyStates then nil else v27.fireSquadAnalytics, if not FFlagIntroduceTopBannerPartyStates then nil else v30) else {
+		if not FFlagIntroduceTopBannerPartyStates then nil else v28,
+		v29,
+		v26,
+		v27.navigateIntoSquadLobby,
+		if not FFlagIntroduceTopBannerPartyStates then nil else v27.fireSquadAnalytics,
+		if not FFlagIntroduceTopBannerPartyStates then nil else v30
+	})
+	local v34 = v27.useGetConversationFromId(v29)
+	local v35 = v34 and v34.type
+	local v36 = v34 and v34.participants
+	local v37 = if not FFlagIsSquadEnabledAMP then nil else useCanAccessParty()
+	local v38 = v27.useSquadRootView()
+
+	if FFlagEnableSquadTopBannerWideMode then
+		local v39 = v27.useSquadTopBannerDisabled()
+
+		React.useEffect(function() -- line: 114
+			-- upvalues: v28 (copy), v39 (copy), v38 (copy), SquadRootViewType (copy), FFlagIsSquadEnabledAMP (copy), v37 (copy), FFlagIntroduceTopBannerPartyStates (copy), v32 (copy), v26 (copy), SetAppTopBanner (copy), AppTopBannerType (copy), u31 (ref), v35 (copy), v36 (copy), v33 (copy)
+			local v43 = v28 and (not v39 or v38 == SquadRootViewType.None)
+
+			if if not FFlagIsSquadEnabledAMP then v43 else v37 and v43 then
+				if FFlagIntroduceTopBannerPartyStates then
+					v32.current = os.clock()
+				end
+
+				v26(SetAppTopBanner(true, AppTopBannerType.ActiveSquad, if not FFlagIntroduceTopBannerPartyStates then nil else {
+					squadMemberList = u31,
+					parentChannelType = v35,
+					parentChannelParticipants = v36
+				}, v33))
+
+				return
+			end
+
+			v26(SetAppTopBanner(false, AppTopBannerType.None, nil))
+		end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v28, if not FFlagIntroduceTopBannerPartyStates then nil else u31, v26, v33, v35, v36, v39, v38) else {
+			v28,
+			if not FFlagIntroduceTopBannerPartyStates then nil else u31,
+			v26,
+			v33,
+			v35,
+			v36,
+			v39,
+			v38
+		})
+	else
+		local v40 = v27.useSquadViewFlags()
+
+		React.useEffect(function() -- line: 171
+			-- upvalues: v28 (copy), v40 (copy), SquadViewFlags (copy), v38 (copy), SquadRootViewType (copy), FFlagIsSquadEnabledAMP (copy), v37 (copy), FFlagIntroduceTopBannerPartyStates (copy), v32 (copy), v26 (copy), SetAppTopBanner (copy), AppTopBannerType (copy), u31 (ref), v35 (copy), v36 (copy), v33 (copy)
+			local v44 = v28 and (bit32.band(v40, SquadViewFlags.SquadLobby) == 0 or v38 == SquadRootViewType.None)
+
+			if if not FFlagIsSquadEnabledAMP then v44 else v37 and v44 then
+				if FFlagIntroduceTopBannerPartyStates then
+					v32.current = os.clock()
+				end
+
+				v26(SetAppTopBanner(true, AppTopBannerType.ActiveSquad, if not FFlagIntroduceTopBannerPartyStates then nil else {
+					squadMemberList = u31,
+					parentChannelType = v35,
+					parentChannelParticipants = v36
+				}, v33))
+
+				return
+			end
+
+			v26(SetAppTopBanner(false, AppTopBannerType.None, nil))
+		end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v28, if not FFlagIntroduceTopBannerPartyStates then nil else u31, v26, v33, v40, v35, v36, v38) else {
+			v28,
+			if not FFlagIntroduceTopBannerPartyStates then nil else u31,
+			v26,
+			v33,
+			v40,
+			v35,
+			v36,
+			v38
+		})
+	end
+
+	return nil
+end

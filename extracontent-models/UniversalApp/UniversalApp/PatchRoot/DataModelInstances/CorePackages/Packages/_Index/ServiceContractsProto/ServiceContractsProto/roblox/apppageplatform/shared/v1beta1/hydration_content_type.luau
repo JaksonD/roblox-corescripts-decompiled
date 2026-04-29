@@ -1,149 +1,282 @@
-local _ = require(script.Parent.Parent.Parent.Parent.Parent.proto);
-local _ = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry);
+require(script.Parent.Parent.Parent.Parent.Parent.proto)
+require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
+
 return {
-    HydrationContentType = ({
-        HydrationContentType = {
-            fromNumber = function(v2) --[[ Line: 40 ]] --[[ Name: fromNumber ]]
-                if v2 == 0 then
-                    return "HYDRATION_CONTENT_TYPE_INVALID";
-                elseif v2 == 1 then
-                    return "HYDRATION_CONTENT_TYPE_BADGE";
-                elseif v2 == 2 then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE";
-                elseif v2 == 3 then
-                    return "HYDRATION_CONTENT_TYPE_CREATOR";
-                elseif v2 == 4 then
-                    return "HYDRATION_CONTENT_TYPE_EVENT";
-                elseif v2 == 5 then
-                    return "HYDRATION_CONTENT_TYPE_SONG";
-                elseif v2 == 6 then
-                    return "HYDRATION_CONTENT_TYPE_GAME_PASS";
-                elseif v2 == 7 then
-                    return "HYDRATION_CONTENT_TYPE_MEDIA_ASSET";
-                elseif v2 == 8 then
-                    return "HYDRATION_CONTENT_TYPE_SOCIAL_LINK";
-                elseif v2 == 9 then
-                    return "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT";
-                elseif v2 == 10 then
-                    return "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION";
-                elseif v2 == 11 then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET";
-                elseif v2 == 12 then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE";
-                elseif v2 == 13 then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK";
-                elseif v2 == 14 then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY";
-                elseif v2 == 15 then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT";
-                elseif v2 == 16 then
-                    return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION";
-                elseif v2 == 17 then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW";
-                elseif v2 == 18 then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE";
-                elseif v2 == 19 then
-                    return "HYDRATION_CONTENT_TYPE_USER";
-                elseif v2 == 20 then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE";
-                else
-                    return nil;
-                end;
-            end, 
-            toNumber = function(v3) --[[ Line: 88 ]] --[[ Name: toNumber ]]
-                if v3 == "HYDRATION_CONTENT_TYPE_INVALID" then
-                    return 0;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_BADGE" then
-                    return 1;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_UNIVERSE" then
-                    return 2;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_CREATOR" then
-                    return 3;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_EVENT" then
-                    return 4;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_SONG" then
-                    return 5;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_GAME_PASS" then
-                    return 6;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_MEDIA_ASSET" then
-                    return 7;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_SOCIAL_LINK" then
-                    return 8;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT" then
-                    return 9;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION" then
-                    return 10;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET" then
-                    return 11;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE" then
-                    return 12;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK" then
-                    return 13;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY" then
-                    return 14;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
-                    return 15;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
-                    return 16;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
-                    return 17;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
-                    return 18;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_USER" then
-                    return 19;
-                elseif v3 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
-                    return 20;
-                else
-                    return v3;
-                end;
-            end, 
-            fromName = function(v4) --[[ Line: 136 ]] --[[ Name: fromName ]]
-                if v4 == "HYDRATION_CONTENT_TYPE_INVALID" then
-                    return "HYDRATION_CONTENT_TYPE_INVALID";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_BADGE" then
-                    return "HYDRATION_CONTENT_TYPE_BADGE";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_UNIVERSE" then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_CREATOR" then
-                    return "HYDRATION_CONTENT_TYPE_CREATOR";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_EVENT" then
-                    return "HYDRATION_CONTENT_TYPE_EVENT";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_SONG" then
-                    return "HYDRATION_CONTENT_TYPE_SONG";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_GAME_PASS" then
-                    return "HYDRATION_CONTENT_TYPE_GAME_PASS";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_MEDIA_ASSET" then
-                    return "HYDRATION_CONTENT_TYPE_MEDIA_ASSET";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_SOCIAL_LINK" then
-                    return "HYDRATION_CONTENT_TYPE_SOCIAL_LINK";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT" then
-                    return "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION" then
-                    return "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET" then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE" then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK" then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY" then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
-                    return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
-                    return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_USER" then
-                    return "HYDRATION_CONTENT_TYPE_USER";
-                elseif v4 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
-                    return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE";
-                else
-                    return nil;
-                end;
-            end
-        }
-    }).HydrationContentType
-};
+	HydrationContentType = ({
+		HydrationContentType = {
+			fromNumber = function(n1: number) --[[ fromNumber ]] -- line: 41
+				if n1 == 0 then
+					return "HYDRATION_CONTENT_TYPE_INVALID"
+				end
+
+				if n1 == 1 then
+					return "HYDRATION_CONTENT_TYPE_BADGE"
+				end
+
+				if n1 == 2 then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE"
+				end
+
+				if n1 == 3 then
+					return "HYDRATION_CONTENT_TYPE_CREATOR"
+				end
+
+				if n1 == 4 then
+					return "HYDRATION_CONTENT_TYPE_EVENT"
+				end
+
+				if n1 == 5 then
+					return "HYDRATION_CONTENT_TYPE_SONG"
+				end
+
+				if n1 == 6 then
+					return "HYDRATION_CONTENT_TYPE_GAME_PASS"
+				end
+
+				if n1 == 7 then
+					return "HYDRATION_CONTENT_TYPE_MEDIA_ASSET"
+				end
+
+				if n1 == 8 then
+					return "HYDRATION_CONTENT_TYPE_SOCIAL_LINK"
+				end
+
+				if n1 == 9 then
+					return "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT"
+				end
+
+				if n1 == 10 then
+					return "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION"
+				end
+
+				if n1 == 11 then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET"
+				end
+
+				if n1 == 12 then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE"
+				end
+
+				if n1 == 13 then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK"
+				end
+
+				if n1 == 14 then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY"
+				end
+
+				if n1 == 15 then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
+				end
+
+				if n1 == 16 then
+					return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
+				end
+
+				if n1 == 17 then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW"
+				end
+
+				if n1 == 18 then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE"
+				end
+
+				if n1 == 19 then
+					return "HYDRATION_CONTENT_TYPE_USER"
+				end
+
+				if n1 == 20 then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
+				end
+
+				if n1 == 21 then
+					return "HYDRATION_CONTENT_TYPE_PLAYABILITY"
+				end
+
+				return nil
+			end,
+			toNumber = function(p1) --[[ toNumber ]] -- line: 91
+				if p1 == "HYDRATION_CONTENT_TYPE_INVALID" then
+					return 0
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_BADGE" then
+					return 1
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_UNIVERSE" then
+					return 2
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_CREATOR" then
+					return 3
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_EVENT" then
+					return 4
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_SONG" then
+					return 5
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_GAME_PASS" then
+					return 6
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_MEDIA_ASSET" then
+					return 7
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_SOCIAL_LINK" then
+					return 8
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT" then
+					return 9
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION" then
+					return 10
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET" then
+					return 11
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE" then
+					return 12
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK" then
+					return 13
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY" then
+					return 14
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
+					return 15
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
+					return 16
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
+					return 17
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
+					return 18
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_USER" then
+					return 19
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
+					return 20
+				end
+
+				if p1 == "HYDRATION_CONTENT_TYPE_PLAYABILITY" then
+					return 21
+				end
+
+				return p1
+			end,
+			fromName = function(s1: string) --[[ fromName ]] -- line: 141
+				if s1 == "HYDRATION_CONTENT_TYPE_INVALID" then
+					return "HYDRATION_CONTENT_TYPE_INVALID"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_BADGE" then
+					return "HYDRATION_CONTENT_TYPE_BADGE"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_UNIVERSE" then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_CREATOR" then
+					return "HYDRATION_CONTENT_TYPE_CREATOR"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_EVENT" then
+					return "HYDRATION_CONTENT_TYPE_EVENT"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_SONG" then
+					return "HYDRATION_CONTENT_TYPE_SONG"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_GAME_PASS" then
+					return "HYDRATION_CONTENT_TYPE_GAME_PASS"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_MEDIA_ASSET" then
+					return "HYDRATION_CONTENT_TYPE_MEDIA_ASSET"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_SOCIAL_LINK" then
+					return "HYDRATION_CONTENT_TYPE_SOCIAL_LINK"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT" then
+					return "HYDRATION_CONTENT_TYPE_GAME_DEVELOPER_PRODUCT"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION" then
+					return "HYDRATION_CONTENT_TYPE_GAME_SUBSCRIPTION"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET" then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_ASSET"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE" then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_BUNDLE"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK" then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_LOOK"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY" then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
+					return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
+					return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW" then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE" then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_USER" then
+					return "HYDRATION_CONTENT_TYPE_USER"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
+					return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
+				end
+
+				if s1 == "HYDRATION_CONTENT_TYPE_PLAYABILITY" then
+					return "HYDRATION_CONTENT_TYPE_PLAYABILITY"
+				end
+
+				return nil
+			end
+		}
+	}).HydrationContentType
+}

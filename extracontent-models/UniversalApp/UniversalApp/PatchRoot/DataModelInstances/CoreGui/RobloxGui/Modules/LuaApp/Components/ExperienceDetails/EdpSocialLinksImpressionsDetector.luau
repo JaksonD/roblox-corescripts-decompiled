@@ -1,67 +1,78 @@
-local l_TelemetryService_0 = game:GetService("TelemetryService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.React);
-local _ = require(l_CorePackages_0.Workspace.Packages.AppCommonLib);
-local l_ScreenSizeImpressionsTracker_0 = require(l_CorePackages_0.Workspace.Packages.Impressions).ScreenSizeImpressionsTracker;
-local v5 = game:DefineFastInt("SocialLinksImpressionsEventHundredthsPercent", 10000);
-local v6 = {
-    eventName = "EdpSocialLinksImpressions", 
-    description = "Impressions for social links on EDP", 
-    lastUpdated = {
-        25, 
-        12, 
-        10
-    }, 
-    backends = {
-        "EventIngest"
-    }, 
-    throttlingPercentage = v5
-};
-return function(v7) --[[ Line: 31 ]]
-    -- upvalues: v2 (copy), l_TelemetryService_0 (copy), v6 (copy), l_ScreenSizeImpressionsTracker_0 (copy)
-    local v15 = v2.useCallback(function(v8) --[[ Line: 32 ]]
-        -- upvalues: v7 (copy), l_TelemetryService_0 (ref), v6 (ref)
-        if #v8 == 0 or v7.socialLinks == nil then
-            return;
-        else
-            local v9 = {};
-            local v10 = {};
-            local v11 = {};
-            for v12 = 1, #v8 do
-                local v13 = v7.socialLinks[v12];
-                if v13 then
-                    table.insert(v9, v12);
-                    table.insert(v10, v13.url or "");
-                    table.insert(v11, v13.type or "");
-                end;
-            end;
-            local v14 = {
-                item_positions = table.concat(v9, ","), 
-                social_link_urls = table.concat(v10, ","), 
-                social_link_types = table.concat(v11, ","), 
-                social_link_display_type = "badge", 
-                assignment_id = tonumber(v7.universeId), 
-                assignment_type = "game", 
-                page = v7.pageContext
-            };
-            l_TelemetryService_0:LogEvent(v6, {
-                customFields = v14, 
-                standardizedFields = {
-                    "addSessionInfo"
-                }
-            });
-            return;
-        end;
-    end, {
-        v7.socialLinks, 
-        v7.universeId, 
-        v7.pageContext
-    });
-    return v2.createElement(l_ScreenSizeImpressionsTracker_0, {
-        parentRef = v7.parentRef, 
-        pageContext = v7.pageContext, 
-        impressionsTag = v7.impressionsTag, 
-        scrollViewPositionChangedSignal = v7.scrollViewPositionChangedSignal, 
-        sendImpressions = v15
-    });
-end;
+local TelemetryService = game:GetService("TelemetryService")
+local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+
+require(CorePackages.Workspace.Packages.AppCommonLib)
+
+local ScreenSizeImpressionsTracker = require(CorePackages.Workspace.Packages.Impressions).ScreenSizeImpressionsTracker
+local sendSocialLinksImpressionsEvent = require(CorePackages.Workspace.Packages.DiscoveryAnalytics).Events.sendSocialLinksImpressionsEvent
+local v6 = game:DefineFastFlag("FFlagLuaAppMoveSocialLinksImpressions", false)
+local v7 = if not v6 then game:DefineFastInt("SocialLinksImpressionsEventHundredthsPercent", 10000) else nil
+local v8 = if not v6 then {
+	eventName = "EdpSocialLinksImpressions",
+	description = "Impressions for social links on EDP",
+	lastUpdated = {
+		25,
+		12,
+		10
+	},
+	backends = { "EventIngest" },
+	throttlingPercentage = v7
+} else nil
+
+return function(t1: {[any]: any}) -- line: 37
+	-- upvalues: React (copy), v6 (copy), sendSocialLinksImpressionsEvent (copy), TelemetryService (copy), v8 (copy), ScreenSizeImpressionsTracker (copy)
+	local v10 = React.useCallback(function(t2: {[any]: any}) -- line: 38
+		-- upvalues: t1 (copy), v6 (copy), sendSocialLinksImpressionsEvent (copy), TelemetryService (copy), v8 (copy)
+		if #t2 == 0 or t1.socialLinks == nil then
+			return
+		end
+
+		local t3 = {}
+		local t4 = {}
+		local t5 = {}
+
+		for i = 1, #t2 do
+			local v16 = t1.socialLinks[i]
+
+			if v16 then
+				table.insert(t3, i)
+				table.insert(t4, v16.url or "")
+				table.insert(t5, v16.type or "")
+			end
+		end
+
+		local t6 = {
+			item_positions = table.concat(t3, ","),
+			social_link_urls = table.concat(t4, ","),
+			social_link_types = table.concat(t5, ","),
+			social_link_display_type = "badge",
+			assignment_id = tonumber(t1.universeId),
+			assignment_type = "game",
+			page = t1.pageContext
+		}
+
+		if v6 then
+			sendSocialLinksImpressionsEvent(t6)
+
+			return
+		end
+
+		TelemetryService:LogEvent(v8, {
+			customFields = t6,
+			standardizedFields = { "addSessionInfo" }
+		})
+	end, {
+		t1.socialLinks,
+		t1.universeId,
+		t1.pageContext
+	})
+
+	return React.createElement(ScreenSizeImpressionsTracker, {
+		parentRef = t1.parentRef,
+		pageContext = t1.pageContext,
+		impressionsTag = t1.impressionsTag,
+		scrollViewPositionChangedSignal = t1.scrollViewPositionChangedSignal,
+		sendImpressions = v10
+	})
+end

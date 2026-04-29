@@ -1,80 +1,123 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AvatarExperienceCatalog");
-local v1 = require(l_script_FirstAncestor_0.Api.CreateMakeupLook.createMakeupLook);
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.AvatarExperienceCommon);
-local v4 = require(l_Parent_0.AvatarExperienceFlags);
-local v5 = require(l_Parent_0.AvatarExperienceAnalytics);
-local l_PerformFetch_0 = require(l_Parent_0.Http).PerformFetch;
-local v7 = require(l_Parent_0.Promise);
-local v8 = require(l_Parent_0.ToastRodux);
-local l_mutedError_0 = require(l_Parent_0.Loggers).mutedError;
-local l_AVATAR_EDITOR_CONSTANTS_0 = v3.Constants.AVATAR_EDITOR_CONSTANTS;
-local l_ToastType_0 = v8.Enums.ToastType;
-local l_SetCurrentToastMessage_0 = v8.Actions.SetCurrentToastMessage;
-local l_isMakeupOrEyebrowEyelashAssetType_0 = v3.Utils.isMakeupOrEyebrowEyelashAssetType;
-local l_Constants_0 = v5.Constants;
-local l_reportAvatarEventCounterNoAnalyticsArgument_0 = v5.reportAvatarEventCounterNoAnalyticsArgument;
-local l_reportAvatarEventCounterV1_0 = v5.reportAvatarEventCounterV1;
-local l_FIntAXLookOutfitCreationDelayMs_0 = v4.FIntAXLookOutfitCreationDelayMs;
-local v18 = {
-    toastMessage = "Feature.Avatar.Message.UnknownErrorCreatingMakeupLook", 
-    isLocalized = false, 
-    toastType = l_ToastType_0.InformationMessage
-};
-return function(v19, v20, v21, v22) --[[ Line: 33 ]]
-    -- upvalues: l_PerformFetch_0 (copy), l_AVATAR_EDITOR_CONSTANTS_0 (copy), l_isMakeupOrEyebrowEyelashAssetType_0 (copy), l_mutedError_0 (copy), v7 (copy), l_FIntAXLookOutfitCreationDelayMs_0 (copy), v1 (copy), l_reportAvatarEventCounterV1_0 (copy), l_Constants_0 (copy), l_SetCurrentToastMessage_0 (copy), v18 (copy), l_reportAvatarEventCounterNoAnalyticsArgument_0 (copy)
-    return l_PerformFetch_0.Single(l_AVATAR_EDITOR_CONSTANTS_0.CreateMakeupLookKey, function(v23) --[[ Line: 34 ]]
-        -- upvalues: v21 (copy), l_isMakeupOrEyebrowEyelashAssetType_0 (ref), l_mutedError_0 (ref), v7 (ref), v20 (copy), l_FIntAXLookOutfitCreationDelayMs_0 (ref), v1 (ref), v19 (copy), v22 (copy), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), l_SetCurrentToastMessage_0 (ref), v18 (ref), l_reportAvatarEventCounterNoAnalyticsArgument_0 (ref)
-        local v24 = v23:getState();
-        local l_BodyColor3s_0 = v24.AvatarExperience.AvatarEditor.Character.BodyColor3s;
-        local l_AvatarScales_0 = v24.AvatarExperience.AvatarEditor.Character.AvatarScales;
-        local l_AvatarType_0 = v24.AvatarExperience.AvatarEditor.Character.AvatarType;
-        local v28 = {};
-        for v29, v30 in l_BodyColor3s_0 do
-            v28[v29] = v30:ToHex();
-        end;
-        local v31 = {};
-        for _, v33 in v21 do
-            if v33.itemSubType and l_isMakeupOrEyebrowEyelashAssetType_0(v33.itemSubType) and v33.selectedInTryOnManager then
-                table.insert(v31, {
-                    id = tonumber(v33.itemId), 
-                    meta = {
-                        order = v33.order, 
-                        version = tonumber(v33.version)
-                    }
-                });
-            end;
-        end;
-        if #v31 == 0 then
-            l_mutedError_0("SaveAsMakeupLookThunk: No valid makeup assets to save");
-            return v7.resolve();
-        else
-            local v34 = {
-                name = v20, 
-                bodyColor3s = v28, 
-                assets = v31, 
-                scale = l_AvatarScales_0, 
-                playerAvatarType = l_AvatarType_0, 
-                outfitType = "Makeup"
-            };
-            task.spawn(function() --[[ Line: 76 ]]
-                -- upvalues: l_FIntAXLookOutfitCreationDelayMs_0 (ref), v1 (ref), v19 (ref), v34 (copy), v22 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref), v23 (copy), l_SetCurrentToastMessage_0 (ref), v18 (ref), l_reportAvatarEventCounterNoAnalyticsArgument_0 (ref)
-                task.wait(l_FIntAXLookOutfitCreationDelayMs_0 / 1000);
-                local v35, _ = v1(v19, v34);
-                return v35:andThen(function(_) --[[ Line: 81 ]]
-                    -- upvalues: v22 (ref), l_reportAvatarEventCounterV1_0 (ref), l_Constants_0 (ref)
-                    if v22 then
-                        v22();
-                    end;
-                    l_reportAvatarEventCounterV1_0(l_Constants_0.AVATAR_EVENT_COUNTER_NAME.AXCreateMakeupLook);
-                end):catch(function(v38) --[[ Line: 88 ]]
-                    -- upvalues: v23 (ref), l_SetCurrentToastMessage_0 (ref), v18 (ref), l_reportAvatarEventCounterNoAnalyticsArgument_0 (ref), l_Constants_0 (ref)
-                    warn("Failed to create makeup look", v38);
-                    v23:dispatch(l_SetCurrentToastMessage_0(v18));
-                    l_reportAvatarEventCounterNoAnalyticsArgument_0(l_Constants_0.AVATAR_EDITOR_SERVICE_ERRORS.CreateOutfit);
-                end);
-            end);
-            return v7.resolve();
-        end;
-    end);
-end;
+local AvatarExperienceCatalog = script:FindFirstAncestor("AvatarExperienceCatalog")
+local createMakeupLook = require(AvatarExperienceCatalog.Api.CreateMakeupLook.createMakeupLook)
+local AvatarExperienceCatalogParent = AvatarExperienceCatalog.Parent
+local AvatarExperienceCommon = require(AvatarExperienceCatalogParent.AvatarExperienceCommon)
+local AvatarExperienceFlags = require(AvatarExperienceCatalogParent.AvatarExperienceFlags)
+local AvatarExperienceAnalytics = require(AvatarExperienceCatalogParent.AvatarExperienceAnalytics)
+local PerformFetch = require(AvatarExperienceCatalogParent.Http).PerformFetch
+local Promise = require(AvatarExperienceCatalogParent.Promise)
+local ToastRodux = require(AvatarExperienceCatalogParent.ToastRodux)
+local mutedError = require(AvatarExperienceCatalogParent.Loggers).mutedError
+local Constants = AvatarExperienceCommon.Constants
+local AVATAR_EDITOR_CONSTANTS = AvatarExperienceCommon.Constants.AVATAR_EDITOR_CONSTANTS
+local ToastType = ToastRodux.Enums.ToastType
+local SetCurrentToastMessage = ToastRodux.Actions.SetCurrentToastMessage
+local isMakeupOrEyebrowEyelashAssetType = AvatarExperienceCommon.Utils.isMakeupOrEyebrowEyelashAssetType
+local Constants2 = AvatarExperienceAnalytics.Constants
+local reportAvatarEventCounterNoAnalyticsArgument = AvatarExperienceAnalytics.reportAvatarEventCounterNoAnalyticsArgument
+local reportAvatarEventCounterV1 = AvatarExperienceAnalytics.reportAvatarEventCounterV1
+local FIntAXLookOutfitCreationDelayMs = AvatarExperienceFlags.FIntAXLookOutfitCreationDelayMs
+local FFlagAXMISSaveWearFix = AvatarExperienceFlags.FFlagAXMISSaveWearFix
+local t1 = {
+	toastMessage = "Feature.Avatar.Message.UnknownErrorCreatingMakeupLook",
+	isLocalized = false,
+	toastType = ToastType.InformationMessage
+}
+
+return function(p1, p2, p3, p4: ((...any) -> ...any)?, p5: ((...any) -> ...any)?) -- line: 35
+	-- upvalues: PerformFetch (copy), AVATAR_EDITOR_CONSTANTS (copy), FFlagAXMISSaveWearFix (copy), isMakeupOrEyebrowEyelashAssetType (copy), mutedError (copy), Promise (copy), Constants (copy), FIntAXLookOutfitCreationDelayMs (copy), createMakeupLook (copy), reportAvatarEventCounterV1 (copy), Constants2 (copy), SetCurrentToastMessage (copy), t1 (copy), reportAvatarEventCounterNoAnalyticsArgument (copy)
+	return PerformFetch.Single(AVATAR_EDITOR_CONSTANTS.CreateMakeupLookKey, function(p6) -- line: 42
+		-- upvalues: FFlagAXMISSaveWearFix (copy), p3 (copy), isMakeupOrEyebrowEyelashAssetType (copy), mutedError (copy), Promise (copy), p5 (copy), Constants (copy), p2 (copy), FIntAXLookOutfitCreationDelayMs (copy), createMakeupLook (copy), p1 (copy), p4 (copy), reportAvatarEventCounterV1 (copy), Constants2 (copy), SetCurrentToastMessage (copy), t1 (copy), reportAvatarEventCounterNoAnalyticsArgument (copy)
+		local v28 = p6:getState()
+		local BodyColor3s = v28.AvatarExperience.AvatarEditor.Character.BodyColor3s
+		local AvatarScales = v28.AvatarExperience.AvatarEditor.Character.AvatarScales
+		local AvatarType = v28.AvatarExperience.AvatarEditor.Character.AvatarType
+		local v32 = if not FFlagAXMISSaveWearFix then nil else v28.AvatarExperience.AvatarEditor.Character.EquippedAssets
+		local t2 = {}
+
+		for v34, v35 in BodyColor3s do
+			t2[v34] = v35:ToHex()
+		end
+
+		local t3 = {}
+
+		for _, v38 in p3 do
+			if v38.itemSubType and isMakeupOrEyebrowEyelashAssetType(v38.itemSubType) and v38.selectedInTryOnManager then
+				table.insert(t3, {
+					id = tonumber(v38.itemId),
+					meta = {
+						order = v38.order,
+						version = tonumber(v38.version)
+					}
+				})
+			end
+		end
+
+		if #t3 == 0 then
+			mutedError("SaveAsMakeupLookThunk: No valid makeup assets to save")
+
+			return Promise.resolve()
+		end
+
+		if FFlagAXMISSaveWearFix and p5 then
+			local v39 = p5(v28, p3)
+			local t4 = {}
+
+			if v39 then
+				for _, v42 in v39:GetChildren() do
+					if v42:IsA("MakeupDescription") then
+						t4[tostring(v42.assetId)] = v42.order
+					end
+				end
+			end
+
+			for v43, _ in Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE do
+				if v32 and v32[v43] then
+					for v45, v46 in v32[v43] do
+						if t4[v45] ~= nil then
+							table.insert(t3, {
+								id = v45,
+								meta = {
+									order = t4[v45],
+									version = tonumber(v46.version)
+								}
+							})
+						end
+					end
+				end
+			end
+		end
+
+		local t5 = {
+			name = p2,
+			bodyColor3s = t2,
+			assets = t3,
+			scale = AvatarScales,
+			playerAvatarType = AvatarType,
+			outfitType = "Makeup"
+		}
+
+		task.spawn(function() -- line: 117
+			-- upvalues: FIntAXLookOutfitCreationDelayMs (copy), createMakeupLook (copy), p1 (copy), t5 (copy), p4 (copy), reportAvatarEventCounterV1 (copy), Constants2 (copy), p6 (copy), SetCurrentToastMessage (copy), t1 (copy), reportAvatarEventCounterNoAnalyticsArgument (copy)
+			task.wait(FIntAXLookOutfitCreationDelayMs / 1000)
+
+			local v48, _ = createMakeupLook(p1, t5)
+
+			return v48:andThen(function(_) -- line: 122
+				-- upvalues: p4 (copy), reportAvatarEventCounterV1 (copy), Constants2 (copy)
+				if p4 then
+					p4()
+				end
+
+				reportAvatarEventCounterV1(Constants2.AVATAR_EVENT_COUNTER_NAME.AXCreateMakeupLook)
+			end):catch(function(p8) -- line: 129
+				-- upvalues: p6 (copy), SetCurrentToastMessage (copy), t1 (copy), reportAvatarEventCounterNoAnalyticsArgument (copy), Constants2 (copy)
+				warn("Failed to create makeup look", p8)
+				p6:dispatch(SetCurrentToastMessage(t1))
+				reportAvatarEventCounterNoAnalyticsArgument(Constants2.AVATAR_EDITOR_SERVICE_ERRORS.CreateOutfit)
+			end)
+		end)
+
+		return Promise.resolve()
+	end)
+end

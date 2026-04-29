@@ -1,682 +1,845 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_Lighting_0 = game:GetService("Lighting");
-local l_ReplicatedStorage_0 = game:GetService("ReplicatedStorage");
-local l_TweenService_0 = game:GetService("TweenService");
-local l_NotificationService_0 = game:GetService("NotificationService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_InsertService_0 = game:GetService("InsertService");
-local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local l_LightUtility_0 = require(l_CorePackages_0.Packages.Thumbnailing).LightUtility;
-local v9 = require(l_CorePackages_0.Packages.Signals);
-local v10 = require(l_Modules_0.AvatarExperience.Common.Managers.ParticleEffectManager);
-local v11 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v12 = require(l_Modules_0.LuaApp.Flags.GetFIntAvatarEditorParticleEmitterRateOverride);
-local v13 = require(l_Modules_0.AvatarExperience.Flags.FFlagUseUpdatedBackgroundSceneSettingsOnMobile);
-local l_FFlagAXPhotoboothFunctionality_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXPhotoboothFunctionality;
-local v15 = require(l_Modules_0.AvatarExperience.Photobooth.Components.Scenes.PhotoboothSceneData);
-local l_PhotoboothStoreBridge_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperiencePhotobooth).PhotoboothStoreBridge;
-local v17 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local l_BackgroundType_0 = v17.BackgroundType;
-local l_ParticleType_0 = v17.ParticleType;
-local l_PagePlayParticleType_0 = v17.PagePlayParticleType;
-local l_PageBackgroundType_0 = v17.PageBackgroundType;
-local v22 = {};
-v22.__index = v22;
-local v23 = {
-    Lighting = if v13 then {
-        Brightness = 2, 
-        ColorShift_Bottom = Color3.fromRGB(108, 94, 66), 
-        ColorShift_Top = Color3.fromRGB(94, 100, 172), 
-        ClockTime = 11, 
-        FogEnd = 92, 
-        GeographicLatitude = 24, 
-        OutdoorAmbient = Color3.fromRGB(0, 0, 0), 
-        TimeOfDay = "11:00:00"
-    } else {
-        Brightness = 2, 
-        ColorShift_Bottom = Color3.fromRGB(232, 255, 146), 
-        ColorShift_Top = Color3.fromRGB(85, 136, 167), 
-        OutdoorAmbient = Color3.fromRGB(0, 0, 0), 
-        Ambient = Color3.fromRGB(170, 170, 170), 
-        ClockTime = 12, 
-        GeographicLatitude = 41.733, 
-        TimeOfDay = "12:00:00", 
-        FogColor = Color3.fromRGB(45, 46, 49), 
-        FogEnd = 92, 
-        FogStart = 20, 
-        Sky = {
-            CelestialBodiesShown = true, 
-            StarCount = 3000
-        }
-    }, 
-    Bloom = if v13 then {
-        Intensity = 0.2, 
-        Size = 12, 
-        Threshold = 0.95
-    } else {
-        Intensity = 0.3, 
-        Size = 12, 
-        Threshold = 0.95
-    }, 
-    ColorCorrection = {
-        Brightness = 0, 
-        Contrast = 0, 
-        Saturation = 0
-    }
-};
-local v24 = {
-    Lighting = {
-        Brightness = 1, 
-        ColorShift_Bottom = Color3.fromRGB(0, 0, 0), 
-        ColorShift_Top = Color3.fromRGB(0, 0, 0), 
-        OutdoorAmbient = Color3.fromRGB(127, 127, 127), 
-        Ambient = Color3.fromRGB(127, 127, 127), 
-        ClockTime = 14, 
-        GeographicLatitude = 41.733, 
-        TimeOfDay = "14:00:00", 
-        FogColor = Color3.fromRGB(192, 192, 192), 
-        FogEnd = 100000, 
-        FogStart = 0, 
-        Sky = {
-            CelestialBodiesShown = true, 
-            StarCount = 3000
-        }
-    }
-};
-local v25 = {
-    LightTheme = {
-        AmbientLightColor = if v13 then Color3.fromRGB(130, 130, 130) else nil, 
-        EnvironmentDiffuseScale = v13 and 0.2 or nil, 
-        EnvironmentSpecularScale = v13 and 1 or nil, 
-        FogStart = v13 and 30 or nil, 
-        BackPanelTextureColor = Color3.fromRGB(213, 213, 213), 
-        CloudsTextureColor = Color3.fromRGB(222, 222, 222), 
-        LargerShapesTextureColor = Color3.fromRGB(222, 222, 222), 
-        BasePlateColor = Color3.fromRGB(213, 213, 213), 
-        CharacterSpotLightBrightness = 6, 
-        FogColor = Color3.fromRGB(213, 213, 213), 
-        SkyboxAssetLocation = "rbxasset://textures/AvatarEditorImages/LightPixel.png", 
-        ParticleEmitterColorCatalogToAE = ColorSequence.new(Color3.fromRGB(171, 169, 161), Color3.fromRGB(158, 135, 120)), 
-        ParticleEmitterColorAEToCatalog = ColorSequence.new(Color3.fromRGB(158, 135, 120), Color3.fromRGB(171, 169, 161))
-    }, 
-    DarkTheme = {
-        AmbientLightColor = if v13 then Color3.fromRGB(180, 180, 180) else nil, 
-        EnvironmentDiffuseScale = v13 and 1 or nil, 
-        EnvironmentSpecularScale = v13 and 1 or nil, 
-        FogStart = v13 and 20 or nil, 
-        BackPanelTextureColor = Color3.fromRGB(83, 80, 82), 
-        CloudsTextureColor = Color3.fromRGB(100, 101, 108), 
-        LargerShapesTextureColor = Color3.fromRGB(100, 101, 108), 
-        BasePlateColor = Color3.fromRGB(83, 80, 82), 
-        CharacterSpotLightBrightness = 12, 
-        FogColor = Color3.fromRGB(55, 56, 59), 
-        SkyboxAssetLocation = "rbxasset://textures/ui/AvatarExperience/AvatarExperienceSkyboxDarkTheme.png", 
-        ParticleEmitterColorCatalogToAE = ColorSequence.new(Color3.fromRGB(79, 75, 79), Color3.fromRGB(51, 49, 52)), 
-        ParticleEmitterColorAEToCatalog = ColorSequence.new(Color3.fromRGB(51, 49, 52), Color3.fromRGB(79, 75, 79))
-    }
-};
-local v26 = {
-    LargerShapes = {
-        TextureWallTransparency = 1, 
-        LargerShapesPosition = Vector3.new(-62.89799880981445, 6.96999979019165, -8.8149995803833, 0), 
-        CloudsPosition = Vector3.new(-90, 20, 0, 0), 
-        BaseplateTransparency = 0
-    }, 
-    Walls = {
-        TextureWallTransparency = 0, 
-        LargerShapesPosition = Vector3.new(-62.89799880981445, -12.300000190734863, -8.8149995803833, 0), 
-        CloudsPosition = Vector3.new(-90, 80, 0, 0), 
-        BaseplateTransparency = 0
-    }, 
-    NoShapesNoWalls = {
-        TextureWallTransparency = 1, 
-        LargerShapesPosition = Vector3.new(-62.89799880981445, -1000, -8.8149995803833, 0), 
-        CloudsPosition = Vector3.new(-90, 1000, 0, 0), 
-        BaseplateTransparency = 1
-    }
-};
-v22.new = function(v27, v28, v29) --[[ Line: 177 ]] --[[ Name: new ]]
-    -- upvalues: v22 (copy), v10 (copy), l_Lighting_0 (copy), l_ReplicatedStorage_0 (copy), l_FFlagAXPhotoboothFunctionality_0 (copy), l_ParticleType_0 (copy), v26 (copy), l_NotificationService_0 (copy)
-    local v30 = {};
-    setmetatable(v30, v22);
-    v30.connections = {};
-    v30.store = v27;
-    v30.networking = v28;
-    v30.avatarRoute = v29;
-    v30.ParticleEffectManager = v10.new(v27, v29);
-    v30.colorCorrection = l_Lighting_0:FindFirstChild("ColorCorrection");
-    if not v30.colorCorrection then
-        v30.colorCorrection = Instance.new("ColorCorrectionEffect");
-        v30.colorCorrection.Parent = l_Lighting_0;
-    end;
-    v30.bloom = l_Lighting_0:FindFirstChild("Bloom");
-    if not v30.bloom then
-        v30.bloom = Instance.new("BloomEffect");
-        v30.bloom.Parent = l_Lighting_0;
-    end;
-    v30.newBackgroundScene = l_ReplicatedStorage_0:WaitForChild("AvatarSceneNew");
-    v30.currentScene = nil;
-    if l_FFlagAXPhotoboothFunctionality_0 then
-        v30.currentSceneLighting = nil;
-    end;
-    v30.particleStorage = {
-        [l_ParticleType_0.CatalogToAvatarEditor] = {
-            largeParticleEmitter = v30.newBackgroundScene.CatalogToAvatarEditorPFX.BIGBOIS, 
-            smallParticleEmitter = v30.newBackgroundScene.CatalogToAvatarEditorPFX.SmolBois
-        }, 
-        [l_ParticleType_0.AvatarEditorToCatalog] = {
-            largeParticleEmitter = v30.newBackgroundScene.AvatarEditorToCatalogPFX.BIGBOIS, 
-            smallParticleEmitter = v30.newBackgroundScene.AvatarEditorToCatalogPFX.SmolBois
-        }
-    };
-    v30.newBackgroundScene.BackPanel.Transparency = v26.LargerShapes.TextureWallTransparency;
-    v30:setupTweening();
-    local v31 = l_NotificationService_0.SelectedTheme or nil;
-    v30:updateTheme(string.lower(v31));
-    return v30;
-end;
-v22.setupTweening = function(v32) --[[ Line: 228 ]] --[[ Name: setupTweening ]]
-    -- upvalues: l_TweenService_0 (copy), v26 (copy)
-    local v33 = TweenInfo.new(1, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out, 0, false, 0);
-    local v34 = TweenInfo.new(0.7, Enum.EasingStyle.Elastic, Enum.EasingDirection.In, 0, false, 0);
-    local v35 = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In, 0, false, 0);
-    local v36 = {
-        Transparency = 0
-    };
-    local v37 = {
-        Transparency = 1
-    };
-    v32.wallAppearTween = l_TweenService_0:Create(v32.newBackgroundScene.BackPanel.TextureWall, v35, v36);
-    v32.wallDisappearTween = l_TweenService_0:Create(v32.newBackgroundScene.BackPanel.TextureWall, v35, v37);
-    v32.floorAppearTween = l_TweenService_0:Create(v32.newBackgroundScene.BackPanel.TextureFloor, v35, v36);
-    v32.floorDisappearTween = l_TweenService_0:Create(v32.newBackgroundScene.BackPanel.TextureFloor, v35, v37);
-    v32.largerShapesAppearTween = l_TweenService_0:Create(v32.newBackgroundScene.LargerShapes, v33, {
-        Position = v26.LargerShapes.LargerShapesPosition
-    });
-    v32.largerShapesDisappearTween = l_TweenService_0:Create(v32.newBackgroundScene.LargerShapes, v34, {
-        Position = v26.Walls.LargerShapesPosition
-    });
-    v32.cloudsAppearTween = l_TweenService_0:Create(v32.newBackgroundScene.Clouds, v33, {
-        Position = v26.LargerShapes.CloudsPosition
-    });
-    v32.cloudsDisappearTween = l_TweenService_0:Create(v32.newBackgroundScene.Clouds, v34, {
-        Position = v26.Walls.CloudsPosition
-    });
-    v32.allTweens = {
-        v32.wallAppearTween, 
-        v32.wallDisappearTween, 
-        v32.floorAppearTween, 
-        v32.floorDisappearTween, 
-        v32.largerShapesAppearTween, 
-        v32.largerShapesDisappearTween, 
-        v32.cloudsAppearTween, 
-        v32.cloudsDisappearTween
-    };
-end;
-v22.updateTheme = function(v38, v39) --[[ Line: 291 ]] --[[ Name: updateTheme ]]
-    -- upvalues: v25 (copy), v13 (copy), l_Lighting_0 (copy), l_ParticleType_0 (copy)
-    v38.theme = v39;
-    local l_LightTheme_0 = v25.LightTheme;
-    if v39 == "dark" then
-        l_LightTheme_0 = v25.DarkTheme;
-    end;
-    for _, v42 in v38.newBackgroundScene.BackPanel:GetChildren() do
-        v42.Color3 = l_LightTheme_0.BackPanelTextureColor;
-    end;
-    for _, v44 in v38.newBackgroundScene.Clouds:GetChildren() do
-        v44.Color3 = l_LightTheme_0.CloudsTextureColor;
-    end;
-    for _, v46 in v38.newBackgroundScene.LargerShapes:GetChildren() do
-        v46.Color3 = l_LightTheme_0.LargerShapesTextureColor;
-    end;
-    v38.newBackgroundScene.Baseplate.Color = l_LightTheme_0.BasePlateColor;
-    if v13 then
-        if l_LightTheme_0.AmbientLightColor ~= nil then
-            l_Lighting_0.Ambient = l_LightTheme_0.AmbientLightColor;
-        end;
-        if l_LightTheme_0.EnvironmentDiffuseScale ~= nil then
-            l_Lighting_0.EnvironmentDiffuseScale = l_LightTheme_0.EnvironmentDiffuseScale;
-        end;
-        if l_LightTheme_0.EnvironmentSpecularScale ~= nil then
-            l_Lighting_0.EnvironmentSpecularScale = l_LightTheme_0.EnvironmentSpecularScale;
-        end;
-        if l_LightTheme_0.FogStart ~= nil then
-            l_Lighting_0.FogStart = l_LightTheme_0.FogStart;
-        end;
-    else
-        v38.newBackgroundScene.CharacterSpotLight.SpotLight.Brightness = l_LightTheme_0.CharacterSpotLightBrightness;
-    end;
-    l_Lighting_0.FogColor = l_LightTheme_0.FogColor;
-    for v47, v48 in v38.particleStorage do
-        for _, v50 in v48 do
-            v50.Color = if v47 == l_ParticleType_0.AvatarEditorToCatalog then l_LightTheme_0.ParticleEmitterColorAEToCatalog else l_LightTheme_0.ParticleEmitterColorCatalogToAE;
-        end;
-    end;
-end;
-v22.setLighting = function(v51, v52) --[[ Line: 342 ]] --[[ Name: setLighting ]]
-    -- upvalues: l_Lighting_0 (copy), v13 (copy)
-    l_Lighting_0.Brightness = v52.Lighting.Brightness;
-    l_Lighting_0.ColorShift_Bottom = v52.Lighting.ColorShift_Bottom;
-    l_Lighting_0.ColorShift_Top = v52.Lighting.ColorShift_Top;
-    l_Lighting_0.OutdoorAmbient = v52.Lighting.OutdoorAmbient;
-    if not v13 then
-        l_Lighting_0.Ambient = v52.Lighting.Ambient;
-    end;
-    l_Lighting_0.ClockTime = v52.Lighting.ClockTime;
-    l_Lighting_0.GeographicLatitude = v52.Lighting.GeographicLatitude;
-    l_Lighting_0.TimeOfDay = v52.Lighting.TimeOfDay;
-    l_Lighting_0.FogEnd = v52.Lighting.FogEnd;
-    if not v13 then
-        l_Lighting_0.FogStart = v52.Lighting.FogStart;
-    end;
-    if v13 then
-        v51.newBackgroundScene.CharacterSpotLight.SpotLight.Enabled = false;
-        v51.newBackgroundScene.CharacterSpotLight_Left.SpotLight.Enabled = true;
-        v51.newBackgroundScene.CharacterSpotLight_Right.SpotLight.Enabled = true;
-    end;
-    if v52.Bloom then
-        if v51.bloom then
-            v51.bloom.Enabled = true;
-            v51.bloom.Intensity = v52.Bloom.Intensity;
-            v51.bloom.Size = v52.Bloom.Size;
-            v51.bloom.Threshold = v52.Bloom.Threshold;
-        end;
-    elseif v51.bloom then
-        v51.bloom.Enabled = false;
-    end;
-    if v52.ColorCorrection then
-        if v51.colorCorrection then
-            v51.colorCorrection.Enabled = true;
-            v51.colorCorrection.Brightness = v52.ColorCorrection.Brightness;
-            v51.colorCorrection.Contrast = v52.ColorCorrection.Contrast;
-            v51.colorCorrection.Saturation = v52.ColorCorrection.Saturation;
-            return;
-        end;
-    elseif v51.colorCorrection then
-        v51.colorCorrection.Enabled = false;
-    end;
-end;
-v22.startLighting = function(v53) --[[ Line: 395 ]] --[[ Name: startLighting ]]
-    -- upvalues: v23 (copy)
-    v53:setLighting(v23);
-end;
-v22.updateLighting = function(v54, v55) --[[ Line: 399 ]] --[[ Name: updateLighting ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v24 (copy), l_LightUtility_0 (copy), v23 (copy)
-    if v55 == l_AvatarScreen_0.ProfilePictureEditorFinal then
-        v54:setLighting(v24);
-        if not game.Workspace:FindFirstChild("ThumbnailLightAnchor_0") then
-            local l_CurrentCharacter_0 = v54.store:getState().AvatarExperience.AvatarScene.Character.CurrentCharacter;
-            if l_CurrentCharacter_0 then
-                l_LightUtility_0.AddDefaultPointLightRelativeTo(l_CurrentCharacter_0.HumanoidRootPart.CFrame);
-                return;
-            end;
-        end;
-    else
-        v54:setLighting(v23);
-        local l_ThumbnailLightAnchor_0_0 = game.Workspace:FindFirstChild("ThumbnailLightAnchor_0");
-        if l_ThumbnailLightAnchor_0_0 then
-            l_ThumbnailLightAnchor_0_0:Destroy();
-        end;
-    end;
-end;
-v22.playParticleEmitters = function(v58, v59) --[[ Line: 422 ]] --[[ Name: playParticleEmitters ]]
-    -- upvalues: l_PagePlayParticleType_0 (copy), l_ParticleType_0 (copy)
-    if l_PagePlayParticleType_0[v59] == l_ParticleType_0.CatalogToAvatarEditor then
-        task.spawn(function() --[[ Line: 424 ]]
-            -- upvalues: v58 (copy), l_ParticleType_0 (ref)
-            for _, v61 in v58.particleStorage[l_ParticleType_0.CatalogToAvatarEditor] do
-                v61.Parent = v58.newBackgroundScene.CatalogToAvatarEditorPFX;
-                v61.Enabled = true;
-            end;
-            wait(1);
-            for _, v63 in v58.particleStorage[l_ParticleType_0.CatalogToAvatarEditor] do
-                v63.Enabled = false;
-            end;
-        end);
-        return;
-    else
-        if l_PagePlayParticleType_0[v59] == l_ParticleType_0.AvatarEditorToCatalog then
-            task.spawn(function() --[[ Line: 436 ]]
-                -- upvalues: v58 (copy), l_ParticleType_0 (ref)
-                for _, v65 in v58.particleStorage[l_ParticleType_0.AvatarEditorToCatalog] do
-                    v65.Parent = v58.newBackgroundScene.AvatarEditorToCatalogPFX;
-                    v65.Enabled = true;
-                end;
-                wait(1);
-                for _, v67 in v58.particleStorage[l_ParticleType_0.AvatarEditorToCatalog] do
-                    v67.Enabled = false;
-                end;
-            end);
-        end;
-        return;
-    end;
-end;
-v22.getCurrentPage = function(v68) --[[ Line: 450 ]] --[[ Name: getCurrentPage ]]
-    return v68.avatarRoute.current.name;
-end;
-v22.animateBackground = function(v69, v70) --[[ Line: 454 ]] --[[ Name: animateBackground ]]
-    task.spawn(function() --[[ Line: 455 ]]
-        -- upvalues: v69 (copy), v70 (copy)
-        v69.wallDisappearTween:Play();
-        v69.floorDisappearTween:Play();
-        v69:playParticleEmitters(v70);
-        wait(0.2);
-        v69.largerShapesAppearTween:Play();
-        wait(0.2);
-        v69.cloudsAppearTween:Play();
-    end);
-end;
-v22.transitionWithTweens = function(v71, v72) --[[ Line: 466 ]] --[[ Name: transitionWithTweens ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v13 (copy)
-    if v72 == l_AvatarScreen_0.AvatarEditor or v72 == l_AvatarScreen_0.MySharedAvatars then
-        v71:animateBackground(l_AvatarScreen_0.AvatarEditor);
-        if v72 == l_AvatarScreen_0.MySharedAvatars then
-            v71:animateBackground(l_AvatarScreen_0.MySharedAvatars);
-        end;
-    elseif v72 == l_AvatarScreen_0.ProfilePictureEditorEmotes then
-        v71:animateBackground(l_AvatarScreen_0.ProfilePictureEditorEmotes);
-    elseif v13 and v72 == l_AvatarScreen_0.Catalog then
-        v71:animateBackground(l_AvatarScreen_0.Catalog);
-    elseif v72 == l_AvatarScreen_0.Catalog or v72 == l_AvatarScreen_0.AvatarExperienceLandingPage then
-        task.spawn(function() --[[ Line: 477 ]]
-            -- upvalues: v72 (copy), l_AvatarScreen_0 (ref), v71 (copy)
-            if v72 ~= l_AvatarScreen_0.AvatarExperienceLandingPage then
-                v71:playParticleEmitters(l_AvatarScreen_0.Catalog);
-            end;
-            v71.largerShapesDisappearTween:Play();
-            wait(0.2);
-            v71.cloudsDisappearTween:Play();
-            wait(0.1);
-            v71.wallAppearTween:Play();
-            v71.floorAppearTween:Play();
-        end);
-    end;
-    local v73 = v71:getModelInformationForAppPage(v72);
-    if v73 then
-        v71.newBackgroundScene.Baseplate.Transparency = v73.BaseplateTransparency;
-        return;
-    else
-        v71.newBackgroundScene.Baseplate.Transparency = 0;
-        return;
-    end;
-end;
-v22.getModelInformationForAppPage = function(_, v75) --[[ Line: 499 ]] --[[ Name: getModelInformationForAppPage ]]
-    -- upvalues: l_PageBackgroundType_0 (copy), l_BackgroundType_0 (copy), v26 (copy)
-    if l_PageBackgroundType_0[v75] == l_BackgroundType_0.LargerShapes then
-        return v26.LargerShapes;
-    elseif l_PageBackgroundType_0[v75] == l_BackgroundType_0.NoShapesNoWalls then
-        return v26.NoShapesNoWalls;
-    elseif l_PageBackgroundType_0[v75] == l_BackgroundType_0.Walls then
-        return v26.Walls;
-    else
-        return nil;
-    end;
-end;
-v22.transitionInstant = function(v76, v77) --[[ Line: 510 ]] --[[ Name: transitionInstant ]]
-    -- upvalues: l_PagePlayParticleType_0 (copy), l_ParticleType_0 (copy)
-    for _, v79 in v76.allTweens do
-        v79:Cancel();
-    end;
-    if l_PagePlayParticleType_0[v77] == l_ParticleType_0.None then
-        for _, v81 in v76.particleStorage do
-            for _, v83 in v81 do
-                v83.Enabled = false;
-                v83.Parent = nil;
-            end;
-        end;
-    end;
-    local v84 = v76:getModelInformationForAppPage(v77);
-    if v84 then
-        v76.newBackgroundScene.BackPanel.TextureFloor.Transparency = v84.TextureWallTransparency;
-        v76.newBackgroundScene.BackPanel.TextureWall.Transparency = v84.TextureWallTransparency;
-        v76.newBackgroundScene.LargerShapes.Position = v84.LargerShapesPosition;
-        v76.newBackgroundScene.Clouds.Position = v84.CloudsPosition;
-        v76.newBackgroundScene.Baseplate.Transparency = v84.BaseplateTransparency;
-    end;
-end;
-v22.update = function(v85, _, _, v88, v89) --[[ Line: 544 ]] --[[ Name: update ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v13 (copy), v11 (copy), l_FFlagAXPhotoboothFunctionality_0 (copy)
-    local l_name_0 = v88.current.name;
-    local l_name_1 = v89.current.name;
-    local l_name_2 = v89.opaque.name;
-    local v93 = nil;
-    local v94 = {
-        [l_AvatarScreen_0.Catalog] = not v13, 
-        [l_AvatarScreen_0.AvatarEditor] = not v13, 
-        [l_AvatarScreen_0.MySharedAvatars] = not v13, 
-        [l_AvatarScreen_0.ProfilePictureEditorEmotes] = true
-    };
-    v93 = false;
-    if v94[l_name_0] then
-        if l_name_0 ~= l_name_1 and v94[l_name_1] then
-            v93 = true;
-        elseif l_name_0 ~= l_name_2 and v94[l_name_2] then
-            v93 = true;
-        end;
-    end;
-    v85.ParticleEffectManager:setAvatarRoute(v88);
-    local v95 = true;
-    if l_name_0 ~= l_AvatarScreen_0.AvatarExperienceLandingPage then
-        v95 = l_name_1 == l_AvatarScreen_0.AvatarExperienceLandingPage;
-    end;
-    local v96 = true;
-    if l_name_0 ~= l_AvatarScreen_0.AvatarEditor then
-        v96 = l_name_1 == l_AvatarScreen_0.AvatarEditor;
-    end;
-    local v97 = true;
-    if l_name_0 ~= l_AvatarScreen_0.Catalog then
-        v97 = l_name_1 == l_AvatarScreen_0.Catalog;
-    end;
-    local v98 = v11.isAvatarBackground(l_name_0);
-    local v99 = true;
-    if l_name_0 ~= l_AvatarScreen_0.ProfilePictureEditorEmotes then
-        v99 = l_name_1 == l_AvatarScreen_0.ProfilePictureEditorEmotes;
-    end;
-    local v100 = v95 and (v97 or v96 or v99);
-    if l_name_0 ~= l_name_1 then
-        if v93 or v100 then
-            v85:transitionWithTweens(l_name_0);
-        else
-            v85:transitionInstant(l_name_0);
-            if v98 then
-                v85:playParticleEmitters(l_name_0);
-            end;
-        end;
-    end;
-    if l_name_0 ~= l_name_1 then
-        if l_FFlagAXPhotoboothFunctionality_0 and v85.currentSceneLighting then
-            return;
-        else
-            v85:updateLighting(l_name_0);
-        end;
-    end;
-end;
-v22.start = function(v101) --[[ Line: 603 ]] --[[ Name: start ]]
-    -- upvalues: l_NotificationService_0 (copy), l_FFlagAXPhotoboothFunctionality_0 (copy), v9 (copy), l_PhotoboothStoreBridge_0 (copy), v13 (copy), v12 (copy), l_ReplicatedStorage_0 (copy), l_AvatarScreen_0 (copy), v11 (copy)
-    v101.colorCorrection.TintColor = Color3.fromRGB(255, 255, 255);
-    v101:updateTheme(v101.theme);
-    local l_name_3 = v101.avatarRoute.current.name;
-    local v103 = string.lower(l_NotificationService_0.SelectedTheme);
-    if v101.theme ~= v103 then
-        v101:updateTheme(v103);
-    end;
-    table.insert(v101.connections, v101.store.changed:connect(function(v104, v105) --[[ Line: 616 ]]
-        -- upvalues: v101 (copy)
-        local l_avatarRoute_0 = v101.avatarRoute;
-        v101:update(v104, v105, l_avatarRoute_0, l_avatarRoute_0);
-    end));
-    table.insert(v101.connections, l_NotificationService_0:GetPropertyChangedSignal("SelectedTheme"):Connect(function() --[[ Line: 624 ]]
-        -- upvalues: l_FFlagAXPhotoboothFunctionality_0 (ref), v101 (copy), l_NotificationService_0 (ref)
-        if l_FFlagAXPhotoboothFunctionality_0 and v101.currentScene and v101.currentSceneLighting then
-            return;
-        else
-            v101:updateTheme(string.lower(l_NotificationService_0.SelectedTheme));
-            return;
-        end;
-    end));
-    if l_FFlagAXPhotoboothFunctionality_0 then
-        table.insert(v101.connections, v9.createEffect(function(v107) --[[ Line: 638 ]]
-            -- upvalues: l_PhotoboothStoreBridge_0 (ref), v101 (copy)
-            local v108 = l_PhotoboothStoreBridge_0.getStore();
-            if not v108 then
-                return;
-            else
-                local v109 = v108.getSelectedSceneId(v107);
-                v101.changeSceneTask = task.spawn(function() --[[ Line: 646 ]]
-                    -- upvalues: v101 (ref), v109 (copy)
-                    v101:pickScene(v109);
-                end);
-                return;
-            end;
-        end));
-    end;
-    local v110 = 20;
-    v101.newBackgroundScene.BlobShadow.Decal.Transparency = 0.4;
-    if v13 then
-        local l_Size_0 = v101.newBackgroundScene.BlobShadow.Size;
-        local v112 = math.sqrt(l_Size_0.X * l_Size_0.Z * 0.7);
-        v101.newBackgroundScene.BlobShadow.Size = Vector3.new(v112, l_Size_0.Y, v112);
-        v101.newBackgroundScene.BlobShadow.Position = Vector3.new(0, -0.10000000149011612, 0, 0);
-    end;
-    local v113 = tonumber(v12());
-    if v113 > 0 then
-        v110 = v113;
-    end;
-    for _, v115 in v101.particleStorage do
-        for _, v117 in v115 do
-            v117.Rate = v110;
-        end;
-    end;
-    v101:startLighting();
-    if l_FFlagAXPhotoboothFunctionality_0 then
-        if not l_ReplicatedStorage_0:FindFirstChild("PhotoboothScenes") then
-            v101.scenesFolder = Instance.new("Folder");
-            v101.scenesFolder.Parent = l_ReplicatedStorage_0;
-            v101.scenesFolder.Name = "PhotoboothScenes";
-        end;
-        v101:pickScene();
-    else
-        v101.newBackgroundScene.Parent = game.Workspace;
-    end;
-    if l_name_3 == l_AvatarScreen_0.AvatarEditor or l_name_3 == l_AvatarScreen_0.AvatarExperienceLandingPage or l_name_3 == l_AvatarScreen_0.Catalog or v11.isAvatarBackground(l_name_3) or l_name_3 == l_AvatarScreen_0.ProfilePictureEditorEmotes then
-        v101:transitionInstant(l_name_3);
-    end;
-    v101.ParticleEffectManager:start();
-    if v11.isAvatarBackground(l_name_3) then
-        v101:playParticleEmitters(l_name_3);
-    end;
-end;
-if l_FFlagAXPhotoboothFunctionality_0 then
-    v22.updateSceneLighting = function(v118, v119) --[[ Line: 706 ]] --[[ Name: updateSceneLighting ]]
-        -- upvalues: l_Lighting_0 (copy)
-        if not v119 then
-            v118.currentSceneLighting = nil;
-            v118:startLighting();
-            v118:updateTheme(v118.theme);
-            return;
-        else
-            v118.currentSceneLighting = v119;
-            for _, v121 in {
-                "Brightness", 
-                "Ambient", 
-                "ColorShift_Top", 
-                "ColorShift_Bottom", 
-                "OutdoorAmbient", 
-                "ShadowSoftness", 
-                "ClockTime", 
-                "FogStart", 
-                "FogEnd", 
-                "FogColor"
-            } do
-                if v119[v121] ~= nil then
-                    l_Lighting_0[v121] = v119[v121];
-                end;
-            end;
-            return;
-        end;
-    end;
-    v22.pickScene = function(v122, v123) --[[ Line: 740 ]] --[[ Name: pickScene ]]
-        -- upvalues: l_PhotoboothStoreBridge_0 (copy), v15 (copy), l_ReplicatedStorage_0 (copy), l_InsertService_0 (copy)
-        if v122.changeSceneTask then
-            task.cancel(v122.changeSceneTask);
-        end;
-        if not v123 then
-            local v124 = l_PhotoboothStoreBridge_0.getStore();
-            v123 = if v124 then v124.getSelectedSceneId(false) else "";
-        end;
-        local v125 = v15.PHOTOBOOTH_SCENES[v123];
-        if not v125 then
-            warn("BackgroundSceneManager: Unknown scene ID:", v123);
-            return;
-        else
-            if v122.currentScene then
-                v122.currentScene.Parent = v122.scenesFolder;
-                v122.currentScene = nil;
-            end;
-            if v123 == "" then
-                v122.newBackgroundScene.Parent = game.Workspace;
-                v122.currentScene = nil;
-                v122:updateSceneLighting(nil);
-                v122:updateTheme(v122.theme);
-            else
-                v122.newBackgroundScene.Parent = l_ReplicatedStorage_0;
-                if v125.asset then
-                    local v126 = nil;
-                    if v122.scenesFolder:FindFirstChild(v125.id) then
-                        v126 = v122.scenesFolder:FindFirstChild(v125.id);
-                    else
-                        v126 = l_InsertService_0:LoadLocalAsset(v125.asset);
-                        v126.Name = v125.id;
-                        v126.Parent = v122.scenesFolder;
-                        if v125.position then
-                            v126:SetPrimaryPartCFrame(CFrame.new(v125.position));
-                        end;
-                        if v125.rotation then
-                            v126:SetPrimaryPartCFrame(v126:GetPrimaryPartCFrame() * v125.rotation);
-                        end;
-                    end;
-                    v122.currentScene = v126;
-                    v122.currentScene.Parent = game.Workspace;
-                    if v125.lighting then
-                        v122:updateSceneLighting(v125.lighting);
-                    else
-                        v122:updateSceneLighting(nil);
-                        v122:updateTheme(v122.theme);
-                    end;
-                end;
-            end;
-            v122.changeSceneTask = nil;
-            return;
-        end;
-    end;
-end;
-v22.stop = function(v127) --[[ Line: 816 ]] --[[ Name: stop ]]
-    -- upvalues: l_FFlagAXPhotoboothFunctionality_0 (copy), l_ReplicatedStorage_0 (copy), l_ParticleType_0 (copy)
-    for _, v129 in v127.connections do
-        if l_FFlagAXPhotoboothFunctionality_0 and typeof(v129) == "function" then
-            v129();
-        else
-            v129:disconnect();
-        end;
-    end;
-    if l_FFlagAXPhotoboothFunctionality_0 and v127.currentScene then
-        v127.currentScene.Parent = v127.scenesFolder;
-    end;
-    v127.connections = {};
-    v127.newBackgroundScene.Parent = l_ReplicatedStorage_0;
-    v127.ParticleEffectManager:stop();
-    for v130, v131 in v127.particleStorage do
-        for _, v133 in v131 do
-            v133.Parent = if v130 == l_ParticleType_0.AvatarEditorToCatalog then v127.newBackgroundScene.AvatarEditorToCatalogPFX else v127.newBackgroundScene.CatalogToAvatarEditorPFX;
-        end;
-    end;
-end;
-v22.onDestroy = function(v134) --[[ Line: 843 ]] --[[ Name: onDestroy ]]
-    v134.ParticleEffectManager:onDestroy();
-end;
-v22.updateAvatarRoute = function(v135, v136, v137) --[[ Line: 847 ]] --[[ Name: updateAvatarRoute ]]
-    v135.avatarRoute = v136;
-    local v138 = v135.store:getState();
-    v135:update(v138, v138, v136, v137);
-end;
-return v22;
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Lighting = game:GetService("Lighting")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+local NotificationService = game:GetService("NotificationService")
+local CorePackages = game:GetService("CorePackages")
+local InsertService = game:GetService("InsertService")
+local AvatarScreen = require(CorePackages.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen
+local LightUtility = require(CorePackages.Packages.Thumbnailing).LightUtility
+local Signals = require(CorePackages.Packages.Signals)
+local ParticleEffectManager = require(Modules.AvatarExperience.Common.Managers.ParticleEffectManager)
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+local GetFIntAvatarEditorParticleEmitterRateOverride = require(Modules.LuaApp.Flags.GetFIntAvatarEditorParticleEmitterRateOverride)
+local FFlagUseUpdatedBackgroundSceneSettingsOnMobile = require(Modules.AvatarExperience.Flags.FFlagUseUpdatedBackgroundSceneSettingsOnMobile)
+local FFlagAXGuardCharacterSpotLightSideAccess = require(Modules.AvatarExperience.Flags.FFlagAXGuardCharacterSpotLightSideAccess)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local getSceneOverridesStore = require(CorePackages.Workspace.Packages.Style).getSceneOverridesStore
+local v18 = game:DefineFastInt("AXSkyboxBlockerSizeX", 31)
+local v19 = game:DefineFastInt("AXSkyboxBlockerSizeY", 175)
+local v20 = game:DefineFastInt("AXSkyboxBlockerSizeZ", 400)
+local v21 = game:DefineFastInt("AXSkyboxBlockerPositionX", -50)
+local v22 = game:DefineFastInt("AXSkyboxBlockerPositionY", 77)
+local v23 = game:DefineFastInt("AXSkyboxBlockerPositionZ", -9)
+local FFlagAXPhotoboothFunctionality = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXPhotoboothFunctionality
+local PhotoboothSceneData = require(Modules.AvatarExperience.Photobooth.Components.Scenes.PhotoboothSceneData)
+local PhotoboothStoreBridge = require(CorePackages.Workspace.Packages.AvatarExperiencePhotobooth).PhotoboothStoreBridge
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local BackgroundType = Constants.BackgroundType
+local ParticleType = Constants.ParticleType
+local PagePlayParticleType = Constants.PagePlayParticleType
+local PageBackgroundType = Constants.PageBackgroundType
+local t1 = {}
+
+t1.__index = t1
+
+local t2 = {
+	Lighting = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then {
+		Brightness = 2,
+		ColorShift_Bottom = Color3.fromRGB(232, 255, 146),
+		ColorShift_Top = Color3.fromRGB(85, 136, 167),
+		OutdoorAmbient = Color3.fromRGB(0, 0, 0),
+		Ambient = Color3.fromRGB(170, 170, 170),
+		ClockTime = 12,
+		GeographicLatitude = 41.733,
+		TimeOfDay = "12:00:00",
+		FogColor = Color3.fromRGB(45, 46, 49),
+		FogEnd = 92,
+		FogStart = 20,
+		Sky = {
+			CelestialBodiesShown = true,
+			StarCount = 3000
+		}
+	} else {
+		Brightness = 2,
+		ColorShift_Bottom = Color3.fromRGB(108, 94, 66),
+		ColorShift_Top = Color3.fromRGB(94, 100, 172),
+		ClockTime = 11,
+		FogEnd = 92,
+		GeographicLatitude = 24,
+		OutdoorAmbient = Color3.fromRGB(0, 0, 0),
+		TimeOfDay = "11:00:00"
+	},
+	Bloom = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then {
+		Intensity = 0.3,
+		Size = 12,
+		Threshold = 0.95
+	} else {
+		Intensity = 0.2,
+		Size = 12,
+		Threshold = 0.95
+	},
+	ColorCorrection = {
+		Brightness = 0,
+		Contrast = 0,
+		Saturation = 0
+	}
+}
+local t3 = {
+	Lighting = {
+		Brightness = 1,
+		ColorShift_Bottom = Color3.fromRGB(0, 0, 0),
+		ColorShift_Top = Color3.fromRGB(0, 0, 0),
+		OutdoorAmbient = Color3.fromRGB(127, 127, 127),
+		Ambient = Color3.fromRGB(127, 127, 127),
+		ClockTime = 14,
+		GeographicLatitude = 41.733,
+		TimeOfDay = "14:00:00",
+		FogColor = Color3.fromRGB(192, 192, 192),
+		FogEnd = 100000,
+		FogStart = 0,
+		Sky = {
+			CelestialBodiesShown = true,
+			StarCount = 3000
+		}
+	}
+}
+local t4 = {
+	LightTheme = {
+		AmbientLightColor = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else Color3.fromRGB(130, 130, 130),
+		EnvironmentDiffuseScale = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else 0.2,
+		EnvironmentSpecularScale = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else 1,
+		FogStart = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else 30,
+		BackPanelTextureColor = Color3.fromRGB(213, 213, 213),
+		CloudsTextureColor = Color3.fromRGB(222, 222, 222),
+		LargerShapesTextureColor = Color3.fromRGB(222, 222, 222),
+		BasePlateColor = Color3.fromRGB(213, 213, 213),
+		CharacterSpotLightBrightness = 6,
+		FogColor = Color3.fromRGB(213, 213, 213),
+		SkyboxAssetLocation = "rbxasset://textures/AvatarEditorImages/LightPixel.png",
+		ParticleEmitterColorCatalogToAE = ColorSequence.new(Color3.fromRGB(171, 169, 161), Color3.fromRGB(158, 135, 120)),
+		ParticleEmitterColorAEToCatalog = ColorSequence.new(Color3.fromRGB(158, 135, 120), Color3.fromRGB(171, 169, 161))
+	},
+	DarkTheme = {
+		AmbientLightColor = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else Color3.fromRGB(180, 180, 180),
+		EnvironmentDiffuseScale = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else 1,
+		EnvironmentSpecularScale = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else 1,
+		FogStart = if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then nil else 20,
+		BackPanelTextureColor = Color3.fromRGB(83, 80, 82),
+		CloudsTextureColor = Color3.fromRGB(100, 101, 108),
+		LargerShapesTextureColor = Color3.fromRGB(100, 101, 108),
+		BasePlateColor = Color3.fromRGB(83, 80, 82),
+		CharacterSpotLightBrightness = 12,
+		FogColor = Color3.fromRGB(55, 56, 59),
+		SkyboxAssetLocation = "rbxasset://textures/ui/AvatarExperience/AvatarExperienceSkyboxDarkTheme.png",
+		ParticleEmitterColorCatalogToAE = ColorSequence.new(Color3.fromRGB(79, 75, 79), Color3.fromRGB(51, 49, 52)),
+		ParticleEmitterColorAEToCatalog = ColorSequence.new(Color3.fromRGB(51, 49, 52), Color3.fromRGB(79, 75, 79))
+	}
+}
+local t5 = {
+	LargerShapes = {
+		TextureWallTransparency = 1,
+		LargerShapesPosition = Vector3.new(-62.89799880981445, 6.96999979019165, -8.8149995803833),
+		CloudsPosition = Vector3.new(-90, 20, 0),
+		BaseplateTransparency = 0
+	},
+	Walls = {
+		TextureWallTransparency = 0,
+		LargerShapesPosition = Vector3.new(-62.89799880981445, -12.300000190734863, -8.8149995803833),
+		CloudsPosition = Vector3.new(-90, 80, 0),
+		BaseplateTransparency = 0
+	},
+	NoShapesNoWalls = {
+		TextureWallTransparency = 1,
+		LargerShapesPosition = Vector3.new(-62.89799880981445, -1000, -8.8149995803833),
+		CloudsPosition = Vector3.new(-90, 1000, 0),
+		BaseplateTransparency = 1
+	}
+}
+
+function t1.new(p1, p2, p3) -- line: 189
+	-- upvalues: t1 (copy), ParticleEffectManager (copy), Lighting (copy), ReplicatedStorage (copy), FFlagAXPhotoboothFunctionality (copy), ParticleType (copy), t5 (copy), NotificationService (copy)
+	local t6 = {}
+
+	setmetatable(t6, t1)
+	t6.connections = {}
+	t6.store = p1
+	t6.networking = p2
+	t6.avatarRoute = p3
+	t6.ParticleEffectManager = ParticleEffectManager.new(p1, p3)
+	t6.colorCorrection = Lighting:FindFirstChild("ColorCorrection")
+
+	if not t6.colorCorrection then
+		t6.colorCorrection = Instance.new("ColorCorrectionEffect")
+		t6.colorCorrection.Parent = Lighting
+	end
+
+	t6.bloom = Lighting:FindFirstChild("Bloom")
+
+	if not t6.bloom then
+		t6.bloom = Instance.new("BloomEffect")
+		t6.bloom.Parent = Lighting
+	end
+
+	t6.newBackgroundScene = ReplicatedStorage:WaitForChild("AvatarSceneNew")
+	t6.currentScene = nil
+
+	if FFlagAXPhotoboothFunctionality then
+		t6.currentSceneLighting = nil
+	end
+
+	t6.particleStorage = {
+		[ParticleType.CatalogToAvatarEditor] = {
+			largeParticleEmitter = t6.newBackgroundScene.CatalogToAvatarEditorPFX.BIGBOIS,
+			smallParticleEmitter = t6.newBackgroundScene.CatalogToAvatarEditorPFX.SmolBois
+		},
+		[ParticleType.AvatarEditorToCatalog] = {
+			largeParticleEmitter = t6.newBackgroundScene.AvatarEditorToCatalogPFX.BIGBOIS,
+			smallParticleEmitter = t6.newBackgroundScene.AvatarEditorToCatalogPFX.SmolBois
+		}
+	}
+	t6.newBackgroundScene.BackPanel.Transparency = t5.LargerShapes.TextureWallTransparency
+	t6:setupTweening()
+
+	local v41 = NotificationService.SelectedTheme or nil
+
+	t6:updateTheme(string.lower(v41))
+
+	return t6
+end
+function t1.setupTweening(p4) -- line: 240
+	-- upvalues: TweenService (copy), t5 (copy)
+	local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out, 0, false, 0)
+	local tweenInfo2 = TweenInfo.new(0.7, Enum.EasingStyle.Elastic, Enum.EasingDirection.In, 0, false, 0)
+	local tweenInfo3 = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In, 0, false, 0)
+	local t7 = {
+		Transparency = 0
+	}
+	local t8 = {
+		Transparency = 1
+	}
+
+	p4.wallAppearTween = TweenService:Create(p4.newBackgroundScene.BackPanel.TextureWall, tweenInfo3, t7)
+	p4.wallDisappearTween = TweenService:Create(p4.newBackgroundScene.BackPanel.TextureWall, tweenInfo3, t8)
+	p4.floorAppearTween = TweenService:Create(p4.newBackgroundScene.BackPanel.TextureFloor, tweenInfo3, t7)
+	p4.floorDisappearTween = TweenService:Create(p4.newBackgroundScene.BackPanel.TextureFloor, tweenInfo3, t8)
+	p4.largerShapesAppearTween = TweenService:Create(p4.newBackgroundScene.LargerShapes, tweenInfo, {
+		Position = t5.LargerShapes.LargerShapesPosition
+	})
+	p4.largerShapesDisappearTween = TweenService:Create(p4.newBackgroundScene.LargerShapes, tweenInfo2, {
+		Position = t5.Walls.LargerShapesPosition
+	})
+	p4.cloudsAppearTween = TweenService:Create(p4.newBackgroundScene.Clouds, tweenInfo, {
+		Position = t5.LargerShapes.CloudsPosition
+	})
+	p4.cloudsDisappearTween = TweenService:Create(p4.newBackgroundScene.Clouds, tweenInfo2, {
+		Position = t5.Walls.CloudsPosition
+	})
+	p4.allTweens = {
+		p4.wallAppearTween,
+		p4.wallDisappearTween,
+		p4.floorAppearTween,
+		p4.floorDisappearTween,
+		p4.largerShapesAppearTween,
+		p4.largerShapesDisappearTween,
+		p4.cloudsAppearTween,
+		p4.cloudsDisappearTween
+	}
+end
+function t1.updateTheme(p5, p6) -- line: 303
+	-- upvalues: t4 (copy), SharedFlags (copy), getSceneOverridesStore (copy), FFlagUseUpdatedBackgroundSceneSettingsOnMobile (copy), Lighting (copy), ParticleType (copy)
+	p5.theme = p6
+
+	local LightTheme = t4.LightTheme
+
+	if p6 == "dark" then
+		LightTheme = t4.DarkTheme
+	end
+
+	if SharedFlags.FFlagEnableCoreContentTheme then
+		p5.sceneOverrides = getSceneOverridesStore().getSceneOverrides()
+
+		if p5.sceneOverrides then
+			LightTheme = table.clone(LightTheme)
+			LightTheme.BackPanelTextureColor = p5.sceneOverrides.BackPanel
+			LightTheme.CloudsTextureColor = p5.sceneOverrides.Clouds
+			LightTheme.LargerShapesTextureColor = p5.sceneOverrides.LargerShapes
+			LightTheme.BasePlateColor = p5.sceneOverrides.Baseplate
+			LightTheme.FogStart = p5.sceneOverrides.FogStart
+			LightTheme.FogEnd = p5.sceneOverrides.FogEnd
+		end
+	end
+
+	for _, v52 in p5.newBackgroundScene.BackPanel:GetChildren() do
+		v52.Color3 = LightTheme.BackPanelTextureColor
+	end
+
+	for _, v54 in p5.newBackgroundScene.Clouds:GetChildren() do
+		v54.Color3 = LightTheme.CloudsTextureColor
+	end
+
+	for _, v56 in p5.newBackgroundScene.LargerShapes:GetChildren() do
+		v56.Color3 = LightTheme.LargerShapesTextureColor
+	end
+
+	p5.newBackgroundScene.Baseplate.Color = LightTheme.BasePlateColor
+
+	local SkyboxBlocker = p5.newBackgroundScene:FindFirstChild("SkyboxBlocker")
+
+	if SkyboxBlocker then
+		if SharedFlags.FFlagEnableCoreContentTheme and p5.sceneOverrides then
+			SkyboxBlocker.Transparency = p5.sceneOverrides.SkyboxBlockerTransparency
+			SkyboxBlocker.Color = p5.sceneOverrides.SkyboxBlockerColor
+		else
+			SkyboxBlocker.Transparency = 1
+		end
+	end
+
+	if FFlagUseUpdatedBackgroundSceneSettingsOnMobile or SharedFlags.FFlagEnableCoreContentTheme then
+		if LightTheme.AmbientLightColor ~= nil then
+			Lighting.Ambient = LightTheme.AmbientLightColor
+		end
+
+		if LightTheme.EnvironmentDiffuseScale ~= nil then
+			Lighting.EnvironmentDiffuseScale = LightTheme.EnvironmentDiffuseScale
+		end
+
+		if LightTheme.EnvironmentSpecularScale ~= nil then
+			Lighting.EnvironmentSpecularScale = LightTheme.EnvironmentSpecularScale
+		end
+
+		if LightTheme.FogStart ~= nil then
+			Lighting.FogStart = LightTheme.FogStart
+		end
+
+		if LightTheme.FogEnd ~= nil then
+			Lighting.FogEnd = LightTheme.FogEnd
+		end
+	else
+		p5.newBackgroundScene.CharacterSpotLight.SpotLight.Brightness = LightTheme.CharacterSpotLightBrightness
+	end
+
+	Lighting.FogColor = LightTheme.FogColor
+
+	for v58, v59 in p5.particleStorage do
+		for _, v61 in v59 do
+			v61.Color = if v58 ~= ParticleType.AvatarEditorToCatalog then LightTheme.ParticleEmitterColorCatalogToAE else LightTheme.ParticleEmitterColorAEToCatalog
+		end
+	end
+end
+function t1.setLighting(p7, p8) -- line: 380
+	-- upvalues: Lighting (copy), FFlagUseUpdatedBackgroundSceneSettingsOnMobile (copy), SharedFlags (copy), FFlagAXGuardCharacterSpotLightSideAccess (copy)
+	Lighting.Brightness = p8.Lighting.Brightness
+	Lighting.ColorShift_Bottom = p8.Lighting.ColorShift_Bottom
+	Lighting.ColorShift_Top = p8.Lighting.ColorShift_Top
+	Lighting.OutdoorAmbient = p8.Lighting.OutdoorAmbient
+
+	if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then
+		Lighting.Ambient = p8.Lighting.Ambient
+	end
+
+	Lighting.ClockTime = p8.Lighting.ClockTime
+	Lighting.GeographicLatitude = p8.Lighting.GeographicLatitude
+	Lighting.TimeOfDay = p8.Lighting.TimeOfDay
+	Lighting.FogEnd = if not SharedFlags.FFlagEnableCoreContentTheme or not p7.sceneOverrides then p8.Lighting.FogEnd else p7.sceneOverrides.FogEnd
+
+	if not FFlagUseUpdatedBackgroundSceneSettingsOnMobile then
+		Lighting.FogStart = if not SharedFlags.FFlagEnableCoreContentTheme or not p7.sceneOverrides then p8.Lighting.FogStart else p7.sceneOverrides.FogStart
+	end
+
+	if FFlagUseUpdatedBackgroundSceneSettingsOnMobile then
+		p7.newBackgroundScene.CharacterSpotLight.SpotLight.Enabled = false
+
+		if FFlagAXGuardCharacterSpotLightSideAccess then
+			local CharacterSpotLight_Left = p7.newBackgroundScene:FindFirstChild("CharacterSpotLight_Left")
+
+			if CharacterSpotLight_Left and CharacterSpotLight_Left:FindFirstChild("SpotLight") then
+				CharacterSpotLight_Left.SpotLight.Enabled = true
+			end
+
+			local CharacterSpotLight_Right = p7.newBackgroundScene:FindFirstChild("CharacterSpotLight_Right")
+
+			if CharacterSpotLight_Right and CharacterSpotLight_Right:FindFirstChild("SpotLight") then
+				CharacterSpotLight_Right.SpotLight.Enabled = true
+			end
+		else
+			p7.newBackgroundScene.CharacterSpotLight_Left.SpotLight.Enabled = true
+			p7.newBackgroundScene.CharacterSpotLight_Right.SpotLight.Enabled = true
+		end
+	end
+
+	if p8.Bloom then
+		if p7.bloom then
+			p7.bloom.Enabled = true
+			p7.bloom.Intensity = p8.Bloom.Intensity
+			p7.bloom.Size = p8.Bloom.Size
+			p7.bloom.Threshold = p8.Bloom.Threshold
+		end
+	elseif p7.bloom then
+		p7.bloom.Enabled = false
+	end
+
+	if p8.ColorCorrection then
+		if p7.colorCorrection then
+			p7.colorCorrection.Enabled = true
+			p7.colorCorrection.Brightness = p8.ColorCorrection.Brightness
+			p7.colorCorrection.Contrast = p8.ColorCorrection.Contrast
+			p7.colorCorrection.Saturation = p8.ColorCorrection.Saturation
+
+			return
+		end
+	elseif p7.colorCorrection then
+		p7.colorCorrection.Enabled = false
+	end
+end
+function t1.startLighting(p9) -- line: 452
+	-- upvalues: t2 (copy)
+	p9:setLighting(t2)
+end
+function t1.updateLighting(p10, p11) -- line: 456
+	-- upvalues: AvatarScreen (copy), t3 (copy), LightUtility (copy), t2 (copy)
+	if p11 == AvatarScreen.ProfilePictureEditorFinal then
+		p10:setLighting(t3)
+
+		if not game.Workspace:FindFirstChild("ThumbnailLightAnchor_0") then
+			local CurrentCharacter = p10.store:getState().AvatarExperience.AvatarScene.Character.CurrentCharacter
+
+			if CurrentCharacter then
+				LightUtility.AddDefaultPointLightRelativeTo(CurrentCharacter.HumanoidRootPart.CFrame)
+
+				return
+			end
+		end
+	else
+		p10:setLighting(t2)
+
+		local ThumbnailLightAnchor_0 = game.Workspace:FindFirstChild("ThumbnailLightAnchor_0")
+
+		if ThumbnailLightAnchor_0 then
+			ThumbnailLightAnchor_0:Destroy()
+		end
+	end
+end
+function t1.playParticleEmitters(p12, p13) -- line: 479
+	-- upvalues: PagePlayParticleType (copy), ParticleType (copy)
+	if PagePlayParticleType[p13] == ParticleType.CatalogToAvatarEditor then
+		task.spawn(function() -- line: 481
+			-- upvalues: p12 (copy), ParticleType (copy)
+			for _, v142 in p12.particleStorage[ParticleType.CatalogToAvatarEditor] do
+				v142.Parent = p12.newBackgroundScene.CatalogToAvatarEditorPFX
+				v142.Enabled = true
+			end
+
+			wait(1)
+
+			for _, v144 in p12.particleStorage[ParticleType.CatalogToAvatarEditor] do
+				v144.Enabled = false
+			end
+		end)
+
+		return
+	end
+
+	if PagePlayParticleType[p13] == ParticleType.AvatarEditorToCatalog then
+		task.spawn(function() -- line: 493
+			-- upvalues: p12 (copy), ParticleType (copy)
+			for _, v146 in p12.particleStorage[ParticleType.AvatarEditorToCatalog] do
+				v146.Parent = p12.newBackgroundScene.AvatarEditorToCatalogPFX
+				v146.Enabled = true
+			end
+
+			wait(1)
+
+			for _, v148 in p12.particleStorage[ParticleType.AvatarEditorToCatalog] do
+				v148.Enabled = false
+			end
+		end)
+	end
+end
+function t1.getCurrentPage(p14) -- line: 507
+	return p14.avatarRoute.current.name
+end
+function t1.animateBackground(p15, p16) -- line: 511
+	task.spawn(function() -- line: 512
+		-- upvalues: p15 (copy), p16 (copy)
+		p15.wallDisappearTween:Play()
+		p15.floorDisappearTween:Play()
+		p15:playParticleEmitters(p16)
+		wait(0.2)
+		p15.largerShapesAppearTween:Play()
+		wait(0.2)
+		p15.cloudsAppearTween:Play()
+	end)
+end
+function t1.transitionWithTweens(p17, p18) -- line: 523
+	-- upvalues: AvatarScreen (copy), FFlagUseUpdatedBackgroundSceneSettingsOnMobile (copy)
+	if p18 == AvatarScreen.AvatarEditor or p18 == AvatarScreen.MySharedAvatars then
+		p17:animateBackground(AvatarScreen.AvatarEditor)
+
+		if p18 == AvatarScreen.MySharedAvatars then
+			p17:animateBackground(AvatarScreen.MySharedAvatars)
+		end
+	elseif p18 == AvatarScreen.ProfilePictureEditorEmotes then
+		p17:animateBackground(AvatarScreen.ProfilePictureEditorEmotes)
+	elseif FFlagUseUpdatedBackgroundSceneSettingsOnMobile and p18 == AvatarScreen.Catalog then
+		p17:animateBackground(AvatarScreen.Catalog)
+	elseif p18 == AvatarScreen.Catalog or p18 == AvatarScreen.AvatarExperienceLandingPage then
+		task.spawn(function() -- line: 534
+			-- upvalues: p18 (copy), AvatarScreen (copy), p17 (copy)
+			if p18 ~= AvatarScreen.AvatarExperienceLandingPage then
+				p17:playParticleEmitters(AvatarScreen.Catalog)
+			end
+
+			p17.largerShapesDisappearTween:Play()
+			wait(0.2)
+			p17.cloudsDisappearTween:Play()
+			wait(0.1)
+			p17.wallAppearTween:Play()
+			p17.floorAppearTween:Play()
+		end)
+	end
+
+	local v78 = p17:getModelInformationForAppPage(p18)
+
+	if v78 then
+		p17.newBackgroundScene.Baseplate.Transparency = v78.BaseplateTransparency
+
+		return
+	end
+
+	p17.newBackgroundScene.Baseplate.Transparency = 0
+end
+function t1.getModelInformationForAppPage(_, p20) -- line: 556
+	-- upvalues: PageBackgroundType (copy), BackgroundType (copy), t5 (copy)
+	if PageBackgroundType[p20] == BackgroundType.LargerShapes then
+		return t5.LargerShapes
+	end
+
+	if PageBackgroundType[p20] == BackgroundType.NoShapesNoWalls then
+		return t5.NoShapesNoWalls
+	end
+
+	if PageBackgroundType[p20] == BackgroundType.Walls then
+		return t5.Walls
+	end
+
+	return nil
+end
+function t1.transitionInstant(p21, p22) -- line: 567
+	-- upvalues: PagePlayParticleType (copy), ParticleType (copy)
+	for _, v84 in p21.allTweens do
+		v84:Cancel()
+	end
+
+	if PagePlayParticleType[p22] == ParticleType.None then
+		for _, v86 in p21.particleStorage do
+			for _, v88 in v86 do
+				v88.Enabled = false
+				v88.Parent = nil
+			end
+		end
+	end
+
+	local v89 = p21:getModelInformationForAppPage(p22)
+
+	if v89 then
+		p21.newBackgroundScene.BackPanel.TextureFloor.Transparency = v89.TextureWallTransparency
+		p21.newBackgroundScene.BackPanel.TextureWall.Transparency = v89.TextureWallTransparency
+		p21.newBackgroundScene.LargerShapes.Position = v89.LargerShapesPosition
+		p21.newBackgroundScene.Clouds.Position = v89.CloudsPosition
+		p21.newBackgroundScene.Baseplate.Transparency = v89.BaseplateTransparency
+	end
+end
+function t1.update(p23, _, _, p26, p27) -- line: 601
+	-- upvalues: AvatarScreen (copy), FFlagUseUpdatedBackgroundSceneSettingsOnMobile (copy), Utils (copy), FFlagAXPhotoboothFunctionality (copy)
+	local name = p26.current.name
+	local name2 = p27.current.name
+	local name3 = p27.opaque.name
+	local t9 = {
+		[AvatarScreen.Catalog] = not FFlagUseUpdatedBackgroundSceneSettingsOnMobile,
+		[AvatarScreen.AvatarEditor] = not FFlagUseUpdatedBackgroundSceneSettingsOnMobile,
+		[AvatarScreen.MySharedAvatars] = not FFlagUseUpdatedBackgroundSceneSettingsOnMobile,
+		[AvatarScreen.ProfilePictureEditorEmotes] = true
+	}
+	local v99 = false
+
+	if t9[name] then
+		if name ~= name2 and t9[name2] then
+			v99 = true
+		elseif name ~= name3 and t9[name3] then
+			v99 = true
+		end
+	end
+
+	p23.ParticleEffectManager:setAvatarRoute(p26)
+
+	local v100 = name == AvatarScreen.AvatarExperienceLandingPage or name2 == AvatarScreen.AvatarExperienceLandingPage
+	local v101 = name == AvatarScreen.AvatarEditor or name2 == AvatarScreen.AvatarEditor
+	local v102 = name == AvatarScreen.Catalog or name2 == AvatarScreen.Catalog
+	local v103 = Utils.isAvatarBackground(name)
+	local v104 = name == AvatarScreen.ProfilePictureEditorEmotes or name2 == AvatarScreen.ProfilePictureEditorEmotes
+	local v105 = v100 and (v102 or (v101 or v104))
+
+	if name ~= name2 then
+		if v99 or v105 then
+			p23:transitionWithTweens(name)
+		else
+			p23:transitionInstant(name)
+
+			if v103 then
+				p23:playParticleEmitters(name)
+			end
+		end
+	end
+
+	if name ~= name2 then
+		if FFlagAXPhotoboothFunctionality and p23.currentSceneLighting then
+			return
+		end
+
+		p23:updateLighting(name)
+	end
+end
+function t1.start(p28) -- line: 660
+	-- upvalues: SharedFlags (copy), v18 (copy), v19 (copy), v20 (copy), v21 (copy), v22 (copy), v23 (copy), NotificationService (copy), FFlagAXPhotoboothFunctionality (copy), getSceneOverridesStore (copy), Signals (copy), PhotoboothStoreBridge (copy), FFlagUseUpdatedBackgroundSceneSettingsOnMobile (copy), GetFIntAvatarEditorParticleEmitterRateOverride (copy), ReplicatedStorage (copy), AvatarScreen (copy), Utils (copy)
+	p28.colorCorrection.TintColor = Color3.fromRGB(255, 255, 255)
+
+	if SharedFlags.FFlagEnableCoreContentTheme and not p28.newBackgroundScene:FindFirstChild("SkyboxBlocker") then
+		local clone = p28.newBackgroundScene.BackPanel:Clone()
+
+		clone.Name = "SkyboxBlocker"
+		clone.Material = Enum.Material.SmoothPlastic
+		clone.Size = Vector3.new(v18, v19, v20)
+		clone.Position = Vector3.new(v21, v22, v23)
+
+		for _, v109 in clone:GetChildren() do
+			v109:Destroy()
+		end
+
+		clone.Parent = p28.newBackgroundScene
+	end
+
+	p28:updateTheme(p28.theme)
+
+	local name = p28.avatarRoute.current.name
+	local v111 = string.lower(NotificationService.SelectedTheme)
+
+	if v111 ~= p28.theme then
+		p28:updateTheme(v111)
+	end
+
+	table.insert(p28.connections, p28.store.changed:connect(function(p29, p30) -- line: 687
+		-- upvalues: p28 (copy)
+		local avatarRoute = p28.avatarRoute
+
+		p28:update(p29, p30, avatarRoute, avatarRoute)
+	end))
+	table.insert(p28.connections, NotificationService:GetPropertyChangedSignal("SelectedTheme"):Connect(function() -- line: 695
+		-- upvalues: FFlagAXPhotoboothFunctionality (copy), p28 (copy), NotificationService (copy)
+		if FFlagAXPhotoboothFunctionality and (p28.currentScene and p28.currentSceneLighting) then
+			return
+		end
+
+		p28:updateTheme(string.lower(NotificationService.SelectedTheme))
+	end))
+
+	if SharedFlags.FFlagEnableCoreContentTheme then
+		table.insert(p28.connections, {
+			disconnect = getSceneOverridesStore().subscribe(function(_) -- line: 709
+				-- upvalues: p28 (copy)
+				p28:updateTheme(p28.theme)
+			end)
+		})
+	end
+
+	if FFlagAXPhotoboothFunctionality then
+		table.insert(p28.connections, Signals.createEffect(function(p32) -- line: 719
+			-- upvalues: PhotoboothStoreBridge (copy), p28 (copy)
+			local v154 = PhotoboothStoreBridge.getStore()
+
+			if not v154 then
+				return
+			end
+
+			local v155 = v154.getSelectedSceneId(p32)
+
+			p28.changeSceneTask = task.spawn(function() -- line: 727
+				-- upvalues: p28 (copy), v155 (copy)
+				p28:pickScene(v155)
+			end)
+		end))
+	end
+
+	local n1 = 20
+
+	p28.newBackgroundScene.BlobShadow.Decal.Transparency = 0.4
+
+	if FFlagUseUpdatedBackgroundSceneSettingsOnMobile then
+		local BlobShadowSize = p28.newBackgroundScene.BlobShadow.Size
+		local v114 = math.sqrt(BlobShadowSize.X * BlobShadowSize.Z * 0.7)
+
+		p28.newBackgroundScene.BlobShadow.Size = Vector3.new(v114, BlobShadowSize.Y, v114)
+		p28.newBackgroundScene.BlobShadow.Position = Vector3.new(0, -0.10000000149011612, 0)
+	end
+
+	local num = tonumber(GetFIntAvatarEditorParticleEmitterRateOverride())
+
+	if num > 0 then
+		n1 = num
+	end
+
+	for _, v117 in p28.particleStorage do
+		for _, v119 in v117 do
+			v119.Rate = n1
+		end
+	end
+
+	p28:startLighting()
+
+	if FFlagAXPhotoboothFunctionality then
+		if not ReplicatedStorage:FindFirstChild("PhotoboothScenes") then
+			p28.scenesFolder = Instance.new("Folder")
+			p28.scenesFolder.Parent = ReplicatedStorage
+			p28.scenesFolder.Name = "PhotoboothScenes"
+		end
+
+		p28:pickScene()
+	else
+		p28.newBackgroundScene.Parent = game.Workspace
+	end
+
+	if name == AvatarScreen.AvatarEditor or name == AvatarScreen.AvatarExperienceLandingPage or name == AvatarScreen.Catalog or Utils.isAvatarBackground(name) or name == AvatarScreen.ProfilePictureEditorEmotes then
+		p28:transitionInstant(name)
+	end
+
+	p28.ParticleEffectManager:start()
+
+	if Utils.isAvatarBackground(name) then
+		p28:playParticleEmitters(name)
+	end
+end
+
+if FFlagAXPhotoboothFunctionality then
+	function t1.updateSceneLighting(p33, p34) -- line: 787
+		-- upvalues: Lighting (copy)
+		if not p34 then
+			p33.currentSceneLighting = nil
+			p33:startLighting()
+			p33:updateTheme(p33.theme)
+
+			return
+		end
+
+		p33.currentSceneLighting = p34
+
+		for _, v123 in {
+			"Brightness",
+			"Ambient",
+			"ColorShift_Top",
+			"ColorShift_Bottom",
+			"OutdoorAmbient",
+			"ShadowSoftness",
+			"ClockTime",
+			"FogStart",
+			"FogEnd",
+			"FogColor"
+		} do
+			if p34[v123] ~= nil then
+				Lighting[v123] = p34[v123]
+			end
+		end
+	end
+	function t1.pickScene(t10: {[any]: any}, s1: string) -- line: 821
+		-- upvalues: PhotoboothStoreBridge (copy), PhotoboothSceneData (copy), ReplicatedStorage (copy), InsertService (copy)
+		if t10.changeSceneTask then
+			task.cancel(t10.changeSceneTask)
+		end
+
+		if not s1 then
+			local v126 = PhotoboothStoreBridge.getStore()
+
+			s1 = not v126 and "" or v126.getSelectedSceneId(false)
+		end
+
+		local v127 = PhotoboothSceneData.PHOTOBOOTH_SCENES[s1]
+
+		if not v127 then
+			warn("BackgroundSceneManager: Unknown scene ID:", s1)
+
+			return
+		end
+
+		if t10.currentScene then
+			t10.currentScene.Parent = t10.scenesFolder
+			t10.currentScene = nil
+		end
+
+		if s1 == "" then
+			t10.newBackgroundScene.Parent = game.Workspace
+			t10.currentScene = nil
+			t10:updateSceneLighting(nil)
+			t10:updateTheme(t10.theme)
+		else
+			t10.newBackgroundScene.Parent = ReplicatedStorage
+
+			if v127.asset then
+				local id
+
+				if t10.scenesFolder:FindFirstChild(v127.id) then
+					id = t10.scenesFolder:FindFirstChild(v127.id)
+				else
+					id = InsertService:LoadLocalAsset(v127.asset)
+					id.Name = v127.id
+					id.Parent = t10.scenesFolder
+
+					if v127.position then
+						id:SetPrimaryPartCFrame(CFrame.new(v127.position))
+					end
+
+					if v127.rotation then
+						id:SetPrimaryPartCFrame(id:GetPrimaryPartCFrame() * v127.rotation)
+					end
+				end
+
+				t10.currentScene = id
+				t10.currentScene.Parent = game.Workspace
+
+				if v127.lighting then
+					t10:updateSceneLighting(v127.lighting)
+				else
+					t10:updateSceneLighting(nil)
+					t10:updateTheme(t10.theme)
+				end
+			end
+		end
+
+		t10.changeSceneTask = nil
+	end
+end
+
+function t1.stop(p35) -- line: 897
+	-- upvalues: FFlagAXPhotoboothFunctionality (copy), ReplicatedStorage (copy), ParticleType (copy)
+	for _, v131 in p35.connections do
+		if FFlagAXPhotoboothFunctionality and typeof(v131) == "function" then
+			v131()
+		else
+			v131:disconnect()
+		end
+	end
+
+	if FFlagAXPhotoboothFunctionality and p35.currentScene then
+		p35.currentScene.Parent = p35.scenesFolder
+	end
+
+	p35.connections = {}
+	p35.newBackgroundScene.Parent = ReplicatedStorage
+	p35.ParticleEffectManager:stop()
+
+	for v132, v133 in p35.particleStorage do
+		for _, v135 in v133 do
+			v135.Parent = if v132 ~= ParticleType.AvatarEditorToCatalog then p35.newBackgroundScene.CatalogToAvatarEditorPFX else p35.newBackgroundScene.AvatarEditorToCatalogPFX
+		end
+	end
+end
+function t1.onDestroy(p36) -- line: 924
+	p36.ParticleEffectManager:onDestroy()
+end
+function t1.updateAvatarRoute(p37, p38, p39) -- line: 928
+	p37.avatarRoute = p38
+
+	local v140 = p37.store:getState()
+
+	p37:update(v140, v140, p38, p39)
+end
+
+return t1

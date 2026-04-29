@@ -1,1 +1,1 @@
-return game:DefineFastFlag("ExpChatEnableV2ChatWindow", false);
+return game:DefineFastFlag("ExpChatEnableV2ChatWindow3", false)

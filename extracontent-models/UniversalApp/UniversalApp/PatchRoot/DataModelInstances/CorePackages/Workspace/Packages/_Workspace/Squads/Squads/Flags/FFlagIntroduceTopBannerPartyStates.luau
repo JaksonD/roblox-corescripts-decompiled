@@ -1,3 +1,3 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Squads");
-local l_SquadCoordinationUIChangesExperimentation_0 = require(l_script_FirstAncestor_0.dependencies).SocialExperiments.SquadCoordinationUIChangesExperimentation;
-return game:DefineFastFlag("IntroduceTopBannerPartyStates3", false) and l_SquadCoordinationUIChangesExperimentation_0.getPartyCoordinationUiChangesEnabled();
+local Squads = script:FindFirstAncestor("Squads")
+
+return require(Squads.dependencies).SocialExperiments.SquadCoordinationUIChangesExperimentation.getPartyCoordinationUiChangesEnabled()

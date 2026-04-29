@@ -1,258 +1,287 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Modules");
-local v2 = require(l_CorePackages_0.Packages.React);
-local v3 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux);
-local l_Selectors_0 = v3.Selectors;
-local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
-local v6 = require(l_CorePackages_0.Workspace.Packages.SocialLuaAnalytics);
-local v7 = require(l_CorePackages_0.Workspace.Packages.PeekView);
-local v8 = require(l_CorePackages_0.Workspace.Packages.RoactUtils);
-local v9 = require(l_CorePackages_0.Workspace.Packages.UserProfiles);
-local v10 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.ProfilePlatformNavigator);
-local v11 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.ProfileWrapperContext);
-local l_useSelector_0 = v8.Hooks.RoactRodux.useSelector;
-local v13 = require(l_script_FirstAncestor_0.LuaApp.Navigation.AndroidBackButtonNavigationHandler.Container);
-local v14 = require(l_script_FirstAncestor_0.LuaApp.Navigation.isRootRouteInRN);
-local v15 = require(l_script_FirstAncestor_0.LuaApp.Thunks.NavigateDown);
-local v16 = require(l_script_FirstAncestor_0.LuaApp.Thunks.NavigateDownTo3DQRCodePage);
-local v17 = require(l_script_FirstAncestor_0.LuaApp.AppPage);
-local v18 = require(l_script_FirstAncestor_0.LuaApp.Components.BrowserServiceWrapper);
-local l_dependencyArray_0 = v8.Hooks.dependencyArray;
-local l_useRoactService_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useRoactService;
-local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-local l_HttpService_0 = game:GetService("HttpService");
-local l_Enums_0 = require(l_CorePackages_0.Workspace.Packages.FriendsNetworking).Enums;
-local l_ProfileTypes_0 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums).ProfileTypes;
-local l_useDispatch_0 = v8.Hooks.RoactRodux.useDispatch;
-local l_Contexts_0 = v6.Analytics.Enums.Contexts;
-local l_useNavigationProps_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppNavigation).useNavigationProps;
-local l_NavigateBack_0 = v3.Thunks.NavigateBack;
-local l_DefaultAnalyticsService_0 = v6.Analytics.DefaultAnalyticsService;
-local l_peekViewDismissedEvent_0 = v7.analytics.peekViewDismissedEvent;
-local v31 = require(l_script_FirstAncestor_0.AvatarExperience.Common.Constants);
-local v32 = require(l_script_FirstAncestor_0.AvatarExperience.Common.Thunks.OpenAppItemDetails);
-local v33 = require(l_CorePackages_0.Packages.LuaSocialLibrariesDeps);
-local v34 = require(l_script_FirstAncestor_0.LuaApp.Thunks.OpenCentralOverlayForLeaveRobloxAlert);
-local v35 = require(l_script_FirstAncestor_0.LuaApp.Thunks.CloseCentralOverlay);
-local l_getDeepValue_0 = v33.SocialLibraries.config({}).Dictionary.getDeepValue;
-local l_FFlagProfilePlatformEnableStore_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagProfilePlatformEnableStore;
-local l_FFlagProfilePlatformEnableImpressions_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagProfilePlatformEnableImpressions;
-local v39 = require(l_script_FirstAncestor_0.AvatarExperience.Catalog.Thunks.NavigateToSearch);
-local v40 = require(l_script_FirstAncestor_0.AvatarExperience.Catalog.Actions.SetCreatorFilter);
-local l_ImpressionEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).Enums.ImpressionEnums;
-local v42 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagAddSocialLinksToCommunityProfile_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAddSocialLinksToCommunityProfile;
-local l_FFlagEnablePlatformProfileContextualMenuOption_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption;
-local l_FFlagAddIEMProfilePage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAddIEMProfilePage;
-local v46 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.FFlagProfilePlatformEnableEditAppearanceMenu);
-local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagProfilePlatformEnableCurrencyTransfer;
-local v48 = require(l_script_FirstAncestor_0.AvatarExperience.Catalog.Services.Analytics);
-local l_FFlagAXFixPurchaseSurfaceLogging_0 = v42.FFlagAXFixPurchaseSurfaceLogging;
-local v50 = require(l_script_FirstAncestor_0.AvatarExperience.Common.Utils);
-local l_FFlagRemoveDependencyArrayAntipattern_0 = v42.FFlagRemoveDependencyArrayAntipattern;
-local l_FFlagUseNavigationSelectors_0 = v42.FFlagUseNavigationSelectors;
-local l_AvatarEditorCategories_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceSlotBasedEditor).Enums.AvatarEditorCategories;
-local l_FFlagEnableMobileGameJoinCard_0 = v42.FFlagEnableMobileGameJoinCard;
-local function v83(v55) --[[ Line: 70 ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useRoactService_0 (copy), v48 (copy), l_useNavigationProps_0 (copy), l_FFlagEnableMobileGameJoinCard_0 (copy), l_Enums_0 (copy), l_useSelector_0 (copy), l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), l_getDeepValue_0 (copy), l_FFlagEnablePlatformProfileContextualMenuOption_0 (copy), v9 (copy), l_ProfileTypes_0 (copy), l_FFlagProfilePlatformEnableImpressions_0 (copy), v2 (copy), l_HttpService_0 (copy), v16 (copy), l_Contexts_0 (copy), l_peekViewDismissedEvent_0 (copy), l_DefaultAnalyticsService_0 (copy), l_NavigateBack_0 (copy), v32 (copy), v31 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), l_ImpressionEnums_0 (copy), l_FFlagProfilePlatformEnableStore_0 (copy), v40 (copy), v39 (copy), l_FFlagAddIEMProfilePage_0 (copy), v46 (copy), l_AvatarScreen_0 (copy), v50 (copy), l_AvatarEditorCategories_0 (copy), v15 (copy), v17 (copy), v18 (copy), l_FFlagAddSocialLinksToCommunityProfile_0 (copy), v34 (copy), v35 (copy), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v11 (copy), v10 (copy), v13 (copy), v14 (copy)
-    local v56 = l_useDispatch_0();
-    local v57 = l_useNavigation_0();
-    local v58 = l_useRoactService_0(v48);
-    local v61 = l_useNavigationProps_0(function(v59, v60) --[[ Line: 75 ]]
-        -- upvalues: l_FFlagEnableMobileGameJoinCard_0 (ref)
-        return {
-            profileId = v59, 
-            profileType = v60.profileType, 
-            absolutePosition = v60.absolutePosition, 
-            source = v60.source, 
-            contextualInfoType = v60.contextualInfoType, 
-            contextualInfoDisplay = v60.contextualInfoDisplay, 
-            profileUserNickname = v60.profileUserNickname, 
-            sessionIdOverride = v60.sessionIdOverride, 
-            isRecommendation = v60.isRecommendation, 
-            recommendationContextType = v60.recommendationContextType, 
-            recommendationSessionId = v60.recommendationSessionId, 
-            recommendationRank = v60.recommendationRank, 
-            offNetworkFriendRequestToken = v60.offNetworkFriendRequestToken, 
-            shareLinkId = v60.shareLinkId, 
-            friendshipOriginSourceType = v60.friendshipOriginSourceType, 
-            initialPresence = v60.initialPresence, 
-            mountAsFullView = if l_FFlagEnableMobileGameJoinCard_0 then v60.mountAsFullView else nil
-        };
-    end);
-    local v62 = l_Enums_0.FriendshipOriginSourceType.UserProfile.rawValue();
-    if v61.source == "playerSearch" then
-        v62 = l_Enums_0.FriendshipOriginSourceType.PlayerSearch.rawValue();
-    elseif v61.isRecommendation then
-        v62 = l_Enums_0.FriendshipOriginSourceType.FriendRecommendations.rawValue();
-    elseif v61.friendshipOriginSourceType then
-        v62 = v61.friendshipOriginSourceType;
-    end;
-    local v65 = l_useSelector_0(function(v63) --[[ Line: 106 ]]
-        -- upvalues: l_FFlagUseNavigationSelectors_0 (ref), l_Selectors_0 (ref), l_getDeepValue_0 (ref)
-        if l_FFlagUseNavigationSelectors_0 then
-            return l_Selectors_0.selectCurrentPageName(v63);
-        else
-            local v64 = l_getDeepValue_0(v63, "Navigation.history") or {};
-            return ((v64[#v64] or {})[#v64] or {}).name;
-        end;
-    end);
-    local v66 = if l_FFlagEnablePlatformProfileContextualMenuOption_0 then v9.Hooks.useUserProfilesFetch({
-        userIds = {
-            v61.profileId
-        }, 
-        query = v9.Queries.userProfilesPlatformProfileIdsByUserIds
-    }) else nil;
-    local v67 = if l_FFlagEnablePlatformProfileContextualMenuOption_0 and v66.data then v9.Selectors.getPlatformProfileIdFromId(v66.data, v61.profileId) else nil;
-    local v68 = tostring(v61.profileId);
-    local v69 = v61.profileType or l_ProfileTypes_0.User;
-    local v70 = if l_FFlagProfilePlatformEnableImpressions_0 then v2.useMemo(function() --[[ Line: 131 ]]
-        -- upvalues: v61 (copy), l_HttpService_0 (ref)
-        return v61.sessionIdOverride or l_HttpService_0:GenerateGUID(false);
-    end, {
-        v61.sessionIdOverride
-    }) else nil;
-    local v82 = v2.useMemo(function() --[[ Line: 139 ]]
-        -- upvalues: v56 (copy), v16 (ref), l_Contexts_0 (ref), l_peekViewDismissedEvent_0 (ref), l_DefaultAnalyticsService_0 (ref), v65 (copy), l_NavigateBack_0 (ref), v32 (ref), v31 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref), l_FFlagProfilePlatformEnableStore_0 (ref), v40 (ref), v39 (ref), v57 (copy), l_FFlagAddIEMProfilePage_0 (ref), v46 (ref), l_AvatarScreen_0 (ref), v50 (ref), l_AvatarEditorCategories_0 (ref), v15 (ref), v17 (ref), v18 (ref), l_FFlagAddSocialLinksToCommunityProfile_0 (ref), v34 (ref), v35 (ref), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (ref), v58 (copy), v61 (copy), v62 (ref), l_FFlagProfilePlatformEnableImpressions_0 (ref), v70 (copy), v68 (copy), v67 (copy), v69 (copy), l_FFlagEnableMobileGameJoinCard_0 (ref)
-        return {
-            navigateTo = {
-                qRCodePage = function() --[[ Line: 142 ]] --[[ Name: qRCodePage ]]
-                    -- upvalues: v56 (ref), v16 (ref), l_Contexts_0 (ref)
-                    v56(v16({
-                        source = l_Contexts_0.ProfileCard
-                    }));
-                end, 
-                previousView = function(v71) --[[ Line: 147 ]] --[[ Name: previousView ]]
-                    -- upvalues: l_peekViewDismissedEvent_0 (ref), l_DefaultAnalyticsService_0 (ref), v65 (ref), v56 (ref), l_NavigateBack_0 (ref)
-                    if v71 then
-                        l_peekViewDismissedEvent_0.logEvent(l_DefaultAnalyticsService_0.EventStream, "ProfilePeekView", {
-                            dismissMethod = l_peekViewDismissedEvent_0.dismissMethodEnum.topBarTap, 
-                            page = v65
-                        });
-                    end;
-                    local v72 = not v71 or nil;
-                    v56(l_NavigateBack_0(v72));
-                end, 
-                itemDetails = function(v73) --[[ Line: 159 ]] --[[ Name: itemDetails ]]
-                    -- upvalues: v56 (ref), v32 (ref), v31 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref)
-                    v56(v32(v73, v31.ItemType.Asset, nil, l_FFlagAXFixPurchaseSurfaceLogging_0 and true or nil, if l_FFlagAXFixPurchaseSurfaceLogging_0 then l_ImpressionEnums_0.MarketplaceSurfaceType.USER_PROFILE else nil));
-                end, 
-                itemOrBundleDetails = l_FFlagProfilePlatformEnableStore_0 and function(v74, v75) --[[ Line: 173 ]]
-                    -- upvalues: v56 (ref), v32 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref)
-                    v56(v32(v74, v75, nil, l_FFlagAXFixPurchaseSurfaceLogging_0 and true or nil, if l_FFlagAXFixPurchaseSurfaceLogging_0 then l_ImpressionEnums_0.MarketplaceSurfaceType.USER_PROFILE else nil));
-                end or nil, 
-                catalogSearch = l_FFlagProfilePlatformEnableStore_0 and function(v76) --[[ Line: 188 ]]
-                    -- upvalues: v56 (ref), v40 (ref), v39 (ref), v57 (ref)
-                    v56(v40(v76));
-                    v56(v39(v57, {}));
-                end or nil, 
-                inspectAvatar = l_FFlagAddIEMProfilePage_0 and function() --[[ Line: 193 ]]
+local CorePackages = game:GetService("CorePackages")
+local Modules = script:FindFirstAncestor("Modules")
+local React = require(CorePackages.Packages.React)
+local NavigationRodux = require(CorePackages.Workspace.Packages.NavigationRodux)
+local Selectors = NavigationRodux.Selectors
+local useNavigation = require(CorePackages.Workspace.Packages.Navigation).useNavigation
+local SocialLuaAnalytics = require(CorePackages.Workspace.Packages.SocialLuaAnalytics)
+local PeekView = require(CorePackages.Workspace.Packages.PeekView)
+local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local ProfilePlatformNavigator = require(CorePackages.Workspace.Packages.ProfilePlatform.ProfilePlatformNavigator)
+local ProfileWrapperContext = require(CorePackages.Workspace.Packages.ProfilePlatform.ProfileWrapperContext)
+local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
+local Container = require(Modules.LuaApp.Navigation.AndroidBackButtonNavigationHandler.Container)
+local isRootRouteInRN = require(Modules.LuaApp.Navigation.isRootRouteInRN)
+local NavigateDown = require(Modules.LuaApp.Thunks.NavigateDown)
+local NavigateDownTo3DQRCodePage = require(Modules.LuaApp.Thunks.NavigateDownTo3DQRCodePage)
+local AppPage = require(Modules.LuaApp.AppPage)
+local BrowserServiceWrapper = require(Modules.LuaApp.Components.BrowserServiceWrapper)
+local dependencyArray = RoactUtils.Hooks.dependencyArray
+local useRoactService = require(CorePackages.Workspace.Packages.RobloxAppHooks).useRoactService
+local AvatarScreen = require(CorePackages.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen
+local HttpService = game:GetService("HttpService")
+local Enums = require(CorePackages.Workspace.Packages.FriendsNetworking).Enums
+local ProfileTypes = require(CorePackages.Workspace.Packages.ProfilePlatform.Enums).ProfileTypes
+local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
+local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
+local useNavigationProps = require(CorePackages.Workspace.Packages.RobloxAppNavigation).useNavigationProps
+local NavigateBack = NavigationRodux.Thunks.NavigateBack
+local DefaultAnalyticsService = SocialLuaAnalytics.Analytics.DefaultAnalyticsService
+local peekViewDismissedEvent = PeekView.analytics.peekViewDismissedEvent
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local OpenAppItemDetails = require(Modules.AvatarExperience.Common.Thunks.OpenAppItemDetails)
+local UpdateAvatarEquips = require(Modules.AvatarExperience.AvatarEditor.Actions.UpdateAvatarEquips)
+local LuaSocialLibrariesDeps = require(CorePackages.Packages.LuaSocialLibrariesDeps)
+local OpenCentralOverlayForLeaveRobloxAlert = require(Modules.LuaApp.Thunks.OpenCentralOverlayForLeaveRobloxAlert)
+local CloseCentralOverlay = require(Modules.LuaApp.Thunks.CloseCentralOverlay)
+local getDeepValue = LuaSocialLibrariesDeps.SocialLibraries.config({}).Dictionary.getDeepValue
+local FFlagProfilePlatformEnableStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagProfilePlatformEnableStore
+local FFlagProfilePlatformEnableImpressions = require(CorePackages.Workspace.Packages.SharedFlags).FFlagProfilePlatformEnableImpressions
+local NavigateToSearch = require(Modules.AvatarExperience.Catalog.Thunks.NavigateToSearch)
+local SetCreatorFilter = require(Modules.AvatarExperience.Catalog.Actions.SetCreatorFilter)
+local ImpressionEnums = require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).Enums.ImpressionEnums
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAddSocialLinksToCommunityProfile = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAddSocialLinksToCommunityProfile
+local FFlagEnablePlatformProfileContextualMenuOption = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption
+local FFlagAddIEMProfilePage = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAddIEMProfilePage
+local FFlagProfilePlatformEnableEditAppearanceMenu = require(CorePackages.Workspace.Packages.ProfilePlatform.FFlagProfilePlatformEnableEditAppearanceMenu)
+local FFlagProfilePlatformEnableCurrencyTransfer = require(CorePackages.Workspace.Packages.SharedFlags).FFlagProfilePlatformEnableCurrencyTransfer
+local FFlagSocialEnableProfileInspectAndBuy = require(CorePackages.Workspace.Packages.SharedFlags).FFlagSocialEnableProfileInspectAndBuy
+local Analytics = require(Modules.AvatarExperience.Catalog.Services.Analytics)
+local FFlagAXFixPurchaseSurfaceLogging = SharedFlags.FFlagAXFixPurchaseSurfaceLogging
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+local FFlagRemoveDependencyArrayAntipattern = SharedFlags.FFlagRemoveDependencyArrayAntipattern
+local FFlagUseNavigationSelectors = SharedFlags.FFlagUseNavigationSelectors
+local AvatarEditorCategories = require(CorePackages.Workspace.Packages.AvatarExperienceSlotBasedEditor).Enums.AvatarEditorCategories
+local FFlagEnableMobileGameJoinCard = SharedFlags.FFlagEnableMobileGameJoinCard
 
-                end or nil, 
-                editAvatar = function() --[[ Line: 194 ]] --[[ Name: editAvatar ]]
-                    -- upvalues: v46 (ref), v57 (ref), l_AvatarScreen_0 (ref)
-                    if v46 then
-                        v57.navigate(l_AvatarScreen_0.Catalog);
-                        return;
-                    else
-                        v57.navigate(l_AvatarScreen_0.AvatarEditor);
-                        return;
-                    end;
-                end, 
-                editEmotes = v46 and function() --[[ Line: 202 ]]
-                    -- upvalues: v50 (ref), l_AvatarEditorCategories_0 (ref), v57 (ref), l_AvatarScreen_0 (ref)
-                    local v77 = v50.resolveEditorCategory(l_AvatarEditorCategories_0.Emotes);
-                    v57.navigate(l_AvatarScreen_0.AvatarEditor, {
-                        category = v77
-                    });
-                end or nil, 
-                switchAvatar = v46 and function() --[[ Line: 209 ]]
-                    -- upvalues: v50 (ref), l_AvatarEditorCategories_0 (ref), v57 (ref), l_AvatarScreen_0 (ref)
-                    local v78 = v50.resolveEditorCategory(l_AvatarEditorCategories_0.Avatars);
-                    v57.navigate(l_AvatarScreen_0.AvatarEditor, {
-                        category = v78
-                    });
-                end or nil, 
-                editUsername = function(v79) --[[ Line: 215 ]] --[[ Name: editUsername ]]
-                    -- upvalues: v56 (ref), v15 (ref), v17 (ref), v18 (ref)
-                    v56(v15({
-                        name = v17.EditUsername, 
-                        extraProps = {
-                            BrowserWrapperComponent = v18, 
-                            showToast = v79.showToast, 
-                            onUsernameChanged = v79.onUsernameChanged
-                        }
-                    }));
-                end, 
-                openLeaveRobloxAlertUIBlox = l_FFlagAddSocialLinksToCommunityProfile_0 and function(v80) --[[ Line: 229 ]]
-                    -- upvalues: v56 (ref), v34 (ref)
-                    v56(v34(v80));
-                end or nil, 
-                closeLeaveRobloxAlert = l_FFlagAddSocialLinksToCommunityProfile_0 and function() --[[ Line: 234 ]]
-                    -- upvalues: v56 (ref), v35 (ref)
-                    v56(v35());
-                end or nil, 
-                navigateToTransfer = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and function(v81) --[[ Line: 239 ]]
-                    -- upvalues: v56 (ref), v15 (ref), v17 (ref)
-                    v56(v15({
-                        name = v17.TransferRobuxFlow, 
-                        extraProps = {
-                            direction = v81.direction, 
-                            recipientUserId = v81.recipientUserId, 
-                            transferId = v81.transferId, 
-                            transferOrigination = v81.transferOrigination
-                        }
-                    }));
-                end or nil
-            }, 
-            externalAnalytics = {
-                catalogAnalytics = v58
-            }, 
-            sourceInfo = {
-                homepageCarouselAbsolutePosition = v61.absolutePosition, 
-                source = v61.source, 
-                contextualInfoType = v61.contextualInfoType, 
-                contextualOverride = v61.contextualInfoDisplay, 
-                isRecommendation = v61.isRecommendation, 
-                recommendationContextType = v61.recommendationContextType, 
-                recommendationSessionId = v61.recommendationSessionId, 
-                recommendationRank = v61.recommendationRank, 
-                friendshipOriginSourceType = v62, 
-                shareLinkId = v61.shareLinkId
-            }, 
-            profileSessionId = if l_FFlagProfilePlatformEnableImpressions_0 then v70 else nil, 
-            profileId = v68, 
-            profilePlatformId = v67, 
-            profileType = v69, 
-            profileUserNickname = v61.profileUserNickname, 
-            sessionIdOverride = if l_FFlagProfilePlatformEnableImpressions_0 then nil else v61.sessionIdOverride, 
-            offNetworkFriendRequestToken = v61.offNetworkFriendRequestToken, 
-            initialPresence = v61.initialPresence, 
-            mountAsFullView = if l_FFlagEnableMobileGameJoinCard_0 then v61.mountAsFullView else nil
-        };
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v68, 
-        v56, 
-        v65, 
-        v61.absolutePosition, 
-        v61.source, 
-        v58, 
-        v57
-    } else l_dependencyArray_0(v68, v56, v65, v61.absolutePosition, v61.source, v58, v57));
-    return v2.createElement(v11.Provider, {
-        value = v82
-    }, {
-        ProfilePlatformNavigator = v2.createElement(v10, v55), 
-        androidBackButtonNavigationHandler = v2.createElement(v13, {
-            canGoBackInRN = not v14(v57.state), 
-            navigateBackInRN = v57.pop
-        })
-    });
-end;
-local v84 = v2.PureComponent:extend("classWrapper");
-v84.render = function(v85) --[[ Line: 316 ]] --[[ Name: render ]]
-    -- upvalues: v2 (copy), v83 (copy)
-    return v2.createElement(v83, v85.props);
-end;
-v84.router = v10.router;
-return v84;
+local function v58(p1) -- line: 73
+	-- upvalues: useDispatch (copy), useNavigation (copy), useRoactService (copy), Analytics (copy), useNavigationProps (copy), FFlagEnableMobileGameJoinCard (copy), Enums (copy), useSelector (copy), FFlagUseNavigationSelectors (copy), Selectors (copy), getDeepValue (copy), FFlagEnablePlatformProfileContextualMenuOption (copy), UserProfiles (copy), ProfileTypes (copy), FFlagProfilePlatformEnableImpressions (copy), React (copy), HttpService (copy), NavigateDownTo3DQRCodePage (copy), Contexts (copy), peekViewDismissedEvent (copy), DefaultAnalyticsService (copy), NavigateBack (copy), OpenAppItemDetails (copy), Constants (copy), FFlagAXFixPurchaseSurfaceLogging (copy), ImpressionEnums (copy), FFlagProfilePlatformEnableStore (copy), SetCreatorFilter (copy), NavigateToSearch (copy), FFlagAddIEMProfilePage (copy), FFlagProfilePlatformEnableEditAppearanceMenu (copy), AvatarScreen (copy), Utils (copy), AvatarEditorCategories (copy), NavigateDown (copy), AppPage (copy), BrowserServiceWrapper (copy), FFlagAddSocialLinksToCommunityProfile (copy), OpenCentralOverlayForLeaveRobloxAlert (copy), CloseCentralOverlay (copy), FFlagProfilePlatformEnableCurrencyTransfer (copy), FFlagSocialEnableProfileInspectAndBuy (copy), UpdateAvatarEquips (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), ProfileWrapperContext (copy), ProfilePlatformNavigator (copy), Container (copy), isRootRouteInRN (copy)
+	local v61 = useDispatch()
+	local v62 = useNavigation()
+	local v63 = useRoactService(Analytics)
+	local v64 = useNavigationProps(function(p2, p3) -- line: 78
+		-- upvalues: FFlagEnableMobileGameJoinCard (copy)
+		return {
+			profileId = p2,
+			profileType = p3.profileType,
+			absolutePosition = p3.absolutePosition,
+			source = p3.source,
+			contextualInfoType = p3.contextualInfoType,
+			contextualInfoDisplay = p3.contextualInfoDisplay,
+			profileUserNickname = p3.profileUserNickname,
+			sessionIdOverride = p3.sessionIdOverride,
+			isRecommendation = p3.isRecommendation,
+			recommendationContextType = p3.recommendationContextType,
+			recommendationSessionId = p3.recommendationSessionId,
+			recommendationRank = p3.recommendationRank,
+			offNetworkFriendRequestToken = p3.offNetworkFriendRequestToken,
+			shareLinkId = p3.shareLinkId,
+			friendshipOriginSourceType = p3.friendshipOriginSourceType,
+			initialPresence = p3.initialPresence,
+			mountAsFullView = if not FFlagEnableMobileGameJoinCard then nil else p3.mountAsFullView
+		}
+	end)
+	local u65 = Enums.FriendshipOriginSourceType.UserProfile.rawValue()
+
+	if v64.source == "playerSearch" then
+		u65 = Enums.FriendshipOriginSourceType.PlayerSearch.rawValue()
+	elseif v64.isRecommendation then
+		u65 = Enums.FriendshipOriginSourceType.FriendRecommendations.rawValue()
+	elseif v64.friendshipOriginSourceType then
+		u65 = v64.friendshipOriginSourceType
+	end
+
+	local v66 = useSelector(function(p4) -- line: 109
+		-- upvalues: FFlagUseNavigationSelectors (copy), Selectors (copy), getDeepValue (copy)
+		if FFlagUseNavigationSelectors then
+			return Selectors.selectCurrentPageName(p4)
+		end
+
+		local v77 = getDeepValue(p4, "Navigation.history") or {}
+
+		return ((v77[#v77] or {})[#v77] or {}).name
+	end)
+	local v67 = if not FFlagEnablePlatformProfileContextualMenuOption then nil else UserProfiles.Hooks.useUserProfilesFetch({
+		userIds = { v64.profileId },
+		query = UserProfiles.Queries.userProfilesPlatformProfileIdsByUserIds
+	})
+	local v68 = if not FFlagEnablePlatformProfileContextualMenuOption or not v67.data then nil else UserProfiles.Selectors.getPlatformProfileIdFromId(v67.data, v64.profileId)
+	local str = tostring(v64.profileId)
+	local v70 = v64.profileType or ProfileTypes.User
+	local v71 = if not FFlagProfilePlatformEnableImpressions then nil else React.useMemo(function() -- line: 134
+		-- upvalues: v64 (copy), HttpService (copy)
+		return v64.sessionIdOverride or HttpService:GenerateGUID(false)
+	end, { v64.sessionIdOverride })
+	local v72 = React.useMemo(function() -- line: 142
+		-- upvalues: v61 (copy), NavigateDownTo3DQRCodePage (copy), Contexts (copy), peekViewDismissedEvent (copy), DefaultAnalyticsService (copy), v66 (copy), NavigateBack (copy), OpenAppItemDetails (copy), Constants (copy), FFlagAXFixPurchaseSurfaceLogging (copy), ImpressionEnums (copy), FFlagProfilePlatformEnableStore (copy), SetCreatorFilter (copy), NavigateToSearch (copy), v62 (copy), FFlagAddIEMProfilePage (copy), FFlagProfilePlatformEnableEditAppearanceMenu (copy), AvatarScreen (copy), Utils (copy), AvatarEditorCategories (copy), NavigateDown (copy), AppPage (copy), BrowserServiceWrapper (copy), FFlagAddSocialLinksToCommunityProfile (copy), OpenCentralOverlayForLeaveRobloxAlert (copy), CloseCentralOverlay (copy), FFlagProfilePlatformEnableCurrencyTransfer (copy), v63 (copy), FFlagSocialEnableProfileInspectAndBuy (copy), UpdateAvatarEquips (copy), v64 (copy), u65 (ref), FFlagProfilePlatformEnableImpressions (copy), v71 (copy), str (copy), v68 (copy), v70 (copy), FFlagEnableMobileGameJoinCard (copy)
+		return {
+			navigateTo = {
+				qRCodePage = function() --[[ qRCodePage ]] -- line: 145
+					-- upvalues: v61 (copy), NavigateDownTo3DQRCodePage (copy), Contexts (copy)
+					v61(NavigateDownTo3DQRCodePage({
+						source = Contexts.ProfileCard
+					}))
+				end,
+				previousView = function(b1: boolean?) --[[ previousView ]] -- line: 150
+					-- upvalues: peekViewDismissedEvent (copy), DefaultAnalyticsService (copy), v66 (copy), v61 (copy), NavigateBack (copy)
+					if b1 then
+						peekViewDismissedEvent.logEvent(DefaultAnalyticsService.EventStream, "ProfilePeekView", {
+							dismissMethod = peekViewDismissedEvent.dismissMethodEnum.topBarTap,
+							page = v66
+						})
+					end
+
+					local v79 = not b1 or nil
+
+					v61(NavigateBack(v79))
+				end,
+				itemDetails = function(s1: string) --[[ itemDetails ]] -- line: 162
+					-- upvalues: v61 (copy), OpenAppItemDetails (copy), Constants (copy), FFlagAXFixPurchaseSurfaceLogging (copy), ImpressionEnums (copy)
+					v61(OpenAppItemDetails(s1, Constants.ItemType.Asset, nil, not not FFlagAXFixPurchaseSurfaceLogging or nil, if not FFlagAXFixPurchaseSurfaceLogging then nil else ImpressionEnums.MarketplaceSurfaceType.USER_PROFILE))
+				end,
+				itemOrBundleDetails = if not FFlagProfilePlatformEnableStore then nil else function(s2: string, s3: string) -- line: 176
+					-- upvalues: v61 (copy), OpenAppItemDetails (copy), FFlagAXFixPurchaseSurfaceLogging (copy), ImpressionEnums (copy)
+					v61(OpenAppItemDetails(s2, s3, nil, not not FFlagAXFixPurchaseSurfaceLogging or nil, if not FFlagAXFixPurchaseSurfaceLogging then nil else ImpressionEnums.MarketplaceSurfaceType.USER_PROFILE))
+				end,
+				catalogSearch = if not FFlagProfilePlatformEnableStore then nil else function(s4: string) -- line: 191
+					-- upvalues: v61 (copy), SetCreatorFilter (copy), NavigateToSearch (copy), v62 (copy)
+					v61(SetCreatorFilter(s4))
+					v61(NavigateToSearch(v62, {}))
+				end,
+				inspectAvatar = if not FFlagAddIEMProfilePage then nil else function() -- line: 196
+				end,
+				editAvatar = function() --[[ editAvatar ]] -- line: 197
+					-- upvalues: FFlagProfilePlatformEnableEditAppearanceMenu (copy), v62 (copy), AvatarScreen (copy)
+					if FFlagProfilePlatformEnableEditAppearanceMenu then
+						v62.navigate(AvatarScreen.Catalog)
+
+						return
+					end
+
+					v62.navigate(AvatarScreen.AvatarEditor)
+				end,
+				editEmotes = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else function() -- line: 205
+					-- upvalues: Utils (copy), AvatarEditorCategories (copy), v62 (copy), AvatarScreen (copy)
+					local v84 = Utils.resolveEditorCategory(AvatarEditorCategories.Emotes)
+
+					v62.navigate(AvatarScreen.AvatarEditor, {
+						category = v84
+					})
+				end,
+				switchAvatar = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else function() -- line: 212
+					-- upvalues: Utils (copy), AvatarEditorCategories (copy), v62 (copy), AvatarScreen (copy)
+					local v85 = Utils.resolveEditorCategory(AvatarEditorCategories.Avatars)
+
+					v62.navigate(AvatarScreen.AvatarEditor, {
+						category = v85
+					})
+				end,
+				editUsername = function(t1: {[any]: any}) --[[ editUsername ]] -- line: 218
+					-- upvalues: v61 (copy), NavigateDown (copy), AppPage (copy), BrowserServiceWrapper (copy)
+					v61(NavigateDown({
+						name = AppPage.EditUsername,
+						extraProps = {
+							BrowserWrapperComponent = BrowserServiceWrapper,
+							showToast = t1.showToast,
+							onUsernameChanged = t1.onUsernameChanged
+						}
+					}))
+				end,
+				openLeaveRobloxAlertUIBlox = if not FFlagAddSocialLinksToCommunityProfile then nil else function(p5) -- line: 232
+					-- upvalues: v61 (copy), OpenCentralOverlayForLeaveRobloxAlert (copy)
+					v61(OpenCentralOverlayForLeaveRobloxAlert(p5))
+				end,
+				closeLeaveRobloxAlert = if not FFlagAddSocialLinksToCommunityProfile then nil else function() -- line: 237
+					-- upvalues: v61 (copy), CloseCentralOverlay (copy)
+					v61(CloseCentralOverlay())
+				end,
+				navigateToTransfer = if not FFlagProfilePlatformEnableCurrencyTransfer then nil else function(p6) -- line: 242
+					-- upvalues: v61 (copy), NavigateDown (copy), AppPage (copy)
+					v61(NavigateDown({
+						name = AppPage.TransferRobuxFlow,
+						extraProps = {
+							direction = p6.direction,
+							recipientUserId = p6.recipientUserId,
+							transferId = p6.transferId,
+							transferOrigination = p6.transferOrigination
+						}
+					}))
+				end
+			},
+			externalAnalytics = {
+				catalogAnalytics = v63
+			},
+			postPurchase = if not FFlagSocialEnableProfileInspectAndBuy then nil else {
+				wearAfterPurchase = function(p7) --[[ wearAfterPurchase ]] -- line: 267
+					-- upvalues: v61 (copy), UpdateAvatarEquips (copy)
+					local t2 = {}
+
+					for _, v92 in p7 do
+						table.insert(t2, {
+							assetTypeId = v92.assetTypeId,
+							assetId = v92.assetId
+						})
+					end
+
+					if #t2 > 0 then
+						v61(UpdateAvatarEquips({
+							assets = t2
+						}))
+					end
+				end
+			},
+			sourceInfo = {
+				homepageCarouselAbsolutePosition = v64.absolutePosition,
+				source = v64.source,
+				contextualInfoType = v64.contextualInfoType,
+				contextualOverride = v64.contextualInfoDisplay,
+				isRecommendation = v64.isRecommendation,
+				recommendationContextType = v64.recommendationContextType,
+				recommendationSessionId = v64.recommendationSessionId,
+				recommendationRank = v64.recommendationRank,
+				friendshipOriginSourceType = u65,
+				shareLinkId = v64.shareLinkId
+			},
+			profileSessionId = if not FFlagProfilePlatformEnableImpressions then nil else v71,
+			profileId = str,
+			profilePlatformId = v68,
+			profileType = v70,
+			profileUserNickname = v64.profileUserNickname,
+			sessionIdOverride = if not FFlagProfilePlatformEnableImpressions then v64.sessionIdOverride else nil,
+			offNetworkFriendRequestToken = v64.offNetworkFriendRequestToken,
+			initialPresence = v64.initialPresence,
+			mountAsFullView = if not FFlagEnableMobileGameJoinCard then nil else v64.mountAsFullView
+		}
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(str, v61, v66, v64.absolutePosition, v64.source, v63, v62) else {
+		str,
+		v61,
+		v66,
+		v64.absolutePosition,
+		v64.source,
+		v63,
+		v62
+	})
+
+	return React.createElement(ProfileWrapperContext.Provider, {
+		value = v72
+	}, {
+		ProfilePlatformNavigator = React.createElement(ProfilePlatformNavigator, p1),
+		androidBackButtonNavigationHandler = React.createElement(Container, {
+			canGoBackInRN = not isRootRouteInRN(v62.state),
+			navigateBackInRN = v62.pop
+		})
+	})
+end
+
+local v59 = React.PureComponent:extend("classWrapper")
+
+function v59.render(p8) -- line: 342
+	-- upvalues: React (copy), v58 (copy)
+	return React.createElement(v58, p8.props)
+end
+
+v59.router = ProfilePlatformNavigator.router
+
+return v59

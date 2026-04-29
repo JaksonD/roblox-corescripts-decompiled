@@ -1,139 +1,148 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Dash);
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v4 = require(l_script_FirstAncestor_0.Enums.ControlState);
-local v5 = require(l_script_FirstAncestor_0.Enums.InputSize);
-local v6 = require(l_script_FirstAncestor_0.Enums.IconSize);
-local _ = require(l_script_FirstAncestor_0.Enums.InputLabelSize);
-local v8 = require(l_script_FirstAncestor_0.Utility.composeStyleVariant);
-local _ = require(l_script_FirstAncestor_0.Providers.Style.Tokens);
-local v10 = require(l_script_FirstAncestor_0.Providers.Style.VariantsContext);
-local v11 = require(l_script_FirstAncestor_0.Utility.Flags);
-local function v18(_) --[[ Line: 40 ]] --[[ Name: variantsFactory ]]
-    -- upvalues: v5 (copy), v11 (copy), v6 (copy), v4 (copy), v2 (copy)
-    local v13 = {
-        container = {
-            tag = "row flex-x-between align-y-center stroke-standard stroke-position-inner"
-        }, 
-        text = {
-            tag = "auto-xy text-truncate-split shrink"
-        }
-    };
-    local v14 = {
-        [v5.XSmall] = {
-            container = {
-                tag = "radius-small padding-small gap-xxsmall size-full-600"
-            }, 
-            text = {
-                tag = "text-body-small"
-            }, 
-            arrow = {
-                size = if v11.FoundationDropdownControlIconFix then v6.XSmall else v5.Small
-            }
-        }, 
-        [v5.Small] = {
-            container = {
-                tag = "radius-medium padding-medium gap-xxsmall size-full-800"
-            }, 
-            text = {
-                tag = "text-body-small"
-            }, 
-            arrow = {
-                size = if v11.FoundationDropdownControlIconFix then v6.Small else v5.Small
-            }
-        }, 
-        [v5.Medium] = {
-            container = {
-                tag = "radius-medium padding-medium size-full-1000"
-            }, 
-            text = {
-                tag = "text-body-medium"
-            }, 
-            arrow = {
-                size = if v11.FoundationDropdownControlIconFix then v6.Medium else v5.Medium
-            }
-        }, 
-        [v5.Large] = {
-            container = {
-                tag = "radius-medium padding-medium size-full-1200"
-            }, 
-            text = {
-                tag = "text-body-large"
-            }, 
-            arrow = {
-                size = if v11.FoundationDropdownControlIconFix then v6.Large else v5.Large
-            }
-        }
-    };
-    local v15 = {
-        [v4.Disabled] = {
-            container = {
-                tag = "stroke-muted"
-            }, 
-            text = {
-                tag = "content-muted"
-            }
-        }, 
-        [v4.Initialize] = {
-            container = {
-                tag = "stroke-default"
-            }, 
-            text = {
-                tag = "content-default"
-            }
-        }, 
-        [v4.Default] = {
-            container = {
-                tag = "stroke-default"
-            }, 
-            text = {
-                tag = "content-default"
-            }
-        }, 
-        [v4.Hover] = {
-            container = {
-                tag = "stroke-emphasis"
-            }, 
-            text = {
-                tag = "content-emphasis"
-            }
-        }, 
-        [v4.Pressed] = {
-            container = {
-                tag = "stroke-emphasis"
-            }, 
-            text = {
-                tag = "content-emphasis"
-            }
-        }, 
-        Error = {
-            container = {
-                tag = "stroke-alert"
-            }, 
-            text = {
-                tag = "content-default"
-            }
-        }
-    };
-    local v17 = v2.map(v15, function(v16) --[[ Line: 101 ]]
-        -- upvalues: v2 (ref)
-        return v2.join(v16, {
-            text = {
-                tag = "content-muted"
-            }
-        });
-    end);
-    return {
-        common = v13, 
-        sizes = v14, 
-        states = v15, 
-        placeholderStates = v17
-    };
-end;
-return function(v19, v20, v21, v22, v23) --[[ Line: 115 ]]
-    -- upvalues: v10 (copy), v18 (copy), v8 (copy)
-    local v24 = v10.useVariants("Dropdown", v18, v19);
-    local v25 = v23 and "Error" or v21;
-    return v8(v24.common, v24.sizes[v20], if v22 then v24.placeholderStates[v25] else v24.states[v25]);
-end;
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local Dash = require(FoundationParent.Dash)
+
+require(Foundation.Components.Types)
+
+local ControlState = require(Foundation.Enums.ControlState)
+local InputSize = require(Foundation.Enums.InputSize)
+local IconSize = require(Foundation.Enums.IconSize)
+
+require(Foundation.Enums.InputLabelSize)
+
+local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
+
+require(Foundation.Providers.Style.Tokens)
+
+local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+
+local function variantsFactory(_) -- line: 38
+	-- upvalues: InputSize (copy), IconSize (copy), ControlState (copy), Dash (copy)
+	local t1 = {
+		container = {
+			tag = "row flex-x-between align-y-center stroke-standard stroke-position-inner"
+		},
+		text = {
+			tag = "shrink auto-xy text-truncate-split"
+		}
+	}
+	local t2 = {
+		[InputSize.XSmall] = {
+			container = {
+				tag = "gap-xxsmall size-full-600 padding-small radius-small"
+			},
+			text = {
+				tag = "text-body-small"
+			},
+			arrow = {
+				size = IconSize.XSmall
+			}
+		},
+		[InputSize.Small] = {
+			container = {
+				tag = "gap-xxsmall size-full-800 padding-medium radius-medium"
+			},
+			text = {
+				tag = "text-body-small"
+			},
+			arrow = {
+				size = IconSize.Small
+			}
+		},
+		[InputSize.Medium] = {
+			container = {
+				tag = "size-full-1000 padding-medium radius-medium"
+			},
+			text = {
+				tag = "text-body-medium"
+			},
+			arrow = {
+				size = IconSize.Medium
+			}
+		},
+		[InputSize.Large] = {
+			container = {
+				tag = "size-full-1200 padding-medium radius-medium"
+			},
+			text = {
+				tag = "text-body-large"
+			},
+			arrow = {
+				size = IconSize.Large
+			}
+		}
+	}
+	local t3 = {
+		[ControlState.Disabled] = {
+			container = {
+				tag = "stroke-muted"
+			},
+			text = {
+				tag = "content-muted"
+			}
+		},
+		[ControlState.Initialize] = {
+			container = {
+				tag = "stroke-default"
+			},
+			text = {
+				tag = "content-default"
+			}
+		},
+		[ControlState.Default] = {
+			container = {
+				tag = "stroke-default"
+			},
+			text = {
+				tag = "content-default"
+			}
+		},
+		[ControlState.Hover] = {
+			container = {
+				tag = "stroke-emphasis"
+			},
+			text = {
+				tag = "content-emphasis"
+			}
+		},
+		[ControlState.Pressed] = {
+			container = {
+				tag = "stroke-emphasis"
+			},
+			text = {
+				tag = "content-emphasis"
+			}
+		},
+		Error = {
+			container = {
+				tag = "stroke-alert"
+			},
+			text = {
+				tag = "content-default"
+			}
+		}
+	}
+	local v14 = Dash.map(t3, function(p2) -- line: 99
+		-- upvalues: Dash (copy)
+		return Dash.join(p2, {
+			text = {
+				tag = "content-muted"
+			}
+		})
+	end)
+
+	return {
+		common = t1,
+		sizes = t2,
+		states = t3,
+		placeholderStates = v14
+	}
+end
+
+return function(p3, p4, p5, b1: boolean, b2: boolean) -- line: 113
+	-- upvalues: VariantsContext (copy), variantsFactory (copy), composeStyleVariant (copy)
+	local v20 = VariantsContext.useVariants("Dropdown", variantsFactory, p3)
+	local v21 = if not b2 then p5 else "Error"
+
+	return composeStyleVariant(v20.common, v20.sizes[p4], if not b1 then v20.states[v21] else v20.placeholderStates[v21])
+end

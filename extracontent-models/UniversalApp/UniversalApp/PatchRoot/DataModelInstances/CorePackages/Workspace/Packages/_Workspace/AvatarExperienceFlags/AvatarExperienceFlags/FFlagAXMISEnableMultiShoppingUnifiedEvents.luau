@@ -1,1 +1,1 @@
-return require(script.Parent.FFlagAXMISEnableMultiShopping) and game:DefineFastFlag("AXMISEnableMultiShoppingUnifiedEvents", false);
+return require(script.Parent.FFlagAXMISEnableMultiShopping) and game:DefineFastFlag("AXMISEnableMultiShoppingUnifiedEvents2", false)

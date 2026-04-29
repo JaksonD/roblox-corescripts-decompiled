@@ -1,268 +1,283 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_IXPService_0 = game:GetService("IXPService");
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v4 = require(l_Modules_0.Common.Roact);
-local v5 = require(l_Modules_0.Common.RoactRodux);
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local l_RoactAnalyticsCommonGameEvents_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).RoactAnalyticsCommonGameEvents;
-local v8 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
-local l_AppGuiService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppGuiService;
-local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
-local v11 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v12 = require(l_Modules_0.LuaApp.AppPage);
-local v13 = require(l_Modules_0.LuaApp.Constants);
-local v14 = require(l_Modules_0.LuaApp.FitChildren);
-local v15 = require(l_Modules_0.LuaApp.withLocalization);
-local l_ApiFetchGamesDataByPlaceIds_0 = require(l_CorePackages_0.Workspace.Packages.GameDetailRodux).GamesByPlaceId.ApiFetchGamesDataByPlaceIds;
-local l_ConvertUniverseIdToString_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).ConvertUniverseIdToString;
-local v18 = require(l_CorePackages_0.Workspace.Packages.SocialLuaAnalytics);
-local v19 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.Enums);
-local v20 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.initializeProfileAnalytics);
-local v21 = require(l_CorePackages_0.Workspace.Packages.ProfilePlatform.EventNames);
-local l_FormFactor_0 = require(l_CorePackages_0.Workspace.Packages.FormFactor).Enums.FormFactor;
-local v23 = require(l_Modules_0.LuaApp.Enum.FeatureContext);
-local v24 = require(l_Modules_0.LuaApp.Enum.NotificationType);
-local v25 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
-local v26 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
-local v27 = require(l_Modules_0.LuaApp.Models.User);
-local v28 = require(l_Modules_0.LuaApp.Components.ListPicker);
-local v29 = require(l_Modules_0.LuaApp.Components.Home.UserActiveGame);
-local v30 = require(l_Modules_0.LuaApp.Components.FormBasedContextualMenu);
-local l_EnteredChatFromEntryPoint_0 = require(l_CorePackages_0.Workspace.Packages.AppChat).Actions.EnteredChatFromEntryPoint;
-local l_ChatEntryPointNames_0 = require(l_CorePackages_0.Workspace.Packages.SocialCommon).Enums.ChatEntryPointNames;
-local v33 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppUseWithLocalization);
-local v34 = require(l_CorePackages_0.Workspace.Packages.SocialStopwatch);
-local l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel;
-local v36 = game:DefineFastFlag("JoinGameCardViewProfileNavigateToProfilePlatform", false);
-local v37 = game:DefineFastFlag("JoinGameCardViewProfileEnableExposureLogging", false);
-local v38 = game:DefineFastString("JoinGameCardViewProfileExperimentLayer", "Social.ViewFriendSortInGameFriends");
-local v39 = v4.PureComponent:extend("PeopleListContextualMenu");
-local l_DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH_0 = v13.DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH;
+local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local IXPService = game:GetService("IXPService")
+local Modules = CoreGui.RobloxGui.Modules
+local Roact = require(Modules.Common.Roact)
+local RoactRodux = require(Modules.Common.RoactRodux)
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local RoactAnalyticsCommonGameEvents = require(CorePackages.Workspace.Packages.RoactServiceTags).RoactAnalyticsCommonGameEvents
+local RoactLocalization = require(Modules.LuaApp.Services.RoactLocalization)
+local AppGuiService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppGuiService
+local RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
+local RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
+local AppPage = require(Modules.LuaApp.AppPage)
+local Constants = require(Modules.LuaApp.Constants)
+local FitChildren = require(Modules.LuaApp.FitChildren)
+local withLocalization = require(Modules.LuaApp.withLocalization)
+local ApiFetchGamesDataByPlaceIds = require(CorePackages.Workspace.Packages.GameDetailRodux).GamesByPlaceId.ApiFetchGamesDataByPlaceIds
+local ConvertUniverseIdToString = require(CorePackages.Workspace.Packages.SharedFlags).ConvertUniverseIdToString
+local SocialLuaAnalytics = require(CorePackages.Workspace.Packages.SocialLuaAnalytics)
+local Enums = require(CorePackages.Workspace.Packages.ProfilePlatform.Enums)
+local initializeProfileAnalytics = require(CorePackages.Workspace.Packages.ProfilePlatform.initializeProfileAnalytics)
+local EventNames = require(CorePackages.Workspace.Packages.ProfilePlatform.EventNames)
+local FormFactor = require(CorePackages.Workspace.Packages.FormFactor).Enums.FormFactor
+local FeatureContext = require(Modules.LuaApp.Enum.FeatureContext)
+local NotificationType = require(Modules.LuaApp.Enum.NotificationType)
+local CloseCentralOverlay = require(Modules.LuaApp.Thunks.CloseCentralOverlay)
+local NavigateDown = require(Modules.LuaApp.Thunks.NavigateDown)
+local User = require(Modules.LuaApp.Models.User)
+local ListPicker = require(Modules.LuaApp.Components.ListPicker)
+local UserActiveGame = require(Modules.LuaApp.Components.Home.UserActiveGame)
+local FormBasedContextualMenu = require(Modules.LuaApp.Components.FormBasedContextualMenu)
+local EnteredChatFromEntryPoint = require(CorePackages.Workspace.Packages.AppChat).Actions.EnteredChatFromEntryPoint
+local ChatEntryPointNames = require(CorePackages.Workspace.Packages.SocialCommon).Enums.ChatEntryPointNames
+local GetFFlagLuaAppUseWithLocalization = require(Modules.LuaApp.Flags.GetFFlagLuaAppUseWithLocalization)
+local SocialStopwatch = require(CorePackages.Workspace.Packages.SocialStopwatch)
+local FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel = require(CorePackages.Workspace.Packages.SharedFlags).FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel
+local v37 = game:DefineFastFlag("JoinGameCardViewProfileNavigateToProfilePlatform", false)
+local v38 = game:DefineFastString("JoinGameCardViewProfileExperimentLayer", "Social.ViewFriendSortInGameFriends")
+local v39 = Roact.PureComponent:extend("PeopleListContextualMenu")
+local DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH = Constants.DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH
+
 v39.defaultProps = {
-    positionIndex = 0, 
-    absolutePosition = 0
-};
-v39.init = function(v41) --[[ Line: 70 ]] --[[ Name: init ]]
-    -- upvalues: v20 (copy), l_ChatEntryPointNames_0 (copy), v24 (copy), v37 (copy), l_IXPService_0 (copy), v38 (copy), v36 (copy), v12 (copy), v19 (copy), v27 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy)
-    local l_analytics_0 = v41.props.analytics;
-    local l_guiService_0 = v41.props.guiService;
-    local l_closeCentralOverlay_0 = v41.props.closeCentralOverlay;
-    local l_navigateDown_0 = v41.props.navigateDown;
-    local l_user_0 = v41.props.user;
-    local l_positionIndex_0 = v41.props.positionIndex;
-    local l_absolutePosition_0 = v41.props.absolutePosition;
-    local l_source_0 = v41.props.source;
-    v41.profileAnalytics = if v41.props.mockProfileAnalytics_dev then v41.props.mockProfileAnalytics_dev else v20();
-    v41.chatWithUser = function(v50) --[[ Line: 84 ]]
-        -- upvalues: l_analytics_0 (copy), l_positionIndex_0 (copy), l_absolutePosition_0 (copy), v41 (copy), l_source_0 (copy), l_ChatEntryPointNames_0 (ref), l_guiService_0 (copy), v24 (ref)
-        l_analytics_0.reportPeopleListInteraction("ChatDropdown", v50, l_positionIndex_0, l_absolutePosition_0, v41.props.analyticContext, {
-            source = l_source_0
-        });
-        v41.props.enteredChatFromEntryPoint(l_ChatEntryPointNames_0.PeopleListDropdown);
-        l_guiService_0:BroadcastNotification(v50, v24.LAUNCH_CONVERSATION);
-    end;
-    v41.viewProfile = function(v51) --[[ Line: 98 ]]
-        -- upvalues: l_analytics_0 (copy), l_positionIndex_0 (copy), l_absolutePosition_0 (copy), v41 (copy), v37 (ref), l_IXPService_0 (ref), v38 (ref), v36 (ref), l_navigateDown_0 (copy), v12 (ref), v19 (ref), l_closeCentralOverlay_0 (copy)
-        l_analytics_0.reportPeopleListInteraction("ProfileDropdown", v51, l_positionIndex_0, l_absolutePosition_0, v41.props.analyticContext);
-        if v37 then
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v38);
-        end;
-        if v36 then
-            l_navigateDown_0({
-                name = v12.ProfilePlatform, 
-                detail = v51, 
-                extraProps = {
-                    source = v19.Sources.JoinGameCard
-                }
-            });
-            return;
-        else
-            l_navigateDown_0({
-                name = v12.ViewUserProfile, 
-                detail = v51, 
-                extraProps = {
-                    onClose = function() --[[ Line: 124 ]] --[[ Name: onClose ]]
-                        -- upvalues: l_closeCentralOverlay_0 (ref), v41 (ref)
-                        l_closeCentralOverlay_0();
-                        if v41.props.onCloseProfileWebview then
-                            v41.props.onCloseProfileWebview();
-                        end;
-                    end
-                }
-            });
-            return;
-        end;
-    end;
-    local v52 = {
-        source = v41.props.source, 
-        universeId = if l_user_0.presence == v27.PresenceType.IN_GAME then l_user_0.universeId else nil
-    };
-    l_analytics_0.reportPeopleListInteraction("openPeopleList", l_user_0.id, l_positionIndex_0, l_absolutePosition_0, v41.props.analyticContext, v52);
-    if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 and l_user_0.presence == v27.PresenceType.IN_GAME and v41.props.universePlaceInfo == nil then
-        v41.props.requestGameData(v41.props.networking, v41.props.user.placeId);
-    end;
-end;
-v39.didMount = function(v53) --[[ Line: 163 ]] --[[ Name: didMount ]]
-    -- upvalues: v34 (copy), v21 (copy), v18 (copy)
-    local l_onOpen_0 = v53.props.onOpen;
-    local v55 = v34.Stopwatch.stop(v34.Events.JoinGameCardOpened);
-    v53.profileAnalytics.fireAnalyticsEvent(v21.ProfileInExperienceUserLoadingStage, {
-        status = v18.Analytics.Enums.LoadingStages.Done, 
-        statValue = v55 and v55.timeElapsed or nil
-    });
-    if l_onOpen_0 then
-        l_onOpen_0();
-    end;
-end;
-v39.createMenuItem = function(_, v57, v58, v59) --[[ Line: 178 ]] --[[ Name: createMenuItem ]]
-    return {
-        displayIcon = v57, 
-        text = v58, 
-        onSelect = v59
-    };
-end;
-v39.render = function(v60) --[[ Line: 186 ]] --[[ Name: render ]]
-    -- upvalues: v27 (copy), l_FormFactor_0 (copy), l_DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH_0 (copy), v4 (copy), v30 (copy), v14 (copy), v29 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy), v23 (copy), v28 (copy), v33 (copy), v15 (copy)
-    local l_localization_0 = v60.props.localization;
-    local l_screenSize_0 = v60.props.screenSize;
-    local l_formFactor_0 = v60.props.formFactor;
-    local l_closeCentralOverlay_1 = v60.props.closeCentralOverlay;
-    local l_user_1 = v60.props.user;
-    local l_positionIndex_1 = v60.props.positionIndex;
-    local l_absolutePosition_1 = v60.props.absolutePosition;
-    local l_anchorSpaceSize_0 = v60.props.anchorSpaceSize;
-    local l_anchorSpacePosition_0 = v60.props.anchorSpacePosition;
-    local l_combinedName_0 = v60.props.combinedName;
-    local v71 = false;
-    if l_user_1.presence == v27.PresenceType.IN_GAME then
-        v71 = l_user_1.universeId;
-    end;
-    local v72 = l_formFactor_0 == l_FormFactor_0.COMPACT and l_screenSize_0.X or l_DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH_0;
-    local function v75(v73) --[[ Line: 204 ]]
-        -- upvalues: v60 (copy), l_user_1 (copy), v4 (ref), v30 (ref), l_anchorSpaceSize_0 (copy), l_anchorSpacePosition_0 (copy), v72 (copy), v14 (ref), v71 (copy), v29 (ref), l_positionIndex_1 (copy), l_absolutePosition_1 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (ref), l_closeCentralOverlay_1 (copy), v23 (ref), v28 (ref), l_formFactor_0 (copy)
-        local v74 = {};
-        if v60.props.canUsePlatformChat then
-            table.insert(v74, v60:createMenuItem("LuaApp/icons/menu/menu_messages", v73.chatWithFriendText, function() --[[ Line: 209 ]]
-                -- upvalues: v60 (ref), l_user_1 (ref)
-                v60.chatWithUser(l_user_1.id);
-            end));
-        end;
-        if v60.props.areWebViewsSupported then
-            table.insert(v74, v60:createMenuItem("LuaApp/icons/menu/menu_profile", v73.viewProfileText, function() --[[ Line: 218 ]]
-                -- upvalues: v60 (ref), l_user_1 (ref)
-                v60.viewProfile(l_user_1.id);
-            end));
-        end;
-        return v4.createElement(v30, {
-            anchorSpaceSize = l_anchorSpaceSize_0, 
-            anchorSpacePosition = l_anchorSpacePosition_0, 
-            itemWidth = v72
-        }, {
-            Content = v4.createElement(v14.FitFrame, {
-                BackgroundTransparency = 1, 
-                fitAxis = v14.FitAxis.Height, 
-                Size = UDim2.new(1, 0, 0, 0)
-            }, {
-                ListLayout = v4.createElement("UIListLayout", {
-                    FillDirection = Enum.FillDirection.Vertical, 
-                    SortOrder = Enum.SortOrder.LayoutOrder
-                }), 
-                GameHeader = v71 and v4.createElement(v29, {
-                    friend = l_user_1, 
-                    layoutOrder = 1, 
-                    width = v72, 
-                    index = l_positionIndex_1, 
-                    absolutePosition = l_absolutePosition_1, 
-                    universeId = l_user_1.universeId, 
-                    universeRootPlaceId = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then l_user_1.rootPlaceId else nil, 
-                    placeId = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then l_user_1.placeId else nil, 
-                    dismissContextualMenu = l_closeCentralOverlay_1, 
-                    featureContext = v23.PeopleList, 
-                    onCloseGameDetails = v60.props.onCloseGameDetails, 
-                    source = v60.props.source
-                }), 
-                ListPicker = v4.createElement(v28, {
-                    formFactor = l_formFactor_0, 
-                    items = v74, 
-                    layoutOrder = 2, 
-                    width = v72, 
-                    maxHeight = 162
-                })
-            })
-        });
-    end;
-    if v33() then
-        return v15({
-            chatWithFriendText = {
-                "Feature.Home.PeopleList.ChatWith"; 
-                username = l_combinedName_0
-            }, 
-            viewProfileText = "Feature.Chat.Label.ViewProfile"
-        })(v75);
-    else
-        return v75({
-            chatWithFriendText = l_localization_0:Format("Feature.Home.PeopleList.ChatWith", {
-                username = l_combinedName_0
-            }), 
-            viewProfileText = l_localization_0:Format("Feature.Chat.Label.ViewProfile")
-        });
-    end;
-end;
-v39.willUnmount = function(v76) --[[ Line: 280 ]] --[[ Name: willUnmount ]]
-    local l_onClose_0 = v76.props.onClose;
-    if l_onClose_0 then
-        l_onClose_0();
-    end;
-end;
-v39 = v5.connect(function(v78, v79) --[[ Line: 288 ]]
-    -- upvalues: l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy), v27 (copy), l_ConvertUniverseIdToString_0 (copy)
-    local v80 = nil;
-    if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then
-        local l_user_2 = v79.user;
-        if l_user_2.presence == v27.PresenceType.IN_GAME then
-            local v82 = l_ConvertUniverseIdToString_0(l_user_2.universeId);
-            v80 = v78.UniversePlaceInfos[v82];
-        end;
-    end;
-    return {
-        universePlaceInfo = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then v80 else nil, 
-        formFactor = v78.FormFactor, 
-        screenSize = v78.ScreenSize
-    };
-end, function(v83) --[[ Line: 305 ]]
-    -- upvalues: v26 (copy), v25 (copy), l_EnteredChatFromEntryPoint_0 (copy), l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 (copy), l_ApiFetchGamesDataByPlaceIds_0 (copy)
-    return {
-        navigateDown = function(v84) --[[ Line: 307 ]] --[[ Name: navigateDown ]]
-            -- upvalues: v83 (copy), v26 (ref)
-            v83(v26(v84));
-        end, 
-        closeCentralOverlay = function() --[[ Line: 310 ]] --[[ Name: closeCentralOverlay ]]
-            -- upvalues: v83 (copy), v25 (ref)
-            v83(v25());
-        end, 
-        enteredChatFromEntryPoint = function(v85) --[[ Line: 313 ]] --[[ Name: enteredChatFromEntryPoint ]]
-            -- upvalues: v83 (copy), l_EnteredChatFromEntryPoint_0 (ref)
-            v83(l_EnteredChatFromEntryPoint_0(v85));
-        end, 
-        requestGameData = l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 and function(v86, v87) --[[ Line: 317 ]]
-            -- upvalues: v83 (copy), l_ApiFetchGamesDataByPlaceIds_0 (ref)
-            return v83(l_ApiFetchGamesDataByPlaceIds_0(v86, {
-                v87
-            }));
-        end or nil
-    };
-end)(v39);
-v39 = l_RoactServices_0.connect({
-    analytics = l_RoactAnalyticsCommonGameEvents_0, 
-    localization = v8, 
-    guiService = l_AppGuiService_0, 
-    networking = if l_FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel_0 then v11 else nil
-})(v39);
-return (l_RoactAppPolicy_0.connect(function(v88, _) --[[ Line: 331 ]]
-    return {
-        enableDisplayNamePolicy = v88.getShowDisplayName(), 
-        areWebViewsSupported = v88.getWebViewSupport(), 
-        canUsePlatformChat = v88.getCanUsePlatformChat()
-    };
-end)(v39));
+	positionIndex = 0,
+	absolutePosition = 0
+}
+
+function v39.init(p1) -- line: 68
+	-- upvalues: initializeProfileAnalytics (copy), ChatEntryPointNames (copy), NotificationType (copy), IXPService (copy), v38 (copy), v37 (copy), AppPage (copy), Enums (copy), User (copy), FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel (copy)
+	local analytics = p1.props.analytics
+	local guiService = p1.props.guiService
+	local closeCentralOverlay = p1.props.closeCentralOverlay
+	local navigateDown = p1.props.navigateDown
+	local user = p1.props.user
+	local positionIndex = p1.props.positionIndex
+	local absolutePosition = p1.props.absolutePosition
+	local source = p1.props.source
+
+	p1.profileAnalytics = if not p1.props.mockProfileAnalytics_dev then initializeProfileAnalytics() else p1.props.mockProfileAnalytics_dev
+
+	function p1.chatWithUser(p2) -- line: 82
+		-- upvalues: analytics (copy), positionIndex (copy), absolutePosition (copy), p1 (copy), source (copy), ChatEntryPointNames (copy), guiService (copy), NotificationType (copy)
+		analytics.reportPeopleListInteraction("ChatDropdown", p2, positionIndex, absolutePosition, p1.props.analyticContext, {
+			source = source
+		})
+		p1.props.enteredChatFromEntryPoint(ChatEntryPointNames.PeopleListDropdown)
+		guiService:BroadcastNotification(p2, NotificationType.LAUNCH_CONVERSATION)
+	end
+	function p1.viewProfile(p3) -- line: 96
+		-- upvalues: analytics (copy), positionIndex (copy), absolutePosition (copy), p1 (copy), IXPService (copy), v38 (copy), v37 (copy), navigateDown (copy), AppPage (copy), Enums (copy), closeCentralOverlay (copy)
+		analytics.reportPeopleListInteraction("ProfileDropdown", p3, positionIndex, absolutePosition, p1.props.analyticContext)
+		IXPService:LogFlagLinkedUserLayerExposure(v38)
+
+		if v37 then
+			navigateDown({
+				name = AppPage.ProfilePlatform,
+				detail = p3,
+				extraProps = {
+					source = Enums.Sources.JoinGameCard
+				}
+			})
+
+			return
+		end
+
+		navigateDown({
+			name = AppPage.ViewUserProfile,
+			detail = p3,
+			extraProps = {
+				onClose = function() --[[ onClose ]] -- line: 120
+					-- upvalues: closeCentralOverlay (copy), p1 (copy)
+					closeCentralOverlay()
+
+					if p1.props.onCloseProfileWebview then
+						p1.props.onCloseProfileWebview()
+					end
+				end
+			}
+		})
+	end
+
+	local t1 = {
+		source = p1.props.source,
+		universeId = if user.presence ~= User.PresenceType.IN_GAME then nil else user.universeId
+	}
+
+	analytics.reportPeopleListInteraction("openPeopleList", user.id, positionIndex, absolutePosition, p1.props.analyticContext, t1)
+
+	if FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel and (user.presence == User.PresenceType.IN_GAME and p1.props.universePlaceInfo == nil) then
+		p1.props.requestGameData(p1.props.networking, p1.props.user.placeId)
+	end
+end
+function v39.didMount(p4) -- line: 159
+	-- upvalues: SocialStopwatch (copy), EventNames (copy), SocialLuaAnalytics (copy)
+	local onOpen = p4.props.onOpen
+	local v55 = SocialStopwatch.Stopwatch.stop(SocialStopwatch.Events.JoinGameCardOpened)
+
+	p4.profileAnalytics.fireAnalyticsEvent(EventNames.ProfileInExperienceUserLoadingStage, {
+		status = SocialLuaAnalytics.Analytics.Enums.LoadingStages.Done,
+		statValue = v55 and v55.timeElapsed or nil
+	})
+
+	if onOpen then
+		onOpen()
+	end
+end
+function v39.createMenuItem(_, p6, p7, p8) -- line: 174
+	return {
+		displayIcon = p6,
+		text = p7,
+		onSelect = p8
+	}
+end
+function v39.render(p9) -- line: 182
+	-- upvalues: User (copy), FormFactor (copy), DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH (copy), Roact (copy), FormBasedContextualMenu (copy), FitChildren (copy), UserActiveGame (copy), FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel (copy), FeatureContext (copy), ListPicker (copy), GetFFlagLuaAppUseWithLocalization (copy), withLocalization (copy)
+	local localization = p9.props.localization
+	local screenSize = p9.props.screenSize
+	local formFactor = p9.props.formFactor
+	local closeCentralOverlay = p9.props.closeCentralOverlay
+	local user = p9.props.user
+	local positionIndex = p9.props.positionIndex
+	local absolutePosition = p9.props.absolutePosition
+	local anchorSpaceSize = p9.props.anchorSpaceSize
+	local anchorSpacePosition = p9.props.anchorSpacePosition
+	local combinedName = p9.props.combinedName
+	local v71 = user.presence == User.PresenceType.IN_GAME and user.universeId
+	local v72 = formFactor == FormFactor.COMPACT and screenSize.X or DEFAULT_WIDE_CONTEXTUAL_MENU__WIDTH
+
+	local function v73(p10) -- line: 200
+		-- upvalues: p9 (copy), user (copy), Roact (copy), FormBasedContextualMenu (copy), anchorSpaceSize (copy), anchorSpacePosition (copy), v72 (copy), FitChildren (copy), v71 (copy), UserActiveGame (copy), positionIndex (copy), absolutePosition (copy), FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel (copy), closeCentralOverlay (copy), FeatureContext (copy), ListPicker (copy), formFactor (copy)
+		local t2 = {}
+
+		if p9.props.canUsePlatformChat then
+			table.insert(t2, p9:createMenuItem("LuaApp/icons/menu/menu_messages", p10.chatWithFriendText, function() -- line: 205
+				-- upvalues: p9 (copy), user (copy)
+				p9.chatWithUser(user.id)
+			end))
+		end
+
+		if p9.props.areWebViewsSupported then
+			table.insert(t2, p9:createMenuItem("LuaApp/icons/menu/menu_profile", p10.viewProfileText, function() -- line: 214
+				-- upvalues: p9 (copy), user (copy)
+				p9.viewProfile(user.id)
+			end))
+		end
+
+		return Roact.createElement(FormBasedContextualMenu, {
+			anchorSpaceSize = anchorSpaceSize,
+			anchorSpacePosition = anchorSpacePosition,
+			itemWidth = v72
+		}, {
+			Content = Roact.createElement(FitChildren.FitFrame, {
+				BackgroundTransparency = 1,
+				fitAxis = FitChildren.FitAxis.Height,
+				Size = UDim2.new(1, 0, 0, 0)
+			}, {
+				ListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder
+				}),
+				GameHeader = v71 and Roact.createElement(UserActiveGame, {
+					friend = user,
+					layoutOrder = 1,
+					width = v72,
+					index = positionIndex,
+					absolutePosition = absolutePosition,
+					universeId = user.universeId,
+					universeRootPlaceId = if not FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel then nil else user.rootPlaceId,
+					placeId = if not FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel then nil else user.placeId,
+					dismissContextualMenu = closeCentralOverlay,
+					featureContext = FeatureContext.PeopleList,
+					onCloseGameDetails = p9.props.onCloseGameDetails,
+					source = p9.props.source
+				}),
+				ListPicker = Roact.createElement(ListPicker, {
+					formFactor = formFactor,
+					items = t2,
+					layoutOrder = 2,
+					width = v72,
+					maxHeight = 162
+				})
+			})
+		})
+	end
+
+	if GetFFlagLuaAppUseWithLocalization() then
+		return withLocalization({
+			chatWithFriendText = {
+				"Feature.Home.PeopleList.ChatWith",
+				username = combinedName
+			},
+			viewProfileText = "Feature.Chat.Label.ViewProfile"
+		})(v73)
+	end
+
+	return v73({
+		chatWithFriendText = localization:Format("Feature.Home.PeopleList.ChatWith", {
+			username = combinedName
+		}),
+		viewProfileText = localization:Format("Feature.Chat.Label.ViewProfile")
+	})
+end
+function v39.willUnmount(p11) -- line: 276
+	local onClose = p11.props.onClose
+
+	if onClose then
+		onClose()
+	end
+end
+
+local v41 = RoactRodux.connect(function(p12, p13) -- line: 284
+	-- upvalues: FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel (copy), User (copy), ConvertUniverseIdToString (copy)
+	local v78 = nil
+
+	if FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel then
+		local user = p13.user
+
+		if user.presence == User.PresenceType.IN_GAME then
+			local v80 = ConvertUniverseIdToString(user.universeId)
+
+			v78 = p12.UniversePlaceInfos[v80]
+		end
+	end
+
+	return {
+		universePlaceInfo = if not FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel then nil else v78,
+		formFactor = p12.FormFactor,
+		screenSize = p12.ScreenSize
+	}
+end, function(p14) -- line: 301
+	-- upvalues: NavigateDown (copy), CloseCentralOverlay (copy), EnteredChatFromEntryPoint (copy), FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel (copy), ApiFetchGamesDataByPlaceIds (copy)
+	return {
+		navigateDown = function(p15) --[[ navigateDown ]] -- line: 303
+			-- upvalues: p14 (copy), NavigateDown (copy)
+			p14(NavigateDown(p15))
+		end,
+		closeCentralOverlay = function() --[[ closeCentralOverlay ]] -- line: 306
+			-- upvalues: p14 (copy), CloseCentralOverlay (copy)
+			p14(CloseCentralOverlay())
+		end,
+		enteredChatFromEntryPoint = function(p16) --[[ enteredChatFromEntryPoint ]] -- line: 309
+			-- upvalues: p14 (copy), EnteredChatFromEntryPoint (copy)
+			p14(EnteredChatFromEntryPoint(p16))
+		end,
+		requestGameData = if not FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel then nil else function(p17, p18) -- line: 313
+			-- upvalues: p14 (copy), ApiFetchGamesDataByPlaceIds (copy)
+			return p14(ApiFetchGamesDataByPlaceIds(p17, { p18 }))
+		end
+	}
+end)(v39)
+local v42 = RoactServices.connect({
+	analytics = RoactAnalyticsCommonGameEvents,
+	localization = RoactLocalization,
+	guiService = AppGuiService,
+	networking = if not FFlagJoinGameCardPassThroughUniversePlaceInfoFromFriendsCarousel then nil else RoactNetworking
+})(v41)
+
+return (RoactAppPolicy.connect(function(p19, _) -- line: 327
+	return {
+		enableDisplayNamePolicy = p19.getShowDisplayName(),
+		areWebViewsSupported = p19.getWebViewSupport(),
+		canUsePlatformChat = p19.getCanUsePlatformChat()
+	}
+end)(v42))

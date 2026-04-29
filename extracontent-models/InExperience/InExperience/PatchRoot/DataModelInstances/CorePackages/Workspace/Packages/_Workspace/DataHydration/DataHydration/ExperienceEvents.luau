@@ -1,5 +1,5 @@
-local _ = require(script.ExperienceEventTypes);
 return {
-    createExperienceEventInfoStore = require(script.createExperienceEventInfoStore), 
-    getExperienceEventInfoStore = require(script.getExperienceEventInfoStore)
-};
+	EventStatus = require(script.ExperienceEventTypes).EventStatus,
+	createExperienceEventInfoStore = require(script.createExperienceEventInfoStore),
+	getExperienceEventInfoStore = require(script.getExperienceEventInfoStore)
+}

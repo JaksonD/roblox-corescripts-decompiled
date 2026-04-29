@@ -1,141 +1,175 @@
-local l_IXPService_0 = game:GetService("IXPService");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_script_FirstAncestor_0.EnumScreens);
-local v4 = require(l_Parent_0.ArgCheck);
-local v5 = require(l_Parent_0.Roact);
-local v6 = require(l_Parent_0.RoactNavigation);
-local l_withLocalization_0 = require(l_Parent_0.Localization).withLocalization;
-local v8 = require(l_script_FirstAncestor_0.TopBarProvider);
-local v9 = require(l_script_FirstAncestor_0.Stores.GetTopBarStore);
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarSignalsStore);
-local v11 = require(l_script_FirstAncestor_0.Components.SelectChatMembers.createSystemMenuButton);
-local v12 = require(script.Parent.CreateNewChatContainer);
-local v13 = require(script.Parent.Logger);
-local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
-local v16 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseNewSelectChatMembersIxpEnabled);
-local v17 = require(l_script_FirstAncestor_0.Flags.FStringAppChatUseNewSelectChatMembersIxpLayer);
-local v18 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatEnableDomLocators);
-local v19 = require(l_script_FirstAncestor_0.Utils.DomLocators);
-local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
-local v21 = v5.PureComponent:extend("CreateNewChatScreen");
-v21.defaultProps = {};
-v21.navigationOptions = function() --[[ Line: 32 ]]
-    -- upvalues: l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v18 (copy), v19 (copy), v5 (copy), v8 (copy), v3 (copy), v4 (copy), l_withLocalization_0 (copy), v11 (copy)
-    return {
-        headerText = {
-            raw = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Heading.PartyWithFriends" or "Feature.Chat.Heading.PartyWithConnections" else "Feature.Chat.Heading.ChatWithConnections", 
-            shouldLocalize = true
-        }, 
-        backButtonEnabled = true, 
-        backButtonTestId = if v18 then v19.selectChatMembersTopBarActionButton("back") else nil, 
-        renderRight = function() --[[ Line: 48 ]] --[[ Name: renderRight ]]
-            -- upvalues: v5 (ref), v8 (ref), v3 (ref), v4 (ref), l_withLocalization_0 (ref), l_GetFFlagAppChatRebrandStringUpdates_0 (ref), l_GetFFlagIsSquadEnabled_0 (ref), v11 (ref), v18 (ref), v19 (ref)
-            return v5.createElement(v8, {
-                screenName = v3.CreateNewChat, 
-                render = function(v22) --[[ Line: 51 ]] --[[ Name: render ]]
-                    -- upvalues: v3 (ref), v4 (ref), l_withLocalization_0 (ref), l_GetFFlagAppChatRebrandStringUpdates_0 (ref), l_GetFFlagIsSquadEnabled_0 (ref), v11 (ref), v18 (ref), v19 (ref)
-                    local v23 = v22.getScreenTopBar(v3.CreateNewChat);
-                    v4.isType(v23, "table", "screenTopBar");
-                    return l_withLocalization_0({
-                        systemButtonText = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Action.Create" or "Feature.Chat.Action.StartChatWithFriends", 
-                        networkErrorText = "Feature.Chat.Response.NetworkError", 
-                        invalidParticipantText = "Feature.Chat.Toast.Error.InvalidUserSelected"
-                    })(function(v24) --[[ Line: 62 ]]
-                        -- upvalues: v11 (ref), v23 (copy), v18 (ref), v19 (ref)
-                        return v11({
-                            localizedStrings = v24, 
-                            isDisabled = not v23.systemButtonEnabled, 
-                            onActivated = v23.systemButtonActivated, 
-                            testId = if v18 then v19.selectChatMembersTopBarActionButton("create") else nil
-                        });
-                    end);
-                end
-            });
-        end
-    };
-end;
-v21.init = function(v25) --[[ Line: 78 ]] --[[ Name: init ]]
-    -- upvalues: v16 (copy), v6 (copy), l_IXPService_0 (copy), v17 (copy), v13 (copy), v3 (copy), v10 (copy), v9 (copy), v4 (copy)
-    v25.ixpSubscription = if v16 then v25.props.navigation.addListener(v6.Events.WillFocus, function() --[[ Line: 80 ]]
-        -- upvalues: l_IXPService_0 (ref), v17 (ref)
-        l_IXPService_0:LogFlagLinkedUserLayerExposure(v17);
-    end) else nil;
-    v25.navigateToConversation = function(v26) --[[ Line: 84 ]]
-        -- upvalues: v25 (copy), v13 (ref), v3 (ref)
-        local l_navigation_0 = v25.props.navigation;
-        v13:info("Navigate To Conversation: {} from {screen}", v26);
-        if l_navigation_0.getScreenProps("wideMode", false) then
-            l_navigation_0.navigate(v3.ChatConversation, {
-                conversationId = v26
-            });
-            return;
-        else
-            l_navigation_0.replace(v3.ChatConversation, {
-                conversationId = v26
-            });
-            return;
-        end;
-    end;
-    v25.navigateToToast = function(v28) --[[ Line: 95 ]]
-        -- upvalues: v13 (ref), v25 (copy), v3 (ref)
-        v13:info("Navigate To Toast from {screen}");
-        v25.props.navigation.navigate(v3.RoactChatToast, v28);
-    end;
-    v25.setSystemButtonActivated = function(v29) --[[ Line: 100 ]]
-        -- upvalues: v10 (ref), v9 (ref), v3 (ref), v25 (copy), v4 (ref)
-        if v10 then
-            v9(false).setScreenTopBar(v3.CreateNewChat, {
-                systemButtonActivated = v29
-            });
-            return;
-        else
-            local v30 = v25.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v4.isNotNil(v30, "setScreenTopBar in screenProps");
-            v30(v3.CreateNewChat, {
-                systemButtonActivated = v29
-            });
-            return;
-        end;
-    end;
-    v25.setSystemButtonEnabled = function(v31) --[[ Line: 114 ]]
-        -- upvalues: v10 (ref), v9 (ref), v3 (ref), v25 (copy), v4 (ref)
-        if v10 then
-            v9(false).setScreenTopBar(v3.CreateNewChat, {
-                systemButtonEnabled = v31
-            });
-            return;
-        else
-            local v32 = v25.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v4.isNotNil(v32, "setScreenTopBar in screenProps");
-            v32(v3.CreateNewChat, {
-                systemButtonEnabled = v31
-            });
-            return;
-        end;
-    end;
-end;
-v21.render = function(v33) --[[ Line: 129 ]] --[[ Name: render ]]
-    -- upvalues: v4 (copy), v5 (copy), v12 (copy)
-    local v34 = v4.isNotNil(v33.props.navigation, "navigation in CreateNewChatScreen");
-    return v5.createElement(v12, {
-        topBarHeight = v34.getScreenProps("topBarHeight", 0), 
-        navigateToConversation = v33.navigateToConversation, 
-        navigateToToast = v33.navigateToToast, 
-        setSystemButtonActivated = v33.setSystemButtonActivated, 
-        setSystemButtonEnabled = v33.setSystemButtonEnabled
-    });
-end;
-v21.didMount = function(v35) --[[ Line: 141 ]] --[[ Name: didMount ]]
-    -- upvalues: v13 (copy)
-    v13:info("{screen} mounted");
-    v35.setSystemButtonEnabled(false);
-end;
-v21.willUnmount = function(v36) --[[ Line: 146 ]] --[[ Name: willUnmount ]]
-    -- upvalues: v16 (copy)
-    if v16 then
-        v36.ixpSubscription.remove();
-    end;
-end;
-return v21;
+local IXPService = game:GetService("IXPService")
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local EnumScreens = require(AppChat.EnumScreens)
+local ArgCheck = require(AppChatParent.ArgCheck)
+local Roact = require(AppChatParent.Roact)
+local RoactNavigation = require(AppChatParent.RoactNavigation)
+local withLocalization = require(AppChatParent.Localization).withLocalization
+local TopBarProvider = require(AppChat.TopBarProvider)
+local GetTopBarStore = require(AppChat.Stores.GetTopBarStore)
+local FFlagAppChatTopBarSignalsStore = require(AppChat.Flags.FFlagAppChatTopBarSignalsStore)
+local FFlagAppChatTopBarConfigDriven = require(AppChat.Flags.FFlagAppChatTopBarConfigDriven)
+local createSystemMenuButton = require(AppChat.Components.SelectChatMembers.createSystemMenuButton)
+local CreateNewChatContainer = require(script.Parent.CreateNewChatContainer)
+local Logger = require(script.Parent.Logger)
+local GetFFlagIsSquadEnabled = require(AppChatParent.SharedFlags).GetFFlagIsSquadEnabled
+local FFlagAppChatUseNewSelectChatMembersIxpEnabled = require(AppChat.Flags.FFlagAppChatUseNewSelectChatMembersIxpEnabled)
+local FStringAppChatUseNewSelectChatMembersIxpLayer = require(AppChat.Flags.FStringAppChatUseNewSelectChatMembersIxpLayer)
+local FFlagDebugAppChatEnableDomLocators = require(AppChat.Flags.FFlagDebugAppChatEnableDomLocators)
+local DomLocators = require(AppChat.Utils.DomLocators)
+local FFlagConnectionsToFriendsRename = require(AppChatParent.SharedFlags).FFlagConnectionsToFriendsRename
+local v22 = Roact.PureComponent:extend("CreateNewChatScreen")
+
+v22.defaultProps = {}
+
+function v22.navigationOptions() -- line: 32
+	-- upvalues: FFlagAppChatTopBarConfigDriven (copy), GetFFlagIsSquadEnabled (copy), FFlagConnectionsToFriendsRename (copy), FFlagDebugAppChatEnableDomLocators (copy), DomLocators (copy), Roact (copy), TopBarProvider (copy), EnumScreens (copy), ArgCheck (copy), withLocalization (copy), createSystemMenuButton (copy)
+	if FFlagAppChatTopBarConfigDriven() then
+		return {
+			tabBarVisible = false
+		}
+	end
+
+	return {
+		tabBarVisible = false,
+		headerText = {
+			raw = not GetFFlagIsSquadEnabled() and "Feature.Chat.Heading.ChatWithConnections" or (not FFlagConnectionsToFriendsRename and "Feature.Chat.Heading.PartyWithConnections" or "Feature.Chat.Heading.PartyWithFriends"),
+			shouldLocalize = true
+		},
+		backButtonEnabled = true,
+		backButtonTestId = if not FFlagDebugAppChatEnableDomLocators then nil else DomLocators.selectChatMembersTopBarActionButton("back"),
+		renderRight = function() --[[ renderRight ]] -- line: 55
+			-- upvalues: Roact (copy), TopBarProvider (copy), EnumScreens (copy), ArgCheck (copy), withLocalization (copy), GetFFlagIsSquadEnabled (copy), createSystemMenuButton (copy), FFlagDebugAppChatEnableDomLocators (copy), DomLocators (copy)
+			return Roact.createElement(TopBarProvider, {
+				screenName = EnumScreens.CreateNewChat,
+				render = function(p1) --[[ render ]] -- line: 58
+					-- upvalues: EnumScreens (copy), ArgCheck (copy), withLocalization (copy), GetFFlagIsSquadEnabled (copy), createSystemMenuButton (copy), FFlagDebugAppChatEnableDomLocators (copy), DomLocators (copy)
+					local v36 = p1.getScreenTopBar(EnumScreens.CreateNewChat)
+
+					ArgCheck.isType(v36, "table", "screenTopBar")
+
+					return withLocalization({
+						systemButtonText = not GetFFlagIsSquadEnabled() and "Feature.Chat.Action.StartChatWithFriends" or "Feature.Chat.Action.Create",
+						networkErrorText = "Feature.Chat.Response.NetworkError",
+						invalidParticipantText = "Feature.Chat.Toast.Error.InvalidUserSelected"
+					})(function(p2) -- line: 68
+						-- upvalues: createSystemMenuButton (copy), v36 (copy), FFlagDebugAppChatEnableDomLocators (copy), DomLocators (copy)
+						return createSystemMenuButton({
+							localizedStrings = p2,
+							isDisabled = not v36.systemButtonEnabled,
+							onActivated = v36.systemButtonActivated,
+							testId = if not FFlagDebugAppChatEnableDomLocators then nil else DomLocators.selectChatMembersTopBarActionButton("create")
+						})
+					end)
+				end
+			})
+		end
+	}
+end
+function v22.init(p3) -- line: 84
+	-- upvalues: FFlagAppChatUseNewSelectChatMembersIxpEnabled (copy), RoactNavigation (copy), IXPService (copy), FStringAppChatUseNewSelectChatMembersIxpLayer (copy), Logger (copy), EnumScreens (copy), FFlagAppChatTopBarSignalsStore (copy), GetTopBarStore (copy), ArgCheck (copy)
+	p3.ixpSubscription = if not FFlagAppChatUseNewSelectChatMembersIxpEnabled then nil else p3.props.navigation.addListener(RoactNavigation.Events.WillFocus, function() -- line: 86
+		-- upvalues: IXPService (copy), FStringAppChatUseNewSelectChatMembersIxpLayer (copy)
+		IXPService:LogFlagLinkedUserLayerExposure(FStringAppChatUseNewSelectChatMembersIxpLayer)
+	end)
+
+	function p3.navigateToConversation(p4) -- line: 90
+		-- upvalues: p3 (copy), Logger (copy), EnumScreens (copy)
+		local navigation = p3.props.navigation
+
+		Logger:info("Navigate To Conversation: {} from {screen}", p4)
+
+		if navigation.getScreenProps("wideMode", false) then
+			navigation.navigate(EnumScreens.ChatConversation, {
+				conversationId = p4
+			})
+
+			return
+		end
+
+		navigation.replace(EnumScreens.ChatConversation, {
+			conversationId = p4
+		})
+	end
+	function p3.navigateToToast(p5) -- line: 101
+		-- upvalues: Logger (copy), p3 (copy), EnumScreens (copy)
+		Logger:info("Navigate To Toast from {screen}")
+		p3.props.navigation.navigate(EnumScreens.RoactChatToast, p5)
+	end
+	function p3.setSystemButtonActivated(p6) -- line: 106
+		-- upvalues: FFlagAppChatTopBarSignalsStore (copy), GetTopBarStore (copy), EnumScreens (copy), p3 (copy), ArgCheck (copy)
+		if FFlagAppChatTopBarSignalsStore then
+			GetTopBarStore(false).setScreenTopBar(EnumScreens.CreateNewChat, {
+				systemButtonActivated = p6
+			})
+
+			return
+		end
+
+		local v32 = p3.props.navigation.getScreenProps("setScreenTopBar", nil)
+
+		ArgCheck.isNotNil(v32, "setScreenTopBar in screenProps")
+		v32(EnumScreens.CreateNewChat, {
+			systemButtonActivated = p6
+		})
+	end
+	function p3.setSystemButtonEnabled(p7) -- line: 120
+		-- upvalues: FFlagAppChatTopBarSignalsStore (copy), GetTopBarStore (copy), EnumScreens (copy), p3 (copy), ArgCheck (copy)
+		if FFlagAppChatTopBarSignalsStore then
+			GetTopBarStore(false).setScreenTopBar(EnumScreens.CreateNewChat, {
+				systemButtonEnabled = p7
+			})
+
+			return
+		end
+
+		local v34 = p3.props.navigation.getScreenProps("setScreenTopBar", nil)
+
+		ArgCheck.isNotNil(v34, "setScreenTopBar in screenProps")
+		v34(EnumScreens.CreateNewChat, {
+			systemButtonEnabled = p7
+		})
+	end
+end
+function v22.render(p8) -- line: 135
+	-- upvalues: ArgCheck (copy), Roact (copy), CreateNewChatContainer (copy)
+	local v25 = ArgCheck.isNotNil(p8.props.navigation, "navigation in CreateNewChatScreen")
+
+	return Roact.createElement(CreateNewChatContainer, {
+		topBarHeight = v25.getScreenProps("topBarHeight", 0),
+		navigateToConversation = p8.navigateToConversation,
+		navigateToToast = p8.navigateToToast,
+		setSystemButtonActivated = p8.setSystemButtonActivated,
+		setSystemButtonEnabled = p8.setSystemButtonEnabled
+	})
+end
+function v22.didMount(p9) -- line: 147
+	-- upvalues: Logger (copy), FFlagAppChatTopBarConfigDriven (copy), GetTopBarStore (copy), EnumScreens (copy), GetFFlagIsSquadEnabled (copy), FFlagConnectionsToFriendsRename (copy)
+	Logger:info("{screen} mounted")
+
+	if FFlagAppChatTopBarConfigDriven() then
+		GetTopBarStore(false).setScreenTopBar(EnumScreens.CreateNewChat, {
+			headerText = {
+				raw = not GetFFlagIsSquadEnabled() and "Feature.Chat.Heading.ChatWithConnections" or (not FFlagConnectionsToFriendsRename and "Feature.Chat.Heading.PartyWithConnections" or "Feature.Chat.Heading.PartyWithFriends"),
+				shouldLocalize = true
+			},
+			backButtonEnabled = true,
+			systemButtonText = not GetFFlagIsSquadEnabled() and "Feature.Chat.Action.StartChatWithFriends" or "Feature.Chat.Action.Create"
+		})
+	end
+
+	p9.setSystemButtonEnabled(false)
+end
+function v22.willUnmount(p10) -- line: 169
+	-- upvalues: FFlagAppChatTopBarConfigDriven (copy), GetTopBarStore (copy), EnumScreens (copy), FFlagAppChatUseNewSelectChatMembersIxpEnabled (copy)
+	if FFlagAppChatTopBarConfigDriven() then
+		GetTopBarStore(false).clearScreenTopBar(EnumScreens.CreateNewChat)
+	end
+
+	if FFlagAppChatUseNewSelectChatMembersIxpEnabled then
+		p10.ixpSubscription.remove()
+	end
+end
+
+return v22

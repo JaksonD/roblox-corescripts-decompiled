@@ -1,832 +1,874 @@
-local l_HttpService_0 = game:GetService("HttpService");
-local l_Players_0 = game:GetService("Players");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Squads");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v4 = require(l_Parent_0.RoactNavigation);
-local v5 = require(l_Parent_0.UIBlox);
-local l_useLocalUserId_0 = require(l_Parent_0.RobloxAppHooks).useLocalUserId;
-local l_useVoiceStatus_0 = require(l_Parent_0.CrossExperienceVoice).Hooks.useVoiceStatus;
-local v8 = require(l_script_FirstAncestor_0.Common.Constants);
-local v9 = require(l_script_FirstAncestor_0.dependencies);
-local v10 = require(l_script_FirstAncestor_0.Logger);
-local _ = require(l_script_FirstAncestor_0.Common.ModelTypes);
-local v12 = require(script.Parent.SquadLobbyActionBar);
-local v13 = require(script.Parent.SquadLobbyUserGrid);
-local v14 = require(script.Parent.SquadLobbyRegroupRow);
-local v15 = require(script.Parent.SquadLobbyVoiceChatMenu);
-local v16 = require(script.Parent.SquadLobbyBanners);
-local v17 = require(script.Parent.SquadLobbyUserDropdownMenu);
-local v18 = require(l_script_FirstAncestor_0.Enums.SquadPartySheetActionEnum);
-local v19 = require(l_script_FirstAncestor_0.Enums.SquadUserPartyStatus);
-local l_Cryo_0 = v9.Cryo;
-local l_Foundation_0 = v9.Foundation;
-local l_LuauPolyfill_0 = v9.LuauPolyfill;
-local l_NetworkingPresence_0 = v9.NetworkingPresence;
-local l_NetworkingSquads_0 = v9.NetworkingSquads;
-local l_React_0 = v9.React;
-local l_Roact_0 = v9.Roact;
-local l_SharedFlags_0 = v9.SharedFlags;
-local l_EventNames_0 = v9.SquadsCore.Analytics.EventNames;
-local l_SquadExternalContractContext_0 = v9.SquadsCore.SquadExternalContractProvider.SquadExternalContractContext;
-local l_SquadPromptType_0 = v9.SquadsCore.Enums.SquadPromptType;
-local l_SquadCoplayJoin_0 = v9.SquadsCore.Enums.SquadCoplayJoin;
-local l_SquadViewFlags_0 = v9.SquadsCore.SquadExternalContractProvider.SquadViewFlags;
-local l_SquadLobbySessionProvider_0 = v9.SquadsCore.SquadSessionProvider.SquadLobbySessionProvider;
-local l_logInExpCoplayTelemetry_0 = v9.SquadsCore.Analytics.logInExpCoplayTelemetry;
-local l_createOrJoinSquad_0 = v9.SquadsCore.Thunks.createOrJoinSquad;
-local l_UserBlockingNetworking_0 = v9.UserBlockingNetworking;
-local l_dependencyArray_0 = v9.Hooks.dependencyArray;
-local l_useCurrentSquadSelector_0 = v9.Hooks.useCurrentSquadSelector;
-local l_useDispatch_0 = v9.Hooks.useDispatch;
-local l_useEffectOnce_0 = v9.Hooks.useEffectOnce;
-local l_useNavigation_0 = v9.useNavigation;
-local l_usePrevious_0 = v9.Hooks.usePrevious;
-local l_useSelector_0 = v9.Hooks.useSelector;
-local l_useStore_0 = v9.Hooks.useStore;
-local l_useSquadState_0 = v9.SquadsCore.Hooks.useSquadState;
-local l_PresenceType_0 = v9.RoduxPresence.Enums.PresenceType;
-local l_StateLayerAffordance_0 = l_Foundation_0.Enums.StateLayerAffordance;
-local l_useStyle_0 = v5.Core.Style.useStyle;
-local l_useTokens_0 = l_Foundation_0.Hooks.useTokens;
-local l_clearInterval_0 = l_LuauPolyfill_0.clearInterval;
-local l_setInterval_0 = l_LuauPolyfill_0.setInterval;
-local v52 = game:DefineFastFlag("EnableSquadLobbyBanners", false);
-local l_FFlagEnableSquadCoplayAnalytic_0 = l_SharedFlags_0.FFlagEnableSquadCoplayAnalytic;
-local l_FFlagEnableSquadCoplayDependencyArray_0 = l_SharedFlags_0.FFlagEnableSquadCoplayDependencyArray;
-local l_FFlagEnableSquadTopBannerWideMode_0 = l_SharedFlags_0.FFlagEnableSquadTopBannerWideMode;
-local l_FFlagMakeCreateOrJoinSquadAThunks_0 = l_SharedFlags_0.FFlagMakeCreateOrJoinSquadAThunks;
-local v57 = game:DefineFastInt("PartyInviteeNoResponseDurationSeconds", 3);
-local v58 = game:DefineFastInt("PartyUserInvitedDurationSeconds", 10);
-local l_SquadQuickStartExperimentation_0 = v9.SocialExperiments.SquadQuickStartExperimentation;
-local l_SquadCoordinationExperienceJoinExperimentation_0 = v9.SocialExperiments.SquadCoordinationExperienceJoinExperimentation;
-local l_SquadRegroupExperimentation_0 = v9.SocialExperiments.SquadRegroupExperimentation;
-local l_FFlagEnablePartyQuickStartButton_0 = l_SharedFlags_0.FFlagEnablePartyQuickStartButton;
-local v63 = require(l_script_FirstAncestor_0.Flags.FFlagRecordVoiceStatusOnPartyAction);
-local l_FFlagEnableAppChatFocusableFixes_0 = l_SharedFlags_0.FFlagEnableAppChatFocusableFixes;
-local l_FFlagEnablePartyVoiceChangersInLua_0 = l_SharedFlags_0.FFlagEnablePartyVoiceChangersInLua;
-local l_FFlagEnableSquadRegroupExperimentation_0 = l_SharedFlags_0.FFlagEnableSquadRegroupExperimentation;
-local l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 = l_SharedFlags_0.FFlagEnableSquadRegroupExperimentationSmallScreenFix;
-local l_FFlagEnableSquadRegroupServerCapacityCheck_0 = l_SharedFlags_0.FFlagEnableSquadRegroupServerCapacityCheck;
-local l_FFlagAppChatShowOSAOnPageEntry_0 = l_SharedFlags_0.FFlagAppChatShowOSAOnPageEntry;
-local l_FFlagRemoveDependencyArrayAntipattern_0 = l_SharedFlags_0.FFlagRemoveDependencyArrayAntipattern;
-return function(v71) --[[ Line: 100 ]] --[[ Name: SquadLobby ]]
-    -- upvalues: l_useTokens_0 (copy), l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), l_useStyle_0 (copy), l_useSquadState_0 (copy), l_useNavigation_0 (copy), l_React_0 (copy), l_SquadExternalContractContext_0 (copy), l_useVoiceStatus_0 (copy), l_FFlagEnableSquadTopBannerWideMode_0 (copy), l_HttpService_0 (copy), v4 (copy), l_SquadViewFlags_0 (copy), l_useCurrentSquadSelector_0 (copy), l_useSelector_0 (copy), l_useStore_0 (copy), l_SquadQuickStartExperimentation_0 (copy), l_FFlagEnablePartyQuickStartButton_0 (copy), l_SquadPromptType_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_FFlagMakeCreateOrJoinSquadAThunks_0 (copy), l_createOrJoinSquad_0 (copy), l_NetworkingSquads_0 (copy), l_FFlagEnableSquadCoplayAnalytic_0 (copy), l_logInExpCoplayTelemetry_0 (copy), l_SquadCoplayJoin_0 (copy), l_FFlagEnableSquadCoplayDependencyArray_0 (copy), l_useEffectOnce_0 (copy), l_FFlagAppChatShowOSAOnPageEntry_0 (copy), v10 (copy), l_Cryo_0 (copy), v19 (copy), v58 (copy), v57 (copy), l_setInterval_0 (copy), l_clearInterval_0 (copy), l_usePrevious_0 (copy), l_UserBlockingNetworking_0 (copy), l_NetworkingPresence_0 (copy), v8 (copy), l_FFlagEnableSquadRegroupServerCapacityCheck_0 (copy), l_Players_0 (copy), l_SquadRegroupExperimentation_0 (copy), l_PresenceType_0 (copy), l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 (copy), v52 (copy), v16 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_Foundation_0 (copy), v13 (copy), l_EventNames_0 (copy), v18 (copy), v63 (copy), v14 (copy), v12 (copy), l_StateLayerAffordance_0 (copy), v15 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v17 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), l_FFlagEnableSquadRegroupExperimentation_0 (copy), l_Roact_0 (copy), l_SquadLobbySessionProvider_0 (copy)
-    local v72 = l_useTokens_0();
-    local v73 = l_useDispatch_0();
-    local v74 = tonumber(l_useLocalUserId_0()) or 0;
-    local v75 = l_useStyle_0();
-    local v76 = l_useSquadState_0();
-    local v77 = l_useNavigation_0();
-    local l_isWideMode_0 = v71.isWideMode;
-    local v79 = l_React_0.useContext(l_SquadExternalContractContext_0);
-    local v80, v81 = l_React_0.useState(0);
-    local v82 = l_useVoiceStatus_0();
-    if l_FFlagEnableSquadTopBannerWideMode_0 then
-        local v83 = l_React_0.useRef(l_HttpService_0:GenerateGUID());
-        local l_v83_0 = v83 --[[ copy: 12 -> 62 ]];
-        l_React_0.useEffect(function() --[[ Line: 115 ]]
-            -- upvalues: l_isWideMode_0 (copy), l_v83_0 (copy), v79 (copy), v77 (copy), v4 (ref)
-            if not l_isWideMode_0 then
-                local l_current_0 = l_v83_0.current;
-                v79.disableSquadTopBanner(l_current_0, true);
-                local v87 = v77 and v77.addListener(v4.Events.WillBlur, function(v86) --[[ Line: 120 ]]
-                    -- upvalues: v79 (ref), l_current_0 (copy)
-                    if v86.state.routeName ~= "SquadInviteFriends" and v86.state.routeName ~= "SquadLobby" then
-                        v79.disableSquadTopBanner(l_current_0, false);
-                        return;
-                    else
-                        v79.disableSquadTopBanner(l_current_0, true);
-                        return;
-                    end;
-                end);
-                return function() --[[ Line: 131 ]]
-                    -- upvalues: v87 (ref), v79 (ref), l_current_0 (copy)
-                    if v87 then
-                        v87.remove();
-                        v87 = nil;
-                    end;
-                    v79.disableSquadTopBanner(l_current_0, false);
-                end;
-            else
-                return function() --[[ Line: 141 ]]
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local Squads = script:FindFirstAncestor("Squads")
+local SquadsParent = Squads.Parent
+local RoactNavigation = require(SquadsParent.RoactNavigation)
+local UIBlox = require(SquadsParent.UIBlox)
+local useLocalUserId = require(SquadsParent.RobloxAppHooks).useLocalUserId
+local useVoiceStatus = require(SquadsParent.CrossExperienceVoice).Hooks.useVoiceStatus
+local Constants = require(Squads.Common.Constants)
+local dependencies = require(Squads.dependencies)
+local Logger = require(Squads.Logger)
 
-                end;
-            end;
-        end, {
-            v79.disableSquadTopBanner, 
-            v77, 
-            l_isWideMode_0
-        });
-        l_React_0.useEffect(function() --[[ Line: 144 ]]
-            -- upvalues: v79 (copy), l_SquadViewFlags_0 (ref)
-            v79.updateSquadViewFlags(l_SquadViewFlags_0.SquadLobby, true);
-            return function() --[[ Line: 146 ]]
-                -- upvalues: v79 (ref), l_SquadViewFlags_0 (ref)
-                v79.updateSquadViewFlags(l_SquadViewFlags_0.SquadLobby, false);
-            end;
-        end, {
-            v79.updateSquadViewFlags
-        });
-    else
-        l_React_0.useEffect(function() --[[ Line: 154 ]]
-            -- upvalues: v79 (copy), l_SquadViewFlags_0 (ref), v77 (copy), v4 (ref)
-            v79.updateSquadViewFlags(l_SquadViewFlags_0.SquadLobby, true);
-            local v89 = v77 and v77.addListener(v4.Events.WillBlur, function(v88) --[[ Line: 157 ]]
-                -- upvalues: v79 (ref), l_SquadViewFlags_0 (ref)
-                if v88.state.routeName ~= "SquadInviteFriends" and v88.state.routeName ~= "SquadLobby" then
-                    v79.updateSquadViewFlags(l_SquadViewFlags_0.SquadLobby, false);
-                    return;
-                else
-                    v79.updateSquadViewFlags(l_SquadViewFlags_0.SquadLobby, true);
-                    return;
-                end;
-            end);
-            return function() --[[ Line: 164 ]]
-                -- upvalues: v89 (ref), v79 (ref), l_SquadViewFlags_0 (ref)
-                if v89 then
-                    v89.remove();
-                    v89 = nil;
-                end;
-                v79.updateSquadViewFlags(l_SquadViewFlags_0.SquadLobby, false);
-            end;
-        end, {
-            v79.updateSquadViewFlags, 
-            v77
-        });
-    end;
-    local v90, v91 = l_React_0.useState(false);
-    local v92, v93 = l_React_0.useState(Vector2.zero);
-    local v95 = l_React_0.useCallback(function(v94) --[[ Line: 176 ]]
-        -- upvalues: v93 (copy)
-        v93(v94.AbsoluteSize);
-    end, {
-        v93
-    });
-    local v96 = l_useCurrentSquadSelector_0();
-    local v97 = if v96 then v96.squadId else "";
-    local v98 = v96 and v96.members;
-    local v100 = l_React_0.useCallback(function(v99) --[[ Line: 184 ]]
-        if v99.Squad and v99.Squad.Squad and v99.Squad.Squad.currentSquad then
-            return v99.Squad.Squad.currentSquad.parentChannelId or "";
-        else
-            return "";
-        end;
-    end, {});
-    local v101 = l_useSelector_0(v100);
-    local v102 = l_useStore_0();
-    local v103 = v77.getParam("conversationId") or "";
-    local v104 = v79.useGetConversationFromId(v103);
-    local v105 = v104 and v104.participants;
-    local v106 = v96 and v96.invitees;
-    local v107 = nil;
-    local v108 = nil;
-    local v109 = nil;
-    v107 = v77.getParam("extraParams") or {};
-    v108 = v107.squadId;
-    if l_SquadQuickStartExperimentation_0.getPartyQuickStartChangesEnabled() and l_FFlagEnablePartyQuickStartButton_0 then
-        v109 = v107.squadCreateOrJoinAttemptId;
-    end;
-    local v110 = l_React_0.useCallback(function() --[[ Line: 208 ]]
-        -- upvalues: v79 (copy), v102 (copy), l_SquadPromptType_0 (ref), v71 (copy)
-        v79.setSquadPrompt(v102, {
-            hideCancelButton = true, 
-            promptType = l_SquadPromptType_0.Error, 
-            onConfirm = function() --[[ Line: 212 ]] --[[ Name: onConfirm ]]
-                -- upvalues: v71 (ref)
-                v71.navigateAwayFromSquad();
-            end
-        });
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v71.navigateAwayFromSquad, 
-        v102, 
-        v79.setSquadPrompt
-    } else l_dependencyArray_0(v71.navigateAwayFromSquad, v102, v79.setSquadPrompt));
-    local v117 = l_React_0.useCallback(function(v111) --[[ Line: 223 ]]
-        -- upvalues: l_FFlagMakeCreateOrJoinSquadAThunks_0 (ref), v73 (copy), l_createOrJoinSquad_0 (ref), v79 (copy), v109 (ref), v71 (copy), l_NetworkingSquads_0 (ref), l_FFlagEnableSquadCoplayAnalytic_0 (ref), l_logInExpCoplayTelemetry_0 (ref), l_SquadCoplayJoin_0 (ref), v110 (copy)
-        if l_FFlagMakeCreateOrJoinSquadAThunks_0 then
-            v73(l_createOrJoinSquad_0(v111, v79.setSquadPrompt, v79.fireSquadAnalytics, v79.squadLocation, v109, v71.navigateAwayFromSquad));
-            return;
-        else
-            local v112 = v73(l_NetworkingSquads_0.CreateOrJoinSquad.API({
-                parentChannelId = v111, 
-                leaveExisting = true, 
-                squadLocation = if l_FFlagEnableSquadCoplayAnalytic_0 then v79.squadLocation else nil, 
-                partyAttemptId = v109
-            }));
-            if l_FFlagEnableSquadCoplayAnalytic_0 then
-                v112 = v112:andThen(function(v113) --[[ Line: 246 ]]
-                    -- upvalues: l_logInExpCoplayTelemetry_0 (ref), v79 (ref), l_SquadCoplayJoin_0 (ref)
-                    local l_groupUpId_0 = v113.responseBody.groupUp.groupUpId;
-                    local l_members_0 = v113.responseBody.groupUp.members;
-                    if l_groupUpId_0 and l_members_0 then
-                        l_logInExpCoplayTelemetry_0(l_groupUpId_0, l_members_0, v79.squadLocation, l_SquadCoplayJoin_0.PartyJoin, v79.fireSquadAnalytics);
-                    end;
-                end);
-            end;
-            v112:catch(function(_) --[[ Line: 262 ]]
-                -- upvalues: v110 (ref)
-                v110();
-            end);
-            return;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v73, 
-        if l_FFlagMakeCreateOrJoinSquadAThunks_0 then l_createOrJoinSquad_0 else nil, 
-        if l_FFlagMakeCreateOrJoinSquadAThunks_0 then v71.navigateAwayFromSquad else nil, 
-        if not l_FFlagMakeCreateOrJoinSquadAThunks_0 then v110 else nil, 
-        if l_FFlagMakeCreateOrJoinSquadAThunks_0 then v79.setSquadPrompt else nil, 
-        if l_FFlagEnableSquadCoplayDependencyArray_0 then v79.squadLocation else nil, 
-        if l_FFlagEnableSquadCoplayDependencyArray_0 then v79.fireSquadAnalytics else nil, 
-        v109
-    } else l_dependencyArray_0(v73, if l_FFlagMakeCreateOrJoinSquadAThunks_0 then l_createOrJoinSquad_0 else nil, if l_FFlagMakeCreateOrJoinSquadAThunks_0 then v71.navigateAwayFromSquad else nil, if not l_FFlagMakeCreateOrJoinSquadAThunks_0 then v110 else nil, if l_FFlagMakeCreateOrJoinSquadAThunks_0 then v79.setSquadPrompt else nil, if l_FFlagEnableSquadCoplayDependencyArray_0 then v79.squadLocation else nil, if l_FFlagEnableSquadCoplayDependencyArray_0 then v79.fireSquadAnalytics else nil, v109));
-    local v118 = v108 and v108 ~= v97;
-    l_React_0.useEffect(function() --[[ Line: 294 ]]
-        -- upvalues: v118 (copy), v79 (copy), v102 (copy), l_SquadPromptType_0 (ref), v117 (copy), v103 (copy), v71 (copy), v77 (copy)
-        if v118 then
-            v79.setSquadPrompt(v102, {
-                promptType = l_SquadPromptType_0.JoinAnotherSquad, 
-                onConfirm = function() --[[ Line: 298 ]] --[[ Name: onConfirm ]]
-                    -- upvalues: v117 (ref), v103 (ref)
-                    v117(v103);
-                end, 
-                onCancel = function() --[[ Line: 301 ]] --[[ Name: onCancel ]]
-                    -- upvalues: v71 (ref)
-                    v71.navigateAwayFromSquad();
-                end
-            });
-            v77.setParams({
-                squadId = nil
-            });
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v108, 
-        v79.setSquadPrompt, 
-        v117, 
-        v103, 
-        v71.navigateAwayFromSquad, 
-        v118
-    } else l_dependencyArray_0(v108, v79.setSquadPrompt, v117, v103, v71.navigateAwayFromSquad, v118));
-    l_useEffectOnce_0(function() --[[ Line: 332 ]]
-        -- upvalues: v118 (copy), l_FFlagAppChatShowOSAOnPageEntry_0 (ref), v79 (copy), v104 (copy), v71 (copy), v97 (copy), v10 (ref), v103 (copy), v73 (copy), v117 (copy), v110 (copy)
-        if v118 then
-            return;
-        elseif l_FFlagAppChatShowOSAOnPageEntry_0 and v79.shouldShowOSAForConversation and v79.shouldShowOSAForConversation(v104) then
-            v71.navigateAwayFromSquad();
-            return;
-        else
-            if v97 == "" then
-                if v104 and v104.source == "friends" then
-                    v10:debug("Channel does not exist for: {}. Creating a friend conversation.", v103);
-                    v73(v79.createFriendConversation(v103)):andThen(function(v119) --[[ Line: 356 ]]
-                        -- upvalues: v117 (ref)
-                        if v119 and v119.id then
-                            v117(v119.id);
-                        end;
-                    end):catch(function(v120) --[[ Line: 361 ]]
-                        -- upvalues: v10 (ref), v110 (ref)
-                        v10:debug("Error while trying to create a friend conversation: {}", v120);
-                        v110();
-                    end);
-                    return;
-                else
-                    v117(v103);
-                end;
-            end;
-            return;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v73, 
-        v79.createFriendConversation, 
-        v103, 
-        v104, 
-        v117, 
-        v110
-    } else l_dependencyArray_0(v73, v79.createFriendConversation, v103, v104, v117, v110));
-    local v121, v122 = l_React_0.useState({});
-    local v126 = l_React_0.useMemo(function() --[[ Line: 392 ]]
-        -- upvalues: v98 (copy)
-        local v123 = {};
-        if v98 then
-            for _, v125 in ipairs(v98) do
-                v123[tostring(v125.userId)] = true;
-            end;
-        end;
-        return v123;
-    end, {
-        v98
-    });
-    local v139 = l_React_0.useCallback(function(v127, v128, v129) --[[ Line: 413 ]]
-        -- upvalues: l_Cryo_0 (ref), v74 (copy), v19 (ref), v58 (ref), v57 (ref)
-        local v130 = {};
-        local v131 = 0;
-        if v128 and #l_Cryo_0.Dictionary.keys(v128) == 0 then
-            table.insert(v130, {
-                userId = v74, 
-                partyStatus = v19.Connecting
-            });
-        elseif v127 then
-            local v132 = os.time();
-            for _, v134 in ipairs(v127) do
-                local l_Inactive_0 = v19.Inactive;
-                if v128[v134] then
-                    l_Inactive_0 = v19.Active;
-                else
-                    local v137 = v129 and l_Cryo_0.List.findWhere(v129, function(v136) --[[ Line: 438 ]]
-                        -- upvalues: v134 (copy)
-                        return v134 == tostring(v136.userId);
-                    end);
-                    if v137 then
-                        local v138 = math.floor(v129[v137].invitedAtTimestampMs / 1000) or 0;
-                        if v132 >= v138 then
-                            if v132 - v138 < v58 then
-                                l_Inactive_0 = v19.Invited;
-                                v131 = v131 + 1;
-                            elseif v132 - v138 < v57 + v58 then
-                                l_Inactive_0 = v19.NoResponse;
-                                v131 = v131 + 1;
-                            end;
-                        else
-                            continue;
-                        end;
-                    end;
-                end;
-                table.insert(v130, {
-                    userId = tonumber(v134), 
-                    partyStatus = l_Inactive_0
-                });
-            end;
-        end;
-        return {
-            users = v130, 
-            numberOfUpdatesPending = v131
-        };
-    end, {});
-    l_React_0.useEffect(function() --[[ Line: 482 ]]
-        -- upvalues: v139 (copy), v105 (copy), v126 (copy), v106 (copy), v122 (copy), l_setInterval_0 (ref), l_clearInterval_0 (ref)
-        local v140 = v139(v105, v126, v106);
-        v122(v140.users);
-        local v141 = nil;
-        v141 = l_setInterval_0(function() --[[ Line: 488 ]]
-            -- upvalues: v139 (ref), v105 (ref), v126 (ref), v106 (ref), v122 (ref), l_clearInterval_0 (ref), v141 (ref)
-            local v142 = v139(v105, v126, v106);
-            v122(v142.users);
-            if v142.numberOfUpdatesPending == 0 then
-                l_clearInterval_0(v141);
-            end;
-        end, 1000);
-        return function() --[[ Line: 497 ]]
-            -- upvalues: l_clearInterval_0 (ref), v141 (ref)
-            l_clearInterval_0(v141);
-        end;
-    end, {
-        v126, 
-        v106, 
-        v105, 
-        v139
-    });
-    local v143 = l_usePrevious_0(v97) or "";
-    l_React_0.useEffect(function() --[[ Line: 504 ]]
-        -- upvalues: v143 (copy), v97 (copy), v71 (copy), v103 (copy), v101 (copy), v4 (ref), l_isWideMode_0 (copy), v77 (copy)
-        if v143 ~= "" and v97 == "" then
-            v71.navigateAwayFromSquad();
-            return;
-        else
-            if v97 ~= "" and v103 ~= "" and v101 ~= "" and v101 ~= v103 then
-                local v144 = {
-                    v4.Actions.navigate({
-                        routeName = "ChatConversation", 
-                        params = {
-                            conversationId = v101
-                        }
-                    }), 
-                    v4.Actions.navigate({
-                        routeName = "SquadLobby", 
-                        params = {
-                            conversationId = v101
-                        }
-                    })
-                };
-                if l_isWideMode_0 then
-                    v77.navigate("ChatLanding", {
-                        conversationId = v101
-                    }, v4.StackActions.reset({
-                        index = 2, 
-                        actions = v144
-                    }));
-                    return;
-                else
-                    table.insert(v144, 1, v4.Actions.navigate({
-                        routeName = "ChatLanding"
-                    }));
-                    v77.navigate("ChatLandingStack", {
-                        conversationId = v101
-                    }, v4.StackActions.reset({
-                        index = 3, 
-                        actions = v144
-                    }));
-                end;
-            end;
-            return;
-        end;
-    end, {
-        v77, 
-        v101, 
-        v103, 
-        v97, 
-        v71.navigateAwayFromSquad
-    });
-    local v145 = l_usePrevious_0(v98);
-    l_React_0.useEffect(function() --[[ Line: 569 ]]
-        -- upvalues: v98 (copy), v145 (copy), v74 (copy), v73 (copy), l_UserBlockingNetworking_0 (ref), l_NetworkingPresence_0 (ref)
-        local v146 = {};
-        if v98 then
-            for _, v148 in pairs(v98) do
-                local v149 = false;
-                if v145 then
-                    for _, v151 in pairs(v145) do
-                        if v151.userId == v148.userId then
-                            v149 = true;
-                            break;
-                        end;
-                    end;
-                end;
-                if not v149 then
-                    table.insert(v146, v148.userId);
-                    if v74 ~= v148.userId then
-                        v73(l_UserBlockingNetworking_0.IsBlockedById.API({
-                            userId = v148.userId, 
-                            currentUserId = v74
-                        }));
-                    end;
-                end;
-            end;
-        end;
-        v73(l_NetworkingPresence_0.GetPresencesFromUserIds.API(v146));
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v98, 
-        v74, 
-        v145
-    } else l_dependencyArray_0(v98, v74, v145));
-    local v152 = l_React_0.useCallback(function() --[[ Line: 604 ]]
-        -- upvalues: v91 (copy), v90 (copy)
-        v91(not v90);
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v90, 
-        v91
-    } else l_dependencyArray_0(v90, v91));
-    local v153 = v8.SQUAD_LOBBY_ACTION_BAR_HEIGHT + 26 + 20;
-    local v154 = v8.SQUAD_LOBBY_ACTION_BAR_HEIGHT + 20;
-    local v155, v156 = l_React_0.useState(nil);
-    local v157, v158 = l_React_0.useState(false);
-    local v160 = l_React_0.useCallback(function(v159) --[[ Line: 621 ]]
-        -- upvalues: v81 (copy), v72 (copy)
-        if v159.Y > 0 then
-            v81(v159.Y + v72.Gap.Medium);
-            return;
-        else
-            v81(0);
-            return;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v81, 
-        v72
-    } else l_dependencyArray_0(v81, v72));
-    local v169 = l_React_0.useCallback(function(v161) --[[ Line: 634 ]]
-        -- upvalues: v98 (copy)
-        local v162 = v161.Squad and v161.Squad.Presence and v161.Squad.Presence.byUserId or {};
-        local v163 = {};
-        local l_ipairs_0 = ipairs;
-        local v165 = v98 or {};
-        for _, v167 in l_ipairs_0(v165) do
-            local v168 = tostring(v167.userId);
-            v163[v168] = v162[v168];
-        end;
-        return v163;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v98
-    } else l_dependencyArray_0(v98));
-    local v170 = l_useSelector_0(v169);
-    local v171 = not l_FFlagEnableSquadRegroupServerCapacityCheck_0 or l_Players_0.MaxPlayers > 1;
-    local v175 = l_React_0.useMemo(function() --[[ Line: 653 ]]
-        -- upvalues: l_SquadRegroupExperimentation_0 (ref), v71 (copy), v171 (copy), v96 (copy), v170 (copy), v74 (copy), l_PresenceType_0 (ref)
-        if not l_SquadRegroupExperimentation_0.getSquadRegroupEnabled() or not v71.isInExperience or not v171 or not v96 or not v96.members or #v96.members <= 1 or not v96.selfPermissions or not v96.selfPermissions.canSeeRegroupJoinButton then
-            return false;
-        else
-            local v172 = v170[tostring(v74)];
-            if v172 == nil then
-                return false;
-            else
-                for v173, v174 in pairs(v170) do
-                    if v174 ~= nil and v173 ~= tostring(v74) and (v174.userPresenceType == l_PresenceType_0.Online or v174.userPresenceType == l_PresenceType_0.InGame and v172.gameId ~= nil and v174.gameId ~= nil and v172.gameId ~= v174.gameId) then
-                        return true;
-                    end;
-                end;
-                return false;
-            end;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v170, 
-        v74, 
-        v71.isInExperience, 
-        v96, 
-        v171
-    } else l_dependencyArray_0(v170, v74, v71.isInExperience, v96, v171));
-    local v176 = v72.Size.Size_1000 + v72.Padding.Medium * 2;
-    local v177 = l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 and v175;
-    local v178 = if not v177 and v175 then v72.Gap.XXLarge + v176 else 0;
-    local v179 = l_React_0.useMemo(function() --[[ Line: 718 ]]
-        -- upvalues: v52 (ref), l_React_0 (ref), v16 (ref), v160 (copy)
-        if v52 then
-            return (l_React_0.createElement(v16, {
-                onAbsoluteSizeChanged = v160
-            }));
-        else
-            return nil;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v160
-    } else l_dependencyArray_0(v160));
-    local v180 = l_React_0.useCallback(function() --[[ Line: 731 ]]
-        -- upvalues: v71 (copy), v101 (copy)
-        v71.navigateToSquadInviteFriends(v101);
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v101, 
-        v71.navigateToSquadInviteFriends
-    } else l_dependencyArray_0(v101, v71.navigateToSquadInviteFriends));
-    local v183 = l_React_0.useMemo(function() --[[ Line: 740 ]]
-        -- upvalues: l_React_0 (ref), v80 (copy), v178 (copy), v75 (copy), l_FFlagEnableAppChatFocusableFixes_0 (ref), v95 (copy), v177 (copy), l_Foundation_0 (ref), v13 (ref), v92 (copy), v153 (copy), v72 (copy), v176 (copy), v121 (copy), v71 (copy), v79 (copy), l_EventNames_0 (ref), v101 (copy), v18 (ref), v63 (ref), v82 (copy), v156 (copy), v158 (copy), v180 (copy), v14 (ref), v74 (copy)
-        return l_React_0.createElement("ScrollingFrame", {
-            Position = UDim2.fromOffset(0, v80), 
-            Size = UDim2.new(1, 0, 1, -(v80 + v178)), 
-            AutomaticCanvasSize = Enum.AutomaticSize.Y, 
-            BackgroundTransparency = 1, 
-            BorderSizePixel = 0, 
-            CanvasSize = UDim2.new(), 
-            ScrollingDirection = Enum.ScrollingDirection.Y, 
-            ScrollBarImageColor3 = v75.Theme.UIEmphasis.Color, 
-            ScrollBarImageTransparency = v75.Theme.UIEmphasis.Transparency, 
-            ScrollBarThickness = 4, 
-            Selectable = not l_FFlagEnableAppChatFocusableFixes_0 and nil, 
-            ZIndex = 0, 
-            [l_React_0.Change.AbsoluteSize] = v95
-        }, {
-            FrameContents = if v177 then l_React_0.createElement(l_Foundation_0.View, {
-                tag = "auto-y size-full-0 bg-surface-0 col align-x-center align-y-top"
-            }, {
-                UserGridContainer = l_React_0.createElement(l_Foundation_0.View, {
-                    tag = "auto-y size-full-0 bg-surface-0", 
-                    LayoutOrder = 1
-                }, {
-                    SquadLobbyUserGrid = l_React_0.createElement(v13, {
-                        containerSize = v92 - Vector2.new(0, v153 + v72.Gap.Medium + v176), 
-                        paddingBottom = UDim.new(0, 0), 
-                        users = v121, 
-                        isInExperience = v71.isInExperience, 
-                        onUserCardActivated = function(v181) --[[ Line: 770 ]] --[[ Name: onUserCardActivated ]]
-                            -- upvalues: v79 (ref), l_EventNames_0 (ref), v101 (ref), v18 (ref), v63 (ref), v82 (ref), v156 (ref), v158 (ref)
-                            v79.fireSquadAnalytics(l_EventNames_0.PartySheetAction, {
-                                parentChannelId = v101, 
-                                actionType = v18.UserCardClicked, 
-                                voiceStatus = if v63 then v82 else nil
-                            });
-                            v156(v181);
-                            v158(true);
-                        end, 
-                        navigateToHomePage = v71.navigateToHomePage, 
-                        navigateToSquadInviteFriends = v180
-                    })
-                }), 
-                RegroupRowSpacer = l_React_0.createElement(l_Foundation_0.View, {
-                    tag = "bg-surface-0", 
-                    Size = UDim2.new(1, 0, 0, v72.Gap.Medium), 
-                    LayoutOrder = 2
-                }), 
-                SquadLobbyRegroupRow = l_React_0.createElement(l_Foundation_0.View, {
-                    tag = "bg-surface-0", 
-                    Size = UDim2.new(1, 0, 0, v176), 
-                    LayoutOrder = 3
-                }, {
-                    Row = l_React_0.createElement(v14, {
-                        localUserId = v74
-                    })
-                }), 
-                BottomPadding = l_React_0.createElement(l_Foundation_0.View, {
-                    tag = "bg-surface-0", 
-                    Size = UDim2.new(1, 0, 0, v153), 
-                    LayoutOrder = 4
-                })
-            }) else nil, 
-            SquadLobbyUserGrid = if v177 then nil else l_React_0.createElement(v13, {
-                containerSize = v92 - Vector2.new(0, v153), 
-                paddingBottom = UDim.new(0, v153), 
-                users = v121, 
-                isInExperience = v71.isInExperience, 
-                onUserCardActivated = function(v182) --[[ Line: 812 ]] --[[ Name: onUserCardActivated ]]
-                    -- upvalues: v79 (ref), l_EventNames_0 (ref), v101 (ref), v18 (ref), v63 (ref), v82 (ref), v156 (ref), v158 (ref)
-                    v79.fireSquadAnalytics(l_EventNames_0.PartySheetAction, {
-                        parentChannelId = v101, 
-                        actionType = v18.UserCardClicked, 
-                        voiceStatus = if v63 then v82 else nil
-                    });
-                    v156(v182);
-                    v158(true);
-                end, 
-                navigateToHomePage = v71.navigateToHomePage, 
-                navigateToSquadInviteFriends = v180
-            })
-        });
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v156, 
-        v158, 
-        v92, 
-        v98, 
-        v180, 
-        v95, 
-        v71.navigateToHomePage, 
-        v153, 
-        v80, 
-        if v175 then v178 else nil, 
-        v121, 
-        v177, 
-        if v177 then v176 else nil, 
-        if v177 then v74 else nil, 
-        if v63 then v82 else nil
-    } else l_dependencyArray_0(v156, v158, v92, v98, v180, v95, v71.navigateToHomePage, v153, v80, if v175 then v178 else nil, v121, v177, if v177 then v176 else nil, if v177 then v74 else nil, if v63 then v82 else nil));
-    local v184 = l_React_0.useMemo(function() --[[ Line: 864 ]]
-        -- upvalues: l_React_0 (ref), v12 (ref), v76 (copy), v104 (copy), v71 (copy), v152 (copy), v97 (copy)
-        return l_React_0.createElement(v12, {
-            squadState = v76, 
-            anchorPoint = Vector2.new(0.5, 1), 
-            hasUnreadMessages = if v104 and v104.hasUnreadMessages then v104.hasUnreadMessages else false, 
-            navigateAwayFromSquad = v71.navigateAwayFromSquad, 
-            navigateToHomePage = v71.navigateToHomePage, 
-            toggleVoiceChatMenu = v152, 
-            position = UDim2.new(0.5, 0, 1, -20), 
-            squadId = v97, 
-            isInExperience = v71.isInExperience
-        });
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v97, 
-        v71.isInExperience, 
-        v71.navigateToHomePage, 
-        v76, 
-        v152, 
-        v104 and v104.hasUnreadMessages
-    } else l_dependencyArray_0(v97, v71.isInExperience, v71.navigateToHomePage, v76, v152, v104 and v104.hasUnreadMessages));
-    local v185 = l_React_0.useMemo(function() --[[ Line: 899 ]]
-        -- upvalues: v177 (copy), v175 (copy), l_React_0 (ref), l_Foundation_0 (ref), v8 (ref), v72 (copy), v176 (copy), v14 (ref), v74 (copy)
-        if v177 or not v175 then
-            return nil;
-        else
-            return l_React_0.createElement(l_Foundation_0.View, {
-                tag = "anchor-bottom-center auto-none gui-object-defaults", 
-                Position = UDim2.new(0.5, 0, 1, -(20 + v8.SQUAD_LOBBY_ACTION_BAR_HEIGHT + v72.Gap.XXLarge)), 
-                Size = UDim2.new(1, 0, 0, v176)
-            }, {
-                Row = l_React_0.createElement(v14, {
-                    localUserId = v74
-                })
-            });
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v175, 
-        v74, 
-        v72, 
-        v176
-    } else l_dependencyArray_0(v175, v74, v72, v176));
-    local v186 = l_React_0.useMemo(function() --[[ Line: 925 ]]
-        -- upvalues: v90 (copy), l_React_0 (ref), l_Foundation_0 (ref), l_StateLayerAffordance_0 (ref), v91 (copy), v154 (copy), v72 (copy), v15 (ref), l_FFlagEnablePartyVoiceChangersInLua_0 (ref), v71 (copy)
-        if v90 then
-            return (l_React_0.createElement(l_Foundation_0.View, {
-                Size = UDim2.new(1, 0, 1, 0), 
-                stateLayer = {
-                    affordance = l_StateLayerAffordance_0.None
-                }, 
-                onActivated = function() --[[ Line: 931 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v91 (ref)
-                    v91(false);
-                end
-            }, {
-                l_React_0.createElement(l_Foundation_0.ScrollView, {
-                    Size = UDim2.new(1, 0, 1, 0), 
-                    Position = UDim2.new(0.5, 0, 0, 0), 
-                    AnchorPoint = Vector2.new(0.5, 0), 
-                    sizeConstraint = {
-                        MaxSize = Vector2.new(350, 1e999)
-                    }, 
-                    scroll = {
-                        AutomaticCanvasSize = Enum.AutomaticSize.Y, 
-                        CanvasSize = UDim2.new(1, 0, 1, 0), 
-                        ScrollingDirection = Enum.ScrollingDirection.Y
-                    }, 
-                    layout = {
-                        FillDirection = Enum.FillDirection.Vertical, 
-                        SortOrder = Enum.SortOrder.LayoutOrder
-                    }
-                }, {
-                    FlexibleSpace = l_React_0.createElement(l_Foundation_0.View, {
-                        Size = UDim2.new(1, 0, 0, v154), 
-                        flexItem = {
-                            FlexMode = Enum.UIFlexMode.Fill
-                        }, 
-                        LayoutOrder = 1, 
-                        stateLayer = {
-                            affordance = l_StateLayerAffordance_0.None
-                        }, 
-                        onActivated = function() --[[ Line: 955 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v91 (ref)
-                            v91(false);
-                        end
-                    }), 
-                    Menu = l_React_0.createElement(l_Foundation_0.View, {
-                        Size = UDim2.new(1, 0, 1, 0), 
-                        flexItem = {
-                            ItemLineAlignment = Enum.ItemLineAlignment.Center
-                        }, 
-                        AutomaticSize = Enum.AutomaticSize.Y, 
-                        LayoutOrder = 2, 
-                        padding = Vector2.new(v72.Padding.XLarge, v72.Padding.Medium), 
-                        stateLayer = {
-                            affordance = l_StateLayerAffordance_0.None
-                        }, 
-                        onActivated = function() --[[ Line: 968 ]] --[[ Name: onActivated ]]
+require(Squads.Common.ModelTypes)
 
-                        end, 
-                        ZIndex = 3
-                    }, {
-                        SquadLobbyVoiceChatMenu = l_React_0.createElement(v15, {
-                            openSquadVoiceChangers = if l_FFlagEnablePartyVoiceChangersInLua_0 then v71.openSquadVoiceChangers else nil
-                        })
-                    }), 
-                    BottomPadding = l_React_0.createElement(l_Foundation_0.View, {
-                        Size = UDim2.new(1, 0, 0, v154), 
-                        LayoutOrder = 3, 
-                        stateLayer = {
-                            affordance = l_StateLayerAffordance_0.None
-                        }, 
-                        onActivated = function() --[[ Line: 981 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v91 (ref)
-                            v91(false);
-                        end
-                    })
-                })
-            }));
-        else
-            return nil;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v154, 
-        v90, 
-        v91, 
-        v72
-    } else l_dependencyArray_0(v154, v90, v91, v72));
-    local v187 = l_React_0.useMemo(function() --[[ Line: 1000 ]]
-        -- upvalues: v157 (copy), v155 (copy), l_React_0 (ref), v17 (ref), v71 (copy), v156 (copy), v158 (copy), v101 (copy)
-        if v157 and v155 then
-            return (l_React_0.createElement(v17, {
-                userId = v155, 
-                isInExperience = v71.isInExperience, 
-                onDismiss = function() --[[ Line: 1005 ]] --[[ Name: onDismiss ]]
-                    -- upvalues: v156 (ref), v158 (ref)
-                    v156(nil);
-                    v158(false);
-                end, 
-                openViewProfile = function() --[[ Line: 1009 ]] --[[ Name: openViewProfile ]]
-                    -- upvalues: v71 (ref), v155 (ref)
-                    v71.openViewProfile(v155);
-                end, 
-                openSquadVoiceAbuseReport = v71.openSquadVoiceAbuseReport, 
-                parentChannelId = v101
-            }));
-        else
-            return nil;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v101, 
-        v71.isInExperience, 
-        v157, 
-        v158, 
-        v71.openViewProfile, 
-        v155, 
-        v156
-    } else l_dependencyArray_0(v101, v71.isInExperience, v157, v158, v71.openViewProfile, v155, v156));
-    l_React_0.useEffect(function() --[[ Line: 1038 ]]
-        -- upvalues: l_SquadCoordinationExperienceJoinExperimentation_0 (ref), l_FFlagEnableSquadRegroupExperimentation_0 (ref), l_SquadRegroupExperimentation_0 (ref)
-        l_SquadCoordinationExperienceJoinExperimentation_0.logExposure();
-        if l_FFlagEnableSquadRegroupExperimentation_0 then
-            l_SquadRegroupExperimentation_0.logExposure();
-        end;
-    end, {});
-    local v188 = l_Roact_0.createFragment({
-        SquadLobbyBanners = v179, 
-        SquadLobbyUsersScrollingFrame = v183, 
-        SquadLobbyRegroupRow = v185, 
-        SquadLobbyActionBar = v184, 
-        SquadLobbyVoiceChatMenu = v186, 
-        UserDropdownMenu = v187
-    });
-    if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then
-        v188 = l_React_0.createElement(l_SquadLobbySessionProvider_0.Provider, nil, v188);
-    end;
-    return v188;
-end;
+local SquadLobbyActionBar = require(script.Parent.SquadLobbyActionBar)
+local SquadLobbyUserGrid = require(script.Parent.SquadLobbyUserGrid)
+local SquadLobbyRegroupRow = require(script.Parent.SquadLobbyRegroupRow)
+local SquadLobbyVoiceChatMenu = require(script.Parent.SquadLobbyVoiceChatMenu)
+local SquadLobbyBanners = require(script.Parent.SquadLobbyBanners)
+local SquadLobbyUserDropdownMenu = require(script.Parent.SquadLobbyUserDropdownMenu)
+local SquadPartySheetActionEnum = require(Squads.Enums.SquadPartySheetActionEnum)
+local SquadUserPartyStatus = require(Squads.Enums.SquadUserPartyStatus)
+local Cryo = dependencies.Cryo
+local Foundation = dependencies.Foundation
+local LuauPolyfill = dependencies.LuauPolyfill
+local NetworkingPresence = dependencies.NetworkingPresence
+local NetworkingSquads = dependencies.NetworkingSquads
+local React = dependencies.React
+local Roact = dependencies.Roact
+local SharedFlags = dependencies.SharedFlags
+local EventNames = dependencies.SquadsCore.Analytics.EventNames
+local SquadExternalContractContext = dependencies.SquadsCore.SquadExternalContractProvider.SquadExternalContractContext
+local SquadPromptType = dependencies.SquadsCore.Enums.SquadPromptType
+local SquadCoplayJoin = dependencies.SquadsCore.Enums.SquadCoplayJoin
+local SquadViewFlags = dependencies.SquadsCore.SquadExternalContractProvider.SquadViewFlags
+local SquadLobbySessionProvider = dependencies.SquadsCore.SquadSessionProvider.SquadLobbySessionProvider
+local logInExpCoplayTelemetry = dependencies.SquadsCore.Analytics.logInExpCoplayTelemetry
+local createOrJoinSquad = dependencies.SquadsCore.Thunks.createOrJoinSquad
+local UserBlockingNetworking = dependencies.UserBlockingNetworking
+local dependencyArray = dependencies.Hooks.dependencyArray
+local useCurrentSquadSelector = dependencies.Hooks.useCurrentSquadSelector
+local useDispatch = dependencies.Hooks.useDispatch
+local useEffectOnce = dependencies.Hooks.useEffectOnce
+local useNavigation = dependencies.useNavigation
+local usePrevious = dependencies.Hooks.usePrevious
+local useSelector = dependencies.Hooks.useSelector
+local useStore = dependencies.Hooks.useStore
+local useSquadState = dependencies.SquadsCore.Hooks.useSquadState
+local PresenceType = dependencies.RoduxPresence.Enums.PresenceType
+local StateLayerAffordance = Foundation.Enums.StateLayerAffordance
+local useStyle = UIBlox.Core.Style.useStyle
+local useTokens = Foundation.Hooks.useTokens
+local clearInterval = LuauPolyfill.clearInterval
+local setInterval = LuauPolyfill.setInterval
+local v52 = game:DefineFastFlag("EnableSquadLobbyBanners", false)
+local FFlagEnableSquadCoplayAnalytic = SharedFlags.FFlagEnableSquadCoplayAnalytic
+local FFlagEnableSquadTopBannerWideMode = SharedFlags.FFlagEnableSquadTopBannerWideMode
+local FFlagMakeCreateOrJoinSquadAThunks = SharedFlags.FFlagMakeCreateOrJoinSquadAThunks
+local v56 = game:DefineFastInt("PartyInviteeNoResponseDurationSeconds", 3)
+local v57 = game:DefineFastInt("PartyUserInvitedDurationSeconds", 10)
+local SquadQuickStartExperimentation = dependencies.SocialExperiments.SquadQuickStartExperimentation
+local SquadCoordinationExperienceJoinExperimentation = dependencies.SocialExperiments.SquadCoordinationExperienceJoinExperimentation
+local SquadRegroupExperimentation = dependencies.SocialExperiments.SquadRegroupExperimentation
+local FFlagEnablePartyQuickStartButton = SharedFlags.FFlagEnablePartyQuickStartButton
+local FFlagEnableAppChatFocusableFixes = SharedFlags.FFlagEnableAppChatFocusableFixes
+local FFlagEnablePartyVoiceChangersInLua = SharedFlags.FFlagEnablePartyVoiceChangersInLua
+local FFlagEnableSquadRegroupExperimentation = SharedFlags.FFlagEnableSquadRegroupExperimentation
+local FFlagEnableSquadRegroupExperimentationSmallScreenFix = SharedFlags.FFlagEnableSquadRegroupExperimentationSmallScreenFix
+local FFlagEnableSquadRegroupServerCapacityCheck = SharedFlags.FFlagEnableSquadRegroupServerCapacityCheck
+local FFlagAppChatShowOSAOnPageEntry = SharedFlags.FFlagAppChatShowOSAOnPageEntry
+local FFlagRemoveDependencyArrayAntipattern = SharedFlags.FFlagRemoveDependencyArrayAntipattern
+
+return function(t1: {[any]: any}) --[[ SquadLobby ]] -- line: 98
+	-- upvalues: useTokens (copy), useDispatch (copy), useLocalUserId (copy), useStyle (copy), useSquadState (copy), useNavigation (copy), React (copy), SquadExternalContractContext (copy), useVoiceStatus (copy), FFlagEnableSquadTopBannerWideMode (copy), HttpService (copy), RoactNavigation (copy), SquadViewFlags (copy), useCurrentSquadSelector (copy), useSelector (copy), useStore (copy), SquadQuickStartExperimentation (copy), FFlagEnablePartyQuickStartButton (copy), SquadPromptType (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), FFlagMakeCreateOrJoinSquadAThunks (copy), createOrJoinSquad (copy), NetworkingSquads (copy), FFlagEnableSquadCoplayAnalytic (copy), logInExpCoplayTelemetry (copy), SquadCoplayJoin (copy), useEffectOnce (copy), FFlagAppChatShowOSAOnPageEntry (copy), Logger (copy), Cryo (copy), SquadUserPartyStatus (copy), v57 (copy), v56 (copy), setInterval (copy), clearInterval (copy), usePrevious (copy), UserBlockingNetworking (copy), NetworkingPresence (copy), Constants (copy), FFlagEnableSquadRegroupServerCapacityCheck (copy), Players (copy), SquadRegroupExperimentation (copy), PresenceType (copy), FFlagEnableSquadRegroupExperimentationSmallScreenFix (copy), v52 (copy), SquadLobbyBanners (copy), FFlagEnableAppChatFocusableFixes (copy), Foundation (copy), SquadLobbyUserGrid (copy), EventNames (copy), SquadPartySheetActionEnum (copy), SquadLobbyRegroupRow (copy), SquadLobbyActionBar (copy), StateLayerAffordance (copy), SquadLobbyVoiceChatMenu (copy), FFlagEnablePartyVoiceChangersInLua (copy), SquadLobbyUserDropdownMenu (copy), SquadCoordinationExperienceJoinExperimentation (copy), FFlagEnableSquadRegroupExperimentation (copy), Roact (copy), SquadLobbySessionProvider (copy)
+	local v70 = useTokens()
+	local v71 = useDispatch()
+	local v72 = tonumber(useLocalUserId()) or 0
+	local v73 = useStyle()
+	local v74 = useSquadState()
+	local v75 = useNavigation()
+	local isWideMode = t1.isWideMode
+	local v77 = React.useContext(SquadExternalContractContext)
+	local v78, v79 = React.useState(0)
+	local v80 = useVoiceStatus()
+
+	if FFlagEnableSquadTopBannerWideMode then
+		local v81 = React.useRef(HttpService:GenerateGUID())
+
+		React.useEffect(function() -- line: 113
+			-- upvalues: isWideMode (copy), v81 (copy), v77 (copy), v75 (copy), RoactNavigation (copy)
+			if not isWideMode then
+				local current = v81.current
+
+				v77.disableSquadTopBanner(current, true)
+
+				local u133 = v75 and v75.addListener(RoactNavigation.Events.WillBlur, function(p1) -- line: 118
+					-- upvalues: v77 (copy), current (copy)
+					if p1.state.routeName ~= "SquadInviteFriends" and p1.state.routeName ~= "SquadLobby" then
+						v77.disableSquadTopBanner(current, false)
+
+						return
+					end
+
+					v77.disableSquadTopBanner(current, true)
+				end)
+
+				return function() -- line: 129
+					-- upvalues: u133 (ref), v77 (copy), current (copy)
+					if u133 then
+						u133.remove()
+						u133 = nil
+					end
+
+					v77.disableSquadTopBanner(current, false)
+				end
+			end
+
+			return function() -- line: 139
+			end
+		end, {
+			v77.disableSquadTopBanner,
+			v75,
+			isWideMode
+		})
+		React.useEffect(function() -- line: 142
+			-- upvalues: v77 (copy), SquadViewFlags (copy)
+			v77.updateSquadViewFlags(SquadViewFlags.SquadLobby, true)
+
+			return function() -- line: 144
+				-- upvalues: v77 (copy), SquadViewFlags (copy)
+				v77.updateSquadViewFlags(SquadViewFlags.SquadLobby, false)
+			end
+		end, { v77.updateSquadViewFlags })
+	else
+		React.useEffect(function() -- line: 152
+			-- upvalues: v77 (copy), SquadViewFlags (copy), v75 (copy), RoactNavigation (copy)
+			v77.updateSquadViewFlags(SquadViewFlags.SquadLobby, true)
+
+			local u134 = v75 and v75.addListener(RoactNavigation.Events.WillBlur, function(p2) -- line: 155
+				-- upvalues: v77 (copy), SquadViewFlags (copy)
+				if p2.state.routeName ~= "SquadInviteFriends" and p2.state.routeName ~= "SquadLobby" then
+					v77.updateSquadViewFlags(SquadViewFlags.SquadLobby, false)
+
+					return
+				end
+
+				v77.updateSquadViewFlags(SquadViewFlags.SquadLobby, true)
+			end)
+
+			return function() -- line: 162
+				-- upvalues: u134 (ref), v77 (copy), SquadViewFlags (copy)
+				if u134 then
+					u134.remove()
+					u134 = nil
+				end
+
+				v77.updateSquadViewFlags(SquadViewFlags.SquadLobby, false)
+			end
+		end, {
+			v77.updateSquadViewFlags,
+			v75
+		})
+	end
+
+	local v82, v83 = React.useState(false)
+	local v84, v85 = React.useState(Vector2.zero)
+	local v86 = React.useCallback(function(p3) -- line: 174
+		-- upvalues: v85 (copy)
+		v85(p3.AbsoluteSize)
+	end, { v85 })
+	local v87 = useCurrentSquadSelector()
+	local v88 = not v87 and "" or v87.squadId
+	local v89 = v87 and v87.members
+	local v90 = React.useCallback(function(p4) -- line: 182
+		if p4.Squad and (p4.Squad.Squad and p4.Squad.Squad.currentSquad) then
+			return p4.Squad.Squad.currentSquad.parentChannelId or ""
+		end
+
+		return ""
+	end, {})
+	local v91 = useSelector(v90)
+	local v92 = useStore()
+	local v93 = v75.getParam("conversationId") or ""
+	local v94 = v77.useGetConversationFromId(v93)
+	local v95 = v94 and v94.participants
+	local v96 = v87 and v87.invitees
+	local squadCreateOrJoinAttemptId = nil
+	local v98 = v75.getParam("extraParams") or {}
+	local squadId = v98.squadId
+
+	if SquadQuickStartExperimentation.getPartyQuickStartChangesEnabled() and FFlagEnablePartyQuickStartButton then
+		squadCreateOrJoinAttemptId = v98.squadCreateOrJoinAttemptId
+	end
+
+	local v100 = React.useCallback(function() -- line: 206
+		-- upvalues: v77 (copy), v92 (copy), SquadPromptType (copy), t1 (copy)
+		v77.setSquadPrompt(v92, {
+			hideCancelButton = true,
+			promptType = SquadPromptType.Error,
+			onConfirm = function() --[[ onConfirm ]] -- line: 210
+				-- upvalues: t1 (copy)
+				t1.navigateAwayFromSquad()
+			end
+		})
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(t1.navigateAwayFromSquad, v92, v77.setSquadPrompt) else {
+		t1.navigateAwayFromSquad,
+		v92,
+		v77.setSquadPrompt
+	})
+	local v101 = React.useCallback(function(s1: string) -- line: 221
+		-- upvalues: FFlagMakeCreateOrJoinSquadAThunks (copy), v71 (copy), createOrJoinSquad (copy), v77 (copy), squadCreateOrJoinAttemptId (ref), t1 (copy), NetworkingSquads (copy), FFlagEnableSquadCoplayAnalytic (copy), logInExpCoplayTelemetry (copy), SquadCoplayJoin (copy), v100 (copy)
+		if FFlagMakeCreateOrJoinSquadAThunks then
+			v71(createOrJoinSquad(s1, v77.setSquadPrompt, v77.fireSquadAnalytics, v77.squadLocation, squadCreateOrJoinAttemptId, t1.navigateAwayFromSquad))
+
+			return
+		end
+
+		local v138 = v71(NetworkingSquads.CreateOrJoinSquad.API({
+			parentChannelId = s1,
+			leaveExisting = true,
+			squadLocation = if not FFlagEnableSquadCoplayAnalytic then nil else v77.squadLocation,
+			partyAttemptId = squadCreateOrJoinAttemptId
+		}))
+
+		if FFlagEnableSquadCoplayAnalytic then
+			v138 = v138:andThen(function(p5) -- line: 244
+				-- upvalues: logInExpCoplayTelemetry (copy), v77 (copy), SquadCoplayJoin (copy)
+				local groupUpId = p5.responseBody.groupUp.groupUpId
+				local members = p5.responseBody.groupUp.members
+
+				if groupUpId and members then
+					logInExpCoplayTelemetry(groupUpId, members, v77.squadLocation, SquadCoplayJoin.PartyJoin, v77.fireSquadAnalytics)
+				end
+			end)
+		end
+
+		v138:catch(function(_) -- line: 260
+			-- upvalues: v100 (copy)
+			v100()
+		end)
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v71, if not FFlagMakeCreateOrJoinSquadAThunks then nil else createOrJoinSquad, if not FFlagMakeCreateOrJoinSquadAThunks then nil else t1.navigateAwayFromSquad, if FFlagMakeCreateOrJoinSquadAThunks then nil else v100, if not FFlagMakeCreateOrJoinSquadAThunks then nil else v77.setSquadPrompt, v77.squadLocation, v77.fireSquadAnalytics, squadCreateOrJoinAttemptId) else {
+		v71,
+		if not FFlagMakeCreateOrJoinSquadAThunks then nil else createOrJoinSquad,
+		if not FFlagMakeCreateOrJoinSquadAThunks then nil else t1.navigateAwayFromSquad,
+		if FFlagMakeCreateOrJoinSquadAThunks then nil else v100,
+		if not FFlagMakeCreateOrJoinSquadAThunks then nil else v77.setSquadPrompt,
+		v77.squadLocation,
+		v77.fireSquadAnalytics,
+		squadCreateOrJoinAttemptId
+	})
+	local v102 = squadId and squadId ~= v88
+
+	React.useEffect(function() -- line: 292
+		-- upvalues: v102 (copy), v77 (copy), v92 (copy), SquadPromptType (copy), v101 (copy), v93 (copy), t1 (copy), v75 (copy)
+		if v102 then
+			v77.setSquadPrompt(v92, {
+				promptType = SquadPromptType.JoinAnotherSquad,
+				onConfirm = function() --[[ onConfirm ]] -- line: 296
+					-- upvalues: v101 (copy), v93 (copy)
+					v101(v93)
+				end,
+				onCancel = function() --[[ onCancel ]] -- line: 299
+					-- upvalues: t1 (copy)
+					t1.navigateAwayFromSquad()
+				end
+			})
+			v75.setParams({
+				squadId = nil
+			})
+		end
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(squadId, v77.setSquadPrompt, v101, v93, t1.navigateAwayFromSquad, v102) else {
+		squadId,
+		v77.setSquadPrompt,
+		v101,
+		v93,
+		t1.navigateAwayFromSquad,
+		v102
+	})
+	useEffectOnce(function() -- line: 330
+		-- upvalues: v102 (copy), FFlagAppChatShowOSAOnPageEntry (copy), v77 (copy), v94 (copy), t1 (copy), v88 (copy), Logger (copy), v93 (copy), v71 (copy), v101 (copy), v100 (copy)
+		if v102 then
+			return
+		end
+
+		if FFlagAppChatShowOSAOnPageEntry and v77.shouldShowOSAForConversation and v77.shouldShowOSAForConversation(v94) then
+			t1.navigateAwayFromSquad()
+
+			return
+		end
+
+		if v88 == "" then
+			if v94 and v94.source == "friends" then
+				Logger:debug("Channel does not exist for: {}. Creating a friend conversation.", v93)
+				v71(v77.createFriendConversation(v93)):andThen(function(p7) -- line: 354
+					-- upvalues: v101 (copy)
+					if p7 and p7.id then
+						v101(p7.id)
+					end
+				end):catch(function(p8) -- line: 359
+					-- upvalues: Logger (copy), v100 (copy)
+					Logger:debug("Error while trying to create a friend conversation: {}", p8)
+					v100()
+				end)
+
+				return
+			end
+
+			v101(v93)
+		end
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v71, v77.createFriendConversation, v93, v94, v101, v100) else {
+		v71,
+		v77.createFriendConversation,
+		v93,
+		v94,
+		v101,
+		v100
+	})
+
+	local v103, v104 = React.useState({})
+	local v105 = React.useMemo(function() -- line: 390
+		-- upvalues: v89 (copy)
+		local t2 = {}
+
+		if v89 then
+			for _, v in ipairs(v89) do
+				t2[tostring(v.userId)] = true
+			end
+		end
+
+		return t2
+	end, { v89 })
+	local v106 = React.useCallback(function(p9, p10, p11) -- line: 411
+		-- upvalues: Cryo (copy), v72 (copy), SquadUserPartyStatus (copy), v57 (copy), v56 (copy)
+		local t3 = {}
+		local n1 = 0
+
+		if p10 and #Cryo.Dictionary.keys(p10) == 0 then
+			table.insert(t3, {
+				userId = v72,
+				partyStatus = SquadUserPartyStatus.Connecting
+			})
+		elseif p9 then
+			local timestamp = os.time()
+
+			for _, v in ipairs(p9) do
+				local Inactive = SquadUserPartyStatus.Inactive
+
+				if p10[v] then
+					Inactive = SquadUserPartyStatus.Active
+				else
+					local v151 = p11 and Cryo.List.findWhere(p11, function(p12) -- line: 436
+						-- upvalues: v (copy)
+						return v == tostring(p12.userId)
+					end)
+
+					if v151 then
+						local v152 = math.floor(p11[v151].invitedAtTimestampMs / 1000) or 0
+
+						if timestamp < v152 then
+							continue
+						end
+
+						if timestamp - v152 < v57 then
+							Inactive = SquadUserPartyStatus.Invited
+							n1 += 1
+						elseif timestamp - v152 < v56 + v57 then
+							Inactive = SquadUserPartyStatus.NoResponse
+							n1 += 1
+						end
+					end
+				end
+
+				table.insert(t3, {
+					userId = tonumber(v),
+					partyStatus = Inactive
+				})
+			end
+		end
+
+		return {
+			users = t3,
+			numberOfUpdatesPending = n1
+		}
+	end, {})
+
+	React.useEffect(function() -- line: 480
+		-- upvalues: v106 (copy), v95 (copy), v105 (copy), v96 (copy), v104 (copy), setInterval (copy), clearInterval (copy)
+		local v153 = v106(v95, v105, v96)
+
+		v104(v153.users)
+
+		local u154 = nil
+
+		u154 = setInterval(function() -- line: 486
+			-- upvalues: v106 (copy), v95 (copy), v105 (copy), v96 (copy), v104 (copy), clearInterval (copy), u154 (ref)
+			local v181 = v106(v95, v105, v96)
+
+			v104(v181.users)
+
+			if v181.numberOfUpdatesPending == 0 then
+				clearInterval(u154)
+			end
+		end, 1000)
+
+		return function() -- line: 495
+			-- upvalues: clearInterval (copy), u154 (ref)
+			clearInterval(u154)
+		end
+	end, {
+		v105,
+		v96,
+		v95,
+		v106
+	})
+
+	local v107 = usePrevious(v88) or ""
+
+	React.useEffect(function() -- line: 502
+		-- upvalues: v107 (copy), v88 (copy), t1 (copy), v93 (copy), v91 (copy), RoactNavigation (copy), isWideMode (copy), v75 (copy)
+		if v107 ~= "" and v88 == "" then
+			t1.navigateAwayFromSquad()
+
+			return
+		end
+
+		if v88 ~= "" and v93 ~= "" and v91 ~= "" and v91 ~= v93 then
+			local t4 = {
+				RoactNavigation.Actions.navigate({
+					routeName = "ChatConversation",
+					params = {
+						conversationId = v91
+					}
+				}),
+				RoactNavigation.Actions.navigate({
+					routeName = "SquadLobby",
+					params = {
+						conversationId = v91
+					}
+				})
+			}
+
+			if isWideMode then
+				v75.navigate("ChatLanding", {
+					conversationId = v91
+				}, RoactNavigation.StackActions.reset({
+					index = 2,
+					actions = t4
+				}))
+
+				return
+			end
+
+			table.insert(t4, 1, RoactNavigation.Actions.navigate({
+				routeName = "ChatLanding"
+			}))
+			v75.navigate("ChatLandingStack", {
+				conversationId = v91
+			}, RoactNavigation.StackActions.reset({
+				index = 3,
+				actions = t4
+			}))
+		end
+	end, {
+		v75,
+		v91,
+		v93,
+		v88,
+		t1.navigateAwayFromSquad
+	})
+
+	local v108 = usePrevious(v89)
+
+	React.useEffect(function() -- line: 567
+		-- upvalues: v89 (copy), v108 (copy), v72 (copy), v71 (copy), UserBlockingNetworking (copy), NetworkingPresence (copy)
+		local t5 = {}
+
+		if v89 then
+			for _, v in pairs(v89) do
+				local v159 = false
+
+				if v108 then
+					for _, v2 in pairs(v108) do
+						if v2.userId == v.userId then
+							v159 = true
+
+							break
+						end
+					end
+				end
+
+				if not v159 then
+					table.insert(t5, v.userId)
+
+					if v72 ~= v.userId then
+						v71(UserBlockingNetworking.IsBlockedById.API({
+							userId = v.userId,
+							currentUserId = v72
+						}))
+					end
+				end
+			end
+		end
+
+		v71(NetworkingPresence.GetPresencesFromUserIds.API(t5))
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v89, v72, v108) else {
+		v89,
+		v72,
+		v108
+	})
+
+	local v109 = React.useCallback(function() -- line: 602
+		-- upvalues: v83 (copy), v82 (copy)
+		v83(not v82)
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v82, v83) else {
+		v82,
+		v83
+	})
+	local v110 = Constants.SQUAD_LOBBY_ACTION_BAR_HEIGHT + 26 + 20
+	local v111 = Constants.SQUAD_LOBBY_ACTION_BAR_HEIGHT + 20
+	local v112, v113 = React.useState(nil)
+	local v114, v115 = React.useState(false)
+	local v116 = React.useCallback(function(vector2: Vector2) -- line: 619
+		-- upvalues: v79 (copy), v70 (copy)
+		if vector2.Y > 0 then
+			v79(vector2.Y + v70.Gap.Medium)
+
+			return
+		end
+
+		v79(0)
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v79, v70) else {
+		v79,
+		v70
+	})
+	local v117 = React.useCallback(function(p13) -- line: 632
+		-- upvalues: v89 (copy)
+		local v164 = p13.Squad and (not not p13.Squad.Presence and p13.Squad.Presence.byUserId) or {}
+		local t6 = {}
+
+		for _, v in ipairs(v89 or {}) do
+			local str = tostring(v.userId)
+
+			t6[str] = v164[str]
+		end
+
+		return t6
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v89) else { v89 })
+	local v118 = useSelector(v117)
+	local v119 = not FFlagEnableSquadRegroupServerCapacityCheck or Players.MaxPlayers > 1
+	local v120 = React.useMemo(function() -- line: 651
+		-- upvalues: SquadRegroupExperimentation (copy), t1 (copy), v119 (copy), v87 (copy), v118 (copy), v72 (copy), PresenceType (copy)
+		if not SquadRegroupExperimentation.getSquadRegroupEnabled() or (not t1.isInExperience or not v119 or not v87 or not v87.members or not (#v87.members > 1) or not v87.selfPermissions or not v87.selfPermissions.canSeeRegroupJoinButton) then
+			return false
+		end
+
+		local v169 = v118[tostring(v72)]
+
+		if v169 == nil then
+			return false
+		end
+
+		for k, v in pairs(v118) do
+			if v ~= nil and k ~= tostring(v72) and (v.userPresenceType == PresenceType.Online or v.userPresenceType == PresenceType.InGame and v169.gameId ~= nil and v.gameId ~= nil and v169.gameId ~= v.gameId) then
+				return true
+			end
+		end
+
+		return false
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v118, v72, t1.isInExperience, v87, v119) else {
+		v118,
+		v72,
+		t1.isInExperience,
+		v87,
+		v119
+	})
+	local v121 = v70.Size.Size_1000 + v70.Padding.Medium * 2
+	local v122 = FFlagEnableSquadRegroupExperimentationSmallScreenFix and v120
+	local v123 = (v122 or not v120) and 0 or v70.Gap.XXLarge + v121
+	local v124 = React.useMemo(function() -- line: 716
+		-- upvalues: v52 (copy), React (copy), SquadLobbyBanners (copy), v116 (copy)
+		if v52 then
+			return (React.createElement(SquadLobbyBanners, {
+				onAbsoluteSizeChanged = v116
+			}))
+		end
+
+		return nil
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v116) else { v116 })
+	local v125 = React.useCallback(function() -- line: 729
+		-- upvalues: t1 (copy), v91 (copy)
+		t1.navigateToSquadInviteFriends(v91)
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v91, t1.navigateToSquadInviteFriends) else {
+		v91,
+		t1.navigateToSquadInviteFriends
+	})
+	local v126 = React.useMemo(function() -- line: 739
+		-- upvalues: React (copy), v78 (copy), v123 (copy), v73 (copy), FFlagEnableAppChatFocusableFixes (copy), v86 (copy), v122 (copy), Foundation (copy), SquadLobbyUserGrid (copy), v84 (copy), v110 (copy), v70 (copy), v121 (copy), v103 (copy), t1 (copy), v77 (copy), EventNames (copy), v91 (copy), SquadPartySheetActionEnum (copy), v80 (copy), v113 (copy), v115 (copy), v125 (copy), SquadLobbyRegroupRow (copy), v72 (copy)
+		return React.createElement("ScrollingFrame", {
+			Position = UDim2.fromOffset(0, v78),
+			Size = UDim2.new(1, 0, 1, -(v78 + v123)),
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			CanvasSize = UDim2.new(),
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+			ScrollBarImageColor3 = v73.Theme.UIEmphasis.Color,
+			ScrollBarImageTransparency = v73.Theme.UIEmphasis.Transparency,
+			ScrollBarThickness = 4,
+			Selectable = not FFlagEnableAppChatFocusableFixes and nil,
+			ZIndex = 0,
+			[React.Change.AbsoluteSize] = v86
+		}, {
+			FrameContents = if not v122 then nil else React.createElement(Foundation.View, {
+				tag = "auto-y size-full-0 bg-surface-0 col align-x-center align-y-top"
+			}, {
+				UserGridContainer = React.createElement(Foundation.View, {
+					tag = "auto-y size-full-0 bg-surface-0",
+					LayoutOrder = 1
+				}, {
+					SquadLobbyUserGrid = React.createElement(SquadLobbyUserGrid, {
+						containerSize = v84 - Vector2.new(0, v110 + v70.Gap.Medium + v121),
+						paddingBottom = UDim.new(0, 0),
+						users = v103,
+						isInExperience = t1.isInExperience,
+						onUserCardActivated = function(s2: string) --[[ onUserCardActivated ]] -- line: 769
+							-- upvalues: v77 (copy), EventNames (copy), v91 (copy), SquadPartySheetActionEnum (copy), v80 (copy), v113 (copy), v115 (copy)
+							v77.fireSquadAnalytics(EventNames.PartySheetAction, {
+								parentChannelId = v91,
+								actionType = SquadPartySheetActionEnum.UserCardClicked,
+								voiceStatus = v80
+							})
+							v113(s2)
+							v115(true)
+						end,
+						navigateToHomePage = t1.navigateToHomePage,
+						navigateToSquadInviteFriends = v125
+					})
+				}),
+				RegroupRowSpacer = React.createElement(Foundation.View, {
+					tag = "bg-surface-0",
+					Size = UDim2.new(1, 0, 0, v70.Gap.Medium),
+					LayoutOrder = 2
+				}),
+				SquadLobbyRegroupRow = React.createElement(Foundation.View, {
+					tag = "bg-surface-0",
+					Size = UDim2.new(1, 0, 0, v121),
+					LayoutOrder = 3
+				}, {
+					Row = React.createElement(SquadLobbyRegroupRow, {
+						localUserId = v72
+					})
+				}),
+				BottomPadding = React.createElement(Foundation.View, {
+					tag = "bg-surface-0",
+					Size = UDim2.new(1, 0, 0, v110),
+					LayoutOrder = 4
+				})
+			}),
+			SquadLobbyUserGrid = if not v122 then React.createElement(SquadLobbyUserGrid, {
+				containerSize = v84 - Vector2.new(0, v110),
+				paddingBottom = UDim.new(0, v110),
+				users = v103,
+				isInExperience = t1.isInExperience,
+				onUserCardActivated = function(s3: string) --[[ onUserCardActivated ]] -- line: 811
+					-- upvalues: v77 (copy), EventNames (copy), v91 (copy), SquadPartySheetActionEnum (copy), v80 (copy), v113 (copy), v115 (copy)
+					v77.fireSquadAnalytics(EventNames.PartySheetAction, {
+						parentChannelId = v91,
+						actionType = SquadPartySheetActionEnum.UserCardClicked,
+						voiceStatus = v80
+					})
+					v113(s3)
+					v115(true)
+				end,
+				navigateToHomePage = t1.navigateToHomePage,
+				navigateToSquadInviteFriends = v125
+			}) else nil
+		})
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v113, v115, v84, v89, v125, v86, t1.navigateToHomePage, v110, v78, if not v120 then nil else v123, v103, v122, if not v122 then nil else v121, if not v122 then nil else v72, v80) else {
+		v113,
+		v115,
+		v84,
+		v89,
+		v125,
+		v86,
+		t1.navigateToHomePage,
+		v110,
+		v78,
+		if not v120 then nil else v123,
+		v103,
+		v122,
+		if not v122 then nil else v121,
+		if not v122 then nil else v72,
+		v80
+	})
+	local v127 = React.useMemo(function() -- line: 863
+		-- upvalues: React (copy), SquadLobbyActionBar (copy), v74 (copy), v94 (copy), t1 (copy), v109 (copy), v88 (copy)
+		return React.createElement(SquadLobbyActionBar, {
+			squadState = v74,
+			anchorPoint = Vector2.new(0.5, 1),
+			hasUnreadMessages = not not v94 and (not not v94.hasUnreadMessages and v94.hasUnreadMessages),
+			navigateAwayFromSquad = t1.navigateAwayFromSquad,
+			navigateToHomePage = t1.navigateToHomePage,
+			toggleVoiceChatMenu = v109,
+			position = UDim2.new(0.5, 0, 1, -20),
+			squadId = v88,
+			isInExperience = t1.isInExperience
+		})
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v88, t1.isInExperience, t1.navigateToHomePage, v74, v109, v94 and v94.hasUnreadMessages) else {
+		v88,
+		t1.isInExperience,
+		t1.navigateToHomePage,
+		v74,
+		v109,
+		v94 and v94.hasUnreadMessages
+	})
+	local v128 = React.useMemo(function() -- line: 898
+		-- upvalues: v122 (copy), v120 (copy), React (copy), Foundation (copy), Constants (copy), v70 (copy), v121 (copy), SquadLobbyRegroupRow (copy), v72 (copy)
+		if v122 or not v120 then
+			return nil
+		end
+
+		return React.createElement(Foundation.View, {
+			tag = "anchor-bottom-center auto-none gui-object-defaults",
+			Position = UDim2.new(0.5, 0, 1, -(20 + Constants.SQUAD_LOBBY_ACTION_BAR_HEIGHT + v70.Gap.XXLarge)),
+			Size = UDim2.new(1, 0, 0, v121)
+		}, {
+			Row = React.createElement(SquadLobbyRegroupRow, {
+				localUserId = v72
+			})
+		})
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v120, v72, v70, v121) else {
+		v120,
+		v72,
+		v70,
+		v121
+	})
+	local v129 = React.useMemo(function() -- line: 924
+		-- upvalues: v82 (copy), React (copy), Foundation (copy), StateLayerAffordance (copy), v83 (copy), v111 (copy), v70 (copy), SquadLobbyVoiceChatMenu (copy), FFlagEnablePartyVoiceChangersInLua (copy), t1 (copy)
+		if v82 then
+			return (React.createElement(Foundation.View, {
+				Size = UDim2.new(1, 0, 1, 0),
+				stateLayer = {
+					affordance = StateLayerAffordance.None
+				},
+				onActivated = function() --[[ onActivated ]] -- line: 930
+					-- upvalues: v83 (copy)
+					v83(false)
+				end
+			}, { React.createElement(Foundation.ScrollView, {
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = UDim2.new(0.5, 0, 0, 0),
+				AnchorPoint = Vector2.new(0.5, 0),
+				sizeConstraint = {
+					MaxSize = Vector2.new(350, 1e999)
+				},
+				scroll = {
+					AutomaticCanvasSize = Enum.AutomaticSize.Y,
+					CanvasSize = UDim2.new(1, 0, 1, 0),
+					ScrollingDirection = Enum.ScrollingDirection.Y
+				},
+				layout = {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder
+				}
+			}, {
+				FlexibleSpace = React.createElement(Foundation.View, {
+					Size = UDim2.new(1, 0, 0, v111),
+					flexItem = {
+						FlexMode = Enum.UIFlexMode.Fill
+					},
+					LayoutOrder = 1,
+					stateLayer = {
+						affordance = StateLayerAffordance.None
+					},
+					onActivated = function() --[[ onActivated ]] -- line: 954
+						-- upvalues: v83 (copy)
+						v83(false)
+					end
+				}),
+				Menu = React.createElement(Foundation.View, {
+					Size = UDim2.new(1, 0, 1, 0),
+					flexItem = {
+						ItemLineAlignment = Enum.ItemLineAlignment.Center
+					},
+					AutomaticSize = Enum.AutomaticSize.Y,
+					LayoutOrder = 2,
+					padding = Vector2.new(v70.Padding.XLarge, v70.Padding.Medium),
+					stateLayer = {
+						affordance = StateLayerAffordance.None
+					},
+					onActivated = function() --[[ onActivated ]] -- line: 967
+					end,
+					ZIndex = 3
+				}, {
+					SquadLobbyVoiceChatMenu = React.createElement(SquadLobbyVoiceChatMenu, {
+						openSquadVoiceChangers = if not FFlagEnablePartyVoiceChangersInLua then nil else t1.openSquadVoiceChangers
+					})
+				}),
+				BottomPadding = React.createElement(Foundation.View, {
+					Size = UDim2.new(1, 0, 0, v111),
+					LayoutOrder = 3,
+					stateLayer = {
+						affordance = StateLayerAffordance.None
+					},
+					onActivated = function() --[[ onActivated ]] -- line: 980
+						-- upvalues: v83 (copy)
+						v83(false)
+					end
+				})
+			}) }))
+		end
+
+		return nil
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v111, v82, v83, v70) else {
+		v111,
+		v82,
+		v83,
+		v70
+	})
+	local v130 = React.useMemo(function() -- line: 999
+		-- upvalues: v114 (copy), v112 (copy), React (copy), SquadLobbyUserDropdownMenu (copy), t1 (copy), v113 (copy), v115 (copy), v91 (copy)
+		if v114 and v112 then
+			return (React.createElement(SquadLobbyUserDropdownMenu, {
+				userId = v112,
+				isInExperience = t1.isInExperience,
+				onDismiss = function() --[[ onDismiss ]] -- line: 1004
+					-- upvalues: v113 (copy), v115 (copy)
+					v113(nil)
+					v115(false)
+				end,
+				openViewProfile = function() --[[ openViewProfile ]] -- line: 1008
+					-- upvalues: t1 (copy), v112 (copy)
+					t1.openViewProfile(v112)
+				end,
+				openSquadVoiceAbuseReport = t1.openSquadVoiceAbuseReport,
+				parentChannelId = v91
+			}))
+		end
+
+		return nil
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v91, t1.isInExperience, v114, v115, t1.openViewProfile, v112, v113) else {
+		v91,
+		t1.isInExperience,
+		v114,
+		v115,
+		t1.openViewProfile,
+		v112,
+		v113
+	})
+
+	React.useEffect(function() -- line: 1037
+		-- upvalues: SquadCoordinationExperienceJoinExperimentation (copy), FFlagEnableSquadRegroupExperimentation (copy), SquadRegroupExperimentation (copy)
+		SquadCoordinationExperienceJoinExperimentation.logExposure()
+
+		if FFlagEnableSquadRegroupExperimentation then
+			SquadRegroupExperimentation.logExposure()
+		end
+	end, {})
+
+	local v131 = Roact.createFragment({
+		SquadLobbyBanners = v124,
+		SquadLobbyUsersScrollingFrame = v126,
+		SquadLobbyRegroupRow = v128,
+		SquadLobbyActionBar = v127,
+		SquadLobbyVoiceChatMenu = v129,
+		UserDropdownMenu = v130
+	})
+
+	if SquadCoordinationExperienceJoinExperimentation.getIsSquadLobbySessionEnabled() then
+		v131 = React.createElement(SquadLobbySessionProvider.Provider, nil, v131)
+	end
+
+	return v131
+end

@@ -1,59 +1,66 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local l_Components_0 = l_script_FirstAncestor_0.Components;
-local v4 = require(l_Components_0.InputField);
-local v5 = require(l_Components_0.InternalTextInput);
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v7 = require(l_script_FirstAncestor_0.Utility.Flags);
-local v8 = require(l_Components_0.TextInput.useTextInputVariants);
-local v9 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local v10 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v11 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local v12 = require(l_script_FirstAncestor_0.Enums.InputSize);
-local _ = require(l_script_FirstAncestor_0.Enums.InputVariant);
-local _ = require(l_script_FirstAncestor_0.Enums.ControlState);
-local v15 = {
-    size = v12.Medium, 
-    numLines = 3, 
-    testId = "--foundation-text-area"
-};
-return v2.memo(v2.forwardRef(function(v16, v17) --[[ Line: 39 ]] --[[ Name: TextArea ]]
-    -- upvalues: v11 (copy), v15 (copy), v9 (copy), v8 (copy), v7 (copy), v2 (copy), v4 (copy), v10 (copy), v5 (copy)
-    local v18 = v11(v16, v15);
-    local v19 = v9();
-    local v20 = v8(v19, v18.size, if v7.FoundationTextAreaVariant then v18.variant else nil);
-    return v2.createElement(v4, v10(v18, {
-        width = if v18.width then v18.width else nil, 
-        label = v18.label, 
-        hint = v18.hint, 
-        hasError = v18.hasError, 
-        isDisabled = v18.isDisabled, 
-        isRequired = v18.isRequired, 
-        input = function(v21) --[[ Line: 54 ]] --[[ Name: input ]]
-            -- upvalues: v2 (ref), v5 (ref), v18 (copy), v7 (ref), v20 (copy), v19 (copy)
-            return v2.createElement(v5, {
-                size = v18.size, 
-                variant = if v7.FoundationTextAreaVariant then v18.variant else nil, 
-                numLines = v18.numLines, 
-                focusBehavior = if v7.FoundationTextInputFocusBehavior then v18.focusBehavior else nil, 
-                onFocus = v18.onFocusGained, 
-                onFocusLost = v18.onFocusLost, 
-                onChanged = v18.onChanged, 
-                text = v18.text, 
-                hasError = v18.hasError, 
-                isDisabled = v18.isDisabled, 
-                placeholder = v18.placeholder, 
-                horizontalPadding = {
-                    left = v20.innerContainer.horizontalPadding, 
-                    right = v20.innerContainer.horizontalPadding - UDim.new(0, v19.Size.Size_150)
-                }, 
-                LayoutOrder = 2, 
-                ref = v21, 
-                testId = ("%*--input"):format(v18.testId)
-            });
-        end, 
-        textBoxRef = v18.textBoxRef, 
-        ref = v17
-    }));
-end));
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local React = require(FoundationParent.React)
+local Components = Foundation.Components
+local InputField = require(Components.InputField)
+local InternalTextInput = require(Components.InternalTextInput)
+
+require(Foundation.Components.Types)
+
+local Flags = require(Foundation.Utility.Flags)
+local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local InputSize = require(Foundation.Enums.InputSize)
+
+require(Foundation.Enums.InputVariant)
+require(Foundation.Enums.ControlState)
+
+local t1 = {
+	size = InputSize.Medium,
+	numLines = 3,
+	testId = "--foundation-text-area"
+}
+
+return React.memo(React.forwardRef(function(p1, p2) --[[ TextArea ]] -- line: 39
+	-- upvalues: withDefaults (copy), t1 (copy), useTokens (copy), useTextInputVariants (copy), Flags (copy), React (copy), InputField (copy), withCommonProps (copy), InternalTextInput (copy)
+	local v16 = withDefaults(p1, t1)
+	local v17 = useTokens()
+	local v18 = useTextInputVariants(v17, v16.size, if not Flags.FoundationTextAreaVariant then nil else v16.variant)
+
+	return React.createElement(InputField, withCommonProps(v16, {
+		width = if not v16.width then nil else v16.width,
+		label = v16.label,
+		hint = v16.hint,
+		hasError = v16.hasError,
+		isDisabled = v16.isDisabled,
+		isRequired = v16.isRequired,
+		input = function(p3) --[[ input ]] -- line: 54
+			-- upvalues: React (copy), InternalTextInput (copy), v16 (copy), Flags (copy), v18 (copy), v17 (copy)
+			return React.createElement(InternalTextInput, {
+				size = v16.size,
+				variant = if not Flags.FoundationTextAreaVariant then nil else v16.variant,
+				numLines = v16.numLines,
+				focusBehavior = if not Flags.FoundationTextInputFocusBehavior then nil else v16.focusBehavior,
+				onFocus = v16.onFocusGained,
+				onFocusLost = v16.onFocusLost,
+				onChanged = v16.onChanged,
+				text = v16.text,
+				hasError = v16.hasError,
+				isDisabled = v16.isDisabled,
+				hasClearButton = if not Flags.FoundationInternalTextInputClearButton then nil else v16.hasClearButton,
+				placeholder = v16.placeholder,
+				horizontalPadding = {
+					left = ((if not Flags.FoundationInputVariantsConsolidateContainer then v18.innerContainer else v18.container)).horizontalPadding,
+					right = ((if not Flags.FoundationInputVariantsConsolidateContainer then v18.innerContainer else v18.container)).horizontalPadding - UDim.new(0, v17.Size.Size_150)
+				},
+				LayoutOrder = 2,
+				ref = p3,
+				testId = `{ v16.testId }--input`
+			})
+		end,
+		textBoxRef = v16.textBoxRef,
+		ref = p2
+	}))
+end))

@@ -1,307 +1,327 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("TrustedContacts");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_Parent_0.DataHydration);
-local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
-local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local v6 = require(l_Parent_0.NotificationModalsManager);
-local l_default_0 = require(l_Parent_0.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default;
-local l_TrustedConnectionStatus_0 = require(l_script_FirstAncestor_0.Enums).TrustedConnectionStatus;
-local l_Sources_0 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums.Sources;
-local l_Contexts_0 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums.Contexts;
-local l_useAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).useAppPolicy;
-local v12 = require(l_Parent_0.UserProfiles);
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local v14 = require(script.Parent.Parent.Parent.Analytics);
-local l_useTCAnalytics_0 = v14.useTCAnalytics;
-local l_EventNames_0 = v14.EventNames;
-local l_FFlagTCShareLinkReceiverUI_0 = require(l_Parent_0.SharedFlags).FFlagTCShareLinkReceiverUI;
-local l_FFlagTCUnifyNavigationEntry_0 = require(l_Parent_0.SharedFlags).FFlagTCUnifyNavigationEntry;
-local l_FFlagTCVerifiedParentalControl_0 = require(l_Parent_0.SharedFlags).FFlagTCVerifiedParentalControl;
-local l_FFlagTCUpdateProfileCTAButton_0 = require(l_Parent_0.SharedFlags).FFlagTCUpdateProfileCTAButton;
-local l_FFlagTCModalUpdateButtons_0 = require(l_Parent_0.SharedFlags).FFlagTCModalUpdateButtons;
-local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
-local _ = require(l_script_FirstAncestor_0.Common.Types);
-local v24 = v3.TrustedConnections.TrustedConnectionsStore.get();
-return function(v25, v26, v27, v28) --[[ Line: 56 ]] --[[ Name: useModalButtonActions ]]
-    -- upvalues: l_FFlagTCVerifiedParentalControl_0 (copy), l_useNavigation_0 (copy), l_useAppPolicy_0 (copy), v12 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useTCAnalytics_0 (copy), l_FFlagTCModalUpdateButtons_0 (copy), v2 (copy), l_EventNames_0 (copy), l_FFlagTCUpdateProfileCTAButton_0 (copy), l_FFlagTCUnifyNavigationEntry_0 (copy), l_AppPage_0 (copy), v6 (copy), l_TrustedConnectionStatus_0 (copy), v24 (copy), l_FFlagTCShareLinkReceiverUI_0 (copy), l_Sources_0 (copy), l_Contexts_0 (copy), l_default_0 (copy)
-    local v29 = if l_FFlagTCVerifiedParentalControl_0 then l_useNavigation_0() else nil;
-    local v31 = l_useAppPolicy_0(function(v30) --[[ Line: 63 ]]
-        return v30.getShareSheetEnabled();
-    end);
-    local v32 = "";
-    local v33 = v12.Hooks.useUserProfilesFetch({
-        userIds = {
-            v25
-        }, 
-        query = v12.Queries.userProfilesCombinedNameByUserIds
-    });
-    if v33 and v33.data then
-        v32 = v12.Selectors.getCombinedNameFromId(v33.data, v25) or "";
-    end;
-    local v34 = l_useLocalization_0({
-        somethingIsWrongToast = "Feature.Toast.NetworkingError.SomethingIsWrong", 
-        trustedConnectionRequestSentToast = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.TrustedFriend.Toast.TrustedFriendRequestSent" or "Feature.Friends.TrustedConnection.Toast.TrustedConnectionRequestSent", 
-        isATrustedConnectionNowToast = {
-            l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.TrustedFriend.Toast.IsATrustedFriendNow" or "Feature.Friends.TrustedConnection.Toast.IsATrustedConnectionNow"; 
-            name = v32
-        }, 
-        linkCopiedToast = "Feature.Catalog.Toast.LinkCopied"
-    });
-    local l_fireAnalyticsEvent_0 = l_useTCAnalytics_0({
-        friendId = v25, 
-        modalVariant = v27, 
-        source = v26
-    }).fireAnalyticsEvent;
-    local v36 = if l_FFlagTCModalUpdateButtons_0 then nil else v2.useCallback(function() --[[ Line: 99 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
-        l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellGotItClicked);
-        if v28.onAcknowledged then
-            v28.onAcknowledged();
-        end;
-        v28.closeModal();
-    end, {
-        v28.closeModal, 
-        v28.onAcknowledged, 
-        l_fireAnalyticsEvent_0
-    });
-    local v37 = if l_FFlagTCModalUpdateButtons_0 then v2.useCallback(function() --[[ Line: 108 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
-        l_fireAnalyticsEvent_0(l_EventNames_0.TrustedFriendsModalOkClicked);
-        if v28.onAcknowledged then
-            v28.onAcknowledged();
-        end;
-        v28.closeModal();
-    end, {
-        v28.closeModal, 
-        v28.onAcknowledged, 
-        l_fireAnalyticsEvent_0
-    }) else nil;
-    local v38 = if l_FFlagTCModalUpdateButtons_0 then nil else v2.useCallback(function() --[[ Line: 119 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
-        l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellRemoveTrustedConnectionClicked);
-        if v28.onRemovedTrustedConnection then
-            v28.onRemovedTrustedConnection();
-        end;
-        v28.closeModal();
-    end, {
-        v28.closeModal, 
-        v28.onRemovedTrustedConnection, 
-        l_fireAnalyticsEvent_0
-    });
-    local v40 = if l_FFlagTCVerifiedParentalControl_0 then v2.useCallback(function() --[[ Line: 129 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), v28 (copy), l_FFlagTCUnifyNavigationEntry_0 (ref), v29 (copy), l_AppPage_0 (ref), v25 (copy)
-        l_fireAnalyticsEvent_0(l_EventNames_0.TrustedFriendsVPCPrologueOpened);
-        local v39 = nil;
-        if l_FFlagTCUpdateProfileCTAButton_0 then
-            if v28.onRequestSent then
-                v39 = v28.onRequestSent;
-            elseif v28.onRequestAccepted then
-                v39 = v28.onRequestAccepted;
-            end;
-        end;
-        if l_FFlagTCUnifyNavigationEntry_0 then
-            v29.replace(l_AppPage_0.TrustedFriendsVPCPrologue, {
-                userId = v25, 
-                completionCallback = v39
-            });
-            return;
-        else
-            v28.closeModal();
-            v29.push(l_AppPage_0.TrustedFriendsVPCPrologue, {
-                userId = v25, 
-                completionCallback = v39
-            });
-            return;
-        end;
-    end, {
-        v28.closeModal, 
-        l_fireAnalyticsEvent_0, 
-        v29, 
-        v25, 
-        if l_FFlagTCUpdateProfileCTAButton_0 then v28.onRequestSent else nil, 
-        if l_FFlagTCUpdateProfileCTAButton_0 then v28.onRequestAccepted else nil
-    }) else nil;
-    local v41 = v2.useCallback(function() --[[ Line: 166 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (copy), v34 (copy), v6 (ref)
-        l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellAcceptTrustedConnectionClicked);
-        if l_FFlagTCUnifyNavigationEntry_0 then
-            v28.showToast(v34.isATrustedConnectionNowToast);
-            return;
-        else
-            v6.SetUIBloxToast({
-                sequenceNumber = DateTime.now().UnixTimestamp, 
-                toastTitle = v34.isATrustedConnectionNowToast
-            });
-            return;
-        end;
-    end, {
-        v34.isATrustedConnectionNowToast, 
-        l_fireAnalyticsEvent_0, 
-        if l_FFlagTCUnifyNavigationEntry_0 then v28.showToast else nil
-    });
-    local v43 = v2.useCallback(function() --[[ Line: 187 ]]
-        -- upvalues: v27 (copy), l_TrustedConnectionStatus_0 (ref), v24 (ref), v25 (copy), v41 (copy), v28 (copy), l_FFlagTCShareLinkReceiverUI_0 (ref), l_Sources_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v34 (copy), v6 (ref)
-        if v27 == l_TrustedConnectionStatus_0.RequestReceived then
-            v24.acceptTrustedConnectionRequest(v25):andThen(function() --[[ Line: 190 ]]
-                -- upvalues: v41 (ref)
-                v41();
-            end):andThen(function() --[[ Line: 193 ]]
-                -- upvalues: v28 (ref)
-                return v28.onRequestAccepted and v28.onRequestAccepted();
-            end):andThen(function() --[[ Line: 196 ]]
-                -- upvalues: v28 (ref)
-                v28.closeModal();
-            end):catch(function() --[[ Line: 199 ]]
-                -- upvalues: v28 (ref)
-                v28.showGenericErrorModal();
-            end);
-            return;
-        elseif l_FFlagTCShareLinkReceiverUI_0 and v27 == l_Sources_0.ShareLinkReceiver then
-            v24.addTrustedFriendFromLink(v25, v28.tokens or {}):andThen(function() --[[ Line: 204 ]]
-                -- upvalues: v41 (ref)
-                v41();
-            end):andThen(l_FFlagTCUpdateProfileCTAButton_0 and function() --[[ Line: 208 ]]
-                -- upvalues: v28 (ref)
-                return v28.onRequestAccepted and v28.onRequestAccepted();
-            end or nil):andThen(function() --[[ Line: 212 ]]
-                -- upvalues: v28 (ref)
-                v28.closeModal();
-            end):catch(function() --[[ Line: 215 ]]
-                -- upvalues: v28 (ref)
-                v28.showGenericErrorModal();
-            end);
-            return;
-        else
-            v24.sendTrustedConnectionRequest(v25, v28.sentFromQrCode and "qr" or nil):andThen(function() --[[ Line: 223 ]]
-                -- upvalues: l_fireAnalyticsEvent_0 (ref), l_EventNames_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (ref), v34 (ref), v6 (ref)
-                l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellAddTrustedConnectionClicked);
-                if l_FFlagTCUnifyNavigationEntry_0 then
-                    v28.showToast(v34.trustedConnectionRequestSentToast);
-                    return;
-                else
-                    v6.SetUIBloxToast({
-                        sequenceNumber = DateTime.now().UnixTimestamp, 
-                        toastTitle = v34.trustedConnectionRequestSentToast
-                    });
-                    return;
-                end;
-            end):andThen(function() --[[ Line: 234 ]]
-                -- upvalues: v28 (ref)
-                return v28.onRequestSent and v28.onRequestSent();
-            end):andThen(function() --[[ Line: 237 ]]
-                -- upvalues: v28 (ref)
-                v28.closeModal();
-            end):catch(function(_) --[[ Line: 240 ]]
-                -- upvalues: v28 (ref)
-                v28.showGenericErrorModal();
-            end);
-            return;
-        end;
-    end, {
-        v28.closeModal, 
-        v25, 
-        v34, 
-        v28.onRequestSent, 
-        v28.onRequestAccepted, 
-        v28.tokens, 
-        if l_FFlagTCVerifiedParentalControl_0 then nil else v28.sentFromQrCode and "qr" or nil, 
-        l_fireAnalyticsEvent_0, 
-        if l_FFlagTCUnifyNavigationEntry_0 then v28.showToast else nil
-    });
-    local v44 = v2.useCallback(function() --[[ Line: 262 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v28 (copy)
-        l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellCancelClicked);
-        v28.closeModal();
-    end, {
-        v28.closeModal, 
-        l_fireAnalyticsEvent_0
-    });
-    local v46 = v2.useCallback(function() --[[ Line: 268 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v24 (ref), v25 (copy), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (copy), l_Contexts_0 (ref), l_default_0 (ref), v31 (copy), v34 (copy), v6 (ref)
-        l_fireAnalyticsEvent_0(l_EventNames_0.TCUpsellAddViaLinkClicked);
-        v24.createTrustedFriendLink(v25):andThen(function(v45) --[[ Line: 271 ]]
-            -- upvalues: l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (ref), l_Contexts_0 (ref), l_default_0 (ref)
-            if l_FFlagTCUnifyNavigationEntry_0 then
-                v28.shareUrl({
-                    url = v45.responseBody.link, 
-                    context = l_Contexts_0.TCUpsellModal
-                });
-                return;
-            else
-                l_default_0:shareUrl({
-                    url = v45.responseBody.link, 
-                    context = l_Contexts_0.TCUpsellModal
-                });
-                return;
-            end;
-        end):andThen(function() --[[ Line: 284 ]]
-            -- upvalues: v28 (ref)
-            return v28.onRequestSent and v28.onRequestSent();
-        end):andThen(function() --[[ Line: 287 ]]
-            -- upvalues: v31 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v28 (ref), v34 (ref), v6 (ref)
-            if not v31 then
-                if l_FFlagTCUnifyNavigationEntry_0 then
-                    v28.showToast(v34.linkCopiedToast);
-                else
-                    v6.SetUIBloxToast({
-                        sequenceNumber = DateTime.now().UnixTimestamp, 
-                        toastTitle = v34.linkCopiedToast
-                    });
-                end;
-            end;
-            v28.closeModal();
-        end):catch(function() --[[ Line: 300 ]]
-            -- upvalues: v28 (ref)
-            v28.showGenericErrorModal();
-            v28.closeModal();
-        end);
-    end, {
-        v28.closeModal, 
-        v28.showGenericErrorModal, 
-        l_fireAnalyticsEvent_0, 
-        v25, 
-        v34, 
-        v31, 
-        if l_FFlagTCUnifyNavigationEntry_0 then v28.shareUrl else nil, 
-        if l_FFlagTCUnifyNavigationEntry_0 then v28.showToast else nil
-    });
-    local v47 = v2.useMemo(function() --[[ Line: 318 ]]
-        -- upvalues: l_TrustedConnectionStatus_0 (ref), v43 (copy), v44 (copy), l_FFlagTCModalUpdateButtons_0 (ref), v37 (copy), v36 (copy), v38 (copy), l_Sources_0 (ref), v46 (copy), l_FFlagTCShareLinkReceiverUI_0 (ref)
-        return {
-            [l_TrustedConnectionStatus_0.Friends] = {
-                primary = v43, 
-                secondary = v44
-            }, 
-            [l_TrustedConnectionStatus_0.RequestReceived] = {
-                primary = v43, 
-                secondary = v44
-            }, 
-            [l_TrustedConnectionStatus_0.TrustedFriends] = if l_FFlagTCModalUpdateButtons_0 then {
-                primary = v37
-            } else {
-                primary = v36, 
-                secondary = v38
-            }, 
-            [l_Sources_0.ShareLinkSender] = {
-                primary = v46
-            }, 
-            [l_Sources_0.ShareLinkReceiver] = if l_FFlagTCShareLinkReceiverUI_0 then {
-                primary = v43, 
-                secondary = v44
-            } else nil
-        };
-    end, {
-        v43, 
-        v44, 
-        if l_FFlagTCModalUpdateButtons_0 then nil else v36, 
-        if l_FFlagTCModalUpdateButtons_0 then v37 else nil, 
-        if l_FFlagTCModalUpdateButtons_0 then nil else v38, 
-        v46, 
-        if l_FFlagTCVerifiedParentalControl_0 then v40 else nil
-    })[v27];
-    if l_FFlagTCVerifiedParentalControl_0 and v28.isVPCFlow and v47 then
-        v47.primary = v40;
-    end;
-    return v47;
-end;
+local TrustedContacts = script:FindFirstAncestor("TrustedContacts")
+local TrustedContactsParent = TrustedContacts.Parent
+local React = require(TrustedContactsParent.React)
+local DataHydration = require(TrustedContactsParent.DataHydration)
+local useNavigation = require(TrustedContactsParent.Navigation).useNavigation
+local AppPage = require(TrustedContactsParent.RobloxAppEnums).AppPage
+local NotificationModalsManager = require(TrustedContactsParent.NotificationModalsManager)
+local default = require(TrustedContactsParent.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default
+local TrustedConnectionStatus = require(TrustedContacts.Enums).TrustedConnectionStatus
+local Sources = require(TrustedContactsParent.SocialLuaAnalytics).Analytics.Enums.Sources
+local Contexts = require(TrustedContactsParent.SocialLuaAnalytics).Analytics.Enums.Contexts
+local useAppPolicy = require(TrustedContactsParent.UniversalAppPolicy).useAppPolicy
+local UserProfiles = require(TrustedContactsParent.UserProfiles)
+local useLocalization = require(TrustedContactsParent.Localization).Hooks.useLocalization
+local Analytics = require(script.Parent.Parent.Parent.Analytics)
+local useTCAnalytics = Analytics.useTCAnalytics
+local EventNames = Analytics.EventNames
+local FFlagTCShareLinkReceiverUI = require(TrustedContactsParent.SharedFlags).FFlagTCShareLinkReceiverUI
+local FFlagTCUnifyNavigationEntry = require(TrustedContactsParent.SharedFlags).FFlagTCUnifyNavigationEntry
+local FFlagTCVerifiedParentalControl = require(TrustedContactsParent.SharedFlags).FFlagTCVerifiedParentalControl
+local FFlagTCUpdateProfileCTAButton = require(TrustedContactsParent.SharedFlags).FFlagTCUpdateProfileCTAButton
+local FFlagTCModalUpdateButtons = require(TrustedContactsParent.SharedFlags).FFlagTCModalUpdateButtons
+local FFlagConnectionsToFriendsRename = require(TrustedContactsParent.SharedFlags).FFlagConnectionsToFriendsRename
+
+require(TrustedContacts.Common.Types)
+
+local v24 = DataHydration.TrustedConnections.TrustedConnectionsStore.get()
+
+return function(s1: string, s2: string?, s3: string, t1: {[any]: any}) --[[ useModalButtonActions ]] -- line: 56
+	-- upvalues: FFlagTCVerifiedParentalControl (copy), useNavigation (copy), useAppPolicy (copy), UserProfiles (copy), useLocalization (copy), FFlagConnectionsToFriendsRename (copy), useTCAnalytics (copy), FFlagTCModalUpdateButtons (copy), React (copy), EventNames (copy), FFlagTCUpdateProfileCTAButton (copy), FFlagTCUnifyNavigationEntry (copy), AppPage (copy), NotificationModalsManager (copy), TrustedConnectionStatus (copy), v24 (copy), FFlagTCShareLinkReceiverUI (copy), Sources (copy), Contexts (copy), default (copy)
+	local v29 = if not FFlagTCVerifiedParentalControl then nil else useNavigation()
+	local v30 = useAppPolicy(function(p1) -- line: 63
+		return p1.getShareSheetEnabled()
+	end)
+	local s4 = ""
+	local v32 = UserProfiles.Hooks.useUserProfilesFetch({
+		userIds = { s1 },
+		query = UserProfiles.Queries.userProfilesCombinedNameByUserIds
+	})
+
+	if v32 and v32.data then
+		s4 = UserProfiles.Selectors.getCombinedNameFromId(v32.data, s1) or ""
+	end
+
+	local v33 = useLocalization({
+		somethingIsWrongToast = "Feature.Toast.NetworkingError.SomethingIsWrong",
+		trustedConnectionRequestSentToast = not FFlagConnectionsToFriendsRename and "Feature.Friends.TrustedConnection.Toast.TrustedConnectionRequestSent" or "Feature.Friends.TrustedFriend.Toast.TrustedFriendRequestSent",
+		isATrustedConnectionNowToast = {
+			not FFlagConnectionsToFriendsRename and "Feature.Friends.TrustedConnection.Toast.IsATrustedConnectionNow" or "Feature.Friends.TrustedFriend.Toast.IsATrustedFriendNow",
+			name = s4
+		},
+		linkCopiedToast = "Feature.Catalog.Toast.LinkCopied"
+	})
+	local fireAnalyticsEvent = useTCAnalytics({
+		friendId = s1,
+		modalVariant = s3,
+		source = s2
+	}).fireAnalyticsEvent
+	local v35 = if not FFlagTCModalUpdateButtons then React.useCallback(function() -- line: 99
+		-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), t1 (copy)
+		fireAnalyticsEvent(EventNames.TCUpsellGotItClicked)
+
+		if t1.onAcknowledged then
+			t1.onAcknowledged()
+		end
+
+		t1.closeModal()
+	end, {
+		t1.closeModal,
+		t1.onAcknowledged,
+		fireAnalyticsEvent
+	}) else nil
+	local v36 = if not FFlagTCModalUpdateButtons then nil else React.useCallback(function() -- line: 108
+		-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), t1 (copy)
+		fireAnalyticsEvent(EventNames.TrustedFriendsModalOkClicked)
+
+		if t1.onAcknowledged then
+			t1.onAcknowledged()
+		end
+
+		t1.closeModal()
+	end, {
+		t1.closeModal,
+		t1.onAcknowledged,
+		fireAnalyticsEvent
+	})
+	local v37 = if not FFlagTCModalUpdateButtons then React.useCallback(function() -- line: 119
+		-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), t1 (copy)
+		fireAnalyticsEvent(EventNames.TCUpsellRemoveTrustedConnectionClicked)
+
+		if t1.onRemovedTrustedConnection then
+			t1.onRemovedTrustedConnection()
+		end
+
+		t1.closeModal()
+	end, {
+		t1.closeModal,
+		t1.onRemovedTrustedConnection,
+		fireAnalyticsEvent
+	}) else nil
+	local v38 = if not FFlagTCVerifiedParentalControl then nil else React.useCallback(function() -- line: 129
+		-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), FFlagTCUpdateProfileCTAButton (copy), t1 (copy), FFlagTCUnifyNavigationEntry (copy), v29 (copy), AppPage (copy), s1 (copy)
+		fireAnalyticsEvent(EventNames.TrustedFriendsVPCPrologueOpened)
+
+		local onRequestSent = nil
+
+		if FFlagTCUpdateProfileCTAButton then
+			if t1.onRequestSent then
+				onRequestSent = t1.onRequestSent
+			elseif t1.onRequestAccepted then
+				onRequestSent = t1.onRequestAccepted
+			end
+		end
+
+		if FFlagTCUnifyNavigationEntry then
+			v29.replace(AppPage.TrustedFriendsVPCPrologue, {
+				userId = s1,
+				completionCallback = onRequestSent
+			})
+
+			return
+		end
+
+		t1.closeModal()
+		v29.push(AppPage.TrustedFriendsVPCPrologue, {
+			userId = s1,
+			completionCallback = onRequestSent
+		})
+	end, {
+		t1.closeModal,
+		fireAnalyticsEvent,
+		v29,
+		s1,
+		if not FFlagTCUpdateProfileCTAButton then nil else t1.onRequestSent,
+		if not FFlagTCUpdateProfileCTAButton then nil else t1.onRequestAccepted
+	})
+	local v39 = React.useCallback(function() -- line: 166
+		-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), FFlagTCUnifyNavigationEntry (copy), t1 (copy), v33 (copy), NotificationModalsManager (copy)
+		fireAnalyticsEvent(EventNames.TCUpsellAcceptTrustedConnectionClicked)
+
+		if FFlagTCUnifyNavigationEntry then
+			t1.showToast(v33.isATrustedConnectionNowToast)
+
+			return
+		end
+
+		NotificationModalsManager.SetUIBloxToast({
+			sequenceNumber = DateTime.now().UnixTimestamp,
+			toastTitle = v33.isATrustedConnectionNowToast
+		})
+	end, {
+		v33.isATrustedConnectionNowToast,
+		fireAnalyticsEvent,
+		if not FFlagTCUnifyNavigationEntry then nil else t1.showToast
+	})
+	local v40 = React.useCallback(function() -- line: 187
+		-- upvalues: s3 (copy), TrustedConnectionStatus (copy), v24 (copy), s1 (copy), v39 (copy), t1 (copy), FFlagTCShareLinkReceiverUI (copy), Sources (copy), FFlagTCUpdateProfileCTAButton (copy), fireAnalyticsEvent (copy), EventNames (copy), FFlagTCUnifyNavigationEntry (copy), v33 (copy), NotificationModalsManager (copy)
+		if s3 == TrustedConnectionStatus.RequestReceived then
+			v24.acceptTrustedConnectionRequest(s1):andThen(function() -- line: 190
+				-- upvalues: v39 (copy)
+				v39()
+			end):andThen(function() -- line: 193
+				-- upvalues: t1 (copy)
+				return t1.onRequestAccepted and t1.onRequestAccepted()
+			end):andThen(function() -- line: 196
+				-- upvalues: t1 (copy)
+				t1.closeModal()
+			end):catch(function() -- line: 199
+				-- upvalues: t1 (copy)
+				t1.showGenericErrorModal()
+			end)
+
+			return
+		end
+
+		if FFlagTCShareLinkReceiverUI and s3 == Sources.ShareLinkReceiver then
+			v24.addTrustedFriendFromLink(s1, t1.tokens or {}):andThen(function() -- line: 204
+				-- upvalues: v39 (copy)
+				v39()
+			end):andThen((if not FFlagTCUpdateProfileCTAButton then nil else function() -- line: 208
+				-- upvalues: t1 (copy)
+				return t1.onRequestAccepted and t1.onRequestAccepted()
+			end)):andThen(function() -- line: 212
+				-- upvalues: t1 (copy)
+				t1.closeModal()
+			end):catch(function() -- line: 215
+				-- upvalues: t1 (copy)
+				t1.showGenericErrorModal()
+			end)
+
+			return
+		end
+
+		v24.sendTrustedConnectionRequest(s1, (if not t1.sentFromQrCode then nil else "qr")):andThen(function() -- line: 223
+			-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), FFlagTCUnifyNavigationEntry (copy), t1 (copy), v33 (copy), NotificationModalsManager (copy)
+			fireAnalyticsEvent(EventNames.TCUpsellAddTrustedConnectionClicked)
+
+			if FFlagTCUnifyNavigationEntry then
+				t1.showToast(v33.trustedConnectionRequestSentToast)
+
+				return
+			end
+
+			NotificationModalsManager.SetUIBloxToast({
+				sequenceNumber = DateTime.now().UnixTimestamp,
+				toastTitle = v33.trustedConnectionRequestSentToast
+			})
+		end):andThen(function() -- line: 234
+			-- upvalues: t1 (copy)
+			return t1.onRequestSent and t1.onRequestSent()
+		end):andThen(function() -- line: 237
+			-- upvalues: t1 (copy)
+			t1.closeModal()
+		end):catch(function() -- line: 240
+			-- upvalues: t1 (copy)
+			t1.showGenericErrorModal()
+		end)
+	end, {
+		t1.closeModal,
+		s1,
+		v33,
+		t1.onRequestSent,
+		t1.onRequestAccepted,
+		t1.tokens,
+		if not FFlagTCVerifiedParentalControl then if not t1.sentFromQrCode then nil else "qr" else nil,
+		fireAnalyticsEvent,
+		if not FFlagTCUnifyNavigationEntry then nil else t1.showToast
+	})
+	local v41 = React.useCallback(function() -- line: 262
+		-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), t1 (copy)
+		fireAnalyticsEvent(EventNames.TCUpsellCancelClicked)
+		t1.closeModal()
+	end, {
+		t1.closeModal,
+		fireAnalyticsEvent
+	})
+	local v42 = React.useCallback(function() -- line: 268
+		-- upvalues: fireAnalyticsEvent (copy), EventNames (copy), v24 (copy), s1 (copy), FFlagTCUnifyNavigationEntry (copy), t1 (copy), Contexts (copy), default (copy), v30 (copy), v33 (copy), NotificationModalsManager (copy)
+		fireAnalyticsEvent(EventNames.TCUpsellAddViaLinkClicked)
+		v24.createTrustedFriendLink(s1):andThen(function(p2) -- line: 271
+			-- upvalues: FFlagTCUnifyNavigationEntry (copy), t1 (copy), Contexts (copy), default (copy)
+			if FFlagTCUnifyNavigationEntry then
+				t1.shareUrl({
+					url = p2.responseBody.link,
+					context = Contexts.TCUpsellModal
+				})
+
+				return
+			end
+
+			default:shareUrl({
+				url = p2.responseBody.link,
+				context = Contexts.TCUpsellModal
+			})
+		end):andThen(function() -- line: 284
+			-- upvalues: t1 (copy)
+			return t1.onRequestSent and t1.onRequestSent()
+		end):andThen(function() -- line: 287
+			-- upvalues: v30 (copy), FFlagTCUnifyNavigationEntry (copy), t1 (copy), v33 (copy), NotificationModalsManager (copy)
+			if not v30 then
+				if FFlagTCUnifyNavigationEntry then
+					t1.showToast(v33.linkCopiedToast)
+				else
+					NotificationModalsManager.SetUIBloxToast({
+						sequenceNumber = DateTime.now().UnixTimestamp,
+						toastTitle = v33.linkCopiedToast
+					})
+				end
+			end
+
+			t1.closeModal()
+		end):catch(function() -- line: 300
+			-- upvalues: t1 (copy)
+			t1.showGenericErrorModal()
+			t1.closeModal()
+		end)
+	end, {
+		t1.closeModal,
+		t1.showGenericErrorModal,
+		fireAnalyticsEvent,
+		s1,
+		v33,
+		v30,
+		if not FFlagTCUnifyNavigationEntry then nil else t1.shareUrl,
+		if not FFlagTCUnifyNavigationEntry then nil else t1.showToast
+	})
+	local v43 = React.useMemo(function() -- line: 318
+		-- upvalues: TrustedConnectionStatus (copy), v40 (copy), v41 (copy), FFlagTCModalUpdateButtons (copy), v36 (copy), v35 (copy), v37 (copy), Sources (copy), v42 (copy), FFlagTCShareLinkReceiverUI (copy)
+		return {
+			[TrustedConnectionStatus.Friends] = {
+				primary = v40,
+				secondary = v41
+			},
+			[TrustedConnectionStatus.RequestReceived] = {
+				primary = v40,
+				secondary = v41
+			},
+			[TrustedConnectionStatus.TrustedFriends] = if not FFlagTCModalUpdateButtons then {
+				primary = v35,
+				secondary = v37
+			} else {
+				primary = v36
+			},
+			[Sources.ShareLinkSender] = {
+				primary = v42
+			},
+			[Sources.ShareLinkReceiver] = if not FFlagTCShareLinkReceiverUI then nil else {
+				primary = v40,
+				secondary = v41
+			}
+		}
+	end, {
+		v40,
+		v41,
+		if not FFlagTCModalUpdateButtons then v35 else nil,
+		if not FFlagTCModalUpdateButtons then nil else v36,
+		if not FFlagTCModalUpdateButtons then v37 else nil,
+		v42,
+		if not FFlagTCVerifiedParentalControl then nil else v38
+	})[s3]
+
+	if FFlagTCVerifiedParentalControl and t1.isVPCFlow and v43 then
+		v43.primary = v38
+	end
+
+	return v43
+end

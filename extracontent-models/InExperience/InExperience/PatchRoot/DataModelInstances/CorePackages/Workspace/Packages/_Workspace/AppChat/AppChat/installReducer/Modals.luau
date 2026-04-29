@@ -1,396 +1,373 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Cryo);
-local v3 = require(l_Parent_0.Rodux);
-local v4 = require(l_script_FirstAncestor_0.Logger);
-local v5 = require(l_script_FirstAncestor_0.Conversations.Actions.DismissedConversationTopModal);
-local v6 = require(l_script_FirstAncestor_0.Conversations.Actions.RemovedConversation);
-local v7 = require(l_script_FirstAncestor_0.Conversations.Actions.FriendConversationCreated);
-local v8 = require(l_script_FirstAncestor_0.Models.ConversationChannels);
-local v9 = require(l_script_FirstAncestor_0.Conversations.Actions.DismissedChatModal);
-local v10 = require(l_script_FirstAncestor_0.Conversations.Actions.DismissedAllConversationModalsForSequence);
-local v11 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatFae);
-local v12 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAEGIS1AppChatBanner);
-local v13 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatNudgeToChatUpsell_DEV);
-local l_FFlagTCUpsellModalEnabled_DEV_0 = require(l_Parent_0.SharedFlags).FFlagTCUpsellModalEnabled_DEV;
-local l_FFlagDebugEnableTCDoubleOptIn_DEV_0 = require(l_Parent_0.SharedFlags).FFlagDebugEnableTCDoubleOptIn_DEV;
-local l_FFlagAppChatEnableDoubleOptIn_0 = require(l_Parent_0.SharedFlags).FFlagAppChatEnableDoubleOptIn;
-local l_FFlagEnableAEGIS2AppChatConversationBanner_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2AppChatConversationBanner;
-local v18 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatNudgeToChatUpsellEnabled);
-local v19 = require(l_Parent_0.AppChatNetworking);
-local l_ModalSequence_0 = v19.Constants.ModalSequence;
-local v21 = {
-    chatLandingModal = {}, 
-    conversationTopModals = {}, 
-    conversationTopModalsDismissed = if l_FFlagAppChatEnableDoubleOptIn_0 then nil else {}, 
-    conversationOverlays = {}, 
-    pendingStateModals = {}, 
-    conversationBottomModals = {}
-};
-return v3.createReducer(v21, {
-    [v19.rodux.GetChatLandingModal.Succeeded.name] = function(v22, v23) --[[ Line: 47 ]]
-        -- upvalues: v2 (copy)
-        local l_responseBody_0 = v23.responseBody;
-        return v2.Dictionary.join(v22, {
-            chatLandingModal = l_responseBody_0
-        });
-    end, 
-    [v19.rodux.GetConversationTopModal.Succeeded.name] = if l_FFlagAppChatEnableDoubleOptIn_0 then nil else function(v25, v26) --[[ Line: 61 ]]
-        -- upvalues: v8 (copy), v2 (copy)
-        local v27 = v26.postBody and v26.postBody.conversation_id;
-        local v28 = v26.postBody and v26.postBody.friend_id;
-        if v28 and not v27 then
-            v27 = v8.getFriendConversationId({
-                v28
-            });
-        end;
-        if not v27 then
-            return v25;
-        else
-            return v2.Dictionary.join(v25, {
-                conversationTopModals = v2.Dictionary.join(v25.conversationTopModals, {
-                    [v27] = v26.responseBody
-                })
-            });
-        end;
-    end, 
-    [v19.rodux.GetModalSequence.Succeeded.name] = function(v29, v30) --[[ Line: 85 ]]
-        -- upvalues: v8 (copy), l_ModalSequence_0 (copy), v2 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy), l_FFlagEnableAEGIS2AppChatConversationBanner_0 (copy), v18 (copy), v4 (copy)
-        local v31 = v30.postBody and v30.postBody.conversation_id;
-        local v32 = v30.postBody and v30.postBody.friend_id;
-        if v32 and not v31 then
-            v31 = v8.getFriendConversationId({
-                v32
-            });
-        end;
-        if v30.postBody.modal_sequence == l_ModalSequence_0.ConversationOverlay then
-            if not v31 then
-                return v29;
-            else
-                return v2.Dictionary.join(v29, {
-                    conversationOverlays = v2.Dictionary.join(v29.conversationOverlays, {
-                        [v31] = v30.responseBody
-                    })
-                });
-            end;
-        elseif v30.postBody.modal_sequence == l_ModalSequence_0.ConversationTopModal and l_FFlagAppChatEnableDoubleOptIn_0 then
-            if not v31 then
-                return v29;
-            else
-                return v2.Dictionary.join(v29, {
-                    conversationTopModals = v2.Dictionary.join(v29.conversationTopModals, {
-                        [v31] = v30.responseBody
-                    })
-                });
-            end;
-        elseif v30.postBody.modal_sequence == l_ModalSequence_0.ConversationBottomModal and (l_FFlagEnableAEGIS2AppChatConversationBanner_0 or v18) then
-            if not v31 then
-                return v29;
-            else
-                return v2.Dictionary.join(v29, {
-                    conversationBottomModals = v2.Dictionary.join(v29.conversationBottomModals, {
-                        [v31] = v30.responseBody
-                    })
-                });
-            end;
-        else
-            v4:warning((("GetModalSequence.Succeeded with unsupported modal sequence: %*"):format(v30.postBody.modal_sequence)));
-            return v29;
-        end;
-    end, 
-    [v5.name] = if l_FFlagAppChatEnableDoubleOptIn_0 then nil else function(v33, v34) --[[ Line: 143 ]]
-        -- upvalues: v2 (copy)
-        local l_conversationId_0 = v34.conversationId;
-        local l_modalVariant_0 = v34.modalVariant;
-        if not l_conversationId_0 or not l_modalVariant_0 then
-            return v33;
-        else
-            return v2.Dictionary.join(v33, {
-                conversationTopModalsDismissed = v2.Dictionary.join(v33.conversationTopModalsDismissed, {
-                    [l_conversationId_0] = v2.Dictionary.join(v33.conversationTopModalsDismissed[l_conversationId_0] or {}, {
-                        [l_modalVariant_0] = true
-                    })
-                })
-            });
-        end;
-    end, 
-    [v9.name] = function(v37, v38) --[[ Line: 161 ]]
-        -- upvalues: l_ModalSequence_0 (copy), v2 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy)
-        local l_key_0 = v38.key;
-        local l_modalSequence_0 = v38.modalSequence;
-        if l_modalSequence_0 == l_ModalSequence_0.ConversationOverlay then
-            if not l_key_0 then
-                return v37;
-            else
-                return v2.Dictionary.join(v37, {
-                    conversationOverlays = v2.Dictionary.join(v37.conversationOverlays, {
-                        [l_key_0] = v2.None
-                    })
-                });
-            end;
-        elseif l_modalSequence_0 == l_ModalSequence_0.ConversationTopModal and l_FFlagAppChatEnableDoubleOptIn_0 then
-            if not l_key_0 then
-                return v37;
-            else
-                return v2.Dictionary.join(v37, {
-                    conversationTopModals = v2.Dictionary.join(v37.conversationTopModals, {
-                        [l_key_0] = v2.None
-                    })
-                });
-            end;
-        else
-            return v37;
-        end;
-    end, 
-    [v10.name] = function(v41, v42) --[[ Line: 186 ]]
-        -- upvalues: l_FFlagEnableAEGIS2AppChatConversationBanner_0 (copy), l_ModalSequence_0 (copy), v4 (copy), v2 (copy)
-        local l_modalSequence_1 = v42.modalSequence;
-        if l_FFlagEnableAEGIS2AppChatConversationBanner_0 and l_modalSequence_1 == l_ModalSequence_0.ConversationBottomModal then
-            v4:debug("Removing all modals of sequence:ConversationBottomModal from the store");
-            local v44 = {};
-            for v45, _ in v41.conversationBottomModals do
-                v44[v45] = v2.None;
-            end;
-            return v2.Dictionary.join(v41, {
-                conversationBottomModals = v2.Dictionary.join(v41.conversationBottomModals, v44)
-            });
-        else
-            v4:warning((("DismissedAllConversationModalsForSequence received unsupported modal sequence: %* "):format(l_modalSequence_1)));
-            return v41;
-        end;
-    end, 
-    [v19.rodux.GetPendingStateModal.Succeeded.name] = function(v47, v48) --[[ Line: 207 ]]
-        -- upvalues: v2 (copy)
-        local v49 = v48.postBody and v48.postBody.conversation_id;
-        if not v49 then
-            return v47;
-        else
-            return v2.Dictionary.join(v47, {
-                pendingStateModals = v2.Dictionary.join(v47.pendingStateModals, {
-                    [v49] = v48.responseBody
-                })
-            });
-        end;
-    end, 
-    [v6.name] = function(v50, v51) --[[ Line: 226 ]]
-        -- upvalues: v2 (copy)
-        local l_conversationId_1 = v51.conversationId;
-        if not l_conversationId_1 then
-            return v50;
-        else
-            return v2.Dictionary.join(v50, {
-                conversationTopModals = v2.Dictionary.join(v50.conversationTopModals, {
-                    [l_conversationId_1] = v2.None
-                }), 
-                pendingStateModals = v2.Dictionary.join(v50.pendingStateModals, {
-                    [l_conversationId_1] = v2.None
-                }), 
-                conversationBottomModals = v2.Dictionary.join(v50.conversationBottomModals, {
-                    [l_conversationId_1] = v2.None
-                })
-            });
-        end;
-    end, 
-    [v7.name] = function(v53, v54) --[[ Line: 244 ]]
-        -- upvalues: v2 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy)
-        local l_oldFriendConversationId_0 = v54.oldFriendConversationId;
-        local l_newConversationId_0 = v54.newConversationId;
-        if not l_oldFriendConversationId_0 or not l_newConversationId_0 then
-            return v53;
-        else
-            local l_v53_0 = v53;
-            if v53.conversationTopModals[l_oldFriendConversationId_0] then
-                l_v53_0 = v2.Dictionary.join(l_v53_0, {
-                    conversationTopModals = v2.Dictionary.join(l_v53_0.conversationTopModals, {
-                        [l_newConversationId_0] = v53.conversationTopModals[l_oldFriendConversationId_0], 
-                        [l_oldFriendConversationId_0] = v2.None
-                    })
-                });
-            end;
-            if not l_FFlagAppChatEnableDoubleOptIn_0 and v53.conversationTopModalsDismissed[l_oldFriendConversationId_0] then
-                l_v53_0 = v2.Dictionary.join(l_v53_0, {
-                    conversationTopModalsDismissed = v2.Dictionary.join(l_v53_0.conversationTopModalsDismissed, {
-                        [l_newConversationId_0] = v53.conversationTopModalsDismissed[l_oldFriendConversationId_0], 
-                        [l_oldFriendConversationId_0] = v2.None
-                    })
-                });
-            end;
-            if v53.conversationOverlays[l_oldFriendConversationId_0] then
-                l_v53_0 = v2.Dictionary.join(l_v53_0, {
-                    conversationOverlays = v2.Dictionary.join(l_v53_0.conversationOverlays, {
-                        [l_newConversationId_0] = v53.conversationOverlays[l_oldFriendConversationId_0], 
-                        [l_oldFriendConversationId_0] = v2.None
-                    })
-                });
-            end;
-            if v53.conversationBottomModals[l_oldFriendConversationId_0] then
-                l_v53_0 = v2.Dictionary.join(l_v53_0, {
-                    conversationBottomModals = v2.Dictionary.join(l_v53_0.conversationBottomModals, {
-                        [l_newConversationId_0] = v53.conversationBottomModals[l_oldFriendConversationId_0], 
-                        [l_oldFriendConversationId_0] = v2.None
-                    })
-                });
-            end;
-            return l_v53_0;
-        end;
-    end, 
-    DEBUG_ShowChatLandingAgeVerifiedTimedModal = v12 and function(v58) --[[ Line: 293 ]]
-        -- upvalues: v2 (copy), v19 (copy)
-        return v2.Dictionary.union(v58, {
-            chatLandingModal = {
-                modal_variant = v19.Constants.ChatLandingModalVariant.ChatLandingAgeVerifiedCommsTimedModal, 
-                modal_layout = {
-                    id = "asdf", 
-                    header = {
-                        text = "FAE Title", 
-                        additional_content = {
-                            {
-                                type = v19.Constants.ModalContentType.Countdown, 
-                                text = "14 days left"
-                            }
-                        }
-                    }, 
-                    body = {
-                        text = "FAE debug Body", 
-                        additional_content = {
-                            {
-                                type = v19.Constants.ModalContentType.Link, 
-                                text = "Learn more"
-                            }
-                        }
-                    }, 
-                    buttons = {
-                        {
-                            text = "Continue", 
-                            action = {
-                                type = "open_fae_upsell"
-                            }
-                        }, 
-                        {
-                            text = "View Details", 
-                            action = {
-                                type = "open_fae_view_details"
-                            }
-                        }
-                    }, 
-                    dismissible = true, 
-                    seen_record_action = "none", 
-                    dismissed_record_action = "none"
-                }
-            }
-        });
-    end or nil, 
-    DEBUG_ShowAppChatFaeUpsell = v11 and function(v59) --[[ Line: 341 ]]
-        -- upvalues: v2 (copy), v19 (copy)
-        return v2.Dictionary.union(v59, {
-            chatLandingModal = {
-                modal_variant = v19.Constants.ChatLandingModalVariant.AgeAssuranceUpsell, 
-                modal_layout = {
-                    id = "asdf", 
-                    label = {
-                        text = "New"
-                    }, 
-                    header = {
-                        text = "FAE Title"
-                    }, 
-                    body = {
-                        text = "FAE debug Body", 
-                        additional_content = {
-                            {
-                                type = v19.Constants.ModalContentType.Link, 
-                                text = "Learn more"
-                            }
-                        }
-                    }, 
-                    buttons = {
-                        {
-                            text = "Continue"
-                        }
-                    }, 
-                    seen_record_action = "none", 
-                    dismissed_record_action = "none"
-                }
-            }
-        });
-    end or nil, 
-    DEBUG_ShowNewTCOverlay = (not not l_FFlagTCUpsellModalEnabled_DEV_0 or l_FFlagDebugEnableTCDoubleOptIn_DEV_0) and function(v60, v61) --[[ Line: 375 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v60, {
-            conversationOverlays = v2.Dictionary.join(v60.conversationOverlays, {
-                [v61.conversationId] = {
-                    modal_variant = v61.modalVariant, 
-                    modal_layout = {
-                        id = "asdf", 
-                        seen_record_action = "none", 
-                        dismissed_record_action = "none"
-                    }
-                }
-            })
-        });
-    end or nil, 
-    DEBUG_ShowNewTopModal = l_FFlagDebugEnableTCDoubleOptIn_DEV_0 and function(v62, v63) --[[ Line: 391 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v62, {
-            conversationTopModals = v2.Dictionary.join(v62.conversationTopModals, {
-                [v63.conversationId] = {
-                    modal_variant = v63.modalVariant, 
-                    modal_layout = {
-                        id = "", 
-                        body = {
-                            text = "Add Trusted Connection"
-                        }, 
-                        buttons = {
-                            {
-                                text = "Add"
-                            }
-                        }, 
-                        seen_record_action = "none", 
-                        dismissed_record_action = "none"
-                    }
-                }
-            })
-        });
-    end or nil, 
-    DEBUG_ShowNudgeToChatUpsellOverlay = v13 and function(v64, v65) --[[ Line: 415 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v64, {
-            conversationBottomModals = v2.Dictionary.join(v64.conversationBottomModals, {
-                [v65.conversationId] = {
-                    modal_variant = v65.modalVariant, 
-                    modal_layout = {
-                        id = "debug-nudge-to-chat-upsell", 
-                        header = {
-                            text = "DebugUser has indicated they would like to chat"
-                        }, 
-                        body = {
-                            text = "Verify your age to unlock chat with DebugUser. It only takes a moment."
-                        }, 
-                        buttons = {
-                            {
-                                text = "Verify Age", 
-                                action = {
-                                    type = "open_fae_upsell"
-                                }
-                            }, 
-                            {
-                                text = "View Details", 
-                                action = {
-                                    type = "open_fae_view_details"
-                                }
-                            }
-                        }, 
-                        dismissible = false, 
-                        seen_record_action = "none", 
-                        dismissed_record_action = "none"
-                    }
-                }
-            })
-        });
-    end or nil, 
-    DEBUG_DismissChatLandingModal = (not not v11 or v12) and function(v66) --[[ Line: 438 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v66, {
-            chatLandingModal = v2.None
-        });
-    end or nil
-});
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local Cryo = require(AppChatParent.Cryo)
+local Rodux = require(AppChatParent.Rodux)
+local Logger = require(AppChat.Logger)
+local DismissedConversationTopModal = require(AppChat.Conversations.Actions.DismissedConversationTopModal)
+local RemovedConversation = require(AppChat.Conversations.Actions.RemovedConversation)
+local FriendConversationCreated = require(AppChat.Conversations.Actions.FriendConversationCreated)
+local ConversationChannels = require(AppChat.Models.ConversationChannels)
+local DismissedChatModal = require(AppChat.Conversations.Actions.DismissedChatModal)
+local DismissedAllConversationModalsForSequence = require(AppChat.Conversations.Actions.DismissedAllConversationModalsForSequence)
+local FFlagDebugAppChatFae = require(AppChat.Flags.FFlagDebugAppChatFae)
+local FFlagDebugAEGIS1AppChatBanner = require(AppChat.Flags.FFlagDebugAEGIS1AppChatBanner)
+local FFlagTCUpsellModalEnabled_DEV = require(AppChatParent.SharedFlags).FFlagTCUpsellModalEnabled_DEV
+local FFlagDebugEnableTCDoubleOptIn_DEV = require(AppChatParent.SharedFlags).FFlagDebugEnableTCDoubleOptIn_DEV
+local FFlagAppChatEnableDoubleOptIn = require(AppChatParent.SharedFlags).FFlagAppChatEnableDoubleOptIn
+local FFlagEnableAEGIS2AppChatConversationBanner = require(AppChatParent.SharedFlags).FFlagEnableAEGIS2AppChatConversationBanner
+local FFlagAppChatNudgeToChatUpsellEnabled = require(AppChat.Flags.FFlagAppChatNudgeToChatUpsellEnabled)
+local AppChatNetworking = require(AppChatParent.AppChatNetworking)
+local ModalSequence = AppChatNetworking.Constants.ModalSequence
+local t1 = {
+	chatLandingModal = {},
+	conversationTopModals = {},
+	conversationTopModalsDismissed = if not FFlagAppChatEnableDoubleOptIn then {} else nil,
+	conversationOverlays = {},
+	pendingStateModals = {},
+	conversationBottomModals = {}
+}
+
+return Rodux.createReducer(t1, {
+	[AppChatNetworking.rodux.GetChatLandingModal.Succeeded.name] = function(t2: {[any]: any}, p1) -- line: 46
+		-- upvalues: Cryo (copy)
+		local responseBody = p1.responseBody
+
+		return Cryo.Dictionary.join(t2, {
+			chatLandingModal = responseBody
+		})
+	end,
+	[AppChatNetworking.rodux.GetConversationTopModal.Succeeded.name] = not FFlagAppChatEnableDoubleOptIn and function(t3: {[any]: any}, p2) -- line: 60
+		-- upvalues: ConversationChannels (copy), Cryo (copy)
+		local v27 = p2.postBody and p2.postBody.conversation_id
+		local v28 = p2.postBody and p2.postBody.friend_id
+
+		if v28 and not v27 then
+			v27 = ConversationChannels.getFriendConversationId({ v28 })
+		end
+
+		if not v27 then
+			return t3
+		end
+
+		return Cryo.Dictionary.join(t3, {
+			conversationTopModals = Cryo.Dictionary.join(t3.conversationTopModals, {
+				[v27] = p2.responseBody
+			})
+		})
+	end or nil,
+	[AppChatNetworking.rodux.GetModalSequence.Succeeded.name] = function(t4: {[any]: any}, p3) -- line: 84
+		-- upvalues: ConversationChannels (copy), ModalSequence (copy), Cryo (copy), FFlagAppChatEnableDoubleOptIn (copy), FFlagEnableAEGIS2AppChatConversationBanner (copy), FFlagAppChatNudgeToChatUpsellEnabled (copy), Logger (copy)
+		local v31 = p3.postBody and p3.postBody.conversation_id
+		local v32 = p3.postBody and p3.postBody.friend_id
+
+		if v32 and not v31 then
+			v31 = ConversationChannels.getFriendConversationId({ v32 })
+		end
+
+		if p3.postBody.modal_sequence == ModalSequence.ConversationOverlay then
+			if not v31 then
+				return t4
+			end
+
+			return Cryo.Dictionary.join(t4, {
+				conversationOverlays = Cryo.Dictionary.join(t4.conversationOverlays, {
+					[v31] = p3.responseBody
+				})
+			})
+		end
+
+		if p3.postBody.modal_sequence == ModalSequence.ConversationTopModal and FFlagAppChatEnableDoubleOptIn then
+			if not v31 then
+				return t4
+			end
+
+			return Cryo.Dictionary.join(t4, {
+				conversationTopModals = Cryo.Dictionary.join(t4.conversationTopModals, {
+					[v31] = p3.responseBody
+				})
+			})
+		end
+
+		if p3.postBody.modal_sequence == ModalSequence.ConversationBottomModal and (FFlagEnableAEGIS2AppChatConversationBanner or FFlagAppChatNudgeToChatUpsellEnabled) then
+			if not v31 then
+				return t4
+			end
+
+			return Cryo.Dictionary.join(t4, {
+				conversationBottomModals = Cryo.Dictionary.join(t4.conversationBottomModals, {
+					[v31] = p3.responseBody
+				})
+			})
+		end
+
+		Logger:warning(`GetModalSequence.Succeeded with unsupported modal sequence: { p3.postBody.modal_sequence }`)
+
+		return t4
+	end,
+	[DismissedConversationTopModal.name] = not FFlagAppChatEnableDoubleOptIn and function(t5: {[any]: any}, p4) -- line: 142
+		-- upvalues: Cryo (copy)
+		local conversationId = p4.conversationId
+		local modalVariant = p4.modalVariant
+
+		if not conversationId or not modalVariant then
+			return t5
+		end
+
+		return Cryo.Dictionary.join(t5, {
+			conversationTopModalsDismissed = Cryo.Dictionary.join(t5.conversationTopModalsDismissed, {
+				[conversationId] = Cryo.Dictionary.join(t5.conversationTopModalsDismissed[conversationId] or {}, {
+					[modalVariant] = true
+				})
+			})
+		})
+	end or nil,
+	[DismissedChatModal.name] = function(t6: {[any]: any}, p5) -- line: 160
+		-- upvalues: ModalSequence (copy), Cryo (copy), FFlagAppChatEnableDoubleOptIn (copy)
+		local key = p5.key
+		local modalSequence = p5.modalSequence
+
+		if modalSequence == ModalSequence.ConversationOverlay then
+			if not key then
+				return t6
+			end
+
+			return Cryo.Dictionary.join(t6, {
+				conversationOverlays = Cryo.Dictionary.join(t6.conversationOverlays, {
+					[key] = Cryo.None
+				})
+			})
+		end
+
+		if modalSequence == ModalSequence.ConversationTopModal and FFlagAppChatEnableDoubleOptIn then
+			if not key then
+				return t6
+			end
+
+			return Cryo.Dictionary.join(t6, {
+				conversationTopModals = Cryo.Dictionary.join(t6.conversationTopModals, {
+					[key] = Cryo.None
+				})
+			})
+		end
+
+		return t6
+	end,
+	[DismissedAllConversationModalsForSequence.name] = function(t7: {[any]: any}, p6) -- line: 185
+		-- upvalues: FFlagEnableAEGIS2AppChatConversationBanner (copy), ModalSequence (copy), Logger (copy), Cryo (copy)
+		local modalSequence = p6.modalSequence
+
+		if FFlagEnableAEGIS2AppChatConversationBanner and modalSequence == ModalSequence.ConversationBottomModal then
+			Logger:debug("Removing all modals of sequence:ConversationBottomModal from the store")
+
+			local t8 = {}
+
+			for v45, _ in t7.conversationBottomModals do
+				t8[v45] = Cryo.None
+			end
+
+			return Cryo.Dictionary.join(t7, {
+				conversationBottomModals = Cryo.Dictionary.join(t7.conversationBottomModals, t8)
+			})
+		end
+
+		Logger:warning(`DismissedAllConversationModalsForSequence received unsupported modal sequence: { modalSequence } `)
+
+		return t7
+	end,
+	[AppChatNetworking.rodux.GetPendingStateModal.Succeeded.name] = function(t9: {[any]: any}, p7) -- line: 206
+		-- upvalues: Cryo (copy)
+		local v49 = p7.postBody and p7.postBody.conversation_id
+
+		if not v49 then
+			return t9
+		end
+
+		return Cryo.Dictionary.join(t9, {
+			pendingStateModals = Cryo.Dictionary.join(t9.pendingStateModals, {
+				[v49] = p7.responseBody
+			})
+		})
+	end,
+	[RemovedConversation.name] = function(t10: {[any]: any}, p8) -- line: 225
+		-- upvalues: Cryo (copy)
+		local conversationId = p8.conversationId
+
+		if not conversationId then
+			return t10
+		end
+
+		return Cryo.Dictionary.join(t10, {
+			conversationTopModals = Cryo.Dictionary.join(t10.conversationTopModals, {
+				[conversationId] = Cryo.None
+			}),
+			pendingStateModals = Cryo.Dictionary.join(t10.pendingStateModals, {
+				[conversationId] = Cryo.None
+			}),
+			conversationBottomModals = Cryo.Dictionary.join(t10.conversationBottomModals, {
+				[conversationId] = Cryo.None
+			})
+		})
+	end,
+	[FriendConversationCreated.name] = function(t11: {[any]: any}, p9) -- line: 243
+		-- upvalues: Cryo (copy), FFlagAppChatEnableDoubleOptIn (copy)
+		local oldFriendConversationId = p9.oldFriendConversationId
+		local newConversationId = p9.newConversationId
+
+		if not oldFriendConversationId or not newConversationId then
+			return t11
+		end
+
+		local v57 = t11
+
+		if t11.conversationTopModals[oldFriendConversationId] then
+			v57 = Cryo.Dictionary.join(v57, {
+				conversationTopModals = Cryo.Dictionary.join(v57.conversationTopModals, {
+					[newConversationId] = t11.conversationTopModals[oldFriendConversationId],
+					[oldFriendConversationId] = Cryo.None
+				})
+			})
+		end
+
+		if not FFlagAppChatEnableDoubleOptIn and t11.conversationTopModalsDismissed[oldFriendConversationId] then
+			v57 = Cryo.Dictionary.join(v57, {
+				conversationTopModalsDismissed = Cryo.Dictionary.join(v57.conversationTopModalsDismissed, {
+					[newConversationId] = t11.conversationTopModalsDismissed[oldFriendConversationId],
+					[oldFriendConversationId] = Cryo.None
+				})
+			})
+		end
+
+		if t11.conversationOverlays[oldFriendConversationId] then
+			v57 = Cryo.Dictionary.join(v57, {
+				conversationOverlays = Cryo.Dictionary.join(v57.conversationOverlays, {
+					[newConversationId] = t11.conversationOverlays[oldFriendConversationId],
+					[oldFriendConversationId] = Cryo.None
+				})
+			})
+		end
+
+		if t11.conversationBottomModals[oldFriendConversationId] then
+			v57 = Cryo.Dictionary.join(v57, {
+				conversationBottomModals = Cryo.Dictionary.join(v57.conversationBottomModals, {
+					[newConversationId] = t11.conversationBottomModals[oldFriendConversationId],
+					[oldFriendConversationId] = Cryo.None
+				})
+			})
+		end
+
+		return v57
+	end,
+	DEBUG_ShowChatLandingAgeVerifiedTimedModal = if not FFlagDebugAEGIS1AppChatBanner then nil else function(t12: {[any]: any}) -- line: 292
+		-- upvalues: Cryo (copy), AppChatNetworking (copy)
+		return Cryo.Dictionary.union(t12, {
+			chatLandingModal = {
+				modal_variant = AppChatNetworking.Constants.ChatLandingModalVariant.ChatLandingAgeVerifiedCommsTimedModal,
+				modal_layout = {
+					id = "asdf",
+					header = {
+						text = "FAE Title",
+						additional_content = {{
+							type = AppChatNetworking.Constants.ModalContentType.Countdown,
+							text = "14 days left"
+						}}
+					},
+					body = {
+						text = "FAE debug Body",
+						additional_content = {{
+							type = AppChatNetworking.Constants.ModalContentType.Link,
+							text = "Learn more"
+						}}
+					},
+					buttons = {
+						{
+							text = "Continue",
+							action = {
+								type = "open_fae_upsell"
+							}
+						},
+						{
+							text = "View Details",
+							action = {
+								type = "open_fae_view_details"
+							}
+						}
+					},
+					dismissible = true,
+					seen_record_action = "none",
+					dismissed_record_action = "none"
+				}
+			}
+		})
+	end,
+	DEBUG_ShowAppChatFaeUpsell = if not FFlagDebugAppChatFae then nil else function(t13: {[any]: any}) -- line: 340
+		-- upvalues: Cryo (copy), AppChatNetworking (copy)
+		return Cryo.Dictionary.union(t13, {
+			chatLandingModal = {
+				modal_variant = AppChatNetworking.Constants.ChatLandingModalVariant.AgeAssuranceUpsell,
+				modal_layout = {
+					id = "asdf",
+					label = {
+						text = "New"
+					},
+					header = {
+						text = "FAE Title"
+					},
+					body = {
+						text = "FAE debug Body",
+						additional_content = {{
+							type = AppChatNetworking.Constants.ModalContentType.Link,
+							text = "Learn more"
+						}}
+					},
+					buttons = {{
+						text = "Continue"
+					}},
+					seen_record_action = "none",
+					dismissed_record_action = "none"
+				}
+			}
+		})
+	end,
+	DEBUG_ShowNewTCOverlay = if not FFlagTCUpsellModalEnabled_DEV and not FFlagDebugEnableTCDoubleOptIn_DEV then nil else function(t14: {[any]: any}, p10) -- line: 374
+		-- upvalues: Cryo (copy)
+		return Cryo.Dictionary.join(t14, {
+			conversationOverlays = Cryo.Dictionary.join(t14.conversationOverlays, {
+				[p10.conversationId] = {
+					modal_variant = p10.modalVariant,
+					modal_layout = {
+						id = "asdf",
+						seen_record_action = "none",
+						dismissed_record_action = "none"
+					}
+				}
+			})
+		})
+	end,
+	DEBUG_ShowNewTopModal = if not FFlagDebugEnableTCDoubleOptIn_DEV then nil else function(t15: {[any]: any}, p11) -- line: 390
+		-- upvalues: Cryo (copy)
+		return Cryo.Dictionary.join(t15, {
+			conversationTopModals = Cryo.Dictionary.join(t15.conversationTopModals, {
+				[p11.conversationId] = {
+					modal_variant = p11.modalVariant,
+					modal_layout = {
+						id = "",
+						body = {
+							text = "Add Trusted Connection"
+						},
+						buttons = {{
+							text = "Add"
+						}},
+						seen_record_action = "none",
+						dismissed_record_action = "none"
+					}
+				}
+			})
+		})
+	end,
+	DEBUG_DismissChatLandingModal = if not FFlagDebugAppChatFae and not FFlagDebugAEGIS1AppChatBanner then nil else function(t16: {[any]: any}) -- line: 414
+		-- upvalues: Cryo (copy)
+		return Cryo.Dictionary.join(t16, {
+			chatLandingModal = Cryo.None
+		})
+	end
+})

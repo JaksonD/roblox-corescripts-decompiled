@@ -1,205 +1,213 @@
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_LocalizationService_0 = game:GetService("LocalizationService");
-local l_MemStorageService_0 = game:GetService("MemStorageService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v5 = require(l_Modules_0.LuaApp.PromiseUtilities);
-local v6 = require(script.Parent.AppStorageUtilities);
-local v7 = require(script.Parent.ClearApp);
-local l_GuiService_0 = game:GetService("GuiService");
-local l_SetAuthenticationStatus_0 = require(l_CorePackages_0.Workspace.Packages.AuthenticationStatus).Actions.SetAuthenticationStatus;
-local v10 = require(l_Modules_0.LuaApp.Thunks.Authentication.Logout);
-local v11 = require(l_Modules_0.LuaApp.Analytics.Events.Auth.luaLogoutReasonNames);
-local v12 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
-local v13 = require(l_Modules_0.LuaApp.Enum.LoginStatus);
-local v14 = require(l_Modules_0.LuaApp.Enum.MemStorageKeys);
-local v15 = require(l_Modules_0.LuaApp.FlagSettings);
-local v16 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
-local v17 = require(l_Modules_0.LuaApp.Thunks.NavigateToRoute);
-local v18 = require(l_Modules_0.LuaApp.AppPage);
-local v19 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local v20 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local l_ExperimentCacheManager_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager;
-local v22 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol);
-local v23 = require(l_Modules_0.LuaApp.Analytics.RobloxTelemetryConfigs.LuaLogoutReasons);
-local l_TelemetryService_0 = game:GetService("TelemetryService");
-local l_getAppFeaturePolicies_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).getAppFeaturePolicies;
-local v26 = require(l_Modules_0.LuaApp.Flags.FFlagEnableIosKeychainLoginLua);
-local l_GetFFlagKeystoreAutoLoginAvailable_0 = v19.GetFFlagKeystoreAutoLoginAvailable;
-local v28 = require(l_CorePackages_0.Workspace.Packages.AuthCommon);
-local l_KeystoreAnalyticsEvents_0 = v28.Analytics.KeystoreAnalyticsEvents;
-local l_KeystoreEventConstants_0 = v28.Analytics.KeystoreEventConstants;
-local v31 = require(l_Modules_0.LuaApp.Flags.FFlagEnableTelemetryV2Logouts);
-local l_LuaLogoutTelemetryConfig_0 = require(l_CorePackages_0.Workspace.Packages.AuthAnalytics).TelemetryConfigs.LuaLogoutTelemetryConfig;
-local l_GetFFlagEnableStorePreviousAccountData_0 = v19.GetFFlagEnableStorePreviousAccountData;
-local l_StorePreviousAccountData_0 = v28.Thunks.StorePreviousAccountData;
-local l_FFlagEnableCallingLogoutOnResetIXP_0 = v19.FFlagEnableCallingLogoutOnResetIXP;
-local l_FFlagEnableLuaLoginRevamp_0 = v19.FFlagEnableLuaLoginRevamp;
-local l_AppBtidLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppBtidLayers;
-local l_IXPService_0 = game:GetService("IXPService");
-local function _() --[[ Line: 54 ]] --[[ Name: isEnableCallingLogoutOnResetFromIxp ]]
-    -- upvalues: l_IXPService_0 (copy), l_AppBtidLayers_0 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 55 ]]
-        -- upvalues: l_IXPService_0 (ref), l_AppBtidLayers_0 (ref)
-        return l_IXPService_0:GetBrowserTrackerLayerVariables(l_AppBtidLayers_0.LandingLayer);
-    end);
-    if l_status_0 and l_result_0 ~= nil and l_result_0.iOSEnableCallingLogoutOnReset ~= nil then
-        return l_result_0.iOSEnableCallingLogoutOnReset;
-    else
-        return true;
-    end;
-end;
-local _ = function(v42) --[[ Line: 68 ]] --[[ Name: hasNonNilEntries ]]
-    if v42 == nil then
-        return false;
-    else
-        for _, v44 in pairs(v42) do
-            if v44 ~= nil then
-                return true;
-            end;
-        end;
-        return false;
-    end;
-end;
-return function(v46, v47, v48, v49, v50, v51, v52, v53) --[[ Line: 82 ]]
-    -- upvalues: v5 (copy), v6 (copy), l_LocalizationService_0 (copy), l_FFlagEnableCallingLogoutOnResetIXP_0 (copy), l_IXPService_0 (copy), l_AppBtidLayers_0 (copy), v11 (copy), v10 (copy), l_GuiService_0 (copy), l_GetFFlagEnableStorePreviousAccountData_0 (copy), l_StorePreviousAccountData_0 (copy), v7 (copy), l_MemStorageService_0 (copy), v14 (copy), l_SetAuthenticationStatus_0 (copy), v13 (copy), v22 (copy), v23 (copy), v31 (copy), l_TelemetryService_0 (copy), l_LuaLogoutTelemetryConfig_0 (copy), v15 (copy), v12 (copy), v18 (copy), l_getAppFeaturePolicies_0 (copy), v17 (copy), v26 (copy), l_GetFFlagKeystoreAutoLoginAvailable_0 (copy), l_KeystoreAnalyticsEvents_0 (copy), l_KeystoreEventConstants_0 (copy), l_FFlagEnableLuaLoginRevamp_0 (copy), v16 (copy), v20 (copy), l_ExperimentCacheManager_0 (copy)
-    v5.Batch({
-        v49
-    }):andThen(function(v54) --[[ Line: 92 ]]
-        -- upvalues: v6 (ref), l_LocalizationService_0 (ref), v46 (copy), l_FFlagEnableCallingLogoutOnResetIXP_0 (ref), l_IXPService_0 (ref), l_AppBtidLayers_0 (ref), v50 (copy), v11 (ref), v47 (copy), v10 (ref), v48 (copy), l_GuiService_0 (ref), l_GetFFlagEnableStorePreviousAccountData_0 (ref), l_StorePreviousAccountData_0 (ref), v7 (ref), l_MemStorageService_0 (ref), v14 (ref), l_SetAuthenticationStatus_0 (ref), v13 (ref), v22 (ref), v23 (ref), v31 (ref), l_TelemetryService_0 (ref), l_LuaLogoutTelemetryConfig_0 (ref), v15 (ref), v12 (ref), v18 (ref), l_getAppFeaturePolicies_0 (ref), v17 (ref), v51 (copy), v26 (ref), l_GetFFlagKeystoreAutoLoginAvailable_0 (ref), v53 (copy), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), l_FFlagEnableLuaLoginRevamp_0 (ref), v52 (copy), v16 (ref), v20 (ref), l_ExperimentCacheManager_0 (ref)
-        local v55 = false;
-        local v56 = false;
-        if v54 and v54[1] then
-            v54[1]:match(function(v57) --[[ Line: 94 ]]
-                -- upvalues: v6 (ref), l_LocalizationService_0 (ref)
-                v6.setRobloxLocaleId(v57.signupAndLoginLocale);
-                l_LocalizationService_0:SetRobloxLocaleId(v57.signupAndLoginLocale);
-            end);
-        end;
-        if v46 then
-            if l_FFlagEnableCallingLogoutOnResetIXP_0 then
-                local l_status_1, l_result_1 = pcall(function() --[[ Line: 55 ]]
-                    -- upvalues: l_IXPService_0 (ref), l_AppBtidLayers_0 (ref)
-                    return l_IXPService_0:GetBrowserTrackerLayerVariables(l_AppBtidLayers_0.LandingLayer);
-                end);
-                if (not l_status_1 or not (l_result_1 ~= nil) or not (l_result_1.iOSEnableCallingLogoutOnReset ~= nil) or l_result_1.iOSEnableCallingLogoutOnReset) and v50 == v11.UnauthorizedAutoLogin then
-                    v47:dispatch(v10(v48, l_GuiService_0, v50));
-                    v55 = true;
-                end;
-            end;
-            if not v55 then
-                if l_GetFFlagEnableStorePreviousAccountData_0() then
-                    l_StorePreviousAccountData_0();
-                end;
-                v47:dispatch(v7());
-                l_MemStorageService_0:Fire(v14.ThemeUpdate, "dark");
-            end;
-        end;
-        v55 = false;
-        v47:dispatch(l_SetAuthenticationStatus_0(v13.LOGGED_OUT));
-        if v50 ~= nil then
-            v22.default:logRobloxTelemetryEvent(v23, nil, {
-                lualogoutreasons = v50
-            });
-        end;
-        if v31 then
-            l_TelemetryService_0:LogCounter(l_LuaLogoutTelemetryConfig_0, {
-                customFields = {
-                    reason = v50 or v11.Unknown
-                }
-            }, 1);
-        end;
-        if v15.WeChatLoginEnabled() then
-            v47:dispatch(v12({
-                {
-                    name = v18.WeChatLoginWrapper
-                }
-            }));
-        elseif v15.LuaAppLoginUIEnabled() then
-            if l_getAppFeaturePolicies_0().getUseSingleSignOn() then
-                v47:dispatch(v17({
-                    {
-                        name = v18.SingleSignOnContainer
-                    }
-                }));
-            else
-                local l_v51_0 = v51;
-                local v61;
-                if l_v51_0 == nil then
-                    v61 = false;
-                else
-                    for _, v63 in pairs(l_v51_0) do
-                        if v63 ~= nil then
-                            v61 = true;
-                            v56 = true;
-                        end;
-                        if v56 then
-                            break;
-                        end;
-                    end;
-                    if not v56 then
-                        v61 = false;
-                    end;
-                end;
-                v56 = false;
-                if (v26 or l_GetFFlagKeystoreAutoLoginAvailable_0()) and v51 and v61 then
-                    local v64 = {};
-                    if v53 == nil or v53 == false then
-                        l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.redirectToLandingPage);
-                        v47:dispatch(v12({
-                            {
-                                name = v18.Landing, 
-                                extraProps = v64
-                            }
-                        }));
-                    elseif l_FFlagEnableLuaLoginRevamp_0 then
-                        v64.forcedUsernameOverride = v51.username;
-                        l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.redirectToLoginPage);
-                        v47:dispatch(v12({
-                            {
-                                name = v18.Landing, 
-                                extraProps = {}
-                            }, 
-                            {
-                                name = v18.LoginV2, 
-                                extraProps = v64
-                            }
-                        }));
-                    else
-                        v64.usernameFromIosKeychain = v51.username;
-                        if v52 then
-                            v64.passwordFromIosKeychain = v51.password;
-                        end;
-                        l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.redirectToLoginPage);
-                        v47:dispatch(v12({
-                            {
-                                name = v18.Landing, 
-                                extraProps = {}
-                            }, 
-                            {
-                                name = v18.Login, 
-                                extraProps = v64
-                            }
-                        }));
-                    end;
-                else
-                    if l_GetFFlagEnableStorePreviousAccountData_0() then
-                        l_StorePreviousAccountData_0();
-                    end;
-                    v47:dispatch(v12({
-                        {
-                            name = v18.Landing, 
-                            extraProps = {}
-                        }
-                    }));
-                end;
-            end;
-        else
-            v47:dispatch(v16({
-                name = v18.LoginNative
-            }));
-        end;
-        v20.clearUserLayers();
-        l_ExperimentCacheManager_0.default:clearCache();
-    end);
-end;
+local CoreGui = game:GetService("CoreGui")
+local LocalizationService = game:GetService("LocalizationService")
+local MemStorageService = game:GetService("MemStorageService")
+local CorePackages = game:GetService("CorePackages")
+local Modules = CoreGui.RobloxGui.Modules
+local PromiseUtilities = require(Modules.LuaApp.PromiseUtilities)
+local AppStorageUtilities = require(script.Parent.AppStorageUtilities)
+local ClearApp = require(script.Parent.ClearApp)
+local GuiService = game:GetService("GuiService")
+local SetAuthenticationStatus = require(CorePackages.Workspace.Packages.AuthenticationStatus).Actions.SetAuthenticationStatus
+local Logout = require(Modules.LuaApp.Thunks.Authentication.Logout)
+local luaLogoutReasonNames = require(Modules.LuaApp.Analytics.Events.Auth.luaLogoutReasonNames)
+local ResetNavigationHistory = require(Modules.LuaApp.Thunks.ResetNavigationHistory)
+local LoginStatus = require(Modules.LuaApp.Enum.LoginStatus)
+local MemStorageKeys = require(Modules.LuaApp.Enum.MemStorageKeys)
+local FlagSettings = require(Modules.LuaApp.FlagSettings)
+local NavigateDown = require(Modules.LuaApp.Thunks.NavigateDown)
+local NavigateToRoute = require(Modules.LuaApp.Thunks.NavigateToRoute)
+local AppPage = require(Modules.LuaApp.AppPage)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+local ExperimentCacheManager = require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
+local LuaLogoutReasons = require(Modules.LuaApp.Analytics.RobloxTelemetryConfigs.LuaLogoutReasons)
+local TelemetryService = game:GetService("TelemetryService")
+local getAppFeaturePolicies = require(CorePackages.Workspace.Packages.UniversalAppPolicy).getAppFeaturePolicies
+local FFlagEnableIosKeychainLoginLua = require(Modules.LuaApp.Flags.FFlagEnableIosKeychainLoginLua)
+local GetFFlagKeystoreAutoLoginAvailable = SharedFlags.GetFFlagKeystoreAutoLoginAvailable
+local AuthCommon = require(CorePackages.Workspace.Packages.AuthCommon)
+local KeystoreAnalyticsEvents = AuthCommon.Analytics.KeystoreAnalyticsEvents
+local KeystoreEventConstants = AuthCommon.Analytics.KeystoreEventConstants
+local FFlagEnableTelemetryV2Logouts = require(Modules.LuaApp.Flags.FFlagEnableTelemetryV2Logouts)
+local TelemetryConfigs = require(CorePackages.Workspace.Packages.AuthAnalytics).TelemetryConfigs
+local LuaLogoutTelemetryConfig = TelemetryConfigs.LuaLogoutTelemetryConfig
+local KeystoreRedirectTelemetryConfig = TelemetryConfigs.KeystoreRedirectTelemetryConfig
+local GetFFlagAddPromCounterToKeystoreOps = SharedFlags.GetFFlagAddPromCounterToKeystoreOps
+local GetFFlagEnableStorePreviousAccountData = SharedFlags.GetFFlagEnableStorePreviousAccountData
+local StorePreviousAccountData = AuthCommon.Thunks.StorePreviousAccountData
+local FFlagEnableCallingLogoutOnResetIXP = SharedFlags.FFlagEnableCallingLogoutOnResetIXP
+local FFlagEnableLuaLoginRevamp = SharedFlags.FFlagEnableLuaLoginRevamp
+local AppBtidLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppBtidLayers
+local IXPService = game:GetService("IXPService")
+
+return function(p1, p2, p3, p4, s1: string?, t1: {[any]: any}?, b1: boolean?, b2: boolean?) -- line: 84
+	-- upvalues: PromiseUtilities (copy), AppStorageUtilities (copy), LocalizationService (copy), FFlagEnableCallingLogoutOnResetIXP (copy), IXPService (copy), AppBtidLayers (copy), luaLogoutReasonNames (copy), Logout (copy), GuiService (copy), GetFFlagEnableStorePreviousAccountData (copy), StorePreviousAccountData (copy), ClearApp (copy), MemStorageService (copy), MemStorageKeys (copy), SetAuthenticationStatus (copy), LoginStatus (copy), LoggingProtocol (copy), LuaLogoutReasons (copy), FFlagEnableTelemetryV2Logouts (copy), TelemetryService (copy), LuaLogoutTelemetryConfig (copy), FlagSettings (copy), ResetNavigationHistory (copy), AppPage (copy), getAppFeaturePolicies (copy), NavigateToRoute (copy), FFlagEnableIosKeychainLoginLua (copy), GetFFlagKeystoreAutoLoginAvailable (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), KeystoreRedirectTelemetryConfig (copy), FFlagEnableLuaLoginRevamp (copy), NavigateDown (copy), RoactAppExperiment (copy), ExperimentCacheManager (copy)
+	PromiseUtilities.Batch({ p4 }):andThen(function(p5) -- line: 94
+		-- upvalues: AppStorageUtilities (copy), LocalizationService (copy), p1 (copy), FFlagEnableCallingLogoutOnResetIXP (copy), IXPService (copy), AppBtidLayers (copy), s1 (copy), luaLogoutReasonNames (copy), p2 (copy), Logout (copy), p3 (copy), GuiService (copy), GetFFlagEnableStorePreviousAccountData (copy), StorePreviousAccountData (copy), ClearApp (copy), MemStorageService (copy), MemStorageKeys (copy), SetAuthenticationStatus (copy), LoginStatus (copy), LoggingProtocol (copy), LuaLogoutReasons (copy), FFlagEnableTelemetryV2Logouts (copy), TelemetryService (copy), LuaLogoutTelemetryConfig (copy), FlagSettings (copy), ResetNavigationHistory (copy), AppPage (copy), getAppFeaturePolicies (copy), NavigateToRoute (copy), t1 (copy), FFlagEnableIosKeychainLoginLua (copy), GetFFlagKeystoreAutoLoginAvailable (copy), b2 (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), KeystoreRedirectTelemetryConfig (copy), FFlagEnableLuaLoginRevamp (copy), b1 (copy), NavigateDown (copy), RoactAppExperiment (copy), ExperimentCacheManager (copy)
+		local g59 = nil
+		local g64 = nil
+		local v61 = nil
+
+		if p5 and p5[1] then
+			p5[1]:match(function(p6) -- line: 96
+				-- upvalues: AppStorageUtilities (copy), LocalizationService (copy)
+				AppStorageUtilities.setRobloxLocaleId(p6.signupAndLoginLocale)
+				LocalizationService:SetRobloxLocaleId(p6.signupAndLoginLocale)
+			end)
+		end
+
+		if p1 then
+			if FFlagEnableCallingLogoutOnResetIXP then
+				local ok, result = pcall(function() -- line: 57
+					-- upvalues: IXPService (copy), AppBtidLayers (copy)
+					return IXPService:GetBrowserTrackerLayerVariables(AppBtidLayers.LandingLayer)
+				end)
+
+				if (not ok or (result == nil or (result.iOSEnableCallingLogoutOnReset == nil or result.iOSEnableCallingLogoutOnReset))) and s1 == luaLogoutReasonNames.UnauthorizedAutoLogin then
+					p2:dispatch(Logout(p3, GuiService, s1))
+					g59 = true
+				end
+			end
+
+			if not g59 then
+				if GetFFlagEnableStorePreviousAccountData() then
+					StorePreviousAccountData()
+				end
+
+				p2:dispatch(ClearApp())
+				MemStorageService:Fire(MemStorageKeys.ThemeUpdate, "dark")
+			end
+		end
+
+		g59 = false
+		p2:dispatch(SetAuthenticationStatus(LoginStatus.LOGGED_OUT))
+
+		if s1 ~= nil then
+			LoggingProtocol.default:logRobloxTelemetryEvent(LuaLogoutReasons, nil, {
+				lualogoutreasons = s1
+			})
+		end
+
+		if FFlagEnableTelemetryV2Logouts then
+			TelemetryService:LogCounter(LuaLogoutTelemetryConfig, {
+				customFields = {
+					reason = s1 or luaLogoutReasonNames.Unknown
+				}
+			}, 1)
+		end
+
+		if FlagSettings.WeChatLoginEnabled() then
+			p2:dispatch(ResetNavigationHistory({{
+				name = AppPage.WeChatLoginWrapper
+			}}))
+		elseif FlagSettings.LuaAppLoginUIEnabled() then
+			if getAppFeaturePolicies().getUseSingleSignOn() then
+				p2:dispatch(NavigateToRoute({{
+					name = AppPage.SingleSignOnContainer
+				}}))
+			else
+				local v60 = t1
+
+				if v60 == nil then
+					v61 = false
+				else
+					for _, v in pairs(v60) do
+						if v ~= nil then
+							v61 = true
+							g64 = true
+						end
+
+						if g64 then
+							break
+						end
+					end
+
+					if not g64 then
+						v61 = false
+					end
+				end
+
+				g64 = false
+
+				if (FFlagEnableIosKeychainLoginLua or GetFFlagKeystoreAutoLoginAvailable()) and t1 and v61 then
+					local t2 = {}
+
+					if b2 == nil or b2 == false then
+						KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.redirectToLandingPage)
+
+						if GetFFlagAddPromCounterToKeystoreOps() then
+							TelemetryService:LogCounter(KeystoreRedirectTelemetryConfig, {
+								customFields = {
+									destination = "landing_page"
+								}
+							}, 1)
+						end
+
+						p2:dispatch(ResetNavigationHistory({{
+							name = AppPage.Landing,
+							extraProps = t2
+						}}))
+					else
+						if GetFFlagAddPromCounterToKeystoreOps() then
+							TelemetryService:LogCounter(KeystoreRedirectTelemetryConfig, {
+								customFields = {
+									destination = "login_page"
+								}
+							}, 1)
+						end
+
+						if FFlagEnableLuaLoginRevamp then
+							t2.forcedUsernameOverride = t1.username
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.redirectToLoginPage)
+							p2:dispatch(ResetNavigationHistory({
+								{
+									name = AppPage.Landing,
+									extraProps = {}
+								},
+								{
+									name = AppPage.LoginV2,
+									extraProps = t2
+								}
+							}))
+						else
+							t2.usernameFromIosKeychain = t1.username
+
+							if b1 then
+								t2.passwordFromIosKeychain = t1.password
+							end
+
+							KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.redirectToLoginPage)
+							p2:dispatch(ResetNavigationHistory({
+								{
+									name = AppPage.Landing,
+									extraProps = {}
+								},
+								{
+									name = AppPage.Login,
+									extraProps = t2
+								}
+							}))
+						end
+					end
+				else
+					if GetFFlagEnableStorePreviousAccountData() then
+						StorePreviousAccountData()
+					end
+
+					p2:dispatch(ResetNavigationHistory({{
+						name = AppPage.Landing,
+						extraProps = {}
+					}}))
+				end
+			end
+		else
+			p2:dispatch(NavigateDown({
+				name = AppPage.LoginNative
+			}))
+		end
+
+		RoactAppExperiment.clearUserLayers()
+		ExperimentCacheManager.default:clearCache()
+	end)
+end

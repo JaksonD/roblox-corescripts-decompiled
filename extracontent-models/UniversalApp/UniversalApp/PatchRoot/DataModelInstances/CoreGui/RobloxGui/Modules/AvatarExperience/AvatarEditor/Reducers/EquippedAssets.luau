@@ -1,676 +1,780 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.Rodux);
-local v3 = require(l_CorePackages_0.Packages.Cryo);
-local v4 = require(l_Modules_0.LuaApp.mutedError);
-local v5 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceHeadRefinement);
-local l_SetEquippedDynamicHeadShape_0 = v5.Actions.SetEquippedDynamicHeadShape;
-local l_SetEquippedStaticFacialAnimation_0 = v5.Actions.SetEquippedStaticFacialAnimation;
-local v8 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog);
-local v9 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagDynamicHeadsMigration_0 = v9.FFlagDynamicHeadsMigration;
-local l_FFlagHeadRefinementFacialAnimationToggle_0 = v9.FFlagHeadRefinementFacialAnimationToggle;
-local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
-local v13 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.UpdateAvatarEquips);
-local v14 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.ToggleEquipAsset);
-local v15 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.EquipOutfit);
-local v16 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.UnequipOutfit);
-local v17 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.BatchUnequipByAssetType);
-local v18 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.ReceivedAvatarData);
-local v19 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.NormalizeAvatar);
-local v20 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v21 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
-local v22 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.LayeredClothingSortUtils);
-local v23 = require(l_Modules_0.AvatarExperience.LayeredMakeupSort.LayeredMakeupSortUtils);
-local v24 = require(l_Modules_0.AvatarExperience.Common.Models.AssetMetadata);
-local v25 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.RemoveLayeredClothing);
-local v26 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.RemoveMakeup);
-local v27 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.SetOrder);
-local v28 = require(l_Modules_0.AvatarExperience.AccessoryAdjustment.Actions.SetAccessoryAdjustments);
-local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local l_HeadShape_0 = v5.Enums.HeadShape;
-local l_HeadShapeProperties_0 = v5.Enums.HeadShapeProperties;
-local v32 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableBatchUnequips);
-local v33 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local l_isMakeupAssetType_0 = v33.Utils.isMakeupAssetType;
-local l_CharacterHistoryStateChangeButtonActivated_0 = v33.State.Actions.CharacterHistoryStateChangeButtonActivated;
-local l_PurchaseItemsSuccess_0 = v8.State.Actions.PurchaseItemsSuccess;
-local l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 = v33.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE;
-local l_MAX_MAKEUP_LAYERS_0 = v33.Constants.MAX_MAKEUP_LAYERS;
-local l_FFlagAXRootSlotBasedEditorFlag_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXRootSlotBasedEditorFlag;
-local v40 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableNewCustomizeBundleEquip);
-local l_FFlagAXMISEnableMultiShopping_0 = v9.FFlagAXMISEnableMultiShopping;
-local v42 = game:DefineFastFlag("AXRefactorToggleEquipAsset3", false);
-local l_FFlagAXModeratedItemsFlow_0 = v9.FFlagAXModeratedItemsFlow;
-local l_FFlagParseHeadShapeFromAPIResponse_0 = v9.FFlagParseHeadShapeFromAPIResponse;
-local l_FFlagAXCustomizeMakeupSupport_0 = v9.FFlagAXCustomizeMakeupSupport;
-local v46 = game:DefineFastFlag("AXEquippedAssetsMissingAssetTypeId", false);
-local l_FFlagAXSkipEmotesInAvatarData_0 = v9.FFlagAXSkipEmotesInAvatarData;
-local l_FFlagAXBlockMakeupEquipR6_0 = v9.FFlagAXBlockMakeupEquipR6;
-local function _(v49, v50) --[[ Line: 83 ]] --[[ Name: checkIfWearingAsset ]]
-    if v49 and v49[v50] then
-        return true;
-    else
-        return false;
-    end;
-end;
-local function v58(v52, v53) --[[ Line: 95 ]] --[[ Name: replaceOutfitParts ]]
-    -- upvalues: v40 (copy), v20 (copy), v3 (copy)
-    if v40() then
-        local v54 = {};
-        if v53[v20.AssetTypeIdStrings.Head] or v53[v20.AssetTypeIdStrings.DynamicHead] then
-            local v55 = {
-                [v20.AssetTypeIdStrings.Head] = {}, 
-                [v20.AssetTypeIdStrings.DynamicHead] = {}
-            };
-            for v56, _ in v20.DynamicHeadAssetTypes do
-                v55[v56] = {};
-            end;
-            v54 = v3.Dictionary.join(v55, v53);
-        else
-            v54 = v53;
-        end;
-        return (v3.Dictionary.join(v52, v54));
-    else
-        return v3.Dictionary.join(v52, v53);
-    end;
-end;
-local function v85(v59, v60, v61) --[[ Line: 157 ]] --[[ Name: toggleSingleAsset ]]
-    -- upvalues: v20 (copy), v3 (copy), v24 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), v23 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), v22 (copy), v46 (copy), v4 (copy), v21 (copy), l_HeadShapeProperties_0 (copy), l_HeadShape_0 (copy)
-    v59 = v59 or {};
-    if v60.assetTypeId == v20.AssetTypeIdStrings.EmoteAnimation then
-        return v59;
-    else
-        local v62 = v59[v60.assetTypeId];
-        local l_assetId_0 = v60.assetId;
-        if v62 and v62[l_assetId_0] and true or false then
-            v62 = v59[v60.assetTypeId] or {};
-            return v3.Dictionary.join(v59, {
-                [v60.assetTypeId] = v3.Dictionary.join(v62, {
-                    [v60.assetId] = v3.None
-                })
-            });
-        else
-            v62 = v24.getDefaultMetadata(v60.assetTypeId);
-            if v60.overrideOrder then
-                v62.order = v60.overrideOrder;
-                l_assetId_0 = if l_FFlagAXCustomizeMakeupSupport_0 then v23.getSortedEquippedLayeredMakeup(v59) else nil;
-                if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v60.assetTypeId] and l_assetId_0 and #l_assetId_0 == l_MAX_MAKEUP_LAYERS_0 then
-                    local v64 = l_assetId_0[#l_assetId_0];
-                    v59 = v3.Dictionary.join(v59, {
-                        [v64.typeId] = v3.Dictionary.join(v59[v64.typeId] or {}, {
-                            [v64.id] = v3.None
-                        })
-                    });
-                end;
-            elseif v62.isLayered and (not l_FFlagAXCustomizeMakeupSupport_0 or v20.AssetTypeIdToAccessoryTypeEnum[v60.assetTypeId]) then
-                l_assetId_0 = v22.getSortedEquippedLCIfNoDefault(v59);
-                if l_assetId_0 then
-                    local v65 = {
-                        id = v60.assetId, 
-                        typeId = v60.assetTypeId
-                    };
-                    local v66, _ = v22.getTableAndOrderAfterEquippingIntoSort(l_assetId_0, v65);
-                    for v68, v69 in v66 do
-                        if v69.id ~= v60.assetId then
-                            if v46 and not v59[v69.typeId] then
-                                v4((("EquippedAssets.lua missing asset typeId post sort ID:%* typeId: %*"):format(v69.id, v69.typeId)));
-                            else
-                                v59 = v3.Dictionary.join(v59, {
-                                    [v69.typeId] = v3.Dictionary.join(v59[v69.typeId], {
-                                        [v69.id] = v3.Dictionary.join(v59[v69.typeId][v69.id], {
-                                            order = #v66 - v68
-                                        })
-                                    })
-                                });
-                            end;
-                        else
-                            v62.order = #v66 - v68;
-                        end;
-                    end;
-                end;
-            elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v60.assetTypeId] then
-                l_assetId_0 = v23.getSortedEquippedLayeredMakeup(v59);
-                if l_assetId_0 then
-                    local v70 = {
-                        id = v60.assetId, 
-                        typeId = v60.assetTypeId
-                    };
-                    local v71, _ = v23.getTableAndOrderAfterEquippingIntoSort(l_assetId_0, v70);
-                    for v73, v74 in v71 do
-                        if v74.id ~= v60.assetId then
-                            local v75 = v59[v74.typeId] or {};
-                            local v76 = v75[v74.id] or {};
-                            v59 = v3.Dictionary.join(v59, {
-                                [v74.typeId] = v3.Dictionary.join(v75, {
-                                    [v74.id] = v3.Dictionary.join(v76, {
-                                        order = #v71 - v73
-                                    })
-                                })
-                            });
-                        else
-                            v62.order = math.min(#v71 - v73, l_MAX_MAKEUP_LAYERS_0 - 1);
-                        end;
-                    end;
-                    if #l_assetId_0 > l_MAX_MAKEUP_LAYERS_0 then
-                        for v77 = l_MAX_MAKEUP_LAYERS_0 + 1, #l_assetId_0 do
-                            v59 = v3.Dictionary.join(v59, {
-                                [l_assetId_0[v77].typeId] = v3.Dictionary.join(v59[l_assetId_0[v77].typeId] or {}, {
-                                    [l_assetId_0[v77].id] = v3.None
-                                })
-                            });
-                        end;
-                    end;
-                    return v3.Dictionary.join(v59, {
-                        [v60.assetTypeId] = v3.Dictionary.join(v59[v60.assetTypeId] or {}, {
-                            [v60.assetId] = v62
-                        })
-                    });
-                end;
-            elseif v60.overrideAdjustments then
-                v62 = v3.Dictionary.join(v62, v60.overrideAdjustments);
-            end;
-            l_assetId_0 = {
-                [v60.assetId] = v62
-            };
-            local v78 = v59[v60.assetTypeId] or {};
-            if v60.assetTypeId == v20.AssetTypeIdStrings.Hat and (not v61 or not v61.ignoreAccessoryLimits) then
-                if #v3.Dictionary.keys(v78) >= v21.MaxHats then
-                    return v59;
-                else
-                    return v3.Dictionary.join(v59, {
-                        [v60.assetTypeId] = v3.Dictionary.join(v78, l_assetId_0)
-                    });
-                end;
-            else
-                local v79 = v20.AssetTypeToAssetCategory[v60.assetTypeId];
-                if v79 then
-                    for _, v81 in v20.AssetCategoryToAssetTypes[v79] do
-                        if v59[v81] and next(v59[v81]) then
-                            v59 = v3.Dictionary.join(v59, {
-                                [v81] = {}
-                            });
-                        end;
-                    end;
-                end;
-                if v60.assetTypeId == v20.AssetTypeIdStrings.Head then
-                    for v82, _ in v20.DynamicHeadAssetTypes do
-                        v59 = v3.Dictionary.join(v59, {
-                            [v82] = {}
-                        });
-                    end;
-                end;
-                if v60.assetTypeId == v20.AssetTypeIdStrings.DynamicHead then
-                    v59 = v3.Dictionary.join(v59, {
-                        [v20.AssetTypeIdStrings.Head] = {}
-                    });
-                end;
-                if v60.assetId and tostring(v60.assetId) == tostring(l_HeadShapeProperties_0[l_HeadShape_0.Default].assetId) then
-                    return (v3.Dictionary.join(v59, {
-                        [v20.AssetTypeIdStrings.Head] = {}, 
-                        [v20.AssetTypeIdStrings.DynamicHead] = {}
-                    }));
-                else
-                    local v84 = v20.BypassAccessoryLimitsAccessoryAssetTypeIdStrings[v60.assetTypeId];
-                    if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v60.assetTypeId] then
-                        return v3.Dictionary.join(v59, {
-                            [v60.assetTypeId] = v3.Dictionary.join(v78, l_assetId_0)
-                        });
-                    else
-                        return v3.Dictionary.join(v59, {
-                            [v60.assetTypeId] = if v61 and v61.ignoreAccessoryLimits and v84 then v3.Dictionary.join(v78, l_assetId_0) else l_assetId_0
-                        });
-                    end;
-                end;
-            end;
-        end;
-    end;
-end;
-return v2.createReducer(nil, {
-    [v18.name] = function(v86, v87) --[[ Line: 383 ]]
-        -- upvalues: l_FFlagAXSkipEmotesInAvatarData_0 (copy), v20 (copy), v24 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), v3 (copy)
-        local l_assets_0 = v87.avatarData.assets;
-        if l_assets_0 == nil then
-            return v86;
-        else
-            v86 = {};
-            for _, v90 in l_assets_0 do
-                local v91 = tostring(v90.assetType.id);
-                local v92 = tostring(v90.id);
-                if not l_FFlagAXSkipEmotesInAvatarData_0 or v91 ~= v20.AssetTypeIdStrings.EmoteAnimation then
-                    local v93 = v86[v91] or {};
-                    v93[v92] = v24.fromMetadata(v90.meta, v91);
-                    if l_FFlagAXModeratedItemsFlow_0 then
-                        v93[v92].availabilityStatus = v90.availabilityStatus;
-                    end;
-                    v86[v91] = v93;
-                end;
-            end;
-            local v94 = v86[v20.AssetTypeIdStrings.DynamicHead] or {};
-            local v95 = v86[v20.AssetTypeIdStrings.Face] or {};
-            if not v3.isEmpty(v94) and not v3.isEmpty(v95) then
-                v86[v20.AssetTypeIdStrings.Face] = {};
-            end;
-            return v86;
-        end;
-    end, 
-    [v14.name] = function(v96, v97) --[[ Line: 425 ]]
-        -- upvalues: v42 (copy), v85 (copy), v20 (copy), v3 (copy), v24 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), v23 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), v22 (copy), v46 (copy), v4 (copy), v21 (copy), l_HeadShapeProperties_0 (copy), l_HeadShape_0 (copy)
-        if v42 then
-            return v85(v96, v97);
-        else
-            v96 = v96 or {};
-            if v97.assetTypeId == v20.AssetTypeIdStrings.EmoteAnimation then
-                return v96;
-            else
-                local v98 = v96[v97.assetTypeId];
-                local l_assetId_1 = v97.assetId;
-                if v98 and v98[l_assetId_1] and true or false then
-                    v98 = v96[v97.assetTypeId] or {};
-                    return v3.Dictionary.join(v96, {
-                        [v97.assetTypeId] = v3.Dictionary.join(v98, {
-                            [v97.assetId] = v3.None
-                        })
-                    });
-                else
-                    v98 = v24.getDefaultMetadata(v97.assetTypeId);
-                    if v97.overrideOrder then
-                        v98.order = v97.overrideOrder;
-                        l_assetId_1 = if l_FFlagAXCustomizeMakeupSupport_0 then v23.getSortedEquippedLayeredMakeup(v96) else nil;
-                        if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v97.assetTypeId] and l_assetId_1 and #l_assetId_1 == l_MAX_MAKEUP_LAYERS_0 then
-                            local v100 = l_assetId_1[#l_assetId_1];
-                            v96 = v3.Dictionary.join(v96, {
-                                [v100.typeId] = v3.Dictionary.join(v96[v100.typeId] or {}, {
-                                    [v100.id] = v3.None
-                                })
-                            });
-                        end;
-                    elseif v98.isLayered and (not l_FFlagAXCustomizeMakeupSupport_0 or v20.AssetTypeIdToAccessoryTypeEnum[v97.assetTypeId]) then
-                        l_assetId_1 = v22.getSortedEquippedLCIfNoDefault(v96);
-                        if l_assetId_1 then
-                            local v101 = {
-                                id = v97.assetId, 
-                                typeId = v97.assetTypeId
-                            };
-                            local v102, _ = v22.getTableAndOrderAfterEquippingIntoSort(l_assetId_1, v101);
-                            for v104, v105 in v102 do
-                                if v105.id ~= v97.assetId then
-                                    if v46 and not v96[v105.typeId] then
-                                        v4((("EquippedAssets.lua missing asset typeId post sort ID:%* typeId: %*"):format(v105.id, v105.typeId)));
-                                    else
-                                        v96 = v3.Dictionary.join(v96, {
-                                            [v105.typeId] = v3.Dictionary.join(v96[v105.typeId], {
-                                                [v105.id] = v3.Dictionary.join(v96[v105.typeId][v105.id], {
-                                                    order = #v102 - v104
-                                                })
-                                            })
-                                        });
-                                    end;
-                                else
-                                    v98.order = #v102 - v104;
-                                end;
-                            end;
-                        end;
-                    elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v97.assetTypeId] then
-                        l_assetId_1 = v23.getSortedEquippedLayeredMakeup(v96);
-                        if l_assetId_1 then
-                            local v106 = {
-                                id = v97.assetId, 
-                                typeId = v97.assetTypeId
-                            };
-                            local v107, _ = v23.getTableAndOrderAfterEquippingIntoSort(l_assetId_1, v106);
-                            for v109, v110 in v107 do
-                                if v110.id ~= v97.assetId then
-                                    local v111 = v96[v110.typeId] or {};
-                                    local v112 = v111[v110.id] or {};
-                                    v96 = v3.Dictionary.join(v96, {
-                                        [v110.typeId] = v3.Dictionary.join(v111, {
-                                            [v110.id] = v3.Dictionary.join(v112, {
-                                                order = #v107 - v109
-                                            })
-                                        })
-                                    });
-                                else
-                                    v98.order = math.min(#v107 - v109, l_MAX_MAKEUP_LAYERS_0 - 1);
-                                end;
-                            end;
-                            if #l_assetId_1 > l_MAX_MAKEUP_LAYERS_0 then
-                                for v113 = l_MAX_MAKEUP_LAYERS_0 + 1, #l_assetId_1 do
-                                    v96 = v3.Dictionary.join(v96, {
-                                        [l_assetId_1[v113].typeId] = v3.Dictionary.join(v96[l_assetId_1[v113].typeId] or {}, {
-                                            [l_assetId_1[v113].id] = v3.None
-                                        })
-                                    });
-                                end;
-                            end;
-                            return v3.Dictionary.join(v96, {
-                                [v97.assetTypeId] = v3.Dictionary.join(v96[v97.assetTypeId] or {}, {
-                                    [v97.assetId] = v98
-                                })
-                            });
-                        end;
-                    elseif v97.overrideAdjustments then
-                        v98 = v3.Dictionary.join(v98, v97.overrideAdjustments);
-                    end;
-                    l_assetId_1 = {
-                        [v97.assetId] = v98
-                    };
-                    local v114 = v96[v97.assetTypeId] or {};
-                    if v97.assetTypeId == v20.AssetTypeIdStrings.Hat then
-                        if #v3.Dictionary.keys(v114) >= v21.MaxHats then
-                            return v96;
-                        else
-                            return v3.Dictionary.join(v96, {
-                                [v97.assetTypeId] = v3.Dictionary.join(v114, l_assetId_1)
-                            });
-                        end;
-                    else
-                        local v115 = v20.AssetTypeToAssetCategory[v97.assetTypeId];
-                        if v115 then
-                            for _, v117 in v20.AssetCategoryToAssetTypes[v115] do
-                                if v96[v117] and next(v96[v117]) then
-                                    v96 = v3.Dictionary.join(v96, {
-                                        [v117] = {}
-                                    });
-                                end;
-                            end;
-                        end;
-                        if v97.assetTypeId == v20.AssetTypeIdStrings.Head then
-                            for v118, _ in v20.DynamicHeadAssetTypes do
-                                v96 = v3.Dictionary.join(v96, {
-                                    [v118] = {}
-                                });
-                            end;
-                        end;
-                        if v97.assetTypeId == v20.AssetTypeIdStrings.DynamicHead then
-                            v96 = v3.Dictionary.join(v96, {
-                                [v20.AssetTypeIdStrings.Head] = {}
-                            });
-                        end;
-                        if v97.assetId and tostring(v97.assetId) == tostring(l_HeadShapeProperties_0[l_HeadShape_0.Default].assetId) then
-                            return (v3.Dictionary.join(v96, {
-                                [v20.AssetTypeIdStrings.Head] = {}, 
-                                [v20.AssetTypeIdStrings.DynamicHead] = {}
-                            }));
-                        elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v97.assetTypeId] then
-                            return v3.Dictionary.join(v96, {
-                                [v97.assetTypeId] = v3.Dictionary.join(v114, l_assetId_1)
-                            });
-                        else
-                            return v3.Dictionary.join(v96, {
-                                [v97.assetTypeId] = l_assetId_1
-                            });
-                        end;
-                    end;
-                end;
-            end;
-        end;
-    end, 
-    [v13.name] = function(v120, v121) --[[ Line: 639 ]]
-        -- upvalues: v3 (copy), v85 (copy)
-        local l_assets_1 = v121.assets;
-        if l_assets_1 and not v3.isEmpty(l_assets_1) then
-            for _, v124 in l_assets_1 do
-                v120 = v85(v120, v124, {
-                    ignoreAccessoryLimits = true
-                });
-            end;
-        end;
-        return v120;
-    end, 
-    [v15.name] = function(v125, v126) --[[ Line: 654 ]]
-        -- upvalues: v58 (copy)
-        v125 = v125 or {};
-        if v126.fullReset then
-            return v126.assets;
-        else
-            return v58(v125, v126.assets);
-        end;
-    end, 
-    [v16.name] = function(v127, v128) --[[ Line: 666 ]]
-        -- upvalues: v3 (copy)
-        v127 = v127 or {};
-        for v129, v130 in v128.assetTypeIdToAssetIdToAssetMetadataModel do
-            for v131, _ in v130 do
-                v127 = v3.Dictionary.join(v127, {
-                    [v129] = v3.Dictionary.join(v127[v129], {
-                        [v131] = v3.None
-                    })
-                });
-            end;
-        end;
-        return v127;
-    end, 
-    [v25.name] = function(v133, v134) --[[ Line: 684 ]]
-        -- upvalues: v20 (copy)
-        v133 = v133 or {};
-        local v135 = false;
-        local v136 = {};
-        for v137, v138 in pairs(v133) do
-            local v139 = {};
-            local v140 = false;
-            for v141, v142 in v138 do
-                local v143 = v137 == v20.AssetTypeIdStrings.HairAccessory;
-                if v142.isLayered and (not v143 or v134.hasLayeredHair) then
-                    v140 = true;
-                else
-                    v139[v141] = v142;
-                end;
-            end;
-            if v140 then
-                v135 = true;
-                v136[v137] = v139;
-            else
-                v136[v137] = v138;
-            end;
-        end;
-        if v135 then
-            return v136;
-        else
-            return v133;
-        end;
-    end, 
-    [v27.name] = function(v144, v145) --[[ Line: 718 ]]
-        -- upvalues: v3 (copy)
-        for v146, v147 in v145.assetIdToOrderAndAssetTypeId do
-            local l_assetTypeId_0 = v147.assetTypeId;
-            local l_order_0 = v147.order;
-            local v150 = v144[l_assetTypeId_0];
-            local v151 = v150[v146];
-            v144 = v3.Dictionary.join(v144, {
-                [l_assetTypeId_0] = v3.Dictionary.join(v150, {
-                    [v146] = v3.Dictionary.join(v151, {
-                        order = l_order_0
-                    })
-                })
-            });
-        end;
-        return v144;
-    end, 
-    [v28.name] = function(v152, v153) --[[ Line: 742 ]]
-        -- upvalues: v3 (copy)
-        for v154, v155 in v152 do
-            for v156, v157 in v155 do
-                if v156 == v153.itemId then
-                    return v3.Dictionary.join(v152, {
-                        [v154] = v3.Dictionary.join(v155, {
-                            [v156] = v3.Dictionary.join(v157, {
-                                position = v153.position, 
-                                rotation = v153.rotation, 
-                                scale = v153.scale
-                            })
-                        })
-                    });
-                end;
-            end;
-        end;
-        return v152;
-    end, 
-    [v17.name] = function(v158, v159) --[[ Line: 763 ]]
-        -- upvalues: v32 (copy), v20 (copy), v3 (copy)
-        if not v32() then
-            return v158;
-        else
-            local v160 = v158 or {};
-            for _, v162 in v159.assetTypeIds do
-                if v162 == v20.AssetTypeIdStrings.DynamicHead then
-                    for v163, _ in v20.DynamicHeadAssetTypes do
-                        v160 = v3.Dictionary.join(v160, {
-                            [v163] = v3.None
-                        });
-                    end;
-                end;
-                v160 = v3.Dictionary.join(v160, {
-                    [v162] = v3.None
-                });
-            end;
-            return v160;
-        end;
-    end, 
-    [l_CharacterHistoryStateChangeButtonActivated_0.name] = function(v165, v166) --[[ Line: 792 ]]
-        -- upvalues: l_FFlagAXRootSlotBasedEditorFlag_0 (copy)
-        if l_FFlagAXRootSlotBasedEditorFlag_0 and v166.equipped and v166.equipped.EquippedAssets then
-            return table.clone(v166.equipped.EquippedAssets);
-        else
-            return v165;
-        end;
-    end, 
-    [l_SetEquippedDynamicHeadShape_0.name] = l_FFlagDynamicHeadsMigration_0 and function(v167, v168) --[[ Line: 804 ]]
-        -- upvalues: v20 (copy), v3 (copy)
-        local v169 = v167[v20.AssetTypeIdStrings.DynamicHead];
-        if not v169 then
-            return v167;
-        else
-            local v170 = {};
-            local v171 = false;
-            for v172, v173 in v169 do
-                if v173.supportsHeadShapes ~= false then
-                    v170[v172] = v3.Dictionary.join(v173, {
-                        headShape = v168.headShapeName
-                    });
-                    v171 = true;
-                else
-                    v170[v172] = v173;
-                end;
-            end;
-            if not v171 then
-                return v167;
-            else
-                return v3.Dictionary.join(v167, {
-                    [v20.AssetTypeIdStrings.DynamicHead] = v170
-                });
-            end;
-        end;
-    end or nil, 
-    [l_SetEquippedStaticFacialAnimation_0.name] = l_FFlagHeadRefinementFacialAnimationToggle_0 and function(v174, v175) --[[ Line: 844 ]]
-        -- upvalues: v20 (copy), v3 (copy)
-        local v176 = v174[v20.AssetTypeIdStrings.DynamicHead];
-        if not v176 then
-            return v174;
-        else
-            local v177 = {};
-            for v178, v179 in v176 do
-                v177[v178] = v3.Dictionary.join(v179, {
-                    staticFacialAnimation = v175.isEnabled
-                });
-            end;
-            return v3.Dictionary.join(v174, {
-                [v20.AssetTypeIdStrings.DynamicHead] = v177
-            });
-        end;
-    end or nil, 
-    [l_PurchaseItemsSuccess_0.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v180, v181) --[[ Line: 864 ]]
-        -- upvalues: l_FFlagParseHeadShapeFromAPIResponse_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), v3 (copy), v85 (copy)
-        v180 = v180 or {};
-        if v181.equippableAssets and #v181.equippableAssets > 0 then
-            if v181.replaceAllEquippedAssets then
-                v180 = {};
-            end;
-            for _, v183 in v181.equippableAssets do
-                local v184 = v180[v183.assetTypeId];
-                local l_assetId_2 = v183.assetId;
-                if not (v184 and v184[l_assetId_2] and true or false) and tostring(v183.assetTypeId) ~= tostring(Enum.AvatarAssetType.EmoteAnimation.Value) then
-                    local v186 = nil;
-                    if l_FFlagParseHeadShapeFromAPIResponse_0 and v183.headShape ~= nil then
-                        v186 = {
-                            headShape = v183.headShape
-                        };
-                    end;
-                    v184 = nil;
-                    if l_FFlagHeadRefinementFacialAnimationToggle_0 then
-                        l_assetId_2 = v183.staticFacialAnimation;
-                        if l_assetId_2 ~= nil then
-                            v184 = {
-                                staticFacialAnimation = l_assetId_2
-                            };
-                        end;
-                    end;
-                    l_assetId_2 = if not not v186 or v184 then v3.Dictionary.join(v186 or {}, v184 or {}) else nil;
-                    v180 = v85(v180, {
-                        assetId = v183.assetId, 
-                        assetTypeId = v183.assetTypeId, 
-                        overrideOrder = v183.order, 
-                        overrideAdjustments = l_assetId_2
-                    }, {
-                        ignoreAccessoryLimits = true
-                    });
-                end;
-            end;
-        end;
-        return v180;
-    end or nil, 
-    [v19.name] = if not l_FFlagAXCustomizeMakeupSupport_0 then nil else function(v187, _) --[[ Line: 910 ]]
-        -- upvalues: l_FFlagAXBlockMakeupEquipR6_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), v3 (copy)
-        v187 = v187 or {};
-        local v189 = {};
-        local v190 = if l_FFlagAXBlockMakeupEquipR6_0 then l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 else pairs(l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0);
-        for v191, _ in v190 do
-            local v193 = v187[v191];
-            if v193 then
-                for v194, v195 in v193 do
-                    table.insert(v189, {
-                        assetId = v194, 
-                        assetTypeId = v191, 
-                        metadata = v195
-                    });
-                end;
-            end;
-        end;
-        table.sort(v189, function(v196, v197) --[[ Line: 937 ]]
-            local v198 = false;
-            if v196.metadata.order ~= nil then
-                v198 = true;
-                if v197.metadata.order ~= nil then
-                    v198 = v196.metadata.order < v197.metadata.order;
-                end;
-            end;
-            return v198;
-        end);
-        for v199, v200 in v189 do
-            local l_assetTypeId_1 = v200.assetTypeId;
-            local l_assetId_3 = v200.assetId;
-            local v203 = v187[l_assetTypeId_1] and v187[l_assetTypeId_1][l_assetId_3] or v200.metadata;
-            local v204 = v3.Dictionary.join(v203, {
-                order = v199 - 1
-            });
-            v187 = v3.Dictionary.join(v187, {
-                [l_assetTypeId_1] = v3.Dictionary.join(v187[l_assetTypeId_1] or {}, {
-                    [l_assetId_3] = v204
-                })
-            });
-        end;
-        return v187;
-    end, 
-    [v26.name] = if not l_FFlagAXBlockMakeupEquipR6_0 then nil else function(v205, _) --[[ Line: 963 ]]
-        -- upvalues: l_isMakeupAssetType_0 (copy), v3 (copy)
-        v205 = v205 or {};
-        for v207, _ in v205 do
-            if l_isMakeupAssetType_0(v207) then
-                v205 = v3.Dictionary.join(v205, {
-                    [v207] = v3.None
-                });
-            end;
-        end;
-        return v205;
-    end
-});
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local Rodux = require(CorePackages.Packages.Rodux)
+local Cryo = require(CorePackages.Packages.Cryo)
+local mutedError = require(Modules.LuaApp.mutedError)
+local AvatarExperienceHeadRefinement = require(CorePackages.Workspace.Packages.AvatarExperienceHeadRefinement)
+local SetEquippedDynamicHeadShape = AvatarExperienceHeadRefinement.Actions.SetEquippedDynamicHeadShape
+local SetEquippedStaticFacialAnimation = AvatarExperienceHeadRefinement.Actions.SetEquippedStaticFacialAnimation
+local AvatarExperienceCatalog = require(CorePackages.Workspace.Packages.AvatarExperienceCatalog)
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagDynamicHeadsMigration = AvatarExperienceFlags.FFlagDynamicHeadsMigration
+local FFlagHeadRefinementFacialAnimationToggle = AvatarExperienceFlags.FFlagHeadRefinementFacialAnimationToggle
+local Constants = require(CorePackages.Workspace.Packages.AvatarExperienceRodux).Constants
+local AssetTypeToAssetCategory = Constants.AssetTypeToAssetCategory
+local AssetCategoryToAssetTypes = Constants.AssetCategoryToAssetTypes
+local UpdateAvatarEquips = require(Modules.AvatarExperience.AvatarEditor.Actions.UpdateAvatarEquips)
+local ToggleEquipAsset = require(Modules.AvatarExperience.AvatarEditor.Actions.ToggleEquipAsset)
+local EquipOutfit = require(Modules.AvatarExperience.AvatarEditor.Actions.EquipOutfit)
+local UnequipOutfit = require(Modules.AvatarExperience.AvatarEditor.Actions.UnequipOutfit)
+local BatchUnequipByAssetType = require(Modules.AvatarExperience.AvatarEditor.Actions.BatchUnequipByAssetType)
+local ReceivedAvatarData = require(Modules.AvatarExperience.AvatarEditor.Actions.ReceivedAvatarData)
+local NormalizeAvatar = require(Modules.AvatarExperience.AvatarEditor.Actions.NormalizeAvatar)
+local Constants2 = require(Modules.AvatarExperience.Common.Constants)
+local Constants3 = require(Modules.AvatarExperience.AvatarEditor.Constants)
+local LayeredClothingSortUtils = require(Modules.AvatarExperience.LayeredClothingSort.LayeredClothingSortUtils)
+local LayeredMakeupSortUtils = require(Modules.AvatarExperience.LayeredMakeupSort.LayeredMakeupSortUtils)
+local AssetMetadata = require(Modules.AvatarExperience.Common.Models.AssetMetadata)
+local RemoveLayeredClothing = require(Modules.AvatarExperience.AvatarEditor.Actions.RemoveLayeredClothing)
+local RemoveMakeup = require(Modules.AvatarExperience.AvatarEditor.Actions.RemoveMakeup)
+local SetOrder = require(Modules.AvatarExperience.LayeredClothingSort.Actions.SetOrder)
+local SetAccessoryAdjustments = require(Modules.AvatarExperience.AccessoryAdjustment.Actions.SetAccessoryAdjustments)
+
+require(Modules.AvatarExperience.Common.Types)
+
+local HeadShape = AvatarExperienceHeadRefinement.Enums.HeadShape
+local HeadShapeProperties = AvatarExperienceHeadRefinement.Enums.HeadShapeProperties
+local GetFFlagAXEnableBatchUnequips = require(Modules.AvatarExperience.Flags.GetFFlagAXEnableBatchUnequips)
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local isMakeupAssetType = AvatarExperienceCommon.Utils.isMakeupAssetType
+local CharacterHistoryStateChangeButtonActivated = AvatarExperienceCommon.State.Actions.CharacterHistoryStateChangeButtonActivated
+local PurchaseItemsSuccess = AvatarExperienceCatalog.State.Actions.PurchaseItemsSuccess
+local ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE = AvatarExperienceCommon.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE
+local MAX_MAKEUP_LAYERS = AvatarExperienceCommon.Constants.MAX_MAKEUP_LAYERS
+local MAKEUP_LOOK_ASSET_TYPES = AvatarExperienceCommon.Constants.MAKEUP_LOOK_ASSET_TYPES
+local FFlagAXRootSlotBasedEditorFlag = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXRootSlotBasedEditorFlag
+local GetFFlagEnableNewCustomizeBundleEquip = require(Modules.AvatarExperience.Flags.GetFFlagEnableNewCustomizeBundleEquip)
+local FFlagAXMISEnableMultiShopping = AvatarExperienceFlags.FFlagAXMISEnableMultiShopping
+local FFlagAXMISSaveWearFix = AvatarExperienceFlags.FFlagAXMISSaveWearFix
+local v46 = game:DefineFastFlag("AXRefactorToggleEquipAsset3", false)
+local FFlagAXModeratedItemsFlow = AvatarExperienceFlags.FFlagAXModeratedItemsFlow
+local FFlagParseHeadShapeFromAPIResponse = AvatarExperienceFlags.FFlagParseHeadShapeFromAPIResponse
+local FFlagAXCustomizeMakeupSupport = AvatarExperienceFlags.FFlagAXCustomizeMakeupSupport
+local FFlagAXSkipEmotesInAvatarData = AvatarExperienceFlags.FFlagAXSkipEmotesInAvatarData
+local FFlagAXBlockMakeupEquipR6 = AvatarExperienceFlags.FFlagAXBlockMakeupEquipR6
+
+local function replaceOutfitParts(p1, p2) -- line: 99
+	-- upvalues: GetFFlagEnableNewCustomizeBundleEquip (copy), Constants2 (copy), Cryo (copy)
+	if GetFFlagEnableNewCustomizeBundleEquip() then
+		if p2[Constants2.AssetTypeIdStrings.Head] or p2[Constants2.AssetTypeIdStrings.DynamicHead] then
+			local t1 = {
+				[Constants2.AssetTypeIdStrings.Head] = {},
+				[Constants2.AssetTypeIdStrings.DynamicHead] = {}
+			}
+
+			for v59, _ in Constants2.DynamicHeadAssetTypes do
+				t1[v59] = {}
+			end
+
+			p2 = Cryo.Dictionary.join(t1, p2)
+		end
+
+		return (Cryo.Dictionary.join(p1, p2))
+	end
+
+	return Cryo.Dictionary.join(p1, p2)
+end
+local function toggleSingleAsset(p3, t2: {[any]: any}, t3: {[any]: any}?) -- line: 161
+	-- upvalues: Constants2 (copy), Cryo (copy), AssetMetadata (copy), FFlagAXCustomizeMakeupSupport (copy), LayeredMakeupSortUtils (copy), ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE (copy), MAX_MAKEUP_LAYERS (copy), LayeredClothingSortUtils (copy), mutedError (copy), Constants3 (copy), AssetTypeToAssetCategory (copy), AssetCategoryToAssetTypes (copy), HeadShapeProperties (copy), HeadShape (copy)
+	local v64 = p3 or {}
+
+	if t2.assetTypeId == Constants2.AssetTypeIdStrings.EmoteAnimation then
+		return v64
+	end
+
+	local v65 = v64[t2.assetTypeId]
+	local assetId = t2.assetId
+
+	if v65 and v65[assetId] then
+		local v67 = v64[t2.assetTypeId] or {}
+
+		return Cryo.Dictionary.join(v64, {
+			[t2.assetTypeId] = Cryo.Dictionary.join(v67, {
+				[t2.assetId] = Cryo.None
+			})
+		})
+	end
+
+	local v68 = AssetMetadata.getDefaultMetadata(t2.assetTypeId)
+
+	if t2.overrideOrder then
+		v68.order = t2.overrideOrder
+
+		local v69 = if not FFlagAXCustomizeMakeupSupport then nil else LayeredMakeupSortUtils.getSortedEquippedLayeredMakeup(v64)
+
+		if FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[t2.assetTypeId] and v69 and #v69 == MAX_MAKEUP_LAYERS then
+			local v70 = v69[#v69]
+
+			v64 = Cryo.Dictionary.join(v64, {
+				[v70.typeId] = Cryo.Dictionary.join(v64[v70.typeId] or {}, {
+					[v70.id] = Cryo.None
+				})
+			})
+		end
+	elseif v68.isLayered and (not FFlagAXCustomizeMakeupSupport or Constants2.AssetTypeIdToAccessoryTypeEnum[t2.assetTypeId]) then
+		local v71 = LayeredClothingSortUtils.getSortedEquippedLCIfNoDefault(v64)
+
+		if v71 then
+			local t4 = {
+				id = t2.assetId,
+				typeId = t2.assetTypeId
+			}
+			local v73, _ = LayeredClothingSortUtils.getTableAndOrderAfterEquippingIntoSort(v71, t4)
+
+			for v75, v76 in v73 do
+				if v76.id ~= t2.assetId then
+					if not v64[v76.typeId] then
+						mutedError(`EquippedAssets.lua missing asset typeId post sort ID:{ v76.id } typeId: { v76.typeId }`)
+					else
+						v64 = Cryo.Dictionary.join(v64, {
+							[v76.typeId] = Cryo.Dictionary.join(v64[v76.typeId], {
+								[v76.id] = Cryo.Dictionary.join(v64[v76.typeId][v76.id], {
+									order = #v73 - v75
+								})
+							})
+						})
+					end
+				else
+					v68.order = #v73 - v75
+				end
+			end
+		end
+	elseif FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[t2.assetTypeId] then
+		local v77 = LayeredMakeupSortUtils.getSortedEquippedLayeredMakeup(v64)
+
+		if v77 then
+			local t5 = {
+				id = t2.assetId,
+				typeId = t2.assetTypeId
+			}
+			local v79, _ = LayeredMakeupSortUtils.getTableAndOrderAfterEquippingIntoSort(v77, t5)
+
+			for v81, v82 in v79 do
+				if v82.id ~= t2.assetId then
+					local v83 = v64[v82.typeId] or {}
+					local v84 = v83[v82.id] or {}
+
+					v64 = Cryo.Dictionary.join(v64, {
+						[v82.typeId] = Cryo.Dictionary.join(v83, {
+							[v82.id] = Cryo.Dictionary.join(v84, {
+								order = #v79 - v81
+							})
+						})
+					})
+				else
+					v68.order = math.min(#v79 - v81, MAX_MAKEUP_LAYERS - 1)
+				end
+			end
+
+			if #v77 > MAX_MAKEUP_LAYERS then
+				for i = MAX_MAKEUP_LAYERS + 1, #v77 do
+					v64 = Cryo.Dictionary.join(v64, {
+						[v77[i].typeId] = Cryo.Dictionary.join(v64[v77[i].typeId] or {}, {
+							[v77[i].id] = Cryo.None
+						})
+					})
+				end
+			end
+
+			return Cryo.Dictionary.join(v64, {
+				[t2.assetTypeId] = Cryo.Dictionary.join(v64[t2.assetTypeId] or {}, {
+					[t2.assetId] = v68
+				})
+			})
+		end
+	elseif t2.overrideAdjustments then
+		v68 = Cryo.Dictionary.join(v68, t2.overrideAdjustments)
+	end
+
+	local t6 = {
+		[t2.assetId] = v68
+	}
+	local v87 = v64[t2.assetTypeId] or {}
+
+	if t2.assetTypeId == Constants2.AssetTypeIdStrings.Hat and (not t3 or not t3.ignoreAccessoryLimits) then
+		if #Cryo.Dictionary.keys(v87) >= Constants3.MaxHats then
+			return v64
+		end
+
+		return Cryo.Dictionary.join(v64, {
+			[t2.assetTypeId] = Cryo.Dictionary.join(v87, t6)
+		})
+	end
+
+	local v88 = AssetTypeToAssetCategory[t2.assetTypeId]
+
+	if v88 then
+		for _, v90 in AssetCategoryToAssetTypes[v88] do
+			if v64[v90] and next(v64[v90]) then
+				v64 = Cryo.Dictionary.join(v64, {
+					[v90] = {}
+				})
+			end
+		end
+	end
+
+	if t2.assetTypeId == Constants2.AssetTypeIdStrings.Head then
+		for v91, _ in Constants2.DynamicHeadAssetTypes do
+			v64 = Cryo.Dictionary.join(v64, {
+				[v91] = {}
+			})
+		end
+	end
+
+	if t2.assetTypeId == Constants2.AssetTypeIdStrings.DynamicHead then
+		v64 = Cryo.Dictionary.join(v64, {
+			[Constants2.AssetTypeIdStrings.Head] = {}
+		})
+	end
+
+	if t2.assetId and tostring(t2.assetId) == tostring(HeadShapeProperties[HeadShape.Default].assetId) then
+		return (Cryo.Dictionary.join(v64, {
+			[Constants2.AssetTypeIdStrings.Head] = {},
+			[Constants2.AssetTypeIdStrings.DynamicHead] = {}
+		}))
+	end
+
+	local v93 = Constants2.BypassAccessoryLimitsAccessoryAssetTypeIdStrings[t2.assetTypeId]
+
+	if FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[t2.assetTypeId] then
+		return Cryo.Dictionary.join(v64, {
+			[t2.assetTypeId] = Cryo.Dictionary.join(v87, t6)
+		})
+	end
+
+	return Cryo.Dictionary.join(v64, {
+		[t2.assetTypeId] = if not t3 or (not t3.ignoreAccessoryLimits or not v93) then t6 else Cryo.Dictionary.join(v87, t6)
+	})
+end
+
+return Rodux.createReducer(nil, {
+	[ReceivedAvatarData.name] = function(p4, p5) -- line: 387
+		-- upvalues: FFlagAXSkipEmotesInAvatarData (copy), Constants2 (copy), AssetMetadata (copy), FFlagAXModeratedItemsFlow (copy), Cryo (copy)
+		local assets = p5.avatarData.assets
+
+		if assets == nil then
+			return p4
+		end
+
+		local t7 = {}
+
+		for _, v99 in assets do
+			local str = tostring(v99.assetType.id)
+			local str2 = tostring(v99.id)
+
+			if not FFlagAXSkipEmotesInAvatarData or str ~= Constants2.AssetTypeIdStrings.EmoteAnimation then
+				local v102 = t7[str] or {}
+
+				v102[str2] = AssetMetadata.fromMetadata(v99.meta, str)
+
+				if FFlagAXModeratedItemsFlow then
+					v102[str2].availabilityStatus = v99.availabilityStatus
+				end
+
+				t7[str] = v102
+			end
+		end
+
+		local v103 = t7[Constants2.AssetTypeIdStrings.DynamicHead] or {}
+		local v104 = t7[Constants2.AssetTypeIdStrings.Face] or {}
+
+		if not Cryo.isEmpty(v103) and not Cryo.isEmpty(v104) then
+			t7[Constants2.AssetTypeIdStrings.Face] = {}
+		end
+
+		return t7
+	end,
+	[ToggleEquipAsset.name] = function(p6, p7) -- line: 429
+		-- upvalues: v46 (copy), toggleSingleAsset (copy), Constants2 (copy), Cryo (copy), AssetMetadata (copy), FFlagAXCustomizeMakeupSupport (copy), LayeredMakeupSortUtils (copy), ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE (copy), MAX_MAKEUP_LAYERS (copy), LayeredClothingSortUtils (copy), mutedError (copy), Constants3 (copy), AssetTypeToAssetCategory (copy), AssetCategoryToAssetTypes (copy), HeadShapeProperties (copy), HeadShape (copy)
+		if v46 then
+			return toggleSingleAsset(p6, p7)
+		end
+
+		local v107 = p6 or {}
+
+		if p7.assetTypeId == Constants2.AssetTypeIdStrings.EmoteAnimation then
+			return v107
+		end
+
+		local v108 = v107[p7.assetTypeId]
+		local assetId = p7.assetId
+
+		if v108 and v108[assetId] then
+			local v110 = v107[p7.assetTypeId] or {}
+
+			return Cryo.Dictionary.join(v107, {
+				[p7.assetTypeId] = Cryo.Dictionary.join(v110, {
+					[p7.assetId] = Cryo.None
+				})
+			})
+		end
+
+		local v111 = AssetMetadata.getDefaultMetadata(p7.assetTypeId)
+
+		if p7.overrideOrder then
+			v111.order = p7.overrideOrder
+
+			local v112 = if not FFlagAXCustomizeMakeupSupport then nil else LayeredMakeupSortUtils.getSortedEquippedLayeredMakeup(v107)
+
+			if FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[p7.assetTypeId] and v112 and #v112 == MAX_MAKEUP_LAYERS then
+				local v113 = v112[#v112]
+
+				v107 = Cryo.Dictionary.join(v107, {
+					[v113.typeId] = Cryo.Dictionary.join(v107[v113.typeId] or {}, {
+						[v113.id] = Cryo.None
+					})
+				})
+			end
+		elseif v111.isLayered and (not FFlagAXCustomizeMakeupSupport or Constants2.AssetTypeIdToAccessoryTypeEnum[p7.assetTypeId]) then
+			local v114 = LayeredClothingSortUtils.getSortedEquippedLCIfNoDefault(v107)
+
+			if v114 then
+				local t8 = {
+					id = p7.assetId,
+					typeId = p7.assetTypeId
+				}
+				local v116, _ = LayeredClothingSortUtils.getTableAndOrderAfterEquippingIntoSort(v114, t8)
+
+				for v118, v119 in v116 do
+					if v119.id ~= p7.assetId then
+						if not v107[v119.typeId] then
+							mutedError(`EquippedAssets.lua missing asset typeId post sort ID:{ v119.id } typeId: { v119.typeId }`)
+						else
+							v107 = Cryo.Dictionary.join(v107, {
+								[v119.typeId] = Cryo.Dictionary.join(v107[v119.typeId], {
+									[v119.id] = Cryo.Dictionary.join(v107[v119.typeId][v119.id], {
+										order = #v116 - v118
+									})
+								})
+							})
+						end
+					else
+						v111.order = #v116 - v118
+					end
+				end
+			end
+		elseif FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[p7.assetTypeId] then
+			local v120 = LayeredMakeupSortUtils.getSortedEquippedLayeredMakeup(v107)
+
+			if v120 then
+				local t9 = {
+					id = p7.assetId,
+					typeId = p7.assetTypeId
+				}
+				local v122, _ = LayeredMakeupSortUtils.getTableAndOrderAfterEquippingIntoSort(v120, t9)
+
+				for v124, v125 in v122 do
+					if v125.id ~= p7.assetId then
+						local v126 = v107[v125.typeId] or {}
+						local v127 = v126[v125.id] or {}
+
+						v107 = Cryo.Dictionary.join(v107, {
+							[v125.typeId] = Cryo.Dictionary.join(v126, {
+								[v125.id] = Cryo.Dictionary.join(v127, {
+									order = #v122 - v124
+								})
+							})
+						})
+					else
+						v111.order = math.min(#v122 - v124, MAX_MAKEUP_LAYERS - 1)
+					end
+				end
+
+				if #v120 > MAX_MAKEUP_LAYERS then
+					for i = MAX_MAKEUP_LAYERS + 1, #v120 do
+						v107 = Cryo.Dictionary.join(v107, {
+							[v120[i].typeId] = Cryo.Dictionary.join(v107[v120[i].typeId] or {}, {
+								[v120[i].id] = Cryo.None
+							})
+						})
+					end
+				end
+
+				return Cryo.Dictionary.join(v107, {
+					[p7.assetTypeId] = Cryo.Dictionary.join(v107[p7.assetTypeId] or {}, {
+						[p7.assetId] = v111
+					})
+				})
+			end
+		elseif p7.overrideAdjustments then
+			v111 = Cryo.Dictionary.join(v111, p7.overrideAdjustments)
+		end
+
+		local t10 = {
+			[p7.assetId] = v111
+		}
+		local v130 = v107[p7.assetTypeId] or {}
+
+		if p7.assetTypeId == Constants2.AssetTypeIdStrings.Hat then
+			if #Cryo.Dictionary.keys(v130) >= Constants3.MaxHats then
+				return v107
+			end
+
+			return Cryo.Dictionary.join(v107, {
+				[p7.assetTypeId] = Cryo.Dictionary.join(v130, t10)
+			})
+		end
+
+		local v131 = AssetTypeToAssetCategory[p7.assetTypeId]
+
+		if v131 then
+			for _, v133 in AssetCategoryToAssetTypes[v131] do
+				if v107[v133] and next(v107[v133]) then
+					v107 = Cryo.Dictionary.join(v107, {
+						[v133] = {}
+					})
+				end
+			end
+		end
+
+		if p7.assetTypeId == Constants2.AssetTypeIdStrings.Head then
+			for v134, _ in Constants2.DynamicHeadAssetTypes do
+				v107 = Cryo.Dictionary.join(v107, {
+					[v134] = {}
+				})
+			end
+		end
+
+		if p7.assetTypeId == Constants2.AssetTypeIdStrings.DynamicHead then
+			v107 = Cryo.Dictionary.join(v107, {
+				[Constants2.AssetTypeIdStrings.Head] = {}
+			})
+		end
+
+		if p7.assetId and tostring(p7.assetId) == tostring(HeadShapeProperties[HeadShape.Default].assetId) then
+			return (Cryo.Dictionary.join(v107, {
+				[Constants2.AssetTypeIdStrings.Head] = {},
+				[Constants2.AssetTypeIdStrings.DynamicHead] = {}
+			}))
+		end
+
+		if FFlagAXCustomizeMakeupSupport and ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE[p7.assetTypeId] then
+			return Cryo.Dictionary.join(v107, {
+				[p7.assetTypeId] = Cryo.Dictionary.join(v130, t10)
+			})
+		end
+
+		return Cryo.Dictionary.join(v107, {
+			[p7.assetTypeId] = t10
+		})
+	end,
+	[UpdateAvatarEquips.name] = function(p8, p9) -- line: 643
+		-- upvalues: Cryo (copy), toggleSingleAsset (copy)
+		local assets = p9.assets
+
+		if assets and not Cryo.isEmpty(assets) then
+			for _, v140 in assets do
+				p8 = toggleSingleAsset(p8, v140, {
+					ignoreAccessoryLimits = true
+				})
+			end
+		end
+
+		return p8
+	end,
+	[EquipOutfit.name] = function(p10, p11) -- line: 658
+		-- upvalues: replaceOutfitParts (copy)
+		local v143 = p10 or {}
+
+		if p11.fullReset then
+			return p11.assets
+		end
+
+		return replaceOutfitParts(v143, p11.assets)
+	end,
+	[UnequipOutfit.name] = function(p12, p13) -- line: 670
+		-- upvalues: Cryo (copy)
+		local v146 = p12 or {}
+
+		for v147, v148 in p13.assetTypeIdToAssetIdToAssetMetadataModel do
+			for v149, _ in v148 do
+				v146 = Cryo.Dictionary.join(v146, {
+					[v147] = Cryo.Dictionary.join(v146[v147], {
+						[v149] = Cryo.None
+					})
+				})
+			end
+		end
+
+		return v146
+	end,
+	[RemoveLayeredClothing.name] = function(p14, p15) -- line: 688
+		-- upvalues: Constants2 (copy)
+		local v153 = p14 or {}
+		local v154 = false
+		local t11 = {}
+
+		for k, v in pairs(v153) do
+			local t12 = {}
+			local v159 = false
+
+			for v160, v161 in v do
+				local v162 = k == Constants2.AssetTypeIdStrings.HairAccessory
+
+				if v161.isLayered and (not v162 or p15.hasLayeredHair) then
+					v159 = true
+				else
+					t12[v160] = v161
+				end
+			end
+
+			if v159 then
+				v154 = true
+				t11[k] = t12
+			else
+				t11[k] = v
+			end
+		end
+
+		if v154 then
+			return t11
+		end
+
+		return v153
+	end,
+	[SetOrder.name] = function(p16, p17) -- line: 722
+		-- upvalues: Cryo (copy)
+		for v165, v166 in p17.assetIdToOrderAndAssetTypeId do
+			local assetTypeId = v166.assetTypeId
+			local order = v166.order
+			local v169 = p16[assetTypeId]
+			local v170 = v169[v165]
+
+			p16 = Cryo.Dictionary.join(p16, {
+				[assetTypeId] = Cryo.Dictionary.join(v169, {
+					[v165] = Cryo.Dictionary.join(v170, {
+						order = order
+					})
+				})
+			})
+		end
+
+		return p16
+	end,
+	[SetAccessoryAdjustments.name] = function(p18, p19) -- line: 746
+		-- upvalues: Cryo (copy)
+		for v173, v174 in p18 do
+			for v175, v176 in v174 do
+				if v175 == p19.itemId then
+					return Cryo.Dictionary.join(p18, {
+						[v173] = Cryo.Dictionary.join(v174, {
+							[v175] = Cryo.Dictionary.join(v176, {
+								position = p19.position,
+								rotation = p19.rotation,
+								scale = p19.scale
+							})
+						})
+					})
+				end
+			end
+		end
+
+		return p18
+	end,
+	[BatchUnequipByAssetType.name] = function(p20, p21) -- line: 767
+		-- upvalues: GetFFlagAXEnableBatchUnequips (copy), Constants2 (copy), Cryo (copy)
+		if not GetFFlagAXEnableBatchUnequips() then
+			return p20
+		end
+
+		local v179 = p20 or {}
+
+		for _, v181 in p21.assetTypeIds do
+			if v181 == Constants2.AssetTypeIdStrings.DynamicHead then
+				for v182, _ in Constants2.DynamicHeadAssetTypes do
+					v179 = Cryo.Dictionary.join(v179, {
+						[v182] = Cryo.None
+					})
+				end
+			end
+
+			v179 = Cryo.Dictionary.join(v179, {
+				[v181] = Cryo.None
+			})
+		end
+
+		return v179
+	end,
+	[CharacterHistoryStateChangeButtonActivated.name] = function(p22, p23) -- line: 796
+		-- upvalues: FFlagAXRootSlotBasedEditorFlag (copy)
+		if FFlagAXRootSlotBasedEditorFlag and (p23.equipped and p23.equipped.EquippedAssets) then
+			return table.clone(p23.equipped.EquippedAssets)
+		end
+
+		return p22
+	end,
+	[SetEquippedDynamicHeadShape.name] = if not FFlagDynamicHeadsMigration then nil else function(p24, p25) -- line: 808
+		-- upvalues: Constants2 (copy), Cryo (copy)
+		local v188 = p24[Constants2.AssetTypeIdStrings.DynamicHead]
+
+		if not v188 then
+			return p24
+		end
+
+		local t13 = {}
+		local v190 = false
+
+		for v191, v192 in v188 do
+			if v192.supportsHeadShapes ~= false then
+				t13[v191] = Cryo.Dictionary.join(v192, {
+					headShape = p25.headShapeName
+				})
+				v190 = true
+			else
+				t13[v191] = v192
+			end
+		end
+
+		if not v190 then
+			return p24
+		end
+
+		return Cryo.Dictionary.join(p24, {
+			[Constants2.AssetTypeIdStrings.DynamicHead] = t13
+		})
+	end,
+	[SetEquippedStaticFacialAnimation.name] = if not FFlagHeadRefinementFacialAnimationToggle then nil else function(p26, p27) -- line: 848
+		-- upvalues: Constants2 (copy), Cryo (copy)
+		local v195 = p26[Constants2.AssetTypeIdStrings.DynamicHead]
+
+		if not v195 then
+			return p26
+		end
+
+		local t14 = {}
+
+		for v197, v198 in v195 do
+			t14[v197] = Cryo.Dictionary.join(v198, {
+				staticFacialAnimation = p27.isEnabled
+			})
+		end
+
+		return Cryo.Dictionary.join(p26, {
+			[Constants2.AssetTypeIdStrings.DynamicHead] = t14
+		})
+	end,
+	[PurchaseItemsSuccess.name] = if not FFlagAXMISEnableMultiShopping then nil else function(p28, p29) -- line: 868
+		-- upvalues: MAKEUP_LOOK_ASSET_TYPES (copy), FFlagParseHeadShapeFromAPIResponse (copy), FFlagHeadRefinementFacialAnimationToggle (copy), Cryo (copy), toggleSingleAsset (copy), FFlagAXMISSaveWearFix (copy), ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE (copy)
+		local v201 = p28 or {}
+
+		if p29.equippableAssets and #p29.equippableAssets > 0 then
+			if p29.shouldClearEquippedMakeup then
+				for v202, _ in MAKEUP_LOOK_ASSET_TYPES do
+					v201[v202] = {}
+				end
+			end
+
+			if p29.replaceAllEquippedAssets then
+				v201 = {}
+			end
+
+			for _, v205 in p29.equippableAssets do
+				local v206 = v201[v205.assetTypeId]
+				local assetId = v205.assetId
+
+				if (not v206 or not v206[assetId]) and tostring(v205.assetTypeId) ~= tostring(Enum.AvatarAssetType.EmoteAnimation.Value) then
+					local t15 = nil
+
+					if FFlagParseHeadShapeFromAPIResponse and v205.headShape ~= nil then
+						t15 = {
+							headShape = v205.headShape
+						}
+					end
+
+					local t16 = nil
+
+					if FFlagHeadRefinementFacialAnimationToggle then
+						local staticFacialAnimation = v205.staticFacialAnimation
+
+						if staticFacialAnimation ~= nil then
+							t16 = {
+								staticFacialAnimation = staticFacialAnimation
+							}
+						end
+					end
+
+					local v211 = if not t15 and not t16 then nil else Cryo.Dictionary.join(t15 or {}, t16 or {})
+
+					v201 = toggleSingleAsset(v201, {
+						assetId = v205.assetId,
+						assetTypeId = v205.assetTypeId,
+						overrideOrder = v205.order,
+						overrideAdjustments = v211
+					}, {
+						ignoreAccessoryLimits = true
+					})
+				end
+			end
+
+			if FFlagAXMISSaveWearFix and p29.makeupAssetsOnHumanoid then
+				for v212, _ in ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE do
+					if v201[v212] then
+						for v214, _ in v201[v212] do
+							if p29.makeupAssetsOnHumanoid[v214] ~= nil then
+								v201[v212][v214].order = p29.makeupAssetsOnHumanoid[v214]
+							else
+								v201[v212][v214] = nil
+							end
+						end
+					end
+				end
+			end
+		end
+
+		return v201
+	end,
+	[NormalizeAvatar.name] = FFlagAXCustomizeMakeupSupport and function(p30, _) -- line: 933
+		-- upvalues: FFlagAXBlockMakeupEquipR6 (copy), ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE (copy), Cryo (copy)
+		local v218 = p30 or {}
+		local t17 = {}
+
+		for v220, _ in if not FFlagAXBlockMakeupEquipR6 then pairs(ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE) else ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE do
+			local v222 = v218[v220]
+
+			if v222 then
+				for v223, v224 in v222 do
+					table.insert(t17, {
+						assetId = v223,
+						assetTypeId = v220,
+						metadata = v224
+					})
+				end
+			end
+		end
+
+		table.sort(t17, function(p32, p33) -- line: 960
+			return p32.metadata.order ~= nil and (p33.metadata.order == nil or p32.metadata.order < p33.metadata.order)
+		end)
+
+		for v225, v226 in t17 do
+			local assetTypeId = v226.assetTypeId
+			local assetId = v226.assetId
+			local v229 = v218[assetTypeId] and v218[assetTypeId][assetId] or v226.metadata
+			local v230 = Cryo.Dictionary.join(v229, {
+				order = v225 - 1
+			})
+
+			v218 = Cryo.Dictionary.join(v218, {
+				[assetTypeId] = Cryo.Dictionary.join(v218[assetTypeId] or {}, {
+					[assetId] = v230
+				})
+			})
+		end
+
+		return v218
+	end or nil,
+	[RemoveMakeup.name] = FFlagAXBlockMakeupEquipR6 and function(p34, _) -- line: 986
+		-- upvalues: isMakeupAssetType (copy), Cryo (copy)
+		local v233 = p34 or {}
+
+		for v234, _ in v233 do
+			if isMakeupAssetType(v234) then
+				v233 = Cryo.Dictionary.join(v233, {
+					[v234] = Cryo.None
+				})
+			end
+		end
+
+		return v233
+	end or nil
+})

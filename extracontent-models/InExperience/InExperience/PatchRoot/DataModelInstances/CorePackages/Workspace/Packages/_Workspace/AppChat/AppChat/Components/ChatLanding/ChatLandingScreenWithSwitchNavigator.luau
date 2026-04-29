@@ -1,376 +1,394 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.ArgCheck);
-local v3 = require(l_Parent_0.Cryo);
-local v4 = require(l_Parent_0.React);
-local v5 = require(l_Parent_0.Roact);
-local v6 = require(l_Parent_0.UIBlox);
-local v7 = require(l_Parent_0.RoactNavigation);
-local v8 = require(l_Parent_0.FocusBehaviors);
-local v9 = require(l_Parent_0.ReactFocusNavigation);
-local v10 = require(l_script_FirstAncestor_0.EnumScreens);
-local v11 = require(l_script_FirstAncestor_0.Telemetry.Layers.ChatLandingTelemetryLayer);
-local v12 = require(l_script_FirstAncestor_0.Contexts.TelemetryState.ChatLandingTelemetryState);
-local v13 = require(l_script_FirstAncestor_0.Telemetry.Layers.ChatConversationTelemetryLayer);
-local v14 = require(l_script_FirstAncestor_0.Contexts.TelemetryState.ChatConversationTelemetryState);
-local v15 = require(l_script_FirstAncestor_0.Telemetry.Layers.ChatDetailsTelemetryLayer);
-local v16 = require(l_script_FirstAncestor_0.Contexts.TelemetryState.ChatDetailsTelemetryState);
-local v17 = require(l_script_FirstAncestor_0.TopBarProvider);
-local v18 = require(l_script_FirstAncestor_0.createChatTopBar);
-local v19 = require(l_script_FirstAncestor_0.Stores.GetTopBarStore);
-local v20 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarSignalsStore);
-local v21 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarConfigDriven);
-local v22 = require(l_script_FirstAncestor_0.Components.TopBar.ChatLandingTopBar);
-local v23 = require(l_script_FirstAncestor_0.Navigators.Wide.conversationSwitchNavigator);
-local v24 = require(script.Parent.ConversationStackNavigationFocusListener);
-local v25 = require(l_script_FirstAncestor_0.Utils.resetForSquadLobbyForWideMode);
-local v26 = require(script.Parent.ChatLandingScreen);
-local v27 = require(script.Parent.ChatSearchBox);
-local v28 = require(script.Parent.ChatLandingContainer);
-local v29 = require(script.Parent.Logger);
-local v30 = require(script.Parent.Utils.getCurrentRoute);
-local l_withStyle_0 = v6.Style.withStyle;
-local v32 = require(l_script_FirstAncestor_0.Contexts.ChatPagePadding.Provider);
-local v33 = require(l_script_FirstAncestor_0.Hooks.useGetAndSetRef);
-local v34 = require(l_Parent_0.SharedFlags);
-local l_FFlagEnableAppChatFocusableFixes_0 = v34.FFlagEnableAppChatFocusableFixes;
-local l_GetFFlagAppChatRebrandStringUpdates_0 = v34.GetFFlagAppChatRebrandStringUpdates;
-local l_GetFFlagIsSquadEnabled_0 = v34.GetFFlagIsSquadEnabled;
-local function v43(v38) --[[ Line: 48 ]] --[[ Name: LeftContainerTelemetryProviders ]]
-    -- upvalues: v33 (copy), v4 (copy), v12 (copy), v11 (copy)
-    local v39, v40 = v33({});
-    local v42 = v4.useCallback(function() --[[ Line: 51 ]]
-        -- upvalues: v39 (copy)
-        local v41 = v39();
-        return {
-            chatLandingListCount = v41.chatLandingListCount, 
-            pendingConversationCount = v41.pendingConversationCount, 
-            unfilteredConversationCount = v41.unfilteredConversationCount
-        };
-    end, {
-        v39
-    });
-    return v4.createElement(v12.Provider, {
-        value = {
-            get = v39, 
-            set = v40
-        }
-    }, {
-        v4.createElement(v11.Provider, {
-            value = v42
-        }, v38.children)
-    });
-end;
-local function v54(v44) --[[ Line: 75 ]] --[[ Name: RightContainerTelemetryProviders ]]
-    -- upvalues: v33 (copy), v4 (copy), v16 (copy), v15 (copy), v14 (copy), v13 (copy)
-    local v45, v46 = v33({});
-    local v48 = v4.useCallback(function() --[[ Line: 78 ]]
-        -- upvalues: v45 (copy)
-        local v47 = v45();
-        return {
-            conversationId = v47.conversationId, 
-            moderationType = v47.moderationType, 
-            userPendingStatus = v47.userPendingStatus
-        };
-    end, {
-        v45
-    });
-    local l_children_0 = v44.children;
-    local v50, v51 = v33({});
-    local v53 = v4.useCallback(function() --[[ Line: 90 ]]
-        -- upvalues: v50 (copy)
-        local v52 = v50();
-        return {
-            participantsCount = v52.participantsCount, 
-            isGroupOwner = v52.isGroupOwner
-        };
-    end, {
-        v50, 
-        v45
-    });
-    l_children_0 = v4.createElement(v16.Provider, {
-        value = {
-            get = v50, 
-            set = v51
-        }
-    }, v4.createElement(v15.Provider, {
-        value = v53
-    }, v44.children));
-    return v4.createElement(v14.Provider, {
-        value = {
-            get = v45, 
-            set = v46
-        }
-    }, {
-        v4.createElement(v13.Provider, {
-            value = v48
-        }, l_children_0)
-    });
-end;
-local l_FFlagEnablePartyQuickStartButton_0 = require(l_Parent_0.SharedFlags).FFlagEnablePartyQuickStartButton;
-local v56 = v5.PureComponent:extend("ChatLandingScreenWithSwitchNavigator");
-v56.router = v23.router;
-v56.defaultProps = {
-    navigation = nil
-};
-v56.init = function(v57) --[[ Line: 134 ]] --[[ Name: init ]]
-    -- upvalues: v29 (copy), v10 (copy), v30 (copy), l_FFlagEnablePartyQuickStartButton_0 (copy), v25 (copy), v7 (copy), v20 (copy), v19 (copy), v2 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v5 (copy), v9 (copy)
-    v57.navigateToConversation = function(v58) --[[ Line: 135 ]]
-        -- upvalues: v29 (ref), v57 (copy), v10 (ref)
-        v29:info("Navigate To Conversation: {} from {screen}", v58);
-        v57.props.navigation.navigate(v10.ChatConversation, {
-            conversationId = v58
-        });
-    end;
-    v57.navigateToCreateChat = function() --[[ Line: 140 ]]
-        -- upvalues: v29 (ref), v57 (copy), v10 (ref)
-        v29:info("Navigate To CreateNewChat from {screen}");
-        v57.props.navigation.navigate(v10.CreateNewChat);
-    end;
-    v57.navigateToToast = function(v59) --[[ Line: 145 ]]
-        -- upvalues: v29 (ref), v57 (copy), v10 (ref)
-        v29:info("Navigate To Toast from {screen}");
-        v57.props.navigation.navigate(v10.RoactChatToast, v59);
-    end;
-    v57.navigateToNotifications = function() --[[ Line: 150 ]]
-        -- upvalues: v57 (copy), v10 (ref), v29 (ref)
-        local v60 = v57.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v10.Notifications];
-        if v60 then
-            v29:info("Navigate To Notifications from {screen}");
-            v60();
-            return;
-        else
-            v29:warning("Notifications page was not set in navigateToLuaAppPages screenProps");
-            return;
-        end;
-    end;
-    v57.navigateToPrivacy = function() --[[ Line: 161 ]]
-        -- upvalues: v57 (copy), v10 (ref), v29 (ref)
-        local v61 = v57.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v10.PrivacySettings];
-        if v61 then
-            v29:info("Navigate To PrivacySettings from {screen}");
-            v61();
-            return;
-        else
-            v29:warning("PrivacySettings page was not set in navigateToLuaAppPages screenProps");
-            return;
-        end;
-    end;
-    v57.navigateToSquadLobby = function(v62) --[[ Line: 172 ]]
-        -- upvalues: v29 (ref), v30 (ref), v57 (copy), v10 (ref), l_FFlagEnablePartyQuickStartButton_0 (ref), v25 (ref), v7 (ref)
-        v29:info("Navigate To SquadLobby from {screen}");
-        local v63 = v30(v57.props.navigation.state);
-        if v63 and v63.params and v63.params.conversationId == v62 and v63.routeName == v10.ChatConversation then
-            v57.props.navigation.navigate(v10.SquadLobby, {
-                conversationId = v62
-            });
-            return;
-        elseif l_FFlagEnablePartyQuickStartButton_0 then
-            v25(v57.props.navigation, v62);
-            return;
-        else
-            v57.props.navigation.navigate(v10.ChatLanding, nil, v7.StackActions.reset({
-                index = 2, 
-                actions = {
-                    v7.Actions.navigate({
-                        routeName = v10.ChatConversation, 
-                        params = {
-                            conversationId = v62
-                        }
-                    }), 
-                    v7.Actions.navigate({
-                        routeName = v10.SquadLobby, 
-                        params = {
-                            conversationId = v62
-                        }
-                    })
-                }
-            }));
-            return;
-        end;
-    end;
-    v57.setScreenTopBar = function(v64) --[[ Line: 209 ]]
-        -- upvalues: v20 (ref), v19 (ref), v10 (ref), v57 (copy), v2 (ref)
-        if v20 then
-            v19(false).setScreenTopBar(v10.ChatLanding, v64);
-            return;
-        else
-            local v65 = v57.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v2.isNotNil(v65, "setScreenTopBar in screenProps");
-            v65(v10.ChatLanding, v64);
-            return;
-        end;
-    end;
-    if l_FFlagEnableAppChatFocusableFixes_0 then
-        v57.leftContainerRef = v5.createRef();
-        v57.rightContainerRef = v5.createRef();
-        v57.focusNavigationService = v9.FocusNavigationService.new(v9.EngineInterface.CoreGui);
-    end;
-end;
-v56.render = function(v66) --[[ Line: 226 ]] --[[ Name: render ]]
-    -- upvalues: v29 (copy), v2 (copy), l_withStyle_0 (copy), v5 (copy), v43 (copy), v17 (copy), v10 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v21 (copy), v22 (copy), v18 (copy), v3 (copy), v26 (copy), v27 (copy), v32 (copy), v28 (copy), v54 (copy), v23 (copy), v24 (copy)
-    v29:info("{screen} render");
-    local v67 = v2.isNotNil(v66.props.navigation, "navigation in ChatLandingScreenWithSwitchNavigator");
-    local v68 = v67 and v67.getParam("key", "") or "";
-    local v69 = v67.getScreenProps("showSearchRow", true);
-    local v70 = v67.getScreenProps("topBarHeight", 0);
-    return l_withStyle_0(function(v71) --[[ Line: 233 ]]
-        -- upvalues: v5 (ref), v43 (ref), v17 (ref), v10 (ref), v2 (ref), l_FFlagEnableAppChatFocusableFixes_0 (ref), v66 (copy), v21 (ref), v22 (ref), v67 (copy), v18 (ref), v3 (ref), v26 (ref), v69 (copy), v27 (ref), v70 (copy), v32 (ref), v28 (ref), v68 (copy), v54 (ref), v23 (ref), v24 (ref)
-        local v75 = {
-            LeftContainerProviders = v5.createElement(v43, {}, {
-                LeftContainer = v5.createElement(v17, {
-                    screenName = v10.ChatLanding, 
-                    render = function(v72) --[[ Line: 238 ]] --[[ Name: render ]]
-                        -- upvalues: v10 (ref), v2 (ref), v5 (ref), l_FFlagEnableAppChatFocusableFixes_0 (ref), v66 (ref), v21 (ref), v22 (ref), v67 (ref), v18 (ref), v3 (ref), v26 (ref), v69 (ref), v27 (ref), v70 (ref), v32 (ref), v71 (copy), v28 (ref), v68 (ref)
-                        local v73 = v72.getScreenTopBar(v10.ChatLanding);
-                        v2.isType(v73, "table", "screenTopBar");
-                        return v5.createElement("Frame", {
-                            Size = UDim2.new(0.37, 0, 1, 0), 
-                            Position = UDim2.new(0, 0, 0, 0), 
-                            BackgroundTransparency = 1, 
-                            BorderSizePixel = 0, 
-                            [v5.Ref] = if l_FFlagEnableAppChatFocusableFixes_0 then v66.leftContainerRef else nil
-                        }, {
-                            layout = v5.createElement("UIListLayout", {
-                                SortOrder = Enum.SortOrder.LayoutOrder
-                            }), 
-                            leftTopBar = if v21() then v5.createElement(v22, {
-                                screenName = v10.ChatLanding, 
-                                navigation = v67
-                            }) else v18(v3.Dictionary.join(v73, {
-                                navigation = v67
-                            }, v26.navigationOptions({
-                                screenProps = nil, 
-                                navigationOptions = nil, 
-                                navigation = v67
-                            }), {
-                                backButtonEnabled = false, 
-                                shouldBoldHeader = true
-                            })), 
-                            filterBox = if v69 then v5.createElement(v27, {
-                                height = v70, 
-                                initialText = v73.filterText, 
-                                onFilter = function(v74) --[[ Line: 276 ]] --[[ Name: onFilter ]]
-                                    -- upvalues: v72 (copy), v10 (ref)
-                                    v72.setScreenTopBar(v10.ChatLanding, {
-                                        filterText = v74
-                                    });
-                                end
-                            }) else nil, 
-                            content = v5.createElement(v32, {
-                                value = {
-                                    left = v67.getScreenProps("appChatOuterPadding", 12), 
-                                    right = v67.getScreenProps("appChatInnerPadding", 12)
-                                }
-                            }, {
-                                ChatLanding = v5.createElement("Frame", {
-                                    BorderSizePixel = 0, 
-                                    Size = UDim2.new(1, 0, 1, -v67.getScreenProps("topBarHeight", 0) - if v69 then v70 else 0), 
-                                    LayoutOrder = 2, 
-                                    BackgroundTransparency = v71.Tokens.Global.Color.None.Transparency
-                                }, {
-                                    ChatLandingContainer = v5.createElement(v28, {
-                                        isShowingFilterBox = v73.shouldRenderCenter, 
-                                        filterText = v73.filterText, 
-                                        navigateToConversation = v66.navigateToConversation, 
-                                        navigateToCreateChat = v66.navigateToCreateChat, 
-                                        navigateToPrivacy = v66.navigateToPrivacy, 
-                                        navigateToSquadLobby = v66.navigateToSquadLobby, 
-                                        navigateToToast = v66.navigateToToast, 
-                                        navigateToAddFriends = v66.props.navigation.getScreenProps("navigateToAddFriends", {}), 
-                                        key = "ChatLanding" .. v68
-                                    })
-                                })
-                            })
-                        });
-                    end
-                })
-            }), 
-            Border = v5.createElement("Frame", {
-                BackgroundColor3 = v71.Theme.Divider.Color, 
-                BackgroundTransparency = v71.Theme.Divider.Transparency, 
-                BorderSizePixel = 0, 
-                Position = UDim2.new(0.37, 0, 0, 0), 
-                Size = UDim2.new(0, 1, 1, 0)
-            }), 
-            RightContainerProviders = v5.createElement(v54, {}, {
-                RightContainer = v5.createElement("Frame", {
-                    Size = UDim2.new(0.63, -1, 1, 0), 
-                    Position = UDim2.new(0.37, 1, 0, 0), 
-                    ClipsDescendants = true, 
-                    BackgroundTransparency = 1, 
-                    BorderSizePixel = 0, 
-                    [v5.Ref] = if l_FFlagEnableAppChatFocusableFixes_0 then v66.rightContainerRef else nil
-                }, {
-                    Content = v5.createElement(v32, {
-                        value = {
-                            left = v67.getScreenProps("appChatInnerPadding", 12), 
-                            right = v67.getScreenProps("appChatOuterPadding", 12)
-                        }
-                    }, {
-                        ConversationSwitchNavigator = v5.createElement(v23, {
-                            navigation = v67
-                        })
-                    })
-                })
-            })
-        };
-        if l_FFlagEnableAppChatFocusableFixes_0 then
-            return v5.createElement(v24, {
-                navigation = v67, 
-                leftContainerRef = v66.leftContainerRef, 
-                rightContainerRef = v66.rightContainerRef
-            }, v75);
-        else
-            return v5.createElement("Frame", {
-                Size = UDim2.new(1, 0, 1, 0), 
-                BackgroundColor3 = v71.Theme.BackgroundDefault.Color, 
-                BackgroundTransparency = v71.Tokens.Global.Color.None.Transparency, 
-                BorderSizePixel = 0
-            }, v75);
-        end;
-    end);
-end;
-v56.didMount = function(v76) --[[ Line: 368 ]] --[[ Name: didMount ]]
-    -- upvalues: v29 (copy), v21 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v8 (copy)
-    v29:info("{screen} mounted");
-    if v21() then
-        local l_navigation_0 = v76.props.navigation;
-        local v78 = l_navigation_0.getScreenProps("appChatInnerPadding", 12);
-        local v79 = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then {
-            raw = "Feature.Squads.Label.Party", 
-            shouldLocalize = true
-        } else {
-            raw = "CommonUI.Features.Label.Chat", 
-            shouldLocalize = true
-        };
-        v76.setScreenTopBar({
-            shouldRenderCenter = false, 
-            filterText = "", 
-            headerText = v79, 
-            backButtonEnabled = false, 
-            closeButtonEnabled = false, 
-            isRoot = true, 
-            isTitleLeftAligned = true, 
-            leftPaddingOverride = l_navigation_0.getScreenProps("appChatOuterPadding", 12), 
-            rightPaddingOverride = v78, 
-            shouldBoldHeader = true
-        });
-    else
-        v76.setScreenTopBar({
-            shouldRenderCenter = false, 
-            filterText = ""
-        });
-    end;
-    if l_FFlagEnableAppChatFocusableFixes_0 and v76.focusNavigationService then
-        v76.focusNavigationService:registerFocusBehavior(v76.leftContainerRef.current, v8.mostRecent());
-        v76.focusNavigationService:registerFocusBehavior(v76.rightContainerRef.current, v8.mostRecent());
-    end;
-end;
-v56.willUnmount = function(v80) --[[ Line: 410 ]] --[[ Name: willUnmount ]]
-    -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (copy)
-    if l_FFlagEnableAppChatFocusableFixes_0 then
-        v80.focusNavigationService:teardown();
-    end;
-end;
-return v56;
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local ArgCheck = require(AppChatParent.ArgCheck)
+local Cryo = require(AppChatParent.Cryo)
+local React = require(AppChatParent.React)
+local Roact = require(AppChatParent.Roact)
+local UIBlox = require(AppChatParent.UIBlox)
+local RoactNavigation = require(AppChatParent.RoactNavigation)
+local FocusBehaviors = require(AppChatParent.FocusBehaviors)
+local ReactFocusNavigation = require(AppChatParent.ReactFocusNavigation)
+local EnumScreens = require(AppChat.EnumScreens)
+local ChatLandingTelemetryLayer = require(AppChat.Telemetry.Layers.ChatLandingTelemetryLayer)
+local ChatLandingTelemetryState = require(AppChat.Contexts.TelemetryState.ChatLandingTelemetryState)
+local ChatConversationTelemetryLayer = require(AppChat.Telemetry.Layers.ChatConversationTelemetryLayer)
+local ChatConversationTelemetryState = require(AppChat.Contexts.TelemetryState.ChatConversationTelemetryState)
+local ChatDetailsTelemetryLayer = require(AppChat.Telemetry.Layers.ChatDetailsTelemetryLayer)
+local ChatDetailsTelemetryState = require(AppChat.Contexts.TelemetryState.ChatDetailsTelemetryState)
+local TopBarProvider = require(AppChat.TopBarProvider)
+local createChatTopBar = require(AppChat.createChatTopBar)
+local GetTopBarStore = require(AppChat.Stores.GetTopBarStore)
+local FFlagAppChatTopBarSignalsStore = require(AppChat.Flags.FFlagAppChatTopBarSignalsStore)
+local FFlagAppChatTopBarConfigDriven = require(AppChat.Flags.FFlagAppChatTopBarConfigDriven)
+local ChatLandingTopBar = require(AppChat.Components.TopBar.ChatLandingTopBar)
+local conversationSwitchNavigator = require(AppChat.Navigators.Wide.conversationSwitchNavigator)
+local ConversationStackNavigationFocusListener = require(script.Parent.ConversationStackNavigationFocusListener)
+local resetForSquadLobbyForWideMode = require(AppChat.Utils.resetForSquadLobbyForWideMode)
+local ChatLandingScreen = require(script.Parent.ChatLandingScreen)
+local ChatSearchBox = require(script.Parent.ChatSearchBox)
+local ChatLandingContainer = require(script.Parent.ChatLandingContainer)
+local Logger = require(script.Parent.Logger)
+local getCurrentRoute = require(script.Parent.Utils.getCurrentRoute)
+local withStyle = UIBlox.Style.withStyle
+local Provider = require(AppChat.Contexts.ChatPagePadding.Provider)
+local useGetAndSetRef = require(AppChat.Hooks.useGetAndSetRef)
+local SharedFlags = require(AppChatParent.SharedFlags)
+local FFlagEnableAppChatFocusableFixes = SharedFlags.FFlagEnableAppChatFocusableFixes
+local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
+
+local function LeftContainerTelemetryProviders(t1: {[any]: any}) -- line: 47
+	-- upvalues: useGetAndSetRef (copy), React (copy), ChatLandingTelemetryState (copy), ChatLandingTelemetryLayer (copy)
+	local v43, v44 = useGetAndSetRef({})
+	local v45 = React.useCallback(function() -- line: 50
+		-- upvalues: v43 (copy)
+		local v66 = v43()
+
+		return {
+			chatLandingListCount = v66.chatLandingListCount,
+			pendingConversationCount = v66.pendingConversationCount,
+			unfilteredConversationCount = v66.unfilteredConversationCount
+		}
+	end, { v43 })
+
+	return React.createElement(ChatLandingTelemetryState.Provider, {
+		value = {
+			get = v43,
+			set = v44
+		}
+	}, { React.createElement(ChatLandingTelemetryLayer.Provider, {
+		value = v45
+	}, t1.children) })
+end
+local function RightContainerTelemetryProviders(t2: {[any]: any}) -- line: 74
+	-- upvalues: useGetAndSetRef (copy), React (copy), ChatDetailsTelemetryState (copy), ChatDetailsTelemetryLayer (copy), ChatConversationTelemetryState (copy), ChatConversationTelemetryLayer (copy)
+	local v47, v48 = useGetAndSetRef({})
+	local v49 = React.useCallback(function() -- line: 77
+		-- upvalues: v47 (copy)
+		local v67 = v47()
+
+		return {
+			conversationId = v67.conversationId,
+			moderationType = v67.moderationType,
+			userPendingStatus = v67.userPendingStatus
+		}
+	end, { v47 })
+	local _ = t2.children
+	local v51, v52 = useGetAndSetRef({})
+	local v53 = React.useCallback(function() -- line: 89
+		-- upvalues: v51 (copy)
+		local v68 = v51()
+
+		return {
+			participantsCount = v68.participantsCount,
+			isGroupOwner = v68.isGroupOwner
+		}
+	end, {
+		v51,
+		v47
+	})
+	local v54 = React.createElement(ChatDetailsTelemetryState.Provider, {
+		value = {
+			get = v51,
+			set = v52
+		}
+	}, React.createElement(ChatDetailsTelemetryLayer.Provider, {
+		value = v53
+	}, t2.children))
+
+	return React.createElement(ChatConversationTelemetryState.Provider, {
+		value = {
+			get = v47,
+			set = v48
+		}
+	}, { React.createElement(ChatConversationTelemetryLayer.Provider, {
+		value = v49
+	}, v54) })
+end
+
+local FFlagEnablePartyQuickStartButton = require(AppChatParent.SharedFlags).FFlagEnablePartyQuickStartButton
+local v41 = Roact.PureComponent:extend("ChatLandingScreenWithSwitchNavigator")
+
+v41.router = conversationSwitchNavigator.router
+v41.defaultProps = {
+	navigation = nil
+}
+
+function v41.init(p1) -- line: 133
+	-- upvalues: Logger (copy), EnumScreens (copy), getCurrentRoute (copy), FFlagEnablePartyQuickStartButton (copy), resetForSquadLobbyForWideMode (copy), RoactNavigation (copy), FFlagAppChatTopBarSignalsStore (copy), GetTopBarStore (copy), ArgCheck (copy), FFlagEnableAppChatFocusableFixes (copy), Roact (copy), ReactFocusNavigation (copy)
+	function p1.navigateToConversation(p2) -- line: 134
+		-- upvalues: Logger (copy), p1 (copy), EnumScreens (copy)
+		Logger:info("Navigate To Conversation: {} from {screen}", p2)
+		p1.props.navigation.navigate(EnumScreens.ChatConversation, {
+			conversationId = p2
+		})
+	end
+	function p1.navigateToCreateChat() -- line: 139
+		-- upvalues: Logger (copy), p1 (copy), EnumScreens (copy)
+		Logger:info("Navigate To CreateNewChat from {screen}")
+		p1.props.navigation.navigate(EnumScreens.CreateNewChat)
+	end
+	function p1.navigateToToast(p3) -- line: 144
+		-- upvalues: Logger (copy), p1 (copy), EnumScreens (copy)
+		Logger:info("Navigate To Toast from {screen}")
+		p1.props.navigation.navigate(EnumScreens.RoactChatToast, p3)
+	end
+	function p1.navigateToNotifications() -- line: 149
+		-- upvalues: p1 (copy), EnumScreens (copy), Logger (copy)
+		local v71 = p1.props.navigation.getScreenProps("navigateToLuaAppPages", {})[EnumScreens.Notifications]
+
+		if v71 then
+			Logger:info("Navigate To Notifications from {screen}")
+			v71()
+
+			return
+		end
+
+		Logger:warning("Notifications page was not set in navigateToLuaAppPages screenProps")
+	end
+	function p1.navigateToPrivacy() -- line: 160
+		-- upvalues: p1 (copy), EnumScreens (copy), Logger (copy)
+		local v72 = p1.props.navigation.getScreenProps("navigateToLuaAppPages", {})[EnumScreens.PrivacySettings]
+
+		if v72 then
+			Logger:info("Navigate To PrivacySettings from {screen}")
+			v72()
+
+			return
+		end
+
+		Logger:warning("PrivacySettings page was not set in navigateToLuaAppPages screenProps")
+	end
+	function p1.navigateToSquadLobby(p4) -- line: 171
+		-- upvalues: Logger (copy), getCurrentRoute (copy), p1 (copy), EnumScreens (copy), FFlagEnablePartyQuickStartButton (copy), resetForSquadLobbyForWideMode (copy), RoactNavigation (copy)
+		Logger:info("Navigate To SquadLobby from {screen}")
+
+		local v74 = getCurrentRoute(p1.props.navigation.state)
+
+		if v74 and (v74.params and p4 == v74.params.conversationId and v74.routeName == EnumScreens.ChatConversation) then
+			p1.props.navigation.navigate(EnumScreens.SquadLobby, {
+				conversationId = p4
+			})
+
+			return
+		end
+
+		if FFlagEnablePartyQuickStartButton then
+			resetForSquadLobbyForWideMode(p1.props.navigation, p4)
+
+			return
+		end
+
+		p1.props.navigation.navigate(EnumScreens.ChatLanding, nil, RoactNavigation.StackActions.reset({
+			index = 2,
+			actions = {
+				RoactNavigation.Actions.navigate({
+					routeName = EnumScreens.ChatConversation,
+					params = {
+						conversationId = p4
+					}
+				}),
+				RoactNavigation.Actions.navigate({
+					routeName = EnumScreens.SquadLobby,
+					params = {
+						conversationId = p4
+					}
+				})
+			}
+		}))
+	end
+	function p1.setScreenTopBar(p5) -- line: 208
+		-- upvalues: FFlagAppChatTopBarSignalsStore (copy), GetTopBarStore (copy), EnumScreens (copy), p1 (copy), ArgCheck (copy)
+		if FFlagAppChatTopBarSignalsStore then
+			GetTopBarStore(false).setScreenTopBar(EnumScreens.ChatLanding, p5)
+
+			return
+		end
+
+		local v76 = p1.props.navigation.getScreenProps("setScreenTopBar", nil)
+
+		ArgCheck.isNotNil(v76, "setScreenTopBar in screenProps")
+		v76(EnumScreens.ChatLanding, p5)
+	end
+
+	if FFlagEnableAppChatFocusableFixes then
+		p1.leftContainerRef = Roact.createRef()
+		p1.rightContainerRef = Roact.createRef()
+		p1.focusNavigationService = ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
+	end
+end
+function v41.render(p6) -- line: 225
+	-- upvalues: Logger (copy), ArgCheck (copy), withStyle (copy), Roact (copy), LeftContainerTelemetryProviders (copy), TopBarProvider (copy), EnumScreens (copy), FFlagEnableAppChatFocusableFixes (copy), FFlagAppChatTopBarConfigDriven (copy), ChatLandingTopBar (copy), createChatTopBar (copy), Cryo (copy), ChatLandingScreen (copy), ChatSearchBox (copy), Provider (copy), ChatLandingContainer (copy), RightContainerTelemetryProviders (copy), conversationSwitchNavigator (copy), ConversationStackNavigationFocusListener (copy)
+	Logger:info("{screen} render")
+
+	local v57 = ArgCheck.isNotNil(p6.props.navigation, "navigation in ChatLandingScreenWithSwitchNavigator")
+	local v58 = v57 and v57.getParam("key", "") or ""
+	local v59 = v57.getScreenProps("showSearchRow", true)
+	local v60 = v57.getScreenProps("topBarHeight", 0)
+
+	return withStyle(function(p7) -- line: 232
+		-- upvalues: Roact (copy), LeftContainerTelemetryProviders (copy), TopBarProvider (copy), EnumScreens (copy), ArgCheck (copy), FFlagEnableAppChatFocusableFixes (copy), p6 (copy), FFlagAppChatTopBarConfigDriven (copy), ChatLandingTopBar (copy), v57 (copy), createChatTopBar (copy), Cryo (copy), ChatLandingScreen (copy), v59 (copy), ChatSearchBox (copy), v60 (copy), Provider (copy), ChatLandingContainer (copy), v58 (copy), RightContainerTelemetryProviders (copy), conversationSwitchNavigator (copy), ConversationStackNavigationFocusListener (copy)
+		local t3 = {
+			LeftContainerProviders = Roact.createElement(LeftContainerTelemetryProviders, {}, {
+				LeftContainer = Roact.createElement(TopBarProvider, {
+					screenName = EnumScreens.ChatLanding,
+					render = function(p8) --[[ render ]] -- line: 237
+						-- upvalues: EnumScreens (copy), ArgCheck (copy), Roact (copy), FFlagEnableAppChatFocusableFixes (copy), p6 (copy), FFlagAppChatTopBarConfigDriven (copy), ChatLandingTopBar (copy), v57 (copy), createChatTopBar (copy), Cryo (copy), ChatLandingScreen (copy), v59 (copy), ChatSearchBox (copy), v60 (copy), Provider (copy), p7 (copy), ChatLandingContainer (copy), v58 (copy)
+						local v80 = p8.getScreenTopBar(EnumScreens.ChatLanding)
+
+						ArgCheck.isType(v80, "table", "screenTopBar")
+
+						return Roact.createElement("Frame", {
+							Size = UDim2.new(0.37, 0, 1, 0),
+							Position = UDim2.new(0, 0, 0, 0),
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+							[Roact.Ref] = if not FFlagEnableAppChatFocusableFixes then nil else p6.leftContainerRef
+						}, {
+							layout = Roact.createElement("UIListLayout", {
+								SortOrder = Enum.SortOrder.LayoutOrder
+							}),
+							leftTopBar = if not FFlagAppChatTopBarConfigDriven() then createChatTopBar(Cryo.Dictionary.join(v80, {
+								navigation = v57
+							}, ChatLandingScreen.navigationOptions({
+								screenProps = nil,
+								navigationOptions = nil,
+								navigation = v57
+							}), {
+								backButtonEnabled = false,
+								shouldBoldHeader = true
+							})) else Roact.createElement(ChatLandingTopBar, {
+								screenName = EnumScreens.ChatLanding,
+								navigation = v57
+							}),
+							filterBox = if not v59 then nil else Roact.createElement(ChatSearchBox, {
+								height = v60,
+								initialText = v80.filterText,
+								onFilter = function(p9) --[[ onFilter ]] -- line: 275
+									-- upvalues: p8 (copy), EnumScreens (copy)
+									p8.setScreenTopBar(EnumScreens.ChatLanding, {
+										filterText = p9
+									})
+								end
+							}),
+							content = Roact.createElement(Provider, {
+								value = {
+									left = v57.getScreenProps("appChatOuterPadding", 12),
+									right = v57.getScreenProps("appChatInnerPadding", 12)
+								}
+							}, {
+								ChatLanding = Roact.createElement("Frame", {
+									BorderSizePixel = 0,
+									Size = UDim2.new(1, 0, 1, -v57.getScreenProps("topBarHeight", 0) - (not v59 and 0 or v60)),
+									LayoutOrder = 2,
+									BackgroundTransparency = p7.Tokens.Global.Color.None.Transparency
+								}, {
+									ChatLandingContainer = Roact.createElement(ChatLandingContainer, {
+										isShowingFilterBox = v80.shouldRenderCenter,
+										filterText = v80.filterText,
+										navigateToConversation = p6.navigateToConversation,
+										navigateToCreateChat = p6.navigateToCreateChat,
+										navigateToPrivacy = p6.navigateToPrivacy,
+										navigateToSquadLobby = p6.navigateToSquadLobby,
+										navigateToToast = p6.navigateToToast,
+										navigateToAddFriends = p6.props.navigation.getScreenProps("navigateToAddFriends", {}),
+										key = "ChatLanding" .. v58
+									})
+								})
+							})
+						})
+					end
+				})
+			}),
+			Border = Roact.createElement("Frame", {
+				BackgroundColor3 = p7.Theme.Divider.Color,
+				BackgroundTransparency = p7.Theme.Divider.Transparency,
+				BorderSizePixel = 0,
+				Position = UDim2.new(0.37, 0, 0, 0),
+				Size = UDim2.new(0, 1, 1, 0)
+			}),
+			RightContainerProviders = Roact.createElement(RightContainerTelemetryProviders, {}, {
+				RightContainer = Roact.createElement("Frame", {
+					Size = UDim2.new(0.63, -1, 1, 0),
+					Position = UDim2.new(0.37, 1, 0, 0),
+					ClipsDescendants = true,
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					[Roact.Ref] = if not FFlagEnableAppChatFocusableFixes then nil else p6.rightContainerRef
+				}, {
+					Content = Roact.createElement(Provider, {
+						value = {
+							left = v57.getScreenProps("appChatInnerPadding", 12),
+							right = v57.getScreenProps("appChatOuterPadding", 12)
+						}
+					}, {
+						ConversationSwitchNavigator = Roact.createElement(conversationSwitchNavigator, {
+							navigation = v57
+						})
+					})
+				})
+			})
+		}
+
+		if FFlagEnableAppChatFocusableFixes then
+			return Roact.createElement(ConversationStackNavigationFocusListener, {
+				navigation = v57,
+				leftContainerRef = p6.leftContainerRef,
+				rightContainerRef = p6.rightContainerRef
+			}, t3)
+		end
+
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundColor3 = p7.Theme.BackgroundDefault.Color,
+			BackgroundTransparency = p7.Tokens.Global.Color.None.Transparency,
+			BorderSizePixel = 0
+		}, t3)
+	end)
+end
+function v41.didMount(p10) -- line: 367
+	-- upvalues: Logger (copy), FFlagAppChatTopBarConfigDriven (copy), GetFFlagIsSquadEnabled (copy), FFlagEnableAppChatFocusableFixes (copy), FocusBehaviors (copy)
+	Logger:info("{screen} mounted")
+
+	if FFlagAppChatTopBarConfigDriven() then
+		local navigation = p10.props.navigation
+		local v63 = navigation.getScreenProps("appChatInnerPadding", 12)
+		local v64 = if not GetFFlagIsSquadEnabled() then {
+			raw = "CommonUI.Features.Label.Chat",
+			shouldLocalize = true
+		} else {
+			raw = "Feature.Squads.Label.Party",
+			shouldLocalize = true
+		}
+
+		p10.setScreenTopBar({
+			shouldRenderCenter = false,
+			filterText = "",
+			headerText = v64,
+			backButtonEnabled = false,
+			closeButtonEnabled = false,
+			isRoot = true,
+			isTitleLeftAligned = true,
+			leftPaddingOverride = navigation.getScreenProps("appChatOuterPadding", 12),
+			rightPaddingOverride = v63,
+			shouldBoldHeader = true
+		})
+	else
+		p10.setScreenTopBar({
+			shouldRenderCenter = false,
+			filterText = ""
+		})
+	end
+
+	if FFlagEnableAppChatFocusableFixes and p10.focusNavigationService then
+		p10.focusNavigationService:registerFocusBehavior(p10.leftContainerRef.current, FocusBehaviors.mostRecent())
+		p10.focusNavigationService:registerFocusBehavior(p10.rightContainerRef.current, FocusBehaviors.mostRecent())
+	end
+end
+function v41.willUnmount(p11) -- line: 409
+	-- upvalues: FFlagEnableAppChatFocusableFixes (copy)
+	if FFlagEnableAppChatFocusableFixes then
+		p11.focusNavigationService:teardown()
+	end
+end
+
+return v41

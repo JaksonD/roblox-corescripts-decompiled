@@ -1,193 +1,210 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_AppUpdateService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppUpdateService;
-local v3 = require(l_CorePackages_0.Packages.Cryo);
-local v4 = require(l_CorePackages_0.Packages.Roact);
-local v5 = require(l_CorePackages_0.Packages.RoactRodux);
-local l_withStyle_0 = require(l_CorePackages_0.Packages.UIBlox).Style.withStyle;
-local v7 = require(l_Modules_0.Common.memoize);
-local v8 = require(l_Modules_0.LuaApp.Constants);
-local v9 = require(l_Modules_0.LuaApp.Components.More.Config.MorePageSettings);
-local v10 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
-local l_FormFactor_0 = require(l_CorePackages_0.Workspace.Packages.FormFactor).Enums.FormFactor;
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local v14 = require(l_Modules_0.LuaApp.Components.TopBar.TopBar);
-local v15 = require(l_Modules_0.LuaApp.Components.More.MoreList);
-local v16 = require(l_Modules_0.LuaApp.Components.More.MoreItemContainer);
-local v17 = require(l_Modules_0.LuaApp.Components.More.MorePageScrollingFrame);
-local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
-local v19 = require(l_CorePackages_0.Packages.React);
-local v20 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks);
-local v21 = require(l_Modules_0.LuaApp.Hooks.useSettingsPageItems);
-local l_useBillingTabVisibility_0 = require(l_CorePackages_0.Workspace.Packages.SettingsTabVisibility).useBillingTabVisibility;
-local l_UiMode_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).UiMode;
-local v24 = require(l_Modules_0.LuaApp.Components.More.MoreSectionList);
-local v25 = require(l_CorePackages_0.Workspace.Packages.VoiceChat);
-local l_SetShowAgeVerificationOverlay_0 = v25.AgeVerificationOverlay.SetShowAgeVerificationOverlay;
-local l_SetVoiceChatOptInStatus_0 = v25.OptInStatus.SetVoiceChatOptInStatus;
-local v28 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableParentalControlExperiment);
-local l_GetFFlagEnableGateNotificationPreferencesTab_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableGateNotificationPreferencesTab;
-local v30 = require(l_Modules_0.LuaApp.Flags.FFlagEnableBillingTabHideLogic);
-local v31 = v4.PureComponent:extend("SettingsPage");
-v31.init = function(v32) --[[ Line: 62 ]] --[[ Name: init ]]
-    -- upvalues: v4 (copy), v16 (copy), v7 (copy), l_GetFFlagEnableGateNotificationPreferencesTab_0 (copy), v30 (copy), v9 (copy), v3 (copy)
-    v32.renderItem = function(v33, v34) --[[ Line: 63 ]]
-        -- upvalues: v4 (ref), v16 (ref)
-        return v4.createElement(v16, {
-            item = v33, 
-            layoutInfo = v34
-        });
-    end;
-    v32.getSettingsPageItemList = v7(function(v35, v36, v37, v38) --[[ Line: 71 ]]
-        -- upvalues: l_GetFFlagEnableGateNotificationPreferencesTab_0 (ref), v32 (copy), v30 (ref), v9 (ref), v3 (ref)
-        local v39 = if l_GetFFlagEnableGateNotificationPreferencesTab_0() then {
-            enableNotificationPreferencesTab = v32.props.enableNotificationPreferencesTab, 
-            hideBillingTab = if v30 then v38 else nil
-        } else if v30 then {
-            hideBillingTab = v38
-        } else nil;
-        local v40 = v9.GetItemsInPage(v36, nil, nil, v39, v37);
-        return v3.List.map(v40, function(v41) --[[ Line: 86 ]]
-            -- upvalues: v9 (ref), v35 (copy), v3 (ref)
-            local l_contents_0 = v41.contents;
-            local v43 = {};
-            for v44, v45 in ipairs(l_contents_0) do
-                if v45.itemType == v9.ItemType.Settings_AccountInfo and v45.badgeCount ~= v35 then
-                    v45 = v3.Dictionary.join(v45, {
-                        badgeCount = v35
-                    });
-                end;
-                v43[v44] = v45;
-            end;
-            return v43;
-        end);
-    end);
-    if game:GetEngineFeature("VoiceChatSupported") then
-        v32.props.setShowAgeVerificationOverlay();
-    end;
-    v32.props.setVoiceChatOptInStatus();
-end;
-v31.render = function(v46) --[[ Line: 113 ]] --[[ Name: render ]]
-    -- upvalues: l_FormFactor_0 (copy), v30 (copy), v8 (copy), v4 (copy), v17 (copy), v15 (copy), v14 (copy), l_withStyle_0 (copy)
-    local v47 = v46.props.formFactor == l_FormFactor_0.WIDE;
-    local l_showParentalControls_0 = v46.props.showParentalControls;
-    local l_settingsPageType_0 = v46.props.settingsPageType;
-    local v50 = if v30 then v46.props.hideBillingTabOverride ~= nil and v46.props.hideBillingTabOverride else nil;
-    local v51 = if v30 then v46.getSettingsPageItemList(v46.props.notificationCount, l_settingsPageType_0, l_showParentalControls_0, v50) else v46.getSettingsPageItemList(v46.props.notificationCount, l_settingsPageType_0, l_showParentalControls_0);
-    local v52 = 0;
-    local v53 = 0;
-    local l_MORE_PAGE_SECTION_PADDING_0 = v8.MORE_PAGE_SECTION_PADDING;
-    local l_MORE_PAGE_SECTION_PADDING_1 = v8.MORE_PAGE_SECTION_PADDING;
-    if v47 then
-        v52 = v8.MORE_PAGE_WIDE_PADDING_HORIZONTAL;
-        v53 = v8.MORE_PAGE_WIDE_PADDING_HORIZONTAL;
-        l_MORE_PAGE_SECTION_PADDING_0 = v8.MORE_PAGE_WIDE_PADDING_VERTICAL;
-        l_MORE_PAGE_SECTION_PADDING_1 = v8.MORE_PAGE_WIDE_PADDING_VERTICAL;
-    end;
-    local v56 = v8.MORE_PAGE_CONTENT_MAX_WIDTH + v52 + v53;
-    local function v59(v57) --[[ Line: 147 ]]
-        -- upvalues: v4 (ref), v17 (ref), v56 (copy), v52 (ref), v53 (ref), l_MORE_PAGE_SECTION_PADDING_0 (ref), l_MORE_PAGE_SECTION_PADDING_1 (ref), v15 (ref), v51 (copy), v46 (copy), v8 (ref), v14 (ref)
-        local v58 = v4.createElement(v17, {
-            Position = UDim2.fromScale(0, 0), 
-            Size = UDim2.fromScale(1, 1), 
-            maxWidth = v56
-        }, {
-            Layout = v4.createElement("UIListLayout", {
-                SortOrder = Enum.SortOrder.LayoutOrder, 
-                HorizontalAlignment = Enum.HorizontalAlignment.Center
-            }), 
-            UIPadding = v4.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, v52), 
-                PaddingRight = UDim.new(0, v53), 
-                PaddingTop = UDim.new(0, l_MORE_PAGE_SECTION_PADDING_0), 
-                PaddingBottom = UDim.new(0, l_MORE_PAGE_SECTION_PADDING_1)
-            }), 
-            SettingsPageList = v4.createElement(v15, {
-                itemList = v51, 
-                renderItem = v46.renderItem, 
-                rowHeight = v8.MORE_PAGE_ROW_HEIGHT
-            })
-        });
-        return v4.createElement("Frame", {
-            Size = UDim2.fromScale(1, 1), 
-            BorderSizePixel = 0, 
-            BackgroundColor3 = v57.Color, 
-            BackgroundTransparency = v57.Transparency
-        }, {
-            TopBar = v4.createElement(v14.Container, {
-                leftItem = v14.BackButton, 
-                rightItems = {
-                    v14.BuyRobuxButton, 
-                    v14.NotificationsButton
-                }
-            }), 
-            PageContent = v4.createElement(v14.PageContent, {}, {
-                Scroller = v58
-            })
-        });
-    end;
-    return l_withStyle_0(function(v60) --[[ Line: 189 ]]
-        -- upvalues: v59 (copy)
-        return v59(v60.Theme.BackgroundDefault);
-    end);
-end;
-v31 = l_RoactAppPolicy_0.connect(function(v61, _) --[[ Line: 194 ]]
-    -- upvalues: l_GetFFlagEnableGateNotificationPreferencesTab_0 (copy)
-    return {
-        settingsPageType = v61.getSettingsPageType(), 
-        enableNotificationPreferencesTab = if l_GetFFlagEnableGateNotificationPreferencesTab_0() then v61.getEnableNotificationPreferencesPage() else nil
-    };
-end)(v31);
-if v28() then
-    v31 = v10.connectUserLayer({
-        l_AppUserLayers_0.ParentalSpendControlsLayer
-    }, function(v63, _) --[[ Line: 206 ]]
-        -- upvalues: l_AppUserLayers_0 (copy)
-        return {
-            showParentalControls = (v63[l_AppUserLayers_0.ParentalSpendControlsLayer] or {}).showParentalSpendControls
-        };
-    end)(v31);
-end;
-v31 = v5.connect(function(v65, _) --[[ Line: 214 ]]
-    local l_MorePageSettings_0 = v65.NotificationBadgeCounts.MorePageSettings;
-    return {
-        formFactor = v65.FormFactor, 
-        notificationCount = l_MorePageSettings_0, 
-        screenSize = v65.ScreenSize
-    };
-end, function(v68) --[[ Line: 221 ]]
-    -- upvalues: l_SetShowAgeVerificationOverlay_0 (copy), l_SetVoiceChatOptInStatus_0 (copy)
-    return {
-        setShowAgeVerificationOverlay = function(v69, v70, v71, v72) --[[ Line: 223 ]] --[[ Name: setShowAgeVerificationOverlay ]]
-            -- upvalues: v68 (copy), l_SetShowAgeVerificationOverlay_0 (ref)
-            return v68(l_SetShowAgeVerificationOverlay_0(v69, v70, v71, v72));
-        end, 
-        setVoiceChatOptInStatus = function(v73) --[[ Line: 238 ]] --[[ Name: setVoiceChatOptInStatus ]]
-            -- upvalues: v68 (copy), l_SetVoiceChatOptInStatus_0 (ref)
-            return v68(l_SetVoiceChatOptInStatus_0(v73));
-        end
-    };
-end)(v31);
-v31 = l_RoactServices_0.connect({
-    appUpdateService = l_AppUpdateService_0
-})(v31);
-return function(v74) --[[ Line: 248 ]]
-    -- upvalues: v20 (copy), l_UiMode_0 (copy), v30 (copy), l_useBillingTabVisibility_0 (copy), v3 (copy), v21 (copy), v19 (copy), v24 (copy), v31 (ref)
-    local v75 = v20.useUiModeInfo().uiMode == l_UiMode_0.TenFoot;
-    if v30 then
-        local v76 = not l_useBillingTabVisibility_0().showBillingTab;
-        v74 = v3.Dictionary.join(v74 or {}, {
-            hideBillingTabOverride = v76
-        });
-    end;
-    local v77 = v74 or {};
-    local v78 = v21();
-    if v75 then
-        return v19.createElement(v24, {
-            itemList = v78
-        });
-    else
-        return v19.createElement(v31, v77);
-    end;
-end;
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local AppUpdateService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppUpdateService
+local Cryo = require(CorePackages.Packages.Cryo)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local withStyle = require(CorePackages.Packages.UIBlox).Style.withStyle
+local memoize = require(Modules.Common.memoize)
+local Constants = require(Modules.LuaApp.Constants)
+local MorePageSettings = require(Modules.LuaApp.Components.More.Config.MorePageSettings)
+local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
+local AppUserLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
+local FormFactor = require(CorePackages.Workspace.Packages.FormFactor).Enums.FormFactor
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local TopBar = require(Modules.LuaApp.Components.TopBar.TopBar)
+local MoreList = require(Modules.LuaApp.Components.More.MoreList)
+local MoreItemContainer = require(Modules.LuaApp.Components.More.MoreItemContainer)
+local MorePageScrollingFrame = require(Modules.LuaApp.Components.More.MorePageScrollingFrame)
+local RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
+local React = require(CorePackages.Packages.React)
+local RobloxAppHooks = require(CorePackages.Workspace.Packages.RobloxAppHooks)
+local useSettingsPageItems = require(Modules.LuaApp.Hooks.useSettingsPageItems)
+local useBillingTabVisibility = require(CorePackages.Workspace.Packages.SettingsTabVisibility).useBillingTabVisibility
+local UiMode = require(CorePackages.Workspace.Packages.RobloxAppEnums).UiMode
+local MoreSectionList = require(Modules.LuaApp.Components.More.MoreSectionList)
+local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
+local SetShowAgeVerificationOverlay = VoiceChat.AgeVerificationOverlay.SetShowAgeVerificationOverlay
+local SetVoiceChatOptInStatus = VoiceChat.OptInStatus.SetVoiceChatOptInStatus
+local GetFFlagEnableGateNotificationPreferencesTab = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableGateNotificationPreferencesTab
+local FFlagEnableBillingTabHideLogic = require(Modules.LuaApp.Flags.FFlagEnableBillingTabHideLogic)
+local v31 = Roact.PureComponent:extend("SettingsPage")
+
+function v31.init(p1) -- line: 61
+	-- upvalues: Roact (copy), MoreItemContainer (copy), memoize (copy), GetFFlagEnableGateNotificationPreferencesTab (copy), FFlagEnableBillingTabHideLogic (copy), MorePageSettings (copy), Cryo (copy)
+	function p1.renderItem(p2, p3) -- line: 62
+		-- upvalues: Roact (copy), MoreItemContainer (copy)
+		return Roact.createElement(MoreItemContainer, {
+			item = p2,
+			layoutInfo = p3
+		})
+	end
+
+	p1.getSettingsPageItemList = memoize(function(p4, p5, p6, p7) -- line: 70
+		-- upvalues: GetFFlagEnableGateNotificationPreferencesTab (copy), p1 (copy), FFlagEnableBillingTabHideLogic (copy), MorePageSettings (copy), Cryo (copy)
+		local v68 = if not GetFFlagEnableGateNotificationPreferencesTab() then if not FFlagEnableBillingTabHideLogic then nil else {
+			hideBillingTab = p7
+		} else {
+			enableNotificationPreferencesTab = p1.props.enableNotificationPreferencesTab,
+			hideBillingTab = if not FFlagEnableBillingTabHideLogic then nil else p7
+		}
+		local v69 = MorePageSettings.GetItemsInPage(p5, nil, nil, v68, p6)
+
+		return Cryo.List.map(v69, function(p8) -- line: 85
+			-- upvalues: MorePageSettings (copy), p4 (copy), Cryo (copy)
+			local contents = p8.contents
+			local t1 = {}
+
+			for i, v in ipairs(contents) do
+				local v83 = v
+
+				if v83.itemType == MorePageSettings.ItemType.Settings_AccountInfo and v83.badgeCount ~= p4 then
+					v83 = Cryo.Dictionary.join(v83, {
+						badgeCount = p4
+					})
+				end
+
+				t1[i] = v83
+			end
+
+			return t1
+		end)
+	end)
+
+	if game:GetEngineFeature("VoiceChatSupported") then
+		p1.props.setShowAgeVerificationOverlay()
+	end
+
+	p1.props.setVoiceChatOptInStatus()
+end
+function v31.render(p9) -- line: 112
+	-- upvalues: FormFactor (copy), FFlagEnableBillingTabHideLogic (copy), Constants (copy), Roact (copy), MorePageScrollingFrame (copy), MoreList (copy), TopBar (copy), withStyle (copy)
+	local v38 = p9.props.formFactor == FormFactor.WIDE
+	local showParentalControls = p9.props.showParentalControls
+	local settingsPageType = p9.props.settingsPageType
+	local v41 = if not FFlagEnableBillingTabHideLogic then nil else p9.props.hideBillingTabOverride ~= nil and p9.props.hideBillingTabOverride
+	local v42 = if not FFlagEnableBillingTabHideLogic then p9.getSettingsPageItemList(p9.props.notificationCount, settingsPageType, showParentalControls) else p9.getSettingsPageItemList(p9.props.notificationCount, settingsPageType, showParentalControls, v41)
+	local n1 = 0
+	local n2 = 0
+	local MORE_PAGE_SECTION_PADDING = Constants.MORE_PAGE_SECTION_PADDING
+	local MORE_PAGE_SECTION_PADDING2 = Constants.MORE_PAGE_SECTION_PADDING
+
+	if v38 then
+		n1 = Constants.MORE_PAGE_WIDE_PADDING_HORIZONTAL
+		n2 = Constants.MORE_PAGE_WIDE_PADDING_HORIZONTAL
+		MORE_PAGE_SECTION_PADDING = Constants.MORE_PAGE_WIDE_PADDING_VERTICAL
+		MORE_PAGE_SECTION_PADDING2 = Constants.MORE_PAGE_WIDE_PADDING_VERTICAL
+	end
+
+	local v47 = Constants.MORE_PAGE_CONTENT_MAX_WIDTH + n1 + n2
+
+	local function v48(p10) -- line: 146
+		-- upvalues: Roact (copy), MorePageScrollingFrame (copy), v47 (copy), n1 (ref), n2 (ref), MORE_PAGE_SECTION_PADDING (ref), MORE_PAGE_SECTION_PADDING2 (ref), MoreList (copy), v42 (copy), p9 (copy), Constants (copy), TopBar (copy)
+		local v71 = Roact.createElement(MorePageScrollingFrame, {
+			Position = UDim2.fromScale(0, 0),
+			Size = UDim2.fromScale(1, 1),
+			maxWidth = v47
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center
+			}),
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, n1),
+				PaddingRight = UDim.new(0, n2),
+				PaddingTop = UDim.new(0, MORE_PAGE_SECTION_PADDING),
+				PaddingBottom = UDim.new(0, MORE_PAGE_SECTION_PADDING2)
+			}),
+			SettingsPageList = Roact.createElement(MoreList, {
+				itemList = v42,
+				renderItem = p9.renderItem,
+				rowHeight = Constants.MORE_PAGE_ROW_HEIGHT
+			})
+		})
+
+		return Roact.createElement("Frame", {
+			Size = UDim2.fromScale(1, 1),
+			BorderSizePixel = 0,
+			BackgroundColor3 = p10.Color,
+			BackgroundTransparency = p10.Transparency
+		}, {
+			TopBar = Roact.createElement(TopBar.Container, {
+				leftItem = TopBar.BackButton,
+				rightItems = {
+					TopBar.BuyRobuxButton,
+					TopBar.NotificationsButton
+				}
+			}),
+			PageContent = Roact.createElement(TopBar.PageContent, {}, {
+				Scroller = v71
+			})
+		})
+	end
+
+	return withStyle(function(p11) -- line: 188
+		-- upvalues: v48 (copy)
+		return v48(p11.Theme.BackgroundDefault)
+	end)
+end
+
+local v32 = RoactAppPolicy.connect(function(p12, _) -- line: 193
+	-- upvalues: GetFFlagEnableGateNotificationPreferencesTab (copy)
+	return {
+		settingsPageType = p12.getSettingsPageType(),
+		enableNotificationPreferencesTab = if not GetFFlagEnableGateNotificationPreferencesTab() then nil else p12.getEnableNotificationPreferencesPage()
+	}
+end)(v31)
+local v33 = RoactAppExperiment.connectUserLayer({ AppUserLayers.ParentalSpendControlsLayer }, function(p14, _) -- line: 204
+	-- upvalues: AppUserLayers (copy)
+	return {
+		showParentalControls = (p14[AppUserLayers.ParentalSpendControlsLayer] or {}).showParentalSpendControls
+	}
+end)(v32)
+local v34 = RoactRodux.connect(function(p16, _) -- line: 211
+	local MorePageSettings2 = p16.NotificationBadgeCounts.MorePageSettings
+
+	return {
+		formFactor = p16.FormFactor,
+		notificationCount = MorePageSettings2,
+		screenSize = p16.ScreenSize
+	}
+end, function(p18) -- line: 218
+	-- upvalues: SetShowAgeVerificationOverlay (copy), SetVoiceChatOptInStatus (copy)
+	return {
+		setShowAgeVerificationOverlay = function(p19, p20, p21, p22) --[[ setShowAgeVerificationOverlay ]] -- line: 220
+			-- upvalues: p18 (copy), SetShowAgeVerificationOverlay (copy)
+			return p18(SetShowAgeVerificationOverlay(p19, p20, p21, p22))
+		end,
+		setVoiceChatOptInStatus = function(p23) --[[ setVoiceChatOptInStatus ]] -- line: 235
+			-- upvalues: p18 (copy), SetVoiceChatOptInStatus (copy)
+			return p18(SetVoiceChatOptInStatus(p23))
+		end
+	}
+end)(v33)
+local u35 = RoactServices.connect({
+	appUpdateService = AppUpdateService
+})(v34)
+
+return function(t2: {[any]: any}) -- line: 245
+	-- upvalues: RobloxAppHooks (copy), UiMode (copy), FFlagEnableBillingTabHideLogic (copy), useBillingTabVisibility (copy), Cryo (copy), useSettingsPageItems (copy), React (copy), MoreSectionList (copy), u35 (ref)
+	local v58 = RobloxAppHooks.useUiModeInfo().uiMode == UiMode.TenFoot
+
+	if FFlagEnableBillingTabHideLogic then
+		local showBillingTab = useBillingTabVisibility().showBillingTab
+
+		t2 = Cryo.Dictionary.join(t2 or {}, {
+			hideBillingTabOverride = not showBillingTab
+		})
+	end
+
+	local v60 = t2 or {}
+	local v61 = useSettingsPageItems()
+
+	if v58 then
+		return React.createElement(MoreSectionList, {
+			itemList = v61
+		})
+	end
+
+	return React.createElement(u35, v60)
+end

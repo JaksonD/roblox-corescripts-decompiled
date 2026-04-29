@@ -1,19 +1,78 @@
-local v1 = {
-    InstanceIsAParticleEffect = function(v0) --[[ Line: 10 ]]
-        return v0:IsA("ParticleEmitter") or v0:IsA("Fire") or v0:IsA("Smoke") or v0:IsA("Sparkles");
-    end
-};
-local function v2(v3) --[[ Line: 14 ]] --[[ Name: recurFastForwardParticles ]]
-    -- upvalues: v1 (copy), v2 (copy)
-    if v1.InstanceIsAParticleEffect(v3) then
-        v3:FastForward(240);
-    end;
-    for _, v5 in (v3:GetChildren()) do
-        v2(v5);
-    end;
-end;
-v1.FastForwardParticles = function(v6) --[[ Line: 25 ]]
-    -- upvalues: v2 (copy)
-    v2(v6);
-end;
-return v1;
+local t1 = {
+	InstanceIsAParticleEffect = function(p1) -- line: 10
+		return p1:IsA("ParticleEmitter") or (p1:IsA("Fire") or (p1:IsA("Smoke") or p1:IsA("Sparkles")))
+	end
+}
+
+local function recurFastForwardParticles(p2) -- line: 14
+	-- upvalues: t1 (copy), recurFastForwardParticles (copy)
+	if t1.InstanceIsAParticleEffect(p2) then
+		p2:FastForward(240)
+	end
+
+	for _, v8 in (p2:GetChildren()) do
+		recurFastForwardParticles(v8)
+	end
+end
+
+function t1.FastForwardParticles(p3) -- line: 25
+	-- upvalues: recurFastForwardParticles (copy)
+	recurFastForwardParticles(p3)
+end
+
+local function findNearestBasePart(p4) -- line: 30
+	local p4Parent = p4.Parent
+
+	while p4Parent do
+		if p4Parent:IsA("BasePart") then
+			return p4Parent
+		end
+
+		if p4Parent:IsA("Tool") then
+			local Handle = p4Parent:FindFirstChild("Handle")
+
+			if Handle and Handle:IsA("BasePart") then
+				return Handle
+			end
+		end
+
+		if p4Parent:IsA("Model") then
+			local PrimaryPart = p4Parent.PrimaryPart
+
+			if PrimaryPart then
+				return PrimaryPart
+			end
+		end
+
+		p4Parent = p4Parent.Parent
+	end
+
+	return nil
+end
+local function recurReparentOrphanedEffects(p5) -- line: 60
+	-- upvalues: t1 (copy), findNearestBasePart (copy), recurReparentOrphanedEffects (copy)
+	if t1.InstanceIsAParticleEffect(p5) then
+		local p5Parent = p5.Parent
+
+		if p5Parent and not p5Parent:IsA("BasePart") and not p5Parent:IsA("Attachment") then
+			local v16 = findNearestBasePart(p5)
+
+			if v16 then
+				p5.Parent = v16
+			end
+		end
+
+		return
+	end
+
+	for _, v18 in p5:GetChildren() do
+		recurReparentOrphanedEffects(v18)
+	end
+end
+
+function t1.ReparentOrphanedParticleEffects(p6) -- line: 77
+	-- upvalues: recurReparentOrphanedEffects (copy)
+	recurReparentOrphanedEffects(p6)
+end
+
+return t1

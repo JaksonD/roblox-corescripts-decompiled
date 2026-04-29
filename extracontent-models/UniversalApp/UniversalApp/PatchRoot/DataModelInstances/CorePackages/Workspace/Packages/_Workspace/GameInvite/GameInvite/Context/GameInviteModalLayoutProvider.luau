@@ -1,123 +1,111 @@
-local l_GuiService_0 = game:GetService("GuiService");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("GameInvite");
-local l_Context_0 = l_script_FirstAncestor_0.Context;
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v4 = require(l_Parent_0.SharedFlags);
-local v5 = require(l_Parent_0.React);
-local _ = require(l_script_FirstAncestor_0.gameInviteModalType);
-local v7 = require(l_Context_0.GameInviteModalLayoutContext);
-local l_GetFFlagLuaAppEnableTopBanner_0 = v4.GetFFlagLuaAppEnableTopBanner;
-local function _(v9) --[[ Line: 23 ]]
-    -- upvalues: l_GetFFlagLuaAppEnableTopBanner_0 (copy), l_GuiService_0 (copy)
-    local v10 = 0;
-    if not l_GetFFlagLuaAppEnableTopBanner_0() or v9 then
-        if l_GuiService_0 then
-            return l_GuiService_0:GetGuiInset().Y;
-        else
-            v10 = 50;
-        end;
-    end;
-    return v10;
-end;
-local function _() --[[ Line: 33 ]]
-    return workspace.CurrentCamera.ViewportSize;
-end;
-local function _(v13) --[[ Line: 38 ]]
-    return v13 < 800;
-end;
-local function _(v15) --[[ Line: 42 ]]
-    return v15 < 624;
-end;
-local function _(v17) --[[ Line: 46 ]]
-    return (not not (v17.X < 800) or v17.Y < 624) and v17.X or 800;
-end;
-local function _(v19, v20) --[[ Line: 50 ]]
-    -- upvalues: l_GetFFlagLuaAppEnableTopBanner_0 (copy), l_GuiService_0 (copy)
-    local v21 = false;
-    local v22;
-    if v19.X < 800 or v19.Y < 624 then
-        local l_Y_0 = v19.Y;
-        local v24 = 0;
-        if not l_GetFFlagLuaAppEnableTopBanner_0() or v20 then
-            v24 = if l_GuiService_0 then l_GuiService_0:GetGuiInset().Y else 50;
-        end;
-        v22 = l_Y_0 - v24;
-        v21 = v22;
-    end;
-    if not v21 then
-        v22 = 624;
-    end;
-    v21 = false;
-    return v22;
-end;
-local function v35(v26, v27) --[[ Line: 56 ]]
-    -- upvalues: l_GetFFlagLuaAppEnableTopBanner_0 (copy), l_GuiService_0 (copy)
-    local v28 = false;
-    local v29 = UDim.new(0, (not not (v26.X < 800) or v26.Y < 624) and v26.X or 800);
-    local l_new_0 = UDim.new;
-    local v31 = 0;
-    local v32;
-    if v26.X < 800 or v26.Y < 624 then
-        local l_Y_1 = v26.Y;
-        local v34 = 0;
-        if not l_GetFFlagLuaAppEnableTopBanner_0() or v27 then
-            v34 = if l_GuiService_0 then l_GuiService_0:GetGuiInset().Y else 50;
-        end;
-        v32 = l_Y_1 - v34;
-        v28 = v32;
-    end;
-    if not v28 then
-        v32 = 624;
-    end;
-    v28 = false;
-    l_new_0 = l_new_0(v31, v32);
-    return UDim2.new(v29, l_new_0);
-end;
-local function _(v36) --[[ Line: 62 ]]
-    if v36.X < 800 or v36.Y < 624 then
-        return "compact";
-    else
-        return "default";
-    end;
-end;
-return function(v38) --[[ Line: 66 ]]
-    -- upvalues: v5 (copy), v35 (copy), v7 (copy)
-    local l_isCoreScript_0 = v38.isCoreScript;
-    local v40, v41 = v5.useState(v35(workspace.CurrentCamera.ViewportSize, l_isCoreScript_0));
-    local v42, v43 = v5.useState(workspace.CurrentCamera.ViewportSize.Y < 624);
-    local v44, v45 = v5.useState(workspace.CurrentCamera.ViewportSize.X < 800);
-    local l_useState_0 = v5.useState;
-    local l_ViewportSize_0 = workspace.CurrentCamera.ViewportSize;
-    local v48;
-    l_useState_0, v48 = l_useState_0((not not (l_ViewportSize_0.X < 800) or l_ViewportSize_0.Y < 624) and "compact" or "default");
-    l_ViewportSize_0 = function() --[[ Line: 74 ]]
-        -- upvalues: v35 (ref), l_isCoreScript_0 (copy), v43 (copy), v45 (copy), v41 (copy), v48 (copy)
-        local l_ViewportSize_1 = workspace.CurrentCamera.ViewportSize;
-        local v50 = l_ViewportSize_1.Y < 624;
-        local v51 = l_ViewportSize_1.X < 800;
-        local v52 = v35(l_ViewportSize_1, l_isCoreScript_0);
-        v43(v50);
-        v45(v51);
-        v41(v52);
-        v48((not not (l_ViewportSize_1.X < 800) or l_ViewportSize_1.Y < 624) and "compact" or "default");
-    end;
-    v5.useEffect(function() --[[ Line: 86 ]]
-        -- upvalues: l_ViewportSize_0 (copy)
-        l_ViewportSize_0();
-        local v53 = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(l_ViewportSize_0);
-        return function() --[[ Line: 92 ]]
-            -- upvalues: v53 (copy)
-            if v53 then
-                v53:Disconnect();
-            end;
-        end;
-    end, {});
-    return v5.createElement(v7.Provider, {
-        value = {
-            isFullHeight = v42, 
-            isFullWidth = v44, 
-            modalSize = v40, 
-            modalMode = l_useState_0
-        }
-    }, v38.children);
-end;
+local GuiService = game:GetService("GuiService")
+local GameInvite = script:FindFirstAncestor("GameInvite")
+local Context = GameInvite.Context
+local GameInviteParent = GameInvite.Parent
+local SharedFlags = require(GameInviteParent.SharedFlags)
+local React = require(GameInviteParent.React)
+
+require(GameInvite.gameInviteModalType)
+
+local GameInviteModalLayoutContext = require(Context.GameInviteModalLayoutContext)
+local GetFFlagLuaAppEnableTopBanner = SharedFlags.GetFFlagLuaAppEnableTopBanner
+local isInExperienceUIVREnabled = require(GameInviteParent.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagEnableInExperienceUIPCVRFix = SharedFlags.FFlagEnableInExperienceUIPCVRFix
+
+local function v11(p1, p2) -- line: 59
+	-- upvalues: GetFFlagLuaAppEnableTopBanner (copy), GuiService (copy)
+	local uDim = UDim.new(0, not (not (p1.X < 800) and not (p1.Y < 624)) and p1.X or 800)
+	local new = UDim.new
+	local g26 = nil
+	local v29 = nil
+
+	repeat
+		if g26 or (p1.X < 800 or p1.Y < 624) then
+			if not g26 then
+				local p1Y = p1.Y
+				local n1 = 0
+
+				if not GetFFlagLuaAppEnableTopBanner() or p2 then
+					n1 = not GuiService and 50 or GuiService:GetGuiInset().Y
+				end
+
+				v29 = p1Y - n1
+			end
+
+			if g26 or v29 then
+				g26 = false
+
+				local v30 = new(0, v29)
+
+				return UDim2.new(uDim, v30)
+			end
+		end
+
+		v29 = 624
+		g26 = true
+	until not g26
+end
+
+return function(t1: {[any]: any}) -- line: 69
+	-- upvalues: isInExperienceUIVREnabled (copy), FFlagEnableInExperienceUIPCVRFix (copy), React (copy), v11 (copy), GameInviteModalLayoutContext (copy)
+	local isCoreScript = t1.isCoreScript
+	local v34 = if not isInExperienceUIVREnabled or (not FFlagEnableInExperienceUIPCVRFix or not t1.screenSizeOverride) then workspace.CurrentCamera.ViewportSize else t1.screenSizeOverride
+	local v35, v36 = React.useState(v11(v34, isCoreScript))
+	local v37, v38 = React.useState(v34.Y < 624)
+	local v39, v40 = React.useState(v34.X < 800)
+	local v41, v42 = React.useState(not (v34.X < 800) and not (v34.Y < 624) and "default" or "compact")
+	local v43 = not FFlagEnableInExperienceUIPCVRFix and function() -- line: 94
+		-- upvalues: v11 (copy), isCoreScript (copy), v38 (copy), v40 (copy), v36 (copy), v42 (copy)
+		local ViewportSize = workspace.CurrentCamera.ViewportSize
+		local v49 = ViewportSize.Y < 624
+		local v50 = ViewportSize.X < 800
+		local v51 = v11(ViewportSize, isCoreScript)
+
+		v38(v49)
+		v40(v50)
+		v36(v51)
+		v42(not (ViewportSize.X < 800) and not (ViewportSize.Y < 624) and "default" or "compact")
+	end or React.useCallback(function() -- line: 83
+		-- upvalues: v11 (copy), isCoreScript (copy), v38 (copy), v40 (copy), v36 (copy), v42 (copy)
+		local ViewportSize = workspace.CurrentCamera.ViewportSize
+		local v45 = ViewportSize.Y < 624
+		local v46 = ViewportSize.X < 800
+		local v47 = v11(ViewportSize, isCoreScript)
+
+		v38(v45)
+		v40(v46)
+		v36(v47)
+		v42(not (ViewportSize.X < 800) and not (ViewportSize.Y < 624) and "default" or "compact")
+	end, { isCoreScript })
+
+	React.useEffect(function() -- line: 107
+		-- upvalues: isInExperienceUIVREnabled (copy), FFlagEnableInExperienceUIPCVRFix (copy), t1 (copy), v43 (copy)
+		if isInExperienceUIVREnabled and (FFlagEnableInExperienceUIPCVRFix and t1.screenSizeOverride) then
+			return function() -- line: 111
+			end
+		end
+
+		v43()
+
+		local connection = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(v43)
+
+		return function() -- line: 119
+			-- upvalues: connection (copy)
+			if connection then
+				connection:Disconnect()
+			end
+		end
+	end, if not isInExperienceUIVREnabled or not FFlagEnableInExperienceUIPCVRFix then {} else {
+		t1.screenSizeOverride,
+		v43
+	})
+
+	return React.createElement(GameInviteModalLayoutContext.Provider, {
+		value = {
+			isFullHeight = v37,
+			isFullWidth = v39,
+			modalSize = v35,
+			modalMode = v41
+		}
+	}, t1.children)
+end

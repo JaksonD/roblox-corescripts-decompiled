@@ -1,173 +1,202 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.BuilderIcons);
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.ReactOtter);
-local v5 = require(l_script_FirstAncestor_0.Components.Divider);
-local v6 = require(l_script_FirstAncestor_0.Components.Icon);
-local v7 = require(l_script_FirstAncestor_0.Components.Text);
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v9 = require(l_script_FirstAncestor_0.Components.View);
-local v10 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v11 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local v12 = require(script.Parent.Parent.useAccordion);
-local v13 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local _ = require(l_script_FirstAncestor_0.Enums.InputSize);
-local _ = require(l_script_FirstAncestor_0.Providers.Style.Tokens);
-local v16 = require(script.Parent.Parent.useAccordionItemVariants);
-local v17 = {
-    hasDivider = true, 
-    isExpanded = false
-};
-local function _(v18) --[[ Line: 57 ]] --[[ Name: getCommonEaseConfig ]]
-    return {
-        easingStyle = v18.Ease.StandardOut, 
-        duration = v18.Time.Time_300, 
-        startingValue = nil
-    };
-end;
-return v3.memo(v3.forwardRef(function(v20, v21) --[[ Line: 65 ]] --[[ Name: AccordionItem ]]
-    -- upvalues: v11 (copy), v17 (copy), v13 (copy), v3 (copy), v4 (copy), v12 (copy), v16 (copy), v9 (copy), v10 (copy), v6 (copy), v7 (copy), v5 (copy)
-    local v22 = v11(v20, v17);
-    local v23 = v13();
-    local v25 = v3.useMemo(function() --[[ Line: 68 ]]
-        -- upvalues: v23 (copy)
-        local l_v23_0 = v23;
-        return {
-            easingStyle = l_v23_0.Ease.StandardOut, 
-            duration = l_v23_0.Time.Time_300, 
-            startingValue = nil
-        };
-    end, {
-        v23
-    });
-    local v26, v27 = v3.useState(v22.isExpanded);
-    local v28 = v3.useRef(false);
-    local v29, v30 = v4.useAnimatedBinding(0);
-    local v31, v32 = v4.useAnimatedBinding(0, function() --[[ Line: 76 ]]
-        -- upvalues: v28 (copy), v27 (copy)
-        if v28.current then
-            v27(false);
-            v28.current = false;
-        end;
-    end);
-    local v33 = v3.useRef(nil);
-    local v34 = v3.useCallback(function() --[[ Line: 83 ]]
-        -- upvalues: v28 (copy), v32 (copy), v4 (ref), v25 (copy), v30 (copy)
-        v28.current = true;
-        v32(v4.ease(0, v25));
-        v30(v4.ease(0, v25));
-    end, {});
-    local v35 = v3.useCallback(function() --[[ Line: 89 ]]
-        -- upvalues: v33 (copy), v26 (copy), v32 (copy), v4 (ref), v25 (copy)
-        if v33 and v33.current and v26 then
-            v32(v4.ease(v33.current.AbsoluteSize.Y, v25));
-        end;
-    end, {
-        v33, 
-        v26
-    });
-    v3.useEffect(function() --[[ Line: 95 ]]
-        -- upvalues: v26 (copy), v22 (copy), v34 (copy), v27 (copy)
-        if v26 and not v22.isExpanded then
-            v34();
-            return;
-        else
-            v27(v22.isExpanded);
-            return;
-        end;
-    end, {
-        v22.isExpanded
-    });
-    v3.useEffect(function() --[[ Line: 103 ]]
-        -- upvalues: v26 (copy), v30 (copy), v4 (ref), v25 (copy)
-        if v26 then
-            v30(v4.ease(-180, v25));
-        end;
-    end, {
-        v26
-    });
-    local v36 = v12();
-    local l_onAccordionItemActivated_0 = v36.onAccordionItemActivated;
-    local l_itemSize_0 = v36.itemSize;
-    local v39 = v16(v23, l_itemSize_0, false);
-    local v40 = v3.useCallback(function() --[[ Line: 114 ]]
-        -- upvalues: v26 (copy), v34 (copy), v27 (copy)
-        if v26 then
-            v34();
-            return;
-        else
-            v27(true);
-            return;
-        end;
-    end, {
-        v26
-    });
-    local v41 = if v22.onActivated then v22.onActivated else if l_onAccordionItemActivated_0 then l_onAccordionItemActivated_0(v22.id, v26) else v40;
-    v22.testId = ("%*--item-%*"):format(v36.testId, v22.id);
-    return v3.createElement(v9, v10(v22, {
-        tag = v39.container.tag, 
-        AutomaticSize = Enum.AutomaticSize.Y, 
-        stateLayer = v39.container.stateLayer, 
-        ref = v21
-    }), {
-        Header = v3.createElement(v9, {
-            LayoutOrder = 1, 
-            tag = v39.header.tag, 
-            onActivated = v41, 
-            testId = ("%*--header"):format(v22.testId)
-        }, {
-            LeadingIcon = if v22.leadingIcon then v3.createElement(v6, {
-                LayoutOrder = 1, 
-                name = if type(v22.leadingIcon) == "table" then v22.leadingIcon.name else v22.leadingIcon, 
-                variant = if type(v22.leadingIcon) == "table" then v22.leadingIcon.variant else nil, 
-                style = v39.icon.style, 
-                size = v39.icon.size, 
-                testId = ("%*--leading-icon"):format(v22.testId)
-            }) else nil, 
-            Title = v3.createElement(v7, {
-                LayoutOrder = 2, 
-                Text = v22.text, 
-                tag = v39.text.tag, 
-                testId = ("%*--title"):format(v22.testId)
-            }), 
-            CollapseIcon = v3.createElement(v9, {
-                tag = "auto-xy", 
-                LayoutOrder = 3
-            }, {
-                Icon = v3.createElement(v6, {
-                    name = "chevron-large-down", 
-                    Rotation = v29, 
-                    style = v39.icon.style, 
-                    size = v39.icon.size, 
-                    testId = ("%*--collapse-icon"):format(v22.testId)
-                })
-            })
-        }), 
-        Content = if v26 then v3.createElement(v9, {
-            tag = "col", 
-            LayoutOrder = 2, 
-            testId = ("%*--content"):format(v22.testId), 
-            Size = if v31 then v31:map(function(v42) --[[ Line: 180 ]]
-                return UDim2.new(1, 0, 0, v42);
-            end) else nil, 
-            ClipsDescendants = true
-        }, {
-            AnimatedContainer = v3.createElement(v9, {
-                tag = v39.content.tag, 
-                ref = v33, 
-                onAbsoluteSizeChanged = v35, 
-                flexItem = {
-                    FlexMode = Enum.UIFlexMode.None
-                }, 
-                testId = ("%*--animated-content"):format(v22.testId)
-            }, {
-                v22.children
-            })
-        }) else nil, 
-        Divider = if v22.hasDivider then v3.createElement(v5, {
-            LayoutOrder = 3, 
-            testId = ("%*--divider"):format(v22.testId)
-        }) else nil
-    });
-end));
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+
+require(FoundationParent.BuilderIcons)
+require(FoundationParent.Otter)
+
+local React = require(FoundationParent.React)
+local ReactOtter = require(FoundationParent.ReactOtter)
+local Divider = require(Foundation.Components.Divider)
+local Icon = require(Foundation.Components.Icon)
+local Text = require(Foundation.Components.Text)
+local Flags = require(Foundation.Utility.Flags)
+
+require(Foundation.Components.Types)
+
+local View = require(Foundation.Components.View)
+local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local useAccordion = require(script.Parent.Parent.useAccordion)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+
+require(Foundation.Enums.InputSize)
+require(Foundation.Providers.Style.Tokens)
+
+local useAccordionItemVariants = require(script.Parent.Parent.useAccordionItemVariants)
+local t1 = {
+	hasDivider = true,
+	isExpanded = false
+}
+
+return React.memo(React.forwardRef(function(p1, p2) --[[ AccordionItem ]] -- line: 67
+	-- upvalues: withDefaults (copy), t1 (copy), useTokens (copy), Flags (copy), usePreferences (copy), React (copy), ReactOtter (copy), useAccordion (copy), useAccordionItemVariants (copy), View (copy), withCommonProps (copy), Icon (copy), Text (copy), Divider (copy)
+	local v20 = withDefaults(p1, t1)
+	local v21 = useTokens()
+	local v22 = if not Flags.FoundationReducedMotionAccordion then nil else usePreferences()
+	local v23 = not not Flags.FoundationReducedMotionAccordion and v22.reducedMotion
+	local v24 = React.useMemo(function() -- line: 72
+		-- upvalues: v21 (copy)
+		local v41 = v21
+
+		return {
+			easingStyle = v41.Ease.StandardOut,
+			duration = v41.Time.Time_300
+		}
+	end, { v21 })
+	local v25, v26 = React.useState(v20.isExpanded)
+	local v27 = React.useRef(false)
+	local v28, v29 = ReactOtter.useAnimatedBinding(0)
+	local v30, v31 = ReactOtter.useAnimatedBinding(0, function() -- line: 80
+		-- upvalues: v27 (copy), v26 (copy)
+		if v27.current then
+			v26(false)
+			v27.current = false
+		end
+	end)
+	local v32 = React.useRef(nil)
+	local v33 = React.useCallback(function() -- line: 87
+		-- upvalues: v23 (copy), v31 (copy), ReactOtter (copy), v29 (copy), v26 (copy), v27 (copy), v24 (copy)
+		if v23 then
+			v31((ReactOtter.instant(0)))
+			v29((ReactOtter.instant(0)))
+			v26(false)
+			v27.current = false
+
+			return
+		end
+
+		v27.current = true
+		v31(ReactOtter.ease(0, v24))
+		v29(ReactOtter.ease(0, v24))
+	end, {
+		v23,
+		v24
+	})
+	local v34 = React.useCallback(function() -- line: 101
+		-- upvalues: v32 (copy), v25 (copy), v23 (copy), v31 (copy), ReactOtter (copy), v24 (copy)
+		if v32 and (v32.current and v25) then
+			if v23 then
+				v31((ReactOtter.instant(v32.current.AbsoluteSize.Y)))
+
+				return
+			end
+
+			v31(ReactOtter.ease(v32.current.AbsoluteSize.Y, v24))
+		end
+	end, {
+		v32,
+		v25,
+		v23,
+		v24
+	})
+
+	React.useEffect(function() -- line: 111
+		-- upvalues: v25 (copy), v20 (copy), v33 (copy), v26 (copy)
+		if v25 and not v20.isExpanded then
+			v33()
+
+			return
+		end
+
+		v26(v20.isExpanded)
+	end, { v20.isExpanded })
+	React.useEffect(function() -- line: 119
+		-- upvalues: v25 (copy), v23 (copy), v29 (copy), ReactOtter (copy), v24 (copy)
+		if v25 then
+			if v23 then
+				v29((ReactOtter.instant(-180)))
+
+				return
+			end
+
+			v29(ReactOtter.ease(-180, v24))
+		end
+	end, {
+		v25,
+		v23,
+		v24
+	})
+
+	local v35 = useAccordion()
+	local onAccordionItemActivated = v35.onAccordionItemActivated
+	local itemSize = v35.itemSize
+	local v38 = useAccordionItemVariants(v21, itemSize, false)
+	local v39 = React.useCallback(function() -- line: 134
+		-- upvalues: v25 (copy), v33 (copy), v26 (copy)
+		if v25 then
+			v33()
+
+			return
+		end
+
+		v26(true)
+	end, { v25 })
+	local v40 = if not v20.onActivated then if not onAccordionItemActivated then v39 else onAccordionItemActivated(v20.id, v25) else v20.onActivated
+
+	v20.testId = `{ v35.testId }--item-{ v20.id }`
+
+	return React.createElement(View, withCommonProps(v20, {
+		tag = v38.container.tag,
+		AutomaticSize = Enum.AutomaticSize.Y,
+		stateLayer = v38.container.stateLayer,
+		ref = p2
+	}), {
+		Header = React.createElement(View, {
+			LayoutOrder = 1,
+			tag = v38.header.tag,
+			onActivated = v40,
+			testId = `{ v20.testId }--header`
+		}, {
+			LeadingIcon = if not v20.leadingIcon then nil else React.createElement(Icon, {
+				LayoutOrder = 1,
+				name = if type(v20.leadingIcon) ~= "table" then v20.leadingIcon else v20.leadingIcon.name,
+				variant = if type(v20.leadingIcon) ~= "table" then nil else v20.leadingIcon.variant,
+				style = v38.icon.style,
+				size = v38.icon.size,
+				testId = `{ v20.testId }--leading-icon`
+			}),
+			Title = React.createElement(Text, {
+				LayoutOrder = 2,
+				Text = v20.text,
+				tag = v38.text.tag,
+				testId = `{ v20.testId }--title`
+			}),
+			CollapseIcon = React.createElement(View, {
+				tag = "auto-xy",
+				LayoutOrder = 3
+			}, {
+				Icon = React.createElement(Icon, {
+					name = "chevron-large-down",
+					Rotation = v28,
+					style = v38.icon.style,
+					size = v38.icon.size,
+					testId = `{ v20.testId }--collapse-icon`
+				})
+			})
+		}),
+		Content = if not v25 then nil else React.createElement(View, {
+			tag = "col",
+			LayoutOrder = 2,
+			testId = `{ v20.testId }--content`,
+			Size = if not v30 then nil else v30:map(function(p3) -- line: 200
+				return UDim2.new(1, 0, 0, p3)
+			end),
+			ClipsDescendants = true
+		}, {
+			AnimatedContainer = React.createElement(View, {
+				tag = v38.content.tag,
+				ref = v32,
+				onAbsoluteSizeChanged = v34,
+				flexItem = {
+					FlexMode = Enum.UIFlexMode.None
+				},
+				testId = `{ v20.testId }--animated-content`
+			}, { v20.children })
+		}),
+		Divider = if not v20.hasDivider then nil else React.createElement(Divider, {
+			LayoutOrder = 3,
+			testId = `{ v20.testId }--divider`
+		})
+	})
+end))

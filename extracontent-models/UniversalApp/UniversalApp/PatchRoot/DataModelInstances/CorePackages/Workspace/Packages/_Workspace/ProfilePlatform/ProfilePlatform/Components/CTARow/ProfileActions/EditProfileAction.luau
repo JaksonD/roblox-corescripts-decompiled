@@ -1,49 +1,55 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Foundation);
-local v3 = require(l_Parent_0.SharedFlags);
-local v4 = require(l_Parent_0.SocialStopwatch);
-local l_ButtonVariant_0 = v2.Enums.ButtonVariant;
-local v6 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatformUserInfo);
-local v7 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-local v9 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local l_FFlagMoveInExperienceModeToEditProfile_0 = v3.FFlagMoveInExperienceModeToEditProfile;
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local Foundation = require(ProfilePlatformParent.Foundation)
+local SharedFlags = require(ProfilePlatformParent.SharedFlags)
+local SocialStopwatch = require(ProfilePlatformParent.SocialStopwatch)
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local refreshProfilePlatformUserInfo = require(ProfilePlatform.Networking.refreshProfilePlatformUserInfo)
+local Enums = require(ProfilePlatform.Common.Enums)
+
+require(ProfilePlatform.Components.CTARow.Types)
+
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local ProfileTypes = Enums.ProfileTypes
+local FFlagMoveInExperienceModeToEditProfile = SharedFlags.FFlagMoveInExperienceModeToEditProfile
+
 return {
-    [v7.ProfileActions.EditProfile] = function(v11) --[[ Line: 18 ]]
-        -- upvalues: l_ButtonVariant_0 (copy), v7 (copy), v4 (copy), v9 (copy), v6 (copy), l_FFlagMoveInExperienceModeToEditProfile_0 (copy)
-        return {
-            variant = l_ButtonVariant_0.Standard, 
-            text = v11.localized[v7.ProfileActions.EditProfile], 
-            onActivated = function() --[[ Line: 22 ]] --[[ Name: onActivated ]]
-                -- upvalues: v4 (ref), v11 (copy), v9 (ref), v7 (ref), v6 (ref), l_FFlagMoveInExperienceModeToEditProfile_0 (ref)
-                v4.Stopwatch.start(v4.Events.EditProfileOpened);
-                v11.analytics.fireAnalyticsEvent(v9.CTAButtonOpenEditProfilePage, {
-                    buttonSurface = v11.buttonSurface
-                });
-                v11.navigation.navigate(v7.Screens.EditProfilePage, {
-                    profileScreens = v7.Screens, 
-                    navigateToEditUsername = function(v12) --[[ Line: 29 ]] --[[ Name: navigateToEditUsername ]]
-                        -- upvalues: v11 (ref), v6 (ref)
-                        v11.navigateTo.editUsername({
-                            showToast = v12, 
-                            onUsernameChanged = function() --[[ Line: 32 ]] --[[ Name: onUsernameChanged ]]
-                                -- upvalues: v11 (ref), v6 (ref)
-                                v11.dispatch(v6(v11.profileId));
-                            end
-                        });
-                    end, 
-                    onIdentityChange = function() --[[ Line: 37 ]] --[[ Name: onIdentityChange ]]
-                        -- upvalues: v11 (ref), v6 (ref)
-                        v11.dispatch(v6(v11.profileId));
-                    end, 
-                    onToggleInExperienceMode = l_FFlagMoveInExperienceModeToEditProfile_0 and function() --[[ Line: 41 ]]
-                        -- upvalues: v11 (ref), v6 (ref), v9 (ref)
-                        v11.dispatch(v6(v11.profileId));
-                        v11.analytics.fireAnalyticsEvent(v9.ToggleInExperienceModeButton, {});
-                    end or nil
-                });
-            end
-        };
-    end
-};
+	[Enums.ProfileActions.EditProfile] = function(p1) -- line: 19
+		-- upvalues: ButtonVariant (copy), Enums (copy), ProfileTypes (copy), SocialStopwatch (copy), EventNames (copy), refreshProfilePlatformUserInfo (copy), FFlagMoveInExperienceModeToEditProfile (copy)
+		return {
+			variant = ButtonVariant.Standard,
+			text = p1.localized[Enums.ProfileActions.EditProfile],
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 24
+					-- upvalues: SocialStopwatch (copy), p1 (copy), EventNames (copy), Enums (copy), refreshProfilePlatformUserInfo (copy), FFlagMoveInExperienceModeToEditProfile (copy)
+					SocialStopwatch.Stopwatch.start(SocialStopwatch.Events.EditProfileOpened)
+					p1.analytics.fireAnalyticsEvent(EventNames.CTAButtonOpenEditProfilePage, {
+						buttonSurface = p1.buttonSurface
+					})
+					p1.navigation.navigate(Enums.Screens.EditProfilePage, {
+						profileScreens = Enums.Screens,
+						navigateToEditUsername = function(p2) --[[ navigateToEditUsername ]] -- line: 31
+							-- upvalues: p1 (copy), refreshProfilePlatformUserInfo (copy)
+							p1.navigateTo.editUsername({
+								showToast = p2,
+								onUsernameChanged = function() --[[ onUsernameChanged ]] -- line: 34
+									-- upvalues: p1 (copy), refreshProfilePlatformUserInfo (copy)
+									p1.dispatch(refreshProfilePlatformUserInfo(p1.profileId))
+								end
+							})
+						end,
+						onIdentityChange = function() --[[ onIdentityChange ]] -- line: 39
+							-- upvalues: p1 (copy), refreshProfilePlatformUserInfo (copy)
+							p1.dispatch(refreshProfilePlatformUserInfo(p1.profileId))
+						end,
+						onToggleInExperienceMode = if not FFlagMoveInExperienceModeToEditProfile then nil else function() -- line: 43
+							-- upvalues: p1 (copy), refreshProfilePlatformUserInfo (copy), EventNames (copy)
+							p1.dispatch(refreshProfilePlatformUserInfo(p1.profileId))
+							p1.analytics.fireAnalyticsEvent(EventNames.ToggleInExperienceModeButton, {})
+						end
+					})
+				end
+			}
+		}
+	end
+}

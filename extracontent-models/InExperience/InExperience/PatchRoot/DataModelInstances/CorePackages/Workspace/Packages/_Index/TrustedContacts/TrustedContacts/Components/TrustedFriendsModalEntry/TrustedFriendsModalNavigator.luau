@@ -1,36 +1,68 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("TrustedContacts");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.RoactNavigation);
-local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-return (v2.createRobloxStackNavigator({
-    {
-        [l_AppPage_0.TrustedFriendsUserModal] = {
-            getScreen = function() --[[ Line: 11 ]] --[[ Name: getScreen ]]
-                -- upvalues: l_script_FirstAncestor_0 (copy)
-                return require(l_script_FirstAncestor_0.Components.TrustedContactsModal).Screen;
-            end, 
-            navigationOptions = {
-                renderUnderlyingPage = true, 
-                disableBackButton = true, 
-                overlayEnabled = true
-            }
-        }
-    }, 
-    {
-        [l_AppPage_0.TrustedFriendsVPCPrologue] = {
-            getScreen = function() --[[ Line: 23 ]] --[[ Name: getScreen ]]
-                -- upvalues: l_script_FirstAncestor_0 (copy)
-                return require(l_script_FirstAncestor_0.Components.TrustedFriendsVPCPrologue).Screen;
-            end, 
-            navigationOptions = {
-                renderUnderlyingPage = true, 
-                disableBackButton = true, 
-                overlayEnabled = true
-            }
-        }
-    }
-}, {
-    initialRouteName = l_AppPage_0.TrustedFriendsUserModal, 
-    keepVisitedScreensMounted = false, 
-    backBehavior = v2.BackBehavior.History
-}));
+local TrustedContacts = script:FindFirstAncestor("TrustedContacts")
+local TrustedContactsParent = TrustedContacts.Parent
+local RoactNavigation = require(TrustedContactsParent.RoactNavigation)
+local AppPage = require(TrustedContactsParent.RobloxAppEnums).AppPage
+local FFlagTCWithAgePrecheck = require(TrustedContactsParent.SharedFlags).FFlagTCWithAgePrecheck
+local t1 = {
+	{
+		[AppPage.TrustedFriendsUserModal] = {
+			getScreen = function() --[[ getScreen ]] -- line: 17
+				-- upvalues: TrustedContacts (copy)
+				return require(TrustedContacts.Components.TrustedContactsModal).Screen
+			end,
+			navigationOptions = {
+				renderUnderlyingPage = true,
+				disableBackButton = true,
+				overlayEnabled = true
+			}
+		}
+	},
+	{
+		[AppPage.TrustedFriendsVPCPrologue] = {
+			getScreen = function() --[[ getScreen ]] -- line: 29
+				-- upvalues: TrustedContacts (copy)
+				return require(TrustedContacts.Components.TrustedFriendsVPCPrologue).Screen
+			end,
+			navigationOptions = {
+				renderUnderlyingPage = true,
+				disableBackButton = true,
+				overlayEnabled = true
+			}
+		}
+	}
+}
+
+if FFlagTCWithAgePrecheck then
+	table.insert(t1, {
+		[AppPage.TrustedFriendsAgeCheckPrologue] = {
+			getScreen = function() --[[ getScreen ]] -- line: 44
+				-- upvalues: TrustedContacts (copy)
+				return require(TrustedContacts.Components.TrustedFriendsAgeCheckPrologue).Screen
+			end,
+			navigationOptions = {
+				renderUnderlyingPage = true,
+				disableBackButton = true,
+				overlayEnabled = true
+			}
+		}
+	})
+	table.insert(t1, {
+		[AppPage.TrustedFriendsPreChecksErrorModal] = {
+			getScreen = function() --[[ getScreen ]] -- line: 56
+				-- upvalues: TrustedContacts (copy)
+				return require(TrustedContacts.Components.TrustedFriendsPreChecksErrorModal).Screen
+			end,
+			navigationOptions = {
+				renderUnderlyingPage = true,
+				disableBackButton = true,
+				overlayEnabled = true
+			}
+		}
+	})
+end
+
+return (RoactNavigation.createRobloxStackNavigator(t1, {
+	initialRouteName = AppPage.TrustedFriendsUserModal,
+	keepVisitedScreensMounted = false,
+	backBehavior = RoactNavigation.BackBehavior.History
+}))

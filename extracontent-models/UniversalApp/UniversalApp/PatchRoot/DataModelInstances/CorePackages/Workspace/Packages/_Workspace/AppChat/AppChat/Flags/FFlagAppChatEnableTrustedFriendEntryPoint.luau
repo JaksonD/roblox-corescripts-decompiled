@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AppChatEnableTrustedFriendEntryPoint", false);
+return game:DefineFastFlag("AppChatEnableTrustedFriendEntryPointV6", false)

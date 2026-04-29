@@ -1,3 +1,6 @@
-local l_game_EngineFeature_0 = game:GetEngineFeature("EnableInExpChatSummary2");
-local v1 = game:DefineFastFlag("EnableInExpChatSummaryOnLua4", false);
-return l_game_EngineFeature_0 and v1;
+local Parent = script:FindFirstAncestor("ExpChat").Parent
+local FFlagEnableClientSummarySystemMessageOnLua = require(Parent.SharedFlags).FFlagEnableClientSummarySystemMessageOnLua
+local EngineFeature = game:GetEngineFeature("EnableInExpChatSummary2")
+local v4 = game:DefineFastFlag("EnableInExpChatSummaryOnLua4", false)
+
+return EngineFeature and (v4 or FFlagEnableClientSummarySystemMessageOnLua)

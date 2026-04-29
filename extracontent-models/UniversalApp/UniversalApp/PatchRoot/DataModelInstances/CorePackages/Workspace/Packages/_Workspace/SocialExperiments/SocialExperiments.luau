@@ -1,17 +1,16 @@
 return {
-    ExpChatNewHiddenMessagesExperimentation = require(script.ExpChatNewHiddenMessagesExperimentation), 
-    QueueExperimentation = require(script.QueueExperimentation), 
-    ScheduledSquadsListExperimentation = require(script.ScheduledSquadsListExperimentation), 
-    SquadCoordinationExperienceJoinExperimentation = require(script.SquadCoordinationExperienceJoinExperimentation), 
-    SquadCoordinationUIChangesExperimentation = require(script.SquadCoordinationUIChangesExperimentation), 
-    SquadUnifyCoplayExperimentation = require(script.SquadUnifyCoplayExperimentation), 
-    SquadQuickStartExperimentation = require(script.SquadQuickStartExperimentation), 
-    SquadRegroupExperimentation = require(script.SquadRegroupExperimentation), 
-    AppChatPerfExperimentation = require(script.AppChatPerfExperimentation), 
-    PartyPageCarouselExperimentation = require(script.PartyPageCarouselExperimentation), 
-    ScheduledPartiesExperimentation = require(script.ScheduledPartiesExperimentation), 
-    deviceMeetsRequirementsForFAE = require(script.DeviceMeetsRequirementsForFAE), 
-    FFlagTestDeviceForFAEUpsell = require(script.FFlagTestDeviceForFAEUpsell), 
-    GetIsDeviceGated = require(script.GetIsDeviceGated), 
-    DeviceGateFeature = require(script.DeviceGateFeature)
-};
+	QueueExperimentation = require(script.QueueExperimentation),
+	ScheduledSquadsListExperimentation = require(script.ScheduledSquadsListExperimentation),
+	SquadCoordinationExperienceJoinExperimentation = require(script.SquadCoordinationExperienceJoinExperimentation),
+	SquadCoordinationUIChangesExperimentation = require(script.SquadCoordinationUIChangesExperimentation),
+	SquadUnifyCoplayExperimentation = require(script.SquadUnifyCoplayExperimentation),
+	SquadQuickStartExperimentation = require(script.SquadQuickStartExperimentation),
+	SquadRegroupExperimentation = require(script.SquadRegroupExperimentation),
+	AppChatPerfExperimentation = require(script.AppChatPerfExperimentation),
+	PartyPageCarouselExperimentation = require(script.PartyPageCarouselExperimentation),
+	ScheduledPartiesExperimentation = require(script.ScheduledPartiesExperimentation),
+	deviceMeetsRequirementsForFAE = require(script.DeviceMeetsRequirementsForFAE),
+	FFlagTestDeviceForFAEUpsell = require(script.FFlagTestDeviceForFAEUpsell),
+	GetIsDeviceGated = require(script.GetIsDeviceGated),
+	DeviceGateFeature = require(script.DeviceGateFeature)
+}

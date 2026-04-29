@@ -1,140 +1,167 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_script_FirstAncestor_0.Common.Enums);
-local v3 = require(l_Parent_0.EditProfile);
-local v4 = require(l_Parent_0.SetAlias);
-local v5 = require(l_script_FirstAncestor_0.Components.ProfileContextualMenu);
-local l_EditProfilePage_0 = v3.EditProfilePage;
-local l_EditProfileLanding_0 = v3.EditProfileLanding;
-local l_EditDisplayNameModal_0 = v3.EditDisplayNameModal;
-local l_EditDisplayNameErrorModal_0 = v3.EditDisplayNameErrorModal;
-local l_UsernameInsufficientFundsModal_0 = v3.UsernameInsufficientFundsModal;
-local l_EditDescriptionModal_0 = v3.EditDescriptionModal;
-local l_Enums_0 = v3.Enums;
-local v13 = require(l_script_FirstAncestor_0.Components.ProfilePlatformViewAdaptor);
-local v14 = require(l_script_FirstAncestor_0.Components.Videos.VideoFullscreenPage);
-local l_SetAliasModal_0 = v4.SetAliasModal;
-local l_EditProfileScreenViewAdapter_0 = v3.EditProfileScreenViewAdapter;
-local l_EditProfileToastScreen_0 = v3.EditProfileToastScreen;
-local v18 = require(l_script_FirstAncestor_0.Components.EditProfileBackgroundContainer);
-local v19 = require(l_script_FirstAncestor_0.Components.CommunityVerificationModal);
-local v20 = require(l_Parent_0.RoactNavigation);
-local l_FFlagAddVideoToCommunityProfile_0 = require(l_Parent_0.SharedFlags).FFlagAddVideoToCommunityProfile;
-local l_FFlagEditProfileBackgroundEnabled_0 = require(l_Parent_0.SharedFlags).FFlagEditProfileBackgroundEnabled;
-local v23 = require(l_script_FirstAncestor_0.Flags.FFlagEnableCommunityVerificationModal);
-local l_FFlagEditProfileMigration_0 = v3.Flags.FFlagEditProfileMigration;
-local v25 = {
-    overlayEnabled = true, 
-    overlayTransparency = 0.5, 
-    absorbInput = true
-};
-local v26 = {
-    {
-        [v2.Screens.ProfileMain] = v13
-    }, 
-    {
-        [v2.Screens.EditProfilePage] = {
-            screen = if l_FFlagEditProfileMigration_0 then l_EditProfileLanding_0 else l_EditProfilePage_0, 
-            navigationOptions = v25
-        }
-    }, 
-    {
-        [v2.Screens.EditDisplayNameModal] = {
-            screen = l_EditDisplayNameModal_0, 
-            navigationOptions = v25
-        }
-    }, 
-    {
-        [v2.Screens.EditDescriptionModal] = {
-            screen = l_EditDescriptionModal_0, 
-            navigationOptions = v25
-        }
-    }, 
-    {
-        [v2.Screens.EditDisplayNameErrorModal] = {
-            screen = l_EditDisplayNameErrorModal_0, 
-            navigationOptions = v25
-        }
-    }, 
-    {
-        [v2.Screens.UsernameInsufficientFundsModal] = {
-            screen = l_UsernameInsufficientFundsModal_0, 
-            navigationOptions = v25
-        }
-    }, 
-    {
-        [v2.Screens.SetAliasModal] = {
-            screen = l_SetAliasModal_0, 
-            navigationOptions = v25
-        }
-    }, 
-    {
-        [v2.Screens.ContextualMenu] = {
-            screen = v5, 
-            navigationOptions = {
-                overlayEnabled = true, 
-                overlayTransparency = 1, 
-                absorbInput = false
-            }
-        }
-    }
-};
-if l_FFlagAddVideoToCommunityProfile_0 then
-    table.insert(v26, {
-        [v2.Screens.VideoFullscreen] = {
-            screen = v14, 
-            navigationOptions = v25
-        }
-    });
-end;
-if v23 then
-    table.insert(v26, {
-        [v2.Screens.CommunityVerificationModal] = {
-            screen = v19, 
-            navigationOptions = v25
-        }
-    });
-end;
-if l_FFlagEditProfileBackgroundEnabled_0 then
-    table.insert(v26, {
-        [v2.Screens.EditProfileBackground] = {
-            screen = v18, 
-            navigationOptions = {
-                overlayEnabled = false, 
-                absorbInput = true, 
-                renderUnderlyingPage = true
-            }
-        }
-    });
-end;
-if l_FFlagEditProfileMigration_0 then
-    table.insert(v26, {
-        [l_Enums_0.Screens.EditProfileSubScreen] = {
-            screen = l_EditProfileScreenViewAdapter_0, 
-            navigationOptions = {
-                overlayEnabled = true, 
-                overlayTransparency = 0.5, 
-                absorbInput = false
-            }
-        }
-    });
-    table.insert(v26, {
-        [l_Enums_0.Screens.EditProfileToast] = {
-            screen = l_EditProfileToastScreen_0, 
-            navigationOptions = {
-                overlayEnabled = true, 
-                overlayTransparency = 1, 
-                absorbInput = false
-            }
-        }
-    });
-end;
-return (v20.createRobloxStackNavigator(v26, {
-    defaultNavigationOptions = {
-        overlayEnabled = true, 
-        absorbInput = true, 
-        overlayTransparency = 1, 
-        disableBackButton = true
-    }, 
-    mode = v20.StackPresentationStyle.Overlay
-}));
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local Enums = require(ProfilePlatform.Common.Enums)
+local EditProfile = require(ProfilePlatformParent.EditProfile)
+local SetAlias = require(ProfilePlatformParent.SetAlias)
+local ProfileContextualMenu = require(ProfilePlatform.Components.ProfileContextualMenu)
+local EditProfilePage = EditProfile.EditProfilePage
+local EditProfileLanding = EditProfile.EditProfileLanding
+local EditDisplayNameModal = EditProfile.EditDisplayNameModal
+local EditDisplayNameErrorModal = EditProfile.EditDisplayNameErrorModal
+local UsernameInsufficientFundsModal = EditProfile.UsernameInsufficientFundsModal
+local EditDescriptionModal = EditProfile.EditDescriptionModal
+local Enums2 = EditProfile.Enums
+local ProfilePlatformViewAdaptor = require(ProfilePlatform.Components.ProfilePlatformViewAdaptor)
+local VideoFullscreenPage = require(ProfilePlatform.Components.Videos.VideoFullscreenPage)
+local SetAliasModal = SetAlias.SetAliasModal
+local EditProfileScreenViewAdapter = EditProfile.EditProfileScreenViewAdapter
+local EditProfileToastScreen = EditProfile.EditProfileToastScreen
+local EditProfileBackgroundContainer = require(ProfilePlatform.Components.EditProfileBackgroundContainer)
+local CommunityVerificationModal = require(ProfilePlatform.Components.CommunityVerificationModal)
+local InspectAvatarSheetContainer = require(ProfilePlatform.Components.InspectAvatar.InspectAvatarSheetContainer)
+local PurchaseConfirmationModal = require(ProfilePlatform.Components.InspectAvatar.PurchaseConfirmationModal)
+local FFlagSocialEnableProfileInspectAndBuy = require(ProfilePlatformParent.SharedFlags).FFlagSocialEnableProfileInspectAndBuy
+local RoactNavigation = require(ProfilePlatformParent.RoactNavigation)
+local FFlagAddVideoToCommunityProfile = require(ProfilePlatformParent.SharedFlags).FFlagAddVideoToCommunityProfile
+local FFlagEditProfileBackgroundEnabled = require(ProfilePlatformParent.SharedFlags).FFlagEditProfileBackgroundEnabled
+local FFlagEnableCommunityVerificationModal = require(ProfilePlatform.Flags.FFlagEnableCommunityVerificationModal)
+local FFlagEditProfileMigration = EditProfile.Flags.FFlagEditProfileMigration
+local t1 = {
+	overlayEnabled = true,
+	overlayTransparency = 0.5,
+	absorbInput = true
+}
+local t2 = {
+	{
+		[Enums.Screens.ProfileMain] = ProfilePlatformViewAdaptor
+	},
+	{
+		[Enums.Screens.EditProfilePage] = {
+			screen = if not FFlagEditProfileMigration then EditProfilePage else EditProfileLanding,
+			navigationOptions = t1
+		}
+	},
+	{
+		[Enums.Screens.EditDisplayNameModal] = {
+			screen = EditDisplayNameModal,
+			navigationOptions = t1
+		}
+	},
+	{
+		[Enums.Screens.EditDescriptionModal] = {
+			screen = EditDescriptionModal,
+			navigationOptions = t1
+		}
+	},
+	{
+		[Enums.Screens.EditDisplayNameErrorModal] = {
+			screen = EditDisplayNameErrorModal,
+			navigationOptions = t1
+		}
+	},
+	{
+		[Enums.Screens.UsernameInsufficientFundsModal] = {
+			screen = UsernameInsufficientFundsModal,
+			navigationOptions = t1
+		}
+	},
+	{
+		[Enums.Screens.SetAliasModal] = {
+			screen = SetAliasModal,
+			navigationOptions = t1
+		}
+	},
+	{
+		[Enums.Screens.ContextualMenu] = {
+			screen = ProfileContextualMenu,
+			navigationOptions = {
+				overlayEnabled = true,
+				overlayTransparency = 1,
+				absorbInput = false
+			}
+		}
+	}
+}
+
+if FFlagAddVideoToCommunityProfile then
+	table.insert(t2, {
+		[Enums.Screens.VideoFullscreen] = {
+			screen = VideoFullscreenPage,
+			navigationOptions = t1
+		}
+	})
+end
+
+if FFlagEnableCommunityVerificationModal then
+	table.insert(t2, {
+		[Enums.Screens.CommunityVerificationModal] = {
+			screen = CommunityVerificationModal,
+			navigationOptions = t1
+		}
+	})
+end
+
+if FFlagEditProfileBackgroundEnabled then
+	table.insert(t2, {
+		[Enums.Screens.EditProfileBackground] = {
+			screen = EditProfileBackgroundContainer,
+			navigationOptions = {
+				overlayEnabled = false,
+				absorbInput = true,
+				renderUnderlyingPage = true
+			}
+		}
+	})
+end
+
+if FFlagEditProfileMigration then
+	table.insert(t2, {
+		[Enums2.Screens.EditProfileSubScreen] = {
+			screen = EditProfileScreenViewAdapter,
+			navigationOptions = {
+				overlayEnabled = true,
+				overlayTransparency = 0.5,
+				absorbInput = false
+			}
+		}
+	})
+	table.insert(t2, {
+		[Enums2.Screens.EditProfileToast] = {
+			screen = EditProfileToastScreen,
+			navigationOptions = {
+				overlayEnabled = true,
+				overlayTransparency = 1,
+				absorbInput = false
+			}
+		}
+	})
+end
+
+if FFlagSocialEnableProfileInspectAndBuy then
+	table.insert(t2, {
+		[Enums.Screens.InspectAvatarSheet] = {
+			screen = InspectAvatarSheetContainer,
+			navigationOptions = {
+				overlayEnabled = true,
+				overlayTransparency = 1,
+				absorbInput = true
+			}
+		}
+	})
+	table.insert(t2, {
+		[Enums.Screens.PurchaseConfirmationModal] = {
+			screen = PurchaseConfirmationModal,
+			navigationOptions = t1
+		}
+	})
+end
+
+return (RoactNavigation.createRobloxStackNavigator(t2, {
+	defaultNavigationOptions = {
+		overlayEnabled = true,
+		absorbInput = true,
+		overlayTransparency = 1,
+		disableBackButton = true
+	},
+	mode = RoactNavigation.StackPresentationStyle.Overlay
+}))

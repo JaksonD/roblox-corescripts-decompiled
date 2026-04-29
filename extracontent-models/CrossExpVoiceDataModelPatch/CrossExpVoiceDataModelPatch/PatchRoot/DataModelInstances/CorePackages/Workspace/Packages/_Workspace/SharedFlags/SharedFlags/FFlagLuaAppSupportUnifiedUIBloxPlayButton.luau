@@ -1,1 +1,1 @@
-return game:DefineFastFlag("LuaAppSupportUnifiedUIBloxPlayButton", false);
+return game:DefineFastFlag("LuaAppSupportUnifiedUIBloxPlayButton2", false)

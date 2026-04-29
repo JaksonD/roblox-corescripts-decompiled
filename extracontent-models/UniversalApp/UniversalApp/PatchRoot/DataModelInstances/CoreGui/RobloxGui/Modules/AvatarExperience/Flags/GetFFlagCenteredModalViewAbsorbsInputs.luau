@@ -1,4 +1,0 @@
-game:DefineFastFlag("CenteredModalViewAbsorbsInputs", false);
-return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("CenteredModalViewAbsorbsInputs");
-end;

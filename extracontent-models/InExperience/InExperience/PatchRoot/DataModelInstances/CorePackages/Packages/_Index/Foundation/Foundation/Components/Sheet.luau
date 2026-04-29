@@ -1,10 +1,14 @@
-local _ = require(script.Types);
-local v1 = require(script.Actions);
-local v2 = require(script.Content);
-local v3 = require(script.Header);
+require(script.Types)
+
+local Actions = require(script.Actions)
+local Content = require(script.Content)
+local FullBleed = require(script.FullBleed)
+local Header = require(script.Header)
+
 return {
-    Root = require(script.Sheet), 
-    Actions = v1, 
-    Content = v2, 
-    Header = v3
-};
+	Root = require(script.Sheet),
+	Actions = Actions,
+	Content = Content,
+	FullBleed = FullBleed,
+	Header = Header
+}

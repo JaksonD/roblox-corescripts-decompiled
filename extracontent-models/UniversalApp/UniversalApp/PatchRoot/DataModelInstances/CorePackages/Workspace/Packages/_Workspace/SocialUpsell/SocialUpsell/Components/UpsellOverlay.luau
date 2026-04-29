@@ -1,259 +1,277 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SocialUpsell");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Foundation);
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.Responsive);
-local v5 = require(l_Parent_0.AppBlox);
-local v6 = require(l_Parent_0.Display);
-local v7 = require(l_Parent_0.SignalsReact);
-local v8 = require(l_Parent_0.ReactFocusNavigation);
-local v9 = require(l_Parent_0.ReactUtils);
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local l_useSelector_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useSelector;
-local l_HttpService_0 = game:GetService("HttpService");
-local l_FFlagEnableSocialUpsellUIFixes_0 = require(l_Parent_0.SharedFlags).FFlagEnableSocialUpsellUIFixes;
-local l_FFlagEnableAEGIS2CommsFAEUpsell_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2CommsFAEUpsell;
-local v15 = require(l_script_FirstAncestor_0.Analytics.SocialUpsellAnalytics);
-local _ = require(l_script_FirstAncestor_0.Analytics.Enum.UpsellEntrySurfaceType);
-local v17 = require(l_script_FirstAncestor_0.Analytics.Enum.UpsellComponent);
-local _ = require(l_script_FirstAncestor_0.Enum.SocialUpsellType);
-local v19 = require(l_script_FirstAncestor_0.Constants);
-local v20 = require(l_Parent_0.SocialLuaAnalytics);
-local l_BannerBadge_0 = v5.BannerBadge;
-local l_EventTypes_0 = v20.Analytics.Enums.EventTypes;
-local v23 = require(l_script_FirstAncestor_0.Flag.FIntMaxDaysToShowCountDownLabel);
-local v24 = require(l_script_FirstAncestor_0.Flag.FIntMinDaysToShowCountdownLabel);
-local v25 = require(l_script_FirstAncestor_0.Hooks.useSocialUpsellOverlayController);
-local v26 = require(l_script_FirstAncestor_0.Flag.FFlagAddUpsellEntryComponentToAnalytics);
-local v27 = v4.BreakpointConfig.getMinHeightFor(v4.Keys.Medium);
-local v28 = if l_FFlagEnableSocialUpsellUIFixes_0 then l_BannerBadge_0 else v2.Badge;
-local l_BadgeVariant_0 = v2.Enums.BadgeVariant;
-local l_ButtonVariant_0 = v2.Enums.ButtonVariant;
-local l_Dialog_0 = v2.Dialog;
-local l_DialogSize_0 = v2.Enums.DialogSize;
-local l_IconName_0 = v2.Enums.IconName;
-local l_Text_0 = v2.Text;
-local l_View_0 = v2.View;
-local l_Image_0 = v2.Image;
-local l_useScaledValue_0 = v2.Hooks.useScaledValue;
-local v38 = {
-    isInExperience = true
-};
-local function v42(v39, v40) --[[ Line: 83 ]]
-    -- upvalues: v24 (copy), v23 (copy)
-    if not v39 or v39 == 0 then
-        return nil;
-    else
-        local v41 = math.floor((v39 - os.time()) / 86400);
-        if v41 < v24 or v23 < v41 then
-            return nil;
-        elseif v41 < 1 then
-            return v40.dayLeft;
-        else
-            return v40.daysLeft:gsub("{(.-)}", {
-                daysLeft = tostring(v41)
-            });
-        end;
-    end;
-end;
-local v43 = nil;
-if l_FFlagEnableAEGIS2CommsFAEUpsell_0 then
-    v43 = v6.GetDisplayStore(false).getViewportSize;
-end;
-return function(v44) --[[ Line: 111 ]]
-    -- upvalues: v38 (copy), v25 (copy), v3 (copy), l_useScaledValue_0 (copy), v8 (copy), v9 (copy), l_HttpService_0 (copy), v15 (copy), v17 (copy), l_useLocalization_0 (copy), v42 (copy), l_FFlagEnableAEGIS2CommsFAEUpsell_0 (copy), v7 (copy), v43 (ref), l_useSelector_0 (copy), v27 (copy), l_EventTypes_0 (copy), v26 (copy), v19 (copy), l_ButtonVariant_0 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), l_View_0 (copy), l_Image_0 (copy), v28 (copy), l_FFlagEnableSocialUpsellUIFixes_0 (copy), v2 (copy), l_IconName_0 (copy), l_BadgeVariant_0 (copy), l_Text_0 (copy)
-    local v45 = v44 or v38;
-    local v46 = v25(v45.isInExperience);
-    local v47 = v3.useRef(nil);
-    local v48 = Vector2.new(l_useScaledValue_0(320), l_useScaledValue_0(180));
-    local v49, v50 = v8.useDefaultFocusBehavior();
-    local v51 = v3.useRef(nil);
-    local v52 = v9.useComposedRef(v50, v51);
-    v3.useEffect(function() --[[ Line: 120 ]]
-        -- upvalues: v51 (copy)
-        if v51.current then
-            local l_FirstChildWhichIsA_0 = v51.current:FindFirstChildWhichIsA("ScrollingFrame", true);
-            if l_FirstChildWhichIsA_0 then
-                l_FirstChildWhichIsA_0.Selectable = false;
-            end;
-        end;
-    end, {});
-    local v54 = v3.useMemo(function() --[[ Line: 131 ]]
-        -- upvalues: v45 (copy), l_HttpService_0 (ref)
-        return v45.impressionId or l_HttpService_0:GenerateGUID(false);
-    end, {
-        v45.impressionId, 
-        v45.upsellEntrySurface, 
-        v45.upsellPurpose, 
-        v45.upsellEntryComponent
-    });
-    local v55 = v3.useMemo(function() --[[ Line: 142 ]]
-        -- upvalues: v15 (ref), v45 (copy), v17 (ref)
-        return v15.evaluateUpsellStage(v45.upsellEntrySurface, v17.Modal, v45.upsellEntryComponent);
-    end, {
-        v45.upsellEntrySurface, 
-        v45.upsellEntryComponent
-    });
-    local v56 = l_useLocalization_0({
-        daysLeft = "Feature.FAE.Label.DaysLeft", 
-        dayLeft = "Feature.FAE.Label.DayLeft"
-    });
-    local v57 = v3.useMemo(function() --[[ Line: 155 ]]
-        -- upvalues: v45 (copy), v42 (ref), v56 (copy)
-        if v45.countDownBadge then
-            return v42(v45.countDownBadge.deadlineUtcTimestamp, v56);
-        else
-            return nil;
-        end;
-    end, {
-        v45.countDownBadge, 
-        v56
-    });
-    local v58 = v3.useMemo(function() --[[ Line: 162 ]]
-        -- upvalues: v45 (copy), v57 (copy)
-        if v45.countDownBadge then
-            if v45.countDownBadge.text then
-                return v45.countDownBadge.text;
-            else
-                return v57;
-            end;
-        else
-            return nil;
-        end;
-    end, {
-        v57, 
-        v45.countDownBadge
-    });
-    local v60 = (if l_FFlagEnableAEGIS2CommsFAEUpsell_0 then v7.useSignalState(v43) else l_useSelector_0(function(v59) --[[ Line: 175 ]]
-        return v59.ScreenSize;
-    end)).Y >= v27;
-    v3.useEffect(function() --[[ Line: 183 ]]
-        -- upvalues: v54 (copy), v47 (copy), v15 (ref), l_EventTypes_0 (ref), v45 (copy), v55 (copy), v17 (ref), v26 (ref)
-        if v54 and v47.current ~= v54 then
-            v15.logUpsellEvent(l_EventTypes_0.SocialUpsellShown, {
-                upsellPurpose = v45.upsellPurpose, 
-                upsellEntrySurface = v45.upsellEntrySurface, 
-                upsellStage = v55, 
-                upsellImpressionId = v54, 
-                upsellComponent = v17.Modal, 
-                upsellEntryComponent = if v26 then v45.upsellEntryComponent else nil
-            });
-            v47.current = v54;
-        end;
-    end, {
-        v45.upsellEntrySurface, 
-        v45.upsellPurpose, 
-        v54, 
-        v55, 
-        if v26 then v45.upsellEntryComponent else nil
-    });
-    local v62 = v3.useCallback(function(v61) --[[ Line: 209 ]]
-        -- upvalues: v15 (ref), l_EventTypes_0 (ref), v45 (copy), v55 (copy), v54 (copy), v17 (ref), v26 (ref)
-        v15.logUpsellEvent(l_EventTypes_0.SocialUpsellButtonClick, {
-            upsellPurpose = v45.upsellPurpose, 
-            upsellEntrySurface = v45.upsellEntrySurface, 
-            upsellStage = v55, 
-            upsellImpressionId = v54, 
-            upsellComponent = v17.Modal, 
-            btn = v61, 
-            upsellEntryComponent = if v26 then v45.upsellEntryComponent else nil
-        });
-    end, {
-        v45.upsellEntrySurface, 
-        v45.upsellPurpose, 
-        v54, 
-        v55, 
-        if v26 then v45.upsellEntryComponent else nil
-    });
-    local v63 = v3.useCallback(function() --[[ Line: 233 ]]
-        -- upvalues: v62 (copy), v19 (ref), v45 (copy)
-        v62(v19.UPSELL_OVERLAY_BUTTON_ACTION.Primary);
-        v45.primaryAction.onActivated();
-    end, {
-        v45.primaryAction, 
-        v62
-    });
-    local v64 = v3.useCallback(function() --[[ Line: 245 ]]
-        -- upvalues: v62 (copy), v19 (ref), v46 (copy), v45 (copy)
-        v62(v19.UPSELL_OVERLAY_BUTTON_ACTION.Dismiss);
-        v46.closeSocialOverlay();
-        if v45.onClose then
-            v45.onClose();
-        end;
-    end, {
-        v62, 
-        v45.onClose, 
-        v46.closeSocialOverlay
-    });
-    local v66 = v3.useMemo(function() --[[ Line: 259 ]]
-        -- upvalues: v45 (copy), l_ButtonVariant_0 (ref), v63 (copy), v49 (copy)
-        local v65 = {};
-        table.insert(v65, {
-            text = v45.primaryAction.text, 
-            variant = l_ButtonVariant_0.Emphasis, 
-            onActivated = v63, 
-            ref = v49
-        });
-        return v65;
-    end, {
-        v63, 
-        v45.primaryAction, 
-        v49
-    });
-    return v3.createElement(l_Dialog_0.Root, {
-        size = l_DialogSize_0.Medium, 
-        hasBackdrop = true, 
-        closeOnClickOutside = true, 
-        onClose = v64, 
-        ref = v52
-    }, {
-        DialogContent = v3.createElement(l_Dialog_0.Content, {}, {
-            Content = v3.createElement(l_View_0, {
-                tag = "col auto-y size-full-0 gap-medium padding-top-xlarge", 
-                LayoutOrder = 1
-            }, {
-                Image = if v45.imageId and v60 then v3.createElement(l_Image_0, {
-                    tag = "size-full-full self-center content-emphasis", 
-                    Image = v45.imageId, 
-                    aspectRatio = 1.7777777777777777, 
-                    sizeConstraint = {
-                        MaxSize = v48
-                    }
-                }) else nil, 
-                Badge = if v58 then v3.createElement(v28, {
-                    LayoutOrder = 1, 
-                    icon = if l_FFlagEnableSocialUpsellUIFixes_0 then {
-                        variant = v2.Enums.IconVariant.Filled, 
-                        position = v2.Enums.IconPosition.Left, 
-                        name = l_IconName_0.Clock
-                    } else l_IconName_0.Clock, 
-                    text = v58, 
-                    variant = l_BadgeVariant_0.Neutral
-                }) else nil, 
-                TextContainer = v3.createElement(l_View_0, {
-                    tag = "col gap-medium size-full-0 auto-y padding-right-xxlarge padding-bottom-xsmall", 
-                    LayoutOrder = 2
-                }, {
-                    Title = if v45.title then v3.createElement(l_View_0, {
-                        tag = "size-full-0 auto-y", 
-                        LayoutOrder = 2
-                    }, {
-                        TitleText = v3.createElement(l_Text_0, {
-                            Text = v45.title, 
-                            tag = "size-full-0 auto-y content-emphasis text-wrap text-align-x-left text-heading-medium"
-                        })
-                    }) else nil, 
-                    BodyText = if v45.bodyText then v3.createElement(l_Text_0, {
-                        tag = "size-full-0 auto-y text-wrap text-align-x-left text-body-medium", 
-                        Text = v45.bodyText, 
-                        LayoutOrder = 3
-                    }) else nil
-                })
-            })
-        }), 
-        DialogActions = v3.createElement(l_Dialog_0.Actions, {
-            LayoutOrder = v58 and 3 or 4, 
-            actions = v66
-        })
-    });
-end;
+local SocialUpsell = script:FindFirstAncestor("SocialUpsell")
+local SocialUpsellParent = SocialUpsell.Parent
+local Foundation = require(SocialUpsellParent.Foundation)
+local React = require(SocialUpsellParent.React)
+local Responsive = require(SocialUpsellParent.Responsive)
+local AppBlox = require(SocialUpsellParent.AppBlox)
+local Display = require(SocialUpsellParent.Display)
+local SignalsReact = require(SocialUpsellParent.SignalsReact)
+local ReactFocusNavigation = require(SocialUpsellParent.ReactFocusNavigation)
+local ReactUtils = require(SocialUpsellParent.ReactUtils)
+local useLocalization = require(SocialUpsellParent.Localization).Hooks.useLocalization
+local useSelector = require(SocialUpsellParent.RoactUtils).Hooks.RoactRodux.useSelector
+local HttpService = game:GetService("HttpService")
+local FFlagEnableAEGIS2CommsFAEUpsell = require(SocialUpsellParent.SharedFlags).FFlagEnableAEGIS2CommsFAEUpsell
+local SocialUpsellAnalytics = require(SocialUpsell.Analytics.SocialUpsellAnalytics)
+
+require(SocialUpsell.Analytics.Enum.UpsellEntrySurfaceType)
+
+local UpsellComponent = require(SocialUpsell.Analytics.Enum.UpsellComponent)
+
+require(SocialUpsell.Enum.SocialUpsellType)
+
+local Constants = require(SocialUpsell.Constants)
+local SocialLuaAnalytics = require(SocialUpsellParent.SocialLuaAnalytics)
+local BannerBadge = AppBlox.BannerBadge
+local EventTypes = SocialLuaAnalytics.Analytics.Enums.EventTypes
+local FIntMaxDaysToShowCountDownLabel = require(SocialUpsell.Flag.FIntMaxDaysToShowCountDownLabel)
+local FIntMinDaysToShowCountdownLabel = require(SocialUpsell.Flag.FIntMinDaysToShowCountdownLabel)
+local useSocialUpsellOverlayController = require(SocialUpsell.Hooks.useSocialUpsellOverlayController)
+local FFlagAddUpsellEntryComponentToAnalytics = require(SocialUpsell.Flag.FFlagAddUpsellEntryComponentToAnalytics)
+local v25 = Responsive.BreakpointConfig.getMinHeightFor(Responsive.Keys.Medium)
+local BadgeVariant = Foundation.Enums.BadgeVariant
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local Dialog = Foundation.Dialog
+local DialogSize = Foundation.Enums.DialogSize
+local IconName = Foundation.Enums.IconName
+local FoundationText = Foundation.Text
+local View = Foundation.View
+local FoundationImage = Foundation.Image
+local useScaledValue = Foundation.Hooks.useScaledValue
+local t1 = {
+	isInExperience = true
+}
+
+local function v36(n1: number?, p1) -- line: 81
+	-- upvalues: FIntMinDaysToShowCountdownLabel (copy), FIntMaxDaysToShowCountDownLabel (copy)
+	if not n1 or n1 == 0 then
+		return nil
+	end
+
+	local v40 = math.floor((n1 - os.time()) / 86400)
+
+	if v40 < FIntMinDaysToShowCountdownLabel or v40 > FIntMaxDaysToShowCountDownLabel then
+		return nil
+	end
+
+	if v40 < 1 then
+		return p1.dayLeft
+	end
+
+	return p1.daysLeft:gsub("{(.-)}", {
+		daysLeft = tostring(v40)
+	})
+end
+
+local getViewportSize = nil
+
+if FFlagEnableAEGIS2CommsFAEUpsell then
+	getViewportSize = Display.GetDisplayStore(false).getViewportSize
+end
+
+return function(p2) -- line: 109
+	-- upvalues: t1 (copy), useSocialUpsellOverlayController (copy), React (copy), useScaledValue (copy), ReactFocusNavigation (copy), ReactUtils (copy), HttpService (copy), SocialUpsellAnalytics (copy), UpsellComponent (copy), useLocalization (copy), v36 (copy), FFlagEnableAEGIS2CommsFAEUpsell (copy), SignalsReact (copy), getViewportSize (ref), useSelector (copy), v25 (copy), EventTypes (copy), FFlagAddUpsellEntryComponentToAnalytics (copy), Constants (copy), ButtonVariant (copy), Dialog (copy), DialogSize (copy), View (copy), FoundationImage (copy), BannerBadge (copy), Foundation (copy), IconName (copy), BadgeVariant (copy), FoundationText (copy)
+	local v42 = p2 or t1
+	local v43 = useSocialUpsellOverlayController(v42.isInExperience)
+	local v44 = React.useRef(nil)
+	local vector2 = Vector2.new(useScaledValue(320), useScaledValue(180))
+	local v46, v47 = ReactFocusNavigation.useDefaultFocusBehavior()
+	local v48 = React.useRef(nil)
+	local v49 = ReactUtils.useComposedRef(v47, v48)
+
+	React.useEffect(function() -- line: 118
+		-- upvalues: v48 (copy)
+		if v48.current then
+			local ScrollingFrame = v48.current:FindFirstChildWhichIsA("ScrollingFrame", true)
+
+			if ScrollingFrame then
+				ScrollingFrame.Selectable = false
+			end
+		end
+	end, {})
+
+	local v50 = React.useMemo(function() -- line: 129
+		-- upvalues: v42 (copy), HttpService (copy)
+		return v42.impressionId or HttpService:GenerateGUID(false)
+	end, {
+		v42.impressionId,
+		v42.upsellEntrySurface,
+		v42.upsellPurpose,
+		v42.upsellEntryComponent
+	})
+	local v51 = React.useMemo(function() -- line: 140
+		-- upvalues: SocialUpsellAnalytics (copy), v42 (copy), UpsellComponent (copy)
+		return SocialUpsellAnalytics.evaluateUpsellStage(v42.upsellEntrySurface, UpsellComponent.Modal, v42.upsellEntryComponent)
+	end, {
+		v42.upsellEntrySurface,
+		v42.upsellEntryComponent
+	})
+	local v52 = useLocalization({
+		daysLeft = "Feature.FAE.Label.DaysLeft",
+		dayLeft = "Feature.FAE.Label.DayLeft"
+	})
+	local v53 = React.useMemo(function() -- line: 153
+		-- upvalues: v42 (copy), v36 (copy), v52 (copy)
+		if v42.countDownBadge then
+			return v36(v42.countDownBadge.deadlineUtcTimestamp, v52)
+		end
+
+		return nil
+	end, {
+		v42.countDownBadge,
+		v52
+	})
+	local v54 = React.useMemo(function() -- line: 160
+		-- upvalues: v42 (copy), v53 (copy)
+		if v42.countDownBadge then
+			if v42.countDownBadge.text then
+				return v42.countDownBadge.text
+			end
+
+			return v53
+		end
+
+		return nil
+	end, {
+		v53,
+		v42.countDownBadge
+	})
+	local v55 = ((if not FFlagEnableAEGIS2CommsFAEUpsell then useSelector(function(p3) -- line: 173
+		return p3.ScreenSize
+	end) else SignalsReact.useSignalState(getViewportSize))).Y >= v25
+
+	React.useEffect(function() -- line: 181
+		-- upvalues: v50 (copy), v44 (copy), SocialUpsellAnalytics (copy), EventTypes (copy), v42 (copy), v51 (copy), UpsellComponent (copy), FFlagAddUpsellEntryComponentToAnalytics (copy)
+		if v50 and v44.current ~= v50 then
+			SocialUpsellAnalytics.logUpsellEvent(EventTypes.SocialUpsellShown, {
+				upsellPurpose = v42.upsellPurpose,
+				upsellEntrySurface = v42.upsellEntrySurface,
+				upsellStage = v51,
+				upsellImpressionId = v50,
+				upsellComponent = UpsellComponent.Modal,
+				upsellEntryComponent = if not FFlagAddUpsellEntryComponentToAnalytics then nil else v42.upsellEntryComponent
+			})
+			v44.current = v50
+		end
+	end, {
+		v42.upsellEntrySurface,
+		v42.upsellPurpose,
+		v50,
+		v51,
+		if not FFlagAddUpsellEntryComponentToAnalytics then nil else v42.upsellEntryComponent
+	})
+
+	local v56 = React.useCallback(function(s1: string) -- line: 207
+		-- upvalues: SocialUpsellAnalytics (copy), EventTypes (copy), v42 (copy), v51 (copy), v50 (copy), UpsellComponent (copy), FFlagAddUpsellEntryComponentToAnalytics (copy)
+		SocialUpsellAnalytics.logUpsellEvent(EventTypes.SocialUpsellButtonClick, {
+			upsellPurpose = v42.upsellPurpose,
+			upsellEntrySurface = v42.upsellEntrySurface,
+			upsellStage = v51,
+			upsellImpressionId = v50,
+			upsellComponent = UpsellComponent.Modal,
+			btn = s1,
+			upsellEntryComponent = if not FFlagAddUpsellEntryComponentToAnalytics then nil else v42.upsellEntryComponent
+		})
+	end, {
+		v42.upsellEntrySurface,
+		v42.upsellPurpose,
+		v50,
+		v51,
+		if not FFlagAddUpsellEntryComponentToAnalytics then nil else v42.upsellEntryComponent
+	})
+	local v57 = React.useCallback(function() -- line: 231
+		-- upvalues: v56 (copy), Constants (copy), v42 (copy)
+		v56(Constants.UPSELL_OVERLAY_BUTTON_ACTION.Primary)
+		v42.primaryAction.onActivated()
+	end, {
+		v42.primaryAction,
+		v56
+	})
+	local v58 = React.useCallback(function() -- line: 243
+		-- upvalues: v56 (copy), Constants (copy), v43 (copy), v42 (copy)
+		v56(Constants.UPSELL_OVERLAY_BUTTON_ACTION.Dismiss)
+		v43.closeSocialOverlay()
+
+		if v42.onClose then
+			v42.onClose()
+		end
+	end, {
+		v56,
+		v42.onClose,
+		v43.closeSocialOverlay
+	})
+	local v59 = React.useMemo(function() -- line: 257
+		-- upvalues: v42 (copy), ButtonVariant (copy), v57 (copy), v46 (copy)
+		local t2 = {}
+
+		table.insert(t2, {
+			text = v42.primaryAction.text,
+			variant = ButtonVariant.Emphasis,
+			onActivated = v57,
+			ref = v46
+		})
+
+		return t2
+	end, {
+		v57,
+		v42.primaryAction,
+		v46
+	})
+
+	return React.createElement(Dialog.Root, {
+		size = DialogSize.Medium,
+		hasBackdrop = true,
+		closeOnClickOutside = true,
+		onClose = v58,
+		ref = v49
+	}, {
+		DialogContent = React.createElement(Dialog.Content, {}, {
+			Content = React.createElement(View, {
+				tag = "col auto-y size-full-0 gap-medium padding-top-xlarge",
+				LayoutOrder = 1
+			}, {
+				Image = if not v42.imageId or not v55 then nil else React.createElement(FoundationImage, {
+					tag = "size-full-full self-center content-emphasis",
+					Image = v42.imageId,
+					aspectRatio = 1.7777777777777777,
+					sizeConstraint = {
+						MaxSize = vector2
+					}
+				}),
+				Badge = if not v54 then nil else React.createElement(BannerBadge, {
+					LayoutOrder = 1,
+					icon = {
+						variant = Foundation.Enums.IconVariant.Filled,
+						position = Foundation.Enums.IconPosition.Left,
+						name = IconName.Clock
+					},
+					text = v54,
+					variant = BadgeVariant.Neutral
+				}),
+				TextContainer = React.createElement(View, {
+					tag = "col gap-medium size-full-0 auto-y padding-right-xxlarge padding-bottom-xsmall",
+					LayoutOrder = 2
+				}, {
+					Title = if not v42.title then nil else React.createElement(View, {
+						tag = "size-full-0 auto-y",
+						LayoutOrder = 2
+					}, {
+						TitleText = React.createElement(FoundationText, {
+							Text = v42.title,
+							tag = "size-full-0 auto-y content-emphasis text-wrap text-align-x-left text-heading-medium"
+						})
+					}),
+					BodyText = if not v42.bodyText then nil else React.createElement(FoundationText, {
+						tag = "size-full-0 auto-y text-wrap text-align-x-left text-body-medium",
+						Text = v42.bodyText,
+						LayoutOrder = 3
+					})
+				})
+			})
+		}),
+		DialogActions = React.createElement(Dialog.Actions, {
+			LayoutOrder = not v54 and 4 or 3,
+			actions = v59
+		})
+	})
+end

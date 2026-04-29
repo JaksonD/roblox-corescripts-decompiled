@@ -1,118 +1,121 @@
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_RunService_0 = game:GetService("RunService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_ContextActionService_0 = game:GetService("ContextActionService");
-local v4 = require(l_CorePackages_0.Packages.InGameMenuDependencies);
-local l_Roact_0 = v4.Roact;
-local l_t_0 = v4.t;
-local l_UIBlox_0 = v4.UIBlox;
-local l_EducationalModal_0 = l_UIBlox_0.App.Dialog.Modal.EducationalModal;
-local l_withStyle_0 = l_UIBlox_0.Core.Style.withStyle;
-local v10 = require(script.Parent.Parent.Flags.FFlagFixExitDialogBlockVRView);
-local v11 = l_Roact_0.PureComponent:extend("EducationalPopupDialog");
-v11.validateProps = l_t_0.strictInterface({
-    bodyContents = l_t_0.array(l_t_0.strictInterface({
-        icon = l_t_0.optional(l_t_0.union(l_t_0.string, l_t_0.table)), 
-        text = l_t_0.string, 
-        layoutOrder = l_t_0.optional(l_t_0.integer), 
-        isSystemMenuIcon = l_t_0.optional(l_t_0.boolean)
-    })), 
-    cancelText = l_t_0.string, 
-    confirmText = l_t_0.string, 
-    titleText = l_t_0.optional(l_t_0.string), 
-    titleBackgroundImageProps = l_t_0.strictInterface({
-        image = l_t_0.string, 
-        imageHeight = l_t_0.number, 
-        text = l_t_0.optional(l_t_0.string)
-    }), 
-    screenSize = l_t_0.Vector2, 
-    onDismiss = l_t_0.callback, 
-    onCancel = l_t_0.callback, 
-    onConfirm = l_t_0.callback, 
-    blurBackground = l_t_0.boolean, 
-    visible = l_t_0.boolean
-});
+local CoreGui = game:GetService("CoreGui")
+local RunService = game:GetService("RunService")
+local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
+local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
+local Roact = InGameMenuDependencies.Roact
+local t = InGameMenuDependencies.t
+local UIBlox = InGameMenuDependencies.UIBlox
+local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
+local withStyle = UIBlox.Core.Style.withStyle
+local v11 = Roact.PureComponent:extend("EducationalPopupDialog")
+
+v11.validateProps = t.strictInterface({
+	bodyContents = t.array(t.strictInterface({
+		icon = t.optional(t.union(t.string, t.table)),
+		text = t.string,
+		layoutOrder = t.optional(t.integer),
+		isSystemMenuIcon = t.optional(t.boolean)
+	})),
+	cancelText = t.string,
+	confirmText = t.string,
+	titleText = t.optional(t.string),
+	titleBackgroundImageProps = t.strictInterface({
+		image = t.string,
+		imageHeight = t.number,
+		text = t.optional(t.string)
+	}),
+	screenSize = t.Vector2,
+	onDismiss = t.callback,
+	onCancel = t.callback,
+	onConfirm = t.callback,
+	blurBackground = t.boolean,
+	visible = t.boolean
+})
 v11.defaultProps = {
-    blurBackground = false
-};
-v11.render = function(v12) --[[ Line: 49 ]] --[[ Name: render ]]
-    -- upvalues: l_withStyle_0 (copy), l_Roact_0 (copy), l_CoreGui_0 (copy), l_EducationalModal_0 (copy)
-    return l_withStyle_0(function(v13) --[[ Line: 50 ]]
-        -- upvalues: l_Roact_0 (ref), l_CoreGui_0 (ref), v12 (copy), l_EducationalModal_0 (ref)
-        return l_Roact_0.createElement(l_Roact_0.Portal, {
-            target = l_CoreGui_0
-        }, {
-            InGameMenuEducationalPopupDialog = l_Roact_0.createElement("ScreenGui", {
-                IgnoreGuiInset = true, 
-                OnTopOfCoreBlur = v12.props.blurBackground, 
-                Enabled = v12.props.visible, 
-                ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-            }, {
-                Overlay = l_Roact_0.createElement("TextButton", {
-                    AutoButtonColor = false, 
-                    BackgroundColor3 = v13.Theme.Overlay.Color, 
-                    BackgroundTransparency = v13.Theme.Overlay.Transparency, 
-                    BorderSizePixel = 0, 
-                    Size = UDim2.fromScale(1, 1), 
-                    Text = ""
-                }), 
-                Popup = l_Roact_0.createElement(l_EducationalModal_0, {
-                    bodyContents = v12.props.bodyContents, 
-                    cancelText = v12.props.cancelText, 
-                    confirmText = v12.props.confirmText, 
-                    titleText = v12.props.titleText, 
-                    titleBackgroundImageProps = v12.props.titleBackgroundImageProps, 
-                    screenSize = v12.props.screenSize, 
-                    onDismiss = v12.props.onDismiss, 
-                    onCancel = v12.props.onCancel, 
-                    onConfirm = v12.props.onConfirm
-                })
-            })
-        });
-    end);
-end;
-v11.bindActions = function(v14) --[[ Line: 85 ]] --[[ Name: bindActions ]]
-    -- upvalues: l_ContextActionService_0 (copy)
-    l_ContextActionService_0:BindCoreAction("EducationalPopupConfirm", function(_, v16, _) --[[ Line: 86 ]] --[[ Name: dismissFunc ]]
-        -- upvalues: v14 (copy)
-        if v16 == Enum.UserInputState.Begin then
-            v14.props.onDismiss();
-        end;
-    end, false, Enum.KeyCode.Escape);
-end;
-v11.unbindActions = function(_) --[[ Line: 95 ]] --[[ Name: unbindActions ]]
-    -- upvalues: l_ContextActionService_0 (copy)
-    l_ContextActionService_0:UnbindCoreAction("EducationalPopupConfirm");
-end;
-v11.updateBlur = function(v19) --[[ Line: 99 ]] --[[ Name: updateBlur ]]
-    -- upvalues: v10 (copy), l_RunService_0 (copy)
-    local v20 = v19.props.blurBackground and v19.props.visible;
-    if v10 then
-        v20 = v20 and not game:GetService("VRService").VREnabled;
-    end;
-    l_RunService_0:SetRobloxGuiFocused(v20);
-end;
-v11.didMount = function(v21) --[[ Line: 108 ]] --[[ Name: didMount ]]
-    v21:updateBlur();
-    if v21.props.visible then
-        v21:bindActions();
-    end;
-end;
-v11.didUpdate = function(v22) --[[ Line: 116 ]] --[[ Name: didUpdate ]]
-    v22:updateBlur();
-    if v22.props.visible then
-        v22:bindActions();
-        return;
-    else
-        v22:unbindActions();
-        return;
-    end;
-end;
-v11.willUnmount = function(v23) --[[ Line: 126 ]] --[[ Name: willUnmount ]]
-    -- upvalues: l_RunService_0 (copy)
-    if v23.props.blurBackground then
-        l_RunService_0:SetRobloxGuiFocused(false);
-    end;
-    v23:unbindActions();
-end;
-return v11;
+	blurBackground = false
+}
+
+function v11.render(p1) -- line: 47
+	-- upvalues: withStyle (copy), Roact (copy), CoreGui (copy), EducationalModal (copy)
+	return withStyle(function(p2) -- line: 48
+		-- upvalues: Roact (copy), CoreGui (copy), p1 (copy), EducationalModal (copy)
+		return Roact.createElement(Roact.Portal, {
+			target = CoreGui
+		}, {
+			InGameMenuEducationalPopupDialog = Roact.createElement("ScreenGui", {
+				IgnoreGuiInset = true,
+				OnTopOfCoreBlur = p1.props.blurBackground,
+				Enabled = p1.props.visible,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+			}, {
+				Overlay = Roact.createElement("TextButton", {
+					AutoButtonColor = false,
+					BackgroundColor3 = p2.Theme.Overlay.Color,
+					BackgroundTransparency = p2.Theme.Overlay.Transparency,
+					BorderSizePixel = 0,
+					Size = UDim2.fromScale(1, 1),
+					Text = ""
+				}),
+				Popup = Roact.createElement(EducationalModal, {
+					bodyContents = p1.props.bodyContents,
+					cancelText = p1.props.cancelText,
+					confirmText = p1.props.confirmText,
+					titleText = p1.props.titleText,
+					titleBackgroundImageProps = p1.props.titleBackgroundImageProps,
+					screenSize = p1.props.screenSize,
+					onDismiss = p1.props.onDismiss,
+					onCancel = p1.props.onCancel,
+					onConfirm = p1.props.onConfirm
+				})
+			})
+		})
+	end)
+end
+function v11.bindActions(p3) -- line: 83
+	-- upvalues: ContextActionService (copy)
+	ContextActionService:BindCoreAction("EducationalPopupConfirm", function(_, p5, _) --[[ dismissFunc ]] -- line: 84
+		-- upvalues: p3 (copy)
+		if p5 == Enum.UserInputState.Begin then
+			p3.props.onDismiss()
+		end
+	end, false, Enum.KeyCode.Escape)
+end
+function v11.unbindActions(_) -- line: 93
+	-- upvalues: ContextActionService (copy)
+	ContextActionService:UnbindCoreAction("EducationalPopupConfirm")
+end
+function v11.updateBlur(p8) -- line: 97
+	-- upvalues: RunService (copy)
+	local v16 = p8.props.blurBackground and p8.props.visible and not game:GetService("VRService").VREnabled
+
+	RunService:SetRobloxGuiFocused(v16)
+end
+function v11.didMount(p9) -- line: 104
+	p9:updateBlur()
+
+	if p9.props.visible then
+		p9:bindActions()
+	end
+end
+function v11.didUpdate(p10) -- line: 112
+	p10:updateBlur()
+
+	if p10.props.visible then
+		p10:bindActions()
+
+		return
+	end
+
+	p10:unbindActions()
+end
+function v11.willUnmount(p11) -- line: 122
+	-- upvalues: RunService (copy)
+	if p11.props.blurBackground then
+		RunService:SetRobloxGuiFocused(false)
+	end
+
+	p11:unbindActions()
+end
+
+return v11

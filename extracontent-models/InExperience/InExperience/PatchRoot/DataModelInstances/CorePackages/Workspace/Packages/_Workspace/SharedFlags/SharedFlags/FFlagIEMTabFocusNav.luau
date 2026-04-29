@@ -1,3 +1,4 @@
-local v0 = require(script.Parent.FFlagIEMFocusNavToButtons);
-local v1 = game:DefineFastFlag("IEMTabFocusNav", false);
-return v0 and v1;
+local FFlagIEMFocusNavToButtons = require(script.Parent.FFlagIEMFocusNavToButtons)
+local v2 = game:DefineFastFlag("IEMTabFocusNav2", false)
+
+return FFlagIEMFocusNavToButtons and v2

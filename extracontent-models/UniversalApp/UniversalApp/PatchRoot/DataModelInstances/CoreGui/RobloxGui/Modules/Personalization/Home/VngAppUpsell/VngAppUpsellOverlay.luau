@@ -1,130 +1,140 @@
-local l_GuiService_0 = game:GetService("GuiService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.React);
-local v3 = require(l_CorePackages_0.Packages.UIBlox);
-local l_useStyle_0 = v3.Core.Style.useStyle;
-local l_ButtonType_0 = v3.App.Button.Enum.ButtonType;
-local l_StyledTextLabel_0 = v3.App.Text.StyledTextLabel;
-local l_FullPageModal_0 = v3.App.Dialog.Modal.FullPageModal;
-local l_useLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).Hooks.useLocalization;
-local l_useRoactService_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useRoactService;
-local l_AppLinking_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppLinking;
-local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
-local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
-local l_CloseCentralOverlay_0 = require(l_CorePackages_0.Workspace.Packages.CentralOverlay).Thunks.CloseCentralOverlay;
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v16 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
-local v17 = game:DefineFastString("VngAppUpsellUrl", "https://www.roblox.com");
-local v18 = game:DefineFastString("VngAppUpsellProTipTextEn", "");
-local v19 = game:DefineFastString("VngAppUpsellProTipTextVn", "");
-return function(v20) --[[ Line: 32 ]] --[[ Name: VngAppUpsellOverlay ]]
-    -- upvalues: l_useStyle_0 (copy), l_useDesignTokens_0 (copy), l_useLocalization_0 (copy), l_useRoactService_0 (copy), l_AppLinking_0 (copy), l_useDispatch_0 (copy), l_useSelector_0 (copy), v2 (copy), l_CloseCentralOverlay_0 (copy), v16 (copy), v19 (copy), v18 (copy), l_GuiService_0 (copy), l_FullPageModal_0 (copy), l_ButtonType_0 (copy), v17 (copy), l_StyledTextLabel_0 (copy)
-    local v21 = l_useStyle_0();
-    local v22 = l_useDesignTokens_0();
-    local v23 = l_useLocalization_0({
-        vngUpsellTitle = "CommonUI.Features.Label.VNGMigrationTitle", 
-        vngUpsellBody = "CommonUI.Features.Label.VNGMigrationBody", 
-        vngUpsellProtip = "CommonUI.Features.Label.VNGMigrationTip", 
-        vngUpsellButtonText = "CommonUI.Features.Label.VNGMigrationGoButton"
-    });
-    local v24 = l_useRoactService_0(l_AppLinking_0);
-    local v25 = l_useDispatch_0();
-    local v27 = l_useSelector_0(function(v26) --[[ Line: 44 ]]
-        return v26.ScreenSize;
-    end);
-    local v28 = v2.useCallback(function() --[[ Line: 48 ]]
-        -- upvalues: v25 (copy), l_CloseCentralOverlay_0 (ref)
-        v25(l_CloseCentralOverlay_0());
-    end, {});
-    local l_vngUpsellProtip_0 = v23.vngUpsellProtip;
-    local l_Locale_0 = l_useRoactService_0(v16):GetLocale();
-    if v19 ~= "" and l_Locale_0 == "vi-vn" then
-        l_vngUpsellProtip_0 = v19;
-    elseif v18 ~= "" and l_Locale_0 == "en-us" then
-        l_vngUpsellProtip_0 = v18;
-    end;
-    local l_l_GuiService_0_SafeZoneOffsets_0 = l_GuiService_0:GetSafeZoneOffsets();
-    local l_Size_250_0 = v22.Global.Size_250;
-    local v33 = l_l_GuiService_0_SafeZoneOffsets_0.top + l_Size_250_0;
-    local v34 = l_Size_250_0 + 186 + v22.Global.Size_400;
-    return v2.createElement(l_FullPageModal_0, {
-        screenSize = v27, 
-        title = v23.vngUpsellTitle, 
-        distanceFromTop = v33, 
-        onCloseClicked = if v20.isDismissable then v28 else nil, 
-        buttonStackProps = {
-            buttons = {
-                {
-                    buttonType = l_ButtonType_0.PrimarySystem, 
-                    props = {
-                        onActivated = function() --[[ Line: 81 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v17 (ref), v24 (copy)
-                            v24:openURL(v17);
-                        end, 
-                        text = v23.vngUpsellButtonText
-                    }
-                }
-            }
-        }
-    }, {
-        ContentFrame = v2.createElement("ScrollingFrame", {
-            BackgroundTransparency = v21.Theme.BackgroundUIDefault.Transparency, 
-            BackgroundColor3 = v21.Theme.BackgroundUIDefault.Color, 
-            Size = UDim2.new(1, 0, 1, 0), 
-            Position = UDim2.new(0.5, 0, 0, 0), 
-            AnchorPoint = Vector2.new(0.5, 0), 
-            BorderSizePixel = 0, 
-            ScrollingDirection = Enum.ScrollingDirection.Y, 
-            ScrollBarThickness = 0, 
-            AutomaticCanvasSize = Enum.AutomaticSize.Y, 
-            CanvasSize = UDim2.new(1, 0, 0, 0)
-        }, {
-            VngIcon = v2.createElement("ImageLabel", {
-                Size = UDim2.new(0, 186, 0, 186), 
-                BackgroundTransparency = 1, 
-                Image = "rbxasset://textures/ui/LuaApp/icons/ic_launcher_vng_square_xxxhdpi.png", 
-                Position = UDim2.new(0.5, 0, 0, l_Size_250_0), 
-                AnchorPoint = Vector2.new(0.5, 0)
-            }), 
-            Contents = v2.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, 0), 
-                Position = UDim2.new(0.5, 0, 0, v34), 
-                AnchorPoint = Vector2.new(0.5, 0), 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundTransparency = 1
-            }, {
-                UIListLayout = v2.createElement("UIListLayout", {
-                    SortOrder = Enum.SortOrder.LayoutOrder, 
-                    HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                    FillDirection = Enum.FillDirection.Vertical, 
-                    Padding = UDim.new(0, l_Size_250_0)
-                }), 
-                BodyText = v2.createElement(l_StyledTextLabel_0, {
-                    layoutOrder = 1, 
-                    automaticSize = Enum.AutomaticSize.Y, 
-                    text = v23.vngUpsellBody, 
-                    colorStyle = v21.Theme.TextEmphasis, 
-                    fontStyle = v21.Font.HeadingSmall, 
-                    size = UDim2.new(1, 0, 0, 0), 
-                    textXAlignment = Enum.TextXAlignment.Center
-                }), 
-                Protip = v2.createElement(l_StyledTextLabel_0, {
-                    layoutOrder = 2, 
-                    automaticSize = Enum.AutomaticSize.Y, 
-                    text = l_vngUpsellProtip_0, 
-                    colorStyle = v21.Theme.TextDefault, 
-                    fontStyle = v21.Font.BodyLarge, 
-                    size = UDim2.new(1, 0, 0, 0), 
-                    textXAlignment = Enum.TextXAlignment.Center
-                }), 
-                BottomPadding = v2.createElement("Frame", {
-                    Size = UDim2.new(1, 0, 0, 1), 
-                    BackgroundTransparency = 1, 
-                    BorderSizePixel = 0, 
-                    LayoutOrder = 4
-                })
-            })
-        })
-    });
-end;
+local GuiService = game:GetService("GuiService")
+local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local useStyle = UIBlox.Core.Style.useStyle
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
+local FullPageModal = UIBlox.App.Dialog.Modal.FullPageModal
+local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
+local useRoactService = require(CorePackages.Workspace.Packages.RobloxAppHooks).useRoactService
+local AppLinking = require(CorePackages.Workspace.Packages.RoactServiceTags).AppLinking
+local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
+local CloseCentralOverlay = require(CorePackages.Workspace.Packages.CentralOverlay).Thunks.CloseCentralOverlay
+local useAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).useAppPolicy
+local FFlagVngAppUpsellPcLayout = require(CorePackages.Workspace.Packages.SharedFlags).FFlagVngAppUpsellPcLayout
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local RoactLocalization = require(Modules.LuaApp.Services.RoactLocalization)
+local v20 = game:DefineFastString("VngAppUpsellUrl", "https://www.roblox.com")
+local v21 = game:DefineFastString("VngAppUpsellProTipTextEn", "")
+local v22 = game:DefineFastString("VngAppUpsellProTipTextVn", "")
+
+return function(t1: {[any]: any}) --[[ VngAppUpsellOverlay ]] -- line: 37
+	-- upvalues: useStyle (copy), useDesignTokens (copy), FFlagVngAppUpsellPcLayout (copy), useAppPolicy (copy), useLocalization (copy), useRoactService (copy), AppLinking (copy), useDispatch (copy), useSelector (copy), React (copy), CloseCentralOverlay (copy), RoactLocalization (copy), v22 (copy), v21 (copy), GuiService (copy), FullPageModal (copy), ButtonType (copy), v20 (copy), StyledTextLabel (copy)
+	local v24 = useStyle()
+	local v25 = useDesignTokens()
+	local v26 = not not FFlagVngAppUpsellPcLayout and useAppPolicy(function(p1) -- line: 41
+		return p1.getVngAppUpsellPcLayout()
+	end)
+	local v27 = useLocalization({
+		vngUpsellTitle = not v26 and "CommonUI.Features.Label.VNGMigrationTitle" or "CommonUI.Features.Label.VNGMigrationTitlePC",
+		vngUpsellBody = not v26 and "CommonUI.Features.Label.VNGMigrationBody" or "CommonUI.Features.Label.VNGMigrationBodyPC",
+		vngUpsellProtip = "CommonUI.Features.Label.VNGMigrationTip",
+		vngUpsellButtonText = not v26 and "CommonUI.Features.Label.VNGMigrationGoButton" or "CommonUI.Features.Label.VNGMigrationGoButtonPC"
+	})
+	local v28 = useRoactService(AppLinking)
+	local v29 = useDispatch()
+	local v30 = useSelector(function(p2) -- line: 60
+		return p2.ScreenSize
+	end)
+	local v31 = React.useCallback(function() -- line: 64
+		-- upvalues: v29 (copy), CloseCentralOverlay (copy)
+		v29(CloseCentralOverlay())
+	end, {})
+	local vngUpsellProtip = v27.vngUpsellProtip
+	local Locale = useRoactService(RoactLocalization):GetLocale()
+
+	if v22 ~= "" and Locale == "vi-vn" then
+		vngUpsellProtip = v22
+	elseif v21 ~= "" and Locale == "en-us" then
+		vngUpsellProtip = v21
+	end
+
+	local SafeZoneOffsets = GuiService:GetSafeZoneOffsets()
+	local Size_250 = v25.Global.Size_250
+	local v36 = SafeZoneOffsets.top + Size_250
+	local v37 = Size_250 + 186 + v25.Global.Size_400
+
+	return React.createElement(FullPageModal, {
+		screenSize = v30,
+		title = v27.vngUpsellTitle,
+		distanceFromTop = v36,
+		onCloseClicked = if not t1.isDismissable then nil else v31,
+		buttonStackProps = {
+			buttons = {{
+				buttonType = ButtonType.PrimarySystem,
+				props = {
+					onActivated = function() --[[ onActivated ]] -- line: 97
+						-- upvalues: v20 (copy), v28 (copy)
+						local v40 = v20
+
+						v28:openURL(v40)
+					end,
+					text = v27.vngUpsellButtonText
+				}
+			}}
+		}
+	}, {
+		ContentFrame = React.createElement("ScrollingFrame", {
+			BackgroundTransparency = v24.Theme.BackgroundUIDefault.Transparency,
+			BackgroundColor3 = v24.Theme.BackgroundUIDefault.Color,
+			Size = UDim2.new(1, 0, 1, 0),
+			Position = UDim2.new(0.5, 0, 0, 0),
+			AnchorPoint = Vector2.new(0.5, 0),
+			BorderSizePixel = 0,
+			Selectable = not FFlagVngAppUpsellPcLayout and nil,
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+			ScrollBarThickness = 0,
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			CanvasSize = UDim2.new(1, 0, 0, 0)
+		}, {
+			VngIcon = React.createElement("ImageLabel", {
+				Size = UDim2.new(0, 186, 0, 186),
+				BackgroundTransparency = 1,
+				Image = not v26 and "rbxasset://textures/ui/LuaApp/icons/ic_launcher_vng_square_xxxhdpi.png" or "rbxasset://textures/ui/LuaApp/icons/pc_icon_vng_square_xxxhdpi.png",
+				Position = UDim2.new(0.5, 0, 0, Size_250),
+				AnchorPoint = Vector2.new(0.5, 0)
+			}),
+			Contents = React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 0),
+				Position = UDim2.new(0.5, 0, 0, v37),
+				AnchorPoint = Vector2.new(0.5, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1
+			}, {
+				UIListLayout = React.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, Size_250)
+				}),
+				BodyText = React.createElement(StyledTextLabel, {
+					layoutOrder = 1,
+					automaticSize = Enum.AutomaticSize.Y,
+					text = v27.vngUpsellBody,
+					colorStyle = v24.Theme.TextEmphasis,
+					fontStyle = v24.Font.HeadingSmall,
+					size = UDim2.new(1, 0, 0, 0),
+					textXAlignment = Enum.TextXAlignment.Center
+				}),
+				Protip = if v26 then nil else React.createElement(StyledTextLabel, {
+					layoutOrder = 2,
+					automaticSize = Enum.AutomaticSize.Y,
+					text = vngUpsellProtip,
+					colorStyle = v24.Theme.TextDefault,
+					fontStyle = v24.Font.BodyLarge,
+					size = UDim2.new(1, 0, 0, 0),
+					textXAlignment = Enum.TextXAlignment.Center
+				}),
+				BottomPadding = React.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 1),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					LayoutOrder = 4
+				})
+			})
+		})
+	})
+end

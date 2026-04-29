@@ -1,1224 +1,1243 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_GuiService_0 = game:GetService("GuiService");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.UIBlox);
-local v5 = require(l_Parent_0.Foundation);
-local v6 = require(l_Parent_0.RoactUtils);
-local v7 = require(l_Parent_0.AppChat);
-local v8 = require(l_Parent_0.SocialCommon);
-local v9 = require(l_Parent_0.Navigation);
-local v10 = require(l_Parent_0.SetAlias);
-local v11 = require(l_Parent_0.SocialExperienceJoin);
-local v12 = require(l_Parent_0.RobloxAppEnums);
-local v13 = require(l_Parent_0.SharedFlags);
-local v14 = require(l_Parent_0.Http);
-local l_UrlBuilder_0 = require(l_Parent_0.UrlBuilder).UrlBuilder;
-local l_UrlBase_0 = require(l_Parent_0.UrlBuilder).UrlBase;
-local l_Images_0 = v4.App.ImageSet.Images;
-local l_HttpService_0 = game:GetService("HttpService");
-local l_useDispatch_0 = v6.Hooks.RoactRodux.useDispatch;
-local l_useSelector_0 = v6.Hooks.RoactRodux.useSelector;
-local v21 = require(l_script_FirstAncestor_0.Contexts.useProfileWrapperContext);
-local l_useNavigation_0 = v9.useNavigation;
-local l_CloseCentralOverlay_0 = require(l_Parent_0.CentralOverlay).Thunks.CloseCentralOverlay;
-local l_default_0 = require(l_Parent_0.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default;
-local l_SetCurrentToastMessage_0 = require(l_Parent_0.ToastRodux).Actions.SetCurrentToastMessage;
-local v26 = require(l_Parent_0.NavigationRodux);
-local l_Url_0 = v14.Url;
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local l_ButtonType_0 = v4.App.Button.Enum.ButtonType;
-local l_ButtonVariant_0 = v5.Enums.ButtonVariant;
-local l_IconName_0 = v5.Enums.IconName;
-local l_NavigateDown_0 = v26.Thunks.NavigateDown;
-local l_AppPage_0 = v12.AppPage;
-local l_useJoinUserInExperience_0 = v11.useJoinUserInExperience;
-local v35 = require(l_Parent_0.SocialStopwatch);
-local v36 = require(l_script_FirstAncestor_0.Networking.NetworkingFriends);
-local l_useLocalUserId_0 = require(l_Parent_0.RobloxAppHooks).useLocalUserId;
-local v38 = require(l_Parent_0.ProfileShareLinks);
-local l_Contexts_0 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums.Contexts;
-local l_Sources_0 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums.Sources;
-local v41 = require(l_script_FirstAncestor_0.Common.TextKeys);
-local v42 = require(l_script_FirstAncestor_0.Hooks.getAvailableCommunityComponents);
-local v43 = require(l_script_FirstAncestor_0.Networking.getProfilePlatform);
-local v44 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatform);
-local v45 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatformActionInfo);
-local v46 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatformUserInfo);
-local v47 = require(l_script_FirstAncestor_0.Hooks.useAboutSections);
-local v48 = require(l_script_FirstAncestor_0.Networking.GroupsNetworking);
-local v49 = require(l_script_FirstAncestor_0.Networking.myUserBlockingNetworking);
-local v50 = require(l_script_FirstAncestor_0.Contexts.useProfileAnalyticsContext);
-local v51 = require(l_script_FirstAncestor_0.Utils.getPlatformFriendsService);
-local v52 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local v53 = require(l_script_FirstAncestor_0.Common.Enums);
-local l_dependencyArray_0 = v6.Hooks.dependencyArray;
-local l_ContextualInfoTypes_0 = v8.Enums.ContextualInfoTypes;
-local l_useProfileShareLink_0 = v38.Hooks.useProfileShareLink;
-local l_useShortUrl_0 = v38.Hooks.useShortUrl;
-local l_useGetOrGenerateLinkUrl_0 = v38.Hooks.useGetOrGenerateLinkUrl;
-local l_useEffectOnce_0 = v6.Hooks.useEffectOnce;
-local l_ProfileSharePolicyEnum_0 = v38.Enums.ProfileSharePolicyEnum;
-local v61 = require(l_Parent_0.DataHydration);
-local l_FFlagEnableAbuseReportRevampFlow_0 = v13.FFlagEnableAbuseReportRevampFlow;
-local v63 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableCommunityProfilePage);
-local l_FFlagMoveInExperienceModeToEditProfile_0 = require(l_Parent_0.SharedFlags).FFlagMoveInExperienceModeToEditProfile;
-local v65 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformRefreshOnWebviewClose);
-local v66 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformUpdateUXForNonSocialCommunities);
-local l_FFlagProfilePlatformAddTC_0 = v13.FFlagProfilePlatformAddTC;
-local v68 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage);
-local l_FFlagEnablePlatformProfileContextualMenuOption_0 = require(l_Parent_0.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption;
-local l_FFlagTCShareLinkSenderUI_0 = require(l_Parent_0.SharedFlags).FFlagTCShareLinkSenderUI;
-local l_FFlagTCUnifyNavigationEntry_0 = v13.FFlagTCUnifyNavigationEntry;
-local l_FFlagProfilePlatformNewProfileHeader_0 = v13.FFlagProfilePlatformNewProfileHeader;
-local l_FFlagConnectionsToFriendsRename_0 = v13.FFlagConnectionsToFriendsRename;
-local v74 = require(l_script_FirstAncestor_0.Flags.FFlagPendingIncomingTrustedConnection);
-local l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0 = v13.FFlagProfilePlatformPassPresenceToJoinUserInExperience;
-local v76 = require(l_script_FirstAncestor_0.Flags.FFlagEnableAbuseReportRevampProfileAndGroup);
-local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = v13.FFlagProfilePlatformEnableCurrencyTransfer;
-local v78 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableEditAppearanceMenu);
-local v79 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableEditLook);
-local l_FFlagLegacyProfileTCIndicator_0 = require(l_Parent_0.SharedFlags).FFlagLegacyProfileTCIndicator;
-local v81 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformCTAsRefactor);
-local v82 = require(l_script_FirstAncestor_0.Components.CTARow.ProfileActions);
-local v83 = require(l_Parent_0.GenericAbuseReporting);
-local l_AbuseVector_0 = v83.Enums.AbuseVector;
-local l_OpenDynamicAbuseReport_0 = v83.Thunks.OpenDynamicAbuseReport;
-local l_ChatEntryPointNames_0 = v8.Enums.ChatEntryPointNames;
-local l_EnteredChatFromEntryPoint_0 = v7.Actions.EnteredChatFromEntryPoint;
-local l_l_GuiService_0_NotificationTypeList_0 = l_GuiService_0:GetNotificationTypeList();
-local l_FriendRequestNicknamesIXP_0 = require(l_Parent_0.FriendRequestNicknames).FriendRequestNicknamesIXP;
-local l_Enums_0 = require(l_Parent_0.CurrencyTransfers).Enums;
-local l_TransferDirection_0 = l_Enums_0.TransferDirection;
-local l_TransferOrigination_0 = l_Enums_0.TransferOrigination;
-local v93 = require(l_script_FirstAncestor_0.Common.Constants);
-local v94 = require(l_script_FirstAncestor_0.Rodux.Presence);
-local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
-local l_USER_BLOCKING_ERRORS_0 = v93.USER_BLOCKING_ERRORS;
-local l_USER_FRIENDING_ERRORS_0 = v93.USER_FRIENDING_ERRORS;
-local l_STATUS_CODES_0 = v93.STATUS_CODES;
-local v99 = ("%*share/g/%%s"):format(l_Url_0.BASE_URL);
-local v100 = tostring(DateTime.now().UnixTimestampMillis);
-local function _(v101) --[[ Line: 125 ]] --[[ Name: areFollowActionsSupportedForProfileType ]]
-    -- upvalues: v53 (copy)
-    return v101 == v53.ProfileTypes.Community;
-end;
-local v103 = if l_FFlagLegacyProfileTCIndicator_0 then v61.TrustedConnections.TrustedConnectionsStore.get() else nil;
-return function(v104) --[[ Line: 135 ]]
-    -- upvalues: l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), v21 (copy), v50 (copy), l_useShortUrl_0 (copy), l_useGetOrGenerateLinkUrl_0 (copy), l_useEffectOnce_0 (copy), v3 (copy), v100 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v41 (copy), l_useLocalization_0 (copy), v53 (copy), l_FFlagProfilePlatformAddTC_0 (copy), v78 (copy), v79 (copy), v63 (copy), v66 (copy), l_FFlagProfilePlatformNewProfileHeader_0 (copy), l_FFlagEnablePlatformProfileContextualMenuOption_0 (copy), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (copy), l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0 (copy), l_useSelector_0 (copy), v94 (copy), v47 (copy), l_useJoinUserInExperience_0 (copy), l_FriendRequestNicknamesIXP_0 (copy), l_useProfileShareLink_0 (copy), l_Contexts_0 (copy), l_ProfileSharePolicyEnum_0 (copy), l_USER_FRIENDING_ERRORS_0 (copy), l_STATUS_CODES_0 (copy), l_HttpService_0 (copy), l_SetCurrentToastMessage_0 (copy), v81 (copy), v82 (copy), l_ButtonVariant_0 (copy), v52 (copy), v36 (copy), l_Images_0 (copy), v45 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_ButtonType_0 (copy), l_ContextualInfoTypes_0 (copy), v44 (copy), l_EnteredChatFromEntryPoint_0 (copy), l_ChatEntryPointNames_0 (copy), l_GuiService_0 (copy), l_l_GuiService_0_NotificationTypeList_0 (copy), v35 (copy), v10 (copy), l_IconName_0 (copy), v5 (copy), v46 (copy), l_FFlagMoveInExperienceModeToEditProfile_0 (copy), l_default_0 (copy), l_FFlagEnableAbuseReportRevampFlow_0 (copy), v76 (copy), l_AbuseVector_0 (copy), l_OpenDynamicAbuseReport_0 (copy), l_CloseCentralOverlay_0 (copy), l_Url_0 (copy), v49 (copy), l_USER_BLOCKING_ERRORS_0 (copy), v68 (copy), v99 (copy), v48 (copy), v43 (copy), v42 (copy), l_UrlBuilder_0 (copy), v65 (copy), l_UrlBase_0 (copy), l_FFlagLegacyProfileTCIndicator_0 (copy), v103 (copy), l_FFlagTCUnifyNavigationEntry_0 (copy), l_Sources_0 (copy), l_FFlagTCShareLinkSenderUI_0 (copy), v74 (copy), v51 (copy), l_TransferDirection_0 (copy), l_TransferOrigination_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy)
-    local v105 = l_useLocalUserId_0();
-    local v106 = l_useDispatch_0();
-    local v107 = l_useNavigation_0();
-    local v108 = v21();
-    local v109 = v108.navigateTo and v108.navigateTo.navigateToTransfer or nil;
-    local v110 = v50();
-    local v111 = l_useShortUrl_0();
-    local v112 = l_useGetOrGenerateLinkUrl_0();
-    local v113 = v111 ~= nil;
-    l_useEffectOnce_0(v112, not v113);
-    local v114 = v3.useMemo(function() --[[ Line: 149 ]]
-        -- upvalues: v111 (copy), v100 (ref)
-        return string.format("%s&source=ProfileShare&stamp=%s", v111 or "", v100);
-    end, {
-        v111
-    });
-    local v115 = if l_FFlagConnectionsToFriendsRename_0 then v41.AcceptFriend else v41.AcceptConnection;
-    local v116 = if l_FFlagConnectionsToFriendsRename_0 then v41.AddFriend else v41.AddConnection;
-    local v117 = l_useLocalization_0({
-        [v53.ProfileActions.AcceptFriendRequest] = v115, 
-        [v53.ProfileActions.AcceptOffNetworkFriendRequest] = v115, 
-        [v53.ProfileActions.AddFriend] = v116, 
-        [v53.ProfileActions.AddFriendFromContacts] = v116, 
-        [v53.ProfileActions.AddFriendFromContactsSent] = v41.PendingRequest, 
-        [v53.ProfileActions.AddTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then v41.AddTrustedConnection else nil, 
-        [v53.ProfileActions.AddIncomingTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then v41.AcceptTrustedConnection else nil, 
-        [v53.ProfileActions.Block] = v41.Block, 
-        [v53.ProfileActions.CannotAddFriend] = v116, 
-        [v53.ProfileActions.Chat] = v41.Chat, 
-        [v53.ProfileActions.EditAlias] = v41.CustomizeName, 
-        [v53.ProfileActions.EditAppearance] = if v78 then v41.EditAppearance else nil, 
-        [v53.ProfileActions.EditEmotes] = if v78 then v41.EditEmotes else nil, 
-        [v53.ProfileActions.SwitchAvatar] = if v78 then v41.SwitchAvatar else nil, 
-        [v53.ProfileActions.EditAvatar] = v41.EditAvatar, 
-        [v53.ProfileActions.EditLook] = if v79 then v41.EditLook else nil, 
-        [v53.ProfileActions.EditProfile] = v41.EditProfile, 
-        [v53.ProfileActions.IgnoreFriendRequest] = if l_FFlagConnectionsToFriendsRename_0 then v41.IgnoreFriendRequest else v41.IgnoreConnectionRequest, 
-        [v53.ProfileActions.JoinExperience] = v41.Join, 
-        [v53.ProfileActions.PendingFriendRequest] = v41.PendingRequest, 
-        [v53.ProfileActions.QrCode] = v41.ToQRCode, 
-        [v53.ProfileActions.Report] = v41.Report, 
-        [v53.ProfileActions.ShareProfile] = v41.ShareProfile, 
-        [v53.ProfileActions.Unblock] = v41.Unblock, 
-        [v53.ProfileActions.Unfriend] = if l_FFlagConnectionsToFriendsRename_0 then v41.Unfriend else v41.RemoveConnection, 
-        [v53.ProfileActions.CopyLink] = if v63 then v41.CopyLink else nil, 
-        [v53.ProfileActions.JoinCommunity] = if v63 then v41.JoinCommunity else nil, 
-        [v53.ProfileActions.CancelJoinCommunityRequest] = if v63 then v41.CancelJoinCommunityRequest else nil, 
-        [v53.ProfileActions.ViewCommunity] = if v63 then v41.ViewCommunity else nil, 
-        [v53.ProfileActions.ViewFullProfile] = if v66 then v41.ViewFullProfile else nil, 
-        [v53.ProfileActions.LeaveCommunity] = if v63 then v41.LeaveCommunity else nil, 
-        [v53.ProfileActions.MakePrimaryCommunity] = if v63 then v41.MakePrimaryCommunity else nil, 
-        [v53.ProfileActions.RemovePrimaryCommunity] = if v63 then v41.RemovePrimaryCommunity else nil, 
-        [v53.ProfileActions.Follow] = if v66 then v41.Follow else nil, 
-        [v53.ProfileActions.Unfollow] = if v66 then v41.Unfollow else nil, 
-        [v53.ProfileActions.RemoveTrustedConnection] = v41.RemoveTrustedConnection, 
-        [v53.ProfileActions.ViewAbout] = if l_FFlagProfilePlatformNewProfileHeader_0 then v41.AboutThisProfile else nil, 
-        [v53.ProfileActions.ViewPlatformProfile] = if l_FFlagEnablePlatformProfileContextualMenuOption_0 then v41.ViewPlatformProfile else nil, 
-        [v53.ProfileActions.CurrencyTransfer] = if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then v41.CurrencyTransfer else nil, 
-        friendAcceptedToast = if l_FFlagConnectionsToFriendsRename_0 then v41.FriendAdded else v41.ConnectionAdded, 
-        friendRemovedToast = if l_FFlagConnectionsToFriendsRename_0 then v41.FriendRemoved else v41.ConnectionRemoved, 
-        trustedConnectionRemovedToast = v41.TrustedConnectionRemoved, 
-        friendRequestSentToast = if l_FFlagConnectionsToFriendsRename_0 then v41.FriendRequestSent else v41.ConnectionRequestSent, 
-        friendRequestIgnoredToast = v41.RequestIgnored, 
-        userBlockedToast = v41.UserBlocked, 
-        blockLimitReachedToast = v41.BlockLimitReached, 
-        blocktargetAlreadyBlockedToast = v41.BlockTargetAlreadyBlocked, 
-        blockedOnPlatformToast = v41.UnblockTargetBlockedOnPlatform, 
-        unblockTargetNotBlockedToast = v41.UnblockTargetNotBlocked, 
-        unblockTargetParentManagedToast = v41.UnblockTargetParentManaged, 
-        somethingIsWrongToast = v41.SomethingIsWrong, 
-        alreadyFriendError = v41.AlreadyFriendError, 
-        defaultFriendingError = v41.DefaultFriendingError, 
-        invalidNicknameError = v41.InvalidNicknameError, 
-        invalidTargetUserError = v41.InvalidTargetUserError, 
-        maxFriendsError = v41.MaxFriendsError, 
-        unauthorizedError = v41.UnauthorizedError, 
-        userBannedError = v41.UserBannedError, 
-        userBlockedError = v41.UserBlockedError, 
-        userNotPassedCaptchaError = v41.UserNotPassedCaptchaError, 
-        tooManyRequestsError = v41.TooManyRequestsError
-    });
-    local v118 = v3.useCallback(function() --[[ Line: 270 ]]
-        -- upvalues: v108 (copy)
-        v108.navigateTo.previousView(true);
-    end, {
-        v108.navigateTo.previousView
-    });
-    local l_profileId_0 = v108.profileId;
-    local v120 = if l_FFlagEnablePlatformProfileContextualMenuOption_0 then v108.profilePlatformId else nil;
-    local l_profileType_0 = v108.profileType;
-    local v123 = if l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0 then l_useSelector_0(function(v122) --[[ Line: 280 ]]
-        -- upvalues: v94 (ref), l_profileId_0 (copy)
-        return v94.Selectors.getUserPresenceByUserId(v122, l_profileId_0) or {
-            userPresenceType = v94.Enums.PresenceType.Offline, 
-            lastLocation = ""
-        };
-    end) else nil;
-    local v124 = nil;
-    if l_FFlagProfilePlatformNewProfileHeader_0 then
-        v124 = v47().aboutSections;
-    end;
-    local v125 = l_useJoinUserInExperience_0(l_profileId_0, {
-        isHomePageCarousel = v108.sourceInfo.source == v53.Sources.HomepageFriendsCarousel, 
-        homepageCarouselAbsolutePosition = v108.sourceInfo.homepageCarouselAbsolutePosition, 
-        openGameDetailsPeekViewClosed = v118, 
-        presence = if l_FFlagProfilePlatformPassPresenceToJoinUserInExperience_0 then v123 else nil
-    });
-    local l_qRCodePage_0 = v108.navigateTo.qRCodePage;
-    local l_editUsername_0 = v108.navigateTo.editUsername;
-    local v128 = if v78 then v108.navigateTo.editEmotes else nil;
-    local v129 = if v78 then v108.navigateTo.switchAvatar else nil;
-    local l_editAvatar_0 = v108.navigateTo.editAvatar;
-    local v131 = l_FriendRequestNicknamesIXP_0.useFriendRequestNicknames();
-    local v132 = l_useProfileShareLink_0({
-        context = l_Contexts_0.ProfileCard
-    });
-    local v133 = v132.policy == l_ProfileSharePolicyEnum_0.Disabled;
-    local v134 = {
-        [l_USER_FRIENDING_ERRORS_0.INVALID_TARGET_USER_ERROR] = v117.invalidTargetUserError, 
-        [l_USER_FRIENDING_ERRORS_0.ALREADY_FRIEND_ERROR] = v117.alreadyFriendError, 
-        [l_USER_FRIENDING_ERRORS_0.MAX_FRIENDS_ERROR] = v117.maxFriendsError, 
-        [l_USER_FRIENDING_ERRORS_0.INVALID_NICKNAME_ERROR] = v117.invalidNicknameError
-    };
-    local v135 = {
-        [l_USER_FRIENDING_ERRORS_0.UNAUTHORIZED_ERROR] = v117.unauthorizedError
-    };
-    local v136 = {
-        [l_USER_FRIENDING_ERRORS_0.USER_BANNED_ERROR] = v117.userBannedError, 
-        [l_USER_FRIENDING_ERRORS_0.USER_BLOCKED_ERROR] = v117.userBlockedError, 
-        [l_USER_FRIENDING_ERRORS_0.USER_NOT_PASSED_CAPTCHA_ERROR] = v117.userNotPassedCaptchaError
-    };
-    local v137 = {
-        [l_USER_FRIENDING_ERRORS_0.TOO_MANY_REQUESTS_ERROR] = v117.tooManyRequestsError
-    };
-    local function _(v138, v139, v140) --[[ Line: 338 ]] --[[ Name: getErrorToastMessage ]]
-        -- upvalues: v53 (ref), l_STATUS_CODES_0 (ref), v134 (copy), v135 (copy), v136 (copy), v137 (copy)
-        if v138 == v53.ProfileActions.AddFriend or v138 == v53.ProfileActions.AddFriendFromContacts then
-            if v139 == l_STATUS_CODES_0.BAD_REQUEST then
-                return v134[v140];
-            elseif v139 == l_STATUS_CODES_0.UNAUTHORIZED then
-                return v135[v140];
-            elseif v139 == l_STATUS_CODES_0.FORBIDDEN then
-                return v136[v140];
-            elseif v139 == l_STATUS_CODES_0.TOO_MANY_REQUESTS then
-                return v137[v140];
-            end;
-        end;
-        return nil;
-    end;
-    local function v148(v142, v143) --[[ Line: 353 ]] --[[ Name: setErrorToast ]]
-        -- upvalues: l_HttpService_0 (ref), v53 (ref), l_STATUS_CODES_0 (ref), v134 (copy), v135 (copy), v136 (copy), v137 (copy), v117 (copy), v106 (copy), l_SetCurrentToastMessage_0 (ref)
-        if v143 ~= nil then
-            local l_StatusCode_0 = v143.StatusCode;
-            local v145 = if v143.Body then l_HttpService_0:JSONDecode(v143.Body) else nil;
-            local v146 = if v145 and v145.errors and v145.errors[1] and v145.errors[1].code then v145.errors[1].code else nil;
-            local v147 = (if not (v142 ~= v53.ProfileActions.AddFriend) or v142 == v53.ProfileActions.AddFriendFromContacts then if l_StatusCode_0 == l_STATUS_CODES_0.BAD_REQUEST then v134[v146] else if l_StatusCode_0 == l_STATUS_CODES_0.UNAUTHORIZED then v135[v146] else if l_StatusCode_0 == l_STATUS_CODES_0.FORBIDDEN then v136[v146] else if l_StatusCode_0 == l_STATUS_CODES_0.TOO_MANY_REQUESTS then v137[v146] else nil else nil) or v117.defaultFriendingError;
-            v106(l_SetCurrentToastMessage_0({
-                toastMessage = v147, 
-                isLocalized = true
-            }));
-            return;
-        else
-            v106(l_SetCurrentToastMessage_0({
-                toastMessage = v117.defaultFriendingError, 
-                isLocalized = true
-            }));
-            return;
-        end;
-    end;
-    local v149 = if v81 then {
-        localized = v117, 
-        analytics = v110, 
-        buttonSurface = v104, 
-        profileWrapperContext = v108, 
-        navigateTo = v108.navigateTo, 
-        dispatch = v106, 
-        profileId = l_profileId_0, 
-        localUserId = v105, 
-        navigation = v107, 
-        profileType = l_profileType_0, 
-        experienceUtilities = v125, 
-        friendRequestNicknamesEnabled = v131, 
-        profileShareLink = v132, 
-        PROFILE_SHARE_LINK_URL = v114, 
-        aboutSections = if l_FFlagProfilePlatformNewProfileHeader_0 then v124 else nil
-    } else nil;
-    return (v3.useMemo(function() --[[ Line: 397 ]]
-        -- upvalues: v81 (ref), v82 (ref), v149 (copy), v53 (ref), v117 (copy), l_ButtonVariant_0 (ref), v110 (copy), v52 (ref), v104 (copy), v108 (copy), v106 (copy), v36 (ref), l_profileId_0 (copy), v105 (copy), l_SetCurrentToastMessage_0 (ref), l_Images_0 (ref), v45 (ref), l_FriendRequestNicknamesIXP_0 (ref), v131 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v148 (copy), l_ButtonType_0 (ref), l_ContextualInfoTypes_0 (ref), v44 (ref), l_profileType_0 (copy), v107 (copy), l_EnteredChatFromEntryPoint_0 (ref), l_ChatEntryPointNames_0 (ref), l_GuiService_0 (ref), l_l_GuiService_0_NotificationTypeList_0 (ref), v35 (ref), v10 (ref), v78 (ref), l_IconName_0 (ref), l_editAvatar_0 (copy), v79 (ref), v128 (copy), v129 (copy), v5 (ref), l_editUsername_0 (copy), v46 (ref), l_FFlagMoveInExperienceModeToEditProfile_0 (ref), v125 (copy), l_qRCodePage_0 (copy), v133 (copy), l_default_0 (ref), l_Contexts_0 (ref), v114 (copy), v41 (ref), v132 (copy), v63 (ref), l_FFlagEnableAbuseReportRevampFlow_0 (ref), v76 (ref), l_AbuseVector_0 (ref), l_OpenDynamicAbuseReport_0 (ref), l_CloseCentralOverlay_0 (ref), l_Url_0 (ref), v49 (ref), l_USER_BLOCKING_ERRORS_0 (ref), v68 (ref), v99 (ref), v48 (ref), v43 (ref), v42 (ref), l_UrlBuilder_0 (ref), v65 (ref), v66 (ref), l_UrlBase_0 (ref), l_FFlagLegacyProfileTCIndicator_0 (ref), v103 (ref), l_FFlagProfilePlatformAddTC_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), l_Sources_0 (ref), l_FFlagTCShareLinkSenderUI_0 (ref), v74 (ref), l_FFlagProfilePlatformNewProfileHeader_0 (ref), v124 (ref), l_FFlagEnablePlatformProfileContextualMenuOption_0 (ref), v51 (ref), v120 (copy), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (ref), v109 (copy), l_TransferDirection_0 (ref), l_TransferOrigination_0 (ref)
-        if v81 then
-            local v150 = {};
-            for v151, v152 in v82 do
-                local v153 = v152(v149);
-                if v153 ~= nil then
-                    v150[v151] = v153;
-                end;
-            end;
-            return v150;
-        else
-            return {
-                [v53.ProfileActions.AcceptFriendRequest] = {
-                    text = v117[v53.ProfileActions.AcceptFriendRequest], 
-                    variant = l_ButtonVariant_0.Emphasis, 
-                    onActivated = function() --[[ Line: 423 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v108 (ref), v53 (ref), v106 (ref), v36 (ref), l_profileId_0 (ref), v105 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonAcceptFriendRequest, {
-                            buttonSurface = v104, 
-                            absolutePosition = v108.sourceInfo.homepageCarouselAbsolutePosition, 
-                            isHomePageCarousel = v108.sourceInfo.source == v53.Sources.HomepageFriendsCarousel, 
-                            isRecommendation = v108.sourceInfo.isRecommendation, 
-                            source = v108.sourceInfo.source, 
-                            contextualInfoType = v108.sourceInfo.contextualInfoType, 
-                            recommendationContextType = v108.sourceInfo.recommendationContextType, 
-                            recommendationRank = v108.sourceInfo.recommendationRank, 
-                            recommendationSessionId = v108.sourceInfo.recommendationSessionId
-                        });
-                        return v106(v36.AcceptFriendRequestFromUserId.API({
-                            targetUserId = l_profileId_0, 
-                            currentUserId = v105
-                        })):andThen(function() --[[ Line: 439 ]]
-                            -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), l_profileId_0 (ref)
-                            v106(l_SetCurrentToastMessage_0({
-                                toastMessage = v117.friendAcceptedToast, 
-                                toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                                isLocalized = true
-                            }));
-                            return v106(v45(l_profileId_0));
-                        end);
-                    end
-                }, 
-                [v53.ProfileActions.AcceptOffNetworkFriendRequest] = {
-                    text = v117[v53.ProfileActions.AcceptOffNetworkFriendRequest], 
-                    onActivated = function() --[[ Line: 451 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v108 (ref), v106 (ref), v36 (ref), l_profileId_0 (ref), v105 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonAddFriendFromContacts, {
-                            shareLinkId = v108.sourceInfo.shareLinkId
-                        });
-                        return v106(v36.AcceptFriendRequestWithToken.API({
-                            targetUserId = l_profileId_0, 
-                            currentUserId = v105, 
-                            friendingToken = v108.offNetworkFriendRequestToken
-                        })):andThen(function() --[[ Line: 459 ]]
-                            -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), l_profileId_0 (ref)
-                            v106(l_SetCurrentToastMessage_0({
-                                toastMessage = v117.friendAcceptedToast, 
-                                toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                                isLocalized = true
-                            }));
-                            return v106(v45(l_profileId_0));
-                        end);
-                    end
-                }, 
-                [v53.ProfileActions.AddFriend] = {
-                    text = v117[v53.ProfileActions.AddFriend], 
-                    variant = l_ButtonVariant_0.Emphasis, 
-                    onActivated = function() --[[ Line: 472 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v108 (ref), v53 (ref), l_FriendRequestNicknamesIXP_0 (ref), v131 (ref), v106 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v36 (ref), v105 (ref), v45 (ref), v148 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonAddFriend, {
-                            buttonSurface = v104, 
-                            absolutePosition = v108.sourceInfo.homepageCarouselAbsolutePosition, 
-                            isHomePageCarousel = v108.sourceInfo.source == v53.Sources.HomepageFriendsCarousel, 
-                            isRecommendation = v108.sourceInfo.isRecommendation, 
-                            source = v108.sourceInfo.source, 
-                            contextualInfoType = v108.sourceInfo.contextualInfoType, 
-                            recommendationContextType = v108.sourceInfo.recommendationContextType, 
-                            recommendationRank = v108.sourceInfo.recommendationRank, 
-                            recommendationSessionId = v108.sourceInfo.recommendationSessionId
-                        });
-                        if l_FriendRequestNicknamesIXP_0.FFlagFriendRequestNicknames and v131 then
-                            return v106(l_NavigateDown_0({
-                                name = l_AppPage_0.SetNicknameModal, 
-                                extraProps = {
-                                    friendRequestParams = {
-                                        targetUserId = l_profileId_0, 
-                                        source = v108.sourceInfo.friendshipOriginSourceType
-                                    }
-                                }
-                            }));
-                        else
-                            v106(l_SetCurrentToastMessage_0({
-                                toastMessage = v117.friendRequestSentToast, 
-                                toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                                isLocalized = true
-                            }));
-                            return v106(v36.RequestFriendshipFromUserId.API({
-                                targetUserId = l_profileId_0, 
-                                currentUserId = v105, 
-                                friendshipOriginSourceType = v108.sourceInfo.friendshipOriginSourceType
-                            })):andThen(function() --[[ Line: 509 ]]
-                                -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                                return v106(v45(l_profileId_0));
-                            end):catch(function(v154) --[[ Line: 512 ]]
-                                -- upvalues: v148 (ref), v53 (ref)
-                                v148(v53.ProfileActions.AddFriend, v154);
-                            end);
-                        end;
-                    end
-                }, 
-                [v53.ProfileActions.AddFriendFromContacts] = {
-                    buttonType = l_ButtonType_0.PrimaryContextual, 
-                    variant = l_ButtonVariant_0.Emphasis, 
-                    text = v117[v53.ProfileActions.AddFriendFromContacts], 
-                    onActivated = function() --[[ Line: 522 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v36 (ref), v105 (ref), l_profileId_0 (ref), l_ContextualInfoTypes_0 (ref), v44 (ref), l_profileType_0 (ref), v53 (ref), v148 (ref)
-                        v106(l_SetCurrentToastMessage_0({
-                            toastMessage = v117.friendRequestSentToast, 
-                            toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                            isLocalized = true
-                        }));
-                        return v106(v36.RequestFriendshipFromContactId.API({
-                            currentUserId = v105, 
-                            contactId = l_profileId_0, 
-                            contextType = l_ContextualInfoTypes_0.Contacts
-                        })):andThen(function() --[[ Line: 533 ]]
-                            -- upvalues: v106 (ref), v44 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v53 (ref)
-                            return v106(v44({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = {
-                                    v53.Components.ContactProfileHeader, 
-                                    v53.Components.Actions, 
-                                    v53.Components.ContactDescription
-                                }
-                            }));
-                        end):catch(function(v155) --[[ Line: 544 ]]
-                            -- upvalues: v148 (ref), v53 (ref)
-                            v148(v53.ProfileActions.AddFriendFromContacts, v155);
-                        end);
-                    end
-                }, 
-                [v53.ProfileActions.AddFriendFromContactsSent] = {
-                    buttonType = l_ButtonType_0.Secondary, 
-                    variant = l_ButtonVariant_0.Subtle, 
-                    text = v117[v53.ProfileActions.AddFriendFromContactsSent], 
-                    onActivated = function() --[[ Line: 553 ]] --[[ Name: onActivated ]]
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local GuiService = game:GetService("GuiService")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local React = require(ProfilePlatformParent.React)
+local UIBlox = require(ProfilePlatformParent.UIBlox)
+local Foundation = require(ProfilePlatformParent.Foundation)
+local RoactUtils = require(ProfilePlatformParent.RoactUtils)
+local AppChat = require(ProfilePlatformParent.AppChat)
+local SocialCommon = require(ProfilePlatformParent.SocialCommon)
+local Navigation = require(ProfilePlatformParent.Navigation)
+local SetAlias = require(ProfilePlatformParent.SetAlias)
+local SocialExperienceJoin = require(ProfilePlatformParent.SocialExperienceJoin)
+local RobloxAppEnums = require(ProfilePlatformParent.RobloxAppEnums)
+local SharedFlags = require(ProfilePlatformParent.SharedFlags)
+local Http = require(ProfilePlatformParent.Http)
+local UrlBuilder = require(ProfilePlatformParent.UrlBuilder).UrlBuilder
+local UrlBase = require(ProfilePlatformParent.UrlBuilder).UrlBase
+local Images = UIBlox.App.ImageSet.Images
+local HttpService = game:GetService("HttpService")
+local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
+local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
+local useProfileWrapperContext = require(ProfilePlatform.Contexts.useProfileWrapperContext)
+local useNavigation = Navigation.useNavigation
+local CloseCentralOverlay = require(ProfilePlatformParent.CentralOverlay).Thunks.CloseCentralOverlay
+local default = require(ProfilePlatformParent.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default
+local SetCurrentToastMessage = require(ProfilePlatformParent.ToastRodux).Actions.SetCurrentToastMessage
+local NavigationRodux = require(ProfilePlatformParent.NavigationRodux)
+local Url = Http.Url
+local useLocalization = require(ProfilePlatformParent.Localization).Hooks.useLocalization
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local IconName = Foundation.Enums.IconName
+local NavigateDown = NavigationRodux.Thunks.NavigateDown
+local AppPage = RobloxAppEnums.AppPage
+local useJoinUserInExperience = SocialExperienceJoin.useJoinUserInExperience
+local SocialStopwatch = require(ProfilePlatformParent.SocialStopwatch)
+local NetworkingFriends = require(ProfilePlatform.Networking.NetworkingFriends)
+local useLocalUserId = require(ProfilePlatformParent.RobloxAppHooks).useLocalUserId
+local ProfileShareLinks = require(ProfilePlatformParent.ProfileShareLinks)
+local Contexts = require(ProfilePlatformParent.SocialLuaAnalytics).Analytics.Enums.Contexts
+local Sources = require(ProfilePlatformParent.SocialLuaAnalytics).Analytics.Enums.Sources
+local TextKeys = require(ProfilePlatform.Common.TextKeys)
+local getAvailableCommunityComponents = require(ProfilePlatform.Hooks.getAvailableCommunityComponents)
+local getProfilePlatform = require(ProfilePlatform.Networking.getProfilePlatform)
+local refreshProfilePlatform = require(ProfilePlatform.Networking.refreshProfilePlatform)
+local refreshProfilePlatformActionInfo = require(ProfilePlatform.Networking.refreshProfilePlatformActionInfo)
+local refreshProfilePlatformUserInfo = require(ProfilePlatform.Networking.refreshProfilePlatformUserInfo)
+local useAboutSections = require(ProfilePlatform.Hooks.useAboutSections)
+local GroupsNetworking = require(ProfilePlatform.Networking.GroupsNetworking)
+local myUserBlockingNetworking = require(ProfilePlatform.Networking.myUserBlockingNetworking)
+local useProfileAnalyticsContext = require(ProfilePlatform.Contexts.useProfileAnalyticsContext)
+local getPlatformFriendsService = require(ProfilePlatform.Utils.getPlatformFriendsService)
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local Enums = require(ProfilePlatform.Common.Enums)
+local dependencyArray = RoactUtils.Hooks.dependencyArray
+local ContextualInfoTypes = SocialCommon.Enums.ContextualInfoTypes
+local useProfileShareLink = ProfileShareLinks.Hooks.useProfileShareLink
+local useShortUrl = ProfileShareLinks.Hooks.useShortUrl
+local useGetOrGenerateLinkUrl = ProfileShareLinks.Hooks.useGetOrGenerateLinkUrl
+local useEffectOnce = RoactUtils.Hooks.useEffectOnce
+local ProfileSharePolicyEnum = ProfileShareLinks.Enums.ProfileSharePolicyEnum
+local DataHydration = require(ProfilePlatformParent.DataHydration)
+local FFlagEnableAbuseReportRevampFlow = SharedFlags.FFlagEnableAbuseReportRevampFlow
+local FFlagProfilePlatformEnableCommunityProfilePage = require(ProfilePlatform.Flags.FFlagProfilePlatformEnableCommunityProfilePage)
+local FFlagMoveInExperienceModeToEditProfile = require(ProfilePlatformParent.SharedFlags).FFlagMoveInExperienceModeToEditProfile
+local FFlagProfilePlatformRefreshOnWebviewClose = require(ProfilePlatform.Flags.FFlagProfilePlatformRefreshOnWebviewClose)
+local FFlagProfilePlatformUpdateUXForNonSocialCommunities = require(ProfilePlatform.Flags.FFlagProfilePlatformUpdateUXForNonSocialCommunities)
+local FFlagProfilePlatformAddTC = SharedFlags.FFlagProfilePlatformAddTC
+local FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage = require(ProfilePlatform.Flags.FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage)
+local FFlagEnablePlatformProfileContextualMenuOption = require(ProfilePlatformParent.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption
+local FFlagTCShareLinkSenderUI = require(ProfilePlatformParent.SharedFlags).FFlagTCShareLinkSenderUI
+local FFlagTCUnifyNavigationEntry = SharedFlags.FFlagTCUnifyNavigationEntry
+local FFlagProfilePlatformNewProfileHeader = SharedFlags.FFlagProfilePlatformNewProfileHeader
+local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
+local FFlagPendingIncomingTrustedConnection = require(ProfilePlatform.Flags.FFlagPendingIncomingTrustedConnection)
+local FFlagProfilePlatformPassPresenceToJoinUserInExperience = SharedFlags.FFlagProfilePlatformPassPresenceToJoinUserInExperience
+local FFlagEnableAbuseReportRevampProfileAndGroup = require(ProfilePlatform.Flags.FFlagEnableAbuseReportRevampProfileAndGroup)
+local FFlagProfilePlatformEnableCurrencyTransfer = SharedFlags.FFlagProfilePlatformEnableCurrencyTransfer
+local FFlagProfilePlatformEnableEditAppearanceMenu = require(ProfilePlatform.Flags.FFlagProfilePlatformEnableEditAppearanceMenu)
+local FFlagProfilePlatformEnableEditLook = require(ProfilePlatform.Flags.FFlagProfilePlatformEnableEditLook)
+local FFlagLegacyProfileTCIndicator = require(ProfilePlatformParent.SharedFlags).FFlagLegacyProfileTCIndicator
+local FFlagProfilePlatformCTAsRefactor = require(ProfilePlatform.Flags.FFlagProfilePlatformCTAsRefactor)
+local ProfileActions = require(ProfilePlatform.Components.CTARow.ProfileActions)
+local GenericAbuseReporting = require(ProfilePlatformParent.GenericAbuseReporting)
+local AbuseVector = GenericAbuseReporting.Enums.AbuseVector
+local OpenDynamicAbuseReport = GenericAbuseReporting.Thunks.OpenDynamicAbuseReport
+local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
+local EnteredChatFromEntryPoint = AppChat.Actions.EnteredChatFromEntryPoint
+local NotificationTypeList = GuiService:GetNotificationTypeList()
+local FriendRequestNicknamesIXP = require(ProfilePlatformParent.FriendRequestNicknames).FriendRequestNicknamesIXP
+local Enums2 = require(ProfilePlatformParent.CurrencyTransfers).Enums
+local TransferDirection = Enums2.TransferDirection
+local TransferOrigination = Enums2.TransferOrigination
+local Constants = require(ProfilePlatform.Common.Constants)
+local Presence = require(ProfilePlatform.Rodux.Presence)
+local FFlagRemoveDependencyArrayAntipattern = require(ProfilePlatformParent.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+local FFlagProfilePlatformEnableUnlockChat = require(ProfilePlatform.Flags.FFlagProfilePlatformEnableUnlockChat)
+local USER_BLOCKING_ERRORS = Constants.USER_BLOCKING_ERRORS
+local USER_FRIENDING_ERRORS = Constants.USER_FRIENDING_ERRORS
+local STATUS_CODES = Constants.STATUS_CODES
+local v101 = `{ Url.BASE_URL }share/g/%s`
+local str = tostring(DateTime.now().UnixTimestampMillis)
+local v103 = if not FFlagLegacyProfileTCIndicator then nil else DataHydration.TrustedConnections.TrustedConnectionsStore.get()
 
-                    end, 
-                    isDisabled = true
-                }, 
-                [v53.ProfileActions.Block] = {
-                    text = v117[v53.ProfileActions.Block], 
-                    onActivated = function() --[[ Line: 558 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v107 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonBlock, {
-                            buttonSurface = v104
-                        });
-                        v107.push(l_AppPage_0.BlockingModal, {
-                            navProps = {
-                                userId = l_profileId_0, 
-                                onBlockSuccess = function() --[[ Line: 565 ]] --[[ Name: onBlockSuccess ]]
-                                    -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), l_profileId_0 (ref)
-                                    v106(l_SetCurrentToastMessage_0({
-                                        toastMessage = v117.userBlockedToast, 
-                                        toastIcon = l_Images_0["icons/actions/block"], 
-                                        isLocalized = true
-                                    }));
-                                    v106(v45(l_profileId_0));
-                                end
-                            }
-                        });
-                    end
-                }, 
-                [v53.ProfileActions.CannotAddFriend] = {
-                    text = v117[v53.ProfileActions.CannotAddFriend], 
-                    onActivated = function() --[[ Line: 580 ]] --[[ Name: onActivated ]]
+return function(p1) -- line: 137
+	-- upvalues: useLocalUserId (copy), useDispatch (copy), useNavigation (copy), useProfileWrapperContext (copy), useProfileAnalyticsContext (copy), useShortUrl (copy), useGetOrGenerateLinkUrl (copy), useEffectOnce (copy), React (copy), str (copy), FFlagConnectionsToFriendsRename (copy), TextKeys (copy), useLocalization (copy), Enums (copy), FFlagProfilePlatformAddTC (copy), FFlagProfilePlatformEnableUnlockChat (copy), FFlagProfilePlatformEnableEditAppearanceMenu (copy), FFlagProfilePlatformEnableEditLook (copy), FFlagProfilePlatformEnableCommunityProfilePage (copy), FFlagProfilePlatformUpdateUXForNonSocialCommunities (copy), FFlagProfilePlatformNewProfileHeader (copy), FFlagEnablePlatformProfileContextualMenuOption (copy), FFlagProfilePlatformEnableCurrencyTransfer (copy), FFlagProfilePlatformPassPresenceToJoinUserInExperience (copy), useSelector (copy), Presence (copy), useAboutSections (copy), useJoinUserInExperience (copy), FriendRequestNicknamesIXP (copy), useProfileShareLink (copy), Contexts (copy), ProfileSharePolicyEnum (copy), USER_FRIENDING_ERRORS (copy), STATUS_CODES (copy), HttpService (copy), SetCurrentToastMessage (copy), FFlagProfilePlatformCTAsRefactor (copy), ProfileActions (copy), ButtonVariant (copy), EventNames (copy), NetworkingFriends (copy), Images (copy), refreshProfilePlatformActionInfo (copy), NavigateDown (copy), AppPage (copy), ButtonType (copy), ContextualInfoTypes (copy), refreshProfilePlatform (copy), EnteredChatFromEntryPoint (copy), ChatEntryPointNames (copy), GuiService (copy), NotificationTypeList (copy), SocialStopwatch (copy), SetAlias (copy), IconName (copy), Foundation (copy), refreshProfilePlatformUserInfo (copy), FFlagMoveInExperienceModeToEditProfile (copy), default (copy), FFlagEnableAbuseReportRevampFlow (copy), FFlagEnableAbuseReportRevampProfileAndGroup (copy), AbuseVector (copy), OpenDynamicAbuseReport (copy), CloseCentralOverlay (copy), Url (copy), myUserBlockingNetworking (copy), USER_BLOCKING_ERRORS (copy), FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage (copy), v101 (copy), GroupsNetworking (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy), UrlBuilder (copy), FFlagProfilePlatformRefreshOnWebviewClose (copy), UrlBase (copy), FFlagLegacyProfileTCIndicator (copy), v103 (copy), FFlagTCUnifyNavigationEntry (copy), Sources (copy), FFlagTCShareLinkSenderUI (copy), FFlagPendingIncomingTrustedConnection (copy), getPlatformFriendsService (copy), TransferDirection (copy), TransferOrigination (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy)
+	local v106 = useLocalUserId()
+	local v107 = useDispatch()
+	local v108 = useNavigation()
+	local v109 = useProfileWrapperContext()
+	local v110 = v109.navigateTo and v109.navigateTo.navigateToTransfer or nil
+	local v111 = useProfileAnalyticsContext()
+	local v112 = useShortUrl()
+	local v113 = useGetOrGenerateLinkUrl()
+	local v114 = v112 ~= nil
 
-                    end, 
-                    isDisabled = true
-                }, 
-                [v53.ProfileActions.Chat] = {
-                    text = v117[v53.ProfileActions.Chat], 
-                    variant = l_ButtonVariant_0.Standard, 
-                    onActivated = function() --[[ Line: 586 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v104 (ref), v53 (ref), v110 (ref), v52 (ref), v106 (ref), l_EnteredChatFromEntryPoint_0 (ref), l_ChatEntryPointNames_0 (ref), l_GuiService_0 (ref), l_profileId_0 (ref), l_l_GuiService_0_NotificationTypeList_0 (ref)
-                        if v104 == v53.ButtonSurface.ContextualMenu then
-                            v110.fireAnalyticsEvent(v52.ContextualMenuButtonChat, {
-                                buttonSurface = v104
-                            });
-                        else
-                            v110.fireAnalyticsEvent(v52.CTAButtonChat, {
-                                buttonSurface = v104
-                            });
-                        end;
-                        v106(l_EnteredChatFromEntryPoint_0(l_ChatEntryPointNames_0.ProfilePeekView));
-                        l_GuiService_0:BroadcastNotification(l_profileId_0, l_l_GuiService_0_NotificationTypeList_0.LAUNCH_CONVERSATION);
-                    end
-                }, 
-                [v53.ProfileActions.EditAlias] = {
-                    text = v117[v53.ProfileActions.EditAlias], 
-                    onActivated = function() --[[ Line: 603 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v35 (ref), v110 (ref), v52 (ref), v104 (ref), v107 (ref), v53 (ref), l_profileId_0 (ref), v10 (ref)
-                        v35.Stopwatch.start(v35.Events.CustomizeNameOpened);
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonSetAlias, {
-                            buttonSurface = v104
-                        });
-                        v107.navigate(v53.Screens.SetAliasModal, {
-                            profileUserId = l_profileId_0, 
-                            origin = v10.Analytics.EntryPoints.ContextualMenu
-                        });
-                    end
-                }, 
-                [v53.ProfileActions.EditAppearance] = if v78 then {
-                    text = v117[v53.ProfileActions.EditAppearance], 
-                    variant = l_ButtonVariant_0.Emphasis, 
-                    onActivated = function() --[[ Line: 618 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonEditAppearance, {
-                            buttonSurface = v104
-                        });
-                    end
-                } else nil, 
-                [v53.ProfileActions.EditAvatar] = {
-                    text = v117[v53.ProfileActions.EditAvatar], 
-                    icon = if v78 then l_IconName_0.Person else nil, 
-                    onActivated = function() --[[ Line: 628 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v78 (ref), v52 (ref), v104 (ref), l_editAvatar_0 (ref)
-                        v110.fireAnalyticsEvent(if v78 then v52.EditAppearanceMenuEditAvatar else v52.CTAButtonEditAvatar, {
-                            buttonSurface = v104
-                        });
-                        l_editAvatar_0();
-                    end
-                }, 
-                [v53.ProfileActions.EditLook] = if v79 then {
-                    text = v117[v53.ProfileActions.EditLook], 
-                    icon = l_IconName_0.Person, 
-                    onActivated = function() --[[ Line: 644 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), l_editAvatar_0 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonEditLook, {
-                            buttonSurface = v104
-                        });
-                        l_editAvatar_0();
-                    end
-                } else nil, 
-                [v53.ProfileActions.EditEmotes] = if v78 then {
-                    text = v117[v53.ProfileActions.EditEmotes], 
-                    icon = l_IconName_0.SquareFaceWavingHand, 
-                    onActivated = function() --[[ Line: 656 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v128 (ref)
-                        v110.fireAnalyticsEvent(v52.EditAppearanceMenuEditEmote, {
-                            buttonSurface = v104
-                        });
-                        v128();
-                    end
-                } else nil, 
-                [v53.ProfileActions.SwitchAvatar] = if v78 then {
-                    text = v117[v53.ProfileActions.SwitchAvatar], 
-                    icon = l_IconName_0.PersonStandingArrowReverse, 
-                    onActivated = function() --[[ Line: 668 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v129 (ref)
-                        v110.fireAnalyticsEvent(v52.EditAppearanceMenuSwitchAvatar, {
-                            buttonSurface = v104
-                        });
-                        v129();
-                    end
-                } else nil, 
-                [v53.ProfileActions.EditProfile] = {
-                    component = v5.Button, 
-                    buttonType = l_ButtonType_0.PrimarySystem, 
-                    variant = l_ButtonVariant_0.Standard, 
-                    text = v117[v53.ProfileActions.EditProfile], 
-                    onActivated = function() --[[ Line: 681 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v35 (ref), v110 (ref), v52 (ref), v104 (ref), v107 (ref), v53 (ref), l_editUsername_0 (ref), v106 (ref), v46 (ref), l_profileId_0 (ref), l_FFlagMoveInExperienceModeToEditProfile_0 (ref)
-                        v35.Stopwatch.start(v35.Events.EditProfileOpened);
-                        v110.fireAnalyticsEvent(v52.CTAButtonOpenEditProfilePage, {
-                            buttonSurface = v104
-                        });
-                        v107.navigate(v53.Screens.EditProfilePage, {
-                            profileScreens = v53.Screens, 
-                            navigateToEditUsername = function(v156) --[[ Line: 688 ]] --[[ Name: navigateToEditUsername ]]
-                                -- upvalues: l_editUsername_0 (ref), v106 (ref), v46 (ref), l_profileId_0 (ref)
-                                l_editUsername_0({
-                                    showToast = v156, 
-                                    onUsernameChanged = function() --[[ Line: 691 ]] --[[ Name: onUsernameChanged ]]
-                                        -- upvalues: v106 (ref), v46 (ref), l_profileId_0 (ref)
-                                        v106(v46(l_profileId_0));
-                                    end
-                                });
-                            end, 
-                            onIdentityChange = function() --[[ Line: 696 ]] --[[ Name: onIdentityChange ]]
-                                -- upvalues: v106 (ref), v46 (ref), l_profileId_0 (ref)
-                                v106(v46(l_profileId_0));
-                            end, 
-                            onToggleInExperienceMode = l_FFlagMoveInExperienceModeToEditProfile_0 and function() --[[ Line: 700 ]]
-                                -- upvalues: v106 (ref), v46 (ref), l_profileId_0 (ref), v110 (ref), v52 (ref)
-                                v106(v46(l_profileId_0));
-                                v110.fireAnalyticsEvent(v52.ToggleInExperienceModeButton, {});
-                            end or nil
-                        });
-                    end
-                }, 
-                [v53.ProfileActions.IgnoreFriendRequest] = {
-                    text = v117[v53.ProfileActions.IgnoreFriendRequest], 
-                    onActivated = function() --[[ Line: 710 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v36 (ref), l_profileId_0 (ref), v105 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonIgnoreFriendRequest, {
-                            buttonSurface = v104
-                        });
-                        return v106(v36.DeclineFriendRequestFromUserId.API({
-                            targetUserId = l_profileId_0, 
-                            currentUserId = v105
-                        })):andThen(function() --[[ Line: 717 ]]
-                            -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), l_profileId_0 (ref)
-                            v106(l_SetCurrentToastMessage_0({
-                                toastMessage = v117.friendRequestIgnoredToast, 
-                                toastIcon = l_Images_0["icons/actions/reject"], 
-                                isLocalized = true
-                            }));
-                            return v106(v45(l_profileId_0));
-                        end);
-                    end
-                }, 
-                [v53.ProfileActions.JoinExperience] = {
-                    buttonType = l_ButtonType_0.PrimaryContextual, 
-                    variant = l_ButtonVariant_0.Emphasis, 
-                    isLoading = v125.isLoading, 
-                    isDisabled = not v125.isInExperience, 
-                    text = v117[v53.ProfileActions.JoinExperience], 
-                    onActivated = function() --[[ Line: 734 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v125 (ref)
-                        v125.joinExperience();
-                    end
-                }, 
-                [v53.ProfileActions.PendingFriendRequest] = {
-                    buttonType = l_ButtonType_0.Secondary, 
-                    variant = l_ButtonVariant_0.Subtle, 
-                    text = v117[v53.ProfileActions.PendingFriendRequest], 
-                    onActivated = function() --[[ Line: 743 ]] --[[ Name: onActivated ]]
+	useEffectOnce(v113, not v114)
 
-                    end, 
-                    isDisabled = true
-                }, 
-                [v53.ProfileActions.QrCode] = {
-                    text = v117[v53.ProfileActions.QrCode], 
-                    icon = l_IconName_0.SquaresGridQr, 
-                    onActivated = function() --[[ Line: 749 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), l_qRCodePage_0 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonShareProfileQRCode, {
-                            buttonSurface = v104
-                        });
-                        l_qRCodePage_0();
-                    end
-                }, 
-                [v53.ProfileActions.ShareProfile] = {
-                    component = v5.Button, 
-                    buttonType = l_ButtonType_0.PrimarySystem, 
-                    variant = l_ButtonVariant_0.Standard, 
-                    text = v117[v53.ProfileActions.ShareProfile], 
-                    onActivated = function() --[[ Line: 761 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v133 (ref), l_default_0 (ref), l_Contexts_0 (ref), v114 (ref), l_profileId_0 (ref), v106 (ref), l_SetCurrentToastMessage_0 (ref), v41 (ref), v132 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonShareProfile, {
-                            buttonSurface = v104
-                        });
-                        if v133 then
-                            l_default_0:setClipboardText({
-                                context = l_Contexts_0.ProfileCard, 
-                                text = string.format("%s/%s", v114, l_profileId_0)
-                            });
-                            v106(l_SetCurrentToastMessage_0({
-                                toastMessage = v41.LinkCopied
-                            }));
-                            return;
-                        else
-                            v132.onActivated();
-                            return;
-                        end;
-                    end
-                }, 
-                [v53.ProfileActions.Report] = {
-                    text = v117[v53.ProfileActions.Report], 
-                    onActivated = function() --[[ Line: 780 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v63 (ref), l_profileType_0 (ref), v53 (ref), l_FFlagEnableAbuseReportRevampFlow_0 (ref), v76 (ref), l_AbuseVector_0 (ref), v106 (ref), l_OpenDynamicAbuseReport_0 (ref), l_profileId_0 (ref), l_CloseCentralOverlay_0 (ref), v45 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_Url_0 (ref), v41 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonReport, {
-                            buttonSurface = v104
-                        });
-                        local v157 = nil;
-                        if v63 then
-                            if l_profileType_0 == v53.ProfileTypes.User then
-                                v157 = "userprofile";
-                            elseif l_profileType_0 == v53.ProfileTypes.Community then
-                                v157 = "group";
-                            end;
-                        end;
-                        if l_FFlagEnableAbuseReportRevampFlow_0 and v76 then
-                            local l_UserProfile_0 = l_AbuseVector_0.UserProfile;
-                            if v63 and l_profileType_0 == v53.ProfileTypes.Community then
-                                l_UserProfile_0 = l_AbuseVector_0.Group;
-                            end;
-                            v106(l_OpenDynamicAbuseReport_0({
-                                abuseVector = l_UserProfile_0, 
-                                targetId = l_profileId_0, 
-                                onClose = function() --[[ Line: 803 ]] --[[ Name: onClose ]]
-                                    -- upvalues: v106 (ref), l_CloseCentralOverlay_0 (ref), v45 (ref), l_profileId_0 (ref)
-                                    v106(l_CloseCentralOverlay_0());
-                                    v106(v45(l_profileId_0));
-                                end
-                            }));
-                            return;
-                        else
-                            v106(l_NavigateDown_0({
-                                name = l_AppPage_0.GenericWebPage, 
-                                detail = if v63 then ("%*abusereport/%*?id=%*"):format(l_Url_0.BASE_URL, v157, l_profileId_0) else string.format("%sabusereport/userprofile?id=%s", l_Url_0.BASE_URL, l_profileId_0), 
-                                extraProps = {
-                                    titleKey = v41.Report
-                                }
-                            }));
-                            return;
-                        end;
-                    end
-                }, 
-                [v53.ProfileActions.Unblock] = {
-                    text = v117[v53.ProfileActions.Unblock], 
-                    onActivated = function() --[[ Line: 827 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v49 (ref), l_profileId_0 (ref), v105 (ref), v45 (ref), l_USER_BLOCKING_ERRORS_0 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), v68 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonUnblock, {
-                            buttonSurface = v104
-                        });
-                        return v106(v49.UnblockUserById.API({
-                            userId = l_profileId_0, 
-                            currentUserId = v105
-                        })):andThen(function() --[[ Line: 835 ]]
-                            -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                            return v106(v45(l_profileId_0));
-                        end):catch(function(v159) --[[ Line: 838 ]]
-                            -- upvalues: l_USER_BLOCKING_ERRORS_0 (ref), v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), v68 (ref)
-                            if v159 ~= nil and tonumber(v159.Body) == l_USER_BLOCKING_ERRORS_0.PARENT_BLOCKED_TARGET_USER_ERROR then
-                                v106(l_SetCurrentToastMessage_0({
-                                    toastMessage = v117.unblockTargetParentManagedToast, 
-                                    isLocalized = true
-                                }));
-                                return;
-                            elseif v159 ~= nil and tonumber(v159.Body) == l_USER_BLOCKING_ERRORS_0.UNBLOCK_TARGET_NOT_BLOCKED_ERROR then
-                                v106(l_SetCurrentToastMessage_0({
-                                    toastMessage = v117.unblockTargetNotBlockedToast, 
-                                    isLocalized = true
-                                }));
-                                return;
-                            elseif v68 and v159 ~= nil and tonumber(v159.Body) == l_USER_BLOCKING_ERRORS_0.UNBLOCK_TARGET_BLOCKED_ON_PLATFORM then
-                                v106(l_SetCurrentToastMessage_0({
-                                    toastMessage = v117.blockedOnPlatformToast, 
-                                    isLocalized = true
-                                }));
-                                return;
-                            else
-                                v106(l_SetCurrentToastMessage_0({
-                                    toastMessage = v117.somethingIsWrongToast, 
-                                    isLocalized = true
-                                }));
-                                return;
-                            end;
-                        end);
-                    end
-                }, 
-                [v53.ProfileActions.Unfriend] = {
-                    text = v117[v53.ProfileActions.Unfriend], 
-                    onActivated = function() --[[ Line: 882 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v36 (ref), l_profileId_0 (ref), v105 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonUnfriend, {
-                            buttonSurface = v104
-                        });
-                        return v106(v36.UnfriendTargetUserId.API({
-                            targetUserId = l_profileId_0, 
-                            currentUserId = v105
-                        })):andThen(function() --[[ Line: 889 ]]
-                            -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), l_profileId_0 (ref)
-                            v106(l_SetCurrentToastMessage_0({
-                                toastMessage = v117.friendRemovedToast, 
-                                toastIcon = l_Images_0["icons/actions/friends/friendRemove"], 
-                                isLocalized = true
-                            }));
-                            return v106(v45(l_profileId_0));
-                        end);
-                    end
-                }, 
-                [v53.ProfileActions.CopyLink] = if v63 then {
-                    text = v117[v53.ProfileActions.CopyLink], 
-                    onActivated = function() --[[ Line: 902 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), l_default_0 (ref), l_Contexts_0 (ref), v99 (ref), l_profileId_0 (ref), v106 (ref), l_SetCurrentToastMessage_0 (ref), v41 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonCopyLink, {
-                            buttonSurface = v104
-                        });
-                        l_default_0:setClipboardText({
-                            context = l_Contexts_0.ProfileCard, 
-                            text = string.format(v99, l_profileId_0)
-                        });
-                        v106(l_SetCurrentToastMessage_0({
-                            toastMessage = v41.LinkCopied
-                        }));
-                    end
-                } else nil, 
-                [v53.ProfileActions.JoinCommunity] = if v63 then {
-                    buttonType = l_ButtonType_0.PrimaryContextual, 
-                    variant = l_ButtonVariant_0.Emphasis, 
-                    text = v117[v53.ProfileActions.JoinCommunity], 
-                    onActivated = function() --[[ Line: 922 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v48 (ref), l_profileId_0 (ref), v43 (ref), l_profileType_0 (ref), v42 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonJoinCommunity, {
-                            buttonSurface = v104
-                        });
-                        return v106(v48.JoinGroup.API({
-                            groupId = l_profileId_0
-                        })):andThen(function() --[[ Line: 929 ]]
-                            -- upvalues: v106 (ref), v43 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v42 (ref)
-                            v106(v43.API({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = v42(), 
-                                includeComponentOrdering = true
-                            }));
-                        end);
-                    end
-                } else nil, 
-                [v53.ProfileActions.CancelJoinCommunityRequest] = if v63 then {
-                    buttonType = l_ButtonType_0.PrimarySystem, 
-                    variant = l_ButtonVariant_0.Standard, 
-                    text = v117[v53.ProfileActions.CancelJoinCommunityRequest], 
-                    onActivated = function() --[[ Line: 945 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v48 (ref), l_profileId_0 (ref), v105 (ref), v44 (ref), l_profileType_0 (ref), v53 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonCancelJoinCommunityRequest, {
-                            buttonSurface = v104
-                        });
-                        return v106(v48.CancelJoinGroupRequest.API({
-                            groupId = l_profileId_0, 
-                            userId = v105
-                        })):andThen(function() --[[ Line: 953 ]]
-                            -- upvalues: v106 (ref), v44 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v53 (ref)
-                            v106(v44({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = {
-                                    v53.Components.Actions
-                                }
-                            }));
-                        end);
-                    end
-                } else nil, 
-                [v53.ProfileActions.ViewCommunity] = if v63 then {
-                    buttonType = l_ButtonType_0.PrimarySystem, 
-                    variant = l_ButtonVariant_0.SubEmphasis, 
-                    text = v117[v53.ProfileActions.ViewCommunity], 
-                    onActivated = function() --[[ Line: 970 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), l_profileId_0 (ref), v41 (ref), v65 (ref), v43 (ref), l_profileType_0 (ref), v42 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonViewCommunity, {
-                            buttonSurface = v104
-                        });
-                        v106(l_NavigateDown_0({
-                            name = l_AppPage_0.GenericWebPage, 
-                            detail = l_UrlBuilder_0.user.group({
-                                groupId = l_profileId_0
-                            }), 
-                            extraProps = {
-                                titleKey = v41.Community, 
-                                onClose = function() --[[ Line: 980 ]] --[[ Name: onClose ]]
-                                    -- upvalues: v65 (ref), v106 (ref), v43 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v42 (ref)
-                                    if v65 then
-                                        v106(v43.API({
-                                            profileType = l_profileType_0, 
-                                            profileId = l_profileId_0, 
-                                            components = v42(), 
-                                            includeComponentOrdering = true
-                                        }));
-                                    end;
-                                end
-                            }
-                        }));
-                    end
-                } else nil, 
-                [v53.ProfileActions.ViewFullProfile] = if v66 then {
-                    buttonType = l_ButtonType_0.PrimarySystem, 
-                    variant = l_ButtonVariant_0.SubEmphasis, 
-                    text = v117[v53.ProfileActions.ViewFullProfile], 
-                    onActivated = function() --[[ Line: 1000 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), l_UrlBase_0 (ref), l_profileId_0 (ref), v41 (ref), v65 (ref), v43 (ref), l_profileType_0 (ref), v42 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonViewFullProfile, {
-                            buttonSurface = v104
-                        });
-                        v106(l_NavigateDown_0({
-                            name = l_AppPage_0.GenericWebPage, 
-                            detail = l_UrlBuilder_0.new({
-                                base = l_UrlBase_0.WWW, 
-                                path = ("profiles/%*"):format(l_profileId_0)
-                            })(), 
-                            extraProps = {
-                                titleKey = v41.Profile, 
-                                onClose = function() --[[ Line: 1013 ]] --[[ Name: onClose ]]
-                                    -- upvalues: v65 (ref), v106 (ref), v43 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v42 (ref)
-                                    if v65 then
-                                        v106(v43.API({
-                                            profileType = l_profileType_0, 
-                                            profileId = l_profileId_0, 
-                                            components = v42(), 
-                                            includeComponentOrdering = true
-                                        }));
-                                    end;
-                                end
-                            }
-                        }));
-                    end
-                } else nil, 
-                [v53.ProfileActions.LeaveCommunity] = if v63 then {
-                    text = v117[v53.ProfileActions.LeaveCommunity], 
-                    onActivated = function() --[[ Line: 1031 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v48 (ref), l_profileId_0 (ref), v105 (ref), v43 (ref), l_profileType_0 (ref), v42 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonLeaveCommunity, {
-                            buttonSurface = v104
-                        });
-                        return v106(v48.LeaveGroup.API({
-                            groupId = l_profileId_0, 
-                            userId = v105
-                        })):andThen(function() --[[ Line: 1039 ]]
-                            -- upvalues: v106 (ref), v43 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v42 (ref)
-                            v106(v43.API({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = v42(), 
-                                includeComponentOrdering = true
-                            }));
-                        end);
-                    end
-                } else nil, 
-                [v53.ProfileActions.MakePrimaryCommunity] = if v63 then {
-                    text = v117[v53.ProfileActions.MakePrimaryCommunity], 
-                    onActivated = function() --[[ Line: 1053 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v48 (ref), l_profileId_0 (ref), v44 (ref), l_profileType_0 (ref), v53 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonMakePrimaryCommunity, {
-                            buttonSurface = v104
-                        });
-                        return v106(v48.MakePrimaryGroup.API({
-                            groupId = l_profileId_0
-                        })):andThen(function() --[[ Line: 1060 ]]
-                            -- upvalues: v106 (ref), v44 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v53 (ref)
-                            v106(v44({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = {
-                                    v53.Components.Actions
-                                }
-                            }));
-                        end);
-                    end
-                } else nil, 
-                [v53.ProfileActions.RemovePrimaryCommunity] = if v63 then {
-                    text = v117[v53.ProfileActions.RemovePrimaryCommunity], 
-                    onActivated = function() --[[ Line: 1075 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v48 (ref), v44 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v53 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonRemovePrimaryCommunity, {
-                            buttonSurface = v104
-                        });
-                        return v106(v48.RemovePrimaryGroup.API()):andThen(function() --[[ Line: 1080 ]]
-                            -- upvalues: v106 (ref), v44 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v53 (ref)
-                            v106(v44({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = {
-                                    v53.Components.Actions
-                                }
-                            }));
-                        end);
-                    end
-                } else nil, 
-                [v53.ProfileActions.Follow] = if v66 and l_profileType_0 == v53.ProfileTypes.Community then {
-                    buttonType = l_ButtonType_0.PrimaryContextual, 
-                    variant = l_ButtonVariant_0.Standard, 
-                    text = v117[v53.ProfileActions.Follow], 
-                    onActivated = function() --[[ Line: 1098 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v48 (ref), l_profileId_0 (ref), v43 (ref), l_profileType_0 (ref), v42 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonFollow, {
-                            buttonSurface = v104
-                        });
-                        return v106(v48.JoinGroup.API({
-                            groupId = l_profileId_0
-                        })):andThen(function() --[[ Line: 1104 ]]
-                            -- upvalues: v106 (ref), v43 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v42 (ref)
-                            v106(v43.API({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = v42(), 
-                                includeComponentOrdering = true
-                            }));
-                        end);
-                    end
-                } else nil, 
-                [v53.ProfileActions.Unfollow] = if v66 and l_profileType_0 == v53.ProfileTypes.Community then {
-                    text = v117[v53.ProfileActions.Unfollow], 
-                    onActivated = function() --[[ Line: 1119 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), v48 (ref), l_profileId_0 (ref), v105 (ref), v43 (ref), l_profileType_0 (ref), v42 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonUnfollow, {
-                            buttonSurface = v104
-                        });
-                        return v106(v48.LeaveGroup.API({
-                            groupId = l_profileId_0, 
-                            userId = v105
-                        })):andThen(function() --[[ Line: 1127 ]]
-                            -- upvalues: v106 (ref), v43 (ref), l_profileType_0 (ref), l_profileId_0 (ref), v42 (ref)
-                            v106(v43.API({
-                                profileType = l_profileType_0, 
-                                profileId = l_profileId_0, 
-                                components = v42(), 
-                                includeComponentOrdering = true
-                            }));
-                        end);
-                    end
-                } else nil, 
-                [v53.ProfileActions.RemoveTrustedConnection] = {
-                    text = v117[v53.ProfileActions.RemoveTrustedConnection], 
-                    onActivated = function() --[[ Line: 1140 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), l_FFlagLegacyProfileTCIndicator_0 (ref), v103 (ref), l_profileId_0 (ref), v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), v36 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonRemoveTrustedConnection, {
-                            buttonSurface = v104
-                        });
-                        if l_FFlagLegacyProfileTCIndicator_0 then
-                            return v103.removeTrustedConnectionRequest(l_profileId_0):andThen(function() --[[ Line: 1145 ]]
-                                -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), l_profileId_0 (ref)
-                                v106(l_SetCurrentToastMessage_0({
-                                    toastMessage = v117.trustedConnectionRemovedToast, 
-                                    toastIcon = l_Images_0["icons/actions/friends/friendRemove"], 
-                                    isLocalized = true
-                                }));
-                                return v106(v45(l_profileId_0));
-                            end);
-                        else
-                            return v106(v36.RemoveTC.API(l_profileId_0)):andThen(function() --[[ Line: 1154 ]]
-                                -- upvalues: v106 (ref), l_SetCurrentToastMessage_0 (ref), v117 (ref), l_Images_0 (ref), v45 (ref), l_profileId_0 (ref)
-                                v106(l_SetCurrentToastMessage_0({
-                                    toastMessage = v117.trustedConnectionRemovedToast, 
-                                    toastIcon = l_Images_0["icons/actions/friends/friendRemove"], 
-                                    isLocalized = true
-                                }));
-                                return v106(v45(l_profileId_0));
-                            end);
-                        end;
-                    end
-                }, 
-                [v53.ProfileActions.AddTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then {
-                    text = v117[v53.ProfileActions.AddTrustedConnection], 
-                    onActivated = function() --[[ Line: 1168 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v107 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), l_Sources_0 (ref), v106 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonAddTrustedConnection, {
-                            buttonSurface = v104
-                        });
-                        if l_FFlagTCUnifyNavigationEntry_0 then
-                            v107.push(l_AppPage_0.TrustedContactsModal, {
-                                props = {
-                                    userId = l_profileId_0, 
-                                    source = l_Sources_0.ProfilePlatform, 
-                                    onRequestSent = function() --[[ Line: 1177 ]] --[[ Name: onRequestSent ]]
-                                        -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                                        return v106(v45(l_profileId_0));
-                                    end
-                                }
-                            });
-                            return;
-                        else
-                            v107.push(l_AppPage_0.TrustedContactsModal, {
-                                userId = l_profileId_0, 
-                                source = l_Sources_0.ProfilePlatform, 
-                                onRequestSent = function() --[[ Line: 1186 ]] --[[ Name: onRequestSent ]]
-                                    -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                                    return v106(v45(l_profileId_0));
-                                end
-                            });
-                            return;
-                        end;
-                    end
-                } else nil, 
-                [v53.ProfileActions.AddTrustedConnectionViaLink] = if l_FFlagTCShareLinkSenderUI_0 then {
-                    text = v117[v53.ProfileActions.AddTrustedConnection], 
-                    onActivated = function() --[[ Line: 1197 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), l_Sources_0 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v107 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), v106 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonAddTrustedConnection, {
-                            buttonSurface = v104, 
-                            modalVariantOverride = l_Sources_0.ShareLinkSender
-                        });
-                        if l_FFlagTCUnifyNavigationEntry_0 then
-                            v107.push(l_AppPage_0.TrustedContactsModal, {
-                                props = {
-                                    userId = l_profileId_0, 
-                                    source = l_Sources_0.ProfilePlatform, 
-                                    modalVariantOverride = l_Sources_0.ShareLinkSender, 
-                                    onRequestSent = function() --[[ Line: 1208 ]] --[[ Name: onRequestSent ]]
-                                        -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                                        return v106(v45(l_profileId_0));
-                                    end
-                                }
-                            });
-                            return;
-                        else
-                            v107.push(l_AppPage_0.TrustedContactsModal, {
-                                userId = l_profileId_0, 
-                                source = l_Sources_0.ProfilePlatform, 
-                                modalVariantOverride = l_Sources_0.ShareLinkSender, 
-                                onRequestSent = function() --[[ Line: 1218 ]] --[[ Name: onRequestSent ]]
-                                    -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                                    return v106(v45(l_profileId_0));
-                                end
-                            });
-                            return;
-                        end;
-                    end
-                } else nil, 
-                [v53.ProfileActions.AddIncomingTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then {
-                    text = v117[v53.ProfileActions.AddIncomingTrustedConnection], 
-                    onActivated = function() --[[ Line: 1229 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), l_FFlagTCUnifyNavigationEntry_0 (ref), v107 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), v106 (ref), v45 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonAddIncomingTrustedConnection, {
-                            buttonSurface = v104
-                        });
-                        if l_FFlagTCUnifyNavigationEntry_0 then
-                            v107.push(l_AppPage_0.TrustedContactsModal, {
-                                props = {
-                                    userId = l_profileId_0, 
-                                    onRequestAccepted = function() --[[ Line: 1240 ]] --[[ Name: onRequestAccepted ]]
-                                        -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                                        return v106(v45(l_profileId_0));
-                                    end
-                                }
-                            });
-                            return;
-                        else
-                            v107.push(l_AppPage_0.TrustedContactsModal, {
-                                userId = l_profileId_0, 
-                                onRequestAccepted = function() --[[ Line: 1248 ]] --[[ Name: onRequestAccepted ]]
-                                    -- upvalues: v106 (ref), v45 (ref), l_profileId_0 (ref)
-                                    return v106(v45(l_profileId_0));
-                                end
-                            });
-                            return;
-                        end;
-                    end
-                } else nil, 
-                [v53.ProfileActions.PendingTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then {
-                    text = v117[v53.ProfileActions.AddTrustedConnection], 
-                    isDisabled = true, 
-                    onActivated = function() --[[ Line: 1260 ]] --[[ Name: onActivated ]]
+	local v115 = React.useMemo(function() -- line: 151
+		-- upvalues: v112 (copy), str (copy)
+		return string.format("%s&source=ProfileShare&stamp=%s", v112 or "", str)
+	end, { v112 })
+	local v116 = if not FFlagConnectionsToFriendsRename then TextKeys.AcceptConnection else TextKeys.AcceptFriend
+	local v117 = if not FFlagConnectionsToFriendsRename then TextKeys.AddConnection else TextKeys.AddFriend
+	local v118 = useLocalization({
+		[Enums.ProfileActions.AcceptFriendRequest] = v116,
+		[Enums.ProfileActions.AcceptOffNetworkFriendRequest] = v116,
+		[Enums.ProfileActions.AddFriend] = v117,
+		[Enums.ProfileActions.AddFriendFromContacts] = v117,
+		[Enums.ProfileActions.AddFriendFromContactsSent] = TextKeys.PendingRequest,
+		[Enums.ProfileActions.AddTrustedConnection] = if not FFlagProfilePlatformAddTC then nil else TextKeys.AddTrustedConnection,
+		[Enums.ProfileActions.AddIncomingTrustedConnection] = if not FFlagProfilePlatformAddTC then nil else TextKeys.AcceptTrustedConnection,
+		[Enums.ProfileActions.Block] = TextKeys.Block,
+		[Enums.ProfileActions.CannotAddFriend] = v117,
+		[Enums.ProfileActions.Chat] = TextKeys.Chat,
+		[Enums.ProfileActions.UnlockChat] = if not FFlagProfilePlatformEnableUnlockChat then nil else TextKeys.UnlockChat,
+		[Enums.ProfileActions.EditAlias] = TextKeys.CustomizeName,
+		[Enums.ProfileActions.EditAppearance] = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else TextKeys.EditAppearance,
+		[Enums.ProfileActions.EditEmotes] = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else TextKeys.EditEmotes,
+		[Enums.ProfileActions.SwitchAvatar] = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else TextKeys.SwitchAvatar,
+		[Enums.ProfileActions.EditAvatar] = TextKeys.EditAvatar,
+		[Enums.ProfileActions.EditLook] = if not FFlagProfilePlatformEnableEditLook then nil else TextKeys.EditLook,
+		[Enums.ProfileActions.EditProfile] = TextKeys.EditProfile,
+		[Enums.ProfileActions.IgnoreFriendRequest] = if not FFlagConnectionsToFriendsRename then TextKeys.IgnoreConnectionRequest else TextKeys.IgnoreFriendRequest,
+		[Enums.ProfileActions.JoinExperience] = TextKeys.Join,
+		[Enums.ProfileActions.PendingFriendRequest] = TextKeys.PendingRequest,
+		[Enums.ProfileActions.QrCode] = TextKeys.ToQRCode,
+		[Enums.ProfileActions.Report] = TextKeys.Report,
+		[Enums.ProfileActions.ShareProfile] = TextKeys.ShareProfile,
+		[Enums.ProfileActions.Unblock] = TextKeys.Unblock,
+		[Enums.ProfileActions.Unfriend] = if not FFlagConnectionsToFriendsRename then TextKeys.RemoveConnection else TextKeys.Unfriend,
+		[Enums.ProfileActions.CopyLink] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else TextKeys.CopyLink,
+		[Enums.ProfileActions.JoinCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else TextKeys.JoinCommunity,
+		[Enums.ProfileActions.CancelJoinCommunityRequest] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else TextKeys.CancelJoinCommunityRequest,
+		[Enums.ProfileActions.ViewCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else TextKeys.ViewCommunity,
+		[Enums.ProfileActions.ViewFullProfile] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities then nil else TextKeys.ViewFullProfile,
+		[Enums.ProfileActions.LeaveCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else TextKeys.LeaveCommunity,
+		[Enums.ProfileActions.MakePrimaryCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else TextKeys.MakePrimaryCommunity,
+		[Enums.ProfileActions.RemovePrimaryCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else TextKeys.RemovePrimaryCommunity,
+		[Enums.ProfileActions.Follow] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities then nil else TextKeys.Follow,
+		[Enums.ProfileActions.Unfollow] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities then nil else TextKeys.Unfollow,
+		[Enums.ProfileActions.RemoveTrustedConnection] = TextKeys.RemoveTrustedConnection,
+		[Enums.ProfileActions.ViewAbout] = if not FFlagProfilePlatformNewProfileHeader then nil else TextKeys.AboutThisProfile,
+		[Enums.ProfileActions.ViewPlatformProfile] = if not FFlagEnablePlatformProfileContextualMenuOption then nil else TextKeys.ViewPlatformProfile,
+		[Enums.ProfileActions.CurrencyTransfer] = if not FFlagProfilePlatformEnableCurrencyTransfer then nil else TextKeys.CurrencyTransfer,
+		friendAcceptedToast = if not FFlagConnectionsToFriendsRename then TextKeys.ConnectionAdded else TextKeys.FriendAdded,
+		friendRemovedToast = if not FFlagConnectionsToFriendsRename then TextKeys.ConnectionRemoved else TextKeys.FriendRemoved,
+		trustedConnectionRemovedToast = TextKeys.TrustedConnectionRemoved,
+		friendRequestSentToast = if not FFlagConnectionsToFriendsRename then TextKeys.ConnectionRequestSent else TextKeys.FriendRequestSent,
+		friendRequestIgnoredToast = TextKeys.RequestIgnored,
+		userBlockedToast = TextKeys.UserBlocked,
+		blockLimitReachedToast = TextKeys.BlockLimitReached,
+		blocktargetAlreadyBlockedToast = TextKeys.BlockTargetAlreadyBlocked,
+		blockedOnPlatformToast = TextKeys.UnblockTargetBlockedOnPlatform,
+		unblockTargetNotBlockedToast = TextKeys.UnblockTargetNotBlocked,
+		unblockTargetParentManagedToast = TextKeys.UnblockTargetParentManaged,
+		somethingIsWrongToast = TextKeys.SomethingIsWrong,
+		alreadyFriendError = TextKeys.AlreadyFriendError,
+		defaultFriendingError = TextKeys.DefaultFriendingError,
+		invalidNicknameError = TextKeys.InvalidNicknameError,
+		invalidTargetUserError = TextKeys.InvalidTargetUserError,
+		maxFriendsError = TextKeys.MaxFriendsError,
+		unauthorizedError = TextKeys.UnauthorizedError,
+		userBannedError = TextKeys.UserBannedError,
+		userBlockedError = TextKeys.UserBlockedError,
+		userNotPassedCaptchaError = TextKeys.UserNotPassedCaptchaError,
+		tooManyRequestsError = TextKeys.TooManyRequestsError
+	})
+	local v119 = React.useCallback(function() -- line: 275
+		-- upvalues: v109 (copy)
+		v109.navigateTo.previousView(true)
+	end, { v109.navigateTo.previousView })
+	local profileId = v109.profileId
+	local v121 = if not FFlagEnablePlatformProfileContextualMenuOption then nil else v109.profilePlatformId
+	local profileType = v109.profileType
+	local v123 = if not FFlagProfilePlatformPassPresenceToJoinUserInExperience then nil else useSelector(function(p2) -- line: 285
+		-- upvalues: Presence (copy), profileId (copy)
+		return Presence.Selectors.getUserPresenceByUserId(p2, profileId) or {
+			userPresenceType = Presence.Enums.PresenceType.Offline,
+			lastLocation = ""
+		}
+	end)
+	local aboutSections = nil
 
-                    end
-                } else nil, 
-                [v53.ProfileActions.PendingIncomingTrustedConnection] = if v74 then {
-                    text = v117[v53.ProfileActions.AddIncomingTrustedConnection], 
-                    isDisabled = true, 
-                    onActivated = function() --[[ Line: 1267 ]] --[[ Name: onActivated ]]
+	if FFlagProfilePlatformNewProfileHeader then
+		aboutSections = useAboutSections().aboutSections
+	end
 
-                    end
-                } else nil, 
-                [v53.ProfileActions.ViewAbout] = if l_FFlagProfilePlatformNewProfileHeader_0 then {
-                    text = v117[v53.ProfileActions.ViewAbout], 
-                    onActivated = function() --[[ Line: 1273 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v106 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v124 (ref)
-                        v110.fireAnalyticsEvent(v52.CTAButtonViewFullProfile, {
-                            buttonSurface = v104
-                        });
-                        v106(l_NavigateDown_0({
-                            name = l_AppPage_0.AboutDetailsSheet, 
-                            extraProps = {
-                                sections = v124
-                            }
-                        }));
-                    end
-                } else nil, 
-                [v53.ProfileActions.ViewPlatformProfile] = if l_FFlagEnablePlatformProfileContextualMenuOption_0 then {
-                    text = v117[v53.ProfileActions.ViewPlatformProfile], 
-                    onActivated = function() --[[ Line: 1290 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v110 (ref), v52 (ref), v104 (ref), v51 (ref), v120 (ref)
-                        v110.fireAnalyticsEvent(v52.ContextualMenuButtonViewPlatformProfile, {
-                            buttonSurface = v104
-                        });
-                        v51:ShowProfile(v120);
-                    end
-                } else nil, 
-                [v53.ProfileActions.CurrencyTransfer] = if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then {
-                    text = v117[v53.ProfileActions.CurrencyTransfer], 
-                    onActivated = function() --[[ Line: 1301 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v104 (ref), v53 (ref), v110 (ref), v52 (ref), v109 (ref), l_profileId_0 (ref), l_TransferDirection_0 (ref), l_TransferOrigination_0 (ref)
-                        if v104 == v53.ButtonSurface.ContextualMenu then
-                            v110.fireAnalyticsEvent(v52.ContextualMenuButtonCurrencyTransfer, {
-                                buttonSurface = v104
-                            });
-                        else
-                            v110.fireAnalyticsEvent(v52.CTAButtonCurrencyTransfer, {
-                                buttonSurface = v104
-                            });
-                        end;
-                        if v109 then
-                            v109({
-                                recipientUserId = l_profileId_0, 
-                                direction = l_TransferDirection_0.Send, 
-                                transferOrigination = l_TransferOrigination_0.Profile
-                            });
-                        end;
-                    end
-                } else nil
-            };
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v106, 
-        l_profileId_0, 
-        v108, 
-        if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then v109 else nil, 
-        l_qRCodePage_0, 
-        v117, 
-        v105, 
-        v107, 
-        l_editUsername_0, 
-        v125.joinExperience, 
-        v125.isLoading, 
-        v110, 
-        v131, 
-        v104, 
-        if l_FFlagProfilePlatformNewProfileHeader_0 then v124 else nil, 
-        l_profileType_0, 
-        l_editAvatar_0, 
-        if v78 then v128 else nil, 
-        if v78 then v129 else nil, 
-        if v81 then v114 else nil, 
-        if v81 then v125.isInExperience else nil, 
-        if v81 then v149 else nil
-    } else l_dependencyArray_0(v106, l_profileId_0, v108, if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then v109 else nil, l_qRCodePage_0, v117, v105, v107, l_editUsername_0, v125.joinExperience, v125.isLoading, v110, v131, v104, if l_FFlagProfilePlatformNewProfileHeader_0 then v124 else nil, l_profileType_0, l_editAvatar_0, if v78 then v128 else nil, if v78 then v129 else nil)));
-end;
+	local v125 = useJoinUserInExperience(profileId, {
+		isHomePageCarousel = v109.sourceInfo.source == Enums.Sources.HomepageFriendsCarousel,
+		homepageCarouselAbsolutePosition = v109.sourceInfo.homepageCarouselAbsolutePosition,
+		openGameDetailsPeekViewClosed = v119,
+		presence = if not FFlagProfilePlatformPassPresenceToJoinUserInExperience then nil else v123
+	})
+	local qRCodePage = v109.navigateTo.qRCodePage
+	local editUsername = v109.navigateTo.editUsername
+	local v128 = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else v109.navigateTo.editEmotes
+	local v129 = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else v109.navigateTo.switchAvatar
+	local editAvatar = v109.navigateTo.editAvatar
+	local v131 = FriendRequestNicknamesIXP.useFriendRequestNicknames()
+	local v132 = useProfileShareLink({
+		context = Contexts.ProfileCard
+	})
+	local v133 = v132.policy == ProfileSharePolicyEnum.Disabled
+	local t1 = {
+		[USER_FRIENDING_ERRORS.INVALID_TARGET_USER_ERROR] = v118.invalidTargetUserError,
+		[USER_FRIENDING_ERRORS.ALREADY_FRIEND_ERROR] = v118.alreadyFriendError,
+		[USER_FRIENDING_ERRORS.MAX_FRIENDS_ERROR] = v118.maxFriendsError,
+		[USER_FRIENDING_ERRORS.INVALID_NICKNAME_ERROR] = v118.invalidNicknameError
+	}
+	local t2 = {
+		[USER_FRIENDING_ERRORS.UNAUTHORIZED_ERROR] = v118.unauthorizedError
+	}
+	local t3 = {
+		[USER_FRIENDING_ERRORS.USER_BANNED_ERROR] = v118.userBannedError,
+		[USER_FRIENDING_ERRORS.USER_BLOCKED_ERROR] = v118.userBlockedError,
+		[USER_FRIENDING_ERRORS.USER_NOT_PASSED_CAPTCHA_ERROR] = v118.userNotPassedCaptchaError
+	}
+	local t4 = {
+		[USER_FRIENDING_ERRORS.TOO_MANY_REQUESTS_ERROR] = v118.tooManyRequestsError
+	}
+
+	local function setErrorToast(p3, p4) -- line: 358
+		-- upvalues: HttpService (copy), Enums (copy), STATUS_CODES (copy), t1 (copy), t2 (copy), t3 (copy), t4 (copy), v118 (copy), v107 (copy), SetCurrentToastMessage (copy)
+		if p4 ~= nil then
+			local StatusCode = p4.StatusCode
+			local v147 = if not p4.Body then nil else HttpService:JSONDecode(p4.Body)
+			local v148 = if not v147 or (not v147.errors or (not v147.errors[1] or not v147.errors[1].code)) then nil else v147.errors[1].code
+			local v149 = ((if p3 ~= Enums.ProfileActions.AddFriend and p3 ~= Enums.ProfileActions.AddFriendFromContacts then nil else (if StatusCode ~= STATUS_CODES.BAD_REQUEST then (if StatusCode ~= STATUS_CODES.UNAUTHORIZED then (if StatusCode ~= STATUS_CODES.FORBIDDEN then (if StatusCode ~= STATUS_CODES.TOO_MANY_REQUESTS then nil else t4[v148]) else t3[v148]) else t2[v148]) else t1[v148]))) or v118.defaultFriendingError
+
+			v107(SetCurrentToastMessage({
+				toastMessage = v149,
+				isLocalized = true
+			}))
+
+			return
+		end
+
+		v107(SetCurrentToastMessage({
+			toastMessage = v118.defaultFriendingError,
+			isLocalized = true
+		}))
+	end
+
+	local v139 = if not FFlagProfilePlatformCTAsRefactor then nil else {
+		localized = v118,
+		analytics = v111,
+		buttonSurface = p1,
+		profileWrapperContext = v109,
+		navigateTo = v109.navigateTo,
+		dispatch = v107,
+		profileId = profileId,
+		localUserId = v106,
+		navigation = v108,
+		profileType = profileType,
+		experienceUtilities = v125,
+		friendRequestNicknamesEnabled = v131,
+		profileShareLink = v132,
+		PROFILE_SHARE_LINK_URL = v115,
+		aboutSections = if not FFlagProfilePlatformNewProfileHeader then nil else aboutSections
+	}
+
+	return (React.useMemo(function() -- line: 402
+		-- upvalues: FFlagProfilePlatformCTAsRefactor (copy), ProfileActions (copy), v139 (copy), Enums (copy), v118 (copy), ButtonVariant (copy), v111 (copy), EventNames (copy), p1 (copy), v109 (copy), v107 (copy), NetworkingFriends (copy), profileId (copy), v106 (copy), SetCurrentToastMessage (copy), Images (copy), refreshProfilePlatformActionInfo (copy), FriendRequestNicknamesIXP (copy), v131 (copy), NavigateDown (copy), AppPage (copy), setErrorToast (copy), ButtonType (copy), ContextualInfoTypes (copy), refreshProfilePlatform (copy), profileType (copy), v108 (copy), EnteredChatFromEntryPoint (copy), ChatEntryPointNames (copy), GuiService (copy), NotificationTypeList (copy), SocialStopwatch (copy), SetAlias (copy), FFlagProfilePlatformEnableEditAppearanceMenu (copy), IconName (copy), editAvatar (copy), FFlagProfilePlatformEnableEditLook (copy), v128 (copy), v129 (copy), Foundation (copy), editUsername (copy), refreshProfilePlatformUserInfo (copy), FFlagMoveInExperienceModeToEditProfile (copy), v125 (copy), qRCodePage (copy), v133 (copy), default (copy), Contexts (copy), v115 (copy), TextKeys (copy), v132 (copy), FFlagProfilePlatformEnableCommunityProfilePage (copy), FFlagEnableAbuseReportRevampFlow (copy), FFlagEnableAbuseReportRevampProfileAndGroup (copy), AbuseVector (copy), OpenDynamicAbuseReport (copy), CloseCentralOverlay (copy), Url (copy), myUserBlockingNetworking (copy), USER_BLOCKING_ERRORS (copy), FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage (copy), v101 (copy), GroupsNetworking (copy), getProfilePlatform (copy), getAvailableCommunityComponents (copy), UrlBuilder (copy), FFlagProfilePlatformRefreshOnWebviewClose (copy), FFlagProfilePlatformUpdateUXForNonSocialCommunities (copy), UrlBase (copy), FFlagLegacyProfileTCIndicator (copy), v103 (copy), FFlagProfilePlatformAddTC (copy), FFlagTCUnifyNavigationEntry (copy), Sources (copy), FFlagTCShareLinkSenderUI (copy), FFlagPendingIncomingTrustedConnection (copy), FFlagProfilePlatformNewProfileHeader (copy), aboutSections (ref), FFlagEnablePlatformProfileContextualMenuOption (copy), getPlatformFriendsService (copy), v121 (copy), FFlagProfilePlatformEnableCurrencyTransfer (copy), v110 (copy), TransferDirection (copy), TransferOrigination (copy)
+		if FFlagProfilePlatformCTAsRefactor then
+			local t5 = {}
+
+			for v151, v152 in ProfileActions do
+				local v153 = v152(v139)
+
+				if v153 ~= nil then
+					t5[v151] = v153
+				end
+			end
+
+			return t5
+		end
+
+		return {
+			[Enums.ProfileActions.AcceptFriendRequest] = {
+				text = v118[Enums.ProfileActions.AcceptFriendRequest],
+				variant = ButtonVariant.Emphasis,
+				onActivated = function() --[[ onActivated ]] -- line: 428
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v109 (copy), Enums (copy), v107 (copy), NetworkingFriends (copy), profileId (copy), v106 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonAcceptFriendRequest, {
+						buttonSurface = p1,
+						absolutePosition = v109.sourceInfo.homepageCarouselAbsolutePosition,
+						isHomePageCarousel = v109.sourceInfo.source == Enums.Sources.HomepageFriendsCarousel,
+						isRecommendation = v109.sourceInfo.isRecommendation,
+						source = v109.sourceInfo.source,
+						contextualInfoType = v109.sourceInfo.contextualInfoType,
+						recommendationContextType = v109.sourceInfo.recommendationContextType,
+						recommendationRank = v109.sourceInfo.recommendationRank,
+						recommendationSessionId = v109.sourceInfo.recommendationSessionId
+					})
+
+					return v107(NetworkingFriends.AcceptFriendRequestFromUserId.API({
+						targetUserId = profileId,
+						currentUserId = v106
+					})):andThen(function() -- line: 444
+						-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+						v107(SetCurrentToastMessage({
+							toastMessage = v118.friendAcceptedToast,
+							toastIcon = Images["icons/actions/friends/friendAdd"],
+							isLocalized = true
+						}))
+
+						return v107(refreshProfilePlatformActionInfo(profileId))
+					end)
+				end
+			},
+			[Enums.ProfileActions.AcceptOffNetworkFriendRequest] = {
+				text = v118[Enums.ProfileActions.AcceptOffNetworkFriendRequest],
+				onActivated = function() --[[ onActivated ]] -- line: 456
+					-- upvalues: v111 (copy), EventNames (copy), v109 (copy), v107 (copy), NetworkingFriends (copy), profileId (copy), v106 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonAddFriendFromContacts, {
+						shareLinkId = v109.sourceInfo.shareLinkId
+					})
+
+					return v107(NetworkingFriends.AcceptFriendRequestWithToken.API({
+						targetUserId = profileId,
+						currentUserId = v106,
+						friendingToken = v109.offNetworkFriendRequestToken
+					})):andThen(function() -- line: 464
+						-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+						v107(SetCurrentToastMessage({
+							toastMessage = v118.friendAcceptedToast,
+							toastIcon = Images["icons/actions/friends/friendAdd"],
+							isLocalized = true
+						}))
+
+						return v107(refreshProfilePlatformActionInfo(profileId))
+					end)
+				end
+			},
+			[Enums.ProfileActions.AddFriend] = {
+				text = v118[Enums.ProfileActions.AddFriend],
+				variant = ButtonVariant.Emphasis,
+				onActivated = function() --[[ onActivated ]] -- line: 477
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v109 (copy), Enums (copy), FriendRequestNicknamesIXP (copy), v131 (copy), v107 (copy), NavigateDown (copy), AppPage (copy), profileId (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), NetworkingFriends (copy), v106 (copy), refreshProfilePlatformActionInfo (copy), setErrorToast (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonAddFriend, {
+						buttonSurface = p1,
+						absolutePosition = v109.sourceInfo.homepageCarouselAbsolutePosition,
+						isHomePageCarousel = v109.sourceInfo.source == Enums.Sources.HomepageFriendsCarousel,
+						isRecommendation = v109.sourceInfo.isRecommendation,
+						source = v109.sourceInfo.source,
+						contextualInfoType = v109.sourceInfo.contextualInfoType,
+						recommendationContextType = v109.sourceInfo.recommendationContextType,
+						recommendationRank = v109.sourceInfo.recommendationRank,
+						recommendationSessionId = v109.sourceInfo.recommendationSessionId
+					})
+
+					if FriendRequestNicknamesIXP.FFlagFriendRequestNicknames and v131 then
+						return v107(NavigateDown({
+							name = AppPage.SetNicknameModal,
+							extraProps = {
+								friendRequestParams = {
+									targetUserId = profileId,
+									source = v109.sourceInfo.friendshipOriginSourceType
+								}
+							}
+						}))
+					end
+
+					v107(SetCurrentToastMessage({
+						toastMessage = v118.friendRequestSentToast,
+						toastIcon = Images["icons/actions/friends/friendAdd"],
+						isLocalized = true
+					}))
+
+					return v107(NetworkingFriends.RequestFriendshipFromUserId.API({
+						targetUserId = profileId,
+						currentUserId = v106,
+						friendshipOriginSourceType = v109.sourceInfo.friendshipOriginSourceType
+					})):andThen(function() -- line: 514
+						-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+						return v107(refreshProfilePlatformActionInfo(profileId))
+					end):catch(function(p5) -- line: 517
+						-- upvalues: setErrorToast (copy), Enums (copy)
+						setErrorToast(Enums.ProfileActions.AddFriend, p5)
+					end)
+				end
+			},
+			[Enums.ProfileActions.AddFriendFromContacts] = {
+				buttonType = ButtonType.PrimaryContextual,
+				variant = ButtonVariant.Emphasis,
+				text = v118[Enums.ProfileActions.AddFriendFromContacts],
+				onActivated = function() --[[ onActivated ]] -- line: 527
+					-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), NetworkingFriends (copy), v106 (copy), profileId (copy), ContextualInfoTypes (copy), refreshProfilePlatform (copy), profileType (copy), Enums (copy), setErrorToast (copy)
+					v107(SetCurrentToastMessage({
+						toastMessage = v118.friendRequestSentToast,
+						toastIcon = Images["icons/actions/friends/friendAdd"],
+						isLocalized = true
+					}))
+
+					return v107(NetworkingFriends.RequestFriendshipFromContactId.API({
+						currentUserId = v106,
+						contactId = profileId,
+						contextType = ContextualInfoTypes.Contacts
+					})):andThen(function() -- line: 538
+						-- upvalues: v107 (copy), refreshProfilePlatform (copy), profileType (copy), profileId (copy), Enums (copy)
+						return v107(refreshProfilePlatform({
+							profileType = profileType,
+							profileId = profileId,
+							components = {
+								Enums.Components.ContactProfileHeader,
+								Enums.Components.Actions,
+								Enums.Components.ContactDescription
+							}
+						}))
+					end):catch(function(p6) -- line: 549
+						-- upvalues: setErrorToast (copy), Enums (copy)
+						setErrorToast(Enums.ProfileActions.AddFriendFromContacts, p6)
+					end)
+				end
+			},
+			[Enums.ProfileActions.AddFriendFromContactsSent] = {
+				buttonType = ButtonType.Secondary,
+				variant = ButtonVariant.Subtle,
+				text = v118[Enums.ProfileActions.AddFriendFromContactsSent],
+				onActivated = function() --[[ onActivated ]] -- line: 558
+				end,
+				isDisabled = true
+			},
+			[Enums.ProfileActions.Block] = {
+				text = v118[Enums.ProfileActions.Block],
+				onActivated = function() --[[ onActivated ]] -- line: 563
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v108 (copy), AppPage (copy), profileId (copy), v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonBlock, {
+						buttonSurface = p1
+					})
+					v108.push(AppPage.BlockingModal, {
+						navProps = {
+							userId = profileId,
+							onBlockSuccess = function() --[[ onBlockSuccess ]] -- line: 570
+								-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+								v107(SetCurrentToastMessage({
+									toastMessage = v118.userBlockedToast,
+									toastIcon = Images["icons/actions/block"],
+									isLocalized = true
+								}))
+								v107(refreshProfilePlatformActionInfo(profileId))
+							end
+						}
+					})
+				end
+			},
+			[Enums.ProfileActions.CannotAddFriend] = {
+				text = v118[Enums.ProfileActions.CannotAddFriend],
+				onActivated = function() --[[ onActivated ]] -- line: 585
+				end,
+				isDisabled = true
+			},
+			[Enums.ProfileActions.Chat] = {
+				text = v118[Enums.ProfileActions.Chat],
+				variant = ButtonVariant.Standard,
+				onActivated = function() --[[ onActivated ]] -- line: 591
+					-- upvalues: p1 (copy), Enums (copy), v111 (copy), EventNames (copy), v107 (copy), EnteredChatFromEntryPoint (copy), ChatEntryPointNames (copy), GuiService (copy), profileId (copy), NotificationTypeList (copy)
+					if p1 == Enums.ButtonSurface.ContextualMenu then
+						v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonChat, {
+							buttonSurface = p1
+						})
+					else
+						v111.fireAnalyticsEvent(EventNames.CTAButtonChat, {
+							buttonSurface = p1
+						})
+					end
+
+					v107(EnteredChatFromEntryPoint(ChatEntryPointNames.ProfilePeekView))
+					GuiService:BroadcastNotification(profileId, NotificationTypeList.LAUNCH_CONVERSATION)
+				end
+			},
+			[Enums.ProfileActions.EditAlias] = {
+				text = v118[Enums.ProfileActions.EditAlias],
+				onActivated = function() --[[ onActivated ]] -- line: 608
+					-- upvalues: SocialStopwatch (copy), v111 (copy), EventNames (copy), p1 (copy), v108 (copy), Enums (copy), profileId (copy), SetAlias (copy)
+					SocialStopwatch.Stopwatch.start(SocialStopwatch.Events.CustomizeNameOpened)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonSetAlias, {
+						buttonSurface = p1
+					})
+					v108.navigate(Enums.Screens.SetAliasModal, {
+						profileUserId = profileId,
+						origin = SetAlias.Analytics.EntryPoints.ContextualMenu
+					})
+				end
+			},
+			[Enums.ProfileActions.EditAppearance] = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else {
+				text = v118[Enums.ProfileActions.EditAppearance],
+				variant = ButtonVariant.Emphasis,
+				onActivated = function() --[[ onActivated ]] -- line: 623
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonEditAppearance, {
+						buttonSurface = p1
+					})
+				end
+			},
+			[Enums.ProfileActions.EditAvatar] = {
+				text = v118[Enums.ProfileActions.EditAvatar],
+				icon = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else IconName.Person,
+				onActivated = function() --[[ onActivated ]] -- line: 633
+					-- upvalues: v111 (copy), FFlagProfilePlatformEnableEditAppearanceMenu (copy), EventNames (copy), p1 (copy), editAvatar (copy)
+					v111.fireAnalyticsEvent(if not FFlagProfilePlatformEnableEditAppearanceMenu then EventNames.CTAButtonEditAvatar else EventNames.EditAppearanceMenuEditAvatar, {
+						buttonSurface = p1
+					})
+					editAvatar()
+				end
+			},
+			[Enums.ProfileActions.EditLook] = if not FFlagProfilePlatformEnableEditLook then nil else {
+				text = v118[Enums.ProfileActions.EditLook],
+				icon = IconName.Person,
+				onActivated = function() --[[ onActivated ]] -- line: 649
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), editAvatar (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonEditLook, {
+						buttonSurface = p1
+					})
+					editAvatar()
+				end
+			},
+			[Enums.ProfileActions.EditEmotes] = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else {
+				text = v118[Enums.ProfileActions.EditEmotes],
+				icon = IconName.SquareFaceWavingHand,
+				onActivated = function() --[[ onActivated ]] -- line: 661
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v128 (copy)
+					v111.fireAnalyticsEvent(EventNames.EditAppearanceMenuEditEmote, {
+						buttonSurface = p1
+					})
+					v128()
+				end
+			},
+			[Enums.ProfileActions.SwitchAvatar] = if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else {
+				text = v118[Enums.ProfileActions.SwitchAvatar],
+				icon = IconName.PersonStandingArrowReverse,
+				onActivated = function() --[[ onActivated ]] -- line: 673
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v129 (copy)
+					v111.fireAnalyticsEvent(EventNames.EditAppearanceMenuSwitchAvatar, {
+						buttonSurface = p1
+					})
+					v129()
+				end
+			},
+			[Enums.ProfileActions.EditProfile] = {
+				component = Foundation.Button,
+				buttonType = ButtonType.PrimarySystem,
+				variant = ButtonVariant.Standard,
+				text = v118[Enums.ProfileActions.EditProfile],
+				onActivated = function() --[[ onActivated ]] -- line: 686
+					-- upvalues: SocialStopwatch (copy), v111 (copy), EventNames (copy), p1 (copy), v108 (copy), Enums (copy), editUsername (copy), v107 (copy), refreshProfilePlatformUserInfo (copy), profileId (copy), FFlagMoveInExperienceModeToEditProfile (copy)
+					SocialStopwatch.Stopwatch.start(SocialStopwatch.Events.EditProfileOpened)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonOpenEditProfilePage, {
+						buttonSurface = p1
+					})
+					v108.navigate(Enums.Screens.EditProfilePage, {
+						profileScreens = Enums.Screens,
+						navigateToEditUsername = function(p7) --[[ navigateToEditUsername ]] -- line: 693
+							-- upvalues: editUsername (copy), v107 (copy), refreshProfilePlatformUserInfo (copy), profileId (copy)
+							editUsername({
+								showToast = p7,
+								onUsernameChanged = function() --[[ onUsernameChanged ]] -- line: 696
+									-- upvalues: v107 (copy), refreshProfilePlatformUserInfo (copy), profileId (copy)
+									v107(refreshProfilePlatformUserInfo(profileId))
+								end
+							})
+						end,
+						onIdentityChange = function() --[[ onIdentityChange ]] -- line: 701
+							-- upvalues: v107 (copy), refreshProfilePlatformUserInfo (copy), profileId (copy)
+							v107(refreshProfilePlatformUserInfo(profileId))
+						end,
+						onToggleInExperienceMode = if not FFlagMoveInExperienceModeToEditProfile then nil else function() -- line: 705
+							-- upvalues: v107 (copy), refreshProfilePlatformUserInfo (copy), profileId (copy), v111 (copy), EventNames (copy)
+							v107(refreshProfilePlatformUserInfo(profileId))
+							v111.fireAnalyticsEvent(EventNames.ToggleInExperienceModeButton, {})
+						end
+					})
+				end
+			},
+			[Enums.ProfileActions.IgnoreFriendRequest] = {
+				text = v118[Enums.ProfileActions.IgnoreFriendRequest],
+				onActivated = function() --[[ onActivated ]] -- line: 715
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), NetworkingFriends (copy), profileId (copy), v106 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonIgnoreFriendRequest, {
+						buttonSurface = p1
+					})
+
+					return v107(NetworkingFriends.DeclineFriendRequestFromUserId.API({
+						targetUserId = profileId,
+						currentUserId = v106
+					})):andThen(function() -- line: 722
+						-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+						v107(SetCurrentToastMessage({
+							toastMessage = v118.friendRequestIgnoredToast,
+							toastIcon = Images["icons/actions/reject"],
+							isLocalized = true
+						}))
+
+						return v107(refreshProfilePlatformActionInfo(profileId))
+					end)
+				end
+			},
+			[Enums.ProfileActions.JoinExperience] = {
+				buttonType = ButtonType.PrimaryContextual,
+				variant = ButtonVariant.Emphasis,
+				isLoading = v125.isLoading,
+				isDisabled = not v125.isInExperience,
+				text = v118[Enums.ProfileActions.JoinExperience],
+				onActivated = function() --[[ onActivated ]] -- line: 739
+					-- upvalues: v125 (copy)
+					v125.joinExperience()
+				end
+			},
+			[Enums.ProfileActions.PendingFriendRequest] = {
+				buttonType = ButtonType.Secondary,
+				variant = ButtonVariant.Subtle,
+				text = v118[Enums.ProfileActions.PendingFriendRequest],
+				onActivated = function() --[[ onActivated ]] -- line: 748
+				end,
+				isDisabled = true
+			},
+			[Enums.ProfileActions.QrCode] = {
+				text = v118[Enums.ProfileActions.QrCode],
+				icon = IconName.SquaresGridQr,
+				onActivated = function() --[[ onActivated ]] -- line: 754
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), qRCodePage (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonShareProfileQRCode, {
+						buttonSurface = p1
+					})
+					qRCodePage()
+				end
+			},
+			[Enums.ProfileActions.ShareProfile] = {
+				component = Foundation.Button,
+				buttonType = ButtonType.PrimarySystem,
+				variant = ButtonVariant.Standard,
+				text = v118[Enums.ProfileActions.ShareProfile],
+				onActivated = function() --[[ onActivated ]] -- line: 766
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v133 (copy), default (copy), Contexts (copy), v115 (copy), profileId (copy), v107 (copy), SetCurrentToastMessage (copy), TextKeys (copy), v132 (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonShareProfile, {
+						buttonSurface = p1
+					})
+
+					if v133 then
+						default:setClipboardText({
+							context = Contexts.ProfileCard,
+							text = string.format("%s/%s", v115, profileId)
+						})
+						v107(SetCurrentToastMessage({
+							toastMessage = TextKeys.LinkCopied
+						}))
+
+						return
+					end
+
+					v132.onActivated()
+				end
+			},
+			[Enums.ProfileActions.Report] = {
+				text = v118[Enums.ProfileActions.Report],
+				onActivated = function() --[[ onActivated ]] -- line: 785
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), FFlagProfilePlatformEnableCommunityProfilePage (copy), profileType (copy), Enums (copy), FFlagEnableAbuseReportRevampFlow (copy), FFlagEnableAbuseReportRevampProfileAndGroup (copy), AbuseVector (copy), v107 (copy), OpenDynamicAbuseReport (copy), profileId (copy), CloseCentralOverlay (copy), refreshProfilePlatformActionInfo (copy), NavigateDown (copy), AppPage (copy), Url (copy), TextKeys (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonReport, {
+						buttonSurface = p1
+					})
+
+					local s1 = nil
+
+					if FFlagProfilePlatformEnableCommunityProfilePage then
+						if profileType == Enums.ProfileTypes.User then
+							s1 = "userprofile"
+						elseif profileType == Enums.ProfileTypes.Community then
+							s1 = "group"
+						end
+					end
+
+					if FFlagEnableAbuseReportRevampFlow and FFlagEnableAbuseReportRevampProfileAndGroup then
+						local UserProfile = AbuseVector.UserProfile
+
+						if FFlagProfilePlatformEnableCommunityProfilePage and profileType == Enums.ProfileTypes.Community then
+							UserProfile = AbuseVector.Group
+						end
+
+						v107(OpenDynamicAbuseReport({
+							abuseVector = UserProfile,
+							targetId = profileId,
+							onClose = function() --[[ onClose ]] -- line: 808
+								-- upvalues: v107 (copy), CloseCentralOverlay (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+								v107(CloseCentralOverlay())
+								v107(refreshProfilePlatformActionInfo(profileId))
+							end
+						}))
+
+						return
+					end
+
+					v107(NavigateDown({
+						name = AppPage.GenericWebPage,
+						detail = if not FFlagProfilePlatformEnableCommunityProfilePage then string.format("%sabusereport/userprofile?id=%s", Url.BASE_URL, profileId) else `{ Url.BASE_URL }abusereport/{ s1 }?id={ profileId }`,
+						extraProps = {
+							titleKey = TextKeys.Report
+						}
+					}))
+				end
+			},
+			[Enums.ProfileActions.Unblock] = {
+				text = v118[Enums.ProfileActions.Unblock],
+				onActivated = function() --[[ onActivated ]] -- line: 832
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), myUserBlockingNetworking (copy), profileId (copy), v106 (copy), refreshProfilePlatformActionInfo (copy), USER_BLOCKING_ERRORS (copy), SetCurrentToastMessage (copy), v118 (copy), FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonUnblock, {
+						buttonSurface = p1
+					})
+
+					return v107(myUserBlockingNetworking.UnblockUserById.API({
+						userId = profileId,
+						currentUserId = v106
+					})):andThen(function() -- line: 840
+						-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+						return v107(refreshProfilePlatformActionInfo(profileId))
+					end):catch(function(p8) -- line: 843
+						-- upvalues: USER_BLOCKING_ERRORS (copy), v107 (copy), SetCurrentToastMessage (copy), v118 (copy), FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage (copy)
+						if p8 ~= nil and tonumber(p8.Body) == USER_BLOCKING_ERRORS.PARENT_BLOCKED_TARGET_USER_ERROR then
+							v107(SetCurrentToastMessage({
+								toastMessage = v118.unblockTargetParentManagedToast,
+								isLocalized = true
+							}))
+
+							return
+						end
+
+						if p8 ~= nil and tonumber(p8.Body) == USER_BLOCKING_ERRORS.UNBLOCK_TARGET_NOT_BLOCKED_ERROR then
+							v107(SetCurrentToastMessage({
+								toastMessage = v118.unblockTargetNotBlockedToast,
+								isLocalized = true
+							}))
+
+							return
+						end
+
+						if FFlagProfilePlatformEnableBlockedOnPlatformUnblockErrorMessage and p8 ~= nil and tonumber(p8.Body) == USER_BLOCKING_ERRORS.UNBLOCK_TARGET_BLOCKED_ON_PLATFORM then
+							v107(SetCurrentToastMessage({
+								toastMessage = v118.blockedOnPlatformToast,
+								isLocalized = true
+							}))
+
+							return
+						end
+
+						v107(SetCurrentToastMessage({
+							toastMessage = v118.somethingIsWrongToast,
+							isLocalized = true
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.Unfriend] = {
+				text = v118[Enums.ProfileActions.Unfriend],
+				onActivated = function() --[[ onActivated ]] -- line: 887
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), NetworkingFriends (copy), profileId (copy), v106 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonUnfriend, {
+						buttonSurface = p1
+					})
+
+					return v107(NetworkingFriends.UnfriendTargetUserId.API({
+						targetUserId = profileId,
+						currentUserId = v106
+					})):andThen(function() -- line: 894
+						-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+						v107(SetCurrentToastMessage({
+							toastMessage = v118.friendRemovedToast,
+							toastIcon = Images["icons/actions/friends/friendRemove"],
+							isLocalized = true
+						}))
+
+						return v107(refreshProfilePlatformActionInfo(profileId))
+					end)
+				end
+			},
+			[Enums.ProfileActions.CopyLink] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else {
+				text = v118[Enums.ProfileActions.CopyLink],
+				onActivated = function() --[[ onActivated ]] -- line: 907
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), default (copy), Contexts (copy), v101 (copy), profileId (copy), v107 (copy), SetCurrentToastMessage (copy), TextKeys (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonCopyLink, {
+						buttonSurface = p1
+					})
+					default:setClipboardText({
+						context = Contexts.ProfileCard,
+						text = string.format(v101, profileId)
+					})
+					v107(SetCurrentToastMessage({
+						toastMessage = TextKeys.LinkCopied
+					}))
+				end
+			},
+			[Enums.ProfileActions.JoinCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else {
+				buttonType = ButtonType.PrimaryContextual,
+				variant = ButtonVariant.Emphasis,
+				text = v118[Enums.ProfileActions.JoinCommunity],
+				onActivated = function() --[[ onActivated ]] -- line: 927
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), GroupsNetworking (copy), profileId (copy), getProfilePlatform (copy), profileType (copy), getAvailableCommunityComponents (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonJoinCommunity, {
+						buttonSurface = p1
+					})
+
+					return v107(GroupsNetworking.JoinGroup.API({
+						groupId = profileId
+					})):andThen(function() -- line: 934
+						-- upvalues: v107 (copy), getProfilePlatform (copy), profileType (copy), profileId (copy), getAvailableCommunityComponents (copy)
+						v107(getProfilePlatform.API({
+							profileType = profileType,
+							profileId = profileId,
+							components = getAvailableCommunityComponents(),
+							includeComponentOrdering = true
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.CancelJoinCommunityRequest] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else {
+				buttonType = ButtonType.PrimarySystem,
+				variant = ButtonVariant.Standard,
+				text = v118[Enums.ProfileActions.CancelJoinCommunityRequest],
+				onActivated = function() --[[ onActivated ]] -- line: 950
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), GroupsNetworking (copy), profileId (copy), v106 (copy), refreshProfilePlatform (copy), profileType (copy), Enums (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonCancelJoinCommunityRequest, {
+						buttonSurface = p1
+					})
+
+					return v107(GroupsNetworking.CancelJoinGroupRequest.API({
+						groupId = profileId,
+						userId = v106
+					})):andThen(function() -- line: 958
+						-- upvalues: v107 (copy), refreshProfilePlatform (copy), profileType (copy), profileId (copy), Enums (copy)
+						v107(refreshProfilePlatform({
+							profileType = profileType,
+							profileId = profileId,
+							components = { Enums.Components.Actions }
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.ViewCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else {
+				buttonType = ButtonType.PrimarySystem,
+				variant = ButtonVariant.SubEmphasis,
+				text = v118[Enums.ProfileActions.ViewCommunity],
+				onActivated = function() --[[ onActivated ]] -- line: 975
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), NavigateDown (copy), AppPage (copy), UrlBuilder (copy), profileId (copy), TextKeys (copy), FFlagProfilePlatformRefreshOnWebviewClose (copy), getProfilePlatform (copy), profileType (copy), getAvailableCommunityComponents (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonViewCommunity, {
+						buttonSurface = p1
+					})
+					v107(NavigateDown({
+						name = AppPage.GenericWebPage,
+						detail = UrlBuilder.user.group({
+							groupId = profileId
+						}),
+						extraProps = {
+							titleKey = TextKeys.Community,
+							onClose = function() --[[ onClose ]] -- line: 985
+								-- upvalues: FFlagProfilePlatformRefreshOnWebviewClose (copy), v107 (copy), getProfilePlatform (copy), profileType (copy), profileId (copy), getAvailableCommunityComponents (copy)
+								if FFlagProfilePlatformRefreshOnWebviewClose then
+									v107(getProfilePlatform.API({
+										profileType = profileType,
+										profileId = profileId,
+										components = getAvailableCommunityComponents(),
+										includeComponentOrdering = true
+									}))
+								end
+							end
+						}
+					}))
+				end
+			},
+			[Enums.ProfileActions.ViewFullProfile] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities then nil else {
+				buttonType = ButtonType.PrimarySystem,
+				variant = ButtonVariant.SubEmphasis,
+				text = v118[Enums.ProfileActions.ViewFullProfile],
+				onActivated = function() --[[ onActivated ]] -- line: 1005
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), NavigateDown (copy), AppPage (copy), UrlBuilder (copy), UrlBase (copy), profileId (copy), TextKeys (copy), FFlagProfilePlatformRefreshOnWebviewClose (copy), getProfilePlatform (copy), profileType (copy), getAvailableCommunityComponents (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonViewFullProfile, {
+						buttonSurface = p1
+					})
+					v107(NavigateDown({
+						name = AppPage.GenericWebPage,
+						detail = UrlBuilder.new({
+							base = UrlBase.WWW,
+							path = `profiles/{ profileId }`
+						})(),
+						extraProps = {
+							titleKey = TextKeys.Profile,
+							onClose = function() --[[ onClose ]] -- line: 1018
+								-- upvalues: FFlagProfilePlatformRefreshOnWebviewClose (copy), v107 (copy), getProfilePlatform (copy), profileType (copy), profileId (copy), getAvailableCommunityComponents (copy)
+								if FFlagProfilePlatformRefreshOnWebviewClose then
+									v107(getProfilePlatform.API({
+										profileType = profileType,
+										profileId = profileId,
+										components = getAvailableCommunityComponents(),
+										includeComponentOrdering = true
+									}))
+								end
+							end
+						}
+					}))
+				end
+			},
+			[Enums.ProfileActions.LeaveCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else {
+				text = v118[Enums.ProfileActions.LeaveCommunity],
+				onActivated = function() --[[ onActivated ]] -- line: 1036
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), GroupsNetworking (copy), profileId (copy), v106 (copy), getProfilePlatform (copy), profileType (copy), getAvailableCommunityComponents (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonLeaveCommunity, {
+						buttonSurface = p1
+					})
+
+					return v107(GroupsNetworking.LeaveGroup.API({
+						groupId = profileId,
+						userId = v106
+					})):andThen(function() -- line: 1044
+						-- upvalues: v107 (copy), getProfilePlatform (copy), profileType (copy), profileId (copy), getAvailableCommunityComponents (copy)
+						v107(getProfilePlatform.API({
+							profileType = profileType,
+							profileId = profileId,
+							components = getAvailableCommunityComponents(),
+							includeComponentOrdering = true
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.MakePrimaryCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else {
+				text = v118[Enums.ProfileActions.MakePrimaryCommunity],
+				onActivated = function() --[[ onActivated ]] -- line: 1058
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), GroupsNetworking (copy), profileId (copy), refreshProfilePlatform (copy), profileType (copy), Enums (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonMakePrimaryCommunity, {
+						buttonSurface = p1
+					})
+
+					return v107(GroupsNetworking.MakePrimaryGroup.API({
+						groupId = profileId
+					})):andThen(function() -- line: 1065
+						-- upvalues: v107 (copy), refreshProfilePlatform (copy), profileType (copy), profileId (copy), Enums (copy)
+						v107(refreshProfilePlatform({
+							profileType = profileType,
+							profileId = profileId,
+							components = { Enums.Components.Actions }
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.RemovePrimaryCommunity] = if not FFlagProfilePlatformEnableCommunityProfilePage then nil else {
+				text = v118[Enums.ProfileActions.RemovePrimaryCommunity],
+				onActivated = function() --[[ onActivated ]] -- line: 1080
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), GroupsNetworking (copy), refreshProfilePlatform (copy), profileType (copy), profileId (copy), Enums (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonRemovePrimaryCommunity, {
+						buttonSurface = p1
+					})
+
+					return v107(GroupsNetworking.RemovePrimaryGroup.API()):andThen(function() -- line: 1085
+						-- upvalues: v107 (copy), refreshProfilePlatform (copy), profileType (copy), profileId (copy), Enums (copy)
+						v107(refreshProfilePlatform({
+							profileType = profileType,
+							profileId = profileId,
+							components = { Enums.Components.Actions }
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.Follow] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities or profileType ~= Enums.ProfileTypes.Community then nil else {
+				buttonType = ButtonType.PrimaryContextual,
+				variant = ButtonVariant.Standard,
+				text = v118[Enums.ProfileActions.Follow],
+				onActivated = function() --[[ onActivated ]] -- line: 1103
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), GroupsNetworking (copy), profileId (copy), getProfilePlatform (copy), profileType (copy), getAvailableCommunityComponents (copy)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonFollow, {
+						buttonSurface = p1
+					})
+
+					return v107(GroupsNetworking.JoinGroup.API({
+						groupId = profileId
+					})):andThen(function() -- line: 1109
+						-- upvalues: v107 (copy), getProfilePlatform (copy), profileType (copy), profileId (copy), getAvailableCommunityComponents (copy)
+						v107(getProfilePlatform.API({
+							profileType = profileType,
+							profileId = profileId,
+							components = getAvailableCommunityComponents(),
+							includeComponentOrdering = true
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.Unfollow] = if not FFlagProfilePlatformUpdateUXForNonSocialCommunities or profileType ~= Enums.ProfileTypes.Community then nil else {
+				text = v118[Enums.ProfileActions.Unfollow],
+				onActivated = function() --[[ onActivated ]] -- line: 1124
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), GroupsNetworking (copy), profileId (copy), v106 (copy), getProfilePlatform (copy), profileType (copy), getAvailableCommunityComponents (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonUnfollow, {
+						buttonSurface = p1
+					})
+
+					return v107(GroupsNetworking.LeaveGroup.API({
+						groupId = profileId,
+						userId = v106
+					})):andThen(function() -- line: 1132
+						-- upvalues: v107 (copy), getProfilePlatform (copy), profileType (copy), profileId (copy), getAvailableCommunityComponents (copy)
+						v107(getProfilePlatform.API({
+							profileType = profileType,
+							profileId = profileId,
+							components = getAvailableCommunityComponents(),
+							includeComponentOrdering = true
+						}))
+					end)
+				end
+			},
+			[Enums.ProfileActions.RemoveTrustedConnection] = {
+				text = v118[Enums.ProfileActions.RemoveTrustedConnection],
+				onActivated = function() --[[ onActivated ]] -- line: 1145
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), FFlagLegacyProfileTCIndicator (copy), v103 (copy), profileId (copy), v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), NetworkingFriends (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonRemoveTrustedConnection, {
+						buttonSurface = p1
+					})
+
+					if FFlagLegacyProfileTCIndicator then
+						return v103.removeTrustedConnectionRequest(profileId):andThen(function() -- line: 1150
+							-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+							v107(SetCurrentToastMessage({
+								toastMessage = v118.trustedConnectionRemovedToast,
+								toastIcon = Images["icons/actions/friends/friendRemove"],
+								isLocalized = true
+							}))
+
+							return v107(refreshProfilePlatformActionInfo(profileId))
+						end)
+					end
+
+					return v107(NetworkingFriends.RemoveTC.API(profileId)):andThen(function() -- line: 1159
+						-- upvalues: v107 (copy), SetCurrentToastMessage (copy), v118 (copy), Images (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+						v107(SetCurrentToastMessage({
+							toastMessage = v118.trustedConnectionRemovedToast,
+							toastIcon = Images["icons/actions/friends/friendRemove"],
+							isLocalized = true
+						}))
+
+						return v107(refreshProfilePlatformActionInfo(profileId))
+					end)
+				end
+			},
+			[Enums.ProfileActions.AddTrustedConnection] = if not FFlagProfilePlatformAddTC then nil else {
+				text = v118[Enums.ProfileActions.AddTrustedConnection],
+				onActivated = function() --[[ onActivated ]] -- line: 1173
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), FFlagTCUnifyNavigationEntry (copy), v108 (copy), AppPage (copy), profileId (copy), Sources (copy), v107 (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonAddTrustedConnection, {
+						buttonSurface = p1
+					})
+
+					if FFlagTCUnifyNavigationEntry then
+						v108.push(AppPage.TrustedContactsModal, {
+							props = {
+								userId = profileId,
+								source = Sources.ProfilePlatform,
+								onRequestSent = function() --[[ onRequestSent ]] -- line: 1182
+									-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+									return v107(refreshProfilePlatformActionInfo(profileId))
+								end
+							}
+						})
+
+						return
+					end
+
+					v108.push(AppPage.TrustedContactsModal, {
+						userId = profileId,
+						source = Sources.ProfilePlatform,
+						onRequestSent = function() --[[ onRequestSent ]] -- line: 1191
+							-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+							return v107(refreshProfilePlatformActionInfo(profileId))
+						end
+					})
+				end
+			},
+			[Enums.ProfileActions.AddTrustedConnectionViaLink] = if not FFlagTCShareLinkSenderUI then nil else {
+				text = v118[Enums.ProfileActions.AddTrustedConnection],
+				onActivated = function() --[[ onActivated ]] -- line: 1202
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), Sources (copy), FFlagTCUnifyNavigationEntry (copy), v108 (copy), AppPage (copy), profileId (copy), v107 (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonAddTrustedConnection, {
+						buttonSurface = p1,
+						modalVariantOverride = Sources.ShareLinkSender
+					})
+
+					if FFlagTCUnifyNavigationEntry then
+						v108.push(AppPage.TrustedContactsModal, {
+							props = {
+								userId = profileId,
+								source = Sources.ProfilePlatform,
+								modalVariantOverride = Sources.ShareLinkSender,
+								onRequestSent = function() --[[ onRequestSent ]] -- line: 1213
+									-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+									return v107(refreshProfilePlatformActionInfo(profileId))
+								end
+							}
+						})
+
+						return
+					end
+
+					v108.push(AppPage.TrustedContactsModal, {
+						userId = profileId,
+						source = Sources.ProfilePlatform,
+						modalVariantOverride = Sources.ShareLinkSender,
+						onRequestSent = function() --[[ onRequestSent ]] -- line: 1223
+							-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+							return v107(refreshProfilePlatformActionInfo(profileId))
+						end
+					})
+				end
+			},
+			[Enums.ProfileActions.AddIncomingTrustedConnection] = if not FFlagProfilePlatformAddTC then nil else {
+				text = v118[Enums.ProfileActions.AddIncomingTrustedConnection],
+				onActivated = function() --[[ onActivated ]] -- line: 1234
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), FFlagTCUnifyNavigationEntry (copy), v108 (copy), AppPage (copy), profileId (copy), v107 (copy), refreshProfilePlatformActionInfo (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonAddIncomingTrustedConnection, {
+						buttonSurface = p1
+					})
+
+					if FFlagTCUnifyNavigationEntry then
+						v108.push(AppPage.TrustedContactsModal, {
+							props = {
+								userId = profileId,
+								onRequestAccepted = function() --[[ onRequestAccepted ]] -- line: 1245
+									-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+									return v107(refreshProfilePlatformActionInfo(profileId))
+								end
+							}
+						})
+
+						return
+					end
+
+					v108.push(AppPage.TrustedContactsModal, {
+						userId = profileId,
+						onRequestAccepted = function() --[[ onRequestAccepted ]] -- line: 1253
+							-- upvalues: v107 (copy), refreshProfilePlatformActionInfo (copy), profileId (copy)
+							return v107(refreshProfilePlatformActionInfo(profileId))
+						end
+					})
+				end
+			},
+			[Enums.ProfileActions.PendingTrustedConnection] = if not FFlagProfilePlatformAddTC then nil else {
+				text = v118[Enums.ProfileActions.AddTrustedConnection],
+				isDisabled = true,
+				onActivated = function() --[[ onActivated ]] -- line: 1265
+				end
+			},
+			[Enums.ProfileActions.PendingIncomingTrustedConnection] = if not FFlagPendingIncomingTrustedConnection then nil else {
+				text = v118[Enums.ProfileActions.AddIncomingTrustedConnection],
+				isDisabled = true,
+				onActivated = function() --[[ onActivated ]] -- line: 1272
+				end
+			},
+			[Enums.ProfileActions.ViewAbout] = if not FFlagProfilePlatformNewProfileHeader then nil else {
+				text = v118[Enums.ProfileActions.ViewAbout],
+				onActivated = function() --[[ onActivated ]] -- line: 1278
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), v107 (copy), NavigateDown (copy), AppPage (copy), aboutSections (ref)
+					v111.fireAnalyticsEvent(EventNames.CTAButtonViewFullProfile, {
+						buttonSurface = p1
+					})
+					v107(NavigateDown({
+						name = AppPage.AboutDetailsSheet,
+						extraProps = {
+							sections = aboutSections
+						}
+					}))
+				end
+			},
+			[Enums.ProfileActions.ViewPlatformProfile] = if not FFlagEnablePlatformProfileContextualMenuOption then nil else {
+				text = v118[Enums.ProfileActions.ViewPlatformProfile],
+				onActivated = function() --[[ onActivated ]] -- line: 1295
+					-- upvalues: v111 (copy), EventNames (copy), p1 (copy), getPlatformFriendsService (copy), v121 (copy)
+					v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonViewPlatformProfile, {
+						buttonSurface = p1
+					})
+					getPlatformFriendsService:ShowProfile(v121)
+				end
+			},
+			[Enums.ProfileActions.CurrencyTransfer] = if not FFlagProfilePlatformEnableCurrencyTransfer then nil else {
+				text = v118[Enums.ProfileActions.CurrencyTransfer],
+				onActivated = function() --[[ onActivated ]] -- line: 1306
+					-- upvalues: p1 (copy), Enums (copy), v111 (copy), EventNames (copy), v110 (copy), profileId (copy), TransferDirection (copy), TransferOrigination (copy)
+					if p1 == Enums.ButtonSurface.ContextualMenu then
+						v111.fireAnalyticsEvent(EventNames.ContextualMenuButtonCurrencyTransfer, {
+							buttonSurface = p1
+						})
+					else
+						v111.fireAnalyticsEvent(EventNames.CTAButtonCurrencyTransfer, {
+							buttonSurface = p1
+						})
+					end
+
+					if v110 then
+						v110({
+							recipientUserId = profileId,
+							direction = TransferDirection.Send,
+							transferOrigination = TransferOrigination.Profile
+						})
+					end
+				end
+			}
+		}
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v107, profileId, v109, if not FFlagProfilePlatformEnableCurrencyTransfer then nil else v110, qRCodePage, v118, v106, v108, editUsername, v125.joinExperience, v125.isLoading, v111, v131, p1, if not FFlagProfilePlatformNewProfileHeader then nil else aboutSections, profileType, editAvatar, if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else v128, if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else v129) else {
+		v107,
+		profileId,
+		v109,
+		if not FFlagProfilePlatformEnableCurrencyTransfer then nil else v110,
+		qRCodePage,
+		v118,
+		v106,
+		v108,
+		editUsername,
+		v125.joinExperience,
+		v125.isLoading,
+		v111,
+		v131,
+		p1,
+		if not FFlagProfilePlatformNewProfileHeader then nil else aboutSections,
+		profileType,
+		editAvatar,
+		if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else v128,
+		if not FFlagProfilePlatformEnableEditAppearanceMenu then nil else v129,
+		if not FFlagProfilePlatformCTAsRefactor then nil else v115,
+		if not FFlagProfilePlatformCTAsRefactor then nil else v125.isInExperience,
+		if not FFlagProfilePlatformCTAsRefactor then nil else v139
+	}))
+end

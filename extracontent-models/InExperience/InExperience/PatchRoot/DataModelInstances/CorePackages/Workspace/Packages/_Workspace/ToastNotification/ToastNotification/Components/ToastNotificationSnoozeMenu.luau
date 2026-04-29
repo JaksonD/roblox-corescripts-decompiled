@@ -1,286 +1,289 @@
-local l_Parent_0 = script.Parent.Parent;
-local l_Parent_1 = l_Parent_0.Parent;
-local v2 = require(l_Parent_0.dependencies);
-local l_NotificationTypeEnum_0 = require(l_Parent_0.type).NotificationTypeEnum;
-local l_ShowNotificationSnoozeMenuSignal_0 = require(l_Parent_0.Signals).ShowNotificationSnoozeMenuSignal;
-local l_DismissNotificationSnoozeMenuSignal_0 = require(l_Parent_0.Signals).DismissNotificationSnoozeMenuSignal;
-local l_NotificationSnoozeMenuVisibleSignal_0 = require(l_Parent_0.Signals).NotificationSnoozeMenuVisibleSignal;
-local l_default_0 = require(l_Parent_0.ToastNotificationSnoozeManager).default;
-local l_useTokens_0 = require(l_Parent_1.Foundation).Hooks.useTokens;
-local l_Cryo_0 = v2.Cryo;
-local l_dependencyArray_0 = v2.Hooks.dependencyArray;
-local l_Localization_0 = v2.Localization;
-local l_React_0 = v2.React;
-local l_Roact_0 = v2.Roact;
-local l_UIBlox_0 = v2.UIBlox;
-local l_useLocalization_0 = l_Localization_0.Hooks.useLocalization;
-local l_Colors_0 = l_UIBlox_0.App.Style.Colors;
-local l_Interactable_0 = l_UIBlox_0.Core.Control.Interactable;
-local l_useCursor_0 = l_UIBlox_0.App.SelectionCursor.useCursor;
-local l_useStyle_0 = l_UIBlox_0.Core.Style.useStyle;
-local v20 = require(l_Parent_1.FocusNavigationUtils);
-local l_FocusNavigableSurfaceIdentifierEnum_0 = v20.FocusNavigableSurfaceIdentifierEnum;
-local l_FocusNavigationEventNameEnum_0 = v20.FocusNavigationEventNameEnum;
-local l_FocusRoot_0 = v20.FocusRoot;
-local v24 = require(l_Parent_1.InputHandlers);
-local _ = require(l_Parent_1.ReactFocusNavigation);
-local l_FFlagEnableAppChatSnoozeMenuFocus_0 = require(l_Parent_1.SharedFlags).FFlagEnableAppChatSnoozeMenuFocus;
-local l_GetFFlagAppChatInExpToastSnoozeMenuDismissFix_0 = require(l_Parent_1.SharedFlags).GetFFlagAppChatInExpToastSnoozeMenuDismissFix;
-local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_1.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_1.SharedFlags).GetFFlagIsSquadEnabled;
-local l_FFlagUseNotificationGroupsConfig_0 = require(l_Parent_1.SharedFlags).FFlagUseNotificationGroupsConfig;
-local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_1.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
-local v32 = {
-    [Enum.KeyCode.ButtonB] = l_FocusNavigationEventNameEnum_0.NavigateBack, 
-    [Enum.KeyCode.Escape] = l_FocusNavigationEventNameEnum_0.NavigateBack
-};
-local v33 = {
-    [l_NotificationTypeEnum_0.ChatNewMessage] = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Squads.Label.Party" or "Feature.Chat.Action.StartChatWithFriends"
-};
-local v34 = nil;
-v34 = {
-    [1] = {
-        textKey = "fifteenMinutes", 
-        durationMinutes = 15
-    }, 
-    [2] = {
-        textKey = "fourHours", 
-        durationMinutes = 240
-    }, 
-    [3] = {
-        textKey = "oneDay", 
-        durationMinutes = 1440
-    }, 
-    [4] = {
-        textKey = "untilITurnItBackOn", 
-        durationMinutes = -1
-    }
-};
-return function() --[[ Line: 79 ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagEnableAppChatSnoozeMenuFocus_0 (copy), l_useTokens_0 (copy), l_useLocalization_0 (copy), l_Cryo_0 (copy), v33 (copy), l_React_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_ShowNotificationSnoozeMenuSignal_0 (copy), l_GetFFlagAppChatInExpToastSnoozeMenuDismissFix_0 (copy), l_DismissNotificationSnoozeMenuSignal_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v24 (copy), l_NotificationSnoozeMenuVisibleSignal_0 (copy), l_useCursor_0 (copy), v34 (ref), l_Colors_0 (copy), l_FFlagUseNotificationGroupsConfig_0 (copy), l_default_0 (copy), l_Interactable_0 (copy), l_FocusRoot_0 (copy), v32 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_Roact_0 (copy)
-    local v35 = l_useStyle_0();
-    local v36 = if l_FFlagEnableAppChatSnoozeMenuFocus_0 then l_useTokens_0() else nil;
-    local v37 = l_useLocalization_0((l_Cryo_0.Dictionary.union(v33, {
-        fifteenMinutes = "Feature.Notifications.Action.SnoozeFifteenMinutes", 
-        fourHours = "Feature.Notifications.Action.SnoozeFourHours", 
-        oneDay = "Feature.Notifications.Action.SnoozeOneDay", 
-        oneHour = "Feature.Notifications.Action.SnoozeOneHour", 
-        untilITurnItBackOn = "Feature.Notifications.Action.UntilITurnItBackOn", 
-        snoozeFeedback = "Feature.Notifications.Heading.SnoozeFeedback"
-    })));
-    local v38, v39 = l_React_0.useState(false);
-    local v40, v41 = l_React_0.useState({});
-    local v42 = l_React_0.useCallback(function() --[[ Line: 94 ]]
-        -- upvalues: v39 (copy)
-        v39(false);
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v39
-    } else l_dependencyArray_0(v39));
-    l_React_0.useEffect(function() --[[ Line: 98 ]]
-        -- upvalues: l_ShowNotificationSnoozeMenuSignal_0 (ref), v41 (copy), v39 (copy), l_GetFFlagAppChatInExpToastSnoozeMenuDismissFix_0 (ref), l_DismissNotificationSnoozeMenuSignal_0 (ref), v42 (copy)
-        local v43 = nil;
-        v43 = l_ShowNotificationSnoozeMenuSignal_0:connect(function(v44) --[[ Line: 100 ]]
-            -- upvalues: v41 (ref), v39 (ref)
-            v41(v44);
-            v39(true);
-        end);
-        local v45 = nil;
-        if l_GetFFlagAppChatInExpToastSnoozeMenuDismissFix_0() then
-            v45 = l_DismissNotificationSnoozeMenuSignal_0:connect(function() --[[ Line: 112 ]]
-                -- upvalues: v42 (ref)
-                v42();
-            end);
-        end;
-        return function() --[[ Line: 117 ]]
-            -- upvalues: v43 (ref), l_GetFFlagAppChatInExpToastSnoozeMenuDismissFix_0 (ref), v45 (ref)
-            v43:disconnect();
-            if l_GetFFlagAppChatInExpToastSnoozeMenuDismissFix_0() then
-                v45:disconnect();
-            end;
-        end;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v39
-    } else l_dependencyArray_0(v39));
-    local v46 = nil;
-    if l_FFlagEnableAppChatSnoozeMenuFocus_0 then
-        v46 = l_React_0.useMemo(function() --[[ Line: 127 ]]
-            -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v24 (ref), v42 (copy)
-            return {
-                [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-                    handler = v24.onRelease(function(v47) --[[ Line: 130 ]]
-                        -- upvalues: v42 (ref)
-                        v42();
-                        v47:cancel();
-                    end)
-                }
-            };
-        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-            v42
-        } else l_dependencyArray_0(v42));
-        l_React_0.useEffect(function() --[[ Line: 138 ]]
-            -- upvalues: l_NotificationSnoozeMenuVisibleSignal_0 (ref), v38 (copy)
-            l_NotificationSnoozeMenuVisibleSignal_0:fire({
-                visible = v38
-            });
-        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-            v38
-        } else l_dependencyArray_0(v38));
-    end;
-    local v48 = if l_FFlagEnableAppChatSnoozeMenuFocus_0 then l_useCursor_0() else nil;
-    local v53 = l_React_0.useMemo(function() --[[ Line: 145 ]]
-        -- upvalues: v34 (ref), l_React_0 (ref), l_FFlagEnableAppChatSnoozeMenuFocus_0 (ref), v36 (copy), v35 (copy), v48 (copy), v37 (copy), l_Colors_0 (ref), v40 (copy), l_FFlagUseNotificationGroupsConfig_0 (ref), l_default_0 (ref), v39 (copy)
-        local v49 = {};
-        for v50, v51 in ipairs(v34) do
-            table.insert(v49, l_React_0.createElement("TextButton", {
-                Size = UDim2.new(1, 0, 0, if l_FFlagEnableAppChatSnoozeMenuFocus_0 then v36.Size.Size_1400 else 56), 
-                BackgroundTransparency = 1, 
-                Font = v35.Font.Header2.Font, 
-                LayoutOrder = v50, 
-                SelectionImageObject = v48, 
-                Text = v37[v51.textKey], 
-                TextSize = v35.Font.Header2.RelativeSize * v35.Font.BaseSize, 
-                TextColor3 = l_Colors_0.White, 
-                TextXAlignment = Enum.TextXAlignment.Left, 
-                TextYAlignment = Enum.TextYAlignment.Center, 
-                [l_React_0.Event.Activated] = function() --[[ Line: 167 ]]
-                    -- upvalues: v40 (ref), l_FFlagUseNotificationGroupsConfig_0 (ref), l_default_0 (ref), v51 (copy), v37 (ref), v39 (ref)
-                    if v40.notificationType then
-                        local l_notificationType_0 = v40.notificationType;
-                        if l_FFlagUseNotificationGroupsConfig_0 and type(v40.notificationType) == "table" then
-                            l_notificationType_0 = v40.notificationType[1];
-                        end;
-                        l_default_0:snoozeNotification({
-                            context = v40.context, 
-                            notificationType = v40.notificationType, 
-                            durationMinutes = v51.durationMinutes, 
-                            modalMessage = v37.snoozeFeedback:gsub("{title}", v37[if l_FFlagUseNotificationGroupsConfig_0 then l_notificationType_0 else v40.notificationType] or ""):gsub("{duration}", v37[v51.textKey])
-                        });
-                    end;
-                    v39(false);
-                end
-            }, {
-                UIPadding = if l_FFlagEnableAppChatSnoozeMenuFocus_0 then l_React_0.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, v36.Padding.XXLarge), 
-                    PaddingRight = UDim.new(0, v36.Padding.XXLarge)
-                }) else nil, 
-                Border = l_React_0.createElement("Frame", {
-                    Size = if l_FFlagEnableAppChatSnoozeMenuFocus_0 then UDim2.new(1, v36.Padding.XXLarge, 0, 1) else UDim2.new(1, 0, 0, 1), 
-                    BackgroundTransparency = 0.8, 
-                    BackgroundColor3 = l_Colors_0.White, 
-                    LayoutOrder = v50
-                })
-            }));
-            v50 = v50 + 1;
-        end;
-        return v49;
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v40
-    } else l_dependencyArray_0(v40));
-    if v38 then
-        return (l_React_0.createElement(l_Interactable_0, {
-            Size = UDim2.fromScale(1, 1), 
-            AutoButtonColor = false, 
-            BackgroundColor3 = l_Colors_0.Black, 
-            BackgroundTransparency = 0.6, 
-            onStateChanged = function() --[[ Line: 224 ]] --[[ Name: onStateChanged ]]
+local ParentParent = script.Parent.Parent
+local ParentParentParent = ParentParent.Parent
+local dependencies = require(ParentParent.dependencies)
+local NotificationTypeEnum = require(ParentParent.type).NotificationTypeEnum
+local ShowNotificationSnoozeMenuSignal = require(ParentParent.Signals).ShowNotificationSnoozeMenuSignal
+local DismissNotificationSnoozeMenuSignal = require(ParentParent.Signals).DismissNotificationSnoozeMenuSignal
+local NotificationSnoozeMenuVisibleSignal = require(ParentParent.Signals).NotificationSnoozeMenuVisibleSignal
+local default = require(ParentParent.ToastNotificationSnoozeManager).default
+local useTokens = require(ParentParentParent.Foundation).Hooks.useTokens
+local Cryo = dependencies.Cryo
+local dependencyArray = dependencies.Hooks.dependencyArray
+local Localization = dependencies.Localization
+local React = dependencies.React
+local Roact = dependencies.Roact
+local UIBlox = dependencies.UIBlox
+local useLocalization = Localization.Hooks.useLocalization
+local Colors = UIBlox.App.Style.Colors
+local Interactable = UIBlox.Core.Control.Interactable
+local useCursor = UIBlox.App.SelectionCursor.useCursor
+local useStyle = UIBlox.Core.Style.useStyle
+local FocusNavigationUtils = require(ParentParentParent.FocusNavigationUtils)
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+local FocusNavigationEventNameEnum = FocusNavigationUtils.FocusNavigationEventNameEnum
+local FocusRoot = FocusNavigationUtils.FocusRoot
+local InputHandlers = require(ParentParentParent.InputHandlers)
 
-            end, 
-            [l_React_0.Event.Activated] = v42
-        }, {
-            SnoozeMenu = l_React_0.createElement(if l_FFlagEnableAppChatSnoozeMenuFocus_0 then l_FocusRoot_0 else l_Interactable_0, if l_FFlagEnableAppChatSnoozeMenuFocus_0 then {
-                eventHandlers = v46, 
-                eventMap = v32, 
-                frameProps = {
-                    AnchorPoint = Vector2.new(0.5, 0.5), 
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    BackgroundColor3 = v35.Theme.BackgroundDefault.Color, 
-                    BackgroundTransparency = v35.Theme.BackgroundDefault.Transparency, 
-                    Position = UDim2.fromScale(0.5, 0.5), 
-                    Size = UDim2.new(1, -v36.Padding.Small * 2, 0, 0)
-                }, 
-                isAutoFocusRoot = true, 
-                isIsolated = true, 
-                surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.PopUp
-            } else {
-                AnchorPoint = Vector2.new(0.5, 0.5), 
-                Position = UDim2.fromScale(0.5, 0.5), 
-                Size = UDim2.new(1, -16, 0, 0), 
-                AutoButtonColor = false, 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundColor3 = v35.Theme.BackgroundDefault.Color, 
-                BackgroundTransparency = v35.Theme.BackgroundDefault.Transparency, 
-                onStateChanged = function() --[[ Line: 253 ]] --[[ Name: onStateChanged ]]
+require(ParentParentParent.ReactFocusNavigation)
 
-                end
-            }, {
-                UICorner = l_React_0.createElement("UICorner", {
-                    CornerRadius = UDim.new(0, v35.Tokens.Semantic.Radius.XLarge)
-                }), 
-                UIListLayout = l_React_0.createElement("UIListLayout", {
-                    FillDirection = Enum.FillDirection.Vertical, 
-                    HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                    SortOrder = Enum.SortOrder.LayoutOrder, 
-                    VerticalAlignment = Enum.VerticalAlignment.Center
-                }), 
-                UIPadding = if l_FFlagEnableAppChatSnoozeMenuFocus_0 then nil else l_React_0.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, 24)
-                }), 
-                UISizeConstraint = l_React_0.createElement("UISizeConstraint", {
-                    MaxSize = Vector2.new(400, 1e999)
-                }), 
-                TitleContainer = l_React_0.createElement("Frame", {
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    Size = UDim2.new(1, 0, 0, 0), 
-                    BackgroundTransparency = 1, 
-                    LayoutOrder = 1
-                }, {
-                    UIListLayout = l_React_0.createElement("UIListLayout", {
-                        FillDirection = Enum.FillDirection.Vertical, 
-                        HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-                        SortOrder = Enum.SortOrder.LayoutOrder, 
-                        VerticalAlignment = Enum.VerticalAlignment.Center
-                    }), 
-                    UIPadding = l_React_0.createElement("UIPadding", {
-                        PaddingBottom = UDim.new(0, if l_FFlagEnableAppChatSnoozeMenuFocus_0 then v36.Padding.XLarge else 20), 
-                        PaddingRight = UDim.new(0, if l_FFlagEnableAppChatSnoozeMenuFocus_0 then v36.Padding.XXLarge else 24), 
-                        PaddingTop = UDim.new(0, if l_FFlagEnableAppChatSnoozeMenuFocus_0 then v36.Padding.XLarge else 20), 
-                        PaddingLeft = if l_FFlagEnableAppChatSnoozeMenuFocus_0 then UDim.new(0, v36.Padding.XXLarge) else nil
-                    }), 
-                    Title = l_React_0.createElement("TextLabel", {
-                        AutomaticSize = Enum.AutomaticSize.XY, 
-                        BackgroundTransparency = 1, 
-                        Font = v35.Font.Body.Font, 
-                        LayoutOrder = 1, 
-                        Text = v40.title or "", 
-                        TextSize = v35.Font.Body.RelativeSize * v35.Font.BaseSize, 
-                        TextColor3 = l_Colors_0.White, 
-                        TextWrapped = true
-                    }), 
-                    Description = if v40 and v40.description and v40.description ~= "" then l_React_0.createElement("TextLabel", {
-                        AutomaticSize = Enum.AutomaticSize.XY, 
-                        BackgroundTransparency = 1, 
-                        Font = v35.Font.CaptionBody.Font, 
-                        LayoutOrder = 2, 
-                        Text = v40.description or "", 
-                        TextSize = v35.Font.CaptionBody.RelativeSize * v35.Font.BaseSize, 
-                        TextColor3 = v35.Theme.TextDefault.Color
-                    }) else nil
-                }), 
-                SnoozeOptions = l_React_0.createElement("Frame", {
-                    LayoutOrder = 2, 
-                    BackgroundTransparency = 1, 
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    Size = UDim2.new(1, 0, 0, 0)
-                }, {
-                    UIListLayout = l_React_0.createElement("UIListLayout", {
-                        FillDirection = Enum.FillDirection.Vertical, 
-                        SortOrder = Enum.SortOrder.LayoutOrder
-                    }), 
-                    SnoozeOptions = l_Roact_0.createFragment(v53)
-                })
-            })
-        }));
-    else
-        return nil;
-    end;
-end;
+local FFlagEnableAppChatSnoozeMenuFocus = require(ParentParentParent.SharedFlags).FFlagEnableAppChatSnoozeMenuFocus
+local GetFFlagAppChatInExpToastSnoozeMenuDismissFix = require(ParentParentParent.SharedFlags).GetFFlagAppChatInExpToastSnoozeMenuDismissFix
+local GetFFlagIsSquadEnabled = require(ParentParentParent.SharedFlags).GetFFlagIsSquadEnabled
+local FFlagRemoveDependencyArrayAntipattern = require(ParentParentParent.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+local t1 = {
+	[Enum.KeyCode.ButtonB] = FocusNavigationEventNameEnum.NavigateBack,
+	[Enum.KeyCode.Escape] = FocusNavigationEventNameEnum.NavigateBack
+}
+local t2 = {
+	[NotificationTypeEnum.ChatNewMessage] = not GetFFlagIsSquadEnabled() and "Feature.Chat.Action.StartChatWithFriends" or "Feature.Squads.Label.Party"
+}
+local t3 = {
+	[1] = {
+		textKey = "fifteenMinutes",
+		durationMinutes = 15
+	},
+	[2] = {
+		textKey = "fourHours",
+		durationMinutes = 240
+	},
+	[3] = {
+		textKey = "oneDay",
+		durationMinutes = 1440
+	},
+	[4] = {
+		textKey = "untilITurnItBackOn",
+		durationMinutes = -1
+	}
+}
+
+return function() -- line: 76
+	-- upvalues: useStyle (copy), FFlagEnableAppChatSnoozeMenuFocus (copy), useTokens (copy), useLocalization (copy), Cryo (copy), t2 (copy), React (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), ShowNotificationSnoozeMenuSignal (copy), GetFFlagAppChatInExpToastSnoozeMenuDismissFix (copy), DismissNotificationSnoozeMenuSignal (copy), FocusNavigationEventNameEnum (copy), InputHandlers (copy), NotificationSnoozeMenuVisibleSignal (copy), useCursor (copy), t3 (ref), Colors (copy), default (copy), Interactable (copy), FocusRoot (copy), t1 (copy), FocusNavigableSurfaceIdentifierEnum (copy), Roact (copy)
+	local v33 = useStyle()
+	local v34 = if not FFlagEnableAppChatSnoozeMenuFocus then nil else useTokens()
+	local v35 = useLocalization((Cryo.Dictionary.union(t2, {
+		fifteenMinutes = "Feature.Notifications.Action.SnoozeFifteenMinutes",
+		fourHours = "Feature.Notifications.Action.SnoozeFourHours",
+		oneDay = "Feature.Notifications.Action.SnoozeOneDay",
+		oneHour = "Feature.Notifications.Action.SnoozeOneHour",
+		untilITurnItBackOn = "Feature.Notifications.Action.UntilITurnItBackOn",
+		snoozeFeedback = "Feature.Notifications.Heading.SnoozeFeedback"
+	})))
+	local v36, v37 = React.useState(false)
+	local v38, v39 = React.useState({})
+	local v40 = React.useCallback(function() -- line: 91
+		-- upvalues: v37 (copy)
+		v37(false)
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v37) else { v37 })
+
+	React.useEffect(function() -- line: 95
+		-- upvalues: ShowNotificationSnoozeMenuSignal (copy), v39 (copy), v37 (copy), GetFFlagAppChatInExpToastSnoozeMenuDismissFix (copy), DismissNotificationSnoozeMenuSignal (copy), v40 (copy)
+		local u44 = ShowNotificationSnoozeMenuSignal:connect(function(t4: {[any]: any}) -- line: 97
+			-- upvalues: v39 (copy), v37 (copy)
+			v39(t4)
+			v37(true)
+		end)
+		local u45 = nil
+
+		if GetFFlagAppChatInExpToastSnoozeMenuDismissFix() then
+			u45 = DismissNotificationSnoozeMenuSignal:connect(function() -- line: 109
+				-- upvalues: v40 (copy)
+				v40()
+			end)
+		end
+
+		return function() -- line: 114
+			-- upvalues: u44 (ref), GetFFlagAppChatInExpToastSnoozeMenuDismissFix (copy), u45 (ref)
+			u44:disconnect()
+
+			if GetFFlagAppChatInExpToastSnoozeMenuDismissFix() then
+				u45:disconnect()
+			end
+		end
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v37) else { v37 })
+
+	local v41 = nil
+
+	if FFlagEnableAppChatSnoozeMenuFocus then
+		v41 = React.useMemo(function() -- line: 124
+			-- upvalues: FocusNavigationEventNameEnum (copy), InputHandlers (copy), v40 (copy)
+			return {
+				[FocusNavigationEventNameEnum.NavigateBack] = {
+					handler = InputHandlers.onRelease(function(p1) -- line: 127
+						-- upvalues: v40 (copy)
+						v40()
+						p1:cancel()
+					end)
+				}
+			}
+		end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v40) else { v40 })
+		React.useEffect(function() -- line: 135
+			-- upvalues: NotificationSnoozeMenuVisibleSignal (copy), v36 (copy)
+			NotificationSnoozeMenuVisibleSignal:fire({
+				visible = v36
+			})
+		end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v36) else { v36 })
+	end
+
+	local v42 = if not FFlagEnableAppChatSnoozeMenuFocus then nil else useCursor()
+	local v43 = React.useMemo(function() -- line: 142
+		-- upvalues: t3 (ref), React (copy), FFlagEnableAppChatSnoozeMenuFocus (copy), v34 (copy), v33 (copy), v42 (copy), v35 (copy), Colors (copy), v38 (copy), default (copy), v37 (copy)
+		local t5 = {}
+
+		for i, v in ipairs(t3) do
+			local v49 = i
+
+			table.insert(t5, React.createElement("TextButton", {
+				Size = UDim2.new(1, 0, 0, not FFlagEnableAppChatSnoozeMenuFocus and 56 or v34.Size.Size_1400),
+				BackgroundTransparency = 1,
+				Font = v33.Font.Header2.Font,
+				LayoutOrder = v49,
+				SelectionImageObject = v42,
+				Text = v35[v.textKey],
+				TextSize = v33.Font.Header2.RelativeSize * v33.Font.BaseSize,
+				TextColor3 = Colors.White,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				[React.Event.Activated] = function() -- line: 164
+					-- upvalues: v38 (copy), default (copy), v (copy), v35 (copy), v37 (copy)
+					if v38.notificationType then
+						local notificationType = v38.notificationType
+
+						if type(v38.notificationType) == "table" then
+							notificationType = v38.notificationType[1]
+						end
+
+						default:snoozeNotification({
+							context = v38.context,
+							notificationType = v38.notificationType,
+							durationMinutes = v.durationMinutes,
+							modalMessage = v35.snoozeFeedback:gsub("{title}", v35[notificationType] or ""):gsub("{duration}", v35[v.textKey])
+						})
+					end
+
+					v37(false)
+				end
+			}, {
+				UIPadding = if not FFlagEnableAppChatSnoozeMenuFocus then nil else React.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, v34.Padding.XXLarge),
+					PaddingRight = UDim.new(0, v34.Padding.XXLarge)
+				}),
+				Border = React.createElement("Frame", {
+					Size = if not FFlagEnableAppChatSnoozeMenuFocus then UDim2.new(1, 0, 0, 1) else UDim2.new(1, v34.Padding.XXLarge, 0, 1),
+					BackgroundTransparency = 0.8,
+					BackgroundColor3 = Colors.White,
+					LayoutOrder = v49
+				})
+			}))
+
+			local _ = v49 + 1
+		end
+
+		return t5
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(v38) else { v38 })
+
+	if v36 then
+		return (React.createElement(Interactable, {
+			Size = UDim2.fromScale(1, 1),
+			AutoButtonColor = false,
+			BackgroundColor3 = Colors.Black,
+			BackgroundTransparency = 0.6,
+			onStateChanged = function() --[[ onStateChanged ]] -- line: 213
+			end,
+			[React.Event.Activated] = v40
+		}, {
+			SnoozeMenu = React.createElement(if not FFlagEnableAppChatSnoozeMenuFocus then Interactable else FocusRoot, if not FFlagEnableAppChatSnoozeMenuFocus then {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				Size = UDim2.new(1, -16, 0, 0),
+				AutoButtonColor = false,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundColor3 = v33.Theme.BackgroundDefault.Color,
+				BackgroundTransparency = v33.Theme.BackgroundDefault.Transparency,
+				onStateChanged = function() --[[ onStateChanged ]] -- line: 242
+				end
+			} else {
+				eventHandlers = v41,
+				eventMap = t1,
+				frameProps = {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					AutomaticSize = Enum.AutomaticSize.Y,
+					BackgroundColor3 = v33.Theme.BackgroundDefault.Color,
+					BackgroundTransparency = v33.Theme.BackgroundDefault.Transparency,
+					Position = UDim2.fromScale(0.5, 0.5),
+					Size = UDim2.new(1, -v34.Padding.Small * 2, 0, 0)
+				},
+				isAutoFocusRoot = true,
+				isIsolated = true,
+				surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.PopUp
+			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, v33.Tokens.Semantic.Radius.XLarge)
+				}),
+				UIListLayout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center
+				}),
+				UIPadding = if not FFlagEnableAppChatSnoozeMenuFocus then React.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 24)
+				}) else nil,
+				UISizeConstraint = React.createElement("UISizeConstraint", {
+					MaxSize = Vector2.new(400, 1e999)
+				}),
+				TitleContainer = React.createElement("Frame", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					LayoutOrder = 1
+				}, {
+					UIListLayout = React.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center
+					}),
+					UIPadding = React.createElement("UIPadding", {
+						PaddingBottom = UDim.new(0, not FFlagEnableAppChatSnoozeMenuFocus and 20 or v34.Padding.XLarge),
+						PaddingRight = UDim.new(0, not FFlagEnableAppChatSnoozeMenuFocus and 24 or v34.Padding.XXLarge),
+						PaddingTop = UDim.new(0, not FFlagEnableAppChatSnoozeMenuFocus and 20 or v34.Padding.XLarge),
+						PaddingLeft = if not FFlagEnableAppChatSnoozeMenuFocus then nil else UDim.new(0, v34.Padding.XXLarge)
+					}),
+					Title = React.createElement("TextLabel", {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+						Font = v33.Font.Body.Font,
+						LayoutOrder = 1,
+						Text = v38.title or "",
+						TextSize = v33.Font.Body.RelativeSize * v33.Font.BaseSize,
+						TextColor3 = Colors.White,
+						TextWrapped = true
+					}),
+					Description = if not v38 or (not v38.description or v38.description == "") then nil else React.createElement("TextLabel", {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+						Font = v33.Font.CaptionBody.Font,
+						LayoutOrder = 2,
+						Text = v38.description or "",
+						TextSize = v33.Font.CaptionBody.RelativeSize * v33.Font.BaseSize,
+						TextColor3 = v33.Theme.TextDefault.Color
+					})
+				}),
+				SnoozeOptions = React.createElement("Frame", {
+					LayoutOrder = 2,
+					BackgroundTransparency = 1,
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0)
+				}, {
+					UIListLayout = React.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						SortOrder = Enum.SortOrder.LayoutOrder
+					}),
+					SnoozeOptions = Roact.createFragment(v43)
+				})
+			})
+		}))
+	end
+
+	return nil
+end

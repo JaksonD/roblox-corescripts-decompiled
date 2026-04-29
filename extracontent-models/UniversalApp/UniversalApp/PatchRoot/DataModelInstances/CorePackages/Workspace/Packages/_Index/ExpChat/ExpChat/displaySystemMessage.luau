@@ -1,41 +1,48 @@
-local l_Parent_0 = script:FindFirstAncestor("ExpChat").Parent;
-local l_List_0 = require(l_Parent_0.llama).List;
-local v2 = require(l_Parent_0.ExpChatShared).Logger:new("ExpChat/" .. script.Name);
-local v3 = require(script.Parent.sanitizeForRichText);
-local l_FFlagEnableSummarySystemMessageOnLua_0 = require(l_Parent_0.SharedFlags).FFlagEnableSummarySystemMessageOnLua;
-return function(v5, v6, v7, v8, v9, v10, v11) --[[ Line: 11 ]] --[[ Name: displaySystemMessage ]]
-    -- upvalues: v2 (copy), l_List_0 (copy), l_FFlagEnableSummarySystemMessageOnLua_0 (copy), v3 (copy)
-    v2:debug("Display system message: {}", v7);
-    local v12 = nil;
-    if type(v5) == "string" then
-        if v5 ~= "" then
-            local v13 = nil;
-            local l_status_0, l_result_0 = pcall(function() --[[ Line: 26 ]]
-                -- upvalues: v8 (copy), v5 (copy), v6 (copy)
-                return v8:FormatByKey(v5, v6);
-            end);
-            v13 = l_status_0;
-            v12 = l_result_0;
-            if not v13 then
-                v12 = v10;
-            end;
-        end;
-    else
-        v12 = table.concat(l_List_0.map(v5, function(v16) --[[ Line: 37 ]]
-            -- upvalues: v8 (copy), v6 (copy)
-            return v8:FormatByKey(v16, v6);
-        end), "\n");
-    end;
-    if v9 and v12 then
-        if l_FFlagEnableSummarySystemMessageOnLua_0 then
-            v12 = v3(v12);
-            if v11 then
-                v12 = v11(v12);
-            end;
-            v9:DisplaySystemMessage(v12, v7);
-            return;
-        else
-            v9:DisplaySystemMessage(v3(v12), v7);
-        end;
-    end;
-end;
+local Parent = script:FindFirstAncestor("ExpChat").Parent
+local List = require(Parent.llama).List
+local v3 = require(Parent.ExpChatShared).Logger:new("ExpChat/" .. script.Name)
+local sanitizeForRichText = require(script.Parent.sanitizeForRichText)
+local FFlagEnableClientSummarySystemMessageOnLua = require(Parent.SharedFlags).FFlagEnableClientSummarySystemMessageOnLua
+
+return function(p1, t1: {[any]: any}?, s1: string, p2, p3, s2: string?, p4: ((...any) -> ...any)?) --[[ displaySystemMessage ]] -- line: 12
+	-- upvalues: v3 (copy), List (copy), FFlagEnableClientSummarySystemMessageOnLua (copy), sanitizeForRichText (copy)
+	v3:debug("Display system message: {}", s1)
+
+	local result = nil
+
+	if type(p1) == "string" then
+		if p1 ~= "" then
+			local ok
+
+			ok, result = pcall(function() -- line: 27
+				-- upvalues: p2 (copy), p1 (copy), t1 (copy)
+				return p2:FormatByKey(p1, t1)
+			end)
+
+			if not ok then
+				result = s2
+			end
+		end
+	else
+		result = table.concat(List.map(p1, function(p5) -- line: 38
+			-- upvalues: p2 (copy), t1 (copy)
+			return p2:FormatByKey(p5, t1)
+		end), "\n")
+	end
+
+	if p3 and result then
+		if FFlagEnableClientSummarySystemMessageOnLua then
+			local v15 = sanitizeForRichText(result)
+
+			if p4 then
+				v15 = p4(v15)
+			end
+
+			p3:DisplaySystemMessage(v15, s1)
+
+			return
+		end
+
+		p3:DisplaySystemMessage(sanitizeForRichText(result), s1)
+	end
+end

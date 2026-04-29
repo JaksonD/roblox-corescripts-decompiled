@@ -1,251 +1,279 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Dash);
-local v3 = require(l_Parent_0.Otter);
-local v4 = require(l_Parent_0.React);
-local v5 = require(l_Parent_0.ReactOtter);
-local v6 = require(l_Parent_0.ReactRoblox);
-local l_useAnimatedBinding_0 = v5.useAnimatedBinding;
-local v8 = require(l_script_FirstAncestor_0.Enums.CloseAffordanceVariant);
-local v9 = require(l_script_FirstAncestor_0.Constants);
-local v10 = require(l_script_FirstAncestor_0.Enums.StateLayerAffordance);
-local v11 = require(l_script_FirstAncestor_0.Providers.Overlay.useOverlay);
-local v12 = require(l_script_FirstAncestor_0.Utility.useScaledValue);
-local v13 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local v14 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local v15 = require(script.Parent.SheetContext);
-local v16 = require(script.Parent.Types);
-local v17 = require(script.Parent.SheetType);
-local v18 = require(l_script_FirstAncestor_0.Providers.Elevation.useElevation);
-local l_ElevationOwnerScope_0 = require(l_script_FirstAncestor_0.Providers.Elevation.ElevationProvider).ElevationOwnerScope;
-local v20 = require(l_script_FirstAncestor_0.Enums.ElevationLayer);
-local v21 = require(l_script_FirstAncestor_0.Enums.DialogSize);
-local v22 = require(script.Parent.useHardwareInsets);
-local v23 = require(script.Parent.useScreenSize);
-local v24 = require(l_script_FirstAncestor_0.Components.CloseAffordance);
-local v25 = require(l_script_FirstAncestor_0.Utility.Flags);
-local v26 = require(l_script_FirstAncestor_0.Components.Image);
-local v27 = require(l_script_FirstAncestor_0.Components.View);
-local v28 = require(l_script_FirstAncestor_0.Providers.Preferences.usePreferences);
-local v29 = {
-    [v21.Medium] = {
-        TARGET_WIDTH = 0.4, 
-        MIN = 360, 
-        MAX = 440
-    }, 
-    [v21.Large] = {
-        TARGET_WIDTH = 0.5, 
-        MIN = 440, 
-        MAX = 640
-    }
-};
-local v30 = {
-    testId = "--foundation-sheet", 
-    size = if v25.FoundationSideSheetNewWidthCalculation then v21.Medium else nil
-};
-local l_SHADOW_IMAGE_0 = v9.SHADOW_IMAGE;
-local l_SHADOW_SIZE_0 = v9.SHADOW_SIZE;
-return v4.memo(v4.forwardRef(function(v33, v34) --[[ Line: 68 ]] --[[ Name: SideSheet ]]
-    -- upvalues: v14 (copy), v30 (copy), v11 (copy), v13 (copy), v18 (copy), v20 (copy), v25 (copy), v28 (copy), v22 (copy), v23 (copy), v29 (copy), v12 (copy), v4 (copy), l_useAnimatedBinding_0 (copy), v3 (copy), v2 (copy), v17 (copy), v6 (copy), v27 (copy), v10 (copy), v16 (copy), v15 (copy), l_ElevationOwnerScope_0 (copy), v24 (copy), v8 (copy), v26 (copy), l_SHADOW_IMAGE_0 (copy), l_SHADOW_SIZE_0 (copy)
-    local v35 = v14(v33, v30);
-    local v36 = v11();
-    local v37 = v13();
-    local v38 = v18(v20.Sheet, {
-        stackAboveOwner = false
-    });
-    local v39 = false;
-    if v25.FoundationSheetReducedMotion then
-        v39 = v28().reducedMotion;
-    end;
-    local v40 = v22(v36);
-    local v41 = if v25.FoundationSideSheetNewWidthCalculation then v23() else nil;
-    local l_right_0 = v40.right;
-    local v43 = v35.displaySize == Enum.DisplaySize.Small;
-    local v44 = nil;
-    local v45 = nil;
-    local v46 = nil;
-    if v25.FoundationSideSheetNewWidthCalculation then
-        local l_Scale_0 = v37.Config.UI.Scale;
-        v44 = v29[v35.size].TARGET_WIDTH;
-        v45 = v29[v35.size].MIN * l_Scale_0;
-        v46 = v29[v35.size].MAX * l_Scale_0;
-    end;
-    local v48 = if v25.FoundationSideSheetNewWidthCalculation then math.clamp(v41.X * v44, v45, v46) else v12(v43 and 400 or 360);
-    local l_Medium_0 = v37.Padding.Medium;
-    local v50 = v4.useRef(false);
-    local v51, v52 = l_useAnimatedBinding_0(1, function() --[[ Line: 101 ]]
-        -- upvalues: v50 (copy), v35 (copy)
-        if v50.current then
-            v35.onClose();
-        end;
-    end);
-    local v53 = -(l_right_0 + (v43 and 0 or l_Medium_0));
-    local v54, v55 = l_useAnimatedBinding_0(v53);
-    local v56, v57 = v4.useBinding(false);
-    local v58, v59 = v4.useBinding(false);
-    local v60, v61 = v4.useBinding(0);
-    local v62 = v4.useRef(nil);
-    local v63, v64 = v4.useState(nil);
-    v4.useEffect(function() --[[ Line: 119 ]]
-        -- upvalues: v25 (ref), v39 (ref), v55 (copy), v3 (ref), v48 (copy), v52 (copy), v37 (copy)
-        if v25.FoundationSheetReducedMotion and v39 then
-            v55((v3.instant(v48)));
-            v52((v3.instant(0)));
-            return;
-        else
-            v55(v3.ease(v48, {
-                easingStyle = v37.Ease.StandardOut, 
-                duration = v37.Time.Time_300
-            }));
-            v52(v3.ease(0, {
-                duration = v37.Time.Time_100
-            }));
-            return;
-        end;
-    end, {
-        v48, 
-        if v25.FoundationSheetReducedMotion then v39 else nil
-    });
-    local v65 = v4.useCallback(function() --[[ Line: 135 ]]
-        -- upvalues: v50 (copy), v25 (ref), v39 (ref), v55 (copy), v3 (ref), v53 (copy), v52 (copy), v37 (copy)
-        if v50.current then
-            return;
-        elseif v25.FoundationSheetReducedMotion and v39 then
-            v50.current = true;
-            v55(v3.instant(v53));
-            v52(v3.instant(1));
-            return;
-        else
-            v55(v3.ease(v53, {
-                easingStyle = v37.Ease.StandardIn, 
-                duration = v37.Time.Time_100
-            }));
-            v52(v3.ease(1, {
-                duration = v37.Time.Time_100
-            }));
-            v50.current = true;
-            return;
-        end;
-    end, {
-        v53, 
-        if v25.FoundationSheetReducedMotion then v39 else nil
-    });
-    v4.useImperativeHandle(v35.sheetRef, function() --[[ Line: 155 ]]
-        -- upvalues: v65 (copy)
-        return {
-            close = v65
-        };
-    end, {});
-    local v66 = UDim2.new(0, v48 + if v43 then l_right_0 else 0, 1, v43 and 0 or -l_Medium_0 * 2);
-    local v68 = v54:map(function(v67) --[[ Line: 168 ]]
-        -- upvalues: v43 (copy), l_Medium_0 (copy)
-        return UDim2.new(1, if v43 then -v67 else -(v67 + l_Medium_0), 0, v43 and 0 or l_Medium_0);
-    end);
-    local v69 = v4.useMemo(function() --[[ Line: 177 ]]
-        -- upvalues: v2 (ref), v56 (copy), v57 (copy), v60 (copy), v61 (copy), v58 (copy), v59 (copy), v65 (copy), v17 (ref), v35 (copy), v62 (copy), v63 (copy), v64 (copy)
-        return {
-            actionsHeight = 0, 
-            setActionsHeight = v2.noop, 
-            hasActionsDivider = v56, 
-            setHasActionsDivider = v57, 
-            sheetHeightAvailable = 0, 
-            setSheetHeightAvailable = v2.noop, 
-            safeAreaPadding = 0, 
-            bottomPadding = 0, 
-            innerScrollingEnabled = true, 
-            innerScrollY = v60, 
-            setInnerScrollY = v61, 
-            hasHeader = v58, 
-            setHasHeader = v59, 
-            closeSheet = v65, 
-            sheetType = v17.Side, 
-            testId = v35.testId, 
-            closeAffordanceRef = v62, 
-            contentStartRef = v63, 
-            setContentStartRef = v64
-        };
-    end, {
-        v35.testId, 
-        v65, 
-        v63, 
-        v62
-    });
-    return v36 and v6.createPortal(v4.createElement(v27, {
-        ZIndex = v38.zIndex, 
-        tag = "size-full", 
-        testId = ("%*--surface"):format(v35.testId)
-    }, {
-        Sheet = v4.createElement(v27, {
-            Size = v66, 
-            Position = v68, 
-            ClipsDescendants = true, 
-            ZIndex = 3, 
-            padding = if v43 and l_right_0 > 0 then {
-                right = UDim.new(0, l_right_0)
-            } else nil, 
-            stateLayer = {
-                affordance = v10.None
-            }, 
-            onActivated = v2.noop, 
-            ref = v34, 
-            selection = v16.nonSelectable, 
-            selectionGroup = v16.isolatedSelectionGroup, 
-            tag = {
-                ["bg-surface-100 stroke-default stroke-standard"] = true, 
-                ["radius-large"] = not v43
-            }, 
-            testId = v35.testId
-        }, {
-            Content = v4.createElement(v27, {
-                tag = "size-full-full col items-center clip"
-            }, v4.createElement(v15.Provider, {
-                value = v69
-            }, v4.createElement(l_ElevationOwnerScope_0, {
-                owner = v38
-            }, v35.children))), 
-            CloseAffordance = v4.createElement(v24, {
-                onActivated = v65, 
-                ref = v62, 
-                NextSelectionDown = v63, 
-                variant = v8.Utility, 
-                Position = UDim2.new(1, -v37.Margin.Small, 0, v37.Margin.Small), 
-                AnchorPoint = Vector2.new(1, 0), 
-                Visible = v58:map(function(v70) --[[ Line: 248 ]]
-                    return not v70;
-                end), 
-                testId = ("%*--close-affordance"):format(v35.testId)
-            })
-        }), 
-        Shadow = v4.createElement(v26, {
-            Image = l_SHADOW_IMAGE_0, 
-            Size = v66 + UDim2.fromOffset(l_SHADOW_SIZE_0 * 2, l_SHADOW_SIZE_0 * 2), 
-            Position = v68:map(function(v71) --[[ Line: 257 ]]
-                -- upvalues: l_SHADOW_SIZE_0 (ref)
-                return v71 + UDim2.fromOffset(-l_SHADOW_SIZE_0, -l_SHADOW_SIZE_0);
-            end), 
-            ZIndex = 2, 
-            slice = {
-                center = Rect.new(l_SHADOW_SIZE_0, l_SHADOW_SIZE_0, l_SHADOW_SIZE_0 + 1, l_SHADOW_SIZE_0 + 1), 
-                scale = 2
-            }, 
-            imageStyle = v37.Color.Extended.Black.Black_10
-        }), 
-        Backdrop = v4.createElement(v27, {
-            Size = UDim2.fromScale(2, 2), 
-            Position = UDim2.fromScale(-0.5, -0.5), 
-            ZIndex = 1, 
-            stateLayer = {
-                affordance = v10.None
-            }, 
-            backgroundStyle = v51:map(function(v72) --[[ Line: 274 ]]
-                -- upvalues: v37 (copy)
-                return {
-                    Color3 = v37.Color.Common.Backdrop.Color3, 
-                    Transparency = math.lerp(v37.Color.Common.Backdrop.Transparency, 1, v72)
-                };
-            end), 
-            onActivated = v65, 
-            testId = ("%*--backdrop"):format(v35.testId)
-        })
-    }), v36);
-end));
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local Dash = require(FoundationParent.Dash)
+local Otter = require(FoundationParent.Otter)
+local React = require(FoundationParent.React)
+local ReactOtter = require(FoundationParent.ReactOtter)
+local ReactRoblox = require(FoundationParent.ReactRoblox)
+local useAnimatedBinding = ReactOtter.useAnimatedBinding
+local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
+local Constants = require(Foundation.Constants)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local SheetContext = require(script.Parent.SheetContext)
+local Types = require(script.Parent.Types)
+local SheetType = require(script.Parent.SheetType)
+local useElevation = require(Foundation.Providers.Elevation.useElevation)
+local ElevationOwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
+local ElevationLayer = require(Foundation.Enums.ElevationLayer)
+local DialogSize = require(Foundation.Enums.DialogSize)
+local childrenHasFullBleed = require(script.Parent.childrenHasFullBleed)
+local useHardwareInsets = require(script.Parent.useHardwareInsets)
+local useScreenSize = require(script.Parent.useScreenSize)
+local CloseAffordance = require(Foundation.Components.CloseAffordance)
+local Flags = require(Foundation.Utility.Flags)
+local Image = require(Foundation.Components.Image)
+local View = require(Foundation.Components.View)
+local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
+local t1 = {
+	[DialogSize.Medium] = {
+		TARGET_WIDTH = 0.4,
+		MIN = 360,
+		MAX = 440
+	},
+	[DialogSize.Large] = {
+		TARGET_WIDTH = 0.5,
+		MIN = 440,
+		MAX = 640
+	}
+}
+local t2 = {
+	testId = "--foundation-sheet",
+	size = if not Flags.FoundationSideSheetNewWidthCalculation then nil else DialogSize.Medium
+}
+local SHADOW_IMAGE = Constants.SHADOW_IMAGE
+local SHADOW_SIZE = Constants.SHADOW_SIZE
+
+return React.memo(React.forwardRef(function(p1, p2) --[[ SideSheet ]] -- line: 69
+	-- upvalues: withDefaults (copy), t2 (copy), useOverlay (copy), useTokens (copy), useElevation (copy), ElevationLayer (copy), usePreferences (copy), useHardwareInsets (copy), Flags (copy), useScreenSize (copy), t1 (copy), useScaledValue (copy), React (copy), useAnimatedBinding (copy), childrenHasFullBleed (copy), Otter (copy), Dash (copy), SheetType (copy), ReactRoblox (copy), View (copy), StateLayerAffordance (copy), Types (copy), SheetContext (copy), ElevationOwnerScope (copy), CloseAffordance (copy), CloseAffordanceVariant (copy), Image (copy), SHADOW_IMAGE (copy), SHADOW_SIZE (copy)
+	local v37 = withDefaults(p1, t2)
+	local v38 = useOverlay()
+	local v39 = useTokens()
+	local v40 = useElevation(ElevationLayer.Sheet, {
+		stackAboveOwner = false
+	})
+	local reducedMotion = usePreferences().reducedMotion
+	local v42 = useHardwareInsets(v38)
+	local v43 = if not Flags.FoundationSideSheetNewWidthCalculation then nil else useScreenSize()
+	local right = v42.right
+	local v45 = v37.displaySize == Enum.DisplaySize.Small
+	local TARGET_WIDTH = nil
+	local v47 = nil
+	local v48 = nil
+
+	if Flags.FoundationSideSheetNewWidthCalculation then
+		local UIScale = v39.Config.UI.Scale
+
+		TARGET_WIDTH = t1[v37.size].TARGET_WIDTH
+		v47 = t1[v37.size].MIN * UIScale
+		v48 = t1[v37.size].MAX * UIScale
+	end
+
+	local v50 = if not Flags.FoundationSideSheetNewWidthCalculation then useScaledValue(not v45 and 360 or 400) else math.clamp(v43.X * TARGET_WIDTH, v47, v48)
+	local Medium = v39.Padding.Medium
+	local v52 = React.useRef(false)
+	local v53, v54 = useAnimatedBinding(1, function() -- line: 99
+		-- upvalues: v52 (copy), v37 (copy)
+		if v52.current then
+			v37.onClose()
+		end
+	end)
+	local v55 = -(right + if not v45 then Medium else 0)
+	local v56, v57 = useAnimatedBinding(v55)
+	local v58, v59 = React.useBinding(false)
+	local v60, v61 = React.useBinding(false)
+	local u62 = nil
+	local u63 = nil
+	local u64 = nil
+
+	if Flags.FoundationSheetFullBleed then
+		u62 = childrenHasFullBleed(v37.children)
+
+		local v65, v66 = React.useBinding(0)
+
+		u63 = v65
+		u64 = v66
+	end
+
+	local v67, v68 = React.useBinding(0)
+	local v69 = React.useRef(nil)
+	local v70, v71 = React.useState(nil)
+
+	React.useEffect(function() -- line: 123
+		-- upvalues: reducedMotion (copy), v57 (copy), Otter (copy), v50 (copy), v54 (copy), v39 (copy)
+		if reducedMotion then
+			v57((Otter.instant(v50)))
+			v54((Otter.instant(0)))
+
+			return
+		end
+
+		v57(Otter.ease(v50, {
+			easingStyle = v39.Ease.StandardOut,
+			duration = v39.Time.Time_300
+		}))
+		v54(Otter.ease(0, {
+			duration = v39.Time.Time_100
+		}))
+	end, {
+		v50,
+		reducedMotion
+	})
+
+	local v72 = React.useCallback(function() -- line: 139
+		-- upvalues: v52 (copy), reducedMotion (copy), v57 (copy), Otter (copy), v55 (copy), v54 (copy), v39 (copy)
+		if v52.current then
+			return
+		end
+
+		if reducedMotion then
+			v52.current = true
+			v57(Otter.instant(v55))
+			v54(Otter.instant(1))
+
+			return
+		end
+
+		v57(Otter.ease(v55, {
+			easingStyle = v39.Ease.StandardIn,
+			duration = v39.Time.Time_100
+		}))
+		v54(Otter.ease(1, {
+			duration = v39.Time.Time_100
+		}))
+		v52.current = true
+	end, {
+		v55,
+		reducedMotion
+	})
+
+	React.useImperativeHandle(v37.sheetRef, function() -- line: 159
+		-- upvalues: v72 (copy)
+		return {
+			close = v72
+		}
+	end, {})
+
+	local uDim2 = UDim2.new(0, v50 + (not v45 and 0 or right), 1, if not v45 then -Medium * 2 else 0)
+	local v74 = v56:map(function(n1: number) -- line: 172
+		-- upvalues: v45 (copy), Medium (copy)
+		return UDim2.new(1, if not v45 then -(n1 + Medium) else -n1, 0, if not v45 then Medium else 0)
+	end)
+	local v75 = React.useMemo(function() -- line: 182
+		-- upvalues: Dash (copy), v58 (copy), v59 (copy), v67 (copy), v68 (copy), v60 (copy), v61 (copy), Flags (copy), u62 (ref), u63 (ref), u64 (ref), v72 (copy), v45 (copy), SheetType (copy), v37 (copy), v69 (copy), v70 (copy), v71 (copy)
+		return {
+			actionsHeight = 0,
+			setActionsHeight = Dash.noop,
+			hasActionsDivider = v58,
+			setHasActionsDivider = v59,
+			sheetHeightAvailable = 0,
+			setSheetHeightAvailable = Dash.noop,
+			safeAreaPadding = 0,
+			bottomPadding = 0,
+			innerScrollingEnabled = true,
+			innerScrollY = v67,
+			setInnerScrollY = v68,
+			hasHeader = v60,
+			setHasHeader = v61,
+			hasFullBleed = if not Flags.FoundationSheetFullBleed then nil else u62,
+			fullBleedHeight = if not Flags.FoundationSheetFullBleed then nil else u63,
+			setFullBleedHeight = if not Flags.FoundationSheetFullBleed then nil else u64,
+			closeSheet = v72,
+			hasRadius = if not Flags.FoundationSheetFullBleed then nil else not v45,
+			sheetType = SheetType.Side,
+			testId = v37.testId,
+			closeAffordanceRef = v69,
+			contentStartRef = v70,
+			setContentStartRef = v71
+		}
+	end, {
+		v37.testId,
+		v72,
+		v70,
+		v69,
+		u62,
+		if not Flags.FoundationSheetFullBleed then nil else v45
+	})
+
+	return v38 and ReactRoblox.createPortal(React.createElement(View, {
+		ZIndex = v40.zIndex,
+		tag = "size-full",
+		testId = `{ v37.testId }--surface`
+	}, {
+		Sheet = React.createElement(View, {
+			Size = uDim2,
+			Position = v74,
+			ClipsDescendants = true,
+			ZIndex = 3,
+			padding = if not v45 or not (right > 0) then nil else {
+				right = UDim.new(0, right)
+			},
+			stateLayer = {
+				affordance = StateLayerAffordance.None
+			},
+			onActivated = Dash.noop,
+			ref = p2,
+			selection = Types.nonSelectable,
+			selectionGroup = Types.isolatedSelectionGroup,
+			tag = {
+				["stroke-standard stroke-default bg-surface-100"] = true,
+				["radius-large"] = not v45
+			},
+			testId = v37.testId
+		}, {
+			Content = React.createElement(View, {
+				tag = "col items-center size-full-full clip"
+			}, React.createElement(SheetContext.Provider, {
+				value = v75
+			}, React.createElement(ElevationOwnerScope, {
+				owner = v40
+			}, v37.children))),
+			CloseAffordance = React.createElement(CloseAffordance, {
+				onActivated = v72,
+				ref = v69,
+				NextSelectionDown = v70,
+				variant = if not Flags.FoundationSheetFullBleed or not u62 then CloseAffordanceVariant.Utility else CloseAffordanceVariant.OverMedia,
+				Position = UDim2.new(1, -v39.Margin.Small, 0, v39.Margin.Small),
+				AnchorPoint = Vector2.new(1, 0),
+				Visible = v60:map(function(b1: boolean) -- line: 268
+					return not b1
+				end),
+				testId = `{ v37.testId }--close-affordance`
+			})
+		}),
+		Shadow = React.createElement(Image, {
+			Image = SHADOW_IMAGE,
+			Size = uDim2 + UDim2.fromOffset(SHADOW_SIZE * 2, SHADOW_SIZE * 2),
+			Position = v74:map(function(uDim2_2: UDim2) -- line: 277
+				-- upvalues: SHADOW_SIZE (copy)
+				return uDim2_2 + UDim2.fromOffset(-SHADOW_SIZE, -SHADOW_SIZE)
+			end),
+			ZIndex = 2,
+			slice = {
+				center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
+				scale = 2
+			},
+			imageStyle = v39.Color.Extended.Black.Black_10
+		}),
+		Backdrop = React.createElement(View, {
+			Size = UDim2.fromScale(2, 2),
+			Position = UDim2.fromScale(-0.5, -0.5),
+			ZIndex = 1,
+			stateLayer = {
+				affordance = StateLayerAffordance.None
+			},
+			backgroundStyle = v53:map(function(n2: number) -- line: 294
+				-- upvalues: v39 (copy)
+				return {
+					Color3 = v39.Color.Common.Backdrop.Color3,
+					Transparency = math.lerp(v39.Color.Common.Backdrop.Transparency, 1, n2)
+				}
+			end),
+			onActivated = v72,
+			testId = `{ v37.testId }--backdrop`
+		})
+	}), v38)
+end))

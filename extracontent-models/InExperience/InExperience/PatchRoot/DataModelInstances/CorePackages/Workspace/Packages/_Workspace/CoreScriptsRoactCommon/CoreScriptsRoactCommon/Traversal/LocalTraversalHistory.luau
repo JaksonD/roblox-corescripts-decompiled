@@ -1,178 +1,175 @@
-local l_HttpService_0 = game:GetService("HttpService");
-local l_MemStorageService_0 = game:GetService("MemStorageService");
-local l_Players_0 = game:GetService("Players");
-local l_TeleportService_0 = game:GetService("TeleportService");
-local l_game_EngineFeature_0 = game:GetEngineFeature("UseTeleportedPlacesBackHistory2");
-local l_Parent_0 = script:FindFirstAncestor("CoreScriptsRoactCommon").Parent;
-local v6 = require(l_Parent_0.Cryo);
-local v7 = require(l_Parent_0.Signals);
-local v8 = require(script.Parent.Flags);
-local l_FFlagUseLocalTraversalHistory_0 = v8.FFlagUseLocalTraversalHistory;
-local l_FFlagUseTeleportTraversalHistory_0 = v8.FFlagUseTeleportTraversalHistory;
-local l_FFlagUseHistoryItemsWaitForGameLoad_0 = v8.FFlagUseHistoryItemsWaitForGameLoad;
-local v12 = {};
-v12.__index = v12;
-v12.new = function(v13) --[[ Line: 52 ]] --[[ Name: new ]]
-    -- upvalues: l_FFlagUseHistoryItemsWaitForGameLoad_0 (copy), v7 (copy), v12 (copy), l_MemStorageService_0 (copy), l_HttpService_0 (copy)
-    local v14 = {
-        _connections = {}, 
-        _historyKey = "", 
-        _history = {}
-    };
-    if l_FFlagUseHistoryItemsWaitForGameLoad_0 then
-        local v15, v16 = v7.createSignal({});
-        v14._historySignal = v15;
-        v14._setHistorySignal = v16;
-    end;
-    if v13 == nil or v13 == "" then
-        return (setmetatable(v14, v12));
-    else
-        local function v19() --[[ Line: 65 ]] --[[ Name: initLocalHistory ]]
-            -- upvalues: v14 (copy), v13 (copy), l_MemStorageService_0 (ref), l_HttpService_0 (ref), l_FFlagUseHistoryItemsWaitForGameLoad_0 (ref)
-            v14._historyKey = "TraversalHistory" .. v13;
-            local l_l_MemStorageService_0_Item_0 = l_MemStorageService_0:GetItem(v14._historyKey);
-            if l_l_MemStorageService_0_Item_0 and l_l_MemStorageService_0_Item_0 ~= "" then
-                local v18 = l_HttpService_0:JSONDecode(l_l_MemStorageService_0_Item_0);
-                if typeof(v18) == "table" then
-                    v14._history = v18;
-                end;
-            end;
-            table.insert(v14._history, 1, {
-                universeId = tostring(game.GameId), 
-                placeId = tostring(game.PlaceId)
-            });
-            l_MemStorageService_0:SetItem(v14._historyKey, l_HttpService_0:JSONEncode(v14._history));
-            if l_FFlagUseHistoryItemsWaitForGameLoad_0 then
-                v14._setHistorySignal(v14._history);
-            end;
-        end;
-        table.insert(v14._connections, game.Loaded:Connect(function() --[[ Line: 88 ]]
-            -- upvalues: v19 (copy)
-            v19();
-        end));
-        return (setmetatable(v14, v12));
-    end;
-end;
-v12.addHistoryEntry = function(v20, v21) --[[ Line: 96 ]] --[[ Name: addHistoryEntry ]]
-    -- upvalues: l_FFlagUseHistoryItemsWaitForGameLoad_0 (copy)
-    table.insert(v20._history, 1, v21);
-    if l_FFlagUseHistoryItemsWaitForGameLoad_0 then
-        v20._setHistorySignal(v20._history);
-    end;
-end;
-v12.addHistoryEntries = function(v22, v23) --[[ Line: 103 ]] --[[ Name: addHistoryEntries ]]
-    -- upvalues: v6 (copy), l_FFlagUseHistoryItemsWaitForGameLoad_0 (copy)
-    v22._history = v6.List.join(v23, v22._history);
-    if l_FFlagUseHistoryItemsWaitForGameLoad_0 then
-        v22._setHistorySignal(v22._history);
-    end;
-end;
-local function _(v24, v25) --[[ Line: 111 ]] --[[ Name: getNMostRecent ]]
-    if v25 == nil then
-        return v24;
-    else
-        local v26 = {};
-        for v27 = 1, v25 do
-            table.insert(v26, v24[v27]);
-        end;
-        return v26;
-    end;
-end;
-v12.getHistory = function(v29, v30) --[[ Line: 122 ]] --[[ Name: getHistory ]]
-    local l__history_0 = v29._history;
-    if v30 == nil then
-        return l__history_0;
-    else
-        local v32 = {};
-        for v33 = 1, v30 do
-            table.insert(v32, l__history_0[v33]);
-        end;
-        return v32;
-    end;
-end;
-if l_FFlagUseHistoryItemsWaitForGameLoad_0 then
-    v12.getUniverseHistorySignal = function(v34, v35) --[[ Line: 127 ]] --[[ Name: getUniverseHistorySignal ]]
-        -- upvalues: v7 (copy)
-        return v7.createComputed(function(v36) --[[ Line: 128 ]]
-            -- upvalues: v34 (copy), v35 (copy)
-            local v37 = v34._historySignal(v36);
-            local l_v35_0 = v35;
-            local v39;
-            if l_v35_0 == nil then
-                v39 = v37;
-            else
-                local v40 = {};
-                for v41 = 1, l_v35_0 do
-                    table.insert(v40, v37[v41]);
-                end;
-                v39 = v40;
-            end;
-            l_v35_0 = {};
-            for _, v43 in v39 do
-                table.insert(l_v35_0, v43.universeId);
-            end;
-            return l_v35_0;
-        end);
-    end;
-end;
-v12.getUniverseHistory = function(v44, v45) --[[ Line: 140 ]] --[[ Name: getUniverseHistory ]]
-    -- upvalues: l_FFlagUseTeleportTraversalHistory_0 (copy), l_game_EngineFeature_0 (copy), l_TeleportService_0 (copy), v6 (copy)
-    local v46 = {};
-    if l_FFlagUseTeleportTraversalHistory_0 and l_game_EngineFeature_0 then
-        local v47 = l_TeleportService_0:TeleportedUniversesBackHistory();
-        local v48 = v6.List.map(v47, tostring);
-        if v45 == nil then
-            return v48;
-        else
-            local v49 = {};
-            for v50 = 1, v45 do
-                table.insert(v49, v48[v50]);
-            end;
-            return v49;
-        end;
-    else
-        local l__history_1 = v44._history;
-        local v52;
-        if v45 == nil then
-            v52 = l__history_1;
-        else
-            local v53 = {};
-            for v54 = 1, v45 do
-                table.insert(v53, l__history_1[v54]);
-            end;
-            v52 = v53;
-        end;
-        for _, v56 in v52 do
-            table.insert(v46, v56.universeId);
-        end;
-        return v46;
-    end;
-end;
-v12.writeHistory = function(v57) --[[ Line: 156 ]] --[[ Name: writeHistory ]]
-    -- upvalues: l_MemStorageService_0 (copy), l_HttpService_0 (copy)
-    l_MemStorageService_0:SetItem(v57._historyKey, l_HttpService_0:JSONEncode(v57._history));
-end;
-v12.disconnect = function(v58) --[[ Line: 160 ]] --[[ Name: disconnect ]]
-    for _, v60 in v58._connections do
-        v60:Disconnect();
-    end;
-    v58._connections = {};
-end;
-local function _() --[[ Line: 167 ]] --[[ Name: getDefaultId ]]
-    -- upvalues: l_Players_0 (copy)
-    local v61 = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId or nil;
-    if v61 == nil or v61 <= 0 then
-        return "Local";
-    else
-        return (tostring(v61));
-    end;
-end;
-if l_FFlagUseLocalTraversalHistory_0 or l_FFlagUseTeleportTraversalHistory_0 then
-    local l_new_0 = v12.new;
-    local v64 = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId or nil;
-    v12.default = l_new_0((not (v64 ~= nil) or v64 <= 0) and "Local" or tostring(v64));
-    return v12;
-else
-    v12.default = v12.new("");
-    return v12;
-end;
+local HttpService = game:GetService("HttpService")
+local MemStorageService = game:GetService("MemStorageService")
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local EngineFeature = game:GetEngineFeature("UseTeleportedPlacesBackHistory2")
+local Parent = script:FindFirstAncestor("CoreScriptsRoactCommon").Parent
+local Cryo = require(Parent.Cryo)
+local Signals = require(Parent.Signals)
+local Flags = require(script.Parent.Flags)
+local FFlagUseLocalTraversalHistory = Flags.FFlagUseLocalTraversalHistory
+local FFlagUseTeleportTraversalHistory = Flags.FFlagUseTeleportTraversalHistory
+local t1 = {}
+
+t1.__index = t1
+
+function t1.new(s1: string?) -- line: 51
+	-- upvalues: Signals (copy), t1 (copy), MemStorageService (copy), HttpService (copy)
+	local t2 = {
+		_connections = {},
+		_historyKey = "",
+		_history = {}
+	}
+	local v17, v18 = Signals.createSignal({})
+
+	t2._historySignal = v17
+	t2._setHistorySignal = v18
+
+	if s1 == nil or s1 == "" then
+		return (setmetatable(t2, t1))
+	end
+
+	local function initLocalHistory() -- line: 62
+		-- upvalues: t2 (copy), s1 (copy), MemStorageService (copy), HttpService (copy)
+		t2._historyKey = "TraversalHistory" .. s1
+
+		local Item = MemStorageService:GetItem(t2._historyKey)
+
+		if Item and Item ~= "" then
+			local data = HttpService:JSONDecode(Item)
+
+			if typeof(data) == "table" then
+				t2._history = data
+			end
+		end
+
+		table.insert(t2._history, 1, {
+			universeId = tostring(game.GameId),
+			placeId = tostring(game.PlaceId)
+		})
+		MemStorageService:SetItem(t2._historyKey, HttpService:JSONEncode(t2._history))
+		t2._setHistorySignal(t2._history)
+	end
+
+	table.insert(t2._connections, game.Loaded:Connect(function() -- line: 82
+		-- upvalues: initLocalHistory (copy)
+		initLocalHistory()
+	end))
+
+	return (setmetatable(t2, t1))
+end
+function t1.addHistoryEntry(t3: {[any]: any}, t4: {[any]: any}) -- line: 90
+	table.insert(t3._history, 1, t4)
+	t3._setHistorySignal(t3._history)
+end
+function t1.addHistoryEntries(t5: {[any]: any}, t6: {[any]: any}) -- line: 95
+	-- upvalues: Cryo (copy)
+	t5._history = Cryo.List.join(t6, t5._history)
+	t5._setHistorySignal(t5._history)
+end
+function t1.getHistory(t7: {[any]: any}, n1: number?) -- line: 112
+	local _history = t7._history
+
+	if n1 == nil then
+		return _history
+	end
+
+	local t8 = {}
+
+	for i = 1, n1 do
+		table.insert(t8, _history[i])
+	end
+
+	return t8
+end
+function t1.getUniverseHistorySignal(t9: {[any]: any}, n2: number?) -- line: 115
+	-- upvalues: Signals (copy)
+	return Signals.createComputed(function(p1) -- line: 116
+		-- upvalues: t9 (copy), n2 (copy)
+		local v55 = t9._historySignal(p1)
+		local v56 = n2
+
+		if v56 == nil then
+		else
+			local t10 = {}
+
+			for i = 1, v56 do
+				table.insert(t10, v55[i])
+			end
+
+			v55 = t10
+		end
+
+		local t11 = {}
+
+		for _, v61 in v55 do
+			table.insert(t11, v61.universeId)
+		end
+
+		return t11
+	end)
+end
+function t1.getUniverseHistory(t12: {[any]: any}, n3: number?) -- line: 127
+	-- upvalues: FFlagUseTeleportTraversalHistory (copy), EngineFeature (copy), TeleportService (copy), Cryo (copy)
+	local t13 = {}
+
+	if FFlagUseTeleportTraversalHistory and EngineFeature then
+		local v38 = TeleportService:TeleportedUniversesBackHistory()
+		local v39 = Cryo.List.map(v38, tostring)
+
+		if n3 == nil then
+			return v39
+		end
+
+		local t14 = {}
+
+		for i = 1, n3 do
+			table.insert(t14, v39[i])
+		end
+
+		return t14
+	end
+
+	local _history = t12._history
+
+	if n3 == nil then
+	else
+		local t15 = {}
+
+		for i = 1, n3 do
+			table.insert(t15, _history[i])
+		end
+
+		_history = t15
+	end
+
+	for _, v46 in _history do
+		table.insert(t13, v46.universeId)
+	end
+
+	return t13
+end
+function t1.writeHistory(p2) -- line: 143
+	-- upvalues: MemStorageService (copy), HttpService (copy)
+	MemStorageService:SetItem(p2._historyKey, HttpService:JSONEncode(p2._history))
+end
+function t1.disconnect(p3) -- line: 147
+	for _, v50 in p3._connections do
+		v50:Disconnect()
+	end
+
+	p3._connections = {}
+end
+
+if FFlagUseLocalTraversalHistory or FFlagUseTeleportTraversalHistory then
+	local new = t1.new
+	local v14 = Players.LocalPlayer and Players.LocalPlayer.UserId or nil
+
+	t1.default = new(if v14 ~= nil and not (v14 <= 0) then tostring(v14) else "Local")
+
+	return t1
+end
+
+t1.default = t1.new("")
+
+return t1

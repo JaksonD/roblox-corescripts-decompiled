@@ -1,1 +1,0 @@
-return game:DefineFastFlag("AppChatEnableAvatarPresence3", false);

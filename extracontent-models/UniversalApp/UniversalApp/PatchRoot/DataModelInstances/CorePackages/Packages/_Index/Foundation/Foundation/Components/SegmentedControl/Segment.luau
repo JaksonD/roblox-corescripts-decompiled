@@ -1,28 +1,71 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_script_FirstAncestor_0.Components.Text);
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v5 = require(l_script_FirstAncestor_0.Components.View);
-local _ = require(l_script_FirstAncestor_0.Enums.InputSize);
-local v7 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local v8 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v9 = require(script.Parent.useSegmentedControlVariants);
-return v2.memo(v2.forwardRef(function(v10, v11) --[[ Line: 31 ]] --[[ Name: Segment ]]
-    -- upvalues: v7 (copy), v9 (copy), v2 (copy), v5 (copy), v8 (copy), v3 (copy)
-    local v12 = v7();
-    local v13 = v9(v12, v10.size);
-    return v2.createElement(v5, v8(v10, {
-        tag = v13.segment.tag, 
-        onActivated = function() --[[ Line: 39 ]] --[[ Name: onActivated ]]
-            -- upvalues: v10 (copy)
-            v10.onActivated(v10.id);
-        end, 
-        ref = v11
-    }), {
-        Text = v2.createElement(v3, {
-            tag = v13.text.tag, 
-            Text = v10.text
-        })
-    });
-end));
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local React = require(FoundationParent.React)
+
+require(FoundationParent.BuilderIcons)
+
+local Flags = require(Foundation.Utility.Flags)
+local Icon = require(Foundation.Components.Icon)
+local Text = require(Foundation.Components.Text)
+
+require(Foundation.Components.Types)
+
+local View = require(Foundation.Components.View)
+
+require(Foundation.Enums.IconSize)
+require(Foundation.Enums.InputSize)
+
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local useSegmentedControlVariants = require(script.Parent.useSegmentedControlVariants)
+
+return React.memo(React.forwardRef(function(p1, p2) --[[ Segment ]] -- line: 43
+	-- upvalues: useTokens (copy), useSegmentedControlVariants (copy), Flags (copy), React (copy), View (copy), withCommonProps (copy), Icon (copy), Text (copy)
+	local v13 = useTokens()
+	local v14 = useSegmentedControlVariants(v13, p1.size)
+
+	if _G.__DEV__ == true then
+		assert(p1.text == nil or p1.icon == nil, "Segment: `text` and `icon` are mutually exclusive. Only one can be provided.")
+	end
+
+	local v15 = nil
+	local name = nil
+	local variant = nil
+	local icon = nil
+
+	if Flags.FoundationSegmentedControlIconSupport then
+		v15 = p1.icon ~= nil
+
+		if v15 then
+			if typeof(p1.icon) == "table" then
+				local icon2 = p1.icon
+
+				name = icon2.name
+				variant = icon2.variant
+			else
+				name = p1.icon
+			end
+
+			icon = v14.icon
+		end
+	end
+
+	return React.createElement(View, withCommonProps(p1, {
+		tag = v14.segment.tag,
+		onActivated = function() --[[ onActivated ]] -- line: 80
+			-- upvalues: p1 (copy)
+			p1.onActivated(p1.id)
+		end,
+		ref = p2
+	}), {
+		Text = if not v15 then React.createElement(Text, {
+			tag = v14.text.tag,
+			Text = p1.text
+		}) else React.createElement(Icon, {
+			name = name,
+			variant = variant,
+			size = icon.size,
+			style = icon.style
+		})
+	})
+end))

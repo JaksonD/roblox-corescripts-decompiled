@@ -1,69 +1,91 @@
-local l_RbxAnalyticsService_0 = game:GetService("RbxAnalyticsService");
-local l_TelemetryService_0 = game:GetService("TelemetryService");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ExpChatShared");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_Dictionary_0 = require(l_Parent_0.llama).Dictionary;
-local v5 = require(l_script_FirstAncestor_0.Logger):new("ExpChat/" .. script.Name);
-local v6 = {};
-local l_l_RbxAnalyticsService_0_0 = l_RbxAnalyticsService_0;
-local function v9(v8) --[[ Line: 16 ]] --[[ Name: withDefaultArgs ]]
-    -- upvalues: l_Dictionary_0 (copy)
-    return l_Dictionary_0.join(v8, {
-        gameId = tostring(game.GameId), 
-        placeId = tostring(game.PlaceId)
-    });
-end;
-local function v14(v10, v11, v12, v13) --[[ Line: 23 ]] --[[ Name: setRbxEventStream ]]
-    -- upvalues: l_l_RbxAnalyticsService_0_0 (ref), v5 (copy), v9 (copy)
-    if l_l_RbxAnalyticsService_0_0 then
-        v5:debug("Event: {}", v12);
-        l_l_RbxAnalyticsService_0_0:SetRBXEventStream(v10, v11, v12, v9(v13 or {}));
-    end;
-end;
-local function v19(v15, v16, v17, v18) --[[ Line: 30 ]] --[[ Name: sendEventDeferred ]]
-    -- upvalues: l_l_RbxAnalyticsService_0_0 (ref), v5 (copy), v9 (copy)
-    if l_l_RbxAnalyticsService_0_0 then
-        v5:debug("SendEventDeferred: {}", v17);
-        l_l_RbxAnalyticsService_0_0:SendEventDeferred(v15, v16, v17, v9(v18 or {}));
-    end;
-end;
-v6.with = function(v20) --[[ Line: 37 ]] --[[ Name: with ]]
-    -- upvalues: l_l_RbxAnalyticsService_0_0 (ref), l_RbxAnalyticsService_0 (copy)
-    l_l_RbxAnalyticsService_0_0 = v20 or l_RbxAnalyticsService_0;
-end;
-v6.FireRccAnalyticsWithEventName = function(v21, v22) --[[ Line: 41 ]] --[[ Name: FireRccAnalyticsWithEventName ]]
-    -- upvalues: v14 (copy)
-    v14("rcc", "experienceChat", v21, v22);
-end;
-v6.FireClientAnalyticsWithEventName = function(v23, v24) --[[ Line: 45 ]] --[[ Name: FireClientAnalyticsWithEventName ]]
-    -- upvalues: v14 (copy)
-    v14("client", "experienceChat", v23, v24);
-end;
-v6.reportCounter = function(v25, v26) --[[ Line: 49 ]] --[[ Name: reportCounter ]]
-    -- upvalues: l_l_RbxAnalyticsService_0_0 (ref), v5 (copy)
-    if l_l_RbxAnalyticsService_0_0 then
-        v5:debug("Counter: {}", v25);
-        l_l_RbxAnalyticsService_0_0:ReportCounter(v25, v26 or 1);
-    end;
-end;
-v6.FireLikelySpeakingBubbleAnalytics = function(v27, v28, v29, v30) --[[ Line: 56 ]] --[[ Name: FireLikelySpeakingBubbleAnalytics ]]
-    -- upvalues: v14 (copy)
-    v14("client", "voiceChat", "likelySpeakingBubbleEvent", {
-        eventType = v27, 
-        universe_id = v28, 
-        place_id = v29, 
-        play_session_id = v30
-    });
-end;
-v6.FireRccAnalyticsDeferred = function(v31, v32) --[[ Line: 70 ]] --[[ Name: FireRccAnalyticsDeferred ]]
-    -- upvalues: v19 (copy)
-    v19("RCC", "experienceChat", v31, v32);
-end;
-v6.TelemetryLogEvent = function(_, v34, v35, v36) --[[ Line: 74 ]] --[[ Name: TelemetryLogEvent ]]
-    -- upvalues: l_TelemetryService_0 (copy)
-    l_TelemetryService_0:LogEvent(v34, {
-        customFields = v35, 
-        standardizedFields = v36
-    });
-end;
-return v6;
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+local TelemetryService = game:GetService("TelemetryService")
+local ExpChatShared = script:FindFirstAncestor("ExpChatShared")
+local ExpChatSharedParent = ExpChatShared.Parent
+local Dictionary = require(ExpChatSharedParent.llama).Dictionary
+local v6 = require(ExpChatShared.Logger):new("ExpChat/" .. script.Name)
+local t1 = {}
+local u8 = RbxAnalyticsService
+
+local function withDefaultArgs(p1) -- line: 16
+	-- upvalues: Dictionary (copy)
+	return Dictionary.join(p1, {
+		gameId = tostring(game.GameId),
+		placeId = tostring(game.PlaceId)
+	})
+end
+local function setRbxEventStream(s1: string, s2: string, s3: string, p2) -- line: 23
+	-- upvalues: u8 (ref), v6 (copy), withDefaultArgs (copy)
+	if u8 then
+		v6:debug("Event: {}", s3)
+		u8:SetRBXEventStream(s1, s2, s3, withDefaultArgs(p2 or {}))
+	end
+end
+local function sendEventDeferred(s4: string, s5: string, s6: string, p3) -- line: 30
+	-- upvalues: u8 (ref), v6 (copy), withDefaultArgs (copy)
+	if u8 then
+		v6:debug("SendEventDeferred: {}", s6)
+		u8:SendEventDeferred(s4, s5, s6, withDefaultArgs(p3 or {}))
+	end
+end
+
+function t1.with(p4) -- line: 37
+	-- upvalues: u8 (ref), RbxAnalyticsService (copy)
+	u8 = p4 or RbxAnalyticsService
+end
+function t1.FireRccAnalyticsWithEventName(s7: string, p5) -- line: 41
+	-- upvalues: setRbxEventStream (copy)
+	setRbxEventStream("rcc", "experienceChat", s7, p5)
+end
+function t1.FireClientAnalyticsWithEventName(s8: string, p6) -- line: 45
+	-- upvalues: setRbxEventStream (copy)
+	setRbxEventStream("client", "experienceChat", s8, p6)
+end
+function t1.reportCounter(s9: string, n1: number?) -- line: 49
+	-- upvalues: u8 (ref), v6 (copy)
+	if u8 then
+		v6:debug("Counter: {}", s9)
+		u8:ReportCounter(s9, n1 or 1)
+	end
+end
+function t1.FireLikelySpeakingBubbleAnalytics(s10: string, n2: number, n3: number, s11: string) -- line: 56
+	-- upvalues: setRbxEventStream (copy)
+	setRbxEventStream("client", "voiceChat", "likelySpeakingBubbleEvent", {
+		eventType = s10,
+		universe_id = n2,
+		place_id = n3,
+		play_session_id = s11
+	})
+end
+function t1.FireRccAnalyticsDeferred(s12: string, p7) -- line: 70
+	-- upvalues: sendEventDeferred (copy)
+	sendEventDeferred("RCC", "experienceChat", s12, p7)
+end
+function t1.TelemetryLogEvent(_: {[any]: any}, t3: {[any]: any}, t4: {[any]: any}?, t5: {[any]: any}?) -- line: 74
+	-- upvalues: TelemetryService (copy)
+	TelemetryService:LogEvent(t3, {
+		customFields = t4,
+		standardizedFields = t5
+	})
+end
+
+t1.DefaultStandardizedFields = {
+	"addOSInfo",
+	"addSessionInfo",
+	"addUniverseId",
+	"addPlaceId"
+}
+t1.RewriteDropdownToggledConfig = {
+	eventName = "RewriteDropdownToggled",
+	backends = { "EventIngest" },
+	throttlingPercentage = game:DefineFastInt("ExpChatRewriteDropdownToggledThrottlePerMyriad", 10000),
+	lastUpdated = {
+		26,
+		4,
+		21
+	},
+	description = "When a user activates the AI rewrite dropdown toggle on a rewritten chat message.",
+	links = ""
+}
+
+return t1

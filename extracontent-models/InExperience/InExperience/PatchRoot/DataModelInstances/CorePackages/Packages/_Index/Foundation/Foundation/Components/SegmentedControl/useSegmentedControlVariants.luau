@@ -1,91 +1,115 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v2 = require(l_script_FirstAncestor_0.Enums.InputSize);
-local _ = require(l_script_FirstAncestor_0.Enums.IconSize);
-local v4 = require(l_script_FirstAncestor_0.Utility.composeStyleVariant);
-local _ = require(l_script_FirstAncestor_0.Providers.Style.Tokens);
-local v6 = require(l_script_FirstAncestor_0.Providers.Style.VariantsContext);
-local function v10(v7) --[[ Line: 27 ]] --[[ Name: variantsFactory ]]
-    -- upvalues: v2 (copy)
-    local v8 = {
-        container = {
-            tag = "auto-xy align-y-center row bg-surface-300"
-        }, 
-        segment = {
-            tag = "auto-xy row size-0-full align-y-center"
-        }, 
-        text = {
-            tag = "auto-x text-truncate-end content-emphasis"
-        }, 
-        divider = {
-            tag = "row"
-        }
-    };
-    local v9 = {
-        [v2.XSmall] = {
-            container = {
-                tag = "size-600 padding-xsmall radius-small"
-            }, 
-            segment = {
-                tag = "padding-small radius-small"
-            }, 
-            text = {
-                tag = "text-caption-small"
-            }, 
-            divider = {
-                Size = UDim2.new(0, v7.Stroke.Standard, 1, 0)
-            }
-        }, 
-        [v2.Small] = {
-            container = {
-                tag = "size-800 padding-xsmall radius-medium"
-            }, 
-            segment = {
-                tag = "padding-small radius-small"
-            }, 
-            text = {
-                tag = "text-caption-small"
-            }, 
-            divider = {
-                Size = UDim2.new(0, v7.Stroke.Standard, 1, 0)
-            }
-        }, 
-        [v2.Medium] = {
-            container = {
-                tag = "size-1000 padding-xsmall radius-medium"
-            }, 
-            segment = {
-                tag = "padding-small radius-small"
-            }, 
-            text = {
-                tag = "text-caption-medium"
-            }, 
-            divider = {
-                Size = UDim2.new(0, v7.Stroke.Standard, 1, 0)
-            }
-        }, 
-        [v2.Large] = {
-            container = {
-                tag = "size-1200 padding-xsmall radius-medium"
-            }, 
-            segment = {
-                tag = "padding-medium radius-small"
-            }, 
-            text = {
-                tag = "text-caption-medium"
-            }, 
-            divider = {
-                Size = UDim2.new(0, v7.Stroke.Standard, 1, 0)
-            }
-        }
-    };
-    return {
-        common = v8, 
-        sizes = v9
-    };
-end;
-return function(v11, v12) --[[ Line: 65 ]]
-    -- upvalues: v6 (copy), v10 (copy), v4 (copy)
-    local v13 = v6.useVariants("SegmentedControl", v10, v11);
-    return v4(v13.common, v13.sizes[v12]);
-end;
+local Foundation = script:FindFirstAncestor("Foundation")
+
+require(Foundation.Components.Types)
+
+local InputSize = require(Foundation.Enums.InputSize)
+local IconSize = require(Foundation.Enums.IconSize)
+local Flags = require(Foundation.Utility.Flags)
+local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
+
+require(Foundation.Providers.Style.Tokens)
+
+local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+
+local function variantsFactory(p1) -- line: 29
+	-- upvalues: Flags (copy), InputSize (copy), IconSize (copy)
+	local t1 = {
+		container = {
+			tag = "row align-y-center auto-xy bg-surface-300"
+		},
+		segment = {
+			tag = "row align-y-center size-0-full auto-xy"
+		},
+		text = {
+			tag = "auto-x text-truncate-end content-emphasis"
+		},
+		icon = if not Flags.FoundationSegmentedControlIconSupport then nil else {
+			style = p1.Color.Content.Emphasis
+		},
+		divider = {
+			tag = "row"
+		}
+	}
+	local t2 = {
+		[InputSize.XSmall] = {
+			container = {
+				tag = "size-600 padding-xsmall radius-small"
+			},
+			segment = {
+				tag = "padding-small radius-small"
+			},
+			text = {
+				tag = "text-caption-small"
+			},
+			icon = if not Flags.FoundationSegmentedControlIconSupport then nil else {
+				size = IconSize.Small
+			},
+			divider = {
+				Size = UDim2.new(0, p1.Stroke.Standard, 1, 0)
+			}
+		},
+		[InputSize.Small] = {
+			container = {
+				tag = "size-800 padding-xsmall radius-medium"
+			},
+			segment = {
+				tag = "padding-small radius-small"
+			},
+			text = {
+				tag = "text-caption-small"
+			},
+			icon = if not Flags.FoundationSegmentedControlIconSupport then nil else {
+				size = IconSize.Medium
+			},
+			divider = {
+				Size = UDim2.new(0, p1.Stroke.Standard, 1, 0)
+			}
+		},
+		[InputSize.Medium] = {
+			container = {
+				tag = "size-1000 padding-xsmall radius-medium"
+			},
+			segment = {
+				tag = "padding-small radius-small"
+			},
+			text = {
+				tag = "text-caption-medium"
+			},
+			icon = if not Flags.FoundationSegmentedControlIconSupport then nil else {
+				size = IconSize.Medium
+			},
+			divider = {
+				Size = UDim2.new(0, p1.Stroke.Standard, 1, 0)
+			}
+		},
+		[InputSize.Large] = {
+			container = {
+				tag = "size-1200 padding-xsmall radius-medium"
+			},
+			segment = {
+				tag = "padding-medium radius-small"
+			},
+			text = {
+				tag = "text-caption-medium"
+			},
+			icon = if not Flags.FoundationSegmentedControlIconSupport then nil else {
+				size = IconSize.Large
+			},
+			divider = {
+				Size = UDim2.new(0, p1.Stroke.Standard, 1, 0)
+			}
+		}
+	}
+
+	return {
+		common = t1,
+		sizes = t2
+	}
+end
+
+return function(p2, p3) -- line: 74
+	-- upvalues: VariantsContext (copy), variantsFactory (copy), composeStyleVariant (copy)
+	local v13 = VariantsContext.useVariants("SegmentedControl", variantsFactory, p2)
+
+	return composeStyleVariant(v13.common, v13.sizes[p3])
+end

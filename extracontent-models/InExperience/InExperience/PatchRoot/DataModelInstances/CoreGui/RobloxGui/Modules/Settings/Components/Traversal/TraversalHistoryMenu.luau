@@ -1,279 +1,262 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_GuiService_0 = game:GetService("GuiService");
-local l_UserInputService_0 = game:GetService("UserInputService");
-local v3 = require(l_CorePackages_0.Packages.Foundation);
-local v4 = require(l_CorePackages_0.Packages.React);
-local v5 = require(l_CorePackages_0.Packages.SignalsReact);
-local v6 = require(l_CorePackages_0.Workspace.Packages.CoreScriptsCommon);
-local v7 = require(l_CorePackages_0.Workspace.Packages.CoreScriptsRoactCommon);
-local v8 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils);
-local v9 = require(l_CorePackages_0.Workspace.Packages.Responsive);
-local v10 = require(script.Parent.TraversalLeaveConfirmation);
-local l_Parent_0 = script.Parent.Parent.Parent;
-local v12 = require(l_Parent_0.EnumReactPage);
-local v13 = require(l_Parent_0.ReactPageSignal);
-local v14 = require(l_Parent_0.Utility);
-local l_View_0 = v3.View;
-local l_ThumbnailType_0 = v3.Enums.ThumbnailType;
-local l_ThumbnailSize_0 = v3.Enums.ThumbnailSize;
-local l_getRbxThumb_0 = v3.Utility.getRbxThumb;
-local l_SettingsShowSignal_0 = v6.SettingsShowSignal;
-local l_Traversal_0 = v7.Traversal;
-local l_default_0 = l_Traversal_0.LocalTraversalHistory.default;
-local l_useLastInputMode_0 = v8.useLastInputMode;
-local l_GetInputModeStore_0 = v9.GetInputModeStore;
-local l_Input_0 = v9.Input;
-local l_Constants_0 = l_Traversal_0.Constants;
-local l_HistoryMenu_0 = l_Traversal_0.HistoryMenu;
-local l_useHistoryItems_0 = l_Traversal_0.useHistoryItems;
-local l_useTokens_0 = v3.Hooks.useTokens;
-local v29 = require(l_Parent_0.Flags.FFlagAddTraversalHistoryReactMenuButtons);
-local l_FFlagTraversalHistoryMenuFocusNavFix_0 = l_Traversal_0.Flags.FFlagTraversalHistoryMenuFocusNavFix;
-local l_FFlagTraversalRemoveLastInput_0 = l_Traversal_0.Flags.FFlagTraversalRemoveLastInput;
-local l_FFlagTraversalPerfFixes_0 = l_Traversal_0.Flags.FFlagTraversalPerfFixes;
-local v33 = game:DefineFastFlag("AsyncLoadingHistoryItems", false);
-local function v38(v34) --[[ Line: 50 ]] --[[ Name: historyToMenuItems ]]
-    -- upvalues: l_getRbxThumb_0 (copy), l_ThumbnailType_0 (copy), l_ThumbnailSize_0 (copy)
-    local v35 = {};
-    for _, v37 in v34 do
-        table.insert(v35, {
-            universeId = v37.universeId, 
-            text = v37.name, 
-            icon = l_getRbxThumb_0(l_ThumbnailType_0.GameIcon, v37.universeId, l_ThumbnailSize_0.Small)
-        });
-    end;
-    return v35;
-end;
-return v4.memo(v4.forwardRef(function(v39, _) --[[ Line: 62 ]] --[[ Name: TraversalHistoryMenu ]]
-    -- upvalues: v4 (copy), v29 (copy), l_useHistoryItems_0 (copy), l_FFlagTraversalPerfFixes_0 (copy), v38 (copy), l_Constants_0 (copy), l_FFlagTraversalRemoveLastInput_0 (copy), l_useLastInputMode_0 (copy), l_useTokens_0 (copy), v5 (copy), v13 (copy), l_FFlagTraversalHistoryMenuFocusNavFix_0 (copy), l_SettingsShowSignal_0 (copy), l_GuiService_0 (copy), l_UserInputService_0 (copy), l_GetInputModeStore_0 (copy), l_Input_0 (copy), v14 (copy), v12 (copy), v33 (copy), l_default_0 (copy), l_View_0 (copy), l_HistoryMenu_0 (copy), v10 (copy)
-    local v41 = v4.useRef(v39.anchorParent);
-    if v29 and v39.anchorRef then
-        v41 = v39.anchorRef;
-    end;
-    local v42 = l_useHistoryItems_0();
-    local v43 = nil;
-    v43 = if l_FFlagTraversalPerfFixes_0 then v4.useMemo(function() --[[ Line: 70 ]]
-        -- upvalues: v38 (ref), v42 (copy)
-        return (v38(v42));
-    end, {
-        v42
-    }) else v38(v42);
-    local v44 = if v39.idleButtonStateIsDown ~= nil then v39.idleButtonStateIsDown else l_Constants_0.DEFAULT_CHEVRON_BUTTON_STATE;
-    local v45 = nil;
-    if not l_FFlagTraversalRemoveLastInput_0 then
-        v45 = l_useLastInputMode_0();
-    end;
-    local v46, v47 = v4.useBinding(Enum.SelectionBehavior.Stop);
-    local v48 = nil;
-    if l_FFlagTraversalPerfFixes_0 then
-        v48 = v4.useMemo(function() --[[ Line: 85 ]]
-            -- upvalues: v44 (copy), v46 (copy)
-            return {
-                SelectionBehaviorUp = if v44 then v46 else Enum.SelectionBehavior.Stop, 
-                SelectionBehaviorDown = if not v44 then v46 else Enum.SelectionBehavior.Stop
-            };
-        end, {
-            v44
-        });
-    end;
-    local v49 = l_useTokens_0();
-    local v50, v51 = v4.useState(l_Constants_0.NO_UNIVERSE_ID);
-    local v52 = v5.useSignalState(v13);
-    local v53 = nil;
-    local v54 = nil;
-    local v55 = nil;
-    if l_FFlagTraversalHistoryMenuFocusNavFix_0 then
-        v55 = v4.useCallback(function(v56) --[[ Line: 98 ]]
-            -- upvalues: l_SettingsShowSignal_0 (ref), v29 (ref), v39 (copy), l_GuiService_0 (ref)
-            return {
-                onSettingsVisible = l_SettingsShowSignal_0:connect(function(v57) --[[ Line: 100 ]]
-                    -- upvalues: v56 (copy)
-                    if not v57 then
-                        v56();
-                    end;
-                end), 
-                onPageChanged = if not v29 or v39.currentPageChangeSignal then v39.currentPageChangeSignal:connect(function() --[[ Line: 106 ]]
-                    -- upvalues: v56 (copy)
-                    v56();
-                end) else nil, 
-                onNativeClose = l_GuiService_0.NativeClose:Connect(function() --[[ Line: 110 ]]
-                    -- upvalues: v56 (copy)
-                    v56();
-                end)
-            };
-        end, {
-            v39.currentPageChangeSignal, 
-            l_SettingsShowSignal_0, 
-            l_GuiService_0.NativeClose
-        });
-    else
-        local v58, v59 = v4.useState(false);
-        v53 = v58;
-        v54 = v59;
-        v4.useEffect(function() --[[ Line: 118 ]]
-            -- upvalues: l_SettingsShowSignal_0 (ref), v54 (ref), v29 (ref), v39 (copy), l_GuiService_0 (ref)
-            local v61 = {
-                onSettingsVisible = l_SettingsShowSignal_0:connect(function(v60) --[[ Line: 120 ]]
-                    -- upvalues: v54 (ref)
-                    if not v60 then
-                        v54(true);
-                    end;
-                end), 
-                onPageChanged = if not v29 or v39.currentPageChangeSignal then v39.currentPageChangeSignal:connect(function() --[[ Line: 126 ]]
-                    -- upvalues: v54 (ref)
-                    v54(true);
-                end) else nil, 
-                onNativeClose = l_GuiService_0.NativeClose:Connect(function() --[[ Line: 130 ]]
-                    -- upvalues: v54 (ref)
-                    v54(true);
-                end)
-            };
-            return function() --[[ Line: 133 ]]
-                -- upvalues: v61 (ref)
-                for _, v63 in v61 do
-                    v63:Disconnect();
-                end;
-                v61 = {};
-            end;
-        end, {
-            v39.currentPageChangeSignal, 
-            l_SettingsShowSignal_0, 
-            l_GuiService_0.NativeClose
-        });
-        v4.useEffect(function() --[[ Line: 140 ]]
-            -- upvalues: v53 (ref), v54 (ref)
-            if v53 then
-                v54(false);
-            end;
-        end, {
-            v53, 
-            v54
-        });
-    end;
-    local v65 = v4.useCallback(function(v64) --[[ Line: 148 ]]
-        -- upvalues: v51 (copy), v47 (copy)
-        v51(v64);
-        v47(Enum.SelectionBehavior.Stop);
-    end, {
-        v51
-    });
-    local v70 = v4.useCallback(function() --[[ Line: 153 ]]
-        -- upvalues: v51 (copy), l_Constants_0 (ref), l_FFlagTraversalRemoveLastInput_0 (ref), l_UserInputService_0 (ref), l_GetInputModeStore_0 (ref), l_Input_0 (ref), v45 (ref), v41 (ref), l_GuiService_0 (ref)
-        v51(l_Constants_0.NO_UNIVERSE_ID);
-        local v66 = nil;
-        if l_FFlagTraversalRemoveLastInput_0 then
-            local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-            local v68 = l_GetInputModeStore_0().getLastInputType();
-            local v69 = true;
-            if v68 ~= l_Input_0.Directional then
-                v69 = false;
-                if v68 == l_Input_0.Pointer then
-                    v69 = l_l_UserInputService_0_LastInputType_0 == Enum.UserInputType.Keyboard;
-                end;
-            end;
-            v66 = v69;
-        else
-            v66 = v45 == "Focus";
-        end;
-        if v66 and v41.current then
-            l_GuiService_0.SelectedCoreObject = v41.current;
-        end;
-    end, if l_FFlagTraversalRemoveLastInput_0 then {} else {
-        v51, 
-        v45
-    });
-    local v72 = v4.useCallback(function(v71) --[[ Line: 168 ]]
-        -- upvalues: v47 (copy)
-        if v71 then
-            v47(Enum.SelectionBehavior.Escape);
-            return;
-        else
-            v47(Enum.SelectionBehavior.Stop);
-            return;
-        end;
-    end, {
-        if l_FFlagTraversalPerfFixes_0 then nil else v47
-    });
-    local v73 = v4.useMemo(function() --[[ Line: 176 ]]
-        -- upvalues: v29 (ref), v39 (copy), v49 (copy)
-        if v29 and v39.isDarkOnDarkMode then
-            return v49.Color.Surface.Surface_0;
-        else
-            return {
-                Color3 = v49.Color.Stroke.Default.Color3, 
-                Transparency = 0.33
-            };
-        end;
-    end, {});
-    local v74 = v14:IsSmallTouchScreen();
-    local v75 = nil;
-    if l_FFlagTraversalPerfFixes_0 then
-        v75 = v4.useMemo(function() --[[ Line: 191 ]]
-            -- upvalues: v74 (copy)
-            return {
-                ["padding-small"] = v74, 
-                ["padding-medium"] = not v74
-            };
-        end, {
-            v74
-        });
-    end;
-    local v76 = nil;
-    if l_FFlagTraversalPerfFixes_0 then
-        v76 = v4.useCallback(function() --[[ Line: 201 ]]
-            -- upvalues: v52 (copy), v12 (ref), l_FFlagTraversalHistoryMenuFocusNavFix_0 (ref), v47 (copy)
-            v52.setCurrentReactPage(v12.TraversalHistory);
-            if l_FFlagTraversalHistoryMenuFocusNavFix_0 then
-                v47(Enum.SelectionBehavior.Stop);
-            end;
-        end, {
-            v52
-        });
-    end;
-    local _ = nil;
-    return (if v33 then v4.useMemo(function() --[[ Line: 211 ]]
-        -- upvalues: l_default_0 (ref)
-        return #l_default_0:getUniverseHistory() > 0;
-    end, {}) else next(v43) ~= nil) and v4.createElement(l_View_0, {
-        tag = "auto-xy row align-y-center size-0-full", 
-        selectionGroup = if l_FFlagTraversalPerfFixes_0 then v48 else {
-            SelectionBehaviorUp = if v44 then v46 else Enum.SelectionBehavior.Stop, 
-            SelectionBehaviorDown = if not v44 then v46 else Enum.SelectionBehavior.Stop
-        }, 
-        ref = if not v29 or v39.anchorRef or v39.anchorParent then nil else v41
-    }, {
-        DividerLeft = v4.createElement(l_View_0, {
-            Size = UDim2.new(0, v49.Stroke.Thick, 1, 0), 
-            backgroundStyle = v73
-        }), 
-        HistoryMenu = v4.createElement(l_HistoryMenu_0, {
-            historyButtonTags = if l_FFlagTraversalPerfFixes_0 then v75 else {
-                ["padding-small"] = v74, 
-                ["padding-medium"] = not v74
-            }, 
-            historyItems = v43, 
-            onHistorySelected = if l_FFlagTraversalPerfFixes_0 then v76 else function() --[[ Line: 239 ]]
-                -- upvalues: v52 (copy), v12 (ref), l_FFlagTraversalHistoryMenuFocusNavFix_0 (ref), v47 (copy)
-                v52.setCurrentReactPage(v12.TraversalHistory);
-                if l_FFlagTraversalHistoryMenuFocusNavFix_0 then
-                    v47(Enum.SelectionBehavior.Stop);
-                end;
-            end, 
-            onMenuItemSelected = v65, 
-            onMenuToggled = v72, 
-            forceMenuClose = if l_FFlagTraversalHistoryMenuFocusNavFix_0 then nil else v53, 
-            closeMenuConn = if l_FFlagTraversalHistoryMenuFocusNavFix_0 then v55 else nil, 
-            idleButtonStateIsDown = if l_FFlagTraversalPerfFixes_0 then nil else v44, 
-            menuSide = if l_FFlagTraversalPerfFixes_0 then v39.menuSide else nil, 
-            ref = v41
-        })
-    }, {
-        Dialog = v4.createElement(v10, {
-            isDialogOpen = l_Constants_0.NO_UNIVERSE_ID < v50, 
-            onCancel = v70, 
-            onClose = v70, 
-            universeId = v50, 
-            source = "history_dropdown"
-        })
-    });
-end));
+local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
+local Foundation = require(CorePackages.Packages.Foundation)
+local React = require(CorePackages.Packages.React)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
+local TraversalLeaveConfirmation = require(script.Parent.TraversalLeaveConfirmation)
+local ParentParent = script.Parent.Parent.Parent
+local EnumReactPage = require(ParentParent.EnumReactPage)
+local ReactPageSignal = require(ParentParent.ReactPageSignal)
+local Utility = require(ParentParent.Utility)
+local View = Foundation.View
+local ThumbnailType = Foundation.Enums.ThumbnailType
+local ThumbnailSize = Foundation.Enums.ThumbnailSize
+local getRbxThumb = Foundation.Utility.getRbxThumb
+local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
+local Traversal = CoreScriptsRoactCommon.Traversal
+local default = Traversal.LocalTraversalHistory.default
+local GetInputModeStore = Responsive.GetInputModeStore
+local Input = Responsive.Input
+local Constants = Traversal.Constants
+local HistoryMenu = Traversal.HistoryMenu
+local useHistoryItems = Traversal.useHistoryItems
+local useTokens = Foundation.Hooks.useTokens
+local FFlagAddTraversalHistoryReactMenuButtons = require(ParentParent.Flags.FFlagAddTraversalHistoryReactMenuButtons)
+local FFlagTraversalHistoryMenuFocusNavFix = Traversal.Flags.FFlagTraversalHistoryMenuFocusNavFix
+local FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes
+
+local function historyToMenuItems(p1) -- line: 46
+	-- upvalues: getRbxThumb (copy), ThumbnailType (copy), ThumbnailSize (copy)
+	local t1 = {}
+
+	for _, v35 in p1 do
+		table.insert(t1, {
+			universeId = v35.universeId,
+			text = v35.name,
+			icon = getRbxThumb(ThumbnailType.GameIcon, v35.universeId, ThumbnailSize.Small)
+		})
+	end
+
+	return t1
+end
+
+return React.memo(React.forwardRef(function(t2: {[any]: any}, _) --[[ TraversalHistoryMenu ]] -- line: 58
+	-- upvalues: React (copy), FFlagAddTraversalHistoryReactMenuButtons (copy), useHistoryItems (copy), FFlagTraversalPerfFixes (copy), historyToMenuItems (copy), Constants (copy), useTokens (copy), SignalsReact (copy), ReactPageSignal (copy), FFlagTraversalHistoryMenuFocusNavFix (copy), SettingsShowSignal (copy), GuiService (copy), UserInputService (copy), GetInputModeStore (copy), Input (copy), Utility (copy), EnumReactPage (copy), default (copy), View (copy), HistoryMenu (copy), TraversalLeaveConfirmation (copy)
+	local u38 = React.useRef(t2.anchorParent)
+
+	if FFlagAddTraversalHistoryReactMenuButtons and t2.anchorRef then
+		u38 = t2.anchorRef
+	end
+
+	local v39 = useHistoryItems()
+	local v40 = if not FFlagTraversalPerfFixes then historyToMenuItems(v39) else React.useMemo(function() -- line: 66
+		-- upvalues: historyToMenuItems (copy), v39 (copy)
+		return (historyToMenuItems(v39))
+	end, { v39 })
+	local v41 = if t2.idleButtonStateIsDown == nil then Constants.DEFAULT_CHEVRON_BUTTON_STATE else t2.idleButtonStateIsDown
+	local v42, v43 = React.useBinding(Enum.SelectionBehavior.Stop)
+	local v44 = nil
+
+	if FFlagTraversalPerfFixes then
+		v44 = React.useMemo(function() -- line: 77
+			-- upvalues: v41 (copy), v42 (copy)
+			return {
+				SelectionBehaviorUp = if not v41 then Enum.SelectionBehavior.Stop else v42,
+				SelectionBehaviorDown = if v41 then Enum.SelectionBehavior.Stop else v42
+			}
+		end, { v41 })
+	end
+
+	local v45 = useTokens()
+	local v46, v47 = React.useState(Constants.NO_UNIVERSE_ID)
+	local v48 = SignalsReact.useSignalState(ReactPageSignal)
+	local u49 = nil
+	local u50 = nil
+	local v51 = nil
+
+	if FFlagTraversalHistoryMenuFocusNavFix then
+		v51 = React.useCallback(function(p3) -- line: 90
+			-- upvalues: SettingsShowSignal (copy), FFlagAddTraversalHistoryReactMenuButtons (copy), t2 (copy), GuiService (copy)
+			return {
+				onSettingsVisible = SettingsShowSignal:connect(function(p4) -- line: 92
+					-- upvalues: p3 (copy)
+					if not p4 then
+						p3()
+					end
+				end),
+				onPageChanged = if not not FFlagAddTraversalHistoryReactMenuButtons and not t2.currentPageChangeSignal then nil else t2.currentPageChangeSignal:connect(function() -- line: 98
+					-- upvalues: p3 (copy)
+					p3()
+				end),
+				onNativeClose = GuiService.NativeClose:Connect(function() -- line: 102
+					-- upvalues: p3 (copy)
+					p3()
+				end)
+			}
+		end, {
+			t2.currentPageChangeSignal,
+			SettingsShowSignal,
+			GuiService.NativeClose
+		})
+	else
+		local v52, v53 = React.useState(false)
+
+		u49 = v52
+		u50 = v53
+		React.useEffect(function() -- line: 110
+			-- upvalues: SettingsShowSignal (copy), u50 (ref), FFlagAddTraversalHistoryReactMenuButtons (copy), t2 (copy), GuiService (copy)
+			local t3 = {
+				onSettingsVisible = SettingsShowSignal:connect(function(p5) -- line: 112
+					-- upvalues: u50 (ref)
+					if not p5 then
+						u50(true)
+					end
+				end),
+				onPageChanged = if not not FFlagAddTraversalHistoryReactMenuButtons and not t2.currentPageChangeSignal then nil else t2.currentPageChangeSignal:connect(function() -- line: 118
+					-- upvalues: u50 (ref)
+					u50(true)
+				end),
+				onNativeClose = GuiService.NativeClose:Connect(function() -- line: 122
+					-- upvalues: u50 (ref)
+					u50(true)
+				end)
+			}
+
+			return function() -- line: 125
+				-- upvalues: t3 (ref)
+				for _, v70 in t3 do
+					v70:Disconnect()
+				end
+
+				t3 = {}
+			end
+		end, {
+			t2.currentPageChangeSignal,
+			SettingsShowSignal,
+			GuiService.NativeClose
+		})
+		React.useEffect(function() -- line: 132
+			-- upvalues: u49 (ref), u50 (ref)
+			if u49 then
+				u50(false)
+			end
+		end, {
+			u49,
+			u50
+		})
+	end
+
+	local v54 = React.useCallback(function(n1: number) -- line: 140
+		-- upvalues: v47 (copy), v43 (copy)
+		v47(n1)
+		v43(Enum.SelectionBehavior.Stop)
+	end, { v47 })
+	local v55 = React.useCallback(function() -- line: 145
+		-- upvalues: v47 (copy), Constants (copy), UserInputService (copy), GetInputModeStore (copy), Input (copy), u38 (ref), GuiService (copy)
+		v47(Constants.NO_UNIVERSE_ID)
+
+		local LastInputType = UserInputService:GetLastInputType()
+		local v65 = GetInputModeStore().getLastInputType()
+
+		if (v65 == Input.Directional or v65 == Input.Pointer and LastInputType == Enum.UserInputType.Keyboard) and u38.current then
+			GuiService.SelectedCoreObject = u38.current
+		end
+	end, {})
+	local v56 = React.useCallback(function(b1: boolean) -- line: 155
+		-- upvalues: v43 (copy)
+		if b1 then
+			v43(Enum.SelectionBehavior.Escape)
+
+			return
+		end
+
+		v43(Enum.SelectionBehavior.Stop)
+	end, { if not FFlagTraversalPerfFixes then v43 else nil })
+	local v57 = React.useMemo(function() -- line: 163
+		-- upvalues: FFlagAddTraversalHistoryReactMenuButtons (copy), t2 (copy), v45 (copy)
+		if FFlagAddTraversalHistoryReactMenuButtons and t2.isDarkOnDarkMode then
+			return v45.Color.Surface.Surface_0
+		end
+
+		return {
+			Color3 = v45.Color.Stroke.Default.Color3,
+			Transparency = 0.33
+		}
+	end, {})
+	local v58 = Utility:IsSmallTouchScreen()
+	local v59 = nil
+
+	if FFlagTraversalPerfFixes then
+		v59 = React.useMemo(function() -- line: 178
+			-- upvalues: v58 (copy)
+			return {
+				["padding-small"] = v58,
+				["padding-medium"] = not v58
+			}
+		end, { v58 })
+	end
+
+	local v60 = nil
+
+	if FFlagTraversalPerfFixes then
+		v60 = React.useCallback(function() -- line: 188
+			-- upvalues: v48 (copy), EnumReactPage (copy), FFlagTraversalHistoryMenuFocusNavFix (copy), v43 (copy)
+			v48.setCurrentReactPage(EnumReactPage.TraversalHistory)
+
+			if FFlagTraversalHistoryMenuFocusNavFix then
+				v43(Enum.SelectionBehavior.Stop)
+			end
+		end, { v48 })
+	end
+
+	return React.useMemo(function() -- line: 196
+		-- upvalues: default (copy)
+		return #default:getUniverseHistory() > 0
+	end, {}) and React.createElement(View, {
+		tag = "auto-xy row align-y-center size-0-full",
+		selectionGroup = if not FFlagTraversalPerfFixes then {
+			SelectionBehaviorUp = if not v41 then Enum.SelectionBehavior.Stop else v42,
+			SelectionBehaviorDown = if v41 then Enum.SelectionBehavior.Stop else v42
+		} else v44,
+		ref = if not FFlagAddTraversalHistoryReactMenuButtons or (t2.anchorRef or t2.anchorParent) then nil else u38
+	}, {
+		DividerLeft = React.createElement(View, {
+			Size = UDim2.new(0, v45.Stroke.Thick, 1, 0),
+			backgroundStyle = v57
+		}),
+		HistoryMenu = React.createElement(HistoryMenu, {
+			historyButtonTags = if not FFlagTraversalPerfFixes then {
+				["padding-small"] = v58,
+				["padding-medium"] = not v58
+			} else v59,
+			historyItems = v40,
+			onHistorySelected = not FFlagTraversalPerfFixes and function() -- line: 221
+				-- upvalues: v48 (copy), EnumReactPage (copy), FFlagTraversalHistoryMenuFocusNavFix (copy), v43 (copy)
+				v48.setCurrentReactPage(EnumReactPage.TraversalHistory)
+
+				if FFlagTraversalHistoryMenuFocusNavFix then
+					v43(Enum.SelectionBehavior.Stop)
+				end
+			end or v60,
+			onMenuItemSelected = v54,
+			onMenuToggled = v56,
+			forceMenuClose = if not FFlagTraversalHistoryMenuFocusNavFix then u49 else nil,
+			closeMenuConn = if not FFlagTraversalHistoryMenuFocusNavFix then nil else v51,
+			idleButtonStateIsDown = if not FFlagTraversalPerfFixes then v41 else nil,
+			menuSide = if not FFlagTraversalPerfFixes then nil else t2.menuSide,
+			ref = u38
+		})
+	}, {
+		Dialog = React.createElement(TraversalLeaveConfirmation, {
+			isDialogOpen = v46 > Constants.NO_UNIVERSE_ID,
+			onCancel = v55,
+			onClose = v55,
+			universeId = v46,
+			source = "history_dropdown"
+		})
+	})
+end))

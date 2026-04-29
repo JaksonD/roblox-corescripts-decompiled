@@ -1,73 +1,79 @@
-local l_Parent_0 = script:FindFirstAncestor("DiscoveryTypes").Parent;
-local l_FFlagLuaAppHeaderButtonText_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHeaderButtonText;
-local l_FFlagLuaAppRfySignalApportioningIxp_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppRfySignalApportioningIxp;
-local l_FFlagLuaAppEnableWhyThisAdModal_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableWhyThisAdModal;
-local l_FFlagLuaAppEnableSponsoredReportAd_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableSponsoredReportAd;
-local l_FFlagLuaAppSupportAdRatingFooter_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooter;
-local l_FFlagLuaAppSupportAdRatingFooterExperiment_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooterExperiment;
-local l_FFlagLuaAppChartsStickyHeader_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppChartsStickyHeader;
-local _ = require(script.Parent.RoduxTypes);
+local Parent = script:FindFirstAncestor("DiscoveryTypes").Parent
+local FFlagLuaAppHeaderButtonText = require(Parent.SharedFlags).FFlagLuaAppHeaderButtonText
+local FFlagLuaAppGameCarouselAmpUpsellAction = require(Parent.SharedFlags).FFlagLuaAppGameCarouselAmpUpsellAction
+local FFlagLuaAppRfySignalApportioningIxp = require(Parent.SharedFlags).FFlagLuaAppRfySignalApportioningIxp
+local FFlagLuaAppEnableWhyThisAdModal = require(Parent.SharedFlags).FFlagLuaAppEnableWhyThisAdModal
+local FFlagLuaAppEnableSponsoredReportAd = require(Parent.SharedFlags).FFlagLuaAppEnableSponsoredReportAd
+local FFlagLuaAppSupportAdRatingFooter = require(Parent.SharedFlags).FFlagLuaAppSupportAdRatingFooter
+local FFlagLuaAppSupportAdRatingFooterExperiment = require(Parent.SharedFlags).FFlagLuaAppSupportAdRatingFooterExperiment
+local FFlagLuaAppChartsStickyHeader = require(Parent.SharedFlags).FFlagLuaAppChartsStickyHeader
+
+require(script.Parent.RoduxTypes)
+
 return {
-    EventContext = "HomeOmniFeed", 
-    OmniSortRetrievalStatus = {
-        Exception = "Exception", 
-        Success = "Success"
-    }, 
-    GlobalLayoutDataKeys = {
-        JYFRefresh = "JYFRefresh"
-    }, 
-    TopicLayoutDataKeys = {
-        PYMKFindFriendsEnabled = "PYMKFindFriendsEnabled", 
-        PYMKSeeAllEnabled = "PYMKSeeAllEnabled", 
-        JYFFindFriendsEnabled = "JYFFindFriendsEnabled", 
-        ComponentType = "componentType", 
-        PlayerCountStyle = "playerCountStyle", 
-        IsSponsoredFooterAllowed = "isSponsoredFooterAllowed", 
-        LinkPath = "linkPath", 
-        SubtitleLinkPath = "subtitleLinkPath", 
-        HideSeeAll = "hideSeeAll", 
-        InfoText = "infoText", 
-        EndTimestamp = "endTimestamp", 
-        CountdownString = "countdownString", 
-        PlayButtonStyle = "playButtonStyle", 
-        BackgroundImageAssetId = "backgroundImageAssetId", 
-        HeaderButtonText = l_FFlagLuaAppHeaderButtonText_0 and "headerButtonText" or nil, 
-        HideTileMetadata = "hideTileMetadata", 
-        HideTileTitle = "hideTileTitle", 
-        ContainedTile = "containedTile", 
-        EnableExplicitFeedback = "enableExplicitFeedback", 
-        EnableSignalApportioning = l_FFlagLuaAppRfySignalApportioningIxp_0 and "enableSignalApportioning" or nil, 
-        SponsoredUserCohort = l_FFlagLuaAppEnableWhyThisAdModal_0 and "sponsoredUserCohort" or nil, 
-        EnableSponsoredFeedback = "enableSponsoredFeedback", 
-        EnableCollectionGrid = "enableCollectionGrid", 
-        EnableReportAd = l_FFlagLuaAppEnableSponsoredReportAd_0 and "enableReportAd" or nil, 
-        IsSponsoredRatingFooterAllowed = l_FFlagLuaAppSupportAdRatingFooter_0 and "isSponsoredRatingFooterAllowed" or nil, 
-        SponsoredFooterAdLabelText = l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and "sponsoredFooterAdLabelText" or nil, 
-        SponsoredFooterAdLabelFirst = l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and "sponsoredFooterAdLabelFirst" or nil, 
-        SponsoredFooterIncludeRatingContent = l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and "sponsoredFooterIncludeRatingContent" or nil
-    }, 
-    ComponentTypeDataKeys = {
-        EventTile = "EventTile", 
-        GridTile = "GridTile", 
-        AppGameTileNoMetadata = "AppGameTileNoMetadata"
-    }, 
-    ItemLayoutDataKeys = {
-        Footer = "Footer"
-    }, 
-    OmniRecommendationsRequestIntent = {
-        ManualRefresh = "manualRefresh", 
-        AutoRefresh = "autoRefresh", 
-        FriendPresenceChange = "friendPresenceChange", 
-        LogIn = "logIn", 
-        LoadMore = "loadMore", 
-        GameExit = "gameExit"
-    }, 
-    ContentGroupType = {
-        Game = "Game", 
-        Text = "Text", 
-        User = "User"
-    }, 
-    OmniFeedPageSection = if l_FFlagLuaAppChartsStickyHeader_0 then {
-        Header = "Header"
-    } else nil
-};
+	EventContext = "HomeOmniFeed",
+	OmniSortRetrievalStatus = {
+		Exception = "Exception",
+		Success = "Success"
+	},
+	GlobalLayoutDataKeys = {
+		JYFRefresh = "JYFRefresh"
+	},
+	TopicLayoutDataKeys = {
+		PYMKFindFriendsEnabled = "PYMKFindFriendsEnabled",
+		PYMKSeeAllEnabled = "PYMKSeeAllEnabled",
+		JYFFindFriendsEnabled = "JYFFindFriendsEnabled",
+		ComponentType = "componentType",
+		PlayerCountStyle = "playerCountStyle",
+		IsSponsoredFooterAllowed = "isSponsoredFooterAllowed",
+		LinkPath = "linkPath",
+		SubtitleLinkPath = "subtitleLinkPath",
+		HideSeeAll = "hideSeeAll",
+		InfoText = "infoText",
+		EndTimestamp = "endTimestamp",
+		CountdownString = "countdownString",
+		PlayButtonStyle = "playButtonStyle",
+		BackgroundImageAssetId = "backgroundImageAssetId",
+		HeaderButtonText = if not FFlagLuaAppHeaderButtonText then nil else "headerButtonText",
+		HideTileMetadata = "hideTileMetadata",
+		HideTileTitle = "hideTileTitle",
+		ContainedTile = "containedTile",
+		EnableExplicitFeedback = "enableExplicitFeedback",
+		EnableSignalApportioning = if not FFlagLuaAppRfySignalApportioningIxp then nil else "enableSignalApportioning",
+		SponsoredUserCohort = if not FFlagLuaAppEnableWhyThisAdModal then nil else "sponsoredUserCohort",
+		EnableSponsoredFeedback = "enableSponsoredFeedback",
+		EnableCollectionGrid = "enableCollectionGrid",
+		EnableReportAd = if not FFlagLuaAppEnableSponsoredReportAd then nil else "enableReportAd",
+		IsSponsoredRatingFooterAllowed = if not FFlagLuaAppSupportAdRatingFooter then nil else "isSponsoredRatingFooterAllowed",
+		SponsoredFooterAdLabelText = if not FFlagLuaAppSupportAdRatingFooterExperiment then nil else "sponsoredFooterAdLabelText",
+		SponsoredFooterAdLabelFirst = if not FFlagLuaAppSupportAdRatingFooterExperiment then nil else "sponsoredFooterAdLabelFirst",
+		SponsoredFooterIncludeRatingContent = if not FFlagLuaAppSupportAdRatingFooterExperiment then nil else "sponsoredFooterIncludeRatingContent",
+		AmpUpsellFeatureName = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else "ampUpsellFeatureName",
+		AmpUpsellNamespace = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else "ampUpsellNamespace"
+	},
+	ComponentTypeDataKeys = {
+		EventTile = "EventTile",
+		GridTile = "GridTile",
+		AppGameTileNoMetadata = "AppGameTileNoMetadata"
+	},
+	ItemLayoutDataKeys = {
+		Footer = "Footer"
+	},
+	OmniRecommendationsRequestIntent = {
+		ManualRefresh = "manualRefresh",
+		AutoRefresh = "autoRefresh",
+		FriendPresenceChange = "friendPresenceChange",
+		LogIn = "logIn",
+		LoadMore = "loadMore",
+		GameExit = "gameExit",
+		AmpUpsellFeatureGranted = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else "ampUpsellFeatureGranted"
+	},
+	ContentGroupType = {
+		Game = "Game",
+		Text = "Text",
+		User = "User"
+	},
+	OmniFeedPageSection = if not FFlagLuaAppChartsStickyHeader then nil else {
+		Header = "Header"
+	}
+}

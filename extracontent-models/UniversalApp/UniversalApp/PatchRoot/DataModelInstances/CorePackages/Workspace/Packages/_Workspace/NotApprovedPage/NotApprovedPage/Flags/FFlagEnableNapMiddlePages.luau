@@ -1,1 +1,0 @@
-return game:DefineFastFlag("EnableNapMiddlePages4", false);

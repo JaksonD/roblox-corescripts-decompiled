@@ -1,37 +1,47 @@
-local l_Parent_0 = script:FindFirstAncestor("DiscoveryMonolith").Parent;
-local v1 = require(l_Parent_0.t);
-local l_OmniFeedPropsKey_0 = require(l_Parent_0.DiscoveryTypes).OmniFeedPropsKey;
-local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
-local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
+local Parent = script:FindFirstAncestor("DiscoveryMonolith").Parent
+local t = require(Parent.t)
+local OmniFeedPropsKey = require(Parent.DiscoveryTypes).OmniFeedPropsKey
+
+require(Parent.VideoUtils)
+
+local FFlagLuaAppCompositionSupport = require(Parent.SharedFlags).FFlagLuaAppCompositionSupport
+local FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone = require(Parent.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone
+local FFlagLuaAppHomeTouchAutoplay = require(Parent.SharedFlags).FFlagLuaAppHomeTouchAutoplay
+local FFlagLuaAppGameCarouselAmpUpsellAction = require(Parent.SharedFlags).FFlagLuaAppGameCarouselAmpUpsellAction
+
 return {
-    interface = v1.strictInterface({
-        feedItemPosition = v1.number, 
-        feedItemStartRow = v1.optional(v1.number), 
-        scrollViewPositionChangedSignal = v1.table, 
-        refreshSignal = v1.table, 
-        appPage = v1.string, 
-        verticalScrollingFrameRef = v1.table, 
-        sduiContext = v1.table, 
-        selectionOrderBase = v1.optional(v1.number), 
-        defaultContainerSize = v1.optional(v1.Vector2), 
-        appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v1.optional(v1.boolean) else nil, 
-        onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v1.optional(v1.callback) else nil
-    }), 
-    key = l_OmniFeedPropsKey_0, 
-    new = function(v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) --[[ Line: 26 ]]
-        -- upvalues: l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy)
-        return {
-            feedItemPosition = v5, 
-            feedItemStartRow = v6, 
-            scrollViewPositionChangedSignal = v7, 
-            refreshSignal = v8, 
-            appPage = v9, 
-            verticalScrollingFrameRef = v10, 
-            sduiContext = v11, 
-            selectionOrderBase = v12, 
-            defaultContainerSize = v13, 
-            appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v14 else nil, 
-            onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v15 else nil
-        };
-    end
-};
+	interface = t.strictInterface({
+		feedItemPosition = t.number,
+		feedItemStartRow = t.optional(t.number),
+		scrollViewPositionChangedSignal = t.table,
+		refreshSignal = t.table,
+		appPage = t.string,
+		verticalScrollingFrameRef = t.table,
+		sduiContext = t.table,
+		selectionOrderBase = t.optional(t.number),
+		defaultContainerSize = t.optional(t.Vector2),
+		appCompositionEnabled = if not FFlagLuaAppCompositionSupport then nil else t.optional(t.boolean),
+		onTileImageLoaded = if not FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone then nil else t.optional(t.callback),
+		videoPlaybackContext = if not FFlagLuaAppHomeTouchAutoplay then nil else t.optional(t.table),
+		refreshFeed = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else t.optional(t.callback)
+	}),
+	key = OmniFeedPropsKey,
+	new = function(n1: number, n2: number?, p1, p2, s1: string, p3, p4, n3: number?, vector2: Vector2?, b1: boolean?, p5: ((...any) -> ...any)?, p6, p7: ((...any) -> ...any)?) -- line: 33
+		-- upvalues: FFlagLuaAppCompositionSupport (copy), FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone (copy), FFlagLuaAppHomeTouchAutoplay (copy), FFlagLuaAppGameCarouselAmpUpsellAction (copy)
+		return {
+			feedItemPosition = n1,
+			feedItemStartRow = n2,
+			scrollViewPositionChangedSignal = p1,
+			refreshSignal = p2,
+			appPage = s1,
+			verticalScrollingFrameRef = p3,
+			sduiContext = p4,
+			selectionOrderBase = n3,
+			defaultContainerSize = vector2,
+			appCompositionEnabled = if not FFlagLuaAppCompositionSupport then nil else b1,
+			onTileImageLoaded = if not FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone then nil else p5,
+			videoPlaybackContext = if not FFlagLuaAppHomeTouchAutoplay then nil else p6,
+			refreshFeed = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else p7
+		}
+	end
+}

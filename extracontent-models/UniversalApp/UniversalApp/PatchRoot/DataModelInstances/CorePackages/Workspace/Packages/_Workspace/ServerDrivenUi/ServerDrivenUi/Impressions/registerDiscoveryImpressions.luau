@@ -1,18 +1,28 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ServerDrivenUi");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.SduiCoreSystem);
-local l_SduiImpressionEventType_0 = v2.SduiImpressionEventType;
-local l_getSduiImpressionHandlerRegistry_0 = v2.getSduiImpressionHandlerRegistry;
-return function() --[[ Line: 8 ]] --[[ Name: registerDiscoveryImpressions ]]
-    -- upvalues: l_SduiImpressionEventType_0 (copy), l_script_FirstAncestor_0 (copy), l_getSduiImpressionHandlerRegistry_0 (copy)
-    local v5 = {
-        [l_SduiImpressionEventType_0.gameImpressions] = {
-            lazyHandler = function() --[[ Line: 11 ]] --[[ Name: lazyHandler ]]
-                -- upvalues: l_script_FirstAncestor_0 (ref)
-                return require(l_script_FirstAncestor_0.Impressions.SduiGameImpressionsHandler);
-            end, 
-            skipItemImpressionsLog = false
-        }
-    };
-    l_getSduiImpressionHandlerRegistry_0().registerImpressionHandlerConfigs(v5);
-end;
+local ServerDrivenUi = script:FindFirstAncestor("ServerDrivenUi")
+local ServerDrivenUiParent = ServerDrivenUi.Parent
+local SduiCoreSystem = require(ServerDrivenUiParent.SduiCoreSystem)
+local SduiImpressionEventType = SduiCoreSystem.SduiImpressionEventType
+local getSduiImpressionHandlerRegistry = SduiCoreSystem.getSduiImpressionHandlerRegistry
+local FFlagSduiExperienceDetailsSupport = require(ServerDrivenUiParent.SharedFlags).FFlagSduiExperienceDetailsSupport
+
+return function() --[[ registerDiscoveryImpressions ]] -- line: 13
+	-- upvalues: SduiImpressionEventType (copy), ServerDrivenUi (copy), FFlagSduiExperienceDetailsSupport (copy), getSduiImpressionHandlerRegistry (copy)
+	local t1 = {
+		[SduiImpressionEventType.gameImpressions] = {
+			lazyHandler = function() --[[ lazyHandler ]] -- line: 16
+				-- upvalues: ServerDrivenUi (copy)
+				return require(ServerDrivenUi.Impressions.SduiGameImpressionsHandler)
+			end,
+			skipItemImpressionsLog = false
+		},
+		[SduiImpressionEventType.socialLinksImpressions] = if not FFlagSduiExperienceDetailsSupport then nil else {
+			lazyHandler = function() --[[ lazyHandler ]] -- line: 23
+				-- upvalues: ServerDrivenUi (copy)
+				return require(ServerDrivenUi.Impressions.SduiSocialLinksImpressionsHandler)
+			end,
+			skipItemImpressionsLog = false
+		}
+	}
+
+	getSduiImpressionHandlerRegistry().registerImpressionHandlerConfigs(t1)
+end

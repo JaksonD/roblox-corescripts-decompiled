@@ -1,163 +1,203 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v2 = require(l_CorePackages_0.Packages.tutils);
-local v3 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceHeadRefinement);
-local v4 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog);
-local v5 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local v6 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local l_getFilteredTryOnItems_0 = v4.Utils.TryOns.getFilteredTryOnItems;
-local l_useMultiItemShoppingFtux_0 = v4.Hooks.useMultiItemShoppingFtux;
-local v9 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
-local v10 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchOutfitInfoFromBundle);
-local v11 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v12 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
-local l_AvatarScreenProperties_0 = v12.AvatarRoute.AvatarScreenProperties;
-local l_AvatarScreen_0 = v12.Enums.AvatarScreen;
-local l_Selectors_0 = require(l_CorePackages_0.Workspace.Packages.NavigationRodux).Selectors;
-local v16 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v17 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local v18 = require(l_Modules_0.AvatarExperience.Common.Actions.ClearTryOns);
-local v19 = require(l_Modules_0.AvatarExperience.Common.Actions.StartedWaitingOnLCUpdate);
-local v20 = require(l_Modules_0.AvatarExperience.Common.Actions.ToggleTryOn);
-local v21 = require(l_Modules_0.AvatarExperience.Common.Thunks.CloseAllItemDetails);
-local v22 = require(l_Modules_0.AvatarExperience.Common.Actions.SetOrderForTryOns);
-local v23 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.SetOrder);
-local v24 = require(l_Modules_0.AvatarExperience.Common.Selectors.SelectOrderedToggledOnItemsList);
-local v25 = require(l_Modules_0.AvatarExperience.Common.Selectors.SelectOrderedToggledOnMakeupItemsList);
-local v26 = require(l_Modules_0.AvatarExperience.Common.Selectors.SelectUpdatedSortOrderForToggledOnItems);
-local v27 = require(l_Modules_0.AvatarExperience.Common.Selectors.SelectUpdatedSortOrderForToggledOnMakeupItems);
-local v28 = require(l_Modules_0.AvatarExperience.AvatarEditor.Utils);
-local v29 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchAssetOrBundleInfo);
-local l_getTryOnItemReducerKey_0 = v6.Utils.getTryOnItemReducerKey;
-local l_isMakeupAssetType_0 = v6.Utils.isMakeupAssetType;
-local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local l_HeadShape_0 = v3.Enums.HeadShape;
-local l_TryOnClassicHeadShape_0 = v3.Actions.TryOnClassicHeadShape;
-local l_FFlagAXMISEnableMultiShopping_0 = v5.FFlagAXMISEnableMultiShopping;
-local l_FFlagAXDurablesForMIS_0 = v5.FFlagAXDurablesForMIS;
-local l_FFlagAXBlackbirdRoot_0 = v5.FFlagAXBlackbirdRoot;
-local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
-local l_FFlagAXCatalogMakeupSupport_0 = v5.FFlagAXCatalogMakeupSupport;
-local l_FFlagUseNavigationSelectors_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors;
-return function(v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52) --[[ Line: 62 ]]
-    -- upvalues: v11 (copy), v16 (copy), l_FFlagAXBlackbirdRoot_0 (copy), v10 (copy), l_getTryOnItemReducerKey_0 (copy), l_AvatarScreenProperties_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v18 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v17 (copy), v29 (copy), v19 (copy), v24 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v25 (copy), l_isMakeupAssetType_0 (copy), v27 (copy), v26 (copy), v23 (copy), v22 (copy), v28 (copy), l_HeadShape_0 (copy), l_TryOnClassicHeadShape_0 (copy), l_useMultiItemShoppingFtux_0 (copy), v2 (copy), l_getFilteredTryOnItems_0 (copy), l_AvatarScreen_0 (copy), v21 (copy), v9 (copy), l_FFlagUseNavigationSelectors_0 (copy), l_Selectors_0 (copy), v20 (copy), l_FFlagAXDurablesForMIS_0 (copy)
-    return function(v53) --[[ Line: 76 ]]
-        -- upvalues: v44 (copy), v43 (copy), v11 (ref), v16 (ref), v45 (copy), l_FFlagAXBlackbirdRoot_0 (ref), v10 (ref), v41 (copy), l_getTryOnItemReducerKey_0 (ref), v50 (copy), v47 (copy), l_AvatarScreenProperties_0 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v18 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v48 (copy), v17 (ref), v29 (ref), v42 (copy), v19 (ref), v24 (ref), l_FFlagAXCatalogMakeupSupport_0 (ref), v25 (ref), l_isMakeupAssetType_0 (ref), v27 (ref), v26 (ref), v23 (ref), v22 (ref), v28 (ref), l_HeadShape_0 (ref), l_TryOnClassicHeadShape_0 (ref), l_useMultiItemShoppingFtux_0 (ref), v51 (copy), v2 (ref), l_getFilteredTryOnItems_0 (ref), l_AvatarScreen_0 (ref), v21 (ref), v9 (ref), l_FFlagUseNavigationSelectors_0 (ref), l_Selectors_0 (ref), v20 (ref), v46 (copy), v49 (copy), l_FFlagAXDurablesForMIS_0 (ref), v52 (copy)
-        local v54 = v53:getState();
-        if v54.AvatarExperience.LayeredClothingSort.CharacterUpdatesLocked then
-            return;
-        elseif not v44 then
-            return;
-        else
-            local v55 = nil;
-            local v56 = nil;
-            local v57 = nil;
-            if v43 == v11.ItemType.Bundle then
-                v55 = v16.getOutfitInfoFromBundleId(v54, v45);
-                local v58 = v54.AvatarExperience.Common.BundleInfos[v45];
-                v56 = if v58 then v58.isRecolorable else nil;
-                v57 = if v56 and v58 then v44 == v11.BundleTypeIdStrings.BodyParts else nil;
-                if not v55 and not l_FFlagAXBlackbirdRoot_0 then
-                    v53:dispatch(v10(v41, v45));
-                end;
-            end;
-            local l_TryOnItems_0 = v53:getState().AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
-            local v60 = l_getTryOnItemReducerKey_0(v45, v43);
-            local v61 = l_TryOnItems_0[v60];
-            if v50 and v61 ~= nil then
-                return;
-            else
-                local v62 = nil;
-                v62 = v47 and l_AvatarScreenProperties_0[v47.opaque.name].isMultiTryOn;
-                if not l_FFlagAXMISEnableMultiShopping_0 and not v62 then
-                    if not v61 then
-                        v53:dispatch(v18(v57));
-                        if l_FFlagAXMigrateAXToGlobalAutofocus_0 and v48 then
-                            v17.closeTryOnManager(v48);
-                        end;
-                    elseif v48 then
-                        v17.closeFiltersAndItemDetails(v48);
-                    end;
-                end;
-                if l_FFlagAXMISEnableMultiShopping_0 and not v61 or l_FFlagAXBlackbirdRoot_0 then
-                    v53:dispatch(v29(v41, v42, v45, v43));
-                end;
-                if v16.isBundleOrLCAsset(v43, v44) then
-                    v53:dispatch(v19());
-                end;
-                local v63, v64 = v24(v54);
-                local v65 = if l_FFlagAXCatalogMakeupSupport_0 then v25(v54) else nil;
-                local v66 = if l_FFlagAXCatalogMakeupSupport_0 and l_isMakeupAssetType_0(v44) then v27(v54, v45, v43, v44, v65) else v26(v54, v45, v43, v44, v63, v64);
-                if v66.equippedAssetsToSetOrder then
-                    v53:dispatch(v23(v66.equippedAssetsToSetOrder));
-                end;
-                if v66.itemIdToOrderMap then
-                    v53:dispatch(v22(v66.itemIdToOrderMap));
-                end;
-                local v67 = v55 and true or false;
-                if v44 == v11.AssetTypeIdStrings.Face then
-                    local l_EquippedAssets_0 = v54.AvatarExperience.AvatarEditor.Character.EquippedAssets;
-                    if not v54.AvatarExperience.AvatarScene.OutfitTryOn.LastTryOnClassicHeadShape and not v28.isClassicHeadEquipped(l_EquippedAssets_0) then
-                        local l_HeadRefinement_0 = v54.AvatarExperience.AvatarScene.HeadRefinement;
-                        local v70 = l_HeadRefinement_0 and l_HeadRefinement_0.lastSelectedHeadShape or l_HeadShape_0.Default;
-                        v53:dispatch(l_TryOnClassicHeadShape_0(v70));
-                    end;
-                else
-                    v53:dispatch(l_TryOnClassicHeadShape_0(nil));
-                end;
-                local v71 = nil;
-                if l_FFlagAXMISEnableMultiShopping_0 and v43 == v11.ItemType.Bundle then
-                    local v72 = v54.AvatarExperience.Common.BundleInfos[v45];
-                    if v72 then
-                        v71 = v72.items;
-                    end;
-                end;
-                if l_FFlagAXMISEnableMultiShopping_0 then
-                    local v73 = l_TryOnItems_0[v60] ~= nil;
-                    local v74 = l_useMultiItemShoppingFtux_0();
-                    if v74.shouldShowItemReplacedOnAvatarPrompt() and not v51 and v2.fieldCount(l_TryOnItems_0) > 1 and not v73 and v44 then
-                        local v75 = nil;
-                        if v71 ~= nil then
-                            v75 = {};
-                            for _, v77 in v71 do
-                                if v77.type == v11.ItemType.Asset and v77.assetType then
-                                    v75[v77.id] = {
-                                        assetType = v77.assetType
-                                    };
-                                end;
-                            end;
-                        end;
-                        local _, v79 = l_getFilteredTryOnItems_0(l_TryOnItems_0, {
-                            itemType = v43, 
-                            itemSubType = v44, 
-                            bundleInfo = v75
-                        });
-                        local _, v81 = next(v79);
-                        if v81 and v48 then
-                            v48.navigate(l_AvatarScreen_0.ItemReplacedOnAvatarPrompt, {
-                                onConfirm = function() --[[ Line: 243 ]] --[[ Name: onConfirm ]]
-                                    -- upvalues: v74 (copy), v53 (copy), v21 (ref), v48 (ref)
-                                    v74.setSeenItemReplaceOnAvatarPrompt();
-                                    v53:dispatch(v21(v48));
-                                end, 
-                                beforeItem = {
-                                    itemId = v81.itemId, 
-                                    thumbType = v9.GetRbxThumbType(v81.itemType)
-                                }, 
-                                afterItem = {
-                                    itemId = v45, 
-                                    thumbType = v9.GetRbxThumbType(v43)
-                                }
-                            });
-                        end;
-                    end;
-                end;
-                if l_FFlagAXMISEnableMultiShopping_0 and v48 and (if l_FFlagUseNavigationSelectors_0 then l_Selectors_0.selectCurrentRoactNavigationRoute(v54) else v54.Navigation.currentRoute).routeName == l_AvatarScreen_0.Checkout then
-                    v17.closeFocusedScreen(v48);
-                end;
-                v53:dispatch(v20(v43, v44, v45, v46, v66.overrideOrder, v66.bundleInfoMapping, v49, v67, v56, if l_FFlagAXMISEnableMultiShopping_0 then v71 else nil, if l_FFlagAXMISEnableMultiShopping_0 then v51 else nil, if l_FFlagAXDurablesForMIS_0 then v52 else nil));
-                return;
-            end;
-        end;
-    end;
-end;
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local tutils = require(CorePackages.Packages.tutils)
+local AvatarExperienceHeadRefinement = require(CorePackages.Workspace.Packages.AvatarExperienceHeadRefinement)
+local AvatarExperienceCatalog = require(CorePackages.Workspace.Packages.AvatarExperienceCatalog)
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local getFilteredTryOnItems = AvatarExperienceCatalog.Utils.TryOns.getFilteredTryOnItems
+local useMultiItemShoppingFtux = AvatarExperienceCatalog.Hooks.useMultiItemShoppingFtux
+local CatalogUtils = require(Modules.AvatarExperience.Catalog.CatalogUtils)
+local FetchOutfitInfoFromBundle = require(Modules.AvatarExperience.Catalog.Thunks.FetchOutfitInfoFromBundle)
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local AvatarExperienceNavigation = require(CorePackages.Workspace.Packages.AvatarExperienceNavigation)
+local AvatarScreenProperties = AvatarExperienceNavigation.AvatarRoute.AvatarScreenProperties
+local AvatarScreen = AvatarExperienceNavigation.Enums.AvatarScreen
+local Selectors = require(CorePackages.Workspace.Packages.NavigationRodux).Selectors
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+local NavigationUtils = require(Modules.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils)
+local ClearTryOns = require(Modules.AvatarExperience.Common.Actions.ClearTryOns)
+local StartedWaitingOnLCUpdate = require(Modules.AvatarExperience.Common.Actions.StartedWaitingOnLCUpdate)
+local ToggleTryOn = require(Modules.AvatarExperience.Common.Actions.ToggleTryOn)
+local CloseAllItemDetails = require(Modules.AvatarExperience.Common.Thunks.CloseAllItemDetails)
+local SetOrderForTryOns = require(Modules.AvatarExperience.Common.Actions.SetOrderForTryOns)
+local SetOrder = require(Modules.AvatarExperience.LayeredClothingSort.Actions.SetOrder)
+local SelectOrderedToggledOnItemsList = require(Modules.AvatarExperience.Common.Selectors.SelectOrderedToggledOnItemsList)
+local SelectOrderedToggledOnMakeupItemsList = require(Modules.AvatarExperience.Common.Selectors.SelectOrderedToggledOnMakeupItemsList)
+local SelectUpdatedSortOrderForToggledOnItems = require(Modules.AvatarExperience.Common.Selectors.SelectUpdatedSortOrderForToggledOnItems)
+local SelectUpdatedSortOrderForToggledOnMakeupItems = require(Modules.AvatarExperience.Common.Selectors.SelectUpdatedSortOrderForToggledOnMakeupItems)
+local Utils2 = require(Modules.AvatarExperience.AvatarEditor.Utils)
+local FetchAssetOrBundleInfo = require(Modules.AvatarExperience.Catalog.Thunks.FetchAssetOrBundleInfo)
+local getTryOnItemReducerKey = AvatarExperienceCommon.Utils.getTryOnItemReducerKey
+local isMakeupAssetType = AvatarExperienceCommon.Utils.isMakeupAssetType
+
+require(Modules.AvatarExperience.Common.Types)
+
+local HeadShape = AvatarExperienceHeadRefinement.Enums.HeadShape
+local TryOnClassicHeadShape = AvatarExperienceHeadRefinement.Actions.TryOnClassicHeadShape
+local FFlagAXMISEnableMultiShopping = AvatarExperienceFlags.FFlagAXMISEnableMultiShopping
+local FFlagAXDurablesForMIS = AvatarExperienceFlags.FFlagAXDurablesForMIS
+local FFlagAXBlackbirdRoot = AvatarExperienceFlags.FFlagAXBlackbirdRoot
+local FFlagAXMigrateAXToGlobalAutofocus = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus
+local FFlagAXCatalogMakeupSupport = AvatarExperienceFlags.FFlagAXCatalogMakeupSupport
+local FFlagUseNavigationSelectors = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseNavigationSelectors
+local FFlagAXEnableExpiredUserLookCheckout = AvatarExperienceFlags.FFlagAXEnableExpiredUserLookCheckout
+local v42 = game:DefineFastFlag("AXRevertFetchOutfitInfo", false) and FFlagAXBlackbirdRoot
+
+return function(p1, p2, p3, p4, s1: string, p5, p6, p7, p8, b1: boolean?, b2: boolean?, n1: number?) -- line: 64
+	-- upvalues: Constants (copy), Utils (copy), FFlagAXBlackbirdRoot (copy), FetchOutfitInfoFromBundle (copy), v42 (copy), getTryOnItemReducerKey (copy), FFlagAXEnableExpiredUserLookCheckout (copy), NavigationUtils (copy), AvatarScreenProperties (copy), FFlagAXMISEnableMultiShopping (copy), ClearTryOns (copy), FFlagAXMigrateAXToGlobalAutofocus (copy), FetchAssetOrBundleInfo (copy), StartedWaitingOnLCUpdate (copy), SelectOrderedToggledOnItemsList (copy), FFlagAXCatalogMakeupSupport (copy), SelectOrderedToggledOnMakeupItemsList (copy), isMakeupAssetType (copy), SelectUpdatedSortOrderForToggledOnMakeupItems (copy), SelectUpdatedSortOrderForToggledOnItems (copy), SetOrder (copy), SetOrderForTryOns (copy), Utils2 (copy), HeadShape (copy), TryOnClassicHeadShape (copy), useMultiItemShoppingFtux (copy), tutils (copy), getFilteredTryOnItems (copy), AvatarScreen (copy), CloseAllItemDetails (copy), CatalogUtils (copy), FFlagUseNavigationSelectors (copy), Selectors (copy), ToggleTryOn (copy), FFlagAXDurablesForMIS (copy)
+	return function(p9) -- line: 78
+		-- upvalues: p4 (copy), p3 (copy), Constants (copy), Utils (copy), s1 (copy), FFlagAXBlackbirdRoot (copy), FetchOutfitInfoFromBundle (copy), p1 (copy), v42 (copy), getTryOnItemReducerKey (copy), b1 (copy), FFlagAXEnableExpiredUserLookCheckout (copy), p7 (copy), NavigationUtils (copy), p6 (copy), AvatarScreenProperties (copy), FFlagAXMISEnableMultiShopping (copy), ClearTryOns (copy), FFlagAXMigrateAXToGlobalAutofocus (copy), FetchAssetOrBundleInfo (copy), p2 (copy), StartedWaitingOnLCUpdate (copy), SelectOrderedToggledOnItemsList (copy), FFlagAXCatalogMakeupSupport (copy), SelectOrderedToggledOnMakeupItemsList (copy), isMakeupAssetType (copy), SelectUpdatedSortOrderForToggledOnMakeupItems (copy), SelectUpdatedSortOrderForToggledOnItems (copy), SetOrder (copy), SetOrderForTryOns (copy), Utils2 (copy), HeadShape (copy), TryOnClassicHeadShape (copy), useMultiItemShoppingFtux (copy), b2 (copy), tutils (copy), getFilteredTryOnItems (copy), AvatarScreen (copy), CloseAllItemDetails (copy), CatalogUtils (copy), FFlagUseNavigationSelectors (copy), Selectors (copy), ToggleTryOn (copy), p5 (copy), p8 (copy), FFlagAXDurablesForMIS (copy), n1 (copy)
+		local v56 = p9:getState()
+
+		if v56.AvatarExperience.LayeredClothingSort.CharacterUpdatesLocked then
+			return
+		end
+
+		if not p4 then
+			return
+		end
+
+		local v57 = nil
+		local v58 = nil
+		local v59 = nil
+
+		if p3 == Constants.ItemType.Bundle then
+			v57 = Utils.getOutfitInfoFromBundleId(v56, s1)
+
+			local v60 = v56.AvatarExperience.Common.BundleInfos[s1]
+
+			v58 = if not v60 then nil else v60.isRecolorable
+			v59 = if not v58 or not v60 then nil else p4 == Constants.BundleTypeIdStrings.BodyParts
+
+			if not v57 and not FFlagAXBlackbirdRoot then
+				p9:dispatch(FetchOutfitInfoFromBundle(p1, s1))
+			end
+
+			if not v57 and v42 then
+				p9:dispatch(FetchOutfitInfoFromBundle(p1, s1))
+			end
+		end
+
+		local TryOnItems = p9:getState().AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems
+		local v62 = getTryOnItemReducerKey(s1, p3)
+		local v63 = TryOnItems[v62]
+
+		if b1 and v63 ~= nil then
+			return
+		end
+
+		if FFlagAXEnableExpiredUserLookCheckout and p7 then
+			NavigationUtils.closeExpiredUserLookActionBar(p7)
+		end
+
+		local v64 = p6 and AvatarScreenProperties[p6.opaque.name].isMultiTryOn
+
+		if not FFlagAXMISEnableMultiShopping and not v64 then
+			if not v63 then
+				p9:dispatch(ClearTryOns(v59))
+
+				if FFlagAXMigrateAXToGlobalAutofocus and p7 then
+					NavigationUtils.closeTryOnManager(p7)
+				end
+			elseif p7 then
+				NavigationUtils.closeFiltersAndItemDetails(p7)
+			end
+		end
+
+		if FFlagAXMISEnableMultiShopping and not v63 or FFlagAXBlackbirdRoot then
+			p9:dispatch(FetchAssetOrBundleInfo(p1, p2, s1, p3))
+		end
+
+		if Utils.isBundleOrLCAsset(p3, p4) then
+			p9:dispatch(StartedWaitingOnLCUpdate())
+		end
+
+		local v65, v66 = SelectOrderedToggledOnItemsList(v56)
+		local v67 = if not FFlagAXCatalogMakeupSupport then nil else SelectOrderedToggledOnMakeupItemsList(v56)
+		local v68 = if not FFlagAXCatalogMakeupSupport or not isMakeupAssetType(p4) then SelectUpdatedSortOrderForToggledOnItems(v56, s1, p3, p4, v65, v66) else SelectUpdatedSortOrderForToggledOnMakeupItems(v56, s1, p3, p4, v67)
+
+		if v68.equippedAssetsToSetOrder then
+			p9:dispatch(SetOrder(v68.equippedAssetsToSetOrder))
+		end
+
+		if v68.itemIdToOrderMap then
+			p9:dispatch(SetOrderForTryOns(v68.itemIdToOrderMap))
+		end
+
+		if p4 == Constants.AssetTypeIdStrings.Face then
+			local EquippedAssets = v56.AvatarExperience.AvatarEditor.Character.EquippedAssets
+
+			if not v56.AvatarExperience.AvatarScene.OutfitTryOn.LastTryOnClassicHeadShape and not Utils2.isClassicHeadEquipped(EquippedAssets) then
+				local HeadRefinement = v56.AvatarExperience.AvatarScene.HeadRefinement
+				local v71 = HeadRefinement and HeadRefinement.lastSelectedHeadShape or HeadShape.Default
+
+				p9:dispatch(TryOnClassicHeadShape(v71))
+			end
+		else
+			p9:dispatch(TryOnClassicHeadShape(nil))
+		end
+
+		local items = nil
+
+		if FFlagAXMISEnableMultiShopping and p3 == Constants.ItemType.Bundle then
+			local v73 = v56.AvatarExperience.Common.BundleInfos[s1]
+
+			if v73 then
+				items = v73.items
+			end
+		end
+
+		if FFlagAXMISEnableMultiShopping then
+			local v74 = TryOnItems[v62] ~= nil
+			local v75 = useMultiItemShoppingFtux()
+
+			if v75.shouldShowItemReplacedOnAvatarPrompt() and not b2 and tutils.fieldCount(TryOnItems) > 1 and not v74 and p4 then
+				local t1 = nil
+
+				if items ~= nil then
+					t1 = {}
+
+					for _, v78 in items do
+						if v78.type == Constants.ItemType.Asset and v78.assetType then
+							t1[v78.id] = {
+								assetType = v78.assetType
+							}
+						end
+					end
+				end
+
+				local _, v80 = getFilteredTryOnItems(TryOnItems, {
+					itemType = p3,
+					itemSubType = p4,
+					bundleInfo = t1
+				})
+				local _, v82 = next(v80)
+
+				if v82 and p7 then
+					p7.navigate(AvatarScreen.ItemReplacedOnAvatarPrompt, {
+						onConfirm = function() --[[ onConfirm ]] -- line: 256
+							-- upvalues: v75 (copy), p9 (copy), CloseAllItemDetails (copy), p7 (copy)
+							v75.setSeenItemReplaceOnAvatarPrompt()
+							p9:dispatch(CloseAllItemDetails(p7))
+						end,
+						beforeItem = {
+							itemId = v82.itemId,
+							thumbType = CatalogUtils.GetRbxThumbType(v82.itemType)
+						},
+						afterItem = {
+							itemId = s1,
+							thumbType = CatalogUtils.GetRbxThumbType(p3)
+						}
+					})
+				end
+			end
+		end
+
+		if FFlagAXMISEnableMultiShopping and p7 and ((if not FFlagUseNavigationSelectors then v56.Navigation.currentRoute else Selectors.selectCurrentRoactNavigationRoute(v56))).routeName == AvatarScreen.Checkout then
+			NavigationUtils.closeFocusedScreen(p7)
+		end
+
+		p9:dispatch(ToggleTryOn(p3, p4, s1, p5, v68.overrideOrder, v68.bundleInfoMapping, p8, not not v57, v58, if not FFlagAXMISEnableMultiShopping then nil else items, if not FFlagAXMISEnableMultiShopping then nil else b2, if not FFlagAXDurablesForMIS then nil else n1))
+	end
+end

@@ -1,39 +1,56 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("TimeToInteractiveTracker");
-local _ = require(script.Parent.Parent.types);
-local v2 = require(l_script_FirstAncestor_0.Utils.now);
-return function(v3, v4) --[[ Line: 15 ]]
-    -- upvalues: v2 (copy)
-    return function(v5, v6, v7) --[[ Line: 16 ]]
-        -- upvalues: v2 (ref), v3 (copy), v4 (copy)
-        local v8 = v2();
-        local v9 = v3(false)[v5];
-        if not v9 or not v9.startTime then
-            warn((("TimeToInteractiveTracker.trackMilestone called before trackStart for eventName=%*"):format(v5)));
-            return;
-        else
-            local v10 = (v8 - v9.startTime) * 1000;
-            local v11 = {
-                name = v6, 
-                id = if v7 then v7.id else nil, 
-                timestamp = v8, 
-                deltaMs = v10
-            };
-            v4(function(v12) --[[ Line: 34 ]]
-                -- upvalues: v5 (copy), v11 (copy)
-                local v13 = v12[v5];
-                if not v13 then
-                    return v12;
-                else
-                    local v14 = table.clone(v12);
-                    local v15 = table.clone(v13);
-                    local v16 = if v15.milestones then table.clone(v15.milestones) else {};
-                    table.insert(v16, v11);
-                    v15.milestones = v16;
-                    v14[v5] = v15;
-                    return v14;
-                end;
-            end);
-            return;
-        end;
-    end;
-end;
+local TimeToInteractiveTracker = script:FindFirstAncestor("TimeToInteractiveTracker")
+local TimeToInteractiveTrackerParent = TimeToInteractiveTracker.Parent
+local v3 = require(TimeToInteractiveTracker.Logger):new(script.Name)
+local FFlagLuaAppPerfTrackerUseLogger = require(TimeToInteractiveTrackerParent.SharedFlags).FFlagLuaAppPerfTrackerUseLogger
+
+require(script.Parent.Parent.types)
+
+local now = require(TimeToInteractiveTracker.Utils.now)
+
+return function(p1, p2) -- line: 19
+	-- upvalues: now (copy), FFlagLuaAppPerfTrackerUseLogger (copy), v3 (copy)
+	return function(s1: string, p3, p4) -- line: 20
+		-- upvalues: now (copy), p1 (copy), FFlagLuaAppPerfTrackerUseLogger (copy), v3 (copy), p2 (copy)
+		local v11 = now()
+		local v12 = p1(false)[s1]
+
+		if not v12 or not v12.startTime then
+			if FFlagLuaAppPerfTrackerUseLogger then
+				v3:warning(`called before trackStart for eventName={ s1 }`)
+
+				return
+			end
+
+			warn(`TimeToInteractiveTracker.trackMilestone called before trackStart for eventName={ s1 }`)
+
+			return
+		end
+
+		local v13 = (v11 - v12.startTime) * 1000
+		local t1 = {
+			name = p3,
+			id = if not p4 then nil else p4.id,
+			timestamp = v11,
+			deltaMs = v13
+		}
+
+		p2(function(p5) -- line: 42
+			-- upvalues: s1 (copy), t1 (copy)
+			local v16 = p5[s1]
+
+			if not v16 then
+				return p5
+			end
+
+			local v17 = table.clone(p5)
+			local v18 = table.clone(v16)
+			local v19 = if not v18.milestones then {} else table.clone(v18.milestones)
+
+			table.insert(v19, t1)
+			v18.milestones = v19
+			v17[s1] = v18
+
+			return v17
+		end)
+	end
+end

@@ -1,178 +1,206 @@
 return {
-    createLiteralKind = function(v0) --[[ Line: 16 ]] --[[ Name: createLiteralKind ]]
-        return {
-            type = "literal", 
-            value = v0
-        };
-    end, 
-    createBindingPathKind = function(v1) --[[ Line: 26 ]] --[[ Name: createBindingPathKind ]]
-        return {
-            type = "binding_path", 
-            value = v1
-        };
-    end, 
-    createLiteralProp = function(v2, v3) --[[ Line: 42 ]] --[[ Name: createLiteralProp ]]
-        return {
-            kind = {
-                type = "literal", 
-                value = v2
-            }, 
-            descriptor = {
-                name = v3, 
-                fullName = v3
-            }
-        };
-    end, 
-    createBindingPathProp = function(v4, v5) --[[ Line: 70 ]] --[[ Name: createBindingPathProp ]]
-        return {
-            kind = {
-                type = "binding_path", 
-                value = v4
-            }, 
-            descriptor = {
-                name = v5, 
-                fullName = v5
-            }
-        };
-    end, 
-    createTokenProp = function(v6, v7) --[[ Line: 56 ]] --[[ Name: createTokenProp ]]
-        return {
-            kind = {
-                type = "token", 
-                value = v6
-            }, 
-            descriptor = {
-                name = v7, 
-                fullName = v7
-            }
-        };
-    end, 
-    createMockInputForNestedComponent = function(v8, v9) --[[ Line: 84 ]] --[[ Name: createMockInputForNestedComponent ]]
-        if v8 == "literal" then
-            return {
-                kind = {
-                    type = "literal", 
-                    value = {
-                        kind = {
-                            value = v9
-                        }
-                    }
-                }
-            };
-        elseif v8 == "translation" then
-            return {
-                kind = {
-                    type = "translation", 
-                    value = v9
-                }
-            };
-        else
-            return {
-                kind = {
-                    type = "binding_path", 
-                    value = v9
-                }
-            };
-        end;
-    end, 
-    createMockConditionalPropValue = function(v10, v11) --[[ Line: 137 ]] --[[ Name: createMockConditionalPropValue ]]
-        return {
-            kind = {
-                type = "conditional", 
-                value = {
-                    options = v10
-                }
-            }, 
-            descriptor = {
-                fullName = v11, 
-                name = v11
-            }
-        };
-    end, 
-    createMockConditionalOptions = function(v12) --[[ Line: 241 ]] --[[ Name: createMockConditionalOptions ]]
-        return {
-            options = v12
-        };
-    end, 
-    createMockComparisonConditionOption = function(v13, v14, v15, v16) --[[ Line: 156 ]] --[[ Name: createMockComparisonConditionOption ]]
-        return {
-            condition = {
-                kind = {
-                    type = "comparison", 
-                    value = {
-                        op = v13, 
-                        field = v14, 
-                        kind = {
-                            value = v15
-                        }
-                    }
-                }
-            }, 
-            kind = v16
-        };
-    end, 
-    createMockIsNullConditionOption = function(v17, v18) --[[ Line: 179 ]] --[[ Name: createMockIsNullConditionOption ]]
-        return {
-            condition = {
-                kind = {
-                    type = "is_null", 
-                    value = {
-                        field = v17
-                    }
-                }
-            }, 
-            kind = v18
-        };
-    end, 
-    createMockIsNotNullConditionOption = function(v19, v20) --[[ Line: 193 ]] --[[ Name: createMockIsNotNullConditionOption ]]
-        return {
-            condition = {
-                kind = {
-                    type = "is_not_null", 
-                    value = {
-                        field = v19
-                    }
-                }
-            }, 
-            kind = v20
-        };
-    end, 
-    createMockAndConditionOption = function(v21, v22) --[[ Line: 207 ]] --[[ Name: createMockAndConditionOption ]]
-        return {
-            condition = {
-                kind = {
-                    type = "and_condition", 
-                    value = {
-                        conditions = v21
-                    }
-                }
-            }, 
-            kind = v22
-        };
-    end, 
-    createMockOrConditionOption = function(v23, v24) --[[ Line: 221 ]] --[[ Name: createMockOrConditionOption ]]
-        return {
-            condition = {
-                kind = {
-                    type = "or_condition", 
-                    value = {
-                        conditions = v23
-                    }
-                }
-            }, 
-            kind = v24
-        };
-    end, 
-    createMockNestedComponentConditionalOption = function(v25, v26, v27) --[[ Line: 120 ]] --[[ Name: createMockNestedComponentConditionalOption ]]
-        return {
-            condition = v25, 
-            kind = {
-                type = "literal", 
-                value = {
-                    roblox_component = v26, 
-                    inputs = v27
-                }
-            }
-        };
-    end
-};
+	createLiteralKind = function(p1) --[[ createLiteralKind ]] -- line: 16
+		return {
+			type = "literal",
+			value = p1
+		}
+	end,
+	createBindingPathKind = function(s1: string) --[[ createBindingPathKind ]] -- line: 26
+		return {
+			type = "binding_path",
+			value = s1
+		}
+	end,
+	createLiteralProp = function(p2, s2: string) --[[ createLiteralProp ]] -- line: 42
+		return {
+			kind = {
+				type = "literal",
+				value = p2
+			},
+			descriptor = {
+				name = s2,
+				fullName = s2
+			}
+		}
+	end,
+	createBindingPathProp = function(s3: string, s4: string) --[[ createBindingPathProp ]] -- line: 70
+		return {
+			kind = {
+				type = "binding_path",
+				value = s3
+			},
+			descriptor = {
+				name = s4,
+				fullName = s4
+			}
+		}
+	end,
+	createTokenProp = function(p3, s5: string) --[[ createTokenProp ]] -- line: 56
+		return {
+			kind = {
+				type = "token",
+				value = p3
+			},
+			descriptor = {
+				name = s5,
+				fullName = s5
+			}
+		}
+	end,
+	createMockInputForNestedComponent = function(p4, p5) --[[ createMockInputForNestedComponent ]] -- line: 84
+		if p4 == "literal" then
+			return {
+				kind = {
+					type = "literal",
+					value = {
+						kind = {
+							value = p5
+						}
+					}
+				}
+			}
+		end
+
+		if p4 == "translation" then
+			return {
+				kind = {
+					type = "translation",
+					value = p5
+				}
+			}
+		end
+
+		return {
+			kind = {
+				type = "binding_path",
+				value = p5
+			}
+		}
+	end,
+	createMockConditionalPropValue = function(t1: {[any]: any}, p6) --[[ createMockConditionalPropValue ]] -- line: 137
+		return {
+			kind = {
+				type = "conditional",
+				value = {
+					options = t1
+				}
+			},
+			descriptor = {
+				fullName = p6,
+				name = p6
+			}
+		}
+	end,
+	createMockConditionalOptions = function(t2: {[any]: any}) --[[ createMockConditionalOptions ]] -- line: 269
+		return {
+			options = t2
+		}
+	end,
+	createMockComparisonConditionOption = function(s6: string, s7: string, p7, t3: {[any]: any}) --[[ createMockComparisonConditionOption ]] -- line: 156
+		return {
+			condition = {
+				kind = {
+					type = "comparison",
+					value = {
+						op = s6,
+						field = s7,
+						kind = {
+							value = p7
+						}
+					}
+				}
+			},
+			kind = t3
+		}
+	end,
+	createMockIsNullConditionOption = function(s8: string, t4: {[any]: any}) --[[ createMockIsNullConditionOption ]] -- line: 179
+		return {
+			condition = {
+				kind = {
+					type = "is_null",
+					value = {
+						field = s8
+					}
+				}
+			},
+			kind = t4
+		}
+	end,
+	createMockIsNotNullConditionOption = function(s9: string, t5: {[any]: any}) --[[ createMockIsNotNullConditionOption ]] -- line: 193
+		return {
+			condition = {
+				kind = {
+					type = "is_not_null",
+					value = {
+						field = s9
+					}
+				}
+			},
+			kind = t5
+		}
+	end,
+	createMockIsEmptyConditionOption = function(s10: string, t6: {[any]: any}) --[[ createMockIsEmptyConditionOption ]] -- line: 207
+		return {
+			condition = {
+				kind = {
+					type = "is_empty",
+					value = {
+						field = s10
+					}
+				}
+			},
+			kind = t6
+		}
+	end,
+	createMockIsNotEmptyConditionOption = function(s11: string, t7: {[any]: any}) --[[ createMockIsNotEmptyConditionOption ]] -- line: 221
+		return {
+			condition = {
+				kind = {
+					type = "is_not_empty",
+					value = {
+						field = s11
+					}
+				}
+			},
+			kind = t7
+		}
+	end,
+	createMockAndConditionOption = function(t8: {[any]: any}, t9: {[any]: any}) --[[ createMockAndConditionOption ]] -- line: 235
+		return {
+			condition = {
+				kind = {
+					type = "and_condition",
+					value = {
+						conditions = t8
+					}
+				}
+			},
+			kind = t9
+		}
+	end,
+	createMockOrConditionOption = function(t10: {[any]: any}, t11: {[any]: any}) --[[ createMockOrConditionOption ]] -- line: 249
+		return {
+			condition = {
+				kind = {
+					type = "or_condition",
+					value = {
+						conditions = t10
+					}
+				}
+			},
+			kind = t11
+		}
+	end,
+	createMockNestedComponentConditionalOption = function(p8, p9, p10) --[[ createMockNestedComponentConditionalOption ]] -- line: 120
+		return {
+			condition = p8,
+			kind = {
+				type = "literal",
+				value = {
+					roblox_component = p9,
+					inputs = p10
+				}
+			}
+		}
+	end
+}

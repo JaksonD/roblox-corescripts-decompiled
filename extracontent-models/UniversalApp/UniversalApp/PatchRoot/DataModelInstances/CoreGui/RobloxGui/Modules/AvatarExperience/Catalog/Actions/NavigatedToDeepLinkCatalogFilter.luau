@@ -1,26 +1,29 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v2 = require(l_CorePackages_0.Packages.Rodux);
-local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.UnavailableItemFilter);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SalesTypeFilter);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortType);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortAggregation);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.WearTimeFilter);
-local l_FFlagAXHandleTaxonomyIdsDeepLinks_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXHandleTaxonomyIdsDeepLinks;
-return v2.makeActionCreator(script.Name, function(v10) --[[ Line: 28 ]]
-    -- upvalues: l_FFlagAXHandleTaxonomyIdsDeepLinks_0 (copy)
-    return {
-        creatorFilter = v10.creatorFilter, 
-        priceRange = v10.priceRange, 
-        salesTypeFilter = v10.salesTypeFilter, 
-        unavailableItemFilter = v10.unavailableItemFilter, 
-        sortType = v10.sortType, 
-        sortAggregation = v10.sortAggregation, 
-        category = v10.category, 
-        subcategory = v10.subcategory, 
-        topics = v10.topics, 
-        wearTimeFilter = v10.wearTimeFilter, 
-        taxonomy = if l_FFlagAXHandleTaxonomyIdsDeepLinks_0 then v10.taxonomy else nil
-    };
-end);
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Rodux = require(CorePackages.Packages.Rodux)
+
+require(Modules.AvatarExperience.Common.Types)
+require(Modules.AvatarExperience.Common.Enum.UnavailableItemFilter)
+require(Modules.AvatarExperience.Common.Enum.SalesTypeFilter)
+require(Modules.AvatarExperience.Common.Enum.SortType)
+require(Modules.AvatarExperience.Common.Enum.SortAggregation)
+require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+
+local FFlagAXHandleTaxonomyIdsDeepLinks = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXHandleTaxonomyIdsDeepLinks
+
+return Rodux.makeActionCreator(script.Name, function(t1: {[any]: any}) -- line: 29
+	-- upvalues: FFlagAXHandleTaxonomyIdsDeepLinks (copy)
+	return {
+		creatorFilter = t1.creatorFilter,
+		priceRange = t1.priceRange,
+		salesTypeFilter = t1.salesTypeFilter,
+		unavailableItemFilter = t1.unavailableItemFilter,
+		sortType = t1.sortType,
+		sortAggregation = t1.sortAggregation,
+		category = t1.category,
+		subcategory = t1.subcategory,
+		topics = t1.topics,
+		wearTimeFilter = t1.wearTimeFilter,
+		taxonomy = if not FFlagAXHandleTaxonomyIdsDeepLinks then nil else t1.taxonomy
+	}
+end)

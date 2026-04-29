@@ -1,2 +1,6 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-return (require(l_CorePackages_0.Packages.React).createContext(nil));
+local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+
+require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+
+return (React.createContext(nil))

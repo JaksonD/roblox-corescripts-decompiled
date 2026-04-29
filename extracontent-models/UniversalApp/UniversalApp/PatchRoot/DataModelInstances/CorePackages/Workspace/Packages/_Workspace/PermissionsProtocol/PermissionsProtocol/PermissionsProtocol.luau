@@ -1,336 +1,384 @@
-local l_Parent_0 = script.Parent.Parent;
-local l_MessageBus_0 = require(l_Parent_0.MessageBus).MessageBus;
-local v2 = require(l_Parent_0.Promise);
-local v3 = require(l_Parent_0.t);
-local v4 = require(script.Parent.Flags.getFFlagLuaPermissionContactAccess);
-local l_GetFFlagLuaEnableShowUpsellMethod_0 = require(l_Parent_0.SharedFlags).GetFFlagLuaEnableShowUpsellMethod;
-local v6 = game:DefineFastFlag("ScopedSubscribersForPermissionsProtocol", false);
-local _ = require(script.Parent.PermissionsProtocolTypes);
-game:DefineFastFlag("DebugRomarkAudioPermissionsBypass", false);
-local v8 = {
-    CAMERA_ACCESS = "CAMERA_ACCESS", 
-    MICROPHONE_ACCESS = "MICROPHONE_ACCESS", 
-    LOCAL_NETWORK = "LOCAL_NETWORK", 
-    CONTACTS_ACCESS = "CONTACTS_ACCESS", 
-    WRITE_MEDIA_STORAGE = "WRITE_MEDIA_STORAGE", 
-    POST_NOTIFICATIONS = "POST_NOTIFICATIONS"
-};
-local v9 = {
-    AUTHORIZED = "AUTHORIZED", 
-    DENIED = "DENIED", 
-    RESTRICTED = "RESTRICTED", 
-    UNSUPPORTED = "UNSUPPORTED"
-};
-local v10 = {
-    SHOW = "SHOW", 
-    HIDE = "HIDE", 
-    UNSUPPORTED = "UNSUPPORTED"
-};
-local v11 = v3.array(v3.valueOf(v8));
-local v12 = v3.valueOf(v9);
-local v13 = v3.valueOf(v10);
-local v14 = {
-    Permissions = v8, 
-    Status = v9, 
-    UpsellStatus = v10, 
-    PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "PermissionsRequest", 
-        validateParams = v3.strictInterface({
-            permissions = v11
-        })
-    }, 
-    PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "PermissionsRequest", 
-        validateParams = v3.strictInterface({
-            status = v12, 
-            missingPermissions = v11
-        })
-    }, 
-    HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "HasPermissions", 
-        validateParams = v3.strictInterface({
-            permissions = v11
-        })
-    }, 
-    HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "HasPermissions", 
-        validateParams = v3.strictInterface({
-            status = v12, 
-            missingPermissions = v11
-        })
-    }, 
-    SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "SupportsPermissions", 
-        validateParams = v3.strictInterface({
-            includeStatus = v3.literal(false)
-        })
-    }, 
-    SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "SupportsPermissions", 
-        validateParams = v3.strictInterface({
-            permissions = v11
-        })
-    }, 
-    SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "ShouldShowPermissionUpsell", 
-        validateParams = v3.strictInterface({
-            permissions = v11
-        })
-    }, 
-    SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "ShouldShowPermissionUpsell", 
-        validateParams = v3.strictInterface({
-            hiddenUpsellPermissions = v11, 
-            upsellStatus = v13
-        })
-    }, 
-    SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "ShouldShowRequestPermissionRationale", 
-        validateParams = v3.strictInterface({
-            permissions = v11
-        })
-    }, 
-    SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
-        protocolName = "PermissionsProtocol", 
-        methodName = "ShouldShowRequestPermissionRationale", 
-        validateParams = v3.strictInterface({
-            hiddenUpsellPermissions = v11, 
-            upsellStatus = v13
-        })
-    }
-};
-v14.__index = v14;
-local function v19(v15) --[[ Line: 146 ]] --[[ Name: getPermissionRequestTelemetryData ]]
-    -- upvalues: v14 (copy), v4 (copy)
-    local v16 = {};
-    for _, v18 in pairs(v15) do
-        if v18 == v14.Permissions.CAMERA_ACCESS then
-            v16.camera_access_requested = "";
-        end;
-        if v18 == v14.Permissions.MICROPHONE_ACCESS then
-            v16.microphone_access_requested = "";
-        end;
-        if v18 == v14.Permissions.LOCAL_NETWORK then
-            v16.local_network_requested = "";
-        end;
-        if v18 == v14.Permissions.CONTACTS_ACCESS and v4() then
-            v16.contacts_access_requested = "";
-        end;
-    end;
-    return v16;
-end;
-local function v29(v20, v21, v22, v23, v24) --[[ Line: 165 ]] --[[ Name: createSequencedProtocolMethodCall ]]
-    -- upvalues: v2 (copy), l_MessageBus_0 (copy)
-    assert(v22.validateParams(v23));
-    local v28 = (v20[v21] or v2.resolve()):finally(function() --[[ Line: 176 ]]
-        -- upvalues: l_MessageBus_0 (ref), v22 (copy), v23 (copy), v24 (copy), v2 (ref), v21 (copy)
-        l_MessageBus_0.publishProtocolMethodRequest(v22, v23, v24);
-        return v2.new(function(v25) --[[ Line: 178 ]]
-            -- upvalues: l_MessageBus_0 (ref), v21 (ref)
-            local v26 = l_MessageBus_0.Subscriber.new();
-            v26:subscribeProtocolMethodResponse(v21, function(v27) --[[ Line: 180 ]]
-                -- upvalues: v26 (copy), v21 (ref), v25 (copy)
-                v26:unsubscribeToProtocolMethodResponse(v21);
-                v25(v27);
-            end);
-        end);
-    end);
-    v20[v21] = v28;
-    return v28;
-end;
-v14.new = function() --[[ Line: 191 ]] --[[ Name: new ]]
-    -- upvalues: v6 (copy), l_MessageBus_0 (copy), v14 (copy)
-    return (setmetatable({
-        activeCalls = if v6 then {} else nil, 
-        subscriber = if v6 then nil else l_MessageBus_0.Subscriber.new()
-    }, v14));
-end;
-v14.hasPermissions = function(v30, v31) --[[ Line: 209 ]] --[[ Name: hasPermissions ]]
-    -- upvalues: v6 (copy), v29 (copy), v19 (copy), v2 (copy), l_MessageBus_0 (copy)
-    if v6 then
-        local l_HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0 = v30.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-        local l_HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0 = v30.HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR;
-        return (v29(v30.activeCalls, l_HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0, l_HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0, {
-            permissions = v31
-        }, (v19(v31))));
-    else
-        local v38 = v2.new(function(v34, _) --[[ Line: 218 ]]
-            -- upvalues: v30 (copy)
-            local l_HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 = v30.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-            v30.subscriber:subscribeProtocolMethodResponse(l_HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1, function(v37) --[[ Line: 220 ]]
-                -- upvalues: v30 (ref), l_HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 (copy), v34 (copy)
-                v30.subscriber:unsubscribeToProtocolMethodResponse(l_HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1);
-                v34(v37);
-            end);
-        end);
-        l_MessageBus_0.publishProtocolMethodRequest(v30.HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
-            permissions = v31
-        }, (v19(v31)));
-        return v38;
-    end;
-end;
-v14.requestPermissions = function(v39, v40) --[[ Line: 240 ]] --[[ Name: requestPermissions ]]
-    -- upvalues: v14 (copy), v2 (copy), v6 (copy), v29 (copy), v19 (copy), l_MessageBus_0 (copy)
-    if game:GetFastFlag("DebugRomarkAudioPermissionsBypass") then
-        local v41 = {
-            missingPermissions = {}, 
-            status = v14.Status.AUTHORIZED
-        };
-        return v2.resolve(v41);
-    elseif v6 then
-        local l_PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0 = v39.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-        local l_PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0 = v39.PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR;
-        return (v29(v39.activeCalls, l_PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0, l_PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0, {
-            permissions = v40
-        }, (v19(v40))));
-    else
-        local v48 = v2.new(function(v44, _) --[[ Line: 257 ]]
-            -- upvalues: v39 (copy)
-            local l_PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 = v39.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-            v39.subscriber:subscribeProtocolMethodResponse(l_PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1, function(v47) --[[ Line: 259 ]]
-                -- upvalues: v39 (ref), l_PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 (copy), v44 (copy)
-                v39.subscriber:unsubscribeToProtocolMethodResponse(l_PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1);
-                v44(v47);
-            end);
-        end);
-        l_MessageBus_0.publishProtocolMethodRequest(v39.PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
-            permissions = v40
-        }, (v19(v40)));
-        return v48;
-    end;
-end;
-v14.getSupportedPermissionsList = function(v49) --[[ Line: 277 ]] --[[ Name: getSupportedPermissionsList ]]
-    -- upvalues: v6 (copy), v29 (copy), v2 (copy), l_MessageBus_0 (copy)
-    if v6 then
-        local l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0 = v49.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-        local l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0 = v49.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR;
-        return (v29(v49.activeCalls, l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0, l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0, {
-            includeStatus = false
-        }, {}));
-    else
-        local v56 = v2.new(function(v52, _) --[[ Line: 286 ]]
-            -- upvalues: v49 (copy)
-            local l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 = v49.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-            v49.subscriber:subscribeProtocolMethodResponse(l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1, function(v55) --[[ Line: 288 ]]
-                -- upvalues: v49 (ref), l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 (copy), v52 (copy)
-                v49.subscriber:unsubscribeToProtocolMethodResponse(l_SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1);
-                v52(v55);
-            end);
-        end);
-        l_MessageBus_0.publishProtocolMethodRequest(v49.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
-            includeStatus = false
-        }, {});
-        return v56;
-    end;
-end;
-v14.supportsPermissions = function(v57, v58) --[[ Line: 307 ]] --[[ Name: supportsPermissions ]]
-    -- upvalues: v11 (copy), v2 (copy)
-    assert(v11(v58));
-    return (v57:getSupportedPermissionsList():andThen(function(v59) --[[ Line: 310 ]]
-        -- upvalues: v58 (copy), v2 (ref)
-        local v60 = v59 and v59.permissions;
-        if v60 then
-            for _, v62 in pairs(v58) do
-                local v63 = false;
-                for _, v65 in pairs(v60) do
-                    if v62 == v65 then
-                        v63 = true;
-                        break;
-                    end;
-                end;
-                if not v63 then
-                    return v2.resolve(false);
-                end;
-            end;
-            return v2.resolve(true);
-        else
-            return v2.reject();
-        end;
-    end));
-end;
-v14.checkOrRequestPermissions = function(v66, v67) --[[ Line: 349 ]] --[[ Name: checkOrRequestPermissions ]]
-    -- upvalues: v11 (copy), v2 (copy), v14 (copy)
-    assert(v11(v67));
-    return v66:supportsPermissions(v67):andThen(function(v68) --[[ Line: 352 ]]
-        -- upvalues: v2 (ref), v14 (ref), v66 (copy), v67 (copy)
-        if not v68 then
-            return v2.resolve(v14.Status.UNSUPPORTED);
-        else
-            return (v66:hasPermissions(v67):andThen(function(v69) --[[ Line: 359 ]]
-                -- upvalues: v14 (ref), v2 (ref), v66 (ref), v67 (ref)
-                if v69.status == v14.Status.AUTHORIZED then
-                    return v2.resolve(v69.status);
-                else
-                    return v66:requestPermissions(v67):andThen(function(v70) --[[ Line: 365 ]]
-                        -- upvalues: v2 (ref)
-                        return v2.resolve(v70.status);
-                    end);
-                end;
-            end));
-        end;
-    end, function(_) --[[ Line: 371 ]]
-        -- upvalues: v2 (ref), v14 (ref)
-        return v2.resolve(v14.Status.UNSUPPORTED);
-    end);
-end;
-v14.shouldShowUpsell = function(v72, v73) --[[ Line: 386 ]] --[[ Name: shouldShowUpsell ]]
-    -- upvalues: l_GetFFlagLuaEnableShowUpsellMethod_0 (copy), v2 (copy), v6 (copy), v29 (copy), v19 (copy), l_MessageBus_0 (copy)
-    if not l_GetFFlagLuaEnableShowUpsellMethod_0() then
-        return v2.resolve({});
-    elseif v6 then
-        local l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0 = v72.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-        local l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0 = v72.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR;
-        return (v29(v72.activeCalls, l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0, l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0, {
-            permissions = v73
-        }, (v19(v73))));
-    else
-        local v80 = v2.new(function(v76, _) --[[ Line: 399 ]]
-            -- upvalues: v72 (copy)
-            local l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 = v72.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-            v72.subscriber:subscribeProtocolMethodResponse(l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1, function(v79) --[[ Line: 401 ]]
-                -- upvalues: v72 (ref), l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 (copy), v76 (copy)
-                v72.subscriber:unsubscribeToProtocolMethodResponse(l_SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1);
-                v76(v79);
-            end);
-        end);
-        l_MessageBus_0.publishProtocolMethodRequest(v72.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
-            permissions = v73
-        }, (v19(v73)));
-        return v80;
-    end;
-end;
-v14.shouldShowRationale = function(v81, v82) --[[ Line: 422 ]] --[[ Name: shouldShowRationale ]]
-    -- upvalues: v6 (copy), v29 (copy), v19 (copy), v2 (copy), l_MessageBus_0 (copy)
-    if v6 then
-        local l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0 = v81.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-        local l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0 = v81.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR;
-        return (v29(v81.activeCalls, l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_0, l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR_0, {
-            permissions = v82
-        }, (v19(v82))));
-    else
-        local v89 = v2.new(function(v85, _) --[[ Line: 431 ]]
-            -- upvalues: v81 (copy)
-            local l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 = v81.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR;
-            v81.subscriber:subscribeProtocolMethodResponse(l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1, function(v88) --[[ Line: 433 ]]
-                -- upvalues: v81 (ref), l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1 (copy), v85 (copy)
-                v81.subscriber:unsubscribeToProtocolMethodResponse(l_SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR_1);
-                v85(v88);
-            end);
-        end);
-        l_MessageBus_0.publishProtocolMethodRequest(v81.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
-            permissions = v82
-        }, (v19(v82)));
-        return v89;
-    end;
-end;
-v14.default = v14.new();
-return v14;
+local ParentParent = script.Parent.Parent
+local MessageBus = require(ParentParent.MessageBus).MessageBus
+local Promise = require(ParentParent.Promise)
+local t = require(ParentParent.t)
+local GetFFlagLuaEnableShowUpsellMethod = require(ParentParent.SharedFlags).GetFFlagLuaEnableShowUpsellMethod
+local v6 = game:DefineFastFlag("ScopedSubscribersForPermissionsProtocol", false)
+
+require(script.Parent.PermissionsProtocolTypes)
+game:DefineFastFlag("DebugRomarkAudioPermissionsBypass", false)
+
+local t1 = {
+	CAMERA_ACCESS = "CAMERA_ACCESS",
+	MICROPHONE_ACCESS = "MICROPHONE_ACCESS",
+	LOCAL_NETWORK = "LOCAL_NETWORK",
+	CONTACTS_ACCESS = "CONTACTS_ACCESS",
+	WRITE_MEDIA_STORAGE = "WRITE_MEDIA_STORAGE",
+	POST_NOTIFICATIONS = "POST_NOTIFICATIONS"
+}
+local t2 = {
+	AUTHORIZED = "AUTHORIZED",
+	DENIED = "DENIED",
+	RESTRICTED = "RESTRICTED",
+	UNSUPPORTED = "UNSUPPORTED"
+}
+local t3 = {
+	SHOW = "SHOW",
+	HIDE = "HIDE",
+	UNSUPPORTED = "UNSUPPORTED"
+}
+local v10 = t.array(t.valueOf(t1))
+local v11 = t.valueOf(t2)
+local v12 = t.valueOf(t3)
+local t4 = {
+	Permissions = t1,
+	Status = t2,
+	UpsellStatus = t3,
+	PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "PermissionsRequest",
+		validateParams = t.strictInterface({
+			permissions = v10
+		})
+	},
+	PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "PermissionsRequest",
+		validateParams = t.strictInterface({
+			status = v11,
+			missingPermissions = v10
+		})
+	},
+	HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "HasPermissions",
+		validateParams = t.strictInterface({
+			permissions = v10
+		})
+	},
+	HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "HasPermissions",
+		validateParams = t.strictInterface({
+			status = v11,
+			missingPermissions = v10
+		})
+	},
+	SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "SupportsPermissions",
+		validateParams = t.strictInterface({
+			includeStatus = t.literal(false)
+		})
+	},
+	SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "SupportsPermissions",
+		validateParams = t.strictInterface({
+			permissions = v10
+		})
+	},
+	SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "ShouldShowPermissionUpsell",
+		validateParams = t.strictInterface({
+			permissions = v10
+		})
+	},
+	SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "ShouldShowPermissionUpsell",
+		validateParams = t.strictInterface({
+			hiddenUpsellPermissions = v10,
+			upsellStatus = v12
+		})
+	},
+	SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "ShouldShowRequestPermissionRationale",
+		validateParams = t.strictInterface({
+			permissions = v10
+		})
+	},
+	SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = "PermissionsProtocol",
+		methodName = "ShouldShowRequestPermissionRationale",
+		validateParams = t.strictInterface({
+			hiddenUpsellPermissions = v10,
+			upsellStatus = v12
+		})
+	}
+}
+
+t4.__index = t4
+
+local function getPermissionRequestTelemetryData(p1) -- line: 145
+	-- upvalues: t4 (copy)
+	local t5 = {}
+
+	for _, v in pairs(p1) do
+		if v == t4.Permissions.CAMERA_ACCESS then
+			t5.camera_access_requested = ""
+		end
+
+		if v == t4.Permissions.MICROPHONE_ACCESS then
+			t5.microphone_access_requested = ""
+		end
+
+		if v == t4.Permissions.LOCAL_NETWORK then
+			t5.local_network_requested = ""
+		end
+
+		if v == t4.Permissions.CONTACTS_ACCESS then
+			t5.contacts_access_requested = ""
+		end
+	end
+
+	return t5
+end
+local function createSequencedProtocolMethodCall(t6: {[any]: any}, p2, p3, p4, p5) -- line: 164
+	-- upvalues: Promise (copy), MessageBus (copy)
+	assert(p3.validateParams(p4))
+
+	local v25 = (t6[p2] or Promise.resolve()):finally(function() -- line: 175
+		-- upvalues: MessageBus (copy), p3 (copy), p4 (copy), p5 (copy), Promise (copy), p2 (copy)
+		MessageBus.publishProtocolMethodRequest(p3, p4, p5)
+
+		return Promise.new(function(p6) -- line: 177
+			-- upvalues: MessageBus (copy), p2 (copy)
+			local v80 = MessageBus.Subscriber.new()
+
+			v80:subscribeProtocolMethodResponse(p2, function(p7) -- line: 179
+				-- upvalues: v80 (copy), p2 (copy), p6 (copy)
+				v80:unsubscribeToProtocolMethodResponse(p2)
+				p6(p7)
+			end)
+		end)
+	end)
+
+	t6[p2] = v25
+
+	return v25
+end
+
+function t4.new() -- line: 190
+	-- upvalues: v6 (copy), MessageBus (copy), t4 (copy)
+	return (setmetatable({
+		activeCalls = if not v6 then nil else {},
+		subscriber = if not v6 then MessageBus.Subscriber.new() else nil
+	}, t4))
+end
+function t4.hasPermissions(p8, p9) -- line: 208
+	-- upvalues: v6 (copy), createSequencedProtocolMethodCall (copy), getPermissionRequestTelemetryData (copy), Promise (copy), MessageBus (copy)
+	if v6 then
+		local HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p8.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+		local HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = p8.HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR
+
+		return (createSequencedProtocolMethodCall(p8.activeCalls, HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			permissions = p9
+		}, (getPermissionRequestTelemetryData(p9))))
+	end
+
+	local v30 = Promise.new(function(p10, _) -- line: 217
+		-- upvalues: p8 (copy)
+		local HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p8.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+
+		p8.subscriber:subscribeProtocolMethodResponse(HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, function(p12) -- line: 219
+			-- upvalues: p8 (copy), HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR (copy), p10 (copy)
+			p8.subscriber:unsubscribeToProtocolMethodResponse(HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR)
+			p10(p12)
+		end)
+	end)
+
+	MessageBus.publishProtocolMethodRequest(p8.HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+		permissions = p9
+	}, (getPermissionRequestTelemetryData(p9)))
+
+	return v30
+end
+function t4.requestPermissions(p13, p14) -- line: 239
+	-- upvalues: t4 (copy), Promise (copy), v6 (copy), createSequencedProtocolMethodCall (copy), getPermissionRequestTelemetryData (copy), MessageBus (copy)
+	if game:GetFastFlag("DebugRomarkAudioPermissionsBypass") then
+		local t7 = {
+			missingPermissions = {},
+			status = t4.Status.AUTHORIZED
+		}
+
+		return Promise.resolve(t7)
+	end
+
+	if v6 then
+		local PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p13.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+		local PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = p13.PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR
+
+		return (createSequencedProtocolMethodCall(p13.activeCalls, PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			permissions = p14
+		}, (getPermissionRequestTelemetryData(p14))))
+	end
+
+	local v36 = Promise.new(function(p15, _) -- line: 256
+		-- upvalues: p13 (copy)
+		local PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p13.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+
+		p13.subscriber:subscribeProtocolMethodResponse(PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, function(p17) -- line: 258
+			-- upvalues: p13 (copy), PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR (copy), p15 (copy)
+			p13.subscriber:unsubscribeToProtocolMethodResponse(PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR)
+			p15(p17)
+		end)
+	end)
+
+	MessageBus.publishProtocolMethodRequest(p13.PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+		permissions = p14
+	}, (getPermissionRequestTelemetryData(p14)))
+
+	return v36
+end
+function t4.getSupportedPermissionsList(p18) -- line: 276
+	-- upvalues: v6 (copy), createSequencedProtocolMethodCall (copy), Promise (copy), MessageBus (copy)
+	if v6 then
+		local SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p18.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+		local SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = p18.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR
+
+		return (createSequencedProtocolMethodCall(p18.activeCalls, SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			includeStatus = false
+		}, {}))
+	end
+
+	local v40 = Promise.new(function(p19, _) -- line: 285
+		-- upvalues: p18 (copy)
+		local SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p18.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+
+		p18.subscriber:subscribeProtocolMethodResponse(SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, function(p21) -- line: 287
+			-- upvalues: p18 (copy), SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR (copy), p19 (copy)
+			p18.subscriber:unsubscribeToProtocolMethodResponse(SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR)
+			p19(p21)
+		end)
+	end)
+
+	MessageBus.publishProtocolMethodRequest(p18.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+		includeStatus = false
+	}, {})
+
+	return v40
+end
+function t4.supportsPermissions(p22, p23) -- line: 306
+	-- upvalues: v10 (copy), Promise (copy)
+	assert(v10(p23))
+
+	return (p22:getSupportedPermissionsList():andThen(function(p24) -- line: 309
+		-- upvalues: p23 (copy), Promise (copy)
+		local v65 = p24 and p24.permissions
+
+		if v65 then
+			for _, v in pairs(p23) do
+				local v68 = false
+
+				for _, v2 in pairs(v65) do
+					if v == v2 then
+						v68 = true
+
+						break
+					end
+				end
+
+				if not v68 then
+					return Promise.resolve(false)
+				end
+			end
+
+			return Promise.resolve(true)
+		end
+
+		return Promise.reject()
+	end))
+end
+function t4.checkOrRequestPermissions(p25, p26) -- line: 348
+	-- upvalues: v10 (copy), Promise (copy), t4 (copy)
+	assert(v10(p26))
+
+	return p25:supportsPermissions(p26):andThen(function(p27) -- line: 351
+		-- upvalues: Promise (copy), t4 (copy), p25 (copy), p26 (copy)
+		if not p27 then
+			return Promise.resolve(t4.Status.UNSUPPORTED)
+		end
+
+		return (p25:hasPermissions(p26):andThen(function(p28) -- line: 358
+			-- upvalues: t4 (copy), Promise (copy), p25 (copy), p26 (copy)
+			if p28.status == t4.Status.AUTHORIZED then
+				return Promise.resolve(p28.status)
+			end
+
+			return p25:requestPermissions(p26):andThen(function(p29) -- line: 364
+				-- upvalues: Promise (copy)
+				return Promise.resolve(p29.status)
+			end)
+		end))
+	end, function(_) -- line: 370
+		-- upvalues: Promise (copy), t4 (copy)
+		return Promise.resolve(t4.Status.UNSUPPORTED)
+	end)
+end
+function t4.shouldShowUpsell(p31, p32) -- line: 385
+	-- upvalues: GetFFlagLuaEnableShowUpsellMethod (copy), Promise (copy), v6 (copy), createSequencedProtocolMethodCall (copy), getPermissionRequestTelemetryData (copy), MessageBus (copy)
+	if not GetFFlagLuaEnableShowUpsellMethod() then
+		return Promise.resolve({})
+	end
+
+	if v6 then
+		local SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p31.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+		local SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = p31.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR
+
+		return (createSequencedProtocolMethodCall(p31.activeCalls, SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			permissions = p32
+		}, (getPermissionRequestTelemetryData(p32))))
+	end
+
+	local v49 = Promise.new(function(p33, _) -- line: 398
+		-- upvalues: p31 (copy)
+		local SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p31.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+
+		p31.subscriber:subscribeProtocolMethodResponse(SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, function(p35) -- line: 400
+			-- upvalues: p31 (copy), SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR (copy), p33 (copy)
+			p31.subscriber:unsubscribeToProtocolMethodResponse(SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR)
+			p33(p35)
+		end)
+	end)
+
+	MessageBus.publishProtocolMethodRequest(p31.SHOULD_SHOW_PERMISSION_UPSELL_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+		permissions = p32
+	}, (getPermissionRequestTelemetryData(p32)))
+
+	return v49
+end
+function t4.shouldShowRationale(p36, p37) -- line: 421
+	-- upvalues: v6 (copy), createSequencedProtocolMethodCall (copy), getPermissionRequestTelemetryData (copy), Promise (copy), MessageBus (copy)
+	if v6 then
+		local SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p36.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+		local SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = p36.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR
+
+		return (createSequencedProtocolMethodCall(p36.activeCalls, SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			permissions = p37
+		}, (getPermissionRequestTelemetryData(p37))))
+	end
+
+	local v54 = Promise.new(function(p38, _) -- line: 430
+		-- upvalues: p36 (copy)
+		local SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = p36.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+
+		p36.subscriber:subscribeProtocolMethodResponse(SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR, function(p40) -- line: 432
+			-- upvalues: p36 (copy), SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR (copy), p38 (copy)
+			p36.subscriber:unsubscribeToProtocolMethodResponse(SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR)
+			p38(p40)
+		end)
+	end)
+
+	MessageBus.publishProtocolMethodRequest(p36.SHOULD_SHOW_PERMISSION_RATIONALE_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+		permissions = p37
+	}, (getPermissionRequestTelemetryData(p37)))
+
+	return v54
+end
+
+t4.default = t4.new()
+
+return t4

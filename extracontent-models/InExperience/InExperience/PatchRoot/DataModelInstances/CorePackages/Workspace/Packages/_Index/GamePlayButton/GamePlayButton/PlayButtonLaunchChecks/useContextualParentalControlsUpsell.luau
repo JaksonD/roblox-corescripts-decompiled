@@ -1,319 +1,329 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("GamePlayButton");
-local _ = require(l_script_FirstAncestor_0.PlayButtonTypes);
-local v2 = require(l_script_FirstAncestor_0.FetchGamePlayButtonData);
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v4 = require(l_Parent_0.React);
-local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_useSelector_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useSelector;
-local l_useRoactService_0 = require(l_Parent_0.RobloxAppHooks).useRoactService;
-local l_RoactNetworking_0 = require(l_Parent_0.RoactServiceTags).RoactNetworking;
-local l_AppEventIngestService_0 = require(l_Parent_0.RoactServiceTags).AppEventIngestService;
-local l_flaggedMutedError_0 = require(l_Parent_0.Loggers).flaggedMutedError;
-local l_GameInfosReducer_0 = require(l_Parent_0.GameInfosRodux).GameInfosReducer;
-local l_FetchUserSettingsAndOptions_0 = require(l_Parent_0.GameDetailRodux).FetchUserSettingsAndOptions;
-local v13 = require(l_Parent_0.Dash);
-local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local l_NavigateDown_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateDown;
-local l_NavigateBack_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateBack;
-local l_OpenCloseOnlyInteractiveAlert_0 = require(l_Parent_0.DiscoveryRouting).OpenCloseOnlyInteractiveAlert;
-local l_OpenUpsellModal_0 = require(l_Parent_0.DiscoveryRouting).OpenUpsellModal;
-local l_OpenPlayButtonUpsellDialog_0 = require(l_Parent_0.DiscoveryRouting).OpenPlayButtonUpsellDialog;
-local l_CloseCentralOverlay_0 = require(l_Parent_0.CentralOverlay).Thunks.CloseCentralOverlay;
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local l_useAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).useAppPolicy;
-local l_OpenAmpWizardContainer_0 = require(l_Parent_0.AmpUpsell).OpenAmpWizardContainer;
-local l_authButtonClick_0 = require(l_Parent_0.AuthAnalytics).Events.authButtonClick;
-local v25 = require(l_Parent_0.LoggingProtocol);
-local l_PlayabilityStatusEnum_0 = require(l_Parent_0.DiscoveryTypes).PlayabilityStatusEnum;
-local l_unlockPlayIntent_0 = require(l_Parent_0.DiscoveryAnalytics).Events.unlockPlayIntent;
-local v28 = game:DefineFastInt("UnknownUpsellErrorEventHundredthsPercent", 0);
-local v29 = game:DefineFastString("LuaAppUpsellMaturityRatingToSettingMapping", "mild=NinePlus,moderate=ThirteenPlus,restricted=SeventeenPlus,unrated=ThirteenPlus");
-local l_FFlagLuaAppParentUpsellPolicy_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppParentUpsellPolicy;
-local l_FFlagLuaAppPlayButtonUpsellLinking_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppPlayButtonUpsellLinking;
-local v32 = {
-    SelfUpdateSetting = "SelfUpdateSetting", 
-    ParentalConsent = "ParentalConsent", 
-    ContentAgeRestrictionVerification = "ContentAgeRestrictionVerification"
-};
-local function v38(v33) --[[ Line: 50 ]] --[[ Name: parseContentMaturityMappingString ]]
-    if v33 == "" then
-        return {};
-    else
-        local v34 = {};
-        for _, v36 in (string.split(v33, ",")) do
-            local v37 = string.split(v36, "=");
-            if #v37 == 2 and v37[1] ~= "" and v37[2] ~= "" then
-                v34[v37[1]] = v37[2];
-            else
-                error((("Invalid content maturity mapping string %*"):format(v33)));
-            end;
-        end;
-        return v34;
-    end;
-end;
-local v42 = (function(v39) --[[ Line: 71 ]] --[[ Name: safeParseContentMaturityMappingString ]]
-    -- upvalues: v38 (copy), l_flaggedMutedError_0 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 72 ]]
-        -- upvalues: v38 (ref), v39 (copy)
-        return (v38(v39));
-    end);
-    if not l_status_0 then
-        l_flaggedMutedError_0("ExperienceParentalControlsUpsellContentMaturityMappingParsingError", (("Error parsing content maturity mapping string %*, error is: %*"):format(v39, l_result_0)));
-        return {};
-    else
-        return l_result_0;
-    end;
-end)(v29);
-return function(v43, v44) --[[ Line: 91 ]]
-    -- upvalues: l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_AppEventIngestService_0 (copy), l_useDispatch_0 (copy), l_useSelector_0 (copy), l_GameInfosReducer_0 (copy), l_useLocalization_0 (copy), v4 (copy), l_OpenAmpWizardContainer_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_FFlagLuaAppPlayButtonUpsellLinking_0 (copy), l_OpenPlayButtonUpsellDialog_0 (copy), l_OpenUpsellModal_0 (copy), l_OpenCloseOnlyInteractiveAlert_0 (copy), l_NavigateBack_0 (copy), l_CloseCentralOverlay_0 (copy), v2 (copy), l_authButtonClick_0 (copy), l_unlockPlayIntent_0 (copy), l_PlayabilityStatusEnum_0 (copy), l_FFlagLuaAppParentUpsellPolicy_0 (copy), l_useAppPolicy_0 (copy), l_FetchUserSettingsAndOptions_0 (copy), l_flaggedMutedError_0 (copy), v42 (copy), v25 (copy), v28 (copy), v13 (copy), v32 (copy)
-    local v45 = l_useRoactService_0(l_RoactNetworking_0);
-    local v46 = l_useRoactService_0(l_AppEventIngestService_0);
-    local v47 = l_useDispatch_0();
-    local v51 = l_useSelector_0(function(v48) --[[ Line: 99 ]]
-        -- upvalues: v43 (copy), l_GameInfosReducer_0 (ref)
-        local v49 = v48.AgeRecommendations[v43];
-        if v49 and v49.summary and v49.summary.ageRecommendation and v49.summary.ageRecommendation.contentMaturity then
-            return v49.summary.ageRecommendation.contentMaturity;
-        else
-            local v50 = v48.Personalization[l_GameInfosReducer_0.key][v43];
-            if v50 and v50.contentMaturity then
-                return v50.contentMaturity;
-            else
-                return nil;
-            end;
-        end;
-    end);
-    local v52 = l_useLocalization_0({
-        unplayableTitleText = "Feature.ExperienceDetails.RestrictedUnplayableModal.Label.Title", 
-        unplayableBodyText = "Feature.ExperienceDetails.RestrictedUnplayableModal.Label.Body", 
-        unplayableButtonText = "Feature.ExperienceDetails.RestrictedUnplayableModal.Action.Ok", 
-        askYourParentTitleText = "Feature.ExperienceDetails.AskYourParentModal.Label.Title", 
-        askYourParentBodyText = "Feature.ExperienceDetails.AskYourParentModal.Label.Body", 
-        askYourParentActionButtonText = "Feature.ExperienceDetails.AskYourParentModal.Action.AskNow", 
-        askYourParentCancelButtonText = "Feature.ExperienceDetails.AskYourParentModal.Action.Cancel", 
-        consoleSelfUpdateSettingTitleText = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Console.Label.Title", 
-        consoleSelfUpdateSettingBodyText = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Console.Label.Body", 
-        consoleSelfUpdateSettingButtonText = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Console.Action.Ok"
-    });
-    local v57 = v4.useCallback(function(v53, v54, v55, v56) --[[ Line: 135 ]]
-        -- upvalues: v47 (copy), l_OpenAmpWizardContainer_0 (ref)
-        v47(l_OpenAmpWizardContainer_0(v53, v54, v55, v56));
-    end, {
-        v47
-    });
-    local v62 = v4.useCallback(function(v58, v59, v60, v61) --[[ Line: 142 ]]
-        -- upvalues: v47 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
-        v47(l_NavigateDown_0({
-            name = l_AppPage_0.AccountSettingsUpsell, 
-            extraProps = {
-                featureName = v58, 
-                localizationStrings = v59, 
-                onCloseModal = v60, 
-                onCancelled = v61
-            }
-        }, true));
-    end, {
-        v47
-    });
-    local v70 = v4.useCallback(function(v63, v64, v65, v66, v67, v68, v69) --[[ Line: 157 ]]
-        -- upvalues: l_FFlagLuaAppPlayButtonUpsellLinking_0 (ref), v47 (copy), l_OpenPlayButtonUpsellDialog_0 (ref), l_OpenUpsellModal_0 (ref)
-        if l_FFlagLuaAppPlayButtonUpsellLinking_0 then
-            v47(l_OpenPlayButtonUpsellDialog_0(v63, v64, v65, v66, v67, v68, v69));
-            return;
-        else
-            v47(l_OpenUpsellModal_0(v63, v64, v65, v66, v67, v68, v69));
-            return;
-        end;
-    end, {
-        v47
-    });
-    local v76 = v4.useCallback(function(v71, v72, v73, v74, v75) --[[ Line: 195 ]]
-        -- upvalues: v47 (copy), l_OpenCloseOnlyInteractiveAlert_0 (ref)
-        v47(l_OpenCloseOnlyInteractiveAlert_0(v71, v72, v73, v74, v75));
-    end, {
-        v47
-    });
-    local v77 = v4.useCallback(function() --[[ Line: 199 ]]
-        -- upvalues: v47 (copy), l_NavigateBack_0 (ref)
-        v47(l_NavigateBack_0(true));
-    end, {
-        v47
-    });
-    local v78 = v4.useCallback(function() --[[ Line: 203 ]]
-        -- upvalues: v47 (copy), l_CloseCentralOverlay_0 (ref)
-        v47(l_CloseCentralOverlay_0());
-    end, {
-        v47
-    });
-    local v79 = v4.useCallback(function() --[[ Line: 207 ]]
-        -- upvalues: v47 (copy), v2 (ref), v45 (copy), v43 (copy)
-        v47(v2.Fetch(v45, v43, true));
-    end, {
-        v47, 
-        v45, 
-        v43
-    });
-    local v80 = v4.useCallback(function() --[[ Line: 211 ]]
-        -- upvalues: v77 (copy), v79 (copy)
-        v77();
-        v79();
-    end, {
-        v77, 
-        v79
-    });
-    local v81 = v4.useCallback(function() --[[ Line: 218 ]]
-        -- upvalues: v78 (copy), l_authButtonClick_0 (ref), v79 (copy)
-        v78();
-        l_authButtonClick_0("gameJoinContentMaturityLock", "cancelAskParent");
-        v79();
-    end, {
-        v78, 
-        v79
-    });
-    local v83 = v4.useCallback(function(v82) --[[ Line: 227 ]]
-        -- upvalues: v78 (copy), l_authButtonClick_0 (ref), v57 (copy), v77 (copy)
-        v78();
-        l_authButtonClick_0("gameJoinContentMaturityLock", "askParent");
-        v57("CanChangeSetting", v77, {
-            contentAgeRestriction = v82
-        }, "gameJoinContentMaturityLock");
-    end, {
-        v57, 
-        v77, 
-        v78
-    });
-    local v85 = v4.useCallback(function(v84) --[[ Line: 238 ]]
-        -- upvalues: l_unlockPlayIntent_0 (ref), v46 (copy), v43 (copy), l_PlayabilityStatusEnum_0 (ref)
-        l_unlockPlayIntent_0(v46, {
-            universeId = v43, 
-            upsellName = v84, 
-            playabilityStatus = l_PlayabilityStatusEnum_0.ContextualPlayabilityAgeRecommendationParentalControls
-        });
-    end, {
-        v46, 
-        v43
-    });
-    local v86 = nil;
-    if l_FFlagLuaAppParentUpsellPolicy_0 then
-        v86 = l_useAppPolicy_0(function(v87) --[[ Line: 248 ]]
-            return v87.getShouldShowVpcPlayButtonUpsells();
-        end);
-    end;
-    local v89 = l_useAppPolicy_0(function(v88) --[[ Line: 253 ]]
-        return v88.getWebViewSupport();
-    end);
-    return (v4.useCallback(function(v90) --[[ Line: 257 ]]
-        -- upvalues: l_FFlagLuaAppParentUpsellPolicy_0 (ref), v86 (ref), v44 (copy), v85 (copy), l_FetchUserSettingsAndOptions_0 (ref), v45 (copy), v51 (copy), l_flaggedMutedError_0 (ref), v42 (ref), v25 (ref), v28 (ref), v43 (copy), v13 (ref), v32 (ref), v89 (copy), v76 (copy), v52 (copy), v78 (copy), v62 (copy), v80 (copy), v70 (copy), v83 (copy), v81 (copy), v57 (copy), v79 (copy)
-        if l_FFlagLuaAppParentUpsellPolicy_0 and not v86 then
-            v44(v90);
-            v85("GameLaunch");
-            return;
-        else
-            l_FetchUserSettingsAndOptions_0(v45):andThen(function(v91) --[[ Line: 266 ]]
-                -- upvalues: v51 (ref), l_flaggedMutedError_0 (ref), v44 (ref), v90 (copy), v85 (ref), v42 (ref), v25 (ref), v28 (ref), v43 (ref), v13 (ref), v32 (ref), v89 (ref), v76 (ref), v52 (ref), v78 (ref), v62 (ref), v80 (ref), v70 (ref), v83 (ref), v81 (ref), v57 (ref), v79 (ref)
-                local l_contentAgeRestriction_0 = v91.contentAgeRestriction;
-                if not l_contentAgeRestriction_0 or not v51 then
-                    l_flaggedMutedError_0("ExperienceParentalControlsUpsellUnknownContentMaturityRating", (("Unknown content maturity rating %* or age restriction setting %* for Contextual Parental Controls upsell on play button click"):format(v51, l_contentAgeRestriction_0)));
-                    v44(v90);
-                    v85("GameLaunch");
-                    return;
-                else
-                    assert(v51, "Content maturity rating must be present to show correct upsell");
-                    if not v42[v51] then
-                        v25.default:logRobloxTelemetryEvent({
-                            eventName = "ExperienceParentalControlsUpsellUnexpectedContentMaturityRating", 
-                            backends = {
-                                v25.TelemetryBackends.Points
-                            }, 
-                            throttlingPercentage = v28, 
-                            lastUpdated = {
-                                25, 
-                                8, 
-                                26
-                            }, 
-                            description = "Unexpected content maturity rating for Contextual Parental Controls upsell on play button click"
-                        }, {
-                            v25.default.StandardizedFields.addOsInfo
-                        }, {
-                            eventName = "ExperienceParentalControlsUpsellUnexpectedContentMaturityRating", 
-                            contentMaturityRating = v51, 
-                            universeId = v43
-                        });
-                        v44(v90);
-                        v85("GameLaunch");
-                        return;
-                    else
-                        local v93 = v42[v51];
-                        local v95 = v13.find(l_contentAgeRestriction_0.options, function(v94) --[[ Line: 309 ]]
-                            -- upvalues: v93 (copy)
-                            return v94 and v94.option and v94.option.optionValue == v93 or false;
-                        end);
-                        if v95 then
-                            local l_requirement_0 = v95.requirement;
-                            if l_requirement_0 == v32.SelfUpdateSetting then
-                                if not v89 then
-                                    v76(v52.consoleSelfUpdateSettingTitleText, v52.consoleSelfUpdateSettingBodyText, v78, v52.consoleSelfUpdateSettingButtonText, true);
-                                else
-                                    v62("gameJoinContentMaturityLock", {
-                                        title = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Label.Title", 
-                                        message = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Label.Body", 
-                                        buttonCancel = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Action.Cancel", 
-                                        buttonSettings = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Action.GoToSettings"
-                                    }, v80, v80);
-                                end;
-                            elseif l_requirement_0 == v32.ParentalConsent then
-                                v70(v52.askYourParentTitleText, v52.askYourParentBodyText, v52.askYourParentActionButtonText, v52.askYourParentCancelButtonText, function() --[[ Line: 340 ]]
-                                    -- upvalues: v83 (ref), v95 (copy)
-                                    v83(v95.option.optionValue);
-                                end, v81, v81);
-                            elseif l_requirement_0 == v32.ContentAgeRestrictionVerification then
-                                v57("ShouldNotPromptSeventeenPlusSettingVerifications", v79, nil, nil);
-                            else
-                                l_flaggedMutedError_0("ExperienceParentalControlsUnknownUpsellRequirement", (("Unknown requirement %* for ContentAgeRestriction option %* on play button click"):format(l_requirement_0, v95)));
-                                v44(v90);
-                            end;
-                            v85(l_requirement_0 or "GameLaunch");
-                            return;
-                        else
-                            v76(v52.unplayableTitleText, v52.unplayableBodyText, v78, v52.unplayableButtonText, true);
-                            v85("RestrictedUnplayableOptionNotFound");
-                            return;
-                        end;
-                    end;
-                end;
-            end, function() --[[ Line: 378 ]]
-                -- upvalues: v44 (ref), v90 (copy), v85 (ref)
-                v44(v90);
-                v85("GameLaunch");
-            end);
-            return;
-        end;
-    end, {
-        v45, 
-        v43, 
-        v44, 
-        v51, 
-        v47, 
-        v62, 
-        v57, 
-        v76, 
-        v70, 
-        v83, 
-        v80, 
-        v81, 
-        v78, 
-        v85, 
-        v52.unplayableTitleText, 
-        v52.unplayableBodyText, 
-        v52.unplayableButtonText, 
-        v52.askYourParentTitleText, 
-        v52.askYourParentBodyText, 
-        v52.askYourParentActionButtonText, 
-        v52.askYourParentCancelButtonText, 
-        v52.consoleSelfUpdateSettingTitleText, 
-        v52.consoleSelfUpdateSettingBodyText, 
-        v52.consoleSelfUpdateSettingButtonText, 
-        v86, 
-        v89
-    }));
-end;
+local GamePlayButton = script:FindFirstAncestor("GamePlayButton")
+
+require(GamePlayButton.PlayButtonTypes)
+
+local FetchGamePlayButtonData = require(GamePlayButton.FetchGamePlayButtonData)
+local GamePlayButtonParent = GamePlayButton.Parent
+local React = require(GamePlayButtonParent.React)
+local useDispatch = require(GamePlayButtonParent.RoactUtils).Hooks.RoactRodux.useDispatch
+local useSelector = require(GamePlayButtonParent.RoactUtils).Hooks.RoactRodux.useSelector
+local useRoactService = require(GamePlayButtonParent.RobloxAppHooks).useRoactService
+local RoactNetworking = require(GamePlayButtonParent.RoactServiceTags).RoactNetworking
+local AppEventIngestService = require(GamePlayButtonParent.RoactServiceTags).AppEventIngestService
+local flaggedMutedError = require(GamePlayButtonParent.Loggers).flaggedMutedError
+local GameInfosReducer = require(GamePlayButtonParent.GameInfosRodux).GameInfosReducer
+local FetchUserSettingsAndOptions = require(GamePlayButtonParent.GameDetailRodux).FetchUserSettingsAndOptions
+local Dash = require(GamePlayButtonParent.Dash)
+local AppPage = require(GamePlayButtonParent.RobloxAppEnums).AppPage
+local NavigateDown = require(GamePlayButtonParent.NavigationRodux).Thunks.NavigateDown
+local NavigateBack = require(GamePlayButtonParent.NavigationRodux).Thunks.NavigateBack
+local OpenCloseOnlyInteractiveAlert = require(GamePlayButtonParent.DiscoveryRouting).OpenCloseOnlyInteractiveAlert
+local OpenUpsellModal = require(GamePlayButtonParent.DiscoveryRouting).OpenUpsellModal
+local OpenPlayButtonUpsellDialog = require(GamePlayButtonParent.DiscoveryRouting).OpenPlayButtonUpsellDialog
+local CloseCentralOverlay = require(GamePlayButtonParent.CentralOverlay).Thunks.CloseCentralOverlay
+local useLocalization = require(GamePlayButtonParent.Localization).Hooks.useLocalization
+local useAppPolicy = require(GamePlayButtonParent.UniversalAppPolicy).useAppPolicy
+local OpenAmpWizardContainer = require(GamePlayButtonParent.AmpUpsell).OpenAmpWizardContainer
+local authButtonClick = require(GamePlayButtonParent.AuthAnalytics).Events.authButtonClick
+local LoggingProtocol = require(GamePlayButtonParent.LoggingProtocol)
+local PlayabilityStatusEnum = require(GamePlayButtonParent.DiscoveryTypes).PlayabilityStatusEnum
+local unlockPlayIntent = require(GamePlayButtonParent.DiscoveryAnalytics).Events.unlockPlayIntent
+local v28 = game:DefineFastInt("UnknownUpsellErrorEventHundredthsPercent", 0)
+local v29 = game:DefineFastString("LuaAppUpsellMaturityRatingToSettingMapping", "mild=NinePlus,moderate=ThirteenPlus,restricted=SeventeenPlus,unrated=ThirteenPlus")
+local FFlagLuaAppParentUpsellPolicy = require(GamePlayButtonParent.SharedFlags).FFlagLuaAppParentUpsellPolicy
+local FFlagLuaAppPlayButtonUpsellLinking = require(GamePlayButtonParent.SharedFlags).FFlagLuaAppPlayButtonUpsellLinking
+local FFlagLuaAppPlayButtonAmpAgeCheckFlow = require(GamePlayButtonParent.SharedFlags).FFlagLuaAppPlayButtonAmpAgeCheckFlow
+local FStringLuaAppPlayButtonAgeCheckAmpFeatureName = require(GamePlayButtonParent.SharedFlags).FStringLuaAppPlayButtonAgeCheckAmpFeatureName
+local FStringLuaAppPlayButtonAgeCheckAmpNameSpace = require(GamePlayButtonParent.SharedFlags).FStringLuaAppPlayButtonAgeCheckAmpNameSpace
+local t1 = {
+	SelfUpdateSetting = "SelfUpdateSetting",
+	ParentalConsent = "ParentalConsent",
+	ContentAgeRestrictionVerification = "ContentAgeRestrictionVerification"
+}
+
+local function parseContentMaturityMappingString(s1: string) -- line: 55
+	if s1 == "" then
+		return {}
+	end
+
+	local t2 = {}
+
+	for _, v41 in (string.split(s1, ",")) do
+		local parts = string.split(v41, "=")
+
+		if #parts == 2 and parts[1] ~= "" and parts[2] ~= "" then
+			t2[parts[1]] = parts[2]
+		else
+			error(`Invalid content maturity mapping string { s1 }`)
+		end
+	end
+
+	return t2
+end
+
+local v37 = (function(s2: string) --[[ safeParseContentMaturityMappingString ]] -- line: 76
+	-- upvalues: parseContentMaturityMappingString (copy), flaggedMutedError (copy)
+	local ok, result = pcall(function() -- line: 77
+		-- upvalues: parseContentMaturityMappingString (copy), s2 (copy)
+		return (parseContentMaturityMappingString(s2))
+	end)
+
+	if not ok then
+		flaggedMutedError("ExperienceParentalControlsUpsellContentMaturityMappingParsingError", `Error parsing content maturity mapping string { s2 }, error is: { result }`)
+
+		return {}
+	end
+
+	return result
+end)(v29)
+
+return function(s3: string, p1) -- line: 96
+	-- upvalues: useRoactService (copy), RoactNetworking (copy), AppEventIngestService (copy), useDispatch (copy), useSelector (copy), GameInfosReducer (copy), useLocalization (copy), React (copy), OpenAmpWizardContainer (copy), FFlagLuaAppPlayButtonAmpAgeCheckFlow (copy), NavigateDown (copy), AppPage (copy), FFlagLuaAppPlayButtonUpsellLinking (copy), OpenPlayButtonUpsellDialog (copy), OpenUpsellModal (copy), OpenCloseOnlyInteractiveAlert (copy), NavigateBack (copy), CloseCentralOverlay (copy), FetchGamePlayButtonData (copy), authButtonClick (copy), unlockPlayIntent (copy), PlayabilityStatusEnum (copy), FFlagLuaAppParentUpsellPolicy (copy), useAppPolicy (copy), FetchUserSettingsAndOptions (copy), flaggedMutedError (copy), v37 (copy), LoggingProtocol (copy), v28 (copy), Dash (copy), t1 (copy), FStringLuaAppPlayButtonAgeCheckAmpFeatureName (copy), FStringLuaAppPlayButtonAgeCheckAmpNameSpace (copy)
+	local v48 = useRoactService(RoactNetworking)
+	local v49 = useRoactService(AppEventIngestService)
+	local v50 = useDispatch()
+	local v51 = useSelector(function(p2) -- line: 104
+		-- upvalues: s3 (copy), GameInfosReducer (copy)
+		local v67 = p2.AgeRecommendations[s3]
+
+		if v67 and (v67.summary and v67.summary.ageRecommendation and v67.summary.ageRecommendation.contentMaturity) then
+			return v67.summary.ageRecommendation.contentMaturity
+		end
+
+		local v68 = p2.Personalization[GameInfosReducer.key][s3]
+
+		if v68 and v68.contentMaturity then
+			return v68.contentMaturity
+		end
+
+		return nil
+	end)
+	local v52 = useLocalization({
+		unplayableTitleText = "Feature.ExperienceDetails.RestrictedUnplayableModal.Label.Title",
+		unplayableBodyText = "Feature.ExperienceDetails.RestrictedUnplayableModal.Label.Body",
+		unplayableButtonText = "Feature.ExperienceDetails.RestrictedUnplayableModal.Action.Ok",
+		askYourParentTitleText = "Feature.ExperienceDetails.AskYourParentModal.Label.Title",
+		askYourParentBodyText = "Feature.ExperienceDetails.AskYourParentModal.Label.Body",
+		askYourParentActionButtonText = "Feature.ExperienceDetails.AskYourParentModal.Action.AskNow",
+		askYourParentCancelButtonText = "Feature.ExperienceDetails.AskYourParentModal.Action.Cancel",
+		consoleSelfUpdateSettingTitleText = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Console.Label.Title",
+		consoleSelfUpdateSettingBodyText = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Console.Label.Body",
+		consoleSelfUpdateSettingButtonText = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Console.Action.Ok"
+	})
+	local v53 = React.useCallback(function(p3, p4, p5, p6, p7, p8) -- line: 140
+		-- upvalues: v50 (copy), OpenAmpWizardContainer (copy), FFlagLuaAppPlayButtonAmpAgeCheckFlow (copy)
+		v50(OpenAmpWizardContainer(p3, p4, p5, p6, if not FFlagLuaAppPlayButtonAmpAgeCheckFlow then nil else p7, if not FFlagLuaAppPlayButtonAmpAgeCheckFlow then nil else p8))
+	end, { v50 })
+	local v54 = React.useCallback(function(p9, p10, p11, p12) -- line: 156
+		-- upvalues: v50 (copy), NavigateDown (copy), AppPage (copy)
+		v50(NavigateDown({
+			name = AppPage.AccountSettingsUpsell,
+			extraProps = {
+				featureName = p9,
+				localizationStrings = p10,
+				onCloseModal = p11,
+				onCancelled = p12
+			}
+		}, true))
+	end, { v50 })
+	local v55 = React.useCallback(function(p13, p14, p15, p16, p17, p18, p19) -- line: 171
+		-- upvalues: FFlagLuaAppPlayButtonUpsellLinking (copy), v50 (copy), OpenPlayButtonUpsellDialog (copy), OpenUpsellModal (copy)
+		if FFlagLuaAppPlayButtonUpsellLinking then
+			v50(OpenPlayButtonUpsellDialog(p13, p14, p15, p16, p17, p18, p19))
+
+			return
+		end
+
+		v50(OpenUpsellModal(p13, p14, p15, p16, p17, p18, p19))
+	end, { v50 })
+	local v56 = React.useCallback(function(p20, p21, p22, p23, p24) -- line: 209
+		-- upvalues: v50 (copy), OpenCloseOnlyInteractiveAlert (copy)
+		v50(OpenCloseOnlyInteractiveAlert(p20, p21, p22, p23, p24))
+	end, { v50 })
+	local v57 = React.useCallback(function() -- line: 213
+		-- upvalues: v50 (copy), NavigateBack (copy)
+		v50(NavigateBack(true))
+	end, { v50 })
+	local v58 = React.useCallback(function() -- line: 217
+		-- upvalues: v50 (copy), CloseCentralOverlay (copy)
+		v50(CloseCentralOverlay())
+	end, { v50 })
+	local v59 = React.useCallback(function() -- line: 221
+		-- upvalues: v50 (copy), FetchGamePlayButtonData (copy), v48 (copy), s3 (copy)
+		v50(FetchGamePlayButtonData.Fetch(v48, s3, true))
+	end, {
+		v50,
+		v48,
+		s3
+	})
+	local v60 = React.useCallback(function() -- line: 225
+		-- upvalues: v57 (copy), v59 (copy)
+		v57()
+		v59()
+	end, {
+		v57,
+		v59
+	})
+	local v61 = React.useCallback(function() -- line: 232
+		-- upvalues: v58 (copy), authButtonClick (copy), v59 (copy)
+		v58()
+		authButtonClick("gameJoinContentMaturityLock", "cancelAskParent")
+		v59()
+	end, {
+		v58,
+		v59
+	})
+	local v62 = React.useCallback(function(p25) -- line: 241
+		-- upvalues: v58 (copy), authButtonClick (copy), v53 (copy), v57 (copy)
+		v58()
+		authButtonClick("gameJoinContentMaturityLock", "askParent")
+		v53("CanChangeSetting", v57, {
+			contentAgeRestriction = p25
+		}, "gameJoinContentMaturityLock", nil, nil)
+	end, {
+		v53,
+		v57,
+		v58
+	})
+	local v63 = React.useCallback(function(p26) -- line: 252
+		-- upvalues: unlockPlayIntent (copy), v49 (copy), s3 (copy), PlayabilityStatusEnum (copy)
+		unlockPlayIntent(v49, {
+			universeId = s3,
+			upsellName = p26,
+			playabilityStatus = PlayabilityStatusEnum.ContextualPlayabilityAgeRecommendationParentalControls
+		})
+	end, {
+		v49,
+		s3
+	})
+	local u64 = nil
+
+	if FFlagLuaAppParentUpsellPolicy then
+		u64 = useAppPolicy(function(p27) -- line: 262
+			return p27.getShouldShowVpcPlayButtonUpsells()
+		end)
+	end
+
+	local v65 = useAppPolicy(function(p28) -- line: 267
+		return p28.getWebViewSupport()
+	end)
+
+	return (React.useCallback(function(p29) -- line: 271
+		-- upvalues: FFlagLuaAppParentUpsellPolicy (copy), u64 (ref), p1 (copy), v63 (copy), FetchUserSettingsAndOptions (copy), v48 (copy), v51 (copy), flaggedMutedError (copy), v37 (copy), LoggingProtocol (copy), v28 (copy), s3 (copy), Dash (copy), t1 (copy), v65 (copy), v56 (copy), v52 (copy), v58 (copy), v54 (copy), v60 (copy), v55 (copy), v62 (copy), v61 (copy), v53 (copy), FFlagLuaAppPlayButtonAmpAgeCheckFlow (copy), FStringLuaAppPlayButtonAgeCheckAmpFeatureName (copy), v59 (copy), FStringLuaAppPlayButtonAgeCheckAmpNameSpace (copy)
+		if FFlagLuaAppParentUpsellPolicy and not u64 then
+			p1(p29)
+			v63("GameLaunch")
+
+			return
+		end
+
+		FetchUserSettingsAndOptions(v48):andThen(function(p30) -- line: 280
+			-- upvalues: v51 (copy), flaggedMutedError (copy), p1 (copy), p29 (copy), v63 (copy), v37 (copy), LoggingProtocol (copy), v28 (copy), s3 (copy), Dash (copy), t1 (copy), v65 (copy), v56 (copy), v52 (copy), v58 (copy), v54 (copy), v60 (copy), v55 (copy), v62 (copy), v61 (copy), v53 (copy), FFlagLuaAppPlayButtonAmpAgeCheckFlow (copy), FStringLuaAppPlayButtonAgeCheckAmpFeatureName (copy), v59 (copy), FStringLuaAppPlayButtonAgeCheckAmpNameSpace (copy)
+			local contentAgeRestriction = p30.contentAgeRestriction
+
+			if not contentAgeRestriction or not v51 then
+				flaggedMutedError("ExperienceParentalControlsUpsellUnknownContentMaturityRating", `Unknown content maturity rating { v51 } or age restriction setting { contentAgeRestriction } for Contextual Parental Controls upsell on play button click`)
+				p1(p29)
+				v63("GameLaunch")
+
+				return
+			end
+
+			assert(v51, "Content maturity rating must be present to show correct upsell")
+
+			if not v37[v51] then
+				LoggingProtocol.default:logRobloxTelemetryEvent({
+					eventName = "ExperienceParentalControlsUpsellUnexpectedContentMaturityRating",
+					backends = { LoggingProtocol.TelemetryBackends.Points },
+					throttlingPercentage = v28,
+					lastUpdated = {
+						25,
+						8,
+						26
+					},
+					description = "Unexpected content maturity rating for Contextual Parental Controls upsell on play button click"
+				}, { LoggingProtocol.default.StandardizedFields.addOsInfo }, {
+					eventName = "ExperienceParentalControlsUpsellUnexpectedContentMaturityRating",
+					contentMaturityRating = v51,
+					universeId = s3
+				})
+				p1(p29)
+				v63("GameLaunch")
+
+				return
+			end
+
+			local v98 = v37[v51]
+			local v99 = Dash.find(contentAgeRestriction.options, function(p31) -- line: 323
+				-- upvalues: v98 (copy)
+				return not not p31 and (not not p31.option and (p31.option.optionValue == v98 or false))
+			end)
+
+			if v99 then
+				local requirement = v99.requirement
+
+				if requirement == t1.SelfUpdateSetting then
+					if not v65 then
+						v56(v52.consoleSelfUpdateSettingTitleText, v52.consoleSelfUpdateSettingBodyText, v58, v52.consoleSelfUpdateSettingButtonText, true)
+					else
+						v54("gameJoinContentMaturityLock", {
+							title = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Label.Title",
+							message = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Label.Body",
+							buttonCancel = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Action.Cancel",
+							buttonSettings = "Feature.ExperienceDetails.UpdateMaturitySettingModal.Action.GoToSettings"
+						}, v60, v60)
+					end
+				elseif requirement == t1.ParentalConsent then
+					v55(v52.askYourParentTitleText, v52.askYourParentBodyText, v52.askYourParentActionButtonText, v52.askYourParentCancelButtonText, function() -- line: 354
+						-- upvalues: v62 (copy), v99 (copy)
+						v62(v99.option.optionValue)
+					end, v61, v61)
+				elseif requirement == t1.ContentAgeRestrictionVerification then
+					v53(not FFlagLuaAppPlayButtonAmpAgeCheckFlow and "ShouldNotPromptSeventeenPlusSettingVerifications" or FStringLuaAppPlayButtonAgeCheckAmpFeatureName, v59, nil, if not FFlagLuaAppPlayButtonAmpAgeCheckFlow then nil else "gameJoinContentMaturityLock", nil, if not FFlagLuaAppPlayButtonAmpAgeCheckFlow then nil else FStringLuaAppPlayButtonAgeCheckAmpNameSpace)
+				else
+					flaggedMutedError("ExperienceParentalControlsUnknownUpsellRequirement", `Unknown requirement { requirement } for ContentAgeRestriction option { v99 } on play button click`)
+					p1(p29)
+				end
+
+				v63(requirement or "GameLaunch")
+
+				return
+			end
+
+			v56(v52.unplayableTitleText, v52.unplayableBodyText, v58, v52.unplayableButtonText, true)
+			v63("RestrictedUnplayableOptionNotFound")
+		end, function() -- line: 398
+			-- upvalues: p1 (copy), p29 (copy), v63 (copy)
+			p1(p29)
+			v63("GameLaunch")
+		end)
+	end, {
+		v48,
+		s3,
+		p1,
+		v51,
+		v50,
+		v54,
+		v53,
+		v56,
+		v55,
+		v62,
+		v60,
+		v61,
+		v58,
+		if not FFlagLuaAppPlayButtonAmpAgeCheckFlow then nil else v59,
+		v63,
+		v52.unplayableTitleText,
+		v52.unplayableBodyText,
+		v52.unplayableButtonText,
+		v52.askYourParentTitleText,
+		v52.askYourParentBodyText,
+		v52.askYourParentActionButtonText,
+		v52.askYourParentCancelButtonText,
+		v52.consoleSelfUpdateSettingTitleText,
+		v52.consoleSelfUpdateSettingBodyText,
+		v52.consoleSelfUpdateSettingButtonText,
+		u64,
+		v65
+	}))
+end

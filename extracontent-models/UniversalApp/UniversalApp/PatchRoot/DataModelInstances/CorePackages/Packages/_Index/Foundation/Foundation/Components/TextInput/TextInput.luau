@@ -1,82 +1,92 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local l_Components_0 = l_script_FirstAncestor_0.Components;
-local v4 = require(l_Components_0.Icon);
-local v5 = require(l_Components_0.IconButton);
-local v6 = require(l_Components_0.InputField);
-local v7 = require(l_Components_0.InternalTextInput);
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v9 = require(l_Components_0.View);
-local v10 = require(l_script_FirstAncestor_0.Utility.Flags);
-local v11 = require(l_script_FirstAncestor_0.Components.TextInput.useTextInputVariants);
-local v12 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local v13 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v14 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local v15 = require(l_script_FirstAncestor_0.Enums.InputSize);
-local _ = require(l_script_FirstAncestor_0.Enums.InputVariant);
-local v17 = require(l_script_FirstAncestor_0.Utility.getInputTextSize);
-local _ = require(l_script_FirstAncestor_0.Enums.ControlState);
-local v19 = {
-    size = v15.Large, 
-    testId = "--foundation-text-input"
-};
-return v2.memo(v2.forwardRef(function(v20, v21) --[[ Line: 52 ]] --[[ Name: TextInput ]]
-    -- upvalues: v14 (copy), v19 (copy), v12 (copy), v11 (copy), v10 (copy), v2 (copy), v6 (copy), v13 (copy), v17 (copy), v7 (copy), v9 (copy), v4 (copy), v5 (copy)
-    local v22 = v14(v20, v19);
-    local v23 = v12();
-    local v24 = v11(v23, v22.size, if v10.FoundationTextInputVariant then v22.variant else nil);
-    return v2.createElement(v6, v13(v22, {
-        width = v22.width, 
-        ref = v21, 
-        label = v22.label, 
-        size = v17(v22.size), 
-        isRequired = v22.isRequired, 
-        hasError = v22.hasError, 
-        hint = v22.hint, 
-        textBoxRef = v22.textBoxRef, 
-        input = function(v25) --[[ Line: 69 ]] --[[ Name: input ]]
-            -- upvalues: v2 (ref), v7 (ref), v22 (copy), v10 (ref), v24 (copy), v9 (ref), v4 (ref), v5 (ref)
-            return v2.createElement(v7, {
-                ref = v25, 
-                hasError = v22.hasError, 
-                isDisabled = v22.isDisabled, 
-                text = v22.text, 
-                textInputType = v22.textInputType, 
-                focusBehavior = if v10.FoundationTextInputFocusBehavior then v22.focusBehavior else nil, 
-                size = v22.size, 
-                variant = if v10.FoundationTextInputVariant then v22.variant else nil, 
-                horizontalPadding = {
-                    left = v24.innerContainer.horizontalPadding, 
-                    right = v24.innerContainer.horizontalPadding
-                }, 
-                onChanged = v22.onChanged, 
-                onFocus = v22.onFocusGained, 
-                onFocusLost = v22.onFocusLost, 
-                onReturnPressed = v22.onReturnPressed, 
-                placeholder = v22.placeholder, 
-                leadingElement = if v22.leadingIcon then v2.createElement(v9, {
-                    tag = "row align-y-center size-0-full auto-x"
-                }, v2.createElement(v4, {
-                    name = v22.leadingIcon, 
-                    style = v24.icon.style, 
-                    size = v24.icon.size
-                })) else nil, 
-                trailingElement = if v22.iconTrailing then v2.createElement(v9, {
-                    tag = "row align-y-center size-0-full auto-x"
-                }, if type(v22.iconTrailing) == "table" and v22.iconTrailing.onActivated then v2.createElement(v5, {
-                    onActivated = v22.iconTrailing.onActivated, 
-                    isDisabled = v22.isDisabled, 
-                    size = v24.icon.size, 
-                    icon = v22.iconTrailing.name, 
-                    testId = ("%*--trailing-icon-button"):format(v22.testId)
-                }) else v2.createElement(v4, {
-                    name = if type(v22.iconTrailing) == "table" then v22.iconTrailing.name else v22.iconTrailing, 
-                    style = v24.icon.style, 
-                    size = v24.icon.size
-                })) else nil, 
-                testId = ("%*--internal-text-input"):format(v22.testId)
-            });
-        end
-    }));
-end));
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local React = require(FoundationParent.React)
+local Components = Foundation.Components
+local Icon = require(Components.Icon)
+local IconButton = require(Components.IconButton)
+local InputField = require(Components.InputField)
+local InternalTextInput = require(Components.InternalTextInput)
+
+require(Foundation.Components.Types)
+
+local View = require(Components.View)
+local Flags = require(Foundation.Utility.Flags)
+local useTextInputVariants = require(Foundation.Components.TextInput.useTextInputVariants)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local InputSize = require(Foundation.Enums.InputSize)
+
+require(Foundation.Enums.InputVariant)
+
+local getInputTextSize = require(Foundation.Utility.getInputTextSize)
+
+require(Foundation.Enums.ControlState)
+
+local t1 = {
+	size = InputSize.Large,
+	testId = "--foundation-text-input"
+}
+
+return React.memo(React.forwardRef(function(p1, p2) --[[ TextInput ]] -- line: 52
+	-- upvalues: withDefaults (copy), t1 (copy), useTokens (copy), useTextInputVariants (copy), Flags (copy), React (copy), InputField (copy), withCommonProps (copy), getInputTextSize (copy), InternalTextInput (copy), View (copy), Icon (copy), IconButton (copy)
+	local v20 = withDefaults(p1, t1)
+	local v21 = useTokens()
+	local v22 = useTextInputVariants(v21, v20.size, if not Flags.FoundationTextInputVariant then nil else v20.variant)
+
+	return React.createElement(InputField, withCommonProps(v20, {
+		width = v20.width,
+		ref = p2,
+		label = v20.label,
+		size = getInputTextSize(v20.size),
+		isRequired = v20.isRequired,
+		isDisabled = if not Flags.FoundationTextInputDisabledField then nil else v20.isDisabled,
+		hasError = v20.hasError,
+		hint = v20.hint,
+		textBoxRef = v20.textBoxRef,
+		input = function(p3) --[[ input ]] -- line: 70
+			-- upvalues: React (copy), InternalTextInput (copy), v20 (copy), Flags (copy), v22 (copy), View (copy), Icon (copy), IconButton (copy)
+			return React.createElement(InternalTextInput, {
+				ref = p3,
+				hasError = v20.hasError,
+				isDisabled = v20.isDisabled,
+				hasClearButton = if not Flags.FoundationInternalTextInputClearButton then nil else v20.hasClearButton,
+				text = v20.text,
+				textInputType = v20.textInputType,
+				focusBehavior = if not Flags.FoundationTextInputFocusBehavior then nil else v20.focusBehavior,
+				size = v20.size,
+				variant = if not Flags.FoundationTextInputVariant then nil else v20.variant,
+				horizontalPadding = {
+					left = ((if not Flags.FoundationInputVariantsConsolidateContainer then v22.innerContainer else v22.container)).horizontalPadding,
+					right = ((if not Flags.FoundationInputVariantsConsolidateContainer then v22.innerContainer else v22.container)).horizontalPadding
+				},
+				onChanged = v20.onChanged,
+				onFocus = v20.onFocusGained,
+				onFocusLost = v20.onFocusLost,
+				onReturnPressed = v20.onReturnPressed,
+				placeholder = v20.placeholder,
+				leadingElement = if not v20.leadingIcon then nil else React.createElement(View, {
+					tag = "row align-y-center size-0-full auto-x"
+				}, React.createElement(Icon, {
+					name = v20.leadingIcon,
+					style = v22.icon.style,
+					size = v22.icon.size
+				})),
+				trailingElement = if not v20.iconTrailing then nil else React.createElement(View, {
+					tag = "row align-y-center size-0-full auto-x"
+				}, if type(v20.iconTrailing) ~= "table" or not v20.iconTrailing.onActivated then React.createElement(Icon, {
+					name = if type(v20.iconTrailing) ~= "table" then v20.iconTrailing else v20.iconTrailing.name,
+					style = v22.icon.style,
+					size = v22.icon.size
+				}) else React.createElement(IconButton, {
+					onActivated = v20.iconTrailing.onActivated,
+					isDisabled = v20.isDisabled,
+					size = v22.icon.size,
+					icon = v20.iconTrailing.name,
+					testId = `{ v20.testId }--trailing-icon-button`
+				})),
+				testId = `{ v20.testId }--internal-text-input`
+			})
+		end
+	}))
+end))

@@ -1,194 +1,213 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_MemStorageService_0 = game:GetService("MemStorageService");
-local l_GuiService_0 = game:GetService("GuiService");
-local l_LocalizationService_0 = game:GetService("LocalizationService");
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v6 = require(l_Modules_0.LuaApp.Http.Requests.GetUserAppLaunchInfo);
-local v7 = require(script.Parent.User);
-local l_GetLocalUser_0 = require(l_CorePackages_0.Workspace.Packages.UserLib).Thunks.GetLocalUser;
-local v9 = require(l_Modules_0.LuaApp.PromiseUtilities);
-local l_SetAuthenticationStatus_0 = require(l_CorePackages_0.Workspace.Packages.AuthenticationStatus).Actions.SetAuthenticationStatus;
-local v11 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
-local v12 = require(l_Modules_0.LuaApp.Thunks.FetchTheme);
-local v13 = require(script.Parent.AppStorageUtilities);
-local v14 = require(l_Modules_0.LuaApp.AppPage);
-local v15 = require(l_Modules_0.LuaApp.Enum.MemStorageKeys);
-local v16 = require(l_Modules_0.LuaApp.Enum.LoginStatus);
-local v17 = require(l_Modules_0.LuaApp.Enum.NotificationType);
-local v18 = require(l_Modules_0.LuaApp.Thunks.CloseAccountAuthenticationFailureOverlay);
-local v19 = require(l_Modules_0.LuaApp.Enum.OverlayType);
-local v20 = require(l_Modules_0.LuaApp.Thunks.ApiFetchUsersRoles);
-local l_ReceivedUserCountryCode_0 = require(l_CorePackages_0.Workspace.Packages.CountryCode).ReceivedUserCountryCode;
-local l_HttpService_0 = game:GetService("HttpService");
-local l_default_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default;
-local l_ContentProvider_0 = game:GetService("ContentProvider");
-local v25 = require(l_CorePackages_0.Workspace.Packages.AuthCommon);
-local l_KeystoreAnalyticsEvents_0 = v25.Analytics.KeystoreAnalyticsEvents;
-local l_KeystoreEventConstants_0 = v25.Analytics.KeystoreEventConstants;
-local l_KeystoreConstants_0 = v25.Common.KeystoreConstants;
-local l_HandlePreHomePageRouting_0 = require(l_CorePackages_0.Workspace.Packages.PreHomePage).HandlePreHomePageRouting;
-local v30 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagPreHomePageRoutingEnabled_0 = v30.FFlagPreHomePageRoutingEnabled;
-local l_FFlagPasskeyUpsellEnabled_0 = v30.FFlagPasskeyUpsellEnabled;
-local v33 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableMultiPageSignupExperiment);
-local l_StatusCodes_0 = require(l_CorePackages_0.Workspace.Packages.Http).StatusCodes;
-local l_GetFFlagKeystoreAutoLoginAvailable_0 = v30.GetFFlagKeystoreAutoLoginAvailable;
-local l_GetFFlagDisableKeystoreUnderageDeletion_0 = v30.GetFFlagDisableKeystoreUnderageDeletion;
-local v37 = require(l_Modules_0.LuaApp.Thunks.Authentication.ShowAccountAuthenticationFailureOverlay);
-local v38 = require(l_Modules_0.LuaApp.Thunks.Authentication.DeleteAllCredentialsFromKeystore);
-local v39 = require(l_Modules_0.LuaApp.Thunks.FetchLocale);
-local v40 = require(l_Modules_0.LuaApp.Thunks.PreloadApplicationData);
-local l_AppStartupSequenceTag_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppStartupSequenceTag;
-local l_AppPrefetch_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppPrefetch;
-local l_InvoluntaryLogoutAnalyticsEvents_0 = v25.Analytics.InvoluntaryLogoutAnalyticsEvents;
-local v44 = require(l_Modules_0.LuaApp.EventStreamConstants);
-local function _(v45, v46) --[[ Line: 64 ]] --[[ Name: handleUserLoggedIn ]]
-    -- upvalues: l_InvoluntaryLogoutAnalyticsEvents_0 (copy), v44 (copy), l_GuiService_0 (copy), v17 (copy), l_SetAuthenticationStatus_0 (copy), v16 (copy)
-    l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, v44.Context.SessionCheckDidLogin);
-    l_GuiService_0:BroadcastNotification(v45:toJsonData(), v17.DID_LOG_IN);
-    v46:dispatch(l_SetAuthenticationStatus_0(v16.LOGGED_IN));
-end;
-local function v49() --[[ Line: 74 ]]
-    -- upvalues: l_HttpService_0 (copy), l_ContentProvider_0 (copy), l_GetFFlagKeystoreAutoLoginAvailable_0 (copy), v38 (copy), l_default_0 (copy), l_KeystoreConstants_0 (copy)
-    local v48 = l_HttpService_0:JSONEncode({
-        server = l_ContentProvider_0.BaseUrl
-    });
-    if l_GetFFlagKeystoreAutoLoginAvailable_0() then
-        return v38(v48);
-    else
-        return l_default_0:deleteAllCredentialsFromiOSKeychain(l_default_0.CredentialsTypes.iosKeychainPassword, v48, l_KeystoreConstants_0.KeystoreTimeout);
-    end;
-end;
-local function v55(v50, v51, _, v53) --[[ Line: 90 ]] --[[ Name: navigateToPostAuthPage ]]
-    -- upvalues: v13 (copy), v33 (copy), v11 (copy), v14 (copy), l_FFlagPreHomePageRoutingEnabled_0 (copy), l_FFlagPasskeyUpsellEnabled_0 (copy), l_HandlePreHomePageRouting_0 (copy)
-    if (if game:GetEngineFeature("SignupActionRequiredKeyAvailable") then v13.getSignupActionRequired() else "") == "auth" then
-        if v33() then
-            v50:dispatch(v11({
-                {
-                    name = v14.AddAuthMethodPage
-                }
-            }));
-            return;
-        else
-            v13.setSignupActionRequired("");
-            v13.flush();
-            v50:dispatch(v11({
-                {
-                    name = v51
-                }
-            }));
-            return;
-        end;
-    elseif l_FFlagPreHomePageRoutingEnabled_0 or l_FFlagPasskeyUpsellEnabled_0 then
-        l_HandlePreHomePageRouting_0(v53, v50, v11):andThen(function(v54) --[[ Line: 104 ]]
-            -- upvalues: v50 (copy), v11 (ref), v51 (copy)
-            if not v54 then
-                v50:dispatch(v11({
-                    {
-                        name = v51
-                    }
-                }));
-            end;
-        end);
-        return;
-    else
-        v50:dispatch(v11({
-            {
-                name = v51
-            }
-        }));
-        return;
-    end;
-end;
-local function _(v56) --[[ Line: 114 ]] --[[ Name: isUserModerated ]]
-    local l_Moderation_0 = v56:getState().Moderation;
-    return l_Moderation_0 and l_Moderation_0.userModerated or false;
-end;
-local function v59(v60, v61, v62, v63, _, v65) --[[ Line: 119 ]] --[[ Name: sessionCheck ]]
-    -- upvalues: l_InvoluntaryLogoutAnalyticsEvents_0 (copy), v44 (copy), v39 (copy), v14 (copy), l_AppStartupSequenceTag_0 (copy), l_AppPrefetch_0 (copy), v40 (copy), v6 (copy), v7 (copy), l_GetFFlagDisableKeystoreUnderageDeletion_0 (copy), v49 (copy), l_KeystoreAnalyticsEvents_0 (copy), l_KeystoreEventConstants_0 (copy), v19 (copy), v18 (copy), v55 (copy), l_GetLocalUser_0 (copy), l_ReceivedUserCountryCode_0 (copy), v13 (copy), l_LocalizationService_0 (copy), v12 (copy), v20 (copy), l_MemStorageService_0 (copy), v15 (copy), v9 (copy), l_GuiService_0 (copy), v17 (copy), l_SetAuthenticationStatus_0 (copy), v16 (copy), l_StatusCodes_0 (copy), v37 (copy), v59 (copy)
-    return function(v66) --[[ Line: 120 ]]
-        -- upvalues: l_InvoluntaryLogoutAnalyticsEvents_0 (ref), v44 (ref), v39 (ref), v60 (copy), v14 (ref), l_AppStartupSequenceTag_0 (ref), l_AppPrefetch_0 (ref), v40 (ref), v62 (copy), v63 (copy), v65 (copy), v6 (ref), v7 (ref), l_GetFFlagDisableKeystoreUnderageDeletion_0 (ref), v49 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), v19 (ref), v18 (ref), v61 (copy), v55 (ref), l_GetLocalUser_0 (ref), l_ReceivedUserCountryCode_0 (ref), v13 (ref), l_LocalizationService_0 (ref), v12 (ref), v20 (ref), l_MemStorageService_0 (ref), v15 (ref), v9 (ref), l_GuiService_0 (ref), v17 (ref), l_SetAuthenticationStatus_0 (ref), v16 (ref), l_StatusCodes_0 (ref), v37 (ref), v59 (ref)
-        local l_Moderation_1 = v66:getState().Moderation;
-        if l_Moderation_1 and l_Moderation_1.userModerated or false then
-            l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, v44.Context.SessionCheckSkippedForModeratedUser);
-            return;
-        else
-            local v68 = v39(v60);
-            l_Moderation_1 = v14.Home;
-            local l_l_AppStartupSequenceTag_0_0 = l_AppStartupSequenceTag_0;
-            local l_l_AppPrefetch_0_0 = l_AppPrefetch_0;
-            local function v71() --[[ Line: 136 ]]
-                -- upvalues: v66 (copy), v40 (ref), v60 (ref), v62 (ref), v63 (ref), v65 (ref), l_l_AppStartupSequenceTag_0_0 (copy), l_l_AppPrefetch_0_0 (copy)
-                return v66:dispatch(v40(v60, v60, v62, v63, v65, l_l_AppStartupSequenceTag_0_0, l_l_AppPrefetch_0_0));
-            end;
-            return v6(v60):andThen(function(v72) --[[ Line: 150 ]]
-                -- upvalues: l_InvoluntaryLogoutAnalyticsEvents_0 (ref), v44 (ref), v7 (ref), l_GetFFlagDisableKeystoreUnderageDeletion_0 (ref), v49 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), v66 (copy), v19 (ref), v18 (ref), v61 (ref), v55 (ref), l_Moderation_1 (copy), v60 (ref), l_GetLocalUser_0 (ref), l_ReceivedUserCountryCode_0 (ref), v68 (copy), v13 (ref), l_LocalizationService_0 (ref), v12 (ref), v20 (ref), l_MemStorageService_0 (ref), v15 (ref), v9 (ref), l_GuiService_0 (ref), v17 (ref), l_SetAuthenticationStatus_0 (ref), v16 (ref)
-                l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, v44.Context.SessionCheckSuccess);
-                local v73 = v7.fromUserInfoRequest(v72);
-                if v73.userId ~= nil and v73.userId ~= -1 and v73.isUnder13 == true and not l_GetFFlagDisableKeystoreUnderageDeletion_0() then
-                    v49():andThen(function() --[[ Line: 164 ]]
-                        -- upvalues: l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), v73 (copy)
-                        l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.underageDelete, (tostring(v73.userId)));
-                    end);
-                end;
-                if v66:getState().CentralOverlay.OverlayType == v19.AccountAuthenticationFailureOverlay then
-                    v66:dispatch(v18());
-                    if v73:isEqual(v61) then
-                        l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, v44.Context.SessionCheckLocalPlayerMatch);
-                        v55(v66, l_Moderation_1, v73, v60);
-                    end;
-                end;
-                if not v73:isEqual(v61) then
-                    l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, v44.Context.SessionCheckLocalPlayerMismatch);
-                    v73:setToLocalPlayer();
-                    v73:setToLocalStorage();
-                    v66:dispatch(l_GetLocalUser_0());
-                    v66:dispatch(l_ReceivedUserCountryCode_0(v73.countryCode));
-                    v55(v66, l_Moderation_1, v73, v60);
-                end;
-                local v74 = {};
-                table.insert(v74, v68:andThen(function(v75) --[[ Line: 201 ]]
-                    -- upvalues: v13 (ref), l_LocalizationService_0 (ref)
-                    v13.setRobloxLocaleId(v75.generalExperienceLocale);
-                    v13.setGameLocaleId(v75.ugcLocale);
-                    l_LocalizationService_0:SetRobloxLocaleId(v75.generalExperienceLocale);
-                end));
-                local v76 = v12(v60, v73.userId);
-                v66:dispatch(v20(v60));
-                local v77 = (if game:GetEngineFeature("SignupActionRequiredKeyAvailable") then v13.getSignupActionRequired() else "") == "auth";
-                table.insert(v74, v76:andThen(function(v78) --[[ Line: 218 ]]
-                    -- upvalues: v13 (ref), v77 (copy), l_MemStorageService_0 (ref), v15 (ref)
-                    v13.setAuthenticatedTheme(v78);
-                    if not v77 then
-                        l_MemStorageService_0:Fire(v15.ThemeUpdate, v78);
-                    end;
-                end));
-                v9.Batch(v74):andThen(function() --[[ Line: 228 ]]
-                    -- upvalues: v13 (ref)
-                    v13.flush();
-                end);
-                local l_v66_0 = v66;
-                l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, v44.Context.SessionCheckDidLogin);
-                l_GuiService_0:BroadcastNotification(v73:toJsonData(), v17.DID_LOG_IN);
-                l_v66_0:dispatch(l_SetAuthenticationStatus_0(v16.LOGGED_IN));
-            end, function(v80) --[[ Line: 232 ]]
-                -- upvalues: l_StatusCodes_0 (ref), l_InvoluntaryLogoutAnalyticsEvents_0 (ref), v44 (ref), l_KeystoreAnalyticsEvents_0 (ref), l_KeystoreEventConstants_0 (ref), v49 (ref), v37 (ref), v66 (copy), v59 (ref), v60 (ref), v61 (ref), v68 (copy), l_Moderation_1 (copy), v71 (copy)
-                if v80.StatusCode == l_StatusCodes_0.UNAUTHORIZED then
-                    l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, v44.Context.SessionCheckUnauthorized);
-                    l_KeystoreAnalyticsEvents_0.sendPageLoadEvent(l_KeystoreEventConstants_0.origin.remoteLogoutDelete);
-                    v49();
-                    return;
-                else
-                    l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v44.Origin.LandingScreen, "ErrorCode: " .. tostring(v80.StatusCode) .. " Msg: " .. tostring(v80));
-                    v37(v66, function() --[[ Line: 247 ]]
-                        -- upvalues: v59 (ref), v60 (ref), v61 (ref), v68 (ref), l_Moderation_1 (ref), v71 (ref)
-                        v59(v60, v61, v68, true, l_Moderation_1, v71);
-                    end);
-                    return;
-                end;
-            end);
-        end;
-    end;
-end;
-return v59;
+local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local MemStorageService = game:GetService("MemStorageService")
+local GuiService = game:GetService("GuiService")
+local LocalizationService = game:GetService("LocalizationService")
+local Modules = CoreGui.RobloxGui.Modules
+local GetUserAppLaunchInfo = require(Modules.LuaApp.Http.Requests.GetUserAppLaunchInfo)
+local User = require(script.Parent.User)
+local GetLocalUser = require(CorePackages.Workspace.Packages.UserLib).Thunks.GetLocalUser
+local PromiseUtilities = require(Modules.LuaApp.PromiseUtilities)
+local SetAuthenticationStatus = require(CorePackages.Workspace.Packages.AuthenticationStatus).Actions.SetAuthenticationStatus
+local ResetNavigationHistory = require(Modules.LuaApp.Thunks.ResetNavigationHistory)
+local FetchTheme = require(Modules.LuaApp.Thunks.FetchTheme)
+local AppStorageUtilities = require(script.Parent.AppStorageUtilities)
+local AppPage = require(Modules.LuaApp.AppPage)
+local MemStorageKeys = require(Modules.LuaApp.Enum.MemStorageKeys)
+local LoginStatus = require(Modules.LuaApp.Enum.LoginStatus)
+local NotificationType = require(Modules.LuaApp.Enum.NotificationType)
+local CloseAccountAuthenticationFailureOverlay = require(Modules.LuaApp.Thunks.CloseAccountAuthenticationFailureOverlay)
+local OverlayType = require(Modules.LuaApp.Enum.OverlayType)
+local ApiFetchUsersRoles = require(Modules.LuaApp.Thunks.ApiFetchUsersRoles)
+local ReceivedUserCountryCode = require(CorePackages.Workspace.Packages.CountryCode).ReceivedUserCountryCode
+local HttpService = game:GetService("HttpService")
+local default = require(CorePackages.Workspace.Packages.CredentialsProtocol).CredentialsProtocol.default
+local ContentProvider = game:GetService("ContentProvider")
+local AuthCommon = require(CorePackages.Workspace.Packages.AuthCommon)
+local KeystoreAnalyticsEvents = AuthCommon.Analytics.KeystoreAnalyticsEvents
+local KeystoreEventConstants = AuthCommon.Analytics.KeystoreEventConstants
+local KeystoreConstants = AuthCommon.Common.KeystoreConstants
+local HandlePreHomePageRouting = require(CorePackages.Workspace.Packages.PreHomePage).HandlePreHomePageRouting
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagPreHomePageRoutingEnabled = SharedFlags.FFlagPreHomePageRoutingEnabled
+local FFlagPasskeyUpsellEnabled = SharedFlags.FFlagPasskeyUpsellEnabled
+local GetFFlagEnableMultiPageSignupExperiment = require(Modules.LuaApp.Flags.GetFFlagEnableMultiPageSignupExperiment)
+local StatusCodes = require(CorePackages.Workspace.Packages.Http).StatusCodes
+local GetFFlagKeystoreAutoLoginAvailable = SharedFlags.GetFFlagKeystoreAutoLoginAvailable
+local GetFFlagDisableKeystoreUnderageDeletion = SharedFlags.GetFFlagDisableKeystoreUnderageDeletion
+local GetFFlagAddPromCounterToKeystoreOps = SharedFlags.GetFFlagAddPromCounterToKeystoreOps
+local TelemetryService = game:GetService("TelemetryService")
+local KeystoreDeleteCredentialsTelemetryConfig = require(CorePackages.Workspace.Packages.AuthAnalytics).TelemetryConfigs.KeystoreDeleteCredentialsTelemetryConfig
+local ShowAccountAuthenticationFailureOverlay = require(Modules.LuaApp.Thunks.Authentication.ShowAccountAuthenticationFailureOverlay)
+local DeleteAllCredentialsFromKeystore = require(Modules.LuaApp.Thunks.Authentication.DeleteAllCredentialsFromKeystore)
+local FetchLocale = require(Modules.LuaApp.Thunks.FetchLocale)
+local PreloadApplicationData = require(Modules.LuaApp.Thunks.PreloadApplicationData)
+local AppStartupSequenceTag = require(CorePackages.Workspace.Packages.RoactServiceTags).AppStartupSequenceTag
+local AppPrefetch = require(CorePackages.Workspace.Packages.RoactServiceTags).AppPrefetch
+local InvoluntaryLogoutAnalyticsEvents = AuthCommon.Analytics.InvoluntaryLogoutAnalyticsEvents
+local EventStreamConstants = require(Modules.LuaApp.EventStreamConstants)
+
+local function v49() -- line: 78
+	-- upvalues: HttpService (copy), ContentProvider (copy), GetFFlagKeystoreAutoLoginAvailable (copy), DeleteAllCredentialsFromKeystore (copy), default (copy), KeystoreConstants (copy)
+	local json = HttpService:JSONEncode({
+		server = ContentProvider.BaseUrl
+	})
+
+	if GetFFlagKeystoreAutoLoginAvailable() then
+		return DeleteAllCredentialsFromKeystore(json)
+	end
+
+	return default:deleteAllCredentialsFromiOSKeychain(default.CredentialsTypes.iosKeychainPassword, json, KeystoreConstants.KeystoreTimeout)
+end
+local function navigateToPostAuthPage(p1, p2, _, p4) -- line: 94
+	-- upvalues: AppStorageUtilities (copy), GetFFlagEnableMultiPageSignupExperiment (copy), ResetNavigationHistory (copy), AppPage (copy), FFlagPreHomePageRoutingEnabled (copy), FFlagPasskeyUpsellEnabled (copy), HandlePreHomePageRouting (copy)
+	if (not game:GetEngineFeature("SignupActionRequiredKeyAvailable") and "" or AppStorageUtilities.getSignupActionRequired()) == "auth" then
+		if GetFFlagEnableMultiPageSignupExperiment() then
+			p1:dispatch(ResetNavigationHistory({{
+				name = AppPage.AddAuthMethodPage
+			}}))
+
+			return
+		end
+
+		AppStorageUtilities.setSignupActionRequired("")
+		AppStorageUtilities.flush()
+		p1:dispatch(ResetNavigationHistory({{
+			name = p2
+		}}))
+
+		return
+	end
+
+	if FFlagPreHomePageRoutingEnabled or FFlagPasskeyUpsellEnabled then
+		HandlePreHomePageRouting(p4, p1, ResetNavigationHistory):andThen(function(p5) -- line: 108
+			-- upvalues: p1 (copy), ResetNavigationHistory (copy), p2 (copy)
+			if not p5 then
+				p1:dispatch(ResetNavigationHistory({{
+					name = p2
+				}}))
+			end
+		end)
+
+		return
+	end
+
+	p1:dispatch(ResetNavigationHistory({{
+		name = p2
+	}}))
+end
+local function sessionCheck(p6, p7, p8, p9, _, p11) -- line: 123
+	-- upvalues: InvoluntaryLogoutAnalyticsEvents (copy), EventStreamConstants (copy), FetchLocale (copy), AppPage (copy), AppStartupSequenceTag (copy), AppPrefetch (copy), PreloadApplicationData (copy), GetUserAppLaunchInfo (copy), User (copy), GetFFlagDisableKeystoreUnderageDeletion (copy), v49 (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), OverlayType (copy), CloseAccountAuthenticationFailureOverlay (copy), navigateToPostAuthPage (copy), GetLocalUser (copy), ReceivedUserCountryCode (copy), AppStorageUtilities (copy), LocalizationService (copy), FetchTheme (copy), ApiFetchUsersRoles (copy), MemStorageService (copy), MemStorageKeys (copy), PromiseUtilities (copy), GuiService (copy), NotificationType (copy), SetAuthenticationStatus (copy), LoginStatus (copy), StatusCodes (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreDeleteCredentialsTelemetryConfig (copy), ShowAccountAuthenticationFailureOverlay (copy), sessionCheck (copy)
+	return function(p12) -- line: 124
+		-- upvalues: InvoluntaryLogoutAnalyticsEvents (copy), EventStreamConstants (copy), FetchLocale (copy), p6 (copy), AppPage (copy), AppStartupSequenceTag (copy), AppPrefetch (copy), PreloadApplicationData (copy), p8 (copy), p9 (copy), p11 (copy), GetUserAppLaunchInfo (copy), User (copy), GetFFlagDisableKeystoreUnderageDeletion (copy), v49 (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), OverlayType (copy), CloseAccountAuthenticationFailureOverlay (copy), p7 (copy), navigateToPostAuthPage (copy), GetLocalUser (copy), ReceivedUserCountryCode (copy), AppStorageUtilities (copy), LocalizationService (copy), FetchTheme (copy), ApiFetchUsersRoles (copy), MemStorageService (copy), MemStorageKeys (copy), PromiseUtilities (copy), GuiService (copy), NotificationType (copy), SetAuthenticationStatus (copy), LoginStatus (copy), StatusCodes (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreDeleteCredentialsTelemetryConfig (copy), ShowAccountAuthenticationFailureOverlay (copy), sessionCheck (copy)
+		local Moderation = p12:getState().Moderation
+
+		if not not Moderation and (Moderation.userModerated or false) then
+			InvoluntaryLogoutAnalyticsEvents.sendImmediatelyPageLoadEvent(EventStreamConstants.Origin.LandingScreen, EventStreamConstants.Context.SessionCheckSkippedForModeratedUser)
+
+			return
+		end
+
+		local v70 = FetchLocale(p6)
+		local Home = AppPage.Home
+		local v72 = AppStartupSequenceTag
+		local v73 = AppPrefetch
+
+		local function v74() -- line: 140
+			-- upvalues: p12 (copy), PreloadApplicationData (copy), p6 (copy), p8 (copy), p9 (copy), p11 (copy), v72 (copy), v73 (copy)
+			return p12:dispatch(PreloadApplicationData(p6, p6, p8, p9, p11, v72, v73))
+		end
+
+		return GetUserAppLaunchInfo(p6):andThen(function(p13) -- line: 154
+			-- upvalues: InvoluntaryLogoutAnalyticsEvents (copy), EventStreamConstants (copy), User (copy), GetFFlagDisableKeystoreUnderageDeletion (copy), v49 (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), p12 (copy), OverlayType (copy), CloseAccountAuthenticationFailureOverlay (copy), p7 (copy), navigateToPostAuthPage (copy), Home (copy), p6 (copy), GetLocalUser (copy), ReceivedUserCountryCode (copy), v70 (copy), AppStorageUtilities (copy), LocalizationService (copy), FetchTheme (copy), ApiFetchUsersRoles (copy), MemStorageService (copy), MemStorageKeys (copy), PromiseUtilities (copy), GuiService (copy), NotificationType (copy), SetAuthenticationStatus (copy), LoginStatus (copy)
+			InvoluntaryLogoutAnalyticsEvents.sendImmediatelyPageLoadEvent(EventStreamConstants.Origin.LandingScreen, EventStreamConstants.Context.SessionCheckSuccess)
+
+			local v76 = User.fromUserInfoRequest(p13)
+
+			if v76.userId ~= nil and (v76.userId ~= -1 and v76.isUnder13 == true and not GetFFlagDisableKeystoreUnderageDeletion()) then
+				v49():andThen(function() -- line: 168
+					-- upvalues: KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), v76 (copy)
+					KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.underageDelete, (tostring(v76.userId)))
+				end)
+			end
+
+			if p12:getState().CentralOverlay.OverlayType == OverlayType.AccountAuthenticationFailureOverlay then
+				p12:dispatch(CloseAccountAuthenticationFailureOverlay())
+
+				if v76:isEqual(p7) then
+					InvoluntaryLogoutAnalyticsEvents.sendImmediatelyPageLoadEvent(EventStreamConstants.Origin.LandingScreen, EventStreamConstants.Context.SessionCheckLocalPlayerMatch)
+					navigateToPostAuthPage(p12, Home, v76, p6)
+				end
+			end
+
+			if not v76:isEqual(p7) then
+				InvoluntaryLogoutAnalyticsEvents.sendImmediatelyPageLoadEvent(EventStreamConstants.Origin.LandingScreen, EventStreamConstants.Context.SessionCheckLocalPlayerMismatch)
+				v76:setToLocalPlayer()
+				v76:setToLocalStorage()
+				p12:dispatch(GetLocalUser())
+				p12:dispatch(ReceivedUserCountryCode(v76.countryCode))
+				navigateToPostAuthPage(p12, Home, v76, p6)
+			end
+
+			local t1 = {}
+
+			table.insert(t1, v70:andThen(function(p14) -- line: 205
+				-- upvalues: AppStorageUtilities (copy), LocalizationService (copy)
+				AppStorageUtilities.setRobloxLocaleId(p14.generalExperienceLocale)
+				AppStorageUtilities.setGameLocaleId(p14.ugcLocale)
+				LocalizationService:SetRobloxLocaleId(p14.generalExperienceLocale)
+			end))
+
+			local v78 = FetchTheme(p6, v76.userId)
+
+			p12:dispatch(ApiFetchUsersRoles(p6))
+
+			local v79 = (not game:GetEngineFeature("SignupActionRequiredKeyAvailable") and "" or AppStorageUtilities.getSignupActionRequired()) == "auth"
+
+			table.insert(t1, v78:andThen(function(p15) -- line: 222
+				-- upvalues: AppStorageUtilities (copy), v79 (copy), MemStorageService (copy), MemStorageKeys (copy)
+				AppStorageUtilities.setAuthenticatedTheme(p15)
+
+				if not v79 then
+					MemStorageService:Fire(MemStorageKeys.ThemeUpdate, p15)
+				end
+			end))
+			PromiseUtilities.Batch(t1):andThen(function() -- line: 232
+				-- upvalues: AppStorageUtilities (copy)
+				AppStorageUtilities.flush()
+			end)
+
+			local v80 = p12
+
+			InvoluntaryLogoutAnalyticsEvents.sendImmediatelyPageLoadEvent(EventStreamConstants.Origin.LandingScreen, EventStreamConstants.Context.SessionCheckDidLogin)
+			GuiService:BroadcastNotification(v76:toJsonData(), NotificationType.DID_LOG_IN)
+			v80:dispatch(SetAuthenticationStatus(LoginStatus.LOGGED_IN))
+		end, function(p16) -- line: 236
+			-- upvalues: StatusCodes (copy), InvoluntaryLogoutAnalyticsEvents (copy), EventStreamConstants (copy), KeystoreAnalyticsEvents (copy), KeystoreEventConstants (copy), GetFFlagAddPromCounterToKeystoreOps (copy), TelemetryService (copy), KeystoreDeleteCredentialsTelemetryConfig (copy), v49 (copy), ShowAccountAuthenticationFailureOverlay (copy), p12 (copy), sessionCheck (copy), p6 (copy), p7 (copy), v70 (copy), Home (copy), v74 (copy)
+			if p16.StatusCode == StatusCodes.UNAUTHORIZED then
+				InvoluntaryLogoutAnalyticsEvents.sendImmediatelyPageLoadEvent(EventStreamConstants.Origin.LandingScreen, EventStreamConstants.Context.SessionCheckUnauthorized)
+				KeystoreAnalyticsEvents.sendPageLoadEvent(KeystoreEventConstants.origin.remoteLogoutDelete)
+
+				if GetFFlagAddPromCounterToKeystoreOps() then
+					TelemetryService:LogCounter(KeystoreDeleteCredentialsTelemetryConfig, {
+						customFields = {
+							reason = "remote_logout"
+						}
+					}, 1)
+				end
+
+				v49()
+
+				return
+			end
+
+			InvoluntaryLogoutAnalyticsEvents.sendImmediatelyPageLoadEvent(EventStreamConstants.Origin.LandingScreen, "ErrorCode: " .. tostring(p16.StatusCode) .. " Msg: " .. tostring(p16))
+			ShowAccountAuthenticationFailureOverlay(p12, function() -- line: 258
+				-- upvalues: sessionCheck (copy), p6 (copy), p7 (copy), v70 (copy), Home (copy), v74 (copy)
+				sessionCheck(p6, p7, v70, true, Home, v74)
+			end)
+		end)
+	end
+end
+
+return sessionCheck

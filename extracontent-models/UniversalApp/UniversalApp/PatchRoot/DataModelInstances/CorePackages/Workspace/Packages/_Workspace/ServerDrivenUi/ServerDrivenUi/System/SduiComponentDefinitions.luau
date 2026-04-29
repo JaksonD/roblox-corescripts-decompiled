@@ -1,1052 +1,1115 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ServerDrivenUi");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Cryo);
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.Foundation);
-local v5 = require(l_Parent_0.t);
-local l_CollectionItemSize_0 = require(l_Parent_0.CollectionViews).CollectionViewTypes.CollectionItemSize;
-local v7 = require(l_script_FirstAncestor_0.Content.Collections.ItemHeightMode);
-local v8 = require(l_Parent_0.SduiCoreSystem);
-local l_SduiComponentType_0 = v8.SduiComponentType;
-local l_SduiParsers_0 = v8.SduiParsers;
-local l_FFlagSduiExperienceDetailsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiExperienceDetailsSupport;
-local l_FFlagLuaAppResetHoverOnSduiPlayButtonActivation_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppResetHoverOnSduiPlayButtonActivation;
-local l_parseCallbackProp__0 = l_SduiParsers_0.parseCallbackProp_;
-local l_parseUiComponentProp__0 = l_SduiParsers_0.parseUiComponentProp_;
-local l_parseLazyUiComponentProp__0 = l_SduiParsers_0.parseLazyUiComponentProp_;
-local l_parseIntegerProp__0 = l_SduiParsers_0.parseIntegerProp_;
-local l_parseNumberProp__0 = l_SduiParsers_0.parseNumberProp_;
-local l_parseUDim2Prop__0 = l_SduiParsers_0.parseUDim2Prop_;
-local l_parseUDimProp__0 = l_SduiParsers_0.parseUDimProp_;
-local l_parseImageStringProp__0 = l_SduiParsers_0.parseImageStringProp_;
-local l_parseVector2Prop__0 = l_SduiParsers_0.parseVector2Prop_;
-local l_parseColor3Prop__0 = l_SduiParsers_0.parseColor3Prop_;
-local l_parseBooleanProp__0 = l_SduiParsers_0.parseBooleanProp_;
-local l_parseGradientProp__0 = l_SduiParsers_0.parseGradientProp_;
-local l_parseIconProp__0 = l_SduiParsers_0.parseIconProp_;
-local l_parseTypographyTokenProp__0 = l_SduiParsers_0.parseTypographyTokenProp_;
-local l_parseColorTokenProp__0 = l_SduiParsers_0.parseColorTokenProp_;
-local l_parseImageSetOrImageProp__0 = l_SduiParsers_0.parseImageSetOrImageProp_;
-local l_parseStringProp__0 = l_SduiParsers_0.parseStringProp_;
-local l_parseFocusNavActionsProp__0 = l_SduiParsers_0.parseFocusNavActionsProp_;
-local l_getArrayMetatableParser_0 = l_SduiParsers_0.getArrayMetatableParser;
-local l_getEngineEnumParser_0 = l_SduiParsers_0.getEngineEnumParser;
-local l_getLuaTableEnumParser_0 = l_SduiParsers_0.getLuaTableEnumParser;
-local v34 = game:DefineFastFlag("SduiBadgeComponent", false);
-local l_FFlagSduiTileDisableLegacyHover_0 = require(l_script_FirstAncestor_0.Flags).FFlagSduiTileDisableLegacyHover;
-local l_FFlagSduiEnableHeroUnitBottomRow_0 = require(l_script_FirstAncestor_0.Flags).FFlagSduiEnableHeroUnitBottomRow;
-local l_FFlagSduiEnableAssociatedItemsRow_0 = require(l_Parent_0.SharedFlags).FFlagSduiEnableAssociatedItemsRow;
-local l_FFlagSduiEnableChips_0 = require(l_Parent_0.SharedFlags).FFlagSduiEnableChips;
-local l_FFlagLuaAppSduiExperienceDetailsComponents_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSduiExperienceDetailsComponents;
-local l_FFlagLuaAppSduiBadgeDetailsComponents_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSduiBadgeDetailsComponents;
-local l_FFlagSduiAttributionRowV2_0 = require(l_Parent_0.SharedFlags).FFlagSduiAttributionRowV2;
-local l_FFlagSduiPropMapping_0 = require(l_Parent_0.SharedFlags).FFlagSduiPropMapping;
-local l_FFlagSduiServerCompat_0 = require(l_Parent_0.SharedFlags).FFlagSduiServerCompat;
-local l_FFlagSduiExperienceDetailsSocialProof_0 = require(l_Parent_0.SharedFlags).FFlagSduiExperienceDetailsSocialProof;
-local l_FFlagSduiChipAccessoryProps_0 = require(l_Parent_0.SharedFlags).FFlagSduiChipAccessoryProps;
-local l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 = require(l_Parent_0.SharedFlags).FFlagAddItemHeightModeToSduiCollectionCarousel;
-local l_FFlagSduiOverflowMenuComponent_0 = require(l_Parent_0.SharedFlags).FFlagSduiOverflowMenuComponent;
-local l_FFlagSduiImpressionHandlerRegistry_0 = require(l_Parent_0.SharedFlags).FFlagSduiImpressionHandlerRegistry;
-local l_FFlagSduiCarouselHoverFixes_0 = require(l_Parent_0.SharedFlags).FFlagSduiCarouselHoverFixes;
-local l_FFlagSduiChartsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiChartsSupport;
-local v51 = {};
-local v52 = {};
-v52.__index = v52;
-v52.new = function() --[[ Line: 81 ]] --[[ Name: new ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), l_parseVector2Prop__0 (copy), l_getEngineEnumParser_0 (copy), l_parseColor3Prop__0 (copy), l_parseNumberProp__0 (copy), l_parseIntegerProp__0 (copy), l_parseUDim2Prop__0 (copy), v2 (copy), l_parseBooleanProp__0 (copy), l_parseStringProp__0 (copy), l_SduiComponentType_0 (copy), l_Parent_0 (copy), l_FFlagSduiAttributionRowV2_0 (copy), l_parseCallbackProp__0 (copy), l_parseUiComponentProp__0 (copy), l_parseTypographyTokenProp__0 (copy), l_parseColorTokenProp__0 (copy), l_getLuaTableEnumParser_0 (copy), v4 (copy), l_parseImageStringProp__0 (copy), v5 (copy), l_parseIconProp__0 (copy), l_parseUDimProp__0 (copy), l_script_FirstAncestor_0 (copy), l_CollectionItemSize_0 (copy), l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (copy), v7 (copy), l_getArrayMetatableParser_0 (copy), l_parseLazyUiComponentProp__0 (copy), l_FFlagSduiImpressionHandlerRegistry_0 (copy), l_FFlagSduiCarouselHoverFixes_0 (copy), l_parseFocusNavActionsProp__0 (copy), v3 (copy), l_parseGradientProp__0 (copy), l_FFlagSduiPropMapping_0 (copy), l_FFlagLuaAppSduiBadgeDetailsComponents_0 (copy), l_FFlagLuaAppResetHoverOnSduiPlayButtonActivation_0 (copy), l_parseImageSetOrImageProp__0 (copy), l_FFlagSduiTileDisableLegacyHover_0 (copy), l_FFlagSduiEnableHeroUnitBottomRow_0 (copy), l_FFlagSduiEnableChips_0 (copy), l_FFlagSduiChipAccessoryProps_0 (copy), l_FFlagSduiEnableAssociatedItemsRow_0 (copy), l_FFlagLuaAppSduiExperienceDetailsComponents_0 (copy), l_FFlagSduiExperienceDetailsSocialProof_0 (copy), l_FFlagSduiChartsSupport_0 (copy), v34 (copy), l_FFlagSduiExperienceDetailsSupport_0 (copy), l_FFlagSduiOverflowMenuComponent_0 (copy), v52 (copy)
-    local v53 = if l_FFlagSduiServerCompat_0 then {
-        anchorPoint = l_parseVector2Prop__0, 
-        automaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
-        backgroundColor3 = l_parseColor3Prop__0, 
-        backgroundTransparency = l_parseNumberProp__0, 
-        layoutOrder = l_parseIntegerProp__0, 
-        position = l_parseUDim2Prop__0, 
-        size = l_parseUDim2Prop__0, 
-        zIndex = l_parseNumberProp__0
-    } else {
-        AnchorPoint = l_parseVector2Prop__0, 
-        AutomaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
-        BackgroundColor3 = l_parseColor3Prop__0, 
-        BackgroundTransparency = l_parseNumberProp__0, 
-        LayoutOrder = l_parseIntegerProp__0, 
-        Position = l_parseUDim2Prop__0, 
-        Size = l_parseUDim2Prop__0, 
-        ZIndex = l_parseNumberProp__0
-    };
-    local v54 = if l_FFlagSduiServerCompat_0 then v2.Dictionary.union({
-        richText = l_parseBooleanProp__0, 
-        text = l_parseStringProp__0, 
-        textTruncate = l_getEngineEnumParser_0(Enum.TextTruncate), 
-        textWrapped = l_parseBooleanProp__0, 
-        textXAlignment = l_getEngineEnumParser_0(Enum.TextXAlignment), 
-        textYAlignment = l_getEngineEnumParser_0(Enum.TextYAlignment)
-    }, v53) else v2.Dictionary.union({
-        RichText = l_parseBooleanProp__0, 
-        Text = l_parseStringProp__0, 
-        TextTruncate = l_getEngineEnumParser_0(Enum.TextTruncate), 
-        TextWrapped = l_parseBooleanProp__0, 
-        TextXAlignment = l_getEngineEnumParser_0(Enum.TextXAlignment), 
-        TextYAlignment = l_getEngineEnumParser_0(Enum.TextYAlignment)
-    }, v53);
-    local v55 = {
-        columnGap = l_parseNumberProp__0, 
-        sideMargin = l_parseNumberProp__0, 
-        numColumns = l_parseNumberProp__0, 
-        fractionalItemAmount = l_parseNumberProp__0, 
-        loadMoreThreshold = l_parseNumberProp__0, 
-        verticalGap = l_parseNumberProp__0
-    };
-    local v56 = {
-        _registeredComponents = {
-            [l_SduiComponentType_0.AttributionRow] = {
-                component = require(l_Parent_0.SduiSharedContent).SduiAttributionRow, 
-                propParsers = {
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 and l_FFlagSduiAttributionRowV2_0 then l_parseUDim2Prop__0 else nil, 
-                    onActivated = l_parseCallbackProp__0, 
-                    rightButtonContent = l_parseUiComponentProp__0, 
-                    title = if l_FFlagSduiAttributionRowV2_0 then l_parseStringProp__0 else nil, 
-                    titleFontStyle = if l_FFlagSduiAttributionRowV2_0 then l_parseTypographyTokenProp__0 else nil, 
-                    titleTextColor = if l_FFlagSduiAttributionRowV2_0 then l_parseColorTokenProp__0 else nil, 
-                    subtitle = if l_FFlagSduiAttributionRowV2_0 then l_parseStringProp__0 else nil, 
-                    subtitleFontStyle = if l_FFlagSduiAttributionRowV2_0 then l_parseTypographyTokenProp__0 else nil, 
-                    subtitleTextColor = if l_FFlagSduiAttributionRowV2_0 then l_parseColor3Prop__0 else nil, 
-                    subtitleIconName = if l_FFlagSduiAttributionRowV2_0 then l_getLuaTableEnumParser_0(v4.Enums.IconName, "string") else nil, 
-                    subtitleIconSize = if l_FFlagSduiAttributionRowV2_0 then l_getLuaTableEnumParser_0(v4.Enums.IconSize, "string") else nil, 
-                    subtitleIconStyle = if l_FFlagSduiAttributionRowV2_0 then l_parseColorTokenProp__0 else nil, 
-                    subtitleIconVariant = if l_FFlagSduiAttributionRowV2_0 then l_getLuaTableEnumParser_0(v4.Enums.IconVariant, "string") else nil, 
-                    subtitleBackgroundIconName = if l_FFlagSduiAttributionRowV2_0 then l_getLuaTableEnumParser_0(v4.Enums.IconName, "string") else nil, 
-                    subtitleBackgroundIconStyle = if l_FFlagSduiAttributionRowV2_0 then l_parseColorTokenProp__0 else nil, 
-                    subtitleOnActivated = if l_FFlagSduiAttributionRowV2_0 then l_parseCallbackProp__0 else nil, 
-                    caption = if l_FFlagSduiAttributionRowV2_0 then l_parseStringProp__0 else nil, 
-                    captionTextColor = if l_FFlagSduiAttributionRowV2_0 then l_parseColorTokenProp__0 else nil, 
-                    captionFontStyle = if l_FFlagSduiAttributionRowV2_0 then l_parseTypographyTokenProp__0 else nil, 
-                    textContainerSize = if l_FFlagSduiAttributionRowV2_0 then l_parseUDim2Prop__0 else nil, 
-                    image = l_parseImageStringProp__0, 
-                    imageSize = if l_FFlagSduiAttributionRowV2_0 then l_parseUDim2Prop__0 else nil, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 and l_FFlagSduiAttributionRowV2_0 then l_parseUDim2Prop__0 else nil
-                }, 
-                propInterface = if l_FFlagSduiAttributionRowV2_0 then {
-                    title = v5.string, 
-                    subtitle = v5.string
-                } else nil
-            }, 
-            [l_SduiComponentType_0.Button] = {
-                component = if l_FFlagSduiServerCompat_0 then require(l_Parent_0.SduiSharedContent).SduiButton else require(l_Parent_0.Foundation).Button, 
-                propParsers = if l_FFlagSduiServerCompat_0 then {
-                    anchorPoint = l_parseVector2Prop__0, 
-                    cursorType = l_getLuaTableEnumParser_0(v4.Enums.CursorType, "string"), 
-                    fillBehavior = l_getLuaTableEnumParser_0(v4.Enums.FillBehavior, "string"), 
-                    icon = l_parseIconProp__0, 
-                    inputDelay = l_parseNumberProp__0, 
-                    isDisabled = l_parseBooleanProp__0, 
-                    isLoading = l_parseBooleanProp__0, 
-                    layoutOrder = l_parseIntegerProp__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    position = l_parseUDim2Prop__0, 
-                    selectable = l_parseBooleanProp__0, 
-                    size = l_getLuaTableEnumParser_0(v4.Enums.InputSize, "string"), 
-                    tag = l_parseStringProp__0, 
-                    testId = l_parseStringProp__0, 
-                    text = l_parseStringProp__0, 
-                    variant = l_getLuaTableEnumParser_0(v4.Enums.ButtonVariant, "string"), 
-                    visible = l_parseBooleanProp__0, 
-                    width = l_parseUDimProp__0, 
-                    zIndex = l_parseNumberProp__0
-                } else {
-                    AnchorPoint = l_parseVector2Prop__0, 
-                    LayoutOrder = l_parseIntegerProp__0, 
-                    Position = l_parseUDim2Prop__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    width = l_parseUDimProp__0
-                }
-            }, 
-            [l_SduiComponentType_0.CollectionCarousel] = {
-                component = require(l_script_FirstAncestor_0.Content.Collections.SduiCollectionCarousel), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    collectionItemSize = l_getLuaTableEnumParser_0(l_CollectionItemSize_0, "string"), 
-                    itemHeightFromWidth = l_parseUDimProp__0, 
-                    headerComponent = l_parseUiComponentProp__0, 
-                    itemHeightMode = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then l_getLuaTableEnumParser_0(v7, "string") else nil, 
-                    layoutOverrides = v55, 
-                    scrollingEnabledOverride = l_parseBooleanProp__0, 
-                    maxItemsToShow = l_parseNumberProp__0, 
-                    shouldUseFrameBoundsForImpressions = l_parseBooleanProp__0, 
-                    backgroundMuralUrl = l_parseImageStringProp__0, 
-                    onScrollToEnd = l_parseCallbackProp__0, 
-                    scrollThresholdFromEnd = l_parseNumberProp__0, 
-                    itemTemplateKey = l_parseStringProp__0, 
-                    focusNavActionsComponent = l_parseUiComponentProp__0, 
-                    disableSelectionOrder = l_parseBooleanProp__0, 
-                    numItemsToRenderOffScreen = l_parseNumberProp__0, 
-                    items = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
-                    impressionEventName = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseStringProp__0 else nil, 
-                    skipItemImpressionsLog = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseBooleanProp__0 else nil, 
-                    enableHoverOverflow = if l_FFlagSduiCarouselHoverFixes_0 then l_parseBooleanProp__0 else nil, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.CollectionGrid] = {
-                component = require(l_script_FirstAncestor_0.Content.Collections.SduiCollectionGrid), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    bufferRowsBelowScreen = l_parseNumberProp__0, 
-                    bufferRowsAboveScreen = l_parseNumberProp__0, 
-                    collectionItemSize = l_getLuaTableEnumParser_0(l_CollectionItemSize_0, "string"), 
-                    disableRelativeGap = l_parseBooleanProp__0, 
-                    focusNavActionsComponent = l_parseUiComponentProp__0, 
-                    headerComponent = l_parseUiComponentProp__0, 
-                    itemHeightFromWidth = l_parseUDimProp__0, 
-                    itemTemplateKey = l_parseStringProp__0, 
-                    layoutOverrides = v55, 
-                    maxNumRows = l_parseNumberProp__0, 
-                    shouldUseFrameBoundsForImpressions = l_parseBooleanProp__0, 
-                    disableSelectionOrder = l_parseBooleanProp__0, 
-                    items = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
-                    thresholdRowsFromBottom = l_parseNumberProp__0, 
-                    onReachedThresholdFromEnd = l_parseCallbackProp__0, 
-                    impressionEventName = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseStringProp__0 else nil, 
-                    skipItemImpressionsLog = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseBooleanProp__0 else nil, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
-                }, 
-                propInterface = {
-                    itemHeightFromWidth = v5.UDim
-                }
-            }, 
-            [l_SduiComponentType_0.Dialog] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiDialog), 
-                propParsers = {
-                    size = l_getLuaTableEnumParser_0(v4.Enums.DialogSize, "string"), 
-                    image = l_parseStringProp__0, 
-                    imageAspectRatio = l_parseNumberProp__0, 
-                    titleText = l_parseStringProp__0, 
-                    bodyText = l_parseStringProp__0, 
-                    bodyComponent = l_parseUiComponentProp__0, 
-                    actionsLabel = l_parseStringProp__0, 
-                    actionsOrientation = l_getLuaTableEnumParser_0(v4.Enums.Orientation, "string"), 
-                    primaryButtonAction = l_parseCallbackProp__0, 
-                    primaryButtonText = l_parseStringProp__0, 
-                    primaryButtonIcon = l_parseIconProp__0, 
-                    primaryButtonInputDelay = l_parseNumberProp__0, 
-                    primaryButtonSideEffectAction = l_parseCallbackProp__0, 
-                    secondaryButtonAction = l_parseCallbackProp__0, 
-                    secondaryButtonText = l_parseStringProp__0, 
-                    secondaryButtonIcon = l_parseIconProp__0, 
-                    secondaryButtonInputDelay = l_parseNumberProp__0, 
-                    secondaryButtonSideEffectAction = l_parseCallbackProp__0, 
-                    onClose = l_parseCallbackProp__0, 
-                    disablePortal = l_parseBooleanProp__0, 
-                    hasBackdrop = l_parseBooleanProp__0
-                }
-            }, 
-            [l_SduiComponentType_0.Divider] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiDivider), 
-                propParsers = if l_FFlagSduiServerCompat_0 then {
-                    anchorPoint = l_parseVector2Prop__0, 
-                    backgroundColor3 = l_parseColor3Prop__0, 
-                    position = l_parseUDim2Prop__0, 
-                    size = l_parseUDim2Prop__0
-                } else {
-                    AnchorPoint = l_parseVector2Prop__0, 
-                    BackgroundColor3 = l_parseColor3Prop__0, 
-                    Position = l_parseUDim2Prop__0, 
-                    Size = l_parseUDim2Prop__0
-                }
-            }, 
-            [l_SduiComponentType_0.FocusNavActions] = {
-                component = require(l_script_FirstAncestor_0.FocusNavigation.SduiFocusNavActions), 
-                propParsers = {
-                    focusNavActions = l_parseFocusNavActionsProp__0
-                }, 
-                propInterface = {
-                    focusNavActions = v5.table
-                }
-            }, 
-            [l_SduiComponentType_0.Fragment] = {
-                component = v3.Fragment
-            }, 
-            [l_SduiComponentType_0.GameTileActiveFriendsFooter] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiGameTileActiveFriendsFooter), 
-                propParsers = if l_FFlagSduiServerCompat_0 then {
-                    anchorPoint = l_parseVector2Prop__0, 
-                    automaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
-                    backgroundColor3 = l_parseColor3Prop__0, 
-                    layoutOrder = l_parseIntegerProp__0, 
-                    position = l_parseUDim2Prop__0, 
-                    size = l_parseUDim2Prop__0, 
-                    zIndex = l_parseNumberProp__0, 
-                    universeId = l_parseStringProp__0, 
-                    iconWidth = l_parseNumberProp__0, 
-                    maxAvatars = l_parseNumberProp__0, 
-                    onActivated = l_parseCallbackProp__0
-                } else {
-                    AnchorPoint = l_parseVector2Prop__0, 
-                    AutomaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
-                    BackgroundColor3 = l_parseColor3Prop__0, 
-                    LayoutOrder = l_parseIntegerProp__0, 
-                    Position = l_parseUDim2Prop__0, 
-                    Size = l_parseUDim2Prop__0, 
-                    ZIndex = l_parseNumberProp__0, 
-                    universeId = l_parseStringProp__0, 
-                    iconWidth = l_parseNumberProp__0, 
-                    maxAvatars = l_parseNumberProp__0, 
-                    onActivated = l_parseCallbackProp__0
-                }, 
-                propInterface = {
-                    universeId = v5.union(v5.string, v5.number)
-                }
-            }, 
-            [l_SduiComponentType_0.HeroUnit] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiHeroUnit), 
-                propParsers = {
-                    backgroundComponent = l_parseUiComponentProp__0, 
-                    bottomRowComponent = l_parseUiComponentProp__0, 
-                    ctaButtonComponent = l_parseUiComponentProp__0, 
-                    gradient = l_parseGradientProp__0, 
-                    headerComponent = l_parseUiComponentProp__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    overlayComponent = l_parseUiComponentProp__0, 
-                    backgroundImage = l_parseImageStringProp__0, 
-                    foregroundImage = l_parseImageStringProp__0, 
-                    titleImage = l_parseImageStringProp__0
-                }
-            }, 
-            [l_SduiComponentType_0.HoldToPlay] = {
-                component = require(l_script_FirstAncestor_0.FocusNavigation.SduiHoldToPlay), 
-                propParsers = {
-                    universeId = l_parseStringProp__0, 
-                    placeId = l_parseStringProp__0
-                }, 
-                propInterface = {
-                    universeId = v5.union(v5.string, v5.number)
-                }
-            }, 
-            [l_SduiComponentType_0.Image] = {
-                component = if l_FFlagSduiServerCompat_0 then require(l_Parent_0.SduiSharedContent).SduiImage else require(l_Parent_0.Foundation).Image, 
-                propParsers = if l_FFlagSduiServerCompat_0 then {
-                    anchorPoint = l_parseVector2Prop__0, 
-                    aspectRatio = l_parseNumberProp__0, 
-                    automaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
-                    backgroundStyle = l_parseColorTokenProp__0, 
-                    clipsDescendants = l_parseBooleanProp__0, 
-                    cornerRadius = l_parseUDimProp__0, 
-                    cursorType = l_getLuaTableEnumParser_0(v4.Enums.CursorType, "string"), 
-                    image = l_parseImageStringProp__0, 
-                    imageStyle = l_parseColorTokenProp__0, 
-                    layoutOrder = l_parseIntegerProp__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    position = l_parseUDim2Prop__0, 
-                    resampleMode = l_getEngineEnumParser_0(Enum.ResamplerMode), 
-                    scaleType = l_getEngineEnumParser_0(Enum.ScaleType), 
-                    size = l_parseUDim2Prop__0, 
-                    sizeConstraint = l_getEngineEnumParser_0(Enum.SizeConstraint), 
-                    tag = l_parseStringProp__0, 
-                    tileSize = l_parseUDim2Prop__0, 
-                    visible = l_parseBooleanProp__0, 
-                    zIndex = l_parseNumberProp__0
-                } else {
-                    AnchorPoint = l_parseVector2Prop__0, 
-                    ClipsDescendants = l_parseBooleanProp__0, 
-                    LayoutOrder = l_parseIntegerProp__0, 
-                    Position = l_parseUDim2Prop__0, 
-                    Size = l_parseUDim2Prop__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    Image = l_parseImageStringProp__0
-                }, 
-                propMapping = if not l_FFlagSduiPropMapping_0 or l_FFlagLuaAppSduiBadgeDetailsComponents_0 then nil else {
-                    image = "Image", 
-                    size = "Size"
-                }
-            }, 
-            [l_SduiComponentType_0.SingleItemCollection] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiSingleItemCollection), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    automaticSize = if l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    item = l_parseLazyUiComponentProp__0, 
-                    impressionEventName = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseStringProp__0 else nil, 
-                    skipItemImpressionsLog = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseBooleanProp__0 else nil, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.PlayButton] = {
-                component = require(l_Parent_0.SduiSharedContent).SduiPlayButton, 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    width = l_parseUDimProp__0, 
-                    onActivatedEffect = if l_FFlagLuaAppResetHoverOnSduiPlayButtonActivation_0 then l_parseCallbackProp__0 else nil, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
-                }, 
-                propInterface = {
-                    universeId = v5.union(v5.string, v5.number)
-                }
-            }, 
-            [l_SduiComponentType_0.SectionHeader] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiSectionHeader), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    automaticSize = if l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    zIndex = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    iconComponent = l_parseUiComponentProp__0, 
-                    infoText = l_parseStringProp__0, 
-                    onTitleActivated = l_parseCallbackProp__0, 
-                    onSubtitleActivated = l_parseCallbackProp__0, 
-                    onInfoIconActivated = l_parseCallbackProp__0, 
-                    subtitleColor = l_parseColor3Prop__0, 
-                    subtitleComponent = l_parseUiComponentProp__0, 
-                    subtitleIcon = l_parseIconProp__0, 
-                    subtitleIconWidth = l_parseNumberProp__0, 
-                    subtitleFontStyle = l_parseTypographyTokenProp__0, 
-                    subtitleGap = l_parseNumberProp__0, 
-                    subtitleText = l_parseStringProp__0, 
-                    titleColor = l_parseColor3Prop__0, 
-                    titleComponent = l_parseUiComponentProp__0, 
-                    titleGap = l_parseNumberProp__0, 
-                    titleIcon = l_parseIconProp__0, 
-                    titleIconWidth = l_parseNumberProp__0, 
-                    titleFontStyle = l_parseTypographyTokenProp__0, 
-                    titleText = l_parseStringProp__0, 
-                    verticalGap = l_parseNumberProp__0, 
-                    allowInteractionForDirectionalInput = l_parseBooleanProp__0, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    ZIndex = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.SeeAllTile] = {
-                component = require(l_Parent_0.GameCollections).SeeAllTile, 
-                propParsers = {
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    onActivated = l_parseCallbackProp__0, 
-                    icon = l_parseIconProp__0, 
-                    title = l_parseStringProp__0, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.SlotOverlay] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiSlotOverlay), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    automaticSize = if l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    zIndex = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    topLeftSlot = l_parseUiComponentProp__0, 
-                    topMiddleSlot = l_parseUiComponentProp__0, 
-                    topRightSlot = l_parseUiComponentProp__0, 
-                    centerLeftSlot = l_parseUiComponentProp__0, 
-                    centerMiddleSlot = l_parseUiComponentProp__0, 
-                    centerRightSlot = l_parseUiComponentProp__0, 
-                    bottomLeftSlot = l_parseUiComponentProp__0, 
-                    bottomMiddleSlot = l_parseUiComponentProp__0, 
-                    bottomRightSlot = l_parseUiComponentProp__0, 
-                    padding = l_parseNumberProp__0, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    ZIndex = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.Text] = {
-                component = if l_FFlagSduiServerCompat_0 then require(l_Parent_0.SduiSharedContent).SduiText else require(l_Parent_0.Foundation).Text, 
-                propParsers = if l_FFlagSduiServerCompat_0 then {
-                    anchorPoint = l_parseVector2Prop__0, 
-                    aspectRatio = l_parseNumberProp__0, 
-                    automaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
-                    backgroundStyle = l_parseColorTokenProp__0, 
-                    children = l_parseUiComponentProp__0, 
-                    cornerRadius = l_parseUDimProp__0, 
-                    cursorType = l_getLuaTableEnumParser_0(v4.Enums.CursorType, "string"), 
-                    fontStyle = l_parseTypographyTokenProp__0, 
-                    isDisabled = l_parseBooleanProp__0, 
-                    layoutOrder = l_parseIntegerProp__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    onSecondaryActivated = l_parseCallbackProp__0, 
-                    padding = l_parseNumberProp__0, 
-                    position = l_parseUDim2Prop__0, 
-                    richText = l_parseBooleanProp__0, 
-                    rotation = l_parseNumberProp__0, 
-                    scale = l_parseNumberProp__0, 
-                    selectable = l_parseBooleanProp__0, 
-                    size = l_parseUDim2Prop__0, 
-                    sizeConstraint = l_getEngineEnumParser_0(Enum.SizeConstraint), 
-                    tag = l_parseStringProp__0, 
-                    testId = l_parseStringProp__0, 
-                    text = l_parseStringProp__0, 
-                    textStyle = l_parseColorTokenProp__0, 
-                    textTruncate = l_getEngineEnumParser_0(Enum.TextTruncate), 
-                    textWrapped = l_parseBooleanProp__0, 
-                    textXAlignment = l_getEngineEnumParser_0(Enum.TextXAlignment), 
-                    textYAlignment = l_getEngineEnumParser_0(Enum.TextYAlignment), 
-                    visible = l_parseBooleanProp__0, 
-                    zIndex = l_parseNumberProp__0
-                } else {
-                    AnchorPoint = l_parseVector2Prop__0, 
-                    ClipsDescendants = l_parseBooleanProp__0, 
-                    LayoutOrder = l_parseIntegerProp__0, 
-                    Position = l_parseUDim2Prop__0, 
-                    Size = l_parseUDim2Prop__0, 
-                    AutomaticSize = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    onActivated = l_parseCallbackProp__0, 
-                    textStyle = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then l_parseColorTokenProp__0 else nil, 
-                    fontStyle = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then l_parseTypographyTokenProp__0 else nil
-                }, 
-                propMapping = if not l_FFlagSduiPropMapping_0 or l_FFlagSduiServerCompat_0 then nil else {
-                    text = "Text", 
-                    text_truncate = "TextTruncate", 
-                    automatic_size = "AutomaticSize"
-                }
-            }, 
-            [l_SduiComponentType_0.TextIconRow] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiTextIconRow), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    automaticSize = if l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    selectable = if l_FFlagSduiServerCompat_0 then l_parseBooleanProp__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    zIndex = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    iconFirst = l_parseBooleanProp__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    text = l_parseStringProp__0, 
-                    textColor = l_parseColor3Prop__0, 
-                    fontStyle = l_parseTypographyTokenProp__0, 
-                    gap = l_parseNumberProp__0, 
-                    icon = l_parseIconProp__0, 
-                    iconWidth = l_parseNumberProp__0, 
-                    iconColor = l_parseColor3Prop__0, 
-                    textOverrides = v54, 
-                    iconOverrides = v53, 
-                    textFlexMode = l_getEngineEnumParser_0(Enum.UIFlexMode), 
-                    backgroundStyle = l_parseColorTokenProp__0, 
-                    cornerRadius = l_parseUDimProp__0, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Selectable = if not l_FFlagSduiServerCompat_0 then l_parseBooleanProp__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    ZIndex = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.TextPill] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiTextPill), 
-                propParsers = if l_FFlagSduiServerCompat_0 then {
-                    anchorPoint = l_parseVector2Prop__0, 
-                    backgroundColor3 = l_parseColor3Prop__0, 
-                    position = l_parseUDim2Prop__0, 
-                    size = l_parseUDim2Prop__0, 
-                    textColor3 = l_parseColor3Prop__0, 
-                    fontStyle = l_parseTypographyTokenProp__0
-                } else {
-                    AnchorPoint = l_parseVector2Prop__0, 
-                    BackgroundColor3 = l_parseColor3Prop__0, 
-                    Position = l_parseUDim2Prop__0, 
-                    Size = l_parseUDim2Prop__0, 
-                    TextColor3 = l_parseColor3Prop__0, 
-                    fontStyle = l_parseTypographyTokenProp__0
-                }
-            }, 
-            [l_SduiComponentType_0.Tile] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiTile), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    automaticSize = if l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    backgroundColor3 = if l_FFlagSduiServerCompat_0 then l_parseColor3Prop__0 else nil, 
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    selectionOrder = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    zIndex = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    backgroundImage = l_parseImageSetOrImageProp__0, 
-                    backgroundImageComponent = l_parseUiComponentProp__0, 
-                    containmentPadding = l_parseNumberProp__0, 
-                    cornerRadius = l_parseNumberProp__0, 
-                    ctaButtonComponent = l_parseUiComponentProp__0, 
-                    footerComponent = l_parseUiComponentProp__0, 
-                    image = l_parseImageStringProp__0, 
-                    imageAspectRatio = l_parseNumberProp__0, 
-                    imageComponent = l_parseUiComponentProp__0, 
-                    isContained = l_parseBooleanProp__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    thumbnailBackgroundStyle = l_parseColorTokenProp__0, 
-                    thumbnailOverlayComponent = l_parseUiComponentProp__0, 
-                    titleComponent = l_parseUiComponentProp__0, 
-                    titleFont = l_parseTypographyTokenProp__0, 
-                    titleLines = l_parseIntegerProp__0, 
-                    titleText = l_parseStringProp__0, 
-                    enableLegacyHoverState = if l_FFlagSduiTileDisableLegacyHover_0 then nil else l_parseBooleanProp__0, 
-                    focusNavActionsComponent = l_parseUiComponentProp__0, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    BackgroundColor3 = if not l_FFlagSduiServerCompat_0 then l_parseColor3Prop__0 else nil, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    SelectionOrder = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    ZIndex = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.TileFooter] = {
-                component = require(l_script_FirstAncestor_0.Content.SduiTileFooter), 
-                propParsers = {
-                    anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    automaticSize = if l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    selectable = if l_FFlagSduiServerCompat_0 then l_parseBooleanProp__0 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    zIndex = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                    sectionGap = l_parseNumberProp__0, 
-                    textIconGap = l_parseNumberProp__0, 
-                    fontStyle = l_parseTypographyTokenProp__0, 
-                    iconColor = l_parseColor3Prop__0, 
-                    iconWidth = l_parseNumberProp__0, 
-                    leftIcon = l_parseIconProp__0, 
-                    leftIconComponent = l_parseUiComponentProp__0, 
-                    leftText = l_parseStringProp__0, 
-                    leftTextFlexMode = l_getEngineEnumParser_0(Enum.UIFlexMode), 
-                    onActivated = l_parseCallbackProp__0, 
-                    rightIcon = l_parseIconProp__0, 
-                    rightIconComponent = l_parseUiComponentProp__0, 
-                    rightText = l_parseStringProp__0, 
-                    rightTextFlexMode = l_getEngineEnumParser_0(Enum.UIFlexMode), 
-                    textColor = l_parseColor3Prop__0, 
-                    AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                    Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    Selectable = if not l_FFlagSduiServerCompat_0 then l_parseBooleanProp__0 else nil, 
-                    Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                    ZIndex = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil
-                }
-            }, 
-            [l_SduiComponentType_0.View] = {
-                component = if l_FFlagSduiServerCompat_0 then require(l_Parent_0.SduiSharedContent).SduiView else require(l_Parent_0.Foundation).View, 
-                propParsers = if l_FFlagSduiServerCompat_0 then {
-                    anchorPoint = l_parseVector2Prop__0, 
-                    aspectRatio = l_parseNumberProp__0, 
-                    automaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
-                    backgroundStyle = l_parseColorTokenProp__0, 
-                    children = l_parseUiComponentProp__0, 
-                    clipsDescendants = l_parseBooleanProp__0, 
-                    cornerRadius = l_parseUDimProp__0, 
-                    cursorType = l_getLuaTableEnumParser_0(v4.Enums.CursorType, "string"), 
-                    groupTransparency = l_parseNumberProp__0, 
-                    isDisabled = l_parseBooleanProp__0, 
-                    layoutOrder = l_parseIntegerProp__0, 
-                    onActivated = l_parseCallbackProp__0, 
-                    onSecondaryActivated = l_parseCallbackProp__0, 
-                    padding = l_parseNumberProp__0, 
-                    position = l_parseUDim2Prop__0, 
-                    rotation = l_parseNumberProp__0, 
-                    scale = l_parseNumberProp__0, 
-                    selectable = l_parseBooleanProp__0, 
-                    selectionGroup = l_parseBooleanProp__0, 
-                    size = l_parseUDim2Prop__0, 
-                    sizeConstraint = l_getEngineEnumParser_0(Enum.SizeConstraint), 
-                    tag = l_parseStringProp__0, 
-                    testId = l_parseStringProp__0, 
-                    visible = l_parseBooleanProp__0, 
-                    zIndex = l_parseNumberProp__0
-                } else {
-                    AnchorPoint = l_parseVector2Prop__0, 
-                    ClipsDescendants = l_parseBooleanProp__0, 
-                    LayoutOrder = l_parseIntegerProp__0, 
-                    Position = l_parseUDim2Prop__0, 
-                    Size = l_parseUDim2Prop__0, 
-                    onActivated = l_parseCallbackProp__0
-                }
-            }
-        }
-    };
-    v56._registeredComponents[l_SduiComponentType_0.CountdownTextIconRow] = {
-        component = require(l_script_FirstAncestor_0.Content.SduiCountdownTextIconRow), 
-        propParsers = v2.Dictionary.join(v56._registeredComponents[l_SduiComponentType_0.TextIconRow], {
-            endTimestamp = l_parseNumberProp__0, 
-            formatStringHoursMinutes = l_parseStringProp__0, 
-            defaultString = l_parseStringProp__0
-        })
-    };
-    v56._registeredComponents[l_SduiComponentType_0.GameTile] = {
-        component = require(l_script_FirstAncestor_0.Content.SduiGameTile), 
-        propParsers = v2.Dictionary.join(v56._registeredComponents[l_SduiComponentType_0.Tile].propParsers, {
-            universeId = l_parseStringProp__0, 
-            placeId = l_parseStringProp__0, 
-            disableHoldToPlay = l_parseBooleanProp__0, 
-            ratingText = l_parseStringProp__0, 
-            playerCount = l_parseNumberProp__0
-        }), 
-        propInterface = {
-            universeId = v5.union(v5.string, v5.number), 
-            placeId = v5.union(v5.string, v5.number)
-        }
-    };
-    if l_FFlagSduiEnableHeroUnitBottomRow_0 then
-        v56._registeredComponents[l_SduiComponentType_0.HeroUnitBottomRow] = {
-            component = require(l_script_FirstAncestor_0.Content.SduiHeroUnitBottomRow), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                zIndex = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                ctaButton = l_parseUiComponentProp__0, 
-                labelText = l_parseStringProp__0, 
-                rightLabelContent = l_parseUiComponentProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                ZIndex = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil
-            }
-        };
-    end;
-    if l_FFlagSduiEnableChips_0 then
-        v56._registeredComponents[l_SduiComponentType_0.Chip] = {
-            component = require(l_Parent_0.SduiSharedContent).SduiChip, 
-            propParsers = {
-                anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                text = l_parseStringProp__0, 
-                leadingIconName = l_parseStringProp__0, 
-                leadingIconVariant = l_getLuaTableEnumParser_0(v4.Enums.IconVariant, "string"), 
-                leadingIsCircular = l_parseBooleanProp__0, 
-                leadingOnActivated = l_parseCallbackProp__0, 
-                trailingIconName = l_parseStringProp__0, 
-                trailingIconVariant = l_getLuaTableEnumParser_0(v4.Enums.IconVariant, "string"), 
-                trailingIsCircular = l_parseBooleanProp__0, 
-                trailingOnActivated = l_parseCallbackProp__0, 
-                onActivated = l_parseCallbackProp__0, 
-                isChecked = l_parseBooleanProp__0, 
-                size = l_getLuaTableEnumParser_0(v4.Enums.ChipSize, "string"), 
-                AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
-            }, 
-            propInterface = if l_FFlagSduiChipAccessoryProps_0 then {
-                leading = v5.optional(v5.table), 
-                trailing = v5.optional(v5.table)
-            } else nil
-        };
-        v56._registeredComponents[l_SduiComponentType_0.DualActionChip] = {
-            component = require(l_Parent_0.SduiSharedContent).SduiDualActionChip, 
-            propParsers = {
-                anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                text = l_parseStringProp__0, 
-                leadingIconName = l_parseStringProp__0, 
-                leadingIconVariant = l_getLuaTableEnumParser_0(v4.Enums.IconVariant, "string"), 
-                leadingOnActivated = l_parseCallbackProp__0, 
-                trailingIconName = l_parseStringProp__0, 
-                trailingIconVariant = l_getLuaTableEnumParser_0(v4.Enums.IconVariant, "string"), 
-                trailingOnActivated = l_parseCallbackProp__0, 
-                AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
-            }
-        };
-    end;
-    if l_FFlagSduiEnableAssociatedItemsRow_0 then
-        v56._registeredComponents[l_SduiComponentType_0.AssociatedItemsRow] = {
-            component = require(l_script_FirstAncestor_0.Content.SduiAssociatedItemsRow), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                items = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }
-        };
-    end;
-    if l_FFlagLuaAppSduiExperienceDetailsComponents_0 then
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceAssociatedItemsRow] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceAssociatedItemsRow), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                items = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsVoteChip] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsVoteChip), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsFavoriteChip] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsFavoriteChip), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsNotifyChip] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsNotifyChip), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsActiveChip] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsActiveChip), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsShareChip] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsShareChip), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsReportChip] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsReportChip), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-    end;
-    if l_FFlagSduiExperienceDetailsSocialProof_0 then
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsConnectionsPlayedChip] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsConnectionsPlayedChip), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExperienceDetailsConnectionsPlayedTextRow] = {
-            component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsConnectionsPlayedTextRow), 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                universeId = l_parseStringProp__0, 
-                name = l_parseStringProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                universeId = v5.string, 
-                name = v5.optional(v5.string)
-            }
-        };
-    end;
-    v56._registeredComponents[l_SduiComponentType_0.VerticalFeed] = {
-        component = require(l_Parent_0.SduiSharedContent).SduiVerticalFeed, 
-        propParsers = {
-            layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-            feedItems = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
-            gapBetweenFeedItems = l_parseNumberProp__0, 
-            thresholdFromEnd = l_parseNumberProp__0, 
-            onScrollToEnd = l_parseCallbackProp__0, 
-            onRefresh = if l_FFlagSduiChartsSupport_0 then l_parseCallbackProp__0 else nil, 
-            stickyItems = if l_FFlagSduiChartsSupport_0 then l_getArrayMetatableParser_0(l_parseUiComponentProp__0) else nil, 
-            gapAfterStickyItems = if l_FFlagSduiChartsSupport_0 then l_parseIntegerProp__0 else nil, 
-            gapBetweenStickyItems = if l_FFlagSduiChartsSupport_0 then l_parseIntegerProp__0 else nil, 
-            stickyPaddingTop = if l_FFlagSduiChartsSupport_0 then l_parseIntegerProp__0 else nil, 
-            stickyPaddingBottom = if l_FFlagSduiChartsSupport_0 then l_parseIntegerProp__0 else nil, 
-            stickyBackgroundStyle = if l_FFlagSduiChartsSupport_0 then l_parseColorTokenProp__0 else nil, 
-            stickyContentTag = if l_FFlagSduiChartsSupport_0 then l_parseStringProp__0 else nil, 
-            backgroundStyle = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then l_parseColorTokenProp__0 else nil, 
-            LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-        }
-    };
-    v56._registeredComponents[l_SduiComponentType_0.BadgeTile] = {
-        component = require(l_script_FirstAncestor_0.Content.SduiBadgeTile), 
-        propParsers = v2.Dictionary.join(v56._registeredComponents[l_SduiComponentType_0.Tile].propParsers, {
-            imageCornerRadius = l_parseNumberProp__0, 
-            imagePadding = l_parseNumberProp__0
-        })
-    };
-    if v34 then
-        v56._registeredComponents[l_SduiComponentType_0.Badge] = {
-            component = require(l_Parent_0.SduiSharedContent).SduiBadge, 
-            propParsers = {
-                anchorPoint = l_parseVector2Prop__0, 
-                layoutOrder = l_parseIntegerProp__0, 
-                position = l_parseUDim2Prop__0, 
-                visible = l_parseBooleanProp__0, 
-                zIndex = l_parseNumberProp__0, 
-                text = l_parseStringProp__0, 
-                icon = l_parseStringProp__0, 
-                variant = l_getLuaTableEnumParser_0(v4.Enums.BadgeVariant, "string")
-            }
-        };
-    end;
-    if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then
-        v56._registeredComponents[l_SduiComponentType_0.InfoTable] = {
-            component = require(l_Parent_0.SduiSharedContent).SduiInfoTable, 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                gridTag = l_parseStringProp__0, 
-                items = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
-                numColumns = l_parseIntegerProp__0, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                items = v5.array(v5.table)
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.InfoTableCell] = {
-            component = require(l_Parent_0.AppBlox).InfoTableCell, 
-            propParsers = {
-                labelComponent = l_parseUiComponentProp__0, 
-                isLastInSingleColumn = l_parseBooleanProp__0, 
-                numColumns = l_parseIntegerProp__0, 
-                onActivated = l_parseCallbackProp__0, 
-                valueComponent = l_parseUiComponentProp__0
-            }, 
-            propInterface = {
-                labelComponent = v5.table, 
-                valueComponent = v5.table, 
-                isLastInSingleColumn = v5.optional(v5.boolean)
-            }
-        };
-        v56._registeredComponents[l_SduiComponentType_0.ExpandableText] = {
-            component = require(l_Parent_0.SduiSharedContent).SduiExpandableText, 
-            propParsers = {
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                text = l_parseStringProp__0, 
-                compactNumberOfLines = l_parseIntegerProp__0, 
-                fontStyle = l_parseTypographyTokenProp__0, 
-                textColor = l_parseColor3Prop__0, 
-                expandedInitially = l_parseBooleanProp__0, 
-                onExpandChanged = l_parseCallbackProp__0, 
-                headerComponent = if l_FFlagSduiExperienceDetailsSupport_0 then l_parseUiComponentProp__0 else nil, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
-            }, 
-            propInterface = {
-                text = v5.string
-            }
-        };
-    end;
-    if l_FFlagSduiOverflowMenuComponent_0 then
-        v56._registeredComponents[l_SduiComponentType_0.OverflowMenu] = {
-            component = require(l_Parent_0.SduiSharedContent).SduiOverflowMenu, 
-            propParsers = {
-                anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                zIndex = if l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil, 
-                buttonVariant = l_getLuaTableEnumParser_0(v4.Enums.ButtonVariant, "string"), 
-                buttonSize = l_getLuaTableEnumParser_0(v4.Enums.InputSize, "string"), 
-                buttonIcon = l_getLuaTableEnumParser_0(v4.Enums.IconName, "string"), 
-                buttonIconBackgroundStyle = l_parseColorTokenProp__0, 
-                menuItemSize = l_getLuaTableEnumParser_0(v4.Enums.InputSize, "string"), 
-                popoverAlign = l_getLuaTableEnumParser_0(v4.Enums.PopoverAlign, "string"), 
-                popoverSide = l_getLuaTableEnumParser_0(v4.Enums.PopoverSide, "string"), 
-                menuWidth = l_parseUDimProp__0, 
-                AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
-                Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
-                ZIndex = if not l_FFlagSduiServerCompat_0 then l_parseNumberProp__0 else nil
-            }, 
-            propInterface = {
-                items = v5.array(v5.table)
-            }
-        };
-    end;
-    setmetatable(v56, v52);
-    return v56;
-end;
-v52.getComponentDefinition = function(v57, v58) --[[ Line: 1125 ]] --[[ Name: getComponentDefinition ]]
-    return v57._registeredComponents[v58];
-end;
-v52.doesComponentManageChildren = function(v59, v60) --[[ Line: 1132 ]] --[[ Name: doesComponentManageChildren ]]
-    local v61 = v59:getComponentDefinition(v60);
-    return v61 and v61.doesManageChildren or false;
-end;
-v52.getComponent = function(v62, v63) --[[ Line: 1140 ]] --[[ Name: getComponent ]]
-    local v64 = v62:getComponentDefinition(v63);
-    return v64 and v64.component;
-end;
-v52.getPropParsers = function(v65, v66) --[[ Line: 1145 ]] --[[ Name: getPropParsers ]]
-    -- upvalues: v51 (copy)
-    local v67 = v65:getComponentDefinition(v66);
-    return v67 and v67.propParsers or v51;
-end;
-v52.getPropInterface = function(v68, v69) --[[ Line: 1153 ]] --[[ Name: getPropInterface ]]
-    local v70 = v68:getComponentDefinition(v69);
-    return v70 and v70.propInterface or nil;
-end;
-local v71 = {
-    [l_parseUiComponentProp__0] = true, 
-    [l_parseCallbackProp__0] = true, 
-    [l_parseFocusNavActionsProp__0] = true
-};
-v52.doesParserRequireRenderContext = function(_, v73) --[[ Line: 1164 ]] --[[ Name: doesParserRequireRenderContext ]]
-    -- upvalues: v71 (copy)
-    if v73 and v71[v73] then
-        return true;
-    elseif typeof(v73) == "table" then
-        return true;
-    else
-        return false;
-    end;
-end;
-v52.registerComponent = function(v74, v75, v76) --[[ Line: 1179 ]] --[[ Name: registerComponent ]]
-    v74._registeredComponents[v75] = v76;
-end;
-return v52;
+local ServerDrivenUi = script:FindFirstAncestor("ServerDrivenUi")
+local ServerDrivenUiParent = ServerDrivenUi.Parent
+local Cryo = require(ServerDrivenUiParent.Cryo)
+local React = require(ServerDrivenUiParent.React)
+local Foundation = require(ServerDrivenUiParent.Foundation)
+local t = require(ServerDrivenUiParent.t)
+local CollectionItemSize = require(ServerDrivenUiParent.CollectionViews).CollectionViewTypes.CollectionItemSize
+local ItemHeightMode = require(ServerDrivenUi.Content.Collections.ItemHeightMode)
+local SduiCoreSystem = require(ServerDrivenUiParent.SduiCoreSystem)
+local SduiComponentType = SduiCoreSystem.SduiComponentType
+local SduiParsers = SduiCoreSystem.SduiParsers
+local getSduiComponentRegistry = SduiCoreSystem.getSduiComponentRegistry
+local FFlagSduiExperienceDetailsSupport = require(ServerDrivenUiParent.SharedFlags).FFlagSduiExperienceDetailsSupport
+local FFlagLuaAppResetHoverOnSduiPlayButtonActivation = require(ServerDrivenUiParent.SharedFlags).FFlagLuaAppResetHoverOnSduiPlayButtonActivation
+local FFlagSduiGlobalRegistryFallback = require(ServerDrivenUiParent.SharedFlags).FFlagSduiGlobalRegistryFallback
+local parseCallbackProp_ = SduiParsers.parseCallbackProp_
+local parseUiComponentProp_ = SduiParsers.parseUiComponentProp_
+local parseLazyUiComponentProp_ = SduiParsers.parseLazyUiComponentProp_
+local parseIntegerProp_ = SduiParsers.parseIntegerProp_
+local parseNumberProp_ = SduiParsers.parseNumberProp_
+local parseUDim2Prop_ = SduiParsers.parseUDim2Prop_
+local parseUDimProp_ = SduiParsers.parseUDimProp_
+local parseImageStringProp_ = SduiParsers.parseImageStringProp_
+local parseVector2Prop_ = SduiParsers.parseVector2Prop_
+local parseColor3Prop_ = SduiParsers.parseColor3Prop_
+local parseBooleanProp_ = SduiParsers.parseBooleanProp_
+local parseGradientProp_ = SduiParsers.parseGradientProp_
+local parseIconProp_ = SduiParsers.parseIconProp_
+local parseTypographyTokenProp_ = SduiParsers.parseTypographyTokenProp_
+local parseColorTokenProp_ = SduiParsers.parseColorTokenProp_
+local parseImageSetOrImageProp_ = SduiParsers.parseImageSetOrImageProp_
+local parseStringProp_ = SduiParsers.parseStringProp_
+local parseFocusNavActionsProp_ = SduiParsers.parseFocusNavActionsProp_
+local getArrayMetatableParser = SduiParsers.getArrayMetatableParser
+local getEngineEnumParser = SduiParsers.getEngineEnumParser
+local getLuaTableEnumParser = SduiParsers.getLuaTableEnumParser
+local v37 = game:DefineFastFlag("SduiBadgeComponent", false)
+local FFlagSduiTileDisableLegacyHover = require(ServerDrivenUi.Flags).FFlagSduiTileDisableLegacyHover
+local FFlagSduiEnableHeroUnitBottomRow = require(ServerDrivenUi.Flags).FFlagSduiEnableHeroUnitBottomRow
+local FFlagSduiEnableAssociatedItemsRow = require(ServerDrivenUiParent.SharedFlags).FFlagSduiEnableAssociatedItemsRow
+local FFlagSduiEnableChips = require(ServerDrivenUiParent.SharedFlags).FFlagSduiEnableChips
+local FFlagLuaAppSduiExperienceDetailsComponents = require(ServerDrivenUiParent.SharedFlags).FFlagLuaAppSduiExperienceDetailsComponents
+local FFlagLuaAppSduiBadgeDetailsComponents = require(ServerDrivenUiParent.SharedFlags).FFlagLuaAppSduiBadgeDetailsComponents
+local FFlagSduiAttributionRowV2 = require(ServerDrivenUiParent.SharedFlags).FFlagSduiAttributionRowV2
+local FFlagSduiPropMapping = require(ServerDrivenUiParent.SharedFlags).FFlagSduiPropMapping
+local FFlagSduiServerCompat = require(ServerDrivenUiParent.SharedFlags).FFlagSduiServerCompat
+local FFlagSduiExperienceDetailsSocialProof = require(ServerDrivenUiParent.SharedFlags).FFlagSduiExperienceDetailsSocialProof
+local FFlagSduiChipAccessoryProps = require(ServerDrivenUiParent.SharedFlags).FFlagSduiChipAccessoryProps
+local FFlagAddItemHeightModeToSduiCollectionCarousel = require(ServerDrivenUiParent.SharedFlags).FFlagAddItemHeightModeToSduiCollectionCarousel
+local FFlagSduiOverflowMenuComponent = require(ServerDrivenUiParent.SharedFlags).FFlagSduiOverflowMenuComponent
+local FFlagSduiImpressionHandlerRegistry = require(ServerDrivenUiParent.SharedFlags).FFlagSduiImpressionHandlerRegistry
+local FFlagSduiCarouselHoverFixes = require(ServerDrivenUiParent.SharedFlags).FFlagSduiCarouselHoverFixes
+local FFlagSduiChartsSupport = require(ServerDrivenUiParent.SharedFlags).FFlagSduiChartsSupport
+local FFlagLuaAppDismissUnlockUpsell = require(ServerDrivenUiParent.SharedFlags).FFlagLuaAppDismissUnlockUpsell
+local t1 = {}
+local t2 = {}
+
+t2.__index = t2
+
+function t2.new() -- line: 84
+	-- upvalues: FFlagSduiServerCompat (copy), parseVector2Prop_ (copy), getEngineEnumParser (copy), parseColor3Prop_ (copy), parseNumberProp_ (copy), parseIntegerProp_ (copy), parseUDim2Prop_ (copy), Cryo (copy), parseBooleanProp_ (copy), parseStringProp_ (copy), SduiComponentType (copy), ServerDrivenUiParent (copy), FFlagSduiAttributionRowV2 (copy), parseCallbackProp_ (copy), parseUiComponentProp_ (copy), parseTypographyTokenProp_ (copy), parseColorTokenProp_ (copy), getLuaTableEnumParser (copy), Foundation (copy), parseImageStringProp_ (copy), t (copy), parseIconProp_ (copy), parseUDimProp_ (copy), ServerDrivenUi (copy), CollectionItemSize (copy), FFlagAddItemHeightModeToSduiCollectionCarousel (copy), ItemHeightMode (copy), getArrayMetatableParser (copy), parseLazyUiComponentProp_ (copy), FFlagSduiImpressionHandlerRegistry (copy), FFlagSduiCarouselHoverFixes (copy), parseFocusNavActionsProp_ (copy), React (copy), parseGradientProp_ (copy), FFlagSduiPropMapping (copy), FFlagLuaAppSduiBadgeDetailsComponents (copy), FFlagLuaAppResetHoverOnSduiPlayButtonActivation (copy), parseImageSetOrImageProp_ (copy), FFlagSduiTileDisableLegacyHover (copy), FFlagSduiEnableHeroUnitBottomRow (copy), FFlagSduiEnableChips (copy), FFlagSduiChipAccessoryProps (copy), FFlagSduiEnableAssociatedItemsRow (copy), FFlagLuaAppSduiExperienceDetailsComponents (copy), FFlagSduiExperienceDetailsSocialProof (copy), FFlagSduiChartsSupport (copy), v37 (copy), FFlagSduiExperienceDetailsSupport (copy), FFlagSduiOverflowMenuComponent (copy), FFlagLuaAppDismissUnlockUpsell (copy), t2 (copy)
+	local v58 = if not FFlagSduiServerCompat then {
+		AnchorPoint = parseVector2Prop_,
+		AutomaticSize = getEngineEnumParser(Enum.AutomaticSize),
+		BackgroundColor3 = parseColor3Prop_,
+		BackgroundTransparency = parseNumberProp_,
+		LayoutOrder = parseIntegerProp_,
+		Position = parseUDim2Prop_,
+		Size = parseUDim2Prop_,
+		ZIndex = parseNumberProp_
+	} else {
+		anchorPoint = parseVector2Prop_,
+		automaticSize = getEngineEnumParser(Enum.AutomaticSize),
+		backgroundColor3 = parseColor3Prop_,
+		backgroundTransparency = parseNumberProp_,
+		layoutOrder = parseIntegerProp_,
+		position = parseUDim2Prop_,
+		size = parseUDim2Prop_,
+		zIndex = parseNumberProp_
+	}
+	local v59 = if not FFlagSduiServerCompat then Cryo.Dictionary.union({
+		RichText = parseBooleanProp_,
+		Text = parseStringProp_,
+		TextTruncate = getEngineEnumParser(Enum.TextTruncate),
+		TextWrapped = parseBooleanProp_,
+		TextXAlignment = getEngineEnumParser(Enum.TextXAlignment),
+		TextYAlignment = getEngineEnumParser(Enum.TextYAlignment)
+	}, v58) else Cryo.Dictionary.union({
+		richText = parseBooleanProp_,
+		text = parseStringProp_,
+		textTruncate = getEngineEnumParser(Enum.TextTruncate),
+		textWrapped = parseBooleanProp_,
+		textXAlignment = getEngineEnumParser(Enum.TextXAlignment),
+		textYAlignment = getEngineEnumParser(Enum.TextYAlignment)
+	}, v58)
+	local t3 = {
+		columnGap = parseNumberProp_,
+		sideMargin = parseNumberProp_,
+		numColumns = parseNumberProp_,
+		fractionalItemAmount = parseNumberProp_,
+		loadMoreThreshold = parseNumberProp_,
+		verticalGap = parseNumberProp_
+	}
+	local t4 = {
+		_registeredComponents = {
+			[SduiComponentType.AttributionRow] = {
+				component = require(ServerDrivenUiParent.SduiSharedContent).SduiAttributionRow,
+				propParsers = {
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					size = if not FFlagSduiServerCompat or not FFlagSduiAttributionRowV2 then nil else parseUDim2Prop_,
+					onActivated = parseCallbackProp_,
+					rightButtonContent = parseUiComponentProp_,
+					title = if not FFlagSduiAttributionRowV2 then nil else parseStringProp_,
+					titleFontStyle = if not FFlagSduiAttributionRowV2 then nil else parseTypographyTokenProp_,
+					titleTextColor = if not FFlagSduiAttributionRowV2 then nil else parseColorTokenProp_,
+					subtitle = if not FFlagSduiAttributionRowV2 then nil else parseStringProp_,
+					subtitleFontStyle = if not FFlagSduiAttributionRowV2 then nil else parseTypographyTokenProp_,
+					subtitleTextColor = if not FFlagSduiAttributionRowV2 then nil else parseColor3Prop_,
+					subtitleIconName = if not FFlagSduiAttributionRowV2 then nil else getLuaTableEnumParser(Foundation.Enums.IconName, "string"),
+					subtitleIconSize = if not FFlagSduiAttributionRowV2 then nil else getLuaTableEnumParser(Foundation.Enums.IconSize, "string"),
+					subtitleIconStyle = if not FFlagSduiAttributionRowV2 then nil else parseColorTokenProp_,
+					subtitleIconVariant = if not FFlagSduiAttributionRowV2 then nil else getLuaTableEnumParser(Foundation.Enums.IconVariant, "string"),
+					subtitleBackgroundIconName = if not FFlagSduiAttributionRowV2 then nil else getLuaTableEnumParser(Foundation.Enums.IconName, "string"),
+					subtitleBackgroundIconStyle = if not FFlagSduiAttributionRowV2 then nil else parseColorTokenProp_,
+					subtitleOnActivated = if not FFlagSduiAttributionRowV2 then nil else parseCallbackProp_,
+					caption = if not FFlagSduiAttributionRowV2 then nil else parseStringProp_,
+					captionTextColor = if not FFlagSduiAttributionRowV2 then nil else parseColorTokenProp_,
+					captionFontStyle = if not FFlagSduiAttributionRowV2 then nil else parseTypographyTokenProp_,
+					textContainerSize = if not FFlagSduiAttributionRowV2 then nil else parseUDim2Prop_,
+					image = parseImageStringProp_,
+					imageSize = if not FFlagSduiAttributionRowV2 then nil else parseUDim2Prop_,
+					LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Size = if FFlagSduiServerCompat or not FFlagSduiAttributionRowV2 then nil else parseUDim2Prop_
+				},
+				propInterface = if not FFlagSduiAttributionRowV2 then nil else {
+					title = t.string,
+					subtitle = t.string
+				}
+			},
+			[SduiComponentType.Button] = {
+				component = if not FFlagSduiServerCompat then require(ServerDrivenUiParent.Foundation).Button else require(ServerDrivenUiParent.SduiSharedContent).SduiButton,
+				propParsers = if not FFlagSduiServerCompat then {
+					AnchorPoint = parseVector2Prop_,
+					LayoutOrder = parseIntegerProp_,
+					Position = parseUDim2Prop_,
+					onActivated = parseCallbackProp_,
+					width = parseUDimProp_
+				} else {
+					anchorPoint = parseVector2Prop_,
+					cursorType = getLuaTableEnumParser(Foundation.Enums.CursorType, "string"),
+					fillBehavior = getLuaTableEnumParser(Foundation.Enums.FillBehavior, "string"),
+					icon = parseIconProp_,
+					inputDelay = parseNumberProp_,
+					isDisabled = parseBooleanProp_,
+					isLoading = parseBooleanProp_,
+					layoutOrder = parseIntegerProp_,
+					onActivated = parseCallbackProp_,
+					position = parseUDim2Prop_,
+					selectable = parseBooleanProp_,
+					size = getLuaTableEnumParser(Foundation.Enums.InputSize, "string"),
+					tag = parseStringProp_,
+					testId = parseStringProp_,
+					text = parseStringProp_,
+					variant = getLuaTableEnumParser(Foundation.Enums.ButtonVariant, "string"),
+					visible = parseBooleanProp_,
+					width = parseUDimProp_,
+					zIndex = parseNumberProp_
+				}
+			},
+			[SduiComponentType.CollectionCarousel] = {
+				component = require(ServerDrivenUi.Content.Collections.SduiCollectionCarousel),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					collectionItemSize = getLuaTableEnumParser(CollectionItemSize, "string"),
+					itemHeightFromWidth = parseUDimProp_,
+					headerComponent = parseUiComponentProp_,
+					itemHeightMode = if not FFlagAddItemHeightModeToSduiCollectionCarousel then nil else getLuaTableEnumParser(ItemHeightMode, "string"),
+					layoutOverrides = t3,
+					scrollingEnabledOverride = parseBooleanProp_,
+					maxItemsToShow = parseNumberProp_,
+					shouldUseFrameBoundsForImpressions = parseBooleanProp_,
+					backgroundMuralUrl = parseImageStringProp_,
+					onScrollToEnd = parseCallbackProp_,
+					scrollThresholdFromEnd = parseNumberProp_,
+					itemTemplateKey = parseStringProp_,
+					focusNavActionsComponent = parseUiComponentProp_,
+					disableSelectionOrder = parseBooleanProp_,
+					numItemsToRenderOffScreen = parseNumberProp_,
+					items = getArrayMetatableParser(parseLazyUiComponentProp_),
+					impressionEventName = if not FFlagSduiImpressionHandlerRegistry then nil else parseStringProp_,
+					skipItemImpressionsLog = if not FFlagSduiImpressionHandlerRegistry then nil else parseBooleanProp_,
+					enableHoverOverflow = if not FFlagSduiCarouselHoverFixes then nil else parseBooleanProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_
+				}
+			},
+			[SduiComponentType.CollectionGrid] = {
+				component = require(ServerDrivenUi.Content.Collections.SduiCollectionGrid),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					bufferRowsBelowScreen = parseNumberProp_,
+					bufferRowsAboveScreen = parseNumberProp_,
+					collectionItemSize = getLuaTableEnumParser(CollectionItemSize, "string"),
+					disableRelativeGap = parseBooleanProp_,
+					focusNavActionsComponent = parseUiComponentProp_,
+					headerComponent = parseUiComponentProp_,
+					itemHeightFromWidth = parseUDimProp_,
+					itemTemplateKey = parseStringProp_,
+					layoutOverrides = t3,
+					maxNumRows = parseNumberProp_,
+					shouldUseFrameBoundsForImpressions = parseBooleanProp_,
+					disableSelectionOrder = parseBooleanProp_,
+					items = getArrayMetatableParser(parseLazyUiComponentProp_),
+					thresholdRowsFromBottom = parseNumberProp_,
+					onReachedThresholdFromEnd = parseCallbackProp_,
+					impressionEventName = if not FFlagSduiImpressionHandlerRegistry then nil else parseStringProp_,
+					skipItemImpressionsLog = if not FFlagSduiImpressionHandlerRegistry then nil else parseBooleanProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_
+				},
+				propInterface = {
+					itemHeightFromWidth = t.UDim
+				}
+			},
+			[SduiComponentType.Dialog] = {
+				component = require(ServerDrivenUi.Content.SduiDialog),
+				propParsers = {
+					size = getLuaTableEnumParser(Foundation.Enums.DialogSize, "string"),
+					image = parseStringProp_,
+					imageAspectRatio = parseNumberProp_,
+					titleText = parseStringProp_,
+					bodyText = parseStringProp_,
+					bodyComponent = parseUiComponentProp_,
+					actionsLabel = parseStringProp_,
+					actionsOrientation = getLuaTableEnumParser(Foundation.Enums.Orientation, "string"),
+					primaryButtonAction = parseCallbackProp_,
+					primaryButtonText = parseStringProp_,
+					primaryButtonIcon = parseIconProp_,
+					primaryButtonInputDelay = parseNumberProp_,
+					primaryButtonSideEffectAction = parseCallbackProp_,
+					secondaryButtonAction = parseCallbackProp_,
+					secondaryButtonText = parseStringProp_,
+					secondaryButtonIcon = parseIconProp_,
+					secondaryButtonInputDelay = parseNumberProp_,
+					secondaryButtonSideEffectAction = parseCallbackProp_,
+					onClose = parseCallbackProp_,
+					disablePortal = parseBooleanProp_,
+					hasBackdrop = parseBooleanProp_
+				}
+			},
+			[SduiComponentType.Divider] = {
+				component = require(ServerDrivenUi.Content.SduiDivider),
+				propParsers = if not FFlagSduiServerCompat then {
+					AnchorPoint = parseVector2Prop_,
+					BackgroundColor3 = parseColor3Prop_,
+					Position = parseUDim2Prop_,
+					Size = parseUDim2Prop_
+				} else {
+					anchorPoint = parseVector2Prop_,
+					backgroundColor3 = parseColor3Prop_,
+					position = parseUDim2Prop_,
+					size = parseUDim2Prop_
+				}
+			},
+			[SduiComponentType.FocusNavActions] = {
+				component = require(ServerDrivenUi.FocusNavigation.SduiFocusNavActions),
+				propParsers = {
+					focusNavActions = parseFocusNavActionsProp_
+				},
+				propInterface = {
+					focusNavActions = t.table
+				}
+			},
+			[SduiComponentType.Fragment] = {
+				component = React.Fragment
+			},
+			[SduiComponentType.GameTileActiveFriendsFooter] = {
+				component = require(ServerDrivenUi.Content.SduiGameTileActiveFriendsFooter),
+				propParsers = if not FFlagSduiServerCompat then {
+					AnchorPoint = parseVector2Prop_,
+					AutomaticSize = getEngineEnumParser(Enum.AutomaticSize),
+					BackgroundColor3 = parseColor3Prop_,
+					LayoutOrder = parseIntegerProp_,
+					Position = parseUDim2Prop_,
+					Size = parseUDim2Prop_,
+					ZIndex = parseNumberProp_,
+					universeId = parseStringProp_,
+					iconWidth = parseNumberProp_,
+					maxAvatars = parseNumberProp_,
+					onActivated = parseCallbackProp_
+				} else {
+					anchorPoint = parseVector2Prop_,
+					automaticSize = getEngineEnumParser(Enum.AutomaticSize),
+					backgroundColor3 = parseColor3Prop_,
+					layoutOrder = parseIntegerProp_,
+					position = parseUDim2Prop_,
+					size = parseUDim2Prop_,
+					zIndex = parseNumberProp_,
+					universeId = parseStringProp_,
+					iconWidth = parseNumberProp_,
+					maxAvatars = parseNumberProp_,
+					onActivated = parseCallbackProp_
+				},
+				propInterface = {
+					universeId = t.union(t.string, t.number)
+				}
+			},
+			[SduiComponentType.HeroUnit] = {
+				component = require(ServerDrivenUi.Content.SduiHeroUnit),
+				propParsers = {
+					backgroundComponent = parseUiComponentProp_,
+					bottomRowComponent = parseUiComponentProp_,
+					ctaButtonComponent = parseUiComponentProp_,
+					gradient = parseGradientProp_,
+					headerComponent = parseUiComponentProp_,
+					onActivated = parseCallbackProp_,
+					overlayComponent = parseUiComponentProp_,
+					backgroundImage = parseImageStringProp_,
+					foregroundImage = parseImageStringProp_,
+					titleImage = parseImageStringProp_
+				}
+			},
+			[SduiComponentType.HoldToPlay] = {
+				component = require(ServerDrivenUi.FocusNavigation.SduiHoldToPlay),
+				propParsers = {
+					universeId = parseStringProp_,
+					placeId = parseStringProp_
+				},
+				propInterface = {
+					universeId = t.union(t.string, t.number)
+				}
+			},
+			[SduiComponentType.Image] = {
+				component = if not FFlagSduiServerCompat then require(ServerDrivenUiParent.Foundation).Image else require(ServerDrivenUiParent.SduiSharedContent).SduiImage,
+				propParsers = if not FFlagSduiServerCompat then {
+					AnchorPoint = parseVector2Prop_,
+					ClipsDescendants = parseBooleanProp_,
+					LayoutOrder = parseIntegerProp_,
+					Position = parseUDim2Prop_,
+					Size = parseUDim2Prop_,
+					onActivated = parseCallbackProp_,
+					Image = parseImageStringProp_
+				} else {
+					anchorPoint = parseVector2Prop_,
+					aspectRatio = parseNumberProp_,
+					automaticSize = getEngineEnumParser(Enum.AutomaticSize),
+					backgroundStyle = parseColorTokenProp_,
+					clipsDescendants = parseBooleanProp_,
+					cornerRadius = parseUDimProp_,
+					cursorType = getLuaTableEnumParser(Foundation.Enums.CursorType, "string"),
+					image = parseImageStringProp_,
+					imageStyle = parseColorTokenProp_,
+					layoutOrder = parseIntegerProp_,
+					onActivated = parseCallbackProp_,
+					position = parseUDim2Prop_,
+					resampleMode = getEngineEnumParser(Enum.ResamplerMode),
+					scaleType = getEngineEnumParser(Enum.ScaleType),
+					size = parseUDim2Prop_,
+					sizeConstraint = getEngineEnumParser(Enum.SizeConstraint),
+					tag = parseStringProp_,
+					tileSize = parseUDim2Prop_,
+					visible = parseBooleanProp_,
+					zIndex = parseNumberProp_
+				},
+				propMapping = if not FFlagSduiPropMapping or FFlagLuaAppSduiBadgeDetailsComponents then nil else {
+					image = "Image",
+					size = "Size"
+				}
+			},
+			[SduiComponentType.SingleItemCollection] = {
+				component = require(ServerDrivenUi.Content.SduiSingleItemCollection),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					automaticSize = if not FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					item = parseLazyUiComponentProp_,
+					impressionEventName = if not FFlagSduiImpressionHandlerRegistry then nil else parseStringProp_,
+					skipItemImpressionsLog = if not FFlagSduiImpressionHandlerRegistry then nil else parseBooleanProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					AutomaticSize = if FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_
+				}
+			},
+			[SduiComponentType.PlayButton] = {
+				component = require(ServerDrivenUiParent.SduiSharedContent).SduiPlayButton,
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					width = parseUDimProp_,
+					onActivatedEffect = if not FFlagLuaAppResetHoverOnSduiPlayButtonActivation then nil else parseCallbackProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_
+				},
+				propInterface = {
+					universeId = t.union(t.string, t.number)
+				}
+			},
+			[SduiComponentType.SectionHeader] = {
+				component = require(ServerDrivenUi.Content.SduiSectionHeader),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					automaticSize = if not FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					zIndex = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					iconComponent = parseUiComponentProp_,
+					infoText = parseStringProp_,
+					onTitleActivated = parseCallbackProp_,
+					onSubtitleActivated = parseCallbackProp_,
+					onInfoIconActivated = parseCallbackProp_,
+					subtitleColor = parseColor3Prop_,
+					subtitleComponent = parseUiComponentProp_,
+					subtitleIcon = parseIconProp_,
+					subtitleIconWidth = parseNumberProp_,
+					subtitleFontStyle = parseTypographyTokenProp_,
+					subtitleGap = parseNumberProp_,
+					subtitleText = parseStringProp_,
+					titleColor = parseColor3Prop_,
+					titleComponent = parseUiComponentProp_,
+					titleGap = parseNumberProp_,
+					titleIcon = parseIconProp_,
+					titleIconWidth = parseNumberProp_,
+					titleFontStyle = parseTypographyTokenProp_,
+					titleText = parseStringProp_,
+					verticalGap = parseNumberProp_,
+					allowInteractionForDirectionalInput = parseBooleanProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					AutomaticSize = if FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					ZIndex = if FFlagSduiServerCompat then nil else parseNumberProp_
+				}
+			},
+			[SduiComponentType.SeeAllTile] = {
+				component = require(ServerDrivenUiParent.GameCollections).SeeAllTile,
+				propParsers = {
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					onActivated = parseCallbackProp_,
+					icon = parseIconProp_,
+					title = parseStringProp_,
+					LayoutOrder = if FFlagSduiServerCompat then nil else parseNumberProp_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_
+				}
+			},
+			[SduiComponentType.SlotOverlay] = {
+				component = require(ServerDrivenUi.Content.SduiSlotOverlay),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					automaticSize = if not FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					zIndex = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					topLeftSlot = parseUiComponentProp_,
+					topMiddleSlot = parseUiComponentProp_,
+					topRightSlot = parseUiComponentProp_,
+					centerLeftSlot = parseUiComponentProp_,
+					centerMiddleSlot = parseUiComponentProp_,
+					centerRightSlot = parseUiComponentProp_,
+					bottomLeftSlot = parseUiComponentProp_,
+					bottomMiddleSlot = parseUiComponentProp_,
+					bottomRightSlot = parseUiComponentProp_,
+					padding = parseNumberProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					AutomaticSize = if FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					ZIndex = if FFlagSduiServerCompat then nil else parseNumberProp_
+				}
+			},
+			[SduiComponentType.Text] = {
+				component = if not FFlagSduiServerCompat then require(ServerDrivenUiParent.Foundation).Text else require(ServerDrivenUiParent.SduiSharedContent).SduiText,
+				propParsers = if not FFlagSduiServerCompat then {
+					AnchorPoint = parseVector2Prop_,
+					ClipsDescendants = parseBooleanProp_,
+					LayoutOrder = parseIntegerProp_,
+					Position = parseUDim2Prop_,
+					Size = parseUDim2Prop_,
+					AutomaticSize = if not FFlagLuaAppSduiBadgeDetailsComponents then nil else getEngineEnumParser(Enum.AutomaticSize),
+					onActivated = parseCallbackProp_,
+					textStyle = if not FFlagLuaAppSduiBadgeDetailsComponents then nil else parseColorTokenProp_,
+					fontStyle = if not FFlagLuaAppSduiBadgeDetailsComponents then nil else parseTypographyTokenProp_
+				} else {
+					anchorPoint = parseVector2Prop_,
+					aspectRatio = parseNumberProp_,
+					automaticSize = getEngineEnumParser(Enum.AutomaticSize),
+					backgroundStyle = parseColorTokenProp_,
+					children = parseUiComponentProp_,
+					cornerRadius = parseUDimProp_,
+					cursorType = getLuaTableEnumParser(Foundation.Enums.CursorType, "string"),
+					fontStyle = parseTypographyTokenProp_,
+					isDisabled = parseBooleanProp_,
+					layoutOrder = parseIntegerProp_,
+					onActivated = parseCallbackProp_,
+					onSecondaryActivated = parseCallbackProp_,
+					padding = parseNumberProp_,
+					position = parseUDim2Prop_,
+					richText = parseBooleanProp_,
+					rotation = parseNumberProp_,
+					scale = parseNumberProp_,
+					selectable = parseBooleanProp_,
+					size = parseUDim2Prop_,
+					sizeConstraint = getEngineEnumParser(Enum.SizeConstraint),
+					tag = parseStringProp_,
+					testId = parseStringProp_,
+					text = parseStringProp_,
+					textStyle = parseColorTokenProp_,
+					textTruncate = getEngineEnumParser(Enum.TextTruncate),
+					textWrapped = parseBooleanProp_,
+					textXAlignment = getEngineEnumParser(Enum.TextXAlignment),
+					textYAlignment = getEngineEnumParser(Enum.TextYAlignment),
+					visible = parseBooleanProp_,
+					zIndex = parseNumberProp_
+				},
+				propMapping = if not FFlagSduiPropMapping or FFlagSduiServerCompat then nil else {
+					text = "Text",
+					text_truncate = "TextTruncate",
+					automatic_size = "AutomaticSize"
+				}
+			},
+			[SduiComponentType.TextIconRow] = {
+				component = require(ServerDrivenUi.Content.SduiTextIconRow),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					automaticSize = if not FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					selectable = if not FFlagSduiServerCompat then nil else parseBooleanProp_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					zIndex = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					iconFirst = parseBooleanProp_,
+					onActivated = parseCallbackProp_,
+					text = parseStringProp_,
+					textColor = parseColor3Prop_,
+					fontStyle = parseTypographyTokenProp_,
+					gap = parseNumberProp_,
+					icon = parseIconProp_,
+					iconWidth = parseNumberProp_,
+					iconColor = parseColor3Prop_,
+					textOverrides = v59,
+					iconOverrides = v58,
+					textFlexMode = getEngineEnumParser(Enum.UIFlexMode),
+					backgroundStyle = parseColorTokenProp_,
+					cornerRadius = parseUDimProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					AutomaticSize = if FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Selectable = if FFlagSduiServerCompat then nil else parseBooleanProp_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					ZIndex = if FFlagSduiServerCompat then nil else parseNumberProp_
+				}
+			},
+			[SduiComponentType.TextPill] = {
+				component = require(ServerDrivenUi.Content.SduiTextPill),
+				propParsers = if not FFlagSduiServerCompat then {
+					AnchorPoint = parseVector2Prop_,
+					BackgroundColor3 = parseColor3Prop_,
+					Position = parseUDim2Prop_,
+					Size = parseUDim2Prop_,
+					TextColor3 = parseColor3Prop_,
+					fontStyle = parseTypographyTokenProp_
+				} else {
+					anchorPoint = parseVector2Prop_,
+					backgroundColor3 = parseColor3Prop_,
+					position = parseUDim2Prop_,
+					size = parseUDim2Prop_,
+					textColor3 = parseColor3Prop_,
+					fontStyle = parseTypographyTokenProp_
+				}
+			},
+			[SduiComponentType.Tile] = {
+				component = require(ServerDrivenUi.Content.SduiTile),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					automaticSize = if not FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					backgroundColor3 = if not FFlagSduiServerCompat then nil else parseColor3Prop_,
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					selectionOrder = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					zIndex = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					backgroundImage = parseImageSetOrImageProp_,
+					backgroundImageComponent = parseUiComponentProp_,
+					containmentPadding = parseNumberProp_,
+					cornerRadius = parseNumberProp_,
+					ctaButtonComponent = parseUiComponentProp_,
+					footerComponent = parseUiComponentProp_,
+					image = parseImageStringProp_,
+					imageAspectRatio = parseNumberProp_,
+					imageComponent = parseUiComponentProp_,
+					isContained = parseBooleanProp_,
+					onActivated = parseCallbackProp_,
+					thumbnailBackgroundStyle = parseColorTokenProp_,
+					thumbnailOverlayComponent = parseUiComponentProp_,
+					titleComponent = parseUiComponentProp_,
+					titleFont = parseTypographyTokenProp_,
+					titleLines = parseIntegerProp_,
+					titleText = parseStringProp_,
+					enableLegacyHoverState = if not FFlagSduiTileDisableLegacyHover then parseBooleanProp_ else nil,
+					focusNavActionsComponent = parseUiComponentProp_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					AutomaticSize = if FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					BackgroundColor3 = if FFlagSduiServerCompat then nil else parseColor3Prop_,
+					LayoutOrder = if FFlagSduiServerCompat then nil else parseNumberProp_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					SelectionOrder = if FFlagSduiServerCompat then nil else parseNumberProp_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					ZIndex = if FFlagSduiServerCompat then nil else parseNumberProp_
+				}
+			},
+			[SduiComponentType.TileFooter] = {
+				component = require(ServerDrivenUi.Content.SduiTileFooter),
+				propParsers = {
+					anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+					automaticSize = if not FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+					position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					selectable = if not FFlagSduiServerCompat then nil else parseBooleanProp_,
+					size = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					zIndex = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+					sectionGap = parseNumberProp_,
+					textIconGap = parseNumberProp_,
+					fontStyle = parseTypographyTokenProp_,
+					iconColor = parseColor3Prop_,
+					iconWidth = parseNumberProp_,
+					leftIcon = parseIconProp_,
+					leftIconComponent = parseUiComponentProp_,
+					leftText = parseStringProp_,
+					leftTextFlexMode = getEngineEnumParser(Enum.UIFlexMode),
+					onActivated = parseCallbackProp_,
+					rightIcon = parseIconProp_,
+					rightIconComponent = parseUiComponentProp_,
+					rightText = parseStringProp_,
+					rightTextFlexMode = getEngineEnumParser(Enum.UIFlexMode),
+					textColor = parseColor3Prop_,
+					AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+					AutomaticSize = if FFlagSduiServerCompat then nil else getEngineEnumParser(Enum.AutomaticSize),
+					LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+					Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					Selectable = if FFlagSduiServerCompat then nil else parseBooleanProp_,
+					Size = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+					ZIndex = if FFlagSduiServerCompat then nil else parseNumberProp_
+				}
+			},
+			[SduiComponentType.View] = {
+				component = if not FFlagSduiServerCompat then require(ServerDrivenUiParent.Foundation).View else require(ServerDrivenUiParent.SduiSharedContent).SduiView,
+				propParsers = if not FFlagSduiServerCompat then {
+					AnchorPoint = parseVector2Prop_,
+					ClipsDescendants = parseBooleanProp_,
+					LayoutOrder = parseIntegerProp_,
+					Position = parseUDim2Prop_,
+					Size = parseUDim2Prop_,
+					onActivated = parseCallbackProp_
+				} else {
+					anchorPoint = parseVector2Prop_,
+					aspectRatio = parseNumberProp_,
+					automaticSize = getEngineEnumParser(Enum.AutomaticSize),
+					backgroundStyle = parseColorTokenProp_,
+					children = parseUiComponentProp_,
+					clipsDescendants = parseBooleanProp_,
+					cornerRadius = parseUDimProp_,
+					cursorType = getLuaTableEnumParser(Foundation.Enums.CursorType, "string"),
+					groupTransparency = parseNumberProp_,
+					isDisabled = parseBooleanProp_,
+					layoutOrder = parseIntegerProp_,
+					onActivated = parseCallbackProp_,
+					onSecondaryActivated = parseCallbackProp_,
+					padding = parseNumberProp_,
+					position = parseUDim2Prop_,
+					rotation = parseNumberProp_,
+					scale = parseNumberProp_,
+					selectable = parseBooleanProp_,
+					selectionGroup = parseBooleanProp_,
+					size = parseUDim2Prop_,
+					sizeConstraint = getEngineEnumParser(Enum.SizeConstraint),
+					tag = parseStringProp_,
+					testId = parseStringProp_,
+					visible = parseBooleanProp_,
+					zIndex = parseNumberProp_
+				}
+			}
+		}
+	}
+
+	t4._registeredComponents[SduiComponentType.CountdownTextIconRow] = {
+		component = require(ServerDrivenUi.Content.SduiCountdownTextIconRow),
+		propParsers = Cryo.Dictionary.join(t4._registeredComponents[SduiComponentType.TextIconRow], {
+			endTimestamp = parseNumberProp_,
+			formatStringHoursMinutes = parseStringProp_,
+			defaultString = parseStringProp_
+		})
+	}
+	t4._registeredComponents[SduiComponentType.GameTile] = {
+		component = require(ServerDrivenUi.Content.SduiGameTile),
+		propParsers = Cryo.Dictionary.join(t4._registeredComponents[SduiComponentType.Tile].propParsers, {
+			universeId = parseStringProp_,
+			placeId = parseStringProp_,
+			disableHoldToPlay = parseBooleanProp_,
+			ratingText = parseStringProp_,
+			playerCount = parseNumberProp_
+		}),
+		propInterface = {
+			universeId = t.union(t.string, t.number),
+			placeId = t.union(t.string, t.number)
+		}
+	}
+
+	if FFlagSduiEnableHeroUnitBottomRow then
+		t4._registeredComponents[SduiComponentType.HeroUnitBottomRow] = {
+			component = require(ServerDrivenUi.Content.SduiHeroUnitBottomRow),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+				zIndex = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+				ctaButton = parseUiComponentProp_,
+				labelText = parseStringProp_,
+				rightLabelContent = parseUiComponentProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+				Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+				ZIndex = if FFlagSduiServerCompat then nil else parseNumberProp_
+			}
+		}
+	end
+
+	if FFlagSduiEnableChips then
+		t4._registeredComponents[SduiComponentType.Chip] = {
+			component = require(ServerDrivenUiParent.SduiSharedContent).SduiChip,
+			propParsers = {
+				anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+				text = parseStringProp_,
+				leadingIconName = parseStringProp_,
+				leadingIconVariant = getLuaTableEnumParser(Foundation.Enums.IconVariant, "string"),
+				leadingIsCircular = parseBooleanProp_,
+				leadingOnActivated = parseCallbackProp_,
+				trailingIconName = parseStringProp_,
+				trailingIconVariant = getLuaTableEnumParser(Foundation.Enums.IconVariant, "string"),
+				trailingIsCircular = parseBooleanProp_,
+				trailingOnActivated = parseCallbackProp_,
+				onActivated = parseCallbackProp_,
+				isChecked = parseBooleanProp_,
+				size = getLuaTableEnumParser(Foundation.Enums.ChipSize, "string"),
+				AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+				Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_
+			},
+			propInterface = if not FFlagSduiChipAccessoryProps then nil else {
+				leading = t.optional(t.table),
+				trailing = t.optional(t.table)
+			}
+		}
+		t4._registeredComponents[SduiComponentType.DualActionChip] = {
+			component = require(ServerDrivenUiParent.SduiSharedContent).SduiDualActionChip,
+			propParsers = {
+				anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+				text = parseStringProp_,
+				leadingIconName = parseStringProp_,
+				leadingIconVariant = getLuaTableEnumParser(Foundation.Enums.IconVariant, "string"),
+				leadingOnActivated = parseCallbackProp_,
+				trailingIconName = parseStringProp_,
+				trailingIconVariant = getLuaTableEnumParser(Foundation.Enums.IconVariant, "string"),
+				trailingOnActivated = parseCallbackProp_,
+				AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+				Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_
+			}
+		}
+	end
+
+	if FFlagSduiEnableAssociatedItemsRow then
+		t4._registeredComponents[SduiComponentType.AssociatedItemsRow] = {
+			component = require(ServerDrivenUi.Content.SduiAssociatedItemsRow),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				items = getArrayMetatableParser(parseLazyUiComponentProp_),
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			}
+		}
+	end
+
+	if FFlagLuaAppSduiExperienceDetailsComponents then
+		t4._registeredComponents[SduiComponentType.ExperienceAssociatedItemsRow] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceAssociatedItemsRow),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				items = getArrayMetatableParser(parseLazyUiComponentProp_),
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsVoteChip] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsVoteChip),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsFavoriteChip] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsFavoriteChip),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsNotifyChip] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsNotifyChip),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsActiveChip] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsActiveChip),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsShareChip] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsShareChip),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsReportChip] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsReportChip),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+	end
+
+	if FFlagSduiExperienceDetailsSocialProof then
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsConnectionsPlayedChip] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsConnectionsPlayedChip),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExperienceDetailsConnectionsPlayedTextRow] = {
+			component = require(ServerDrivenUi.Content.ExperienceDetails.ExperienceDetailsConnectionsPlayedTextRow),
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				universeId = parseStringProp_,
+				name = parseStringProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				universeId = t.string,
+				name = t.optional(t.string)
+			}
+		}
+	end
+
+	t4._registeredComponents[SduiComponentType.VerticalFeed] = {
+		component = require(ServerDrivenUiParent.SduiSharedContent).SduiVerticalFeed,
+		propParsers = {
+			layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+			feedItems = getArrayMetatableParser(parseLazyUiComponentProp_),
+			gapBetweenFeedItems = parseNumberProp_,
+			thresholdFromEnd = parseNumberProp_,
+			onScrollToEnd = parseCallbackProp_,
+			onRefresh = if not FFlagSduiChartsSupport then nil else parseCallbackProp_,
+			stickyItems = if not FFlagSduiChartsSupport then nil else getArrayMetatableParser(parseUiComponentProp_),
+			gapAfterStickyItems = if not FFlagSduiChartsSupport then nil else parseIntegerProp_,
+			gapBetweenStickyItems = if not FFlagSduiChartsSupport then nil else parseIntegerProp_,
+			stickyPaddingTop = if not FFlagSduiChartsSupport then nil else parseIntegerProp_,
+			stickyPaddingBottom = if not FFlagSduiChartsSupport then nil else parseIntegerProp_,
+			stickyBackgroundStyle = if not FFlagSduiChartsSupport then nil else parseColorTokenProp_,
+			stickyContentTag = if not FFlagSduiChartsSupport then nil else parseStringProp_,
+			backgroundStyle = if not FFlagLuaAppSduiBadgeDetailsComponents then nil else parseColorTokenProp_,
+			LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+		}
+	}
+	t4._registeredComponents[SduiComponentType.BadgeTile] = {
+		component = require(ServerDrivenUi.Content.SduiBadgeTile),
+		propParsers = Cryo.Dictionary.join(t4._registeredComponents[SduiComponentType.Tile].propParsers, {
+			imageCornerRadius = parseNumberProp_,
+			imagePadding = parseNumberProp_
+		})
+	}
+
+	if v37 then
+		t4._registeredComponents[SduiComponentType.Badge] = {
+			component = require(ServerDrivenUiParent.SduiSharedContent).SduiBadge,
+			propParsers = {
+				anchorPoint = parseVector2Prop_,
+				layoutOrder = parseIntegerProp_,
+				position = parseUDim2Prop_,
+				visible = parseBooleanProp_,
+				zIndex = parseNumberProp_,
+				text = parseStringProp_,
+				icon = parseStringProp_,
+				variant = getLuaTableEnumParser(Foundation.Enums.BadgeVariant, "string")
+			}
+		}
+	end
+
+	if FFlagSduiExperienceDetailsSupport then
+		t4._registeredComponents[SduiComponentType.SongTile] = {
+			component = require(ServerDrivenUi.Content.SduiSongTile)
+		}
+	end
+
+	if FFlagLuaAppSduiBadgeDetailsComponents then
+		t4._registeredComponents[SduiComponentType.InfoTable] = {
+			component = require(ServerDrivenUiParent.SduiSharedContent).SduiInfoTable,
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				gridTag = parseStringProp_,
+				items = getArrayMetatableParser(parseLazyUiComponentProp_),
+				numColumns = parseIntegerProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				items = t.array(t.table)
+			}
+		}
+		t4._registeredComponents[SduiComponentType.InfoTableCell] = {
+			component = require(ServerDrivenUiParent.AppBlox).InfoTableCell,
+			propParsers = {
+				labelComponent = parseUiComponentProp_,
+				isLastInSingleColumn = parseBooleanProp_,
+				numColumns = parseIntegerProp_,
+				onActivated = parseCallbackProp_,
+				valueComponent = parseUiComponentProp_
+			},
+			propInterface = {
+				labelComponent = t.table,
+				valueComponent = t.table,
+				isLastInSingleColumn = t.optional(t.boolean)
+			}
+		}
+		t4._registeredComponents[SduiComponentType.ExpandableText] = {
+			component = require(ServerDrivenUiParent.SduiSharedContent).SduiExpandableText,
+			propParsers = {
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				text = parseStringProp_,
+				compactNumberOfLines = parseIntegerProp_,
+				fontStyle = parseTypographyTokenProp_,
+				textColor = parseColor3Prop_,
+				expandedInitially = parseBooleanProp_,
+				onExpandChanged = parseCallbackProp_,
+				headerComponent = if not FFlagSduiExperienceDetailsSupport then nil else parseUiComponentProp_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_
+			},
+			propInterface = {
+				text = t.string
+			}
+		}
+	end
+
+	if FFlagSduiOverflowMenuComponent then
+		t4._registeredComponents[SduiComponentType.OverflowMenu] = {
+			component = require(ServerDrivenUiParent.SduiSharedContent).SduiOverflowMenu,
+			propParsers = {
+				anchorPoint = if not FFlagSduiServerCompat then nil else parseVector2Prop_,
+				layoutOrder = if not FFlagSduiServerCompat then nil else parseIntegerProp_,
+				position = if not FFlagSduiServerCompat then nil else parseUDim2Prop_,
+				zIndex = if not FFlagSduiServerCompat then nil else parseNumberProp_,
+				buttonVariant = getLuaTableEnumParser(Foundation.Enums.ButtonVariant, "string"),
+				buttonSize = getLuaTableEnumParser(Foundation.Enums.InputSize, "string"),
+				buttonIcon = getLuaTableEnumParser(Foundation.Enums.IconName, "string"),
+				buttonIconBackgroundStyle = parseColorTokenProp_,
+				menuItemSize = getLuaTableEnumParser(Foundation.Enums.InputSize, "string"),
+				popoverAlign = getLuaTableEnumParser(Foundation.Enums.PopoverAlign, "string"),
+				popoverSide = getLuaTableEnumParser(Foundation.Enums.PopoverSide, "string"),
+				menuWidth = parseUDimProp_,
+				AnchorPoint = if FFlagSduiServerCompat then nil else parseVector2Prop_,
+				LayoutOrder = if FFlagSduiServerCompat then nil else parseIntegerProp_,
+				Position = if FFlagSduiServerCompat then nil else parseUDim2Prop_,
+				ZIndex = if FFlagSduiServerCompat then nil else parseNumberProp_
+			},
+			propInterface = {
+				items = t.array(t.table)
+			}
+		}
+	end
+
+	if FFlagLuaAppDismissUnlockUpsell then
+		t4._registeredComponents[SduiComponentType.AgeCheckUpsellRow] = {
+			component = require(ServerDrivenUi.Content.SduiAgeCheckUpsellRow),
+			propParsers = {
+				leading = parseUiComponentProp_,
+				content = parseUiComponentProp_,
+				trailing = parseUiComponentProp_,
+				onActivated = parseCallbackProp_,
+				tag = parseStringProp_,
+				leadingTag = parseStringProp_,
+				contentTag = parseStringProp_,
+				trailingTag = parseStringProp_,
+				layoutOrder = parseIntegerProp_,
+				position = parseUDim2Prop_,
+				zIndex = parseNumberProp_,
+				testId = parseStringProp_
+			}
+		}
+	end
+
+	setmetatable(t4, t2)
+
+	return t4
+end
+function t2.getComponentDefinition(p1, p2) -- line: 1154
+	-- upvalues: FFlagSduiGlobalRegistryFallback (copy), getSduiComponentRegistry (copy)
+	local v64 = p1._registeredComponents[p2]
+
+	if not v64 then
+		if FFlagSduiGlobalRegistryFallback then
+			return (getSduiComponentRegistry().getComponentDefinition(p2))
+		end
+
+		v64 = nil
+	end
+
+	return v64
+end
+function t2.doesComponentManageChildren(p3, p4) -- line: 1166
+	local v67 = p3:getComponentDefinition(p4)
+
+	return not not v67 and (v67.doesManageChildren or false)
+end
+function t2.getComponent(p5, p6) -- line: 1174
+	local v70 = p5:getComponentDefinition(p6)
+
+	return v70 and v70.component
+end
+function t2.getPropParsers(p7, p8) -- line: 1179
+	-- upvalues: t1 (copy)
+	local v73 = p7:getComponentDefinition(p8)
+
+	return v73 and v73.propParsers or t1
+end
+function t2.getPropInterface(p9, p10) -- line: 1187
+	local v76 = p9:getComponentDefinition(p10)
+
+	return v76 and v76.propInterface or nil
+end
+
+local t5 = {
+	[parseUiComponentProp_] = true,
+	[parseCallbackProp_] = true,
+	[parseFocusNavActionsProp_] = true
+}
+
+function t2.doesParserRequireRenderContext(_, p12) -- line: 1198
+	-- upvalues: t5 (copy)
+	if p12 and t5[p12] then
+		return true
+	end
+
+	if typeof(p12) == "table" then
+		return true
+	end
+
+	return false
+end
+function t2.registerComponent(p13, p14, p15) -- line: 1213
+	p13._registeredComponents[p14] = p15
+end
+
+return t2

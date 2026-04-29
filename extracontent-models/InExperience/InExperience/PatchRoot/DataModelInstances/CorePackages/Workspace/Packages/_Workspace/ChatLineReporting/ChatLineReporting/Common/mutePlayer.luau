@@ -1,60 +1,95 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ChatLineReporting");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.ExpChatShared);
-local l_RBXMuteCommand_0 = require(l_Parent_0.ExpChatShared).Commands.RBXMuteCommand;
-local l_UserMuted_0 = require(l_Parent_0.ExpChatShared).Actions.UserMuted;
-local v5 = require(l_script_FirstAncestor_0.Common.Constants);
-local l_FFlagExpChatUseMessagesStore_0 = require(l_Parent_0.SharedFlags).FFlagExpChatUseMessagesStore;
-mutePlayer = function(v7, v8) --[[ Line: 14 ]] --[[ Name: mutePlayer ]]
-    -- upvalues: v2 (copy), v5 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), l_UserMuted_0 (copy), l_RBXMuteCommand_0 (copy)
-    local l_context_0 = v2.context;
-    local v10 = nil;
-    if v7.username == "" then
-        return {
-            key = v5.ErrorDoesNotExistKey, 
-            args = {
-                RBX_NAME = v7.displayName
-            }, 
-            metadata = "Roblox.Mute.Error.PlayerNotFound"
-        };
-    elseif tonumber(v7.userId) == v8.UserId then
-        return {
-            key = v5.ErrorSelfMuteKey, 
-            args = {
-                RBX_NAME = v7.displayName
-            }, 
-            metadata = "Roblox.Mute.Error.CannotMuteSelf"
-        };
-    elseif tonumber(v7.userId) then
-        if l_context_0.store then
-            if l_FFlagExpChatUseMessagesStore_0 then
-                if l_context_0 and l_context_0.messagesStore then
-                    l_context_0.messagesStore.muteUser(v7.userId);
-                    return v10;
-                else
-                    return {
-                        key = "CoreScripts.TextChat.MessageStatus.Warning.Unknown", 
-                        args = {
-                            RBX_NAME = v7.displayName
-                        }, 
-                        metadata = "Roblox.Mute.Error.ContextNotAvailable"
-                    };
-                end;
-            else
-                l_context_0.store:dispatch(l_UserMuted_0(v7.userId));
-                return {
-                    key = v5.SuccessfulMuteKey, 
-                    args = {
-                        RBX_NAME = v7.displayName
-                    }, 
-                    metadata = "Roblox.Mute.Info.Success"
-                };
-            end;
-        else
-            return v10;
-        end;
-    else
-        return l_RBXMuteCommand_0.clientRun(l_context_0.store, v8.UserId, "/mute " .. v7.displayName, l_context_0);
-    end;
-end;
-return mutePlayer;
+local ChatLineReporting = script:FindFirstAncestor("ChatLineReporting")
+local ChatLineReportingParent = ChatLineReporting.Parent
+local ExpChatShared = require(ChatLineReportingParent.ExpChatShared)
+local RBXMuteCommand = require(ChatLineReportingParent.ExpChatShared).Commands.RBXMuteCommand
+local UserMuted = require(ChatLineReportingParent.ExpChatShared).Actions.UserMuted
+local Constants = require(ChatLineReporting.Common.Constants)
+local SharedFlags = require(ChatLineReportingParent.SharedFlags)
+local FFlagExpChatUseMessagesStore = SharedFlags.FFlagExpChatUseMessagesStore
+local FFlagChatLineReportingGlobalMuteEnabled = SharedFlags.FFlagChatLineReportingGlobalMuteEnabled
+
+function mutePlayer(p1, p2, p3) -- line: 15
+	-- upvalues: ExpChatShared (copy), FFlagChatLineReportingGlobalMuteEnabled (copy), Constants (copy), FFlagExpChatUseMessagesStore (copy), UserMuted (copy), RBXMuteCommand (copy)
+	local context = ExpChatShared.context
+	local v14 = nil
+
+	if FFlagChatLineReportingGlobalMuteEnabled and p3 then
+		if tonumber(p1.userId) then
+			if context.globalMutedUsersStore then
+				context.globalMutedUsersStore.muteGlobalUserId(p1.userId)
+
+				return {
+					key = Constants.SuccessfulMuteKey,
+					args = {
+						RBX_NAME = p1.displayName
+					},
+					metadata = "Roblox.GlobalMute.Info.Success"
+				}
+			end
+
+			return {
+				key = "CoreScripts.TextChat.MessageStatus.Warning.Unknown",
+				args = {
+					RBX_NAME = p1.displayName
+				},
+				metadata = "Roblox.GlobalMute.Error.ContextNotAvailable"
+			}
+		end
+	else
+		if p1.username == "" then
+			return {
+				key = Constants.ErrorDoesNotExistKey,
+				args = {
+					RBX_NAME = p1.displayName
+				},
+				metadata = "Roblox.Mute.Error.PlayerNotFound"
+			}
+		end
+
+		if tonumber(p1.userId) == p2.UserId then
+			return {
+				key = Constants.ErrorSelfMuteKey,
+				args = {
+					RBX_NAME = p1.displayName
+				},
+				metadata = "Roblox.Mute.Error.CannotMuteSelf"
+			}
+		end
+
+		if not tonumber(p1.userId) then
+			return RBXMuteCommand.clientRun(context.store, p2.UserId, "/mute " .. p1.displayName, context)
+		end
+
+		if context.store then
+			if FFlagExpChatUseMessagesStore then
+				if context and context.messagesStore then
+					context.messagesStore.muteUser(p1.userId)
+
+					return v14
+				end
+
+				return {
+					key = "CoreScripts.TextChat.MessageStatus.Warning.Unknown",
+					args = {
+						RBX_NAME = p1.displayName
+					},
+					metadata = "Roblox.Mute.Error.ContextNotAvailable"
+				}
+			end
+
+			context.store:dispatch(UserMuted(p1.userId))
+
+			return {
+				key = Constants.SuccessfulMuteKey,
+				args = {
+					RBX_NAME = p1.displayName
+				},
+				metadata = "Roblox.Mute.Info.Success"
+			}
+		end
+	end
+
+	return v14
+end
+
+return mutePlayer

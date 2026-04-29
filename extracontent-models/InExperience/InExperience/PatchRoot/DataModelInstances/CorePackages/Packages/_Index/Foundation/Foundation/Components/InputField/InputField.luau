@@ -1,78 +1,86 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local l_Components_0 = l_script_FirstAncestor_0.Components;
-local v4 = require(l_Components_0.HintText);
-local v5 = require(l_Components_0.InputLabel);
-local _ = require(l_Components_0.Types);
-local v7 = require(l_Components_0.View);
-local v8 = require(l_script_FirstAncestor_0.Utility.useScaledValue);
-local v9 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v10 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local v11 = require(l_script_FirstAncestor_0.Constants);
-local v12 = {
-    size = require(l_script_FirstAncestor_0.Enums.InputLabelSize).Small, 
-    testId = "--foundation-input-field"
-};
-return v2.memo(v2.forwardRef(function(v13, v14) --[[ Line: 45 ]] --[[ Name: InputField ]]
-    -- upvalues: v10 (copy), v12 (copy), v8 (copy), v11 (copy), v2 (copy), v7 (copy), v9 (copy), v5 (copy), v4 (copy)
-    local v15 = v10(v13, v12);
-    local v16 = v8(v11.DEFAULT_INPUT_FIELD_WIDTH_PIXELS);
-    local v17 = v2.useRef(nil);
-    local v18 = v2.useCallback(function() --[[ Line: 50 ]]
-        -- upvalues: v17 (copy)
-        if v17.current and not v17.current.getIsFocused() then
-            v17.current.focus();
-        end;
-    end, {});
-    local v20 = v2.useCallback(function(v19) --[[ Line: 56 ]]
-        -- upvalues: v17 (copy)
-        if v17.current then
-            v17.current.setHover(v19);
-        end;
-    end, {});
-    v2.useImperativeHandle(v15.textBoxRef, function() --[[ Line: 62 ]]
-        -- upvalues: v17 (copy)
-        if not v17.current then
-            return nil;
-        else
-            return {
-                focus = v17.current.focus, 
-                releaseFocus = v17.current.releaseFocus, 
-                getIsFocused = v17.current.getIsFocused, 
-                getCursorPosition = v17.current.getCursorPosition, 
-                getSelectionStart = v17.current.getSelectionStart, 
-                setCursorPosition = v17.current.setCursorPosition, 
-                setSelectionStart = v17.current.setSelectionStart
-            };
-        end;
-    end, {});
-    return v2.createElement(v7, v9(v15, {
-        Size = if not v15.width then UDim2.fromOffset(v16, 0) else UDim2.new(v15.width, UDim.new(0, 0)), 
-        tag = "col gap-small auto-y", 
-        ref = v14
-    }), {
-        Label = if #v15.label > 0 then v2.createElement(v5, {
-            Text = v15.label, 
-            size = v15.size, 
-            isRequired = v15.isRequired, 
-            onActivated = v18, 
-            onHover = v20, 
-            LayoutOrder = 1, 
-            testId = ("%*--label"):format(v15.testId)
-        }) else nil, 
-        InputWrapper = v2.createElement(v7, {
-            tag = "size-full-0 auto-y", 
-            LayoutOrder = 2, 
-            testId = ("%*--input-wrapper"):format(v15.testId)
-        }, {
-            Input = v15.input(v17)
-        }), 
-        Hint = if v15.hint then v2.createElement(v4, {
-            text = v15.hint, 
-            hasError = v15.hasError, 
-            LayoutOrder = 3, 
-            testId = ("%*--hint"):format(v15.testId)
-        }) else nil
-    });
-end));
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local React = require(FoundationParent.React)
+local Components = Foundation.Components
+local HintText = require(Components.HintText)
+local InputLabel = require(Components.InputLabel)
+
+require(Components.Types)
+
+local View = require(Components.View)
+local Flags = require(Foundation.Utility.Flags)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local Constants = require(Foundation.Constants)
+local t1 = {
+	size = require(Foundation.Enums.InputLabelSize).Small,
+	testId = "--foundation-input-field"
+}
+
+return React.memo(React.forwardRef(function(p1, p2) --[[ InputField ]] -- line: 46
+	-- upvalues: withDefaults (copy), t1 (copy), useScaledValue (copy), Constants (copy), React (copy), View (copy), withCommonProps (copy), InputLabel (copy), Flags (copy), HintText (copy)
+	local v16 = withDefaults(p1, t1)
+	local v17 = useScaledValue(Constants.DEFAULT_INPUT_FIELD_WIDTH_PIXELS)
+	local v18 = React.useRef(nil)
+	local v19 = React.useCallback(function() -- line: 51
+		-- upvalues: v18 (copy)
+		if v18.current and not v18.current.getIsFocused() then
+			v18.current.focus()
+		end
+	end, {})
+	local v20 = React.useCallback(function(p3) -- line: 57
+		-- upvalues: v18 (copy)
+		if v18.current then
+			v18.current.setHover(p3)
+		end
+	end, {})
+
+	React.useImperativeHandle(v16.textBoxRef, function() -- line: 63
+		-- upvalues: v18 (copy)
+		if not v18.current then
+			return nil
+		end
+
+		return {
+			focus = v18.current.focus,
+			releaseFocus = v18.current.releaseFocus,
+			getIsFocused = v18.current.getIsFocused,
+			getCursorPosition = v18.current.getCursorPosition,
+			getSelectionStart = v18.current.getSelectionStart,
+			setCursorPosition = v18.current.setCursorPosition,
+			setSelectionStart = v18.current.setSelectionStart
+		}
+	end, {})
+
+	return React.createElement(View, withCommonProps(v16, {
+		Size = if v16.width then UDim2.new(v16.width, UDim.new(0, 0)) else UDim2.fromOffset(v17, 0),
+		tag = "col gap-small auto-y",
+		ref = p2
+	}), {
+		Label = if not (#v16.label > 0) then nil else React.createElement(InputLabel, {
+			Text = v16.label,
+			size = v16.size,
+			isRequired = v16.isRequired,
+			isDisabled = if not Flags.FoundationInputFieldFixDisabled then nil else v16.isDisabled,
+			onActivated = v19,
+			onHover = v20,
+			LayoutOrder = 1,
+			testId = `{ v16.testId }--label`
+		}),
+		InputWrapper = React.createElement(View, {
+			tag = "size-full-0 auto-y",
+			LayoutOrder = 2,
+			testId = `{ v16.testId }--input-wrapper`
+		}, {
+			Input = v16.input(v18)
+		}),
+		Hint = if not v16.hint then nil else React.createElement(HintText, {
+			text = v16.hint,
+			hasError = v16.hasError,
+			isDisabled = if not Flags.FoundationInputFieldFixDisabled then nil else v16.isDisabled,
+			LayoutOrder = 3,
+			testId = `{ v16.testId }--hint`
+		})
+	})
+end))

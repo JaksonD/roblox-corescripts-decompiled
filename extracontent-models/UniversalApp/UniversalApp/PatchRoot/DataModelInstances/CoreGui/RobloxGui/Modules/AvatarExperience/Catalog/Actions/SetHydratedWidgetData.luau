@@ -1,10 +1,14 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v1 = require(l_CorePackages_0.Packages.Rodux);
-local v2 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
-return v1.makeActionCreator(script.Name, function(v3) --[[ Line: 11 ]]
-    -- upvalues: v2 (copy)
-    v2.isType(v3, "table", "payload");
-    return {
-        payload = v3
-    };
-end);
+local CorePackages = game:GetService("CorePackages")
+local Rodux = require(CorePackages.Packages.Rodux)
+local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
+
+require(CorePackages.Workspace.Packages.AvatarExperienceRodux)
+
+return Rodux.makeActionCreator(script.Name, function(p1) -- line: 13
+	-- upvalues: ArgCheck (copy)
+	ArgCheck.isType(p1, "table", "payload")
+
+	return {
+		payload = p1
+	}
+end)

@@ -1,875 +1,933 @@
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_UserInputService_0 = game:GetService("UserInputService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v3 = require(l_CorePackages_0.Packages.Roact);
-local v4 = require(l_CorePackages_0.Packages.UIBlox);
-local v5 = require(l_CorePackages_0.Packages.Cryo);
-local v6 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceSlotBasedEditor);
-local v7 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local l_NumberLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).NumberLocalization;
-local l_isGamepadInput_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).isGamepadInput;
-local l_Images_0 = v4.App.ImageSet.Images;
-local v11 = require(l_CorePackages_0.Packages.RoactGamepad);
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v13 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local v15 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
-local v16 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
-local v17 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v18 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
-local l_AvatarScreen_0 = v18.Enums.AvatarScreen;
-local l_useAvatarRoute_0 = v18.AvatarRoute.Hooks.useAvatarRoute;
-local l_NavigateWithLock_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock;
-local v22 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.SetLookFavorite);
-local v23 = require(l_Modules_0.AvatarExperience.Catalog.Components.ActionBar.ActionBar);
-local l_logOnOverlayClosed_0 = v18.Debug.logOnOverlayClosed;
-local v25 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.ReportLook);
-local v26 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local _ = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.Prompts.ContextFrame);
-local v28 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v29 = require(l_Modules_0.AvatarExperience.Catalog.Hooks.useLookUnifiedPurchaseFlow);
-local l_AvatarEditorSubcategories_0 = v6.Enums.AvatarEditorSubcategories;
-local l_AvatarEditorCategories_0 = v6.Enums.AvatarEditorCategories;
-local v32 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v33 = require(l_Modules_0.AvatarExperience.AvatarEditor.GetAvatarEditorCategories);
-local v34 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
-local l_SetTryOnManagerPeekViewState_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux).Actions.SetTryOnManagerPeekViewState;
-local v36 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
-local l_FullView_0 = v7.Enums.FullView;
-local l_PeekViewState_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).PeekViewState;
-local v39 = require(l_Modules_0.AvatarExperience.Catalog.Components.LookDetails.LookDetailsBottomBarUtils);
-local v40 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
-local v41 = require(l_CorePackages_0.Packages.React);
-local l_useStyle_0 = v4.Core.Style.useStyle;
-local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
-local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
-local v46 = require(l_Modules_0.AvatarExperience.Common.Hooks.useShareButton);
-local v47 = require(l_Modules_0.AvatarExperience.Common.Hooks.useFavoriteButton);
-local v48 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
-local l_useLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).Hooks.useLocalization;
-local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
-local v51 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableLookFavoriting);
-local l_getUseSelectorDeepEquals_0 = v7.Utils.getUseSelectorDeepEquals;
-local l_selectTryOnsLookId_0 = v7.State.Selectors.selectTryOnsLookId;
-local l_useFocusController_0 = v11.useFocusController;
-local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.CollectiblesItemInfo);
-local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.CollectiblesResellableInstances);
-local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.CollectiblesResellersInstances);
-local v58 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
-local v59 = require(l_Modules_0.LuaApp.Enum.ToastType);
-local v60 = game:DefineFastFlag("AXHideShareButtonForContextMenu", false);
-local v61 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagAXMISEnableMultiShopping_0 = v61.FFlagAXMISEnableMultiShopping;
-local l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 = v61.FFlagAXEnableUnifiedPurchaseFlowForLooks;
-local l_FFlagAXCatalogMakeupSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXCatalogMakeupSupport;
-local v65 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite);
-local l_getTTIEventName_0 = v65.getTTIEventName;
-local l_TimeToInteractiveTracker_0 = require(l_CorePackages_0.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker;
-local l_ProductPurchaseSurface_0 = v65.Enums.ProductPurchaseSurface;
-local l_getIsUserEligibleForUnifiedPurchaseFlow_0 = v65.getIsUserEligibleForUnifiedPurchaseFlow;
-local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.OutfitTryOn);
-local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.Looks);
-local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUnifiedPurchaseFlowMarketplaceUIImprovements;
-local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
-local l_FFlagAXFixLookDetailsContextualMenu_0 = v61.FFlagAXFixLookDetailsContextualMenu;
-local l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAddPerformanceMetricsToUnifiedPurchaseModal;
-local l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks_0 = v61.FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks;
-local l_FFlagAXFixLookLinkToCustomize_0 = v61.FFlagAXFixLookLinkToCustomize;
-local l_FFlagAXBlackbirdRoot_0 = v61.FFlagAXBlackbirdRoot;
-local l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 = v61.FFlagAXMISEnableMultiShoppingUnifiedEvents;
-local v81 = l_Images_0["icons/common/robux"];
-local v82 = l_Images_0["icons/actions/block"];
-local v83 = l_Images_0["icons/menu/avatar_on"];
-local v84 = l_Images_0["icons/actions/feedback"];
-local v85 = l_Images_0["icons/actions/info"];
-local v86 = l_Images_0["icons/actions/edit/delete"];
-local function v88(v87) --[[ Line: 131 ]] --[[ Name: selectTryOnItems ]]
-    return v87.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
-end;
-local function v90(v89) --[[ Line: 134 ]] --[[ Name: selectLookId ]]
-    return v89.AvatarExperience.AvatarScene.OutfitTryOn.LookId;
-end;
-local function v92(v91) --[[ Line: 137 ]] --[[ Name: selectLookDetails ]]
-    return v91.AvatarExperience.AvatarScene.Looks;
-end;
-local function v94(v93) --[[ Line: 140 ]] --[[ Name: selectLocalUserId ]]
-    return v93.LocalUserId;
-end;
-local function v96(v95) --[[ Line: 143 ]] --[[ Name: selectUserRobux ]]
-    return v95.UserRobux;
-end;
-local function v98(v97) --[[ Line: 146 ]] --[[ Name: selectCollectiblesItemInfo ]]
-    return v97.AvatarExperience.Common.Collectibles.CollectiblesItemInfo;
-end;
-local function v100(v99) --[[ Line: 149 ]] --[[ Name: selectCollectiblesResellersInstances ]]
-    return v99.AvatarExperience.Common.Collectibles.CollectiblesResellersInstances;
-end;
-local function v102(v101) --[[ Line: 152 ]] --[[ Name: selectResellableInstances ]]
-    return v101.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances;
-end;
-local function v104(v103) --[[ Line: 155 ]] --[[ Name: selectPeekViewState ]]
-    return v103.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState;
-end;
-local v105 = nil;
-if l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 then
-    v105 = function(v106) --[[ Line: 160 ]]
-        return v106.AvatarExperience.AvatarScene.OutfitTryOn.LookAnalyticsInfo;
-    end;
-end;
-local v107 = nil;
-if l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 then
-    v107 = function(v108) --[[ Line: 167 ]]
-        return v108.AvatarExperience.AvatarScene.OutfitTryOn.MakeupLookAnalyticsInfo;
-    end;
-end;
-local function _(v109, v110) --[[ Line: 172 ]] --[[ Name: getAvatarEditorCategoryIndexesByName ]]
-    -- upvalues: v33 (copy)
-    local v111 = v33();
-    local v112 = nil;
-    local v113 = nil;
-    for v114, v115 in v111 do
-        if v115.Name == v109 then
-            v112 = v114;
-            if v110 and v115.Subcategories then
-                for v116, v117 in v115.Subcategories do
-                    if v117.Name == v110 then
-                        return v112, v116;
-                    end;
-                end;
-                return v112, v113;
-            else
-                break;
-            end;
-        end;
-    end;
-    return v112, v113;
-end;
-local function v140(v119, v120, v121, v122, v123, v124) --[[ Line: 193 ]]
-    -- upvalues: v39 (copy), l_FFlagAXBlackbirdRoot_0 (copy), v5 (copy)
-    local v125 = 0;
-    local v126 = 0;
-    local v127 = 0;
-    local v128 = {};
-    local v129 = false;
-    for _, v131 in v119 do
-        if v131.selectedInTryOnManager then
-            v125 = v125 + 1;
-            local v132 = v39.getItemInfo(v131.itemId, v131.itemType, v123, v124);
-            if not v132 then
-                if not v129 then
-                    v129 = true;
-                end;
-            elseif not v132 or not v132.quantityOwned or v132.quantityOwned <= 0 then
-                local v133 = v39.getPriceForItem(v132, v120, v121, v122, v131.selectedTimedOptionIndex);
-                if v133 ~= nil then
-                    if l_FFlagAXBlackbirdRoot_0 then
-                        if v132 and v132.discountInformation then
-                            local v134 = false;
-                            if v131.selectedTimedOptionIndex and v132.timedOptions then
-                                local v135 = v132.timedOptions[v131.selectedTimedOptionIndex];
-                                if v135 and v135.discountInformation then
-                                    v127 = v127 + v135.discountInformation.originalPrice;
-                                    v134 = true;
-                                elseif v135 and not v135.discountInformation and v135.days ~= 0 then
-                                    v127 = v127 + v135.price;
-                                    v134 = true;
-                                end;
-                            end;
-                            if not v134 then
-                                v127 = v127 + v132.discountInformation.originalPrice;
-                            end;
-                        else
-                            v127 = v127 + v133;
-                        end;
-                    end;
-                    v126 = v126 + v133;
-                    v128[v131.itemId] = v5.Dictionary.join(v131, {
-                        expectedPrice = v133
-                    });
-                end;
-            end;
-        end;
-    end;
-    local l_v126_0 = v126;
-    local l_v125_0 = v125;
-    local l_v128_0 = v128;
-    local l_v129_0 = v129;
-    if l_FFlagAXBlackbirdRoot_0 then
-        return l_v126_0, l_v125_0, l_v128_0, l_v129_0, v127;
-    else
-        return l_v126_0, l_v125_0, l_v128_0, l_v129_0, nil;
-    end;
-end;
-local v141 = {
-    addToMyAvatarsLabel = l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 and "Feature.Avatar.Label.Title.AddToMyAvatars" or nil, 
-    wearAfterPurchaseLabel = l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 and "Feature.Catalog.Label.WearAfterPurchase" or nil, 
-    wearAvatarAfterPurchaseLabel = l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 and "Feature.Catalog.Label.WearAvatarAfterPurchase" or nil, 
-    saveAsCharacterLabel = l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 and "Feature.Catalog.Label.SaveAsCharacter" or nil, 
-    saveAsMakeupLookLabel = l_FFlagAXCatalogMakeupSupport_0 and "Feature.Avatar.Label.Title.AddToMyMakeupLooks" or nil, 
-    wearAfterPurchaseMakeupLabel = l_FFlagAXCatalogMakeupSupport_0 and "Feature.Avatar.Label.Title.WearAfterPurchase" or nil, 
-    freeText = "Feature.Catalog.LabelFree", 
-    reportText = "Feature.Catalog.Action.Report", 
-    viewDetailsPageLabel = "Feature.Catalog.Action.ViewDetailsPage", 
-    deleteAvatarLabel = "Feature.Catalog.Action.DeleteAvatar"
-};
-return function(v142) --[[ Line: 298 ]] --[[ Name: LookDetailsBottomBar ]]
-    -- upvalues: l_UserInputService_0 (copy), v41 (copy), l_isGamepadInput_0 (copy), l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 (copy), l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks_0 (copy), l_useAvatarRoute_0 (copy), l_useDispatch_0 (copy), l_useSelector_0 (copy), v92 (copy), l_getUseSelectorDeepEquals_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_selectTryOnsLookId_0 (copy), v90 (copy), v51 (copy), l_useNavigation_0 (copy), v48 (copy), v17 (copy), v16 (copy), v15 (copy), v105 (ref), l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 (copy), v107 (ref), v28 (copy), l_useLocalization_0 (copy), v141 (copy), l_useStyle_0 (copy), l_useDesignTokens_0 (copy), v88 (copy), v94 (copy), v96 (copy), v98 (copy), v100 (copy), v102 (copy), v104 (copy), v26 (copy), v22 (copy), v58 (copy), v59 (copy), v47 (copy), v5 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy), l_AvatarScreen_0 (copy), v46 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useFocusController_0 (copy), v36 (copy), l_FullView_0 (copy), l_SetTryOnManagerPeekViewState_0 (copy), l_PeekViewState_0 (copy), v40 (copy), l_logOnOverlayClosed_0 (copy), l_NavigateWithLock_0 (copy), l_FFlagAXFixLookDetailsContextualMenu_0 (copy), v85 (copy), v60 (copy), v86 (copy), v84 (copy), v25 (copy), v39 (copy), v140 (copy), v32 (copy), l_FFlagAXFixLookLinkToCustomize_0 (copy), v13 (copy), l_AvatarEditorSubcategories_0 (copy), l_AvatarEditorCategories_0 (copy), v34 (copy), v33 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), v29 (copy), l_FFlagAXBlackbirdRoot_0 (copy), v81 (copy), v83 (copy), v82 (copy), l_NumberLocalization_0 (copy), v3 (copy), v23 (copy)
-    local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-    local v144, _ = v41.useState(l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_0));
-    local v146, v147 = v41.useState(false);
-    local v148 = nil;
-    local v149 = nil;
-    if l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 and not l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks_0 then
-        local v150, v151 = v41.useState(false);
-        v148 = v150;
-        v149 = v151;
-    end;
-    local v152 = l_useAvatarRoute_0();
-    local v153 = l_useDispatch_0();
-    local v154 = l_useSelector_0(v92, l_getUseSelectorDeepEquals_0());
-    local v155 = l_useSelector_0(if l_FFlagAXCatalogMakeupSupport_0 and l_FFlagAXMISEnableMultiShopping_0 then l_selectTryOnsLookId_0 else v90, l_getUseSelectorDeepEquals_0());
-    local v156 = if v51() then v155 ~= nil and v154[v155] ~= nil and (v154[v155].isFavorited or false) else false;
-    local v157 = l_useNavigation_0();
-    local v158 = v48(v17);
-    local v159 = v48(v16);
-    local v160 = v48(v15);
-    local v161 = nil;
-    if l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 then
-        v161 = l_useSelector_0(v105, l_getUseSelectorDeepEquals_0());
-    end;
-    local v162 = nil;
-    local v163 = nil;
-    if l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 then
-        v163 = l_useSelector_0(v107, l_getUseSelectorDeepEquals_0());
-        v162 = if v155 and v154 and v154[v155] then v154[v155].lookType == v28.LookType.Makeup else false;
-    end;
-    local v164 = l_useLocalization_0(v141);
-    local v165 = l_useStyle_0();
-    local l_Theme_0 = v165.Theme;
-    local l_Font_0 = v165.Font;
-    local v168 = l_useDesignTokens_0();
-    local v169 = l_useSelector_0(v88, l_getUseSelectorDeepEquals_0());
-    local v170 = l_useSelector_0(v94, l_getUseSelectorDeepEquals_0());
-    local v171 = l_useSelector_0(v96, l_getUseSelectorDeepEquals_0())[v170];
-    local v172 = l_useSelector_0(v98, l_getUseSelectorDeepEquals_0());
-    local v173 = l_useSelector_0(v100, l_getUseSelectorDeepEquals_0());
-    local v174 = l_useSelector_0(v102, l_getUseSelectorDeepEquals_0());
-    local v175 = l_useSelector_0(v104, l_getUseSelectorDeepEquals_0());
-    local v179 = if v51() then v41.useCallback(function(v176) --[[ Line: 362 ]]
-        -- upvalues: v26 (ref), v156 (copy), l_FFlagAXCatalogMakeupSupport_0 (ref), v155 (copy), v154 (copy), v153 (copy), v22 (ref), v158 (copy), v58 (ref), v59 (ref)
-        v26.closeOverlay(v176);
-        local v177 = not v156;
-        if l_FFlagAXCatalogMakeupSupport_0 then
-            local v178 = if v155 and v154[v155] then v154[v155].lookType else nil;
-            v153(v22(v158, v155, v177, v178));
-        else
-            v153(v22(v158, v155, v177));
-        end;
-        v153(v58({
-            toastMessage = v177 and "Feature.Catalog.Toast.FavoritedLook" or "Feature.Catalog.Toast.UnfavoritedLook", 
-            toastType = v59.SuccessConfirmation
-        }));
-    end, {
-        v153, 
-        v58, 
-        v22, 
-        v155, 
-        v154, 
-        v158, 
-        v156, 
-        v157
-    }) else nil;
-    local v180 = if v51() then v47(v155, v156, v179) else nil;
-    local v181 = if l_FFlagAXMISEnableMultiShopping_0 then v41.useMemo(function() --[[ Line: 399 ]]
-        -- upvalues: v142 (copy), v155 (copy), v154 (copy), v5 (ref)
-        if not v142.alwaysBuyAll then
-            return nil;
-        elseif v155 and v154 then
-            return v5.Dictionary.union(v154[v155].lookAssetInfos or {}, v154[v155].lookBundleInfos or {});
-        else
-            return {};
-        end;
-    end, {
-        v155, 
-        v154, 
-        v142.alwaysBuyAll
-    }) else nil;
-    if l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 and not l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks_0 then
-        v41.useEffect(function() --[[ Line: 418 ]]
-            -- upvalues: l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref), v158 (copy), v149 (ref)
-            l_getIsUserEligibleForUnifiedPurchaseFlow_0(v158):andThen(function(v182) --[[ Line: 420 ]]
-                -- upvalues: v149 (ref)
-                v149(v182);
-            end):catch(function(_) --[[ Line: 423 ]]
-                -- upvalues: v149 (ref)
-                v149(false);
-            end);
-        end, {
-            v158
-        });
-    end;
-    local v184 = v41.useCallback(function() --[[ Line: 431 ]]
-        -- upvalues: v153 (copy), v58 (ref), v59 (ref)
-        v153(v58({
-            toastMessage = "Feature.Catalog.Toast.AvatarUnderReview", 
-            toastType = v59.NetworkingError
-        }));
-    end, {
-        v153
-    });
-    local v185 = v41.useMemo(function() --[[ Line: 437 ]]
-        -- upvalues: v154 (copy), v155 (copy), v28 (ref)
-        if v154 and v155 then
-            return v154[v155].moderationStatus == v28.ModerationStatus.Moderated;
-        else
-            return false;
-        end;
-    end, {
-        v154, 
-        v155
-    });
-    local v186 = v41.useMemo(function() --[[ Line: 444 ]]
-        -- upvalues: v154 (copy), v155 (copy), v28 (ref)
-        if v154 and v155 then
-            return v154[v155].moderationStatus == v28.ModerationStatus.PendingModeration;
-        else
-            return false;
-        end;
-    end, {
-        v154, 
-        v155
-    });
-    local v187 = v41.useMemo(function() --[[ Line: 451 ]]
-        -- upvalues: v152 (copy), l_AvatarScreen_0 (ref)
-        return v152 and v152.opaque and v152.opaque.name == l_AvatarScreen_0.MySharedAvatars;
-    end, {
-        v152
-    });
-    local v188 = v46(v155, v28.ItemType.Look, true, nil, v186 and v184 or nil);
-    local v189 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else l_useFocusController_0();
-    local v191 = v41.useCallback(function(v190) --[[ Line: 470 ]]
-        -- upvalues: v160 (copy), v28 (ref), v153 (copy), v36 (ref), v152 (copy), l_FullView_0 (ref), l_SetTryOnManagerPeekViewState_0 (ref), l_PeekViewState_0 (ref), v26 (ref)
-        v160.sendAXCounter(v28.Counter.ContextFrame.ViewDetailsPageClick);
-        v153(v36(v160, v152.opaque.name, l_FullView_0.None));
-        v153(l_SetTryOnManagerPeekViewState_0(l_PeekViewState_0.Brief));
-        v26.closeOverlay(v190);
-    end, {
-        v160, 
-        v153, 
-        v152
-    });
-    local v193 = v41.useMemo(function() --[[ Line: 477 ]]
-        -- upvalues: v170 (copy), v154 (copy), v155 (copy), v40 (ref)
-        if v170 and v154 and v155 then
-            local v192 = v154[v155];
-            return v192 and v192.curator and tostring(v192.curator.id) == tostring(v170) and v192.curator.type == v40.CreatorType.User;
-        else
-            return false;
-        end;
-    end, {
-        v154, 
-        v155, 
-        v170
-    });
-    local v194 = v41.useCallback(function() --[[ Line: 490 ]]
-        -- upvalues: v144 (copy), v152 (copy), l_AvatarScreen_0 (ref), l_logOnOverlayClosed_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v189 (copy)
-        if v144 and v152.current.name == l_AvatarScreen_0.LookDetails then
-            l_logOnOverlayClosed_0("LookDetails");
-            if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                v189.captureFocus();
-            end;
-        end;
-    end, {
-        v144, 
-        v152, 
-        if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v189
-    });
-    local v198 = v41.useCallback(function(v195) --[[ Line: 507 ]]
-        -- upvalues: v160 (copy), v28 (ref), v26 (ref), l_AvatarScreen_0 (ref), v194 (copy), v155 (copy), v157 (copy), v153 (copy), l_NavigateWithLock_0 (ref)
-        v160.sendAXCounter(v28.Counter.ContextFrame.DeleteAvatarClick);
-        v26.closeOverlay(v195);
-        v153(l_NavigateWithLock_0(function() --[[ Line: 510 ]]
-            -- upvalues: l_AvatarScreen_0 (ref), v194 (ref), v155 (ref), v157 (ref)
-            local l_DeleteAvatarConfirmationPrompt_0 = l_AvatarScreen_0.DeleteAvatarConfirmationPrompt;
-            local v197 = {
-                onOverlayClosed = v194, 
-                lookId = v155
-            };
-            v157.navigate(l_DeleteAvatarConfirmationPrompt_0, v197);
-        end));
-    end, {
-        v160, 
-        v153, 
-        v155, 
-        v194
-    });
-    local v203 = v41.useCallback(function() --[[ Line: 522 ]]
-        -- upvalues: v175 (copy), l_PeekViewState_0 (ref), l_FFlagAXFixLookDetailsContextualMenu_0 (ref), v85 (ref), v164 (copy), v191 (copy), v51 (ref), v185 (copy), v180 (copy), v60 (ref), v187 (copy), v188 (copy), v193 (copy), v86 (ref), v198 (copy), v84 (ref), v153 (copy), v25 (ref), v158 (copy), v26 (ref)
-        local v199 = v175 == l_PeekViewState_0.SuperBrief;
-        if l_FFlagAXFixLookDetailsContextualMenu_0 then
-            local v200 = {};
-            if v199 then
-                table.insert(v200, {
-                    icon = v85, 
-                    text = v164.viewDetailsPageLabel, 
-                    onActivated = v191
-                });
-            end;
-            if v51() and not v185 then
-                table.insert(v200, v180);
-            end;
-            if not v60 and not v185 and not v187 then
-                table.insert(v200, v188);
-            end;
-            if v193 and v187 then
-                table.insert(v200, {
-                    icon = v86, 
-                    text = v164.deleteAvatarLabel, 
-                    onActivated = v198
-                });
-            end;
-            if not v193 then
-                table.insert(v200, {
-                    icon = v84, 
-                    text = v164.reportText, 
-                    onActivated = function(v201) --[[ Line: 557 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v153 (ref), v25 (ref), v158 (ref), v26 (ref)
-                        v153(v25(v158));
-                        v26.closeOverlay(v201);
-                    end
-                });
-            end;
-            return v200;
-        else
-            return {
-                if not v199 then nil else {
-                    icon = v85, 
-                    text = v164.viewDetailsPageLabel, 
-                    onActivated = v191
-                }, 
-                if not v51() or v185 then nil else v180, 
-                if not not v60 or v185 or v187 then nil else v188, 
-                if v193 and v187 then {
-                    icon = v86, 
-                    text = v164.deleteAvatarLabel, 
-                    onActivated = v198
-                } else nil, 
-                if v193 then nil else {
-                    icon = v84, 
-                    text = v164.reportText, 
-                    onActivated = function(v202) --[[ Line: 592 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v153 (ref), v25 (ref), v158 (ref), v26 (ref)
-                        v153(v25(v158));
-                        v26.closeOverlay(v202);
-                    end
-                }
-            };
-        end;
-    end, {
-        v158, 
-        v164, 
-        v191, 
-        v198, 
-        v193, 
-        v153, 
-        v188, 
-        if v51() then v180 else nil, 
-        if v51() then v156 else nil, 
-        if v51() then v175 else nil, 
-        v185, 
-        v187
-    });
-    local v204 = v41.useCallback(function() --[[ Line: 616 ]]
-        -- upvalues: v147 (copy), v194 (copy)
-        v147(false);
-        v194();
-    end, {
-        v194
-    });
-    local v207 = v41.useCallback(function() --[[ Line: 622 ]]
-        -- upvalues: v203 (copy), v84 (ref), v164 (copy), v153 (copy), v25 (ref), v158 (copy), v26 (ref), v60 (ref), v185 (copy), v187 (copy), v188 (copy), v157 (copy), l_AvatarScreen_0 (ref), v142 (copy), v204 (copy), l_NavigateWithLock_0 (ref)
-        v153(l_NavigateWithLock_0(function() --[[ Line: 623 ]]
-            -- upvalues: v203 (ref), v84 (ref), v164 (ref), v153 (ref), v25 (ref), v158 (ref), v26 (ref), v60 (ref), v185 (ref), v187 (ref), v188 (ref), v157 (ref), l_AvatarScreen_0 (ref), v142 (ref), v204 (ref)
-            local v206 = if v203 then v203() else {
-                {
-                    icon = v84, 
-                    text = v164.reportText, 
-                    onActivated = function(v205) --[[ Line: 630 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v153 (ref), v25 (ref), v158 (ref), v26 (ref)
-                        v153(v25(v158));
-                        v26.closeOverlay(v205);
-                    end
-                }, 
-                if not not v60 or v185 or v187 then nil else v188
-            };
-            v157.navigate(l_AvatarScreen_0.ContextMenu, {
-                centered = v142.centered, 
-                contextButtons = v206, 
-                onOverlayClosed = v204
-            });
-        end));
-    end, {
-        v157, 
-        v153, 
-        v204, 
-        v164, 
-        v158, 
-        v188, 
-        v203
-    });
-    local v208 = nil;
-    local v209 = nil;
-    local v210 = nil;
-    local v211 = nil;
-    local v212 = nil;
-    local v213 = nil;
-    local v214 = nil;
-    if l_FFlagAXMISEnableMultiShopping_0 and v142.alwaysBuyAll then
-        local v215, v216, v217, v218, v219, v220 = v39.getBottomBarInfoMIS(v181, v172, v173, v174, v154, v155, v169);
-        v208 = v215;
-        v209 = v216;
-        v210 = v217;
-        v211 = v218;
-        v213 = v219;
-        v214 = v220;
-    else
-        local v221, v222, v223, v224, v225 = v140(v169, v172, v173, v174, v154, v155);
-        v208 = v221;
-        v212 = v222;
-        v213 = v223;
-        v211 = v224;
-        v214 = v225;
-    end;
-    local v264 = if l_FFlagAXMISEnableMultiShopping_0 and v181 and v142.alwaysBuyAll then v41.useCallback(function() --[[ Line: 687 ]]
-        -- upvalues: v39 (ref), v181 (copy), v172 (copy), v173 (copy), v174 (copy), v154 (copy), v155 (copy), v169 (copy), v171 (copy), l_AvatarScreen_0 (ref), v194 (copy), v160 (copy), v32 (ref), l_FFlagAXFixLookLinkToCustomize_0 (ref), v13 (ref), v28 (ref), l_AvatarEditorSubcategories_0 (ref), l_AvatarEditorCategories_0 (ref), v34 (ref), v33 (ref), v152 (copy), v142 (copy), v26 (ref), v157 (copy), v153 (copy), l_NavigateWithLock_0 (ref)
-        local v226, _, v228, _ = v39.getBottomBarInfoMIS(v181, v172, v173, v174, v154, v155, v169);
-        local v230 = nil;
-        local v231 = nil;
-        if v171 < v226 then
-            v230 = l_AvatarScreen_0.InsufficientRobuxPrompt;
-            v231 = {
-                onOverlayClosed = v194
-            };
-            v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetBuyClickedInsufficientRobux);
-        elseif v228 == 0 and v155 ~= nil then
-            local v232 = nil;
-            local v233 = nil;
-            if l_FFlagAXFixLookLinkToCustomize_0 then
-                local v234, v235 = v13.GetAvatarEditorCategoryIdsFromNavKey(if v154[v155].lookType == v28.LookType.Makeup then l_AvatarEditorSubcategories_0.MakeupLooks else l_AvatarEditorCategories_0.Avatars);
-                v232 = v234;
-                v233 = v235;
-            else
-                local l_CharacterKey_0 = v34.CharacterKey;
-                local v237 = v33();
-                local v238 = nil;
-                local v239 = nil;
-                for v240, v241 in v237 do
-                    if v241.Name == l_CharacterKey_0 then
-                        v238 = v240;
-                        break;
-                    end;
-                end;
-                local l_v238_0 = v238;
-                local l_v239_0 = v239;
-                v232 = l_v238_0;
-                v233 = l_v239_0;
-            end;
-            v230 = l_AvatarScreen_0.LeaveCatalogToAvatarPrompt;
-            v231 = {
-                onOverlayClosed = v194, 
-                categoryOverride = v232, 
-                subcategoryOverride = v233
-            };
-            v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetBuyClickedNoItemsToPurchase);
-        else
-            local v244 = v39.getOwnedItemsInLook(v181, v154, v155);
-            if v155 ~= nil then
-                v230 = l_AvatarScreen_0.PurchaseLookPrompt;
-                v231 = {
-                    lookId = v155, 
-                    priceInRobux = v226, 
-                    showSaveAsCharacter = true, 
-                    showWearAfterPurchase = true, 
-                    fromAvatarRoute = v152, 
-                    allLookItems = v181, 
-                    ownedItemsInLook = v244, 
-                    isTryOnFromOutsideAX = v142.isTryOnFromOutsideAX
-                };
-                if v26.isWithinViewContext(v152, l_AvatarScreen_0.CatalogSearch) then
-                    v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetSearchBuyClicked);
-                else
-                    v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetHomeBuyClicked);
-                end;
-            else
-                v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetBuyClickedMissingLookId);
-                v231 = {
-                    onOverlayClosed = v194
-                };
-            end;
-        end;
-        v153(l_NavigateWithLock_0(function() --[[ Line: 777 ]]
-            -- upvalues: v157 (ref), v230 (ref), v231 (ref)
-            v157.navigate(v230, v231);
-        end));
-    end, {
-        v172, 
-        v173, 
-        v174, 
-        v154, 
-        v155, 
-        v171, 
-        v153, 
-        v157, 
-        v194, 
-        v160, 
-        v152, 
-        v181, 
-        v169
-    }) else v41.useCallback(function() --[[ Line: 799 ]]
-        -- upvalues: v140 (ref), v169 (copy), v172 (copy), v173 (copy), v174 (copy), v154 (copy), v155 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v171 (copy), l_AvatarScreen_0 (ref), v194 (copy), v160 (copy), v32 (ref), v5 (ref), l_FFlagAXFixLookLinkToCustomize_0 (ref), v13 (ref), v28 (ref), l_AvatarEditorSubcategories_0 (ref), l_AvatarEditorCategories_0 (ref), v34 (ref), v33 (ref), v39 (ref), v152 (copy), v142 (copy), v26 (ref), v157 (copy), v153 (copy), l_NavigateWithLock_0 (ref)
-        local v245, _, v247 = v140(v169, v172, v173, v174, v154, v155);
-        local v248 = nil;
-        local v249 = nil;
-        if l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 then
-            local v250 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.Catalog);
-            l_TimeToInteractiveTracker_0.trackStart(v250);
-            l_TimeToInteractiveTracker_0.updateMetadata(v250, {
-                page = l_ProductPurchaseSurface_0.Catalog, 
-                category = "legacy_purchase_modal"
-            });
-        end;
-        if v171 < v245 then
-            v248 = l_AvatarScreen_0.InsufficientRobuxPrompt;
-            v249 = {
-                onOverlayClosed = v194
-            };
-            v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetBuyClickedInsufficientRobux);
-        elseif v5.isEmpty(v247) and v155 ~= nil then
-            local v251 = nil;
-            local v252 = nil;
-            if l_FFlagAXFixLookLinkToCustomize_0 then
-                local v253, v254 = v13.GetAvatarEditorCategoryIdsFromNavKey(if v154[v155].lookType == v28.LookType.Makeup then l_AvatarEditorSubcategories_0.MakeupLooks else l_AvatarEditorCategories_0.Avatars);
-                v251 = v253;
-                v252 = v254;
-            else
-                local l_CharacterKey_1 = v34.CharacterKey;
-                local v256 = v33();
-                local v257 = nil;
-                local v258 = nil;
-                for v259, v260 in v256 do
-                    if v260.Name == l_CharacterKey_1 then
-                        v257 = v259;
-                        break;
-                    end;
-                end;
-                local l_v257_0 = v257;
-                local l_v258_0 = v258;
-                v251 = l_v257_0;
-                v252 = l_v258_0;
-            end;
-            v248 = l_AvatarScreen_0.LeaveCatalogToAvatarPrompt;
-            v249 = {
-                onOverlayClosed = v194, 
-                categoryOverride = v251, 
-                subcategoryOverride = v252
-            };
-            v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetBuyClickedNoItemsToPurchase);
-        else
-            local v263 = v39.getOwnedTryOnItems(v169, v154, v155);
-            if v155 ~= nil then
-                v248 = l_AvatarScreen_0.PurchaseLookPrompt;
-                v249 = {
-                    itemsToPurchase = v247, 
-                    lookId = v155, 
-                    ownedTryOnItems = v263, 
-                    priceInRobux = v245, 
-                    showSaveAsCharacter = true, 
-                    showWearAfterPurchase = true, 
-                    fromAvatarRoute = v152, 
-                    isTryOnFromOutsideAX = v142.isTryOnFromOutsideAX
-                };
-                if v26.isWithinViewContext(v152, l_AvatarScreen_0.CatalogSearch) then
-                    v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetSearchBuyClicked);
-                else
-                    v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetHomeBuyClicked);
-                end;
-            else
-                v160.sendAXCounter(v32.Counter.AvatarWidget.AvatarsWidgetBuyClickedMissingLookId);
-                v249 = {
-                    onOverlayClosed = v194
-                };
-            end;
-        end;
-        v153(l_NavigateWithLock_0(function() --[[ Line: 897 ]]
-            -- upvalues: v157 (ref), v248 (ref), v249 (ref)
-            v157.navigate(v248, v249);
-        end));
-    end, {
-        v169, 
-        v172, 
-        v173, 
-        v174, 
-        v154, 
-        v155, 
-        v171, 
-        v153, 
-        v157, 
-        v194, 
-        v160, 
-        v152
-    });
-    if l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 then
-        local l_onButtonPressWithUnifiedPurchaseFlow_0 = v29({
-            lookId = v155, 
-            totalPrice = v208, 
-            originalPrice = if l_FFlagAXBlackbirdRoot_0 then v214 else nil, 
-            tryOnItems = v169, 
-            lookDetailsObj = v154, 
-            lookAnalyticsInfo = if l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 and v162 then v163 else v161, 
-            localized = v164, 
-            isTryOnFromOutsideAX = v142.isTryOnFromOutsideAX, 
-            itemsToPurchase = v213, 
-            userRobux = v171, 
-            onOverlayClosed = v194
-        }).onButtonPressWithUnifiedPurchaseFlow;
-        if l_FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks_0 then
-            v264 = l_onButtonPressWithUnifiedPurchaseFlow_0;
-        elseif v148 then
-            v264 = l_onButtonPressWithUnifiedPurchaseFlow_0;
-        end;
-    end;
-    local v270 = if l_FFlagAXMISEnableMultiShopping_0 and v142.alwaysBuyAll then nil else v41.useCallback(function() --[[ Line: 946 ]]
-        -- upvalues: v169 (copy), v39 (ref), v154 (copy), v155 (copy)
-        local v266 = 0;
-        for _, v268 in v169 do
-            if v268.selectedInTryOnManager then
-                local v269 = v39.getItemInfo(v268.itemId, v268.itemType, v154, v155);
-                if not v269 or not v269.quantityOwned or v269.quantityOwned == 0 then
-                    return false;
-                else
-                    v266 = v266 + 1;
-                end;
-            end;
-        end;
-        return v266 > 0;
-    end, {
-        v169, 
-        v154, 
-        v155
-    });
-    local v276 = if l_FFlagAXMISEnableMultiShopping_0 then v41.useCallback(function(v271) --[[ Line: 969 ]]
-        -- upvalues: v181 (copy), v142 (copy), v39 (ref), v154 (copy)
-        if v181 == nil or not v142.alwaysBuyAll then
-            return false;
-        else
-            local v272 = 0;
-            for _, v274 in v181 do
-                local v275 = if v274.itemType then v39.getItemInfo(v274.id, v274.itemType, v154, v271) else nil;
-                if not v275 or not v275.quantityOwned or v275.quantityOwned == 0 then
-                    return false;
-                else
-                    v272 = v272 + 1;
-                end;
-            end;
-            return v272 > 0;
-        end;
-    end, {
-        v154, 
-        v181, 
-        v142.alwaysBuyAll
-    }) else nil;
-    local l_v81_0 = v81;
-    local v278 = false;
-    local v279 = nil;
-    local v280 = v213 and v5.isEmpty(v213);
-    if l_FFlagAXMISEnableMultiShopping_0 and v142.alwaysBuyAll then
-        v280 = v210 == 0;
-    end;
-    if v280 then
-        v279 = "";
-        local v281 = v270 and v270();
-        if l_FFlagAXMISEnableMultiShopping_0 and v142.alwaysBuyAll then
-            v281 = v276 and v276(v155) ~= nil;
-        end;
-        if v155 ~= nil and v281 then
-            l_v81_0 = v83;
-        else
-            l_v81_0 = v82;
-            v278 = true;
-        end;
-    elseif v208 == 0 then
-        l_v81_0 = nil;
-        v279 = v164.freeText;
-    else
-        v279 = l_NumberLocalization_0.localize(string.format("%.0f", v208), v159:GetLocale());
-    end;
-    if v171 == nil then
-        v278 = true;
-    end;
-    local v282 = v159:Format("Feature.Avatar.Label.TryOnManagerDescriptor", {
-        numItems = if l_FFlagAXMISEnableMultiShopping_0 and v142.alwaysBuyAll then v209 else v212
-    });
-    local l_hideDescriptor_0 = v142.hideDescriptor;
-    local v284 = v3.createElement("TextLabel", {
-        LayoutOrder = 1, 
-        BackgroundTransparency = 1, 
-        Size = UDim2.new(1, 0, 0, v168.Global.Size_400), 
-        Text = v282, 
-        TextSize = l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize, 
-        Font = l_Font_0.Header2.Font, 
-        TextColor3 = l_Theme_0.SecondaryContent.Color, 
-        TextTransparency = l_Theme_0.SecondaryContent.Transparency, 
-        TextTruncate = Enum.TextTruncate.AtEnd, 
-        TextXAlignment = Enum.TextXAlignment.Left, 
-        TextYAlignment = Enum.TextYAlignment.Top
-    });
-    local v285 = v41.useCallback(function() --[[ Line: 1049 ]]
-        -- upvalues: v207 (copy), v147 (copy)
-        v207();
-        v147(true);
-    end, {
-        v207, 
-        v147
-    });
-    local v286 = v41.useMemo(function() --[[ Line: 1054 ]]
-        -- upvalues: v279 (ref), l_v81_0 (ref), v211 (ref), v278 (ref), v168 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref), v165 (copy), v264 (ref)
-        return {
-            buttonText = v279, 
-            buttonIcon = l_v81_0, 
-            buttonIsLoading = v211, 
-            buttonIsDisabled = v278, 
-            buttonIconPadding = v168.Global.Space_50, 
-            buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v168.Global.Size_250 else v168.Global.Size_400, 
-            buttonColor = v165.Theme.ContextualPrimaryDefault.Color, 
-            buttonTextColor = v165.Theme.ContextualPrimaryContent.Color, 
-            onActivated = not v278 and v264 or nil
-        };
-    end, {
-        v279, 
-        l_v81_0, 
-        v211, 
-        v278, 
-        v168, 
-        v165, 
-        v264
-    });
-    local v287 = v187 and not v185 and v188 ~= nil;
-    return v3.createElement(v23, {
-        bottomPadding = 0, 
-        buttonProps = v286, 
-        hideGradient = true, 
-        isMoreButtonSelected = v146, 
-        leftPadding = 0, 
-        onMoreButtonActivated = v285, 
-        rightPadding = 0, 
-        showMoreButton = true, 
-        showMiddleButton = v287, 
-        onMiddleButtonActivated = if v287 then v188.onActivated else nil, 
-        middleButtonIcon = if v287 then v188.icon else nil, 
-        topComponent = if l_hideDescriptor_0 then nil else v284, 
-        topComponentHeight = l_hideDescriptor_0 and 0 or v168.Global.Size_400, 
-        ZIndex = 1
-    });
-end;
+local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
+local CorePackages = game:GetService("CorePackages")
+local Roact = require(CorePackages.Packages.Roact)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local Cryo = require(CorePackages.Packages.Cryo)
+local AvatarExperienceSlotBasedEditor = require(CorePackages.Workspace.Packages.AvatarExperienceSlotBasedEditor)
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local NumberLocalization = require(CorePackages.Workspace.Packages.Localization).NumberLocalization
+local isGamepadInput = require(CorePackages.Workspace.Packages.RoactUtils).isGamepadInput
+local Images = UIBlox.App.ImageSet.Images
+local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
+local Modules = CoreGui.RobloxGui.Modules
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+
+require(Modules.AvatarExperience.Common.AvatarExperienceState)
+
+local Analytics = require(Modules.AvatarExperience.Catalog.Services.Analytics)
+local RoactLocalization = require(Modules.LuaApp.Services.RoactLocalization)
+local RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
+local AvatarExperienceNavigation = require(CorePackages.Workspace.Packages.AvatarExperienceNavigation)
+local AvatarScreen = AvatarExperienceNavigation.Enums.AvatarScreen
+local useAvatarRoute = AvatarExperienceNavigation.AvatarRoute.Hooks.useAvatarRoute
+local NavigateWithLock = require(CorePackages.Workspace.Packages.AvatarExperienceNavigation).Thunks.NavigateWithLock
+local SetLookFavorite = require(Modules.AvatarExperience.Catalog.Thunks.SetLookFavorite)
+local ActionBar = require(Modules.AvatarExperience.Catalog.Components.ActionBar.ActionBar)
+local logOnOverlayClosed = AvatarExperienceNavigation.Debug.logOnOverlayClosed
+local ReportLook = require(Modules.AvatarExperience.Catalog.Thunks.ReportLook)
+local NavigationUtils = require(Modules.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils)
+
+require(Modules.AvatarExperience.Common.Components.ItemDetails.Prompts.ContextFrame)
+
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local useLookUnifiedPurchaseFlow = require(Modules.AvatarExperience.Catalog.Hooks.useLookUnifiedPurchaseFlow)
+local AvatarEditorSubcategories = AvatarExperienceSlotBasedEditor.Enums.AvatarEditorSubcategories
+local AvatarEditorCategories = AvatarExperienceSlotBasedEditor.Enums.AvatarEditorCategories
+local Constants2 = require(Modules.AvatarExperience.Common.Constants)
+local GetAvatarEditorCategories = require(Modules.AvatarExperience.AvatarEditor.GetAvatarEditorCategories)
+local Constants3 = require(Modules.AvatarExperience.AvatarEditor.Constants)
+local SetTryOnManagerPeekViewState = require(CorePackages.Workspace.Packages.AvatarExperienceRodux).Actions.SetTryOnManagerPeekViewState
+local SetFullView = require(Modules.AvatarExperience.Common.Thunks.SetFullView)
+local FullView = AvatarExperienceCommon.Enums.FullView
+local PeekViewState = require(CorePackages.Workspace.Packages.PeekView).PeekViewState
+local LookDetailsBottomBarUtils = require(Modules.AvatarExperience.Catalog.Components.LookDetails.LookDetailsBottomBarUtils)
+local CatalogConstants = require(Modules.AvatarExperience.Catalog.CatalogConstants)
+local React = require(CorePackages.Packages.React)
+local useStyle = UIBlox.Core.Style.useStyle
+local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
+local useNavigation = require(CorePackages.Workspace.Packages.Navigation).useNavigation
+local useShareButton = require(Modules.AvatarExperience.Common.Hooks.useShareButton)
+local useFavoriteButton = require(Modules.AvatarExperience.Common.Hooks.useFavoriteButton)
+local useRoactService = require(Modules.LuaApp.Hooks.useRoactService)
+local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
+local GetFFlagEnableLookFavoriting = require(Modules.AvatarExperience.Flags.GetFFlagEnableLookFavoriting)
+local getUseSelectorDeepEquals = AvatarExperienceCommon.Utils.getUseSelectorDeepEquals
+local selectTryOnsLookId = AvatarExperienceCommon.State.Selectors.selectTryOnsLookId
+local useFocusController = RoactGamepad.useFocusController
+
+require(Modules.AvatarExperience.Common.Reducers.CollectiblesItemInfo)
+require(Modules.AvatarExperience.Common.Reducers.CollectiblesResellableInstances)
+require(Modules.AvatarExperience.Common.Reducers.CollectiblesResellersInstances)
+
+local SetCurrentToastMessage = require(Modules.LuaApp.Actions.SetCurrentToastMessage)
+local ToastType = require(Modules.LuaApp.Enum.ToastType)
+local v56 = game:DefineFastFlag("AXHideShareButtonForContextMenu", false)
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagAXMISEnableMultiShopping = AvatarExperienceFlags.FFlagAXMISEnableMultiShopping
+local FFlagAXEnableUnifiedPurchaseFlowForLooks = AvatarExperienceFlags.FFlagAXEnableUnifiedPurchaseFlowForLooks
+local FFlagAXCatalogMakeupSupport = require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXCatalogMakeupSupport
+local PurchasePromptLite = require(CorePackages.Workspace.Packages.PurchasePromptLite)
+local getTTIEventName = PurchasePromptLite.getTTIEventName
+local TimeToInteractiveTracker = require(CorePackages.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker
+local ProductPurchaseSurface = PurchasePromptLite.Enums.ProductPurchaseSurface
+local getIsUserEligibleForUnifiedPurchaseFlow = PurchasePromptLite.getIsUserEligibleForUnifiedPurchaseFlow
+
+require(Modules.AvatarExperience.Common.Reducers.OutfitTryOn)
+require(Modules.AvatarExperience.Common.Reducers.Looks)
+require(Modules.AvatarExperience.Common.Types)
+
+local FFlagUnifiedPurchaseFlowMarketplaceUIImprovements = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUnifiedPurchaseFlowMarketplaceUIImprovements
+local FFlagAXMigrateAXToGlobalAutofocus = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus
+local FFlagAXFixLookDetailsContextualMenu = AvatarExperienceFlags.FFlagAXFixLookDetailsContextualMenu
+local FFlagAddPerformanceMetricsToUnifiedPurchaseModal = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAddPerformanceMetricsToUnifiedPurchaseModal
+local FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks = AvatarExperienceFlags.FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks
+local FFlagAXFixLookLinkToCustomize = AvatarExperienceFlags.FFlagAXFixLookLinkToCustomize
+local FFlagAXBlackbirdRoot = AvatarExperienceFlags.FFlagAXBlackbirdRoot
+local FFlagAXMISEnableMultiShoppingUnifiedEvents = AvatarExperienceFlags.FFlagAXMISEnableMultiShoppingUnifiedEvents
+local v74 = game:DefineFastFlag("HideLookDiscountPercentWithIneligibleItems", false)
+local FIntBlackbirdUpsellMinPriceForDiscountInclusive = require(CorePackages.Workspace.Packages.SharedFlags).FIntBlackbirdUpsellMinPriceForDiscountInclusive
+local FIntBlackbirdUpsellMaxPriceForDiscountInclusive = require(CorePackages.Workspace.Packages.SharedFlags).FIntBlackbirdUpsellMaxPriceForDiscountInclusive
+local v77 = Images["icons/common/robux"]
+local v78 = Images["icons/actions/block"]
+local v79 = Images["icons/menu/avatar_on"]
+local v80 = Images["icons/actions/feedback"]
+local v81 = Images["icons/actions/info"]
+local v82 = Images["icons/actions/edit/delete"]
+
+local function selectTryOnItems(p1) -- line: 137
+	return p1.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems
+end
+local function selectLookId(p2) -- line: 140
+	return p2.AvatarExperience.AvatarScene.OutfitTryOn.LookId
+end
+local function selectLookDetails(p3) -- line: 143
+	return p3.AvatarExperience.AvatarScene.Looks
+end
+local function selectLocalUserId(p4) -- line: 146
+	return p4.LocalUserId
+end
+local function selectUserRobux(p5) -- line: 149
+	return p5.UserRobux
+end
+local function selectCollectiblesItemInfo(p6) -- line: 152
+	return p6.AvatarExperience.Common.Collectibles.CollectiblesItemInfo
+end
+local function selectCollectiblesResellersInstances(p7) -- line: 155
+	return p7.AvatarExperience.Common.Collectibles.CollectiblesResellersInstances
+end
+local function selectResellableInstances(p8) -- line: 158
+	return p8.AvatarExperience.Common.Collectibles.CollectiblesResellableInstances
+end
+local function selectPeekViewState(p9) -- line: 161
+	return p9.AvatarExperience.Common.ItemDetailsPeekView.tryOnManagerViewState
+end
+
+local u92 = nil
+
+if FFlagAXEnableUnifiedPurchaseFlowForLooks then
+	function u92(p10) -- line: 166
+		return p10.AvatarExperience.AvatarScene.OutfitTryOn.LookAnalyticsInfo
+	end
+end
+
+local u93 = nil
+
+if FFlagAXMISEnableMultiShoppingUnifiedEvents then
+	function u93(p11) -- line: 173
+		return p11.AvatarExperience.AvatarScene.OutfitTryOn.MakeupLookAnalyticsInfo
+	end
+end
+
+local function v94(p12, p13, p14, p15, p16, s1: string?) -- line: 199
+	-- upvalues: LookDetailsBottomBarUtils (copy), FFlagAXBlackbirdRoot (copy), v74 (copy), FIntBlackbirdUpsellMaxPriceForDiscountInclusive (copy), FIntBlackbirdUpsellMinPriceForDiscountInclusive (copy), Cryo (copy)
+	local n1 = 0
+	local n2 = 0
+	local n3 = 0
+	local t1 = {}
+	local v125 = false
+	local v126 = false
+	local v127 = false
+
+	for _, v129 in p12 do
+		if v129.selectedInTryOnManager then
+			n1 += 1
+
+			local v130 = LookDetailsBottomBarUtils.getItemInfo(v129.itemId, v129.itemType, p16, s1)
+
+			if not v130 then
+				if not v125 then
+					v125 = true
+				end
+			elseif not v130 or not v130.quantityOwned or not (v130.quantityOwned > 0) then
+				local v131 = LookDetailsBottomBarUtils.getPriceForItem(v130, p13, p14, p15, v129.selectedTimedOptionIndex)
+
+				if v131 ~= nil then
+					if FFlagAXBlackbirdRoot then
+						if v130 and v130.discountInformation then
+							local v132 = false
+
+							if v129.selectedTimedOptionIndex and v130.timedOptions then
+								local v133 = v130.timedOptions[v129.selectedTimedOptionIndex]
+
+								if v133 and v133.discountInformation then
+									n3 += v133.discountInformation.originalPrice
+									v132 = true
+								elseif v133 and not v133.discountInformation and v133.days ~= 0 then
+									n3 += v133.price
+									v132 = true
+								end
+							end
+
+							if not v132 then
+								n3 += v130.discountInformation.originalPrice
+							end
+						else
+							n3 += v131
+						end
+
+						if v74 then
+							local v134 = if not v130 or not v130.discountInformation then v131 else v130.discountInformation.originalPrice
+							local v135 = FIntBlackbirdUpsellMaxPriceForDiscountInclusive
+							local v136 = v134 <= FIntBlackbirdUpsellMinPriceForDiscountInclusive or v135 ~= 0 and v135 <= v134
+
+							if v130 and v130.discountInformation and not v136 then
+								v126 = true
+							else
+								v127 = true
+							end
+						end
+					end
+
+					n2 += v131
+					t1[v129.itemId] = Cryo.Dictionary.join(v129, {
+						expectedPrice = v131
+					})
+				end
+			end
+		end
+	end
+
+	local v137 = if not FFlagAXBlackbirdRoot then nil else n3
+
+	if v74 then
+		return n2, n1, t1, v125, v137, v126 and v127
+	end
+
+	return n2, n1, t1, v125, v137, nil
+end
+
+local t2 = {
+	addToMyAvatarsLabel = if not FFlagAXEnableUnifiedPurchaseFlowForLooks then nil else "Feature.Avatar.Label.Title.AddToMyAvatars",
+	wearAfterPurchaseLabel = if not FFlagAXEnableUnifiedPurchaseFlowForLooks then nil else "Feature.Catalog.Label.WearAfterPurchase",
+	wearAvatarAfterPurchaseLabel = if not FFlagUnifiedPurchaseFlowMarketplaceUIImprovements then nil else "Feature.Catalog.Label.WearAvatarAfterPurchase",
+	saveAsCharacterLabel = if not FFlagUnifiedPurchaseFlowMarketplaceUIImprovements then nil else "Feature.Catalog.Label.SaveAsCharacter",
+	saveAsMakeupLookLabel = if not FFlagAXCatalogMakeupSupport then nil else "Feature.Avatar.Label.Title.AddToMyMakeupLooks",
+	wearAfterPurchaseMakeupLabel = if not FFlagAXCatalogMakeupSupport then nil else "Feature.Avatar.Label.Title.WearAfterPurchase",
+	freeText = "Feature.Catalog.LabelFree",
+	reportText = "Feature.Catalog.Action.Report",
+	viewDetailsPageLabel = "Feature.Catalog.Action.ViewDetailsPage",
+	deleteAvatarLabel = "Feature.Catalog.Action.DeleteAvatar"
+}
+
+return function(t3: {[any]: any}) --[[ LookDetailsBottomBar ]] -- line: 326
+	-- upvalues: UserInputService (copy), React (copy), isGamepadInput (copy), FFlagAXEnableUnifiedPurchaseFlowForLooks (copy), FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks (copy), useAvatarRoute (copy), useDispatch (copy), useSelector (copy), selectLookDetails (copy), getUseSelectorDeepEquals (copy), FFlagAXCatalogMakeupSupport (copy), FFlagAXMISEnableMultiShopping (copy), selectTryOnsLookId (copy), selectLookId (copy), GetFFlagEnableLookFavoriting (copy), useNavigation (copy), useRoactService (copy), RoactNetworking (copy), RoactLocalization (copy), Analytics (copy), u92 (ref), FFlagAXMISEnableMultiShoppingUnifiedEvents (copy), u93 (ref), Constants (copy), useLocalization (copy), t2 (copy), useStyle (copy), useDesignTokens (copy), selectTryOnItems (copy), selectLocalUserId (copy), selectUserRobux (copy), selectCollectiblesItemInfo (copy), selectCollectiblesResellersInstances (copy), selectResellableInstances (copy), selectPeekViewState (copy), NavigationUtils (copy), SetLookFavorite (copy), SetCurrentToastMessage (copy), ToastType (copy), useFavoriteButton (copy), Cryo (copy), getIsUserEligibleForUnifiedPurchaseFlow (copy), AvatarScreen (copy), useShareButton (copy), FFlagAXMigrateAXToGlobalAutofocus (copy), useFocusController (copy), SetFullView (copy), FullView (copy), SetTryOnManagerPeekViewState (copy), PeekViewState (copy), CatalogConstants (copy), logOnOverlayClosed (copy), NavigateWithLock (copy), FFlagAXFixLookDetailsContextualMenu (copy), v81 (copy), v56 (copy), v82 (copy), v80 (copy), ReportLook (copy), LookDetailsBottomBarUtils (copy), v94 (copy), Constants2 (copy), FFlagAXFixLookLinkToCustomize (copy), Utils (copy), AvatarEditorSubcategories (copy), AvatarEditorCategories (copy), Constants3 (copy), GetAvatarEditorCategories (copy), FFlagAddPerformanceMetricsToUnifiedPurchaseModal (copy), getTTIEventName (copy), ProductPurchaseSurface (copy), TimeToInteractiveTracker (copy), useLookUnifiedPurchaseFlow (copy), FFlagAXBlackbirdRoot (copy), v77 (copy), v79 (copy), v78 (copy), NumberLocalization (copy), Roact (copy), ActionBar (copy)
+	local LastInputType = UserInputService:GetLastInputType()
+	local v140, _ = React.useState(isGamepadInput(LastInputType))
+	local v142, v143 = React.useState(false)
+	local v144 = nil
+	local u145 = nil
+
+	if FFlagAXEnableUnifiedPurchaseFlowForLooks and not FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks then
+		local v146
+
+		v144, v146 = React.useState(false)
+		u145 = v146
+	end
+
+	local v147 = useAvatarRoute()
+	local v148 = useDispatch()
+	local v149 = useSelector(selectLookDetails, getUseSelectorDeepEquals())
+	local v150 = useSelector(if not FFlagAXCatalogMakeupSupport or not FFlagAXMISEnableMultiShopping then selectLookId else selectTryOnsLookId, getUseSelectorDeepEquals())
+	local v151 = not not GetFFlagEnableLookFavoriting() and (v150 ~= nil and (v149[v150] ~= nil and (v149[v150].isFavorited or false)))
+	local v152 = useNavigation()
+	local v153 = useRoactService(RoactNetworking)
+	local v154 = useRoactService(RoactLocalization)
+	local v155 = useRoactService(Analytics)
+	local v156 = nil
+
+	if FFlagAXEnableUnifiedPurchaseFlowForLooks then
+		v156 = useSelector(u92, getUseSelectorDeepEquals())
+	end
+
+	local v157 = nil
+	local v158 = nil
+
+	if FFlagAXMISEnableMultiShoppingUnifiedEvents then
+		v158 = useSelector(u93, getUseSelectorDeepEquals())
+		v157 = not not v150 and (not not v149 and (not not v149[v150] and v149[v150].lookType == Constants.LookType.Makeup))
+	end
+
+	local v159 = useLocalization(t2)
+	local v160 = useStyle()
+	local Theme = v160.Theme
+	local Font = v160.Font
+	local v163 = useDesignTokens()
+	local v164 = useSelector(selectTryOnItems, getUseSelectorDeepEquals())
+	local v165 = useSelector(selectLocalUserId, getUseSelectorDeepEquals())
+	local v166 = useSelector(selectUserRobux, getUseSelectorDeepEquals())[v165]
+	local v167 = useSelector(selectCollectiblesItemInfo, getUseSelectorDeepEquals())
+	local v168 = useSelector(selectCollectiblesResellersInstances, getUseSelectorDeepEquals())
+	local v169 = useSelector(selectResellableInstances, getUseSelectorDeepEquals())
+	local v170 = useSelector(selectPeekViewState, getUseSelectorDeepEquals())
+	local v171 = if not GetFFlagEnableLookFavoriting() then nil else React.useCallback(function(p17) -- line: 390
+		-- upvalues: NavigationUtils (copy), v151 (copy), FFlagAXCatalogMakeupSupport (copy), v150 (copy), v149 (copy), v148 (copy), SetLookFavorite (copy), v153 (copy), SetCurrentToastMessage (copy), ToastType (copy)
+		NavigationUtils.closeOverlay(p17)
+
+		local v213 = not v151
+
+		if FFlagAXCatalogMakeupSupport then
+			local v214 = if not v150 or not v149[v150] then nil else v149[v150].lookType
+
+			v148(SetLookFavorite(v153, v150, v213, v214))
+		else
+			v148(SetLookFavorite(v153, v150, v213))
+		end
+
+		v148(SetCurrentToastMessage({
+			toastMessage = not v213 and "Feature.Catalog.Toast.UnfavoritedLook" or "Feature.Catalog.Toast.FavoritedLook",
+			toastType = ToastType.SuccessConfirmation
+		}))
+	end, {
+		v148,
+		SetCurrentToastMessage,
+		SetLookFavorite,
+		v150,
+		v149,
+		v153,
+		v151,
+		v152
+	})
+	local v172 = if not GetFFlagEnableLookFavoriting() then nil else useFavoriteButton(v150, v151, v171)
+	local v173 = if not FFlagAXMISEnableMultiShopping then nil else React.useMemo(function() -- line: 427
+		-- upvalues: t3 (copy), v150 (copy), v149 (copy), Cryo (copy)
+		if not t3.alwaysBuyAll then
+			return nil
+		end
+
+		if v150 and v149 then
+			return Cryo.Dictionary.union(v149[v150].lookAssetInfos or {}, v149[v150].lookBundleInfos or {})
+		end
+
+		return {}
+	end, {
+		v150,
+		v149,
+		t3.alwaysBuyAll
+	})
+
+	if FFlagAXEnableUnifiedPurchaseFlowForLooks and not FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks then
+		React.useEffect(function() -- line: 446
+			-- upvalues: getIsUserEligibleForUnifiedPurchaseFlow (copy), v153 (copy), u145 (ref)
+			getIsUserEligibleForUnifiedPurchaseFlow(v153):andThen(function(b1: boolean) -- line: 448
+				-- upvalues: u145 (ref)
+				u145(b1)
+			end):catch(function(_) -- line: 451
+				-- upvalues: u145 (ref)
+				u145(false)
+			end)
+		end, { v153 })
+	end
+
+	local v174 = React.useCallback(function() -- line: 459
+		-- upvalues: v148 (copy), SetCurrentToastMessage (copy), ToastType (copy)
+		v148(SetCurrentToastMessage({
+			toastMessage = "Feature.Catalog.Toast.AvatarUnderReview",
+			toastType = ToastType.NetworkingError
+		}))
+	end, { v148 })
+	local v175 = React.useMemo(function() -- line: 465
+		-- upvalues: v149 (copy), v150 (copy), Constants (copy)
+		if v149 and v150 then
+			return v149[v150].moderationStatus == Constants.ModerationStatus.Moderated
+		end
+
+		return false
+	end, {
+		v149,
+		v150
+	})
+	local v176 = React.useMemo(function() -- line: 472
+		-- upvalues: v149 (copy), v150 (copy), Constants (copy)
+		if v149 and v150 then
+			return v149[v150].moderationStatus == Constants.ModerationStatus.PendingModeration
+		end
+
+		return false
+	end, {
+		v149,
+		v150
+	})
+	local v177 = React.useMemo(function() -- line: 479
+		-- upvalues: v147 (copy), AvatarScreen (copy)
+		return v147 and (v147.opaque and v147.opaque.name == AvatarScreen.MySharedAvatars)
+	end, { v147 })
+	local v178 = useShareButton(v150, Constants.ItemType.Look, true, nil, v176 and v174 or nil)
+	local v179 = if not FFlagAXMigrateAXToGlobalAutofocus then useFocusController() else nil
+	local v180 = React.useCallback(function(p19) -- line: 498
+		-- upvalues: v155 (copy), Constants (copy), v148 (copy), SetFullView (copy), v147 (copy), FullView (copy), SetTryOnManagerPeekViewState (copy), PeekViewState (copy), NavigationUtils (copy)
+		v155.sendAXCounter(Constants.Counter.ContextFrame.ViewDetailsPageClick)
+		v148(SetFullView(v155, v147.opaque.name, FullView.None))
+		v148(SetTryOnManagerPeekViewState(PeekViewState.Brief))
+		NavigationUtils.closeOverlay(p19)
+	end, {
+		v155,
+		v148,
+		v147
+	})
+	local v181 = React.useMemo(function() -- line: 505
+		-- upvalues: v165 (copy), v149 (copy), v150 (copy), CatalogConstants (copy)
+		if v165 and (v149 and v150) then
+			local v216 = v149[v150]
+
+			return v216 and (v216.curator and (tostring(v216.curator.id) == tostring(v165) and v216.curator.type == CatalogConstants.CreatorType.User))
+		end
+
+		return false
+	end, {
+		v149,
+		v150,
+		v165
+	})
+	local v182 = React.useCallback(function() -- line: 518
+		-- upvalues: v140 (copy), v147 (copy), AvatarScreen (copy), logOnOverlayClosed (copy), FFlagAXMigrateAXToGlobalAutofocus (copy), v179 (copy)
+		if v140 and v147.current.name == AvatarScreen.LookDetails then
+			logOnOverlayClosed("LookDetails")
+
+			if not FFlagAXMigrateAXToGlobalAutofocus then
+				v179.captureFocus()
+			end
+		end
+	end, {
+		v140,
+		v147,
+		if not FFlagAXMigrateAXToGlobalAutofocus then v179 else nil
+	})
+	local v183 = React.useCallback(function(p20) -- line: 535
+		-- upvalues: v155 (copy), Constants (copy), NavigationUtils (copy), AvatarScreen (copy), v182 (copy), v150 (copy), v152 (copy), v148 (copy), NavigateWithLock (copy)
+		v155.sendAXCounter(Constants.Counter.ContextFrame.DeleteAvatarClick)
+		NavigationUtils.closeOverlay(p20)
+		v148(NavigateWithLock(function() -- line: 538
+			-- upvalues: AvatarScreen (copy), v182 (copy), v150 (copy), v152 (copy)
+			local DeleteAvatarConfirmationPrompt = AvatarScreen.DeleteAvatarConfirmationPrompt
+			local t4 = {
+				onOverlayClosed = v182,
+				lookId = v150
+			}
+
+			v152.navigate(DeleteAvatarConfirmationPrompt, t4)
+		end))
+	end, {
+		v155,
+		v148,
+		v150,
+		v182
+	})
+	local v184 = React.useCallback(function() -- line: 550
+		-- upvalues: v170 (copy), PeekViewState (copy), FFlagAXFixLookDetailsContextualMenu (copy), v81 (copy), v159 (copy), v180 (copy), GetFFlagEnableLookFavoriting (copy), v175 (copy), v172 (copy), v56 (copy), v177 (copy), v178 (copy), v181 (copy), v82 (copy), v183 (copy), v80 (copy), v148 (copy), ReportLook (copy), v153 (copy), NavigationUtils (copy)
+		local v218 = v170 == PeekViewState.SuperBrief
+
+		if FFlagAXFixLookDetailsContextualMenu then
+			local t5 = {}
+
+			if v218 then
+				table.insert(t5, {
+					icon = v81,
+					text = v159.viewDetailsPageLabel,
+					onActivated = v180
+				})
+			end
+
+			if GetFFlagEnableLookFavoriting() and not v175 then
+				table.insert(t5, v172)
+			end
+
+			if not v56 and not v175 and not v177 then
+				table.insert(t5, v178)
+			end
+
+			if v181 and v177 then
+				table.insert(t5, {
+					icon = v82,
+					text = v159.deleteAvatarLabel,
+					onActivated = v183
+				})
+			end
+
+			if not v181 then
+				table.insert(t5, {
+					icon = v80,
+					text = v159.reportText,
+					onActivated = function(p21) --[[ onActivated ]] -- line: 585
+						-- upvalues: v148 (copy), ReportLook (copy), v153 (copy), NavigationUtils (copy)
+						v148(ReportLook(v153))
+						NavigationUtils.closeOverlay(p21)
+					end
+				})
+			end
+
+			return t5
+		end
+
+		return {
+			if v218 then {
+				icon = v81,
+				text = v159.viewDetailsPageLabel,
+				onActivated = v180
+			} else nil,
+			if not GetFFlagEnableLookFavoriting() or v175 then nil else v172,
+			if v56 or (v175 or v177) then nil else v178,
+			if not v181 or not v177 then nil else {
+				icon = v82,
+				text = v159.deleteAvatarLabel,
+				onActivated = v183
+			},
+			if not v181 then {
+				icon = v80,
+				text = v159.reportText,
+				onActivated = function(p22) --[[ onActivated ]] -- line: 620
+					-- upvalues: v148 (copy), ReportLook (copy), v153 (copy), NavigationUtils (copy)
+					v148(ReportLook(v153))
+					NavigationUtils.closeOverlay(p22)
+				end
+			} else nil
+		}
+	end, {
+		v153,
+		v159,
+		v180,
+		v183,
+		v181,
+		v148,
+		v178,
+		if not GetFFlagEnableLookFavoriting() then nil else v172,
+		if not GetFFlagEnableLookFavoriting() then nil else v151,
+		if not GetFFlagEnableLookFavoriting() then nil else v170,
+		v175,
+		v177
+	})
+	local v185 = React.useCallback(function() -- line: 644
+		-- upvalues: v143 (copy), v182 (copy)
+		v143(false)
+		v182()
+	end, { v182 })
+	local v186 = React.useCallback(function() -- line: 650
+		-- upvalues: v184 (copy), v80 (copy), v159 (copy), v148 (copy), ReportLook (copy), v153 (copy), NavigationUtils (copy), v56 (copy), v175 (copy), v177 (copy), v178 (copy), v152 (copy), AvatarScreen (copy), t3 (copy), v185 (copy), NavigateWithLock (copy)
+		v148(NavigateWithLock(function() -- line: 651
+			-- upvalues: v184 (copy), v80 (copy), v159 (copy), v148 (copy), ReportLook (copy), v153 (copy), NavigationUtils (copy), v56 (copy), v175 (copy), v177 (copy), v178 (copy), v152 (copy), AvatarScreen (copy), t3 (copy), v185 (copy)
+			local v259 = if not v184 then {
+				{
+					icon = v80,
+					text = v159.reportText,
+					onActivated = function(p23) --[[ onActivated ]] -- line: 658
+						-- upvalues: v148 (copy), ReportLook (copy), v153 (copy), NavigationUtils (copy)
+						v148(ReportLook(v153))
+						NavigationUtils.closeOverlay(p23)
+					end
+				},
+				if v56 or (v175 or v177) then nil else v178
+			} else v184()
+
+			v152.navigate(AvatarScreen.ContextMenu, {
+				centered = t3.centered,
+				contextButtons = v259,
+				onOverlayClosed = v185
+			})
+		end))
+	end, {
+		v152,
+		v148,
+		v185,
+		v159,
+		v153,
+		v178,
+		v184
+	})
+	local v187 = nil
+	local v188 = nil
+	local v189 = nil
+	local v190, v192, v193, v194, u195
+
+	if FFlagAXMISEnableMultiShopping and t3.alwaysBuyAll then
+		local v191
+
+		v190, v187, v188, v191, v192, v193, v194 = LookDetailsBottomBarUtils.getBottomBarInfoMIS(v173, v167, v168, v169, v149, v150, v164)
+		u195 = v191
+	else
+		local v196
+
+		v190, v189, v192, v196, v193, v194 = v94(v164, v167, v168, v169, v149, v150)
+		u195 = v196
+	end
+
+	local u197 = if not FFlagAXMISEnableMultiShopping or (not v173 or not t3.alwaysBuyAll) then React.useCallback(function() -- line: 827
+		-- upvalues: v94 (copy), v164 (copy), v167 (copy), v168 (copy), v169 (copy), v149 (copy), v150 (copy), FFlagAddPerformanceMetricsToUnifiedPurchaseModal (copy), getTTIEventName (copy), ProductPurchaseSurface (copy), TimeToInteractiveTracker (copy), v166 (copy), AvatarScreen (copy), v182 (copy), v155 (copy), Constants2 (copy), Cryo (copy), FFlagAXFixLookLinkToCustomize (copy), Utils (copy), Constants (copy), AvatarEditorSubcategories (copy), AvatarEditorCategories (copy), Constants3 (copy), GetAvatarEditorCategories (copy), LookDetailsBottomBarUtils (copy), v147 (copy), t3 (copy), NavigationUtils (copy), v152 (copy), v148 (copy), NavigateWithLock (copy)
+		local v232, _, v234 = v94(v164, v167, v168, v169, v149, v150)
+		local InsufficientRobuxPrompt = nil
+
+		if FFlagAddPerformanceMetricsToUnifiedPurchaseModal then
+			local v236 = getTTIEventName(ProductPurchaseSurface.Catalog)
+
+			TimeToInteractiveTracker.trackStart(v236)
+			TimeToInteractiveTracker.updateMetadata(v236, {
+				page = ProductPurchaseSurface.Catalog,
+				category = "legacy_purchase_modal"
+			})
+		end
+
+		local t6
+
+		if v232 > v166 then
+			InsufficientRobuxPrompt = AvatarScreen.InsufficientRobuxPrompt
+			t6 = {
+				onOverlayClosed = v182
+			}
+			v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetBuyClickedInsufficientRobux)
+		elseif Cryo.isEmpty(v234) and v150 ~= nil then
+			local v238, v239
+
+			if FFlagAXFixLookLinkToCustomize then
+				v238, v239 = Utils.GetAvatarEditorCategoryIdsFromNavKey(if v149[v150].lookType ~= Constants.LookType.Makeup then AvatarEditorCategories.Avatars else AvatarEditorSubcategories.MakeupLooks)
+			else
+				local CharacterKey = Constants3.CharacterKey
+
+				v238 = nil
+
+				for v241, v242 in (GetAvatarEditorCategories()) do
+					if CharacterKey == v242.Name then
+						v238 = v241
+
+						break
+					end
+				end
+
+				v239 = nil
+			end
+
+			InsufficientRobuxPrompt = AvatarScreen.LeaveCatalogToAvatarPrompt
+			t6 = {
+				onOverlayClosed = v182,
+				categoryOverride = v238,
+				subcategoryOverride = v239
+			}
+			v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetBuyClickedNoItemsToPurchase)
+		else
+			local v243 = LookDetailsBottomBarUtils.getOwnedTryOnItems(v164, v149, v150)
+
+			if v150 ~= nil then
+				InsufficientRobuxPrompt = AvatarScreen.PurchaseLookPrompt
+				t6 = {
+					itemsToPurchase = v234,
+					lookId = v150,
+					ownedTryOnItems = v243,
+					priceInRobux = v232,
+					showSaveAsCharacter = true,
+					showWearAfterPurchase = true,
+					fromAvatarRoute = v147,
+					isTryOnFromOutsideAX = t3.isTryOnFromOutsideAX
+				}
+
+				if NavigationUtils.isWithinViewContext(v147, AvatarScreen.CatalogSearch) then
+					v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetSearchBuyClicked)
+				else
+					v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetHomeBuyClicked)
+				end
+			else
+				v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetBuyClickedMissingLookId)
+				t6 = {
+					onOverlayClosed = v182
+				}
+			end
+		end
+
+		v148(NavigateWithLock(function() -- line: 925
+			-- upvalues: v152 (copy), InsufficientRobuxPrompt (ref), t6 (ref)
+			v152.navigate(InsufficientRobuxPrompt, t6)
+		end))
+	end, {
+		v164,
+		v167,
+		v168,
+		v169,
+		v149,
+		v150,
+		v166,
+		v148,
+		v152,
+		v182,
+		v155,
+		v147
+	}) else React.useCallback(function() -- line: 715
+		-- upvalues: LookDetailsBottomBarUtils (copy), v173 (copy), v167 (copy), v168 (copy), v169 (copy), v149 (copy), v150 (copy), v164 (copy), v166 (copy), AvatarScreen (copy), v182 (copy), v155 (copy), Constants2 (copy), FFlagAXFixLookLinkToCustomize (copy), Utils (copy), Constants (copy), AvatarEditorSubcategories (copy), AvatarEditorCategories (copy), Constants3 (copy), GetAvatarEditorCategories (copy), v147 (copy), t3 (copy), NavigationUtils (copy), v152 (copy), v148 (copy), NavigateWithLock (copy)
+		local v220, _, v222, _ = LookDetailsBottomBarUtils.getBottomBarInfoMIS(v173, v167, v168, v169, v149, v150, v164)
+		local InsufficientRobuxPrompt = nil
+		local t7
+
+		if v220 > v166 then
+			InsufficientRobuxPrompt = AvatarScreen.InsufficientRobuxPrompt
+			t7 = {
+				onOverlayClosed = v182
+			}
+			v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetBuyClickedInsufficientRobux)
+		elseif v222 == 0 and v150 ~= nil then
+			local v226, v227
+
+			if FFlagAXFixLookLinkToCustomize then
+				v226, v227 = Utils.GetAvatarEditorCategoryIdsFromNavKey(if v149[v150].lookType ~= Constants.LookType.Makeup then AvatarEditorCategories.Avatars else AvatarEditorSubcategories.MakeupLooks)
+			else
+				local CharacterKey = Constants3.CharacterKey
+
+				v226 = nil
+
+				for v229, v230 in (GetAvatarEditorCategories()) do
+					if CharacterKey == v230.Name then
+						v226 = v229
+
+						break
+					end
+				end
+
+				v227 = nil
+			end
+
+			InsufficientRobuxPrompt = AvatarScreen.LeaveCatalogToAvatarPrompt
+			t7 = {
+				onOverlayClosed = v182,
+				categoryOverride = v226,
+				subcategoryOverride = v227
+			}
+			v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetBuyClickedNoItemsToPurchase)
+		else
+			local v231 = LookDetailsBottomBarUtils.getOwnedItemsInLook(v173, v149, v150)
+
+			if v150 ~= nil then
+				InsufficientRobuxPrompt = AvatarScreen.PurchaseLookPrompt
+				t7 = {
+					lookId = v150,
+					priceInRobux = v220,
+					showSaveAsCharacter = true,
+					showWearAfterPurchase = true,
+					fromAvatarRoute = v147,
+					allLookItems = v173,
+					ownedItemsInLook = v231,
+					isTryOnFromOutsideAX = t3.isTryOnFromOutsideAX
+				}
+
+				if NavigationUtils.isWithinViewContext(v147, AvatarScreen.CatalogSearch) then
+					v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetSearchBuyClicked)
+				else
+					v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetHomeBuyClicked)
+				end
+			else
+				v155.sendAXCounter(Constants2.Counter.AvatarWidget.AvatarsWidgetBuyClickedMissingLookId)
+				t7 = {
+					onOverlayClosed = v182
+				}
+			end
+		end
+
+		v148(NavigateWithLock(function() -- line: 805
+			-- upvalues: v152 (copy), InsufficientRobuxPrompt (ref), t7 (ref)
+			v152.navigate(InsufficientRobuxPrompt, t7)
+		end))
+	end, {
+		v167,
+		v168,
+		v169,
+		v149,
+		v150,
+		v166,
+		v148,
+		v152,
+		v182,
+		v155,
+		v147,
+		v173,
+		v164
+	})
+
+	if FFlagAXEnableUnifiedPurchaseFlowForLooks then
+		local onButtonPressWithUnifiedPurchaseFlow = useLookUnifiedPurchaseFlow({
+			lookId = v150,
+			totalPrice = v190,
+			originalPrice = if not FFlagAXBlackbirdRoot then nil else v193,
+			tryOnItems = v164,
+			lookDetailsObj = v149,
+			lookAnalyticsInfo = if not FFlagAXMISEnableMultiShoppingUnifiedEvents or not v157 then v156 else v158,
+			localized = v159,
+			isTryOnFromOutsideAX = t3.isTryOnFromOutsideAX,
+			itemsToPurchase = v192,
+			userRobux = v166,
+			onOverlayClosed = v182,
+			hasNonDiscountedItems = v194
+		}).onButtonPressWithUnifiedPurchaseFlow
+
+		if FFlagAXLaunchUnifiedPurchaseFlowMarketplaceLooks then
+			u197 = onButtonPressWithUnifiedPurchaseFlow
+		elseif v144 then
+			u197 = onButtonPressWithUnifiedPurchaseFlow
+		end
+	end
+
+	local v199 = if not FFlagAXMISEnableMultiShopping or not t3.alwaysBuyAll then React.useCallback(function() -- line: 975
+		-- upvalues: v164 (copy), LookDetailsBottomBarUtils (copy), v149 (copy), v150 (copy)
+		local n4 = 0
+
+		for _, v246 in v164 do
+			if not v246.selectedInTryOnManager then
+				continue
+			end
+
+			local v247 = LookDetailsBottomBarUtils.getItemInfo(v246.itemId, v246.itemType, v149, v150)
+
+			if not v247 or not v247.quantityOwned or v247.quantityOwned == 0 then
+				return false
+			end
+
+			n4 += 1
+		end
+
+		return n4 > 0
+	end, {
+		v164,
+		v149,
+		v150
+	}) else nil
+	local v200 = if not FFlagAXMISEnableMultiShopping then nil else React.useCallback(function(p24) -- line: 998
+		-- upvalues: v173 (copy), t3 (copy), LookDetailsBottomBarUtils (copy), v149 (copy)
+		if v173 == nil or not t3.alwaysBuyAll then
+			return false
+		end
+
+		local n5 = 0
+
+		for _, v251 in v173 do
+			local v252 = if not v251.itemType then nil else LookDetailsBottomBarUtils.getItemInfo(v251.id, v251.itemType, v149, p24)
+
+			if not v252 or not v252.quantityOwned or v252.quantityOwned == 0 then
+				return false
+			end
+
+			n5 += 1
+		end
+
+		return n5 > 0
+	end, {
+		v149,
+		v173,
+		t3.alwaysBuyAll
+	})
+	local u201 = v77
+	local u202 = false
+	local v203 = v192 and Cryo.isEmpty(v192)
+
+	if FFlagAXMISEnableMultiShopping and t3.alwaysBuyAll then
+		v203 = v188 == 0
+	end
+
+	local s2
+
+	if v203 then
+		s2 = ""
+
+		local v205 = v199 and v199()
+
+		if FFlagAXMISEnableMultiShopping and t3.alwaysBuyAll then
+			v205 = v200 and v200(v150) ~= nil
+		end
+
+		if v150 ~= nil and v205 then
+			u201 = v79
+		else
+			u201 = v78
+			u202 = true
+		end
+	elseif v190 == 0 then
+		u201 = nil
+		s2 = v159.freeText
+	else
+		s2 = NumberLocalization.localize(string.format("%.0f", v190), v154:GetLocale())
+	end
+
+	if v166 == nil then
+		u202 = true
+	end
+
+	local v206 = v154:Format("Feature.Avatar.Label.TryOnManagerDescriptor", {
+		numItems = if not FFlagAXMISEnableMultiShopping or not t3.alwaysBuyAll then v189 else v187
+	})
+	local hideDescriptor = t3.hideDescriptor
+	local v208 = Roact.createElement("TextLabel", {
+		LayoutOrder = 1,
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 0, v163.Global.Size_400),
+		Text = v206,
+		TextSize = Font.BaseSize * Font.Header2.RelativeSize,
+		Font = Font.Header2.Font,
+		TextColor3 = Theme.SecondaryContent.Color,
+		TextTransparency = Theme.SecondaryContent.Transparency,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top
+	})
+	local v209 = React.useCallback(function() -- line: 1078
+		-- upvalues: v186 (copy), v143 (copy)
+		v186()
+		v143(true)
+	end, {
+		v186,
+		v143
+	})
+	local v210 = React.useMemo(function() -- line: 1083
+		-- upvalues: s2 (ref), u201 (ref), u195 (ref), u202 (ref), v163 (copy), FFlagAXMISEnableMultiShopping (copy), v160 (copy), u197 (ref)
+		return {
+			buttonText = s2,
+			buttonIcon = u201,
+			buttonIsLoading = u195,
+			buttonIsDisabled = u202,
+			buttonIconPadding = v163.Global.Space_50,
+			buttonIconSize = if not FFlagAXMISEnableMultiShopping then v163.Global.Size_400 else v163.Global.Size_250,
+			buttonColor = v160.Theme.ContextualPrimaryDefault.Color,
+			buttonTextColor = v160.Theme.ContextualPrimaryContent.Color,
+			onActivated = not u202 and u197 or nil
+		}
+	end, {
+		s2,
+		u201,
+		u195,
+		u202,
+		v163,
+		v160,
+		u197
+	})
+	local v211 = v177 and (not v175 and v178 ~= nil)
+
+	return Roact.createElement(ActionBar, {
+		bottomPadding = 0,
+		buttonProps = v210,
+		hideGradient = true,
+		isMoreButtonSelected = v142,
+		leftPadding = 0,
+		onMoreButtonActivated = v209,
+		rightPadding = 0,
+		showMoreButton = true,
+		showMiddleButton = v211,
+		onMiddleButtonActivated = if not v211 then nil else v178.onActivated,
+		middleButtonIcon = if not v211 then nil else v178.icon,
+		topComponent = if not hideDescriptor then v208 else nil,
+		topComponentHeight = if not hideDescriptor then v163.Global.Size_400 else 0,
+		ZIndex = 1
+	})
+end

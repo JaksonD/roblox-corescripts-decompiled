@@ -1,9 +1,23 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("DataHydration");
-local _ = require(l_script_FirstAncestor_0.DataHydrationTypes);
+local DataHydration = script:FindFirstAncestor("DataHydration")
+local DataHydrationParent = DataHydration.Parent
+
+require(DataHydration.DataHydrationTypes)
+require(DataHydrationParent.Signals)
+
+local t1 = {
+	Upcoming = "Upcoming",
+	UpcomingImminent = "UpcomingImminent",
+	Ongoing = "Ongoing",
+	ElapsedImminent = "ElapsedImminent",
+	Elapsed = "Elapsed"
+}
+local t2 = {
+	Going = "going",
+	NotGoing = "notGoing",
+	Maybe = "maybe"
+}
+
 return {
-    EventRsvpTypes = {
-        Going = "going", 
-        NotGoing = "notGoing", 
-        Maybe = "maybe"
-    }
-};
+	EventStatus = t1,
+	EventRsvpTypes = t2
+}

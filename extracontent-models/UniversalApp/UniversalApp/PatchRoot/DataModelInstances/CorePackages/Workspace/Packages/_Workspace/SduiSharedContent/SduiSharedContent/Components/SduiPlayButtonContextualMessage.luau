@@ -1,28 +1,32 @@
-local l_Parent_0 = script:FindFirstAncestor("SduiSharedContent").Parent;
-local v1 = require(l_Parent_0.React);
-local v2 = require(l_Parent_0.Foundation);
-local v3 = require(l_Parent_0.GamePlayButton);
-local v4 = require(l_Parent_0.RoactServiceTags);
-local l_useTokens_0 = v2.Hooks.useTokens;
-local l_useRoactService_0 = require(l_Parent_0.RobloxAppHooks).useRoactService;
-local l_usePlayButtonContextualMessage_0 = v3.usePlayButtonContextualMessage;
-local l_usePlayButtonState_0 = v3.usePlayButtonState;
-local _ = require(l_Parent_0.SduiCoreSystem);
-local l_Text_0 = v2.Text;
-return v1.memo(function(v11) --[[ Line: 28 ]] --[[ Name: SduiPlayButtonContextualMessage ]]
-    -- upvalues: l_useRoactService_0 (copy), v4 (copy), l_useTokens_0 (copy), l_usePlayButtonState_0 (copy), l_usePlayButtonContextualMessage_0 (copy), v1 (copy), l_Text_0 (copy)
-    local v12 = l_useRoactService_0(v4.RoactNetworking);
-    local v13 = l_useTokens_0();
-    local v14 = l_usePlayButtonState_0(v12, v11.universeId, v11.fetchDelayInSeconds);
-    local v15 = l_usePlayButtonContextualMessage_0(v11.universeId, v14.playButtonState, v14.playabilityStatus);
-    if v15 == nil or v15 == "" then
-        return nil;
-    else
-        return v1.createElement(l_Text_0, {
-            tag = "auto-xy text-caption-medium text-wrap text-align-x-left", 
-            textStyle = v13.Color.Content.Emphasis, 
-            Text = v15, 
-            LayoutOrder = v11.layoutOrder
-        });
-    end;
-end);
+local Parent = script:FindFirstAncestor("SduiSharedContent").Parent
+local React = require(Parent.React)
+local Foundation = require(Parent.Foundation)
+local GamePlayButton = require(Parent.GamePlayButton)
+local RoactServiceTags = require(Parent.RoactServiceTags)
+local useTokens = Foundation.Hooks.useTokens
+local useRoactService = require(Parent.RobloxAppHooks).useRoactService
+local usePlayButtonContextualMessage = GamePlayButton.usePlayButtonContextualMessage
+local usePlayButtonState = GamePlayButton.usePlayButtonState
+
+require(Parent.SduiCoreSystem)
+
+local FoundationText = Foundation.Text
+
+return React.memo(function(t1: {[any]: any}) --[[ SduiPlayButtonContextualMessage ]] -- line: 28
+	-- upvalues: useRoactService (copy), RoactServiceTags (copy), useTokens (copy), usePlayButtonState (copy), usePlayButtonContextualMessage (copy), React (copy), FoundationText (copy)
+	local v12 = useRoactService(RoactServiceTags.RoactNetworking)
+	local v13 = useTokens()
+	local v14 = usePlayButtonState(v12, t1.universeId, t1.fetchDelayInSeconds)
+	local v15 = usePlayButtonContextualMessage(t1.universeId, v14.playButtonState, v14.playabilityStatus)
+
+	if v15 == nil or v15 == "" then
+		return nil
+	end
+
+	return React.createElement(FoundationText, {
+		tag = "auto-xy text-body-medium text-wrap text-align-x-left",
+		textStyle = v13.Color.Content.Emphasis,
+		Text = v15,
+		LayoutOrder = t1.layoutOrder
+	})
+end)

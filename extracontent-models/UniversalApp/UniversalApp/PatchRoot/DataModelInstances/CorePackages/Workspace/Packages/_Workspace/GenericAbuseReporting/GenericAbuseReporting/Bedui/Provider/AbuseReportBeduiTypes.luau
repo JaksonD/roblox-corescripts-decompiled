@@ -1,110 +1,111 @@
-local l_Parent_0 = script:FindFirstAncestor("GenericAbuseReporting").Parent;
-local v1 = require(l_Parent_0.SharedFlags);
-local v2 = require(l_Parent_0.t);
-local l_FFlagAddThumbnailSelectorReport_0 = v1.FFlagAddThumbnailSelectorReport;
-local v4 = {
-    componentType = v2.literal("dropdown"), 
-    isOptional = v2.boolean, 
-    formDataKey = v2.string, 
-    requirementMessage = v2.string, 
-    dropdown = v2.interface({
-        prompt = v2.string, 
-        placeholder = v2.string, 
-        items = v2.array(v2.interface({
-            label = v2.string, 
-            formDataValue = v2.union(v2.number, v2.string)
-        }))
-    })
-};
-local v5 = {
-    componentType = v2.literal("freeComment"), 
-    isOptional = v2.boolean, 
-    formDataKey = v2.string, 
-    requirementMessage = v2.string, 
-    freeComment = v2.interface({
-        prompt = v2.string, 
-        placeholder = v2.string
-    })
-};
-local v6 = {
-    componentType = v2.literal("paragraph"), 
-    isOptional = v2.boolean, 
-    formDataKey = v2.optional(v2.string), 
-    paragraph = v2.interface({
-        text = v2.string, 
-        links = v2.optional(v2.map(v2.string, v2.interface({
-            label = v2.string, 
-            linkButtonLabel = v2.string, 
-            url = v2.string
-        })))
-    })
-};
-local v7 = {
-    componentType = v2.literal("selector"), 
-    isOptional = v2.boolean, 
-    formDataKey = v2.string, 
-    requirementMessage = v2.string, 
-    selector = v2.interface({
-        prompt = v2.string
-    })
-};
-local v8 = {
-    componentType = v2.literal("link"), 
-    isOptional = v2.boolean, 
-    formDataKey = v2.optional(v2.string), 
-    link = v2.interface({
-        label = v2.string, 
-        linkButtonLabel = v2.string, 
-        url = v2.string
-    })
-};
-local v9 = {
-    type = v2.literal("configurableComponentList"), 
-    configurableComponentList = v2.interface({
-        components = if l_FFlagAddThumbnailSelectorReport_0 then v2.array(v2.union(v2.interface(v4), v2.interface(v5), v2.interface(v6), v2.interface(v7), v2.interface(v8))) else v2.array(v2.union(v2.interface(v4), v2.interface(v5), v2.interface(v6), v2.interface(v8)))
-    })
-};
-local v10 = v2.union(v2.interface(v9));
-local v11 = {
-    title = v2.string, 
-    subtitle = v2.string, 
-    actionInfo = v2.interface({
-        actionLabel = v2.optional(v2.string), 
-        predefinedNextStepId = v2.number, 
-        shouldSubmit = v2.optional(v2.boolean)
-    }), 
-    stepId = v2.number, 
-    internalStepName = v2.string, 
-    isCompletionStep = v2.optional(v2.boolean), 
-    innerContentConfig = v2.optional(v10), 
-    footerContentConfig = v2.optional(v10)
-};
-local v12 = {
-    rootStepId = v2.number, 
-    nodes = v2.array(v2.interface(v11))
-};
+local Parent = script:FindFirstAncestor("GenericAbuseReporting").Parent
+local SharedFlags = require(Parent.SharedFlags)
+local t = require(Parent.t)
+local FFlagAddThumbnailSelectorReport = SharedFlags.FFlagAddThumbnailSelectorReport
+local t1 = {
+	componentType = t.literal("dropdown"),
+	isOptional = t.boolean,
+	formDataKey = t.string,
+	requirementMessage = t.string,
+	dropdown = t.interface({
+		prompt = t.string,
+		placeholder = t.string,
+		items = t.array(t.interface({
+			label = t.string,
+			formDataValue = t.union(t.number, t.string)
+		}))
+	})
+}
+local t2 = {
+	componentType = t.literal("freeComment"),
+	isOptional = t.boolean,
+	formDataKey = t.string,
+	requirementMessage = t.string,
+	freeComment = t.interface({
+		prompt = t.string,
+		placeholder = t.string
+	})
+}
+local t3 = {
+	componentType = t.literal("paragraph"),
+	isOptional = t.boolean,
+	formDataKey = t.optional(t.string),
+	paragraph = t.interface({
+		text = t.string,
+		links = t.optional(t.map(t.string, t.interface({
+			label = t.string,
+			linkButtonLabel = t.string,
+			url = t.string
+		})))
+	})
+}
+local t4 = {
+	componentType = t.literal("selector"),
+	isOptional = t.boolean,
+	formDataKey = t.string,
+	requirementMessage = t.string,
+	selector = t.interface({
+		prompt = t.string
+	})
+}
+local t5 = {
+	componentType = t.literal("link"),
+	isOptional = t.boolean,
+	formDataKey = t.optional(t.string),
+	link = t.interface({
+		label = t.string,
+		linkButtonLabel = t.string,
+		url = t.string
+	})
+}
+local t6 = {
+	type = t.literal("configurableComponentList"),
+	configurableComponentList = t.interface({
+		components = if not FFlagAddThumbnailSelectorReport then t.array(t.union(t.interface(t1), t.interface(t2), t.interface(t3), t.interface(t5))) else t.array(t.union(t.interface(t1), t.interface(t2), t.interface(t3), t.interface(t4), t.interface(t5)))
+	})
+}
+local v11 = t.union(t.interface(t6))
+local t7 = {
+	title = t.string,
+	subtitle = t.string,
+	actionInfo = t.interface({
+		actionLabel = t.optional(t.string),
+		predefinedNextStepId = t.number,
+		shouldSubmit = t.optional(t.boolean)
+	}),
+	stepId = t.number,
+	internalStepName = t.string,
+	isCompletionStep = t.optional(t.boolean),
+	innerContentConfig = t.optional(v11),
+	footerContentConfig = t.optional(v11)
+}
+local t8 = {
+	rootStepId = t.number,
+	nodes = t.array(t.interface(t7))
+}
+
 return {
-    AbuseReportBeduiContextStatus = {
-        Loading = "Loading", 
-        Success = "Success", 
-        Error = "Error"
-    }, 
-    BeduiDataTypeInterface = v12, 
-    ComponentType = {
-        Dropdown = "dropdown", 
-        FreeComment = "freeComment", 
-        Paragraph = "paragraph", 
-        Selector = l_FFlagAddThumbnailSelectorReport_0 and "selector" or nil, 
-        WebViewLink = "link"
-    }, 
-    ContentConfigType = {
-        InnerContentConfig = "innerContentConfig", 
-        FooterContentConfig = "footerContentConfig"
-    }, 
-    InnerContentConfigType = {
-        ConfigurableComponentList = "configurableComponentList"
-    }, 
-    NotificationType = {
-        OpenCustomWebView = 20
-    }
-};
+	AbuseReportBeduiContextStatus = {
+		Loading = "Loading",
+		Success = "Success",
+		Error = "Error"
+	},
+	BeduiDataTypeInterface = t8,
+	ComponentType = {
+		Dropdown = "dropdown",
+		FreeComment = "freeComment",
+		Paragraph = "paragraph",
+		Selector = if not FFlagAddThumbnailSelectorReport then nil else "selector",
+		WebViewLink = "link"
+	},
+	ContentConfigType = {
+		InnerContentConfig = "innerContentConfig",
+		FooterContentConfig = "footerContentConfig"
+	},
+	InnerContentConfigType = {
+		ConfigurableComponentList = "configurableComponentList"
+	},
+	NotificationType = {
+		OpenCustomWebView = 20
+	}
+}

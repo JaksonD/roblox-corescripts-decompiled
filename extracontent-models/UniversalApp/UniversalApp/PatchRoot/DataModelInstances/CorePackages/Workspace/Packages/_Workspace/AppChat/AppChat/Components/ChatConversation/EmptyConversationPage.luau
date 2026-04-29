@@ -1,26 +1,27 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_Parent_0.Foundation);
-local l_useTokens_0 = v3.Hooks.useTokens;
-local v5 = require(l_script_FirstAncestor_0.Hooks.useIsChatUserMessagesEnabled);
-local v6 = require(l_script_FirstAncestor_0.Utils.loadFoundationCloudAsset);
-local v7, _ = v6("pictograms/chat");
-local v9, _ = v6("pictograms/voice_chat");
-local v11 = game:DefineFastFlag("FixEmptyConversationTransparency", false);
-return v2.memo(function() --[[ Line: 16 ]] --[[ Name: EmptyConversationPage ]]
-    -- upvalues: l_useTokens_0 (copy), v5 (copy), v2 (copy), v3 (copy), v11 (copy), v9 (copy), v7 (copy)
-    local v12 = l_useTokens_0();
-    local v13 = v5();
-    return v2.createElement(v3.View, {
-        tag = v11 and "size-full" or "bg-surface-0 size-full"
-    }, {
-        ChatIcon = v2.createElement(v3.Image, {
-            Image = if v13 then v9 else v7, 
-            imageStyle = v12.Color.Content.Emphasis, 
-            ScaleType = Enum.ScaleType.Fit, 
-            Size = UDim2.new(0, 320, 0, 320), 
-            tag = "position-center-center anchor-center-center"
-        })
-    });
-end);
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local React = require(AppChatParent.React)
+local Foundation = require(AppChatParent.Foundation)
+local useTokens = Foundation.Hooks.useTokens
+local useIsChatUserMessagesEnabled = require(AppChat.Hooks.useIsChatUserMessagesEnabled)
+local loadFoundationCloudAsset = require(AppChat.Utils.loadFoundationCloudAsset)
+local v8, _ = loadFoundationCloudAsset("pictograms/chat")
+local v10, _ = loadFoundationCloudAsset("pictograms/voice_chat")
+
+return React.memo(function() --[[ EmptyConversationPage ]] -- line: 15
+	-- upvalues: useTokens (copy), useIsChatUserMessagesEnabled (copy), React (copy), Foundation (copy), v10 (copy), v8 (copy)
+	local v12 = useTokens()
+	local v13 = useIsChatUserMessagesEnabled()
+
+	return React.createElement(Foundation.View, {
+		tag = "size-full"
+	}, {
+		ChatIcon = React.createElement(Foundation.Image, {
+			Image = if not v13 then v8 else v10,
+			imageStyle = v12.Color.Content.Emphasis,
+			ScaleType = Enum.ScaleType.Fit,
+			Size = UDim2.new(0, 320, 0, 320),
+			tag = "position-center-center anchor-center-center"
+		})
+	})
+end)

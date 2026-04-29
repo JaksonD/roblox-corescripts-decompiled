@@ -1,12 +1,16 @@
-local v0 = require(script.AvatarExperienceTTIPerformanceManager);
-local v1 = require(script.TTIMetricNames);
-local v2 = require(script.WidgetsPercievedTTIManager);
-local v3 = require(script.OrganicTTIMilestoneManager);
-local l_FFlagAXTTIEnableMilestones_0 = require(script.Parent.SharedFlags).FFlagAXTTIEnableMilestones;
+local AvatarExperienceTTIPerformanceManager = require(script.AvatarExperienceTTIPerformanceManager)
+local TTIMetricNames = require(script.TTIMetricNames)
+local WidgetsPercievedTTIManager = require(script.WidgetsPercievedTTIManager)
+local OrganicTTIMilestoneManager = require(script.OrganicTTIMilestoneManager)
+local EditorInventoryTTIMilestoneManager = require(script.EditorInventoryTTIMilestoneManager)
+local FFlagAXTTIEnableMilestones = require(script.Parent.SharedFlags).FFlagAXTTIEnableMilestones
+local FFlagAXTTIEditorEnableMilestones = require(script.Parent.AvatarExperienceFlags).FFlagAXTTIEditorEnableMilestones
+
 return {
-    TTIPerformanceManager = v0, 
-    TTIMetricNames = v1, 
-    WidgetsPercievedTTIManager = if l_FFlagAXTTIEnableMilestones_0 then v2 else nil, 
-    OrganicTTIMilestoneManager = if l_FFlagAXTTIEnableMilestones_0 then v3 else nil, 
-    ["jest.config"] = script["jest.config"]
-};
+	TTIPerformanceManager = AvatarExperienceTTIPerformanceManager,
+	TTIMetricNames = TTIMetricNames,
+	WidgetsPercievedTTIManager = if not FFlagAXTTIEnableMilestones then nil else WidgetsPercievedTTIManager,
+	OrganicTTIMilestoneManager = if not FFlagAXTTIEnableMilestones then nil else OrganicTTIMilestoneManager,
+	EditorInventoryTTIMilestoneManager = if not FFlagAXTTIEditorEnableMilestones then nil else EditorInventoryTTIMilestoneManager,
+	["jest.config"] = script["jest.config"]
+}

@@ -1,74 +1,98 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SduiCoreSystem");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Cryo);
-local _ = require(l_Parent_0.Signals);
-local _ = require(l_Parent_0.UnifiedLogging);
-local _ = require(l_script_FirstAncestor_0.SduiBuilderTypes);
-local v6 = require(l_script_FirstAncestor_0.SduiErrors);
-local v7 = require(l_script_FirstAncestor_0.SduiLogger);
-local _ = require(l_script_FirstAncestor_0.ClientBinding.SduiClientBindingTypes);
-local v9 = {};
-local v12 = {
-    __index = function(v10, v11) --[[ Line: 29 ]] --[[ Name: __index ]]
-        if v11 == "analyticsData" then
-            return v10.getAnalyticsDataSnapshot();
-        elseif v11 == "ancestorAnalyticsData" then
-            return v10.getAncestorAnalyticsDataSnapshot();
-        else
-            return nil;
-        end;
-    end
-};
-return function(v13, v14, v15, v16) --[[ Line: 62 ]] --[[ Name: buildAnalyticsContextForClientBinding ]]
-    -- upvalues: v9 (copy), v7 (copy), v6 (copy), v2 (copy), v12 (copy)
-    local v17 = nil;
-    local v25 = {
-        getAnalyticsDataSnapshot = function() --[[ Line: 80 ]] --[[ Name: getAnalyticsDataSnapshot ]]
-            -- upvalues: v13 (copy), v9 (ref), v14 (copy), v7 (ref), v6 (ref), v16 (copy), v17 (ref), v2 (ref)
-            local v18 = table.clone(v13 or v9);
-            if v14 then
-                xpcall(function() --[[ Line: 83 ]]
-                    -- upvalues: v14 (ref), v18 (copy)
-                    for v19, v20 in v14 do
-                        v18[v19] = v20(false).data;
-                    end;
-                end, function(v21) --[[ Line: 87 ]]
-                    -- upvalues: v7 (ref), v6 (ref), v16 (ref)
-                    v7.reportError(v6.SduiErrorType.FailedToComputeAnalyticsData, {
-                        message = v21, 
-                        name = v16.debugName
-                    }, v16.appPage);
-                end);
-            end;
-            if v17 then
-                return (v2.Dictionary.join(v18, v17));
-            else
-                return v18;
-            end;
-        end, 
-        getAncestorAnalyticsDataSnapshot = function() --[[ Line: 105 ]] --[[ Name: getAncestorAnalyticsDataSnapshot ]]
-            -- upvalues: v15 (copy), v9 (ref), v2 (ref)
-            if v15 then
-                local v22 = v15.ancestorAnalyticsData or v9;
-                local v23 = v15.analyticsData or v9;
-                return v2.Dictionary.join(v22, v23);
-            else
-                return v9;
-            end;
-        end, 
-        setLocalAnalyticsData = function(v24) --[[ Line: 122 ]] --[[ Name: setLocalAnalyticsData ]]
-            -- upvalues: v17 (ref)
-            v17 = v24;
-        end, 
-        getCollectionData = function() --[[ Line: 134 ]] --[[ Name: getCollectionData ]]
-            -- upvalues: v15 (copy)
-            if v15 and v15.getCollectionData then
-                return v15.getCollectionData();
-            else
-                return nil;
-            end;
-        end
-    };
-    setmetatable(v25, v12);
-    return v25;
-end;
+local SduiCoreSystem = script:FindFirstAncestor("SduiCoreSystem")
+local SduiCoreSystemParent = SduiCoreSystem.Parent
+local Cryo = require(SduiCoreSystemParent.Cryo)
+
+require(SduiCoreSystemParent.Signals)
+require(SduiCoreSystemParent.UnifiedLogging)
+require(SduiCoreSystem.SduiBuilderTypes)
+
+local SduiErrors = require(SduiCoreSystem.SduiErrors)
+local SduiLogger = require(SduiCoreSystem.SduiLogger)
+
+require(SduiCoreSystem.ClientBinding.SduiClientBindingTypes)
+require(SduiCoreSystem.SduiComponentType)
+
+local FFlagSduiImprovedErrorDimensions = require(SduiCoreSystemParent.SharedFlags).FFlagSduiImprovedErrorDimensions
+local t1 = {}
+local t2 = {
+	__index = function(p1, p2) --[[ __index ]] -- line: 33
+		if p2 == "analyticsData" then
+			return p1.getAnalyticsDataSnapshot()
+		end
+
+		if p2 == "ancestorAnalyticsData" then
+			return p1.getAncestorAnalyticsDataSnapshot()
+		end
+
+		return nil
+	end
+}
+
+return function(p3, t3: {[any]: any}?, p4, p5) --[[ buildAnalyticsContextForClientBinding ]] -- line: 66
+	-- upvalues: FFlagSduiImprovedErrorDimensions (copy), t1 (copy), SduiLogger (copy), SduiErrors (copy), Cryo (copy), t2 (copy)
+	local currentComponentType = nil
+	local currentParserName = nil
+
+	if FFlagSduiImprovedErrorDimensions then
+		currentComponentType = p5.currentComponentType
+		currentParserName = p5.currentParserName
+	end
+
+	local u17 = nil
+	local t4 = {
+		getAnalyticsDataSnapshot = function() --[[ getAnalyticsDataSnapshot ]] -- line: 91
+			-- upvalues: p3 (copy), t1 (copy), t3 (copy), SduiLogger (copy), SduiErrors (copy), p5 (copy), FFlagSduiImprovedErrorDimensions (copy), currentComponentType (ref), currentParserName (ref), u17 (ref), Cryo (copy)
+			local v19 = table.clone(p3 or t1)
+
+			if t3 then
+				xpcall(function() -- line: 94
+					-- upvalues: t3 (copy), v19 (copy)
+					for v23, v24 in t3 do
+						v19[v23] = v24(false).data
+					end
+				end, function(err) -- line: 98
+					-- upvalues: SduiLogger (copy), SduiErrors (copy), p5 (copy), FFlagSduiImprovedErrorDimensions (copy), currentComponentType (ref), currentParserName (ref)
+					SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToComputeAnalyticsData, {
+						message = err,
+						name = p5.debugName,
+						componentType = if not FFlagSduiImprovedErrorDimensions then nil else currentComponentType,
+						parserName = if not FFlagSduiImprovedErrorDimensions then nil else currentParserName
+					}, p5.appPage)
+				end)
+			end
+
+			if u17 then
+				return (Cryo.Dictionary.join(v19, u17))
+			end
+
+			return v19
+		end,
+		getAncestorAnalyticsDataSnapshot = function() --[[ getAncestorAnalyticsDataSnapshot ]] -- line: 118
+			-- upvalues: p4 (copy), t1 (copy), Cryo (copy)
+			if p4 then
+				local v20 = p4.ancestorAnalyticsData or t1
+				local v21 = p4.analyticsData or t1
+
+				return Cryo.Dictionary.join(v20, v21)
+			end
+
+			return t1
+		end,
+		setLocalAnalyticsData = function(p6) --[[ setLocalAnalyticsData ]] -- line: 135
+			-- upvalues: u17 (ref)
+			u17 = p6
+		end,
+		getCollectionData = function() --[[ getCollectionData ]] -- line: 147
+			-- upvalues: p4 (copy)
+			if p4 and p4.getCollectionData then
+				return p4.getCollectionData()
+			end
+
+			return nil
+		end
+	}
+
+	setmetatable(t4, t2)
+
+	return t4
+end

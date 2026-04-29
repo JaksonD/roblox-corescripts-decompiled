@@ -1,140 +1,208 @@
-local l_Parent_0 = script:FindFirstAncestor("AvatarExperienceCommon").Parent;
-local v1 = require(l_Parent_0.React);
-local v2 = require(l_Parent_0.Responsive);
-local l_ModalWindow_0 = require(l_Parent_0.UIBlox).App.Dialog.Modal.ModalWindow;
-local v4 = require(l_Parent_0.Foundation);
-local l_Button_0 = v4.Button;
-local l_View_0 = v4.View;
-local l_useTokens_0 = v4.Hooks.useTokens;
-local l_FillBehavior_0 = v4.Enums.FillBehavior;
-local l_useSelector_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useSelector;
-local v10 = require(script.Parent.Parent.Wrappers.wrapForReactPortal);
-local v11 = require(script.Parent.useAXPartialPageModalFocusHandler);
-local v12 = game:DefineFastFlag("AXPartialPageModalDockedPadding", false);
-local v13 = game:DefineFastInt("AXCatalogPartialPageModalBottomInsetMultiplier", 25);
-local function v15(v14) --[[ Line: 30 ]] --[[ Name: selectDeviceOrientation ]]
-    return v14.DeviceOrientation;
-end;
-local function v17(v16) --[[ Line: 50 ]]
-    return v16.ScreenSize;
-end;
-local function v19(v18) --[[ Line: 54 ]]
-    return v18.GlobalGuiInset and v18.GlobalGuiInset.bottom or 0;
-end;
-return function(v20) --[[ Line: 58 ]] --[[ Name: AXPartialPageModal ]]
-    -- upvalues: l_useTokens_0 (copy), l_useSelector_0 (copy), v17 (copy), v1 (copy), v19 (copy), v12 (copy), v13 (copy), v15 (copy), v2 (copy), v11 (copy), l_View_0 (copy), l_Button_0 (copy), l_FillBehavior_0 (copy), l_ModalWindow_0 (copy), v10 (copy)
-    local v21 = l_useTokens_0();
-    local v22 = l_useSelector_0(v17);
-    local l_Medium_0 = v21.Margin.Medium;
-    local v24 = UDim.new(0, v21.Margin.Medium);
-    local v25 = v1.useRef(nil);
-    local v26 = l_useSelector_0(v19);
-    if v12 then
-        if v22.X < 540 then
-            v24 = UDim.new(0, v21.Margin.Large + v26 * v13 / 100);
-        end;
-    elseif l_useSelector_0(v15) == v2.Keys.Portrait then
-        v24 = UDim.new(0, v21.Margin.Large + v26 * v13 / 100);
-    end;
-    local v27 = nil;
-    if v20.position then
-        v27 = v20.position;
-    end;
-    local v28 = v11(v25);
-    local function v34() --[[ Line: 90 ]]
-        -- upvalues: v20 (copy), v1 (ref), l_View_0 (ref), l_Button_0 (ref), l_FillBehavior_0 (ref)
-        local v29 = {};
-        if v20.buttonStackProps == nil then
-            return {};
-        else
-            local l_buttons_0 = v20.buttonStackProps.buttons;
-            for v31, _ in ipairs(l_buttons_0) do
-                local l_props_0 = l_buttons_0[v31].props;
-                v29[v31] = v1.createElement(l_View_0, {
-                    tag = "row gap-small wrap auto-y size-full-0 fill-x", 
-                    key = l_props_0.text or v31
-                }, v1.createElement(l_Button_0, {
-                    text = l_props_0.text, 
-                    variant = l_props_0.variant, 
-                    onActivated = l_props_0.onActivated, 
-                    LayoutOrder = l_props_0.layoutOrder or v31, 
-                    fillBehavior = l_FillBehavior_0.Fill, 
-                    size = l_props_0.size
-                }));
-            end;
-            return v29;
-        end;
-    end;
-    local function v40() --[[ Line: 120 ]]
-        -- upvalues: v20 (copy), v1 (ref), l_Button_0 (ref), l_FillBehavior_0 (ref)
-        local v35 = {};
-        if v20.buttonStackProps == nil then
-            return {};
-        else
-            local l_buttons_1 = v20.buttonStackProps.buttons;
-            for v37, _ in ipairs(l_buttons_1) do
-                local l_props_1 = l_buttons_1[v37].props;
-                v35[v37] = v1.createElement(l_Button_0, {
-                    text = l_props_1.text, 
-                    key = l_props_1.text or v37, 
-                    variant = l_props_1.variant, 
-                    width = UDim.new(1, 0), 
-                    onActivated = l_props_1.onActivated, 
-                    LayoutOrder = l_props_1.layoutOrder or v37, 
-                    fillBehavior = l_FillBehavior_0.Fill, 
-                    size = l_props_1.size
-                });
-            end;
-            return v35;
-        end;
-    end;
-    local v41 = v20.visible == nil or v20.visible;
-    local v42 = v1.createElement("TextButton", {
-        Text = "", 
-        AutoButtonColor = false, 
-        Selectable = false, 
-        Size = UDim2.fromScale(1, 1), 
-        BackgroundTransparency = 1, 
-        [v1.Event.Activated] = v20.onBackgroundPress, 
-        ZIndex = 5, 
-        Visible = v41
-    }, {
-        PartialPageModal = v1.createElement(l_ModalWindow_0, {
-            isFullHeight = false, 
-            screenSize = v22, 
-            position = v27, 
-            anchorPoint = v20.anchorPoint
-        }, {
-            ContentContainer = v1.createElement(l_View_0, {
-                tag = "auto-y col size-full-0 align-x-left padding-x-xxlarge padding-top-xxlarge radius-medium", 
-                Position = UDim2.new(0, 0, 0, l_Medium_0), 
-                backgroundStyle = v21.Color.Surface.Surface_100, 
-                padding = {
-                    bottom = v24
-                }, 
-                ref = if v28 == nil then v25 else nil, 
-                selectionGroup = if v28 == nil then {
-                    SelectionBehaviorUp = Enum.SelectionBehavior.Stop, 
-                    SelectionBehaviorDown = Enum.SelectionBehavior.Stop, 
-                    SelectionBehaviorLeft = Enum.SelectionBehavior.Stop, 
-                    SelectionBehaviorRight = Enum.SelectionBehavior.Stop
-                } else nil
-            }, {
-                Content = v1.createElement(l_View_0, {
-                    tag = "auto-y size-full-0"
-                }, v20.children), 
-                Buttons = v20.buttonStackProps and v1.createElement(l_View_0, {
-                    tag = {
-                        ["col gap-medium auto-y size-full-0 fill-x"] = not v20.buttonStackProps.rowLayout, 
-                        ["row gap-small auto-y size-full-0 fill-x"] = v20.buttonStackProps.rowLayout
-                    }
-                }, if v20.buttonStackProps.rowLayout then v40() else v34())
-            })
-        })
-    });
-    if v28 ~= nil then
-        return v10(v42, v28, v25);
-    else
-        return v42;
-    end;
-end;
+local Parent = script:FindFirstAncestor("AvatarExperienceCommon").Parent
+local React = require(Parent.React)
+local Responsive = require(Parent.Responsive)
+local ModalWindow = require(Parent.UIBlox).App.Dialog.Modal.ModalWindow
+local Foundation = require(Parent.Foundation)
+local Button = Foundation.Button
+local View = Foundation.View
+local useTokens = Foundation.Hooks.useTokens
+local FillBehavior = Foundation.Enums.FillBehavior
+local useSelector = require(Parent.RoactUtils).Hooks.RoactRodux.useSelector
+local wrapForReactPortal = require(script.Parent.Parent.Wrappers.wrapForReactPortal)
+local useIsSpatial = Responsive.useIsSpatial
+local useAXPartialPageModalFocusHandler = require(script.Parent.useAXPartialPageModalFocusHandler)
+local AvatarExperienceFlags = require(Parent.AvatarExperienceFlags)
+local v15 = game:DefineFastFlag("AXPartialPageModalDockedPadding", false)
+local FFlagAXFixAvatarScreenVR = AvatarExperienceFlags.FFlagAXFixAvatarScreenVR
+local v17 = game:DefineFastInt("AXCatalogPartialPageModalBottomInsetMultiplier", 25)
+
+local function selectDeviceOrientation(p1) -- line: 33
+	return p1.DeviceOrientation
+end
+local function v19(p2) -- line: 53
+	return p2.ScreenSize
+end
+local function v20(p3) -- line: 57
+	return p3.GlobalGuiInset and p3.GlobalGuiInset.bottom or 0
+end
+
+return function(t1: {[any]: any}) --[[ AXPartialPageModal ]] -- line: 61
+	-- upvalues: useTokens (copy), useSelector (copy), v19 (copy), React (copy), FFlagAXFixAvatarScreenVR (copy), v20 (copy), useIsSpatial (copy), useAXPartialPageModalFocusHandler (copy), v15 (copy), v17 (copy), selectDeviceOrientation (copy), Responsive (copy), View (copy), Button (copy), FillBehavior (copy), ModalWindow (copy), wrapForReactPortal (copy)
+	local v25 = useTokens()
+	local v26 = useSelector(v19)
+	local Medium = v25.Margin.Medium
+	local uDim = UDim.new(0, v25.Margin.Medium)
+	local v29 = React.useRef(nil)
+	local v30 = if not FFlagAXFixAvatarScreenVR then nil else React.useRef(nil)
+	local v31 = nil
+	local u32 = nil
+
+	if FFlagAXFixAvatarScreenVR then
+		local v33
+
+		v31, v33 = React.useState(Vector2.new(360, 700))
+		u32 = v33
+	end
+
+	local v34 = useSelector(v20)
+	local v35 = if not FFlagAXFixAvatarScreenVR then nil else useIsSpatial()
+	local v36 = useAXPartialPageModalFocusHandler(v29)
+
+	if FFlagAXFixAvatarScreenVR then
+		React.useLayoutEffect(function() -- line: 81
+			-- upvalues: v35 (copy), v30 (copy), u32 (ref)
+			if not v35 then
+				return
+			end
+
+			local current = v30.current
+
+			if current == nil then
+				return
+			end
+
+			local SurfaceGui = current:FindFirstAncestorOfClass("SurfaceGui")
+
+			if SurfaceGui == nil then
+				return
+			end
+
+			u32(SurfaceGui.AbsoluteSize)
+
+			local connection = SurfaceGui:GetPropertyChangedSignal("AbsoluteSize"):Connect(function() --[[ syncSize ]] -- line: 95
+				-- upvalues: u32 (ref), SurfaceGui (copy)
+				u32(SurfaceGui.AbsoluteSize)
+			end)
+
+			return function() -- line: 101
+				-- upvalues: connection (copy)
+				connection:Disconnect()
+			end
+		end, {
+			v35,
+			v36,
+			u32
+		})
+	end
+
+	local v37 = if not FFlagAXFixAvatarScreenVR or not v35 then v26 else v31
+
+	if v15 then
+		if v37.X < 540 then
+			uDim = UDim.new(0, v25.Margin.Large + v34 * v17 / 100)
+		end
+	elseif useSelector(selectDeviceOrientation) == Responsive.Keys.Portrait then
+		uDim = UDim.new(0, v25.Margin.Large + v34 * v17 / 100)
+	end
+
+	local position = nil
+
+	if t1.position then
+		position = t1.position
+	end
+
+	local v39 = t1.visible == nil or t1.visible
+	local v40 = React.createElement("TextButton", {
+		Text = "",
+		AutoButtonColor = false,
+		Selectable = false,
+		Size = UDim2.fromScale(1, 1),
+		BackgroundTransparency = 1,
+		[React.Event.Activated] = t1.onBackgroundPress,
+		ZIndex = 5,
+		Visible = v39,
+		ref = if not FFlagAXFixAvatarScreenVR then nil else v30
+	}, {
+		PartialPageModal = React.createElement(ModalWindow, {
+			isFullHeight = false,
+			screenSize = v37,
+			position = position,
+			anchorPoint = t1.anchorPoint
+		}, {
+			ContentContainer = React.createElement(View, {
+				tag = "auto-y col size-full-0 align-x-left padding-x-xxlarge padding-top-xxlarge radius-medium",
+				Position = UDim2.new(0, 0, 0, Medium),
+				backgroundStyle = v25.Color.Surface.Surface_100,
+				padding = {
+					bottom = uDim
+				},
+				ref = if v36 ~= nil then nil else v29,
+				selectionGroup = if v36 ~= nil then nil else {
+					SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+					SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
+					SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+					SelectionBehaviorRight = Enum.SelectionBehavior.Stop
+				}
+			}, {
+				Content = React.createElement(View, {
+					tag = "auto-y size-full-0"
+				}, t1.children),
+				Buttons = t1.buttonStackProps and React.createElement(View, {
+					tag = {
+						["col gap-medium auto-y size-full-0 fill-x"] = not t1.buttonStackProps.rowLayout,
+						["row gap-small auto-y size-full-0 fill-x"] = t1.buttonStackProps.rowLayout
+					}
+				}, if not t1.buttonStackProps.rowLayout then (function() -- line: 131
+					-- upvalues: t1 (copy), React (copy), View (copy), Button (copy), FillBehavior (copy)
+					local t2 = {}
+
+					if t1.buttonStackProps == nil then
+						return {}
+					end
+
+					local buttons = t1.buttonStackProps.buttons
+
+					for i, _ in ipairs(buttons) do
+						local props = buttons[i].props
+
+						t2[i] = React.createElement(View, {
+							tag = "row gap-small wrap auto-y size-full-0 fill-x",
+							key = props.text or i
+						}, React.createElement(Button, {
+							text = props.text,
+							variant = props.variant,
+							onActivated = props.onActivated,
+							LayoutOrder = props.layoutOrder or i,
+							fillBehavior = FillBehavior.Fill,
+							size = props.size
+						}))
+					end
+
+					return t2
+				end)() else (function() -- line: 161
+					-- upvalues: t1 (copy), React (copy), Button (copy), FillBehavior (copy)
+					local t3 = {}
+
+					if t1.buttonStackProps == nil then
+						return {}
+					end
+
+					local buttons = t1.buttonStackProps.buttons
+
+					for i, _ in ipairs(buttons) do
+						local props = buttons[i].props
+
+						t3[i] = React.createElement(Button, {
+							text = props.text,
+							key = props.text or i,
+							variant = props.variant,
+							width = UDim.new(1, 0),
+							onActivated = props.onActivated,
+							LayoutOrder = props.layoutOrder or i,
+							fillBehavior = FillBehavior.Fill,
+							size = props.size
+						})
+					end
+
+					return t3
+				end)())
+			})
+		})
+	})
+
+	if v36 ~= nil then
+		return wrapForReactPortal(v40, v36, v29)
+	end
+
+	return v40
+end

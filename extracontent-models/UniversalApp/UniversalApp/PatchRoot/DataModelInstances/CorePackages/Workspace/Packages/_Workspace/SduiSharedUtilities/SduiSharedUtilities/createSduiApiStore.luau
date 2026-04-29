@@ -1,370 +1,412 @@
-local l_HttpService_0 = game:GetService("HttpService");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SduiSharedUtilities");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.Cryo);
-local v4 = require(l_Parent_0.Signals);
-local v5 = require(l_Parent_0.SduiCoreSystem);
-local l_SduiErrors_0 = v5.SduiErrors;
-local l_SduiLogger_0 = v5.SduiLogger;
-local l_SduiParseHelpers_0 = v5.SduiParseHelpers;
-local v9 = require(l_Parent_0.Promise);
-local v10 = require(l_Parent_0.DataHydration);
-local l_createDataCache_0 = v10.createDataCache;
-local l_createDataResolver_0 = v10.createDataResolver;
-local v13 = require(l_script_FirstAncestor_0.SduiIntegrationTypes);
-local l_SduiRequestStatus_0 = v13.SduiRequestStatus;
-local _ = require(l_script_FirstAncestor_0.SduiLoadTimer);
-local v16 = require(l_script_FirstAncestor_0.SduiProtobufResponseHelpers);
-local l_makeProtoResponseDecoder_0 = v16.makeProtoResponseDecoder;
-local l_makeProtobufJsonResponseDecoder_0 = v16.makeProtobufJsonResponseDecoder;
-local l_SduiResponseType_0 = v13.SduiResponseType;
-local v20 = require(l_script_FirstAncestor_0.handleSduiApiResponse);
-local v21 = require(l_script_FirstAncestor_0.SduiPageAnalytics);
-local v22 = require(l_script_FirstAncestor_0.SduiApiStorePostConfig);
-local l_FFlagSduiProtobufJsonDecode_0 = require(l_Parent_0.SharedFlags).FFlagSduiProtobufJsonDecode;
-local v24 = game:DefineFastFlag("SduiEnableClearOnEmptyResponse", false);
-local l_FFlagSduiAllowNoConfigsBuilt_0 = require(l_Parent_0.SharedFlags).FFlagSduiAllowNoConfigsBuilt;
-local l_FFlagSduiChartsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiChartsSupport;
-local l_FFlagSduiConfigFetchTakesPostBody_0 = require(l_Parent_0.SharedFlags).FFlagSduiConfigFetchTakesPostBody;
-return function() --[[ Line: 82 ]] --[[ Name: createSduiApiStore ]]
-    -- upvalues: l_createDataCache_0 (copy), v4 (copy), v9 (copy), l_FFlagSduiProtobufJsonDecode_0 (copy), l_SduiResponseType_0 (copy), l_FFlagSduiConfigFetchTakesPostBody_0 (copy), l_HttpService_0 (copy), v22 (copy), v21 (copy), l_SduiRequestStatus_0 (copy), l_SduiLogger_0 (copy), l_SduiErrors_0 (copy), l_FFlagSduiChartsSupport_0 (copy), l_makeProtobufJsonResponseDecoder_0 (copy), l_makeProtoResponseDecoder_0 (copy), v20 (copy), v16 (copy), l_FFlagSduiAllowNoConfigsBuilt_0 (copy), l_SduiParseHelpers_0 (copy), v24 (copy), v3 (copy), l_createDataResolver_0 (copy)
-    local v28 = l_createDataCache_0();
-    local v29 = {};
-    local v30 = {};
-    local v31 = {};
-    local function _(v32, v33, v34) --[[ Line: 96 ]] --[[ Name: completeActiveRequest ]]
-        -- upvalues: v31 (copy)
-        local v35 = v31[v32];
-        if v35 then
-            v31[v32] = nil;
-            if v33 then
-                v35.resolve(v34);
-                return;
-            else
-                v35.reject(v34);
-            end;
-        end;
-    end;
-    local v37 = {};
-    local function v42(v38) --[[ Line: 114 ]] --[[ Name: getInputDataSignals ]]
-        -- upvalues: v37 (copy), v4 (ref)
-        local v39 = v37[v38];
-        if v39 == nil then
-            local v40, v41 = v4.createSignal(nil);
-            v39 = {
-                get = v40, 
-                set = v41
-            };
-            v37[v38] = v39;
-        end;
-        return v39;
-    end;
-    local function v80(v43, v44) --[[ Line: 130 ]] --[[ Name: fetchFunction ]]
-        -- upvalues: v29 (copy), v9 (ref), l_FFlagSduiProtobufJsonDecode_0 (ref), l_SduiResponseType_0 (ref), l_FFlagSduiConfigFetchTakesPostBody_0 (ref), l_HttpService_0 (ref), v22 (ref), v30 (copy), v21 (ref), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_FFlagSduiChartsSupport_0 (ref), v31 (copy), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v20 (ref), v16 (ref), v42 (copy), l_FFlagSduiAllowNoConfigsBuilt_0 (ref), l_SduiParseHelpers_0 (ref), v24 (ref), v3 (ref)
-        local v45 = v29[v43];
-        if not v45 then
-            return v9.reject("No request config for key", v43);
-        else
-            local l_url_0 = v45.url;
-            local l_loadTimer_0 = v45.loadTimer;
-            l_loadTimer_0.logUiRequestSent();
-            local v48 = l_FFlagSduiProtobufJsonDecode_0 and v45.responseType == l_SduiResponseType_0.ProtobufJson;
-            local l_postConfig_0 = v45.postConfig;
-            local v50 = l_FFlagSduiConfigFetchTakesPostBody_0 and l_postConfig_0 and "POST" or "GET";
-            local v51 = l_HttpService_0:RequestInternal({
-                Url = l_url_0, 
-                Method = v50, 
-                Headers = {
-                    Accept = v48 and "application/json" or "application/x-protobuf", 
-                    ["Content-Type"] = if l_FFlagSduiConfigFetchTakesPostBody_0 and l_postConfig_0 then v22.getContentTypeHeaderFromPostConfig(l_postConfig_0) else nil
-                }, 
-                Body = if l_FFlagSduiConfigFetchTakesPostBody_0 and l_postConfig_0 then v22.getBodyFromPostConfig(l_postConfig_0) else nil
-            });
-            return v9.new(function(v52, v53) --[[ Line: 162 ]]
-                -- upvalues: v51 (copy), l_loadTimer_0 (copy), v30 (ref), v43 (copy), v21 (ref), v45 (copy), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_url_0 (copy), l_FFlagSduiChartsSupport_0 (ref), v31 (ref), v48 (copy), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v44 (copy), v20 (ref), v16 (ref), v42 (ref), l_FFlagSduiAllowNoConfigsBuilt_0 (ref), l_SduiParseHelpers_0 (ref), v24 (ref), v3 (ref)
-                v51:Start(function(v54, v55) --[[ Line: 163 ]]
-                    -- upvalues: l_loadTimer_0 (ref), v30 (ref), v43 (ref), v21 (ref), v45 (ref), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_url_0 (ref), l_FFlagSduiChartsSupport_0 (ref), v31 (ref), v53 (copy), v48 (ref), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v44 (ref), v20 (ref), v16 (ref), v42 (ref), l_FFlagSduiAllowNoConfigsBuilt_0 (ref), l_SduiParseHelpers_0 (ref), v24 (ref), v3 (ref), v52 (copy)
-                    l_loadTimer_0.logUiResponseReceived();
-                    v30[v43] = false;
-                    v21.sendPageStatusEvent(v45.surfaceKey, v55.StatusCode, v55.HttpError);
-                    if v54 then
-                        local v56 = if v55.StatusCode then tonumber(v55.StatusCode) else nil;
-                        if v56 and v56 >= 400 or v55.HttpError and v55.HttpError ~= Enum.HttpError.OK then
-                            l_loadTimer_0.updateRequestStatus(l_SduiRequestStatus_0.FailedToLoad);
-                            l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                                message = ("Http request not successful for %* StatusCode %* HttpError %*"):format(l_url_0, v55.StatusCode, v55.HttpError), 
-                                name = v45.surfaceKey
-                            }, v45.surfaceKey);
-                            if l_FFlagSduiChartsSupport_0 then
-                                local l_v43_0 = v43;
-                                local v58 = v31[l_v43_0];
-                                if v58 then
-                                    v31[l_v43_0] = nil;
-                                    v58.reject(v55);
-                                end;
-                            end;
-                            return v53(v55);
-                        else
-                            l_loadTimer_0.updateRequestStatus(l_SduiRequestStatus_0.LoadedFromNetwork);
-                            v21.sendPagePayloadSizeEvent(v45.surfaceKey, v55.Body);
-                            local v59 = if v48 then l_makeProtobufJsonResponseDecoder_0(v45.apiProto) else l_makeProtoResponseDecoder_0(v45.apiProto);
-                            local l_status_0, l_result_0 = pcall(function() --[[ Line: 203 ]]
-                                -- upvalues: v45 (ref), v44 (ref), v20 (ref), v55 (copy), l_loadTimer_0 (ref), v59 (copy), v16 (ref), v42 (ref), l_FFlagSduiAllowNoConfigsBuilt_0 (ref)
-                                local v60 = v45.isPaginated and v44.data(false) ~= nil;
-                                return v20({
-                                    response = v55, 
-                                    loadTimer = l_loadTimer_0, 
-                                    surfaceKey = v45.surfaceKey, 
-                                    configCacheKey = v45.configKey, 
-                                    decodeResponse = v59, 
-                                    parseHydrationDataFromResponse = v16.parseHydrationDataFromResponse, 
-                                    parseTemplateEntriesFromResponse = v16.parseTemplateEntriesFromResponse, 
-                                    parsePageEntriesFromResponse = v16.parsePageEntriesFromResponse, 
-                                    getInputDataSignalsForRequest = v42, 
-                                    paginateResponse = v60, 
-                                    buildNextPageUrl = v45.buildNextPageUrl, 
-                                    allowNoConfigsBuilt = if l_FFlagSduiAllowNoConfigsBuilt_0 then v45.allowNoConfigsBuilt else nil
-                                });
-                            end);
-                            if not l_status_0 then
-                                local v63 = l_SduiParseHelpers_0.stringifyValue(l_result_0);
-                                l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                                    message = ("handleSduiApiResponse not successful for %* err %*"):format(l_url_0, v63), 
-                                    name = v45.surfaceKey
-                                }, v45.surfaceKey);
-                                if l_FFlagSduiChartsSupport_0 then
-                                    local l_v43_1 = v43;
-                                    local v65 = v31[l_v43_1];
-                                    if v65 then
-                                        v31[l_v43_1] = nil;
-                                        v65.reject(l_result_0);
-                                    end;
-                                end;
-                                return v53(v44);
-                            else
-                                local v66 = {};
-                                if v24 then
-                                    if next(l_result_0) then
-                                        local v67 = v44.data(false);
-                                        for v68, v69 in l_result_0 do
-                                            local v70 = v67 and v67[v68];
-                                            v66[v68] = if v70 then v3.Dictionary.join(v70, v69) else v69;
-                                        end;
-                                    elseif v45.clearOnEmptyResponse then
-                                        v66[v45.configKey] = {};
-                                    end;
-                                else
-                                    local v71 = v44.data(false);
-                                    for v72, v73 in l_result_0 do
-                                        local v74 = v71 and v71[v72];
-                                        v66[v72] = if v74 then v3.Dictionary.join(v74, v73) else v73;
-                                    end;
-                                end;
-                                if l_FFlagSduiChartsSupport_0 then
-                                    local l_v43_2 = v43;
-                                    local v76 = v31[l_v43_2];
-                                    if v76 then
-                                        v31[l_v43_2] = nil;
-                                        v76.resolve(v66);
-                                    end;
-                                end;
-                                return v52(v66);
-                            end;
-                        end;
-                    else
-                        local v77 = l_SduiParseHelpers_0.stringifyValue(v55);
-                        l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                            message = ("Http request not successful for %* err %*"):format(l_url_0, v77), 
-                            name = v45.surfaceKey
-                        }, v45.surfaceKey);
-                        if l_FFlagSduiChartsSupport_0 then
-                            local l_v43_3 = v43;
-                            local v79 = v31[l_v43_3];
-                            if v79 then
-                                v31[l_v43_3] = nil;
-                                v79.reject(v55);
-                            end;
-                        end;
-                        return v53(v55);
-                    end;
-                end);
-            end);
-        end;
-    end;
-    local v81 = l_createDataResolver_0({
-        cache = v28, 
-        fetchFn = v80, 
-        queueProcessDelaySec = 0, 
-        supportsMultiGet = false
-    });
-    local function v95(v82, v83) --[[ Line: 290 ]] --[[ Name: fetchIfNeeded ]]
-        -- upvalues: l_FFlagSduiProtobufJsonDecode_0 (ref), l_SduiResponseType_0 (ref), l_FFlagSduiChartsSupport_0 (ref), v29 (copy), v81 (copy), v31 (copy), v9 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_SduiParseHelpers_0 (ref), v30 (copy)
-        if l_FFlagSduiProtobufJsonDecode_0 and v82.responseType == nil then
-            v82.responseType = l_SduiResponseType_0.Protobuf;
-        end;
-        local v84 = v82.configKey or v82.url;
-        v82.configKey = v84;
-        if l_FFlagSduiChartsSupport_0 then
-            v82.loadTimer.logUiRequestQueued();
-            v29[v84] = v82;
-            local _, v86 = v81.getAndFetchItem(v84, v83 and function() --[[ Line: 306 ]]
-                return true;
-            end or nil);
-            if v86 then
-                if not v31[v84] then
-                    local v87 = nil;
-                    local v88 = nil;
-                    do
-                        local l_v87_0, l_v88_0 = v87, v88;
-                        local v93 = v9.new(function(v91, v92) --[[ Line: 315 ]]
-                            -- upvalues: l_v87_0 (ref), l_v88_0 (ref)
-                            l_v87_0 = v91;
-                            l_v88_0 = v92;
-                        end);
-                        v93:catch(function(v94) --[[ Line: 319 ]]
-                            -- upvalues: l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), v84 (copy), l_SduiParseHelpers_0 (ref), v82 (copy)
-                            l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                                message = ("fetchIfNeeded promise rejected for %*: %*"):format(v84, (l_SduiParseHelpers_0.stringifyValue(v94)))
-                            }, v82.surfaceKey);
-                        end);
-                        v31[v84] = {
-                            promise = v93, 
-                            resolve = l_v87_0, 
-                            reject = l_v88_0
-                        };
-                    end;
-                end;
-                return v31[v84].promise;
-            else
-                return v9.resolve();
-            end;
-        elseif v30[v84] then
-            return nil;
-        else
-            v30[v84] = true;
-            v82.loadTimer.logUiRequestQueued();
-            v29[v84] = v82;
-            return v81.getAndFetchItem(v84, v83 and function() --[[ Line: 354 ]]
-                return true;
-            end or nil);
-        end;
-    end;
-    local function v101(v96, v97, v98) --[[ Line: 366 ]] --[[ Name: getRootConfig ]]
-        -- upvalues: v81 (copy)
-        local v99 = v81.getCachedItem(v96).data(v97);
-        local v100 = v99 and v99[v98 or v96];
-        if v100 then
-            return v100.config;
-        else
-            return nil;
-        end;
-    end;
-    local function v107(v102, v103, v104) --[[ Line: 382 ]] --[[ Name: getTitle ]]
-        -- upvalues: v81 (copy)
-        local v105 = v81.getCachedItem(v102).data(v103);
-        local v106 = v105 and v105[v104 or v102];
-        if v106 and v106.title ~= "" then
-            return v106.title;
-        else
-            return nil;
-        end;
-    end;
-    local function v113(v108, v109, v110) --[[ Line: 396 ]] --[[ Name: getDataUpdatedTimestamp ]]
-        -- upvalues: v81 (copy)
-        local v111 = v81.getCachedItem(v108).data(v109);
-        local v112 = v111 and v111[v110 or v108];
-        if v112 then
-            return v112.dataUpdatedTimestamp;
-        else
-            return nil;
-        end;
-    end;
-    local function v119(v114) --[[ Line: 407 ]] --[[ Name: loadMoreFromApi ]]
-        -- upvalues: l_FFlagSduiChartsSupport_0 (ref), v30 (copy), v29 (copy), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), v9 (ref), v81 (copy), v95 (copy), v3 (ref)
-        if not l_FFlagSduiChartsSupport_0 and v30[v114.configKey] then
-            return nil;
-        else
-            local v115 = v29[v114.configKey];
-            if not v115 then
-                l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToPaginateRequest, {
-                    message = ("No requestData for %*"):format(v114.configKey)
-                }, "unknown");
-                if l_FFlagSduiChartsSupport_0 then
-                    return v9.resolve();
-                else
-                    return nil;
-                end;
-            else
-                local v116 = v81.getCachedItem(v114.configKey).data(false);
-                local v117 = v116 and v116[v114.identifier or v114.configKey];
-                if not v117 then
-                    l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToPaginateRequest, {
-                        message = ("No entry data for %*"):format(v114.configKey), 
-                        name = v115.surfaceKey
-                    }, v115.surfaceKey);
-                    if l_FFlagSduiChartsSupport_0 then
-                        return v9.resolve();
-                    else
-                        return nil;
-                    end;
-                else
-                    local l_nextPageUrl_0 = v117.nextPageUrl;
-                    if not l_nextPageUrl_0 or l_nextPageUrl_0 == "" then
-                        if l_FFlagSduiChartsSupport_0 then
-                            return v9.resolve();
-                        else
-                            return nil;
-                        end;
-                    elseif l_FFlagSduiChartsSupport_0 then
-                        return v95(v3.Dictionary.join(v115, {
-                            url = l_nextPageUrl_0, 
-                            loadTimer = v114.loadTimer, 
-                            isPaginated = true
-                        }), true);
-                    else
-                        v95(v3.Dictionary.join(v115, {
-                            url = l_nextPageUrl_0, 
-                            loadTimer = v114.loadTimer, 
-                            isPaginated = true
-                        }), true);
-                        return nil;
-                    end;
-                end;
-            end;
-        end;
-    end;
-    local function v123(v120) --[[ Line: 469 ]] --[[ Name: refreshFromApi ]]
-        -- upvalues: v29 (copy), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_FFlagSduiChartsSupport_0 (ref), v9 (ref), v95 (copy), v3 (ref)
-        local v121 = v29[v120.configKey];
-        if not v121 then
-            l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                message = ("No requestData for refresh: %*"):format(v120.configKey)
-            }, "unknown");
-            if l_FFlagSduiChartsSupport_0 then
-                return v9.resolve();
-            else
-                return nil;
-            end;
-        elseif l_FFlagSduiChartsSupport_0 then
-            local v122 = if v121.buildRefreshUrl then v121.buildRefreshUrl() else nil;
-            return v95(v3.Dictionary.join(v121, {
-                url = v122 or v121.url, 
-                loadTimer = v120.loadTimer, 
-                isPaginated = v3.None
-            }), true);
-        else
-            return v95(v3.Dictionary.join(v121, {
-                loadTimer = v120.loadTimer
-            }), true);
-        end;
-    end;
-    return {
-        fetchIfNeeded = v95, 
-        getData = v81.getCachedItem, 
-        getRootConfig = v101, 
-        getTitle = v107, 
-        getDataUpdatedTimestamp = v113, 
-        loadMoreFromApi = v119, 
-        refreshFromApi = v123
-    };
-end;
+local HttpService = game:GetService("HttpService")
+local SduiSharedUtilities = script:FindFirstAncestor("SduiSharedUtilities")
+local SduiSharedUtilitiesParent = SduiSharedUtilities.Parent
+local Cryo = require(SduiSharedUtilitiesParent.Cryo)
+local Signals = require(SduiSharedUtilitiesParent.Signals)
+local SduiCoreSystem = require(SduiSharedUtilitiesParent.SduiCoreSystem)
+local SduiErrors = SduiCoreSystem.SduiErrors
+local SduiLogger = SduiCoreSystem.SduiLogger
+local SduiParseHelpers = SduiCoreSystem.SduiParseHelpers
+local Promise = require(SduiSharedUtilitiesParent.Promise)
+local DataHydration = require(SduiSharedUtilitiesParent.DataHydration)
+local createDataCache = DataHydration.createDataCache
+local createDataResolver = DataHydration.createDataResolver
+local SduiIntegrationTypes = require(SduiSharedUtilities.SduiIntegrationTypes)
+local SduiRequestStatus = SduiIntegrationTypes.SduiRequestStatus
+
+require(SduiSharedUtilities.SduiLoadTimer)
+
+local SduiProtobufResponseHelpers = require(SduiSharedUtilities.SduiProtobufResponseHelpers)
+local makeProtoResponseDecoder = SduiProtobufResponseHelpers.makeProtoResponseDecoder
+local makeProtobufJsonResponseDecoder = SduiProtobufResponseHelpers.makeProtobufJsonResponseDecoder
+local SduiResponseType = SduiIntegrationTypes.SduiResponseType
+local handleSduiApiResponse = require(SduiSharedUtilities.handleSduiApiResponse)
+local SduiPageAnalytics = require(SduiSharedUtilities.SduiPageAnalytics)
+local SduiApiStorePostConfig = require(SduiSharedUtilities.SduiApiStorePostConfig)
+local FFlagSduiProtobufJsonDecode = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiProtobufJsonDecode
+local v24 = game:DefineFastFlag("SduiEnableClearOnEmptyResponse", false)
+local FFlagSduiAllowNoConfigsBuilt = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiAllowNoConfigsBuilt
+local FFlagSduiChartsSupport = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiChartsSupport
+local FFlagSduiConfigFetchTakesPostBody = require(SduiSharedUtilitiesParent.SharedFlags).FFlagSduiConfigFetchTakesPostBody
+
+return function() --[[ createSduiApiStore ]] -- line: 82
+	-- upvalues: createDataCache (copy), Signals (copy), Promise (copy), FFlagSduiProtobufJsonDecode (copy), SduiResponseType (copy), FFlagSduiConfigFetchTakesPostBody (copy), HttpService (copy), SduiApiStorePostConfig (copy), SduiPageAnalytics (copy), SduiRequestStatus (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiChartsSupport (copy), makeProtobufJsonResponseDecoder (copy), makeProtoResponseDecoder (copy), handleSduiApiResponse (copy), SduiProtobufResponseHelpers (copy), FFlagSduiAllowNoConfigsBuilt (copy), SduiParseHelpers (copy), v24 (copy), Cryo (copy), createDataResolver (copy)
+	local v28 = createDataCache()
+	local t1 = {}
+	local t2 = {}
+	local t3 = {}
+	local t4 = {}
+
+	local function getInputDataSignals(s1: string) -- line: 114
+		-- upvalues: t4 (copy), Signals (copy)
+		local v41 = t4[s1]
+
+		if v41 == nil then
+			local v42, v43 = Signals.createSignal(nil)
+
+			v41 = {
+				get = v42,
+				set = v43
+			}
+			t4[s1] = v41
+		end
+
+		return v41
+	end
+
+	local v34 = createDataResolver({
+		cache = v28,
+		fetchFn = function(s2: string, p1) --[[ fetchFunction ]] -- line: 130
+			-- upvalues: t1 (copy), Promise (copy), FFlagSduiProtobufJsonDecode (copy), SduiResponseType (copy), FFlagSduiConfigFetchTakesPostBody (copy), HttpService (copy), SduiApiStorePostConfig (copy), t2 (copy), SduiPageAnalytics (copy), SduiRequestStatus (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiChartsSupport (copy), t3 (copy), makeProtobufJsonResponseDecoder (copy), makeProtoResponseDecoder (copy), handleSduiApiResponse (copy), SduiProtobufResponseHelpers (copy), getInputDataSignals (copy), FFlagSduiAllowNoConfigsBuilt (copy), SduiParseHelpers (copy), v24 (copy), Cryo (copy)
+			local v46 = t1[s2]
+
+			if not v46 then
+				return Promise.reject("No request config for key", s2)
+			end
+
+			local url = v46.url
+			local loadTimer = v46.loadTimer
+
+			loadTimer.logUiRequestSent()
+
+			local v49 = FFlagSduiProtobufJsonDecode and v46.responseType == SduiResponseType.ProtobufJson
+			local postConfig = v46.postConfig
+			local v51 = (not FFlagSduiConfigFetchTakesPostBody or not postConfig) and "GET" or "POST"
+			local v52 = HttpService:RequestInternal({
+				Url = url,
+				Method = v51,
+				Headers = {
+					Accept = not v49 and "application/x-protobuf" or "application/json",
+					["Content-Type"] = if not FFlagSduiConfigFetchTakesPostBody or not postConfig then nil else SduiApiStorePostConfig.getContentTypeHeaderFromPostConfig(postConfig)
+				},
+				Body = if not FFlagSduiConfigFetchTakesPostBody or not postConfig then nil else SduiApiStorePostConfig.getBodyFromPostConfig(postConfig)
+			})
+
+			return Promise.new(function(p2, p3) -- line: 162
+				-- upvalues: v52 (copy), loadTimer (copy), t2 (copy), s2 (copy), SduiPageAnalytics (copy), v46 (copy), SduiRequestStatus (copy), SduiLogger (copy), SduiErrors (copy), url (copy), FFlagSduiChartsSupport (copy), t3 (copy), v49 (copy), makeProtobufJsonResponseDecoder (copy), makeProtoResponseDecoder (copy), p1 (copy), handleSduiApiResponse (copy), SduiProtobufResponseHelpers (copy), getInputDataSignals (copy), FFlagSduiAllowNoConfigsBuilt (copy), SduiParseHelpers (copy), v24 (copy), Cryo (copy)
+				v52:Start(function(p4, p5) -- line: 163
+					-- upvalues: loadTimer (copy), t2 (copy), s2 (copy), SduiPageAnalytics (copy), v46 (copy), SduiRequestStatus (copy), SduiLogger (copy), SduiErrors (copy), url (copy), FFlagSduiChartsSupport (copy), t3 (copy), p3 (copy), v49 (copy), makeProtobufJsonResponseDecoder (copy), makeProtoResponseDecoder (copy), p1 (copy), handleSduiApiResponse (copy), SduiProtobufResponseHelpers (copy), getInputDataSignals (copy), FFlagSduiAllowNoConfigsBuilt (copy), SduiParseHelpers (copy), v24 (copy), Cryo (copy), p2 (copy)
+					loadTimer.logUiResponseReceived()
+					t2[s2] = false
+					SduiPageAnalytics.sendPageStatusEvent(v46.surfaceKey, p5.StatusCode, p5.HttpError)
+
+					if p4 then
+						local v91 = if not p5.StatusCode then nil else tonumber(p5.StatusCode)
+
+						if v91 and v91 >= 400 or p5.HttpError and p5.HttpError ~= Enum.HttpError.OK then
+							loadTimer.updateRequestStatus(SduiRequestStatus.FailedToLoad)
+							SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToFetchPage, {
+								message = `Http request not successful for { url } StatusCode { p5.StatusCode } HttpError { p5.HttpError }`,
+								name = v46.surfaceKey
+							}, v46.surfaceKey)
+
+							if FFlagSduiChartsSupport then
+								local v92 = s2
+								local v93 = t3[v92]
+
+								if v93 then
+									t3[v92] = nil
+									v93.reject(p5)
+								end
+							end
+
+							return p3(p5)
+						end
+
+						loadTimer.updateRequestStatus(SduiRequestStatus.LoadedFromNetwork)
+						SduiPageAnalytics.sendPagePayloadSizeEvent(v46.surfaceKey, p5.Body)
+
+						local v94 = if not v49 then makeProtoResponseDecoder(v46.apiProto) else makeProtobufJsonResponseDecoder(v46.apiProto)
+						local ok, result = pcall(function() -- line: 203
+							-- upvalues: v46 (copy), p1 (copy), handleSduiApiResponse (copy), p5 (copy), loadTimer (copy), v94 (copy), SduiProtobufResponseHelpers (copy), getInputDataSignals (copy), FFlagSduiAllowNoConfigsBuilt (copy)
+							local v114 = v46.isPaginated and p1.data(false) ~= nil
+
+							return handleSduiApiResponse({
+								response = p5,
+								loadTimer = loadTimer,
+								surfaceKey = v46.surfaceKey,
+								configCacheKey = v46.configKey,
+								decodeResponse = v94,
+								parseHydrationDataFromResponse = SduiProtobufResponseHelpers.parseHydrationDataFromResponse,
+								parseTemplateEntriesFromResponse = SduiProtobufResponseHelpers.parseTemplateEntriesFromResponse,
+								parsePageEntriesFromResponse = SduiProtobufResponseHelpers.parsePageEntriesFromResponse,
+								getInputDataSignalsForRequest = getInputDataSignals,
+								paginateResponse = v114,
+								buildNextPageUrl = v46.buildNextPageUrl,
+								allowNoConfigsBuilt = if not FFlagSduiAllowNoConfigsBuilt then nil else v46.allowNoConfigsBuilt
+							})
+						end)
+
+						if not ok then
+							local v97 = SduiParseHelpers.stringifyValue(result)
+
+							SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToFetchPage, {
+								message = `handleSduiApiResponse not successful for { url } err { v97 }`,
+								name = v46.surfaceKey
+							}, v46.surfaceKey)
+
+							if FFlagSduiChartsSupport then
+								local v98 = s2
+								local v99 = t3[v98]
+
+								if v99 then
+									t3[v98] = nil
+									v99.reject(result)
+								end
+							end
+
+							return p3(p1)
+						end
+
+						local t5 = {}
+
+						if v24 then
+							if next(result) then
+								local v101 = p1.data(false)
+
+								for v102, v103 in result do
+									local v104 = v101 and v101[v102]
+
+									t5[v102] = if not v104 then v103 else Cryo.Dictionary.join(v104, v103)
+								end
+							elseif v46.clearOnEmptyResponse and v46.configKey then
+								t5[v46.configKey] = {}
+							end
+						else
+							local v105 = p1.data(false)
+
+							for v106, v107 in result do
+								local v108 = v105 and v105[v106]
+
+								t5[v106] = if not v108 then v107 else Cryo.Dictionary.join(v108, v107)
+							end
+						end
+
+						if FFlagSduiChartsSupport then
+							local v109 = s2
+							local v110 = t3[v109]
+
+							if v110 then
+								t3[v109] = nil
+								v110.resolve(t5)
+							end
+						end
+
+						return p2(t5)
+					end
+
+					local v111 = SduiParseHelpers.stringifyValue(p5)
+
+					SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToFetchPage, {
+						message = `Http request not successful for { url } err { v111 }`,
+						name = v46.surfaceKey
+					}, v46.surfaceKey)
+
+					if FFlagSduiChartsSupport then
+						local v112 = s2
+						local v113 = t3[v112]
+
+						if v113 then
+							t3[v112] = nil
+							v113.reject(p5)
+						end
+					end
+
+					return p3(p5)
+				end)
+			end)
+		end,
+		queueProcessDelaySec = 0,
+		supportsMultiGet = false
+	})
+
+	local function fetchIfNeeded(t6: {[any]: any}, b1: boolean?) -- line: 290
+		-- upvalues: FFlagSduiProtobufJsonDecode (copy), SduiResponseType (copy), FFlagSduiChartsSupport (copy), t1 (copy), v34 (copy), t3 (copy), Promise (copy), SduiLogger (copy), SduiErrors (copy), SduiParseHelpers (copy), t2 (copy)
+		if FFlagSduiProtobufJsonDecode and t6.responseType == nil then
+			t6.responseType = SduiResponseType.Protobuf
+		end
+
+		local v55 = t6.configKey or t6.url
+
+		t6.configKey = v55
+
+		if FFlagSduiChartsSupport then
+			t6.loadTimer.logUiRequestQueued()
+			t1[v55] = t6
+
+			local _, v57 = v34.getAndFetchItem(v55, if not b1 then nil else function() -- line: 306
+				return true
+			end)
+
+			if v57 then
+				if not t3[v55] then
+					local u58 = nil
+					local u59 = nil
+					local v60 = Promise.new(function(p6, p7) -- line: 315
+						-- upvalues: u58 (ref), u59 (ref)
+						u58 = p6
+						u59 = p7
+					end)
+
+					v60:catch(function(p8) -- line: 319
+						-- upvalues: SduiLogger (copy), SduiErrors (copy), v55 (copy), SduiParseHelpers (copy), t6 (copy)
+						SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToFetchPage, {
+							message = `fetchIfNeeded promise rejected for { v55 }: { SduiParseHelpers.stringifyValue(p8) }`
+						}, t6.surfaceKey)
+					end)
+					t3[v55] = {
+						promise = v60,
+						resolve = u58,
+						reject = u59
+					}
+				end
+
+				return t3[v55].promise
+			end
+
+			return Promise.resolve()
+		end
+
+		if t2[v55] then
+			return nil
+		end
+
+		t2[v55] = true
+		t6.loadTimer.logUiRequestQueued()
+		t1[v55] = t6
+
+		return v34.getAndFetchItem(v55, if not b1 then nil else function() -- line: 354
+			return true
+		end)
+	end
+
+	return {
+		fetchIfNeeded = fetchIfNeeded,
+		getData = v34.getCachedItem,
+		getRootConfig = function(s3: string, p9, s4: string?) --[[ getRootConfig ]] -- line: 366
+			-- upvalues: v34 (copy)
+			local v64 = v34.getCachedItem(s3).data(p9)
+			local v65 = v64 and v64[s4 or s3]
+
+			if v65 then
+				return v65.config
+			end
+
+			return nil
+		end,
+		getTitle = function(s5: string, p10, s6: string?) --[[ getTitle ]] -- line: 382
+			-- upvalues: v34 (copy)
+			local v69 = v34.getCachedItem(s5).data(p10)
+			local v70 = v69 and v69[s6 or s5]
+
+			if v70 and v70.title ~= "" then
+				return v70.title
+			end
+
+			return nil
+		end,
+		getDataUpdatedTimestamp = function(s7: string, p11, s8: string?) --[[ getDataUpdatedTimestamp ]] -- line: 396
+			-- upvalues: v34 (copy)
+			local v74 = v34.getCachedItem(s7).data(p11)
+			local v75 = v74 and v74[s8 or s7]
+
+			if v75 then
+				return v75.dataUpdatedTimestamp
+			end
+
+			return nil
+		end,
+		loadMoreFromApi = function(t7: {[any]: any}) --[[ loadMoreFromApi ]] -- line: 407
+			-- upvalues: FFlagSduiChartsSupport (copy), t2 (copy), t1 (copy), SduiLogger (copy), SduiErrors (copy), Promise (copy), v34 (copy), fetchIfNeeded (copy), Cryo (copy)
+			if not FFlagSduiChartsSupport and t2[t7.configKey] then
+				return nil
+			end
+
+			local v77 = t1[t7.configKey]
+
+			if not v77 then
+				SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToPaginateRequest, {
+					message = `No requestData for { t7.configKey }`
+				}, "unknown")
+
+				if FFlagSduiChartsSupport then
+					return Promise.resolve()
+				end
+
+				return nil
+			end
+
+			local v78 = v34.getCachedItem(t7.configKey).data(false)
+			local v79 = v78 and v78[t7.identifier or t7.configKey]
+
+			if not v79 then
+				SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToPaginateRequest, {
+					message = `No entry data for { t7.configKey }`,
+					name = v77.surfaceKey
+				}, v77.surfaceKey)
+
+				if FFlagSduiChartsSupport then
+					return Promise.resolve()
+				end
+
+				return nil
+			end
+
+			local nextPageUrl = v79.nextPageUrl
+
+			if not nextPageUrl or nextPageUrl == "" then
+				if FFlagSduiChartsSupport then
+					return Promise.resolve()
+				end
+
+				return nil
+			end
+
+			if FFlagSduiChartsSupport then
+				return fetchIfNeeded(Cryo.Dictionary.join(v77, {
+					url = nextPageUrl,
+					loadTimer = t7.loadTimer,
+					isPaginated = true
+				}), true)
+			end
+
+			fetchIfNeeded(Cryo.Dictionary.join(v77, {
+				url = nextPageUrl,
+				loadTimer = t7.loadTimer,
+				isPaginated = true
+			}), true)
+
+			return nil
+		end,
+		refreshFromApi = function(t8: {[any]: any}) --[[ refreshFromApi ]] -- line: 469
+			-- upvalues: t1 (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiChartsSupport (copy), Promise (copy), fetchIfNeeded (copy), Cryo (copy)
+			local v82 = t1[t8.configKey]
+
+			if not v82 then
+				SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToFetchPage, {
+					message = `No requestData for refresh: { t8.configKey }`
+				}, "unknown")
+
+				if FFlagSduiChartsSupport then
+					return Promise.resolve()
+				end
+
+				return nil
+			end
+
+			if FFlagSduiChartsSupport then
+				local v83 = if not v82.buildRefreshUrl then nil else v82.buildRefreshUrl()
+
+				return fetchIfNeeded(Cryo.Dictionary.join(v82, {
+					url = v83 or v82.url,
+					loadTimer = t8.loadTimer,
+					isPaginated = Cryo.None
+				}), true)
+			end
+
+			return fetchIfNeeded(Cryo.Dictionary.join(v82, {
+				loadTimer = t8.loadTimer
+			}), true)
+		end
+	}
+end

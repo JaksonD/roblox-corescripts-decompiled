@@ -1,181 +1,146 @@
-local l_AppStorageService_0 = game:GetService("AppStorageService");
-local l_HttpService_0 = game:GetService("HttpService");
-local l_Parent_0 = script.Parent;
-local v3 = require(l_Parent_0.analytics.analyticsService);
-local v4 = require(l_Parent_0.dependencies);
-local l_NotificationSnoozedSignal_0 = require(l_Parent_0.Signals).NotificationSnoozedSignal;
-local v6 = require(l_Parent_0.type);
-local l_Cryo_0 = v4.Cryo;
-local l_LocalStorage_0 = v4.LocalStorage;
-local l_NotificationModalsManager_0 = v4.NotificationModalsManager;
-local l_Images_0 = v4.UIBlox.App.ImageSet.Images;
-local l_LocalStorageKey_0 = l_LocalStorage_0.Enums.LocalStorageKey;
-local l_FFlagUseNotificationGroupsConfig_0 = v4.SharedFlags.FFlagUseNotificationGroupsConfig;
-local v13 = {};
-v13.__index = v13;
-v13._batchNotificationAction = function(v14, v15, v16) --[[ Line: 34 ]] --[[ Name: _batchNotificationAction ]]
-    -- upvalues: v6 (copy), l_NotificationSnoozedSignal_0 (copy)
-    local v17 = nil;
-    v17 = if type(v15.notificationType) == "table" then v15.notificationType else {
-        v15.notificationType
-    };
-    for _, v19 in ipairs(v17) do
-        if v16 == v6.SnoozeActionEnum.Mute then
-            v14.snoozedNotificationTypes[v19] = {
-                durationMinutes = v15.durationMinutes, 
-                snoozedTimestampMs = DateTime.now().UnixTimestampMillis
-            };
-        elseif v16 == v6.SnoozeActionEnum.Unmute and v14.snoozedNotificationTypes[v19] then
-            v14.snoozedNotificationTypes[v19] = nil;
-        end;
-    end;
-    v14:_updateAppStorage();
-    local v20 = v15.context or "";
-    for _, v22 in ipairs(v17) do
-        local v23 = {
-            action_type = v16, 
-            duration_minutes = v15.durationMinutes, 
-            notification_type = v22
-        };
-        v14._eventStream.sendEventDeferred(v20, "notificationSnoozedEvent", v23);
-        l_NotificationSnoozedSignal_0:fire({
-            actionType = v16, 
-            context = v15.context, 
-            durationMinutes = v15.durationMinutes, 
-            notificationType = v22
-        });
-    end;
-    if v15.modalMessage and v15.modalMessage ~= "" then
-        v14:_showNotificationsModal(v15.modalMessage);
-    end;
-end;
-v13._isExpiredSnooze = function(v24) --[[ Line: 93 ]] --[[ Name: _isExpiredSnooze ]]
-    if v24.durationMinutes ~= -1 and (DateTime.now().UnixTimestampMillis - v24.snoozedTimestampMs) / 1000 >= v24.durationMinutes * 60 then
-        return true;
-    else
-        return false;
-    end;
-end;
-v13._showNotificationsModal = function(_, v26) --[[ Line: 107 ]] --[[ Name: _showNotificationsModal ]]
-    -- upvalues: l_NotificationModalsManager_0 (copy), l_Images_0 (copy)
-    l_NotificationModalsManager_0.SetUIBloxToast({
-        iconImage = l_Images_0["icons/common/notificationOn"], 
-        toastTitle = v26
-    });
-end;
-v13._updateAppStorage = function(v27) --[[ Line: 124 ]] --[[ Name: _updateAppStorage ]]
-    -- upvalues: l_LocalStorageKey_0 (copy), l_HttpService_0 (copy)
-    v27._appStorageService:SetItem(l_LocalStorageKey_0.SnoozedNotificationTypesLocalStorageKey, l_HttpService_0:JSONEncode(v27.snoozedNotificationTypes));
-    v27._appStorageService:Flush();
-end;
-v13.unmuteNotification = function(v28, v29) --[[ Line: 141 ]] --[[ Name: unmuteNotification ]]
-    -- upvalues: l_FFlagUseNotificationGroupsConfig_0 (copy), v6 (copy), l_NotificationSnoozedSignal_0 (copy)
-    if l_FFlagUseNotificationGroupsConfig_0 then
-        v28:_batchNotificationAction(v29, v6.SnoozeActionEnum.Unmute);
-        return;
-    else
-        if v28.snoozedNotificationTypes[v29.notificationType] then
-            v28.snoozedNotificationTypes[v29.notificationType] = nil;
-        end;
-        v28:_updateAppStorage();
-        l_NotificationSnoozedSignal_0:fire({
-            actionType = v6.SnoozeActionEnum.Unmute, 
-            notificationType = v29.notificationType
-        });
-        local v30 = v29.context or "";
-        local v31 = {
-            action_type = v6.SnoozeActionEnum.Unmute, 
-            notification_type = v29.notificationType
-        };
-        v28._eventStream.sendEventDeferred(v30, "notificationSnoozedEvent", v31);
-        if v29.modalMessage and v29.modalMessage ~= "" then
-            v28:_showNotificationsModal(v29.modalMessage);
-        end;
-        return;
-    end;
-end;
-v13.snoozeNotification = function(v32, v33) --[[ Line: 183 ]] --[[ Name: snoozeNotification ]]
-    -- upvalues: l_FFlagUseNotificationGroupsConfig_0 (copy), v6 (copy), l_Cryo_0 (copy), l_NotificationSnoozedSignal_0 (copy)
-    if l_FFlagUseNotificationGroupsConfig_0 then
-        v32:_batchNotificationAction(v33, v6.SnoozeActionEnum.Mute);
-        return;
-    else
-        v32.snoozedNotificationTypes = l_Cryo_0.Dictionary.join(v32.snoozedNotificationTypes, {
-            [v33.notificationType] = {
-                durationMinutes = v33.durationMinutes, 
-                snoozedTimestampMs = DateTime.now().UnixTimestampMillis
-            }
-        });
-        v32:_updateAppStorage();
-        local v34 = v33.context or "";
-        local v35 = {
-            action_type = v6.SnoozeActionEnum.Mute, 
-            duration_minutes = v33.durationMinutes, 
-            notification_type = v33.notificationType
-        };
-        v32._eventStream.sendEventDeferred(v34, "notificationSnoozedEvent", v35);
-        l_NotificationSnoozedSignal_0:fire({
-            actionType = v6.SnoozeActionEnum.Mute, 
-            context = v33.context, 
-            durationMinutes = v33.durationMinutes, 
-            notificationType = v33.notificationType
-        });
-        if v33.modalMessage and v33.modalMessage ~= "" then
-            v32:_showNotificationsModal(v33.modalMessage);
-        end;
-        return;
-    end;
-end;
-v13.isSnoozedNotificationType = function(v36, v37) --[[ Line: 232 ]] --[[ Name: isSnoozedNotificationType ]]
-    -- upvalues: l_Cryo_0 (copy)
-    if v36.snoozedNotificationTypes[v37] then
-        if v36._isExpiredSnooze(v36.snoozedNotificationTypes[v37]) then
-            v36.snoozedNotificationTypes = l_Cryo_0.Dictionary.omit(v36.snoozedNotificationTypes, v37);
-            v36:_updateAppStorage();
-            return false;
-        else
-            return true;
-        end;
-    else
-        return false;
-    end;
-end;
-v13.new = function(v38) --[[ Line: 250 ]] --[[ Name: new ]]
-    -- upvalues: v3 (copy), v13 (copy), l_LocalStorageKey_0 (copy), l_HttpService_0 (copy)
-    local v39 = {
-        _appStorageService = v38, 
-        _eventStream = v3.EventStream, 
-        snoozedNotificationTypes = {}
-    };
-    setmetatable(v39, v13);
-    local v40 = {};
-    local v41 = {};
-    local v42 = false;
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 263 ]]
-        -- upvalues: v39 (copy), l_LocalStorageKey_0 (ref)
-        return v39._appStorageService:GetItem(l_LocalStorageKey_0.SnoozedNotificationTypesLocalStorageKey);
-    end);
-    if l_status_0 and l_result_0 ~= "" then
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 268 ]]
-            -- upvalues: l_HttpService_0 (ref), l_result_0 (copy)
-            return l_HttpService_0:JSONDecode(l_result_0);
-        end);
-        if l_status_1 then
-            v40 = l_result_1;
-        end;
-    end;
-    for v47, v48 in pairs(v40) do
-        if v39._isExpiredSnooze(v48) then
-            v42 = true;
-        else
-            v41[v47] = v48;
-        end;
-    end;
-    v39.snoozedNotificationTypes = v41;
-    if v42 then
-        v39:_updateAppStorage();
-    end;
-    return v39;
-end;
-v13.default = v13.new(l_AppStorageService_0);
-return v13;
+local AppStorageService = game:GetService("AppStorageService")
+local HttpService = game:GetService("HttpService")
+local scriptParent = script.Parent
+local analyticsService = require(scriptParent.analytics.analyticsService)
+local dependencies = require(scriptParent.dependencies)
+local NotificationSnoozedSignal = require(scriptParent.Signals).NotificationSnoozedSignal
+local type2 = require(scriptParent.type)
+local Cryo = dependencies.Cryo
+local LocalStorage = dependencies.LocalStorage
+local NotificationModalsManager = dependencies.NotificationModalsManager
+local Images = dependencies.UIBlox.App.ImageSet.Images
+local LocalStorageKey = LocalStorage.Enums.LocalStorageKey
+local t1 = {}
+
+t1.__index = t1
+
+function t1._batchNotificationAction(t2: {[any]: any}, t3: {[any]: any}, s1: string) -- line: 31
+	-- upvalues: type2 (copy), NotificationSnoozedSignal (copy)
+	local v17 = if type(t3.notificationType) ~= "table" then { t3.notificationType } else t3.notificationType
+
+	for _, v in ipairs(v17) do
+		if s1 == type2.SnoozeActionEnum.Mute then
+			t2.snoozedNotificationTypes[v] = {
+				durationMinutes = t3.durationMinutes,
+				snoozedTimestampMs = DateTime.now().UnixTimestampMillis
+			}
+		elseif s1 == type2.SnoozeActionEnum.Unmute and t2.snoozedNotificationTypes[v] then
+			t2.snoozedNotificationTypes[v] = nil
+		end
+	end
+
+	t2:_updateAppStorage()
+
+	local v20 = t3.context or ""
+
+	for _, v in ipairs(v17) do
+		local t4 = {
+			action_type = s1,
+			duration_minutes = t3.durationMinutes,
+			notification_type = v
+		}
+
+		t2._eventStream.sendEventDeferred(v20, "notificationSnoozedEvent", t4)
+		NotificationSnoozedSignal:fire({
+			actionType = s1,
+			context = t3.context,
+			durationMinutes = t3.durationMinutes,
+			notificationType = v
+		})
+	end
+
+	if t3.modalMessage and t3.modalMessage ~= "" then
+		t2:_showNotificationsModal(t3.modalMessage)
+	end
+end
+function t1._isExpiredSnooze(t5: {[any]: any}) -- line: 90
+	if t5.durationMinutes ~= -1 and (DateTime.now().UnixTimestampMillis - t5.snoozedTimestampMs) / 1000 >= t5.durationMinutes * 60 then
+		return true
+	end
+
+	return false
+end
+function t1._showNotificationsModal(_: {[any]: any}, s2: string) -- line: 104
+	-- upvalues: NotificationModalsManager (copy), Images (copy)
+	NotificationModalsManager.SetUIBloxToast({
+		iconImage = Images["icons/common/notificationOn"],
+		toastTitle = s2
+	})
+end
+function t1._updateAppStorage(p1) -- line: 121
+	-- upvalues: LocalStorageKey (copy), HttpService (copy)
+	p1._appStorageService:SetItem(LocalStorageKey.SnoozedNotificationTypesLocalStorageKey, HttpService:JSONEncode(p1.snoozedNotificationTypes))
+	p1._appStorageService:Flush()
+end
+function t1.unmuteNotification(t7: {[any]: any}, t8: {[any]: any}) -- line: 138
+	-- upvalues: type2 (copy)
+	t7:_batchNotificationAction(t8, type2.SnoozeActionEnum.Unmute)
+end
+function t1.snoozeNotification(t9: {[any]: any}, t10: {[any]: any}) -- line: 156
+	-- upvalues: type2 (copy)
+	t9:_batchNotificationAction(t10, type2.SnoozeActionEnum.Mute)
+end
+function t1.isSnoozedNotificationType(t11: {[any]: any}, s3: string) -- line: 173
+	-- upvalues: Cryo (copy)
+	if t11.snoozedNotificationTypes[s3] then
+		if t11._isExpiredSnooze(t11.snoozedNotificationTypes[s3]) then
+			t11.snoozedNotificationTypes = Cryo.Dictionary.omit(t11.snoozedNotificationTypes, s3)
+			t11:_updateAppStorage()
+
+			return false
+		end
+
+		return true
+	end
+
+	return false
+end
+function t1.new(p2) -- line: 191
+	-- upvalues: analyticsService (copy), t1 (copy), LocalStorageKey (copy), HttpService (copy)
+	local t12 = {
+		_appStorageService = p2,
+		_eventStream = analyticsService.EventStream,
+		snoozedNotificationTypes = {}
+	}
+
+	setmetatable(t12, t1)
+
+	local t13 = {}
+	local t14 = {}
+	local v38 = false
+	local ok, result = pcall(function() -- line: 204
+		-- upvalues: t12 (copy), LocalStorageKey (copy)
+		return t12._appStorageService:GetItem(LocalStorageKey.SnoozedNotificationTypesLocalStorageKey)
+	end)
+
+	if ok and result ~= "" then
+		local ok2, result2 = pcall(function() -- line: 209
+			-- upvalues: HttpService (copy), result (copy)
+			return HttpService:JSONDecode(result)
+		end)
+
+		if ok2 then
+			t13 = result2
+		end
+	end
+
+	for k, v in pairs(t13) do
+		if t12._isExpiredSnooze(v) then
+			v38 = true
+		else
+			t14[k] = v
+		end
+	end
+
+	t12.snoozedNotificationTypes = t14
+
+	if v38 then
+		t12:_updateAppStorage()
+	end
+
+	return t12
+end
+
+t1.default = t1.new(AppStorageService)
+
+return t1

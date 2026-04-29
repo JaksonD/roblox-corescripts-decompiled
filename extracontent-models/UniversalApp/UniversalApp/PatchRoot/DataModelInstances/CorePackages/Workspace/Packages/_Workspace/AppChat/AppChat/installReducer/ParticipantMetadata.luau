@@ -1,41 +1,42 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Cryo);
-local v3 = require(l_Parent_0.Rodux);
-local v4 = require(l_script_FirstAncestor_0.Conversations.Actions.RemovedConversation);
-local v5 = require(l_Parent_0.AppChatNetworking);
-local l_FFlagGroupOSAGetConversationParticipants_0 = require(l_script_FirstAncestor_0.Flags).FFlagGroupOSAGetConversationParticipants;
-return v3.createReducer({}, {
-    [v5.rodux.GetConversationsParticipantsMetadata.Succeeded.name] = function(v7, v8) --[[ Line: 26 ]]
-        -- upvalues: l_FFlagGroupOSAGetConversationParticipants_0 (copy), v2 (copy)
-        for v9, v10 in v8.responseBody.conversation_participants_metadata do
-            local v11 = {};
-            for v12, v13 in v10.participants_metadata do
-                local v14 = {
-                    isPending = v13.is_pending
-                };
-                if l_FFlagGroupOSAGetConversationParticipants_0 then
-                    v14.isBlocked = v13.is_blocked;
-                    v14.isInviter = v13.is_inviter;
-                    v14.isInvited = v13.is_invited;
-                end;
-                v11[v12] = v14;
-            end;
-            v7 = v2.Dictionary.join(v7, {
-                [v9] = v11
-            });
-        end;
-        return v7;
-    end, 
-    [v4.name] = function(v15, v16) --[[ Line: 50 ]]
-        -- upvalues: v2 (copy)
-        local l_conversationId_0 = v16.conversationId;
-        if not l_conversationId_0 then
-            return v15;
-        else
-            return v2.Dictionary.join(v15, {
-                [l_conversationId_0] = v2.None
-            });
-        end;
-    end
-});
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local Cryo = require(AppChatParent.Cryo)
+local Rodux = require(AppChatParent.Rodux)
+local RemovedConversation = require(AppChat.Conversations.Actions.RemovedConversation)
+local AppChatNetworking = require(AppChatParent.AppChatNetworking)
+
+return Rodux.createReducer({}, {
+	[AppChatNetworking.rodux.GetConversationsParticipantsMetadata.Succeeded.name] = function(p1, p2) -- line: 24
+		-- upvalues: Cryo (copy)
+		for v9, v10 in p2.responseBody.conversation_participants_metadata do
+			local t1 = {}
+
+			for v12, v13 in v10.participants_metadata do
+				t1[v12] = {
+					isPending = v13.is_pending,
+					isBlocked = v13.is_blocked,
+					isInviter = v13.is_inviter,
+					isInvited = v13.is_invited
+				}
+			end
+
+			p1 = Cryo.Dictionary.join(p1, {
+				[v9] = t1
+			})
+		end
+
+		return p1
+	end,
+	[RemovedConversation.name] = function(t2: {[any]: any}, p3) -- line: 46
+		-- upvalues: Cryo (copy)
+		local conversationId = p3.conversationId
+
+		if not conversationId then
+			return t2
+		end
+
+		return Cryo.Dictionary.join(t2, {
+			[conversationId] = Cryo.None
+		})
+	end
+})

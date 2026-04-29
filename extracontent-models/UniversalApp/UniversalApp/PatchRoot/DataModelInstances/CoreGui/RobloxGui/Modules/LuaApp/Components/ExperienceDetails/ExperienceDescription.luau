@@ -1,214 +1,245 @@
-local l_HttpService_0 = game:GetService("HttpService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.React);
-local v3 = require(l_CorePackages_0.Packages.UIBlox);
-local l_ExpandableTextArea_0 = v3.App.Text.ExpandableTextArea;
-local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
-local l_RetrievalStatus_0 = v3.App.Loading.Enum.RetrievalStatus;
-local l_StyledTextLabel_0 = v3.App.Text.StyledTextLabel;
-local l_useStyle_0 = v3.Core.Style.useStyle;
-local l_useLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).Hooks.useLocalization;
-local l_GetTextSize_0 = require(l_CorePackages_0.Workspace.Packages.Style).GetTextSize;
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v12 = require(l_Modules_0.LuaApp.Components.ExperienceDetails.ExperienceDetailsPanel);
-local v13 = require(l_Modules_0.LuaApp.Components.ExperienceDetails.sendExpandableTextImpressionEvent);
-local l_ContentThresholdImpressionsDetector_0 = require(l_CorePackages_0.Workspace.Packages.Impressions).ContentThresholdImpressionsDetector;
-local v15 = require(l_Modules_0.LuaApp.Hooks.useAppPolicy);
-local v16 = require(script.Parent.Flags.FFlagExperienceDetailsTextUseTokens);
-local l_FFlagLuaAppShowNoticeOnEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppShowNoticeOnEdp;
-local l_FFlagLuaAppExpandableTextImpressionsEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppExpandableTextImpressionsEnabled;
-local l_useCursor_0 = require(l_CorePackages_0.Packages.Foundation).Hooks.useCursor;
-local v20 = {
-    0.01, 
-    0.5, 
-    1
-};
-local function v21() --[[ Line: 51 ]] --[[ Name: NOOP_NEEDED_FOR_SELECTION ]]
+local HttpService = game:GetService("HttpService")
+local CorePackages = game:GetService("CorePackages")
+local React = require(CorePackages.Packages.React)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local ExpandableTextArea = UIBlox.App.Text.ExpandableTextArea
+local GetCanExpand = UIBlox.Core.Text.ExpandableText.GetCanExpand
+local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local RetrievalStatus = UIBlox.App.Loading.Enum.RetrievalStatus
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
+local useStyle = UIBlox.Core.Style.useStyle
+local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local ExperienceDetailsPanel = require(Modules.LuaApp.Components.ExperienceDetails.ExperienceDetailsPanel)
+local sendExpandableTextImpressionEvent = require(Modules.LuaApp.Components.ExperienceDetails.sendExpandableTextImpressionEvent)
+local ContentThresholdImpressionsDetector = require(CorePackages.Workspace.Packages.Impressions).ContentThresholdImpressionsDetector
+local useAppPolicy = require(Modules.LuaApp.Hooks.useAppPolicy)
+local FFlagExperienceDetailsTextUseTokens = require(script.Parent.Flags.FFlagExperienceDetailsTextUseTokens)
+local FFlagLuaAppExpandableTextImpressionsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppExpandableTextImpressionsEnabled
+local v20 = game:DefineFastFlag("LuaAppFixDescriptionImpressionExpanded", false)
+local useCursor = require(CorePackages.Packages.Foundation).Hooks.useCursor
+local t1 = {
+	0.01,
+	0.5,
+	1
+}
 
-end;
-return function(v22) --[[ Line: 55 ]]
-    -- upvalues: l_useCursor_0 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), v15 (copy), l_useDesignTokens_0 (copy), l_RetrievalStatus_0 (copy), v16 (copy), v2 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (copy), l_GetTextSize_0 (copy), v13 (copy), l_HttpService_0 (copy), l_ExpandableTextArea_0 (copy), l_StyledTextLabel_0 (copy), v21 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_ContentThresholdImpressionsDetector_0 (copy), v20 (copy), v12 (copy)
-    local v23 = l_useCursor_0("RoundedRect");
-    local v24 = l_useStyle_0();
-    local v25 = l_useLocalization_0({
-        DescriptionTitle = "Feature.ExperienceDetails.Body.DescriptionTitle"
-    });
-    local v27 = v15(function(v26) --[[ Line: 61 ]]
-        return v26.enableExperienceDetailsPanel();
-    end);
-    local v29 = l_useDesignTokens_0(function(v28) --[[ Line: 64 ]]
-        if v28 then
-            return v28.LuaApps.ExperienceDetails.PanelWidthScale;
-        else
-            return 1;
-        end;
-    end);
-    local v31 = l_useDesignTokens_0(function(v30) --[[ Line: 67 ]]
-        if v30 then
-            return v30.LuaApps.ExperienceDetails.PanelInnerPadding;
-        else
-            return 0;
-        end;
-    end);
-    local v32 = v22.dataStatus == l_RetrievalStatus_0.Done;
-    local v33 = v22.descriptionText and #v22.descriptionText > 0;
-    local v35 = l_useDesignTokens_0(function(v34) --[[ Line: 74 ]]
-        return v34.Semantic.Typography.Body;
-    end);
-    local v37 = l_useDesignTokens_0(function(v36) --[[ Line: 77 ]]
-        return v36.Semantic.Typography.Header;
-    end);
-    local v38 = nil;
-    local v39 = nil;
-    local l_LineHeight_0 = v35.LineHeight;
-    if v16 then
-        v38 = v35.FontSize;
-        v39 = v35.Font;
-    else
-        v38 = v24.Font.BaseSize * v24.Font.Body.RelativeSize;
-        v39 = v24.Font.Body.Font;
-    end;
-    local v41, v42 = v2.useState(0);
-    local v43 = v41 * v29;
-    local v45 = v2.useMemo(function() --[[ Line: 96 ]]
-        -- upvalues: v33 (copy), l_FFlagLuaAppExpandableTextImpressionsEnabled_0 (ref), v27 (copy), l_GetTextSize_0 (ref), v22 (copy), v38 (ref), v39 (ref), v43 (copy), l_LineHeight_0 (copy)
-        if v33 and (l_FFlagLuaAppExpandableTextImpressionsEnabled_0 or v27) then
-            local v44 = l_GetTextSize_0(v22.descriptionText, v38, v39, Vector2.new(v43, 1e999));
-            if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 and v22.expandable then
-                return v44.Y;
-            else
-                return v44.Y * l_LineHeight_0;
-            end;
-        else
-            return 0;
-        end;
-    end, {
-        v22.descriptionText, 
-        v38, 
-        v39, 
-        v43, 
-        if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then nil else v27, 
-        l_LineHeight_0, 
-        if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v22.expandable else nil, 
-        if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v33 else nil
-    });
-    local v46 = nil;
-    local v47 = nil;
-    if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then
-        v46 = v2.useRef(false);
-        v47 = v2.useCallback(function() --[[ Line: 132 ]]
-            -- upvalues: v46 (ref)
-            v46.current = not v46.current;
-        end);
-    end;
-    local v51 = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v2.useCallback(function(v48) --[[ Line: 138 ]]
-        -- upvalues: v13 (ref), v22 (copy), v46 (ref), l_HttpService_0 (ref)
-        for _, v50 in v48 do
-            v13({
-                impressionThreshold = v50 * 100, 
-                isButtonExpanded = if v22.expandable then v46.current else nil, 
-                interactionUuid = l_HttpService_0:GenerateGUID(false), 
-                contentType = "description", 
-                pageContext = v22.pageContext, 
-                itemId = tonumber(v22.universeId), 
-                componentType = v22.componentType or "unknown"
-            });
-        end;
-    end, {
-        v46, 
-        v22.expandable, 
-        v22.universeId, 
-        v22.pageContext, 
-        v22.componentType
-    }) else nil;
-    local v52 = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then ("ExperienceDescription_%*_%*_%*"):format(v22.universeId, v22.componentType, v22.pageContext) else nil;
-    local v53 = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v2.useRef(nil) else nil;
-    local v54 = v2.useRef(nil);
-    v2.useEffect(function() --[[ Line: 162 ]]
-        -- upvalues: v54 (copy), v42 (copy)
-        if v54.current then
-            v42(v54.current.AbsoluteSize.X);
-        end;
-    end);
-    if v32 and v33 then
-        local v55 = if v22.expandable then v2.createElement(l_ExpandableTextArea_0, {
-            Text = v22.descriptionText, 
-            compactNumberOfLines = 3, 
-            padding = Vector2.new(0, 0), 
-            gradientColor = v24.Theme.BackgroundContrast.Color, 
-            onClick = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v47 else nil
-        }) else v2.createElement(l_StyledTextLabel_0, {
-            text = v22.descriptionText, 
-            size = UDim2.new(v29, 0, 0, v45), 
-            textYAlignment = Enum.TextYAlignment.Top, 
-            fontStyle = if v16 then v35 else v24.Font.Body, 
-            colorStyle = v24.Theme.TextDefault, 
-            automaticSize = if v27 then nil else Enum.AutomaticSize.Y, 
-            lineHeight = l_LineHeight_0, 
-            richText = false, 
-            fluidSizing = false
-        });
-        local v57 = v2.createElement("Frame", {
-            ref = v54, 
-            [v2.Change.AbsoluteSize] = function(v56) --[[ Line: 191 ]]
-                -- upvalues: v42 (copy)
-                v42(v56.AbsoluteSize.X);
-            end, 
-            Size = UDim2.fromScale(1, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            BackgroundTransparency = 1, 
-            LayoutOrder = v22.LayoutOrder, 
-            Selectable = true, 
-            [v2.Event.SelectionGained] = v21, 
-            SelectionImageObject = v23
-        }, {
-            Padding = if v27 then v2.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, v31), 
-                PaddingTop = UDim.new(0, v31), 
-                PaddingRight = UDim.new(0, v31), 
-                PaddingBottom = UDim.new(0, v31)
-            }) else nil, 
-            UIListLayout = v2.createElement("UIListLayout", {
-                SortOrder = Enum.SortOrder.LayoutOrder, 
-                FillDirection = Enum.FillDirection.Vertical, 
-                Padding = UDim.new(0, v22.listPadding or 24)
-            }), 
-            Title = if v27 then nil else v2.createElement(l_StyledTextLabel_0, {
-                text = if l_FFlagLuaAppShowNoticeOnEdp_0 then v22.headerText or v25.DescriptionTitle else v25.DescriptionTitle, 
-                size = UDim2.fromScale(1, 0), 
-                fontStyle = if v16 then v37 else v24.Font.Header1, 
-                colorStyle = v24.Theme.TextEmphasis, 
-                automaticSize = Enum.AutomaticSize.Y, 
-                richText = false, 
-                fluidSizing = false
-            }), 
-            Description = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v2.createElement("Frame", {
-                ref = v53, 
-                Size = UDim2.fromScale(1, 0), 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundTransparency = 1, 
-                LayoutOrder = 2
-            }, {
-                Body = v55
-            }) else v55, 
-            ContentThresholdImpressionsDetector = if l_FFlagLuaAppExpandableTextImpressionsEnabled_0 then v2.createElement(l_ContentThresholdImpressionsDetector_0, {
-                containerRef = v53, 
-                fullContentHeight = v45, 
-                thresholds = v20, 
-                impressionsTag = v52, 
-                sendImpressions = v51, 
-                viewportBoundsOffset = v22.viewportBoundsOffset
-            }) else nil
-        });
-        if v27 then
-            return v2.createElement(v12, {
-                title = if l_FFlagLuaAppShowNoticeOnEdp_0 then v22.headerText or v25.DescriptionTitle else v25.DescriptionTitle, 
-                onFocusChanged = v22.onFocusChanged
-            }, v57);
-        else
-            return v57;
-        end;
-    else
-        return nil;
-    end;
-end;
+local function NOOP_NEEDED_FOR_SELECTION() -- line: 54
+end
+
+return function(t2: {[any]: any}) -- line: 58
+	-- upvalues: useCursor (copy), useStyle (copy), useLocalization (copy), useAppPolicy (copy), useDesignTokens (copy), RetrievalStatus (copy), FFlagExperienceDetailsTextUseTokens (copy), React (copy), FFlagLuaAppExpandableTextImpressionsEnabled (copy), GetTextSize (copy), v20 (copy), GetCanExpand (copy), sendExpandableTextImpressionEvent (copy), HttpService (copy), ExpandableTextArea (copy), StyledTextLabel (copy), NOOP_NEEDED_FOR_SELECTION (copy), ContentThresholdImpressionsDetector (copy), t1 (copy), ExperienceDetailsPanel (copy)
+	local v25 = useCursor("RoundedRect")
+	local v26 = useStyle()
+	local v27 = useLocalization({
+		DescriptionTitle = "Feature.ExperienceDetails.Body.DescriptionTitle"
+	})
+	local v28 = useAppPolicy(function(p1) -- line: 64
+		return p1.enableExperienceDetailsPanel()
+	end)
+	local v29 = useDesignTokens(function(p2) -- line: 67
+		if p2 then
+			return p2.LuaApps.ExperienceDetails.PanelWidthScale
+		end
+
+		return 1
+	end)
+	local v30 = useDesignTokens(function(p3) -- line: 70
+		if p3 then
+			return p3.LuaApps.ExperienceDetails.PanelInnerPadding
+		end
+
+		return 0
+	end)
+	local v31 = t2.dataStatus == RetrievalStatus.Done
+	local v32 = t2.descriptionText and #t2.descriptionText > 0
+	local v33 = useDesignTokens(function(p4) -- line: 77
+		return p4.Semantic.Typography.Body
+	end)
+	local v34 = useDesignTokens(function(p5) -- line: 80
+		return p5.Semantic.Typography.Header
+	end)
+	local LineHeight = v33.LineHeight
+	local FontSize, Font
+
+	if FFlagExperienceDetailsTextUseTokens then
+		FontSize = v33.FontSize
+		Font = v33.Font
+	else
+		FontSize = v26.Font.BaseSize * v26.Font.Body.RelativeSize
+		Font = v26.Font.Body.Font
+	end
+
+	local v38, v39 = React.useState(0)
+	local v40 = v38 * v29
+	local v41 = React.useMemo(function() -- line: 99
+		-- upvalues: v32 (copy), FFlagLuaAppExpandableTextImpressionsEnabled (copy), v28 (copy), GetTextSize (copy), t2 (copy), FontSize (ref), Font (ref), v40 (copy), LineHeight (copy)
+		if v32 and (FFlagLuaAppExpandableTextImpressionsEnabled or v28) then
+			local v55 = GetTextSize(t2.descriptionText, FontSize, Font, Vector2.new(v40, 1e999))
+
+			if FFlagLuaAppExpandableTextImpressionsEnabled and t2.expandable then
+				return v55.Y
+			end
+
+			return v55.Y * LineHeight
+		end
+
+		return 0
+	end, {
+		t2.descriptionText,
+		FontSize,
+		Font,
+		v40,
+		if not FFlagLuaAppExpandableTextImpressionsEnabled then v28 else nil,
+		LineHeight,
+		if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else t2.expandable,
+		if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else v32
+	})
+	local u42 = nil
+	local v43 = nil
+
+	if FFlagLuaAppExpandableTextImpressionsEnabled then
+		u42 = React.useRef(false)
+		v43 = React.useCallback(function() -- line: 135
+			-- upvalues: u42 (ref)
+			u42.current = not u42.current
+		end)
+	end
+
+	local u44 = nil
+
+	if v20 then
+		u44 = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else React.useRef(nil)
+	end
+
+	local v45 = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else React.useCallback(function(t3: {[any]: any}) -- line: 149
+		-- upvalues: v20 (copy), t2 (copy), u44 (ref), GetCanExpand (copy), v26 (copy), sendExpandableTextImpressionEvent (copy), u42 (ref), HttpService (copy)
+		local v57 = nil
+
+		if v20 and t2.expandable then
+			local v58 = u44.current and u44.current.AbsoluteSize.X or 0
+
+			if v58 > 0 then
+				v57 = GetCanExpand(v26.Font, v58, t2.descriptionText, 3)
+			end
+		end
+
+		for _, v60 in t3 do
+			sendExpandableTextImpressionEvent({
+				impressionThreshold = v60 * 100,
+				isButtonExpanded = if not v20 then if not t2.expandable then nil else u42.current else if not v57 then nil else u42.current,
+				interactionUuid = HttpService:GenerateGUID(false),
+				contentType = "description",
+				pageContext = t2.pageContext,
+				itemId = tonumber(t2.universeId),
+				componentType = t2.componentType or "unknown"
+			})
+		end
+	end, {
+		if not v20 then nil else t2.descriptionText,
+		u42,
+		t2.expandable,
+		t2.componentType,
+		t2.pageContext,
+		t2.universeId,
+		if not v20 then nil else v26.Font
+	})
+	local v46 = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else `ExperienceDescription_{ t2.universeId }_{ t2.componentType }_{ t2.pageContext }`
+
+	if not v20 then
+		u44 = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else React.useRef(nil)
+	end
+
+	local v47 = React.useRef(nil)
+
+	React.useEffect(function() -- line: 202
+		-- upvalues: v47 (copy), v39 (copy)
+		if v47.current then
+			v39(v47.current.AbsoluteSize.X)
+		end
+	end)
+
+	if v31 and v32 then
+		local v48 = if not t2.expandable then React.createElement(StyledTextLabel, {
+			text = t2.descriptionText,
+			size = UDim2.new(v29, 0, 0, v41),
+			textYAlignment = Enum.TextYAlignment.Top,
+			fontStyle = if not FFlagExperienceDetailsTextUseTokens then v26.Font.Body else v33,
+			colorStyle = v26.Theme.TextDefault,
+			automaticSize = if not v28 then Enum.AutomaticSize.Y else nil,
+			lineHeight = LineHeight,
+			richText = false,
+			fluidSizing = false
+		}) else React.createElement(ExpandableTextArea, {
+			Text = t2.descriptionText,
+			compactNumberOfLines = not v20 and 3 or 3,
+			padding = Vector2.new(0, 0),
+			gradientColor = v26.Theme.BackgroundContrast.Color,
+			onClick = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else v43
+		})
+		local v49 = React.createElement("Frame", {
+			ref = v47,
+			[React.Change.AbsoluteSize] = function(p6) -- line: 233
+				-- upvalues: v39 (copy)
+				v39(p6.AbsoluteSize.X)
+			end,
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = t2.LayoutOrder,
+			Selectable = true,
+			[React.Event.SelectionGained] = NOOP_NEEDED_FOR_SELECTION,
+			SelectionImageObject = v25
+		}, {
+			Padding = if not v28 then nil else React.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, v30),
+				PaddingTop = UDim.new(0, v30),
+				PaddingRight = UDim.new(0, v30),
+				PaddingBottom = UDim.new(0, v30)
+			}),
+			UIListLayout = React.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+				Padding = UDim.new(0, t2.listPadding or 24)
+			}),
+			Title = if not v28 then React.createElement(StyledTextLabel, {
+				text = t2.headerText or v27.DescriptionTitle,
+				size = UDim2.fromScale(1, 0),
+				fontStyle = if not FFlagExperienceDetailsTextUseTokens then v26.Font.Header1 else v34,
+				colorStyle = v26.Theme.TextEmphasis,
+				automaticSize = Enum.AutomaticSize.Y,
+				richText = false,
+				fluidSizing = false
+			}) else nil,
+			Description = if not FFlagLuaAppExpandableTextImpressionsEnabled then v48 else React.createElement("Frame", {
+				ref = u44,
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				LayoutOrder = 2
+			}, {
+				Body = v48
+			}),
+			ContentThresholdImpressionsDetector = if not FFlagLuaAppExpandableTextImpressionsEnabled then nil else React.createElement(ContentThresholdImpressionsDetector, {
+				containerRef = u44,
+				fullContentHeight = v41,
+				thresholds = t1,
+				impressionsTag = v46,
+				sendImpressions = v45,
+				viewportBoundsOffset = t2.viewportBoundsOffset
+			})
+		})
+
+		if v28 then
+			return React.createElement(ExperienceDetailsPanel, {
+				title = t2.headerText or v27.DescriptionTitle,
+				onFocusChanged = t2.onFocusChanged
+			}, v49)
+		end
+
+		return v49
+	end
+
+	return nil
+end

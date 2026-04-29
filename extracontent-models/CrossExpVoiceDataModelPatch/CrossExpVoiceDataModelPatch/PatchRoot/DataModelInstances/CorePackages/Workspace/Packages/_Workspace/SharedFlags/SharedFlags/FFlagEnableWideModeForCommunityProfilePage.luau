@@ -1,1 +1,0 @@
-return game:DefineFastFlag("EnableWideModeForCommunityProfilePage_v2", false);

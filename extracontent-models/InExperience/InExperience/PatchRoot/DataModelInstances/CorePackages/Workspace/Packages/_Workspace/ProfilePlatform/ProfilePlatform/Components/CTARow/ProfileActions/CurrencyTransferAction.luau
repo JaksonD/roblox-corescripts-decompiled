@@ -1,38 +1,46 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.SharedFlags);
-local l_Enums_0 = require(l_Parent_0.CurrencyTransfers).Enums;
-local l_TransferDirection_0 = l_Enums_0.TransferDirection;
-local l_TransferOrigination_0 = l_Enums_0.TransferOrigination;
-local v6 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-local v8 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = v2.FFlagProfilePlatformEnableCurrencyTransfer;
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local SharedFlags = require(ProfilePlatformParent.SharedFlags)
+local Enums = require(ProfilePlatformParent.CurrencyTransfers).Enums
+local TransferDirection = Enums.TransferDirection
+local TransferOrigination = Enums.TransferOrigination
+local Enums2 = require(ProfilePlatform.Common.Enums)
+
+require(ProfilePlatform.Components.CTARow.Types)
+
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local ProfileTypes = Enums2.ProfileTypes
+local FFlagProfilePlatformEnableCurrencyTransfer = SharedFlags.FFlagProfilePlatformEnableCurrencyTransfer
+
 return {
-    [v6.ProfileActions.CurrencyTransfer] = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and function(v10) --[[ Line: 17 ]]
-        -- upvalues: v6 (copy), v8 (copy), l_TransferDirection_0 (copy), l_TransferOrigination_0 (copy)
-        return {
-            text = v10.localized[v6.ProfileActions.CurrencyTransfer], 
-            onActivated = function() --[[ Line: 20 ]] --[[ Name: onActivated ]]
-                -- upvalues: v10 (copy), v6 (ref), v8 (ref), l_TransferDirection_0 (ref), l_TransferOrigination_0 (ref)
-                if v10.buttonSurface == v6.ButtonSurface.ContextualMenu then
-                    v10.analytics.fireAnalyticsEvent(v8.ContextualMenuButtonCurrencyTransfer, {
-                        buttonSurface = v10.buttonSurface
-                    });
-                else
-                    v10.analytics.fireAnalyticsEvent(v8.CTAButtonCurrencyTransfer, {
-                        buttonSurface = v10.buttonSurface
-                    });
-                end;
-                local v11 = v10.navigateTo and v10.navigateTo.navigateToTransfer;
-                if v11 then
-                    v11({
-                        recipientUserId = v10.profileId, 
-                        direction = l_TransferDirection_0.Send, 
-                        transferOrigination = l_TransferOrigination_0.Profile
-                    });
-                end;
-            end
-        };
-    end or nil
-};
+	[Enums2.ProfileActions.CurrencyTransfer] = if not FFlagProfilePlatformEnableCurrencyTransfer then nil else function(p1) -- line: 18
+		-- upvalues: Enums2 (copy), ProfileTypes (copy), EventNames (copy), TransferDirection (copy), TransferOrigination (copy)
+		return {
+			text = p1.localized[Enums2.ProfileActions.CurrencyTransfer],
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 22
+					-- upvalues: p1 (copy), Enums2 (copy), EventNames (copy), TransferDirection (copy), TransferOrigination (copy)
+					if p1.buttonSurface == Enums2.ButtonSurface.ContextualMenu then
+						p1.analytics.fireAnalyticsEvent(EventNames.ContextualMenuButtonCurrencyTransfer, {
+							buttonSurface = p1.buttonSurface
+						})
+					else
+						p1.analytics.fireAnalyticsEvent(EventNames.CTAButtonCurrencyTransfer, {
+							buttonSurface = p1.buttonSurface
+						})
+					end
+
+					local v12 = p1.navigateTo and p1.navigateTo.navigateToTransfer
+
+					if v12 then
+						v12({
+							recipientUserId = p1.profileId,
+							direction = TransferDirection.Send,
+							transferOrigination = TransferOrigination.Profile
+						})
+					end
+				end
+			}
+		}
+	end
+}

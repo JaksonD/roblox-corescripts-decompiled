@@ -1,22 +1,28 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_FFlagEnablePlatformProfileContextualMenuOption_0 = require(l_Parent_0.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption;
-local v3 = require(l_script_FirstAncestor_0.Utils.getPlatformFriendsService);
-local v4 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-local v6 = require(l_script_FirstAncestor_0.Analytics.EventNames);
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local FFlagEnablePlatformProfileContextualMenuOption = require(ProfilePlatformParent.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption
+local getPlatformFriendsService = require(ProfilePlatform.Utils.getPlatformFriendsService)
+local Enums = require(ProfilePlatform.Common.Enums)
+
+require(ProfilePlatform.Components.CTARow.Types)
+
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local ProfileTypes = Enums.ProfileTypes
+
 return {
-    [v4.ProfileActions.ViewPlatformProfile] = l_FFlagEnablePlatformProfileContextualMenuOption_0 and function(v7) --[[ Line: 14 ]]
-        -- upvalues: v4 (copy), v6 (copy), v3 (copy)
-        return {
-            text = v7.localized[v4.ProfileActions.ViewPlatformProfile], 
-            onActivated = function() --[[ Line: 17 ]] --[[ Name: onActivated ]]
-                -- upvalues: v7 (copy), v6 (ref), v3 (ref)
-                v7.analytics.fireAnalyticsEvent(v6.ContextualMenuButtonViewPlatformProfile, {
-                    buttonSurface = v7.buttonSurface
-                });
-                v3:ShowProfile(v7.profileWrapperContext.profilePlatformId);
-            end
-        };
-    end or nil
-};
+	[Enums.ProfileActions.ViewPlatformProfile] = if not FFlagEnablePlatformProfileContextualMenuOption then nil else function(p1) -- line: 15
+		-- upvalues: Enums (copy), ProfileTypes (copy), EventNames (copy), getPlatformFriendsService (copy)
+		return {
+			text = p1.localized[Enums.ProfileActions.ViewPlatformProfile],
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 19
+					-- upvalues: p1 (copy), EventNames (copy), getPlatformFriendsService (copy)
+					p1.analytics.fireAnalyticsEvent(EventNames.ContextualMenuButtonViewPlatformProfile, {
+						buttonSurface = p1.buttonSurface
+					})
+					getPlatformFriendsService:ShowProfile(p1.profileWrapperContext.profilePlatformId)
+				end
+			}
+		}
+	end
+}

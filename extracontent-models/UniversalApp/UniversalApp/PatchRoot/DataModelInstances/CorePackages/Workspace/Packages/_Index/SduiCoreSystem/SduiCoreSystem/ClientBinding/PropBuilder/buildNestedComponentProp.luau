@@ -1,47 +1,74 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SduiCoreSystem");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.ServiceContractsProto);
-local v3 = require(l_Parent_0.Signals);
-local _ = require(l_script_FirstAncestor_0.SduiBuilderTypes);
-local l_PropResultCategory_0 = require(l_script_FirstAncestor_0.ClientBinding.SduiClientBindingTypes).PropResultCategory;
-local l_buildConfigForComponent_0 = require(l_script_FirstAncestor_0.ClientBinding.SduiClientBindingBuilder).buildConfigForComponent;
-local v7 = require(l_script_FirstAncestor_0.ClientBinding.PropBuilder.buildInputsForNestedComponent);
-local v8 = require(l_script_FirstAncestor_0.ClientBinding.PropBuilder.SduiPropUtils);
-local v9 = require(l_script_FirstAncestor_0.SduiLogger);
-local v10 = require(l_script_FirstAncestor_0.SduiErrors);
-local v11 = require(l_script_FirstAncestor_0.SduiParseHelpers);
-local l_FFlagSduiLocalizedLiterals_0 = require(l_Parent_0.SharedFlags).FFlagSduiLocalizedLiterals;
-local function v13(v14, v15, v16, v17, v18, v19) --[[ Line: 45 ]] --[[ Name: buildNestedComponentProp ]]
-    -- upvalues: v3 (copy), v7 (copy), l_FFlagSduiLocalizedLiterals_0 (copy), v9 (copy), v10 (copy), v11 (copy), l_buildConfigForComponent_0 (copy), l_PropResultCategory_0 (copy), v8 (copy), v13 (copy)
-    if v14 == "literal" then
-        if v15.roblox_component == nil then
-            error("Missing templateData.roblox_component");
-        end;
-        local v20 = v18.getTemplateForRobloxComponent(v15.roblox_component);
-        if v20 == nil then
-            error((("Could not find template for roblox_component %*"):format(v15.roblox_component)));
-        end;
-        local v25 = v3.createComputed(function(v21) --[[ Line: 63 ]]
-            -- upvalues: v7 (ref), v17 (copy), v15 (copy), v16 (copy), l_FFlagSduiLocalizedLiterals_0 (ref), v18 (copy), v9 (ref), v10 (ref), v11 (ref)
-            local v22 = {};
-            local l_status_0, l_result_0 = pcall(function() --[[ Line: 65 ]]
-                -- upvalues: v7 (ref), v17 (ref), v15 (ref), v16 (ref), v21 (copy), v22 (copy), l_FFlagSduiLocalizedLiterals_0 (ref), v18 (ref)
-                v7(v17, v15.inputs, v16, v21, v22, if l_FFlagSduiLocalizedLiterals_0 then v18 else nil);
-            end);
-            if not l_status_0 then
-                v9.reportError(v10.SduiErrorType.FailedToParseProp, {
-                    message = ("Failed to build inputs for nested component: %*"):format((v11.stringifyValue(l_result_0))), 
-                    name = v18.debugName
-                }, v18.appPage);
-            end;
-            return v22;
-        end);
-        return l_buildConfigForComponent_0(v20, v25, v18, v19), l_PropResultCategory_0.NestedComponentConfig;
-    elseif v14 == "conditional" then
-        return v8.generateConditionalPropValue(v15, v16, v18, v19, v17, v13, nil, true), l_PropResultCategory_0.PropSignal;
-    else
-        error((("Could not build prop. Unknown propDefinitionType: %*"):format(v14)));
-        return;
-    end;
-end;
-return v13;
+local SduiCoreSystem = script:FindFirstAncestor("SduiCoreSystem")
+local SduiCoreSystemParent = SduiCoreSystem.Parent
+
+require(SduiCoreSystemParent.ServiceContractsProto)
+
+local Signals = require(SduiCoreSystemParent.Signals)
+
+require(SduiCoreSystem.SduiBuilderTypes)
+
+local PropResultCategory = require(SduiCoreSystem.ClientBinding.SduiClientBindingTypes).PropResultCategory
+local buildConfigForComponent = require(SduiCoreSystem.ClientBinding.SduiClientBindingBuilder).buildConfigForComponent
+local buildInputsForNestedComponent = require(SduiCoreSystem.ClientBinding.PropBuilder.buildInputsForNestedComponent)
+local SduiPropUtils = require(SduiCoreSystem.ClientBinding.PropBuilder.SduiPropUtils)
+local SduiLogger = require(SduiCoreSystem.SduiLogger)
+local SduiErrors = require(SduiCoreSystem.SduiErrors)
+local SduiParseHelpers = require(SduiCoreSystem.SduiParseHelpers)
+
+require(SduiCoreSystem.SduiComponentType)
+
+local FFlagSduiLocalizedLiterals = require(SduiCoreSystemParent.SharedFlags).FFlagSduiLocalizedLiterals
+local FFlagSduiImprovedErrorDimensions = require(SduiCoreSystemParent.SharedFlags).FFlagSduiImprovedErrorDimensions
+
+local function buildNestedComponentProp(p1, p2, p3, p4, p5, p6) -- line: 48
+	-- upvalues: FFlagSduiImprovedErrorDimensions (copy), Signals (copy), buildInputsForNestedComponent (copy), FFlagSduiLocalizedLiterals (copy), SduiLogger (copy), SduiErrors (copy), SduiParseHelpers (copy), buildConfigForComponent (copy), PropResultCategory (copy), SduiPropUtils (copy), buildNestedComponentProp (copy)
+	local currentComponentType = nil
+	local currentParserName = nil
+
+	if FFlagSduiImprovedErrorDimensions then
+		currentComponentType = p5.currentComponentType
+		currentParserName = p5.currentParserName
+	end
+
+	if p1 == "literal" then
+		if p2.roblox_component == nil then
+			error("Missing templateData.roblox_component")
+		end
+
+		local v22 = p5.getTemplateForRobloxComponent(p2.roblox_component)
+
+		if v22 == nil then
+			error(`Could not find template for roblox_component { p2.roblox_component }`)
+		end
+
+		local v23 = Signals.createComputed(function(p7) -- line: 73
+			-- upvalues: buildInputsForNestedComponent (copy), p4 (copy), p2 (copy), p3 (copy), FFlagSduiLocalizedLiterals (copy), p5 (copy), SduiLogger (copy), SduiErrors (copy), SduiParseHelpers (copy), FFlagSduiImprovedErrorDimensions (copy), currentComponentType (ref), currentParserName (ref)
+			local t1 = {}
+			local ok, result = pcall(function() -- line: 75
+				-- upvalues: buildInputsForNestedComponent (copy), p4 (copy), p2 (copy), p3 (copy), p7 (copy), t1 (copy), FFlagSduiLocalizedLiterals (copy), p5 (copy)
+				buildInputsForNestedComponent(p4, p2.inputs, p3, p7, t1, if not FFlagSduiLocalizedLiterals then nil else p5)
+			end)
+
+			if not ok then
+				SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToParseProp, {
+					message = `Failed to build inputs for nested component: { SduiParseHelpers.stringifyValue(result) }`,
+					name = p5.debugName,
+					componentType = if not FFlagSduiImprovedErrorDimensions then nil else currentComponentType,
+					parserName = if not FFlagSduiImprovedErrorDimensions then nil else currentParserName
+				}, p5.appPage)
+			end
+
+			return t1
+		end)
+
+		return buildConfigForComponent(v22, v23, p5, p6), PropResultCategory.NestedComponentConfig
+	end
+
+	if p1 == "conditional" then
+		return SduiPropUtils.generateConditionalPropValue(p2, p3, p5, p6, p4, buildNestedComponentProp, nil, true), PropResultCategory.PropSignal
+	end
+
+	error(`Could not build prop. Unknown propDefinitionType: { p1 }`)
+end
+
+return buildNestedComponentProp

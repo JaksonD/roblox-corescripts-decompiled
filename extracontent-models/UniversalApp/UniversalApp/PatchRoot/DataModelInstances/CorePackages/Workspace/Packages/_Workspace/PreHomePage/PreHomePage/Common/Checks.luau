@@ -1,19 +1,32 @@
-local l_Parent_0 = script:FindFirstAncestor("PreHomePage").Parent;
-local l_LaunchContext_0 = require(l_Parent_0.AppStartup).Enums.LaunchContext;
-local l_GetPasswordManagerUsageStore_0 = require(l_Parent_0.AuthCommon).Stores.GetPasswordManagerUsageStore;
+local Parent = script:FindFirstAncestor("PreHomePage").Parent
+local LaunchContext = require(Parent.AppStartup).Enums.LaunchContext
+local GetPasswordManagerUsageStore = require(Parent.AuthCommon).Stores.GetPasswordManagerUsageStore
+
 return {
-    userJustLoggedIn = function(v3) --[[ Line: 14 ]] --[[ Name: userJustLoggedIn ]]
-        -- upvalues: l_LaunchContext_0 (copy)
-        v3:flush();
-        return v3:getState().LaunchContext == l_LaunchContext_0.Login;
-    end, 
-    didUsePasswordManagerMediatedLogin = function() --[[ Line: 20 ]] --[[ Name: didUsePasswordManagerMediatedLogin ]]
-        -- upvalues: l_GetPasswordManagerUsageStore_0 (copy)
-        local v4 = l_GetPasswordManagerUsageStore_0(false);
-        if v4 == nil then
-            return false;
-        else
-            return v4.getLoggedinUsingSavedPassword(false) or v4.getSavedPasswordAfterLogin(false);
-        end;
-    end
-};
+	userJustLoggedIn = function(p1) --[[ userJustLoggedIn ]] -- line: 14
+		-- upvalues: LaunchContext (copy)
+		p1:flush()
+
+		return p1:getState().LaunchContext == LaunchContext.Login
+	end,
+	didUsePasswordManagerMediatedLogin = function() --[[ didUsePasswordManagerMediatedLogin ]] -- line: 20
+		-- upvalues: GetPasswordManagerUsageStore (copy)
+		local v5 = GetPasswordManagerUsageStore(false)
+
+		if v5 == nil then
+			return false
+		end
+
+		return v5.getLoggedinUsingSavedPassword(false) or v5.getSavedPasswordAfterLogin(false)
+	end,
+	didUsePasswordManagerMediatedSignup = function() --[[ didUsePasswordManagerMediatedSignup ]] -- line: 30
+		-- upvalues: GetPasswordManagerUsageStore (copy)
+		local v6 = GetPasswordManagerUsageStore(false)
+
+		if v6 == nil then
+			return false
+		end
+
+		return v6.getPasswordManagerMediatedSignup(false)
+	end
+}

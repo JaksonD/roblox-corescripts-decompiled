@@ -1,131 +1,140 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v1 = require(l_CorePackages_0.Packages.Roact);
-local v2 = require(l_CorePackages_0.Packages.React);
-local v3 = require(l_CorePackages_0.Packages.t);
-local l_PlayButtonStates_0 = require(l_CorePackages_0.Workspace.Packages.GamePlayButton).PlayButtonStates;
-local v5 = require(l_CorePackages_0.Packages.UIBlox);
-local l_Button_0 = v5.App.Button.Button;
-local l_ButtonType_0 = v5.App.Button.Enum.ButtonType;
-local l_ComboButton_0 = v5.App.Button.ComboButton;
-local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
-local l_GetFFlagIsSquadEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled;
-local l_FFlagLuaAppPlayButtonLoadingPrimary_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppPlayButtonLoadingPrimary;
-local l_FFlagLuaAppEnablePlaySquadButton_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnablePlaySquadButton;
-local l_Images_0 = v5.App.ImageSet.Images;
-local v14 = l_Images_0["icons/common/play"];
-local v15 = l_Images_0["icons/status/private"];
-local v16 = l_Images_0["icons/status/unavailable"];
-local v17 = l_Images_0["icons/common/robux"];
-local v18 = l_Images_0["icons/actions/truncationCollapse"];
-local v19 = v1.PureComponent:extend("PlayButton");
-v19.validateProps = v3.strictInterface({
-    price = v3.number, 
-    localizedFiatPrice = v3.string, 
-    playButtonState = v3.string, 
-    onPlayButtonActivated = v3.callback, 
-    onPlaySquadButtonActivated = if l_FFlagLuaAppEnablePlaySquadButton_0 then v3.callback else nil, 
-    Size = v3.optional(v3.UDim2), 
-    LayoutOrder = v3.optional(v3.number), 
-    testId = v3.optional(v3.string)
-});
-v19.renderWithLocalization = function(v20, v21) --[[ Line: 39 ]] --[[ Name: renderWithLocalization ]]
-    -- upvalues: l_FFlagLuaAppEnablePlaySquadButton_0 (copy), l_PlayButtonStates_0 (copy), l_FFlagLuaAppPlayButtonLoadingPrimary_0 (copy), l_ButtonType_0 (copy), v14 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v17 (copy), v15 (copy), v16 (copy), v1 (copy), l_ComboButton_0 (copy), v18 (copy), l_Button_0 (copy), v2 (copy)
-    local l_Size_0 = v20.props.Size;
-    local l_LayoutOrder_0 = v20.props.LayoutOrder;
-    local l_price_0 = v20.props.price;
-    local l_playButtonState_0 = v20.props.playButtonState;
-    local l_onPlayButtonActivated_0 = v20.props.onPlayButtonActivated;
-    local l_onPlaySquadButtonActivated_0 = v20.props.onPlaySquadButtonActivated;
-    local v28 = false;
-    local v29 = false;
-    local v30 = not l_FFlagLuaAppEnablePlaySquadButton_0 and nil;
-    local v31 = not l_FFlagLuaAppEnablePlaySquadButton_0 and nil;
-    local v32 = nil;
-    local v33 = nil;
-    local v34 = nil;
-    if l_playButtonState_0 == l_PlayButtonStates_0.Loading then
-        v32 = if l_FFlagLuaAppPlayButtonLoadingPrimary_0 then l_ButtonType_0.PrimaryContextual else l_ButtonType_0.Secondary;
-        v28 = true;
-    elseif l_playButtonState_0 == l_PlayButtonStates_0.Playable then
-        v32 = l_ButtonType_0.PrimaryContextual;
-        v33 = v14;
-    elseif l_GetFFlagIsSquadEnabled_0() and l_playButtonState_0 == l_PlayButtonStates_0.PlayableWithParty then
-        v33 = v14;
-        v34 = v21.joinWithParty;
-        v30 = true;
-    elseif l_GetFFlagIsSquadEnabled_0() and l_playButtonState_0 == l_PlayButtonStates_0.WaitingForParty then
-        v33 = v14;
-        v34 = v21.waitingForParty;
-        v29 = true;
-        v31 = true;
-        v30 = true;
-    elseif l_playButtonState_0 == l_PlayButtonStates_0.PaidAccess then
-        v32 = l_ButtonType_0.PrimaryContextual;
-        v33 = v17;
-        v34 = tostring(l_price_0);
-    elseif l_playButtonState_0 == l_PlayButtonStates_0.FiatPaidAccess then
-        v32 = l_ButtonType_0.PrimaryContextual;
-        v34 = v20.props.localizedFiatPrice;
-    elseif l_playButtonState_0 == l_PlayButtonStates_0.ActionNeeded then
-        v32 = l_ButtonType_0.PrimarySystem;
-        v33 = v15;
-        v34 = v21.join;
-    elseif l_playButtonState_0 == l_PlayButtonStates_0.UnplayableOther then
-        v32 = l_ButtonType_0.Secondary;
-        v33 = v16;
-        v34 = v21.unavailable;
-        v29 = true;
-    else
-        error("invalid play button state!");
-    end;
-    if l_FFlagLuaAppEnablePlaySquadButton_0 and v30 then
-        return v1.createElement(l_ComboButton_0, {
-            layoutOrder = l_LayoutOrder_0, 
-            size = l_Size_0, 
-            button = {
-                icon = v33, 
-                text = v34, 
-                isDisabled = v29, 
-                onActivated = if not v29 then l_onPlayButtonActivated_0 else function() --[[ Line: 97 ]]
+local CorePackages = game:GetService("CorePackages")
+local Roact = require(CorePackages.Packages.Roact)
+local React = require(CorePackages.Packages.React)
+local t = require(CorePackages.Packages.t)
+local PlayButtonStates = require(CorePackages.Workspace.Packages.GamePlayButton).PlayButtonStates
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local ComboButton = UIBlox.App.Button.ComboButton
+local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
+local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
+local FFlagLuaAppPlayButtonLoadingPrimary = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppPlayButtonLoadingPrimary
+local FFlagLuaAppEnablePlaySquadButton = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEnablePlaySquadButton
+local FFlagUpdateActionNeededPlayButtonUi = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUpdateActionNeededPlayButtonUi
+local Images = UIBlox.App.ImageSet.Images
+local v16 = Images["icons/common/play"]
+local v17 = Images["icons/status/private"]
+local v18 = Images["icons/status/unavailable"]
+local v19 = Images["icons/common/robux"]
+local v20 = Images["icons/actions/truncationCollapse"]
+local v21 = Roact.PureComponent:extend("PlayButton")
 
-                end
-            }, 
-            overflow = {
-                icon = v18, 
-                isDisabled = v31, 
-                onActivated = if not v31 then l_onPlaySquadButtonActivated_0 else function() --[[ Line: 102 ]]
+v21.validateProps = t.strictInterface({
+	price = t.number,
+	localizedFiatPrice = t.string,
+	playButtonState = t.string,
+	onPlayButtonActivated = t.callback,
+	onPlaySquadButtonActivated = if not FFlagLuaAppEnablePlaySquadButton then nil else t.callback,
+	Size = t.optional(t.UDim2),
+	LayoutOrder = t.optional(t.number),
+	testId = t.optional(t.string)
+})
 
-                end
-            }, 
-            testId = v20.props.testId
-        });
-    else
-        return v1.createElement(l_Button_0, {
-            size = l_Size_0, 
-            layoutOrder = l_LayoutOrder_0, 
-            isLoading = v28, 
-            icon = v33, 
-            text = v34, 
-            buttonType = v32, 
-            userInteractionEnabled = not v29, 
-            isDisabled = v29, 
-            onActivated = if not v29 then l_onPlayButtonActivated_0 else function() --[[ Line: 116 ]]
+function v21.renderWithLocalization(p1, p2) -- line: 41
+	-- upvalues: FFlagLuaAppEnablePlaySquadButton (copy), PlayButtonStates (copy), FFlagLuaAppPlayButtonLoadingPrimary (copy), ButtonType (copy), v16 (copy), GetFFlagIsSquadEnabled (copy), v19 (copy), FFlagUpdateActionNeededPlayButtonUi (copy), v17 (copy), v18 (copy), Roact (copy), ComboButton (copy), v20 (copy), Button (copy), React (copy)
+	local propsSize = p1.props.Size
+	local propsLayoutOrder = p1.props.LayoutOrder
+	local price = p1.props.price
+	local playButtonState = p1.props.playButtonState
+	local onPlayButtonActivated = p1.props.onPlayButtonActivated
+	local onPlaySquadButtonActivated = p1.props.onPlaySquadButtonActivated
+	local v30 = false
+	local v31 = false
+	local v32 = not FFlagLuaAppEnablePlaySquadButton and nil
+	local v33 = not FFlagLuaAppEnablePlaySquadButton and nil
+	local v34 = nil
+	local v35 = nil
+	local joinWithParty = nil
 
-            end, 
-            [v2.Tag] = if v20.props.testId then ("data-testid=%*"):format(v20.props.testId) else nil
-        });
-    end;
-end;
-v19.render = function(v35) --[[ Line: 122 ]] --[[ Name: render ]]
-    -- upvalues: l_withLocalization_0 (copy)
-    return l_withLocalization_0({
-        join = "Feature.ExperienceDetails.PlayButtonText.ActionNeeded", 
-        joinWithParty = "Feature.Squads.Action.JoinWithParty", 
-        unavailable = "Feature.ExperienceDetails.PlayButtonText.Unavailable", 
-        waitingForParty = "Feature.Squads.Action.WaitingForParty"
-    })(function(v36) --[[ Line: 128 ]]
-        -- upvalues: v35 (copy)
-        return v35:renderWithLocalization(v36);
-    end);
-end;
-return v19;
+	if playButtonState == PlayButtonStates.Loading then
+		v34 = if not FFlagLuaAppPlayButtonLoadingPrimary then ButtonType.Secondary else ButtonType.PrimaryContextual
+		v30 = true
+	elseif playButtonState == PlayButtonStates.Playable then
+		v34 = ButtonType.PrimaryContextual
+		v35 = v16
+	elseif GetFFlagIsSquadEnabled() and playButtonState == PlayButtonStates.PlayableWithParty then
+		v35 = v16
+		joinWithParty = p2.joinWithParty
+		v32 = true
+	elseif GetFFlagIsSquadEnabled() and playButtonState == PlayButtonStates.WaitingForParty then
+		v35 = v16
+		joinWithParty = p2.waitingForParty
+		v31 = true
+		v33 = true
+		v32 = true
+	elseif playButtonState == PlayButtonStates.PaidAccess then
+		v34 = ButtonType.PrimaryContextual
+		v35 = v19
+		joinWithParty = tostring(price)
+	elseif playButtonState == PlayButtonStates.FiatPaidAccess then
+		v34 = ButtonType.PrimaryContextual
+		joinWithParty = p1.props.localizedFiatPrice
+	elseif playButtonState == PlayButtonStates.ActionNeeded then
+		if FFlagUpdateActionNeededPlayButtonUi then
+			v34 = ButtonType.PrimaryContextual
+			joinWithParty = p2.unlock
+		else
+			v34 = ButtonType.PrimarySystem
+			v35 = v17
+			joinWithParty = p2.join
+		end
+	elseif playButtonState == PlayButtonStates.UnplayableOther then
+		v34 = ButtonType.Secondary
+		v35 = v18
+		joinWithParty = p2.unavailable
+		v31 = true
+	else
+		error("invalid play button state!")
+	end
+
+	if FFlagLuaAppEnablePlaySquadButton and v32 then
+		return Roact.createElement(ComboButton, {
+			layoutOrder = propsLayoutOrder,
+			size = propsSize,
+			button = {
+				icon = v35,
+				text = joinWithParty,
+				isDisabled = v31,
+				onActivated = v31 and function() -- line: 104
+				end or onPlayButtonActivated
+			},
+			overflow = {
+				icon = v20,
+				isDisabled = v33,
+				onActivated = v33 and function() -- line: 109
+				end or onPlaySquadButtonActivated
+			},
+			testId = p1.props.testId
+		})
+	end
+
+	return Roact.createElement(Button, {
+		size = propsSize,
+		layoutOrder = propsLayoutOrder,
+		isLoading = v30,
+		icon = v35,
+		text = joinWithParty,
+		buttonType = v34,
+		userInteractionEnabled = not v31,
+		isDisabled = v31,
+		onActivated = v31 and function() -- line: 123
+		end or onPlayButtonActivated,
+		[React.Tag] = if not p1.props.testId then nil else `data-testid={ p1.props.testId }`
+	})
+end
+function v21.render(p3) -- line: 129
+	-- upvalues: withLocalization (copy), FFlagUpdateActionNeededPlayButtonUi (copy)
+	return withLocalization({
+		join = "Feature.ExperienceDetails.PlayButtonText.ActionNeeded",
+		unlock = if not FFlagUpdateActionNeededPlayButtonUi then nil else "Feature.ExperienceDetails.PlayButtonText.Unlock",
+		joinWithParty = "Feature.Squads.Action.JoinWithParty",
+		unavailable = "Feature.ExperienceDetails.PlayButtonText.Unavailable",
+		waitingForParty = "Feature.Squads.Action.WaitingForParty"
+	})(function(p4) -- line: 136
+		-- upvalues: p3 (copy)
+		return p3:renderWithLocalization(p4)
+	end)
+end
+
+return v21

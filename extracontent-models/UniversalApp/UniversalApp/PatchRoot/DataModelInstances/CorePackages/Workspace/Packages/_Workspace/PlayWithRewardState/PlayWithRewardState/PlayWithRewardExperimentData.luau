@@ -1,42 +1,51 @@
-local l_HttpService_0 = game:GetService("HttpService");
-local l_Parent_0 = script:FindFirstAncestor("PlayWithRewardState").Parent;
-local l_mutedError_0 = require(l_Parent_0.Loggers).mutedError;
-local v3 = require(l_Parent_0.t);
-local v4 = v3.interface({
-    layoutOrder = v3.number, 
-    titleText = v3.string, 
-    subtitleText = v3.string, 
-    buttonText = v3.string, 
-    showButton = v3.boolean
-});
-local v5 = {};
-local v6 = {
-    layoutOrder = 0, 
-    titleText = "", 
-    subtitleText = "", 
-    buttonText = "", 
-    showButton = false
-};
-v5.fromJsonData = function(v7) --[[ Line: 33 ]] --[[ Name: fromJsonData ]]
-    -- upvalues: v6 (copy), l_HttpService_0 (copy), v4 (copy), l_mutedError_0 (copy)
-    local v8 = table.clone(v6);
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 36 ]]
-        -- upvalues: l_HttpService_0 (ref), v7 (copy)
-        return l_HttpService_0:JSONDecode(v7);
-    end);
-    if l_status_0 then
-        local v11, v12 = v4(l_result_0);
-        if not v11 then
-            l_mutedError_0((("PlayWithRewardExperimentData invalid: %*"):format((tostring(v12)))));
-            return v8;
-        else
-            v8.layoutOrder = l_result_0.layoutOrder;
-            v8.titleText = l_result_0.titleText;
-            v8.subtitleText = l_result_0.subtitleText;
-            v8.buttonText = l_result_0.buttonText;
-            v8.showButton = l_result_0.showButton;
-        end;
-    end;
-    return v8;
-end;
-return v5;
+local HttpService = game:GetService("HttpService")
+local Parent = script:FindFirstAncestor("PlayWithRewardState").Parent
+local mutedError = require(Parent.Loggers).mutedError
+local t = require(Parent.t)
+local v5 = t.interface({
+	titleText = t.string,
+	subtitleText = t.string,
+	buttonText = t.string,
+	coachmarkTitleText = t.string,
+	coachmarkSubtitleText = t.string,
+	showButton = t.boolean
+})
+local t1 = {}
+local t2 = {
+	titleText = "",
+	subtitleText = "",
+	buttonText = "",
+	coachmarkTitleText = "",
+	coachmarkSubtitleText = "",
+	showButton = false
+}
+
+function t1.fromJsonData(s1: string) -- line: 36
+	-- upvalues: t2 (copy), HttpService (copy), v5 (copy), mutedError (copy)
+	local v9 = table.clone(t2)
+	local ok, result = pcall(function() -- line: 39
+		-- upvalues: HttpService (copy), s1 (copy)
+		return HttpService:JSONDecode(s1)
+	end)
+
+	if ok then
+		local v12, v13 = v5(result)
+
+		if not v12 then
+			mutedError(`PlayWithRewardExperimentData invalid: { tostring(v13) }`)
+
+			return v9
+		end
+
+		v9.titleText = result.titleText
+		v9.subtitleText = result.subtitleText
+		v9.buttonText = result.buttonText
+		v9.coachmarkTitleText = result.coachmarkTitleText
+		v9.coachmarkSubtitleText = result.coachmarkSubtitleText
+		v9.showButton = result.showButton
+	end
+
+	return v9
+end
+
+return t1

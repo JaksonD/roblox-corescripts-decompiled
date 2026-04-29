@@ -1,434 +1,443 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ChromeShared");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_GuiService_0 = game:GetService("GuiService");
-local l_UserGameSettings_0 = UserSettings():GetService("UserGameSettings");
-local v4 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagEnableConsoleExpControls_0 = v4.FFlagEnableConsoleExpControls;
-local l_FFlagVirtualCursorTopbarAlwaysVisible_0 = v4.FFlagVirtualCursorTopbarAlwaysVisible;
-local v7 = game:DefineFastFlag("AvatarSwitcherHamburgerExposure", false);
-local v8 = game:DefineFastString("AvatarSwitcherIXPLayer", "UIEcosystem.User.Migration");
-local l_FFlagUnibarMenuOpenSubmenu_0 = require(script.Parent.Parent.Parent.Flags).FFlagUnibarMenuOpenSubmenu;
-local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_script_FirstAncestor_0.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
-local v11 = require(l_CorePackages_0.Packages.React);
-local v12 = require(l_CorePackages_0.Packages.UIBlox);
-local v13 = if l_FFlagEnableConsoleExpControls_0 then require(l_CorePackages_0.Workspace.Packages.InputUi).Gamepad.GamepadUtils else nil;
-local l_StyledTextLabel_0 = v12.App.Text.StyledTextLabel;
-local l_useStyle_0 = v12.Core.Style.useStyle;
-local l_Interactable_0 = v12.Core.Control.Interactable;
-local l_ControlState_0 = v12.Core.Control.Enum.ControlState;
-local l_VerticalScrollView_0 = v12.App.Container.VerticalScrollView;
-local l_ScrollBarType_0 = v12.App.Container.Enum.ScrollBarType;
-local v20 = require(l_CorePackages_0.Packages.ReactOtter);
-local l_IXPServiceWrapper_0 = require(l_CorePackages_0.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper;
-local v22 = require(l_CorePackages_0.Packages.Foundation);
-local l_useCursor_0 = v22.Hooks.useCursor;
-local v24 = require(l_script_FirstAncestor_0.Service);
-local _ = require(l_script_FirstAncestor_0.Service.Types);
-local v26 = require(l_script_FirstAncestor_0.Service.ViewportUtil);
-local v27 = require(l_script_FirstAncestor_0.Unibar.Constants);
-local v28 = if l_FFlagEnableConsoleExpControls_0 then require(l_script_FirstAncestor_0.Parent.Parent.TopBar.Components.MenuIconContext) else nil;
-local v29 = require(l_script_FirstAncestor_0.Unibar.SubMenuContext);
-local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
-local l_UserInputService_0 = game:GetService("UserInputService");
-local v32 = require(l_script_FirstAncestor_0.Hooks.useChromeMenuItems);
-local v33 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
-local v34 = require(l_script_FirstAncestor_0.Hooks.useTopbarInsetHeight);
-local v35 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValue);
-local v36 = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false);
-local l_isSpatial_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).isSpatial;
-local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
-local l_InExperienceUIVRIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP;
-local v40 = nil;
-if l_isInExperienceUIVREnabled_0 then
-    v40 = require(l_CorePackages_0.Workspace.Packages.VrSpatialUi).UIManager;
-end;
-local v41 = require(l_script_FirstAncestor_0.Unibar.ComponentHosts.IconHost);
-local l_RoundedSlot_0 = v22.Enums.CursorType.RoundedSlot;
-local v43 = Vector2.new(0, 0);
-local v44 = {
-    Closed = 0, 
-    Open = 1
-};
-local v45 = {};
-local v46 = nil;
-MenuRow = function(v47) --[[ Line: 82 ]] --[[ Name: MenuRow ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), v11 (copy), v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v28 (copy), l_ControlState_0 (copy), v24 (copy), l_GuiService_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), v41 (copy), l_StyledTextLabel_0 (copy), l_isInExperienceUIVREnabled_0 (copy), l_InExperienceUIVRIXP_0 (copy), v40 (ref), l_Interactable_0 (copy), l_useCursor_0 (copy), l_RoundedSlot_0 (copy), v36 (copy)
-    local v48 = l_useStyle_0();
-    local v49 = nil;
-    local l_Theme_0 = v48.Theme;
-    local v51 = {
-        Color = Color3.new(0, 0, 0), 
-        Transparency = 1
-    };
-    local v52 = nil;
-    local v53 = nil;
-    local v54 = nil;
-    local v55 = nil;
-    local v56 = nil;
-    local v57 = nil;
-    local v58 = nil;
-    if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v49 = l_UnibarStyle_0.use();
-        v52 = v49.ICON_SIZE;
-        v53 = v49.SUB_MENU_ROW_HEIGHT;
-        v54 = v49.SUBMENU_PADDING_LEFT;
-        v55 = v49.SUBMENU_PADDING_RIGHT;
-        v56 = v49.SUBMENU_ROW_LABEL_FONT;
-        v57 = v49.SUBMENU_ROW_PADDING;
-        v58 = v49.SUBMENU_ROW_CORNER_RADIUS;
-    else
-        v52 = v27.ICON_SIZE;
-        v53 = v27.SUB_MENU_ROW_HEIGHT;
-        v54 = v27.SUBMENU_PADDING_LEFT;
-        v55 = v27.SUBMENU_PADDING_RIGHT;
-        v56 = v27.SUBMENU_ROW_LABEL_FONT;
-        v57 = v27.SUBMENU_ROW_PADDING;
-        v58 = v27.SUBMENU_ROW_CORNER_RADIUS;
-    end;
-    local v59 = v11.useContext(v29);
-    local v60 = if l_FFlagEnableConsoleExpControls_0 then v11.useContext(v28) else nil;
-    local v61, v62 = v11.useBinding(v51);
-    local v65 = v11.useCallback(function(_, v64) --[[ Line: 121 ]]
-        -- upvalues: l_ControlState_0 (ref), v62 (copy), l_Theme_0 (copy), v51 (copy)
-        if v64 == l_ControlState_0.Pressed then
-            v62(l_Theme_0.BackgroundOnPress);
-            return;
-        elseif v64 == l_ControlState_0.Hover then
-            v62(l_Theme_0.BackgroundOnHover);
-            return;
-        else
-            v62(v51);
-            return;
-        end;
-    end);
-    local v66 = v11.useCallback(function() --[[ Line: 131 ]]
-        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v24 (ref), l_GuiService_0 (ref), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (ref), v47 (copy)
-        if l_FFlagEnableConsoleExpControls_0 then
-            v24:disableFocusNav();
-            l_GuiService_0.SelectedCoreObject = nil;
-            v24:setShortcutBar(nil);
-            if l_FFlagVirtualCursorTopbarAlwaysVisible_0 then
-                v24:selectedItem():set(nil);
-            end;
-            v47.activated();
-            return;
-        else
-            v47.activated();
-            return;
-        end;
-    end, {
-        v47.id
-    });
-    local v68 = v11.createElement(v11.Fragment, nil, {
-        UIPadding = v11.createElement("UIPadding", {
-            PaddingLeft = UDim.new(0, v54), 
-            PaddingRight = UDim.new(0, v55)
-        }), 
-        UIListLayout = v11.createElement("UIListLayout", {
-            FillDirection = Enum.FillDirection.Horizontal, 
-            HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-            VerticalAlignment = Enum.VerticalAlignment.Center, 
-            Padding = UDim.new(0, v57)
-        }), 
-        IconHost = v11.createElement(v41, {
-            integration = v47, 
-            disableButtonBehaviors = true
-        }), 
-        StyledTextLabel = v11.createElement(l_StyledTextLabel_0, {
-            size = UDim2.new(1, -v52 - v54 - v55, 1, 0), 
-            lineHeight = 1, 
-            fontStyle = v56, 
-            colorStyle = if v59 then {
-                Color = l_Theme_0.TextEmphasis.Color, 
-                Transparency = v59:map(function(v67) --[[ Line: 173 ]]
-                    return 1 - v67;
-                end)
-            } else l_Theme_0.TextEmphasis, 
-            text = v47.integration.label, 
-            textTruncate = Enum.TextTruncate.AtEnd, 
-            textXAlignment = Enum.TextXAlignment.Left, 
-            fluidSizing = true, 
-            richText = true
-        })
-    });
-    local v69 = (not l_isInExperienceUIVREnabled_0 or l_InExperienceUIVRIXP_0:isSpatialUIScalingFixEnabled()) and 1 or v40.getInstance():getAdditionalCameraScaleIfNeeded();
-    return v11.createElement(l_Interactable_0, {
-        Size = UDim2.new(1, 0, 0, v53 * v69), 
-        BorderSizePixel = 0, 
-        BackgroundTransparency = v61:map(function(v70) --[[ Line: 191 ]]
-            return v70.Transparency;
-        end), 
-        BackgroundColor3 = v61:map(function(v71) --[[ Line: 194 ]]
-            return v71.Color;
-        end), 
-        SelectionImageObject = l_useCursor_0(l_RoundedSlot_0), 
-        [v11.Event.Activated] = v66, 
-        LayoutOrder = v47.order, 
-        onStateChanged = v65, 
-        NextSelectionLeft = if l_FFlagEnableConsoleExpControls_0 then v60.menuIconRef else nil
-    }, {
-        UICorner = v11.createElement("UICorner", {
-            CornerRadius = UDim.new(0, v58)
-        }), 
-        RowLabel = if v36 then v11.createElement("Frame", {
-            Size = UDim2.new(1, 0, 1, 0), 
-            BorderSizePixel = 0, 
-            BackgroundTransparency = 1, 
-            LayoutOrder = v47.order
-        }, {
-            v68
-        }) else v68
-    });
-end;
-isLeft = function(v72) --[[ Line: 219 ]] --[[ Name: isLeft ]]
-    return v72 == Enum.HorizontalAlignment.Left;
-end;
-SubMenu = function(v73) --[[ Line: 223 ]] --[[ Name: SubMenu ]]
-    -- upvalues: l_useStyle_0 (copy), v11 (copy), v33 (copy), v26 (copy), v34 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), l_GuiService_0 (copy), v24 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_UserInputService_0 (copy), v13 (copy), v7 (copy), l_IXPServiceWrapper_0 (copy), v8 (copy), l_UserGameSettings_0 (copy), v35 (copy), l_isInExperienceUIVREnabled_0 (copy), l_InExperienceUIVRIXP_0 (copy), v40 (ref), l_isSpatial_0 (copy), l_VerticalScrollView_0 (copy), l_ScrollBarType_0 (copy)
-    local v74 = l_useStyle_0();
-    local v75 = nil;
-    local l_Theme_1 = v74.Theme;
-    local v77 = v11.useRef(nil);
-    local v78 = v33(v26.screenSize);
-    local v79 = v34();
-    local v80 = nil;
-    local v81 = nil;
-    local v82 = nil;
-    local v83 = nil;
-    local v84 = nil;
-    local v85 = nil;
-    if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v75 = l_UnibarStyle_0.use();
-        v80 = v75.UNIBAR_LEFT_MARGIN;
-        v81 = v75.ICON_CELL_WIDTH;
-        v82 = v75.UNIBAR_END_PADDING;
-        v83 = v75.SUB_MENU_ROW_HEIGHT;
-        v84 = v75.SUBMENU_CORNER_RADIUS;
-        v85 = v75.SUBMENU_BOTTOM_PADDING;
-    else
-        v80 = v27.UNIBAR_LEFT_MARGIN;
-        v81 = v27.ICON_CELL_WIDTH;
-        v82 = v27.UNIBAR_END_PADDING;
-        v83 = v27.SUB_MENU_ROW_HEIGHT;
-        v84 = v27.SUBMENU_CORNER_RADIUS;
-        v85 = v27.SUBMENU_BOTTOM_PADDING;
-    end;
-    local v86 = v83 * 0.5;
-    v11.useEffect(function() --[[ Line: 253 ]]
-        -- upvalues: v77 (copy), l_GuiService_0 (ref), v24 (ref), l_FFlagEnableConsoleExpControls_0 (ref), l_UserInputService_0 (ref), v13 (ref)
-        local function _() --[[ Line: 254 ]] --[[ Name: moveLeft ]]
-            -- upvalues: v77 (ref), l_GuiService_0 (ref), v24 (ref)
-            if v77.current and v77.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
-                v24:setSelectedByOffset(-1);
-            end;
-        end;
-        local function _() --[[ Line: 261 ]] --[[ Name: moveRight ]]
-            -- upvalues: v77 (ref), l_GuiService_0 (ref), v24 (ref)
-            if v77.current and v77.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
-                v24:setSelectedByOffset(1);
-            end;
-        end;
-        local v89 = nil;
-        if l_FFlagEnableConsoleExpControls_0 then
-            v89 = l_UserInputService_0.InputChanged:Connect(function(_) --[[ Line: 272 ]]
-                -- upvalues: l_UserInputService_0 (ref), v13 (ref), v77 (ref), l_GuiService_0 (ref), v24 (ref)
-                for _, v92 in (l_UserInputService_0:GetGamepadState(Enum.UserInputType.Gamepad1)) do
-                    if v92.KeyCode == Enum.KeyCode.Thumbstick1 then
-                        local l_X_0 = v13.normalizeStickByDeadzone(Vector2.new(v92.Position.X, v92.Position.Y)).X;
-                        if l_X_0 < -0.5 then
-                            if v77.current and v77.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
-                                v24:setSelectedByOffset(-1);
-                            end;
-                        elseif l_X_0 > 0.5 and v77.current and v77.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
-                            v24:setSelectedByOffset(1);
-                        end;
-                    end;
-                end;
-            end);
-        end;
-        local v96 = l_UserInputService_0.InputBegan:Connect(function(v94) --[[ Line: 294 ]]
-            -- upvalues: v77 (ref), l_GuiService_0 (ref), v24 (ref)
-            local l_KeyCode_0 = v94.KeyCode;
-            if l_KeyCode_0 == Enum.KeyCode.Left or l_KeyCode_0 == Enum.KeyCode.DPadLeft then
-                if v77.current and v77.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
-                    v24:setSelectedByOffset(-1);
-                    return;
-                end;
-            elseif (l_KeyCode_0 == Enum.KeyCode.Right or l_KeyCode_0 == Enum.KeyCode.DPadRight) and v77.current and v77.current:IsAncestorOf(l_GuiService_0.SelectedCoreObject) then
-                v24:setSelectedByOffset(1);
-            end;
-        end);
-        return function() --[[ Line: 303 ]]
-            -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v89 (ref), v96 (copy)
-            if l_FFlagEnableConsoleExpControls_0 then
-                v89:Disconnect();
-            end;
-            v96:Disconnect();
-        end;
-    end, {});
-    if v7 then
-        v11.useEffect(function() --[[ Line: 313 ]]
-            -- upvalues: l_IXPServiceWrapper_0 (ref), v8 (ref)
-            l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(v8);
-        end, {});
-    end;
-    local v97 = v79 + v81;
-    local v98 = if v73 and v73.items then v83 * #v73.items else 0;
-    local v99 = math.min(v78.Y - v97, v98);
-    if v78.Y - v97 < v98 then
-        local v100 = math.floor((v78.Y - v97) / v83);
-        v99 = if v83 * v100 + v86 <= v78.Y - v97 then v83 * v100 + v86 else v83 * v100 - v86;
-    end;
-    local v102 = {
-        UIListLayout = v11.createElement("UIListLayout", {
-            FillDirection = Enum.FillDirection.Vertical, 
-            HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-            VerticalAlignment = Enum.VerticalAlignment.Top, 
-            SortOrder = Enum.SortOrder.LayoutOrder
-        }), 
-        UISizeConstraint = v11.createElement("UISizeConstraint", {
-            MinSize = if not l_UserGameSettings_0.ReducedMotion and v73.menuTransition then v73.menuTransition:map(function(v101) --[[ Line: 341 ]]
-                -- upvalues: v99 (ref)
-                return Vector2.new(0, v99 * v101);
-            end) else Vector2.new(0, v99)
-        }), 
-        BottomPadding = v11.createElement("Frame", {
-            Size = UDim2.new(0, 0, 0, v85), 
-            BackgroundTransparency = 1, 
-            LayoutOrder = 10000
-        })
-    };
-    for _, v104 in v73.items do
-        v102[v104.id] = v11.createElement(MenuRow, v104);
-    end;
-    local v105 = v35(v24:orderAlignment(), isLeft);
-    local v106 = v74.Theme.BackgroundUIContrast.Transparency * v74.Settings.PreferredTransparency;
-    local v107 = (not l_isInExperienceUIVREnabled_0 or l_InExperienceUIVRIXP_0:isSpatialUIScalingFixEnabled()) and 1 or v40.getInstance():getAdditionalCameraScaleIfNeeded();
-    local v108 = nil;
-    v108 = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then Vector2.new(0, 1) else if v105 then Vector2.zero else Vector2.new(1, 0);
-    return v11.createElement("Frame", {
-        Size = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then UDim2.new(1, 0, 0, v98 * v107) else UDim2.new(0, v81 * 4 + v80 + v82 * 2, 0, 0), 
-        AnchorPoint = v108, 
-        Position = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then UDim2.new(0, 0, 1, 0) else UDim2.new(0, -v79 - 2 + v80, 0, 0), 
-        BackgroundColor3 = l_Theme_1.BackgroundUIContrast.Color, 
-        BackgroundTransparency = if v73.menuTransition then v73.menuTransition:map(function(v109) --[[ Line: 379 ]]
-            -- upvalues: v106 (copy)
-            return v106 + (1 - v106) * (1 - v109);
-        end) else v106, 
-        AutomaticSize = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then nil else Enum.AutomaticSize.Y, 
-        ref = v77, 
-        SelectionGroup = l_FFlagEnableConsoleExpControls_0 and true or nil, 
-        SelectionBehaviorDown = if l_FFlagEnableConsoleExpControls_0 then Enum.SelectionBehavior.Stop else nil
-    }, {
-        UICorner = v11.createElement("UICorner", {
-            CornerRadius = UDim.new(0, v84)
-        }), 
-        ScrollingFrame = v11.createElement(l_VerticalScrollView_0, {
-            size = UDim2.new(1, 0, 1, 0), 
-            canvasSizeY = UDim.new(0, v98), 
-            selectable = false, 
-            scrollBarType = l_ScrollBarType_0.Compact
-        }, v102)
-    });
-end;
-return function(v110) --[[ Line: 404 ]]
-    -- upvalues: v11 (copy), v33 (copy), v24 (copy), v44 (copy), v32 (copy), v20 (copy), v45 (ref), v46 (ref), v27 (copy), l_UserInputService_0 (copy), v43 (ref), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), l_InExperienceUIVRIXP_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), v29 (copy)
-    local v111 = {};
-    local v112 = v11.useRef(nil);
-    local v113 = v11.useRef(nil);
-    local v114 = v11.useRef(nil);
-    local v115 = v33(v24:currentSubMenu());
-    local _, v117 = v11.useState(v44.Closed);
-    local v118 = v32();
-    local v119 = {};
-    local v121, v122 = v20.useAnimatedBinding(v44.Closed, function(v120) --[[ Line: 417 ]]
-        -- upvalues: v117 (copy)
-        v117(v120);
-    end);
-    v11.useEffect(function() --[[ Line: 422 ]]
-        -- upvalues: v45 (ref), v119 (ref), v46 (ref), v115 (copy), v117 (copy), v44 (ref), v122 (copy), v20 (ref), v27 (ref), v114 (copy), l_UserInputService_0 (ref), v43 (ref), v113 (copy), v24 (ref), v112 (copy), l_isInExperienceUIVREnabled_0 (ref), l_isSpatial_0 (ref), l_InExperienceUIVRIXP_0 (ref)
-        v45 = v119;
-        v46 = v115;
-        if v115 then
-            v117(v44.Closed);
-            v122(v20.spring(v44.Open, v27.MENU_ANIMATION_SPRING));
-            v114.current = l_UserInputService_0.TouchStarted:Connect(function(v123) --[[ Line: 430 ]]
-                -- upvalues: v43 (ref)
-                v43 = Vector2.new(v123.Position.X, v123.Position.Y);
-            end);
-            v113.current = l_UserInputService_0.TouchTap:Connect(function(v124) --[[ Line: 434 ]]
-                -- upvalues: v43 (ref), v24 (ref)
-                if v124[1] - v43 ~= Vector2.zero then
-                    return;
-                else
-                    local v125 = v24:currentSubMenu():get();
-                    if v125 then
-                        v24:toggleSubMenu(v125);
-                    end;
-                    return;
-                end;
-            end);
-            v112.current = l_UserInputService_0.InputEnded:Connect(function(v126, _) --[[ Line: 445 ]]
-                -- upvalues: l_isInExperienceUIVREnabled_0 (ref), l_isSpatial_0 (ref), l_InExperienceUIVRIXP_0 (ref), v24 (ref)
-                if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() and not l_InExperienceUIVRIXP_0:isMovePanelToCenter() then
-                    return;
-                else
-                    local v128 = v126.UserInputType == Enum.UserInputType.MouseButton1;
-                    local v129 = v24:currentSubMenu():get();
-                    if v129 and v128 then
-                        v24:toggleSubMenu(v129);
-                    end;
-                    return;
-                end;
-            end);
-        else
-            v117(v44.Open);
-            v122(v20.spring(v44.Closed, v27.MENU_ANIMATION_SPRING));
-        end;
-        return function() --[[ Line: 466 ]]
-            -- upvalues: v112 (ref), v113 (ref), v114 (ref)
-            if v112.current then
-                v112.current:Disconnect();
-                v112.current = nil;
-            end;
-            if v113.current then
-                v113.current:Disconnect();
-                v113.current = nil;
-            end;
-            if v114.current then
-                v114.current:Disconnect();
-                v114.current = nil;
-            end;
-        end;
-    end, {
-        v115
-    });
-    if v115 and v118 then
-        for _, v131 in v118 do
-            if v115 == v131.id then
-                v119 = v131.children;
-                break;
-            end;
-        end;
-    end;
-    if #v119 > 0 then
-        v111[v115] = v11.createElement(SubMenu, {
-            items = v119, 
-            menuTransition = v121
-        });
-    elseif #v45 > 0 then
-        v111[v46] = v11.createElement(SubMenu, {
-            items = v45, 
-            menuTransition = v121
-        });
-    end;
-    return v11.createElement("Frame", {
-        Name = "SubMenuHost", 
-        Size = if l_isInExperienceUIVREnabled_0 and l_isSpatial_0() then UDim2.new(1, 0, 1, 0) else UDim2.new(0, 0, 1, 0), 
-        BorderSizePixel = 0, 
-        BackgroundTransparency = 1, 
-        ref = if l_FFlagUnibarMenuOpenSubmenu_0 then v110.subMenuHostRef else nil
-    }, v11.createElement(v29.Provider, {
-        value = v121
-    }, v111));
-end;
+local ChromeShared = script:FindFirstAncestor("ChromeShared")
+local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local FFlagEnableConsoleExpControls = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableConsoleExpControls
+local v6 = game:DefineFastFlag("AvatarSwitcherHamburgerExposure", false)
+local v7 = game:DefineFastString("AvatarSwitcherIXPLayer", "UIEcosystem.User.Migration")
+local FFlagUnibarMenuOpenSubmenu = require(script.Parent.Parent.Parent.Flags).FFlagUnibarMenuOpenSubmenu
+local Flags = require(ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = Flags.FFlagTokenizeUnibarConstantsWithStyleProvider
+local FFlagFixSpatialSubMenuSizing = Flags.FFlagFixSpatialSubMenuSizing
+local React = require(CorePackages.Packages.React)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local v14 = if not FFlagEnableConsoleExpControls then nil else require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadUtils
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
+local useStyle = UIBlox.Core.Style.useStyle
+local Interactable = UIBlox.Core.Control.Interactable
+local ControlState = UIBlox.Core.Control.Enum.ControlState
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
+local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
+local ReactOtter = require(CorePackages.Packages.ReactOtter)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
+local Foundation = require(CorePackages.Packages.Foundation)
+local useCursor = Foundation.Hooks.useCursor
+local Service = require(ChromeShared.Service)
+local Chrome = require(CorePackages.Workspace.Packages.Chrome)
+local ViewportUtil = require(ChromeShared.Service.ViewportUtil)
+local Constants = require(ChromeShared.Unibar.Constants)
+local v29 = if not FFlagEnableConsoleExpControls then nil else require(ChromeShared.Parent.Parent.TopBar.Components.MenuIconContext)
+local SubMenuContext = require(ChromeShared.Unibar.SubMenuContext)
+local UnibarStyle = Chrome.UnibarStyle
+local UserInputService = game:GetService("UserInputService")
+local useChromeMenuItems = require(ChromeShared.Hooks.useChromeMenuItems)
+local useObservableValue = require(ChromeShared.Hooks.useObservableValue)
+local useTopbarInsetHeight = require(ChromeShared.Hooks.useTopbarInsetHeight)
+local useMappedObservableValue = require(ChromeShared.Hooks.useMappedObservableValue)
+local v37 = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
+local UIManager = nil
+
+if isInExperienceUIVREnabled then
+	UIManager = require(CorePackages.Workspace.Packages.VrSpatialUi).UIManager
+end
+
+local IconHost = require(ChromeShared.Unibar.ComponentHosts.IconHost)
+local RoundedSlot = Foundation.Enums.CursorType.RoundedSlot
+local vector2 = Vector2.new(0, 0)
+local t1 = {
+	Closed = 0,
+	Open = 1
+}
+local t2 = {}
+local u47 = nil
+
+function MenuRow(p1) -- line: 85
+	-- upvalues: useStyle (copy), FFlagTokenizeUnibarConstantsWithStyleProvider (copy), UnibarStyle (copy), Constants (copy), React (copy), SubMenuContext (copy), FFlagEnableConsoleExpControls (copy), v29 (copy), ControlState (copy), Service (copy), GuiService (copy), IconHost (copy), StyledTextLabel (copy), isInExperienceUIVREnabled (copy), InExperienceUIVRIXP (copy), UIManager (ref), Interactable (copy), useCursor (copy), RoundedSlot (copy), v37 (copy)
+	local Theme = useStyle().Theme
+	local t3 = {
+		Color = Color3.new(0, 0, 0),
+		Transparency = 1
+	}
+	local ICON_SIZE, SUB_MENU_ROW_HEIGHT, SUBMENU_PADDING_LEFT, SUBMENU_PADDING_RIGHT, SUBMENU_ROW_LABEL_FONT, SUBMENU_ROW_PADDING, SUBMENU_ROW_CORNER_RADIUS
+
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		local v51 = UnibarStyle.use()
+
+		ICON_SIZE = v51.ICON_SIZE
+		SUB_MENU_ROW_HEIGHT = v51.SUB_MENU_ROW_HEIGHT
+		SUBMENU_PADDING_LEFT = v51.SUBMENU_PADDING_LEFT
+		SUBMENU_PADDING_RIGHT = v51.SUBMENU_PADDING_RIGHT
+		SUBMENU_ROW_LABEL_FONT = v51.SUBMENU_ROW_LABEL_FONT
+		SUBMENU_ROW_PADDING = v51.SUBMENU_ROW_PADDING
+		SUBMENU_ROW_CORNER_RADIUS = v51.SUBMENU_ROW_CORNER_RADIUS
+	else
+		ICON_SIZE = Constants.ICON_SIZE
+		SUB_MENU_ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
+		SUBMENU_PADDING_LEFT = Constants.SUBMENU_PADDING_LEFT
+		SUBMENU_PADDING_RIGHT = Constants.SUBMENU_PADDING_RIGHT
+		SUBMENU_ROW_LABEL_FONT = Constants.SUBMENU_ROW_LABEL_FONT
+		SUBMENU_ROW_PADDING = Constants.SUBMENU_ROW_PADDING
+		SUBMENU_ROW_CORNER_RADIUS = Constants.SUBMENU_ROW_CORNER_RADIUS
+	end
+
+	local v59 = React.useContext(SubMenuContext)
+	local v60 = if not FFlagEnableConsoleExpControls then nil else React.useContext(v29)
+	local v61, v62 = React.useBinding(t3)
+	local v63 = React.useCallback(function(_, p3) -- line: 124
+		-- upvalues: ControlState (copy), v62 (copy), Theme (copy), t3 (copy)
+		if p3 == ControlState.Pressed then
+			v62(Theme.BackgroundOnPress)
+
+			return
+		end
+
+		if p3 == ControlState.Hover then
+			v62(Theme.BackgroundOnHover)
+
+			return
+		end
+
+		v62(t3)
+	end)
+	local v64 = React.useCallback(function() -- line: 134
+		-- upvalues: FFlagEnableConsoleExpControls (copy), Service (copy), GuiService (copy), p1 (copy)
+		if FFlagEnableConsoleExpControls then
+			Service:disableFocusNav()
+			GuiService.SelectedCoreObject = nil
+			Service:setShortcutBar(nil)
+			Service:selectedItem():set(nil)
+			p1.activated()
+
+			return
+		end
+
+		p1.activated()
+	end, { p1.id })
+	local v65 = React.createElement(React.Fragment, nil, {
+		UIPadding = React.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, SUBMENU_PADDING_LEFT),
+			PaddingRight = UDim.new(0, SUBMENU_PADDING_RIGHT)
+		}),
+		UIListLayout = React.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			Padding = UDim.new(0, SUBMENU_ROW_PADDING)
+		}),
+		IconHost = React.createElement(IconHost, {
+			integration = p1,
+			disableButtonBehaviors = true
+		}),
+		StyledTextLabel = React.createElement(StyledTextLabel, {
+			size = UDim2.new(1, -ICON_SIZE - SUBMENU_PADDING_LEFT - SUBMENU_PADDING_RIGHT, 1, 0),
+			lineHeight = 1,
+			fontStyle = SUBMENU_ROW_LABEL_FONT,
+			colorStyle = if not v59 then Theme.TextEmphasis else {
+				Color = Theme.TextEmphasis.Color,
+				Transparency = v59:map(function(p4) -- line: 174
+					return 1 - p4
+				end)
+			},
+			text = p1.integration.label,
+			textTruncate = Enum.TextTruncate.AtEnd,
+			textXAlignment = Enum.TextXAlignment.Left,
+			fluidSizing = true,
+			richText = true
+		})
+	})
+	local v66 = (not isInExperienceUIVREnabled or InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()) and 1 or UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
+
+	return React.createElement(Interactable, {
+		Size = UDim2.new(1, 0, 0, SUB_MENU_ROW_HEIGHT * v66),
+		BorderSizePixel = 0,
+		BackgroundTransparency = v61:map(function(p5) -- line: 193
+			return p5.Transparency
+		end),
+		BackgroundColor3 = v61:map(function(p6) -- line: 196
+			return p6.Color
+		end),
+		SelectionImageObject = useCursor(RoundedSlot),
+		[React.Event.Activated] = v64,
+		LayoutOrder = p1.order,
+		onStateChanged = v63,
+		NextSelectionLeft = if not FFlagEnableConsoleExpControls then nil else v60.menuIconRef
+	}, {
+		UICorner = React.createElement("UICorner", {
+			CornerRadius = UDim.new(0, SUBMENU_ROW_CORNER_RADIUS)
+		}),
+		RowLabel = if not v37 then v65 else React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			LayoutOrder = p1.order
+		}, { v65 })
+	})
+end
+function isLeft(p7) -- line: 221
+	return p7 == Enum.HorizontalAlignment.Left
+end
+function SubMenu(t4: {[any]: any}) -- line: 225
+	-- upvalues: useStyle (copy), React (copy), useObservableValue (copy), ViewportUtil (copy), useTopbarInsetHeight (copy), FFlagTokenizeUnibarConstantsWithStyleProvider (copy), UnibarStyle (copy), Constants (copy), GuiService (copy), Service (copy), FFlagEnableConsoleExpControls (copy), UserInputService (copy), v14 (copy), v6 (copy), IXPServiceWrapper (copy), v7 (copy), isInExperienceUIVREnabled (copy), InExperienceUIVRIXP (copy), UIManager (ref), isSpatial (copy), FFlagFixSpatialSubMenuSizing (copy), UserGameSettings (copy), useMappedObservableValue (copy), VerticalScrollView (copy), ScrollBarType (copy)
+	local v69 = useStyle()
+	local Theme = v69.Theme
+	local v71 = React.useRef(nil)
+	local v72 = useObservableValue(ViewportUtil.screenSize)
+	local v73 = useTopbarInsetHeight()
+	local UNIBAR_LEFT_MARGIN, ICON_CELL_WIDTH, UNIBAR_END_PADDING, SUB_MENU_ROW_HEIGHT, SUBMENU_CORNER_RADIUS, SUBMENU_BOTTOM_PADDING
+
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		local v74 = UnibarStyle.use()
+
+		UNIBAR_LEFT_MARGIN = v74.UNIBAR_LEFT_MARGIN
+		ICON_CELL_WIDTH = v74.ICON_CELL_WIDTH
+		UNIBAR_END_PADDING = v74.UNIBAR_END_PADDING
+		SUB_MENU_ROW_HEIGHT = v74.SUB_MENU_ROW_HEIGHT
+		SUBMENU_CORNER_RADIUS = v74.SUBMENU_CORNER_RADIUS
+		SUBMENU_BOTTOM_PADDING = v74.SUBMENU_BOTTOM_PADDING
+	else
+		UNIBAR_LEFT_MARGIN = Constants.UNIBAR_LEFT_MARGIN
+		ICON_CELL_WIDTH = Constants.ICON_CELL_WIDTH
+		UNIBAR_END_PADDING = Constants.UNIBAR_END_PADDING
+		SUB_MENU_ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
+		SUBMENU_CORNER_RADIUS = Constants.SUBMENU_CORNER_RADIUS
+		SUBMENU_BOTTOM_PADDING = Constants.SUBMENU_BOTTOM_PADDING
+	end
+
+	local v81 = SUB_MENU_ROW_HEIGHT * 0.5
+
+	React.useEffect(function() -- line: 255
+		-- upvalues: v71 (copy), GuiService (copy), Service (copy), FFlagEnableConsoleExpControls (copy), UserInputService (copy), v14 (copy)
+		local connection = nil
+
+		if FFlagEnableConsoleExpControls then
+			connection = UserInputService.InputChanged:Connect(function(_) -- line: 274
+				-- upvalues: UserInputService (copy), v14 (copy), v71 (copy), GuiService (copy), Service (copy)
+				for _, v122 in (UserInputService:GetGamepadState(Enum.UserInputType.Gamepad1)) do
+					if v122.KeyCode == Enum.KeyCode.Thumbstick1 then
+						local X = v14.normalizeStickByDeadzone(Vector2.new(v122.Position.X, v122.Position.Y)).X
+
+						if X < -0.5 then
+							if v71.current and v71.current:IsAncestorOf(GuiService.SelectedCoreObject) then
+								Service:setSelectedByOffset(-1)
+							end
+						elseif X > 0.5 and (v71.current and v71.current:IsAncestorOf(GuiService.SelectedCoreObject)) then
+							Service:setSelectedByOffset(1)
+						end
+					end
+				end
+			end)
+		end
+
+		local connection2 = UserInputService.InputBegan:Connect(function(input) -- line: 296
+			-- upvalues: v71 (copy), GuiService (copy), Service (copy)
+			local KeyCode = input.KeyCode
+
+			if KeyCode == Enum.KeyCode.Left or KeyCode == Enum.KeyCode.DPadLeft then
+				if v71.current and v71.current:IsAncestorOf(GuiService.SelectedCoreObject) then
+					Service:setSelectedByOffset(-1)
+
+					return
+				end
+			elseif (KeyCode == Enum.KeyCode.Right or KeyCode == Enum.KeyCode.DPadRight) and (v71.current and v71.current:IsAncestorOf(GuiService.SelectedCoreObject)) then
+				Service:setSelectedByOffset(1)
+			end
+		end)
+
+		return function() -- line: 305
+			-- upvalues: FFlagEnableConsoleExpControls (copy), connection (ref), connection2 (copy)
+			if FFlagEnableConsoleExpControls then
+				connection:Disconnect()
+			end
+
+			connection2:Disconnect()
+		end
+	end, {})
+
+	if v6 then
+		React.useEffect(function() -- line: 315
+			-- upvalues: IXPServiceWrapper (copy), v7 (copy)
+			IXPServiceWrapper:LogFlagLinkedUserLayerExposure(v7)
+		end, {})
+	end
+
+	local v82 = v73 + ICON_CELL_WIDTH
+	local v83 = (not t4 or not t4.items) and 0 or SUB_MENU_ROW_HEIGHT * #t4.items
+	local v84 = v83 * ((not isInExperienceUIVREnabled or InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()) and 1 or UIManager.getInstance():getAdditionalCameraScaleIfNeeded())
+	local v85 = if not t4.panelSize then v84 else t4.panelSize.Y
+	local v86 = isInExperienceUIVREnabled and isSpatial()
+	local v87 = FFlagFixSpatialSubMenuSizing and v86
+	local u88 = if not v87 then math.min(v72.Y - v82, v83) else math.min(v84, v85)
+
+	if not v87 and v83 > v72.Y - v82 then
+		local v89 = math.floor((v72.Y - v82) / SUB_MENU_ROW_HEIGHT)
+
+		u88 = if not (SUB_MENU_ROW_HEIGHT * v89 + v81 <= v72.Y - v82) then SUB_MENU_ROW_HEIGHT * v89 - v81 else SUB_MENU_ROW_HEIGHT * v89 + v81
+	end
+
+	local t5 = {
+		UIListLayout = React.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			SortOrder = Enum.SortOrder.LayoutOrder
+		}),
+		UISizeConstraint = React.createElement("UISizeConstraint", {
+			MinSize = if UserGameSettings.ReducedMotion or not t4.menuTransition then Vector2.new(0, u88) else t4.menuTransition:map(function(p9) -- line: 352
+				-- upvalues: u88 (ref)
+				return Vector2.new(0, u88 * p9)
+			end)
+		}),
+		BottomPadding = React.createElement("Frame", {
+			Size = UDim2.new(0, 0, 0, SUBMENU_BOTTOM_PADDING),
+			BackgroundTransparency = 1,
+			LayoutOrder = 10000
+		})
+	}
+
+	for _, v92 in t4.items do
+		t5[v92.id] = React.createElement(MenuRow, v92)
+	end
+
+	local v93 = useMappedObservableValue(Service:orderAlignment(), isLeft)
+	local v94 = v69.Theme.BackgroundUIContrast.Transparency * v69.Settings.PreferredTransparency
+	local v95 = if not v86 then if not v93 then Vector2.new(1, 0) else Vector2.zero else Vector2.new(0, 1)
+
+	return React.createElement("Frame", {
+		Size = if not v86 then UDim2.new(0, ICON_CELL_WIDTH * 4 + UNIBAR_LEFT_MARGIN + UNIBAR_END_PADDING * 2, 0, 0) else UDim2.new(1, 0, 0, if not v87 then v84 else math.min(v84, v85)),
+		AnchorPoint = v95,
+		Position = if not v86 then UDim2.new(0, -v73 - 2 + UNIBAR_LEFT_MARGIN, 0, 0) else UDim2.new(0, 0, 1, 0),
+		BackgroundColor3 = Theme.BackgroundUIContrast.Color,
+		BackgroundTransparency = if not t4.menuTransition then v94 else t4.menuTransition:map(function(p10) -- line: 392
+			-- upvalues: v94 (copy)
+			return v94 + (1 - v94) * (1 - p10)
+		end),
+		AutomaticSize = if not v86 then Enum.AutomaticSize.Y else nil,
+		ref = v71,
+		SelectionGroup = not not FFlagEnableConsoleExpControls or nil,
+		SelectionBehaviorDown = if not FFlagEnableConsoleExpControls then nil else Enum.SelectionBehavior.Stop
+	}, {
+		UICorner = React.createElement("UICorner", {
+			CornerRadius = UDim.new(0, SUBMENU_CORNER_RADIUS)
+		}),
+		ScrollingFrame = React.createElement(VerticalScrollView, {
+			size = UDim2.new(1, 0, 1, 0),
+			canvasSizeY = UDim.new(0, if not v87 then v83 else v84),
+			selectable = false,
+			scrollBarType = ScrollBarType.Compact
+		}, t5)
+	})
+end
+
+return function(t6: {[any]: any}) -- line: 418
+	-- upvalues: React (copy), useObservableValue (copy), Service (copy), t1 (copy), useChromeMenuItems (copy), ReactOtter (copy), t2 (ref), u47 (ref), Constants (copy), UserInputService (copy), vector2 (ref), isInExperienceUIVREnabled (copy), isSpatial (copy), InExperienceUIVRIXP (copy), FFlagFixSpatialSubMenuSizing (copy), FFlagUnibarMenuOpenSubmenu (copy), SubMenuContext (copy)
+	local t7 = {}
+	local v98 = React.useRef(nil)
+	local v99 = React.useRef(nil)
+	local v100 = React.useRef(nil)
+	local v101 = useObservableValue(Service:currentSubMenu())
+	local _, v103 = React.useState(t1.Closed)
+	local v104 = useChromeMenuItems()
+	local t8 = {}
+	local v106, v107 = ReactOtter.useAnimatedBinding(t1.Closed, function(p11) -- line: 431
+		-- upvalues: v103 (copy)
+		v103(p11)
+	end)
+
+	React.useEffect(function() -- line: 436
+		-- upvalues: t2 (ref), t8 (ref), u47 (ref), v101 (copy), v103 (copy), t1 (copy), v107 (copy), ReactOtter (copy), Constants (copy), v100 (copy), UserInputService (copy), vector2 (ref), v99 (copy), Service (copy), v98 (copy), isInExperienceUIVREnabled (copy), isSpatial (copy), InExperienceUIVRIXP (copy)
+		t2 = t8
+		u47 = v101
+
+		if v101 then
+			v103(t1.Closed)
+			v107(ReactOtter.spring(t1.Open, Constants.MENU_ANIMATION_SPRING))
+			v100.current = UserInputService.TouchStarted:Connect(function(p12) -- line: 444
+				-- upvalues: vector2 (ref)
+				vector2 = Vector2.new(p12.Position.X, p12.Position.Y)
+			end)
+			v99.current = UserInputService.TouchTap:Connect(function(p13) -- line: 448
+				-- upvalues: vector2 (ref), Service (copy)
+				if p13[1] - vector2 ~= Vector2.zero then
+					return
+				end
+
+				local v128 = Service:currentSubMenu():get()
+
+				if v128 then
+					Service:toggleSubMenu(v128)
+				end
+			end)
+			v98.current = UserInputService.InputEnded:Connect(function(input, _) -- line: 459
+				-- upvalues: isInExperienceUIVREnabled (copy), isSpatial (copy), InExperienceUIVRIXP (copy), Service (copy)
+				if isInExperienceUIVREnabled and (isSpatial() and not InExperienceUIVRIXP:isMovePanelToCenter()) then
+					return
+				end
+
+				local v131 = input.UserInputType == Enum.UserInputType.MouseButton1
+				local v132 = Service:currentSubMenu():get()
+
+				if v132 and v131 then
+					Service:toggleSubMenu(v132)
+				end
+			end)
+		else
+			v103(t1.Open)
+			v107(ReactOtter.spring(t1.Closed, Constants.MENU_ANIMATION_SPRING))
+		end
+
+		return function() -- line: 480
+			-- upvalues: v98 (copy), v99 (copy), v100 (copy)
+			if v98.current then
+				v98.current:Disconnect()
+				v98.current = nil
+			end
+
+			if v99.current then
+				v99.current:Disconnect()
+				v99.current = nil
+			end
+
+			if v100.current then
+				v100.current:Disconnect()
+				v100.current = nil
+			end
+		end
+	end, { v101 })
+
+	if v101 and v104 then
+		for _, v109 in v104 do
+			if v101 == v109.id then
+				t8 = v109.children
+
+				break
+			end
+		end
+	end
+
+	if #t8 > 0 then
+		t7[v101] = React.createElement(SubMenu, {
+			items = t8,
+			menuTransition = v106,
+			panelSize = if not FFlagFixSpatialSubMenuSizing then nil else t6.panelSize
+		})
+	elseif #t2 > 0 then
+		t7[u47] = React.createElement(SubMenu, {
+			items = t2,
+			menuTransition = v106,
+			panelSize = if not FFlagFixSpatialSubMenuSizing then nil else t6.panelSize
+		})
+	end
+
+	return React.createElement("Frame", {
+		Name = "SubMenuHost",
+		Size = if not isInExperienceUIVREnabled or not isSpatial() then UDim2.new(0, 0, 1, 0) else UDim2.new(1, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+		ref = if not FFlagUnibarMenuOpenSubmenu then nil else t6.subMenuHostRef
+	}, React.createElement(SubMenuContext.Provider, {
+		value = v106
+	}, t7))
+end

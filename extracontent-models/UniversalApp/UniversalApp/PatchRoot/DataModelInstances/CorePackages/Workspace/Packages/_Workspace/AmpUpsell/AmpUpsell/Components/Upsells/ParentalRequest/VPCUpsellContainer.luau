@@ -1,278 +1,258 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AmpUpsell");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_script_FirstAncestor_0.Common.VPCApiProvider);
-local v4 = require(l_script_FirstAncestor_0.Common.AmpApiProvider);
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local l_vpcConfirmationScreenStrings_0 = require(l_script_FirstAncestor_0.Common.LocalizationStrings).vpcConfirmationScreenStrings;
-local l_vpcUpsellGatherEmailStrings_0 = require(l_script_FirstAncestor_0.Common.LocalizationStrings).vpcUpsellGatherEmailStrings;
-local v8 = require(script.Parent.VPCErrorScreen);
-local v9 = require(script.Parent.VPCConfirmationScreen);
-local v10 = require(script.Parent.VPCNewParentUpsell);
-local l_isStringEmail_0 = require(l_Parent_0.AuthCommon).Utils.isStringEmail;
-local v12 = require(l_script_FirstAncestor_0.Common.AppScreens);
-local v13 = require(l_script_FirstAncestor_0.Flags.GetFStringPrivacyPolicyLink);
-local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
-local v15 = require(l_script_FirstAncestor_0.Common.Enums);
-local l_ActionTypeEnum_0 = v15.ActionTypeEnum;
-local l_VPCStepEnum_0 = v15.VPCStepEnum;
-local l_AccessResponseEnum_0 = v15.AccessResponseEnum;
-local v19 = require(l_Parent_0.AuthAnalytics);
-local l_authMsgShown_0 = v19.Events.authMsgShown;
-local l_authButtonClick_0 = v19.Events.authButtonClick;
-local l_authFormInteraction_0 = v19.Events.authFormInteraction;
-local l_vpcEventConstants_0 = require(l_script_FirstAncestor_0.Common.EventConstants).vpcEventConstants;
-local l_useAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).useAppPolicy;
-local l_useRoactService_0 = require(l_Parent_0.RobloxAppHooks).useRoactService;
-local v26 = require(l_Parent_0.ArgCheck);
-local l_AppLinking_0 = require(l_Parent_0.RoactServiceTags).AppLinking;
-local v28 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableExternalBrowserForVPCPrivacyPolicy);
-local v29 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableRoactNetworkingVPCUpsell);
-local l_RoactNetworking_0 = require(l_Parent_0.RoactServiceTags).RoactNetworking;
-return function(v31) --[[ Line: 49 ]] --[[ Name: VPCUpsellContainer ]]
-    -- upvalues: v3 (copy), v4 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), v28 (copy), l_useAppPolicy_0 (copy), l_AppLinking_0 (copy), v2 (copy), l_ActionTypeEnum_0 (copy), l_VPCStepEnum_0 (copy), l_useLocalization_0 (copy), l_vpcUpsellGatherEmailStrings_0 (copy), l_useNavigation_0 (copy), v26 (copy), v13 (copy), v12 (copy), l_isStringEmail_0 (copy), v29 (copy), l_AccessResponseEnum_0 (copy), l_authMsgShown_0 (copy), l_vpcEventConstants_0 (copy), v9 (copy), l_vpcConfirmationScreenStrings_0 (copy), l_authButtonClick_0 (copy), v10 (copy), l_authFormInteraction_0 (copy), v8 (copy)
-    local l_onCancel_0 = v31.onCancel;
-    local l_onSuccess_0 = v31.onSuccess;
-    local v34 = if v31.vpcApiProvider then v31.vpcApiProvider else v3;
-    local v35 = if v31.ampApiProvider then v31.ampApiProvider else v4;
-    local l_recourseAction_0 = v31.recourseAction;
-    local l_recourseData_0 = v31.recourseData;
-    local v38 = if v31.entryPointEventCtx then v31.entryPointEventCtx else "";
-    local l_parentConsentTypes_0 = v31.parentConsentTypes;
-    local v40 = if v31.disablePortal then v31.disablePortal else false;
-    local v41 = l_useRoactService_0(l_RoactNetworking_0);
-    local v42 = false;
-    local v43 = nil;
-    if v28() then
-        v42 = l_useAppPolicy_0(function(v44) --[[ Line: 65 ]]
-            return v44.shouldUseExternalBrowserForDisclaimerLinks();
-        end);
-        v43 = l_useRoactService_0(l_AppLinking_0);
-    end;
-    local v45, v46 = v2.useState(if l_recourseAction_0 == l_ActionTypeEnum_0.ParentLink then l_VPCStepEnum_0.NewParentLoading else l_VPCStepEnum_0.AlreadyLinkedSendRequest);
-    local v47, v48 = v2.useState("Unknown");
-    local v49, v50 = v2.useState({});
-    local v51, v52 = v2.useState(true);
-    local v53 = l_useLocalization_0(l_vpcUpsellGatherEmailStrings_0);
-    local v54, v55 = v2.useState(false);
-    local v56, v57 = v2.useState("");
-    local v58, v59 = v2.useState("");
-    local v60 = l_useNavigation_0();
-    local function _(v61, v62) --[[ Line: 87 ]] --[[ Name: openExternalBrowser ]]
-        -- upvalues: v26 (ref)
-        v26.isNotNil(v61, "linking");
-        v26.isType(v62, "string", "url");
-        v61:openURL(v62);
-    end;
-    local function v66() --[[ Line: 94 ]]
-        -- upvalues: v28 (ref), v42 (ref), v43 (ref), v13 (ref), v26 (ref), v60 (copy), v12 (ref), v53 (copy)
-        if v28() and v42 then
-            local l_v43_0 = v43;
-            local v65 = v13();
-            v26.isNotNil(l_v43_0, "linking");
-            v26.isType(v65, "string", "url");
-            l_v43_0:openURL(v65);
-            return;
-        else
-            v60.navigate(v12.GenericWebPage, {
-                detail = v13(), 
-                extraProps = {
-                    title = v53.privacyLinkText, 
-                    transitionAnimation = "SlideInFromBottom"
-                }
-            });
-            return;
-        end;
-    end;
-    local function v68(v67) --[[ Line: 108 ]] --[[ Name: handleEmailInput ]]
-        -- upvalues: v57 (copy), l_isStringEmail_0 (ref), v55 (copy), v59 (copy), v53 (copy)
-        v57(v67);
-        if l_isStringEmail_0(v67) then
-            v55(true);
-            v59("");
-            return;
-        else
-            v55(false);
-            if v67 == "" then
-                v59("");
-                return;
-            else
-                v59(v53.errorText);
-                return;
-            end;
-        end;
-    end;
-    local v69, v70 = v2.useState(0);
-    local l_onRetryAmp_0 = v31.onRetryAmp;
-    local function v72() --[[ Line: 126 ]] --[[ Name: onRetryVPC ]]
-        -- upvalues: v70 (copy), v69 (copy), v50 (copy), v48 (copy), v57 (copy), l_isStringEmail_0 (ref), v55 (copy), v59 (copy), v46 (copy), l_recourseAction_0 (copy), l_ActionTypeEnum_0 (ref), l_VPCStepEnum_0 (ref)
-        v70(v69 + 1);
-        v50({});
-        v48("Unknown");
-        v57("");
-        if l_isStringEmail_0("") then
-            v55(true);
-            v59("");
-        else
-            v55(false);
-            v59("");
-        end;
-        v46(if l_recourseAction_0 == l_ActionTypeEnum_0.ParentLink then l_VPCStepEnum_0.NewParentCollectEmail else l_VPCStepEnum_0.AlreadyLinkedSendRequest);
-    end;
-    local function v81() --[[ Line: 138 ]] --[[ Name: getLinkedParentEmailsAndSendRequestToAllParents ]]
-        -- upvalues: v29 (ref), v34 (copy), v41 (copy), v50 (copy), l_parentConsentTypes_0 (copy), l_recourseData_0 (copy), v46 (copy), l_VPCStepEnum_0 (ref), v48 (copy)
-        if v29() then
-            v34.getLinkedParentEmails(v41):andThen(function(v73) --[[ Line: 142 ]]
-                -- upvalues: v50 (ref)
-                v50(v73.parentEmails);
-            end):catch(function(_) --[[ Line: 145 ]]
+local AmpUpsell = script:FindFirstAncestor("AmpUpsell")
+local AmpUpsellParent = AmpUpsell.Parent
+local React = require(AmpUpsellParent.React)
+local VPCApiProvider = require(AmpUpsell.Common.VPCApiProvider)
+local AmpApiProvider = require(AmpUpsell.Common.AmpApiProvider)
+local useLocalization = require(AmpUpsellParent.Localization).Hooks.useLocalization
+local vpcConfirmationScreenStrings = require(AmpUpsell.Common.LocalizationStrings).vpcConfirmationScreenStrings
+local vpcUpsellGatherEmailStrings = require(AmpUpsell.Common.LocalizationStrings).vpcUpsellGatherEmailStrings
+local VPCErrorScreen = require(script.Parent.VPCErrorScreen)
+local VPCConfirmationScreen = require(script.Parent.VPCConfirmationScreen)
+local VPCNewParentUpsell = require(script.Parent.VPCNewParentUpsell)
+local isStringEmail = require(AmpUpsellParent.AuthCommon).Utils.isStringEmail
+local AppScreens = require(AmpUpsell.Common.AppScreens)
+local GetFStringPrivacyPolicyLink = require(AmpUpsell.Flags.GetFStringPrivacyPolicyLink)
+local useNavigation = require(AmpUpsellParent.Navigation).useNavigation
+local Enums = require(AmpUpsell.Common.Enums)
+local ActionTypeEnum = Enums.ActionTypeEnum
+local VPCStepEnum = Enums.VPCStepEnum
+local AccessResponseEnum = Enums.AccessResponseEnum
+local AuthAnalytics = require(AmpUpsellParent.AuthAnalytics)
+local authMsgShown = AuthAnalytics.Events.authMsgShown
+local authButtonClick = AuthAnalytics.Events.authButtonClick
+local authFormInteraction = AuthAnalytics.Events.authFormInteraction
+local vpcEventConstants = require(AmpUpsell.Common.EventConstants).vpcEventConstants
+local useAppPolicy = require(AmpUpsellParent.UniversalAppPolicy).useAppPolicy
+local useRoactService = require(AmpUpsellParent.RobloxAppHooks).useRoactService
+local ArgCheck = require(AmpUpsellParent.ArgCheck)
+local AppLinking = require(AmpUpsellParent.RoactServiceTags).AppLinking
+local GetFFlagEnableExternalBrowserForVPCPrivacyPolicy = require(AmpUpsell.Flags.GetFFlagEnableExternalBrowserForVPCPrivacyPolicy)
+local RoactNetworking = require(AmpUpsellParent.RoactServiceTags).RoactNetworking
 
-            end);
-            v34.sendRequestToAllParents(v41, l_parentConsentTypes_0, l_recourseData_0):andThen(function(_) --[[ Line: 149 ]]
-                -- upvalues: v46 (ref), l_VPCStepEnum_0 (ref)
-                v46(l_VPCStepEnum_0.RequestSent);
-            end):catch(function(v76) --[[ Line: 152 ]]
-                -- upvalues: v48 (ref), v46 (ref), l_VPCStepEnum_0 (ref)
-                v48(v76.code);
-                v46(l_VPCStepEnum_0.Error);
-            end);
-            return;
-        else
-            v34.getLinkedParentEmailsLegacy():andThen(function(v77) --[[ Line: 159 ]]
-                -- upvalues: v50 (ref)
-                v50(v77.parentEmails);
-            end):catch(function(_) --[[ Line: 162 ]]
+return function(t1: {[any]: any}) --[[ VPCUpsellContainer ]] -- line: 48
+	-- upvalues: VPCApiProvider (copy), AmpApiProvider (copy), useRoactService (copy), RoactNetworking (copy), GetFFlagEnableExternalBrowserForVPCPrivacyPolicy (copy), useAppPolicy (copy), AppLinking (copy), React (copy), ActionTypeEnum (copy), VPCStepEnum (copy), useLocalization (copy), vpcUpsellGatherEmailStrings (copy), useNavigation (copy), ArgCheck (copy), GetFStringPrivacyPolicyLink (copy), AppScreens (copy), isStringEmail (copy), AccessResponseEnum (copy), authMsgShown (copy), vpcEventConstants (copy), VPCConfirmationScreen (copy), vpcConfirmationScreenStrings (copy), authButtonClick (copy), VPCNewParentUpsell (copy), authFormInteraction (copy), VPCErrorScreen (copy)
+	local onCancel = t1.onCancel
+	local onSuccess = t1.onSuccess
+	local v34 = if not t1.vpcApiProvider then VPCApiProvider else t1.vpcApiProvider
+	local v35 = if not t1.ampApiProvider then AmpApiProvider else t1.ampApiProvider
+	local recourseAction = t1.recourseAction
+	local recourseData = t1.recourseData
+	local v38 = not t1.entryPointEventCtx and "" or t1.entryPointEventCtx
+	local parentConsentTypes = t1.parentConsentTypes
+	local v40 = not not t1.disablePortal and t1.disablePortal
+	local v41 = useRoactService(RoactNetworking)
+	local u42 = false
+	local u43 = nil
 
-            end);
-            v34.sendRequestToAllParentsLegacy(l_parentConsentTypes_0, l_recourseData_0):andThen(function(_) --[[ Line: 166 ]]
-                -- upvalues: v46 (ref), l_VPCStepEnum_0 (ref)
-                v46(l_VPCStepEnum_0.RequestSent);
-            end):catch(function(v80) --[[ Line: 169 ]]
-                -- upvalues: v48 (ref), v46 (ref), l_VPCStepEnum_0 (ref)
-                v48(v80.code);
-                v46(l_VPCStepEnum_0.Error);
-            end);
-            return;
-        end;
-    end;
-    local function v87(v82) --[[ Line: 176 ]] --[[ Name: sendRequestToNewParent ]]
-        -- upvalues: v29 (ref), v34 (copy), v41 (copy), l_parentConsentTypes_0 (copy), l_recourseData_0 (copy), v46 (copy), l_VPCStepEnum_0 (ref), v48 (copy)
-        if v29() then
-            v34.sendRequestToNewParent(v41, v82, l_parentConsentTypes_0, l_recourseData_0):andThen(function(_) --[[ Line: 180 ]]
-                -- upvalues: v46 (ref), l_VPCStepEnum_0 (ref)
-                v46(l_VPCStepEnum_0.RequestSent);
-            end):catch(function(v84) --[[ Line: 183 ]]
-                -- upvalues: v48 (ref), v46 (ref), l_VPCStepEnum_0 (ref)
-                v48(v84.code);
-                v46(l_VPCStepEnum_0.Error);
-            end);
-            return;
-        else
-            v34.sendRequestToNewParentLegacy(v82, l_parentConsentTypes_0, l_recourseData_0):andThen(function(_) --[[ Line: 190 ]]
-                -- upvalues: v46 (ref), l_VPCStepEnum_0 (ref)
-                v46(l_VPCStepEnum_0.RequestSent);
-            end):catch(function(v86) --[[ Line: 193 ]]
-                -- upvalues: v48 (ref), v46 (ref), l_VPCStepEnum_0 (ref)
-                v48(v86.code);
-                v46(l_VPCStepEnum_0.Error);
-            end);
-            return;
-        end;
-    end;
-    local function v90() --[[ Line: 200 ]] --[[ Name: getIsChildSubjectToParentalControls ]]
-        -- upvalues: v35 (copy), l_AccessResponseEnum_0 (ref), v52 (copy), v46 (copy), l_VPCStepEnum_0 (ref)
-        local v88 = v35.getFeatureAccess({
-            "IsChildSubjectToParentalControls"
-        });
-        local v89 = true;
-        if v88.featureAccessList and v88.featureAccessList[1] then
-            v89 = v88.featureAccessList[1].access ~= l_AccessResponseEnum_0.Denied;
-        end;
-        v52(v89);
-        v46(l_VPCStepEnum_0.NewParentCollectEmail);
-    end;
-    v2.useEffect(function() --[[ Line: 210 ]]
-        -- upvalues: l_recourseAction_0 (copy), l_ActionTypeEnum_0 (ref), v81 (copy), v90 (copy)
-        if l_recourseAction_0 == l_ActionTypeEnum_0.ParentConsent then
-            v81();
-            return;
-        else
-            if l_recourseAction_0 == l_ActionTypeEnum_0.ParentLink then
-                v90();
-            end;
-            return;
-        end;
-    end, {
-        v69
-    });
-    if v45 == l_VPCStepEnum_0.RequestSent then
-        l_authMsgShown_0(v38, "", l_vpcEventConstants_0.confirmationPageLoadField, "");
-        return v2.createElement(v9, {
-            messageStrings = l_vpcConfirmationScreenStrings_0, 
-            parentEmails = v49, 
-            onAck = function() --[[ Line: 223 ]] --[[ Name: onAck ]]
-                -- upvalues: l_authButtonClick_0 (ref), v38 (copy), l_vpcEventConstants_0 (ref), l_onSuccess_0 (copy)
-                l_authButtonClick_0(v38, l_vpcEventConstants_0.confirmationPageButton);
-                l_onSuccess_0();
-            end
-        });
-    elseif v45 == l_VPCStepEnum_0.NewParentCollectEmail then
-        l_authMsgShown_0(v38, "", l_vpcEventConstants_0.collectEmailPageLoadField, "");
-        return v2.createElement(v10, {
-            onCancel = l_onCancel_0, 
-            onCollectEmailAndSendRequest = function(v91) --[[ Line: 232 ]] --[[ Name: onCollectEmailAndSendRequest ]]
-                -- upvalues: l_authButtonClick_0 (ref), v38 (copy), l_vpcEventConstants_0 (ref), v50 (copy), v46 (copy), l_VPCStepEnum_0 (ref), v87 (copy)
-                l_authButtonClick_0(v38, l_vpcEventConstants_0.collectEmailPageSubmitButton);
-                v50({
-                    v91
-                });
-                v46(l_VPCStepEnum_0.NewParentSendRequest);
-                v87(v91);
-            end, 
-            onTextChange = function(v92) --[[ Line: 238 ]] --[[ Name: onTextChange ]]
-                -- upvalues: l_authFormInteraction_0 (ref), v38 (copy), l_vpcEventConstants_0 (ref), v68 (copy)
-                l_authFormInteraction_0(v38, l_vpcEventConstants_0.collectEmailPageInteractFormField);
-                v68(v92);
-            end, 
-            canSendRequest = v54, 
-            textInput = v56, 
-            openPrivacyPolicyLink = v66, 
-            errorText = v58, 
-            messageStrings = l_vpcUpsellGatherEmailStrings_0, 
-            isChildSubjectToParentalControls = v51, 
-            disablePortal = v40
-        });
-    elseif v45 == l_VPCStepEnum_0.AlreadyLinkedSendRequest then
-        return nil;
-    elseif v45 == l_VPCStepEnum_0.NewParentSendRequest then
-        return nil;
-    elseif v45 == l_VPCStepEnum_0.NewParentLoading then
-        return nil;
-    else
-        l_authMsgShown_0(v38, "", l_vpcEventConstants_0.errorPageLoadField, v47);
-        return v2.createElement(v8, {
-            errorCode = v47, 
-            onRetryAmp = function() --[[ Line: 260 ]] --[[ Name: onRetryAmp ]]
-                -- upvalues: l_authButtonClick_0 (ref), v38 (copy), l_vpcEventConstants_0 (ref), l_onRetryAmp_0 (copy)
-                l_authButtonClick_0(v38, l_vpcEventConstants_0.errorPageRetryButton);
-                l_onRetryAmp_0();
-            end, 
-            onRetryVPC = function() --[[ Line: 264 ]] --[[ Name: onRetryVPC ]]
-                -- upvalues: l_authButtonClick_0 (ref), v38 (copy), l_vpcEventConstants_0 (ref), v72 (copy)
-                l_authButtonClick_0(v38, l_vpcEventConstants_0.errorPageRetryButton);
-                v72();
-            end, 
-            onCancel = function() --[[ Line: 268 ]] --[[ Name: onCancel ]]
-                -- upvalues: l_authButtonClick_0 (ref), v38 (copy), l_vpcEventConstants_0 (ref), l_onCancel_0 (copy)
-                l_authButtonClick_0(v38, l_vpcEventConstants_0.errorPageCancelButton);
-                l_onCancel_0();
-            end, 
-            onSuccess = function() --[[ Line: 272 ]] --[[ Name: onSuccess ]]
-                -- upvalues: l_authButtonClick_0 (ref), v38 (copy), l_vpcEventConstants_0 (ref), l_onSuccess_0 (copy)
-                l_authButtonClick_0(v38, l_vpcEventConstants_0.confirmationPageButton);
-                l_onSuccess_0();
-            end, 
-            retryNum = v69
-        });
-    end;
-end;
+	if GetFFlagEnableExternalBrowserForVPCPrivacyPolicy() then
+		u42 = useAppPolicy(function(p1) -- line: 64
+			return p1.shouldUseExternalBrowserForDisclaimerLinks()
+		end)
+		u43 = useRoactService(AppLinking)
+	end
+
+	local v44, v45 = React.useState(if recourseAction ~= ActionTypeEnum.ParentLink then VPCStepEnum.AlreadyLinkedSendRequest else VPCStepEnum.NewParentLoading)
+	local v46, v47 = React.useState("Unknown")
+	local v48, v49 = React.useState({})
+	local v50, v51 = React.useState(true)
+	local v52 = useLocalization(vpcUpsellGatherEmailStrings)
+	local v53, v54 = React.useState(false)
+	local v55, v56 = React.useState("")
+	local v57, v58 = React.useState("")
+	local v59 = useNavigation()
+
+	local function handleEmailInput(s1: string) -- line: 107
+		-- upvalues: v56 (copy), isStringEmail (copy), v54 (copy), v58 (copy), v52 (copy)
+		v56(s1)
+
+		if isStringEmail(s1) then
+			v54(true)
+			v58("")
+
+			return
+		end
+
+		v54(false)
+
+		if s1 == "" then
+			v58("")
+
+			return
+		end
+
+		v58(v52.errorText)
+	end
+
+	local v61, v62 = React.useState(0)
+	local onRetryAmp = t1.onRetryAmp
+
+	local function onRetryVPC() -- line: 125
+		-- upvalues: v62 (copy), v61 (copy), v49 (copy), v47 (copy), v56 (copy), isStringEmail (copy), v54 (copy), v58 (copy), v45 (copy), recourseAction (copy), ActionTypeEnum (copy), VPCStepEnum (copy)
+		v62(v61 + 1)
+		v49({})
+		v47("Unknown")
+		v56("")
+
+		if isStringEmail("") then
+			v54(true)
+			v58("")
+		else
+			v54(false)
+			v58("")
+		end
+
+		v45(if recourseAction ~= ActionTypeEnum.ParentLink then VPCStepEnum.AlreadyLinkedSendRequest else VPCStepEnum.NewParentCollectEmail)
+	end
+	local function getLinkedParentEmailsAndSendRequestToAllParents() -- line: 137
+		-- upvalues: v34 (copy), v41 (copy), v49 (copy), parentConsentTypes (copy), recourseData (copy), v45 (copy), VPCStepEnum (copy), v47 (copy)
+		v34.getLinkedParentEmails(v41):andThen(function(p2) -- line: 140
+			-- upvalues: v49 (copy)
+			v49(p2.parentEmails)
+		end):catch(function(_) -- line: 143
+		end)
+		v34.sendRequestToAllParents(v41, parentConsentTypes, recourseData):andThen(function(_) -- line: 147
+			-- upvalues: v45 (copy), VPCStepEnum (copy)
+			v45(VPCStepEnum.RequestSent)
+		end):catch(function(p5) -- line: 150
+			-- upvalues: v47 (copy), v45 (copy), VPCStepEnum (copy)
+			v47(p5.code)
+			v45(VPCStepEnum.Error)
+		end)
+	end
+	local function sendRequestToNewParent(p6) -- line: 156
+		-- upvalues: v34 (copy), v41 (copy), parentConsentTypes (copy), recourseData (copy), v45 (copy), VPCStepEnum (copy), v47 (copy)
+		v34.sendRequestToNewParent(v41, p6, parentConsentTypes, recourseData):andThen(function(_) -- line: 159
+			-- upvalues: v45 (copy), VPCStepEnum (copy)
+			v45(VPCStepEnum.RequestSent)
+		end):catch(function(p8) -- line: 162
+			-- upvalues: v47 (copy), v45 (copy), VPCStepEnum (copy)
+			v47(p8.code)
+			v45(VPCStepEnum.Error)
+		end)
+	end
+	local function getIsChildSubjectToParentalControls() -- line: 168
+		-- upvalues: v35 (copy), AccessResponseEnum (copy), v51 (copy), v45 (copy), VPCStepEnum (copy)
+		local v75 = v35.getFeatureAccess({ "IsChildSubjectToParentalControls" })
+		local v76 = true
+
+		if v75.featureAccessList and v75.featureAccessList[1] then
+			v76 = v75.featureAccessList[1].access ~= AccessResponseEnum.Denied
+		end
+
+		v51(v76)
+		v45(VPCStepEnum.NewParentCollectEmail)
+	end
+
+	React.useEffect(function() -- line: 178
+		-- upvalues: recourseAction (copy), ActionTypeEnum (copy), getLinkedParentEmailsAndSendRequestToAllParents (copy), getIsChildSubjectToParentalControls (copy)
+		if recourseAction == ActionTypeEnum.ParentConsent then
+			getLinkedParentEmailsAndSendRequestToAllParents()
+
+			return
+		end
+
+		if recourseAction == ActionTypeEnum.ParentLink then
+			getIsChildSubjectToParentalControls()
+		end
+	end, { v61 })
+
+	if v44 == VPCStepEnum.RequestSent then
+		authMsgShown(v38, "", vpcEventConstants.confirmationPageLoadField, "")
+
+		return React.createElement(VPCConfirmationScreen, {
+			messageStrings = vpcConfirmationScreenStrings,
+			parentEmails = v48,
+			onAck = function() --[[ onAck ]] -- line: 191
+				-- upvalues: authButtonClick (copy), v38 (copy), vpcEventConstants (copy), onSuccess (copy)
+				authButtonClick(v38, vpcEventConstants.confirmationPageButton)
+				onSuccess()
+			end
+		})
+	end
+
+	if v44 == VPCStepEnum.NewParentCollectEmail then
+		authMsgShown(v38, "", vpcEventConstants.collectEmailPageLoadField, "")
+
+		return React.createElement(VPCNewParentUpsell, {
+			onCancel = onCancel,
+			onCollectEmailAndSendRequest = function(p9) --[[ onCollectEmailAndSendRequest ]] -- line: 200
+				-- upvalues: authButtonClick (copy), v38 (copy), vpcEventConstants (copy), v49 (copy), v45 (copy), VPCStepEnum (copy), sendRequestToNewParent (copy)
+				authButtonClick(v38, vpcEventConstants.collectEmailPageSubmitButton)
+				v49({ p9 })
+				v45(VPCStepEnum.NewParentSendRequest)
+				sendRequestToNewParent(p9)
+			end,
+			onTextChange = function(p10) --[[ onTextChange ]] -- line: 206
+				-- upvalues: authFormInteraction (copy), v38 (copy), vpcEventConstants (copy), handleEmailInput (copy)
+				authFormInteraction(v38, vpcEventConstants.collectEmailPageInteractFormField)
+				handleEmailInput(p10)
+			end,
+			canSendRequest = v53,
+			textInput = v55,
+			openPrivacyPolicyLink = function() -- line: 93
+				-- upvalues: GetFFlagEnableExternalBrowserForVPCPrivacyPolicy (copy), u42 (ref), u43 (ref), GetFStringPrivacyPolicyLink (copy), ArgCheck (copy), v59 (copy), AppScreens (copy), v52 (copy)
+				if GetFFlagEnableExternalBrowserForVPCPrivacyPolicy() and u42 then
+					local v71 = u43
+					local v72 = GetFStringPrivacyPolicyLink()
+
+					ArgCheck.isNotNil(v71, "linking")
+					ArgCheck.isType(v72, "string", "url")
+					v71:openURL(v72)
+
+					return
+				end
+
+				v59.navigate(AppScreens.GenericWebPage, {
+					detail = GetFStringPrivacyPolicyLink(),
+					extraProps = {
+						title = v52.privacyLinkText,
+						transitionAnimation = "SlideInFromBottom"
+					}
+				})
+			end,
+			errorText = v57,
+			messageStrings = vpcUpsellGatherEmailStrings,
+			isChildSubjectToParentalControls = v50,
+			disablePortal = v40
+		})
+	end
+
+	if v44 == VPCStepEnum.AlreadyLinkedSendRequest then
+		return nil
+	end
+
+	if v44 == VPCStepEnum.NewParentSendRequest then
+		return nil
+	end
+
+	if v44 == VPCStepEnum.NewParentLoading then
+		return nil
+	end
+
+	authMsgShown(v38, "", vpcEventConstants.errorPageLoadField, v46)
+
+	return React.createElement(VPCErrorScreen, {
+		errorCode = v46,
+		onRetryAmp = function() --[[ onRetryAmp ]] -- line: 228
+			-- upvalues: authButtonClick (copy), v38 (copy), vpcEventConstants (copy), onRetryAmp (copy)
+			authButtonClick(v38, vpcEventConstants.errorPageRetryButton)
+			onRetryAmp()
+		end,
+		onRetryVPC = function() --[[ onRetryVPC ]] -- line: 232
+			-- upvalues: authButtonClick (copy), v38 (copy), vpcEventConstants (copy), onRetryVPC (copy)
+			authButtonClick(v38, vpcEventConstants.errorPageRetryButton)
+			onRetryVPC()
+		end,
+		onCancel = function() --[[ onCancel ]] -- line: 236
+			-- upvalues: authButtonClick (copy), v38 (copy), vpcEventConstants (copy), onCancel (copy)
+			authButtonClick(v38, vpcEventConstants.errorPageCancelButton)
+			onCancel()
+		end,
+		onSuccess = function() --[[ onSuccess ]] -- line: 240
+			-- upvalues: authButtonClick (copy), v38 (copy), vpcEventConstants (copy), onSuccess (copy)
+			authButtonClick(v38, vpcEventConstants.confirmationPageButton)
+			onSuccess()
+		end,
+		retryNum = v61
+	})
+end

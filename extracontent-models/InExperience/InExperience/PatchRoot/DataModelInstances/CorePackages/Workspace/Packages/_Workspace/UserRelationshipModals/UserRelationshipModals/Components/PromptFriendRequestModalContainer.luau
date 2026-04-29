@@ -1,68 +1,93 @@
-local l_Players_0 = game:GetService("Players");
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("UserRelationshipModals");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.Signals);
-local v5 = require(l_Parent_0.SignalsReact);
-local l_useDispatch_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useDispatch;
-local l_useLocalUserId_0 = require(l_Parent_0.RobloxAppHooks).useLocalUserId;
-local v8 = require(l_Parent_0.UserProfiles);
-local v9 = require(l_Parent_0.FriendsNetworking);
-local v10 = require(l_script_FirstAncestor_0.Networking.myFriendsNetworking);
-local l_FriendshipOriginSourceType_0 = v9.Enums.FriendshipOriginSourceType;
-local v12 = require(script.Parent.PromptFriendRequestModal);
-local v13 = v8.Stores.UserProfileStore.get();
-return function(v14) --[[ Line: 30 ]] --[[ Name: PromptFriendRequestModalContainer ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v3 (copy), v4 (copy), v13 (copy), v5 (copy), l_Players_0 (copy), v10 (copy), l_FriendshipOriginSourceType_0 (copy), v12 (copy)
-    local v15 = l_useDispatch_0();
-    local v16 = l_useLocalUserId_0();
-    local v21 = v3.useMemo(function() --[[ Line: 34 ]]
-        -- upvalues: v4 (ref), v13 (ref), v14 (copy)
-        return v4.createComputed(function(v17) --[[ Line: 35 ]]
-            -- upvalues: v13 (ref), v14 (ref)
-            local v18 = v13.fetchNamesByUserIds({
-                (tostring(v14.userId))
-            })(v17);
-            local v19 = v18 and v18.data and v18.data[1];
-            local v20 = v19 and v19.names;
-            return {
-                combinedName = if v20 then v20.getCombinedName(v17) else "", 
-                username = if v20 then v20.getUsername() else ""
-            };
-        end);
-    end, {
-        v14.userId
-    });
-    local v22 = v5.useSignalState(v21);
-    local v25 = v3.useCallback(function() --[[ Line: 48 ]]
-        -- upvalues: l_Players_0 (ref), v14 (copy), v15 (copy), v10 (ref), v16 (copy), l_FriendshipOriginSourceType_0 (ref)
-        local l_l_Players_0_PlayerByUserId_0 = l_Players_0:GetPlayerByUserId(v14.userId);
-        if l_Players_0.LocalPlayer ~= nil and l_l_Players_0_PlayerByUserId_0 ~= nil then
-            l_Players_0.LocalPlayer:RequestFriendship(l_l_Players_0_PlayerByUserId_0);
-        else
-            v15(v10.RequestFriendshipFromUserId.API({
-                currentUserId = v16, 
-                targetUserId = tostring(v14.userId), 
-                friendshipOriginSourceType = l_FriendshipOriginSourceType_0.InGame.rawValue()
-            })):andThen(function() --[[ Line: 64 ]]
+local Players = game:GetService("Players")
+local UserRelationshipModals = script:FindFirstAncestor("UserRelationshipModals")
+local UserRelationshipModalsParent = UserRelationshipModals.Parent
+local React = require(UserRelationshipModalsParent.React)
+local Signals = require(UserRelationshipModalsParent.Signals)
+local SignalsReact = require(UserRelationshipModalsParent.SignalsReact)
+local useDispatch = require(UserRelationshipModalsParent.RoactUtils).Hooks.RoactRodux.useDispatch
+local useLocalUserId = require(UserRelationshipModalsParent.RobloxAppHooks).useLocalUserId
+local UserProfiles = require(UserRelationshipModalsParent.UserProfiles)
+local FriendsNetworking = require(UserRelationshipModalsParent.FriendsNetworking)
+local myFriendsNetworking = require(UserRelationshipModals.Networking.myFriendsNetworking)
+local FriendshipOriginSourceType = FriendsNetworking.Enums.FriendshipOriginSourceType
+local useLocalization = require(UserRelationshipModalsParent.Localization).Hooks.useLocalization
+local NotificationModalsManager = require(UserRelationshipModalsParent.NotificationModalsManager)
+local PromptFriendRequestModal = require(script.Parent.PromptFriendRequestModal)
 
-            end):catch(function(_) --[[ Line: 67 ]]
+function triggerToast(s1: string) -- line: 27
+	-- upvalues: NotificationModalsManager (copy)
+	NotificationModalsManager.SetUIBloxToast({
+		toastTitle = s1,
+		sequenceNumber = DateTime.now().UnixTimestamp
+	})
+end
 
-            end);
-        end;
-        v14.onClose();
-    end, {
-        v16, 
-        v14.userId, 
-        v15, 
-        v14.onClose
-    });
-    return v3.createElement(v12, {
-        userId = v14.userId, 
-        displayName = v22.combinedName, 
-        username = v22.username, 
-        onClose = v14.onClose, 
-        onSendClicked = v25, 
-        inputDelay = v14.inputDelay
-    });
-end;
+local v16 = UserProfiles.Stores.UserProfileStore.get()
+
+return function(t1: {[any]: any}) --[[ PromptFriendRequestModalContainer ]] -- line: 42
+	-- upvalues: useDispatch (copy), useLocalUserId (copy), useLocalization (copy), React (copy), Signals (copy), v16 (copy), SignalsReact (copy), Players (copy), myFriendsNetworking (copy), FriendshipOriginSourceType (copy), PromptFriendRequestModal (copy)
+	local v19 = useDispatch()
+	local v20 = useLocalUserId()
+	local v21 = useLocalization({
+		friendRequestSent = "Feature.Friends.Action.FriendRequestSent",
+		somethingWentWrong = "CommonUI.Messages.Response.SomethingWentWrong"
+	})
+	local v22 = React.useMemo(function() -- line: 51
+		-- upvalues: Signals (copy), v16 (copy), t1 (copy)
+		return Signals.createComputed(function(p1) -- line: 52
+			-- upvalues: v16 (copy), t1 (copy)
+			local v29 = v16.fetchNamesByUserIds({ (tostring(t1.userId)) })(p1)
+			local v30 = v29 and (v29.data and v29.data[1])
+			local v31 = v30 and v30.names
+
+			return {
+				combinedName = not v31 and "" or v31.getCombinedName(p1),
+				username = not v31 and "" or v31.getUsername()
+			}
+		end)
+	end, { t1.userId })
+	local v23 = SignalsReact.useSignalState(v22)
+	local v24 = React.useCallback(function() -- line: 66
+		-- upvalues: Players (copy), t1 (copy), v21 (copy), v19 (copy), myFriendsNetworking (copy), v20 (copy), FriendshipOriginSourceType (copy)
+		local PlayerByUserId = Players:GetPlayerByUserId(t1.userId)
+
+		if Players.LocalPlayer ~= nil and PlayerByUserId ~= nil then
+			local ok, _ = pcall(function() -- line: 74
+				-- upvalues: Players (copy), PlayerByUserId (copy)
+				Players.LocalPlayer:RequestFriendship(PlayerByUserId)
+			end)
+
+			triggerToast(if ok ~= nil then v21.somethingWentWrong else v21.friendRequestSent)
+		else
+			v19(myFriendsNetworking.RequestFriendshipFromUserId.API({
+				currentUserId = v20,
+				targetUserId = tostring(t1.userId),
+				friendshipOriginSourceType = FriendshipOriginSourceType.InGame.rawValue()
+			})):andThen(function() -- line: 84
+				-- upvalues: v21 (copy)
+				triggerToast(v21.friendRequestSent)
+			end):catch(function(_) -- line: 87
+				-- upvalues: v21 (copy)
+				triggerToast(v21.somethingWentWrong)
+			end)
+		end
+
+		t1.onClose()
+	end, {
+		v20,
+		t1.userId,
+		v19,
+		t1.onClose,
+		v21.friendRequestSent,
+		v21.somethingWentWrong
+	})
+
+	return React.createElement(PromptFriendRequestModal, {
+		userId = t1.userId,
+		displayName = v23.combinedName,
+		username = v23.username,
+		onClose = t1.onClose,
+		onSendClicked = v24,
+		inputDelay = t1.inputDelay
+	})
+end

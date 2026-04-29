@@ -1,71 +1,83 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Foundation);
-local l_Images_0 = require(l_Parent_0.UIBlox).App.ImageSet.Images;
-local l_ButtonVariant_0 = v2.Enums.ButtonVariant;
-local l_SetCurrentToastMessage_0 = require(l_Parent_0.ToastRodux).Actions.SetCurrentToastMessage;
-local v6 = require(l_script_FirstAncestor_0.Networking.NetworkingFriends);
-local v7 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatformActionInfo);
-local v8 = require(l_script_FirstAncestor_0.Common.Enums);
-local _ = require(l_script_FirstAncestor_0.Components.CTARow.Types);
-local v10 = require(l_script_FirstAncestor_0.Analytics.EventNames);
+local ProfilePlatform = script:FindFirstAncestor("ProfilePlatform")
+local ProfilePlatformParent = ProfilePlatform.Parent
+local Foundation = require(ProfilePlatformParent.Foundation)
+local Images = require(ProfilePlatformParent.UIBlox).App.ImageSet.Images
+local ButtonVariant = Foundation.Enums.ButtonVariant
+local SetCurrentToastMessage = require(ProfilePlatformParent.ToastRodux).Actions.SetCurrentToastMessage
+local NetworkingFriends = require(ProfilePlatform.Networking.NetworkingFriends)
+local refreshProfilePlatformActionInfo = require(ProfilePlatform.Networking.refreshProfilePlatformActionInfo)
+local Enums = require(ProfilePlatform.Common.Enums)
+
+require(ProfilePlatform.Components.CTARow.Types)
+
+local EventNames = require(ProfilePlatform.Analytics.EventNames)
+local ProfileTypes = Enums.ProfileTypes
+
 return {
-    [v8.ProfileActions.AcceptFriendRequest] = function(v11) --[[ Line: 18 ]]
-        -- upvalues: v8 (copy), l_ButtonVariant_0 (copy), v10 (copy), v6 (copy), l_SetCurrentToastMessage_0 (copy), l_Images_0 (copy), v7 (copy)
-        return {
-            text = v11.localized[v8.ProfileActions.AcceptFriendRequest], 
-            variant = l_ButtonVariant_0.Emphasis, 
-            onActivated = function() --[[ Line: 22 ]] --[[ Name: onActivated ]]
-                -- upvalues: v11 (copy), v10 (ref), v8 (ref), v6 (ref), l_SetCurrentToastMessage_0 (ref), l_Images_0 (ref), v7 (ref)
-                v11.analytics.fireAnalyticsEvent(v10.CTAButtonAcceptFriendRequest, {
-                    buttonSurface = v11.buttonSurface, 
-                    absolutePosition = v11.profileWrapperContext.sourceInfo.homepageCarouselAbsolutePosition, 
-                    isHomePageCarousel = v11.profileWrapperContext.sourceInfo.source == v8.Sources.HomepageFriendsCarousel, 
-                    isRecommendation = v11.profileWrapperContext.sourceInfo.isRecommendation, 
-                    source = v11.profileWrapperContext.sourceInfo.source, 
-                    contextualInfoType = v11.profileWrapperContext.sourceInfo.contextualInfoType, 
-                    recommendationContextType = v11.profileWrapperContext.sourceInfo.recommendationContextType, 
-                    recommendationRank = v11.profileWrapperContext.sourceInfo.recommendationRank, 
-                    recommendationSessionId = v11.profileWrapperContext.sourceInfo.recommendationSessionId
-                });
-                return v11.dispatch(v6.AcceptFriendRequestFromUserId.API({
-                    targetUserId = v11.profileId, 
-                    currentUserId = v11.localUserId
-                })):andThen(function() --[[ Line: 40 ]]
-                    -- upvalues: v11 (ref), l_SetCurrentToastMessage_0 (ref), l_Images_0 (ref), v7 (ref)
-                    v11.dispatch(l_SetCurrentToastMessage_0({
-                        toastMessage = v11.localized.friendAcceptedToast, 
-                        toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                        isLocalized = true
-                    }));
-                    return v11.dispatch(v7(v11.profileId));
-                end);
-            end
-        };
-    end, 
-    [v8.ProfileActions.AcceptOffNetworkFriendRequest] = function(v12) --[[ Line: 52 ]]
-        -- upvalues: v8 (copy), v10 (copy), v6 (copy), l_SetCurrentToastMessage_0 (copy), l_Images_0 (copy), v7 (copy)
-        return {
-            text = v12.localized[v8.ProfileActions.AcceptOffNetworkFriendRequest], 
-            onActivated = function() --[[ Line: 55 ]] --[[ Name: onActivated ]]
-                -- upvalues: v12 (copy), v10 (ref), v6 (ref), l_SetCurrentToastMessage_0 (ref), l_Images_0 (ref), v7 (ref)
-                v12.analytics.fireAnalyticsEvent(v10.CTAButtonAddFriendFromContacts, {
-                    shareLinkId = v12.profileWrapperContext.sourceInfo.shareLinkId
-                });
-                return v12.dispatch(v6.AcceptFriendRequestWithToken.API({
-                    targetUserId = v12.profileId, 
-                    currentUserId = v12.localUserId, 
-                    friendingToken = v12.profileWrapperContext.offNetworkFriendRequestToken
-                })):andThen(function() --[[ Line: 65 ]]
-                    -- upvalues: v12 (ref), l_SetCurrentToastMessage_0 (ref), l_Images_0 (ref), v7 (ref)
-                    v12.dispatch(l_SetCurrentToastMessage_0({
-                        toastMessage = v12.localized.friendAcceptedToast, 
-                        toastIcon = l_Images_0["icons/actions/friends/friendAdd"], 
-                        isLocalized = true
-                    }));
-                    return v12.dispatch(v7(v12.profileId));
-                end);
-            end
-        };
-    end
-};
+	[Enums.ProfileActions.AcceptFriendRequest] = function(p1) -- line: 19
+		-- upvalues: Enums (copy), ButtonVariant (copy), ProfileTypes (copy), EventNames (copy), NetworkingFriends (copy), SetCurrentToastMessage (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+		return {
+			text = p1.localized[Enums.ProfileActions.AcceptFriendRequest],
+			variant = ButtonVariant.Emphasis,
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 24
+					-- upvalues: p1 (copy), EventNames (copy), Enums (copy), NetworkingFriends (copy), SetCurrentToastMessage (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+					p1.analytics.fireAnalyticsEvent(EventNames.CTAButtonAcceptFriendRequest, {
+						buttonSurface = p1.buttonSurface,
+						absolutePosition = p1.profileWrapperContext.sourceInfo.homepageCarouselAbsolutePosition,
+						isHomePageCarousel = p1.profileWrapperContext.sourceInfo.source == Enums.Sources.HomepageFriendsCarousel,
+						isRecommendation = p1.profileWrapperContext.sourceInfo.isRecommendation,
+						source = p1.profileWrapperContext.sourceInfo.source,
+						contextualInfoType = p1.profileWrapperContext.sourceInfo.contextualInfoType,
+						recommendationContextType = p1.profileWrapperContext.sourceInfo.recommendationContextType,
+						recommendationRank = p1.profileWrapperContext.sourceInfo.recommendationRank,
+						recommendationSessionId = p1.profileWrapperContext.sourceInfo.recommendationSessionId
+					})
+
+					return p1.dispatch(NetworkingFriends.AcceptFriendRequestFromUserId.API({
+						targetUserId = p1.profileId,
+						currentUserId = p1.localUserId
+					})):andThen(function() -- line: 42
+						-- upvalues: p1 (copy), SetCurrentToastMessage (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+						p1.dispatch(SetCurrentToastMessage({
+							toastMessage = p1.localized.friendAcceptedToast,
+							toastIcon = Images["icons/actions/friends/friendAdd"],
+							isLocalized = true
+						}))
+
+						return p1.dispatch(refreshProfilePlatformActionInfo(p1.profileId))
+					end)
+				end
+			}
+		}
+	end,
+	[Enums.ProfileActions.AcceptOffNetworkFriendRequest] = function(p2) -- line: 55
+		-- upvalues: Enums (copy), ProfileTypes (copy), EventNames (copy), NetworkingFriends (copy), SetCurrentToastMessage (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+		return {
+			text = p2.localized[Enums.ProfileActions.AcceptOffNetworkFriendRequest],
+			onActivated = {
+				[ProfileTypes.User] = function() -- line: 59
+					-- upvalues: p2 (copy), EventNames (copy), NetworkingFriends (copy), SetCurrentToastMessage (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+					p2.analytics.fireAnalyticsEvent(EventNames.CTAButtonAddFriendFromContacts, {
+						shareLinkId = p2.profileWrapperContext.sourceInfo.shareLinkId
+					})
+
+					return p2.dispatch(NetworkingFriends.AcceptFriendRequestWithToken.API({
+						targetUserId = p2.profileId,
+						currentUserId = p2.localUserId,
+						friendingToken = p2.profileWrapperContext.offNetworkFriendRequestToken
+					})):andThen(function() -- line: 69
+						-- upvalues: p2 (copy), SetCurrentToastMessage (copy), Images (copy), refreshProfilePlatformActionInfo (copy)
+						p2.dispatch(SetCurrentToastMessage({
+							toastMessage = p2.localized.friendAcceptedToast,
+							toastIcon = Images["icons/actions/friends/friendAdd"],
+							isLocalized = true
+						}))
+
+						return p2.dispatch(refreshProfilePlatformActionInfo(p2.profileId))
+					end)
+				end
+			}
+		}
+	end
+}

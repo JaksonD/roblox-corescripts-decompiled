@@ -1,1 +1,1 @@
-return game:DefineFastFlag("ProfilePlatformCTAsRefactor_DEV", false);
+return game:DefineFastFlag("ProfilePlatformCTAsRefactor_V2", false)

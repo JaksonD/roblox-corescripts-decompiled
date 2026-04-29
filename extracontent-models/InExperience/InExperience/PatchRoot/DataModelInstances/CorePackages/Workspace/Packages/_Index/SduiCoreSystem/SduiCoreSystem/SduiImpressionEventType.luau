@@ -1,3 +1,4 @@
 return {
-    gameImpressions = "gameImpressions"
-};
+	gameImpressions = "gameImpressions",
+	socialLinksImpressions = "socialLinksImpressions"
+}

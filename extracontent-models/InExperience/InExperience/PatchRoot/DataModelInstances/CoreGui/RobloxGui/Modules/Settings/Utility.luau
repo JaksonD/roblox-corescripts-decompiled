@@ -1,3003 +1,3251 @@
-local v0 = require(script.Parent.Theme);
-local v1 = v0.color("SELECTED_COLOR", Color3.fromRGB(0, 162, 255));
-local v2 = v0.color("NON_SELECTED_COLOR", Color3.fromRGB(78, 84, 96));
-local v3 = v0.color("ARROW_COLOR", Color3.fromRGB(204, 204, 204));
-local v4 = v0.color("ARROW_COLOR_HOVER", Color3.fromRGB(255, 255, 255));
-local v5 = v0.color("ARROW_COLOR_INACTIVE", Color3.fromRGB(150, 150, 150));
-local v6 = UDim.new(0, 14);
-local l_HttpService_0 = game:GetService("HttpService");
-local l_UserInputService_0 = game:GetService("UserInputService");
-local l_GuiService_0 = game:GetService("GuiService");
-local l_RunService_0 = game:GetService("RunService");
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_RobloxGui_0 = l_CoreGui_0:FindFirstChild("RobloxGui");
-local l_ContextActionService_0 = game:GetService("ContextActionService");
-local l_VRService_0 = game:GetService("VRService");
-local l_Workspace_0 = game:GetService("Workspace");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_UserGameSettings_0 = UserSettings():GetService("UserGameSettings");
-local v18 = require(l_RobloxGui_0.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons);
-local v19 = require(l_RobloxGui_0.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer);
-local v20 = game:DefineFastFlag("RepositionDropDownScrim", false);
-local l_game_EngineFeature_0 = game:GetEngineFeature("DeprecateOldGuiObjectProperties");
-local l_Chrome_0 = l_RobloxGui_0.Modules.Chrome;
-local v23 = if require(l_CorePackages_0.Workspace.Packages.Chrome).Enabled() then require(l_Chrome_0.Service) else nil;
-local v24 = require(l_CorePackages_0.Packages.Signals);
-local v25 = require(l_CorePackages_0.Workspace.Packages.Responsive);
-local l_FFlagHideShortcutsWhileIemDropdownActive_0 = require(l_Chrome_0.Flags).FFlagHideShortcutsWhileIemDropdownActive;
-local l_game_EngineFeature_1 = game:GetEngineFeature("EnablePreferredTextSizeAccessGuiService");
-local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
-local v29 = game:DefineFastFlag("IncreaseLegacyPeopleRowButtonSize", false);
-local v30 = require(l_CorePackages_0.Workspace.Packages.RobloxTranslator);
-local l_CorePackages_1 = game:GetService("CorePackages");
-local v32 = require(l_CorePackages_1.Workspace.Packages.AppCommonLib);
-local l_Signal_0 = v32.Signal;
-local l_Create_0 = v32.Create;
-local v35 = require(l_CorePackages_1.Packages.BuilderIcons);
-local l_Migration_0 = v35.Migration;
-local v37 = require(l_RobloxGui_0.Modules:WaitForChild("TenFootInterface")):IsEnabled();
-local v39 = v24.createComputed(function(v38) --[[ Line: 86 ]]
-    -- upvalues: v25 (copy)
-    return v25.GetInputModeStore(v38).getLastInputType(v38) == v25.Input.Touch;
-end);
-local v41 = v24.createComputed(function(v40) --[[ Line: 91 ]]
-    -- upvalues: v25 (copy)
-    return v25.GetInputModeStore(v40).getLastInputType(v40) == v25.Input.Pointer;
-end);
-local v42 = {};
-setmetatable(v42, {
-    __mode = "k"
-});
-local v43 = l_Create_0("ImageLabel")({
-    Image = "", 
-    BackgroundTransparency = 1
-});
-clamp = function(v44, v45, v46) --[[ Line: 108 ]] --[[ Name: clamp ]]
-    return (math.max(v44, (math.min(v45, v46))));
-end;
-local function v51(v47, v48, v49, v50) --[[ Line: 113 ]] --[[ Name: Linear ]]
-    if v50 <= v47 then
-        return v48 + v49;
-    else
-        return v49 * v47 / v50 + v48;
-    end;
-end;
-local function v56(v52, v53, v54, v55) --[[ Line: 121 ]] --[[ Name: EaseOutQuad ]]
-    if v55 <= v52 then
-        return v53 + v54;
-    else
-        v52 = v52 / v55;
-        return v53 - v54 * v52 * (v52 - 2);
-    end;
-end;
-local function v61(v57, v58, v59, v60) --[[ Line: 130 ]] --[[ Name: EaseInOutQuad ]]
-    if v60 <= v57 then
-        return v58 + v59;
-    else
-        v57 = v57 / v60;
-        if v57 < 0.5 then
-            return 2 * v59 * v57 * v57 + v58;
-        else
-            return v58 + v59 * (2 * (2 - v57) * v57 - 1);
-        end;
-    end;
-end;
-PropertyTweener = function(v62, v63, v64, v65, v66, v67, v68) --[[ Line: 142 ]] --[[ Name: PropertyTweener ]]
-    -- upvalues: l_RunService_0 (copy)
-    local v69 = {
-        StartTime = tick()
-    };
-    v69.EndTime = v69.StartTime + v66;
-    v69.Cancelled = false;
-    local v70 = false;
-    local v71 = 0;
-    local function _() --[[ Line: 151 ]] --[[ Name: finalize ]]
-        -- upvalues: v62 (copy), v63 (copy), v67 (copy), v64 (copy), v65 (copy), v70 (ref), v71 (ref), v68 (copy)
-        if v62 then
-            v62[v63] = v67(1, v64, v65 - v64, 1);
-        end;
-        v70 = true;
-        v71 = 1;
-        if v68 then
-            v68();
-        end;
-    end;
-    v62[v63] = v67(0, v64, v65 - v64, v66);
-    coroutine.wrap(function() --[[ Line: 164 ]]
-        -- upvalues: v69 (copy), v62 (copy), v63 (copy), v67 (copy), v64 (copy), v65 (copy), v66 (copy), v71 (ref), l_RunService_0 (ref), v70 (ref), v68 (copy)
-        local v73 = tick();
-        while true do
-            if v73 < v69.EndTime and v62 then
-                if v69.Cancelled then
-                    return;
-                else
-                    v62[v63] = v67(v73 - v69.StartTime, v64, v65 - v64, v66);
-                    v71 = clamp(0, 1, (v73 - v69.StartTime) / v66);
-                    l_RunService_0.RenderStepped:Wait();
-                    v73 = tick();
-                end;
-            else
-                if v69.Cancelled == false and v62 then
-                    if v62 then
-                        v62[v63] = v67(1, v64, v65 - v64, 1);
-                    end;
-                    v70 = true;
-                    v71 = 1;
-                    if v68 then
-                        v68();
-                    end;
-                end;
-                return;
-            end;
-        end;
-    end)();
-    v69.GetFinal = function(_) --[[ Line: 180 ]] --[[ Name: GetFinal ]]
-        -- upvalues: v65 (copy)
-        return v65;
-    end;
-    v69.GetPercentComplete = function(_) --[[ Line: 184 ]] --[[ Name: GetPercentComplete ]]
-        -- upvalues: v71 (ref)
-        return v71;
-    end;
-    v69.IsFinished = function(_) --[[ Line: 188 ]] --[[ Name: IsFinished ]]
-        -- upvalues: v70 (ref)
-        return v70;
-    end;
-    v69.Finish = function(v77) --[[ Line: 192 ]] --[[ Name: Finish ]]
-        -- upvalues: v70 (ref), v62 (copy), v63 (copy), v67 (copy), v64 (copy), v65 (copy), v71 (ref), v68 (copy)
-        if not v70 then
-            v77:Cancel();
-            if v62 then
-                v62[v63] = v67(1, v64, v65 - v64, 1);
-            end;
-            v70 = true;
-            v71 = 1;
-            if v68 then
-                v68();
-            end;
-        end;
-    end;
-    v69.Cancel = function(_) --[[ Line: 199 ]] --[[ Name: Cancel ]]
-        -- upvalues: v69 (copy)
-        v69.Cancelled = true;
-    end;
-    return v69;
-end;
-local function _() --[[ Line: 206 ]] --[[ Name: isTouchInput ]]
-    -- upvalues: l_UserInputService_0 (copy)
-    return l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch;
-end;
-local function v88() --[[ Line: 212 ]] --[[ Name: CreateSignal ]]
-    local v80 = {};
-    local l_BindableEvent_0 = Instance.new("BindableEvent");
-    local v82 = nil;
-    local v83 = nil;
-    v80.fire = function(_, ...) --[[ Line: 220 ]] --[[ Name: fire ]]
-        -- upvalues: v82 (ref), v83 (ref), l_BindableEvent_0 (copy)
-        v82 = {
-            ...
-        };
-        v83 = select("#", ...);
-        l_BindableEvent_0:Fire();
-    end;
-    v80.connect = function(_, v86) --[[ Line: 226 ]] --[[ Name: connect ]]
-        -- upvalues: l_BindableEvent_0 (copy), v82 (ref), v83 (ref)
-        if not v86 then
-            error("connect(nil)", 2);
-        end;
-        return l_BindableEvent_0.Event:Connect(function() --[[ Line: 230 ]]
-            -- upvalues: v86 (copy), v82 (ref), v83 (ref)
-            v86(unpack(v82, 1, v83));
-        end);
-    end;
-    v80.wait = function(_) --[[ Line: 235 ]] --[[ Name: wait ]]
-        -- upvalues: l_BindableEvent_0 (copy), v82 (ref), v83 (ref)
-        l_BindableEvent_0.Event:wait();
-        if not v82 then
-            error("Missing arg data, likely due to :TweenSize/Position corrupting threadrefs.");
-        end;
-        return unpack(v82, 1, v83);
-    end;
-    return v80;
-end;
-local function _() --[[ Line: 246 ]] --[[ Name: getViewportSize ]]
-    -- upvalues: l_GuiService_0 (copy)
-    if _G.__TESTEZ_RUNNING_TEST__ then
-        return Vector2.new(1024, 1024);
-    else
-        return l_GuiService_0:GetHardwareSafeViewport();
-    end;
-end;
-local function _() --[[ Line: 255 ]] --[[ Name: isSmallTouchScreen ]]
-    -- upvalues: l_GuiService_0 (copy), l_UserInputService_0 (copy)
-    local v90 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    return l_UserInputService_0.TouchEnabled and (v90.Y < 500 or v90.X < 700);
-end;
-local function _() --[[ Line: 260 ]] --[[ Name: isPortrait ]]
-    -- upvalues: l_GuiService_0 (copy)
-    local v92 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    return v92.Y > v92.X;
-end;
-local function _() --[[ Line: 265 ]] --[[ Name: isTenFootInterface ]]
-    -- upvalues: v37 (copy)
-    return v37;
-end;
-local function _() --[[ Line: 269 ]] --[[ Name: usesSelectedObject ]]
-    -- upvalues: l_VRService_0 (copy), l_UserInputService_0 (copy)
-    if l_VRService_0.VREnabled then
-        return false;
-    elseif l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch and not l_UserInputService_0.GamepadEnabled then
-        return false;
-    else
-        return true;
-    end;
-end;
-local function v102(v96, v97, v98, v99) --[[ Line: 282 ]] --[[ Name: addHoverState ]]
-    local function v100() --[[ Line: 283 ]] --[[ Name: onNormalButtonStateCallback ]]
-        -- upvalues: v96 (copy), v98 (copy), v97 (copy)
-        if v96.Active then
-            v98(v97);
-        end;
-    end;
-    local function v101() --[[ Line: 288 ]] --[[ Name: onHoverButtonStateCallback ]]
-        -- upvalues: v96 (copy), v99 (copy), v97 (copy)
-        if v96.Active then
-            v99(v97);
-        end;
-    end;
-    v96.MouseEnter:Connect(v101);
-    v96.SelectionGained:Connect(v101);
-    v96.MouseLeave:Connect(v100);
-    v96.SelectionLost:Connect(v100);
-    v98(v97);
-end;
-local function v108(v103, v104) --[[ Line: 302 ]] --[[ Name: addOnResizedCallback ]]
-    -- upvalues: v42 (copy), l_GuiService_0 (copy)
-    v42[v103] = v104;
-    local l_v104_0 = v104;
-    local v106 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    local v107 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    l_v104_0(v106, v107.Y > v107.X);
-end;
-local v109 = {
-    [Enum.UserInputType.Gamepad1] = true, 
-    [Enum.UserInputType.Gamepad2] = true, 
-    [Enum.UserInputType.Gamepad3] = true, 
-    [Enum.UserInputType.Gamepad4] = true, 
-    [Enum.UserInputType.Gamepad5] = true, 
-    [Enum.UserInputType.Gamepad6] = true, 
-    [Enum.UserInputType.Gamepad7] = true, 
-    [Enum.UserInputType.Gamepad8] = true
-};
-local function v138(v110, v111, v112, v113, v114, v115) --[[ Line: 318 ]] --[[ Name: MakeDefaultButton ]]
-    -- upvalues: l_Create_0 (copy), v0 (copy), v109 (copy), l_UserInputService_0 (copy), l_GuiService_0 (copy), l_VRService_0 (copy)
-    local v116 = l_Create_0("ImageLabel")({
-        Image = "", 
-        BackgroundTransparency = 1
-    });
-    local v117 = nil;
-    local v118 = nil;
-    local v119 = "DefaultButtonStroke";
-    local v120 = "DefaultButton";
-    if v110 == "DropDownFrame" then
-        v119 = "ControlInputStroke";
-        v120 = "ControlInputBackground";
-    end;
-    if v115 == "ImageButton" then
-        v120 = "ImageButton";
-    end;
-    v117 = l_Create_0("ImageButton")({
-        Name = v110 .. "Button", 
-        AutoButtonColor = false, 
-        BackgroundColor3 = v0.color(v120), 
-        BackgroundTransparency = v0.transparency(v120), 
-        Size = v111, 
-        ZIndex = 2, 
-        SelectionImageObject = v116
-    });
-    l_Create_0("UICorner")({
-        CornerRadius = v0.DefaultCornerRadius, 
-        Parent = v117
-    });
-    v118 = l_Create_0("UIStroke")({
-        Name = "Border", 
-        Color = v0.color(v119), 
-        Transparency = v0.transparency(v119), 
-        Thickness = v0.DefaultStokeThickness, 
-        Parent = v117
-    });
-    local _ = l_Create_0("BoolValue")({
-        Name = "Enabled", 
-        Parent = v117, 
-        Value = true
-    });
-    if v112 then
-        v117.MouseButton1Click:Connect(function() --[[ Line: 365 ]]
-            -- upvalues: v112 (copy), v109 (ref), l_UserInputService_0 (ref)
-            v112(v109[l_UserInputService_0:GetLastInputType()] or false);
-        end);
-    else
-        if v118 then
-            v118.Enabled = false;
-        end;
-        v117.Selectable = false;
-    end;
-    local function _(v122) --[[ Line: 375 ]] --[[ Name: isPointerInput ]]
-        local v123 = true;
-        if v122.UserInputType ~= Enum.UserInputType.MouseMovement then
-            v123 = v122.UserInputType == Enum.UserInputType.Touch;
-        end;
-        return v123;
-    end;
-    local v125 = nil;
-    local function v127(v126) --[[ Line: 381 ]] --[[ Name: setRowRef ]]
-        -- upvalues: v125 (ref)
-        v125 = v126;
-    end;
-    local function v130() --[[ Line: 385 ]] --[[ Name: selectButton ]]
-        -- upvalues: v114 (copy), v113 (copy), v117 (ref), v0 (ref), v125 (ref)
-        local l_v114_0 = v114;
-        if l_v114_0 == nil and v113 then
-            l_v114_0 = v113.HubRef;
-        end;
-        if l_v114_0 and l_v114_0.Active or l_v114_0 == nil then
-            v117.BackgroundColor3 = v0.color("DefaultButtonHover");
-            v117.BackgroundTransparency = v0.transparency("DefaultButtonHover");
-            local l_v117_0 = v117;
-            if v125 then
-                l_v117_0 = v125;
-            end;
-            if l_v114_0 then
-                l_v114_0:ScrollToFrame(l_v117_0);
-            end;
-        end;
-    end;
-    local function _() --[[ Line: 407 ]] --[[ Name: deselectButton ]]
-        -- upvalues: v117 (ref), v0 (ref), v120 (ref)
-        v117.BackgroundColor3 = v0.color(v120);
-        v117.BackgroundTransparency = v0.transparency(v120);
-    end;
-    v117.InputBegan:Connect(function(v132) --[[ Line: 412 ]]
-        -- upvalues: v117 (ref), v130 (copy)
-        if v117.Selectable then
-            local v133 = true;
-            if v132.UserInputType ~= Enum.UserInputType.MouseMovement then
-                v133 = v132.UserInputType == Enum.UserInputType.Touch;
-            end;
-            if v133 then
-                v130();
-            end;
-        end;
-    end);
-    v117.InputEnded:Connect(function(v134) --[[ Line: 417 ]]
-        -- upvalues: v117 (ref), l_GuiService_0 (ref), v0 (ref), v120 (ref)
-        if v117.Selectable and l_GuiService_0.SelectedCoreObject ~= v117 then
-            local v135 = true;
-            if v134.UserInputType ~= Enum.UserInputType.MouseMovement then
-                v135 = v134.UserInputType == Enum.UserInputType.Touch;
-            end;
-            if v135 then
-                v117.BackgroundColor3 = v0.color(v120);
-                v117.BackgroundTransparency = v0.transparency(v120);
-            end;
-        end;
-    end);
-    v117.SelectionGained:Connect(function() --[[ Line: 423 ]]
-        -- upvalues: v130 (copy)
-        v130();
-    end);
-    v117.SelectionLost:Connect(function() --[[ Line: 426 ]]
-        -- upvalues: v117 (ref), v0 (ref), v120 (ref)
-        v117.BackgroundColor3 = v0.color(v120);
-        v117.BackgroundTransparency = v0.transparency(v120);
-    end);
-    local _ = l_GuiService_0.Changed:Connect(function(v136) --[[ Line: 430 ]]
-        -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v117 (ref), v0 (ref), v120 (ref), v130 (copy)
-        if v136 ~= "SelectedCoreObject" then
-            return;
-        elseif not (not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false)) then
-            return;
-        elseif l_GuiService_0.SelectedCoreObject == nil or l_GuiService_0.SelectedCoreObject ~= v117 then
-            v117.BackgroundColor3 = v0.color(v120);
-            v117.BackgroundTransparency = v0.transparency(v120);
-            return;
-        else
-            if v117.Selectable then
-                v130();
-            end;
-            return;
-        end;
-    end);
-    return v117, v127;
-end;
-local function v153(v139, v140, v141, v142, v143, v144) --[[ Line: 451 ]] --[[ Name: MakeButton ]]
-    -- upvalues: v138 (copy), l_Create_0 (copy), v0 (copy), l_GuiService_0 (copy), l_UserInputService_0 (copy), v37 (copy), l_game_EngineFeature_1 (copy)
-    local v145, v146 = v138(v139, v141, v142, v143, v144);
-    local v147 = l_Create_0("TextLabel")({
-        Name = v139 .. "TextLabel", 
-        BackgroundTransparency = 1, 
-        BorderSizePixel = 0, 
-        Size = UDim2.new(1, 0, 1, 0), 
-        Position = UDim2.new(0, 0, 0, 0), 
-        TextColor3 = v0.color("WhiteButtonText", Color3.fromRGB(255, 255, 255)), 
-        TextTransparency = v0.transparency("WhiteButtonText", 0), 
-        TextYAlignment = Enum.TextYAlignment.Center, 
-        Font = v0.font(Enum.Font.SourceSansBold, "Button"), 
-        TextSize = v0.textSize(24, "Button"), 
-        Text = v140, 
-        TextScaled = false, 
-        TextWrapped = true, 
-        ZIndex = 2, 
-        Parent = v145
-    });
-    local v148 = Instance.new("UITextSizeConstraint", v147);
-    local v149 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    if l_UserInputService_0.TouchEnabled and (v149.Y < 500 or v149.X < 700) then
-        if v0.UseBiggerText and (v139 == "ResumeButton" or v139 == "ResetButton" or v139 == "LeaveButton") then
-            v147.TextSize = v0.textSize(20);
-        else
-            v147.TextSize = v0.textSize(18);
-        end;
-    elseif v37 then
-        local v150 = true;
-        if v139 ~= "FriendStatus" then
-            v150 = v139 == "BlockButton";
-        end;
-        if not v150 then
-            v147.TextSize = v0.textSize(36);
-        end;
-    end;
-    if not l_game_EngineFeature_1 then
-        v148.MaxTextSize = v147.TextSize;
-    else
-        local v151 = (l_GuiService_0.PreferredTextSize.Value - 1) * 3;
-        v148.MaxTextSize = v147.TextSize + v151;
-        v149 = v147.TextSize;
-        do
-            local l_v151_0 = v151;
-            l_GuiService_0:GetPropertyChangedSignal("PreferredTextSize"):Connect(function() --[[ Line: 492 ]]
-                -- upvalues: l_v151_0 (ref), l_GuiService_0 (ref), v148 (copy), v149 (copy)
-                l_v151_0 = (l_GuiService_0.PreferredTextSize.Value - 1) * 3;
-                v148.MaxTextSize = v149 + l_v151_0;
-            end);
-        end;
-    end;
-    return v145, v147, v146;
-end;
-local function v168(v154, v155, v156, v157, v158, v159, v160, v161) --[[ Line: 501 ]] --[[ Name: MakeImageButton ]]
-    -- upvalues: v138 (copy), l_Migration_0 (copy), v0 (copy), l_Create_0 (copy), v29 (copy), v35 (copy)
-    if not v161 then
-        v161 = "ImageButton";
-    end;
-    local v162, v163 = v138(v154, v156, v158, v159, v160, v161);
-    local v164 = nil;
-    local v165 = nil;
-    local v166 = l_Migration_0.uiblox[v155] or l_Migration_0.luaApps[v155];
-    if not string.match(v155, "^rbxasset://") then
-        v155 = v0.Images[v155];
-    end;
-    if typeof(v155) == "table" then
-        v164 = v155.ImageRectOffset;
-        v165 = v155.ImageRectSize;
-        v155 = v155.Image;
-    end;
-    local v167 = nil;
-    v167 = if v166 then l_Create_0("TextLabel")({
-        Name = v154 .. "TextLabel", 
-        BackgroundTransparency = 1, 
-        Size = v157, 
-        TextSize = if v29 then v157.Y.Offset * 0.8571428571428571 else v157.Y.Offset * 0.6666666666666666, 
-        Position = UDim2.new(0.5, 0, 0.5, 0), 
-        AnchorPoint = Vector2.new(0.5, 0.5), 
-        TextColor3 = Color3.new(1, 1, 1), 
-        Text = v166.name, 
-        FontFace = v35.Font[v166.variant], 
-        Parent = v162, 
-        ZIndex = 2
-    }) else l_Create_0("ImageLabel")({
-        Name = v154 .. "ImageLabel", 
-        BackgroundTransparency = 1, 
-        BorderSizePixel = 0, 
-        Size = v157, 
-        Position = UDim2.new(0.5, 0, 0.5, 0), 
-        AnchorPoint = Vector2.new(0.5, 0.5), 
-        Image = v155, 
-        ImageRectOffset = v164, 
-        ImageRectSize = v165, 
-        ZIndex = 2, 
-        Parent = v162
-    });
-    if v161 == "ImageButton" then
-        v162.Border.Thickness = 0;
-        v162.Border.Transparency = 1;
-    end;
-    return v162, v167, v163;
-end;
-local function v179(v169, v170, v171, v172, v173, v174) --[[ Line: 556 ]] --[[ Name: AddButtonRow ]]
-    -- upvalues: v153 (copy), l_Create_0 (copy)
-    local v175, v176, v177 = v153(v170, v171, v172, v173, v169, v174);
-    local v178 = l_Create_0("Frame")({
-        Name = v170 .. "Row", 
-        BackgroundTransparency = 1, 
-        Size = UDim2.new(1, 0, v172.Y.Scale, v172.Y.Offset), 
-        Parent = v169.Page
-    });
-    v175.Parent = v178;
-    v175.AnchorPoint = Vector2.new(1, 0);
-    v175.Position = UDim2.new(1, -20, 0, 0);
-    return v178, v175, v176, v177;
-end;
-local function v195(v180, v181) --[[ Line: 572 ]] --[[ Name: MakeRoundedRectFocusState ]]
-    -- upvalues: l_Create_0 (copy), v6 (copy), v0 (copy), l_RunService_0 (copy), l_UserGameSettings_0 (copy)
-    local v182 = l_Create_0("Frame")({
-        BackgroundTransparency = 1, 
-        Size = UDim2.new(1, 12, 1, 12), 
-        Position = UDim2.fromOffset(-6, -6)
-    });
-    l_Create_0("UICorner")({
-        CornerRadius = v6, 
-        Parent = v182
-    });
-    local v183 = l_Create_0("UIStroke")({
-        Color = v0.selectionCursor.AnimatedColor, 
-        Transparency = 0, 
-        Thickness = 3, 
-        Parent = v182
-    });
-    local v184 = l_Create_0("UIGradient")({
-        Rotation = 0, 
-        Color = v0.selectionCursor.GradientColorSequence, 
-        Transparency = v0.selectionCursor.GradientTransparencySequence, 
-        Parent = v183
-    });
-    l_RunService_0:UnbindFromRenderStep(v181);
-    l_RunService_0:BindToRenderStep(v181, Enum.RenderPriority.Last.Value, function() --[[ Line: 599 ]]
-        -- upvalues: v184 (copy), v0 (ref), l_UserGameSettings_0 (ref)
-        local v185 = v184.Rotation + 2;
-        local l_GradientColorSequence_0 = v0.selectionCursor.GradientColorSequence;
-        local l_GradientTransparencySequence_0 = v0.selectionCursor.GradientTransparencySequence;
-        if l_UserGameSettings_0.ReducedMotion then
-            local v188 = (math.sin((math.rad(v185))) + 1) / 2;
-            local l_Value_0 = l_GradientColorSequence_0.Keypoints[1].Value;
-            local l_Value_1 = l_GradientColorSequence_0.Keypoints[#l_GradientColorSequence_0.Keypoints].Value;
-            l_GradientColorSequence_0 = ColorSequence.new(l_Value_0:lerp(l_Value_1, v188));
-            local l_Value_2 = l_GradientTransparencySequence_0.Keypoints[1].Value;
-            local l_Value_3 = l_GradientTransparencySequence_0.Keypoints[#l_GradientTransparencySequence_0.Keypoints].Value;
-            l_GradientTransparencySequence_0 = NumberSequence.new(l_Value_2 + (l_Value_3 - l_Value_2) * v188);
-        end;
-        v184.Rotation = v185;
-        v184.Color = l_GradientColorSequence_0;
-        v184.Transparency = l_GradientTransparencySequence_0;
-    end);
-    v180.AncestryChanged:Connect(function(_, v194) --[[ Line: 623 ]]
-        -- upvalues: l_RunService_0 (ref), v181 (copy)
-        if not v194 then
-            l_RunService_0:UnbindFromRenderStep(v181);
-        end;
-    end);
-    v180.SelectionImageObject = v182;
-end;
-local function v282(v196, v197, v198) --[[ Line: 632 ]] --[[ Name: CreateDropDown ]]
-    -- upvalues: v0 (copy), l_HttpService_0 (copy), l_GuiService_0 (copy), l_Create_0 (copy), v20 (copy), l_CoreGui_0 (copy), l_VRService_0 (copy), l_isInExperienceUIVREnabled_0 (copy), l_CorePackages_1 (copy), l_UserInputService_0 (copy), l_ContextActionService_0 (copy), l_FFlagHideShortcutsWhileIemDropdownActive_0 (copy), v23 (copy), v30 (copy), v153 (copy)
-    local v199 = v0.color("SELECTION_TEXT_COLOR_NORMAL", Color3.fromRGB(178, 178, 178));
-    local v200 = Color3.fromRGB(229, 229, 229);
-    local v201 = v0.color("SELECTION_TEXT_COLOR_HIGHLIGHTED", Color3.fromRGB(255, 255, 255));
-    local v202 = nil;
-    local v203 = {
-        CurrentIndex = nil, 
-        UpdateDropDownList = nil, 
-        DropDownFrame = nil, 
-        Selections = nil
-    };
-    Instance.new("BindableEvent").Name = "IndexChanged";
-    if type(v196) ~= "table" then
-        error("CreateDropDown dropDownStringTable (first arg) is not a table", 2);
-        return v203;
-    else
-        local l_BindableEvent_1 = Instance.new("BindableEvent");
-        l_BindableEvent_1.Name = "IndexChanged";
-        local v205 = true;
-        local v206 = l_HttpService_0:GenerateGUID(false);
-        local v207 = nil;
-        local l_v196_0 = v196;
-        local l_l_GuiService_0_GuiInset_0, _ = l_GuiService_0:GetGuiInset();
-        local v211 = l_Create_0("ImageButton")({
-            Name = "DropDownFullscreenFrame", 
-            BackgroundTransparency = 0.2, 
-            BorderSizePixel = 0, 
-            Size = UDim2.new(1, 0, 1, if v20 then l_l_GuiService_0_GuiInset_0.Y else 0), 
-            Position = if v20 then UDim2.new(0, 0, 0, -l_l_GuiService_0_GuiInset_0.Y) else nil, 
-            BackgroundColor3 = Color3.fromRGB(0, 0, 0), 
-            ZIndex = 10, 
-            Active = true, 
-            Visible = false, 
-            Selectable = false, 
-            AutoButtonColor = false, 
-            Parent = l_CoreGui_0.RobloxGui
-        });
-        local function v215(v212) --[[ Line: 684 ]] --[[ Name: onVREnabled ]]
-            -- upvalues: l_VRService_0 (ref), l_isInExperienceUIVREnabled_0 (ref), l_CorePackages_1 (ref), v211 (copy), l_CoreGui_0 (ref), v203 (copy), l_v196_0 (ref)
-            if v212 ~= "VREnabled" then
-                return;
-            else
-                if l_VRService_0.VREnabled then
-                    if l_isInExperienceUIVREnabled_0 then
-                        local v213 = require(l_CorePackages_1.Workspace.Packages.VrSpatialUi);
-                        local l_PanelType_0 = v213.Constants.PanelType;
-                        v211.Parent = v213.UIManager.getInstance():getPanelObject(l_PanelType_0.MoreMenu);
-                        v211.BackgroundTransparency = 0.2;
-                    else
-                        v211.Parent = require(l_CorePackages_1.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):GetGUI();
-                        v211.BackgroundTransparency = 1;
-                    end;
-                else
-                    v211.Parent = l_CoreGui_0.RobloxGui;
-                    v211.BackgroundTransparency = 0.2;
-                end;
-                if v203.UpdateDropDownList then
-                    v203:UpdateDropDownList(l_v196_0);
-                end;
-                return;
-            end;
-        end;
-        l_VRService_0.Changed:Connect(v215);
-        v215("VREnabled");
-        local v216 = l_Create_0("ImageLabel")({
-            Name = "DropDownSelectionFrame", 
-            Image = "", 
-            ScaleType = Enum.ScaleType.Stretch, 
-            SliceCenter = Rect.new(8, 6, 46, 44), 
-            BackgroundTransparency = v0.transparency("DropdownListBg", 1), 
-            BackgroundColor3 = v0.color("DropdownListBg"), 
-            Size = UDim2.new(0.6, 0, 0.9, 0), 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            ZIndex = 10, 
-            Parent = v211
-        });
-        l_Create_0("UICorner")({
-            CornerRadius = v0.DefaultCornerRadius, 
-            Parent = v216
-        });
-        local v217 = l_Create_0("ScrollingFrame")({
-            Name = "DropDownScrollingFrame", 
-            BackgroundTransparency = 1, 
-            BorderSizePixel = 0, 
-            Size = UDim2.new(1, -20, 1, -25), 
-            Position = UDim2.new(0, 10, 0, 10), 
-            ZIndex = 10, 
-            ScrollBarThickness = v0.DefaultScrollBarThickness, 
-            ScrollingDirection = Enum.ScrollingDirection.Y, 
-            Parent = v216
-        });
-        local v218 = nil;
-        local v219 = false;
-        local function v222(v220, v221) --[[ Line: 748 ]]
-            -- upvalues: v203 (copy), v205 (ref), v198 (copy), v211 (copy), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v202 (ref), v218 (ref), l_ContextActionService_0 (ref), v206 (copy), v207 (ref), v219 (ref), l_isInExperienceUIVREnabled_0 (ref), l_CorePackages_1 (ref)
-            if v220 ~= nil and v221 ~= Enum.UserInputState.Begin then
-                return;
-            else
-                v203.DropDownFrame.Selectable = v205;
-                v198:SetActive(true);
-                if v211.Visible and not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                    l_GuiService_0.SelectedCoreObject = v202;
-                end;
-                v211.Visible = false;
-                if v218 then
-                    v218:Disconnect();
-                end;
-                l_ContextActionService_0:UnbindCoreAction(v206 .. "Action");
-                l_ContextActionService_0:UnbindCoreAction(v206 .. "FreezeAction");
-                v207.Value = v205;
-                v219 = false;
-                if l_VRService_0.VREnabled and not l_isInExperienceUIVREnabled_0 then
-                    require(l_CorePackages_1.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):SetSubpanelDepth(v211, 0);
-                end;
-                return;
-            end;
-        end;
-        local function v223() --[[ Line: 778 ]]
+local Theme = require(script.Parent.Theme)
+local v2 = Theme.color("SELECTED_COLOR", Color3.fromRGB(0, 162, 255))
+local v3 = Theme.color("NON_SELECTED_COLOR", Color3.fromRGB(78, 84, 96))
+local v4 = Theme.color("ARROW_COLOR", Color3.fromRGB(204, 204, 204))
+local v5 = Theme.color("ARROW_COLOR_HOVER", Color3.fromRGB(255, 255, 255))
+local v6 = Theme.color("ARROW_COLOR_INACTIVE", Color3.fromRGB(150, 150, 150))
+local uDim = UDim.new(0, 14)
+local HttpService = game:GetService("HttpService")
+local UserInputService = game:GetService("UserInputService")
+local GuiService = game:GetService("GuiService")
+local RunService = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
+local ContextActionService = game:GetService("ContextActionService")
+local VRService = game:GetService("VRService")
+local Workspace = game:GetService("Workspace")
+local CorePackages = game:GetService("CorePackages")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
+local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
+local v21 = game:DefineFastFlag("RepositionDropDownScrim", false)
+local EngineFeature = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+local Chrome = RobloxGui.Modules.Chrome
+local v24 = if not require(CorePackages.Workspace.Packages.Chrome).Enabled() then nil else require(Chrome.Service)
+local Signals = require(CorePackages.Packages.Signals)
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
+local FFlagHideShortcutsWhileIemDropdownActive = require(Chrome.Flags).FFlagHideShortcutsWhileIemDropdownActive
+local EngineFeature2 = game:GetEngineFeature("EnablePreferredTextSizeAccessGuiService")
+local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local v30 = game:DefineFastFlag("IncreaseLegacyPeopleRowButtonSize", false)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
+local CorePackages2 = game:GetService("CorePackages")
+local AppCommonLib = require(CorePackages2.Workspace.Packages.AppCommonLib)
+local Signal = AppCommonLib.Signal
+local Create = AppCommonLib.Create
+local BuilderIcons = require(CorePackages2.Packages.BuilderIcons)
+local Migration = BuilderIcons.Migration
+local v38 = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
+local v39 = Signals.createComputed(function(p1) -- line: 86
+	-- upvalues: Responsive (copy)
+	return Responsive.GetInputModeStore(p1).getLastInputType(p1) == Responsive.Input.Touch
+end)
+local v40 = Signals.createComputed(function(p2) -- line: 91
+	-- upvalues: Responsive (copy)
+	return Responsive.GetInputModeStore(p2).getLastInputType(p2) == Responsive.Input.Pointer
+end)
+local t1 = {}
 
-        end;
-        local function v228() --[[ Line: 780 ]]
-            -- upvalues: v205 (ref), v203 (copy), v219 (ref), v211 (copy), l_VRService_0 (ref), l_isInExperienceUIVREnabled_0 (ref), l_CorePackages_1 (ref), v202 (ref), l_GuiService_0 (ref), v218 (ref), v201 (copy), v200 (copy), v199 (copy), v222 (copy), l_FFlagHideShortcutsWhileIemDropdownActive_0 (ref), v23 (ref), l_ContextActionService_0 (ref), v206 (copy), v223 (copy), v198 (copy), v207 (ref)
-            if not v205 then
-                return;
-            else
-                v203.DropDownFrame.Selectable = false;
-                v219 = true;
-                v211.Visible = true;
-                if l_VRService_0.VREnabled and not l_isInExperienceUIVREnabled_0 then
-                    require(l_CorePackages_1.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):SetSubpanelDepth(v211, 0.5);
-                end;
-                v202 = v203.DropDownFrame;
-                if v203.CurrentIndex and v203.CurrentIndex > 0 then
-                    l_GuiService_0.SelectedCoreObject = v203.Selections[v203.CurrentIndex];
-                elseif #v203.Selections > 0 then
-                    l_GuiService_0.SelectedCoreObject = v203.Selections[1];
-                end;
-                v218 = l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 803 ]]
-                    -- upvalues: v203 (ref), l_GuiService_0 (ref), v201 (ref), l_VRService_0 (ref), v200 (ref), v199 (ref)
-                    for v224 = 1, #v203.Selections do
-                        if l_GuiService_0.SelectedCoreObject == v203.Selections[v224] then
-                            v203.Selections[v224].TextColor3 = v201;
-                        else
-                            v203.Selections[v224].TextColor3 = l_VRService_0.VREnabled and v200 or v199;
-                        end;
-                    end;
-                end);
-                local l_v222_0 = v222;
-                if l_FFlagHideShortcutsWhileIemDropdownActive_0 then
-                    v23:setHideShortcutBar("InExperienceMenuDropdown", true);
-                    l_v222_0 = function(v226, v227) --[[ Line: 817 ]]
-                        -- upvalues: v222 (ref), v23 (ref)
-                        v222(v226, v227);
-                        v23:setHideShortcutBar("InExperienceMenuDropdown", false);
-                    end;
-                end;
-                l_ContextActionService_0:BindCoreAction(v206 .. "FreezeAction", v223, false, Enum.UserInputType.Keyboard, Enum.UserInputType.Gamepad1);
-                l_ContextActionService_0:BindCoreAction(v206 .. "Action", l_v222_0, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Escape);
-                v198:SetActive(false);
-                v207.Value = false;
-                return;
-            end;
-        end;
-        local v229 = v30:FormatByKey("Feature.SettingsHub.Label.ChooseOne");
-        local v230 = UDim2.new(0.6, 0, 0, 40);
-        v203.DropDownFrame = v153("DropDownFrame", v229, v230, v228, nil, v198);
-        v203.DropDownFrame.Position = UDim2.new(1, 0, 0.5, 0);
-        v203.DropDownFrame.AnchorPoint = Vector2.new(1, 0.5);
-        v207 = v203.DropDownFrame.Enabled;
-        local l_DropDownFrameTextLabel_0 = v203.DropDownFrame.DropDownFrameTextLabel;
-        l_DropDownFrameTextLabel_0.Position = UDim2.new(0, 15, 0, 0);
-        l_DropDownFrameTextLabel_0.Size = UDim2.new(1, -50, 1, 0);
-        l_DropDownFrameTextLabel_0.ClipsDescendants = true;
-        l_DropDownFrameTextLabel_0.TextXAlignment = Enum.TextXAlignment.Left;
-        local v232 = l_Create_0("ImageLabel")({
-            Name = "DropDownImage", 
-            Image = "rbxasset://textures/ui/Settings/DropDown/DropDown.png", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(1, 0.5), 
-            Size = UDim2.new(0, 15, 0, 10), 
-            Position = UDim2.new(1, -12, 0.5, 0), 
-            ZIndex = 2, 
-            Parent = v203.DropDownFrame
-        });
-        v203.DropDownImage = v232;
-        local function v237(v233) --[[ Line: 870 ]] --[[ Name: setSelection ]]
-            -- upvalues: v203 (copy), l_DropDownFrameTextLabel_0 (copy), l_BindableEvent_1 (copy)
-            local v234 = false;
-            for v235, v236 in pairs(v203.Selections) do
-                if v235 == v233 then
-                    l_DropDownFrameTextLabel_0.Text = v236.Text;
-                    v203.CurrentIndex = v235;
-                    v234 = true;
-                end;
-            end;
-            if v234 then
-                l_BindableEvent_1:Fire(v233);
-            end;
-        end;
-        local function v242(v238) --[[ Line: 886 ]] --[[ Name: setSelectionByValue ]]
-            -- upvalues: v203 (copy), l_DropDownFrameTextLabel_0 (copy), l_BindableEvent_1 (copy)
-            local v239 = false;
-            for v240, v241 in pairs(v203.Selections) do
-                if v241.Text == v238 then
-                    l_DropDownFrameTextLabel_0.Text = v241.Text;
-                    v203.CurrentIndex = v240;
-                    v239 = true;
-                end;
-            end;
-            if v239 then
-                l_BindableEvent_1:Fire(v203.CurrentIndex);
-            end;
-            return v239;
-        end;
-        local function _(v243) --[[ Line: 903 ]] --[[ Name: setIsFaded ]]
-            -- upvalues: v203 (copy)
-            if v243 then
-                v203.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0.5;
-                v203.DropDownFrame.ImageTransparency = 0.5;
-                v203.DropDownImage.ImageTransparency = 0.5;
-                return;
-            else
-                v203.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0;
-                v203.DropDownFrame.ImageTransparency = 0;
-                v203.DropDownImage.ImageTransparency = 0;
-                return;
-            end;
-        end;
-        v203.IndexChanged = l_BindableEvent_1.Event;
-        v203.SetSelectionIndex = function(_, v246) --[[ Line: 918 ]] --[[ Name: SetSelectionIndex ]]
-            -- upvalues: v237 (copy)
-            v237(v246);
-        end;
-        v203.SetSelectionByValue = function(_, v248) --[[ Line: 922 ]] --[[ Name: SetSelectionByValue ]]
-            -- upvalues: v242 (copy)
-            return (v242(v248));
-        end;
-        v203.ResetSelectionIndex = function(_) --[[ Line: 926 ]] --[[ Name: ResetSelectionIndex ]]
-            -- upvalues: v203 (copy), l_DropDownFrameTextLabel_0 (copy), v229 (copy), v222 (copy)
-            v203.CurrentIndex = nil;
-            l_DropDownFrameTextLabel_0.Text = v229;
-            v222();
-        end;
-        v203.GetSelectedIndex = function(_) --[[ Line: 932 ]] --[[ Name: GetSelectedIndex ]]
-            -- upvalues: v203 (copy)
-            return v203.CurrentIndex;
-        end;
-        v203.SetZIndex = function(_, v252) --[[ Line: 936 ]] --[[ Name: SetZIndex ]]
-            -- upvalues: v203 (copy), v232 (copy), l_DropDownFrameTextLabel_0 (copy)
-            v203.DropDownFrame.ZIndex = v252;
-            v232.ZIndex = v252;
-            l_DropDownFrameTextLabel_0.ZIndex = v252;
-        end;
-        v203.SetInteractable = function(_, v254) --[[ Line: 942 ]] --[[ Name: SetInteractable ]]
-            -- upvalues: v205 (ref), v203 (copy), v222 (copy), l_VRService_0 (ref), v207 (ref), v219 (ref)
-            v205 = v254;
-            v203.DropDownFrame.Selectable = v205;
-            if not v205 then
-                v222();
-                if l_VRService_0.VREnabled then
-                    v203.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0.5;
-                    v203.DropDownFrame.ImageTransparency = 0.5;
-                    v203.DropDownImage.ImageTransparency = 0.5;
-                else
-                    v203.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0;
-                    v203.DropDownFrame.ImageTransparency = 0;
-                    v203.DropDownImage.ImageTransparency = 0;
-                end;
-                if not l_VRService_0.VREnabled then
-                    v203:SetZIndex(1);
-                end;
-            else
-                v203.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0;
-                v203.DropDownFrame.ImageTransparency = 0;
-                v203.DropDownImage.ImageTransparency = 0;
-                if not l_VRService_0.VREnabled then
-                    v203:SetZIndex(2);
-                end;
-            end;
-            v207.Value = v254 and not v219;
-            v203.DropDownImage.Visible = v254;
-            if v254 then
-                v203.DropDownFrame.ImageTransparency = 0;
-                return;
-            else
-                v203.DropDownFrame.ImageTransparency = 0.5;
-                return;
-            end;
-        end;
-        v203.SetAutoLocalize = function(_, v256) --[[ Line: 969 ]] --[[ Name: SetAutoLocalize ]]
-            -- upvalues: v211 (copy)
-            v211.AutoLocalize = v256;
-        end;
-        v203.UpdateDropDownList = function(_, v258) --[[ Line: 973 ]] --[[ Name: UpdateDropDownList ]]
-            -- upvalues: l_v196_0 (ref), v203 (copy), l_VRService_0 (ref), v0 (ref), l_Create_0 (ref), v200 (copy), v199 (copy), v217 (copy), v197 (copy), l_DropDownFrameTextLabel_0 (copy), v201 (copy), v222 (copy), l_BindableEvent_1 (copy), l_UserInputService_0 (ref), l_GuiService_0 (ref), v206 (copy), v211 (copy), v216 (copy)
-            l_v196_0 = v258;
-            if v203.Selections then
-                for v259 = 1, #v203.Selections do
-                    v203.Selections[v259]:Destroy();
-                end;
-            end;
-            v203.Selections = {};
-            v203.SelectionInfo = {};
-            local l_VREnabled_0 = l_VRService_0.VREnabled;
-            local v261 = l_VREnabled_0 and v0.font(Enum.Font.SourceSansBold, "Bold") or v0.font(Enum.Font.SourceSans, "UtilityText");
-            local v262 = l_VREnabled_0 and v0.textSize(36) or v0.textSize(24, "UtilityText");
-            local v263 = l_VREnabled_0 and 70 or 50;
-            local v264 = v263 + 1;
-            local v265 = l_VREnabled_0 and 600 or 400;
-            local v266 = 0;
-            for v267, v268 in pairs(v258) do
-                local v269 = l_Create_0("Frame")({
-                    BackgroundTransparency = 0.7, 
-                    BorderSizePixel = 0, 
-                    Size = UDim2.new(1, 0, 1, 0)
-                });
-                l_Create_0("UICorner")({
-                    CornerRadius = v0.DefaultCornerRadius, 
-                    Parent = v269
-                });
-                local l_v268_0 = v268;
-                local v271 = "";
-                local v272 = typeof(v268) == "table";
-                if v272 then
-                    l_v268_0 = v268.title;
-                    v271 = v268.subtitle;
-                    v266 = v266 + 10;
-                end;
-                local v273 = nil;
-                if v272 then
-                    v273 = l_Create_0("TextButton")({
-                        Name = "Selection" .. tostring(v267), 
-                        BackgroundTransparency = 1, 
-                        BorderSizePixel = 0, 
-                        AutoButtonColor = false, 
-                        TextYAlignment = Enum.TextYAlignment.Top, 
-                        Size = UDim2.new(1, -28, 0, v263 + 10), 
-                        Position = UDim2.new(0, 14, 0, (v267 - 1) * (v264 + 10)), 
-                        TextColor3 = l_VRService_0.VREnabled and v200 or v199, 
-                        Font = v261, 
-                        TextSize = v262, 
-                        Text = l_v268_0, 
-                        ZIndex = 10, 
-                        SelectionImageObject = v269, 
-                        Parent = v217
-                    });
-                    local _ = l_Create_0("TextLabel")({
-                        Name = "Subtitle" .. tostring(v267), 
-                        BackgroundTransparency = 1, 
-                        BorderSizePixel = 0, 
-                        Size = UDim2.new(1, -28, 0, v263 * 0.8), 
-                        Position = UDim2.new(0, 14, 0, 15), 
-                        TextColor3 = l_VRService_0.VREnabled and v200 or v199, 
-                        Font = v261, 
-                        TextSize = v262 * 0.8, 
-                        Text = v271, 
-                        ZIndex = 10, 
-                        Parent = v273
-                    });
-                else
-                    v273 = l_Create_0("TextButton")({
-                        Name = "Selection" .. tostring(v267), 
-                        BackgroundTransparency = 1, 
-                        BorderSizePixel = 0, 
-                        AutoButtonColor = false, 
-                        Size = UDim2.new(1, -28, 0, v263), 
-                        Position = UDim2.new(0, 14, 0, (v267 - 1) * v264), 
-                        TextColor3 = l_VRService_0.VREnabled and v200 or v199, 
-                        Font = v261, 
-                        TextSize = v262, 
-                        Text = v268, 
-                        ZIndex = 10, 
-                        SelectionImageObject = v269, 
-                        Parent = v217
-                    });
-                end;
-                if v267 == v197 then
-                    v203.CurrentIndex = v267;
-                    l_DropDownFrameTextLabel_0.Text = l_v268_0;
-                    v273.TextColor3 = v201;
-                elseif not v197 and v267 == 1 then
-                    v273.TextColor3 = v201;
-                end;
-                do
-                    local l_v273_0 = v273;
-                    local function v276() --[[ Line: 1077 ]]
-                        -- upvalues: l_DropDownFrameTextLabel_0 (ref), l_v273_0 (ref), v222 (ref), v203 (ref), v267 (copy), l_BindableEvent_1 (ref)
-                        l_DropDownFrameTextLabel_0.Text = l_v273_0.Text;
-                        v222();
-                        v203.CurrentIndex = v267;
-                        l_BindableEvent_1:Fire(v267);
-                    end;
-                    l_v273_0.MouseButton1Click:Connect(v276);
-                    l_v273_0.MouseEnter:Connect(function() --[[ Line: 1086 ]]
-                        -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), l_v273_0 (ref)
-                        if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                            l_GuiService_0.SelectedCoreObject = l_v273_0;
-                        end;
-                    end);
-                    v203.Selections[v267] = l_v273_0;
-                    local l_SelectionInfo_0 = v203.SelectionInfo;
-                    local v278 = {
-                        Clicked = v276
-                    };
-                    l_SelectionInfo_0[l_v273_0] = v278;
-                end;
-            end;
-            l_GuiService_0:RemoveSelectionGroup(v206);
-            l_GuiService_0:AddSelectionTuple(v206, unpack(v203.Selections));
-            v217.CanvasSize = UDim2.new(1, -20, 0, #v258 * v264 + v266);
-            local function v279() --[[ Line: 1102 ]] --[[ Name: updateDropDownSize ]]
-                -- upvalues: v217 (ref), v211 (ref), v216 (ref), v265 (copy)
-                if v217.CanvasSize.Y.Offset < v211.AbsoluteSize.Y - 10 then
-                    v216.Size = UDim2.new(0, v265, 0, v217.CanvasSize.Y.Offset + 25);
-                    return;
-                else
-                    v216.Size = UDim2.new(0, v265, 0.9, 0);
-                    return;
-                end;
-            end;
-            v211.Changed:Connect(function(v280) --[[ Line: 1115 ]]
-                -- upvalues: v279 (copy)
-                if v280 ~= "AbsoluteSize" then
-                    return;
-                else
-                    v279();
-                    return;
-                end;
-            end);
-            v279();
-        end;
-        v203:UpdateDropDownList(v196);
-        v211.MouseButton1Click:Connect(v222);
-        v198.PoppedMenu:Connect(function(v281) --[[ Line: 1130 ]]
-            -- upvalues: v211 (copy), v222 (copy)
-            if v281 == v211 then
-                v222();
-            end;
-        end);
-        return v203;
-    end;
-end;
-local function v364(v283, v284) --[[ Line: 1139 ]] --[[ Name: CreateSelector ]]
-    -- upvalues: l_Create_0 (copy), v43 (copy), v0 (copy), v3 (copy), l_UserInputService_0 (copy), v4 (copy), v102 (copy), l_VRService_0 (copy), l_GuiService_0 (copy), v56 (copy), l_game_EngineFeature_0 (copy), v5 (copy), v37 (copy), v39 (copy), v41 (copy), v42 (copy)
-    local v285 = 0;
-    local v286 = {
-        HubRef = nil, 
-        SetSelectionIndex = nil
-    };
-    if type(v283) ~= "table" then
-        error("CreateSelector selectionStringTable (first arg) is not a table", 2);
-        return v286;
-    else
-        local l_BindableEvent_2 = Instance.new("BindableEvent");
-        l_BindableEvent_2.Name = "IndexChanged";
-        local v288 = true;
-        v286.CurrentIndex = 0;
-        v286.SelectorFrame = l_Create_0("ImageButton")({
-            Name = "Selector", 
-            Image = "", 
-            AutoButtonColor = false, 
-            NextSelectionLeft = v286.SelectorFrame, 
-            NextSelectionRight = v286.SelectorFrame, 
-            BackgroundTransparency = 1, 
-            Size = UDim2.new(0.6, 0, 0, 50), 
-            Position = UDim2.new(1, 0, 0.5, 0), 
-            AnchorPoint = Vector2.new(1, 0.5), 
-            ZIndex = 2, 
-            SelectionImageObject = v43
-        });
-        local v289 = l_Create_0("ImageButton")({
-            Name = "LeftButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(0, 0.5), 
-            Position = UDim2.new(0, 0, 0.5, 0), 
-            Size = UDim2.new(0, v0.SelectorArrowButtonWidth, 0, 50), 
-            Image = "", 
-            ZIndex = 3, 
-            Selectable = false, 
-            SelectionImageObject = v43, 
-            Parent = v286.SelectorFrame
-        });
-        local v290 = l_Create_0("ImageButton")({
-            Name = "RightButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(1, 0.5), 
-            Position = UDim2.new(1, 0, 0.5, 0), 
-            Size = UDim2.new(0, v0.SelectorArrowButtonWidth, 0, 50), 
-            Image = "", 
-            ZIndex = 3, 
-            Selectable = false, 
-            SelectionImageObject = v43, 
-            Parent = v286.SelectorFrame
-        });
-        local v291 = l_Create_0("ImageLabel")({
-            Name = "LeftButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            Size = UDim2.new(0, 18, 0, 30), 
-            Image = "rbxasset://textures/ui/Settings/Slider/Left.png", 
-            ImageColor3 = v3, 
-            ZIndex = 4, 
-            Parent = v289
-        });
-        local v292 = l_Create_0("ImageLabel")({
-            Name = "RightButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            Size = UDim2.new(0, 18, 0, 30), 
-            Image = "rbxasset://textures/ui/Settings/Slider/Right.png", 
-            ImageColor3 = v3, 
-            ZIndex = 4, 
-            Parent = v290
-        });
-        if not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) then
-            local function v294(v293) --[[ Line: 1225 ]]
-                -- upvalues: v3 (ref)
-                v293.ImageColor3 = v3;
-            end;
-            local function v296(v295) --[[ Line: 1227 ]]
-                -- upvalues: v4 (ref)
-                v295.ImageColor3 = v4;
-            end;
-            v102(v289, v291, v294, v296);
-            v102(v290, v292, v294, v296);
-        end;
-        v286.Selections = {};
-        local v297 = {};
-        local v298 = {};
-        local v299 = l_Create_0("ImageButton")({
-            Name = "AutoSelectButton", 
-            BackgroundTransparency = 1, 
-            Image = "", 
-            Position = UDim2.new(0, v289.Size.X.Offset, 0, 0), 
-            Size = UDim2.new(1, v289.Size.X.Offset * -2, 1, 0), 
-            Parent = v286.SelectorFrame, 
-            ZIndex = 2, 
-            SelectionImageObject = v43
-        });
-        v299.MouseButton1Click:Connect(function() --[[ Line: 1248 ]]
-            -- upvalues: v288 (ref), v286 (copy), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref)
-            if not v288 then
-                return;
-            elseif #v286.Selections <= 1 then
-                return;
-            else
-                local v300 = v286.CurrentIndex + 1;
-                if #v286.Selections < v300 then
-                    v300 = 1;
-                end;
-                v286:SetSelectionIndex(v300);
-                if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                    l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                end;
-                return;
-            end;
-        end);
-        v298[v299] = true;
-        local function v308(v301, v302) --[[ Line: 1267 ]] --[[ Name: setSelection ]]
-            -- upvalues: v286 (copy), v289 (copy), v297 (ref), v56 (ref), l_game_EngineFeature_0 (ref), l_BindableEvent_2 (copy)
-            for v303, v304 in pairs(v286.Selections) do
-                local v305 = v303 == v301;
-                local v306 = UDim2.new(0, v289.Size.X.Offset, 0, 0);
-                local v307 = UDim2.new(0, v289.Size.X.Offset * v302 * 3, 0, 0);
-                if v297[v304] then
-                    v307 = UDim2.new(0, v289.Size.X.Offset * -v302 * 3, 0, 0);
-                end;
-                if v307.X.Offset < 0 then
-                    v307 = UDim2.new(0, v307.X.Offset + v304.AbsoluteSize.X / 4, 0, 0);
-                end;
-                if v305 then
-                    v297[v304] = true;
-                    v304.Position = v307;
-                    v304.Visible = true;
-                    PropertyTweener(v304, "TextTransparency", 1, 0, 0.165, v56);
-                    if v304:IsDescendantOf(game) then
-                        if l_game_EngineFeature_0 then
-                            v304:TweenPositionInternal(v306, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.15, true);
-                        else
-                            v304:TweenPosition(v306, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.15, true);
-                        end;
-                    else
-                        v304.Position = v306;
-                    end;
-                    v286.CurrentIndex = v303;
-                    l_BindableEvent_2:Fire(v301);
-                elseif v297[v304] then
-                    v297[v304] = false;
-                    PropertyTweener(v304, "TextTransparency", 0, 1, 0.165, v56);
-                    if v304:IsDescendantOf(game) then
-                        if l_game_EngineFeature_0 then
-                            v304:TweenPositionInternal(v307, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.135, true);
-                        else
-                            v304:TweenPosition(v307, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.135, true);
-                        end;
-                    else
-                        v304.Position = v307;
-                    end;
-                end;
-            end;
-        end;
-        local function v313(v309, v310) --[[ Line: 1338 ]] --[[ Name: stepFunc ]]
-            -- upvalues: v288 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v286 (copy), v308 (copy)
-            if not v288 then
-                return;
-            elseif v309 ~= nil and v309.UserInputType ~= Enum.UserInputType.MouseButton1 and v309.UserInputType ~= Enum.UserInputType.Gamepad1 and v309.UserInputType ~= Enum.UserInputType.Gamepad2 and v309.UserInputType ~= Enum.UserInputType.Gamepad3 and v309.UserInputType ~= Enum.UserInputType.Gamepad4 and v309.UserInputType ~= Enum.UserInputType.Keyboard then
-                return;
-            else
-                if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                    l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                end;
-                local v311 = v310 + v286.CurrentIndex;
-                local v312 = 0;
-                v312 = v286.CurrentIndex < v311 and 1 or -1;
-                if #v286.Selections < v311 then
-                    v311 = 1;
-                elseif v311 < 1 then
-                    v311 = #v286.Selections;
-                end;
-                v308(v311, v312);
-                return;
-            end;
-        end;
-        local v314 = nil;
-        local function _() --[[ Line: 1378 ]] --[[ Name: connectToGuiService ]]
-            -- upvalues: v314 (ref), l_GuiService_0 (ref), v286 (copy), v298 (copy), l_VRService_0 (ref)
-            v314 = l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 1379 ]]
-                -- upvalues: v286 (ref), l_GuiService_0 (ref), v298 (ref), l_VRService_0 (ref)
-                if #v286.Selections <= 0 then
-                    return;
-                else
-                    if l_GuiService_0.SelectedCoreObject ~= nil and v298[l_GuiService_0.SelectedCoreObject] and not l_VRService_0.VREnabled then
-                        l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                    end;
-                    return;
-                end;
-            end);
-        end;
-        v286.IndexChanged = l_BindableEvent_2.Event;
-        v286.SetSelectionIndex = function(_, v317) --[[ Line: 1392 ]] --[[ Name: SetSelectionIndex ]]
-            -- upvalues: v308 (copy)
-            v308(v317, 1);
-        end;
-        v286.GetSelectedIndex = function(_) --[[ Line: 1396 ]] --[[ Name: GetSelectedIndex ]]
-            -- upvalues: v286 (copy)
-            return v286.CurrentIndex;
-        end;
-        v286.SetZIndex = function(_, v320) --[[ Line: 1400 ]] --[[ Name: SetZIndex ]]
-            -- upvalues: v289 (copy), v290 (copy), v291 (copy), v292 (copy), v286 (copy)
-            v289.ZIndex = v320;
-            v290.ZIndex = v320;
-            v291.ZIndex = v320;
-            v292.ZIndex = v320;
-            for v321 = 1, #v286.Selections do
-                v286.Selections[v321].ZIndex = v320;
-            end;
-        end;
-        v286.SetInteractable = function(_, v323) --[[ Line: 1411 ]] --[[ Name: SetInteractable ]]
-            -- upvalues: v288 (ref), v286 (copy), v289 (copy), v290 (copy), v0 (ref), v291 (copy), v5 (ref), v292 (copy), v3 (ref)
-            v288 = v323;
-            v286.SelectorFrame.Selectable = v288;
-            v289.Active = v288;
-            v290.Active = v288;
-            v289.Visible = v288;
-            v290.Visible = v288;
-            if not v288 then
-                for _, v325 in pairs(v286.Selections) do
-                    v325.TextColor3 = v0.color("NotInteractableSelection", Color3.fromRGB(255, 255, 255));
-                end;
-                v291.ImageColor3 = v5;
-                v292.ImageColor3 = v5;
-                return;
-            else
-                for _, v327 in pairs(v286.Selections) do
-                    v327.TextColor3 = Color3.fromRGB(255, 255, 255);
-                end;
-                v291.ImageColor3 = v3;
-                v292.ImageColor3 = v3;
-                return;
-            end;
-        end;
-        v286.UpdateOptions = function(_, v329) --[[ Line: 1436 ]] --[[ Name: UpdateOptions ]]
-            -- upvalues: v286 (copy), v297 (ref), l_Create_0 (ref), v289 (copy), v0 (ref), v37 (ref), v284 (copy), v290 (copy)
-            for _, v331 in pairs(v286.Selections) do
-                v331:Destroy();
-            end;
-            v297 = {};
-            v286.Selections = {};
-            for v332, v333 in pairs(v329) do
-                local v334 = l_Create_0("TextLabel")({
-                    Name = "Selection" .. tostring(v332), 
-                    BackgroundTransparency = 1, 
-                    BorderSizePixel = 0, 
-                    Size = UDim2.new(1, v289.Size.X.Offset * -2, 1, 0), 
-                    Position = UDim2.new(1, 0, 0, 0), 
-                    TextColor3 = Color3.fromRGB(255, 255, 255), 
-                    TextYAlignment = Enum.TextYAlignment.Center, 
-                    Font = v0.font(Enum.Font.SourceSans, "UtilityText"), 
-                    TextSize = v0.textSize(24, "UtilityText"), 
-                    TextWrapped = true, 
-                    Text = v333, 
-                    ZIndex = 2, 
-                    Visible = false, 
-                    Parent = v286.SelectorFrame
-                });
-                if v37 then
-                    v334.TextSize = v0.textSize(36);
-                end;
-                if v332 == v284 then
-                    v286.CurrentIndex = v332;
-                    v334.Position = UDim2.new(0, v289.Size.X.Offset, 0, 0);
-                    v334.Visible = true;
-                    v297[v334] = true;
-                else
-                    v297[v334] = false;
-                end;
-                v286.Selections[v332] = v334;
-            end;
-            local v335 = #v286.Selections > 1;
-            v289.Visible = v335;
-            v290.Visible = v335;
-        end;
-        local function v338(v336) --[[ Line: 1484 ]] --[[ Name: onVREnabled ]]
-            -- upvalues: l_VRService_0 (ref), v289 (copy), v290 (copy), v299 (copy)
-            if v336 ~= "VREnabled" then
-                return;
-            else
-                local l_VREnabled_1 = l_VRService_0.VREnabled;
-                v289.Selectable = l_VREnabled_1;
-                v290.Selectable = l_VREnabled_1;
-                v299.Selectable = l_VREnabled_1;
-                return;
-            end;
-        end;
-        l_VRService_0.Changed:Connect(v338);
-        local l_VREnabled_2 = l_VRService_0.VREnabled;
-        v289.Selectable = l_VREnabled_2;
-        v290.Selectable = l_VREnabled_2;
-        v299.Selectable = l_VREnabled_2;
-        v289.InputBegan:Connect(function(v340) --[[ Line: 1496 ]]
-            -- upvalues: v39 (ref), v41 (ref), v288 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v286 (copy), v308 (copy)
-            if v39(false) or v41(false) and v340.UserInputType == Enum.UserInputType.MouseButton1 then
-                if not v288 then
-                    return;
-                else
-                    if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                        l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                    end;
-                    local v341 = -1 + v286.CurrentIndex;
-                    local v342 = 0;
-                    v342 = v286.CurrentIndex < v341 and 1 or -1;
-                    if #v286.Selections < v341 then
-                        v341 = 1;
-                    elseif v341 < 1 then
-                        v341 = #v286.Selections;
-                    end;
-                    v308(v341, v342);
-                end;
-            end;
-        end);
-        v290.InputBegan:Connect(function(v343) --[[ Line: 1502 ]]
-            -- upvalues: v39 (ref), v41 (ref), v288 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v286 (copy), v308 (copy)
-            if v39(false) or v41(false) and v343.UserInputType == Enum.UserInputType.MouseButton1 then
-                if not v288 then
-                    return;
-                else
-                    if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                        l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                    end;
-                    local v344 = 1 + v286.CurrentIndex;
-                    local v345 = 0;
-                    v345 = v286.CurrentIndex < v344 and 1 or -1;
-                    if #v286.Selections < v344 then
-                        v344 = 1;
-                    elseif v344 < 1 then
-                        v344 = #v286.Selections;
-                    end;
-                    v308(v344, v345);
-                end;
-            end;
-        end);
-        l_VREnabled_2 = true;
-        v286:UpdateOptions(v283);
-        l_UserInputService_0.InputBegan:Connect(function(v346) --[[ Line: 1512 ]]
-            -- upvalues: v288 (ref), l_VREnabled_2 (ref), l_GuiService_0 (ref), v286 (copy), l_VRService_0 (ref), l_UserInputService_0 (ref), v308 (copy)
-            if not v288 then
-                return;
-            elseif not l_VREnabled_2 then
-                return;
-            elseif v346.UserInputType ~= Enum.UserInputType.Gamepad1 and v346.UserInputType ~= Enum.UserInputType.Keyboard then
-                return;
-            elseif l_GuiService_0.SelectedCoreObject ~= v286.SelectorFrame then
-                return;
-            elseif v346.KeyCode == Enum.KeyCode.DPadLeft or v346.KeyCode == Enum.KeyCode.Left or v346.KeyCode == Enum.KeyCode.A then
-                if not v288 then
-                    return;
-                elseif v346 ~= nil and v346.UserInputType ~= Enum.UserInputType.MouseButton1 and v346.UserInputType ~= Enum.UserInputType.Gamepad1 and v346.UserInputType ~= Enum.UserInputType.Gamepad2 and v346.UserInputType ~= Enum.UserInputType.Gamepad3 and v346.UserInputType ~= Enum.UserInputType.Gamepad4 and v346.UserInputType ~= Enum.UserInputType.Keyboard then
-                    return;
-                else
-                    if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                        l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                    end;
-                    local v347 = -1 + v286.CurrentIndex;
-                    local v348 = 0;
-                    v348 = v286.CurrentIndex < v347 and 1 or -1;
-                    if #v286.Selections < v347 then
-                        v347 = 1;
-                    elseif v347 < 1 then
-                        v347 = #v286.Selections;
-                    end;
-                    v308(v347, v348);
-                    return;
-                end;
-            else
-                if v346.KeyCode == Enum.KeyCode.DPadRight or v346.KeyCode == Enum.KeyCode.Right or v346.KeyCode == Enum.KeyCode.D then
-                    if not v288 then
-                        return;
-                    elseif v346 ~= nil and v346.UserInputType ~= Enum.UserInputType.MouseButton1 and v346.UserInputType ~= Enum.UserInputType.Gamepad1 and v346.UserInputType ~= Enum.UserInputType.Gamepad2 and v346.UserInputType ~= Enum.UserInputType.Gamepad3 and v346.UserInputType ~= Enum.UserInputType.Gamepad4 and v346.UserInputType ~= Enum.UserInputType.Keyboard then
-                        return;
-                    else
-                        if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                            l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                        end;
-                        local v349 = 1 + v286.CurrentIndex;
-                        local v350 = 0;
-                        v350 = v286.CurrentIndex < v349 and 1 or -1;
-                        if #v286.Selections < v349 then
-                            v349 = 1;
-                        elseif v349 < 1 then
-                            v349 = #v286.Selections;
-                        end;
-                        v308(v349, v350);
-                    end;
-                end;
-                return;
-            end;
-        end);
-        l_UserInputService_0.InputChanged:Connect(function(v351) --[[ Line: 1545 ]]
-            -- upvalues: v288 (ref), l_VREnabled_2 (ref), v285 (ref), l_GuiService_0 (ref), v286 (copy), v313 (copy)
-            if not v288 then
-                return;
-            elseif not l_VREnabled_2 then
-                v285 = 0;
-                return;
-            elseif v351.UserInputType ~= Enum.UserInputType.Gamepad1 then
-                return;
-            else
-                local l_SelectedCoreObject_0 = l_GuiService_0.SelectedCoreObject;
-                if not l_SelectedCoreObject_0 or not l_SelectedCoreObject_0:IsDescendantOf(v286.SelectorFrame.Parent) then
-                    return;
-                elseif v351.KeyCode ~= Enum.KeyCode.Thumbstick1 then
-                    return;
-                elseif v351.Position.X > 0.8 and v351.Delta.X > 0 and v285 ~= 1 then
-                    v285 = 1;
-                    v313(v351, v285);
-                    return;
-                elseif v351.Position.X < -0.8 and v351.Delta.X < 0 and v285 ~= -1 then
-                    v285 = -1;
-                    v313(v351, v285);
-                    return;
-                else
-                    if math.abs(v351.Position.X) < 0.8 then
-                        v285 = 0;
-                    end;
-                    return;
-                end;
-            end;
-        end);
-        v286.SelectorFrame.AncestryChanged:Connect(function(_, v354) --[[ Line: 1586 ]]
-            -- upvalues: l_VREnabled_2 (ref), v314 (ref), l_GuiService_0 (ref), v286 (copy), v298 (copy), l_VRService_0 (ref)
-            l_VREnabled_2 = v354;
-            if not l_VREnabled_2 then
-                if v314 then
-                    v314:Disconnect();
-                    return;
-                end;
-            else
-                v314 = l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 1379 ]]
-                    -- upvalues: v286 (ref), l_GuiService_0 (ref), v298 (ref), l_VRService_0 (ref)
-                    if #v286.Selections <= 0 then
-                        return;
-                    else
-                        if l_GuiService_0.SelectedCoreObject ~= nil and v298[l_GuiService_0.SelectedCoreObject] and not l_VRService_0.VREnabled then
-                            l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                        end;
-                        return;
-                    end;
-                end);
-            end;
-        end);
-        local function v360(_, v356) --[[ Line: 1597 ]] --[[ Name: onResized ]]
-            -- upvalues: v0 (ref), v37 (ref), v286 (copy)
-            local v357 = 0;
-            v357 = if v356 then v0.textSize(16) else v37 and v0.textSize(36) or v0.textSize(24, "UtilityText");
-            for _, v359 in pairs(v286.Selections) do
-                v359.TextSize = v357;
-            end;
-        end;
-        v42[v286.SelectorFrame] = v360;
-        local l_v360_0 = v360;
-        local v362 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-        local v363 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-        l_v360_0(v362, v363.Y > v363.X);
-        v314 = l_GuiService_0:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() --[[ Line: 1379 ]]
-            -- upvalues: v286 (copy), l_GuiService_0 (ref), v298 (copy), l_VRService_0 (ref)
-            if #v286.Selections <= 0 then
-                return;
-            else
-                if l_GuiService_0.SelectedCoreObject ~= nil and v298[l_GuiService_0.SelectedCoreObject] and not l_VRService_0.VREnabled then
-                    l_GuiService_0.SelectedCoreObject = v286.SelectorFrame;
-                end;
-                return;
-            end;
-        end);
-        return v286;
-    end;
-end;
-local function v389(v365, v366, v367, v368, v369) --[[ Line: 1616 ]] --[[ Name: ShowAlert ]]
-    -- upvalues: l_CoreGui_0 (copy), l_VRService_0 (copy), l_isInExperienceUIVREnabled_0 (copy), l_CorePackages_1 (copy), l_Create_0 (copy), v0 (copy), l_HttpService_0 (copy), l_ContextActionService_0 (copy), l_GuiService_0 (copy), v153 (copy), l_UserInputService_0 (copy)
-    local l_RobloxGui_1 = l_CoreGui_0.RobloxGui;
-    if l_RobloxGui_1:FindFirstChild("AlertViewFullScreen") then
-        return;
-    else
-        local v371 = nil;
-        local function v377(v372) --[[ Line: 1627 ]] --[[ Name: onVREnabled ]]
-            -- upvalues: l_VRService_0 (ref), l_isInExperienceUIVREnabled_0 (ref), l_CorePackages_1 (ref), l_RobloxGui_1 (ref), l_CoreGui_0 (ref), v371 (ref)
-            if v372 ~= "VREnabled" then
-                return;
-            else
-                local _ = nil;
-                local v374 = nil;
-                if l_VRService_0.VREnabled then
-                    if l_isInExperienceUIVREnabled_0 then
-                        local v375 = require(l_CorePackages_1.Workspace.Packages.VrSpatialUi);
-                        local l_PanelType_1 = v375.Constants.PanelType;
-                        l_RobloxGui_1 = v375.UIManager.getInstance():getPanelObject(l_PanelType_1.MoreMenu);
-                    else
-                        v374 = require(l_CorePackages_1.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu");
-                        l_RobloxGui_1 = v374:GetGUI();
-                    end;
-                else
-                    l_RobloxGui_1 = l_CoreGui_0.RobloxGui;
-                end;
-                if v371 and v371.Parent ~= nil then
-                    v371.Parent = l_RobloxGui_1;
-                    if l_VRService_0.VREnabled and not l_isInExperienceUIVREnabled_0 then
-                        v374:SetSubpanelDepth(v371, 0.5);
-                    end;
-                end;
-                return;
-            end;
-        end;
-        local v378 = l_VRService_0.Changed:Connect(v377);
-        v371 = l_Create_0("ImageLabel")({
-            Name = "AlertViewBacking", 
-            Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png", 
-            ScaleType = Enum.ScaleType.Slice, 
-            SliceCenter = Rect.new(8, 6, 46, 44), 
-            BackgroundTransparency = 1, 
-            ImageTransparency = 1, 
-            Size = UDim2.new(0, 400, 0, 350), 
-            Position = UDim2.new(0.5, -200, 0.5, -175), 
-            ZIndex = 9, 
-            Parent = l_RobloxGui_1
-        });
-        v377("VREnabled");
-        if v369 or not l_isInExperienceUIVREnabled_0 and l_VRService_0.VREnabled then
-            v371.ImageTransparency = 0;
-        else
-            v371.Size = UDim2.new(0.8, 0, 0, 350);
-            v371.Position = UDim2.new(0.1, 0, 0.1, 0);
-        end;
-        if l_CoreGui_0.RobloxGui.AbsoluteSize.Y <= v371.Size.Y.Offset then
-            v371.Size = UDim2.new(v371.Size.X.Scale, v371.Size.X.Offset, v371.Size.Y.Scale, l_CoreGui_0.RobloxGui.AbsoluteSize.Y);
-            v371.Position = UDim2.new(v371.Position.X.Scale, -v371.Size.X.Offset / 2, 0.5, -v371.Size.Y.Offset / 2);
-        end;
-        if not v369 then
-            l_Create_0("UICorner")({
-                CornerRadius = v0.DefaultCornerRadius, 
-                Parent = v371
-            });
-            v371.BackgroundColor3 = v0.color("MenuContainer");
-            v371.BackgroundTransparency = v0.transparency("MenuContainer");
-        end;
-        local _ = l_Create_0("TextLabel")({
-            Name = "AlertViewText", 
-            BackgroundTransparency = 1, 
-            Size = UDim2.new(0.95, 0, 0.6, 0), 
-            Position = UDim2.new(0.025, 0, 0.05, 0), 
-            Font = v0.font(Enum.Font.SourceSansBold, "Bold"), 
-            TextSize = v0.textSize(36), 
-            Text = v365, 
-            TextWrapped = true, 
-            TextColor3 = Color3.fromRGB(255, 255, 255), 
-            TextXAlignment = Enum.TextXAlignment.Center, 
-            TextYAlignment = Enum.TextYAlignment.Center, 
-            ZIndex = 10, 
-            Parent = v371
-        });
-        local _ = l_Create_0("ImageLabel")({
-            Image = "", 
-            BackgroundTransparency = 1
-        });
-        local v381 = l_HttpService_0:GenerateGUID(false);
-        local function v384(_, v383) --[[ Line: 1726 ]]
-            -- upvalues: l_VRService_0 (ref), v371 (ref), l_isInExperienceUIVREnabled_0 (ref), l_CorePackages_1 (ref), v368 (copy), l_ContextActionService_0 (ref), v381 (copy), l_GuiService_0 (ref), v367 (copy), v378 (copy)
-            if l_VRService_0.VREnabled and (v383 == Enum.UserInputState.Begin or v383 == Enum.UserInputState.Cancel) then
-                return;
-            elseif not v371 then
-                return;
-            else
-                if l_VRService_0.VREnabled and not l_isInExperienceUIVREnabled_0 then
-                    require(l_CorePackages_1.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):SetSubpanelDepth(v371, 0);
-                end;
-                v371:Destroy();
-                v371 = nil;
-                if v368 then
-                    v368();
-                end;
-                l_ContextActionService_0:UnbindCoreAction(v381);
-                l_GuiService_0.SelectedCoreObject = nil;
-                if v367 then
-                    v367:ShowBar();
-                end;
-                if v378 then
-                    v378:Disconnect();
-                end;
-                return;
-            end;
-        end;
-        local v385 = UDim2.new(1, -20, 0, 60);
-        local v386 = UDim2.new(0, 10, 0.65, 0);
-        if not v369 then
-            v385 = UDim2.new(0, 200, 0, 50);
-            v386 = UDim2.new(0.5, -100, 0.65, 0);
-        end;
-        local v387, v388 = v153("AlertViewButton", v366, v385, v384);
-        v387.Position = v386;
-        v387.NextSelectionLeft = v387;
-        v387.NextSelectionRight = v387;
-        v387.NextSelectionUp = v387;
-        v387.NextSelectionDown = v387;
-        v387.ZIndex = 9;
-        v388.ZIndex = v387.ZIndex;
-        v387.Parent = v371;
-        if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-            l_GuiService_0.SelectedCoreObject = v387;
-        end;
-        l_GuiService_0.SelectedCoreObject = v387;
-        l_ContextActionService_0:BindCoreAction(v381, v384, false, Enum.KeyCode.Escape, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonA);
-        if v367 and (l_isInExperienceUIVREnabled_0 and true or not l_VRService_0.VREnabled) then
-            v367:HideBar();
-            v367.Pages.CurrentPage:Hide(1, 1);
-        end;
-        return;
-    end;
-end;
-local function v485(v390, v391, v392, v393, v394) --[[ Line: 1796 ]] --[[ Name: CreateNewSlider ]]
-    -- upvalues: l_HttpService_0 (copy), l_Signal_0 (copy), l_Create_0 (copy), v43 (copy), l_RobloxGui_0 (copy), v0 (copy), l_UserInputService_0 (copy), v4 (copy), v3 (copy), v4 (copy), v102 (copy), v1 (copy), v2 (copy), l_VRService_0 (copy), l_GuiService_0 (copy), l_RunService_0 (copy)
-    local v395 = {};
-    local v396 = tonumber(v390);
-    local l_v391_0 = v391;
-    local v398 = 0;
-    local v399 = nil;
-    local v400 = true;
-    local v401 = l_HttpService_0:GenerateGUID(false);
-    v390 = "";
-    v391 = "";
-    if v396 <= 0 then
-        error("CreateNewSlider failed because numOfSteps (first arg) is 0 or negative, please supply a positive integer", 2);
-        return;
-    else
-        local v402 = v393 or v394;
-        local l_BindableEvent_3 = Instance.new("BindableEvent");
-        l_BindableEvent_3.Name = "ValueChanged";
-        local v404 = l_Signal_0.new();
-        v395.SliderFrame = l_Create_0("ImageButton")({
-            Name = "Slider", 
-            Image = "", 
-            AutoButtonColor = false, 
-            NextSelectionLeft = v395.SliderFrame, 
-            NextSelectionRight = v395.SliderFrame, 
-            BackgroundTransparency = 1, 
-            Size = UDim2.new(0.6, 0, 0, 50), 
-            AutomaticSize = if v402 then Enum.AutomaticSize.Y else nil, 
-            Position = UDim2.new(1, 0, 0.5, 0), 
-            AnchorPoint = Vector2.new(1, 0.5), 
-            SelectionImageObject = v43, 
-            ZIndex = 2
-        });
-        local v405 = nil;
-        if v402 then
-            v405 = l_Create_0("Frame")({
-                Name = "StepsAndButtonsContainer", 
-                Size = UDim2.new(1, 0, 0, 50), 
-                BackgroundTransparency = 1, 
-                LayoutOrder = 1, 
-                Parent = v395.SliderFrame
-            });
-            l_Create_0("UIListLayout")({
-                Name = "UIListLayout", 
-                VerticalAlignment = Enum.VerticalAlignment.Center, 
-                SortOrder = Enum.SortOrder.LayoutOrder, 
-                Parent = v395.SliderFrame
-            });
-            local v406 = l_Create_0("Frame")({
-                Name = "SliderLabels", 
-                Size = UDim2.new(1, 0, 0, 0), 
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                BackgroundTransparency = 1, 
-                Parent = v395.SliderFrame, 
-                LayoutOrder = 2
-            });
-            l_Create_0("UIPadding")({
-                Name = "UIPadding", 
-                PaddingRight = UDim.new(0, 50), 
-                PaddingLeft = UDim.new(0, 50), 
-                Parent = v406
-            });
-            local function _() --[[ Line: 1878 ]] --[[ Name: isWideEnough ]]
-                -- upvalues: l_RobloxGui_0 (ref)
-                return l_RobloxGui_0.AbsoluteSize.X > 460;
-            end;
-            if v393 then
-                v395.LeftLabel = l_Create_0("TextLabel")({
-                    Name = "LeftLabel", 
-                    Text = v393, 
-                    Font = v0.font(Enum.Font.SourceSans, "UtilityRow"), 
-                    TextSize = v0.textSize(18, "UtilityRow"), 
-                    TextColor3 = Color3.fromRGB(255, 255, 255), 
-                    TextTransparency = 0.25, 
-                    TextXAlignment = Enum.TextXAlignment.Left, 
-                    TextWrapped = true, 
-                    BackgroundTransparency = 1, 
-                    Size = UDim2.fromScale(1, 0), 
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    Parent = v406, 
-                    Visible = l_RobloxGui_0.AbsoluteSize.X > 460
-                });
-            end;
-            if v394 then
-                v395.RightLabel = l_Create_0("TextLabel")({
-                    Name = "RightLabel", 
-                    Text = v394, 
-                    Font = v0.font(Enum.Font.SourceSans, "UtilityRow"), 
-                    TextSize = v0.textSize(18, "UtilityRow"), 
-                    TextColor3 = Color3.fromRGB(255, 255, 255), 
-                    TextTransparency = 0.25, 
-                    TextXAlignment = Enum.TextXAlignment.Right, 
-                    TextWrapped = true, 
-                    BackgroundTransparency = 1, 
-                    Size = UDim2.fromScale(1, 0), 
-                    AutomaticSize = Enum.AutomaticSize.Y, 
-                    Parent = v406, 
-                    Visible = l_RobloxGui_0.AbsoluteSize.X > 460
-                });
-            end;
-            l_RobloxGui_0:GetPropertyChangedSignal("AbsoluteSize"):connect(function() --[[ Line: 1917 ]]
-                -- upvalues: v395 (copy), l_RobloxGui_0 (ref)
-                if v395.LeftLabel then
-                    v395.LeftLabel.Visible = l_RobloxGui_0.AbsoluteSize.X > 460;
-                end;
-                if v395.RightLabel then
-                    v395.RightLabel.Visible = l_RobloxGui_0.AbsoluteSize.X > 460;
-                end;
-            end);
-        end;
-        v395.StepsContainer = l_Create_0("Frame")({
-            Name = "StepsContainer", 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            Size = UDim2.new(1, -100, 1, 0), 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            BackgroundTransparency = 1, 
-            Parent = if v402 then v405 else v395.SliderFrame
-        });
-        local v408 = l_Create_0("ImageButton")({
-            Name = "LeftButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(0, 0.5), 
-            Position = UDim2.new(0, 0, 0.5, 0), 
-            Size = UDim2.new(0, v0.SelectorArrowButtonWidth, 0, 50), 
-            Image = "", 
-            ZIndex = 3, 
-            Selectable = false, 
-            SelectionImageObject = v43, 
-            Active = true, 
-            Parent = if v402 then v405 else v395.SliderFrame
-        });
-        local v409 = l_Create_0("ImageButton")({
-            Name = "RightButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(1, 0.5), 
-            Position = UDim2.new(1, 0, 0.5, 0), 
-            Size = UDim2.new(0, v0.SelectorArrowButtonWidth, 0, 50), 
-            Image = "", 
-            ZIndex = 3, 
-            Selectable = false, 
-            SelectionImageObject = v43, 
-            Active = true, 
-            Parent = if v402 then v405 else v395.SliderFrame
-        });
-        local v410 = l_Create_0("ImageLabel")({
-            Name = "LeftButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            Size = UDim2.new(0, 30, 0, 30), 
-            Image = "rbxasset://textures/ui/Settings/Slider/Less.png", 
-            ZIndex = 4, 
-            Parent = v408, 
-            ImageColor3 = l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch and v4 or v3
-        });
-        local v411 = l_Create_0("ImageLabel")({
-            Name = "RightButton", 
-            BackgroundTransparency = 1, 
-            AnchorPoint = Vector2.new(0.5, 0.5), 
-            Position = UDim2.new(0.5, 0, 0.5, 0), 
-            Size = UDim2.new(0, 30, 0, 30), 
-            Image = "rbxasset://textures/ui/Settings/Slider/More.png", 
-            ZIndex = 4, 
-            Parent = v409, 
-            ImageColor3 = l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch and v4 or v3
-        });
-        if not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) then
-            local function v413(v412) --[[ Line: 1988 ]]
-                -- upvalues: v3 (ref)
-                v412.ImageColor3 = v3;
-            end;
-            local function v415(v414) --[[ Line: 1990 ]]
-                -- upvalues: v4 (ref)
-                v414.ImageColor3 = v4;
-            end;
-            v102(v408, v410, v413, v415);
-            v102(v409, v411, v413, v415);
-        end;
-        v395.Steps = {};
-        local v416 = 1 / v396;
-        for v417 = 1, v396 do
-            local v418 = l_Create_0("ImageButton")({
-                Name = "Step" .. tostring(v417), 
-                BackgroundColor3 = v1, 
-                BackgroundTransparency = 0, 
-                BorderSizePixel = 0, 
-                AutoButtonColor = false, 
-                Active = false, 
-                AnchorPoint = Vector2.new(0, 0.5), 
-                Position = UDim2.new((v417 - 1) * v416, 2, 0.5, 0), 
-                Size = UDim2.new(v416, -4, 0, 24), 
-                Image = "", 
-                ZIndex = 3, 
-                Selectable = false, 
-                ImageTransparency = 0.36, 
-                Parent = v395.StepsContainer, 
-                SelectionImageObject = v43
-            });
-            if l_v391_0 < v417 then
-                v418.BackgroundColor3 = v2;
-            end;
-            if v417 == 1 or v417 == v396 then
-                l_Create_0("UICorner")({
-                    CornerRadius = v0.DefaultCornerRadius, 
-                    Parent = v418
-                });
-                l_Create_0("Frame")({
-                    Name = "Filler", 
-                    BackgroundColor3 = v418.BackgroundColor3, 
-                    Parent = v418, 
-                    Size = UDim2.new(0.25, 0, 1, 0), 
-                    BorderSizePixel = 0, 
-                    Position = if v417 == 1 then UDim2.new(0.75, 0, 0, 0) else UDim2.new(0, 0, 0, 0)
-                });
-            end;
-            v395.Steps[#v395.Steps + 1] = v418;
-        end;
-        local function v420() --[[ Line: 2044 ]] --[[ Name: hideSelection ]]
-            -- upvalues: v396 (copy), v395 (copy), v2 (ref)
-            for v419 = 1, v396 do
-                v395.Steps[v419].BackgroundColor3 = v2;
-                if v419 == 1 or v419 == v396 then
-                    v395.Steps[v419].Filler.BackgroundColor3 = v2;
-                end;
-            end;
-        end;
-        local function v422() --[[ Line: 2052 ]] --[[ Name: showSelection ]]
-            -- upvalues: v396 (copy), l_v391_0 (ref), v395 (copy), v1 (ref)
-            for v421 = 1, v396 do
-                if l_v391_0 >= v421 then
-                    v395.Steps[v421].BackgroundColor3 = v1;
-                    if v421 == 1 or v421 == v396 then
-                        v395.Steps[v421].Filler.BackgroundColor3 = v1;
-                    end;
-                else
-                    break;
-                end;
-            end;
-        end;
-        local function v424(v423) --[[ Line: 2064 ]] --[[ Name: setCurrentStep ]]
-            -- upvalues: v392 (ref), v408 (copy), v409 (copy), v396 (copy), l_v391_0 (ref), v420 (copy), v422 (copy), v399 (ref), v404 (copy), l_BindableEvent_3 (copy)
-            if not v392 then
-                v392 = 0;
-            end;
-            v408.Visible = true;
-            v409.Visible = true;
-            if v423 <= v392 then
-                v423 = v392;
-                v408.Visible = false;
-            end;
-            if v396 <= v423 then
-                v423 = v396;
-                v409.Visible = false;
-            end;
-            if l_v391_0 == v423 then
-                return;
-            else
-                l_v391_0 = v423;
-                v420();
-                v422();
-                v399 = tick();
-                if v404 then
-                    v404:fire(l_v391_0);
-                    return;
-                else
-                    l_BindableEvent_3:Fire(l_v391_0);
-                    return;
-                end;
-            end;
-        end;
-        local function _(v425) --[[ Line: 2098 ]] --[[ Name: isActivateEvent ]]
-            if not v425 then
-                return false;
-            else
-                local v426 = true;
-                if v425.UserInputType ~= Enum.UserInputType.MouseButton1 then
-                    v426 = true;
-                    if v425.UserInputType ~= Enum.UserInputType.Touch then
-                        v426 = false;
-                        if v425.UserInputType == Enum.UserInputType.Gamepad1 then
-                            v426 = v425.KeyCode == Enum.KeyCode.ButtonA;
-                        end;
-                    end;
-                end;
-                return v426;
-            end;
-        end;
-        local function v441(v428, v429, v430) --[[ Line: 2109 ]] --[[ Name: mouseDownFunc ]]
-            -- upvalues: v400 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v395 (copy), v398 (ref), l_v391_0 (ref), v396 (copy), v424 (copy)
-            if not v400 then
-                return;
-            elseif v428 == nil then
-                return;
-            elseif not (not not v428 and (v428.UserInputType == Enum.UserInputType.MouseButton1 or v428.UserInputType == Enum.UserInputType.Touch or v428.UserInputType == Enum.UserInputType.Gamepad1 and v428.KeyCode == Enum.KeyCode.ButtonA)) then
-                return;
-            else
-                if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) and not l_VRService_0.VREnabled then
-                    l_GuiService_0.SelectedCoreObject = v395.SliderFrame;
-                end;
-                if not l_VRService_0.VREnabled then
-                    if v430 then
-                        v398 = v429 - l_v391_0;
-                    else
-                        v398 = 0;
-                        local v431 = nil;
-                        local v432 = nil;
-                        v431 = l_UserInputService_0.InputChanged:Connect(function(v433) --[[ Line: 2135 ]]
-                            -- upvalues: v396 (ref), v395 (ref), v424 (ref)
-                            if v433.UserInputType ~= Enum.UserInputType.MouseMovement then
-                                return;
-                            else
-                                local l_X_0 = v433.Position.X;
-                                for v435 = 1, v396 do
-                                    local l_X_1 = v395.Steps[v435].AbsolutePosition.X;
-                                    local l_X_2 = v395.Steps[v435].AbsoluteSize.X;
-                                    if l_X_1 <= l_X_0 and l_X_0 <= l_X_1 + l_X_2 then
-                                        v424(v435);
-                                        return;
-                                    elseif v435 == 1 and l_X_0 < l_X_1 then
-                                        v424(0);
-                                        return;
-                                    elseif v435 == v396 and l_X_1 <= l_X_0 then
-                                        v424(v435);
-                                        return;
-                                    end;
-                                end;
-                                return;
-                            end;
-                        end);
-                        do
-                            local l_v431_0, l_v432_0 = v431, v432;
-                            l_v432_0 = l_UserInputService_0.InputEnded:Connect(function(v440) --[[ Line: 2156 ]]
-                                -- upvalues: v398 (ref), l_v432_0 (ref), l_v431_0 (ref)
-                                if not (not not v440 and (v440.UserInputType == Enum.UserInputType.MouseButton1 or v440.UserInputType == Enum.UserInputType.Touch or v440.UserInputType == Enum.UserInputType.Gamepad1 and v440.KeyCode == Enum.KeyCode.ButtonA)) then
-                                    return;
-                                else
-                                    v398 = 0;
-                                    l_v432_0:Disconnect();
-                                    l_v431_0:Disconnect();
-                                    return;
-                                end;
-                            end);
-                        end;
-                    end;
-                else
-                    v398 = 0;
-                end;
-                v424(v429);
-                return;
-            end;
-        end;
-        local function _(v442) --[[ Line: 2173 ]] --[[ Name: mouseUpFunc ]]
-            -- upvalues: v400 (ref), v398 (ref)
-            if not v400 then
-                return;
-            elseif not (not not v442 and (v442.UserInputType == Enum.UserInputType.MouseButton1 or v442.UserInputType == Enum.UserInputType.Touch or v442.UserInputType == Enum.UserInputType.Gamepad1 and v442.KeyCode == Enum.KeyCode.ButtonA)) then
-                return;
-            else
-                v398 = 0;
-                return;
-            end;
-        end;
-        v395.ValueChanged = l_BindableEvent_3.Event;
-        if v404 then
-            v395.ValueChanged = v404;
-        end;
-        v395.SetValue = function(_, v445) --[[ Line: 2190 ]] --[[ Name: SetValue ]]
-            -- upvalues: v424 (copy)
-            v424(v445);
-        end;
-        v395.GetValue = function(_) --[[ Line: 2194 ]] --[[ Name: GetValue ]]
-            -- upvalues: l_v391_0 (ref)
-            return l_v391_0;
-        end;
-        v395.SetInteractable = function(_, v448) --[[ Line: 2198 ]] --[[ Name: SetInteractable ]]
-            -- upvalues: v398 (ref), v400 (ref), v395 (copy), v420 (copy), v422 (copy)
-            v398 = 0;
-            v400 = v448;
-            v395.SliderFrame.Selectable = v448;
-            if not v400 then
-                v420();
-                return;
-            else
-                v422();
-                return;
-            end;
-        end;
-        v395.SetZIndex = function(_, v450) --[[ Line: 2209 ]] --[[ Name: SetZIndex ]]
-            -- upvalues: v408 (copy), v409 (copy), v410 (copy), v411 (copy), v395 (copy)
-            v408.ZIndex = v450;
-            v409.ZIndex = v450;
-            v410.ZIndex = v450;
-            v411.ZIndex = v450;
-            for v451 = 1, #v395.Steps do
-                v395.Steps[v451].ZIndex = v450;
-            end;
-        end;
-        v395.SetMinStep = function(_, v453) --[[ Line: 2220 ]] --[[ Name: SetMinStep ]]
-            -- upvalues: v396 (copy), v392 (ref), l_v391_0 (ref), v408 (copy), v409 (copy)
-            if v453 >= 0 and v453 <= v396 then
-                v392 = v453;
-            end;
-            if l_v391_0 <= v392 then
-                l_v391_0 = v392;
-                v408.Visible = false;
-            end;
-            if v396 <= l_v391_0 then
-                l_v391_0 = v396;
-                v409.Visible = false;
-            end;
-        end;
-        v408.InputBegan:Connect(function(v454) --[[ Line: 2237 ]]
-            -- upvalues: l_v391_0 (ref), v400 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v395 (copy), v398 (ref), v424 (copy)
-            local v455 = l_v391_0 - 1;
-            if not v400 then
-                return;
-            elseif v454 == nil then
-                return;
-            elseif not (not not v454 and (v454.UserInputType == Enum.UserInputType.MouseButton1 or v454.UserInputType == Enum.UserInputType.Touch or v454.UserInputType == Enum.UserInputType.Gamepad1 and v454.KeyCode == Enum.KeyCode.ButtonA)) then
-                return;
-            else
-                if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) and not l_VRService_0.VREnabled then
-                    l_GuiService_0.SelectedCoreObject = v395.SliderFrame;
-                end;
-                if not l_VRService_0.VREnabled then
-                    v398 = v455 - l_v391_0;
-                else
-                    v398 = 0;
-                end;
-                v424(v455);
-                return;
-            end;
-        end);
-        v408.InputEnded:Connect(function(v456) --[[ Line: 2240 ]]
-            -- upvalues: v400 (ref), v398 (ref)
-            if not v400 then
-                return;
-            elseif not (not not v456 and (v456.UserInputType == Enum.UserInputType.MouseButton1 or v456.UserInputType == Enum.UserInputType.Touch or v456.UserInputType == Enum.UserInputType.Gamepad1 and v456.KeyCode == Enum.KeyCode.ButtonA)) then
-                return;
-            else
-                v398 = 0;
-                return;
-            end;
-        end);
-        v409.InputBegan:Connect(function(v457) --[[ Line: 2243 ]]
-            -- upvalues: l_v391_0 (ref), v400 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), v395 (copy), v398 (ref), v424 (copy)
-            local v458 = l_v391_0 + 1;
-            if not v400 then
-                return;
-            elseif v457 == nil then
-                return;
-            elseif not (not not v457 and (v457.UserInputType == Enum.UserInputType.MouseButton1 or v457.UserInputType == Enum.UserInputType.Touch or v457.UserInputType == Enum.UserInputType.Gamepad1 and v457.KeyCode == Enum.KeyCode.ButtonA)) then
-                return;
-            else
-                if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) and not l_VRService_0.VREnabled then
-                    l_GuiService_0.SelectedCoreObject = v395.SliderFrame;
-                end;
-                if not l_VRService_0.VREnabled then
-                    v398 = v458 - l_v391_0;
-                else
-                    v398 = 0;
-                end;
-                v424(v458);
-                return;
-            end;
-        end);
-        v409.InputEnded:Connect(function(v459) --[[ Line: 2246 ]]
-            -- upvalues: v400 (ref), v398 (ref)
-            if not v400 then
-                return;
-            elseif not (not not v459 and (v459.UserInputType == Enum.UserInputType.MouseButton1 or v459.UserInputType == Enum.UserInputType.Touch or v459.UserInputType == Enum.UserInputType.Gamepad1 and v459.KeyCode == Enum.KeyCode.ButtonA)) then
-                return;
-            else
-                v398 = 0;
-                return;
-            end;
-        end);
-        local function v463(v460) --[[ Line: 2250 ]] --[[ Name: onVREnabled ]]
-            -- upvalues: l_VRService_0 (ref), v408 (copy), v400 (ref), v409 (copy), v395 (copy), v396 (copy)
-            if v460 ~= "VREnabled" then
-                return;
-            elseif l_VRService_0.VREnabled then
-                v408.Selectable = v400;
-                v409.Selectable = v400;
-                v395.SliderFrame.Selectable = v400;
-                for v461 = 1, v396 do
-                    v395.Steps[v461].Selectable = v400;
-                    v395.Steps[v461].Active = v400;
-                end;
-                return;
-            else
-                v408.Selectable = false;
-                v409.Selectable = false;
-                v395.SliderFrame.Selectable = v400;
-                for v462 = 1, v396 do
-                    v395.Steps[v462].Selectable = false;
-                    v395.Steps[v462].Active = false;
-                end;
-                return;
-            end;
-        end;
-        l_VRService_0.Changed:Connect(v463);
-        v463("VREnabled");
-        for v464 = 1, v396 do
-            v395.Steps[v464].InputBegan:Connect(function(v465) --[[ Line: 2277 ]]
-                -- upvalues: v441 (copy), v464 (copy)
-                v441(v465, v464);
-            end);
-            v395.Steps[v464].InputEnded:Connect(function(v466) --[[ Line: 2280 ]]
-                -- upvalues: v400 (ref), v398 (ref)
-                if not v400 then
-                    return;
-                elseif not (not not v466 and (v466.UserInputType == Enum.UserInputType.MouseButton1 or v466.UserInputType == Enum.UserInputType.Touch or v466.UserInputType == Enum.UserInputType.Gamepad1 and v466.KeyCode == Enum.KeyCode.ButtonA)) then
-                    return;
-                else
-                    v398 = 0;
-                    return;
-                end;
-            end);
-        end;
-        v395.SliderFrame.InputBegan:Connect(function(v467) --[[ Line: 2285 ]]
-            -- upvalues: l_VRService_0 (ref), l_GuiService_0 (ref), v395 (copy), v441 (copy), l_v391_0 (ref)
-            if l_VRService_0.VREnabled then
-                local l_SelectedCoreObject_1 = l_GuiService_0.SelectedCoreObject;
-                if not l_SelectedCoreObject_1 or not l_SelectedCoreObject_1:IsDescendantOf(v395.SliderFrame.Parent) then
-                    return;
-                end;
-            end;
-            v441(v467, l_v391_0);
-        end);
-        v395.SliderFrame.InputEnded:Connect(function(v469) --[[ Line: 2294 ]]
-            -- upvalues: l_VRService_0 (ref), l_GuiService_0 (ref), v395 (copy), v400 (ref), v398 (ref)
-            if l_VRService_0.VREnabled then
-                local l_SelectedCoreObject_2 = l_GuiService_0.SelectedCoreObject;
-                if not l_SelectedCoreObject_2 or not l_SelectedCoreObject_2:IsDescendantOf(v395.SliderFrame.Parent) then
-                    return;
-                end;
-            end;
-            if not v400 then
-                return;
-            elseif not (not not v469 and (v469.UserInputType == Enum.UserInputType.MouseButton1 or v469.UserInputType == Enum.UserInputType.Touch or v469.UserInputType == Enum.UserInputType.Gamepad1 and v469.KeyCode == Enum.KeyCode.ButtonA)) then
-                return;
-            else
-                v398 = 0;
-                return;
-            end;
-        end);
-        local function v471() --[[ Line: 2304 ]]
-            -- upvalues: v399 (ref), v424 (copy), l_v391_0 (ref), v398 (ref)
-            if v399 == nil then
-                return;
-            else
-                if tick() - v399 >= 0.2 then
-                    v424(l_v391_0 + v398);
-                end;
-                return;
-            end;
-        end;
-        local v472 = true;
-        local v473 = {
-            [Enum.KeyCode.Thumbstick1] = true, 
-            [Enum.KeyCode.DPadLeft] = -1, 
-            [Enum.KeyCode.DPadRight] = 1, 
-            [Enum.KeyCode.Left] = -1, 
-            [Enum.KeyCode.Right] = 1, 
-            [Enum.KeyCode.A] = -1, 
-            [Enum.KeyCode.D] = 1, 
-            [Enum.KeyCode.ButtonA] = true
-        };
-        l_UserInputService_0.InputBegan:Connect(function(v474) --[[ Line: 2330 ]]
-            -- upvalues: v400 (ref), v472 (ref), l_GuiService_0 (ref), v395 (copy), v473 (copy), v398 (ref), v424 (copy), l_v391_0 (ref)
-            if not v400 then
-                return;
-            elseif not v472 then
-                return;
-            elseif v474.UserInputType ~= Enum.UserInputType.Gamepad1 and v474.UserInputType ~= Enum.UserInputType.Keyboard then
-                return;
-            else
-                local l_SelectedCoreObject_3 = l_GuiService_0.SelectedCoreObject;
-                if not l_SelectedCoreObject_3 or not l_SelectedCoreObject_3:IsDescendantOf(v395.SliderFrame.Parent) then
-                    return;
-                elseif v473[v474.KeyCode] == -1 then
-                    v398 = -1;
-                    v424(l_v391_0 - 1);
-                    return;
-                else
-                    if v473[v474.KeyCode] == 1 then
-                        v398 = 1;
-                        v424(l_v391_0 + 1);
-                    end;
-                    return;
-                end;
-            end;
-        end);
-        l_UserInputService_0.InputEnded:Connect(function(v476) --[[ Line: 2358 ]]
-            -- upvalues: v400 (ref), l_GuiService_0 (ref), v395 (copy), v473 (copy), v398 (ref)
-            if not v400 then
-                return;
-            elseif v476.UserInputType ~= Enum.UserInputType.Gamepad1 and v476.UserInputType ~= Enum.UserInputType.Keyboard then
-                return;
-            else
-                local l_SelectedCoreObject_4 = l_GuiService_0.SelectedCoreObject;
-                if not l_SelectedCoreObject_4 or not l_SelectedCoreObject_4:IsDescendantOf(v395.SliderFrame.Parent) then
-                    return;
-                else
-                    if v473[v476.KeyCode] then
-                        v398 = 0;
-                    end;
-                    return;
-                end;
-            end;
-        end);
-        l_UserInputService_0.InputChanged:Connect(function(v478) --[[ Line: 2379 ]]
-            -- upvalues: v400 (ref), v398 (ref), v472 (ref), l_GuiService_0 (ref), v395 (copy), v424 (copy), l_v391_0 (ref)
-            if not v400 then
-                v398 = 0;
-                return;
-            elseif not v472 then
-                v398 = 0;
-                return;
-            elseif v478.UserInputType ~= Enum.UserInputType.Gamepad1 then
-                return;
-            else
-                local l_SelectedCoreObject_5 = l_GuiService_0.SelectedCoreObject;
-                if not l_SelectedCoreObject_5 or not l_SelectedCoreObject_5:IsDescendantOf(v395.SliderFrame.Parent) then
-                    return;
-                elseif v478.KeyCode ~= Enum.KeyCode.Thumbstick1 then
-                    return;
-                elseif v478.Position.X > 0.8 and v478.Delta.X > 0 and v398 ~= 1 then
-                    v398 = 1;
-                    v424(l_v391_0 + 1);
-                    return;
-                elseif v478.Position.X < -0.8 and v478.Delta.X < 0 and v398 ~= -1 then
-                    v398 = -1;
-                    v424(l_v391_0 - 1);
-                    return;
-                else
-                    if math.abs(v478.Position.X) < 0.8 then
-                        v398 = 0;
-                    end;
-                    return;
-                end;
-            end;
-        end);
-        local v480 = false;
-        l_GuiService_0.Changed:Connect(function(v481) --[[ Line: 2420 ]]
-            -- upvalues: l_GuiService_0 (ref), v395 (copy), v480 (ref), v399 (ref), l_RunService_0 (ref), v401 (copy), v471 (copy)
-            if v481 ~= "SelectedCoreObject" then
-                return;
-            else
-                local l_SelectedCoreObject_6 = l_GuiService_0.SelectedCoreObject;
-                if l_SelectedCoreObject_6 and l_SelectedCoreObject_6:IsDescendantOf(v395.SliderFrame.Parent) then
-                    if not v480 then
-                        v480 = true;
-                        v399 = tick();
-                        l_RunService_0:BindToRenderStep(v401, Enum.RenderPriority.Input.Value + 1, v471);
-                        return;
-                    end;
-                elseif v480 then
-                    v480 = false;
-                    l_RunService_0:UnbindFromRenderStep(v401);
-                end;
-                return;
-            end;
-        end);
-        v395.SliderFrame.AncestryChanged:Connect(function(_, v484) --[[ Line: 2441 ]]
-            -- upvalues: v472 (ref)
-            v472 = v484;
-        end);
-        v424(l_v391_0);
-        return v395;
-    end;
-end;
-local v486 = 50;
-if v37 then
-    v486 = 90;
-end;
-local v487 = {};
-local function v541(v488, v489, v490, v491, v492, v493, v494, v495, v496, v497) --[[ Line: 2456 ]] --[[ Name: AddNewRow ]]
-    -- upvalues: v487 (copy), l_Create_0 (copy), v486 (ref), v43 (copy), v0 (copy), v37 (copy), l_GuiService_0 (copy), v42 (copy), v485 (copy), v364 (copy), v282 (copy), l_VRService_0 (copy), l_UserInputService_0 (copy), l_CoreGui_0 (copy)
-    local v498 = 0;
-    local v499 = v490 ~= "TextBox";
-    if v487[v488] then
-        v498 = v487[v488];
-    end;
-    local v500 = nil;
-    v500 = l_Create_0("ImageButton")({
-        Name = v489 .. "Frame", 
-        BackgroundTransparency = 1, 
-        BorderSizePixel = 0, 
-        Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png", 
-        ScaleType = Enum.ScaleType.Slice, 
-        SliceCenter = Rect.new(2, 2, 18, 18), 
-        ImageTransparency = 1, 
-        Active = false, 
-        AutoButtonColor = false, 
-        Size = UDim2.new(1, 0, 0, v486), 
-        AutomaticSize = if not not v494 or v495 or v496 then Enum.AutomaticSize.Y else nil, 
-        Position = UDim2.new(0, 0, 0, v498), 
-        ZIndex = 2, 
-        Selectable = false, 
-        SelectionImageObject = v43, 
-        Parent = v488.Page
-    });
-    v500.BackgroundColor3 = v0.color("RowFrameBackground");
-    v500.ImageColor3 = v500.BackgroundColor3;
-    l_Create_0("UICorner")({
-        CornerRadius = v0.DefaultCornerRadius, 
-        Parent = v500
-    });
-    if v500 and v493 then
-        v500.Position = UDim2.new(v500.Position.X.Scale, v500.Position.X.Offset, v500.Position.Y.Scale, v500.Position.Y.Offset + v493);
-    end;
-    local v501 = nil;
-    local v502 = nil;
-    if v494 then
-        v501 = l_Create_0("Frame")({
-            Name = v489 .. "RowLabelAndDescriptionFrame", 
-            BackgroundTransparency = 1, 
-            Position = UDim2.new(0, 10, 0, 0), 
-            Size = UDim2.new(0.4, -20, 0, 50), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            Parent = v500
-        });
-        v502 = l_Create_0("TextLabel")({
-            Name = v489 .. "Label", 
-            Text = v489, 
-            Font = v0.font(Enum.Font.SourceSansBold, "UtilityRow"), 
-            TextSize = v0.textSize(16, "UtilityRow"), 
-            TextColor3 = Color3.fromRGB(255, 255, 255), 
-            TextXAlignment = Enum.TextXAlignment.Left, 
-            BackgroundTransparency = 1, 
-            Size = UDim2.fromScale(1, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            TextWrapped = true, 
-            ZIndex = 2, 
-            Parent = v501, 
-            LayoutOrder = 1
-        });
-        l_Create_0("TextLabel")({
-            Name = v489 .. "Description", 
-            Text = v494, 
-            Font = v0.font(Enum.Font.SourceSans, "UtilityRow"), 
-            TextSize = v0.textSize(18, "UtilityRow"), 
-            TextColor3 = Color3.fromRGB(255, 255, 255), 
-            TextTransparency = 0.25, 
-            TextXAlignment = Enum.TextXAlignment.Left, 
-            TextWrapped = true, 
-            BackgroundTransparency = 1, 
-            Size = UDim2.fromScale(1, 0), 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            ZIndex = 2, 
-            Parent = v501, 
-            LayoutOrder = 2
-        });
-        l_Create_0("UIListLayout")({
-            Name = v489 .. "UIListLayout", 
-            VerticalAlignment = Enum.VerticalAlignment.Center, 
-            SortOrder = Enum.SortOrder.LayoutOrder, 
-            Padding = UDim.new(0, 8), 
-            Parent = v501
-        });
-        l_Create_0("UIPadding")({
-            Name = v489 .. "UIListLayout", 
-            PaddingBottom = UDim.new(0, 10), 
-            PaddingTop = UDim.new(0, 10), 
-            Parent = v501
-        });
-    else
-        v502 = l_Create_0("TextLabel")({
-            Name = v489 .. "Label", 
-            Text = v489, 
-            Font = v0.font(Enum.Font.SourceSansBold, "UtilityRow"), 
-            TextSize = v0.textSize(16, "UtilityRow"), 
-            TextColor3 = Color3.fromRGB(255, 255, 255), 
-            TextXAlignment = Enum.TextXAlignment.Left, 
-            TextWrapped = true, 
-            AutomaticSize = Enum.AutomaticSize.Y, 
-            BackgroundTransparency = 1, 
-            Size = UDim2.new(0.4, -20, 1, 0), 
-            Position = UDim2.new(0, 10, 0, 0), 
-            ZIndex = 2, 
-            Parent = v500
-        });
-        l_Create_0("UIPadding")({
-            Name = v489 .. "UIPadding", 
-            PaddingBottom = UDim.new(0, 10), 
-            PaddingTop = UDim.new(0, 10), 
-            Parent = v502
-        });
-    end;
-    if not v499 then
-        v502.Text = "";
-    end;
-    local function v505(_, v504) --[[ Line: 2588 ]] --[[ Name: onResized ]]
-        -- upvalues: v502 (ref), v0 (ref), v37 (ref)
-        if v504 then
-            v502.TextSize = v0.textSize(16, "UtilityRow");
-            return;
-        else
-            v502.TextSize = v37 and v0.textSize(36) or v0.textSize(24, "UtilityText");
-            return;
-        end;
-    end;
-    local v506 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    local v507 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    if v507.Y > v507.X then
-        v507 = v0.textSize(16, "UtilityRow");
-        v502.TextSize = v507;
-    else
-        v507 = v37 and v0.textSize(36) or v0.textSize(24, "UtilityText");
-        v502.TextSize = v507;
-    end;
-    v42[v500] = v505;
-    local v508 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    local v509 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    if v509.Y > v509.X then
-        v509 = v0.textSize(16, "UtilityRow");
-        v502.TextSize = v509;
-    else
-        v509 = v37 and v0.textSize(36) or v0.textSize(24, "UtilityText");
-        v502.TextSize = v509;
-    end;
-    v506 = nil;
-    v508 = nil;
-    if v490 == "Slider" then
-        v508 = v485(v491, v492, nil, v495, v496);
-        v508.SliderFrame.Parent = v500;
-        v506 = v508.SliderFrame;
-    elseif v490 == "Selector" then
-        v508 = v364(v491, v492);
-        v508.SelectorFrame.Parent = v500;
-        v506 = v508.SelectorFrame;
-    elseif v490 == "DropDown" then
-        v508 = v282(v491, v492, v488.HubRef);
-        v508.DropDownFrame.Parent = v500;
-        v506 = v508.DropDownFrame;
-    elseif v490 == "TextBox" then
-        v507 = l_Create_0("ImageLabel")({
-            Image = "", 
-            BackgroundTransparency = 1
-        });
-        v508 = {
-            HubRef = nil
-        };
-        v509 = l_Create_0("TextBox")({
-            AnchorPoint = Vector2.new(1, 0.5), 
-            Size = UDim2.new(0.6, 0, 1, 0), 
-            Position = UDim2.new(1, 0, 0.5, 0), 
-            Text = v489, 
-            TextColor3 = Color3.fromRGB(49, 49, 49), 
-            BackgroundTransparency = v0.transparency("ControlInputBackground", 0.5), 
-            BorderSizePixel = 0, 
-            TextYAlignment = Enum.TextYAlignment.Top, 
-            TextXAlignment = Enum.TextXAlignment.Left, 
-            TextWrapped = true, 
-            Font = v0.font(Enum.Font.SourceSans, "UtilityText"), 
-            TextSize = v0.textSize(24, "UtilityText"), 
-            ZIndex = 2, 
-            SelectionImageObject = v507, 
-            ClearTextOnFocus = false, 
-            Interactable = v497, 
-            Parent = v500
-        });
-        v506 = v509;
-        local l_v509_0 = v509 --[[ copy: 19 -> 25 ]];
-        v509.Focused:Connect(function() --[[ Line: 2642 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), l_v509_0 (copy), v489 (copy)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                l_GuiService_0.SelectedCoreObject = l_v509_0;
-            end;
-            if l_v509_0.Text == v489 then
-                l_v509_0.Text = "";
-            end;
-        end);
-        if v493 then
-            v509.Position = UDim2.new(v509.Position.X.Scale, v509.Position.X.Offset, v509.Position.Y.Scale, v509.Position.Y.Offset + v493);
-        end;
-        local l_v509_1 = v509 --[[ copy: 19 -> 26 ]];
-        v506.SelectionGained:Connect(function() --[[ Line: 2660 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_v509_1 (copy), v0 (ref), v508 (ref), v506 (ref)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                l_v509_1.BackgroundTransparency = v0.transparency("ControlInputBackground", 0.1);
-                if v508.HubRef then
-                    v508.HubRef:ScrollToFrame(v506);
-                end;
-            end;
-        end);
-        v506.SelectionLost:Connect(function() --[[ Line: 2669 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_v509_1 (copy), v0 (ref)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                l_v509_1.BackgroundTransparency = v0.transparency("ControlInputBackground", 0.5);
-            end;
-        end);
-        local function v514() --[[ Line: 2675 ]]
-            -- upvalues: l_CoreGui_0 (ref), v506 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), v488 (copy), l_GuiService_0 (ref)
-            local l_DropDownFullscreenFrame_0 = l_CoreGui_0.RobloxGui:FindFirstChild("DropDownFullscreenFrame");
-            if l_DropDownFullscreenFrame_0 and l_DropDownFullscreenFrame_0.Visible then
-                return;
-            else
-                local l_v506_0 = v506;
-                if l_v506_0 and l_v506_0.Visible and l_v506_0.ZIndex > 1 and not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) and v488.Active then
-                    l_GuiService_0.SelectedCoreObject = l_v506_0;
-                end;
-                return;
-            end;
-        end;
-        local function v516(v515) --[[ Line: 2693 ]] --[[ Name: processInput ]]
-            -- upvalues: l_GuiService_0 (ref), v506 (ref), l_v509_1 (copy)
-            if v515.UserInputState == Enum.UserInputState.Begin and v515.KeyCode == Enum.KeyCode.Return and l_GuiService_0.SelectedCoreObject == v506 then
-                l_v509_1:CaptureFocus();
-            end;
-        end;
-        v509.MouseEnter:Connect(v514);
-        l_UserInputService_0.InputBegan:Connect(v516);
-    elseif v490 == "TextEntry" then
-        v507 = l_Create_0("ImageLabel")({
-            Image = "", 
-            BackgroundTransparency = 1
-        });
-        v508 = {
-            HubRef = nil
-        };
-        v509 = l_Create_0("TextBox")({
-            AnchorPoint = Vector2.new(1, 0.5), 
-            Size = UDim2.new(0.4, -10, 0, 40), 
-            Position = UDim2.new(1, 0, 0.5, 0), 
-            Text = v489, 
-            TextColor3 = Color3.fromRGB(178, 178, 178), 
-            BackgroundTransparency = 1, 
-            BorderSizePixel = 0, 
-            TextYAlignment = Enum.TextYAlignment.Center, 
-            TextXAlignment = Enum.TextXAlignment.Center, 
-            TextWrapped = false, 
-            Font = v0.font(Enum.Font.SourceSans, "UtilityText"), 
-            TextSize = v0.textSize(24, "UtilityText"), 
-            ZIndex = 2, 
-            SelectionImageObject = v507, 
-            ClearTextOnFocus = false, 
-            Parent = v500
-        });
-        v506 = v509;
-        local l_v509_2 = v509 --[[ copy: 19 -> 23 ]];
-        v509.Focused:Connect(function() --[[ Line: 2734 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_GuiService_0 (ref), l_v509_2 (copy), v489 (copy)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                l_GuiService_0.SelectedCoreObject = l_v509_2;
-            end;
-            if l_v509_2.Text == v489 then
-                l_v509_2.Text = "";
-            end;
-        end);
-        if v493 then
-            v509.Position = UDim2.new(v509.Position.X.Scale, v509.Position.X.Offset, v509.Position.Y.Scale, v509.Position.Y.Offset + v493);
-        end;
-        local l_v509_3 = v509 --[[ copy: 19 -> 24 ]];
-        v506.SelectionGained:Connect(function() --[[ Line: 2752 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_v509_3 (copy), v508 (ref), v506 (ref)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                l_v509_3.BackgroundTransparency = 0.8;
-                if v508.HubRef then
-                    v508.HubRef:ScrollToFrame(v506);
-                end;
-            end;
-        end);
-        v506.SelectionLost:Connect(function() --[[ Line: 2761 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), l_v509_3 (copy)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                l_v509_3.BackgroundTransparency = 1;
-            end;
-        end);
-        local function v521() --[[ Line: 2767 ]]
-            -- upvalues: l_CoreGui_0 (ref), v506 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), v488 (copy), l_GuiService_0 (ref)
-            local l_DropDownFullscreenFrame_1 = l_CoreGui_0.RobloxGui:FindFirstChild("DropDownFullscreenFrame");
-            if l_DropDownFullscreenFrame_1 and l_DropDownFullscreenFrame_1.Visible then
-                return;
-            else
-                local l_v506_1 = v506;
-                if l_v506_1 and l_v506_1.Visible and l_v506_1.ZIndex > 1 and not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) and v488.Active then
-                    l_GuiService_0.SelectedCoreObject = l_v506_1;
-                end;
-                return;
-            end;
-        end;
-        local function v523(v522) --[[ Line: 2785 ]] --[[ Name: processInput ]]
-            -- upvalues: l_GuiService_0 (ref), v506 (ref), l_v509_3 (copy)
-            if v522.UserInputState == Enum.UserInputState.Begin and v522.KeyCode == Enum.KeyCode.Return and l_GuiService_0.SelectedCoreObject == v506 then
-                l_v509_3:CaptureFocus();
-            end;
-        end;
-        v500.MouseEnter:Connect(v521);
-        v508.SetZIndex = function(_, v525) --[[ Line: 2796 ]] --[[ Name: SetZIndex ]]
-            -- upvalues: l_v509_3 (copy)
-            l_v509_3.ZIndex = v525;
-        end;
-        v508.SetInteractable = function(_, v527) --[[ Line: 2800 ]] --[[ Name: SetInteractable ]]
-            -- upvalues: l_v509_3 (copy)
-            l_v509_3.Selectable = v527;
-            if not v527 then
-                l_v509_3.TextColor3 = Color3.fromRGB(49, 49, 49);
-                l_v509_3.ZIndex = 1;
-                return;
-            else
-                l_v509_3.TextColor3 = Color3.fromRGB(178, 178, 178);
-                l_v509_3.ZIndex = 2;
-                return;
-            end;
-        end;
-        v508.SetValue = function(_, v529) --[[ Line: 2811 ]] --[[ Name: SetValue ]]
-            -- upvalues: l_v509_3 (copy)
-            l_v509_3.Text = v529;
-        end;
-        local l_BindableEvent_4 = Instance.new("BindableEvent");
-        l_BindableEvent_4.Name = "ValueChanged";
-        v509.FocusLost:Connect(function() --[[ Line: 2818 ]]
-            -- upvalues: l_BindableEvent_4 (copy), l_v509_3 (copy)
-            l_BindableEvent_4:Fire(l_v509_3.Text);
-        end);
-        v508.ValueChanged = l_BindableEvent_4.Event;
-        l_UserInputService_0.InputBegan:Connect(v523);
-    end;
-    v507 = v489 .. "ValueChanger";
-    v508.Name = v507;
-    v507 = v508.SetAutoLocalize;
-    v508.SetAutoLocalize = function(v531, v532) --[[ Line: 2830 ]]
-        -- upvalues: v500 (ref), v507 (copy)
-        v500.AutoLocalize = v532;
-        if v507 then
-            v507(v531, v532);
-        end;
-    end;
-    v498 = v498 + v486;
-    if v493 then
-        v498 = v498 + v493;
-    end;
-    v487[v488] = v498;
-    if v499 then
-        v509 = function() --[[ Line: 2845 ]]
-            -- upvalues: l_CoreGui_0 (ref), v508 (ref), l_VRService_0 (ref), l_UserInputService_0 (ref), v488 (copy), l_GuiService_0 (ref)
-            local l_DropDownFullscreenFrame_2 = l_CoreGui_0.RobloxGui:FindFirstChild("DropDownFullscreenFrame");
-            if l_DropDownFullscreenFrame_2 and l_DropDownFullscreenFrame_2.Visible then
-                return;
-            else
-                local v534 = v508.SliderFrame or v508.SliderFrame or v508.DropDownFrame or v508.SelectorFrame;
-                if v534 and v534.Visible and v534.ZIndex > 1 and not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) and v488.Active then
-                    l_GuiService_0.SelectedCoreObject = v534;
-                end;
-                return;
-            end;
-        end;
-        v500.MouseEnter:Connect(v509);
-        local function v538(v535) --[[ Line: 2875 ]] --[[ Name: onVREnabled ]]
-            -- upvalues: l_VRService_0 (ref), v500 (ref), v506 (ref), l_GuiService_0 (ref), v0 (ref)
-            if v535 == "VREnabled" then
-                if l_VRService_0.VREnabled then
-                    v500.Selectable = true;
-                    v500.Active = true;
-                    v506.Active = true;
-                    l_GuiService_0.Changed:Connect(function(v536) --[[ Line: 2881 ]]
-                        -- upvalues: l_GuiService_0 (ref), v500 (ref), v0 (ref)
-                        if v536 == "SelectedCoreObject" then
-                            local l_SelectedCoreObject_7 = l_GuiService_0.SelectedCoreObject;
-                            if l_SelectedCoreObject_7 and (l_SelectedCoreObject_7 == v500 or l_SelectedCoreObject_7:IsDescendantOf(v500)) then
-                                v500.ImageTransparency = v0.transparency("RowFrameBackground", 0.5);
-                                v500.BackgroundTransparency = 1;
-                                return;
-                            else
-                                v500.ImageTransparency = 1;
-                                v500.BackgroundTransparency = 1;
-                            end;
-                        end;
-                    end);
-                    return;
-                else
-                    v500.Selectable = false;
-                    v500.Active = false;
-                end;
-            end;
-        end;
-        l_VRService_0.Changed:Connect(v538);
-        if l_VRService_0.VREnabled then
-            v500.Selectable = true;
-            v500.Active = true;
-            v506.Active = true;
-            l_GuiService_0.Changed:Connect(function(v539) --[[ Line: 2881 ]]
-                -- upvalues: l_GuiService_0 (ref), v500 (ref), v0 (ref)
-                if v539 == "SelectedCoreObject" then
-                    local l_SelectedCoreObject_8 = l_GuiService_0.SelectedCoreObject;
-                    if l_SelectedCoreObject_8 and (l_SelectedCoreObject_8 == v500 or l_SelectedCoreObject_8:IsDescendantOf(v500)) then
-                        v500.ImageTransparency = v0.transparency("RowFrameBackground", 0.5);
-                        v500.BackgroundTransparency = 1;
-                        return;
-                    else
-                        v500.ImageTransparency = 1;
-                        v500.BackgroundTransparency = 1;
-                    end;
-                end;
-            end);
-        else
-            v500.Selectable = false;
-            v500.Active = false;
-        end;
-        v506.SelectionGained:Connect(function() --[[ Line: 2902 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), v500 (ref), v0 (ref), v508 (ref)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                if l_VRService_0.VREnabled then
-                    v500.ImageTransparency = 0.5;
-                    v500.BackgroundTransparency = 1;
-                else
-                    v500.ImageTransparency = 1;
-                    v500.BackgroundTransparency = v0.transparency("RowFrameBackground", 0.5);
-                end;
-                if v508.HubRef then
-                    v508.HubRef:ScrollToFrame(v500);
-                end;
-            end;
-        end);
-        v506.SelectionLost:Connect(function() --[[ Line: 2917 ]]
-            -- upvalues: l_VRService_0 (ref), l_UserInputService_0 (ref), v500 (ref)
-            if not l_VRService_0.VREnabled and (not (l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch) or l_UserInputService_0.GamepadEnabled and true or false) then
-                v500.ImageTransparency = 1;
-                v500.BackgroundTransparency = 1;
-            end;
-        end);
-    end;
-    v488:AddRow(v500, v502, v508, v493, false);
-    v508.Selection = v506;
-    return v500, v502, v508;
-end;
-local function v556(v542, v543, v544, v545, v546) --[[ Line: 2932 ]] --[[ Name: AddNewRowObject ]]
-    -- upvalues: v487 (copy), l_Create_0 (copy), v486 (ref), v43 (copy), v0 (copy), v37 (copy), v42 (copy), l_GuiService_0 (copy), l_VRService_0 (copy)
-    local v547 = 0;
-    if v487[v542] then
-        v547 = v487[v542];
-    end;
-    local v548 = l_Create_0("ImageButton")({
-        Name = v543 .. "Frame", 
-        BackgroundTransparency = 1, 
-        AutomaticSize = Enum.AutomaticSize.Y, 
-        BorderSizePixel = 0, 
-        Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png", 
-        ScaleType = Enum.ScaleType.Slice, 
-        SliceCenter = Rect.new(10, 10, 10, 10), 
-        ImageTransparency = 1, 
-        Active = false, 
-        AutoButtonColor = false, 
-        Size = UDim2.new(1, 0, 0, v486), 
-        Position = UDim2.new(0, 0, 0, v547), 
-        ZIndex = 2, 
-        Selectable = false, 
-        SelectionImageObject = v43, 
-        Parent = v542.Page
-    });
-    v548.BackgroundColor3 = v0.color("RowFrameBackground");
-    v548.ImageColor3 = v548.BackgroundColor3;
-    v548.SelectionGained:Connect(function() --[[ Line: 2960 ]]
-        -- upvalues: v548 (copy), v0 (ref)
-        v548.BackgroundTransparency = v0.transparency("RowFrameBackground", 0.5);
-    end);
-    v548.SelectionLost:Connect(function() --[[ Line: 2963 ]]
-        -- upvalues: v548 (copy)
-        v548.BackgroundTransparency = 1;
-    end);
-    l_Create_0("UICorner")({
-        CornerRadius = v0.DefaultCornerRadius, 
-        Parent = v548
-    });
-    local v549 = l_Create_0("TextLabel")({
-        Name = v543 .. "Label", 
-        Text = v543, 
-        Font = v0.font(Enum.Font.SourceSansBold, "UtilityRow"), 
-        TextSize = v0.textSize(16, "UtilityRow"), 
-        TextColor3 = Color3.fromRGB(255, 255, 255), 
-        TextXAlignment = Enum.TextXAlignment.Left, 
-        TextWrapped = true, 
-        BackgroundTransparency = 1, 
-        AutomaticSize = Enum.AutomaticSize.Y, 
-        Size = UDim2.new(0.4, -20, 1, 0), 
-        Position = UDim2.new(0, 10, 0, 0), 
-        ZIndex = 2, 
-        Parent = v548
-    });
-    l_Create_0("UIPadding")({
-        Name = v543 .. "UIPadding", 
-        PaddingBottom = UDim.new(0, 10), 
-        PaddingTop = UDim.new(0, 10), 
-        Parent = v549
-    });
-    local function v552(_, v551) --[[ Line: 2995 ]] --[[ Name: onResized ]]
-        -- upvalues: v546 (copy), v549 (copy), v0 (ref), v37 (ref)
-        if v546 then
-            UDim2.new(0, 200, 1, 0);
-        end;
-        if v551 then
-            v549.TextSize = v0.textSize(16, "UtilityRow");
-            return;
-        else
-            v549.TextSize = v37 and v0.textSize(36) or v0.textSize(24, "UtilityText");
-            return;
-        end;
-    end;
-    v42[v548] = v552;
-    local l_v552_0 = v552;
-    local v554 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    local v555 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    l_v552_0(v554, v555.Y > v555.X);
-    if v545 then
-        v548.Position = UDim2.new(v548.Position.X.Scale, v548.Position.X.Offset, v548.Position.Y.Scale, v548.Position.Y.Offset + v545);
-    end;
-    v547 = v547 + v486;
-    if v545 then
-        v547 = v547 + v545;
-    end;
-    v487[v542] = v547;
-    l_v552_0 = function() --[[ Line: 3023 ]]
-        -- upvalues: v548 (copy), l_GuiService_0 (ref)
-        if v548.Visible then
-            l_GuiService_0.SelectedCoreObject = v548;
-        end;
-    end;
-    v548.MouseEnter:Connect(l_v552_0);
-    v544.SelectionImageObject = v43;
-    v544.SelectionGained:Connect(function() --[[ Line: 3032 ]]
-        -- upvalues: l_VRService_0 (ref), v548 (copy), v0 (ref)
-        if l_VRService_0.VREnabled then
-            v548.ImageTransparency = v0.transparency("RowFrameBackground", 0.5);
-            v548.BackgroundTransparency = 1;
-            return;
-        else
-            v548.ImageTransparency = 1;
-            v548.BackgroundTransparency = v0.transparency("RowFrameBackground", 0.5);
-            return;
-        end;
-    end);
-    v544.SelectionLost:Connect(function() --[[ Line: 3041 ]]
-        -- upvalues: v548 (copy)
-        v548.ImageTransparency = 1;
-        v548.BackgroundTransparency = 1;
-    end);
-    v544.Parent = v548;
-    v542:AddRow(v548, v549, v544, v545, true);
-    return v548;
-end;
-local v599 = {
-    GetEaseLinear = function(_) --[[ Line: 3055 ]] --[[ Name: GetEaseLinear ]]
-        -- upvalues: v51 (copy)
-        return v51;
-    end, 
-    GetEaseOutQuad = function(_) --[[ Line: 3058 ]] --[[ Name: GetEaseOutQuad ]]
-        -- upvalues: v56 (copy)
-        return v56;
-    end, 
-    GetEaseInOutQuad = function(_) --[[ Line: 3061 ]] --[[ Name: GetEaseInOutQuad ]]
-        -- upvalues: v61 (copy)
-        return v61;
-    end, 
-    CreateNewSlider = function(_, v561, v562, v563, v564, v565) --[[ Line: 3065 ]] --[[ Name: CreateNewSlider ]]
-        -- upvalues: v485 (copy)
-        return v485(v561, v562, v563, v564, v565);
-    end, 
-    CreateNewSelector = function(_, v567, v568) --[[ Line: 3069 ]] --[[ Name: CreateNewSelector ]]
-        -- upvalues: v364 (copy)
-        return (v364(v567, v568));
-    end, 
-    CreateNewDropDown = function(_, v570, v571) --[[ Line: 3073 ]] --[[ Name: CreateNewDropDown ]]
-        -- upvalues: v282 (copy)
-        return (v282(v570, v571, nil));
-    end, 
-    AddNewRow = function(_, v573, v574, v575, v576, v577, v578, v579, v580, v581, v582) --[[ Line: 3077 ]] --[[ Name: AddNewRow ]]
-        -- upvalues: v541 (copy)
-        return v541(v573, v574, v575, v576, v577, v578, v579, v580, v581, v582);
-    end, 
-    AddNewRowObject = function(_, v584, v585, v586, v587, v588) --[[ Line: 3081 ]] --[[ Name: AddNewRowObject ]]
-        -- upvalues: v556 (copy)
-        return (v556(v584, v585, v586, v587, v588));
-    end, 
-    ShowAlert = function(_, v590, v591, v592, v593, v594) --[[ Line: 3085 ]] --[[ Name: ShowAlert ]]
-        -- upvalues: v389 (copy)
-        v389(v590, v591, v592, v593, v594);
-    end, 
-    IsSmallTouchScreen = function(_) --[[ Line: 3089 ]] --[[ Name: IsSmallTouchScreen ]]
-        -- upvalues: l_GuiService_0 (copy), l_UserInputService_0 (copy)
-        local v596 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-        return l_UserInputService_0.TouchEnabled and (v596.Y < 500 or v596.X < 700);
-    end, 
-    IsPortrait = function(_) --[[ Line: 3093 ]] --[[ Name: IsPortrait ]]
-        -- upvalues: l_GuiService_0 (copy)
-        local v598 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-        return v598.Y > v598.X;
-    end
-};
-if v18 or v19 then
-    local function _() --[[ Line: 3098 ]] --[[ Name: isUsingGamepad ]]
-        -- upvalues: v109 (copy), l_UserInputService_0 (copy)
-        return v109[l_UserInputService_0:GetLastInputType()] or false;
-    end;
-    v599.IsUsingGamepad = function(_) --[[ Line: 3102 ]] --[[ Name: IsUsingGamepad ]]
-        -- upvalues: v109 (copy), l_UserInputService_0 (copy)
-        return v109[l_UserInputService_0:GetLastInputType()] or false;
-    end;
-end;
-v599.MakeStyledButton = function(_, v603, v604, v605, v606, v607, v608) --[[ Line: 3107 ]] --[[ Name: MakeStyledButton ]]
-    -- upvalues: v153 (copy)
-    return v153(v603, v604, v605, v606, v607, v608);
-end;
-v599.MakeStyledImageButton = function(_, v610, v611, v612, v613, v614, v615, v616, v617) --[[ Line: 3111 ]] --[[ Name: MakeStyledImageButton ]]
-    -- upvalues: v168 (copy)
-    return v168(v610, v611, v612, v613, v614, v615, v616, v617);
-end;
-v599.AddButtonRow = function(_, v619, v620, v621, v622, v623, v624) --[[ Line: 3115 ]] --[[ Name: AddButtonRow ]]
-    -- upvalues: v179 (copy)
-    return v179(v619, v620, v621, v622, v623, v624);
-end;
-v599.MakeFocusState = function(_, v626, v627) --[[ Line: 3119 ]] --[[ Name: MakeFocusState ]]
-    -- upvalues: v195 (copy)
-    return v195(v626, v627);
-end;
-v599.CreateSignal = function(_) --[[ Line: 3123 ]] --[[ Name: CreateSignal ]]
-    -- upvalues: v88 (copy)
-    return (v88());
-end;
-v599.UsesSelectedObject = function(_) --[[ Line: 3127 ]] --[[ Name: UsesSelectedObject ]]
-    -- upvalues: l_VRService_0 (copy), l_UserInputService_0 (copy)
-    if l_VRService_0.VREnabled then
-        return false;
-    elseif l_UserInputService_0.PreferredInput == Enum.PreferredInput.Touch and not l_UserInputService_0.GamepadEnabled then
-        return false;
-    else
-        return true;
-    end;
-end;
-v599.TweenProperty = function(_, v631, v632, v633, v634, v635, v636, v637) --[[ Line: 3131 ]] --[[ Name: TweenProperty ]]
-    return PropertyTweener(v631, v632, v633, v634, v635, v636, v637);
-end;
-v599.OnResized = function(_, v639, v640) --[[ Line: 3135 ]] --[[ Name: OnResized ]]
-    -- upvalues: v108 (copy)
-    return v108(v639, v640);
-end;
-v599.FireOnResized = function(_) --[[ Line: 3139 ]] --[[ Name: FireOnResized ]]
-    -- upvalues: l_GuiService_0 (copy), v599 (copy), v42 (copy)
-    local v642 = if _G.__TESTEZ_RUNNING_TEST__ then Vector2.new(1024, 1024) else l_GuiService_0:GetHardwareSafeViewport();
-    local v643 = v599:IsPortrait();
-    for _, v645 in pairs(v42) do
-        v645(v642, v643);
-    end;
-end;
-v599.Lerp = function(_, v647, v648, v649) --[[ Line: 3150 ]] --[[ Name: Lerp ]]
-    return (1 - v647) * v648 + v647 * v649;
-end;
-v599.Round = function(_, v651) --[[ Line: 3155 ]] --[[ Name: Round ]]
-    return v651 % 1 >= 0.5 and math.ceil(v651) or math.floor(v651);
-end;
-v599.IsExperienceOlderThanOneWeek = function(_, v653) --[[ Line: 3159 ]] --[[ Name: IsExperienceOlderThanOneWeek ]]
-    -- upvalues: l_Workspace_0 (copy)
-    if v653 ~= nil and v653.Created ~= nil then
-        local l_UnixTimestampMillis_0 = DateTime.fromIsoDate(v653.Created).UnixTimestampMillis;
-        if l_Workspace_0:GetServerTimeNow() * 1000 - l_UnixTimestampMillis_0 > 604800000 then
-            return true;
-        end;
-    end;
-    return false;
-end;
-return v599;
+setmetatable(t1, {
+	__mode = "k"
+})
+
+local v42 = Create("ImageLabel")({
+	Image = "",
+	BackgroundTransparency = 1
+})
+
+function clamp(p3, p4, p5) -- line: 108
+	return (math.max(p3, (math.min(p4, p5))))
+end
+
+local function Linear(p6, p7, p8, p9) -- line: 113
+	if p9 <= p6 then
+		return p7 + p8
+	end
+
+	return p8 * p6 / p9 + p7
+end
+local function EaseOutQuad(p10, p11, p12, p13) -- line: 121
+	if p13 <= p10 then
+		return p11 + p12
+	end
+
+	local v77 = p10 / p13
+
+	return p11 - p12 * v77 * (v77 - 2)
+end
+local function EaseInOutQuad(p14, p15, p16, p17) -- line: 130
+	if p17 <= p14 then
+		return p15 + p16
+	end
+
+	local v82 = p14 / p17
+
+	if v82 < 0.5 then
+		return 2 * p16 * v82 * v82 + p15
+	end
+
+	return p15 + p16 * (2 * (2 - v82) * v82 - 1)
+end
+
+function PropertyTweener(p18, p19, p20, p21, p22, p23, p24) -- line: 142
+	-- upvalues: RunService (copy)
+	local t2 = {
+		StartTime = tick()
+	}
+
+	t2.EndTime = t2.StartTime + p22
+	t2.Cancelled = false
+
+	local u91 = false
+	local n1 = 0
+
+	p18[p19] = p23(0, p20, p21 - p20, p22)
+	coroutine.wrap(function() -- line: 164
+		-- upvalues: t2 (copy), p18 (copy), p19 (copy), p23 (copy), p20 (copy), p21 (copy), p22 (copy), n1 (ref), RunService (copy), u91 (ref), p24 (copy)
+		local timestamp = tick()
+
+		while timestamp < t2.EndTime and p18 do
+			if t2.Cancelled then
+				return
+			end
+
+			p18[p19] = p23(timestamp - t2.StartTime, p20, p21 - p20, p22)
+			n1 = clamp(0, 1, (timestamp - t2.StartTime) / p22)
+			RunService.RenderStepped:Wait()
+			timestamp = tick()
+		end
+
+		if t2.Cancelled == false and p18 then
+			if p18 then
+				p18[p19] = p23(1, p20, p21 - p20, 1)
+			end
+
+			u91 = true
+			n1 = 1
+
+			if p24 then
+				p24()
+			end
+		end
+	end)()
+
+	function t2.GetFinal(_) -- line: 180
+		-- upvalues: p21 (copy)
+		return p21
+	end
+	function t2.GetPercentComplete(_) -- line: 184
+		-- upvalues: n1 (ref)
+		return n1
+	end
+	function t2.IsFinished(_) -- line: 188
+		-- upvalues: u91 (ref)
+		return u91
+	end
+	function t2.Finish(p28) -- line: 192
+		-- upvalues: u91 (ref), p18 (copy), p19 (copy), p23 (copy), p20 (copy), p21 (copy), n1 (ref), p24 (copy)
+		if not u91 then
+			p28:Cancel()
+
+			if p18 then
+				p18[p19] = p23(1, p20, p21 - p20, 1)
+			end
+
+			u91 = true
+			n1 = 1
+
+			if p24 then
+				p24()
+			end
+		end
+	end
+	function t2.Cancel(_) -- line: 199
+		-- upvalues: t2 (copy)
+		t2.Cancelled = true
+	end
+
+	return t2
+end
+
+local function CreateSignal() -- line: 212
+	local t3 = {}
+	local BindableEvent = Instance.new("BindableEvent")
+	local t4 = nil
+	local u96 = nil
+
+	function t3.fire(_, ...) -- line: 220
+		-- upvalues: t4 (ref), u96 (ref), BindableEvent (copy)
+		t4 = { ... }
+		u96 = select("#", ...)
+		BindableEvent:Fire()
+	end
+	function t3.connect(_, p32) -- line: 226
+		-- upvalues: BindableEvent (copy), t4 (ref), u96 (ref)
+		if not p32 then
+			error("connect(nil)", 2)
+		end
+
+		return BindableEvent.Event:Connect(function() -- line: 230
+			-- upvalues: p32 (copy), t4 (ref), u96 (ref)
+			p32(unpack(t4, 1, u96))
+		end)
+	end
+	function t3.wait(_) -- line: 235
+		-- upvalues: BindableEvent (copy), t4 (ref), u96 (ref)
+		BindableEvent.Event:wait()
+
+		if not t4 then
+			error("Missing arg data, likely due to :TweenSize/Position corrupting threadrefs.")
+		end
+
+		return unpack(t4, 1, u96)
+	end
+
+	return t3
+end
+local function addHoverState(p34, p35, p36, p37) -- line: 282
+	local function onNormalButtonStateCallback() -- line: 283
+		-- upvalues: p34 (copy), p36 (copy), p35 (copy)
+		if p34.Active then
+			p36(p35)
+		end
+	end
+	local function onHoverButtonStateCallback() -- line: 288
+		-- upvalues: p34 (copy), p37 (copy), p35 (copy)
+		if p34.Active then
+			p37(p35)
+		end
+	end
+
+	p34.MouseEnter:Connect(onHoverButtonStateCallback)
+	p34.SelectionGained:Connect(onHoverButtonStateCallback)
+	p34.MouseLeave:Connect(onNormalButtonStateCallback)
+	p34.SelectionLost:Connect(onNormalButtonStateCallback)
+	p36(p35)
+end
+local function addOnResizedCallback(p38, p39) -- line: 302
+	-- upvalues: t1 (copy), GuiService (copy)
+	t1[p38] = p39
+
+	local v107 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+	local v108 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+	p39(v107, v108.Y > v108.X)
+end
+
+local t5 = {
+	[Enum.UserInputType.Gamepad1] = true,
+	[Enum.UserInputType.Gamepad2] = true,
+	[Enum.UserInputType.Gamepad3] = true,
+	[Enum.UserInputType.Gamepad4] = true,
+	[Enum.UserInputType.Gamepad5] = true,
+	[Enum.UserInputType.Gamepad6] = true,
+	[Enum.UserInputType.Gamepad7] = true,
+	[Enum.UserInputType.Gamepad8] = true
+}
+
+local function MakeDefaultButton(p40, p41, p42, p43, p44, p45) -- line: 318
+	-- upvalues: Create (copy), Theme (copy), t5 (copy), UserInputService (copy), GuiService (copy), VRService (copy)
+	local v115 = Create("ImageLabel")({
+		Image = "",
+		BackgroundTransparency = 1
+	})
+	local s1 = "DefaultButtonStroke"
+	local s2 = "DefaultButton"
+
+	if p40 == "DropDownFrame" then
+		s1 = "ControlInputStroke"
+		s2 = "ControlInputBackground"
+	end
+
+	if p45 == "ImageButton" then
+		s2 = "ImageButton"
+	end
+
+	local u118 = Create("ImageButton")({
+		Name = p40 .. "Button",
+		AutoButtonColor = false,
+		BackgroundColor3 = Theme.color(s2),
+		BackgroundTransparency = Theme.transparency(s2),
+		Size = p41,
+		ZIndex = 2,
+		SelectionImageObject = v115
+	})
+
+	Create("UICorner")({
+		CornerRadius = Theme.DefaultCornerRadius,
+		Parent = u118
+	})
+
+	local v119 = Create("UIStroke")({
+		Name = "Border",
+		Color = Theme.color(s1),
+		Transparency = Theme.transparency(s1),
+		Thickness = Theme.DefaultStokeThickness,
+		Parent = u118
+	})
+
+	Create("BoolValue")({
+		Name = "Enabled",
+		Parent = u118,
+		Value = true
+	})
+
+	if p42 then
+		u118.MouseButton1Click:Connect(function() -- line: 365
+			-- upvalues: p42 (copy), t5 (copy), UserInputService (copy)
+			p42(t5[UserInputService:GetLastInputType()] or false)
+		end)
+	else
+		if v119 then
+			v119.Enabled = false
+		end
+
+		u118.Selectable = false
+	end
+
+	local u120 = nil
+
+	local function selectButton() -- line: 385
+		-- upvalues: p44 (copy), p43 (copy), u118 (ref), Theme (copy), u120 (ref)
+		local v414 = p44
+
+		if v414 == nil and p43 then
+			v414 = p43.HubRef
+		end
+
+		if v414 and v414.Active or v414 == nil then
+			u118.BackgroundColor3 = Theme.color("DefaultButtonHover")
+			u118.BackgroundTransparency = Theme.transparency("DefaultButtonHover")
+
+			local v415 = u118
+
+			if u120 then
+				v415 = u120
+			end
+
+			if v414 then
+				v414:ScrollToFrame(v415)
+			end
+		end
+	end
+
+	u118.InputBegan:Connect(function(input) -- line: 412
+		-- upvalues: u118 (ref), selectButton (copy)
+		if u118.Selectable and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+			selectButton()
+		end
+	end)
+	u118.InputEnded:Connect(function(input) -- line: 417
+		-- upvalues: u118 (ref), GuiService (copy), Theme (copy), s2 (ref)
+		if u118.Selectable and (GuiService.SelectedCoreObject ~= u118 and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch)) then
+			u118.BackgroundColor3 = Theme.color(s2)
+			u118.BackgroundTransparency = Theme.transparency(s2)
+		end
+	end)
+	u118.SelectionGained:Connect(function() -- line: 423
+		-- upvalues: selectButton (copy)
+		selectButton()
+	end)
+	u118.SelectionLost:Connect(function() -- line: 426
+		-- upvalues: u118 (ref), Theme (copy), s2 (ref)
+		u118.BackgroundColor3 = Theme.color(s2)
+		u118.BackgroundTransparency = Theme.transparency(s2)
+	end)
+	GuiService.Changed:Connect(function(property) -- line: 430
+		-- upvalues: VRService (copy), UserInputService (copy), GuiService (copy), u118 (ref), Theme (copy), s2 (ref), selectButton (copy)
+		if property ~= "SelectedCoreObject" then
+			return
+		end
+
+		if VRService.VREnabled or UserInputService.PreferredInput == Enum.PreferredInput.Touch and ((not UserInputService.GamepadEnabled or not true) and not false) then
+			return
+		end
+
+		if GuiService.SelectedCoreObject == nil or GuiService.SelectedCoreObject ~= u118 then
+			u118.BackgroundColor3 = Theme.color(s2)
+			u118.BackgroundTransparency = Theme.transparency(s2)
+
+			return
+		end
+
+		if u118.Selectable then
+			selectButton()
+		end
+	end)
+
+	return u118, function(p46) --[[ setRowRef ]] -- line: 381
+		-- upvalues: u120 (ref)
+		u120 = p46
+	end
+end
+local function MakeButton(p47, p48, p49, p50, p51, p52) -- line: 451
+	-- upvalues: MakeDefaultButton (copy), Create (copy), Theme (copy), GuiService (copy), UserInputService (copy), v38 (copy), EngineFeature2 (copy)
+	local v128, v129 = MakeDefaultButton(p47, p49, p50, p51, p52)
+	local v130 = Create("TextLabel")({
+		Name = p47 .. "TextLabel",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, 0, 1, 0),
+		Position = UDim2.new(0, 0, 0, 0),
+		TextColor3 = Theme.color("WhiteButtonText", Color3.fromRGB(255, 255, 255)),
+		TextTransparency = Theme.transparency("WhiteButtonText", 0),
+		TextYAlignment = Enum.TextYAlignment.Center,
+		Font = Theme.font(Enum.Font.SourceSansBold, "Button"),
+		TextSize = Theme.textSize(24, "Button"),
+		Text = p48,
+		TextScaled = false,
+		TextWrapped = true,
+		ZIndex = 2,
+		Parent = v128
+	})
+	local UITextSizeConstraint = Instance.new("UITextSizeConstraint", v130)
+	local v132 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+	if UserInputService.TouchEnabled and (v132.Y < 500 or v132.X < 700) then
+		v130.TextSize = Theme.textSize(18)
+	elseif v38 and (p47 ~= "FriendStatus" and p47 ~= "BlockButton") then
+		v130.TextSize = Theme.textSize(36)
+	end
+
+	if not EngineFeature2 then
+		UITextSizeConstraint.MaxTextSize = v130.TextSize
+	else
+		local u133 = (GuiService.PreferredTextSize.Value - 1) * 3
+
+		UITextSizeConstraint.MaxTextSize = v130.TextSize + u133
+
+		local TextSize = v130.TextSize
+
+		GuiService:GetPropertyChangedSignal("PreferredTextSize"):Connect(function() -- line: 487
+			-- upvalues: u133 (ref), GuiService (copy), UITextSizeConstraint (copy), TextSize (copy)
+			u133 = (GuiService.PreferredTextSize.Value - 1) * 3
+			UITextSizeConstraint.MaxTextSize = TextSize + u133
+		end)
+	end
+
+	return v128, v130, v129
+end
+local function MakeImageButton(p53, p54, p55, p56, p57, p58, p59, p60) -- line: 496
+	-- upvalues: MakeDefaultButton (copy), Migration (copy), Theme (copy), Create (copy), v30 (copy), BuilderIcons (copy)
+	if not p60 then
+		p60 = "ImageButton"
+	end
+
+	local v143, v144 = MakeDefaultButton(p53, p55, p57, p58, p59, p60)
+	local ImageRectOffset = nil
+	local ImageRectSize = nil
+	local v147 = Migration.uiblox[p54] or Migration.luaApps[p54]
+
+	if not string.match(p54, "^rbxasset://") then
+		p54 = Theme.Images[p54]
+	end
+
+	if typeof(p54) == "table" then
+		ImageRectOffset = p54.ImageRectOffset
+		ImageRectSize = p54.ImageRectSize
+		p54 = p54.Image
+	end
+
+	local v148 = if not v147 then Create("ImageLabel")({
+		Name = p53 .. "ImageLabel",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = p56,
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Image = p54,
+		ImageRectOffset = ImageRectOffset,
+		ImageRectSize = ImageRectSize,
+		ZIndex = 2,
+		Parent = v143
+	}) else Create("TextLabel")({
+		Name = p53 .. "TextLabel",
+		BackgroundTransparency = 1,
+		Size = p56,
+		TextSize = if not v30 then p56.Y.Offset * 0.6666666666666666 else p56.Y.Offset * 0.8571428571428571,
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		TextColor3 = Color3.new(1, 1, 1),
+		Text = v147.name,
+		FontFace = BuilderIcons.Font[v147.variant],
+		Parent = v143,
+		ZIndex = 2
+	})
+
+	if p60 == "ImageButton" then
+		v143.Border.Thickness = 0
+		v143.Border.Transparency = 1
+	end
+
+	return v143, v148, v144
+end
+local function AddButtonRow(p61, p62, p63, p64, p65, p66) -- line: 551
+	-- upvalues: MakeButton (copy), Create (copy)
+	local v155, v156, v157 = MakeButton(p62, p63, p64, p65, p61, p66)
+	local v158 = Create("Frame")({
+		Name = p62 .. "Row",
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, p64.Y.Scale, p64.Y.Offset),
+		Parent = p61.Page
+	})
+
+	v155.Parent = v158
+	v155.AnchorPoint = Vector2.new(1, 0)
+	v155.Position = UDim2.new(1, -20, 0, 0)
+
+	return v158, v155, v156, v157
+end
+local function MakeRoundedRectFocusState(p67, p68) -- line: 567
+	-- upvalues: Create (copy), uDim (copy), Theme (copy), RunService (copy), UserGameSettings (copy)
+	local v161 = Create("Frame")({
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 12, 1, 12),
+		Position = UDim2.fromOffset(-6, -6)
+	})
+
+	Create("UICorner")({
+		CornerRadius = uDim,
+		Parent = v161
+	})
+
+	local v162 = Create("UIStroke")({
+		Color = Theme.selectionCursor.AnimatedColor,
+		Transparency = 0,
+		Thickness = 3,
+		Parent = v161
+	})
+	local v163 = Create("UIGradient")({
+		Rotation = 0,
+		Color = Theme.selectionCursor.GradientColorSequence,
+		Transparency = Theme.selectionCursor.GradientTransparencySequence,
+		Parent = v162
+	})
+
+	RunService:UnbindFromRenderStep(p68)
+	RunService:BindToRenderStep(p68, Enum.RenderPriority.Last.Value, function() -- line: 594
+		-- upvalues: v163 (copy), Theme (copy), UserGameSettings (copy)
+		local v419 = v163.Rotation + 2
+		local GradientColorSequence = Theme.selectionCursor.GradientColorSequence
+		local GradientTransparencySequence = Theme.selectionCursor.GradientTransparencySequence
+
+		if UserGameSettings.ReducedMotion then
+			local v422 = (math.sin((math.rad(v419))) + 1) / 2
+			local Value = GradientColorSequence.Keypoints[1].Value
+			local Value2 = GradientColorSequence.Keypoints[#GradientColorSequence.Keypoints].Value
+
+			GradientColorSequence = ColorSequence.new(Value:lerp(Value2, v422))
+
+			local Value3 = GradientTransparencySequence.Keypoints[1].Value
+			local Value4 = GradientTransparencySequence.Keypoints[#GradientTransparencySequence.Keypoints].Value
+
+			GradientTransparencySequence = NumberSequence.new(Value3 + (Value4 - Value3) * v422)
+		end
+
+		v163.Rotation = v419
+		v163.Color = GradientColorSequence
+		v163.Transparency = GradientTransparencySequence
+	end)
+	p67.AncestryChanged:Connect(function(_, parent) -- line: 618
+		-- upvalues: RunService (copy), p68 (copy)
+		if not parent then
+			RunService:UnbindFromRenderStep(p68)
+		end
+	end)
+	p67.SelectionImageObject = v161
+end
+local function CreateDropDown(p70, p71, p72) -- line: 627
+	-- upvalues: Theme (copy), HttpService (copy), GuiService (copy), Create (copy), v21 (copy), CoreGui (copy), VRService (copy), isInExperienceUIVREnabled (copy), CorePackages2 (copy), UserInputService (copy), ContextActionService (copy), FFlagHideShortcutsWhileIemDropdownActive (copy), v24 (copy), RobloxTranslator (copy), MakeButton (copy)
+	local v167 = Theme.color("SELECTION_TEXT_COLOR_NORMAL", Color3.fromRGB(178, 178, 178))
+	local color3 = Color3.fromRGB(229, 229, 229)
+	local v169 = Theme.color("SELECTION_TEXT_COLOR_HIGHLIGHTED", Color3.fromRGB(255, 255, 255))
+	local DropDownFrame = nil
+	local t6 = {
+		CurrentIndex = nil,
+		UpdateDropDownList = nil,
+		DropDownFrame = nil,
+		Selections = nil
+	}
+
+	Instance.new("BindableEvent").Name = "IndexChanged"
+
+	if type(p70) ~= "table" then
+		error("CreateDropDown dropDownStringTable (first arg) is not a table", 2)
+
+		return t6
+	end
+
+	local BindableEvent = Instance.new("BindableEvent")
+
+	BindableEvent.Name = "IndexChanged"
+
+	local u173 = true
+	local guid = HttpService:GenerateGUID(false)
+	local DropDownFrameEnabled = nil
+	local u176 = p70
+	local v177, _ = GuiService:GetGuiInset()
+	local v179 = Create("ImageButton")({
+		Name = "DropDownFullscreenFrame",
+		BackgroundTransparency = 0.2,
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, 0, 1, not v21 and 0 or v177.Y),
+		Position = if not v21 then nil else UDim2.new(0, 0, 0, -v177.Y),
+		BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+		ZIndex = 10,
+		Active = true,
+		Visible = false,
+		Selectable = false,
+		AutoButtonColor = false,
+		Parent = CoreGui.RobloxGui
+	})
+
+	local function onVREnabled(p73) -- line: 679
+		-- upvalues: VRService (copy), isInExperienceUIVREnabled (copy), CorePackages2 (copy), v179 (copy), CoreGui (copy), t6 (copy), u176 (ref)
+		if p73 ~= "VREnabled" then
+			return
+		end
+
+		if VRService.VREnabled then
+			if isInExperienceUIVREnabled then
+				local VrSpatialUi = require(CorePackages2.Workspace.Packages.VrSpatialUi)
+				local PanelType = VrSpatialUi.Constants.PanelType
+
+				v179.Parent = VrSpatialUi.UIManager.getInstance():getPanelObject(PanelType.MoreMenu)
+				v179.BackgroundTransparency = 0.2
+			else
+				v179.Parent = require(CorePackages2.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):GetGUI()
+				v179.BackgroundTransparency = 1
+			end
+		else
+			v179.Parent = CoreGui.RobloxGui
+			v179.BackgroundTransparency = 0.2
+		end
+
+		if t6.UpdateDropDownList then
+			t6:UpdateDropDownList(u176)
+		end
+	end
+
+	VRService.Changed:Connect(onVREnabled)
+	onVREnabled("VREnabled")
+
+	local v181 = Create("ImageLabel")({
+		Name = "DropDownSelectionFrame",
+		Image = "",
+		ScaleType = Enum.ScaleType.Stretch,
+		SliceCenter = Rect.new(8, 6, 46, 44),
+		BackgroundTransparency = Theme.transparency("DropdownListBg", 1),
+		BackgroundColor3 = Theme.color("DropdownListBg"),
+		Size = UDim2.new(0.6, 0, 0.9, 0),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		ZIndex = 10,
+		Parent = v179
+	})
+
+	Create("UICorner")({
+		CornerRadius = Theme.DefaultCornerRadius,
+		Parent = v181
+	})
+
+	local v182 = Create("ScrollingFrame")({
+		Name = "DropDownScrollingFrame",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, -20, 1, -25),
+		Position = UDim2.new(0, 10, 0, 10),
+		ZIndex = 10,
+		ScrollBarThickness = Theme.DefaultScrollBarThickness,
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		Parent = v181
+	})
+	local connection = nil
+	local u184 = false
+
+	local function v185(p74, p75) -- line: 743
+		-- upvalues: t6 (copy), u173 (ref), p72 (copy), v179 (copy), VRService (copy), UserInputService (copy), GuiService (copy), DropDownFrame (ref), connection (ref), ContextActionService (copy), guid (copy), DropDownFrameEnabled (ref), u184 (ref), isInExperienceUIVREnabled (copy), CorePackages2 (copy)
+		if p74 ~= nil and p75 ~= Enum.UserInputState.Begin then
+			return
+		end
+
+		t6.DropDownFrame.Selectable = u173
+		p72:SetActive(true)
+
+		if v179.Visible and (not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false))) then
+			GuiService.SelectedCoreObject = DropDownFrame
+		end
+
+		v179.Visible = false
+
+		if connection then
+			connection:Disconnect()
+		end
+
+		ContextActionService:UnbindCoreAction(guid .. "Action")
+		ContextActionService:UnbindCoreAction(guid .. "FreezeAction")
+		DropDownFrameEnabled.Value = u173
+		u184 = false
+
+		if VRService.VREnabled and not isInExperienceUIVREnabled then
+			require(CorePackages2.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):SetSubpanelDepth(v179, 0)
+		end
+	end
+	local function v186() -- line: 773
+	end
+
+	local v187 = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.ChooseOne")
+	local uDim2 = UDim2.new(0.6, 0, 0, 40)
+
+	t6.DropDownFrame = MakeButton("DropDownFrame", v187, uDim2, function() -- line: 775
+		-- upvalues: u173 (ref), t6 (copy), u184 (ref), v179 (copy), VRService (copy), isInExperienceUIVREnabled (copy), CorePackages2 (copy), DropDownFrame (ref), GuiService (copy), connection (ref), v169 (copy), color3 (copy), v167 (copy), v185 (copy), FFlagHideShortcutsWhileIemDropdownActive (copy), v24 (copy), ContextActionService (copy), guid (copy), v186 (copy), p72 (copy), DropDownFrameEnabled (ref)
+		if not u173 then
+			return
+		end
+
+		t6.DropDownFrame.Selectable = false
+		u184 = true
+		v179.Visible = true
+
+		if VRService.VREnabled and not isInExperienceUIVREnabled then
+			require(CorePackages2.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):SetSubpanelDepth(v179, 0.5)
+		end
+
+		DropDownFrame = t6.DropDownFrame
+
+		if t6.CurrentIndex and t6.CurrentIndex > 0 then
+			GuiService.SelectedCoreObject = t6.Selections[t6.CurrentIndex]
+		elseif #t6.Selections > 0 then
+			GuiService.SelectedCoreObject = t6.Selections[1]
+		end
+
+		connection = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() -- line: 798
+			-- upvalues: t6 (copy), GuiService (copy), v169 (copy), VRService (copy), color3 (copy), v167 (copy)
+			for i = 1, #t6.Selections do
+				if GuiService.SelectedCoreObject == t6.Selections[i] then
+					t6.Selections[i].TextColor3 = v169
+				else
+					t6.Selections[i].TextColor3 = VRService.VREnabled and color3 or v167
+				end
+			end
+		end)
+
+		local v434 = v185
+
+		if FFlagHideShortcutsWhileIemDropdownActive then
+			v24:setHideShortcutBar("InExperienceMenuDropdown", true)
+
+			function v434(p76, p77) -- line: 812
+				-- upvalues: v185 (copy), v24 (copy)
+				v185(p76, p77)
+				v24:setHideShortcutBar("InExperienceMenuDropdown", false)
+			end
+		end
+
+		ContextActionService:BindCoreAction(guid .. "FreezeAction", v186, false, Enum.UserInputType.Keyboard, Enum.UserInputType.Gamepad1)
+		ContextActionService:BindCoreAction(guid .. "Action", v434, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Escape)
+		p72:SetActive(false)
+		DropDownFrameEnabled.Value = false
+	end, nil, p72)
+	t6.DropDownFrame.Position = UDim2.new(1, 0, 0.5, 0)
+	t6.DropDownFrame.AnchorPoint = Vector2.new(1, 0.5)
+	DropDownFrameEnabled = t6.DropDownFrame.Enabled
+
+	local DropDownFrameTextLabel = t6.DropDownFrame.DropDownFrameTextLabel
+
+	DropDownFrameTextLabel.Position = UDim2.new(0, 15, 0, 0)
+	DropDownFrameTextLabel.Size = UDim2.new(1, -50, 1, 0)
+	DropDownFrameTextLabel.ClipsDescendants = true
+	DropDownFrameTextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+	local v190 = Create("ImageLabel")({
+		Name = "DropDownImage",
+		Image = "rbxasset://textures/ui/Settings/DropDown/DropDown.png",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(1, 0.5),
+		Size = UDim2.new(0, 15, 0, 10),
+		Position = UDim2.new(1, -12, 0.5, 0),
+		ZIndex = 2,
+		Parent = t6.DropDownFrame
+	})
+
+	t6.DropDownImage = v190
+
+	local function setSelection(p78) -- line: 865
+		-- upvalues: t6 (copy), DropDownFrameTextLabel (copy), BindableEvent (copy)
+		local v436 = false
+
+		for k, v in pairs(t6.Selections) do
+			if k == p78 then
+				DropDownFrameTextLabel.Text = v.Text
+				t6.CurrentIndex = k
+				v436 = true
+			end
+		end
+
+		if v436 then
+			BindableEvent:Fire(p78)
+		end
+	end
+	local function setSelectionByValue(p79) -- line: 881
+		-- upvalues: t6 (copy), DropDownFrameTextLabel (copy), BindableEvent (copy)
+		local v440 = false
+
+		for k, v in pairs(t6.Selections) do
+			if p79 == v.Text then
+				DropDownFrameTextLabel.Text = v.Text
+				t6.CurrentIndex = k
+				v440 = true
+			end
+		end
+
+		if v440 then
+			BindableEvent:Fire(t6.CurrentIndex)
+		end
+
+		return v440
+	end
+
+	t6.IndexChanged = BindableEvent.Event
+
+	function t6.SetSelectionIndex(_, p81) -- line: 913
+		-- upvalues: setSelection (copy)
+		setSelection(p81)
+	end
+	function t6.SetSelectionByValue(_, p83) -- line: 917
+		-- upvalues: setSelectionByValue (copy)
+		return (setSelectionByValue(p83))
+	end
+	function t6.ResetSelectionIndex(_) -- line: 921
+		-- upvalues: t6 (copy), DropDownFrameTextLabel (copy), v187 (copy), v185 (copy)
+		t6.CurrentIndex = nil
+		DropDownFrameTextLabel.Text = v187
+		v185()
+	end
+	function t6.GetSelectedIndex(_) -- line: 927
+		-- upvalues: t6 (copy)
+		return t6.CurrentIndex
+	end
+	function t6.SetZIndex(_, p87) -- line: 931
+		-- upvalues: t6 (copy), v190 (copy), DropDownFrameTextLabel (copy)
+		t6.DropDownFrame.ZIndex = p87
+		v190.ZIndex = p87
+		DropDownFrameTextLabel.ZIndex = p87
+	end
+	function t6.SetInteractable(_, p89) -- line: 937
+		-- upvalues: u173 (ref), t6 (copy), v185 (copy), VRService (copy), DropDownFrameEnabled (ref), u184 (ref)
+		u173 = p89
+		t6.DropDownFrame.Selectable = u173
+
+		if not u173 then
+			v185()
+
+			if VRService.VREnabled then
+				t6.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0.5
+				t6.DropDownFrame.ImageTransparency = 0.5
+				t6.DropDownImage.ImageTransparency = 0.5
+			else
+				t6.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0
+				t6.DropDownFrame.ImageTransparency = 0
+				t6.DropDownImage.ImageTransparency = 0
+			end
+
+			if not VRService.VREnabled then
+				t6:SetZIndex(1)
+			end
+		else
+			t6.DropDownFrame.DropDownFrameTextLabel.TextTransparency = 0
+			t6.DropDownFrame.ImageTransparency = 0
+			t6.DropDownImage.ImageTransparency = 0
+
+			if not VRService.VREnabled then
+				t6:SetZIndex(2)
+			end
+		end
+
+		DropDownFrameEnabled.Value = p89 and not u184
+		t6.DropDownImage.Visible = p89
+
+		if p89 then
+			t6.DropDownFrame.ImageTransparency = 0
+
+			return
+		end
+
+		t6.DropDownFrame.ImageTransparency = 0.5
+	end
+	function t6.SetAutoLocalize(_, p91) -- line: 964
+		-- upvalues: v179 (copy)
+		v179.AutoLocalize = p91
+	end
+	function t6.UpdateDropDownList(_, p93) -- line: 968
+		-- upvalues: u176 (ref), t6 (copy), VRService (copy), Theme (copy), Create (copy), color3 (copy), v167 (copy), v182 (copy), p71 (copy), DropDownFrameTextLabel (copy), v169 (copy), v185 (copy), BindableEvent (copy), UserInputService (copy), GuiService (copy), guid (copy), v179 (copy), v181 (copy)
+		u176 = p93
+
+		if t6.Selections then
+			for i = 1, #t6.Selections do
+				t6.Selections[i]:Destroy()
+			end
+		end
+
+		t6.Selections = {}
+		t6.SelectionInfo = {}
+
+		local VREnabled = VRService.VREnabled
+		local v460 = VREnabled and Theme.font(Enum.Font.SourceSansBold, "Bold") or Theme.font(Enum.Font.SourceSans, "UtilityText")
+		local v461 = VREnabled and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
+		local v462 = not VREnabled and 50 or 70
+		local v463 = v462 + 1
+		local v464 = not VREnabled and 400 or 600
+		local n2 = 0
+
+		for k, v in pairs(p93) do
+			local v468 = Create("Frame")({
+				BackgroundTransparency = 0.7,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 1, 0)
+			})
+
+			Create("UICorner")({
+				CornerRadius = Theme.DefaultCornerRadius,
+				Parent = v468
+			})
+
+			local v469 = v
+			local s3 = ""
+			local v471 = typeof(v) == "table"
+
+			if v471 then
+				v469 = v.title
+				s3 = v.subtitle
+				n2 += 10
+			end
+
+			local u472
+
+			if v471 then
+				u472 = Create("TextButton")({
+					Name = "Selection" .. tostring(k),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AutoButtonColor = false,
+					TextYAlignment = Enum.TextYAlignment.Top,
+					Size = UDim2.new(1, -28, 0, v462 + 10),
+					Position = UDim2.new(0, 14, 0, (k - 1) * (v463 + 10)),
+					TextColor3 = VRService.VREnabled and color3 or v167,
+					Font = v460,
+					TextSize = v461,
+					Text = v469,
+					ZIndex = 10,
+					SelectionImageObject = v468,
+					Parent = v182
+				})
+				Create("TextLabel")({
+					Name = "Subtitle" .. tostring(k),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, -28, 0, v462 * 0.8),
+					Position = UDim2.new(0, 14, 0, 15),
+					TextColor3 = VRService.VREnabled and color3 or v167,
+					Font = v460,
+					TextSize = v461 * 0.8,
+					Text = s3,
+					ZIndex = 10,
+					Parent = u472
+				})
+			else
+				u472 = Create("TextButton")({
+					Name = "Selection" .. tostring(k),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AutoButtonColor = false,
+					Size = UDim2.new(1, -28, 0, v462),
+					Position = UDim2.new(0, 14, 0, (k - 1) * v463),
+					TextColor3 = VRService.VREnabled and color3 or v167,
+					Font = v460,
+					TextSize = v461,
+					Text = v,
+					ZIndex = 10,
+					SelectionImageObject = v468,
+					Parent = v182
+				})
+			end
+
+			if k == p71 then
+				t6.CurrentIndex = k
+				DropDownFrameTextLabel.Text = v469
+				u472.TextColor3 = v169
+			elseif not p71 and k == 1 then
+				u472.TextColor3 = v169
+			end
+
+			local function v473() -- line: 1072
+				-- upvalues: DropDownFrameTextLabel (copy), u472 (ref), v185 (copy), t6 (copy), k (copy), BindableEvent (copy)
+				DropDownFrameTextLabel.Text = u472.Text
+				v185()
+				t6.CurrentIndex = k
+				BindableEvent:Fire(k)
+			end
+
+			u472.MouseButton1Click:Connect(v473)
+			u472.MouseEnter:Connect(function() -- line: 1081
+				-- upvalues: VRService (copy), UserInputService (copy), GuiService (copy), u472 (ref)
+				if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+					GuiService.SelectedCoreObject = u472
+				end
+			end)
+			t6.Selections[k] = u472
+			t6.SelectionInfo[u472] = {
+				Clicked = v473
+			}
+		end
+
+		GuiService:RemoveSelectionGroup(guid)
+		GuiService:AddSelectionTuple(guid, unpack(t6.Selections))
+		v182.CanvasSize = UDim2.new(1, -20, 0, #p93 * v463 + n2)
+
+		local function updateDropDownSize() -- line: 1097
+			-- upvalues: v182 (copy), v179 (copy), v181 (copy), v464 (copy)
+			if v182.CanvasSize.Y.Offset < v179.AbsoluteSize.Y - 10 then
+				v181.Size = UDim2.new(0, v464, 0, v182.CanvasSize.Y.Offset + 25)
+
+				return
+			end
+
+			v181.Size = UDim2.new(0, v464, 0.9, 0)
+		end
+
+		v179.Changed:Connect(function(property) -- line: 1110
+			-- upvalues: updateDropDownSize (copy)
+			if property ~= "AbsoluteSize" then
+				return
+			end
+
+			updateDropDownSize()
+		end)
+		updateDropDownSize()
+	end
+
+	t6:UpdateDropDownList(p70)
+	v179.MouseButton1Click:Connect(v185)
+	p72.PoppedMenu:Connect(function(p94) -- line: 1125
+		-- upvalues: v179 (copy), v185 (copy)
+		if p94 == v179 then
+			v185()
+		end
+	end)
+
+	return t6
+end
+local function CreateSelector(p95, p96) -- line: 1134
+	-- upvalues: Create (copy), v42 (copy), Theme (copy), v4 (copy), UserInputService (copy), v5 (copy), addHoverState (copy), VRService (copy), GuiService (copy), EaseOutQuad (copy), EngineFeature (copy), v6 (copy), v38 (copy), v39 (copy), v40 (copy), t1 (copy)
+	local n3 = 0
+	local t7 = {
+		HubRef = nil,
+		SetSelectionIndex = nil
+	}
+
+	if type(p95) ~= "table" then
+		error("CreateSelector selectionStringTable (first arg) is not a table", 2)
+
+		return t7
+	end
+
+	local BindableEvent = Instance.new("BindableEvent")
+
+	BindableEvent.Name = "IndexChanged"
+
+	local u198 = true
+
+	t7.CurrentIndex = 0
+	t7.SelectorFrame = Create("ImageButton")({
+		Name = "Selector",
+		Image = "",
+		AutoButtonColor = false,
+		NextSelectionLeft = t7.SelectorFrame,
+		NextSelectionRight = t7.SelectorFrame,
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0.6, 0, 0, 50),
+		Position = UDim2.new(1, 0, 0.5, 0),
+		AnchorPoint = Vector2.new(1, 0.5),
+		ZIndex = 2,
+		SelectionImageObject = v42
+	})
+
+	local v199 = Create("ImageButton")({
+		Name = "LeftButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.new(0, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
+		ZIndex = 3,
+		Selectable = false,
+		SelectionImageObject = v42,
+		Parent = t7.SelectorFrame
+	})
+	local v200 = Create("ImageButton")({
+		Name = "RightButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(1, 0.5),
+		Position = UDim2.new(1, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
+		ZIndex = 3,
+		Selectable = false,
+		SelectionImageObject = v42,
+		Parent = t7.SelectorFrame
+	})
+	local v201 = Create("ImageLabel")({
+		Name = "LeftButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 18, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/Left.png",
+		ImageColor3 = v4,
+		ZIndex = 4,
+		Parent = v199
+	})
+	local v202 = Create("ImageLabel")({
+		Name = "RightButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 18, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/Right.png",
+		ImageColor3 = v4,
+		ZIndex = 4,
+		Parent = v200
+	})
+
+	if UserInputService.PreferredInput ~= Enum.PreferredInput.Touch then
+		local function v203(p97) -- line: 1220
+			-- upvalues: v4 (copy)
+			p97.ImageColor3 = v4
+		end
+		local function v204(p98) -- line: 1222
+			-- upvalues: v5 (copy)
+			p98.ImageColor3 = v5
+		end
+
+		addHoverState(v199, v201, v203, v204)
+		addHoverState(v200, v202, v203, v204)
+	end
+
+	t7.Selections = {}
+
+	local t8 = {}
+	local t9 = {}
+	local v207 = Create("ImageButton")({
+		Name = "AutoSelectButton",
+		BackgroundTransparency = 1,
+		Image = "",
+		Position = UDim2.new(0, v199.Size.X.Offset, 0, 0),
+		Size = UDim2.new(1, v199.Size.X.Offset * -2, 1, 0),
+		Parent = t7.SelectorFrame,
+		ZIndex = 2,
+		SelectionImageObject = v42
+	})
+
+	v207.MouseButton1Click:Connect(function() -- line: 1243
+		-- upvalues: u198 (ref), t7 (copy), VRService (copy), UserInputService (copy), GuiService (copy)
+		if not u198 then
+			return
+		end
+
+		if #t7.Selections <= 1 then
+			return
+		end
+
+		local v478 = t7.CurrentIndex + 1
+
+		if v478 > #t7.Selections then
+			v478 = 1
+		end
+
+		t7:SetSelectionIndex(v478)
+
+		if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+			GuiService.SelectedCoreObject = t7.SelectorFrame
+		end
+	end)
+	t9[v207] = true
+
+	local function setSelection(p99, p100) -- line: 1262
+		-- upvalues: t7 (copy), v199 (copy), t8 (ref), EaseOutQuad (copy), EngineFeature (copy), BindableEvent (copy)
+		for k, v in pairs(t7.Selections) do
+			local v483 = k == p99
+			local uDim2 = UDim2.new(0, v199.Size.X.Offset, 0, 0)
+			local uDim2_2 = UDim2.new(0, v199.Size.X.Offset * p100 * 3, 0, 0)
+
+			if t8[v] then
+				uDim2_2 = UDim2.new(0, v199.Size.X.Offset * -p100 * 3, 0, 0)
+			end
+
+			if uDim2_2.X.Offset < 0 then
+				uDim2_2 = UDim2.new(0, uDim2_2.X.Offset + v.AbsoluteSize.X / 4, 0, 0)
+			end
+
+			if v483 then
+				t8[v] = true
+				v.Position = uDim2_2
+				v.Visible = true
+				PropertyTweener(v, "TextTransparency", 1, 0, 0.165, EaseOutQuad)
+
+				if v:IsDescendantOf(game) then
+					if EngineFeature then
+						v:TweenPositionInternal(uDim2, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.15, true)
+					else
+						v:TweenPosition(uDim2, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.15, true)
+					end
+				else
+					v.Position = uDim2
+				end
+
+				t7.CurrentIndex = k
+				BindableEvent:Fire(p99)
+			elseif t8[v] then
+				t8[v] = false
+				PropertyTweener(v, "TextTransparency", 0, 1, 0.165, EaseOutQuad)
+
+				if v:IsDescendantOf(game) then
+					if EngineFeature then
+						v:TweenPositionInternal(uDim2_2, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.135, true)
+					else
+						v:TweenPosition(uDim2_2, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.135, true)
+					end
+				else
+					v.Position = uDim2_2
+				end
+			end
+		end
+	end
+	local function stepFunc(p101, p102) -- line: 1333
+		-- upvalues: u198 (ref), VRService (copy), UserInputService (copy), GuiService (copy), t7 (copy), setSelection (copy)
+		if not u198 then
+			return
+		end
+
+		if p101 ~= nil and p101.UserInputType ~= Enum.UserInputType.MouseButton1 and p101.UserInputType ~= Enum.UserInputType.Gamepad1 and p101.UserInputType ~= Enum.UserInputType.Gamepad2 and p101.UserInputType ~= Enum.UserInputType.Gamepad3 and p101.UserInputType ~= Enum.UserInputType.Gamepad4 and p101.UserInputType ~= Enum.UserInputType.Keyboard then
+			return
+		end
+
+		if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+			GuiService.SelectedCoreObject = t7.SelectorFrame
+		end
+
+		local v488 = p102 + t7.CurrentIndex
+		local v489 = not (v488 > t7.CurrentIndex) and -1 or 1
+
+		if v488 > #t7.Selections then
+			v488 = 1
+		elseif v488 < 1 then
+			v488 = #t7.Selections
+		end
+
+		setSelection(v488, v489)
+	end
+
+	local connection = nil
+
+	t7.IndexChanged = BindableEvent.Event
+
+	function t7.SetSelectionIndex(_, p104) -- line: 1387
+		-- upvalues: setSelection (copy)
+		setSelection(p104, 1)
+	end
+	function t7.GetSelectedIndex(_) -- line: 1391
+		-- upvalues: t7 (copy)
+		return t7.CurrentIndex
+	end
+	function t7.SetZIndex(_, p107) -- line: 1395
+		-- upvalues: v199 (copy), v200 (copy), v201 (copy), v202 (copy), t7 (copy)
+		v199.ZIndex = p107
+		v200.ZIndex = p107
+		v201.ZIndex = p107
+		v202.ZIndex = p107
+
+		for i = 1, #t7.Selections do
+			t7.Selections[i].ZIndex = p107
+		end
+	end
+	function t7.SetInteractable(_, p109) -- line: 1406
+		-- upvalues: u198 (ref), t7 (copy), v199 (copy), v200 (copy), Theme (copy), v201 (copy), v6 (copy), v202 (copy), v4 (copy)
+		u198 = p109
+		t7.SelectorFrame.Selectable = u198
+		v199.Active = u198
+		v200.Active = u198
+		v199.Visible = u198
+		v200.Visible = u198
+
+		if not u198 then
+			for _, v in pairs(t7.Selections) do
+				v.TextColor3 = Theme.color("NotInteractableSelection", Color3.fromRGB(255, 255, 255))
+			end
+
+			v201.ImageColor3 = v6
+			v202.ImageColor3 = v6
+
+			return
+		end
+
+		for _, v in pairs(t7.Selections) do
+			v.TextColor3 = Color3.fromRGB(255, 255, 255)
+		end
+
+		v201.ImageColor3 = v4
+		v202.ImageColor3 = v4
+	end
+	function t7.UpdateOptions(_, p111) -- line: 1431
+		-- upvalues: t7 (copy), t8 (ref), Create (copy), v199 (copy), Theme (copy), v38 (copy), p96 (copy), v200 (copy)
+		for _, v in pairs(t7.Selections) do
+			v:Destroy()
+		end
+
+		t8 = {}
+		t7.Selections = {}
+
+		for k, v in pairs(p111) do
+			local v508 = Create("TextLabel")({
+				Name = "Selection" .. tostring(k),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, v199.Size.X.Offset * -2, 1, 0),
+				Position = UDim2.new(1, 0, 0, 0),
+				TextColor3 = Color3.fromRGB(255, 255, 255),
+				TextYAlignment = Enum.TextYAlignment.Center,
+				Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
+				TextSize = Theme.textSize(24, "UtilityText"),
+				TextWrapped = true,
+				Text = v,
+				ZIndex = 2,
+				Visible = false,
+				Parent = t7.SelectorFrame
+			})
+
+			if v38 then
+				v508.TextSize = Theme.textSize(36)
+			end
+
+			if k == p96 then
+				t7.CurrentIndex = k
+				v508.Position = UDim2.new(0, v199.Size.X.Offset, 0, 0)
+				v508.Visible = true
+				t8[v508] = true
+			else
+				t8[v508] = false
+			end
+
+			t7.Selections[k] = v508
+		end
+
+		local v509 = #t7.Selections > 1
+
+		v199.Visible = v509
+		v200.Visible = v509
+	end
+
+	VRService.Changed:Connect(function(property) --[[ onVREnabled ]] -- line: 1479
+		-- upvalues: VRService (copy), v199 (copy), v200 (copy), v207 (copy)
+		if property ~= "VREnabled" then
+			return
+		end
+
+		local VREnabled = VRService.VREnabled
+
+		v199.Selectable = VREnabled
+		v200.Selectable = VREnabled
+		v207.Selectable = VREnabled
+	end)
+
+	local VREnabled = VRService.VREnabled
+
+	v199.Selectable = VREnabled
+	v200.Selectable = VREnabled
+	v207.Selectable = VREnabled
+	v199.InputBegan:Connect(function(input) -- line: 1491
+		-- upvalues: v39 (copy), v40 (copy), u198 (ref), VRService (copy), UserInputService (copy), GuiService (copy), t7 (copy), setSelection (copy)
+		if v39(false) or v40(false) and input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if not u198 then
+				return
+			end
+
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				GuiService.SelectedCoreObject = t7.SelectorFrame
+			end
+
+			local v513 = -1 + t7.CurrentIndex
+			local v514 = not (v513 > t7.CurrentIndex) and -1 or 1
+
+			if v513 > #t7.Selections then
+				v513 = 1
+			elseif v513 < 1 then
+				v513 = #t7.Selections
+			end
+
+			setSelection(v513, v514)
+		end
+	end)
+	v200.InputBegan:Connect(function(input) -- line: 1497
+		-- upvalues: v39 (copy), v40 (copy), u198 (ref), VRService (copy), UserInputService (copy), GuiService (copy), t7 (copy), setSelection (copy)
+		if v39(false) or v40(false) and input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if not u198 then
+				return
+			end
+
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				GuiService.SelectedCoreObject = t7.SelectorFrame
+			end
+
+			local v516 = 1 + t7.CurrentIndex
+			local v517 = not (v516 > t7.CurrentIndex) and -1 or 1
+
+			if v516 > #t7.Selections then
+				v516 = 1
+			elseif v516 < 1 then
+				v516 = #t7.Selections
+			end
+
+			setSelection(v516, v517)
+		end
+	end)
+
+	local u212 = true
+
+	t7:UpdateOptions(p95)
+	UserInputService.InputBegan:Connect(function(input) -- line: 1507
+		-- upvalues: u198 (ref), u212 (ref), GuiService (copy), t7 (copy), VRService (copy), UserInputService (copy), setSelection (copy)
+		if not u198 then
+			return
+		end
+
+		if not u212 then
+			return
+		end
+
+		if input.UserInputType ~= Enum.UserInputType.Gamepad1 and input.UserInputType ~= Enum.UserInputType.Keyboard then
+			return
+		end
+
+		if GuiService.SelectedCoreObject ~= t7.SelectorFrame then
+			return
+		end
+
+		if input.KeyCode == Enum.KeyCode.DPadLeft or input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.A then
+			if not u198 then
+				return
+			end
+
+			if input ~= nil and input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Gamepad1 and input.UserInputType ~= Enum.UserInputType.Gamepad2 and input.UserInputType ~= Enum.UserInputType.Gamepad3 and input.UserInputType ~= Enum.UserInputType.Gamepad4 and input.UserInputType ~= Enum.UserInputType.Keyboard then
+				return
+			end
+
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				GuiService.SelectedCoreObject = t7.SelectorFrame
+			end
+
+			local v519 = -1 + t7.CurrentIndex
+			local v520 = not (v519 > t7.CurrentIndex) and -1 or 1
+
+			if v519 > #t7.Selections then
+				v519 = 1
+			elseif v519 < 1 then
+				v519 = #t7.Selections
+			end
+
+			setSelection(v519, v520)
+
+			return
+		end
+
+		if input.KeyCode == Enum.KeyCode.DPadRight or input.KeyCode == Enum.KeyCode.Right or input.KeyCode == Enum.KeyCode.D then
+			if not u198 then
+				return
+			end
+
+			if input ~= nil and input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Gamepad1 and input.UserInputType ~= Enum.UserInputType.Gamepad2 and input.UserInputType ~= Enum.UserInputType.Gamepad3 and input.UserInputType ~= Enum.UserInputType.Gamepad4 and input.UserInputType ~= Enum.UserInputType.Keyboard then
+				return
+			end
+
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				GuiService.SelectedCoreObject = t7.SelectorFrame
+			end
+
+			local v521 = 1 + t7.CurrentIndex
+			local v522 = not (v521 > t7.CurrentIndex) and -1 or 1
+
+			if v521 > #t7.Selections then
+				v521 = 1
+			elseif v521 < 1 then
+				v521 = #t7.Selections
+			end
+
+			setSelection(v521, v522)
+		end
+	end)
+	UserInputService.InputChanged:Connect(function(input) -- line: 1540
+		-- upvalues: u198 (ref), u212 (ref), n3 (ref), GuiService (copy), t7 (copy), stepFunc (copy)
+		if not u198 then
+			return
+		end
+
+		if not u212 then
+			n3 = 0
+
+			return
+		end
+
+		if input.UserInputType ~= Enum.UserInputType.Gamepad1 then
+			return
+		end
+
+		local SelectedCoreObject = GuiService.SelectedCoreObject
+
+		if not SelectedCoreObject or not SelectedCoreObject:IsDescendantOf(t7.SelectorFrame.Parent) then
+			return
+		end
+
+		if input.KeyCode ~= Enum.KeyCode.Thumbstick1 then
+			return
+		end
+
+		if input.Position.X > 0.8 and input.Delta.X > 0 and n3 ~= 1 then
+			n3 = 1
+			stepFunc(input, n3)
+
+			return
+		end
+
+		if input.Position.X < -0.8 and input.Delta.X < 0 and n3 ~= -1 then
+			n3 = -1
+			stepFunc(input, n3)
+
+			return
+		end
+
+		if math.abs(input.Position.X) < 0.8 then
+			n3 = 0
+		end
+	end)
+	t7.SelectorFrame.AncestryChanged:Connect(function(_, parent) -- line: 1581
+		-- upvalues: u212 (ref), connection (ref), GuiService (copy), t7 (copy), t9 (copy), VRService (copy)
+		u212 = parent
+
+		if not u212 then
+			if connection then
+				connection:Disconnect()
+
+				return
+			end
+		else
+			connection = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() -- line: 1374
+				-- upvalues: t7 (copy), GuiService (copy), t9 (copy), VRService (copy)
+				if #t7.Selections <= 0 then
+					return
+				end
+
+				if GuiService.SelectedCoreObject ~= nil and t9[GuiService.SelectedCoreObject] and not VRService.VREnabled then
+					GuiService.SelectedCoreObject = t7.SelectorFrame
+				end
+			end)
+		end
+	end)
+
+	local function onResized(_, p114) -- line: 1592
+		-- upvalues: Theme (copy), v38 (copy), t7 (copy)
+		local v529 = if not p114 then v38 and Theme.textSize(36) or Theme.textSize(24, "UtilityText") else Theme.textSize(16)
+
+		for _, v in pairs(t7.Selections) do
+			v.TextSize = v529
+		end
+	end
+
+	t1[t7.SelectorFrame] = onResized
+
+	local v214 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+	local v215 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+	onResized(v214, v215.Y > v215.X)
+	connection = GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function() -- line: 1374
+		-- upvalues: t7 (copy), GuiService (copy), t9 (copy), VRService (copy)
+		if #t7.Selections <= 0 then
+			return
+		end
+
+		if GuiService.SelectedCoreObject ~= nil and t9[GuiService.SelectedCoreObject] and not VRService.VREnabled then
+			GuiService.SelectedCoreObject = t7.SelectorFrame
+		end
+	end)
+
+	return t7
+end
+local function ShowAlert(p115, p116, p117, p118, p119) -- line: 1611
+	-- upvalues: CoreGui (copy), VRService (copy), isInExperienceUIVREnabled (copy), CorePackages2 (copy), Create (copy), Theme (copy), HttpService (copy), ContextActionService (copy), GuiService (copy), MakeButton (copy), UserInputService (copy)
+	local RobloxGui2 = CoreGui.RobloxGui
+
+	if RobloxGui2:FindFirstChild("AlertViewFullScreen") then
+		return
+	end
+
+	local u222 = nil
+
+	local function onVREnabled(p120) -- line: 1622
+		-- upvalues: VRService (copy), isInExperienceUIVREnabled (copy), CorePackages2 (copy), RobloxGui2 (ref), CoreGui (copy), u222 (ref)
+		if p120 ~= "VREnabled" then
+			return
+		end
+
+		local v533 = nil
+
+		if VRService.VREnabled then
+			if isInExperienceUIVREnabled then
+				local VrSpatialUi = require(CorePackages2.Workspace.Packages.VrSpatialUi)
+				local PanelType = VrSpatialUi.Constants.PanelType
+
+				RobloxGui2 = VrSpatialUi.UIManager.getInstance():getPanelObject(PanelType.MoreMenu)
+			else
+				v533 = require(CorePackages2.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu")
+				RobloxGui2 = v533:GetGUI()
+			end
+		else
+			RobloxGui2 = CoreGui.RobloxGui
+		end
+
+		if u222 and u222.Parent ~= nil then
+			u222.Parent = RobloxGui2
+
+			if VRService.VREnabled and not isInExperienceUIVREnabled then
+				v533:SetSubpanelDepth(u222, 0.5)
+			end
+		end
+	end
+
+	local connection = VRService.Changed:Connect(onVREnabled)
+
+	u222 = Create("ImageLabel")({
+		Name = "AlertViewBacking",
+		Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(8, 6, 46, 44),
+		BackgroundTransparency = 1,
+		ImageTransparency = 1,
+		Size = UDim2.new(0, 400, 0, 350),
+		Position = UDim2.new(0.5, -200, 0.5, -175),
+		ZIndex = 9,
+		Parent = RobloxGui2
+	})
+	onVREnabled("VREnabled")
+
+	if p119 or not isInExperienceUIVREnabled and VRService.VREnabled then
+		u222.ImageTransparency = 0
+	else
+		u222.Size = UDim2.new(0.8, 0, 0, 350)
+		u222.Position = UDim2.new(0.1, 0, 0.1, 0)
+	end
+
+	if CoreGui.RobloxGui.AbsoluteSize.Y <= u222.Size.Y.Offset then
+		u222.Size = UDim2.new(u222.Size.X.Scale, u222.Size.X.Offset, u222.Size.Y.Scale, CoreGui.RobloxGui.AbsoluteSize.Y)
+		u222.Position = UDim2.new(u222.Position.X.Scale, -u222.Size.X.Offset / 2, 0.5, -u222.Size.Y.Offset / 2)
+	end
+
+	if not p119 then
+		Create("UICorner")({
+			CornerRadius = Theme.DefaultCornerRadius,
+			Parent = u222
+		})
+		u222.BackgroundColor3 = Theme.color("MenuContainer")
+		u222.BackgroundTransparency = Theme.transparency("MenuContainer")
+	end
+
+	Create("TextLabel")({
+		Name = "AlertViewText",
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0.95, 0, 0.6, 0),
+		Position = UDim2.new(0.025, 0, 0.05, 0),
+		Font = Theme.font(Enum.Font.SourceSansBold, "Bold"),
+		TextSize = Theme.textSize(36),
+		Text = p115,
+		TextWrapped = true,
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+		TextXAlignment = Enum.TextXAlignment.Center,
+		TextYAlignment = Enum.TextYAlignment.Center,
+		ZIndex = 10,
+		Parent = u222
+	})
+	Create("ImageLabel")({
+		Image = "",
+		BackgroundTransparency = 1
+	})
+
+	local guid = HttpService:GenerateGUID(false)
+
+	local function v226(_, p122) -- line: 1721
+		-- upvalues: VRService (copy), u222 (ref), isInExperienceUIVREnabled (copy), CorePackages2 (copy), p118 (copy), ContextActionService (copy), guid (copy), GuiService (copy), p117 (copy), connection (copy)
+		if VRService.VREnabled and (p122 == Enum.UserInputState.Begin or p122 == Enum.UserInputState.Cancel) then
+			return
+		end
+
+		if not u222 then
+			return
+		end
+
+		if VRService.VREnabled and not isInExperienceUIVREnabled then
+			require(CorePackages2.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):SetSubpanelDepth(u222, 0)
+		end
+
+		u222:Destroy()
+		u222 = nil
+
+		if p118 then
+			p118()
+		end
+
+		ContextActionService:UnbindCoreAction(guid)
+		GuiService.SelectedCoreObject = nil
+
+		if p117 then
+			p117:ShowBar()
+		end
+
+		if connection then
+			connection:Disconnect()
+		end
+	end
+
+	local uDim2 = UDim2.new(1, -20, 0, 60)
+	local uDim2_3 = UDim2.new(0, 10, 0.65, 0)
+
+	if not p119 then
+		uDim2 = UDim2.new(0, 200, 0, 50)
+		uDim2_3 = UDim2.new(0.5, -100, 0.65, 0)
+	end
+
+	local v229, v230 = MakeButton("AlertViewButton", p116, uDim2, v226)
+
+	v229.Position = uDim2_3
+	v229.NextSelectionLeft = v229
+	v229.NextSelectionRight = v229
+	v229.NextSelectionUp = v229
+	v229.NextSelectionDown = v229
+	v229.ZIndex = 9
+	v230.ZIndex = v229.ZIndex
+	v229.Parent = u222
+
+	if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+		GuiService.SelectedCoreObject = v229
+	end
+
+	GuiService.SelectedCoreObject = v229
+	ContextActionService:BindCoreAction(guid, v226, false, Enum.KeyCode.Escape, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonA)
+
+	if p117 and (isInExperienceUIVREnabled or not VRService.VREnabled) then
+		p117:HideBar()
+		p117.Pages.CurrentPage:Hide(1, 1)
+	end
+end
+local function CreateNewSlider(p123, p124, p125, p126, p127) -- line: 1791
+	-- upvalues: HttpService (copy), Signal (copy), Create (copy), v42 (copy), RobloxGui (copy), Theme (copy), UserInputService (copy), v5 (copy), v4 (copy), v5 (copy), addHoverState (copy), v2 (copy), v3 (copy), VRService (copy), GuiService (copy), RunService (copy)
+	local t10 = {}
+	local num = tonumber(p123)
+	local u239 = p124
+	local n4 = 0
+	local timestamp = nil
+	local u242 = true
+	local guid = HttpService:GenerateGUID(false)
+
+	if num <= 0 then
+		error("CreateNewSlider failed because numOfSteps (first arg) is 0 or negative, please supply a positive integer", 2)
+
+		return
+	end
+
+	local v244 = p126 or p127
+	local BindableEvent = Instance.new("BindableEvent")
+
+	BindableEvent.Name = "ValueChanged"
+
+	local v246 = Signal.new()
+
+	t10.SliderFrame = Create("ImageButton")({
+		Name = "Slider",
+		Image = "",
+		AutoButtonColor = false,
+		NextSelectionLeft = t10.SliderFrame,
+		NextSelectionRight = t10.SliderFrame,
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0.6, 0, 0, 50),
+		AutomaticSize = if not v244 then nil else Enum.AutomaticSize.Y,
+		Position = UDim2.new(1, 0, 0.5, 0),
+		AnchorPoint = Vector2.new(1, 0.5),
+		SelectionImageObject = v42,
+		ZIndex = 2
+	})
+
+	local v247 = nil
+
+	if v244 then
+		v247 = Create("Frame")({
+			Name = "StepsAndButtonsContainer",
+			Size = UDim2.new(1, 0, 0, 50),
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
+			Parent = t10.SliderFrame
+		})
+		Create("UIListLayout")({
+			Name = "UIListLayout",
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Parent = t10.SliderFrame
+		})
+
+		local v248 = Create("Frame")({
+			Name = "SliderLabels",
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			Parent = t10.SliderFrame,
+			LayoutOrder = 2
+		})
+
+		Create("UIPadding")({
+			Name = "UIPadding",
+			PaddingRight = UDim.new(0, 50),
+			PaddingLeft = UDim.new(0, 50),
+			Parent = v248
+		})
+
+		if p126 then
+			t10.LeftLabel = Create("TextLabel")({
+				Name = "LeftLabel",
+				Text = p126,
+				Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
+				TextSize = Theme.textSize(18, "UtilityRow"),
+				TextColor3 = Color3.fromRGB(255, 255, 255),
+				TextTransparency = 0.25,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextWrapped = true,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Parent = v248,
+				Visible = RobloxGui.AbsoluteSize.X > 460
+			})
+		end
+
+		if p127 then
+			t10.RightLabel = Create("TextLabel")({
+				Name = "RightLabel",
+				Text = p127,
+				Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
+				TextSize = Theme.textSize(18, "UtilityRow"),
+				TextColor3 = Color3.fromRGB(255, 255, 255),
+				TextTransparency = 0.25,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				TextWrapped = true,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Parent = v248,
+				Visible = RobloxGui.AbsoluteSize.X > 460
+			})
+		end
+
+		RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(function() -- line: 1912
+			-- upvalues: t10 (copy), RobloxGui (copy)
+			if t10.LeftLabel then
+				t10.LeftLabel.Visible = RobloxGui.AbsoluteSize.X > 460
+			end
+
+			if t10.RightLabel then
+				t10.RightLabel.Visible = RobloxGui.AbsoluteSize.X > 460
+			end
+		end)
+	end
+
+	t10.StepsContainer = Create("Frame")({
+		Name = "StepsContainer",
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(1, -100, 1, 0),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		BackgroundTransparency = 1,
+		Parent = if not v244 then t10.SliderFrame else v247
+	})
+
+	local v249 = Create("ImageButton")({
+		Name = "LeftButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.new(0, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
+		ZIndex = 3,
+		Selectable = false,
+		SelectionImageObject = v42,
+		Active = true,
+		Parent = if not v244 then t10.SliderFrame else v247
+	})
+	local v250 = Create("ImageButton")({
+		Name = "RightButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(1, 0.5),
+		Position = UDim2.new(1, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
+		ZIndex = 3,
+		Selectable = false,
+		SelectionImageObject = v42,
+		Active = true,
+		Parent = if not v244 then t10.SliderFrame else v247
+	})
+	local v251 = Create("ImageLabel")({
+		Name = "LeftButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 30, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/Less.png",
+		ZIndex = 4,
+		Parent = v249,
+		ImageColor3 = UserInputService.PreferredInput == Enum.PreferredInput.Touch and v5 or v4
+	})
+	local v252 = Create("ImageLabel")({
+		Name = "RightButton",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 30, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/More.png",
+		ZIndex = 4,
+		Parent = v250,
+		ImageColor3 = UserInputService.PreferredInput == Enum.PreferredInput.Touch and v5 or v4
+	})
+
+	if UserInputService.PreferredInput ~= Enum.PreferredInput.Touch then
+		local function v253(p128) -- line: 1983
+			-- upvalues: v4 (copy)
+			p128.ImageColor3 = v4
+		end
+		local function v254(p129) -- line: 1985
+			-- upvalues: v5 (copy)
+			p129.ImageColor3 = v5
+		end
+
+		addHoverState(v249, v251, v253, v254)
+		addHoverState(v250, v252, v253, v254)
+	end
+
+	t10.Steps = {}
+
+	local v255 = 1 / num
+
+	for i = 1, num do
+		local v257 = Create("ImageButton")({
+			Name = "Step" .. tostring(i),
+			BackgroundColor3 = v2,
+			BackgroundTransparency = 0,
+			BorderSizePixel = 0,
+			AutoButtonColor = false,
+			Active = false,
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new((i - 1) * v255, 2, 0.5, 0),
+			Size = UDim2.new(v255, -4, 0, 24),
+			Image = "",
+			ZIndex = 3,
+			Selectable = false,
+			ImageTransparency = 0.36,
+			Parent = t10.StepsContainer,
+			SelectionImageObject = v42
+		})
+
+		if i > u239 then
+			v257.BackgroundColor3 = v3
+		end
+
+		if i == 1 or i == num then
+			Create("UICorner")({
+				CornerRadius = Theme.DefaultCornerRadius,
+				Parent = v257
+			})
+			Create("Frame")({
+				Name = "Filler",
+				BackgroundColor3 = v257.BackgroundColor3,
+				Parent = v257,
+				Size = UDim2.new(0.25, 0, 1, 0),
+				BorderSizePixel = 0,
+				Position = if i ~= 1 then UDim2.new(0, 0, 0, 0) else UDim2.new(0.75, 0, 0, 0)
+			})
+		end
+
+		t10.Steps[#t10.Steps + 1] = v257
+	end
+
+	local function hideSelection() -- line: 2039
+		-- upvalues: num (copy), t10 (copy), v3 (copy)
+		for i = 1, num do
+			t10.Steps[i].BackgroundColor3 = v3
+
+			if i == 1 or i == num then
+				t10.Steps[i].Filler.BackgroundColor3 = v3
+			end
+		end
+	end
+	local function showSelection() -- line: 2047
+		-- upvalues: num (copy), u239 (ref), t10 (copy), v2 (copy)
+		for i = 1, num do
+			if i > u239 then
+				return
+			end
+
+			t10.Steps[i].BackgroundColor3 = v2
+
+			if i == 1 or i == num then
+				t10.Steps[i].Filler.BackgroundColor3 = v2
+			end
+		end
+	end
+	local function setCurrentStep(p130) -- line: 2059
+		-- upvalues: p125 (ref), v249 (copy), v250 (copy), num (copy), u239 (ref), hideSelection (copy), showSelection (copy), timestamp (ref), v246 (copy), BindableEvent (copy)
+		if not p125 then
+			p125 = 0
+		end
+
+		v249.Visible = true
+		v250.Visible = true
+
+		if p130 <= p125 then
+			p130 = p125
+			v249.Visible = false
+		end
+
+		if p130 >= num then
+			p130 = num
+			v250.Visible = false
+		end
+
+		if p130 == u239 then
+			return
+		end
+
+		u239 = p130
+		hideSelection()
+		showSelection()
+		timestamp = tick()
+
+		if v246 then
+			v246:fire(u239)
+
+			return
+		end
+
+		BindableEvent:Fire(u239)
+	end
+	local function mouseDownFunc(p131, p132, p133) -- line: 2104
+		-- upvalues: u242 (ref), VRService (copy), UserInputService (copy), GuiService (copy), t10 (copy), n4 (ref), u239 (ref), num (copy), setCurrentStep (copy)
+		if not u242 then
+			return
+		end
+
+		if p131 == nil then
+			return
+		end
+
+		if not if p131 then p131.UserInputType == Enum.UserInputType.MouseButton1 or (p131.UserInputType == Enum.UserInputType.Touch or p131.UserInputType == Enum.UserInputType.Gamepad1 and p131.KeyCode == Enum.KeyCode.ButtonA) else false then
+			return
+		end
+
+		if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) and not VRService.VREnabled then
+			GuiService.SelectedCoreObject = t10.SliderFrame
+		end
+
+		if not VRService.VREnabled then
+			if p133 then
+				n4 = p132 - u239
+			else
+				n4 = 0
+
+				local connection = nil
+				local connection2 = UserInputService.InputChanged:Connect(function(input) -- line: 2130
+					-- upvalues: num (copy), t10 (copy), setCurrentStep (copy)
+					if input.UserInputType ~= Enum.UserInputType.MouseMovement then
+						return
+					end
+
+					local PositionX = input.Position.X
+
+					for i = 1, num do
+						local AbsolutePositionX = t10.Steps[i].AbsolutePosition.X
+						local AbsoluteSizeX = t10.Steps[i].AbsoluteSize.X
+
+						if AbsolutePositionX <= PositionX and PositionX <= AbsolutePositionX + AbsoluteSizeX then
+							setCurrentStep(i)
+
+							return
+						end
+
+						if i == 1 and PositionX < AbsolutePositionX then
+							setCurrentStep(0)
+
+							return
+						end
+
+						if i == num and AbsolutePositionX <= PositionX then
+							setCurrentStep(i)
+
+							return
+						end
+					end
+				end)
+
+				connection = UserInputService.InputEnded:Connect(function(input) -- line: 2151
+					-- upvalues: n4 (ref), connection (ref), connection2 (ref)
+					if not if input then input.UserInputType == Enum.UserInputType.MouseButton1 or (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Gamepad1 and input.KeyCode == Enum.KeyCode.ButtonA) else false then
+						return
+					end
+
+					n4 = 0
+					connection:Disconnect()
+					connection2:Disconnect()
+				end)
+			end
+		else
+			n4 = 0
+		end
+
+		setCurrentStep(p132)
+	end
+
+	t10.ValueChanged = BindableEvent.Event
+
+	if v246 then
+		t10.ValueChanged = v246
+	end
+
+	function t10.SetValue(_, p135) -- line: 2185
+		-- upvalues: setCurrentStep (copy)
+		setCurrentStep(p135)
+	end
+	function t10.GetValue(_) -- line: 2189
+		-- upvalues: u239 (ref)
+		return u239
+	end
+	function t10.SetInteractable(_, p138) -- line: 2193
+		-- upvalues: n4 (ref), u242 (ref), t10 (copy), hideSelection (copy), showSelection (copy)
+		n4 = 0
+		u242 = p138
+		t10.SliderFrame.Selectable = p138
+
+		if not u242 then
+			hideSelection()
+
+			return
+		end
+
+		showSelection()
+	end
+	function t10.SetZIndex(_, p140) -- line: 2204
+		-- upvalues: v249 (copy), v250 (copy), v251 (copy), v252 (copy), t10 (copy)
+		v249.ZIndex = p140
+		v250.ZIndex = p140
+		v251.ZIndex = p140
+		v252.ZIndex = p140
+
+		for i = 1, #t10.Steps do
+			t10.Steps[i].ZIndex = p140
+		end
+	end
+	function t10.SetMinStep(_, p142) -- line: 2215
+		-- upvalues: num (copy), p125 (ref), u239 (ref), v249 (copy), v250 (copy)
+		if p142 >= 0 and p142 <= num then
+			p125 = p142
+		end
+
+		if u239 <= p125 then
+			u239 = p125
+			v249.Visible = false
+		end
+
+		if u239 >= num then
+			u239 = num
+			v250.Visible = false
+		end
+	end
+
+	v249.InputBegan:Connect(function(input) -- line: 2232
+		-- upvalues: u239 (ref), u242 (ref), VRService (copy), UserInputService (copy), GuiService (copy), t10 (copy), n4 (ref), setCurrentStep (copy)
+		local v561 = u239 - 1
+
+		if not u242 then
+			return
+		end
+
+		if input == nil then
+			return
+		end
+
+		if not if input then input.UserInputType == Enum.UserInputType.MouseButton1 or (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Gamepad1 and input.KeyCode == Enum.KeyCode.ButtonA) else false then
+			return
+		end
+
+		if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) and not VRService.VREnabled then
+			GuiService.SelectedCoreObject = t10.SliderFrame
+		end
+
+		if not VRService.VREnabled then
+			n4 = v561 - u239
+		else
+			n4 = 0
+		end
+
+		setCurrentStep(v561)
+	end)
+	v249.InputEnded:Connect(function(input) -- line: 2235
+		-- upvalues: u242 (ref), n4 (ref)
+		if not u242 then
+			return
+		end
+
+		if not if input then input.UserInputType == Enum.UserInputType.MouseButton1 or (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Gamepad1 and input.KeyCode == Enum.KeyCode.ButtonA) else false then
+			return
+		end
+
+		n4 = 0
+	end)
+	v250.InputBegan:Connect(function(input) -- line: 2238
+		-- upvalues: u239 (ref), u242 (ref), VRService (copy), UserInputService (copy), GuiService (copy), t10 (copy), n4 (ref), setCurrentStep (copy)
+		local v564 = u239 + 1
+
+		if not u242 then
+			return
+		end
+
+		if input == nil then
+			return
+		end
+
+		if not if input then input.UserInputType == Enum.UserInputType.MouseButton1 or (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Gamepad1 and input.KeyCode == Enum.KeyCode.ButtonA) else false then
+			return
+		end
+
+		if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) and not VRService.VREnabled then
+			GuiService.SelectedCoreObject = t10.SliderFrame
+		end
+
+		if not VRService.VREnabled then
+			n4 = v564 - u239
+		else
+			n4 = 0
+		end
+
+		setCurrentStep(v564)
+	end)
+	v250.InputEnded:Connect(function(input) -- line: 2241
+		-- upvalues: u242 (ref), n4 (ref)
+		if not u242 then
+			return
+		end
+
+		if not if input then input.UserInputType == Enum.UserInputType.MouseButton1 or (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Gamepad1 and input.KeyCode == Enum.KeyCode.ButtonA) else false then
+			return
+		end
+
+		n4 = 0
+	end)
+
+	local function onVREnabled(p143) -- line: 2245
+		-- upvalues: VRService (copy), v249 (copy), u242 (ref), v250 (copy), t10 (copy), num (copy)
+		if p143 ~= "VREnabled" then
+			return
+		end
+
+		if VRService.VREnabled then
+			v249.Selectable = u242
+			v250.Selectable = u242
+			t10.SliderFrame.Selectable = u242
+
+			for i = 1, num do
+				t10.Steps[i].Selectable = u242
+				t10.Steps[i].Active = u242
+			end
+
+			return
+		end
+
+		v249.Selectable = false
+		v250.Selectable = false
+		t10.SliderFrame.Selectable = u242
+
+		for i = 1, num do
+			t10.Steps[i].Selectable = false
+			t10.Steps[i].Active = false
+		end
+	end
+
+	VRService.Changed:Connect(onVREnabled)
+	onVREnabled("VREnabled")
+
+	for i = 1, num do
+		t10.Steps[i].InputBegan:Connect(function(input) -- line: 2272
+			-- upvalues: mouseDownFunc (copy), i (copy)
+			mouseDownFunc(input, i)
+		end)
+		t10.Steps[i].InputEnded:Connect(function(input) -- line: 2275
+			-- upvalues: u242 (ref), n4 (ref)
+			if not u242 then
+				return
+			end
+
+			if not if input then input.UserInputType == Enum.UserInputType.MouseButton1 or (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Gamepad1 and input.KeyCode == Enum.KeyCode.ButtonA) else false then
+				return
+			end
+
+			n4 = 0
+		end)
+	end
+
+	t10.SliderFrame.InputBegan:Connect(function(input) -- line: 2280
+		-- upvalues: VRService (copy), GuiService (copy), t10 (copy), mouseDownFunc (copy), u239 (ref)
+		if VRService.VREnabled then
+			local SelectedCoreObject = GuiService.SelectedCoreObject
+
+			if not SelectedCoreObject or not SelectedCoreObject:IsDescendantOf(t10.SliderFrame.Parent) then
+				return
+			end
+		end
+
+		mouseDownFunc(input, u239)
+	end)
+	t10.SliderFrame.InputEnded:Connect(function(input) -- line: 2289
+		-- upvalues: VRService (copy), GuiService (copy), t10 (copy), u242 (ref), n4 (ref)
+		if VRService.VREnabled then
+			local SelectedCoreObject = GuiService.SelectedCoreObject
+
+			if not SelectedCoreObject or not SelectedCoreObject:IsDescendantOf(t10.SliderFrame.Parent) then
+				return
+			end
+		end
+
+		if not u242 then
+			return
+		end
+
+		if not if input then input.UserInputType == Enum.UserInputType.MouseButton1 or (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Gamepad1 and input.KeyCode == Enum.KeyCode.ButtonA) else false then
+			return
+		end
+
+		n4 = 0
+	end)
+
+	local function v264() -- line: 2299
+		-- upvalues: timestamp (ref), setCurrentStep (copy), u239 (ref), n4 (ref)
+		if timestamp == nil then
+			return
+		end
+
+		if tick() - timestamp >= 0.2 then
+			setCurrentStep(u239 + n4)
+		end
+	end
+
+	local u265 = true
+	local t11 = {
+		[Enum.KeyCode.Thumbstick1] = true,
+		[Enum.KeyCode.DPadLeft] = -1,
+		[Enum.KeyCode.DPadRight] = 1,
+		[Enum.KeyCode.Left] = -1,
+		[Enum.KeyCode.Right] = 1,
+		[Enum.KeyCode.A] = -1,
+		[Enum.KeyCode.D] = 1,
+		[Enum.KeyCode.ButtonA] = true
+	}
+
+	UserInputService.InputBegan:Connect(function(input) -- line: 2325
+		-- upvalues: u242 (ref), u265 (ref), GuiService (copy), t10 (copy), t11 (copy), n4 (ref), setCurrentStep (copy), u239 (ref)
+		if not u242 then
+			return
+		end
+
+		if not u265 then
+			return
+		end
+
+		if input.UserInputType ~= Enum.UserInputType.Gamepad1 and input.UserInputType ~= Enum.UserInputType.Keyboard then
+			return
+		end
+
+		local SelectedCoreObject = GuiService.SelectedCoreObject
+
+		if not SelectedCoreObject or not SelectedCoreObject:IsDescendantOf(t10.SliderFrame.Parent) then
+			return
+		end
+
+		if t11[input.KeyCode] == -1 then
+			n4 = -1
+			setCurrentStep(u239 - 1)
+
+			return
+		end
+
+		if t11[input.KeyCode] == 1 then
+			n4 = 1
+			setCurrentStep(u239 + 1)
+		end
+	end)
+	UserInputService.InputEnded:Connect(function(input) -- line: 2353
+		-- upvalues: u242 (ref), GuiService (copy), t10 (copy), t11 (copy), n4 (ref)
+		if not u242 then
+			return
+		end
+
+		if input.UserInputType ~= Enum.UserInputType.Gamepad1 and input.UserInputType ~= Enum.UserInputType.Keyboard then
+			return
+		end
+
+		local SelectedCoreObject = GuiService.SelectedCoreObject
+
+		if not SelectedCoreObject or not SelectedCoreObject:IsDescendantOf(t10.SliderFrame.Parent) then
+			return
+		end
+
+		if t11[input.KeyCode] then
+			n4 = 0
+		end
+	end)
+	UserInputService.InputChanged:Connect(function(input) -- line: 2374
+		-- upvalues: u242 (ref), n4 (ref), u265 (ref), GuiService (copy), t10 (copy), setCurrentStep (copy), u239 (ref)
+		if not u242 then
+			n4 = 0
+
+			return
+		end
+
+		if not u265 then
+			n4 = 0
+
+			return
+		end
+
+		if input.UserInputType ~= Enum.UserInputType.Gamepad1 then
+			return
+		end
+
+		local SelectedCoreObject = GuiService.SelectedCoreObject
+
+		if not SelectedCoreObject or not SelectedCoreObject:IsDescendantOf(t10.SliderFrame.Parent) then
+			return
+		end
+
+		if input.KeyCode ~= Enum.KeyCode.Thumbstick1 then
+			return
+		end
+
+		if input.Position.X > 0.8 and input.Delta.X > 0 and n4 ~= 1 then
+			n4 = 1
+			setCurrentStep(u239 + 1)
+
+			return
+		end
+
+		if input.Position.X < -0.8 and input.Delta.X < 0 and n4 ~= -1 then
+			n4 = -1
+			setCurrentStep(u239 - 1)
+
+			return
+		end
+
+		if math.abs(input.Position.X) < 0.8 then
+			n4 = 0
+		end
+	end)
+
+	local u267 = false
+
+	GuiService.Changed:Connect(function(property) -- line: 2415
+		-- upvalues: GuiService (copy), t10 (copy), u267 (ref), timestamp (ref), RunService (copy), guid (copy), v264 (copy)
+		if property ~= "SelectedCoreObject" then
+			return
+		end
+
+		local SelectedCoreObject = GuiService.SelectedCoreObject
+
+		if SelectedCoreObject and SelectedCoreObject:IsDescendantOf(t10.SliderFrame.Parent) then
+			if not u267 then
+				u267 = true
+				timestamp = tick()
+				RunService:BindToRenderStep(guid, Enum.RenderPriority.Input.Value + 1, v264)
+
+				return
+			end
+		elseif u267 then
+			u267 = false
+			RunService:UnbindFromRenderStep(guid)
+		end
+	end)
+	t10.SliderFrame.AncestryChanged:Connect(function(_, parent) -- line: 2436
+		-- upvalues: u265 (ref)
+		u265 = parent
+	end)
+	setCurrentStep(u239)
+
+	return t10
+end
+
+local n5 = 50
+
+if v38 then
+	n5 = 90
+end
+
+local t12 = {}
+
+local function AddNewRow(p145, p146, p147, p148, p149, p150, p151, p152, p153, p154) -- line: 2451
+	-- upvalues: t12 (copy), Create (copy), n5 (ref), v42 (copy), Theme (copy), v38 (copy), GuiService (copy), t1 (copy), CreateNewSlider (copy), CreateSelector (copy), CreateDropDown (copy), VRService (copy), UserInputService (copy), CoreGui (copy)
+	local n6 = 0
+	local v279 = p147 ~= "TextBox"
+
+	if t12[p145] then
+		n6 = t12[p145]
+	end
+
+	local u280 = Create("ImageButton")({
+		Name = p146 .. "Frame",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(2, 2, 18, 18),
+		ImageTransparency = 1,
+		Active = false,
+		AutoButtonColor = false,
+		Size = UDim2.new(1, 0, 0, n5),
+		AutomaticSize = if not p151 and (not p152 and not p153) then nil else Enum.AutomaticSize.Y,
+		Position = UDim2.new(0, 0, 0, n6),
+		ZIndex = 2,
+		Selectable = false,
+		SelectionImageObject = v42,
+		Parent = p145.Page
+	})
+
+	u280.BackgroundColor3 = Theme.color("RowFrameBackground")
+	u280.ImageColor3 = u280.BackgroundColor3
+	Create("UICorner")({
+		CornerRadius = Theme.DefaultCornerRadius,
+		Parent = u280
+	})
+
+	if u280 and p150 then
+		u280.Position = UDim2.new(u280.Position.X.Scale, u280.Position.X.Offset, u280.Position.Y.Scale, u280.Position.Y.Offset + p150)
+	end
+
+	local u282
+
+	if p151 then
+		local v281 = Create("Frame")({
+			Name = p146 .. "RowLabelAndDescriptionFrame",
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0, 10, 0, 0),
+			Size = UDim2.new(0.4, -20, 0, 50),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Parent = u280
+		})
+
+		u282 = Create("TextLabel")({
+			Name = p146 .. "Label",
+			Text = p146,
+			Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
+			TextSize = Theme.textSize(16, "UtilityRow"),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			TextWrapped = true,
+			ZIndex = 2,
+			Parent = v281,
+			LayoutOrder = 1
+		})
+		Create("TextLabel")({
+			Name = p146 .. "Description",
+			Text = p151,
+			Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
+			TextSize = Theme.textSize(18, "UtilityRow"),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextTransparency = 0.25,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			BackgroundTransparency = 1,
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			ZIndex = 2,
+			Parent = v281,
+			LayoutOrder = 2
+		})
+		Create("UIListLayout")({
+			Name = p146 .. "UIListLayout",
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 8),
+			Parent = v281
+		})
+		Create("UIPadding")({
+			Name = p146 .. "UIListLayout",
+			PaddingBottom = UDim.new(0, 10),
+			PaddingTop = UDim.new(0, 10),
+			Parent = v281
+		})
+	else
+		u282 = Create("TextLabel")({
+			Name = p146 .. "Label",
+			Text = p146,
+			Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
+			TextSize = Theme.textSize(16, "UtilityRow"),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0.4, -20, 1, 0),
+			Position = UDim2.new(0, 10, 0, 0),
+			ZIndex = 2,
+			Parent = u280
+		})
+		Create("UIPadding")({
+			Name = p146 .. "UIPadding",
+			PaddingBottom = UDim.new(0, 10),
+			PaddingTop = UDim.new(0, 10),
+			Parent = u282
+		})
+	end
+
+	if not v279 then
+		u282.Text = ""
+	end
+
+	if _G.__TESTEZ_RUNNING_TEST__ then
+		Vector2.new(1024, 1024)
+	else
+		GuiService:GetHardwareSafeViewport()
+	end
+
+	local v283 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+	if v283.Y > v283.X then
+		u282.TextSize = Theme.textSize(16, "UtilityRow")
+	else
+		u282.TextSize = v38 and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
+	end
+
+	t1[u280] = function(_, p156) --[[ onResized ]] -- line: 2583
+		-- upvalues: u282 (ref), Theme (copy), v38 (copy)
+		if p156 then
+			u282.TextSize = Theme.textSize(16, "UtilityRow")
+
+			return
+		end
+
+		u282.TextSize = v38 and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
+	end
+
+	if _G.__TESTEZ_RUNNING_TEST__ then
+		Vector2.new(1024, 1024)
+	else
+		GuiService:GetHardwareSafeViewport()
+	end
+
+	local v284 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+	if v284.Y > v284.X then
+		u282.TextSize = Theme.textSize(16, "UtilityRow")
+	else
+		u282.TextSize = v38 and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
+	end
+
+	local SliderFrame = nil
+	local u286 = nil
+
+	if p147 == "Slider" then
+		u286 = CreateNewSlider(p148, p149, nil, p152, p153)
+		u286.SliderFrame.Parent = u280
+		SliderFrame = u286.SliderFrame
+	elseif p147 == "Selector" then
+		u286 = CreateSelector(p148, p149)
+		u286.SelectorFrame.Parent = u280
+		SliderFrame = u286.SelectorFrame
+	elseif p147 == "DropDown" then
+		u286 = CreateDropDown(p148, p149, p145.HubRef)
+		u286.DropDownFrame.Parent = u280
+		SliderFrame = u286.DropDownFrame
+	elseif p147 == "TextBox" then
+		local v287 = Create("ImageLabel")({
+			Image = "",
+			BackgroundTransparency = 1
+		})
+
+		u286 = {
+			HubRef = nil
+		}
+
+		local v288 = Create("TextBox")({
+			AnchorPoint = Vector2.new(1, 0.5),
+			Size = UDim2.new(0.6, 0, 1, 0),
+			Position = UDim2.new(1, 0, 0.5, 0),
+			Text = p146,
+			TextColor3 = Color3.fromRGB(49, 49, 49),
+			BackgroundTransparency = Theme.transparency("ControlInputBackground", 0.5),
+			BorderSizePixel = 0,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
+			TextSize = Theme.textSize(24, "UtilityText"),
+			ZIndex = 2,
+			SelectionImageObject = v287,
+			ClearTextOnFocus = false,
+			Interactable = p154,
+			Parent = u280
+		})
+
+		SliderFrame = v288
+		v288.Focused:Connect(function() -- line: 2637
+			-- upvalues: VRService (copy), UserInputService (copy), GuiService (copy), v288 (copy), p146 (copy)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				GuiService.SelectedCoreObject = v288
+			end
+
+			if v288.Text == p146 then
+				v288.Text = ""
+			end
+		end)
+
+		if p150 then
+			v288.Position = UDim2.new(v288.Position.X.Scale, v288.Position.X.Offset, v288.Position.Y.Scale, v288.Position.Y.Offset + p150)
+		end
+
+		SliderFrame.SelectionGained:Connect(function() -- line: 2655
+			-- upvalues: VRService (copy), UserInputService (copy), v288 (copy), Theme (copy), u286 (ref), SliderFrame (ref)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				v288.BackgroundTransparency = Theme.transparency("ControlInputBackground", 0.1)
+
+				if u286.HubRef then
+					u286.HubRef:ScrollToFrame(SliderFrame)
+				end
+			end
+		end)
+		SliderFrame.SelectionLost:Connect(function() -- line: 2664
+			-- upvalues: VRService (copy), UserInputService (copy), v288 (copy), Theme (copy)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				v288.BackgroundTransparency = Theme.transparency("ControlInputBackground", 0.5)
+			end
+		end)
+		v288.MouseEnter:Connect(function() -- line: 2670
+			-- upvalues: CoreGui (copy), SliderFrame (ref), VRService (copy), UserInputService (copy), p145 (copy), GuiService (copy)
+			local DropDownFullscreenFrame = CoreGui.RobloxGui:FindFirstChild("DropDownFullscreenFrame")
+
+			if DropDownFullscreenFrame and DropDownFullscreenFrame.Visible then
+				return
+			end
+
+			local v588 = SliderFrame
+
+			if v588 and v588.Visible and v588.ZIndex > 1 and (not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false))) and p145.Active then
+				GuiService.SelectedCoreObject = v588
+			end
+		end)
+		UserInputService.InputBegan:Connect(function(input) --[[ processInput ]] -- line: 2688
+			-- upvalues: GuiService (copy), SliderFrame (ref), v288 (copy)
+			if input.UserInputState == Enum.UserInputState.Begin and (input.KeyCode == Enum.KeyCode.Return and GuiService.SelectedCoreObject == SliderFrame) then
+				v288:CaptureFocus()
+			end
+		end)
+	elseif p147 == "TextEntry" then
+		local v289 = Create("ImageLabel")({
+			Image = "",
+			BackgroundTransparency = 1
+		})
+
+		u286 = {
+			HubRef = nil
+		}
+
+		local v290 = Create("TextBox")({
+			AnchorPoint = Vector2.new(1, 0.5),
+			Size = UDim2.new(0.4, -10, 0, 40),
+			Position = UDim2.new(1, 0, 0.5, 0),
+			Text = p146,
+			TextColor3 = Color3.fromRGB(178, 178, 178),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextWrapped = false,
+			Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
+			TextSize = Theme.textSize(24, "UtilityText"),
+			ZIndex = 2,
+			SelectionImageObject = v289,
+			ClearTextOnFocus = false,
+			Parent = u280
+		})
+
+		SliderFrame = v290
+		v290.Focused:Connect(function() -- line: 2729
+			-- upvalues: VRService (copy), UserInputService (copy), GuiService (copy), v290 (copy), p146 (copy)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				GuiService.SelectedCoreObject = v290
+			end
+
+			if v290.Text == p146 then
+				v290.Text = ""
+			end
+		end)
+
+		if p150 then
+			v290.Position = UDim2.new(v290.Position.X.Scale, v290.Position.X.Offset, v290.Position.Y.Scale, v290.Position.Y.Offset + p150)
+		end
+
+		SliderFrame.SelectionGained:Connect(function() -- line: 2747
+			-- upvalues: VRService (copy), UserInputService (copy), v290 (copy), u286 (ref), SliderFrame (ref)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				v290.BackgroundTransparency = 0.8
+
+				if u286.HubRef then
+					u286.HubRef:ScrollToFrame(SliderFrame)
+				end
+			end
+		end)
+		SliderFrame.SelectionLost:Connect(function() -- line: 2756
+			-- upvalues: VRService (copy), UserInputService (copy), v290 (copy)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				v290.BackgroundTransparency = 1
+			end
+		end)
+		u280.MouseEnter:Connect(function() -- line: 2762
+			-- upvalues: CoreGui (copy), SliderFrame (ref), VRService (copy), UserInputService (copy), p145 (copy), GuiService (copy)
+			local DropDownFullscreenFrame = CoreGui.RobloxGui:FindFirstChild("DropDownFullscreenFrame")
+
+			if DropDownFullscreenFrame and DropDownFullscreenFrame.Visible then
+				return
+			end
+
+			local v591 = SliderFrame
+
+			if v591 and v591.Visible and v591.ZIndex > 1 and (not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false))) and p145.Active then
+				GuiService.SelectedCoreObject = v591
+			end
+		end)
+
+		function u286.SetZIndex(_, p158) -- line: 2791
+			-- upvalues: v290 (copy)
+			v290.ZIndex = p158
+		end
+		function u286.SetInteractable(_, p160) -- line: 2795
+			-- upvalues: v290 (copy)
+			v290.Selectable = p160
+
+			if not p160 then
+				v290.TextColor3 = Color3.fromRGB(49, 49, 49)
+				v290.ZIndex = 1
+
+				return
+			end
+
+			v290.TextColor3 = Color3.fromRGB(178, 178, 178)
+			v290.ZIndex = 2
+		end
+		function u286.SetValue(_, p162) -- line: 2806
+			-- upvalues: v290 (copy)
+			v290.Text = p162
+		end
+
+		local BindableEvent = Instance.new("BindableEvent")
+
+		BindableEvent.Name = "ValueChanged"
+		v290.FocusLost:Connect(function() -- line: 2813
+			-- upvalues: BindableEvent (copy), v290 (copy)
+			BindableEvent:Fire(v290.Text)
+		end)
+		u286.ValueChanged = BindableEvent.Event
+		UserInputService.InputBegan:Connect(function(input) --[[ processInput ]] -- line: 2780
+			-- upvalues: GuiService (copy), SliderFrame (ref), v290 (copy)
+			if input.UserInputState == Enum.UserInputState.Begin and (input.KeyCode == Enum.KeyCode.Return and GuiService.SelectedCoreObject == SliderFrame) then
+				v290:CaptureFocus()
+			end
+		end)
+	end
+
+	u286.Name = p146 .. "ValueChanger"
+
+	local SetAutoLocalize = u286.SetAutoLocalize
+
+	function u286.SetAutoLocalize(p163, p164) -- line: 2825
+		-- upvalues: u280 (ref), SetAutoLocalize (copy)
+		u280.AutoLocalize = p164
+
+		if SetAutoLocalize then
+			SetAutoLocalize(p163, p164)
+		end
+	end
+
+	local v293 = n6 + n5
+
+	if p150 then
+		v293 += p150
+	end
+
+	t12[p145] = v293
+
+	if v279 then
+		u280.MouseEnter:Connect(function() -- line: 2840
+			-- upvalues: CoreGui (copy), u286 (ref), VRService (copy), UserInputService (copy), p145 (copy), GuiService (copy)
+			local DropDownFullscreenFrame = CoreGui.RobloxGui:FindFirstChild("DropDownFullscreenFrame")
+
+			if DropDownFullscreenFrame and DropDownFullscreenFrame.Visible then
+				return
+			end
+
+			local v602 = u286.SliderFrame or u286.SliderFrame or u286.DropDownFrame or u286.SelectorFrame
+
+			if v602 and v602.Visible and v602.ZIndex > 1 and (not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false))) and p145.Active then
+				GuiService.SelectedCoreObject = v602
+			end
+		end)
+		VRService.Changed:Connect(function(property) --[[ onVREnabled ]] -- line: 2870
+			-- upvalues: VRService (copy), u280 (ref), SliderFrame (ref), GuiService (copy), Theme (copy)
+			if property == "VREnabled" then
+				if VRService.VREnabled then
+					u280.Selectable = true
+					u280.Active = true
+					SliderFrame.Active = true
+					GuiService.Changed:Connect(function(property2) -- line: 2876
+						-- upvalues: GuiService (copy), u280 (ref), Theme (copy)
+						if property2 == "SelectedCoreObject" then
+							local SelectedCoreObject = GuiService.SelectedCoreObject
+
+							if SelectedCoreObject and (SelectedCoreObject == u280 or SelectedCoreObject:IsDescendantOf(u280)) then
+								u280.ImageTransparency = Theme.transparency("RowFrameBackground", 0.5)
+								u280.BackgroundTransparency = 1
+
+								return
+							end
+
+							u280.ImageTransparency = 1
+							u280.BackgroundTransparency = 1
+						end
+					end)
+
+					return
+				end
+
+				u280.Selectable = false
+				u280.Active = false
+			end
+		end)
+
+		if VRService.VREnabled then
+			u280.Selectable = true
+			u280.Active = true
+			SliderFrame.Active = true
+			GuiService.Changed:Connect(function(property) -- line: 2876
+				-- upvalues: GuiService (copy), u280 (ref), Theme (copy)
+				if property == "SelectedCoreObject" then
+					local SelectedCoreObject = GuiService.SelectedCoreObject
+
+					if SelectedCoreObject and (SelectedCoreObject == u280 or SelectedCoreObject:IsDescendantOf(u280)) then
+						u280.ImageTransparency = Theme.transparency("RowFrameBackground", 0.5)
+						u280.BackgroundTransparency = 1
+
+						return
+					end
+
+					u280.ImageTransparency = 1
+					u280.BackgroundTransparency = 1
+				end
+			end)
+		else
+			u280.Selectable = false
+			u280.Active = false
+		end
+
+		SliderFrame.SelectionGained:Connect(function() -- line: 2897
+			-- upvalues: VRService (copy), UserInputService (copy), u280 (ref), Theme (copy), u286 (ref)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				if VRService.VREnabled then
+					u280.ImageTransparency = 0.5
+					u280.BackgroundTransparency = 1
+				else
+					u280.ImageTransparency = 1
+					u280.BackgroundTransparency = Theme.transparency("RowFrameBackground", 0.5)
+				end
+
+				if u286.HubRef then
+					u286.HubRef:ScrollToFrame(u280)
+				end
+			end
+		end)
+		SliderFrame.SelectionLost:Connect(function() -- line: 2912
+			-- upvalues: VRService (copy), UserInputService (copy), u280 (ref)
+			if not VRService.VREnabled and (UserInputService.PreferredInput ~= Enum.PreferredInput.Touch or (UserInputService.GamepadEnabled and true or false)) then
+				u280.ImageTransparency = 1
+				u280.BackgroundTransparency = 1
+			end
+		end)
+	end
+
+	p145:AddRow(u280, u282, u286, p150, false)
+	u286.Selection = SliderFrame
+
+	return u280, u282, u286
+end
+local function AddNewRowObject(p165, p166, p167, p168, p169) -- line: 2927
+	-- upvalues: t12 (copy), Create (copy), n5 (ref), v42 (copy), Theme (copy), v38 (copy), t1 (copy), GuiService (copy), VRService (copy)
+	local n7 = 0
+
+	if t12[p165] then
+		n7 = t12[p165]
+	end
+
+	local v300 = Create("ImageButton")({
+		Name = p166 .. "Frame",
+		BackgroundTransparency = 1,
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BorderSizePixel = 0,
+		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(10, 10, 10, 10),
+		ImageTransparency = 1,
+		Active = false,
+		AutoButtonColor = false,
+		Size = UDim2.new(1, 0, 0, n5),
+		Position = UDim2.new(0, 0, 0, n7),
+		ZIndex = 2,
+		Selectable = false,
+		SelectionImageObject = v42,
+		Parent = p165.Page
+	})
+
+	v300.BackgroundColor3 = Theme.color("RowFrameBackground")
+	v300.ImageColor3 = v300.BackgroundColor3
+	v300.SelectionGained:Connect(function() -- line: 2955
+		-- upvalues: v300 (copy), Theme (copy)
+		v300.BackgroundTransparency = Theme.transparency("RowFrameBackground", 0.5)
+	end)
+	v300.SelectionLost:Connect(function() -- line: 2958
+		-- upvalues: v300 (copy)
+		v300.BackgroundTransparency = 1
+	end)
+	Create("UICorner")({
+		CornerRadius = Theme.DefaultCornerRadius,
+		Parent = v300
+	})
+
+	local v301 = Create("TextLabel")({
+		Name = p166 .. "Label",
+		Text = p166,
+		Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
+		TextSize = Theme.textSize(16, "UtilityRow"),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextWrapped = true,
+		BackgroundTransparency = 1,
+		AutomaticSize = Enum.AutomaticSize.Y,
+		Size = UDim2.new(0.4, -20, 1, 0),
+		Position = UDim2.new(0, 10, 0, 0),
+		ZIndex = 2,
+		Parent = v300
+	})
+
+	Create("UIPadding")({
+		Name = p166 .. "UIPadding",
+		PaddingBottom = UDim.new(0, 10),
+		PaddingTop = UDim.new(0, 10),
+		Parent = v301
+	})
+
+	local function onResized(_, p171) -- line: 2990
+		-- upvalues: p169 (copy), v301 (copy), Theme (copy), v38 (copy)
+		if p169 then
+			UDim2.new(0, 200, 1, 0)
+		end
+
+		if p171 then
+			v301.TextSize = Theme.textSize(16, "UtilityRow")
+
+			return
+		end
+
+		v301.TextSize = v38 and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
+	end
+
+	t1[v300] = onResized
+
+	local v303 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+	local v304 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+	onResized(v303, v304.Y > v304.X)
+
+	if p168 then
+		v300.Position = UDim2.new(v300.Position.X.Scale, v300.Position.X.Offset, v300.Position.Y.Scale, v300.Position.Y.Offset + p168)
+	end
+
+	local v305 = n7 + n5
+
+	if p168 then
+		v305 += p168
+	end
+
+	t12[p165] = v305
+	v300.MouseEnter:Connect(function() -- line: 3018
+		-- upvalues: v300 (copy), GuiService (copy)
+		if v300.Visible then
+			GuiService.SelectedCoreObject = v300
+		end
+	end)
+	p167.SelectionImageObject = v42
+	p167.SelectionGained:Connect(function() -- line: 3027
+		-- upvalues: VRService (copy), v300 (copy), Theme (copy)
+		if VRService.VREnabled then
+			v300.ImageTransparency = Theme.transparency("RowFrameBackground", 0.5)
+			v300.BackgroundTransparency = 1
+
+			return
+		end
+
+		v300.ImageTransparency = 1
+		v300.BackgroundTransparency = Theme.transparency("RowFrameBackground", 0.5)
+	end)
+	p167.SelectionLost:Connect(function() -- line: 3036
+		-- upvalues: v300 (copy)
+		v300.ImageTransparency = 1
+		v300.BackgroundTransparency = 1
+	end)
+	p167.Parent = v300
+	p165:AddRow(v300, v301, p167, p168, true)
+
+	return v300
+end
+
+local t13 = {
+	GetEaseLinear = function(_) --[[ GetEaseLinear ]] -- line: 3050
+		-- upvalues: Linear (copy)
+		return Linear
+	end,
+	GetEaseOutQuad = function(_) --[[ GetEaseOutQuad ]] -- line: 3053
+		-- upvalues: EaseOutQuad (copy)
+		return EaseOutQuad
+	end,
+	GetEaseInOutQuad = function(_) --[[ GetEaseInOutQuad ]] -- line: 3056
+		-- upvalues: EaseInOutQuad (copy)
+		return EaseInOutQuad
+	end,
+	CreateNewSlider = function(_, p176, p177, p178, p179, p180) --[[ CreateNewSlider ]] -- line: 3060
+		-- upvalues: CreateNewSlider (copy)
+		return CreateNewSlider(p176, p177, p178, p179, p180)
+	end,
+	CreateNewSelector = function(_, p182, p183) --[[ CreateNewSelector ]] -- line: 3064
+		-- upvalues: CreateSelector (copy)
+		return (CreateSelector(p182, p183))
+	end,
+	CreateNewDropDown = function(_, p185, p186) --[[ CreateNewDropDown ]] -- line: 3068
+		-- upvalues: CreateDropDown (copy)
+		return (CreateDropDown(p185, p186, nil))
+	end,
+	AddNewRow = function(_, p188, p189, p190, p191, p192, p193, p194, p195, p196, p197) --[[ AddNewRow ]] -- line: 3072
+		-- upvalues: AddNewRow (copy)
+		return AddNewRow(p188, p189, p190, p191, p192, p193, p194, p195, p196, p197)
+	end,
+	AddNewRowObject = function(_, p199, p200, p201, p202, p203) --[[ AddNewRowObject ]] -- line: 3076
+		-- upvalues: AddNewRowObject (copy)
+		return (AddNewRowObject(p199, p200, p201, p202, p203))
+	end,
+	ShowAlert = function(_, p205, p206, p207, p208, p209) --[[ ShowAlert ]] -- line: 3080
+		-- upvalues: ShowAlert (copy)
+		ShowAlert(p205, p206, p207, p208, p209)
+	end,
+	IsSmallTouchScreen = function(_) --[[ IsSmallTouchScreen ]] -- line: 3084
+		-- upvalues: GuiService (copy), UserInputService (copy)
+		local v345 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+		return UserInputService.TouchEnabled and (v345.Y < 500 or v345.X < 700)
+	end,
+	IsPortrait = function(_) --[[ IsPortrait ]] -- line: 3088
+		-- upvalues: GuiService (copy)
+		local v347 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+
+		return v347.Y > v347.X
+	end
+}
+
+if FFlagRefactorMenuConfirmationButtons or FFlagAddNextUpContainer then
+	function t13.IsUsingGamepad(_) -- line: 3097
+		-- upvalues: t5 (copy), UserInputService (copy)
+		return t5[UserInputService:GetLastInputType()] or false
+	end
+end
+
+function t13.MakeStyledButton(_, p214, p215, p216, p217, p218, p219) -- line: 3102
+	-- upvalues: MakeButton (copy)
+	return MakeButton(p214, p215, p216, p217, p218, p219)
+end
+function t13.MakeStyledImageButton(_, p221, p222, p223, p224, p225, p226, p227, p228) -- line: 3106
+	-- upvalues: MakeImageButton (copy)
+	return MakeImageButton(p221, p222, p223, p224, p225, p226, p227, p228)
+end
+function t13.AddButtonRow(_, p230, p231, p232, p233, p234, p235) -- line: 3110
+	-- upvalues: AddButtonRow (copy)
+	return AddButtonRow(p230, p231, p232, p233, p234, p235)
+end
+function t13.MakeFocusState(_, p237, p238) -- line: 3114
+	-- upvalues: MakeRoundedRectFocusState (copy)
+	return MakeRoundedRectFocusState(p237, p238)
+end
+function t13.CreateSignal(_) -- line: 3118
+	-- upvalues: CreateSignal (copy)
+	return (CreateSignal())
+end
+function t13.UsesSelectedObject(_) -- line: 3122
+	-- upvalues: VRService (copy), UserInputService (copy)
+	if VRService.VREnabled then
+		return false
+	end
+
+	if UserInputService.PreferredInput == Enum.PreferredInput.Touch and not UserInputService.GamepadEnabled then
+		return false
+	end
+
+	return true
+end
+function t13.TweenProperty(_, p242, p243, p244, p245, p246, p247, p248) -- line: 3126
+	return PropertyTweener(p242, p243, p244, p245, p246, p247, p248)
+end
+function t13.OnResized(_, p250, p251) -- line: 3130
+	-- upvalues: addOnResizedCallback (copy)
+	return addOnResizedCallback(p250, p251)
+end
+function t13.FireOnResized(_) -- line: 3134
+	-- upvalues: GuiService (copy), t13 (copy), t1 (copy)
+	local v389 = if not _G.__TESTEZ_RUNNING_TEST__ then GuiService:GetHardwareSafeViewport() else Vector2.new(1024, 1024)
+	local v390 = t13:IsPortrait()
+
+	for _, v in pairs(t1) do
+		v(v389, v390)
+	end
+end
+function t13.Lerp(_, p254, p255, p256) -- line: 3145
+	return (1 - p254) * p255 + p254 * p256
+end
+function t13.Round(_, p258) -- line: 3150
+	return p258 % 1 >= 0.5 and math.ceil(p258) or math.floor(p258)
+end
+function t13.IsExperienceOlderThanOneWeek(_, p260) -- line: 3154
+	-- upvalues: Workspace (copy)
+	if p260 ~= nil and p260.Created ~= nil then
+		local UnixTimestampMillis = DateTime.fromIsoDate(p260.Created).UnixTimestampMillis
+
+		if Workspace:GetServerTimeNow() * 1000 - UnixTimestampMillis > 604800000 then
+			return true
+		end
+	end
+
+	return false
+end
+
+return t13

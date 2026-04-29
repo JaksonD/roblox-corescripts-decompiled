@@ -1,323 +1,275 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local _ = require(l_script_FirstAncestor_0.Components.Types);
-local function v4(v2) --[[ Line: 18 ]] --[[ Name: isColorStyle ]]
-    local v3 = false;
-    if type(v2) == "table" then
-        v3 = false;
-        if v2.Color3 ~= nil then
-            v3 = false;
-            if typeof(v2.Color3) == "Color3" then
-                v3 = false;
-                if v2.Transparency ~= nil then
-                    v3 = typeof(v2.Transparency) == "number";
-                end;
-            end;
-        end;
-    end;
-    return v3;
-end;
-local function _(v5) --[[ Line: 26 ]] --[[ Name: getRoundedNumber ]]
-    return math.round(v5 * 1000) / 1000;
-end;
-local function _(v7, v8) --[[ Line: 30 ]] --[[ Name: getRGBAValues ]]
-    local v9 = math.round(v7.R * 255);
-    local v10 = math.round(v7.G * 255);
-    local v11 = math.round(v7.B * 255);
-    if v8 then
-        return v9, v10, v11, math.round((1 - v8) * 1000) / 1000;
-    else
-        return v9, v10, v11;
-    end;
-end;
-local function v22(v13, v14) --[[ Line: 38 ]] --[[ Name: formatColorPreviewHTML ]]
-    local v15 = math.round(v13.R * 255);
-    local v16 = math.round(v13.G * 255);
-    local v17 = math.round(v13.B * 255);
-    local v18, v19, v20, v21;
-    if v14 then
-        v18 = v15;
-        v19 = v16;
-        v20 = v17;
-        v21 = math.round((1 - v14) * 1000) / 1000;
-    else
-        v18 = v15;
-        v19 = v16;
-        v20 = v17;
-        v21 = nil;
-    end;
-    return (("<span class=\"color-preview\" style=\"background-color: rgba(%*,%*,%*,%*);\"></span>"):format(v18, v19, v20, v21 or 1));
-end;
-local function v33(v23) --[[ Line: 44 ]] --[[ Name: formatTokenValue ]]
-    if typeof(v23) == "Color3" then
-        return (("rgb(%*, %*, %*)"):format(math.round(v23.R * 255), math.round(v23.G * 255), (math.round(v23.B * 255))));
-    elseif typeof(v23) == "number" then
-        return (tostring(math.round(v23 * 1000) / 1000));
-    else
-        local v24 = false;
-        if type(v23) == "table" then
-            v24 = false;
-            if v23.Color3 ~= nil then
-                v24 = false;
-                if typeof(v23.Color3) == "Color3" then
-                    v24 = false;
-                    if v23.Transparency ~= nil then
-                        v24 = typeof(v23.Transparency) == "number";
-                    end;
-                end;
-            end;
-        end;
-        if v24 then
-            local l_Color3_0 = v23.Color3;
-            local l_Transparency_0 = v23.Transparency;
-            local v27 = math.round(l_Color3_0.R * 255);
-            local v28 = math.round(l_Color3_0.G * 255);
-            local v29 = math.round(l_Color3_0.B * 255);
-            local v30, v31, v32;
-            if l_Transparency_0 then
-                v24 = v27;
-                v30 = v28;
-                v31 = v29;
-                v32 = math.round((1 - l_Transparency_0) * 1000) / 1000;
-            else
-                v24 = v27;
-                v30 = v28;
-                v31 = v29;
-                v32 = nil;
-            end;
-            return (("rgba(%*, %*, %*, %*)"):format(v24, v30, v31, v32));
-        else
-            return (tostring(v23));
-        end;
-    end;
-end;
-local function v52(v34) --[[ Line: 59 ]] --[[ Name: formatTokenValueHTML ]]
-    if typeof(v34) == "Color3" then
-        local v35 = math.round(v34.R * 255);
-        local v36 = math.round(v34.G * 255);
-        local v37 = math.round(v34.B * 255);
-        return (("<span class=\"color\">%* rgb(%*, %*, %*)</span>"):format(("<span class=\"color-preview\" style=\"background-color: rgba(%*,%*,%*,%*);\"></span>"):format(math.round(v34.R * 255), math.round(v34.G * 255), math.round(v34.B * 255), nil or 1), v35, v36, v37));
-    elseif typeof(v34) == "number" then
-        return (tostring(math.round(v34 * 1000) / 1000));
-    else
-        local v38 = false;
-        if type(v34) == "table" then
-            v38 = false;
-            if v34.Color3 ~= nil then
-                v38 = false;
-                if typeof(v34.Color3) == "Color3" then
-                    v38 = false;
-                    if v34.Transparency ~= nil then
-                        v38 = typeof(v34.Transparency) == "number";
-                    end;
-                end;
-            end;
-        end;
-        if v38 then
-            local l_Color3_1 = v34.Color3;
-            local l_Transparency_1 = v34.Transparency;
-            local v41 = math.round(l_Color3_1.R * 255);
-            local v42 = math.round(l_Color3_1.G * 255);
-            local v43 = math.round(l_Color3_1.B * 255);
-            local v44, v45, v46;
-            if l_Transparency_1 then
-                v38 = v41;
-                v44 = v42;
-                v45 = v43;
-                v46 = math.round((1 - l_Transparency_1) * 1000) / 1000;
-            else
-                v38 = v41;
-                v44 = v42;
-                v45 = v43;
-                v46 = nil;
-            end;
-            l_Transparency_1 = v34.Color3;
-            v41 = v34.Transparency;
-            local v47 = math.round(l_Transparency_1.R * 255);
-            local v48 = math.round(l_Transparency_1.G * 255);
-            local v49 = math.round(l_Transparency_1.B * 255);
-            local v50, v51;
-            if v41 then
-                v42 = v47;
-                v43 = v48;
-                v50 = v49;
-                v51 = math.round((1 - v41) * 1000) / 1000;
-            else
-                v42 = v47;
-                v43 = v48;
-                v50 = v49;
-                v51 = nil;
-            end;
-            return (("<span class=\"color\">%* rgba(%*, %*, %*, %*)</span>"):format(("<span class=\"color-preview\" style=\"background-color: rgba(%*,%*,%*,%*);\"></span>"):format(v42, v43, v50, v51 or 1), v38, v44, v45, v46));
-        else
-            return (tostring(v34));
-        end;
-    end;
-end;
-local function v53(v54, v55, v56, v57) --[[ Line: 76 ]] --[[ Name: collectTokens ]]
-    -- upvalues: v53 (copy)
-    local v58 = false;
-    local v59 = {};
-    for v60, v61 in v54 do
-        local v62 = if v56 then ("%*.%*"):format(v56, v60) else v60;
-        if type(v61) == "table" and not getmetatable(v61) then
-            if v57 then
-                local v63 = false;
-                if type(v61) == "table" then
-                    v63 = false;
-                    if v61.Color3 ~= nil then
-                        v63 = false;
-                        if typeof(v61.Color3) == "Color3" then
-                            v63 = false;
-                            if v61.Transparency ~= nil then
-                                v63 = typeof(v61.Transparency) == "number";
-                            end;
-                        end;
-                    end;
-                end;
-                v58 = v63;
-            end;
-            if not v58 then
-                for _, v65 in (v53(v61, v55, v62, v57)) do
-                    table.insert(v59, v65);
-                end;
-                continue;
-            end;
-        end;
-        v58 = false;
-        table.insert(v59, {
-            key = v60, 
-            value = v61, 
-            category = v55, 
-            fullPath = v62
-        });
-    end;
-    return v59;
-end;
+local Foundation = script:FindFirstAncestor("Foundation")
+
+require(Foundation.Components.Types)
+
+local function collectTokens(p1, s1: string, s2: string?, b1: boolean?) -- line: 76
+	-- upvalues: collectTokens (copy)
+	local t1 = {}
+
+	for v44, v45 in p1 do
+		local v46 = if not s2 then v44 else `{ s2 }.{ v44 }`
+
+		if type(v45) == "table" and not getmetatable(v45) and (not b1 or (type(v45) ~= "table" or (v45.Color3 == nil or (typeof(v45.Color3) ~= "Color3" or (v45.Transparency == nil or typeof(v45.Transparency) ~= "number"))))) then
+			for _, v48 in (collectTokens(v45, s1, v46, b1)) do
+				table.insert(t1, v48)
+			end
+		else
+			table.insert(t1, {
+				key = v44,
+				value = v45,
+				category = s1,
+				fullPath = v46
+			})
+		end
+	end
+
+	return t1
+end
+
 return {
-    isColorStyle = v4, 
-    formatColorPreviewHTML = v22, 
-    formatTokenValue = v33, 
-    formatTokenValueHTML = v52, 
-    collectTokens = v53, 
-    collectTokensWithSubcategories = function(v66, v67, v68, v69) --[[ Line: 103 ]] --[[ Name: collectTokensWithSubcategories ]]
-        -- upvalues: v53 (copy)
-        local v70 = {};
-        for v71, v72 in v66 do
-            local v73 = if v68 then ("%*.%*"):format(v68, v71) else v71;
-            if type(v72) == "table" then
-                if v69 then
-                    local v74 = false;
-                    if type(v72) == "table" then
-                        v74 = false;
-                        if v72.Color3 ~= nil then
-                            v74 = false;
-                            if typeof(v72.Color3) == "Color3" then
-                                v74 = false;
-                                if v72.Transparency ~= nil then
-                                    v74 = typeof(v72.Transparency) == "number";
-                                end;
-                            end;
-                        end;
-                    end;
-                    if v74 then
-                        v74 = if v68 then v68:split(".")[1] else "Default";
-                        if not v70[v74] then
-                            v70[v74] = {};
-                        end;
-                        table.insert(v70[v74], {
-                            key = v71, 
-                            value = v72, 
-                            category = v67, 
-                            fullPath = v73
-                        });
-                        continue;
-                    end;
-                end;
-                if not v68 then
-                    local v75 = v53(v72, v67, v71, v69);
-                    if #v75 > 0 then
-                        v70[v71] = v75;
-                    end;
-                else
-                    local v76 = v53(v72, v67, v73, v69);
-                    local v77 = v68:split(".")[1];
-                    if not v70[v77] then
-                        v70[v77] = {};
-                    end;
-                    for _, v79 in v76 do
-                        table.insert(v70[v77], v79);
-                    end;
-                end;
-            else
-                local v80 = if v68 then v68:split(".")[1] else "Default";
-                if not v70[v80] then
-                    v70[v80] = {};
-                end;
-                table.insert(v70[v80], {
-                    key = v71, 
-                    value = v72, 
-                    category = v67, 
-                    fullPath = v73
-                });
-            end;
-        end;
-        return v70;
-    end, 
-    hasSubcategories = function(v81) --[[ Line: 167 ]] --[[ Name: hasSubcategories ]]
-        for _, v83 in v81 do
-            if type(v83) == "table" then
-                local v84 = false;
-                for _, v86 in v83 do
-                    if type(v86) == "table" or typeof(v86) == "Color3" or typeof(v86) == "number" then
-                        v84 = true;
-                        break;
-                    end;
-                end;
-                if v84 then
-                    return true;
-                end;
-            end;
-        end;
-        return false;
-    end, 
-    sortTokens = function(v87, v88, v89) --[[ Line: 195 ]] --[[ Name: sortTokens ]]
-        if v87:find("(%u%a+)_(%d+)%.?(%u?%w*)") and v88:find("(%u%a+)_(%d+)%.?(%u?%w*)") then
-            local v90, v91, v92 = v87:match("(%u%a+)_(%d+)%.?(%u?%w*)");
-            local v93, v94, v95 = v88:match("(%u%a+)_(%d+)%.?(%u?%w*)");
-            if v90 == v93 then
-                if v91 == v94 then
-                    return v92 < v95;
-                else
-                    return tonumber(v91) < tonumber(v94);
-                end;
-            else
-                return v87 < v88;
-            end;
-        elseif v89 then
-            local v96 = v87:match("| (%-?[%d.]+) |$");
-            local v97 = v88:match("| (%-?[%d.]+) |$");
-            return tonumber(v96) < tonumber(v97);
-        else
-            return v87 < v88;
-        end;
-    end, 
-    orderedTokenCategories = {
-        "Color", 
-        "Stroke", 
-        "Size", 
-        "Radius", 
-        "Padding", 
-        "Margin", 
-        "Gap", 
-        "Typography", 
-        "FontSize", 
-        "FontWeight", 
-        "LineHeight", 
-        "Ease", 
-        "Time", 
-        "Inverse", 
-        "DarkMode", 
-        "LightMode", 
-        "Config"
-    }
-};
+	isColorStyle = function(p2) --[[ isColorStyle ]] -- line: 18
+		return type(p2) == "table" and (p2.Color3 ~= nil and (typeof(p2.Color3) == "Color3" and (p2.Transparency ~= nil and typeof(p2.Transparency) == "number")))
+	end,
+	formatColorPreviewHTML = function(color3: Color3, n1: number?) --[[ formatColorPreviewHTML ]] -- line: 38
+		local v12 = math.round(color3.R * 255)
+		local v13 = math.round(color3.G * 255)
+		local v14 = math.round(color3.B * 255)
+		local v15
+
+		if n1 then
+			v15 = math.round((1 - n1) * 1000) / 1000
+		else
+			v15 = nil
+		end
+
+		return `<span class="color-preview" style="background-color: rgba({ v12 },{ v13 },{ v14 },{ v15 or 1 });"></span>`
+	end,
+	formatTokenValue = function(p3) --[[ formatTokenValue ]] -- line: 44
+		if typeof(p3) == "Color3" then
+			return `rgb({ math.round(p3.R * 255) }, { math.round(p3.G * 255) }, { math.round(p3.B * 255) })`
+		end
+
+		if typeof(p3) == "number" then
+			return (tostring(math.round(p3 * 1000) / 1000))
+		end
+
+		if type(p3) == "table" and (p3.Color3 ~= nil and (typeof(p3.Color3) == "Color3" and (p3.Transparency ~= nil and typeof(p3.Transparency) == "number"))) then
+			local p3Color3 = p3.Color3
+			local p3Transparency = p3.Transparency
+			local v19 = math.round(p3Color3.R * 255)
+			local v20 = math.round(p3Color3.G * 255)
+			local v21 = math.round(p3Color3.B * 255)
+			local v22
+
+			if p3Transparency then
+				v22 = math.round((1 - p3Transparency) * 1000) / 1000
+			else
+				v22 = nil
+			end
+
+			return `rgba({ v19 }, { v20 }, { v21 }, { v22 })`
+		end
+
+		return (tostring(p3))
+	end,
+	formatTokenValueHTML = function(p4) --[[ formatTokenValueHTML ]] -- line: 59
+		if typeof(p4) == "Color3" then
+			local v24 = math.round(p4.R * 255)
+			local v25 = math.round(p4.G * 255)
+			local v26 = math.round(p4.B * 255)
+
+			return `<span class="color">{ `<span class="color-preview" style="background-color: rgba({ math.round(p4.R * 255) },{ math.round(p4.G * 255) },{ math.round(p4.B * 255) },{ nil or 1 });"></span>` } rgb({ v24 }, { v25 }, { v26 })</span>`
+		end
+
+		if typeof(p4) == "number" then
+			return (tostring(math.round(p4 * 1000) / 1000))
+		end
+
+		if type(p4) == "table" and (p4.Color3 ~= nil and (typeof(p4.Color3) == "Color3" and (p4.Transparency ~= nil and typeof(p4.Transparency) == "number"))) then
+			local p4Color3 = p4.Color3
+			local p4Transparency = p4.Transparency
+			local v29 = math.round(p4Color3.R * 255)
+			local v30 = math.round(p4Color3.G * 255)
+			local v31 = math.round(p4Color3.B * 255)
+			local v32
+
+			if p4Transparency then
+				v32 = math.round((1 - p4Transparency) * 1000) / 1000
+			else
+				v32 = nil
+			end
+
+			local p4Color3_2 = p4.Color3
+			local p4Transparency2 = p4.Transparency
+			local v35 = math.round(p4Color3_2.R * 255)
+			local v36 = math.round(p4Color3_2.G * 255)
+			local v37 = math.round(p4Color3_2.B * 255)
+			local v38
+
+			if p4Transparency2 then
+				v38 = math.round((1 - p4Transparency2) * 1000) / 1000
+			else
+				v38 = nil
+			end
+
+			return `<span class="color">{ `<span class="color-preview" style="background-color: rgba({ v35 },{ v36 },{ v37 },{ v38 or 1 });"></span>` } rgba({ v29 }, { v30 }, { v31 }, { v32 })</span>`
+		end
+
+		return (tostring(p4))
+	end,
+	collectTokens = collectTokens,
+	collectTokensWithSubcategories = function(p5, s3: string, s4: string?, b2: boolean?) --[[ collectTokensWithSubcategories ]] -- line: 103
+		-- upvalues: collectTokens (copy)
+		local t2 = {}
+
+		for v54, v55 in p5 do
+			local v56 = if not s4 then v54 else `{ s4 }.{ v54 }`
+
+			if type(v55) == "table" then
+				if b2 and (type(v55) == "table" and (v55.Color3 ~= nil and (typeof(v55.Color3) == "Color3" and (v55.Transparency ~= nil and typeof(v55.Transparency) == "number")))) then
+					local v57 = not s4 and "Default" or s4:split(".")[1]
+
+					if not t2[v57] then
+						t2[v57] = {}
+					end
+
+					table.insert(t2[v57], {
+						key = v54,
+						value = v55,
+						category = s3,
+						fullPath = v56
+					})
+				elseif not s4 then
+					local v58 = collectTokens(v55, s3, v54, b2)
+
+					if #v58 > 0 then
+						t2[v54] = v58
+					end
+				else
+					local v59 = collectTokens(v55, s3, v56, b2)
+					local v60 = s4:split(".")[1]
+
+					if not t2[v60] then
+						t2[v60] = {}
+					end
+
+					for _, v62 in v59 do
+						table.insert(t2[v60], v62)
+					end
+				end
+			else
+				local v63 = not s4 and "Default" or s4:split(".")[1]
+
+				if not t2[v63] then
+					t2[v63] = {}
+				end
+
+				table.insert(t2[v63], {
+					key = v54,
+					value = v55,
+					category = s3,
+					fullPath = v56
+				})
+			end
+		end
+
+		return t2
+	end,
+	hasSubcategories = function(p6) --[[ hasSubcategories ]] -- line: 167
+		for _, v66 in p6 do
+			if type(v66) ~= "table" then
+				continue
+			end
+
+			local v67 = false
+
+			for _, v69 in v66 do
+				if type(v69) == "table" or typeof(v69) == "Color3" or typeof(v69) == "number" then
+					v67 = true
+
+					break
+				end
+			end
+
+			if v67 then
+				return true
+			end
+		end
+
+		return false
+	end,
+	sortTokens = function(s5: string, s6: string, b3: boolean?) --[[ sortTokens ]] -- line: 195
+		if s5:find("(%u%a+)_(%d+)%.?(%u?%w*)") and s6:find("(%u%a+)_(%d+)%.?(%u?%w*)") then
+			local v73, v74, v75 = s5:match("(%u%a+)_(%d+)%.?(%u?%w*)")
+			local v76, v77, v78 = s6:match("(%u%a+)_(%d+)%.?(%u?%w*)")
+
+			if v73 == v76 then
+				if v74 == v77 then
+					return v75 < v78
+				end
+
+				return tonumber(v74) < tonumber(v77)
+			end
+
+			return s5 < s6
+		end
+
+		if b3 then
+			local v79 = s5:match("| (%-?[%d.]+) |$")
+			local v80 = s6:match("| (%-?[%d.]+) |$")
+
+			return tonumber(v79) < tonumber(v80)
+		end
+
+		return s5 < s6
+	end,
+	orderedTokenCategories = {
+		"Color",
+		"Stroke",
+		"Size",
+		"Radius",
+		"Padding",
+		"Margin",
+		"Gap",
+		"Typography",
+		"FontSize",
+		"FontWeight",
+		"LineHeight",
+		"Ease",
+		"Time",
+		"Inverse",
+		"DarkMode",
+		"LightMode",
+		"Config"
+	},
+	getTokenValue = function(p7, s7: string) --[[ getTokenValue ]] -- line: 242
+		for _, v84 in string.split(s7, ".") do
+			if p7 == nil or type(p7) ~= "table" then
+				return nil
+			end
+
+			p7 = p7[v84]
+		end
+
+		return p7
+	end,
+	setTokenValue = function(p8, s8: string, p9) --[[ setTokenValue ]] -- line: 255
+		local parts = string.split(s8, ".")
+
+		for i = 1, #parts - 1 do
+			local v90 = parts[i]
+
+			if p8[v90] == nil then
+				return
+			end
+
+			p8 = p8[v90]
+		end
+
+		local v91 = parts[#parts]
+
+		if p8 and v91 then
+			p8[v91] = p9
+		end
+	end
+}

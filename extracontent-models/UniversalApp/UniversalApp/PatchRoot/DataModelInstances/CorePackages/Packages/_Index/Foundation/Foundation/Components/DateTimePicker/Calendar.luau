@@ -1,530 +1,514 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.BuilderIcons);
-local v3 = require(l_Parent_0.React);
-local v4 = require(script.Parent.CalendarDay);
-local v5 = require(script.Parent.DateTimeUtilities);
-local l_Icon_0 = v2.Icon;
-local v7 = require(l_script_FirstAncestor_0.Enums.ButtonVariant);
-local v8 = require(l_script_FirstAncestor_0.Utility.Flags);
-local v9 = require(l_script_FirstAncestor_0.Components.IconButton);
-local v10 = require(l_script_FirstAncestor_0.Enums.InputSize);
-local v11 = require(l_script_FirstAncestor_0.Components.Text);
-local v12 = require(l_script_FirstAncestor_0.Components.TextInput);
-local v13 = require(script.Parent.TimeDropdown);
-local v14 = require(l_script_FirstAncestor_0.Components.View);
-local v15 = require(l_script_FirstAncestor_0.Utility.useScaledValue);
-local v16 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local l_FFlagFoundationDateTimePickerDSTFix_0 = v8.FFlagFoundationDateTimePickerDSTFix;
-local l_FoundationDateTimePickerDefaultDateFix_0 = v8.FoundationDateTimePickerDefaultDateFix;
-return function(v19) --[[ Line: 57 ]] --[[ Name: Calendar ]]
-    -- upvalues: v16 (copy), v15 (copy), v3 (copy), l_FoundationDateTimePickerDefaultDateFix_0 (copy), v5 (copy), v11 (copy), v4 (copy), l_FFlagFoundationDateTimePickerDSTFix_0 (copy), v14 (copy), v9 (copy), l_Icon_0 (copy), v10 (copy), v7 (copy), v13 (copy), v12 (copy)
-    local v20 = v16();
-    local v21 = v15(272);
-    local v22 = v3.useRef(false);
-    local v23 = if not l_FoundationDateTimePickerDefaultDateFix_0 or v19.defaultDates then v19.defaultDates else {
-        DateTime.now()
-    };
-    if l_FoundationDateTimePickerDefaultDateFix_0 then
-        v3.useEffect(function() --[[ Line: 70 ]]
-            -- upvalues: v19 (copy), v23 (copy)
-            v19.onSelectedDateChanged(v23);
-        end, {
-            v23, 
-            v19.defaultDates, 
-            v19.onSelectedDateChanged
-        });
-    end;
-    local v24, v25 = v3.useState(v23);
-    local v26 = v3.useRef(nil);
-    local v27, v28 = v3.useState(if v19.showEndDateTimeCalendarInput then {
-        startDateTimeInput = false, 
-        endDateTimeInput = true
-    } else {
-        startDateTimeInput = true, 
-        endDateTimeInput = false
-    });
-    v3.useEffect(function() --[[ Line: 84 ]]
-        -- upvalues: v19 (copy), v27 (copy), v26 (copy)
-        if v19.showEndDateTimeCalendarInput and v27.endDateTimeInput and v26.current then
-            v26.current.focus();
-        end;
-    end, {
-        v27
-    });
-    local v29, v30 = v3.useState(v5.formatLocalTime(v23[1]));
-    local v31, v32 = v3.useState(if v23[2] then v5.formatLocalTime(v23[2]) else "");
-    v3.useEffect(function() --[[ Line: 99 ]]
-        -- upvalues: v22 (copy)
-        v22.current = true;
-    end, {});
-    local v33, v34 = v3.useState({
-        month = v23[1]:ToLocalTime().Month, 
-        year = v23[1]:ToLocalTime().Year
-    });
-    local v35 = {};
-    for _, v37 in v24 do
-        table.insert(v35, v37:ToLocalTime());
-    end;
-    local function v39() --[[ Line: 117 ]]
-        -- upvalues: v5 (ref), v29 (copy), v24 (copy), v30 (copy), v23 (copy)
-        local v38 = v5.getDateTimeFromText(v29);
-        if not v38 and v24[1] or v38 and v24[2] and v5.roundToStartOfDay(v38) > v5.roundToStartOfDay(v24[2]) then
-            v30(v5.formatLocalTime(v23[1]));
-        end;
-    end;
-    local function v41() --[[ Line: 136 ]]
-        -- upvalues: v5 (ref), v31 (copy), v24 (copy), v32 (copy), v23 (copy)
-        local v40 = v5.getDateTimeFromText(v31);
-        if not v40 and v24[2] or v40 and v24[1] and v5.roundToStartOfDay(v40) < v5.roundToStartOfDay(v24[1]) then
-            v32(v5.formatLocalTime(v23[2]));
-        end;
-    end;
-    local v44 = v3.useCallback(function() --[[ Line: 151 ]]
-        -- upvalues: v5 (ref), v33 (copy), v34 (copy)
-        local v42, v43 = v5.getNextMonthInfo(v33.month, v33.year);
-        v34({
-            month = v42, 
-            year = v43
-        });
-    end, {
-        v33
-    });
-    local v47 = v3.useCallback(function() --[[ Line: 156 ]]
-        -- upvalues: v5 (ref), v33 (copy), v34 (copy)
-        local v45, v46 = v5.getPrevMonthInfo(v33.month, v33.year);
-        v34({
-            month = v45, 
-            year = v46
-        });
-    end, {
-        v33
-    });
-    local v52 = v3.useCallback(function(v48, v49, v50) --[[ Line: 162 ]]
-        -- upvalues: v24 (copy), v19 (copy), v27 (copy), v30 (copy), v5 (ref), v28 (copy), v32 (copy), v34 (copy), v25 (copy)
-        local v51 = DateTime.fromLocalTime(v50, v49, v48, v24[1]:ToLocalTime().Hour, v24[1]:ToLocalTime().Minute);
-        if v19.showStartDateTimeCalendarInput then
-            if v19.showEndDateTimeCalendarInput then
-                if v27.startDateTimeInput then
-                    v30(v5.formatLocalTime(v51));
-                    v28({
-                        startDateTimeInput = false, 
-                        endDateTimeInput = true
-                    });
-                elseif v27.endDateTimeInput then
-                    v32(v5.formatLocalTime(v51));
-                    v28({
-                        startDateTimeInput = false, 
-                        endDateTimeInput = false
-                    });
-                else
-                    v30(v5.formatLocalTime(v51));
-                    v32("");
-                    v28({
-                        startDateTimeInput = false, 
-                        endDateTimeInput = true
-                    });
-                end;
-            else
-                v30(v5.formatLocalTime(v51));
-            end;
-            v34({
-                month = v49, 
-                year = v50
-            });
-            return;
-        else
-            v34({
-                month = v49, 
-                year = v50
-            });
-            v25({
-                v51
-            });
-            v19.onSelectedDateChanged({
-                v51
-            });
-            return;
-        end;
-    end, {
-        v19.showStartDateTimeCalendarInput, 
-        v19.showEndDateTimeCalendarInput, 
-        v24, 
-        v27, 
-        v26
-    });
-    local v57 = v3.useCallback(function(v53) --[[ Line: 207 ]]
-        -- upvalues: v35 (copy)
-        local v54 = v53:ToLocalTime();
-        for _, v56 in v35 do
-            if v56.Day == v54.Day and v56.Month == v54.Month and v56.Year == v54.Year then
-                return true;
-            end;
-        end;
-        return false;
-    end, {
-        v35
-    });
-    local v59 = v3.useCallback(function(v58) --[[ Line: 221 ]]
-        -- upvalues: v19 (copy), v24 (copy), v5 (ref)
-        return v19.showEndDateTimeCalendarInput and v24[1] and v24[2] and v5.isDateWithinRange(v58, {
-            startDate = v24[1], 
-            endDate = v24[2]
-        });
-    end, {
-        v19.showEndDateTimeCalendarInput, 
-        v24
-    });
-    local v61 = v3.useCallback(function(v60) --[[ Line: 232 ]]
-        -- upvalues: v19 (copy), v5 (ref), v27 (copy), v24 (copy)
-        if v19.selectableDateRange and not v5.isDateWithinRange(v60, v19.selectableDateRange) then
-            return false;
-        else
-            if v19.showEndDateTimeCalendarInput then
-                if v27.endDateTimeInput and v5.roundToStartOfDay(v60) < v5.roundToStartOfDay(v24[1]) then
-                    return false;
-                elseif v27.startDateTimeInput and v24[2] and v5.roundToStartOfDay(v60) > v5.roundToStartOfDay(v24[2]) then
-                    return false;
-                end;
-            end;
-            return true;
-        end;
-    end, {
-        v24, 
-        v19.selectableDateRange, 
-        v27, 
-        v19.showEndDateTimeCalendarInput
-    });
-    local v66 = v3.useCallback(function(v62) --[[ Line: 266 ]]
-        -- upvalues: v22 (copy), v30 (copy), v5 (ref), v19 (copy), v24 (copy), v34 (copy), v25 (copy)
-        if not v22.current then
-            return;
-        else
-            v30(v62);
-            local v63 = v5.getDateTimeFromText(v62);
-            if v63 then
-                local v64 = if v19.showEndDateTimeCalendarInput then {
-                    v63, 
-                    v24[2]
-                } else {
-                    v63
-                };
-                local v65 = v63:ToLocalTime();
-                v34({
-                    month = v65.Month, 
-                    year = v65.Year
-                });
-                v25(v64);
-                v19.onSelectedDateChanged(v64);
-            end;
-            return;
-        end;
-    end, {
-        v19.onSelectedDateChanged, 
-        v19.showEndDateTimeCalendarInput, 
-        v61, 
-        v24, 
-        v22
-    });
-    local v72 = v3.useCallback(function(v67) --[[ Line: 297 ]]
-        -- upvalues: v22 (copy), v32 (copy), v5 (ref), v24 (copy), v34 (copy), v25 (copy), v19 (copy)
-        if not v22.current then
-            return;
-        else
-            v32(v67);
-            local v68 = v5.getDateTimeFromText(v67);
-            if v68 then
-                if v24[1] and v5.roundToStartOfDay(v68) < v5.roundToStartOfDay(v24[1]) then
-                    return;
-                else
-                    local v69 = {
-                        v24[1], 
-                        v68
-                    };
-                    local v70 = v68:ToLocalTime();
-                    v34({
-                        month = v70.Month, 
-                        year = v70.Year
-                    });
-                    v25(v69);
-                    v19.onSelectedDateChanged(v69);
-                    return;
-                end;
-            elseif v67 == "" then
-                v25(function(v71) --[[ Line: 323 ]]
-                    -- upvalues: v19 (ref)
-                    v19.onSelectedDateChanged({
-                        v71[1]
-                    });
-                    return {
-                        v71[1]
-                    };
-                end);
-                return;
-            else
-                return;
-            end;
-        end;
-    end, {
-        v19.onSelectedDateChanged, 
-        v24, 
-        v61, 
-        v22
-    });
-    local v93 = v3.useMemo(function() --[[ Line: 332 ]]
-        -- upvalues: v3 (ref), v20 (copy), v21 (copy), v5 (ref), v11 (ref), v33 (copy), v4 (ref), v59 (copy), v61 (copy), v57 (copy), v52 (copy), v19 (copy)
-        local v73 = {};
-        table.insert(v73, v3.createElement("UIGridLayout", {
-            CellPadding = UDim2.fromOffset(v20.Padding.None, v20.Padding.None), 
-            CellSize = UDim2.fromOffset(v21 / 7, v21 / 7), 
-            FillDirection = Enum.FillDirection.Horizontal, 
-            FillDirectionMaxCells = 7, 
-            HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-            key = "layout", 
-            SortOrder = Enum.SortOrder.LayoutOrder, 
-            VerticalAlignment = Enum.VerticalAlignment.Center
-        }));
-        local v74 = 1;
-        for _, v76 in v5.weekdays do
-            table.insert(v73, v3.createElement(v11, {
-                key = v76, 
-                LayoutOrder = v74, 
-                Text = v76, 
-                tag = "text-align-x-center text-align-y-center text-body-small"
-            }));
-            v74 = v74 + 1;
-        end;
-        local v77 = v5.getFirstDayOfWeek(v33.month, v33.year);
-        local v78, v79 = v5.getPrevMonthInfo(v33.month, v33.year);
-        local v80 = v5.getDaysInMonth(v5.getPrevMonthInfo(v33.month, v33.year));
-        local v81 = v77 == 0 and 7 or v77;
-        for v82 = 1, v81 do
-            local v83 = v80 - v81 + v82;
-            local v84 = DateTime.fromLocalTime(v79, v78, v83);
-            table.insert(v73, v3.createElement(v4, {
-                highlight = v59(v84), 
-                isSelectable = v61(v84), 
-                isSelected = v57(v84), 
-                key = "prev-month-day-" .. v83, 
-                LayoutOrder = v74, 
-                onActivated = function() --[[ Line: 391 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v52 (ref), v83 (copy), v78 (copy), v79 (copy)
-                    v52(v83, v78, v79);
-                end, 
-                Text = tostring(v83), 
-                testId = ("%*--prev-month-calendar-day-%*"):format(v19.testId, v83)
-            }));
-            v74 = v74 + 1;
-        end;
-        for v85 = 1, v5.getDaysInMonth(v33.month, v33.year) do
-            local v86 = v61(DateTime.fromLocalTime(v33.year, v33.month, v85));
-            local v87 = v57(DateTime.fromLocalTime(v33.year, v33.month, v85));
-            table.insert(v73, v3.createElement(v4, {
-                emphasizeText = v86 and not v87, 
-                highlight = v59(DateTime.fromLocalTime(v33.year, v33.month, v85)), 
-                isSelectable = v86, 
-                isSelected = v87, 
-                key = "current-month-day-" .. v85, 
-                LayoutOrder = v74, 
-                onActivated = function() --[[ Line: 422 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v52 (ref), v85 (copy), v33 (ref)
-                    v52(v85, v33.month, v33.year);
-                end, 
-                Text = tostring(v85), 
-                testId = ("%*--current-month-calendar-day-%*"):format(v19.testId, v85)
-            }));
-            v74 = v74 + 1;
-        end;
-        local v88 = v5.getLastDayOfWeek(v33.month, v33.year);
-        local v89, v90 = v5.getNextMonthInfo(v33.month, v33.year);
-        v81 = 7 - (v88 + 1);
-        if v81 == 0 then
-            v81 = 7;
-        end;
-        if v81 + #v73 < 50 then
-            v81 = v81 + (50 - #v73 - v81);
-        end;
-        for v91 = 1, v81 do
-            local v92 = DateTime.fromLocalTime(v90, v89, v91);
-            table.insert(v73, v3.createElement(v4, {
-                highlight = v59(v92), 
-                isSelectable = v61(v92), 
-                isSelected = v57(v92), 
-                key = "next-month-day-" .. v91, 
-                LayoutOrder = v74, 
-                onActivated = function() --[[ Line: 460 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v52 (ref), v91 (copy), v89 (copy), v90 (copy)
-                    v52(v91, v89, v90);
-                end, 
-                Text = tostring(v91), 
-                testId = ("%*--next-month-calendar-day-%*"):format(v19.testId, v91)
-            }));
-            v74 = v74 + 1;
-        end;
-        return v73;
-    end, {
-        v57, 
-        v59, 
-        v61, 
-        v33, 
-        v24, 
-        v52, 
-        v19.selectableDateRange, 
-        v19.showEndDateTimeCalendarInput
-    });
-    local v98 = v3.useCallback(function(v94) --[[ Line: 485 ]]
-        -- upvalues: l_FFlagFoundationDateTimePickerDSTFix_0 (ref), v25 (copy), v19 (copy)
-        local v95 = DateTime.fromUnixTimestamp(v94);
-        if os.date("*t", v94).isdst then
-            if l_FFlagFoundationDateTimePickerDSTFix_0 then
-                local l_UnixTimestamp_0 = v95.UnixTimestamp;
-                v95 = DateTime.fromUnixTimestamp(l_UnixTimestamp_0 - 3600);
-            else
-                local v97 = v95:ToLocalTime();
-                v95 = DateTime.fromLocalTime(v97.Year, v97.Month, v97.Day, v97.Hour == 0 and 23 or v97.Hour - 1, v97.Minute, v97.Second);
-            end;
-        end;
-        v25({
-            v95
-        });
-        v19.onSelectedDateChanged({
-            v95
-        });
-    end, {
-        v24, 
-        v19.onSelectedDateChanged
-    });
-    local l_createElement_0 = v3.createElement;
-    local l_v14_0 = v14;
-    local v101 = {
-        LayoutOrder = v19.LayoutOrder, 
-        tag = "col auto-y", 
-        Size = UDim2.fromOffset(v21, 0), 
-        testId = v19.testId
-    };
-    local v102 = {
-        CalendarHeader = v3.createElement(v14, {
-            LayoutOrder = 1, 
-            tag = "row size-full-0 auto-y gap-small align-y-center padding-y-small"
-        }, {
-            PreviousMonthButton = v3.createElement(v9, {
-                LayoutOrder = 1, 
-                icon = l_Icon_0.ChevronSmallLeft, 
-                isCircular = true, 
-                onActivated = v47, 
-                size = v10.Small, 
-                variant = v7.Utility, 
-                testId = ("%*--previous-month-button"):format(v19.testId)
-            }), 
-            MonthText = v3.createElement(v11, {
-                LayoutOrder = 2, 
-                Text = v5.monthMap[v33.month], 
-                tag = "grow text-align-x-right auto-xy", 
-                testId = ("%*--month-text"):format(v19.testId)
-            }), 
-            YearText = v3.createElement(v11, {
-                LayoutOrder = 3, 
-                Text = tostring(v33.year), 
-                tag = "grow text-align-x-left auto-xy", 
-                testId = ("%*--year-text"):format(v19.testId)
-            }), 
-            NextMonthButton = v3.createElement(v9, {
-                LayoutOrder = 4, 
-                icon = l_Icon_0.ChevronSmallRight, 
-                isCircular = true, 
-                onActivated = v44, 
-                size = v10.Small, 
-                variant = v7.Utility, 
-                testId = ("%*--next-month-button"):format(v19.testId)
-            })
-        }), 
-        TimeDropdown = if v19.showTimeDropdown then v3.createElement(v13, {
-            dateTime = v24[1], 
-            layoutOrder = 2, 
-            onItemChanged = v98, 
-            width = UDim.new(1, 0), 
-            testId = ("%*--time-dropdown"):format(v19.testId)
-        }) else nil
-    };
-    local v103;
-    if v19.showStartDateTimeCalendarInput then
-        v103 = v3.createElement;
-        local l_v14_1 = v14;
-        local v105 = {
-            LayoutOrder = 3, 
-            tag = "flex-x-fill size-full-0 auto-y row gap-small align-y-center", 
-            testId = ("%*--input"):format(v19.testId)
-        };
-        local v106 = {};
-        local l_createElement_1 = v3.createElement;
-        local l_v12_0 = v12;
-        local v109 = {};
-        local v110 = false;
-        if v29 ~= "" then
-            v110 = v5.getDateTimeFromText(v29) == nil;
-        end;
-        v109.hasError = v110;
-        v109.label = "";
-        v109.LayoutOrder = 1;
-        v109.onChanged = v66;
-        v109.onFocusLost = v39;
-        v109.placeholder = "MM/DD/YYYY";
-        v109.size = v10.Medium;
-        v109.text = v29;
-        v109.onFocusGained = function() --[[ Line: 580 ]] --[[ Name: onFocusGained ]]
-            -- upvalues: v28 (copy)
-            v28({
-                startDateTimeInput = true, 
-                endDateTimeInput = false
-            });
-        end;
-        v109.testId = ("%*--start-datetime-input"):format(v19.testId);
-        v106.StartDateTime = l_createElement_1(l_v12_0, v109);
-        v106.InputSeparator = if v19.showEndDateTimeCalendarInput then v3.createElement(v11, {
-            LayoutOrder = 2, 
-            tag = "auto-xy", 
-            Text = "-"
-        }) else nil;
-        if v19.showEndDateTimeCalendarInput then
-            l_createElement_1 = v3.createElement;
-            l_v12_0 = v12;
-            v109 = {};
-            v110 = false;
-            if v31 ~= "" then
-                v110 = v5.getDateTimeFromText(v31) == nil;
-            end;
-            v109.hasError = v110;
-            v109.isDisabled = not v24[1];
-            v109.label = "";
-            v109.LayoutOrder = 3;
-            v109.onChanged = v72;
-            v109.onFocusGained = function() --[[ Line: 600 ]] --[[ Name: onFocusGained ]]
-                -- upvalues: v28 (copy)
-                v28({
-                    startDateTimeInput = false, 
-                    endDateTimeInput = true
-                });
-            end;
-            v109.onFocusLost = v41;
-            v109.placeholder = "MM/DD/YYYY";
-            v109.size = v10.Medium;
-            v109.text = v31;
-            v109.textBoxRef = v26;
-            v109.testId = ("%*--end-datetime-input"):format(v19.testId);
-            l_createElement_1 = l_createElement_1(l_v12_0, v109);
-        else
-            l_createElement_1 = nil;
-        end;
-        v106.EndDateTime = l_createElement_1;
-        v103 = v103(l_v14_1, v105, v106);
-    else
-        v103 = nil;
-    end;
-    v102.CalendarInputContainer = v103;
-    v102.WeekAndDates = v3.createElement(v14, {
-        LayoutOrder = 4, 
-        tag = "size-full-0 auto-y", 
-        testId = ("%*--weekAndDates"):format(v19.testId)
-    }, v93);
-    return l_createElement_0(l_v14_0, v101, v102);
-end;
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local BuilderIcons = require(FoundationParent.BuilderIcons)
+local React = require(FoundationParent.React)
+local CalendarDay = require(script.Parent.CalendarDay)
+local DateTimeUtilities = require(script.Parent.DateTimeUtilities)
+local Icon = BuilderIcons.Icon
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local Flags = require(Foundation.Utility.Flags)
+local IconButton = require(Foundation.Components.IconButton)
+local InputSize = require(Foundation.Enums.InputSize)
+local Text = require(Foundation.Components.Text)
+local TextInput = require(Foundation.Components.TextInput)
+local TimeDropdown = require(script.Parent.TimeDropdown)
+local View = require(Foundation.Components.View)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local FoundationDateTimePickerDefaultDateFix = Flags.FoundationDateTimePickerDefaultDateFix
+
+return function(t1: {[any]: any}) --[[ Calendar ]] -- line: 56
+	-- upvalues: useTokens (copy), useScaledValue (copy), React (copy), FoundationDateTimePickerDefaultDateFix (copy), DateTimeUtilities (copy), Text (copy), CalendarDay (copy), View (copy), IconButton (copy), Icon (copy), InputSize (copy), ButtonVariant (copy), TimeDropdown (copy), TextInput (copy)
+	local v20 = useTokens()
+	local v21 = useScaledValue(272)
+	local v22 = React.useRef(false)
+	local v23 = if not FoundationDateTimePickerDefaultDateFix or t1.defaultDates then t1.defaultDates else { DateTime.now() }
+
+	if FoundationDateTimePickerDefaultDateFix then
+		React.useEffect(function() -- line: 69
+			-- upvalues: t1 (copy), v23 (copy)
+			t1.onSelectedDateChanged(v23)
+		end, {
+			v23,
+			t1.defaultDates,
+			t1.onSelectedDateChanged
+		})
+	end
+
+	local v24, v25 = React.useState(v23)
+	local v26 = React.useRef(nil)
+	local v27, v28 = React.useState(if not t1.showEndDateTimeCalendarInput then {
+		startDateTimeInput = true,
+		endDateTimeInput = false
+	} else {
+		startDateTimeInput = false,
+		endDateTimeInput = true
+	})
+
+	React.useEffect(function() -- line: 83
+		-- upvalues: t1 (copy), v27 (copy), v26 (copy)
+		if t1.showEndDateTimeCalendarInput and (v27.endDateTimeInput and v26.current) then
+			v26.current.focus()
+		end
+	end, { v27 })
+
+	local v29, v30 = React.useState(DateTimeUtilities.formatLocalTime(v23[1]))
+	local v31, v32 = React.useState(not v23[2] and "" or DateTimeUtilities.formatLocalTime(v23[2]))
+
+	React.useEffect(function() -- line: 98
+		-- upvalues: v22 (copy)
+		v22.current = true
+	end, {})
+
+	local v33, v34 = React.useState({
+		month = v23[1]:ToLocalTime().Month,
+		year = v23[1]:ToLocalTime().Year
+	})
+	local t2 = {}
+
+	for _, v37 in v24 do
+		table.insert(t2, v37:ToLocalTime())
+	end
+
+	local v38 = React.useCallback(function() -- line: 150
+		-- upvalues: DateTimeUtilities (copy), v33 (copy), v34 (copy)
+		local v50, v51 = DateTimeUtilities.getNextMonthInfo(v33.month, v33.year)
+
+		v34({
+			month = v50,
+			year = v51
+		})
+	end, { v33 })
+	local v39 = React.useCallback(function() -- line: 155
+		-- upvalues: DateTimeUtilities (copy), v33 (copy), v34 (copy)
+		local v52, v53 = DateTimeUtilities.getPrevMonthInfo(v33.month, v33.year)
+
+		v34({
+			month = v52,
+			year = v53
+		})
+	end, { v33 })
+	local v40 = React.useCallback(function(n1: number, n2: number, n3: number) -- line: 161
+		-- upvalues: v24 (copy), t1 (copy), v27 (copy), v30 (copy), DateTimeUtilities (copy), v28 (copy), v32 (copy), v34 (copy), v25 (copy)
+		local dateTime = DateTime.fromLocalTime(n3, n2, n1, v24[1]:ToLocalTime().Hour, v24[1]:ToLocalTime().Minute)
+
+		if t1.showStartDateTimeCalendarInput then
+			if t1.showEndDateTimeCalendarInput then
+				if v27.startDateTimeInput then
+					v30(DateTimeUtilities.formatLocalTime(dateTime))
+					v28({
+						startDateTimeInput = false,
+						endDateTimeInput = true
+					})
+				elseif v27.endDateTimeInput then
+					v32(DateTimeUtilities.formatLocalTime(dateTime))
+					v28({
+						startDateTimeInput = false,
+						endDateTimeInput = false
+					})
+				else
+					v30(DateTimeUtilities.formatLocalTime(dateTime))
+					v32("")
+					v28({
+						startDateTimeInput = false,
+						endDateTimeInput = true
+					})
+				end
+			else
+				v30(DateTimeUtilities.formatLocalTime(dateTime))
+			end
+
+			v34({
+				month = n2,
+				year = n3
+			})
+
+			return
+		end
+
+		v34({
+			month = n2,
+			year = n3
+		})
+		v25({ dateTime })
+		t1.onSelectedDateChanged({ dateTime })
+	end, {
+		t1.showStartDateTimeCalendarInput,
+		t1.showEndDateTimeCalendarInput,
+		v24,
+		v27,
+		v26
+	})
+	local v41 = React.useCallback(function(p1) -- line: 206
+		-- upvalues: t2 (copy)
+		local v59 = p1:ToLocalTime()
+
+		for _, v61 in t2 do
+			if v61.Day == v59.Day and v61.Month == v59.Month and v61.Year == v59.Year then
+				return true
+			end
+		end
+
+		return false
+	end, { t2 })
+	local v42 = React.useCallback(function(p2) -- line: 220
+		-- upvalues: t1 (copy), v24 (copy), DateTimeUtilities (copy)
+		return t1.showEndDateTimeCalendarInput and (v24[1] and (v24[2] and DateTimeUtilities.isDateWithinRange(p2, {
+			startDate = v24[1],
+			endDate = v24[2]
+		})))
+	end, {
+		t1.showEndDateTimeCalendarInput,
+		v24
+	})
+	local v43 = React.useCallback(function(p3) -- line: 231
+		-- upvalues: t1 (copy), DateTimeUtilities (copy), v27 (copy), v24 (copy)
+		if t1.selectableDateRange and not DateTimeUtilities.isDateWithinRange(p3, t1.selectableDateRange) then
+			return false
+		end
+
+		if t1.showEndDateTimeCalendarInput then
+			if v27.endDateTimeInput and DateTimeUtilities.roundToStartOfDay(p3) < DateTimeUtilities.roundToStartOfDay(v24[1]) then
+				return false
+			end
+
+			if v27.startDateTimeInput and v24[2] and DateTimeUtilities.roundToStartOfDay(p3) > DateTimeUtilities.roundToStartOfDay(v24[2]) then
+				return false
+			end
+		end
+
+		return true
+	end, {
+		v24,
+		t1.selectableDateRange,
+		v27,
+		t1.showEndDateTimeCalendarInput
+	})
+	local v44 = React.useCallback(function(s1: string) -- line: 265
+		-- upvalues: v22 (copy), v30 (copy), DateTimeUtilities (copy), t1 (copy), v24 (copy), v34 (copy), v25 (copy)
+		if not v22.current then
+			return
+		end
+
+		v30(s1)
+
+		local v65 = DateTimeUtilities.getDateTimeFromText(s1)
+
+		if v65 then
+			local v66 = if not t1.showEndDateTimeCalendarInput then { v65 } else {
+				v65,
+				v24[2]
+			}
+			local v67 = v65:ToLocalTime()
+
+			v34({
+				month = v67.Month,
+				year = v67.Year
+			})
+			v25(v66)
+			t1.onSelectedDateChanged(v66)
+		end
+	end, {
+		t1.onSelectedDateChanged,
+		t1.showEndDateTimeCalendarInput,
+		v43,
+		v24,
+		v22
+	})
+	local v45 = React.useCallback(function(s2: string) -- line: 296
+		-- upvalues: v22 (copy), v32 (copy), DateTimeUtilities (copy), v24 (copy), v34 (copy), v25 (copy), t1 (copy)
+		if not v22.current then
+			return
+		end
+
+		v32(s2)
+
+		local v69 = DateTimeUtilities.getDateTimeFromText(s2)
+
+		if v69 then
+			if v24[1] and DateTimeUtilities.roundToStartOfDay(v69) < DateTimeUtilities.roundToStartOfDay(v24[1]) then
+				return
+			end
+
+			local t3 = {
+				v24[1],
+				v69
+			}
+			local v71 = v69:ToLocalTime()
+
+			v34({
+				month = v71.Month,
+				year = v71.Year
+			})
+			v25(t3)
+			t1.onSelectedDateChanged(t3)
+
+			return
+		end
+
+		if s2 == "" then
+			v25(function(p4) -- line: 322
+				-- upvalues: t1 (copy)
+				t1.onSelectedDateChanged({ p4[1] })
+
+				return { p4[1] }
+			end)
+
+			return
+		end
+	end, {
+		t1.onSelectedDateChanged,
+		v24,
+		v43,
+		v22
+	})
+	local v46 = React.useMemo(function() -- line: 331
+		-- upvalues: React (copy), v20 (copy), v21 (copy), DateTimeUtilities (copy), Text (copy), v33 (copy), CalendarDay (copy), v42 (copy), v43 (copy), v41 (copy), v40 (copy), t1 (copy)
+		local t4 = {}
+
+		table.insert(t4, React.createElement("UIGridLayout", {
+			CellPadding = UDim2.fromOffset(v20.Padding.None, v20.Padding.None),
+			CellSize = UDim2.fromOffset(v21 / 7, v21 / 7),
+			FillDirection = Enum.FillDirection.Horizontal,
+			FillDirectionMaxCells = 7,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			key = "layout",
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center
+		}))
+
+		local n4 = 1
+
+		for _, v75 in DateTimeUtilities.weekdays do
+			table.insert(t4, React.createElement(Text, {
+				key = v75,
+				LayoutOrder = n4,
+				Text = v75,
+				tag = "text-body-small text-align-x-center text-align-y-center"
+			}))
+			n4 += 1
+		end
+
+		local v76 = DateTimeUtilities.getFirstDayOfWeek(v33.month, v33.year)
+		local v77, v78 = DateTimeUtilities.getPrevMonthInfo(v33.month, v33.year)
+		local v79 = DateTimeUtilities.getDaysInMonth(DateTimeUtilities.getPrevMonthInfo(v33.month, v33.year))
+		local v80 = if v76 ~= 0 then v76 else 7
+
+		for i = 1, v80 do
+			local v82 = v79 - v80 + i
+			local dateTime = DateTime.fromLocalTime(v78, v77, v82)
+
+			table.insert(t4, React.createElement(CalendarDay, {
+				highlight = v42(dateTime),
+				isSelectable = v43(dateTime),
+				isSelected = v41(dateTime),
+				key = "prev-month-day-" .. v82,
+				LayoutOrder = n4,
+				onActivated = function() --[[ onActivated ]] -- line: 390
+					-- upvalues: v40 (copy), v82 (copy), v77 (copy), v78 (copy)
+					v40(v82, v77, v78)
+				end,
+				Text = tostring(v82),
+				testId = `{ t1.testId }--prev-month-calendar-day-{ v82 }`
+			}))
+			n4 += 1
+		end
+
+		for i = 1, DateTimeUtilities.getDaysInMonth(v33.month, v33.year) do
+			local v85 = v43(DateTime.fromLocalTime(v33.year, v33.month, i))
+			local v86 = v41(DateTime.fromLocalTime(v33.year, v33.month, i))
+
+			table.insert(t4, React.createElement(CalendarDay, {
+				emphasizeText = v85 and not v86,
+				highlight = v42(DateTime.fromLocalTime(v33.year, v33.month, i)),
+				isSelectable = v85,
+				isSelected = v86,
+				key = "current-month-day-" .. i,
+				LayoutOrder = n4,
+				onActivated = function() --[[ onActivated ]] -- line: 421
+					-- upvalues: v40 (copy), i (copy), v33 (copy)
+					v40(i, v33.month, v33.year)
+				end,
+				Text = tostring(i),
+				testId = `{ t1.testId }--current-month-calendar-day-{ i }`
+			}))
+			n4 += 1
+		end
+
+		local v87 = DateTimeUtilities.getLastDayOfWeek(v33.month, v33.year)
+		local v88, v89 = DateTimeUtilities.getNextMonthInfo(v33.month, v33.year)
+		local v90 = 7 - (v87 + 1)
+
+		if v90 == 0 then
+			v90 = 7
+		end
+
+		if v90 + #t4 < 50 then
+			v90 += 50 - #t4 - v90
+		end
+
+		for i = 1, v90 do
+			local dateTime = DateTime.fromLocalTime(v89, v88, i)
+
+			table.insert(t4, React.createElement(CalendarDay, {
+				highlight = v42(dateTime),
+				isSelectable = v43(dateTime),
+				isSelected = v41(dateTime),
+				key = "next-month-day-" .. i,
+				LayoutOrder = n4,
+				onActivated = function() --[[ onActivated ]] -- line: 459
+					-- upvalues: v40 (copy), i (copy), v88 (copy), v89 (copy)
+					v40(i, v88, v89)
+				end,
+				Text = tostring(i),
+				testId = `{ t1.testId }--next-month-calendar-day-{ i }`
+			}))
+			n4 += 1
+		end
+
+		return t4
+	end, {
+		v41,
+		v42,
+		v43,
+		v33,
+		v24,
+		v40,
+		t1.selectableDateRange,
+		t1.showEndDateTimeCalendarInput
+	})
+	local v47 = React.useCallback(function(p5) -- line: 484
+		-- upvalues: v25 (copy), t1 (copy)
+		local dateTime = DateTime.fromUnixTimestamp(p5)
+
+		if os.date("*t", p5).isdst then
+			local UnixTimestamp = dateTime.UnixTimestamp
+
+			dateTime = DateTime.fromUnixTimestamp(UnixTimestamp - 3600)
+		end
+
+		v25({ dateTime })
+		t1.onSelectedDateChanged({ dateTime })
+	end, {
+		v24,
+		t1.onSelectedDateChanged
+	})
+
+	return React.createElement(View, {
+		LayoutOrder = t1.LayoutOrder,
+		tag = "col auto-y",
+		Size = UDim2.fromOffset(v21, 0),
+		testId = t1.testId
+	}, {
+		CalendarHeader = React.createElement(View, {
+			LayoutOrder = 1,
+			tag = "row align-y-center gap-small size-full-0 auto-y padding-y-small"
+		}, {
+			PreviousMonthButton = React.createElement(IconButton, {
+				LayoutOrder = 1,
+				icon = Icon.ChevronSmallLeft,
+				isCircular = true,
+				onActivated = v39,
+				size = InputSize.Small,
+				variant = ButtonVariant.Utility,
+				testId = `{ t1.testId }--previous-month-button`
+			}),
+			MonthText = React.createElement(Text, {
+				LayoutOrder = 2,
+				Text = DateTimeUtilities.monthMap[v33.month],
+				tag = "grow auto-xy text-align-x-right",
+				testId = `{ t1.testId }--month-text`
+			}),
+			YearText = React.createElement(Text, {
+				LayoutOrder = 3,
+				Text = tostring(v33.year),
+				tag = "grow auto-xy text-align-x-left",
+				testId = `{ t1.testId }--year-text`
+			}),
+			NextMonthButton = React.createElement(IconButton, {
+				LayoutOrder = 4,
+				icon = Icon.ChevronSmallRight,
+				isCircular = true,
+				onActivated = v38,
+				size = InputSize.Small,
+				variant = ButtonVariant.Utility,
+				testId = `{ t1.testId }--next-month-button`
+			})
+		}),
+		TimeDropdown = if not t1.showTimeDropdown then nil else React.createElement(TimeDropdown, {
+			dateTime = v24[1],
+			layoutOrder = 2,
+			onItemChanged = v47,
+			width = UDim.new(1, 0),
+			testId = `{ t1.testId }--time-dropdown`
+		}),
+		CalendarInputContainer = if not t1.showStartDateTimeCalendarInput then nil else React.createElement(View, {
+			LayoutOrder = 3,
+			tag = "row flex-x-fill align-y-center gap-small size-full-0 auto-y",
+			testId = `{ t1.testId }--input`
+		}, {
+			StartDateTime = React.createElement(TextInput, {
+				hasError = v29 ~= "" and DateTimeUtilities.getDateTimeFromText(v29) == nil,
+				label = "",
+				LayoutOrder = 1,
+				onChanged = v44,
+				onFocusLost = function() -- line: 116
+					-- upvalues: DateTimeUtilities (copy), v29 (copy), v24 (copy), v30 (copy), v23 (copy)
+					local v48 = DateTimeUtilities.getDateTimeFromText(v29)
+
+					if not v48 and v24[1] or v48 and v24[2] and DateTimeUtilities.roundToStartOfDay(v48) > DateTimeUtilities.roundToStartOfDay(v24[2]) then
+						v30(DateTimeUtilities.formatLocalTime(v23[1]))
+					end
+				end,
+				placeholder = "MM/DD/YYYY",
+				size = InputSize.Medium,
+				text = v29,
+				onFocusGained = function() --[[ onFocusGained ]] -- line: 567
+					-- upvalues: v28 (copy)
+					v28({
+						startDateTimeInput = true,
+						endDateTimeInput = false
+					})
+				end,
+				testId = `{ t1.testId }--start-datetime-input`
+			}),
+			InputSeparator = if not t1.showEndDateTimeCalendarInput then nil else React.createElement(Text, {
+				LayoutOrder = 2,
+				tag = "auto-xy",
+				Text = "-"
+			}),
+			EndDateTime = if not t1.showEndDateTimeCalendarInput then nil else React.createElement(TextInput, {
+				hasError = v31 ~= "" and DateTimeUtilities.getDateTimeFromText(v31) == nil,
+				isDisabled = not v24[1],
+				label = "",
+				LayoutOrder = 3,
+				onChanged = v45,
+				onFocusGained = function() --[[ onFocusGained ]] -- line: 587
+					-- upvalues: v28 (copy)
+					v28({
+						startDateTimeInput = false,
+						endDateTimeInput = true
+					})
+				end,
+				onFocusLost = function() -- line: 135
+					-- upvalues: DateTimeUtilities (copy), v31 (copy), v24 (copy), v32 (copy), v23 (copy)
+					local v49 = DateTimeUtilities.getDateTimeFromText(v31)
+
+					if not v49 and v24[2] or v49 and v24[1] and DateTimeUtilities.roundToStartOfDay(v49) < DateTimeUtilities.roundToStartOfDay(v24[1]) then
+						v32(DateTimeUtilities.formatLocalTime(v23[2]))
+					end
+				end,
+				placeholder = "MM/DD/YYYY",
+				size = InputSize.Medium,
+				text = v31,
+				textBoxRef = v26,
+				testId = `{ t1.testId }--end-datetime-input`
+			})
+		}),
+		WeekAndDates = React.createElement(View, {
+			LayoutOrder = 4,
+			tag = "size-full-0 auto-y",
+			testId = `{ t1.testId }--weekAndDates`
+		}, v46)
+	})
+end

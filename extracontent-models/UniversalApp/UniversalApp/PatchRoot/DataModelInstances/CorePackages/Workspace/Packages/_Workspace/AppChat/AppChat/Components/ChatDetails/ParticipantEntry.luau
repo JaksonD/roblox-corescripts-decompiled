@@ -1,129 +1,122 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Cryo);
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.Foundation);
-local l_Text_0 = require(l_Parent_0.AppCommonLib).Text;
-local l_IXPService_0 = game:GetService("IXPService");
-local v7 = require(l_script_FirstAncestor_0.Hooks.useUserData);
-local l_useTokens_0 = v4.Hooks.useTokens;
-local l_FFlagEnableAppChatFocusableFixes_0 = require(l_Parent_0.SharedFlags).FFlagEnableAppChatFocusableFixes;
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableAvatarPresence);
-local v11 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatAvatarPresenceIxpEnabled);
-local v12 = require(l_script_FirstAncestor_0.Flags.FStringAppChatAvatarPresenceIxpLayer);
-local l_FFlagAppChatShowInvitedStatusInParticipantList_0 = require(l_script_FirstAncestor_0.Flags).FFlagAppChatShowInvitedStatusInParticipantList;
-local l_FFlagEnableBlackbirdCheck_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheck;
-local l_useIsRobloxSubscriber_0 = require(l_Parent_0.UserProfiles).Hooks.useIsRobloxSubscriber;
-local v16 = string.rep("W", 20);
-local v17 = {
-    showDivider = true
-};
-return v3.memo(function(v18) --[[ Line: 40 ]] --[[ Name: ParticipantEntry ]]
-    -- upvalues: v2 (copy), v17 (copy), v7 (copy), l_useTokens_0 (copy), l_useIsRobloxSubscriber_0 (copy), l_FFlagEnableBlackbirdCheck_0 (copy), v3 (copy), l_Text_0 (copy), v16 (copy), v11 (copy), l_IXPService_0 (copy), v12 (copy), v4 (copy), v10 (copy), l_FFlagAppChatShowInvitedStatusInParticipantList_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy)
-    local v19 = v2.Dictionary.union(v17, v18);
-    local v20 = v7(v19.userId);
-    local v21 = l_useTokens_0();
-    local v22 = l_useIsRobloxSubscriber_0(if l_FFlagEnableBlackbirdCheck_0 then v19.userId else nil);
-    local v23 = v3.useCallback(function() --[[ Line: 47 ]]
-        -- upvalues: v19 (copy)
-        if v19.onActivated then
-            v19.onActivated();
-        end;
-    end);
-    local v25 = v3.useMemo(function() --[[ Line: 53 ]]
-        -- upvalues: l_Text_0 (ref), v16 (ref), v21 (copy)
-        local v24 = l_Text_0.GetTextBounds(v16, v21.Typography.TitleLarge.Font, v21.Typography.TitleLarge.FontSize, Vector2.zero);
-        return UDim2.fromOffset(v24.X, v24.Y);
-    end, {
-        v21.Typography.TitleLarge.Font, 
-        v21.Typography.TitleLarge.FontSize
-    });
-    local v27 = v3.useMemo(function() --[[ Line: 63 ]]
-        -- upvalues: l_Text_0 (ref), v21 (copy)
-        local v26 = l_Text_0.GetTextBounds("Roblox Studio", v21.Typography.CaptionMedium.Font, v21.Typography.CaptionMedium.FontSize, Vector2.zero);
-        return UDim2.fromOffset(v26.X, v26.Y);
-    end, {
-        v21.Typography.CaptionMedium.Font, 
-        v21.Typography.CaptionMedium.FontSize
-    });
-    v3.useEffect(function() --[[ Line: 73 ]]
-        -- upvalues: v11 (ref), l_IXPService_0 (ref), v12 (ref)
-        if v11 then
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v12);
-        end;
-    end, {});
-    return v3.createElement(v4.View, {
-        Name = "ParticipantEntryContainer", 
-        tag = {
-            ["row align-y-center gap-medium size-full padding-x-medium"] = true, 
-            ["stroke-muted stroke-thin"] = v19.showDivider
-        }, 
-        onActivated = v23
-    }, {
-        Avatar = v3.createElement(v4.Avatar, {
-            userId = v20.id, 
-            userPresence = if v10 then v20.presence else nil, 
-            size = v4.Enums.InputSize.Medium, 
-            backgroundStyle = v21.Color.Shift.Shift_300, 
-            LayoutOrder = 1
-        }), 
-        UserInfo = v3.createElement(v4.View, {
-            tag = "col fill auto-y clip", 
-            LayoutOrder = 2
-        }, {
-            UserDataSkeleton = v3.createElement(v4.Skeleton, {
-                Size = UDim2.new(v25.X, v25.Y + v27.Y), 
-                Visible = v20.isLoading, 
-                LayoutOrder = 1
-            }), 
-            DisplayName = if l_FFlagEnableBlackbirdCheck_0 and v22 then v3.createElement(v4.View, {
-                tag = "row auto-xy align-y-center gap-xxsmall", 
-                LayoutOrder = 1, 
-                Visible = v20.isLoading:map(function(v28) --[[ Line: 108 ]]
-                    return not v28;
-                end)
-            }, {
-                NameText = v3.createElement(v4.Text, {
-                    tag = "auto-xy shrink text-title-large text-truncate-end content-emphasis", 
-                    Text = v20.combinedName, 
-                    LayoutOrder = 1
-                }), 
-                SubscriptionBadge = v3.createElement(v4.Icon, {
-                    LayoutOrder = 2, 
-                    name = v4.Enums.IconName.RobloxPlus, 
-                    size = v4.Enums.IconSize.Small, 
-                    style = v21.Color.Content.Emphasis
-                })
-            }) else v3.createElement(v4.Text, {
-                tag = "auto-xy text-title-large text-truncate-end content-emphasis", 
-                Text = v20.combinedName, 
-                LayoutOrder = 1, 
-                Visible = v20.isLoading:map(function(v29) --[[ Line: 128 ]]
-                    return not v29;
-                end)
-            }), 
-            PresenceText = v3.createElement(v4.Text, {
-                tag = "auto-xy text-caption-medium text-truncate-end content-muted", 
-                Text = if l_FFlagAppChatShowInvitedStatusInParticipantList_0 and v19.statusText then v20.presenceText:map(function(v30) --[[ Line: 136 ]]
-                    -- upvalues: v19 (copy)
-                    return v30 .. " . " .. v19.statusText;
-                end) else v20.presenceText, 
-                LayoutOrder = 3, 
-                Visible = v20.isLoading:map(function(v31) --[[ Line: 141 ]]
-                    return not v31;
-                end)
-            })
-        }), 
-        ChildrenContainer = if v19.children then v3.createElement(v4.View, {
-            tag = "auto-y row align-x-right align-y-center", 
-            LayoutOrder = 3, 
-            selection = if l_FFlagEnableAppChatFocusableFixes_0 then {
-                Selectable = false
-            } else nil, 
-            stateLayer = {
-                affordance = v4.Enums.StateLayerAffordance.None
-            }, 
-            onActivated = v23
-        }, v19.children) else nil
-    });
-end);
+local AppChat = script:FindFirstAncestor("AppChat")
+local AppChatParent = AppChat.Parent
+local Cryo = require(AppChatParent.Cryo)
+local React = require(AppChatParent.React)
+local Foundation = require(AppChatParent.Foundation)
+local Text = require(AppChatParent.AppCommonLib).Text
+local useUserData = require(AppChat.Hooks.useUserData)
+local useTokens = Foundation.Hooks.useTokens
+local FFlagEnableAppChatFocusableFixes = require(AppChatParent.SharedFlags).FFlagEnableAppChatFocusableFixes
+local FFlagAppChatShowInvitedStatusInParticipantList = require(AppChat.Flags).FFlagAppChatShowInvitedStatusInParticipantList
+local FFlagEnableBlackbirdCheck = require(AppChatParent.SharedFlags).FFlagEnableBlackbirdCheck
+local useIsRobloxSubscriber = require(AppChatParent.UserProfiles).Hooks.useIsRobloxSubscriber
+local v13 = string.rep("W", 20)
+local t1 = {
+	showDivider = true
+}
+
+return React.memo(function(t2: {[any]: any}) --[[ ParticipantEntry ]] -- line: 36
+	-- upvalues: Cryo (copy), t1 (copy), useUserData (copy), useTokens (copy), useIsRobloxSubscriber (copy), FFlagEnableBlackbirdCheck (copy), React (copy), Text (copy), v13 (copy), Foundation (copy), FFlagAppChatShowInvitedStatusInParticipantList (copy), FFlagEnableAppChatFocusableFixes (copy)
+	local v16 = Cryo.Dictionary.union(t1, t2)
+	local v17 = useUserData(v16.userId)
+	local v18 = useTokens()
+	local v19 = useIsRobloxSubscriber(if not FFlagEnableBlackbirdCheck then nil else v16.userId)
+	local v20 = React.useCallback(function() -- line: 43
+		-- upvalues: v16 (copy)
+		if v16.onActivated then
+			v16.onActivated()
+		end
+	end, { v16.onActivated })
+	local v21 = React.useMemo(function() -- line: 49
+		-- upvalues: Text (copy), v13 (copy), v18 (copy)
+		local v23 = Text.GetTextBounds(v13, v18.Typography.TitleLarge.Font, v18.Typography.TitleLarge.FontSize, Vector2.zero)
+
+		return UDim2.fromOffset(v23.X, v23.Y)
+	end, {
+		v18.Typography.TitleLarge.Font,
+		v18.Typography.TitleLarge.FontSize
+	})
+	local v22 = React.useMemo(function() -- line: 59
+		-- upvalues: Text (copy), v18 (copy)
+		local v24 = Text.GetTextBounds("Roblox Studio", v18.Typography.CaptionMedium.Font, v18.Typography.CaptionMedium.FontSize, Vector2.zero)
+
+		return UDim2.fromOffset(v24.X, v24.Y)
+	end, {
+		v18.Typography.CaptionMedium.Font,
+		v18.Typography.CaptionMedium.FontSize
+	})
+
+	return React.createElement(Foundation.View, {
+		Name = "ParticipantEntryContainer",
+		tag = {
+			["row align-y-center gap-medium size-full padding-x-medium"] = true,
+			["stroke-thin stroke-muted"] = v16.showDivider
+		},
+		onActivated = if not v16.onActivated then nil else v20
+	}, {
+		Avatar = React.createElement(Foundation.Avatar, {
+			userId = v17.id,
+			userPresence = v17.presence,
+			size = Foundation.Enums.InputSize.Medium,
+			backgroundStyle = v18.Color.Shift.Shift_300,
+			LayoutOrder = 1
+		}),
+		UserInfo = React.createElement(Foundation.View, {
+			tag = "col fill auto-y clip",
+			LayoutOrder = 2
+		}, {
+			UserDataSkeleton = React.createElement(Foundation.Skeleton, {
+				Size = UDim2.new(v21.X, v21.Y + v22.Y),
+				Visible = v17.isLoading,
+				LayoutOrder = 1
+			}),
+			DisplayName = if not FFlagEnableBlackbirdCheck or not v19 then React.createElement(Foundation.Text, {
+				tag = "auto-xy text-title-large text-truncate-end content-emphasis",
+				Text = v17.combinedName,
+				LayoutOrder = 1,
+				Visible = v17.isLoading:map(function(p1) -- line: 118
+					return not p1
+				end)
+			}) else React.createElement(Foundation.View, {
+				tag = "row align-y-center gap-xxsmall auto-xy",
+				LayoutOrder = 1,
+				Visible = v17.isLoading:map(function(p2) -- line: 98
+					return not p2
+				end)
+			}, {
+				NameText = React.createElement(Foundation.Text, {
+					tag = "shrink auto-xy text-title-large text-truncate-end content-emphasis",
+					Text = v17.combinedName,
+					LayoutOrder = 1
+				}),
+				SubscriptionBadge = React.createElement(Foundation.Icon, {
+					LayoutOrder = 2,
+					name = Foundation.Enums.IconName.RobloxPlus,
+					size = Foundation.Enums.IconSize.Small,
+					style = v18.Color.Content.Emphasis
+				})
+			}),
+			PresenceText = React.createElement(Foundation.Text, {
+				tag = "auto-xy text-caption-medium text-truncate-end content-muted",
+				Text = if not FFlagAppChatShowInvitedStatusInParticipantList or not v16.statusText then v17.presenceText else v17.presenceText:map(function(s1: string) -- line: 126
+					-- upvalues: v16 (copy)
+					return s1 .. " . " .. v16.statusText
+				end),
+				LayoutOrder = 3,
+				Visible = v17.isLoading:map(function(p3) -- line: 131
+					return not p3
+				end)
+			})
+		}),
+		ChildrenContainer = if not v16.children then nil else React.createElement(Foundation.View, {
+			tag = "row align-x-right align-y-center auto-y",
+			LayoutOrder = 3,
+			selection = if not FFlagEnableAppChatFocusableFixes then nil else {
+				Selectable = false
+			},
+			stateLayer = {
+				affordance = Foundation.Enums.StateLayerAffordance.None
+			}
+		}, v16.children)
+	})
+end)

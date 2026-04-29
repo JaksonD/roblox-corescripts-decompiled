@@ -1,244 +1,271 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("DiscoveryMonolith");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_Parent_0.RoactRodux);
-local v4 = require(l_Parent_0.t);
-local l_RoactServices_0 = require(l_Parent_0.RoactServices).RoactServices;
-local l_withNavigation_0 = require(l_Parent_0.RoactNavigation).withNavigation;
-local v7 = require(l_Parent_0.GameTile);
-local l_sponsoredGamesRecordClick_0 = require(l_Parent_0.DiscoveryAnalytics).Requests.sponsoredGamesRecordClick;
-local l_AppExperienceActionRow_0 = v7.AppExperienceActionRow;
-local l_ApiFetchGameDetails_0 = require(l_Parent_0.GameDetailRodux).GameDetails.ApiFetchGameDetails;
-local l_ImpressionsTagUtility_0 = require(l_Parent_0.Impressions).ImpressionsTagUtility;
-local l_OpenGameDetails_0 = require(l_Parent_0.GameDetail).OpenGameDetails;
-local l_BigGameIconReducer_0 = require(l_Parent_0.GameIconRodux).BigGameIcons.BigGameIconReducer;
-local l_GameInfosReducer_0 = require(l_Parent_0.GameInfosRodux).GameInfosReducer;
-local v15 = require(l_Parent_0.DiscoveryTypes);
-local l_GameCollectionItemTypes_0 = v15.GameCollectionItemTypes;
-local l_RoactNetworking_0 = require(l_Parent_0.RoactServiceTags).RoactNetworking;
-local v18 = require(l_Parent_0.RoactAppExperiment);
-local l_AppUserLayers_0 = require(l_Parent_0.ExperimentLayers).AppUserLayers;
-local l_Modules_0 = l_script_FirstAncestor_0.Modules;
-local v21 = require(l_Modules_0.LuaApp.getRatingText);
-local v22 = require(l_Modules_0.LuaApp.Components.Games.AppFeaturedTile);
-local v23 = require(l_Modules_0.LuaApp.Components.Games.FeaturedContentPanel);
-local v24 = require(l_Modules_0.LuaApp.Components.Games.FeaturedStaticPanel);
-local v25 = require(l_Modules_0.LuaApp.Flags.GetFFlagShowCreatorNameOnEmphasisSearchTileIXP);
-local l_FFlagLuaAppUnifyPlayButtonTile_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppUnifyPlayButtonTile;
-local l_FFlagLuaAppTwoByOneTileTelemetryFix_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileTelemetryFix;
-local l_GAME_GRID_CHILD_PADDING_0 = v15.Constants.GAME_GRID_CHILD_PADDING;
-local v29 = v15.Constants.GAME_GRID_CHILD_PADDING * 2;
-local v30 = l_FFlagLuaAppUnifyPlayButtonTile_0 and 6 or nil;
-local v31 = v2.PureComponent:extend("AppFeaturedGameTileTwoByTwo");
-v31.validateProps = v4.strictInterface({
-    entry = v4.table, 
-    index = v4.optional(v4.number), 
-    layoutOrder = v4.optional(v4.number), 
-    reportGameDetailOpened = v4.optional(v4.callback), 
-    reportExperienceLaunched = v4.optional(v4.callback), 
-    size = v4.optional(v4.Vector2), 
-    position = v4.optional(v4.Vector2), 
-    source = v4.optional(v4.string), 
-    referralSource = v4.optional(v4.string), 
-    hasBackground = v4.optional(v4.boolean), 
-    hasActionRow = v4.optional(v4.boolean), 
-    isDynamic = v4.optional(v4.boolean), 
-    impressionsTag = v4.optional(v4.string), 
-    launchExperienceEventContext = v4.optional(v4.string), 
-    universeId = v4.optional(v4.string), 
-    name = v4.optional(v4.string), 
-    creatorName = v4.optional(v4.string), 
-    placeId = v4.optional(v4.string), 
-    totalUpVotes = v4.optional(v4.number), 
-    totalDownVotes = v4.optional(v4.number), 
-    gameDetail = v4.optional(v4.table), 
-    thumbnail = v4.optional(v4.table), 
-    openGameDetails = v4.callback, 
-    fetchGameDetails = v4.callback, 
-    navigation = v4.any, 
-    networking = v4.callback, 
-    shouldShowFeaturedTileCreatorName = v4.optional(v4.boolean)
-});
-v31.init = function(v32) --[[ Line: 83 ]] --[[ Name: init ]]
-    -- upvalues: v2 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), l_GameCollectionItemTypes_0 (copy), l_sponsoredGamesRecordClick_0 (copy), l_AppExperienceActionRow_0 (copy), l_FFlagLuaAppUnifyPlayButtonTile_0 (copy), v30 (copy), v21 (copy), v23 (copy), v24 (copy)
-    v32.isMounted = false;
-    v32.gameTileRef = v2.createRef();
-    v32.onActivated = function() --[[ Line: 88 ]]
-        -- upvalues: v32 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (ref), l_GameCollectionItemTypes_0 (ref), l_sponsoredGamesRecordClick_0 (ref)
-        if not v32.isMounted then
-            return;
-        else
-            local l_universeId_0 = v32.props.universeId;
-            local v34 = {
-                source = v32.props.source, 
-                index = v32.props.index, 
-                onPeekViewClosed = v32.props.onPeekViewClosed, 
-                experienceJoinData = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then {
-                    tileType = v32.props.entry and v32.props.entry.tileType or l_GameCollectionItemTypes_0.GameCollectionItemType.EmphasisTile, 
-                    nativeAdData = v32.props.entry and v32.props.entry.adId
-                } else nil
-            };
-            v32.props.openGameDetails(l_universeId_0, v34, v32.props.navigation);
-            local l_index_0 = v32.props.index;
-            local l_reportGameDetailOpened_0 = v32.props.reportGameDetailOpened;
-            if l_index_0 and l_reportGameDetailOpened_0 then
-                l_reportGameDetailOpened_0(l_index_0);
-            end;
-            local l_networking_0 = v32.props.networking;
-            local l_entry_0 = v32.props.entry;
-            if l_entry_0.isSponsored then
-                l_sponsoredGamesRecordClick_0(l_networking_0, l_entry_0.adId);
-            end;
-            return;
-        end;
-    end;
-    v32.renderActionRow = function() --[[ Line: 125 ]]
-        -- upvalues: v2 (ref), l_AppExperienceActionRow_0 (ref), v32 (copy), l_FFlagLuaAppUnifyPlayButtonTile_0 (ref), v30 (ref)
-        return v2.createElement(l_AppExperienceActionRow_0, {
-            universeId = v32.props.universeId, 
-            referralSource = v32.props.referralSource, 
-            launchSource = "FeaturedSearchTile", 
-            reportExperienceLaunched = v32.props.reportExperienceLaunched, 
-            openGameDetails = v32.onActivated, 
-            entry = v32.props.entry, 
-            launchExperienceEventContext = v32.props.launchExperienceEventContext, 
-            showButtonText = true, 
-            width = if l_FFlagLuaAppUnifyPlayButtonTile_0 then UDim.new(1, -2 * v30) else nil, 
-            horizontalPadding = if l_FFlagLuaAppUnifyPlayButtonTile_0 then v30 else nil, 
-            verticalPadding = if l_FFlagLuaAppUnifyPlayButtonTile_0 then v30 else nil, 
-            isUnifiedGameTileEnabled = l_FFlagLuaAppUnifyPlayButtonTile_0 and true or nil
-        });
-    end;
-    v32.renderBottomPanel = function() --[[ Line: 142 ]]
-        -- upvalues: v32 (copy), v21 (ref), v2 (ref), v23 (ref), v24 (ref)
-        local l_entry_1 = v32.props.entry;
-        local l_name_0 = v32.props.name;
-        local l_totalUpVotes_0 = v32.props.totalUpVotes;
-        local l_totalDownVotes_0 = v32.props.totalDownVotes;
-        local l_gameDetail_0 = v32.props.gameDetail;
-        local v44 = l_gameDetail_0 and l_gameDetail_0.creator and l_gameDetail_0.creator.hasVerifiedBadge;
-        local v45 = l_gameDetail_0 and l_gameDetail_0.creator and l_gameDetail_0.creator.id;
-        local v46 = l_gameDetail_0 and l_gameDetail_0.description or "";
-        local l_shouldShowFeaturedTileCreatorName_0 = v32.props.shouldShowFeaturedTileCreatorName;
-        local l_isDynamic_0 = v32.props.isDynamic;
-        local v49 = if l_gameDetail_0 then l_gameDetail_0.licenseDescription else nil;
-        local v50 = if l_gameDetail_0 then l_gameDetail_0.localizedFiatPrice else nil;
-        local v51 = {
-            hasBackground = v32.props.hasBackground, 
-            padding = 8, 
-            title = l_name_0, 
-            creatorName = if l_shouldShowFeaturedTileCreatorName_0 then v32.props.creatorName else nil, 
-            creatorVerified = v44, 
-            creatorId = v45, 
-            description = v46, 
-            licenseDescription = v49, 
-            paidAccessDescription = v50, 
-            footerData = {
-                rating = v21(l_totalUpVotes_0, l_totalDownVotes_0), 
-                playingCount = l_entry_1.playerCount
-            }
-        };
-        if l_isDynamic_0 then
-            return v2.createElement(v23, v51);
-        else
-            return v2.createElement(v24, v51);
-        end;
-    end;
-end;
-v31.didMount = function(v52) --[[ Line: 182 ]] --[[ Name: didMount ]]
-    -- upvalues: l_ImpressionsTagUtility_0 (copy)
-    v52.isMounted = true;
-    l_ImpressionsTagUtility_0.AddTag(v52.gameTileRef, v52.props.impressionsTag, v52.props.index);
-    local l_networking_1 = v52.props.networking;
-    local l_universeId_1 = v52.props.universeId;
-    v52.props.fetchGameDetails(l_networking_1, l_universeId_1);
-end;
-v31.willUnmount = function(v55) --[[ Line: 192 ]] --[[ Name: willUnmount ]]
-    -- upvalues: l_ImpressionsTagUtility_0 (copy)
-    v55.isMounted = false;
-    l_ImpressionsTagUtility_0.RemoveTag(v55.gameTileRef, v55.props.impressionsTag, v55.props.index);
-end;
-v31.didUpdate = function(v56, v57) --[[ Line: 197 ]] --[[ Name: didUpdate ]]
-    -- upvalues: l_ImpressionsTagUtility_0 (copy)
-    if v57.impressionsTag ~= v56.props.impressionsTag or v57.index ~= v56.props.index then
-        l_ImpressionsTagUtility_0.RemoveTag(v56.gameTileRef, v57.impressionsTag, v57.index);
-        l_ImpressionsTagUtility_0.AddTag(v56.gameTileRef, v56.props.impressionsTag, v56.props.index);
-    end;
-end;
-v31.render = function(v58) --[[ Line: 204 ]] --[[ Name: render ]]
-    -- upvalues: l_GAME_GRID_CHILD_PADDING_0 (copy), v29 (copy), v2 (copy), v22 (copy)
-    local l_layoutOrder_0 = v58.props.layoutOrder;
-    local l_size_0 = v58.props.size;
-    local l_position_0 = v58.props.position;
-    local l_thumbnail_0 = v58.props.thumbnail;
-    l_thumbnail_0 = l_thumbnail_0 and l_thumbnail_0.url;
-    local v63 = if l_size_0 then l_size_0.X else nil;
-    local v64 = if l_size_0 then l_size_0.Y else nil;
-    local v65 = if l_size_0 then v63 * 2 + l_GAME_GRID_CHILD_PADDING_0 else nil;
-    local v66 = if l_size_0 then v64 * 2 + v29 else nil;
-    local l_hasBackground_0 = v58.props.hasBackground;
-    local l_hasActionRow_0 = v58.props.hasActionRow;
-    local v69 = v2.createElement(v22, {
-        hasBackground = l_hasBackground_0, 
-        hasOutline = l_hasBackground_0, 
-        thumbnail = l_thumbnail_0, 
-        renderActionRow = if l_hasActionRow_0 then v58.renderActionRow else nil, 
-        renderBottomPanel = v58.renderBottomPanel, 
-        onActivated = v58.onActivated
-    });
-    return v2.createElement("Frame", {
-        Position = if l_size_0 and l_position_0 then UDim2.fromOffset(l_position_0.X, l_position_0.Y) else nil, 
-        Size = if l_size_0 then UDim2.new(0, v63, 0, v64) else UDim2.new(1, 0, 1, 0), 
-        BackgroundTransparency = 1, 
-        LayoutOrder = l_layoutOrder_0, 
-        ref = v58.gameTileRef
-    }, {
-        FeaturedTile = if l_size_0 then v2.createElement("Frame", {
-            Size = UDim2.new(0, v65, 0, v66), 
-            Position = UDim2.new(0, 0, 0, -v64 - v29), 
-            BackgroundTransparency = 1
-        }, {
-            Tile = v69
-        }) else v69
-    });
-end;
-v31 = l_withNavigation_0((v3.connect(function(v70, v71) --[[ Line: 250 ]]
-    -- upvalues: l_GameInfosReducer_0 (copy), l_BigGameIconReducer_0 (copy)
-    local l_universeId_2 = v71.entry.universeId;
-    local v73 = v70.Personalization[l_GameInfosReducer_0.key][l_universeId_2];
-    return {
-        universeId = l_universeId_2, 
-        name = v73.name, 
-        creatorName = v73.creatorName, 
-        placeId = v73.placeId, 
-        totalUpVotes = v73.totalUpVotes, 
-        totalDownVotes = v73.totalDownVotes, 
-        gameDetail = v70.GameDetails[l_universeId_2], 
-        thumbnail = v70[l_BigGameIconReducer_0.key][l_universeId_2]
-    };
-end, function(v74) --[[ Line: 263 ]]
-    -- upvalues: l_OpenGameDetails_0 (copy), l_ApiFetchGameDetails_0 (copy)
-    return {
-        openGameDetails = function(v75, v76, v77) --[[ Line: 265 ]] --[[ Name: openGameDetails ]]
-            -- upvalues: v74 (copy), l_OpenGameDetails_0 (ref)
-            v74(l_OpenGameDetails_0(v75, v77, v76));
-        end, 
-        fetchGameDetails = function(v78, v79) --[[ Line: 268 ]] --[[ Name: fetchGameDetails ]]
-            -- upvalues: v74 (copy), l_ApiFetchGameDetails_0 (ref)
-            v74(l_ApiFetchGameDetails_0.Fetch(v78, {
-                v79
-            }));
-        end
-    };
-end)(v31)));
-v31 = l_RoactServices_0.connect({
-    networking = l_RoactNetworking_0
-})(v31);
-return (v18.connectUserLayer({
-    v25() and l_AppUserLayers_0.PlayerAppSearchResultsPageUXLayer or nil
-}, function(v80, _) --[[ Line: 282 ]]
-    -- upvalues: l_AppUserLayers_0 (copy)
-    return {
-        shouldShowFeaturedTileCreatorName = (v80[l_AppUserLayers_0.PlayerAppSearchResultsPageUXLayer] or {}).ShouldShowFeaturedTileCreatorName == true
-    };
-end)(v31));
+local DiscoveryMonolith = script:FindFirstAncestor("DiscoveryMonolith")
+local DiscoveryMonolithParent = DiscoveryMonolith.Parent
+local React = require(DiscoveryMonolithParent.React)
+local RoactRodux = require(DiscoveryMonolithParent.RoactRodux)
+local t = require(DiscoveryMonolithParent.t)
+local RoactServices = require(DiscoveryMonolithParent.RoactServices).RoactServices
+local withNavigation = require(DiscoveryMonolithParent.RoactNavigation).withNavigation
+local GameTile = require(DiscoveryMonolithParent.GameTile)
+local GameTileThumbnailBadges = GameTile.GameTileThumbnailBadges
+local sponsoredGamesRecordClick = require(DiscoveryMonolithParent.DiscoveryAnalytics).Requests.sponsoredGamesRecordClick
+local AppExperienceActionRow = GameTile.AppExperienceActionRow
+local getTileBadgeByPositionConfigFromEntry = GameTile.getTileBadgeByPositionConfigFromEntry
+local ApiFetchGameDetails = require(DiscoveryMonolithParent.GameDetailRodux).GameDetails.ApiFetchGameDetails
+local ImpressionsTagUtility = require(DiscoveryMonolithParent.Impressions).ImpressionsTagUtility
+local OpenGameDetails = require(DiscoveryMonolithParent.GameDetail).OpenGameDetails
+local BigGameIconReducer = require(DiscoveryMonolithParent.GameIconRodux).BigGameIcons.BigGameIconReducer
+local GameInfosReducer = require(DiscoveryMonolithParent.GameInfosRodux).GameInfosReducer
+local DiscoveryTypes = require(DiscoveryMonolithParent.DiscoveryTypes)
+local GameCollectionItemTypes = DiscoveryTypes.GameCollectionItemTypes
+local RoactNetworking = require(DiscoveryMonolithParent.RoactServiceTags).RoactNetworking
+local RoactAppExperiment = require(DiscoveryMonolithParent.RoactAppExperiment)
+local AppUserLayers = require(DiscoveryMonolithParent.ExperimentLayers).AppUserLayers
+local Modules = DiscoveryMonolith.Modules
+local getRatingText = require(Modules.LuaApp.getRatingText)
+local AppFeaturedTile = require(Modules.LuaApp.Components.Games.AppFeaturedTile)
+local FeaturedContentPanel = require(Modules.LuaApp.Components.Games.FeaturedContentPanel)
+local FeaturedStaticPanel = require(Modules.LuaApp.Components.Games.FeaturedStaticPanel)
+local GetFFlagShowCreatorNameOnEmphasisSearchTileIXP = require(Modules.LuaApp.Flags.GetFFlagShowCreatorNameOnEmphasisSearchTileIXP)
+local SharedFlags = require(DiscoveryMonolithParent.SharedFlags)
+local FFlagLuaAppUnifyPlayButtonTile = SharedFlags.FFlagLuaAppUnifyPlayButtonTile
+local FFlagLuaAppTwoByOneTileTelemetryFix = SharedFlags.FFlagLuaAppTwoByOneTileTelemetryFix
+local FFlagLuaAppGameTileLockedBadge = SharedFlags.FFlagLuaAppGameTileLockedBadge
+local GAME_GRID_CHILD_PADDING = DiscoveryTypes.Constants.GAME_GRID_CHILD_PADDING
+local v34 = DiscoveryTypes.Constants.GAME_GRID_CHILD_PADDING * 2
+local v35 = if not FFlagLuaAppUnifyPlayButtonTile then nil else 6
+local v36 = React.PureComponent:extend("AppFeaturedGameTileTwoByTwo")
+
+v36.validateProps = t.strictInterface({
+	entry = t.table,
+	index = t.optional(t.number),
+	layoutOrder = t.optional(t.number),
+	reportGameDetailOpened = t.optional(t.callback),
+	reportExperienceLaunched = t.optional(t.callback),
+	size = t.optional(t.Vector2),
+	position = t.optional(t.Vector2),
+	source = t.optional(t.string),
+	referralSource = t.optional(t.string),
+	hasBackground = t.optional(t.boolean),
+	hasActionRow = t.optional(t.boolean),
+	isDynamic = t.optional(t.boolean),
+	impressionsTag = t.optional(t.string),
+	launchExperienceEventContext = t.optional(t.string),
+	universeId = t.optional(t.string),
+	name = t.optional(t.string),
+	creatorName = t.optional(t.string),
+	placeId = t.optional(t.string),
+	totalUpVotes = t.optional(t.number),
+	totalDownVotes = t.optional(t.number),
+	gameDetail = t.optional(t.table),
+	thumbnail = t.optional(t.table),
+	openGameDetails = t.callback,
+	fetchGameDetails = t.callback,
+	navigation = t.any,
+	networking = t.callback,
+	shouldShowFeaturedTileCreatorName = t.optional(t.boolean)
+})
+
+function v36.init(p1) -- line: 87
+	-- upvalues: React (copy), FFlagLuaAppTwoByOneTileTelemetryFix (copy), GameCollectionItemTypes (copy), sponsoredGamesRecordClick (copy), AppExperienceActionRow (copy), FFlagLuaAppUnifyPlayButtonTile (copy), v35 (copy), getRatingText (copy), FeaturedContentPanel (copy), FeaturedStaticPanel (copy)
+	p1.isMounted = false
+	p1.gameTileRef = React.createRef()
+
+	function p1.onActivated() -- line: 92
+		-- upvalues: p1 (copy), FFlagLuaAppTwoByOneTileTelemetryFix (copy), GameCollectionItemTypes (copy), sponsoredGamesRecordClick (copy)
+		if not p1.isMounted then
+			return
+		end
+
+		local universeId = p1.props.universeId
+		local t1 = {
+			source = p1.props.source,
+			index = p1.props.index,
+			onPeekViewClosed = p1.props.onPeekViewClosed,
+			experienceJoinData = if not FFlagLuaAppTwoByOneTileTelemetryFix then nil else {
+				tileType = p1.props.entry and p1.props.entry.tileType or GameCollectionItemTypes.GameCollectionItemType.EmphasisTile,
+				nativeAdData = p1.props.entry and p1.props.entry.adId
+			}
+		}
+
+		p1.props.openGameDetails(universeId, t1, p1.props.navigation)
+
+		local index = p1.props.index
+		local reportGameDetailOpened = p1.props.reportGameDetailOpened
+
+		if index and reportGameDetailOpened then
+			reportGameDetailOpened(index)
+		end
+
+		local networking = p1.props.networking
+		local entry = p1.props.entry
+
+		if entry.isSponsored then
+			sponsoredGamesRecordClick(networking, entry.adId)
+		end
+	end
+	function p1.renderActionRow() -- line: 129
+		-- upvalues: React (copy), AppExperienceActionRow (copy), p1 (copy), FFlagLuaAppUnifyPlayButtonTile (copy), v35 (copy)
+		return React.createElement(AppExperienceActionRow, {
+			universeId = p1.props.universeId,
+			referralSource = p1.props.referralSource,
+			launchSource = "FeaturedSearchTile",
+			reportExperienceLaunched = p1.props.reportExperienceLaunched,
+			openGameDetails = p1.onActivated,
+			entry = p1.props.entry,
+			launchExperienceEventContext = p1.props.launchExperienceEventContext,
+			showButtonText = true,
+			width = if not FFlagLuaAppUnifyPlayButtonTile then nil else UDim.new(1, -2 * v35),
+			horizontalPadding = if not FFlagLuaAppUnifyPlayButtonTile then nil else v35,
+			verticalPadding = if not FFlagLuaAppUnifyPlayButtonTile then nil else v35,
+			isUnifiedGameTileEnabled = not not FFlagLuaAppUnifyPlayButtonTile or nil
+		})
+	end
+	function p1.renderBottomPanel() -- line: 146
+		-- upvalues: p1 (copy), getRatingText (copy), React (copy), FeaturedContentPanel (copy), FeaturedStaticPanel (copy)
+		local entry = p1.props.entry
+		local name = p1.props.name
+		local totalUpVotes = p1.props.totalUpVotes
+		local totalDownVotes = p1.props.totalDownVotes
+		local gameDetail = p1.props.gameDetail
+		local v79 = gameDetail and (gameDetail.creator and gameDetail.creator.hasVerifiedBadge)
+		local v80 = gameDetail and (gameDetail.creator and gameDetail.creator.id)
+		local v81 = gameDetail and gameDetail.description or ""
+		local shouldShowFeaturedTileCreatorName = p1.props.shouldShowFeaturedTileCreatorName
+		local isDynamic = p1.props.isDynamic
+		local v84 = if not gameDetail then nil else gameDetail.licenseDescription
+		local v85 = if not gameDetail then nil else gameDetail.localizedFiatPrice
+		local t2 = {
+			hasBackground = p1.props.hasBackground,
+			padding = 8,
+			title = name,
+			creatorName = if not shouldShowFeaturedTileCreatorName then nil else p1.props.creatorName,
+			creatorVerified = v79,
+			creatorId = v80,
+			description = v81,
+			licenseDescription = v84,
+			paidAccessDescription = v85,
+			footerData = {
+				rating = getRatingText(totalUpVotes, totalDownVotes),
+				playingCount = entry.playerCount
+			}
+		}
+
+		if isDynamic then
+			return React.createElement(FeaturedContentPanel, t2)
+		end
+
+		return React.createElement(FeaturedStaticPanel, t2)
+	end
+end
+function v36.didMount(p2) -- line: 186
+	-- upvalues: ImpressionsTagUtility (copy)
+	p2.isMounted = true
+	ImpressionsTagUtility.AddTag(p2.gameTileRef, p2.props.impressionsTag, p2.props.index)
+
+	local networking = p2.props.networking
+	local universeId = p2.props.universeId
+
+	p2.props.fetchGameDetails(networking, universeId)
+end
+function v36.willUnmount(p3) -- line: 196
+	-- upvalues: ImpressionsTagUtility (copy)
+	p3.isMounted = false
+	ImpressionsTagUtility.RemoveTag(p3.gameTileRef, p3.props.impressionsTag, p3.props.index)
+end
+function v36.didUpdate(p4, p5) -- line: 201
+	-- upvalues: ImpressionsTagUtility (copy)
+	if p5.impressionsTag ~= p4.props.impressionsTag or p5.index ~= p4.props.index then
+		ImpressionsTagUtility.RemoveTag(p4.gameTileRef, p5.impressionsTag, p5.index)
+		ImpressionsTagUtility.AddTag(p4.gameTileRef, p4.props.impressionsTag, p4.props.index)
+	end
+end
+function v36.render(p6) -- line: 208
+	-- upvalues: GAME_GRID_CHILD_PADDING (copy), v34 (copy), FFlagLuaAppGameTileLockedBadge (copy), getTileBadgeByPositionConfigFromEntry (copy), React (copy), GameTileThumbnailBadges (copy), AppFeaturedTile (copy)
+	local layoutOrder = p6.props.layoutOrder
+	local size = p6.props.size
+	local position = p6.props.position
+	local thumbnail = p6.props.thumbnail
+	local v51 = thumbnail and thumbnail.url
+	local v52 = if not size then nil else size.X
+	local v53 = if not size then nil else size.Y
+	local v54 = if not size then nil else v52 * 2 + GAME_GRID_CHILD_PADDING
+	local v55 = if not size then nil else v53 * 2 + v34
+	local hasBackground = p6.props.hasBackground
+	local hasActionRow = p6.props.hasActionRow
+	local v58 = nil
+
+	if FFlagLuaAppGameTileLockedBadge then
+		local v59 = getTileBadgeByPositionConfigFromEntry(p6.props.entry)
+
+		if v59 then
+			v58 = React.createElement(GameTileThumbnailBadges, {
+				tileBadgesByPosition = v59
+			})
+		end
+	end
+
+	local v60 = React.createElement(AppFeaturedTile, {
+		hasBackground = hasBackground,
+		hasOutline = hasBackground,
+		thumbnail = v51,
+		thumbnailOverlay = if not FFlagLuaAppGameTileLockedBadge then nil else v58,
+		renderActionRow = if not hasActionRow then nil else p6.renderActionRow,
+		renderBottomPanel = p6.renderBottomPanel,
+		onActivated = p6.onActivated
+	})
+
+	return React.createElement("Frame", {
+		Position = if not size or not position then nil else UDim2.fromOffset(position.X, position.Y),
+		Size = if not size then UDim2.new(1, 0, 1, 0) else UDim2.new(0, v52, 0, v53),
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		ref = p6.gameTileRef
+	}, {
+		FeaturedTile = if not size then v60 else React.createElement("Frame", {
+			Size = UDim2.new(0, v54, 0, v55),
+			Position = UDim2.new(0, 0, 0, -v53 - v34),
+			BackgroundTransparency = 1
+		}, {
+			Tile = v60
+		})
+	})
+end
+
+local v37 = withNavigation((RoactRodux.connect(function(p7, p8) -- line: 266
+	-- upvalues: GameInfosReducer (copy), BigGameIconReducer (copy)
+	local universeId = p8.entry.universeId
+	local v64 = p7.Personalization[GameInfosReducer.key][universeId]
+
+	return {
+		universeId = universeId,
+		name = v64.name,
+		creatorName = v64.creatorName,
+		placeId = v64.placeId,
+		totalUpVotes = v64.totalUpVotes,
+		totalDownVotes = v64.totalDownVotes,
+		gameDetail = p7.GameDetails[universeId],
+		thumbnail = p7[BigGameIconReducer.key][universeId]
+	}
+end, function(p9) -- line: 279
+	-- upvalues: OpenGameDetails (copy), ApiFetchGameDetails (copy)
+	return {
+		openGameDetails = function(p10, p11, p12) --[[ openGameDetails ]] -- line: 281
+			-- upvalues: p9 (copy), OpenGameDetails (copy)
+			p9(OpenGameDetails(p10, p12, p11))
+		end,
+		fetchGameDetails = function(p13, p14) --[[ fetchGameDetails ]] -- line: 284
+			-- upvalues: p9 (copy), ApiFetchGameDetails (copy)
+			p9(ApiFetchGameDetails.Fetch(p13, { p14 }))
+		end
+	}
+end)(v36)))
+local v38 = RoactServices.connect({
+	networking = RoactNetworking
+})(v37)
+
+return (RoactAppExperiment.connectUserLayer({ GetFFlagShowCreatorNameOnEmphasisSearchTileIXP() and AppUserLayers.PlayerAppSearchResultsPageUXLayer or nil }, function(p15, _) -- line: 298
+	-- upvalues: AppUserLayers (copy)
+	return {
+		shouldShowFeaturedTileCreatorName = (p15[AppUserLayers.PlayerAppSearchResultsPageUXLayer] or {}).ShouldShowFeaturedTileCreatorName == true
+	}
+end)(v38))

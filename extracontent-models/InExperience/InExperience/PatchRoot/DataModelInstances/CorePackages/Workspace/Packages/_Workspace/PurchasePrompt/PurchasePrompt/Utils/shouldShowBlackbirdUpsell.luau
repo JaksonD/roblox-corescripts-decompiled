@@ -1,42 +1,74 @@
-local l_Parent_0 = script:FindFirstAncestor("PurchasePrompt").Parent;
-local v1 = require(l_Parent_0.IAPExperience);
-local l_getAppFeaturePolicies_0 = require(l_Parent_0.UniversalAppPolicy).getAppFeaturePolicies;
-local l_DiscountType_0 = v1.DiscountType;
-local l_isRequestTypeHiddenFromBlackbirdUpsell_0 = require(script.Parent.Parent.Utils.BlackbirdUpsellRequestTypeGating).isRequestTypeHiddenFromBlackbirdUpsell;
-local v5 = require(script.Parent.BlackbirdUpsellImpressionTracker);
-local l_FFlagEnableBlackbirdUpsellImpressionGating_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdUpsellImpressionGating;
-local v7 = game:DefineFastInt("FIntBlackbirdUpsellMinPriceForDiscountInclusive", 10);
-local v8 = game:DefineFastInt("FIntBlackbirdUpsellMaxPriceForDiscountInclusive", 1000000);
-return function(v9, v10, v11) --[[ Line: 25 ]] --[[ Name: shouldShowBlackbirdUpsell ]]
-    -- upvalues: l_getAppFeaturePolicies_0 (copy), l_isRequestTypeHiddenFromBlackbirdUpsell_0 (copy), v8 (copy), v7 (copy), l_DiscountType_0 (copy), l_FFlagEnableBlackbirdUpsellImpressionGating_0 (copy), v5 (copy)
-    if v11 then
-        return false;
-    elseif l_getAppFeaturePolicies_0().getDisableBlackbirdEntrypoints() then
-        return false;
-    elseif v10 and l_isRequestTypeHiddenFromBlackbirdUpsell_0(v10) then
-        return false;
-    else
-        if v9 then
-            local l_basePriceInRobux_0 = v9.basePriceInRobux;
-            local l_v8_0 = v8;
-            if l_basePriceInRobux_0 <= v7 or l_v8_0 ~= 0 and l_v8_0 <= l_basePriceInRobux_0 then
-                return false;
-            end;
-        end;
-        if v9 then
-            local l_discounts_0 = v9.discounts;
-            if l_discounts_0 then
-                for _, v16 in l_discounts_0 do
-                    if v16.type == l_DiscountType_0.BlackbirdSubscription or v16.type == l_DiscountType_0.RobloxPlusSubscription then
-                        return false;
-                    end;
-                end;
-            end;
-        end;
-        if l_FFlagEnableBlackbirdUpsellImpressionGating_0 and v5.hasReachedMaxImpressions() then
-            return false;
-        else
-            return true;
-        end;
-    end;
-end;
+local PurchasePrompt = script:FindFirstAncestor("PurchasePrompt")
+local PurchasePromptParent = PurchasePrompt.Parent
+local IAPExperience = require(PurchasePromptParent.IAPExperience)
+local getAppFeaturePolicies = require(PurchasePromptParent.UniversalAppPolicy).getAppFeaturePolicies
+local DiscountType = IAPExperience.DiscountType
+local isRequestTypeHiddenFromBlackbirdUpsell = require(script.Parent.Parent.Utils.BlackbirdUpsellRequestTypeGating).isRequestTypeHiddenFromBlackbirdUpsell
+local BlackbirdUpsellImpressionTracker = require(script.Parent.BlackbirdUpsellImpressionTracker)
+local SharedFlags = require(PurchasePromptParent.SharedFlags)
+
+require(PurchasePrompt.Flags.FFlagBlackbirdUpsellGateResaleAndTimedOption)
+
+local FFlagBlackbirdUpsellGateTimedOption = require(PurchasePrompt.Flags.FFlagBlackbirdUpsellGateTimedOption)
+local FFlagBlackbirdUpsellGateResale = require(PurchasePrompt.Flags.FFlagBlackbirdUpsellGateResale)
+local FFlagEnableBlackbirdUpsellImpressionGating = SharedFlags.FFlagEnableBlackbirdUpsellImpressionGating
+local FIntBlackbirdUpsellMinPriceForDiscountInclusive = SharedFlags.FIntBlackbirdUpsellMinPriceForDiscountInclusive
+local FIntBlackbirdUpsellMaxPriceForDiscountInclusive = SharedFlags.FIntBlackbirdUpsellMaxPriceForDiscountInclusive
+
+return function(p1, p2, b1: boolean, p3) --[[ shouldShowBlackbirdUpsell ]] -- line: 26
+	-- upvalues: FFlagBlackbirdUpsellGateTimedOption (copy), FFlagBlackbirdUpsellGateResale (copy), getAppFeaturePolicies (copy), isRequestTypeHiddenFromBlackbirdUpsell (copy), FIntBlackbirdUpsellMaxPriceForDiscountInclusive (copy), FIntBlackbirdUpsellMinPriceForDiscountInclusive (copy), DiscountType (copy), FFlagEnableBlackbirdUpsellImpressionGating (copy), BlackbirdUpsellImpressionTracker (copy)
+	if b1 then
+		return false
+	end
+
+	if FFlagBlackbirdUpsellGateTimedOption and p3 then
+		local timedOptionDays = p3.timedOptionDays
+
+		if timedOptionDays and timedOptionDays ~= 0 then
+			return false
+		end
+	end
+
+	if FFlagBlackbirdUpsellGateResale and p3 then
+		local collectibleItemInstanceId = p3.collectibleItemInstanceId
+
+		if collectibleItemInstanceId and collectibleItemInstanceId ~= "" then
+			return false
+		end
+	end
+
+	if getAppFeaturePolicies().getDisableBlackbirdEntrypoints() then
+		return false
+	end
+
+	if p2 and isRequestTypeHiddenFromBlackbirdUpsell(p2) then
+		return false
+	end
+
+	if p1 then
+		local basePriceInRobux = p1.basePriceInRobux
+		local v21 = FIntBlackbirdUpsellMaxPriceForDiscountInclusive
+
+		if basePriceInRobux <= FIntBlackbirdUpsellMinPriceForDiscountInclusive or v21 ~= 0 and v21 <= basePriceInRobux then
+			return false
+		end
+	end
+
+	if p1 then
+		local discounts = p1.discounts
+
+		if discounts then
+			for _, v24 in discounts do
+				if v24.type == DiscountType.BlackbirdSubscription or v24.type == DiscountType.RobloxPlusSubscription then
+					return false
+				end
+			end
+		end
+	end
+
+	if FFlagEnableBlackbirdUpsellImpressionGating and BlackbirdUpsellImpressionTracker.hasReachedMaxImpressions() then
+		return false
+	end
+
+	return true
+end

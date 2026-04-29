@@ -1,3 +1,4 @@
 return {
-    SelfUserProfileOpen = "SelfUserProfileOpen"
-};
+	SelfUserProfileOpen = "SelfUserProfileOpen",
+	HomepageLaunch = "HomepageLaunch"
+}

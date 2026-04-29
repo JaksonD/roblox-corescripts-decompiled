@@ -1,66 +1,100 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("DiscoveryMonolith");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.Result);
-local l_Modules_0 = l_script_FirstAncestor_0.Modules;
-local v4 = require(l_Modules_0.LuaApp.Flags.GetFFlagShowCreatorNameOnEmphasisSearchTileIXP);
-local l_FFlagLuaAppEnableCustomSpawnSearch_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableCustomSpawnSearch;
-local v6 = {
-    new = function() --[[ Line: 27 ]] --[[ Name: new ]]
-        return {};
-    end
-};
-v6.mock = function(v7, v8) --[[ Line: 33 ]] --[[ Name: mock ]]
-    -- upvalues: v6 (copy), l_FFlagLuaAppEnableCustomSpawnSearch_0 (copy)
-    local v9 = v6.new();
-    v9.name = "test name";
-    v9.universeId = v7 or "149757";
-    v9.placeId = v8 or "384314";
-    v9.isSponsored = false;
-    v9.isShowSponsoredLabel = v9.isSponsored;
-    v9.adId = nil;
-    v9.playerCount = 150;
-    v9.creatorName = "test name";
-    v9.creatorHasVerifiedBadge = false;
-    v9.topicId = "test_topic";
-    v9.placeIdOverride = l_FFlagLuaAppEnableCustomSpawnSearch_0 and "123" or nil;
-    v9.launchDataOverride = l_FFlagLuaAppEnableCustomSpawnSearch_0 and "test" or nil;
-    return v9;
-end;
-v6.fromJsonData = function(v10, v11) --[[ Line: 50 ]] --[[ Name: fromJsonData ]]
-    -- upvalues: v2 (copy), v6 (copy), v4 (copy), l_FFlagLuaAppEnableCustomSpawnSearch_0 (copy)
-    if v11 and type(v10.universeId) ~= "number" and type(v10.universeId) ~= "string" then
-        return v2.error("GameSearchEntry.fromJsonData expects universeId to be a number or a string for game contents");
-    elseif v11 and type(v10.placeId) ~= "number" and type(v10.placeId) ~= "string" then
-        return v2.error("GameSearchEntry.fromJsonData expects placeId to be a number or a string for game contents");
-    else
-        local v12 = v6.new();
-        v12.name = v10.name;
-        v12.topicId = v10.topicId;
-        if v11 then
-            v12.universeId = tostring(v10.universeId);
-            v12.placeId = tostring(v10.placeId);
-            v12.isSponsored = v10.isSponsored;
-            v12.isShowSponsoredLabel = nil;
-            if v10.isShowSponsoredLabel == nil then
-                v12.isShowSponsoredLabel = true;
-            else
-                v12.isShowSponsoredLabel = v10.isShowSponsoredLabel;
-            end;
-            v12.adId = v10.nativeAdData;
-            v12.playerCount = v10.playerCount;
-            if v4() then
-                v12.creatorName = v10.creatorName;
-                v12.creatorHasVerifiedBadge = v10.creatorHasVerifiedBadge;
-            end;
-            if l_FFlagLuaAppEnableCustomSpawnSearch_0 then
-                local l_contentMetadata_0 = v10.contentMetadata;
-                if l_contentMetadata_0 then
-                    v12.placeIdOverride = if l_contentMetadata_0.PlaceIdOverride then tostring(l_contentMetadata_0.PlaceIdOverride) else nil;
-                    v12.launchDataOverride = l_contentMetadata_0.LaunchDataOverride;
-                end;
-            end;
-        end;
-        return v2.success(v12);
-    end;
-end;
-return v6;
+local DiscoveryMonolith = script:FindFirstAncestor("DiscoveryMonolith")
+local DiscoveryMonolithParent = DiscoveryMonolith.Parent
+local Result = require(DiscoveryMonolithParent.Result)
+local Modules = DiscoveryMonolith.Modules
+local GetFFlagShowCreatorNameOnEmphasisSearchTileIXP = require(Modules.LuaApp.Flags.GetFFlagShowCreatorNameOnEmphasisSearchTileIXP)
+local FFlagLuaAppEnableCustomSpawnSearch = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppEnableCustomSpawnSearch
+local FFlagLuaAppGameTileLockedBadge = require(DiscoveryMonolithParent.SharedFlags).FFlagLuaAppGameTileLockedBadge
+local t1 = {
+	new = function() --[[ new ]] -- line: 34
+		return {}
+	end
+}
+
+function t1.mock(s1: string?, s2: string?) -- line: 40
+	-- upvalues: t1 (copy), FFlagLuaAppEnableCustomSpawnSearch (copy)
+	local v11 = t1.new()
+
+	v11.name = "test name"
+	v11.universeId = s1 or "149757"
+	v11.placeId = s2 or "384314"
+	v11.isSponsored = false
+	v11.isShowSponsoredLabel = v11.isSponsored
+	v11.adId = nil
+	v11.playerCount = 150
+	v11.creatorName = "test name"
+	v11.creatorHasVerifiedBadge = false
+	v11.topicId = "test_topic"
+	v11.placeIdOverride = if not FFlagLuaAppEnableCustomSpawnSearch then nil else "123"
+	v11.launchDataOverride = if not FFlagLuaAppEnableCustomSpawnSearch then nil else "test"
+	v11.badgePosition = nil
+	v11.badgeAnalyticsId = nil
+	v11.badgeType = nil
+	v11.badgeText = nil
+	v11.badgeIcon = nil
+	v11.badgeComponentType = nil
+
+	return v11
+end
+function t1.fromJsonData(p1, p2) -- line: 63
+	-- upvalues: Result (copy), t1 (copy), GetFFlagShowCreatorNameOnEmphasisSearchTileIXP (copy), FFlagLuaAppEnableCustomSpawnSearch (copy), FFlagLuaAppGameTileLockedBadge (copy)
+	if p2 and (type(p1.universeId) ~= "number" and type(p1.universeId) ~= "string") then
+		return Result.error("GameSearchEntry.fromJsonData expects universeId to be a number or a string for game contents")
+	end
+
+	if p2 and type(p1.placeId) ~= "number" and type(p1.placeId) ~= "string" then
+		return Result.error("GameSearchEntry.fromJsonData expects placeId to be a number or a string for game contents")
+	end
+
+	local v14 = t1.new()
+
+	v14.name = p1.name
+	v14.topicId = p1.topicId
+
+	if p2 then
+		v14.universeId = tostring(p1.universeId)
+		v14.placeId = tostring(p1.placeId)
+		v14.isSponsored = p1.isSponsored
+		v14.isShowSponsoredLabel = nil
+
+		if p1.isShowSponsoredLabel == nil then
+			v14.isShowSponsoredLabel = true
+		else
+			v14.isShowSponsoredLabel = p1.isShowSponsoredLabel
+		end
+
+		v14.adId = p1.nativeAdData
+		v14.playerCount = p1.playerCount
+
+		if GetFFlagShowCreatorNameOnEmphasisSearchTileIXP() then
+			v14.creatorName = p1.creatorName
+			v14.creatorHasVerifiedBadge = p1.creatorHasVerifiedBadge
+		end
+
+		if FFlagLuaAppEnableCustomSpawnSearch then
+			local contentMetadata = p1.contentMetadata
+
+			if contentMetadata then
+				v14.placeIdOverride = if not contentMetadata.PlaceIdOverride then nil else tostring(contentMetadata.PlaceIdOverride)
+				v14.launchDataOverride = contentMetadata.LaunchDataOverride
+			end
+		end
+
+		if FFlagLuaAppGameTileLockedBadge then
+			local contentMetadata = p1.contentMetadata
+
+			if contentMetadata then
+				v14.badgePosition = contentMetadata.badgePosition
+				v14.badgeAnalyticsId = contentMetadata.badgeAnalyticsId
+				v14.badgeType = contentMetadata.badgeType
+				v14.badgeText = contentMetadata.badgeText
+				v14.badgeIcon = contentMetadata.badgeIcon
+				v14.badgeComponentType = contentMetadata.badgeComponentType
+			end
+		end
+	end
+
+	return Result.success(v14)
+end
+
+return t1

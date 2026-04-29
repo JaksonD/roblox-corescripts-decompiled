@@ -1,69 +1,98 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AvatarExperienceCatalog");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_mutedError_0 = require(l_Parent_0.Loggers).mutedError;
-local v3 = require(l_script_FirstAncestor_0.State.Actions.PurchaseItemsSuccess);
-local v4 = require(l_Parent_0.AvatarExperienceAnalytics);
-local l_UnifiedSelectionListStore_0 = v4.Store.UnifiedSelectionListStore;
-local l_sendUnifiedEventsForMultiItemShopping_0 = v4.sendUnifiedEventsForMultiItemShopping;
-local l_UnifiedEventLogEnums_0 = v4.UnifiedEventLogEnums;
-local l_getUnifiedEventsForMIS_0 = v4.Utils.getUnifiedEventsForMIS;
-local l_CartIdService_0 = v4.Lib.CartIdService;
-local v10 = require(l_Parent_0.AvatarExperienceFlags);
-local l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 = v10.FFlagAXMISEnableMultiShoppingUnifiedEvents;
-local l_FFlagAXFixAvatarLooksSaveWithMakeupItems_0 = v10.FFlagAXFixAvatarLooksSaveWithMakeupItems;
-if l_FFlagAXMISEnableMultiShoppingUnifiedEvents_0 then
-    return function(v13, v14, v15, v16, v17, v18, v19, v20, _, v22, v23) --[[ Line: 19 ]]
-        -- upvalues: l_sendUnifiedEventsForMultiItemShopping_0 (copy), l_getUnifiedEventsForMIS_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_mutedError_0 (copy), l_CartIdService_0 (copy), l_UnifiedSelectionListStore_0 (copy), v3 (copy)
-        return function(v24, _) --[[ Line: 32 ]]
-            -- upvalues: v22 (copy), v23 (copy), l_sendUnifiedEventsForMultiItemShopping_0 (ref), l_getUnifiedEventsForMIS_0 (ref), v13 (copy), v19 (copy), l_UnifiedEventLogEnums_0 (ref), l_mutedError_0 (ref), l_CartIdService_0 (ref), l_UnifiedSelectionListStore_0 (ref), v17 (ref), v20 (copy), v3 (ref), v14 (copy), v15 (copy), v16 (copy), v18 (copy)
-            local v26 = v24:getState();
-            if not pcall(function() --[[ Line: 35 ]]
-                -- upvalues: v22 (ref), v26 (copy), v23 (ref), l_sendUnifiedEventsForMultiItemShopping_0 (ref), l_getUnifiedEventsForMIS_0 (ref), v13 (ref), v19 (ref), l_UnifiedEventLogEnums_0 (ref)
-                if v22 then
-                    v22.isOrganicLook = v26.AvatarExperience.AvatarScene.OutfitTryOn.LookAnalyticsInfo == nil;
-                end;
-                if v23 then
-                    v23.isOrganicLook = v26.AvatarExperience.AvatarScene.OutfitTryOn.MakeupLookAnalyticsInfo == nil;
-                end;
-                l_sendUnifiedEventsForMultiItemShopping_0(l_getUnifiedEventsForMIS_0(v13, v19, v22, v23, l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.PURCHASE_SUCCESS));
-            end) then
-                l_mutedError_0("Failed to send unified events for multi-item shopping purchase success");
-            end;
-            l_CartIdService_0.refreshCartId();
-            l_UnifiedSelectionListStore_0.clearSelectionList();
-            if v17 == nil then
-                local v27 = v20(v26, v19);
-                v17 = if v27 then v27.scales else nil;
-            end;
-            v24:dispatch(v3({
-                items = v13, 
-                equippableAssets = v14, 
-                replaceAllEquippedAssets = v15, 
-                bodyColor3s = v16, 
-                bodyScales = v17, 
-                bodyPartColorRangeIds = v18
-            }));
-        end;
-    end;
-else
-    return function(v28, v29, v30, v31, v32, v33, v34, v35, v36) --[[ Line: 87 ]]
-        -- upvalues: v3 (copy), l_FFlagAXFixAvatarLooksSaveWithMakeupItems_0 (copy)
-        return function(v37, _) --[[ Line: 98 ]]
-            -- upvalues: v32 (ref), v35 (copy), v34 (copy), v3 (ref), v28 (copy), v29 (copy), v30 (copy), l_FFlagAXFixAvatarLooksSaveWithMakeupItems_0 (ref), v36 (copy), v31 (copy), v33 (copy)
-            local v39 = v37:getState();
-            if v32 == nil then
-                local v40 = v35(v39, v34);
-                v32 = if v40 then v40.scales else nil;
-            end;
-            v37:dispatch(v3({
-                items = v28, 
-                equippableAssets = v29, 
-                replaceAllEquippedAssets = v30, 
-                shouldClearEquippedMakeup = if l_FFlagAXFixAvatarLooksSaveWithMakeupItems_0 then v36 else nil, 
-                bodyColor3s = v31, 
-                bodyScales = v32, 
-                bodyPartColorRangeIds = v33
-            }));
-        end;
-    end;
-end;
+local AvatarExperienceCatalog = script:FindFirstAncestor("AvatarExperienceCatalog")
+local AvatarExperienceCatalogParent = AvatarExperienceCatalog.Parent
+local mutedError = require(AvatarExperienceCatalogParent.Loggers).mutedError
+local PurchaseItemsSuccess = require(AvatarExperienceCatalog.State.Actions.PurchaseItemsSuccess)
+local AvatarExperienceAnalytics = require(AvatarExperienceCatalogParent.AvatarExperienceAnalytics)
+local AvatarExperienceNavigation = require(AvatarExperienceCatalogParent.AvatarExperienceNavigation)
+local UnifiedSelectionListStore = AvatarExperienceAnalytics.Store.UnifiedSelectionListStore
+local sendUnifiedEventsForMultiItemShopping = AvatarExperienceAnalytics.sendUnifiedEventsForMultiItemShopping
+local UnifiedEventLogEnums = AvatarExperienceAnalytics.UnifiedEventLogEnums
+local getUnifiedEventsForMIS = AvatarExperienceAnalytics.Utils.getUnifiedEventsForMIS
+local CartIdService = AvatarExperienceAnalytics.Lib.CartIdService
+local AvatarScreenProperties = AvatarExperienceNavigation.AvatarRoute.AvatarScreenProperties
+local AvatarExperienceFlags = require(AvatarExperienceCatalogParent.AvatarExperienceFlags)
+local FFlagAXMISEnableMultiShoppingUnifiedEvents = AvatarExperienceFlags.FFlagAXMISEnableMultiShoppingUnifiedEvents
+local FFlagAXFixAvatarLooksSaveWithMakeupItems = AvatarExperienceFlags.FFlagAXFixAvatarLooksSaveWithMakeupItems
+local FFlagAXMISSaveWearFix = AvatarExperienceFlags.FFlagAXMISSaveWearFix
+
+if FFlagAXMISEnableMultiShoppingUnifiedEvents then
+	return function(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12: ((...any) -> ...any)?) -- line: 22
+		-- upvalues: AvatarScreenProperties (copy), sendUnifiedEventsForMultiItemShopping (copy), getUnifiedEventsForMIS (copy), UnifiedEventLogEnums (copy), mutedError (copy), CartIdService (copy), UnifiedSelectionListStore (copy), FFlagAXMISSaveWearFix (copy), PurchaseItemsSuccess (copy)
+		return function(p13, _) -- line: 36
+			-- upvalues: AvatarScreenProperties (copy), p10 (copy), p11 (copy), sendUnifiedEventsForMultiItemShopping (copy), getUnifiedEventsForMIS (copy), p1 (copy), p7 (copy), UnifiedEventLogEnums (copy), mutedError (copy), CartIdService (copy), UnifiedSelectionListStore (copy), FFlagAXMISSaveWearFix (copy), p12 (copy), p5 (ref), p8 (copy), PurchaseItemsSuccess (copy), p2 (copy), p3 (copy), p9 (copy), p4 (copy), p6 (copy)
+			local v42 = p13:getState()
+			local v43 = AvatarScreenProperties[v42.Navigation and (v42.Navigation.currentRoute and v42.Navigation.currentRoute.routeName)]
+			local v44 = if not v43 or not v43.analyticsData then nil else v43.analyticsData.unifiedLoggingSurface
+
+			if not pcall(function() -- line: 47
+				-- upvalues: p10 (copy), v42 (copy), p11 (copy), sendUnifiedEventsForMultiItemShopping (copy), getUnifiedEventsForMIS (copy), p1 (copy), p7 (copy), UnifiedEventLogEnums (copy), v44 (copy)
+				if p10 then
+					p10.isOrganicLook = v42.AvatarExperience.AvatarScene.OutfitTryOn.LookAnalyticsInfo == nil
+				end
+
+				if p11 then
+					p11.isOrganicLook = v42.AvatarExperience.AvatarScene.OutfitTryOn.MakeupLookAnalyticsInfo == nil
+				end
+
+				sendUnifiedEventsForMultiItemShopping(getUnifiedEventsForMIS(p1, p7, p10, p11, UnifiedEventLogEnums.MarketplaceUnifiedAction.PURCHASE_SUCCESS), v44)
+			end) then
+				mutedError("Failed to send unified events for multi-item shopping purchase success")
+			end
+
+			CartIdService.refreshCartId()
+			UnifiedSelectionListStore.clearSelectionList()
+
+			local v45 = if not FFlagAXMISSaveWearFix or not p12 then nil else p12(v42, p7)
+			local t1 = {}
+
+			if FFlagAXMISSaveWearFix and v45 then
+				for _, v48 in v45:GetChildren() do
+					if v48:IsA("MakeupDescription") then
+						t1[tostring(v48.assetId)] = v48.order
+					end
+				end
+			end
+
+			if p5 == nil then
+				local v49 = p8(v42, p7)
+
+				p5 = if not v49 then nil else v49.scales
+			end
+
+			p13:dispatch(PurchaseItemsSuccess({
+				items = p1,
+				equippableAssets = p2,
+				replaceAllEquippedAssets = p3,
+				shouldClearEquippedMakeup = if not FFlagAXMISSaveWearFix then nil else p9,
+				bodyColor3s = p4,
+				bodyScales = p5,
+				bodyPartColorRangeIds = p6,
+				makeupAssetsOnHumanoid = if not FFlagAXMISSaveWearFix then nil else t1
+			}))
+		end
+	end
+end
+
+return function(p15, p16, p17, p18, p19, p20, p21, p22, p23) -- line: 118
+	-- upvalues: PurchaseItemsSuccess (copy), FFlagAXFixAvatarLooksSaveWithMakeupItems (copy)
+	return function(p24, _) -- line: 129
+		-- upvalues: p19 (ref), p22 (copy), p21 (copy), PurchaseItemsSuccess (copy), p15 (copy), p16 (copy), p17 (copy), FFlagAXFixAvatarLooksSaveWithMakeupItems (copy), p23 (copy), p18 (copy), p20 (copy)
+		local v52 = p24:getState()
+
+		if p19 == nil then
+			local v53 = p22(v52, p21)
+
+			p19 = if not v53 then nil else v53.scales
+		end
+
+		p24:dispatch(PurchaseItemsSuccess({
+			items = p15,
+			equippableAssets = p16,
+			replaceAllEquippedAssets = p17,
+			shouldClearEquippedMakeup = if not FFlagAXFixAvatarLooksSaveWithMakeupItems then nil else p23,
+			bodyColor3s = p18,
+			bodyScales = p19,
+			bodyPartColorRangeIds = p20
+		}))
+	end
+end

@@ -1,12 +1,14 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v2 = require(l_CorePackages_0.Packages.Rodux);
-local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortType);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SortAggregation);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.SalesTypeFilter);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.UnavailableItemFilter);
-local _ = require(l_Modules_0.AvatarExperience.Common.Enum.WearTimeFilter);
-return v2.makeActionCreator(script.Name, function(v9) --[[ Line: 28 ]]
-    return v9 or {};
-end);
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Rodux = require(CorePackages.Packages.Rodux)
+
+require(Modules.AvatarExperience.Common.Types)
+require(Modules.AvatarExperience.Common.Enum.SortType)
+require(Modules.AvatarExperience.Common.Enum.SortAggregation)
+require(Modules.AvatarExperience.Common.Enum.SalesTypeFilter)
+require(Modules.AvatarExperience.Common.Enum.UnavailableItemFilter)
+require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+
+return Rodux.makeActionCreator(script.Name, function(t1: {[any]: any}) -- line: 29
+	return t1 or {}
+end)

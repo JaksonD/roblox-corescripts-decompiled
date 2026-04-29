@@ -1,89 +1,90 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.Roact);
-local v3 = require(l_CorePackages_0.Packages.RoactRodux);
-local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
-local v5 = require(l_CorePackages_0.Packages.t);
-local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local v7 = require(l_CorePackages_0.Packages.UIBlox);
-local l_InteractiveAlert_0 = v7.App.Dialog.Alert.InteractiveAlert;
-local l_ButtonType_0 = v7.App.Button.Enum.ButtonType;
-local v10 = require(l_Modules_0.AvatarExperience.Catalog.Http.WebApi);
-local v11 = require(l_Modules_0.AvatarExperience.Common.Components.withOverlayFocusHandling);
-local v12 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withMappedNavigationParams);
-local v13 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils);
-local v14 = require(l_Modules_0.AvatarExperience.Flags.FFlagUseXBoxAvatarAbuseReportingApi);
-local v15 = v2.PureComponent:extend("CatalogReport");
-v15.validateProps = v5.strictInterface({
-    userId = v5.string, 
-    itemId = v5.string, 
-    itemCreatorId = v5.string, 
-    itemName = v5.string, 
-    itemDescription = v5.string, 
-    screenSize = v5.Vector2, 
-    defaultChildRef = v5.optional(v5.table), 
-    focusController = v5.optional(v5.table), 
-    navigation = v5.table, 
-    onOverlayClosed = v5.optional(v5.callback)
-});
-v15.init = function(v16) --[[ Line: 48 ]] --[[ Name: init ]]
-    -- upvalues: v14 (copy), v10 (copy), v13 (copy)
-    v16.sendReport = function() --[[ Line: 49 ]]
-        -- upvalues: v16 (copy), v14 (ref), v10 (ref)
-        local l_userId_0 = v16.props.userId;
-        local l_itemId_0 = v16.props.itemId;
-        local l_itemCreatorId_0 = v16.props.itemCreatorId;
-        local l_itemName_0 = v16.props.itemName;
-        local l_itemDescription_0 = v16.props.itemDescription;
-        if v14 then
-            v10.ReportItemV2(l_userId_0, l_itemId_0, l_itemCreatorId_0, l_itemName_0, l_itemDescription_0, "xbox-app", "xbox-catalog", "7", "Item reported from the Xbox App.");
-        else
-            v10.ReportItem("Asset", l_itemId_0, "7", "Item reported from the Xbox App.");
-        end;
-        v16.closePrompt();
-    end;
-    v16.closePrompt = function() --[[ Line: 74 ]]
-        -- upvalues: v13 (ref), v16 (copy)
-        v13.closeOverlay(v16.props.navigation);
-    end;
-end;
-v15.render = function(v22) --[[ Line: 79 ]] --[[ Name: render ]]
-    -- upvalues: l_withLocalization_0 (copy), v2 (copy), l_InteractiveAlert_0 (copy), l_ButtonType_0 (copy)
-    return l_withLocalization_0({
-        titleText = "Feature.Catalog.Label.ReportItem", 
-        messageText = "Feature.Catalog.Message.ReportCatalogItemPhrase", 
-        submitText = "Feature.Catalog.Action.Submit", 
-        cancelButtonText = "Feature.Catalog.Action.Cancel"
-    })(function(v23) --[[ Line: 85 ]]
-        -- upvalues: v2 (ref), l_InteractiveAlert_0 (ref), v22 (copy), l_ButtonType_0 (ref)
-        return v2.createElement(l_InteractiveAlert_0, {
-            title = v23.titleText, 
-            bodyText = v23.messageText, 
-            buttonStackInfo = {
-                buttons = {
-                    {
-                        props = {
-                            onActivated = v22.closePrompt, 
-                            text = v23.cancelButtonText
-                        }, 
-                        isDefaultChild = true
-                    }, 
-                    {
-                        buttonType = l_ButtonType_0.PrimarySystem, 
-                        props = {
-                            onActivated = v22.sendReport, 
-                            text = v23.submitText
-                        }
-                    }
-                }
-            }, 
-            screenSize = v22.props.screenSize, 
-            defaultChildRef = v22.props.defaultChildRef
-        });
-    end);
-end;
-return (v12((v11((v3.connect(function(v24, _) --[[ Line: 113 ]]
-    return {
-        screenSize = v24.ScreenSize
-    };
-end)(v15))))));
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
+local t = require(CorePackages.Packages.t)
+
+require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local WebApi = require(Modules.AvatarExperience.Catalog.Http.WebApi)
+local withOverlayFocusHandling = require(Modules.AvatarExperience.Common.Components.withOverlayFocusHandling)
+local withMappedNavigationParams = require(Modules.AvatarExperience.Common.Components.RoactNavigation.withMappedNavigationParams)
+local NavigationUtils = require(Modules.AvatarExperience.Common.Components.RoactNavigation.NavigationUtils)
+local v14 = Roact.PureComponent:extend("CatalogReport")
+
+v14.validateProps = t.strictInterface({
+	userId = t.string,
+	itemId = t.string,
+	itemCreatorId = t.string,
+	itemName = t.string,
+	itemDescription = t.string,
+	screenSize = t.Vector2,
+	defaultChildRef = t.optional(t.table),
+	focusController = t.optional(t.table),
+	navigation = t.table,
+	onOverlayClosed = t.optional(t.callback)
+})
+
+function v14.init(p1) -- line: 44
+	-- upvalues: WebApi (copy), NavigationUtils (copy)
+	function p1.sendReport() -- line: 45
+		-- upvalues: p1 (copy), WebApi (copy)
+		local userId = p1.props.userId
+		local itemId = p1.props.itemId
+		local itemCreatorId = p1.props.itemCreatorId
+		local itemName = p1.props.itemName
+		local itemDescription = p1.props.itemDescription
+
+		WebApi.ReportItemV2(userId, itemId, itemCreatorId, itemName, itemDescription, "xbox-app", "xbox-catalog", "7", "Item reported from the Xbox App.")
+		p1.closePrompt()
+	end
+	function p1.closePrompt() -- line: 66
+		-- upvalues: NavigationUtils (copy), p1 (copy)
+		NavigationUtils.closeOverlay(p1.props.navigation)
+	end
+end
+function v14.render(p2) -- line: 71
+	-- upvalues: withLocalization (copy), Roact (copy), InteractiveAlert (copy), ButtonType (copy)
+	return withLocalization({
+		titleText = "Feature.Catalog.Label.ReportItem",
+		messageText = "Feature.Catalog.Message.ReportCatalogItemPhrase",
+		submitText = "Feature.Catalog.Action.Submit",
+		cancelButtonText = "Feature.Catalog.Action.Cancel"
+	})(function(p3) -- line: 77
+		-- upvalues: Roact (copy), InteractiveAlert (copy), p2 (copy), ButtonType (copy)
+		return Roact.createElement(InteractiveAlert, {
+			title = p3.titleText,
+			bodyText = p3.messageText,
+			buttonStackInfo = {
+				buttons = {
+					{
+						props = {
+							onActivated = p2.closePrompt,
+							text = p3.cancelButtonText
+						},
+						isDefaultChild = true
+					},
+					{
+						buttonType = ButtonType.PrimarySystem,
+						props = {
+							onActivated = p2.sendReport,
+							text = p3.submitText
+						}
+					}
+				}
+			},
+			screenSize = p2.props.screenSize,
+			defaultChildRef = p2.props.defaultChildRef
+		})
+	end)
+end
+
+return (withMappedNavigationParams((withOverlayFocusHandling((RoactRodux.connect(function(p4, _) -- line: 105
+	return {
+		screenSize = p4.ScreenSize
+	}
+end)(v14))))))

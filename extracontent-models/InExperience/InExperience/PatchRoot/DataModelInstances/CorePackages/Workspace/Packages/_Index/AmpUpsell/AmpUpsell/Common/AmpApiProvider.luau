@@ -1,220 +1,200 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AmpUpsell");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local l_HttpService_0 = game:GetService("HttpService");
-local l_UrlBuilder_0 = require(l_Parent_0.UrlBuilder).UrlBuilder;
-local l_UrlBase_0 = require(l_Parent_0.UrlBuilder).UrlBase;
-local v5 = require(l_Parent_0.Fetch);
-local v6 = require(l_Parent_0.Promise);
-local l_fetch_0 = v5.fetch;
-local l_Response_0 = v5.Response;
-local l_AccessResponseEnum_0 = require(l_script_FirstAncestor_0.Common.Enums).AccessResponseEnum;
-local _ = require(l_script_FirstAncestor_0.Common.Types);
-local l_gql_0 = require(l_Parent_0.ApolloClient).gql;
-local l_Base64_0 = require(l_Parent_0.AuthCommon).Utils.Base64;
-local l_FFlagAmpWizardParseExtraParameters_0 = require(l_Parent_0.SharedFlags).FFlagAmpWizardParseExtraParameters;
-local v14 = l_UrlBuilder_0.new({
-    base = l_UrlBase_0.APIS, 
-    path = "access-management/v1/upsell-feature-access", 
-    query = {
-        {
-            name = "featureName", 
-            value = "{featureName}", 
-            optional = false
-        }, 
-        {
-            name = "successfulActions", 
-            value = "{successfulActions}", 
-            optional = false
-        }, 
-        {
-            name = "nameSpace", 
-            value = "{nameSpace}", 
-            optional = true
-        }, 
-        {
-            name = "extraParameters", 
-            value = "{extraParameters}", 
-            optional = true
-        }
-    }
-});
-local v15 = l_UrlBuilder_0.new({
-    base = l_UrlBase_0.APIS, 
-    path = "access-management/v1/feature-access", 
-    query = {
-        featureNames = "{featureNames}"
-    }
-});
-local function _(v16, v17, v18, v19) --[[ Line: 46 ]] --[[ Name: getUpsellFeatureAccessFromFeatureName ]]
-    -- upvalues: l_fetch_0 (copy), v6 (copy), v14 (copy), l_Response_0 (copy)
-    local l_l_fetch_0_0 = l_fetch_0;
-    return v6.new(function(v21, v22) --[[ Line: 53 ]]
-        -- upvalues: v17 (copy), v14 (ref), v16 (copy), v18 (copy), v19 (copy), l_l_fetch_0_0 (copy), l_Response_0 (ref)
-        local v23 = table.concat(v17, ",");
-        local v24 = v14({
-            featureName = v16, 
-            successfulActions = v23, 
-            nameSpace = v18, 
-            extraParameters = v19
-        });
-        local v25 = l_l_fetch_0_0(v24, {
-            method = "GET"
-        }):catch(function() --[[ Line: 62 ]]
-            -- upvalues: l_Response_0 (ref)
-            return l_Response_0.error();
-        end):expect();
-        if v25.status == 304 then
-            v22("Got Response: 304");
-            return;
-        elseif not v25.ok then
-            v22("Failed to find upsell feature access values");
-            return;
-        else
-            local v26 = v25:json():catch(function() --[[ Line: 80 ]]
-                return nil;
-            end):expect();
-            if not v26 then
-                v22("Failed to decode HTTP response as JSON for AMP Upsell Feature Access API");
-                return;
-            else
-                v21({
-                    access = v26.access, 
-                    recourse = v26.recourse, 
-                    recourses = v26.recourses, 
-                    shouldPrompt = v26.shouldPrompt
-                });
-                return;
-            end;
-        end;
-    end);
-end;
+local AmpUpsell = script:FindFirstAncestor("AmpUpsell")
+local AmpUpsellParent = AmpUpsell.Parent
+local HttpService = game:GetService("HttpService")
+local UrlBuilder = require(AmpUpsellParent.UrlBuilder).UrlBuilder
+local UrlBase = require(AmpUpsellParent.UrlBuilder).UrlBase
+local Fetch = require(AmpUpsellParent.Fetch)
+local Promise = require(AmpUpsellParent.Promise)
+local fetch = Fetch.fetch
+local Response = Fetch.Response
+local AccessResponseEnum = require(AmpUpsell.Common.Enums).AccessResponseEnum
+
+require(AmpUpsell.Common.Types)
+
+local gql = require(AmpUpsellParent.ApolloClient).gql
+local Base64 = require(AmpUpsellParent.AuthCommon).Utils.Base64
+local FFlagAmpWizardParseExtraParameters = require(AmpUpsellParent.SharedFlags).FFlagAmpWizardParseExtraParameters
+local GetFFlagAmpGqlPassSuccessfulActions = require(AmpUpsell.Flags.GetFFlagAmpGqlPassSuccessfulActions)
+local v15 = UrlBuilder.new({
+	base = UrlBase.APIS,
+	path = "access-management/v1/upsell-feature-access",
+	query = {
+		{
+			name = "featureName",
+			value = "{featureName}",
+			optional = false
+		},
+		{
+			name = "successfulActions",
+			value = "{successfulActions}",
+			optional = false
+		},
+		{
+			name = "nameSpace",
+			value = "{nameSpace}",
+			optional = true
+		},
+		{
+			name = "extraParameters",
+			value = "{extraParameters}",
+			optional = true
+		}
+	}
+})
+local v16 = UrlBuilder.new({
+	base = UrlBase.APIS,
+	path = "access-management/v1/feature-access",
+	query = {
+		featureNames = "{featureNames}"
+	}
+})
+
 return {
-    upsellFeatureAccess = function(v28, v29, v30, v31) --[[ Line: 99 ]] --[[ Name: upsellFeatureAccess ]]
-        -- upvalues: l_Base64_0 (copy), l_HttpService_0 (copy), l_fetch_0 (copy), v6 (copy), v14 (copy), l_Response_0 (copy), l_AccessResponseEnum_0 (copy)
-        local v32 = if v31 then l_Base64_0.Encode(l_HttpService_0:JSONEncode(v31)) else nil;
-        local l_l_fetch_0_1 = l_fetch_0;
-        return (v6.new(function(v34, v35) --[[ Line: 53 ]]
-            -- upvalues: v29 (copy), v14 (ref), v28 (copy), v30 (copy), v32 (copy), l_l_fetch_0_1 (copy), l_Response_0 (ref)
-            local v36 = table.concat(v29, ",");
-            local v37 = v14({
-                featureName = v28, 
-                successfulActions = v36, 
-                nameSpace = v30, 
-                extraParameters = v32
-            });
-            local v38 = l_l_fetch_0_1(v37, {
-                method = "GET"
-            }):catch(function() --[[ Line: 62 ]]
-                -- upvalues: l_Response_0 (ref)
-                return l_Response_0.error();
-            end):expect();
-            if v38.status == 304 then
-                v35("Got Response: 304");
-                return;
-            elseif not v38.ok then
-                v35("Failed to find upsell feature access values");
-                return;
-            else
-                local v39 = v38:json():catch(function() --[[ Line: 80 ]]
-                    return nil;
-                end):expect();
-                if not v39 then
-                    v35("Failed to decode HTTP response as JSON for AMP Upsell Feature Access API");
-                    return;
-                else
-                    v34({
-                        access = v39.access, 
-                        recourse = v39.recourse, 
-                        recourses = v39.recourses, 
-                        shouldPrompt = v39.shouldPrompt
-                    });
-                    return;
-                end;
-            end;
-        end):catch(function(_) --[[ Line: 109 ]]
-            -- upvalues: l_AccessResponseEnum_0 (ref)
-            return {
-                access = l_AccessResponseEnum_0.Error
-            };
-        end):expect());
-    end, 
-    upsellFeatureAccessGql = function(v41, v42, _, v44, v45) --[[ Line: 173 ]] --[[ Name: upsellFeatureAccessGql ]]
-        -- upvalues: l_gql_0 (copy), l_FFlagAmpWizardParseExtraParameters_0 (copy), l_Base64_0 (copy), l_HttpService_0 (copy), l_AccessResponseEnum_0 (copy)
-        local v46 = l_gql_0(require(script.Parent.GetUpsellFeatureAccess));
-        local v47 = nil;
-        if l_FFlagAmpWizardParseExtraParameters_0 then
-            v47 = if v45 then l_Base64_0.Encode(l_HttpService_0:JSONEncode(v45)) else nil;
-        end;
-        local v49 = v41:query({
-            query = v46, 
-            variables = {
-                featureName = v42, 
-                successfulActions = {}, 
-                nameSpace = v44, 
-                extraParameters = if l_FFlagAmpWizardParseExtraParameters_0 then v47 else nil
-            }, 
-            fetchPolicy = "network-only"
-        }):catch(function(_) --[[ Line: 196 ]]
-            -- upvalues: l_AccessResponseEnum_0 (ref)
-            return {
-                access = l_AccessResponseEnum_0.Error
-            };
-        end):expect();
-        if v49.data and v49.data.getUpsellFeatureAccess.featureAccess then
-            return v49.data.getUpsellFeatureAccess.featureAccess;
-        else
-            return {
-                access = l_AccessResponseEnum_0.Error
-            };
-        end;
-    end, 
-    getFeatureAccess = function(v50) --[[ Line: 118 ]] --[[ Name: getFeatureAccess ]]
-        -- upvalues: l_fetch_0 (copy), v6 (copy), v15 (copy), l_Response_0 (copy), l_AccessResponseEnum_0 (copy)
-        local l_l_fetch_0_2 = l_fetch_0;
-        return (v6.new(function(v52, v53) --[[ Line: 120 ]]
-            -- upvalues: v50 (copy), v15 (ref), l_l_fetch_0_2 (copy), l_Response_0 (ref)
-            local v54 = table.concat(v50, ",");
-            local v55 = v15({
-                featureNames = v54
-            });
-            local v56 = l_l_fetch_0_2(v55, {
-                method = "GET"
-            }):catch(function() --[[ Line: 124 ]]
-                -- upvalues: l_Response_0 (ref)
-                return l_Response_0.error();
-            end):expect();
-            if v56.status == 304 then
-                v53("Got Response: 304");
-                return;
-            elseif not v56.ok then
-                v53("Failed to find get feature access values");
-                return;
-            else
-                local v57 = v56:json():catch(function() --[[ Line: 142 ]]
-                    return nil;
-                end):expect();
-                if not v57 then
-                    v53("Failed to decode HTTP response as JSON for AMP Upsell Feature Access API");
-                    return;
-                else
-                    local v58 = {};
-                    for _, v60 in v57.features do
-                        table.insert(v58, {
-                            feature = v60.featureName, 
-                            access = v60.access
-                        });
-                    end;
-                    v52({
-                        featureAccessList = v58
-                    });
-                    return;
-                end;
-            end;
-        end):catch(function(_) --[[ Line: 165 ]]
-            -- upvalues: l_AccessResponseEnum_0 (ref)
-            return {
-                access = l_AccessResponseEnum_0.Error
-            };
-        end):expect());
-    end
-};
+	upsellFeatureAccess = function(s1: string, t1: {[any]: any}, s2: string?, t2: {[any]: any}?) --[[ upsellFeatureAccess ]] -- line: 100
+		-- upvalues: Base64 (copy), HttpService (copy), fetch (copy), Promise (copy), v15 (copy), Response (copy), AccessResponseEnum (copy)
+		local v26 = if not t2 then nil else Base64.Encode(HttpService:JSONEncode(t2))
+		local v27 = fetch
+
+		return (Promise.new(function(p1, p2) -- line: 54
+			-- upvalues: t1 (copy), v15 (copy), s1 (copy), s2 (copy), v26 (copy), v27 (copy), Response (copy)
+			local v46 = table.concat(t1, ",")
+			local v47 = v15({
+				featureName = s1,
+				successfulActions = v46,
+				nameSpace = s2,
+				extraParameters = v26
+			})
+			local v48 = v27(v47, {
+				method = "GET"
+			}):catch(function() -- line: 63
+				-- upvalues: Response (copy)
+				return Response.error()
+			end):expect()
+
+			if v48.status == 304 then
+				p2("Got Response: 304")
+
+				return
+			end
+
+			if not v48.ok then
+				p2("Failed to find upsell feature access values")
+
+				return
+			end
+
+			local v49 = v48:json():catch(function() -- line: 81
+				return nil
+			end):expect()
+
+			if not v49 then
+				p2("Failed to decode HTTP response as JSON for AMP Upsell Feature Access API")
+
+				return
+			end
+
+			p1({
+				access = v49.access,
+				recourse = v49.recourse,
+				recourses = v49.recourses,
+				shouldPrompt = v49.shouldPrompt
+			})
+		end):catch(function(_) -- line: 110
+			-- upvalues: AccessResponseEnum (copy)
+			return {
+				access = AccessResponseEnum.Error
+			}
+		end):expect())
+	end,
+	upsellFeatureAccessGql = function(p4, s3: string, t3: {[any]: any}, s4: string?, t4: {[any]: any}?) --[[ upsellFeatureAccessGql ]] -- line: 174
+		-- upvalues: gql (copy), FFlagAmpWizardParseExtraParameters (copy), Base64 (copy), HttpService (copy), GetFFlagAmpGqlPassSuccessfulActions (copy), AccessResponseEnum (copy)
+		local v35 = gql(require(script.Parent.GetUpsellFeatureAccess))
+		local v36 = nil
+
+		if FFlagAmpWizardParseExtraParameters then
+			v36 = if not t4 then nil else Base64.Encode(HttpService:JSONEncode(t4))
+		end
+
+		local v37 = p4:query({
+			query = v35,
+			variables = {
+				featureName = s3,
+				successfulActions = if not GetFFlagAmpGqlPassSuccessfulActions() then {} else t3,
+				nameSpace = s4,
+				extraParameters = if not FFlagAmpWizardParseExtraParameters then nil else v36
+			},
+			fetchPolicy = "network-only"
+		}):catch(function(_) -- line: 197
+			-- upvalues: AccessResponseEnum (copy)
+			return {
+				access = AccessResponseEnum.Error
+			}
+		end):expect()
+
+		if v37.data and v37.data.getUpsellFeatureAccess.featureAccess then
+			return v37.data.getUpsellFeatureAccess.featureAccess
+		end
+
+		return {
+			access = AccessResponseEnum.Error
+		}
+	end,
+	getFeatureAccess = function(t5: {[any]: any}) --[[ getFeatureAccess ]] -- line: 119
+		-- upvalues: fetch (copy), Promise (copy), v16 (copy), Response (copy), AccessResponseEnum (copy)
+		local v29 = fetch
+
+		return (Promise.new(function(p6, p7) -- line: 121
+			-- upvalues: t5 (copy), v16 (copy), v29 (copy), Response (copy)
+			local v53 = table.concat(t5, ",")
+			local v54 = v16({
+				featureNames = v53
+			})
+			local v55 = v29(v54, {
+				method = "GET"
+			}):catch(function() -- line: 125
+				-- upvalues: Response (copy)
+				return Response.error()
+			end):expect()
+
+			if v55.status == 304 then
+				p7("Got Response: 304")
+
+				return
+			end
+
+			if not v55.ok then
+				p7("Failed to find get feature access values")
+
+				return
+			end
+
+			local v56 = v55:json():catch(function() -- line: 143
+				return nil
+			end):expect()
+
+			if not v56 then
+				p7("Failed to decode HTTP response as JSON for AMP Upsell Feature Access API")
+
+				return
+			end
+
+			local t6 = {}
+
+			for _, v59 in v56.features do
+				table.insert(t6, {
+					feature = v59.featureName,
+					access = v59.access
+				})
+			end
+
+			p6({
+				featureAccessList = t6
+			})
+		end):catch(function(_) -- line: 166
+			-- upvalues: AccessResponseEnum (copy)
+			return {
+				access = AccessResponseEnum.Error
+			}
+		end):expect())
+	end
+}

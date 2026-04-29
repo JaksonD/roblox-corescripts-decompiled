@@ -1,373 +1,395 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local v1 = require(l_CorePackages_0.Packages.Roact);
-local v2 = require(l_CorePackages_0.Packages.React);
-local l_useStyle_0 = require(l_CorePackages_0.Packages.UIBlox).Core.Style.useStyle;
-local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).useDesignTokens;
-local l_Signal_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Signal;
-local v6 = require(l_CorePackages_0.Packages.Promise);
-local l_useUiModeInfo_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useUiModeInfo;
-local l_UiMode_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnums).UiMode;
-local l_useLastInputMode_0 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils).useLastInputMode;
-local v10 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
-local l_OmniFeedTypes_0 = v10.OmniFeedTypes;
-local l_OmniFeedConstants_0 = v10.OmniFeedConstants;
-local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
-local l_dependencyArray_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.dependencyArray;
-local l_useAnimateScrollViewToSelection_0 = require(l_CorePackages_0.Workspace.Packages.AppBlox).useAnimateScrollViewToSelection;
-local l_ScrollDetector_0 = require(l_CorePackages_0.Workspace.Packages.ScrollTelemetry).ScrollDetector;
-local l_useAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).useAppPolicy;
-local l_DiscoveryAppLaunchTracker_0 = require(l_CorePackages_0.Workspace.Packages.AppLaunchTracker).DiscoveryAppLaunchTracker;
-local l_isSduiGameOmniFeedItem_0 = require(l_CorePackages_0.Workspace.Packages.ServerDrivenUi).isSduiGameOmniFeedItem;
-local l_OmniFeedImpressionsDetector_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryMonolith).Modules.Personalization.OmniFeed.OmniFeedImpressionsDetector;
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v22 = require(l_Modules_0.LuaApp.Components.RefreshScrollingFrameWithLoadMore);
-local v23 = require(l_Modules_0.LuaApp.Components.EventReceivers.JoinYourFriendsRefreshEvent);
-local v24 = require(l_Modules_0.LuaApp.Constants);
-local v25 = require(script.Parent.OmniFeedItemsContainer);
-local v26 = require(l_Modules_0.Personalization.Flags.FIntLuaJoinYourFriendsRefreshInterval);
-local l_FFlagSearchOmniAutocompletePage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagSearchOmniAutocompletePage;
-local v28 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagAppIaScrollAway_0 = v28.FFlagAppIaScrollAway;
-local l_FFlagLuaAppLayoutParamsInContext_0 = v28.FFlagLuaAppLayoutParamsInContext;
-local l_FFlagLuaAppChartsStickyHeader_0 = v28.FFlagLuaAppChartsStickyHeader;
-local l_FFlagExtendScrollingFramesBySafeInsets_0 = v28.FFlagExtendScrollingFramesBySafeInsets;
-local l_FFlagLuaAppCompositionSupport_0 = v28.FFlagLuaAppCompositionSupport;
-local l_FFlagLuaAppCompositionAlways_0 = v28.FFlagLuaAppCompositionAlways;
-local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = v28.FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
-local v36 = game:DefineFastInt("LuaAppOmniFeedInitialNumRows", 6);
-local v37 = game:DefineFastInt("LuaAppOmniFeedLoadNumRows", 3);
-local l_FStringLuaAppSortsWithDividers_0 = v28.FStringLuaAppSortsWithDividers;
-local l_FFlagLuaAppUseSortsWithDividersFString_0 = v28.FFlagLuaAppUseSortsWithDividersFString;
-local l_FFlagRemoveDependencyArrayAntipattern_0 = v28.FFlagRemoveDependencyArrayAntipattern;
-local v41 = {};
-if l_FFlagLuaAppUseSortsWithDividersFString_0 then
-    for v42 in l_FStringLuaAppSortsWithDividers_0:gmatch("(%w+)") do
-        v41[v42] = true;
-    end;
-end;
-local v43 = game:DefineFastInt("LuaAppOmniFeedScrollAnimDurationMs", 400) / 1000;
-local v44 = if l_FFlagLuaAppChartsStickyHeader_0 then {} else nil;
-local function _(v45, v46) --[[ Line: 70 ]] --[[ Name: isGameTreatmentType ]]
-    -- upvalues: l_OmniFeedTypes_0 (copy), l_isSduiGameOmniFeedItem_0 (copy)
-    local v47 = true;
-    if v45 ~= l_OmniFeedTypes_0.HomeGameGrid then
-        v47 = true;
-        if v45 ~= l_OmniFeedTypes_0.Carousel then
-            v47 = true;
-            if v45 ~= l_OmniFeedTypes_0.SearchGameGrid then
-                v47 = l_isSduiGameOmniFeedItem_0(v45, v46);
-            end;
-        end;
-    end;
-    return v47;
-end;
-local function v62(v49, v50, v51, v52) --[[ Line: 80 ]] --[[ Name: getNumItemsForRows ]]
-    -- upvalues: l_OmniFeedTypes_0 (copy), l_isSduiGameOmniFeedItem_0 (copy)
-    local v53 = 0;
-    local v54 = 0;
-    for v55 = v50, #v49 do
-        local v56 = v49[v55];
-        local v57 = v56 and v56.treatmentProps and v56.treatmentProps.numberOfRows or 1;
-        if v57 == -1 then
-            v57 = 1;
-        end;
-        v54 = v54 + 1;
-        v53 = v53 + v57;
-        local v58 = nil;
-        if v56 then
-            if v56.treatmentProps and v56.treatmentProps.topicId then
-                v58 = v56.treatmentProps.topicId;
-            elseif v56.itemId and v56.itemId.topicId then
-                v58 = v56.itemId.topicId;
-            end;
-        end;
-        if v51 <= v53 then
-            return v54;
-        elseif v52 then
-            local l_treatmentType_0 = v56.treatmentType;
-            local l_v58_0 = v58;
-            local v61 = true;
-            if l_treatmentType_0 ~= l_OmniFeedTypes_0.HomeGameGrid then
-                v61 = true;
-                if l_treatmentType_0 ~= l_OmniFeedTypes_0.Carousel then
-                    v61 = true;
-                    if l_treatmentType_0 ~= l_OmniFeedTypes_0.SearchGameGrid then
-                        v61 = l_isSduiGameOmniFeedItem_0(l_treatmentType_0, l_v58_0);
-                    end;
-                end;
-            end;
-            if v61 then
-                break;
-            end;
-        end;
-    end;
-    return v54;
-end;
-return function(v63) --[[ Line: 150 ]]
-    -- upvalues: l_useStyle_0 (copy), l_useAppPolicy_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), v2 (copy), l_Signal_0 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), l_useLastInputMode_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v62 (copy), v36 (copy), l_useDesignTokens_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), l_OmniFeedConstants_0 (copy), v24 (copy), v23 (copy), v26 (copy), v44 (copy), l_useAnimateScrollViewToSelection_0 (copy), v43 (copy), v37 (copy), l_DiscoveryAppLaunchTracker_0 (copy), v1 (copy), v22 (copy), v6 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy), l_FFlagAppIaScrollAway_0 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (copy), v25 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), l_OmniFeedImpressionsDetector_0 (copy), l_ScrollDetector_0 (copy)
-    local v64 = l_useStyle_0();
-    local v66 = l_useAppPolicy_0(function(v65) --[[ Line: 152 ]]
-        return v65.useGridPageLayout();
-    end);
-    local v68 = l_useAppPolicy_0(function(v67) --[[ Line: 155 ]]
-        return v67.getMountAllOmniFeedItems();
-    end);
-    local v69 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
-    v66 = v66 and not v69;
-    local v70 = v2.useRef(l_Signal_0.new());
-    local v71 = v2.useRef(l_Signal_0.new());
-    local v72 = v2.useRef(0);
-    local v73 = v2.useRef(false);
-    local v74 = if l_FFlagLuaAppLayoutParamsInContext_0 then nil else v63.scrollingFrameRef;
-    local v75 = l_useLastInputMode_0() == "Cursor";
-    local v76 = v63.shouldStopAfterOneGameSort and not v68;
-    local v77 = nil;
-    if l_FFlagLuaAppLayoutParamsInContext_0 then
-        local v78 = nil;
-        v74 = v2.useRef(nil);
-        local v79 = nil;
-        local v80, v81 = v2.useState(nil);
-        v79 = v80;
-        v78 = v81;
-        if type(v63.scrollingFrameRef) == "table" then
-            v74 = v63.scrollingFrameRef;
-        end;
-        do
-            local l_v78_0 = v78;
-            v77 = v2.useCallback(function(v83) --[[ Line: 183 ]]
-                -- upvalues: v74 (ref), l_v78_0 (ref), v63 (copy)
-                v74.current = v83;
-                l_v78_0(v83);
-                if type(v63.scrollingFrameRef) == "function" then
-                    v63.scrollingFrameRef(v83);
-                end;
-            end, {
-                v63.scrollingFrameRef
-            });
-        end;
-    end;
-    local v88 = if l_FFlagLuaAppChartsStickyHeader_0 then v2.useMemo(function() --[[ Line: 193 ]]
-        -- upvalues: v63 (copy)
-        local l_omniFeedItems_0 = v63.omniFeedItems;
-        local v85 = {};
-        for _, v87 in l_omniFeedItems_0 do
-            if v87.pageSection == v63.omniFeedPageSection then
-                table.insert(v85, v87);
-            end;
-        end;
-        return v85;
-    end, {
-        v63.omniFeedItems, 
-        v63.omniFeedPageSection
-    }) else nil;
-    local v89, v90 = v2.useState(function() --[[ Line: 205 ]]
-        -- upvalues: v68 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v88 (copy), v63 (copy), v62 (ref), v36 (ref), v76 (copy)
-        if v68 then
-            return #if l_FFlagLuaAppChartsStickyHeader_0 then v88 else v63.omniFeedItems;
-        else
-            return (v62(if l_FFlagLuaAppChartsStickyHeader_0 then v88 else v63.omniFeedItems, 1, v36, v76));
-        end;
-    end);
-    local l_pageContext_0 = v63.pageContext;
-    local l_impressionsTag_0 = v63.impressionsTag;
-    local l_omniFeedItems_1 = v63.omniFeedItems;
-    local l_Theme_0 = v64.Theme;
-    local l_Color_0 = l_Theme_0.BackgroundDefault.Color;
-    local l_Transparency_0 = l_Theme_0.BackgroundDefault.Transparency;
-    local v97 = nil;
-    v97 = v66 and 4 or 0;
-    local v98 = l_useDesignTokens_0();
-    l_Color_0 = v98.LuaApps.App.Page.BackgroundColor;
-    l_Transparency_0 = v98.LuaApps.App.Page.BackgroundTransparency;
-    local v99 = v2.useMemo(function() --[[ Line: 237 ]]
-        -- upvalues: v98 (copy), v66 (ref)
-        return v98.LuaApps.HomeOmniFeed.getLayoutSpacing(v66);
-    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
-        v66, 
-        v98
-    } else l_dependencyArray_0(v66, v98));
-    local v100 = v63.topPadding or v99.topMargin;
-    local v101 = if v63.loadMoreButtonText then v98.Global.Size_600 else 80;
-    local v102 = v63.bottomPadding or v101;
-    local v104 = l_useSelector_0(function(v103) --[[ Line: 249 ]]
-        return v103.Personalization.OmniItemsGlobalLayoutData;
-    end);
-    local v105 = v104 and (v104[l_OmniFeedConstants_0.GlobalLayoutDataKeys.JYFRefresh] == "true" or v104[l_OmniFeedConstants_0.GlobalLayoutDataKeys.JYFRefresh] == true);
-    local v108 = v2.useCallback(function(v106) --[[ Line: 258 ]]
-        -- upvalues: v72 (copy), v71 (copy), l_OmniFeedConstants_0 (ref), v63 (copy)
-        v72.current = tick();
-        v71.current:fire();
-        local v107 = nil;
-        v107 = if v106 then l_OmniFeedConstants_0.OmniRecommendationsRequestIntent.FriendPresenceChange else l_OmniFeedConstants_0.OmniRecommendationsRequestIntent.ManualRefresh;
-        return v63.refresh(v107);
-    end);
-    local function _() --[[ Line: 269 ]]
-        -- upvalues: v73 (copy), v74 (ref), v24 (ref), v108 (copy)
-        v73.current = false;
-        if v74.current then
-            local l_Y_0 = v74.current.CanvasPosition.Y;
-            local l_Height_0 = v24.JoinYourFriendsTile.Height;
-            if l_Y_0 >= 0 and l_Y_0 <= l_Height_0 then
-                v108(true);
-            end;
-        end;
-    end;
-    v2.useEffect(function() --[[ Line: 279 ]]
-        -- upvalues: v105 (copy), v23 (ref), v73 (copy), v72 (copy), v26 (ref), v74 (ref), v24 (ref), v108 (copy)
-        local v112 = nil;
-        if v105 then
-            v112 = v23.Event:Connect(function() --[[ Line: 282 ]]
-                -- upvalues: v73 (ref), v72 (ref), v26 (ref), v74 (ref), v24 (ref), v108 (ref)
-                if v73.current then
-                    return;
-                else
-                    local v113 = tick() - v72.current;
-                    local v114 = v26 - v113;
-                    if v114 < 0 then
-                        v73.current = false;
-                        if v74.current then
-                            local l_Y_1 = v74.current.CanvasPosition.Y;
-                            local l_Height_1 = v24.JoinYourFriendsTile.Height;
-                            if l_Y_1 >= 0 and l_Y_1 <= l_Height_1 then
-                                v108(true);
-                                return;
-                            end;
-                        end;
-                    else
-                        v73.current = true;
-                        task.delay(v114, function() --[[ Line: 293 ]]
-                            -- upvalues: v73 (ref), v74 (ref), v24 (ref), v108 (ref)
-                            v73.current = false;
-                            if v74.current then
-                                local l_Y_2 = v74.current.CanvasPosition.Y;
-                                local l_Height_2 = v24.JoinYourFriendsTile.Height;
-                                if l_Y_2 >= 0 and l_Y_2 <= l_Height_2 then
-                                    v108(true);
-                                end;
-                            end;
-                        end);
-                    end;
-                    return;
-                end;
-            end);
-        end;
-        return function() --[[ Line: 299 ]]
-            -- upvalues: v112 (ref)
-            if v112 then
-                v112:Disconnect();
-                v112 = nil;
-            end;
-        end;
-    end, {
-        v63.refresh
-    });
-    local v120 = l_useSelector_0(function(v119) --[[ Line: 307 ]]
-        -- upvalues: l_pageContext_0 (copy)
-        return v119.OmniRecommendations[l_pageContext_0];
-    end);
-    local v121 = v120 and v120.sorts or if l_FFlagLuaAppChartsStickyHeader_0 then v44 else {};
-    local l_sduiContext_0 = v63.sduiContext;
-    l_useAnimateScrollViewToSelection_0(v74, v43);
-    local v123 = v2.useCallback(function() --[[ Line: 318 ]]
-        -- upvalues: v70 (copy)
-        v70.current:fire();
-    end);
-    local v124 = nil;
-    v124 = function() --[[ Line: 323 ]]
-        -- upvalues: v89 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v88 (copy), l_omniFeedItems_1 (copy), v68 (copy), v62 (ref), v37 (ref), v76 (copy), v90 (copy)
-        if v89 < #if l_FFlagLuaAppChartsStickyHeader_0 then v88 else l_omniFeedItems_1 then
-            local v125 = nil;
-            v125 = if v68 then #if l_FFlagLuaAppChartsStickyHeader_0 then v88 else l_omniFeedItems_1 else v89 + v62(if l_FFlagLuaAppChartsStickyHeader_0 then v88 else l_omniFeedItems_1, v89 + 1, v37, v76);
-            v90(v125);
-            return true;
-        else
-            return false;
-        end;
-    end;
-    v2.useEffect(function() --[[ Line: 347 ]]
-        -- upvalues: v76 (copy), v124 (ref)
-        if not v76 then
-            v124();
-        end;
-    end, {
-        l_omniFeedItems_1, 
-        v76
-    });
-    if l_DiscoveryAppLaunchTracker_0.isEnabled() and l_DiscoveryAppLaunchTracker_0.default then
-        l_DiscoveryAppLaunchTracker_0.default:trackFeedRender();
-        l_DiscoveryAppLaunchTracker_0.default:trackNumFeedItems(v89);
-    end;
-    return v1.createElement(v22, {
-        Position = UDim2.new(0, 0, 0, 0), 
-        Size = UDim2.new(1, 0, 1, 0), 
-        CanvasSize = UDim2.new(1, 0, 0, 0), 
-        BackgroundColor3 = l_Color_0, 
-        BackgroundTransparency = l_Transparency_0, 
-        BorderSizePixel = 0, 
-        ScrollBarThickness = if v63.scrollBarThickness then v63.scrollBarThickness else v97, 
-        onLoadMore = function() --[[ Line: 368 ]] --[[ Name: onLoadMore ]]
-            -- upvalues: v124 (ref), v6 (ref), v63 (copy)
-            if v124() then
-                return v6.reject();
-            else
-                local l_loadNext_0 = v63.loadNext;
-                if l_loadNext_0 then
-                    return l_loadNext_0();
-                else
-                    return v6.resolve();
-                end;
-            end;
-        end, 
-        refresh = v108, 
-        parentAppPage = l_pageContext_0, 
-        onAbsoluteSizeChangedCallback = v63.onAbsoluteSizeChanged, 
-        onCanvasSizeChangedCallback = v123, 
-        onCanvasPositionChangedCallback = v123, 
-        useAutomaticSizeContentFrame = true, 
-        [v1.Ref] = if l_FFlagLuaAppLayoutParamsInContext_0 then v77 else v74, 
-        createEndOfScrollElement = v63.createEndOfScrollElement, 
-        onScrollDirectionChanged = v63.onScrollDirectionChanged, 
-        ScrollingEnabled = v75, 
-        onAbsoluteContentSizeChanged = if l_FFlagSearchOmniAutocompletePage_0 then v63.onAbsoluteContentSizeChanged else nil, 
-        loadMoreButtonText = if v63.loadMoreButtonText and v63.hasNextPage and v63.loadNext ~= nil then v63.loadMoreButtonText else nil, 
-        canvasTopPadding = if l_FFlagAppIaScrollAway_0 then v63.canvasTopPadding else nil, 
-        shouldExtendIntoSafeArea = if l_FFlagExtendScrollingFramesBySafeInsets_0 then {
-            left = false, 
-            top = false, 
-            right = true, 
-            bottom = true
-        } else nil
-    }, {
-        OmniFeed = v2.createElement(v25, {
-            omniFeedItems = l_omniFeedItems_1, 
-            pageContext = l_pageContext_0, 
-            sduiContext = l_sduiContext_0, 
-            impressionsTag = l_impressionsTag_0, 
-            numberOfItemsToBeRendered = v89, 
-            topMargin = v100, 
-            bottomMargin = v102, 
-            layoutPadding = v99.layoutPadding, 
-            onItemsUpdatedSignalRef = v70, 
-            refreshSignalRef = v71, 
-            scrollingFrameRef = v74, 
-            defaultContainerSize = v63.defaultContainerSize, 
-            sortsData = v121, 
-            hasNextPage = v63.hasNextPage, 
-            omniFeedPageSection = v63.omniFeedPageSection, 
-            enableRelativeGui = v63.enableRelativeGui, 
-            appCompositionEnabled = l_FFlagLuaAppCompositionAlways_0 and true or if l_FFlagLuaAppCompositionSupport_0 then v63.appCompositionEnabled else nil, 
-            contentTag = if l_FFlagLuaAppCompositionSupport_0 then v63.contentTag else nil, 
-            onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v63.onTileImageLoaded else nil
-        }), 
-        OmniFeedImpressionsDetector = v2.createElement(l_OmniFeedImpressionsDetector_0, {
-            onItemsUpdatedSignal = v70.current, 
-            impressionsTag = l_impressionsTag_0, 
-            omniFeedItems = l_omniFeedItems_1, 
-            eventContext = v63.analyticsContext
-        }), 
-        ScrollDetector = if v63.sendScrollEvent then v2.createElement(l_ScrollDetector_0, {
-            scrollingFrameRef = v74, 
-            sendScrollEvent = v63.sendScrollEvent
-        }) else nil
-    });
-end;
+local CorePackages = game:GetService("CorePackages")
+local Roact = require(CorePackages.Packages.Roact)
+local React = require(CorePackages.Packages.React)
+local useStyle = require(CorePackages.Packages.UIBlox).Core.Style.useStyle
+local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
+local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
+local Promise = require(CorePackages.Packages.Promise)
+local useUiModeInfo = require(CorePackages.Workspace.Packages.RobloxAppHooks).useUiModeInfo
+local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
+local UiMode = RobloxAppEnums.UiMode
+local AppPage = RobloxAppEnums.AppPage
+local useLastInputMode = require(CorePackages.Workspace.Packages.FocusNavigationUtils).useLastInputMode
+local DiscoveryTypes = require(CorePackages.Workspace.Packages.DiscoveryTypes)
+local OmniFeedTypes = DiscoveryTypes.OmniFeedTypes
+local OmniFeedConstants = DiscoveryTypes.OmniFeedConstants
+local ViewportVideoAutoplaySync = require(CorePackages.Workspace.Packages.VideoUtils).ViewportVideoAutoplaySync
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
+local dependencyArray = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.dependencyArray
+local useAnimateScrollViewToSelection = require(CorePackages.Workspace.Packages.AppBlox).useAnimateScrollViewToSelection
+local ScrollDetector = require(CorePackages.Workspace.Packages.ScrollTelemetry).ScrollDetector
+local useAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).useAppPolicy
+local DiscoveryAppLaunchTracker = require(CorePackages.Workspace.Packages.AppLaunchTracker).DiscoveryAppLaunchTracker
+local isSduiGameOmniFeedItem = require(CorePackages.Workspace.Packages.ServerDrivenUi).isSduiGameOmniFeedItem
+local OmniFeedImpressionsDetector = require(CorePackages.Workspace.Packages.DiscoveryMonolith).Modules.Personalization.OmniFeed.OmniFeedImpressionsDetector
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local RefreshScrollingFrameWithLoadMore = require(Modules.LuaApp.Components.RefreshScrollingFrameWithLoadMore)
+local JoinYourFriendsRefreshEvent = require(Modules.LuaApp.Components.EventReceivers.JoinYourFriendsRefreshEvent)
+local Constants = require(Modules.LuaApp.Constants)
+local OmniFeedItemsContainer = require(script.Parent.OmniFeedItemsContainer)
+local FIntLuaJoinYourFriendsRefreshInterval = require(Modules.Personalization.Flags.FIntLuaJoinYourFriendsRefreshInterval)
+local FFlagSearchOmniAutocompletePage = require(CorePackages.Workspace.Packages.SharedFlags).FFlagSearchOmniAutocompletePage
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAppIaScrollAway = SharedFlags.FFlagAppIaScrollAway
+local FFlagLuaAppLayoutParamsInContext = SharedFlags.FFlagLuaAppLayoutParamsInContext
+local FFlagLuaAppChartsStickyHeader = SharedFlags.FFlagLuaAppChartsStickyHeader
+local FFlagExtendScrollingFramesBySafeInsets = SharedFlags.FFlagExtendScrollingFramesBySafeInsets
+local FFlagLuaAppCompositionSupport = SharedFlags.FFlagLuaAppCompositionSupport
+local FFlagLuaAppCompositionAlways = SharedFlags.FFlagLuaAppCompositionAlways
+local FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone = SharedFlags.FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone
+local FFlagLuaAppHomeTouchAutoplay = SharedFlags.FFlagLuaAppHomeTouchAutoplay
+local FFlagLuaAppGameCarouselAmpUpsellAction = SharedFlags.FFlagLuaAppGameCarouselAmpUpsellAction
+local v42 = game:DefineFastInt("LuaAppOmniFeedInitialNumRows", 6)
+local v43 = game:DefineFastInt("LuaAppOmniFeedLoadNumRows", 3)
+local FStringLuaAppSortsWithDividers = SharedFlags.FStringLuaAppSortsWithDividers
+local FFlagLuaAppUseSortsWithDividersFString = SharedFlags.FFlagLuaAppUseSortsWithDividersFString
+local FFlagRemoveDependencyArrayAntipattern = SharedFlags.FFlagRemoveDependencyArrayAntipattern
+
+if FFlagLuaAppUseSortsWithDividersFString then
+	for match in FStringLuaAppSortsWithDividers:gmatch("(%w+)") do
+		({})[match] = true
+	end
+end
+
+local v48 = game:DefineFastInt("LuaAppOmniFeedScrollAnimDurationMs", 400) / 1000
+local v49 = if not FFlagLuaAppChartsStickyHeader then nil else {}
+
+local function getNumItemsForRows(t1: {[any]: any}, n1: number, n2: number, b1: boolean?) -- line: 87
+	-- upvalues: OmniFeedTypes (copy), isSduiGameOmniFeedItem (copy)
+	local n3 = 0
+	local n4 = 0
+
+	for i = n1, #t1 do
+		local v60 = t1[i]
+		local v61 = v60 and (not not v60.treatmentProps and v60.treatmentProps.numberOfRows) or 1
+
+		if v61 == -1 then
+			v61 = 1
+		end
+
+		n4 += 1
+		n3 += v61
+
+		local topicId = nil
+
+		if v60 then
+			if v60.treatmentProps and v60.treatmentProps.topicId then
+				topicId = v60.treatmentProps.topicId
+			elseif v60.itemId and v60.itemId.topicId then
+				topicId = v60.itemId.topicId
+			end
+		end
+
+		if n2 <= n3 then
+			return n4
+		end
+
+		if b1 then
+			local treatmentType = v60.treatmentType
+
+			if treatmentType == OmniFeedTypes.HomeGameGrid or (treatmentType == OmniFeedTypes.Carousel or (treatmentType == OmniFeedTypes.SearchGameGrid or isSduiGameOmniFeedItem(treatmentType, topicId))) then
+				return n4
+			end
+		end
+	end
+
+	return n4
+end
+
+return function(t2: {[any]: any}) -- line: 161
+	-- upvalues: useStyle (copy), useAppPolicy (copy), useUiModeInfo (copy), UiMode (copy), React (copy), Signal (copy), FFlagLuaAppLayoutParamsInContext (copy), useLastInputMode (copy), FFlagLuaAppChartsStickyHeader (copy), getNumItemsForRows (copy), v42 (copy), useDesignTokens (copy), FFlagRemoveDependencyArrayAntipattern (copy), dependencyArray (copy), useSelector (copy), OmniFeedConstants (copy), FFlagLuaAppGameCarouselAmpUpsellAction (copy), Constants (copy), JoinYourFriendsRefreshEvent (copy), FIntLuaJoinYourFriendsRefreshInterval (copy), v49 (copy), useAnimateScrollViewToSelection (copy), v48 (copy), v43 (copy), DiscoveryAppLaunchTracker (copy), Roact (copy), RefreshScrollingFrameWithLoadMore (copy), Promise (copy), FFlagSearchOmniAutocompletePage (copy), FFlagAppIaScrollAway (copy), FFlagExtendScrollingFramesBySafeInsets (copy), OmniFeedItemsContainer (copy), FFlagLuaAppCompositionAlways (copy), FFlagLuaAppCompositionSupport (copy), FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone (copy), FFlagLuaAppHomeTouchAutoplay (copy), AppPage (copy), OmniFeedImpressionsDetector (copy), ViewportVideoAutoplaySync (copy), ScrollDetector (copy)
+	local v65 = useStyle()
+	local v66 = useAppPolicy(function(p1) -- line: 163
+		return p1.useGridPageLayout()
+	end)
+	local v67 = useAppPolicy(function(p2) -- line: 166
+		return p2.getMountAllOmniFeedItems()
+	end)
+	local v68 = useUiModeInfo().uiMode == UiMode.TenFoot
+	local u69 = v66 and not v68
+	local v70 = React.useRef(Signal.new())
+	local v71 = React.useRef(Signal.new())
+	local v72 = React.useRef(0)
+	local v73 = React.useRef(false)
+	local u74 = if not FFlagLuaAppLayoutParamsInContext then t2.scrollingFrameRef else nil
+	local v75 = useLastInputMode() == "Cursor"
+	local v76 = t2.shouldStopAfterOneGameSort and not v67
+	local v77 = nil
+
+	if FFlagLuaAppLayoutParamsInContext then
+		u74 = React.useRef(nil)
+
+		local _, v79 = React.useState(nil)
+		local u80 = v79
+
+		if type(t2.scrollingFrameRef) == "table" then
+			u74 = t2.scrollingFrameRef
+		end
+
+		v77 = React.useCallback(function(p3) -- line: 194
+			-- upvalues: u74 (ref), u80 (ref), t2 (copy)
+			u74.current = p3
+			u80(p3)
+
+			if type(t2.scrollingFrameRef) == "function" then
+				t2.scrollingFrameRef(p3)
+			end
+		end, { t2.scrollingFrameRef })
+	end
+
+	local v81 = if not FFlagLuaAppChartsStickyHeader then nil else React.useMemo(function() -- line: 204
+		-- upvalues: t2 (copy)
+		local t3 = {}
+
+		for _, v112 in t2.omniFeedItems do
+			if v112.pageSection == t2.omniFeedPageSection then
+				table.insert(t3, v112)
+			end
+		end
+
+		return t3
+	end, {
+		t2.omniFeedItems,
+		t2.omniFeedPageSection
+	})
+	local v82, v83 = React.useState(function() -- line: 216
+		-- upvalues: v67 (copy), FFlagLuaAppChartsStickyHeader (copy), v81 (copy), t2 (copy), getNumItemsForRows (copy), v42 (copy), v76 (copy)
+		if v67 then
+			return #if not FFlagLuaAppChartsStickyHeader then t2.omniFeedItems else v81
+		end
+
+		return (getNumItemsForRows(if not FFlagLuaAppChartsStickyHeader then t2.omniFeedItems else v81, 1, v42, v76))
+	end)
+	local pageContext = t2.pageContext
+	local impressionsTag = t2.impressionsTag
+	local omniFeedItems = t2.omniFeedItems
+	local Theme = v65.Theme
+	local _ = Theme.BackgroundDefault.Color
+	local _ = Theme.BackgroundDefault.Transparency
+	local v90 = not u69 and 0 or 4
+	local v91 = useDesignTokens()
+	local BackgroundColor = v91.LuaApps.App.Page.BackgroundColor
+	local PageBackgroundTransparency = v91.LuaApps.App.Page.BackgroundTransparency
+	local v94 = React.useMemo(function() -- line: 248
+		-- upvalues: v91 (copy), u69 (ref)
+		return v91.LuaApps.HomeOmniFeed.getLayoutSpacing(u69)
+	end, if not FFlagRemoveDependencyArrayAntipattern then dependencyArray(u69, v91) else {
+		u69,
+		v91
+	})
+	local v95 = t2.topPadding or v94.topMargin
+	local v96 = not t2.loadMoreButtonText and 80 or v91.Global.Size_600
+	local v97 = t2.bottomPadding or v96
+	local v98 = useSelector(function(p4) -- line: 260
+		return p4.Personalization.OmniItemsGlobalLayoutData
+	end)
+	local v99 = v98 and (v98[OmniFeedConstants.GlobalLayoutDataKeys.JYFRefresh] == "true" or v98[OmniFeedConstants.GlobalLayoutDataKeys.JYFRefresh] == true)
+	local v100 = if not FFlagLuaAppGameCarouselAmpUpsellAction then React.useCallback(function(b2: boolean?) -- line: 271
+		-- upvalues: v72 (copy), v71 (copy), OmniFeedConstants (copy), t2 (copy)
+		v72.current = tick()
+		v71.current:fire()
+
+		local v115 = if not b2 then OmniFeedConstants.OmniRecommendationsRequestIntent.ManualRefresh else OmniFeedConstants.OmniRecommendationsRequestIntent.FriendPresenceChange
+
+		return t2.refresh(v115)
+	end) else nil
+	local v101 = if not FFlagLuaAppGameCarouselAmpUpsellAction then nil else React.useCallback(function(s1: string?) -- line: 283
+		-- upvalues: v72 (copy), v71 (copy), t2 (copy), OmniFeedConstants (copy)
+		v72.current = tick()
+		v71.current:fire()
+
+		return t2.refresh(s1 or OmniFeedConstants.OmniRecommendationsRequestIntent.ManualRefresh)
+	end)
+
+	React.useEffect(function() -- line: 303
+		-- upvalues: v99 (copy), JoinYourFriendsRefreshEvent (copy), v73 (copy), v72 (copy), FIntLuaJoinYourFriendsRefreshInterval (copy), u74 (ref), Constants (copy), FFlagLuaAppGameCarouselAmpUpsellAction (copy), v101 (copy), OmniFeedConstants (copy), v100 (copy)
+		local connection = nil
+
+		if v99 then
+			connection = JoinYourFriendsRefreshEvent.Event:Connect(function() -- line: 306
+				-- upvalues: v73 (copy), v72 (copy), FIntLuaJoinYourFriendsRefreshInterval (copy), u74 (ref), Constants (copy), FFlagLuaAppGameCarouselAmpUpsellAction (copy), v101 (copy), OmniFeedConstants (copy), v100 (copy)
+				if v73.current then
+					return
+				end
+
+				local v123 = tick() - v72.current
+				local v124 = FIntLuaJoinYourFriendsRefreshInterval - v123
+
+				if v124 < 0 then
+					v73.current = false
+
+					if u74.current then
+						local CanvasPositionY = u74.current.CanvasPosition.Y
+						local JoinYourFriendsTileHeight = Constants.JoinYourFriendsTile.Height
+
+						if CanvasPositionY >= 0 and CanvasPositionY <= JoinYourFriendsTileHeight then
+							if FFlagLuaAppGameCarouselAmpUpsellAction then
+								v101(OmniFeedConstants.OmniRecommendationsRequestIntent.FriendPresenceChange)
+
+								return
+							end
+
+							v100(true)
+
+							return
+						end
+					end
+				else
+					v73.current = true
+					task.delay(v124, function() -- line: 317
+						-- upvalues: v73 (copy), u74 (ref), Constants (copy), FFlagLuaAppGameCarouselAmpUpsellAction (copy), v101 (copy), OmniFeedConstants (copy), v100 (copy)
+						v73.current = false
+
+						if u74.current then
+							local CanvasPositionY = u74.current.CanvasPosition.Y
+							local JoinYourFriendsTileHeight = Constants.JoinYourFriendsTile.Height
+
+							if CanvasPositionY >= 0 and CanvasPositionY <= JoinYourFriendsTileHeight then
+								if FFlagLuaAppGameCarouselAmpUpsellAction then
+									v101(OmniFeedConstants.OmniRecommendationsRequestIntent.FriendPresenceChange)
+
+									return
+								end
+
+								v100(true)
+							end
+						end
+					end)
+				end
+			end)
+		end
+
+		return function() -- line: 323
+			-- upvalues: connection (ref)
+			if connection then
+				connection:Disconnect()
+				connection = nil
+			end
+		end
+	end, { t2.refresh })
+
+	local v102 = useSelector(function(p5) -- line: 331
+		-- upvalues: pageContext (copy)
+		return p5.OmniRecommendations[pageContext]
+	end)
+	local v103 = v102 and v102.sorts or if not FFlagLuaAppChartsStickyHeader then {} else v49
+	local sduiContext = t2.sduiContext
+
+	useAnimateScrollViewToSelection(u74, v48)
+
+	local v105 = React.useCallback(function() -- line: 342
+		-- upvalues: v70 (copy)
+		v70.current:fire()
+	end)
+
+	local function u106() -- line: 347
+		-- upvalues: v82 (copy), FFlagLuaAppChartsStickyHeader (copy), v81 (copy), omniFeedItems (copy), v67 (copy), getNumItemsForRows (copy), v43 (copy), v76 (copy), v83 (copy)
+		if v82 < #if not FFlagLuaAppChartsStickyHeader then omniFeedItems else v81 then
+			local v121 = if not v67 then v82 + getNumItemsForRows(if not FFlagLuaAppChartsStickyHeader then omniFeedItems else v81, v82 + 1, v43, v76) else #if not FFlagLuaAppChartsStickyHeader then omniFeedItems else v81
+
+			v83(v121)
+
+			return true
+		end
+
+		return false
+	end
+
+	React.useEffect(function() -- line: 371
+		-- upvalues: v76 (copy), u106 (ref)
+		if not v76 then
+			u106()
+		end
+	end, {
+		omniFeedItems,
+		v76
+	})
+
+	if DiscoveryAppLaunchTracker.isEnabled() and DiscoveryAppLaunchTracker.default then
+		DiscoveryAppLaunchTracker.default:trackFeedRender()
+		DiscoveryAppLaunchTracker.default:trackNumFeedItems(v82)
+	end
+
+	return Roact.createElement(RefreshScrollingFrameWithLoadMore, {
+		Position = UDim2.new(0, 0, 0, 0),
+		Size = UDim2.new(1, 0, 1, 0),
+		CanvasSize = UDim2.new(1, 0, 0, 0),
+		BackgroundColor3 = BackgroundColor,
+		BackgroundTransparency = PageBackgroundTransparency,
+		BorderSizePixel = 0,
+		ScrollBarThickness = if not t2.scrollBarThickness then v90 else t2.scrollBarThickness,
+		onLoadMore = function() --[[ onLoadMore ]] -- line: 392
+			-- upvalues: u106 (ref), Promise (copy), t2 (copy)
+			if u106() then
+				return Promise.reject()
+			end
+
+			local loadNext = t2.loadNext
+
+			if loadNext then
+				return loadNext()
+			end
+
+			return Promise.resolve()
+		end,
+		refresh = if not FFlagLuaAppGameCarouselAmpUpsellAction then v100 else v101,
+		parentAppPage = pageContext,
+		onAbsoluteSizeChangedCallback = t2.onAbsoluteSizeChanged,
+		onCanvasSizeChangedCallback = v105,
+		onCanvasPositionChangedCallback = v105,
+		useAutomaticSizeContentFrame = true,
+		[Roact.Ref] = if not FFlagLuaAppLayoutParamsInContext then u74 else v77,
+		createEndOfScrollElement = t2.createEndOfScrollElement,
+		onScrollDirectionChanged = t2.onScrollDirectionChanged,
+		ScrollingEnabled = v75,
+		onAbsoluteContentSizeChanged = if not FFlagSearchOmniAutocompletePage then nil else t2.onAbsoluteContentSizeChanged,
+		loadMoreButtonText = if not t2.loadMoreButtonText or (not t2.hasNextPage or t2.loadNext == nil) then nil else t2.loadMoreButtonText,
+		canvasTopPadding = if not FFlagAppIaScrollAway then nil else t2.canvasTopPadding,
+		shouldExtendIntoSafeArea = if not FFlagExtendScrollingFramesBySafeInsets then nil else {
+			left = false,
+			top = false,
+			right = true,
+			bottom = true
+		}
+	}, {
+		OmniFeed = React.createElement(OmniFeedItemsContainer, {
+			omniFeedItems = omniFeedItems,
+			pageContext = pageContext,
+			sduiContext = sduiContext,
+			impressionsTag = impressionsTag,
+			numberOfItemsToBeRendered = v82,
+			topMargin = v95,
+			bottomMargin = v97,
+			layoutPadding = v94.layoutPadding,
+			onItemsUpdatedSignalRef = v70,
+			refreshSignalRef = v71,
+			scrollingFrameRef = u74,
+			defaultContainerSize = t2.defaultContainerSize,
+			sortsData = v103,
+			hasNextPage = t2.hasNextPage,
+			omniFeedPageSection = t2.omniFeedPageSection,
+			enableRelativeGui = t2.enableRelativeGui,
+			appCompositionEnabled = not not FFlagLuaAppCompositionAlways or if not FFlagLuaAppCompositionSupport then nil else t2.appCompositionEnabled,
+			contentTag = if not FFlagLuaAppCompositionSupport then nil else t2.contentTag,
+			onTileImageLoaded = if not FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone then nil else t2.onTileImageLoaded,
+			videoPlaybackContext = if not FFlagLuaAppHomeTouchAutoplay then nil else t2.videoPlaybackContext,
+			refreshFeed = if not FFlagLuaAppGameCarouselAmpUpsellAction or pageContext ~= AppPage.Home then nil else v101
+		}),
+		OmniFeedImpressionsDetector = React.createElement(OmniFeedImpressionsDetector, {
+			onItemsUpdatedSignal = v70.current,
+			impressionsTag = impressionsTag,
+			omniFeedItems = omniFeedItems,
+			eventContext = t2.analyticsContext
+		}),
+		ViewportVideoAutoplaySync = if not FFlagLuaAppHomeTouchAutoplay or (not t2.videoPlaybackContext or not t2.videoPlaybackContext.viewportVideoAutoplayController) then nil else React.createElement(ViewportVideoAutoplaySync, {
+			viewportAutoplayController = t2.videoPlaybackContext.viewportVideoAutoplayController,
+			scrollingFrameRef = u74
+		}),
+		ScrollDetector = if not t2.sendScrollEvent and (not FFlagLuaAppHomeTouchAutoplay or not t2.onScrollStart and not t2.onScrollSettled) then nil else React.createElement(ScrollDetector, {
+			scrollingFrameRef = u74,
+			sendScrollEvent = t2.sendScrollEvent,
+			onScrollStart = if not FFlagLuaAppHomeTouchAutoplay then nil else t2.onScrollStart,
+			onScrollSettled = if not FFlagLuaAppHomeTouchAutoplay then nil else t2.onScrollSettled
+		})
+	})
+end

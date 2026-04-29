@@ -1,61 +1,67 @@
-local l_Parent_0 = script:FindFirstAncestor("DataHydration").Parent;
-local v1 = require(script.GameInfo.createGameInfoStore);
-local v2 = require(script.Favorites.createFavoritesStore);
-local v3 = require(script.Followings.createFollowingsStore);
-local v4 = require(script.Votes.createVotesStore);
-local v5 = require(script.Votes.createUserVoteFeedbackMetadataStore);
-local v6 = require(script.Playability.createPlayabilityStore);
-local v7 = require(script.AgeRecommendations.createAgeRecommendationStore);
-local v8 = require(script.GameMedia.createGameMediaStore);
-local v9 = require(script.Favorites.getFavoritesStore);
-local v10 = require(script.GameInfo.getGameInfoStore);
-local v11 = require(script.Followings.getFollowingsStore);
-local v12 = require(script.Votes.getVotesStore);
-local v13 = require(script.Votes.getUserVoteFeedbackMetadataStore);
-local v14 = require(script.AgeRecommendations.getAgeRecommendationStore);
-local v15 = require(script.Playability.getPlayabilityStore);
-local v16 = require(script.GameMedia.getGameMediaStore);
-local v17 = require(script.ConnectionsPlayed.getConnectionsPlayedStore);
-local v18 = require(script.ConnectionsPlayed.createConnectionsPlayedStore);
-local v19 = require(script.GamePass);
-local l_createGamePassStore_0 = v19.createGamePassStore;
-local l_getGamePassStore_0 = v19.getGamePassStore;
-local _ = require(script.Followings.FollowingsStoreTypes);
-local _ = require(script.Votes.VotesStoreTypes);
-local v24 = require(script.Votes.VotesUtils);
-local _ = require(script.Favorites.FavoritesStoreTypes);
-local _ = require(script.AgeRecommendations.AgeRecommendationStoreTypes);
-local v27 = require(script.AgeRecommendations.AgeRecommendationUtils);
-local _ = require(script.GameInfo.GameInfoStoreTypes);
-local _ = require(script.Playability.PlayabilityStoreTypes);
-local _ = require(script.GameMedia.GameMediaStoreTypes);
-local _ = require(script.Votes.UserVoteFeedbackMetadataStoreTypes);
-local _ = require(script.GamePass.GamePassStoreTypes);
-local l_FFlagLuaAppDataHydrationFollowingsStore_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppDataHydrationFollowingsStore;
-local l_FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore;
-local l_FFlagLuaAppDataHydrationFavoritesStore_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppDataHydrationFavoritesStore;
-local l_FFlagLuaAppDataHydrationConnectionsPlayedStore_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppDataHydrationConnectionsPlayedStore;
+local Parent = script:FindFirstAncestor("DataHydration").Parent
+local createGameInfoStore = require(script.GameInfo.createGameInfoStore)
+local createFavoritesStore = require(script.Favorites.createFavoritesStore)
+local createFollowingsStore = require(script.Followings.createFollowingsStore)
+local createVotesStore = require(script.Votes.createVotesStore)
+local createUserVoteFeedbackMetadataStore = require(script.Votes.createUserVoteFeedbackMetadataStore)
+local createPlayabilityStore = require(script.Playability.createPlayabilityStore)
+local createAgeRecommendationStore = require(script.AgeRecommendations.createAgeRecommendationStore)
+local createGameMediaStore = require(script.GameMedia.createGameMediaStore)
+local getFavoritesStore = require(script.Favorites.getFavoritesStore)
+local getGameInfoStore = require(script.GameInfo.getGameInfoStore)
+local getFollowingsStore = require(script.Followings.getFollowingsStore)
+local getVotesStore = require(script.Votes.getVotesStore)
+local getUserVoteFeedbackMetadataStore = require(script.Votes.getUserVoteFeedbackMetadataStore)
+local getAgeRecommendationStore = require(script.AgeRecommendations.getAgeRecommendationStore)
+local getPlayabilityStore = require(script.Playability.getPlayabilityStore)
+local getGameMediaStore = require(script.GameMedia.getGameMediaStore)
+local getConnectionsPlayedStore = require(script.ConnectionsPlayed.getConnectionsPlayedStore)
+local createConnectionsPlayedStore = require(script.ConnectionsPlayed.createConnectionsPlayedStore)
+local GamePass = require(script.GamePass)
+local createGamePassStore = GamePass.createGamePassStore
+local getGamePassStore = GamePass.getGamePassStore
+
+require(script.Followings.FollowingsStoreTypes)
+require(script.Votes.VotesStoreTypes)
+
+local VotesUtils = require(script.Votes.VotesUtils)
+
+require(script.Favorites.FavoritesStoreTypes)
+require(script.AgeRecommendations.AgeRecommendationStoreTypes)
+
+local AgeRecommendationUtils = require(script.AgeRecommendations.AgeRecommendationUtils)
+
+require(script.GameInfo.GameInfoStoreTypes)
+require(script.Playability.PlayabilityStoreTypes)
+require(script.GameMedia.GameMediaStoreTypes)
+require(script.Votes.UserVoteFeedbackMetadataStoreTypes)
+require(script.GamePass.GamePassStoreTypes)
+
+local FFlagLuaAppDataHydrationFollowingsStore = require(Parent.SharedFlags).FFlagLuaAppDataHydrationFollowingsStore
+local FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore = require(Parent.SharedFlags).FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore
+local FFlagLuaAppDataHydrationConnectionsPlayedStore = require(Parent.SharedFlags).FFlagLuaAppDataHydrationConnectionsPlayedStore
+
 return {
-    createGamePassStore = l_createGamePassStore_0, 
-    getGamePassStore = l_getGamePassStore_0, 
-    createFavoritesStore = if l_FFlagLuaAppDataHydrationFavoritesStore_0 then v2 else nil, 
-    createAgeRecommendationStore = v7, 
-    createFollowingsStore = if l_FFlagLuaAppDataHydrationFollowingsStore_0 then v3 else nil, 
-    createGameInfoStore = v1, 
-    createPlayabilityStore = v6, 
-    createVotesStore = v4, 
-    createUserVoteFeedbackMetadataStore = if l_FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore_0 then v5 else nil, 
-    createConnectionsPlayedStore = if l_FFlagLuaAppDataHydrationConnectionsPlayedStore_0 then v18 else nil, 
-    getFavoritesStore = if l_FFlagLuaAppDataHydrationFavoritesStore_0 then v9 else nil, 
-    getAgeRecommendationStore = v14, 
-    getFollowingsStore = if l_FFlagLuaAppDataHydrationFollowingsStore_0 then v11 else nil, 
-    getGameInfoStore = v10, 
-    getPlayabilityStore = v15, 
-    getVotesStore = v12, 
-    getUserVoteFeedbackMetadataStore = if l_FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore_0 then v13 else nil, 
-    VotesUtils = v24, 
-    AgeRecommendationUtils = v27, 
-    getConnectionsPlayedStore = if l_FFlagLuaAppDataHydrationConnectionsPlayedStore_0 then v17 else nil, 
-    createGameMediaStore = v8, 
-    getGameMediaStore = v16
-};
+	createGamePassStore = createGamePassStore,
+	getGamePassStore = getGamePassStore,
+	createFavoritesStore = createFavoritesStore,
+	createAgeRecommendationStore = createAgeRecommendationStore,
+	createFollowingsStore = if not FFlagLuaAppDataHydrationFollowingsStore then nil else createFollowingsStore,
+	createGameInfoStore = createGameInfoStore,
+	createPlayabilityStore = createPlayabilityStore,
+	createVotesStore = createVotesStore,
+	createUserVoteFeedbackMetadataStore = if not FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore then nil else createUserVoteFeedbackMetadataStore,
+	createConnectionsPlayedStore = if not FFlagLuaAppDataHydrationConnectionsPlayedStore then nil else createConnectionsPlayedStore,
+	getFavoritesStore = getFavoritesStore,
+	getAgeRecommendationStore = getAgeRecommendationStore,
+	getFollowingsStore = if not FFlagLuaAppDataHydrationFollowingsStore then nil else getFollowingsStore,
+	getGameInfoStore = getGameInfoStore,
+	getPlayabilityStore = getPlayabilityStore,
+	getVotesStore = getVotesStore,
+	getUserVoteFeedbackMetadataStore = if not FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore then nil else getUserVoteFeedbackMetadataStore,
+	VotesUtils = VotesUtils,
+	AgeRecommendationUtils = AgeRecommendationUtils,
+	getConnectionsPlayedStore = if not FFlagLuaAppDataHydrationConnectionsPlayedStore then nil else getConnectionsPlayedStore,
+	createGameMediaStore = createGameMediaStore,
+	getGameMediaStore = getGameMediaStore
+}

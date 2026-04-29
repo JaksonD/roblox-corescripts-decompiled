@@ -1,288 +1,361 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SduiCoreSystem");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.ServiceContractsProto);
-local v3 = require(l_Parent_0.Signals);
-local v4 = require(l_script_FirstAncestor_0.ClientBinding.PropBuilder.buildInputsForNestedComponent);
-local _ = require(l_script_FirstAncestor_0.SduiBuilderTypes);
-local v6 = require(l_script_FirstAncestor_0.ClientBinding.SduiClientBindingTypes);
-local l_buildConfigForComponent_0 = require(l_script_FirstAncestor_0.ClientBinding.SduiClientBindingBuilder).buildConfigForComponent;
-local _ = require(l_script_FirstAncestor_0.ClientBinding.SduiDataBindingContentType);
-local l_PropResultCategory_0 = v6.PropResultCategory;
-local v10 = require(l_script_FirstAncestor_0.ClientBinding.PropBuilder.SduiPropUtils);
-local v11 = require(l_script_FirstAncestor_0.SduiLogger);
-local v12 = require(l_script_FirstAncestor_0.SduiErrors);
-local v13 = require(l_script_FirstAncestor_0.SduiParseHelpers);
-local l_FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport;
-local l_FFlagSduiOrderedTemplateDataSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiOrderedTemplateDataSupport;
-local l_FFlagSduiLocalizedLiterals_0 = require(l_Parent_0.SharedFlags).FFlagSduiLocalizedLiterals;
-local function v39(v17, v18, v19, v20, v21, v22, v23, v24, v25) --[[ Line: 35 ]] --[[ Name: buildItemList ]]
-    -- upvalues: l_FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport_0 (copy), l_FFlagSduiOrderedTemplateDataSupport_0 (copy), v10 (copy), v3 (copy), v4 (copy), l_FFlagSduiLocalizedLiterals_0 (copy), v11 (copy), v12 (copy), v13 (copy), l_buildConfigForComponent_0 (copy)
-    local v26 = {};
-    for v27, v28 in v18 do
-        local v29 = nil;
-        v29 = if l_FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport_0 and v28 and v28.roblox_component then v21.getTemplateForRobloxComponent(v28.roblox_component) or v17 else v17;
-        if v23 and v23[v27] then
-            local v30 = v23[v27];
-            if l_FFlagSduiOrderedTemplateDataSupport_0 then
-                if v10.isComponentVisible(v30, v25) then
-                    table.insert(v26, v30);
-                end;
-            else
-                local v31 = false;
-                if v30.isComponentFilteredSignal ~= nil then
-                    v31 = v30.isComponentFilteredSignal(v25).data;
-                end;
-                if not v31 then
-                    table.insert(v26, v30);
-                end;
-            end;
-        else
-            local v36 = v3.createComputed(function(v32) --[[ Line: 70 ]]
-                -- upvalues: v19 (copy), v28 (copy), v4 (ref), v20 (copy), v24 (copy), l_FFlagSduiLocalizedLiterals_0 (ref), v21 (copy), v11 (ref), v12 (ref), v13 (ref)
-                local v33 = nil;
-                if v19 then
-                    v33 = table.clone(v28);
-                    local l_status_0, l_result_0 = pcall(function() --[[ Line: 74 ]]
-                        -- upvalues: v4 (ref), v20 (ref), v19 (ref), v24 (ref), v32 (copy), v33 (ref), l_FFlagSduiLocalizedLiterals_0 (ref), v21 (ref)
-                        v4(v20, v19, v24, v32, v33, if l_FFlagSduiLocalizedLiterals_0 then v21 else nil);
-                    end);
-                    if not l_status_0 then
-                        v11.reportError(v12.SduiErrorType.FailedToParseProp, {
-                            message = ("Failed to build inputs for nested component in list: %*"):format((v13.stringifyValue(l_result_0))), 
-                            name = v21.debugName
-                        }, v21.appPage);
-                    end;
-                else
-                    v33 = v28;
-                end;
-                return v33;
-            end);
-            local v37 = l_buildConfigForComponent_0(v29, v36, v21, v22);
-            if v37 then
-                if l_FFlagSduiOrderedTemplateDataSupport_0 then
-                    if v10.isComponentVisible(v37, v25) then
-                        table.insert(v26, v37);
-                    end;
-                else
-                    local v38 = false;
-                    if v37.isComponentFilteredSignal ~= nil then
-                        v38 = v37.isComponentFilteredSignal(v25).data;
-                    end;
-                    if not v38 then
-                        table.insert(v26, v37);
-                    end;
-                end;
-            end;
-        end;
-    end;
-    return v26;
-end;
-local function v75(v40, v41, v42, v43, v44) --[[ Line: 118 ]] --[[ Name: buildOrderedTemplateDataList ]]
-    -- upvalues: v3 (copy), v10 (copy), v11 (copy), v12 (copy), v4 (copy), l_FFlagSduiLocalizedLiterals_0 (copy), l_buildConfigForComponent_0 (copy), v13 (copy), l_PropResultCategory_0 (copy)
-    local l_entry_map_path_0 = v40.entry_map_path;
-    local l_entry_order_0 = v40.entry_order;
-    local l_template_data_map_0 = v40.template_data_map;
-    if l_entry_order_0 == nil then
-        error("Missing entry_order in ordered_template_data");
-    end;
-    if l_template_data_map_0 == nil or typeof(l_template_data_map_0) ~= "table" then
-        error("Missing or invalid template_data_map in ordered_template_data");
-    end;
-    local v48 = if l_entry_map_path_0 and l_entry_map_path_0 ~= "" then string.split(l_entry_map_path_0, ".") else nil;
-    local v49 = if l_entry_order_0 then l_entry_order_0.kind else nil;
-    local v50 = if v49 and v49.type == "binding_path" then string.split(v49.value, ".") else nil;
-    return v3.createComputed(function(v51) --[[ Line: 143 ]]
-        -- upvalues: v50 (copy), v10 (ref), v41 (copy), v42 (copy), v49 (copy), v48 (copy), l_template_data_map_0 (copy), v11 (ref), v12 (ref), v43 (copy), v3 (ref), v4 (ref), l_FFlagSduiLocalizedLiterals_0 (ref), l_buildConfigForComponent_0 (ref), v44 (copy), v13 (ref)
-        local l_status_2, l_result_2 = pcall(function() --[[ Line: 144 ]]
-            -- upvalues: v50 (ref), v10 (ref), v51 (copy), v41 (ref), v42 (ref), v49 (ref), v48 (ref), l_template_data_map_0 (ref), v11 (ref), v12 (ref), v43 (ref), v3 (ref), v4 (ref), l_FFlagSduiLocalizedLiterals_0 (ref), l_buildConfigForComponent_0 (ref), v44 (ref), v13 (ref)
-            local v52 = nil;
-            if v50 then
-                v52 = v10.resolveBindingPathValue(v51, v50, v41, v42);
-            elseif v49 and v49.type == "literal" then
-                v52 = v49.value and v49.value.items;
-            end;
-            if v52 == nil then
-                error("entry_order resolved to nil in ordered_template_data");
-            end;
-            local v53 = if v48 then v10.resolveBindingPathValue(v51, v48, v41, v42) else nil;
-            local v54 = {};
-            for _, v56 in v52 do
-                local v57 = if typeof(v56) == "table" then v56.identifier else v56;
-                if v57 ~= nil and v57 ~= "" then
-                    local v58 = l_template_data_map_0[v57];
-                    local v59 = if v53 then v53[v57] else nil;
-                    local v60 = if v59 and v59.roblox_component and v59.roblox_component ~= "" then v59.roblox_component else if v58 and v58.roblox_component then v58.roblox_component else nil;
-                    if v60 == nil then
-                        v11.reportError(v12.SduiErrorType.UnknownTemplateDataIdentifier, {
-                            message = ("No roblox_component for identifier \"%*\" in ordered_template_data (not in template_data_map or feed entry)"):format(v57), 
-                            name = v43.debugName
-                        }, v43.appPage);
-                    else
-                        local l_status_1, l_result_1 = pcall(function() --[[ Line: 187 ]]
-                            -- upvalues: v10 (ref), v60 (copy), v43 (ref), v58 (copy), v3 (ref), v4 (ref), v42 (ref), v41 (ref), l_FFlagSduiLocalizedLiterals_0 (ref), v59 (copy), l_buildConfigForComponent_0 (ref), v44 (ref)
-                            local v61 = v10.resolveTemplate(v60, v43);
-                            local v62 = if v58 then v58.inputs else nil;
-                            local v68 = v3.createComputed(function(v63) --[[ Line: 191 ]]
-                                -- upvalues: v62 (copy), v4 (ref), v42 (ref), v41 (ref), l_FFlagSduiLocalizedLiterals_0 (ref), v43 (ref), v59 (ref)
-                                local v64 = {};
-                                if v62 then
-                                    v4(v42, v62, v41, v63, v64, if l_FFlagSduiLocalizedLiterals_0 then v43 else nil);
-                                end;
-                                if v59 then
-                                    local v65 = if v59.input_data and v59.input_data.kind and v59.input_data.kind.value then v59.input_data.kind.value else nil;
-                                    if typeof(v65) == "table" then
-                                        for v66, v67 in v65 do
-                                            v64[v66] = v67;
-                                        end;
-                                    end;
-                                end;
-                                return v64;
-                            end);
-                            return l_buildConfigForComponent_0(v61, v68, v43, v44);
-                        end);
-                        if not l_status_1 then
-                            local v71 = v13.stringifyValue(l_result_1);
-                            v11.reportError(v12.SduiErrorType.FailedToParseProp, {
-                                message = ("Failed to build ordered_template_data entry for identifier %*: %*"):format(v57, v71), 
-                                name = v43.debugName
-                            }, v43.appPage);
-                        elseif l_result_1 and v10.isComponentVisible(l_result_1, v51) then
-                            table.insert(v54, l_result_1);
-                        end;
-                    end;
-                end;
-            end;
-            return v54;
-        end);
-        if not l_status_2 then
-            local v74 = v13.stringifyValue(l_result_2);
-            v11.reportError(v12.SduiErrorType.FailedToParseProp, {
-                message = ("Failed to build ordered_template_data component list: %*"):format(v74), 
-                name = v43.debugName
-            }, v43.appPage);
-            return {
-                data = {}
-            };
-        else
-            return {
-                data = l_result_2
-            };
-        end;
-    end), l_PropResultCategory_0.PropSignal;
-end;
-local function v76(v77, v78, v79, v80, v81, v82) --[[ Line: 285 ]] --[[ Name: buildLazyNestedComponentListProp ]]
-    -- upvalues: l_FFlagSduiOrderedTemplateDataSupport_0 (copy), v10 (copy), v39 (copy), l_PropResultCategory_0 (copy), v3 (copy), v4 (copy), l_FFlagSduiLocalizedLiterals_0 (copy), v13 (copy), v11 (copy), v12 (copy), l_buildConfigForComponent_0 (copy), v75 (copy), v76 (copy)
-    if v77 == "array_map" then
-        local v83 = nil;
-        if l_FFlagSduiOrderedTemplateDataSupport_0 then
-            v83 = v10.resolveTemplate(v78.roblox_component, v81);
-        else
-            if v78.roblox_component == nil then
-                error("Missing templateData.roblox_component");
-            end;
-            local v84 = v81.getTemplateForRobloxComponent(v78.roblox_component);
-            if v84 == nil then
-                error((("Could not find template for roblox_component %*"):format(v78.roblox_component)));
-            end;
-            v83 = v84;
-        end;
-        local l_binding_path_0 = v78.binding_path;
-        if l_binding_path_0 == nil or l_binding_path_0 == "" then
-            error((("No bindingPath specified for roblox_component %*"):format(v78.roblox_component)));
-        end;
-        local v86 = nil;
-        return v10.generateDynamicBindingPropValue(l_binding_path_0, v79, v81, v80, function(v87, v88) --[[ Line: 323 ]]
-            -- upvalues: v86 (ref), v39 (ref), v83 (ref), v78 (copy), v80 (copy), v81 (copy), v82 (copy), v79 (copy)
-            v86 = v39(v83, v87, v78.inputs, v80, v81, v82, v86, v79, v88);
-            return v86;
-        end), l_PropResultCategory_0.PropSignal;
-    elseif v77 == "item_list" then
-        if typeof(v78) ~= "table" then
-            error((("Missing or invalid templateDataList %*"):format((typeof(v78)))));
-        end;
-        local l_items_0 = v78.items;
-        if typeof(l_items_0) ~= "table" then
-            error((("Missing or invalid templateDataList.items %*"):format((typeof(v78)))));
-        end;
-        return v3.createComputed(function(v90) --[[ Line: 352 ]]
-            -- upvalues: l_items_0 (copy), l_FFlagSduiOrderedTemplateDataSupport_0 (ref), v10 (ref), v81 (copy), v3 (ref), v4 (ref), v80 (copy), v79 (copy), l_FFlagSduiLocalizedLiterals_0 (ref), v13 (ref), v11 (ref), v12 (ref), l_buildConfigForComponent_0 (ref), v82 (copy)
-            local l_status_4, l_result_4 = pcall(function() --[[ Line: 353 ]]
-                -- upvalues: l_items_0 (ref), l_FFlagSduiOrderedTemplateDataSupport_0 (ref), v10 (ref), v81 (ref), v3 (ref), v4 (ref), v80 (ref), v79 (ref), l_FFlagSduiLocalizedLiterals_0 (ref), v13 (ref), v11 (ref), v12 (ref), l_buildConfigForComponent_0 (ref), v82 (ref), v90 (copy)
-                local v91 = {};
-                for _, v93 in l_items_0 do
-                    local v94 = nil;
-                    if l_FFlagSduiOrderedTemplateDataSupport_0 then
-                        v94 = v10.resolveTemplate(v93.roblox_component, v81);
-                    else
-                        if v93.roblox_component == nil then
-                            error("Missing templateData.roblox_component");
-                        end;
-                        local v95 = v81.getTemplateForRobloxComponent(v93.roblox_component);
-                        if v95 == nil then
-                            error((("Could not find template for roblox_component %*"):format(v93.roblox_component)));
-                        end;
-                        v94 = v95;
-                    end;
-                    local l_inputs_0 = v93.inputs;
-                    local v102 = v3.createComputed(function(v97) --[[ Line: 371 ]]
-                        -- upvalues: l_inputs_0 (copy), v4 (ref), v80 (ref), v79 (ref), l_FFlagSduiLocalizedLiterals_0 (ref), v81 (ref), v13 (ref), v11 (ref), v12 (ref)
-                        local v98 = {};
-                        if l_inputs_0 then
-                            local l_status_3, l_result_3 = pcall(function() --[[ Line: 374 ]]
-                                -- upvalues: v4 (ref), v80 (ref), l_inputs_0 (ref), v79 (ref), v97 (copy), v98 (copy), l_FFlagSduiLocalizedLiterals_0 (ref), v81 (ref)
-                                v4(v80, l_inputs_0, v79, v97, v98, if l_FFlagSduiLocalizedLiterals_0 then v81 else nil);
-                            end);
-                            if not l_status_3 then
-                                local v101 = v13.stringifyValue(l_result_3);
-                                v11.reportError(v12.SduiErrorType.FailedToParseProp, {
-                                    message = ("Failed to build inputs for nested component in item_list: %*"):format(v101), 
-                                    name = v81.debugName
-                                }, v81.appPage);
-                            end;
-                        end;
-                        return v98;
-                    end);
-                    local v103 = l_buildConfigForComponent_0(v94, v102, v81, v82);
-                    if v103 then
-                        if l_FFlagSduiOrderedTemplateDataSupport_0 then
-                            if v10.isComponentVisible(v103, v90) then
-                                table.insert(v91, v103);
-                            end;
-                        else
-                            local v104 = false;
-                            if v103.isComponentFilteredSignal ~= nil then
-                                v104 = v103.isComponentFilteredSignal(v90).data;
-                            end;
-                            if not v104 then
-                                table.insert(v91, v103);
-                            end;
-                        end;
-                    end;
-                end;
-                return v91;
-            end);
-            if not l_status_4 then
-                local v107 = v13.stringifyValue(l_result_4);
-                v11.reportError(v12.SduiErrorType.FailedToParseProp, {
-                    message = ("Failed to build item_list component list: %*"):format(v107), 
-                    name = v81.debugName
-                }, v81.appPage);
-                return {
-                    data = {}
-                };
-            else
-                return {
-                    data = l_result_4
-                };
-            end;
-        end), l_PropResultCategory_0.PropSignal;
-    elseif l_FFlagSduiOrderedTemplateDataSupport_0 and v77 == "ordered_template_data" then
-        return v75(v78, v79, v80, v81, v82);
-    elseif v77 == "conditional" then
-        return v10.generateConditionalPropValue(v78, v79, v81, v82, v80, v76), l_PropResultCategory_0.PropSignal;
-    else
-        error((("Could not build prop. Unknown propDefinitionType: %*"):format(v77)));
-        return;
-    end;
-end;
-return v76;
+local SduiCoreSystem = script:FindFirstAncestor("SduiCoreSystem")
+local SduiCoreSystemParent = SduiCoreSystem.Parent
+
+require(SduiCoreSystemParent.ServiceContractsProto)
+
+local Signals = require(SduiCoreSystemParent.Signals)
+local buildInputsForNestedComponent = require(SduiCoreSystem.ClientBinding.PropBuilder.buildInputsForNestedComponent)
+
+require(SduiCoreSystem.SduiBuilderTypes)
+
+local SduiClientBindingTypes = require(SduiCoreSystem.ClientBinding.SduiClientBindingTypes)
+local buildConfigForComponent = require(SduiCoreSystem.ClientBinding.SduiClientBindingBuilder).buildConfigForComponent
+
+require(SduiCoreSystem.ClientBinding.SduiDataBindingContentType)
+
+local PropResultCategory = SduiClientBindingTypes.PropResultCategory
+local SduiPropUtils = require(SduiCoreSystem.ClientBinding.PropBuilder.SduiPropUtils)
+local SduiLogger = require(SduiCoreSystem.SduiLogger)
+local SduiErrors = require(SduiCoreSystem.SduiErrors)
+local SduiParseHelpers = require(SduiCoreSystem.SduiParseHelpers)
+
+require(SduiCoreSystem.SduiComponentType)
+
+local FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport = require(SduiCoreSystemParent.SharedFlags).FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport
+local FFlagSduiOrderedTemplateDataSupport = require(SduiCoreSystemParent.SharedFlags).FFlagSduiOrderedTemplateDataSupport
+local FFlagSduiLocalizedLiterals = require(SduiCoreSystemParent.SharedFlags).FFlagSduiLocalizedLiterals
+local FFlagSduiImprovedErrorDimensions = require(SduiCoreSystemParent.SharedFlags).FFlagSduiImprovedErrorDimensions
+
+local function buildItemList(p1, t1: {[any]: any}, t2: {[any]: any}?, p2, p3, p4, t3: {[any]: any}?, p5, p6) -- line: 38
+	-- upvalues: FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport (copy), FFlagSduiOrderedTemplateDataSupport (copy), SduiPropUtils (copy), Signals (copy), buildInputsForNestedComponent (copy), FFlagSduiLocalizedLiterals (copy), SduiLogger (copy), SduiErrors (copy), SduiParseHelpers (copy), FFlagSduiImprovedErrorDimensions (copy), buildConfigForComponent (copy)
+	local t4 = {}
+
+	for v29, v30 in t1 do
+		local v31 = if not FFlagSduiLazyNestedComponentArrayMapItemResolutionSupport or (not v30 or not v30.roblox_component) then p1 else p3.getTemplateForRobloxComponent(v30.roblox_component) or p1
+
+		if t3 and t3[v29] then
+			local v32 = t3[v29]
+
+			if FFlagSduiOrderedTemplateDataSupport then
+				if SduiPropUtils.isComponentVisible(v32, p6) then
+					table.insert(t4, v32)
+				end
+			elseif v32.isComponentFilteredSignal == nil or not v32.isComponentFilteredSignal(p6).data then
+				table.insert(t4, v32)
+			end
+		else
+			local v33 = Signals.createComputed(function(p7) -- line: 73
+				-- upvalues: t2 (copy), v30 (copy), buildInputsForNestedComponent (copy), p2 (copy), p5 (copy), FFlagSduiLocalizedLiterals (copy), p3 (copy), SduiLogger (copy), SduiErrors (copy), SduiParseHelpers (copy), FFlagSduiImprovedErrorDimensions (copy)
+				local u60
+
+				if t2 then
+					u60 = table.clone(v30)
+
+					local ok, result = pcall(function() -- line: 77
+						-- upvalues: buildInputsForNestedComponent (copy), p2 (copy), t2 (copy), p5 (copy), p7 (copy), u60 (ref), FFlagSduiLocalizedLiterals (copy), p3 (copy)
+						buildInputsForNestedComponent(p2, t2, p5, p7, u60, if not FFlagSduiLocalizedLiterals then nil else p3)
+					end)
+
+					if not ok then
+						SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToParseProp, {
+							message = `Failed to build inputs for nested component in list: { SduiParseHelpers.stringifyValue(result) }`,
+							name = p3.debugName,
+							componentType = if not FFlagSduiImprovedErrorDimensions then nil else p3.currentComponentType,
+							parserName = if not FFlagSduiImprovedErrorDimensions then nil else p3.currentParserName
+						}, p3.appPage)
+					end
+				else
+					u60 = v30
+				end
+
+				return u60
+			end)
+			local v34 = buildConfigForComponent(v31, v33, p3, p4)
+
+			if v34 then
+				if FFlagSduiOrderedTemplateDataSupport then
+					if SduiPropUtils.isComponentVisible(v34, p6) then
+						table.insert(t4, v34)
+					end
+				elseif v34.isComponentFilteredSignal == nil or not v34.isComponentFilteredSignal(p6).data then
+					table.insert(t4, v34)
+				end
+			end
+		end
+	end
+
+	return t4
+end
+local function buildOrderedTemplateDataList(p8, p9, p10, p11, p12) -- line: 127
+	-- upvalues: Signals (copy), SduiPropUtils (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiImprovedErrorDimensions (copy), buildInputsForNestedComponent (copy), FFlagSduiLocalizedLiterals (copy), buildConfigForComponent (copy), SduiParseHelpers (copy), PropResultCategory (copy)
+	local entry_map_path = p8.entry_map_path
+	local entry_order = p8.entry_order
+	local template_data_map = p8.template_data_map
+
+	if entry_order == nil then
+		error("Missing entry_order in ordered_template_data")
+	end
+
+	if template_data_map == nil or typeof(template_data_map) ~= "table" then
+		error("Missing or invalid template_data_map in ordered_template_data")
+	end
+
+	local v43 = if not entry_map_path or entry_map_path == "" then nil else string.split(entry_map_path, ".")
+	local v44 = if not entry_order then nil else entry_order.kind
+	local v45 = if not v44 or v44.type ~= "binding_path" then nil else string.split(v44.value, ".")
+
+	return Signals.createComputed(function(p13) -- line: 152
+		-- upvalues: v45 (copy), SduiPropUtils (copy), p9 (copy), p10 (copy), v44 (copy), v43 (copy), template_data_map (copy), SduiLogger (copy), SduiErrors (copy), p11 (copy), FFlagSduiImprovedErrorDimensions (copy), Signals (copy), buildInputsForNestedComponent (copy), FFlagSduiLocalizedLiterals (copy), buildConfigForComponent (copy), p12 (copy), SduiParseHelpers (copy)
+		local ok, result = pcall(function() -- line: 153
+			-- upvalues: v45 (copy), SduiPropUtils (copy), p13 (copy), p9 (copy), p10 (copy), v44 (copy), v43 (copy), template_data_map (copy), SduiLogger (copy), SduiErrors (copy), p11 (copy), FFlagSduiImprovedErrorDimensions (copy), Signals (copy), buildInputsForNestedComponent (copy), FFlagSduiLocalizedLiterals (copy), buildConfigForComponent (copy), p12 (copy), SduiParseHelpers (copy)
+			local v73 = nil
+
+			if v45 then
+				v73 = SduiPropUtils.resolveBindingPathValue(p13, v45, p9, p10)
+			elseif v44 and v44.type == "literal" then
+				v73 = v44.value and v44.value.items
+			end
+
+			if v73 == nil then
+				error("entry_order resolved to nil in ordered_template_data")
+			end
+
+			local v74 = if not v43 then nil else SduiPropUtils.resolveBindingPathValue(p13, v43, p9, p10)
+			local t5 = {}
+
+			for _, v77 in v73 do
+				local v78 = if typeof(v77) ~= "table" then v77 else v77.identifier
+
+				if v78 ~= nil and v78 ~= "" then
+					local v79 = template_data_map[v78]
+					local v80 = if not v74 then nil else v74[v78]
+					local v81 = if not v80 or (not v80.roblox_component or v80.roblox_component == "") then if not v79 or not v79.roblox_component then nil else v79.roblox_component else v80.roblox_component
+
+					if v81 == nil then
+						SduiLogger.reportError(SduiErrors.SduiErrorType.UnknownTemplateDataIdentifier, {
+							message = `No roblox_component for identifier "{ v78 }" in ordered_template_data (not in template_data_map or feed entry)`,
+							name = p11.debugName,
+							componentType = if not FFlagSduiImprovedErrorDimensions then nil else p11.currentComponentType,
+							parserName = if not FFlagSduiImprovedErrorDimensions then nil else p11.currentParserName
+						}, p11.appPage)
+					else
+						local ok, result = pcall(function() -- line: 200
+							-- upvalues: SduiPropUtils (copy), v81 (copy), p11 (copy), v79 (copy), Signals (copy), buildInputsForNestedComponent (copy), p10 (copy), p9 (copy), FFlagSduiLocalizedLiterals (copy), v80 (copy), buildConfigForComponent (copy), p12 (copy)
+							local v92 = SduiPropUtils.resolveTemplate(v81, p11)
+							local v93 = if not v79 then nil else v79.inputs
+							local v94 = Signals.createComputed(function(p14) -- line: 204
+								-- upvalues: v93 (copy), buildInputsForNestedComponent (copy), p10 (copy), p9 (copy), FFlagSduiLocalizedLiterals (copy), p11 (copy), v80 (copy)
+								local t6 = {}
+
+								if v93 then
+									buildInputsForNestedComponent(p10, v93, p9, p14, t6, if not FFlagSduiLocalizedLiterals then nil else p11)
+								end
+
+								if v80 then
+									local v102 = if not v80.input_data or (not v80.input_data.kind or not v80.input_data.kind.value) then nil else v80.input_data.kind.value
+
+									if typeof(v102) == "table" then
+										for v103, v104 in v102 do
+											t6[v103] = v104
+										end
+									end
+								end
+
+								return t6
+							end)
+
+							return buildConfigForComponent(v92, v94, p11, p12)
+						end)
+
+						if not ok then
+							local v84 = SduiParseHelpers.stringifyValue(result)
+
+							SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToParseProp, {
+								message = `Failed to build ordered_template_data entry for identifier { v78 }: { v84 }`,
+								name = p11.debugName,
+								componentType = if not FFlagSduiImprovedErrorDimensions then nil else p11.currentComponentType,
+								parserName = if not FFlagSduiImprovedErrorDimensions then nil else p11.currentParserName
+							}, p11.appPage)
+						elseif result and SduiPropUtils.isComponentVisible(result, p13) then
+							table.insert(t5, result)
+						end
+					end
+				end
+			end
+
+			return t5
+		end)
+
+		if not ok then
+			local v66 = SduiParseHelpers.stringifyValue(result)
+
+			SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToParseProp, {
+				message = `Failed to build ordered_template_data component list: { v66 }`,
+				name = p11.debugName,
+				componentType = if not FFlagSduiImprovedErrorDimensions then nil else p11.currentComponentType,
+				parserName = if not FFlagSduiImprovedErrorDimensions then nil else p11.currentParserName
+			}, p11.appPage)
+
+			return {
+				data = {}
+			}
+		end
+
+		return {
+			data = result
+		}
+	end), PropResultCategory.PropSignal
+end
+local function buildLazyNestedComponentListProp(p15, p16, p17, p18, p19, p20) -- line: 304
+	-- upvalues: FFlagSduiImprovedErrorDimensions (copy), FFlagSduiOrderedTemplateDataSupport (copy), SduiPropUtils (copy), buildItemList (copy), PropResultCategory (copy), Signals (copy), buildInputsForNestedComponent (copy), FFlagSduiLocalizedLiterals (copy), SduiParseHelpers (copy), SduiLogger (copy), SduiErrors (copy), buildConfigForComponent (copy), buildOrderedTemplateDataList (copy), buildLazyNestedComponentListProp (copy)
+	local currentComponentType = nil
+	local currentParserName = nil
+
+	if FFlagSduiImprovedErrorDimensions then
+		currentComponentType = p19.currentComponentType
+		currentParserName = p19.currentParserName
+	end
+
+	if p15 == "array_map" then
+		local u54
+
+		if FFlagSduiOrderedTemplateDataSupport then
+			u54 = SduiPropUtils.resolveTemplate(p16.roblox_component, p19)
+		else
+			if p16.roblox_component == nil then
+				error("Missing templateData.roblox_component")
+			end
+
+			local v55 = p19.getTemplateForRobloxComponent(p16.roblox_component)
+
+			if v55 == nil then
+				error(`Could not find template for roblox_component { p16.roblox_component }`)
+			end
+
+			u54 = v55
+		end
+
+		local binding_path = p16.binding_path
+
+		if binding_path == nil or binding_path == "" then
+			error(`No bindingPath specified for roblox_component { p16.roblox_component }`)
+		end
+
+		local u57 = nil
+
+		return SduiPropUtils.generateDynamicBindingPropValue(binding_path, p17, p19, p18, function(p21, p22) -- line: 349
+			-- upvalues: u57 (ref), buildItemList (copy), u54 (ref), p16 (copy), p18 (copy), p19 (copy), p20 (copy), p17 (copy)
+			u57 = buildItemList(u54, p21, p16.inputs, p18, p19, p20, u57, p17, p22)
+
+			return u57
+		end), PropResultCategory.PropSignal
+	end
+
+	if p15 == "item_list" then
+		if typeof(p16) ~= "table" then
+			error(`Missing or invalid templateDataList { typeof(p16) }`)
+		end
+
+		local items = p16.items
+
+		if typeof(items) ~= "table" then
+			error(`Missing or invalid templateDataList.items { typeof(p16) }`)
+		end
+
+		return Signals.createComputed(function(p23) -- line: 378
+			-- upvalues: items (copy), FFlagSduiOrderedTemplateDataSupport (copy), SduiPropUtils (copy), p19 (copy), Signals (copy), buildInputsForNestedComponent (copy), p18 (copy), p17 (copy), FFlagSduiLocalizedLiterals (copy), SduiParseHelpers (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiImprovedErrorDimensions (copy), currentComponentType (ref), currentParserName (ref), buildConfigForComponent (copy), p20 (copy)
+			local ok, result = pcall(function() -- line: 379
+				-- upvalues: items (copy), FFlagSduiOrderedTemplateDataSupport (copy), SduiPropUtils (copy), p19 (copy), Signals (copy), buildInputsForNestedComponent (copy), p18 (copy), p17 (copy), FFlagSduiLocalizedLiterals (copy), SduiParseHelpers (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiImprovedErrorDimensions (copy), currentComponentType (ref), currentParserName (ref), buildConfigForComponent (copy), p20 (copy), p23 (copy)
+				local t7 = {}
+
+				for _, v87 in items do
+					local v88
+
+					if FFlagSduiOrderedTemplateDataSupport then
+						v88 = SduiPropUtils.resolveTemplate(v87.roblox_component, p19)
+					else
+						if v87.roblox_component == nil then
+							error("Missing templateData.roblox_component")
+						end
+
+						v88 = p19.getTemplateForRobloxComponent(v87.roblox_component)
+
+						if v88 == nil then
+							error(`Could not find template for roblox_component { v87.roblox_component }`)
+						end
+					end
+
+					local inputs = v87.inputs
+					local v90 = Signals.createComputed(function(p24) -- line: 397
+						-- upvalues: inputs (copy), buildInputsForNestedComponent (copy), p18 (copy), p17 (copy), FFlagSduiLocalizedLiterals (copy), p19 (copy), SduiParseHelpers (copy), SduiLogger (copy), SduiErrors (copy), FFlagSduiImprovedErrorDimensions (copy), currentComponentType (ref), currentParserName (ref)
+						local t8 = {}
+
+						if inputs then
+							local ok, result = pcall(function() -- line: 400
+								-- upvalues: buildInputsForNestedComponent (copy), p18 (copy), inputs (copy), p17 (copy), p24 (copy), t8 (copy), FFlagSduiLocalizedLiterals (copy), p19 (copy)
+								buildInputsForNestedComponent(p18, inputs, p17, p24, t8, if not FFlagSduiLocalizedLiterals then nil else p19)
+							end)
+
+							if not ok then
+								local v99 = SduiParseHelpers.stringifyValue(result)
+
+								SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToParseProp, {
+									message = `Failed to build inputs for nested component in item_list: { v99 }`,
+									name = p19.debugName,
+									componentType = if not FFlagSduiImprovedErrorDimensions then nil else currentComponentType,
+									parserName = if not FFlagSduiImprovedErrorDimensions then nil else currentParserName
+								}, p19.appPage)
+							end
+						end
+
+						return t8
+					end)
+					local v91 = buildConfigForComponent(v88, v90, p19, p20)
+
+					if v91 then
+						if FFlagSduiOrderedTemplateDataSupport then
+							if SduiPropUtils.isComponentVisible(v91, p23) then
+								table.insert(t7, v91)
+							end
+						elseif v91.isComponentFilteredSignal == nil or not v91.isComponentFilteredSignal(p23).data then
+							table.insert(t7, v91)
+						end
+					end
+				end
+
+				return t7
+			end)
+
+			if not ok then
+				local v72 = SduiParseHelpers.stringifyValue(result)
+
+				SduiLogger.reportError(SduiErrors.SduiErrorType.FailedToParseProp, {
+					message = `Failed to build item_list component list: { v72 }`,
+					name = p19.debugName,
+					componentType = if not FFlagSduiImprovedErrorDimensions then nil else currentComponentType,
+					parserName = if not FFlagSduiImprovedErrorDimensions then nil else currentParserName
+				}, p19.appPage)
+
+				return {
+					data = {}
+				}
+			end
+
+			return {
+				data = result
+			}
+		end), PropResultCategory.PropSignal
+	end
+
+	if FFlagSduiOrderedTemplateDataSupport and p15 == "ordered_template_data" then
+		return buildOrderedTemplateDataList(p16, p17, p18, p19, p20)
+	end
+
+	if p15 == "conditional" then
+		return SduiPropUtils.generateConditionalPropValue(p16, p17, p19, p20, p18, buildLazyNestedComponentListProp), PropResultCategory.PropSignal
+	end
+
+	error(`Could not build prop. Unknown propDefinitionType: { p15 }`)
+end
+
+return buildLazyNestedComponentListProp

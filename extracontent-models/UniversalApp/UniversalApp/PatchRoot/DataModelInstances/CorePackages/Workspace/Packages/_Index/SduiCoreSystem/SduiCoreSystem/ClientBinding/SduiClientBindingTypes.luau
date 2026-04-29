@@ -1,15 +1,19 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("SduiCoreSystem");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_Parent_0.ServiceContractsProto);
-local _ = require(l_Parent_0.Signals);
-local _ = require(l_script_FirstAncestor_0.SduiBuilderTypes);
-local _ = require(l_script_FirstAncestor_0.SduiActionType);
-local _ = require(l_script_FirstAncestor_0.ClientBinding.SduiDataBindingContentType);
+local SduiCoreSystem = script:FindFirstAncestor("SduiCoreSystem")
+local SduiCoreSystemParent = SduiCoreSystem.Parent
+
+require(SduiCoreSystemParent.ServiceContractsProto)
+require(SduiCoreSystemParent.Signals)
+require(SduiCoreSystem.SduiBuilderTypes)
+require(SduiCoreSystem.SduiActionType)
+require(SduiCoreSystem.SduiComponentType)
+require(SduiCoreSystem.ClientBinding.SduiDataBindingContentType)
+
 return {
-    PropResultCategory = {
-        Literal = "Literal", 
-        PropSignal = "PropSignal", 
-        NestedComponentConfig = "NestedComponentConfig", 
-        Failed = "Failed"
-    }
-};
+	PropResultCategory = {
+		Literal = "Literal",
+		PropSignal = "PropSignal",
+		NestedComponentConfig = "NestedComponentConfig",
+		NestedComponentConfigListPropSignal = "NestedComponentConfigListPropSignal",
+		Failed = "Failed"
+	}
+}

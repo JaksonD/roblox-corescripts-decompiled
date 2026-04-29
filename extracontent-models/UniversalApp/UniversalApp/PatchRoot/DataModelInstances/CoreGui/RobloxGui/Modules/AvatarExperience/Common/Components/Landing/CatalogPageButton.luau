@@ -1,198 +1,242 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_NotificationService_0 = game:GetService("NotificationService");
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v4 = require(l_CorePackages_0.Packages.Cryo);
-local v5 = require(l_CorePackages_0.Packages.Roact);
-local v6 = require(l_CorePackages_0.Packages.RoactRodux);
-local v7 = require(l_CorePackages_0.Packages.UIBlox);
-local l_PerformFetch_0 = require(l_CorePackages_0.Workspace.Packages.Http).PerformFetch;
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local v10 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v11 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v12 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v13 = require(l_Modules_0.AvatarExperience.Common.DeepLinkUtils);
-local v14 = require(l_Modules_0.LuaApp.Thunks.FetchDataWithErrorToasts);
-local v15 = require(l_Modules_0.LuaApp.Actions.SetSearchParameters);
-local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local l_CatalogCategories_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Enums.CatalogCategories;
-local l_Images_0 = v7.App.ImageSet.Images;
-local v19 = require(l_Modules_0.AvatarExperience.Common.Components.Landing.PageButton);
-local v20 = require(l_Modules_0.LuaApp.Enum.RetrievalStatus);
-local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
-local v22 = require(l_CorePackages_0.Packages.t);
-local v23 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCatalogSearchWithSponsoredItems);
-local v24 = require(l_CorePackages_0.Workspace.Packages.UserLib);
-local l_Constants_0 = v24.Utils.Constants;
-local l_getRbxthumbWithTypeSizeAndOptions_0 = v24.Utils.getRbxthumbWithTypeSizeAndOptions;
-local _ = require(l_Modules_0.AvatarExperience.Catalog.SearchTypes);
-local _ = require(l_CorePackages_0.Packages.LuauPolyfill);
-local l_Asset_0 = l_Constants_0.RbxthumbTypes.Asset;
-local l_BundleThumbnail_0 = l_Constants_0.RbxthumbTypes.BundleThumbnail;
-local v31 = l_Images_0["icons/menu/shop_large"];
-local v32 = l_CatalogCategories_0.Recommended:rawValue();
-local v33 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole);
-local v34 = v5.PureComponent:extend("CatalogPageButton");
-local v35 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagAXCatalogCategoriesStore_0 = v35.FFlagAXCatalogCategoriesStore;
-local l_FFlagAXDefaultCatalogCategoryId_0 = v35.FFlagAXDefaultCatalogCategoryId;
-v34.validateProps = v22.strictInterface({
-    transparencyModifier = v22.number, 
-    NextSelectionLeft = v22.optional(v22.table), 
-    NextSelectionRight = v22.optional(v22.table), 
-    NextSelectionUp = v22.optional(v22.table), 
-    NextSelectionDown = v22.optional(v22.table), 
-    onActivated = v22.callback, 
-    networking = v22.callback, 
-    forwardRef = v22.optional(v22.table), 
-    catalogItem = v22.optional(v22.table), 
-    dataStatus = v22.string, 
-    externalNavigationRequest = if v33() then v22.optional(v22.table) else nil, 
-    setSearchParameters = v22.callback, 
-    fetchCatalogData = v22.callback
-});
-v34.defaultProps = {
-    transparencyModifier = 0
-};
-local v38 = Vector2.new(0, 0);
-v34.init = function(v39) --[[ Line: 94 ]] --[[ Name: init ]]
-    -- upvalues: l_NotificationService_0 (copy), v11 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), l_FFlagAXDefaultCatalogCategoryId_0 (copy), v12 (copy), v32 (copy)
-    v39.state = {
-        style = string.lower(l_NotificationService_0.SelectedTheme)
-    };
-    v39.fetchInitialCatalogItems = function() --[[ Line: 99 ]]
-        -- upvalues: v39 (copy), v11 (ref), l_FFlagAXCatalogCategoriesStore_0 (ref), l_FFlagAXDefaultCatalogCategoryId_0 (ref), v12 (ref), v32 (ref)
-        local l_networking_0 = v39.props.networking;
-        local v41 = v11.getCatalogCategoryInfo(1, 0);
-        if l_FFlagAXCatalogCategoriesStore_0 then
-            local v42 = if l_FFlagAXDefaultCatalogCategoryId_0 then v12.DefaultCatalogCategoryId else v32;
-            v41 = v11.getCatalogCategoryInfoById(v42, nil);
-        else
-            local v43 = if l_FFlagAXDefaultCatalogCategoryId_0 then v12.DefaultCatalogCategoryId else v32;
-            v41 = v11.getCatalogCategoryInfoById(v43, nil);
-        end;
-        local v44 = {
-            searchUuid = v41.SearchUuid, 
-            categoryInfo = v41
-        };
-        v39.props.setSearchParameters(v44.searchUuid, v44);
-        return v39.props.fetchCatalogData(l_networking_0, v44);
-    end;
-end;
-v34.render = function(v45) --[[ Line: 130 ]] --[[ Name: render ]]
-    -- upvalues: v12 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_BundleThumbnail_0 (copy), l_Asset_0 (copy), l_withLocalization_0 (copy), v5 (copy), v19 (copy), v38 (copy), v31 (copy)
-    local l_catalogItem_0 = v45.props.catalogItem;
-    local l_style_0 = v45.state.style;
-    local l_transparencyModifier_0 = v45.props.transparencyModifier;
-    local l_NextSelectionLeft_0 = v45.props.NextSelectionLeft;
-    local l_NextSelectionRight_0 = v45.props.NextSelectionRight;
-    local l_NextSelectionUp_0 = v45.props.NextSelectionUp;
-    local l_NextSelectionDown_0 = v45.props.NextSelectionDown;
-    local v53 = "rbxasset://textures/AvatarEditorImages/Catalog_LightTheme.png";
-    if l_style_0 == "dark" then
-        v53 = "rbxasset://textures/AvatarEditorImages/Catalog.png";
-    end;
-    local v54 = nil;
-    local v55 = 420;
-    if l_catalogItem_0 then
-        if l_catalogItem_0.type == v12.ItemType.Bundle then
-            v54 = l_getRbxthumbWithTypeSizeAndOptions_0(l_catalogItem_0.id, l_BundleThumbnail_0, 420);
-            v55 = 420;
-        else
-            v54 = l_getRbxthumbWithTypeSizeAndOptions_0(l_catalogItem_0.id, l_Asset_0, 420);
-            v55 = 420;
-        end;
-    end;
-    local l_forwardRef_0 = v45.props.forwardRef;
-    return l_withLocalization_0({
-        catalogText = "Feature.Avatar.Action.Marketplace"
-    })(function(v57) --[[ Line: 168 ]]
-        -- upvalues: v5 (ref), v19 (ref), v53 (ref), v54 (ref), v55 (ref), v38 (ref), v31 (ref), l_transparencyModifier_0 (copy), l_NextSelectionLeft_0 (copy), l_NextSelectionRight_0 (copy), l_NextSelectionUp_0 (copy), l_NextSelectionDown_0 (copy), l_forwardRef_0 (copy), v45 (copy)
-        return v5.createElement(v19, {
-            Size = UDim2.new(1, 0, 1, 0), 
-            backgroundImage = v53, 
-            thumbnailImage = v54, 
-            thumbnailSize = v55, 
-            thumbnailScaleOffset = v38, 
-            icon = v31, 
-            text = v57.catalogText, 
-            transparencyModifier = l_transparencyModifier_0, 
-            NextSelectionLeft = l_NextSelectionLeft_0, 
-            NextSelectionRight = l_NextSelectionRight_0, 
-            NextSelectionUp = l_NextSelectionUp_0, 
-            NextSelectionDown = l_NextSelectionDown_0, 
-            [v5.Ref] = l_forwardRef_0, 
-            onActivated = v45.props.onActivated
-        });
-    end);
-end;
-v34.checkFetchSortData = function(v58) --[[ Line: 191 ]] --[[ Name: checkFetchSortData ]]
-    -- upvalues: v33 (copy), v13 (copy), v20 (copy)
-    if v33() and v13.catalogDeepLinkExists(v58.props.externalNavigationRequest) then
-        return;
-    else
-        local v59 = v58.props.dataStatus == v20.NotStarted;
-        if v58.props.catalogItem == nil and v59 then
-            v58.fetchInitialCatalogItems();
-        end;
-        return;
-    end;
-end;
-v34.didUpdate = function(v60) --[[ Line: 213 ]] --[[ Name: didUpdate ]]
-    v60:checkFetchSortData();
-end;
-v34.didMount = function(v61) --[[ Line: 217 ]] --[[ Name: didMount ]]
-    -- upvalues: l_NotificationService_0 (copy)
-    v61.themeChangedConn = l_NotificationService_0:GetPropertyChangedSignal("SelectedTheme"):Connect(function() --[[ Line: 218 ]]
-        -- upvalues: v61 (copy), l_NotificationService_0 (ref)
-        v61:setState({
-            style = string.lower(l_NotificationService_0.SelectedTheme)
-        });
-    end);
-    v61:checkFetchSortData();
-end;
-v34.willUnmount = function(v62) --[[ Line: 227 ]] --[[ Name: willUnmount ]]
-    if v62.themeChangedConn then
-        v62.themeChangedConn:Disconnect();
-        v62.themeChangedConn = nil;
-    end;
-end;
-local function v71(v63) --[[ Line: 234 ]] --[[ Name: mapStateToProps ]]
-    -- upvalues: v11 (copy), l_PerformFetch_0 (copy), v33 (copy)
-    local l_SearchUuid_0 = v11.getCatalogCategoryInfo(1, 0).SearchUuid;
-    assert(l_SearchUuid_0 ~= nil, "searchUuid is not nil. Silence type checker");
-    local v65 = v63.Search.SearchesInCatalog[l_SearchUuid_0] or {};
-    local v66 = v65 and v65.items or {};
-    local v67 = v11.getSearchKey(v63, l_SearchUuid_0);
-    local v68 = v66[1];
-    local v69 = l_PerformFetch_0.GetStatus(v63, v67);
-    local v70 = if v33() then v63.AvatarExperience.ExternalNavigationRequest else {};
-    return {
-        catalogItem = v68, 
-        dataStatus = v69, 
-        externalNavigationRequest = if v33() then v70 else nil
-    };
-end;
-local function v77(v72) --[[ Line: 259 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v14 (copy), v23 (copy), v15 (copy)
-    return {
-        fetchCatalogData = function(v73, v74) --[[ Line: 261 ]] --[[ Name: fetchCatalogData ]]
-            -- upvalues: v72 (copy), v14 (ref), v23 (ref)
-            return v72(v14(v23(v73, v74)));
-        end, 
-        setSearchParameters = function(v75, v76) --[[ Line: 270 ]] --[[ Name: setSearchParameters ]]
-            -- upvalues: v72 (copy), v15 (ref)
-            return v72(v15(v75, v76));
-        end
-    };
-end;
-v34 = l_RoactServices_0.connect({
-    networking = v10
-})(v34);
-v34 = v6.connect(v71, v77)(v34);
-return v5.forwardRef(function(v78, v79) --[[ Line: 282 ]]
-    -- upvalues: v5 (copy), v34 (ref), v4 (copy)
-    return v5.createElement(v34, v4.Dictionary.join(v78, {
-        forwardRef = v79
-    }));
-end);
+local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local NotificationService = game:GetService("NotificationService")
+local Modules = CoreGui.RobloxGui.Modules
+local Cryo = require(CorePackages.Packages.Cryo)
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local RoactNetworking = require(Modules.LuaApp.Services.RoactNetworking)
+local Utils = require(Modules.AvatarExperience.Common.Utils)
+local Constants = require(Modules.AvatarExperience.Common.Constants)
+local DeepLinkUtils = require(Modules.AvatarExperience.Common.DeepLinkUtils)
+local FetchDataWithErrorToasts = require(Modules.LuaApp.Thunks.FetchDataWithErrorToasts)
+local SetSearchParameters = require(Modules.LuaApp.Actions.SetSearchParameters)
+
+require(Modules.AvatarExperience.Common.AvatarExperienceState)
+
+local CatalogCategories = require(CorePackages.Workspace.Packages.AvatarExperienceCommon).Enums.CatalogCategories
+local Images = UIBlox.App.ImageSet.Images
+local PageButton = require(Modules.AvatarExperience.Common.Components.Landing.PageButton)
+local RetrievalStatus = require(Modules.LuaApp.Enum.RetrievalStatus)
+local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
+local t = require(CorePackages.Packages.t)
+local FetchCatalogSearchWithSponsoredItems = require(Modules.AvatarExperience.Catalog.Thunks.FetchCatalogSearchWithSponsoredItems)
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
+local Constants2 = UserLib.Utils.Constants
+local getRbxthumbWithTypeSizeAndOptions = UserLib.Utils.getRbxthumbWithTypeSizeAndOptions
+
+require(Modules.AvatarExperience.Catalog.SearchTypes)
+require(CorePackages.Packages.LuauPolyfill)
+
+local Asset = Constants2.RbxthumbTypes.Asset
+local BundleThumbnail = Constants2.RbxthumbTypes.BundleThumbnail
+local v29 = Images["icons/menu/shop_large"]
+local v30 = CatalogCategories.Recommended:rawValue()
+local GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole = require(Modules.AvatarExperience.Flags.GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole)
+local v32 = Roact.PureComponent:extend("CatalogPageButton")
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local FFlagAXCatalogCategoriesStore = AvatarExperienceFlags.FFlagAXCatalogCategoriesStore
+local FFlagAXDefaultCatalogCategoryId = AvatarExperienceFlags.FFlagAXDefaultCatalogCategoryId
+local FFlagAXMigrateAllTabToSduiDev = AvatarExperienceFlags.FFlagAXMigrateAllTabToSduiDev
+local FFlagAXFixCatalogPageButtonSduiCrash = AvatarExperienceFlags.FFlagAXFixCatalogPageButtonSduiCrash
+local GetCatalogCategoriesStore = require(Modules.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore)
+
+v32.validateProps = t.strictInterface({
+	transparencyModifier = t.number,
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	onActivated = t.callback,
+	networking = t.callback,
+	forwardRef = t.optional(t.table),
+	catalogItem = t.optional(t.table),
+	dataStatus = t.string,
+	externalNavigationRequest = if not GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole() then nil else t.optional(t.table),
+	setSearchParameters = t.callback,
+	fetchCatalogData = t.callback
+})
+v32.defaultProps = {
+	transparencyModifier = 0
+}
+
+local vector2 = Vector2.new(0, 0)
+
+function v32.init(p1) -- line: 98
+	-- upvalues: NotificationService (copy), FFlagAXFixCatalogPageButtonSduiCrash (copy), Utils (copy), FFlagAXMigrateAllTabToSduiDev (copy), FFlagAXDefaultCatalogCategoryId (copy), Constants (copy), v30 (copy), GetCatalogCategoriesStore (copy), FFlagAXCatalogCategoriesStore (copy)
+	p1.state = {
+		style = string.lower(NotificationService.SelectedTheme)
+	}
+
+	function p1.fetchInitialCatalogItems() -- line: 103
+		-- upvalues: p1 (copy), FFlagAXFixCatalogPageButtonSduiCrash (copy), Utils (copy), FFlagAXMigrateAllTabToSduiDev (copy), FFlagAXDefaultCatalogCategoryId (copy), Constants (copy), v30 (copy), GetCatalogCategoriesStore (copy), FFlagAXCatalogCategoriesStore (copy)
+		local networking = p1.props.networking
+
+		if not FFlagAXFixCatalogPageButtonSduiCrash then
+			Utils.getCatalogCategoryInfo(1, 0)
+		end
+
+		local v75
+
+		if FFlagAXMigrateAllTabToSduiDev then
+			local v74 = if not FFlagAXDefaultCatalogCategoryId then v30 else Constants.DefaultCatalogCategoryId
+
+			v75 = GetCatalogCategoriesStore.getCatalogCategoriesStore().getCategoriesMap(false)[v74] or Utils.getCatalogCategoryInfoById(v74, nil)
+		elseif FFlagAXCatalogCategoriesStore then
+			local v76 = if not FFlagAXDefaultCatalogCategoryId then v30 else Constants.DefaultCatalogCategoryId
+
+			v75 = Utils.getCatalogCategoryInfoById(v76, nil)
+		else
+			local v77 = if not FFlagAXDefaultCatalogCategoryId then v30 else Constants.DefaultCatalogCategoryId
+
+			v75 = Utils.getCatalogCategoryInfoById(v77, nil)
+		end
+
+		local t1 = {
+			searchUuid = v75.SearchUuid,
+			categoryInfo = v75
+		}
+
+		p1.props.setSearchParameters(t1.searchUuid, t1)
+
+		return p1.props.fetchCatalogData(networking, t1)
+	end
+end
+function v32.render(p2) -- line: 156
+	-- upvalues: Constants (copy), getRbxthumbWithTypeSizeAndOptions (copy), BundleThumbnail (copy), Asset (copy), withLocalization (copy), Roact (copy), PageButton (copy), vector2 (copy), v29 (copy)
+	local catalogItem = p2.props.catalogItem
+	local style = p2.state.style
+	local transparencyModifier = p2.props.transparencyModifier
+	local NextSelectionLeft = p2.props.NextSelectionLeft
+	local NextSelectionRight = p2.props.NextSelectionRight
+	local NextSelectionUp = p2.props.NextSelectionUp
+	local NextSelectionDown = p2.props.NextSelectionDown
+	local s1 = "rbxasset://textures/AvatarEditorImages/Catalog_LightTheme.png"
+
+	if style == "dark" then
+		s1 = "rbxasset://textures/AvatarEditorImages/Catalog.png"
+	end
+
+	local u52 = nil
+	local n1 = 420
+
+	if catalogItem then
+		if catalogItem.type == Constants.ItemType.Bundle then
+			u52 = getRbxthumbWithTypeSizeAndOptions(catalogItem.id, BundleThumbnail, 420)
+			n1 = 420
+		else
+			u52 = getRbxthumbWithTypeSizeAndOptions(catalogItem.id, Asset, 420)
+			n1 = 420
+		end
+	end
+
+	local forwardRef = p2.props.forwardRef
+
+	return withLocalization({
+		catalogText = "Feature.Avatar.Action.Marketplace"
+	})(function(p3) -- line: 194
+		-- upvalues: Roact (copy), PageButton (copy), s1 (ref), u52 (ref), n1 (ref), vector2 (copy), v29 (copy), transparencyModifier (copy), NextSelectionLeft (copy), NextSelectionRight (copy), NextSelectionUp (copy), NextSelectionDown (copy), forwardRef (copy), p2 (copy)
+		return Roact.createElement(PageButton, {
+			Size = UDim2.new(1, 0, 1, 0),
+			backgroundImage = s1,
+			thumbnailImage = u52,
+			thumbnailSize = n1,
+			thumbnailScaleOffset = vector2,
+			icon = v29,
+			text = p3.catalogText,
+			transparencyModifier = transparencyModifier,
+			NextSelectionLeft = NextSelectionLeft,
+			NextSelectionRight = NextSelectionRight,
+			NextSelectionUp = NextSelectionUp,
+			NextSelectionDown = NextSelectionDown,
+			[Roact.Ref] = forwardRef,
+			onActivated = p2.props.onActivated
+		})
+	end)
+end
+function v32.checkFetchSortData(p4) -- line: 217
+	-- upvalues: GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole (copy), DeepLinkUtils (copy), RetrievalStatus (copy)
+	if GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole() and DeepLinkUtils.catalogDeepLinkExists(p4.props.externalNavigationRequest) then
+		return
+	end
+
+	local v56 = p4.props.dataStatus == RetrievalStatus.NotStarted
+
+	if p4.props.catalogItem == nil and v56 then
+		p4.fetchInitialCatalogItems()
+	end
+end
+function v32.didUpdate(p5) -- line: 239
+	p5:checkFetchSortData()
+end
+function v32.didMount(p6) -- line: 243
+	-- upvalues: NotificationService (copy)
+	p6.themeChangedConn = NotificationService:GetPropertyChangedSignal("SelectedTheme"):Connect(function() -- line: 244
+		-- upvalues: p6 (copy), NotificationService (copy)
+		p6:setState({
+			style = string.lower(NotificationService.SelectedTheme)
+		})
+	end)
+	p6:checkFetchSortData()
+end
+function v32.willUnmount(p7) -- line: 253
+	if p7.themeChangedConn then
+		p7.themeChangedConn:Disconnect()
+		p7.themeChangedConn = nil
+	end
+end
+
+local v40 = RoactServices.connect({
+	networking = RoactNetworking
+})(v32)
+local u41 = RoactRodux.connect(function(p8) --[[ mapStateToProps ]] -- line: 260
+	-- upvalues: FFlagAXMigrateAllTabToSduiDev (copy), FFlagAXDefaultCatalogCategoryId (copy), Constants (copy), v30 (copy), GetCatalogCategoriesStore (copy), Utils (copy), PerformFetch (copy), GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole (copy)
+	local v62
+
+	if FFlagAXMigrateAllTabToSduiDev then
+		local v61 = if not FFlagAXDefaultCatalogCategoryId then v30 else Constants.DefaultCatalogCategoryId
+
+		v62 = GetCatalogCategoriesStore.getCatalogCategoriesStore().getCategoriesMap(false)[v61] or Utils.getCatalogCategoryInfoById(v61, nil)
+	else
+		v62 = Utils.getCatalogCategoryInfo(1, 0)
+	end
+
+	local SearchUuid = v62.SearchUuid
+
+	assert(SearchUuid ~= nil, "searchUuid is not nil. Silence type checker")
+
+	local v64 = p8.Search.SearchesInCatalog[SearchUuid] or {}
+	local v65 = v64 and v64.items or {}
+	local v66 = Utils.getSearchKey(p8, SearchUuid)
+	local v67 = v65[1]
+	local v68 = PerformFetch.GetStatus(p8, v66)
+	local v69 = if not GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole() then {} else p8.AvatarExperience.ExternalNavigationRequest
+
+	return {
+		catalogItem = v67,
+		dataStatus = v68,
+		externalNavigationRequest = if not GetFFlagAXDisableCatalogFetchOnDeepLinkForConsole() then nil else v69
+	}
+end, function(p9) --[[ mapDispatchToProps ]] -- line: 301
+	-- upvalues: FetchDataWithErrorToasts (copy), FetchCatalogSearchWithSponsoredItems (copy), SetSearchParameters (copy)
+	return {
+		fetchCatalogData = function(p10: ((...any) -> ...any), p11) --[[ fetchCatalogData ]] -- line: 303
+			-- upvalues: p9 (copy), FetchDataWithErrorToasts (copy), FetchCatalogSearchWithSponsoredItems (copy)
+			return p9(FetchDataWithErrorToasts(FetchCatalogSearchWithSponsoredItems(p10, p11)))
+		end,
+		setSearchParameters = function(p12, p13) --[[ setSearchParameters ]] -- line: 312
+			-- upvalues: p9 (copy), SetSearchParameters (copy)
+			return p9(SetSearchParameters(p12, p13))
+		end
+	}
+end)(v40)
+
+return Roact.forwardRef(function(p14, p15) -- line: 324
+	-- upvalues: Roact (copy), u41 (ref), Cryo (copy)
+	return Roact.createElement(u41, Cryo.Dictionary.join(p14, {
+		forwardRef = p15
+	}))
+end)

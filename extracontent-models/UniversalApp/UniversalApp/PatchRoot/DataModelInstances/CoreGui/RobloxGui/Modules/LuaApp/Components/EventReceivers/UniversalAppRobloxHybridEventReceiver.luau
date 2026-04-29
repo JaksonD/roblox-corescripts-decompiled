@@ -1,190 +1,233 @@
-local l_CoreGui_0 = game:GetService("CoreGui");
-local l_HttpService_0 = game:GetService("HttpService");
-local l_AppStorageService_0 = game:GetService("AppStorageService");
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
-local v5 = require(l_CorePackages_0.Packages.Roact);
-local v6 = require(l_CorePackages_0.Packages.RoactRodux);
-local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
-local l_AppBrowserService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppBrowserService;
-local l_AppGuiService_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppGuiService;
-local l_AppGame_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppGame;
-local l_AppLinking_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).AppLinking;
-local l_RoactNetworking_0 = require(l_CorePackages_0.Workspace.Packages.RoactServiceTags).RoactNetworking;
-local v13 = require(l_Modules_0.Common.RoactUtilities.ExternalEventConnection);
-local v14 = require(l_Modules_0.LuaApp.Enum.NotificationType);
-local l_LocalStorageKey_0 = require(l_CorePackages_0.Workspace.Packages.LocalStorage).Enums.LocalStorageKey;
-local l_LaunchGame_0 = require(l_CorePackages_0.Workspace.Packages.GameLaunch).LaunchGame;
-local v17 = require(l_Modules_0.LuaApp.Http.UrlBuilder);
-local v18 = require(l_Modules_0.LuaApp.AppPage);
-local l_ChatEntryPointNames_0 = require(l_CorePackages_0.Workspace.Packages.SocialCommon).Enums.ChatEntryPointNames;
-local l_EnteredChatFromEntryPoint_0 = require(l_CorePackages_0.Workspace.Packages.AppChat).Actions.EnteredChatFromEntryPoint;
-local v21 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
-local v22 = require(l_Modules_0.LuaApp.Thunks.NavigateBack);
-local v23 = require(l_Modules_0.LuaApp.Thunks.NavigateFromWebView);
-local l_AuthSessionRefresh_0 = require(l_CorePackages_0.Workspace.Packages.AuthCommon).Http.Requests.AuthSessionRefresh;
-local l_FFlagRefreshAuthSessionAfterLanguageChange_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagRefreshAuthSessionAfterLanguageChange;
-local v26 = game:DefineFastFlag("GenericNavigationDeepLinkEnabled", false);
-local v27 = game:DefineFastFlag("PushPermissionTriggerEnabled", false);
-local l_GetFFlagEnableUnifiedWebViews_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableUnifiedWebViews;
-local v29 = if l_GetFFlagEnableUnifiedWebViews_0() then game:GetService("WebViewService") else nil;
-local v30 = v5.Component:extend("UniversalAppRobloxHybridEventReceiver");
+local CoreGui = game:GetService("CoreGui")
+local HttpService = game:GetService("HttpService")
+local AppStorageService = game:GetService("AppStorageService")
+local CorePackages = game:GetService("CorePackages")
+local Modules = CoreGui.RobloxGui.Modules
+local Roact = require(CorePackages.Packages.Roact)
+local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).RoactServices
+local AppBrowserService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppBrowserService
+local AppGuiService = require(CorePackages.Workspace.Packages.RoactServiceTags).AppGuiService
+local AppGame = require(CorePackages.Workspace.Packages.RoactServiceTags).AppGame
+local AppLinking = require(CorePackages.Workspace.Packages.RoactServiceTags).AppLinking
+local RoactNetworking = require(CorePackages.Workspace.Packages.RoactServiceTags).RoactNetworking
+local ExternalEventConnection = require(Modules.Common.RoactUtilities.ExternalEventConnection)
+local NotificationType = require(Modules.LuaApp.Enum.NotificationType)
+local LocalStorageKey = require(CorePackages.Workspace.Packages.LocalStorage).Enums.LocalStorageKey
+local LaunchGame = require(CorePackages.Workspace.Packages.GameLaunch).LaunchGame
+local UrlBuilder = require(Modules.LuaApp.Http.UrlBuilder)
+local AppPage = require(Modules.LuaApp.AppPage)
+local ChatEntryPointNames = require(CorePackages.Workspace.Packages.SocialCommon).Enums.ChatEntryPointNames
+local EnteredChatFromEntryPoint = require(CorePackages.Workspace.Packages.AppChat).Actions.EnteredChatFromEntryPoint
+local NavigateDown = require(Modules.LuaApp.Thunks.NavigateDown)
+local NavigateBack = require(Modules.LuaApp.Thunks.NavigateBack)
+local NavigateFromWebView = require(Modules.LuaApp.Thunks.NavigateFromWebView)
+local AuthSessionRefresh = require(CorePackages.Workspace.Packages.AuthCommon).Http.Requests.AuthSessionRefresh
+local FFlagRefreshAuthSessionAfterLanguageChange = require(CorePackages.Workspace.Packages.SharedFlags).FFlagRefreshAuthSessionAfterLanguageChange
+local v27 = game:DefineFastFlag("PushPermissionTriggerEnabled", false)
+local GetFFlagEnableUnifiedWebViews = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUnifiedWebViews
+local v29 = if not GetFFlagEnableUnifiedWebViews() then nil else game:GetService("WebViewService")
+local v30 = Roact.Component:extend("UniversalAppRobloxHybridEventReceiver")
+
 v30.defaultProps = {
-    webViewService = v29
-};
-v30.init = function(v31) --[[ Line: 46 ]] --[[ Name: init ]]
-    -- upvalues: l_HttpService_0 (copy), l_GetFFlagEnableUnifiedWebViews_0 (copy), l_ChatEntryPointNames_0 (copy), v14 (copy), v18 (copy), v17 (copy), v26 (copy), l_LaunchGame_0 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), l_FFlagRefreshAuthSessionAfterLanguageChange_0 (copy), l_AuthSessionRefresh_0 (copy), v27 (copy)
-    v31.onJavascriptCallback = function(v32) --[[ Line: 47 ]]
-        -- upvalues: l_HttpService_0 (ref), l_GetFFlagEnableUnifiedWebViews_0 (ref), v31 (copy), l_ChatEntryPointNames_0 (ref), v14 (ref), v18 (ref), v17 (ref), v26 (ref), l_LaunchGame_0 (ref), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref), l_FFlagRefreshAuthSessionAfterLanguageChange_0 (ref), l_AuthSessionRefresh_0 (ref), v27 (ref)
-        local v33 = l_HttpService_0:JSONDecode(v32);
-        if v33.moduleID == "Navigation" and v33.functionName == "startWebChatConversation" and v33.params.userId then
-            if not l_GetFFlagEnableUnifiedWebViews_0() then
-                v31.props.browserService:CloseBrowserWindow();
-            end;
-            v31.props.enteredChatFromEntryPoint(l_ChatEntryPointNames_0.AppShellWebView);
-            v31.props.guiService:BroadcastNotification(tostring(v33.params.userId), v14.LAUNCH_CONVERSATION);
-            return;
-        elseif v33.moduleID == "Navigation" and v33.functionName == "openUserProfile" and v33.params.userId then
-            if l_GetFFlagEnableUnifiedWebViews_0() then
-                v31.props.navigateFromWebView({
-                    name = v18.ViewUserProfile, 
-                    detail = v33.params.userId
-                });
-                return;
-            else
-                v31.props.browserService:CloseBrowserWindow();
-                v31.props.navigateDown({
-                    name = v18.ViewUserProfile, 
-                    detail = v33.params.userId
-                });
-                return;
-            end;
-        elseif v33.moduleID == "Navigation" and v33.functionName == "navigateToFeature" and v33.params.params.urlPath then
-            if l_GetFFlagEnableUnifiedWebViews_0() then
-                local v34 = v17.fromString("www:" .. v33.params.params.urlPath);
-                v31.props.navigateFromWebView({
-                    name = v18.GenericWebPage, 
-                    detail = v34(), 
-                    extraProps = {
-                        title = v33.params.params.feature or ""
-                    }
-                });
-                return;
-            else
-                local v35 = v17.fromString("www:" .. v33.params.params.urlPath);
-                v31.props.browserService:CloseBrowserWindow();
-                v31.props.navigateDown({
-                    name = v18.GenericWebPage, 
-                    detail = v35(), 
-                    extraProps = {
-                        title = v33.params.params.feature or ""
-                    }
-                });
-                return;
-            end;
-        elseif v26 and v33.moduleID == "Navigation" and v33.functionName == "navigateToFeature" and v33.params.params.deepLinkUrlPath then
-            v31.props.linking:detectURL(v33.params.params.deepLinkUrlPath);
-            return;
-        elseif v33.moduleID == "Game" and v33.functionName == "launchGame" and v33.params.request.placeId then
-            v31.props.navigateBack();
-            if l_GetFFlagEnableUnifiedWebViews_0() then
-                v31.props.webViewService:CloseWindow();
-            else
-                v31.props.browserService:CloseBrowserWindow();
-            end;
-            l_LaunchGame_0(v33.params.request.placeId, "GameDetailPageJSHybridEvent", {
-                accessCode = v33.params.request.accessCode, 
-                gameInstanceId = v33.params.request.instanceId, 
-                linkCode = v33.params.request.linkCode, 
-                joinAttemptId = v33.params.request.joinAttemptId, 
-                joinAttemptOrigin = v33.params.request.joinAttemptOrigin
-            }, v31.props.game, v33.params.request.joinAttemptOrigin, nil);
-            return;
-        elseif v33.moduleID == "Game" and v33.functionName == "launchGame" and v33.params.request.requestType == "RequestFollowUser" then
-            v31.props.navigateBack();
-            if l_GetFFlagEnableUnifiedWebViews_0() then
-                v31.props.webViewService:CloseWindow();
-            else
-                v31.props.browserService:CloseBrowserWindow();
-            end;
-            l_LaunchGame_0(nil, "FollowUserJSHybridEvent", {
-                userId = v33.params.request.userId, 
-                joinAttemptId = v33.params.request.joinAttemptId, 
-                joinAttemptOrigin = v33.params.request.joinAttemptOrigin
-            }, v31.props.game, v33.params.request.joinAttemptOrigin, nil);
-            return;
-        elseif v33.moduleID == "Localization" and v33.functionName == "languageChangeTrigger" then
-            v31.props.navigateBack();
-            if l_GetFFlagEnableUnifiedWebViews_0() then
-                v31.props.webViewService:CloseWindow();
-            else
-                v31.props.browserService:CloseBrowserWindow();
-            end;
-            local l_newRobloxLanguageValue_0 = v33.params.newRobloxLanguageValue;
-            if typeof(l_newRobloxLanguageValue_0) == "table" then
-                l_newRobloxLanguageValue_0 = l_newRobloxLanguageValue_0.locale;
-            end;
-            local v37 = string.gsub(l_newRobloxLanguageValue_0, "_", "-");
-            l_AppStorageService_0:SetItem(l_LocalStorageKey_0.RobloxLocaleId, v37);
-            if l_FFlagRefreshAuthSessionAfterLanguageChange_0 then
-                l_AuthSessionRefresh_0(v31.props.networkImpl):finally(function() --[[ Line: 166 ]]
-                    -- upvalues: v31 (ref), v14 (ref)
-                    v31.props.guiService:BroadcastNotification("", v14.RESTART_LUA_APP);
-                end);
-                return;
-            else
-                v31.props.guiService:BroadcastNotification("", v14.RESTART_LUA_APP);
-                return;
-            end;
-        elseif v27 and v33.moduleID == "Push" and v33.functionName == "pushPermissionTrigger" then
-            v31.props.guiService:BroadcastNotification(v33.moduleID, v14.APP_READY);
-            return;
-        else
-            if v33.moduleID == "Overlay" and v33.functionName == "close" then
-                v31.props.navigateBack();
-                if l_GetFFlagEnableUnifiedWebViews_0() then
-                    v31.props.webViewService:CloseWindow();
-                    return;
-                else
-                    v31.props.browserService:CloseBrowserWindow();
-                end;
-            end;
-            return;
-        end;
-    end;
-end;
-v30.render = function(v38) --[[ Line: 191 ]] --[[ Name: render ]]
-    -- upvalues: v5 (copy), v13 (copy), l_GetFFlagEnableUnifiedWebViews_0 (copy)
-    return v5.createElement(v13, {
-        event = if l_GetFFlagEnableUnifiedWebViews_0() then v38.props.webViewService.OnJavaScriptCall else v38.props.browserService.JavaScriptCallback, 
-        callback = v38.onJavascriptCallback
-    });
-end;
-v30 = v6.connect(nil, function(v39) --[[ Line: 200 ]]
-    -- upvalues: l_GetFFlagEnableUnifiedWebViews_0 (copy), v21 (copy), v22 (copy), v23 (copy), l_EnteredChatFromEntryPoint_0 (copy)
-    return {
-        navigateDown = if l_GetFFlagEnableUnifiedWebViews_0() then nil else function(v40) --[[ Line: 204 ]]
-            -- upvalues: v39 (copy), v21 (ref)
-            return v39(v21(v40));
-        end, 
-        navigateBack = function() --[[ Line: 207 ]] --[[ Name: navigateBack ]]
-            -- upvalues: v39 (copy), v22 (ref)
-            return v39(v22());
-        end, 
-        navigateFromWebView = function(v41) --[[ Line: 210 ]] --[[ Name: navigateFromWebView ]]
-            -- upvalues: v39 (copy), v23 (ref)
-            return v39(v23(v41));
-        end, 
-        enteredChatFromEntryPoint = function(v42) --[[ Line: 213 ]] --[[ Name: enteredChatFromEntryPoint ]]
-            -- upvalues: v39 (copy), l_EnteredChatFromEntryPoint_0 (ref)
-            return v39(l_EnteredChatFromEntryPoint_0(v42));
-        end
-    };
-end)(v30);
-return (l_RoactServices_0.connect({
-    browserService = if l_GetFFlagEnableUnifiedWebViews_0() then nil else l_AppBrowserService_0, 
-    guiService = l_AppGuiService_0, 
-    networkImpl = if l_FFlagRefreshAuthSessionAfterLanguageChange_0 then l_RoactNetworking_0 else nil, 
-    game = l_AppGame_0, 
-    linking = l_AppLinking_0
-})(v30));
+	webViewService = v29
+}
+
+function v30.init(p1) -- line: 44
+	-- upvalues: HttpService (copy), GetFFlagEnableUnifiedWebViews (copy), ChatEntryPointNames (copy), NotificationType (copy), AppPage (copy), UrlBuilder (copy), LaunchGame (copy), AppStorageService (copy), LocalStorageKey (copy), FFlagRefreshAuthSessionAfterLanguageChange (copy), AuthSessionRefresh (copy), v27 (copy)
+	function p1.onJavascriptCallback(p2) -- line: 45
+		-- upvalues: HttpService (copy), GetFFlagEnableUnifiedWebViews (copy), p1 (copy), ChatEntryPointNames (copy), NotificationType (copy), AppPage (copy), UrlBuilder (copy), LaunchGame (copy), AppStorageService (copy), LocalStorageKey (copy), FFlagRefreshAuthSessionAfterLanguageChange (copy), AuthSessionRefresh (copy), v27 (copy)
+		local data = HttpService:JSONDecode(p2)
+
+		if data.moduleID == "Navigation" and (data.functionName == "startWebChatConversation" and data.params.userId) then
+			if not GetFFlagEnableUnifiedWebViews() then
+				p1.props.browserService:CloseBrowserWindow()
+			end
+
+			p1.props.enteredChatFromEntryPoint(ChatEntryPointNames.AppShellWebView)
+			p1.props.guiService:BroadcastNotification(tostring(data.params.userId), NotificationType.LAUNCH_CONVERSATION)
+
+			return
+		end
+
+		if data.moduleID == "Navigation" and data.functionName == "openUserProfile" and data.params.userId then
+			if GetFFlagEnableUnifiedWebViews() then
+				p1.props.navigateFromWebView({
+					name = AppPage.ViewUserProfile,
+					detail = data.params.userId
+				})
+
+				return
+			end
+
+			p1.props.browserService:CloseBrowserWindow()
+			p1.props.navigateDown({
+				name = AppPage.ViewUserProfile,
+				detail = data.params.userId
+			})
+
+			return
+		end
+
+		if data.moduleID == "Navigation" and data.functionName == "navigateToFeature" and data.params.params.urlPath then
+			if GetFFlagEnableUnifiedWebViews() then
+				local v37 = UrlBuilder.fromString("www:" .. data.params.params.urlPath)
+
+				p1.props.navigateFromWebView({
+					name = AppPage.GenericWebPage,
+					detail = v37(),
+					extraProps = {
+						title = data.params.params.feature or ""
+					}
+				})
+
+				return
+			end
+
+			local v38 = UrlBuilder.fromString("www:" .. data.params.params.urlPath)
+
+			p1.props.browserService:CloseBrowserWindow()
+			p1.props.navigateDown({
+				name = AppPage.GenericWebPage,
+				detail = v38(),
+				extraProps = {
+					title = data.params.params.feature or ""
+				}
+			})
+
+			return
+		end
+
+		if data.moduleID == "Navigation" and data.functionName == "navigateToFeature" and data.params.params.deepLinkUrlPath then
+			p1.props.linking:detectURL(data.params.params.deepLinkUrlPath)
+
+			return
+		end
+
+		if data.moduleID == "Game" and data.functionName == "launchGame" and data.params.request.placeId then
+			p1.props.navigateBack()
+
+			if GetFFlagEnableUnifiedWebViews() then
+				p1.props.webViewService:CloseWindow()
+			else
+				p1.props.browserService:CloseBrowserWindow()
+			end
+
+			LaunchGame(data.params.request.placeId, "GameDetailPageJSHybridEvent", {
+				accessCode = data.params.request.accessCode,
+				gameInstanceId = data.params.request.instanceId,
+				linkCode = data.params.request.linkCode,
+				joinAttemptId = data.params.request.joinAttemptId,
+				joinAttemptOrigin = data.params.request.joinAttemptOrigin
+			}, p1.props.game, data.params.request.joinAttemptOrigin, nil)
+
+			return
+		end
+
+		if data.moduleID == "Game" and data.functionName == "launchGame" and data.params.request.requestType == "RequestFollowUser" then
+			p1.props.navigateBack()
+
+			if GetFFlagEnableUnifiedWebViews() then
+				p1.props.webViewService:CloseWindow()
+			else
+				p1.props.browserService:CloseBrowserWindow()
+			end
+
+			LaunchGame(nil, "FollowUserJSHybridEvent", {
+				userId = data.params.request.userId,
+				joinAttemptId = data.params.request.joinAttemptId,
+				joinAttemptOrigin = data.params.request.joinAttemptOrigin
+			}, p1.props.game, data.params.request.joinAttemptOrigin, nil)
+
+			return
+		end
+
+		if data.moduleID == "Localization" and data.functionName == "languageChangeTrigger" then
+			p1.props.navigateBack()
+
+			if GetFFlagEnableUnifiedWebViews() then
+				p1.props.webViewService:CloseWindow()
+			else
+				p1.props.browserService:CloseBrowserWindow()
+			end
+
+			local newRobloxLanguageValue = data.params.newRobloxLanguageValue
+
+			if typeof(newRobloxLanguageValue) == "table" then
+				newRobloxLanguageValue = newRobloxLanguageValue.locale
+			end
+
+			local v40 = string.gsub(newRobloxLanguageValue, "_", "-")
+
+			AppStorageService:SetItem(LocalStorageKey.RobloxLocaleId, v40)
+
+			if FFlagRefreshAuthSessionAfterLanguageChange then
+				AuthSessionRefresh(p1.props.networkImpl):finally(function() -- line: 163
+					-- upvalues: p1 (copy), NotificationType (copy)
+					p1.props.guiService:BroadcastNotification("", NotificationType.RESTART_LUA_APP)
+				end)
+
+				return
+			end
+
+			p1.props.guiService:BroadcastNotification("", NotificationType.RESTART_LUA_APP)
+
+			return
+		end
+
+		if v27 and data.moduleID == "Push" and data.functionName == "pushPermissionTrigger" then
+			p1.props.guiService:BroadcastNotification(data.moduleID, NotificationType.APP_READY)
+
+			return
+		end
+
+		if data.moduleID == "Overlay" and data.functionName == "close" then
+			p1.props.navigateBack()
+
+			if GetFFlagEnableUnifiedWebViews() then
+				p1.props.webViewService:CloseWindow()
+
+				return
+			end
+
+			p1.props.browserService:CloseBrowserWindow()
+		end
+	end
+end
+function v30.render(p3) -- line: 188
+	-- upvalues: Roact (copy), ExternalEventConnection (copy), GetFFlagEnableUnifiedWebViews (copy)
+	return Roact.createElement(ExternalEventConnection, {
+		event = if not GetFFlagEnableUnifiedWebViews() then p3.props.browserService.JavaScriptCallback else p3.props.webViewService.OnJavaScriptCall,
+		callback = p3.onJavascriptCallback
+	})
+end
+
+local v31 = RoactRodux.connect(nil, function(p4) -- line: 197
+	-- upvalues: GetFFlagEnableUnifiedWebViews (copy), NavigateDown (copy), NavigateBack (copy), NavigateFromWebView (copy), EnteredChatFromEntryPoint (copy)
+	return {
+		navigateDown = not GetFFlagEnableUnifiedWebViews() and function(p5) -- line: 201
+			-- upvalues: p4 (copy), NavigateDown (copy)
+			return p4(NavigateDown(p5))
+		end or nil,
+		navigateBack = function() --[[ navigateBack ]] -- line: 204
+			-- upvalues: p4 (copy), NavigateBack (copy)
+			return p4(NavigateBack())
+		end,
+		navigateFromWebView = function(p6) --[[ navigateFromWebView ]] -- line: 207
+			-- upvalues: p4 (copy), NavigateFromWebView (copy)
+			return p4(NavigateFromWebView(p6))
+		end,
+		enteredChatFromEntryPoint = function(p7) --[[ enteredChatFromEntryPoint ]] -- line: 210
+			-- upvalues: p4 (copy), EnteredChatFromEntryPoint (copy)
+			return p4(EnteredChatFromEntryPoint(p7))
+		end
+	}
+end)(v30)
+
+return (RoactServices.connect({
+	browserService = if not GetFFlagEnableUnifiedWebViews() then AppBrowserService else nil,
+	guiService = AppGuiService,
+	networkImpl = if not FFlagRefreshAuthSessionAfterLanguageChange then nil else RoactNetworking,
+	game = AppGame,
+	linking = AppLinking
+})(v31))

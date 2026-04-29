@@ -1,79 +1,87 @@
-local l_Parent_0 = script:FindFirstAncestor("GameCollections").Parent;
-local v1 = require(l_Parent_0.SharedFlags);
-local l_GameCollectionItemTypes_0 = require(l_Parent_0.DiscoveryTypes).GameCollectionItemTypes;
-local v3 = require(l_Parent_0.React);
-local l_TwoByOneGameTile_0 = require(l_Parent_0.GameTile).TwoByOneGameTile;
-local l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 = v1.FFlagLuaAppSupportSponsoredExplicitFeedback;
-local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = v1.FFlagLuaAppEnableCustomSpawnSponsored;
-local l_FFlagLuaAppTwoByOneTileTelemetryFix_0 = v1.FFlagLuaAppTwoByOneTileTelemetryFix;
-local l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 = v1.FFlagLuaAppSupportPrimaryMediaContentMetadata;
-local v14 = v3.memo(function(v9) --[[ Line: 39 ]]
-    -- upvalues: l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), v3 (copy), l_TwoByOneGameTile_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 (copy)
-    local v10 = -((v9.maxItemIndex or 0) + 1);
-    local v11 = if v9.zIndex then v9.zIndex + v10 else v10;
-    local v12 = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v3.useCallback(function() --[[ Line: 45 ]]
-        -- upvalues: v9 (copy)
-        if v9.onSelectionGained then
-            v9.onSelectionGained(v9.item, v9.index, v9.item.universeId);
-        end;
-    end, {
-        v9.onSelectionGained, 
-        v9.item, 
-        v9.index
-    }) else nil;
-    local v13 = nil;
-    if v9.item.badgePosition and v9.item.badgeAnalyticsId and v9.item.badgeType and (v9.item.badgeText or v9.item.badgeIcon) then
-        v13 = {
-            [v9.item.badgePosition] = {
-                {
-                    analyticsId = v9.item.badgeAnalyticsId, 
-                    tileBadgeType = v9.item.badgeType, 
-                    text = v9.item.badgeText, 
-                    icons = if v9.item.badgeIcon then {
-                        v9.item.badgeIcon
-                    } else nil, 
-                    tileBadgeComponentType = v9.item.badgeComponentType
-                }
-            }
-        };
-    end;
-    return v3.createElement(l_TwoByOneGameTile_0, {
-        size = v9.item.sizeOverride, 
-        layoutOrder = v9.index, 
-        zIndex = v11, 
-        universeId = v9.item.universeId, 
-        placeId = v9.item.placeId, 
-        topicId = v9.topicId, 
-        logoImageAssetId = v9.item.logoAssetId, 
-        logoAspectRatio = v9.item.logoAspectRatio, 
-        headline = v9.item.headline, 
-        subtitle = v9.item.subtitle, 
-        ctaText = v9.item.ctaText, 
-        tileVariant = v9.item.tileVariant, 
-        badgeOverride = v13, 
-        payerName = v9.item.payerName, 
-        adId = v9.item.adId, 
-        isSponsored = v9.item.isSponsored, 
-        sponsoredUserCohort = v9.sponsoredUserCohort, 
-        appPage = v9.appPage, 
-        setGameHidden = v9.setGameHidden, 
-        isHidden = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.isHidden else nil, 
-        hoverKey = ("TwoByOneTile_%*_%*_%*"):format(v9.impressionsTag or "", v9.index or "0", v9.item.universeId), 
-        impressionsTag = v9.impressionsTag, 
-        index = v9.index, 
-        reportGameDetailOpened = v9.reportGameDetailOpened, 
-        reportExperienceLaunched = v9.reportExperienceLaunched, 
-        enableSponsoredFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.enableSponsoredFeedback else nil, 
-        enableReportAd = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.enableReportAd else nil, 
-        enableExplicitFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.enableExplicitFeedback else nil, 
-        placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v9.item.placeIdOverride else nil, 
-        launchDataOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v9.item.launchDataOverride else nil, 
-        onSelectionGained = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v12 else nil, 
-        onSelectionLost = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v9.onSelectionLost else nil, 
-        primaryWideImageAssetId = if l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 then v9.item.primaryWideImageAssetId else nil
-    });
-end);
-return function(v15) --[[ Line: 117 ]]
-    -- upvalues: v3 (copy), v14 (copy), l_GameCollectionItemTypes_0 (copy)
-    return v3.createElement(v14, v15), l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile;
-end;
+local Parent = script:FindFirstAncestor("GameCollections").Parent
+local SharedFlags = require(Parent.SharedFlags)
+local GameCollectionItemTypes = require(Parent.DiscoveryTypes).GameCollectionItemTypes
+local React = require(Parent.React)
+local GameTile = require(Parent.GameTile)
+local TwoByOneGameTile = GameTile.TwoByOneGameTile
+local getTileBadgeByPositionConfigFromEntry = GameTile.getTileBadgeByPositionConfigFromEntry
+
+require(Parent.VideoUtils)
+
+local FFlagLuaAppGameTileLockedBadge = SharedFlags.FFlagLuaAppGameTileLockedBadge
+local FFlagLuaAppSupportSponsoredExplicitFeedback = SharedFlags.FFlagLuaAppSupportSponsoredExplicitFeedback
+local FFlagLuaAppTwoByOneTileTelemetryFix = SharedFlags.FFlagLuaAppTwoByOneTileTelemetryFix
+local FFlagLuaAppSupportPrimaryMediaContentMetadata = SharedFlags.FFlagLuaAppSupportPrimaryMediaContentMetadata
+local FFlagLuaAppHomeTouchAutoplay = SharedFlags.FFlagLuaAppHomeTouchAutoplay
+local v13 = React.memo(function(t1: {[any]: any}) -- line: 45
+	-- upvalues: FFlagLuaAppTwoByOneTileTelemetryFix (copy), React (copy), FFlagLuaAppGameTileLockedBadge (copy), getTileBadgeByPositionConfigFromEntry (copy), TwoByOneGameTile (copy), FFlagLuaAppSupportSponsoredExplicitFeedback (copy), FFlagLuaAppSupportPrimaryMediaContentMetadata (copy), FFlagLuaAppHomeTouchAutoplay (copy)
+	local v15 = -((t1.maxItemIndex or 0) + 1)
+	local v16 = if not t1.zIndex then v15 else t1.zIndex + v15
+	local v17 = if not FFlagLuaAppTwoByOneTileTelemetryFix then nil else React.useCallback(function() -- line: 51
+		-- upvalues: t1 (copy)
+		if t1.onSelectionGained then
+			t1.onSelectionGained(t1.item, t1.index, t1.item.universeId)
+		end
+	end, {
+		t1.onSelectionGained,
+		t1.item,
+		t1.index
+	})
+	local v18 = nil
+
+	if FFlagLuaAppGameTileLockedBadge then
+		v18 = getTileBadgeByPositionConfigFromEntry(t1.item)
+	elseif t1.item.badgePosition and t1.item.badgeAnalyticsId and t1.item.badgeType and (t1.item.badgeText or t1.item.badgeIcon) then
+		v18 = {
+			[t1.item.badgePosition] = {{
+				analyticsId = t1.item.badgeAnalyticsId,
+				tileBadgeType = t1.item.badgeType,
+				text = t1.item.badgeText,
+				icons = if not t1.item.badgeIcon then nil else { t1.item.badgeIcon },
+				tileBadgeComponentType = t1.item.badgeComponentType
+			}}
+		}
+	end
+
+	return React.createElement(TwoByOneGameTile, {
+		size = t1.item.sizeOverride,
+		layoutOrder = t1.index,
+		zIndex = v16,
+		universeId = t1.item.universeId,
+		placeId = t1.item.placeId,
+		topicId = t1.topicId,
+		logoImageAssetId = t1.item.logoAssetId,
+		logoAspectRatio = t1.item.logoAspectRatio,
+		headline = t1.item.headline,
+		subtitle = t1.item.subtitle,
+		ctaText = t1.item.ctaText,
+		tileVariant = t1.item.tileVariant,
+		badgeOverride = v18,
+		payerName = t1.item.payerName,
+		adId = t1.item.adId,
+		isSponsored = t1.item.isSponsored,
+		sponsoredUserCohort = t1.sponsoredUserCohort,
+		appPage = t1.appPage,
+		setGameHidden = t1.setGameHidden,
+		isHidden = if not FFlagLuaAppSupportSponsoredExplicitFeedback then nil else t1.isHidden,
+		hoverKey = `TwoByOneTile_{ t1.impressionsTag or "" }_{ t1.index or "0" }_{ t1.item.universeId }`,
+		impressionsTag = t1.impressionsTag,
+		index = t1.index,
+		reportGameDetailOpened = t1.reportGameDetailOpened,
+		reportExperienceLaunched = t1.reportExperienceLaunched,
+		enableSponsoredFeedback = if not FFlagLuaAppSupportSponsoredExplicitFeedback then nil else t1.enableSponsoredFeedback,
+		enableReportAd = if not FFlagLuaAppSupportSponsoredExplicitFeedback then nil else t1.enableReportAd,
+		enableExplicitFeedback = if not FFlagLuaAppSupportSponsoredExplicitFeedback then nil else t1.enableExplicitFeedback,
+		placeIdOverride = t1.item.placeIdOverride,
+		launchDataOverride = t1.item.launchDataOverride,
+		onSelectionGained = if not FFlagLuaAppTwoByOneTileTelemetryFix then nil else v17,
+		onSelectionLost = if not FFlagLuaAppTwoByOneTileTelemetryFix then nil else t1.onSelectionLost,
+		primaryWideImageAssetId = if not FFlagLuaAppSupportPrimaryMediaContentMetadata then nil else t1.item.primaryWideImageAssetId,
+		videoPlaybackContext = if not FFlagLuaAppHomeTouchAutoplay then nil else t1.videoPlaybackContext
+	})
+end)
+
+return function(t2: {[any]: any}) -- line: 128
+	-- upvalues: React (copy), v13 (copy), GameCollectionItemTypes (copy)
+	return React.createElement(v13, t2), GameCollectionItemTypes.GameCollectionItemType.TwoByOneTile
+end

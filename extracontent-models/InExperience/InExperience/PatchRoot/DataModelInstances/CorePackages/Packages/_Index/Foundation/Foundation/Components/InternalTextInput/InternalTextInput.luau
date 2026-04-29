@@ -1,518 +1,625 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local l_Components_0 = l_script_FirstAncestor_0.Components;
-local v4 = require(l_Components_0.Padding);
-local v5 = require(l_Components_0.ScrollView);
-local _ = require(l_Components_0.Types);
-local v7 = require(l_Components_0.View);
-local v8 = require(l_script_FirstAncestor_0.Constants);
-local v9 = require(l_script_FirstAncestor_0.Utility.Flags);
-local v10 = require(l_script_FirstAncestor_0.Utility.blendTransparencies);
-local v11 = require(l_script_FirstAncestor_0.Utility.getDisabledStyle);
-local v12 = require(l_script_FirstAncestor_0.Utility.getMultiLineTextHeight);
-local v13 = require(l_script_FirstAncestor_0.Utility.isPluginSecurity);
-local v14 = require(script.Parent.truncateTextToCursor);
-local v15 = require(l_script_FirstAncestor_0.Utility.useBindable);
-local v16 = require(l_script_FirstAncestor_0.Utility.usePreferredInput);
-local v17 = require(l_script_FirstAncestor_0.Providers.Style.useStyleTags);
-local v18 = require(l_Components_0.TextInput.useTextInputVariants);
-local v19 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local v20 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v21 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local v22 = require(l_script_FirstAncestor_0.Enums.InputSize);
-local v23 = require(l_script_FirstAncestor_0.Enums.InputVariant);
-local v24 = require(l_script_FirstAncestor_0.Enums.Radius);
-local v25 = require(l_script_FirstAncestor_0.Enums.ControlState);
-local v26 = require(l_script_FirstAncestor_0.Enums.StateLayerAffordance);
-local v27 = {
-    size = v22.Large, 
-    variant = if v9.FoundationInternalTextInputVariants then v23.Standard else nil, 
-    numLines = 1, 
-    testId = "--foundation-internal-text-input"
-};
-local v32 = v2.memo(v2.forwardRef(function(v28, v29) --[[ Line: 112 ]]
-    -- upvalues: v2 (copy), v9 (copy), v13 (copy), v4 (copy)
-    local l_isBoundsChecker_0 = v28.isBoundsChecker;
-    local v31 = v28.isMultiLine or l_isBoundsChecker_0;
-    return v2.createElement("TextBox", {
-        ClearTextOnFocus = false, 
-        Selectable = false, 
-        Active = not l_isBoundsChecker_0 and nil, 
-        Visible = not l_isBoundsChecker_0 and nil, 
-        BackgroundTransparency = if v9.FoundationCleanupTextInputPolyfill then nil else 1, 
-        ClipsDescendants = not v9.FoundationCleanupTextInputPolyfill or nil, 
-        TextXAlignment = if v9.FoundationCleanupTextInputPolyfill then nil else Enum.TextXAlignment.Left, 
-        Font = v28.fontStyle.Font, 
-        TextSize = v28.fontStyle.FontSize, 
-        LineHeight = v28.fontStyle.LineHeight, 
-        TextColor3 = if not v9.FoundationCleanupTextInputPolyfill and v28.textStyle then v28.textStyle.Color3 else nil, 
-        TextTransparency = if not v9.FoundationCleanupTextInputPolyfill and v28.textStyle then v28.textStyle.Transparency else nil, 
-        MultiLine = v31, 
-        TextWrapped = v31, 
-        TextYAlignment = if v31 then Enum.TextYAlignment.Top else Enum.TextYAlignment.Center, 
-        TextEditable = not l_isBoundsChecker_0 and not v28.isDisabled, 
-        PlaceholderText = v28.placeholder, 
-        TextInputType = if v13() then v28.textInputType else nil, 
-        Size = if v28.Size ~= nil then v28.Size else UDim2.fromScale(1, 1), 
-        AutomaticSize = v28.automaticSize, 
-        Text = if l_isBoundsChecker_0 then nil else v28.text, 
-        ref = v29, 
-        [v2.Tag] = v28.tag, 
-        [v2.Change.Text] = v28.onTextChanged, 
-        [v2.Change.CursorPosition] = v28.onCursorPositionChanged, 
-        [v2.Event.Focused] = v28.onFocusGained, 
-        [v2.Event.FocusLost] = v28.onFocusLost
-    }, if v28.padding then {
-        Padding = v2.createElement(v4, {
-            value = v28.padding
-        })
-    } else nil, v28.children);
-end));
-return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 163 ]] --[[ Name: InternalTextInput ]]
-    -- upvalues: v21 (copy), v27 (copy), v19 (copy), v2 (copy), v9 (copy), v23 (copy), v18 (copy), v17 (copy), v16 (copy), v11 (copy), v25 (copy), v12 (copy), v14 (copy), v15 (copy), v7 (copy), v20 (copy), v8 (copy), v10 (copy), v24 (copy), v26 (copy), v5 (copy), v32 (copy)
-    local v35 = v21(v33, v27);
-    local v36 = v19();
-    local v37 = math.max(1, v35.numLines);
-    local v38 = v37 > 1;
-    local v39 = v2.useRef(nil);
-    local v40 = v2.useRef(nil);
-    local v41 = v2.useRef(nil);
-    local v42 = v2.useRef("");
-    local v43 = v2.useRef(nil);
-    local v44 = v2.useRef(Vector2.zero);
-    local v45, v46 = v2.useState(false);
-    local v47, v48 = v2.useState(false);
-    if v9.FoundationInternalTextInputVariants or v35.forceEnableFlagsForSearchInput then
-        v35.variant = if v35.variant then v35.variant else v23.Standard;
-    end;
-    local v49 = v18(v36, v35.size, if not not v9.FoundationInternalTextInputVariants or v35.forceEnableFlagsForSearchInput then v35.variant else nil, if not not v9.FoundationInternalTextInputCornerRadius or v35.forceEnableFlagsForSearchInput then v35.radius else nil, if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v47 else nil, if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v45 else nil, if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v35.hasError else nil, v35.forceEnableFlagsForSearchInput);
-    local v50 = v17(v49.textBox.tag);
-    local v51 = v16();
-    local v52, v53 = v2.useState(false);
-    local v54 = v51 == Enum.PreferredInput.Touch;
-    local l_Standard_0 = v36.Stroke.Standard;
-    local v56 = math.ceil(l_Standard_0) * 2;
-    local l_Thick_0 = v36.Stroke.Thick;
-    local v58 = math.ceil(l_Thick_0) * 2;
-    local v59 = if v9.FoundationInternalTextInputDisabledTransparency then v11(v36.Color.Content.Emphasis, v35.isDisabled) else v36.Color.Content.Emphasis;
-    local l_fontStyle_0 = v49.textBox.fontStyle;
-    local l_FontSize_0 = l_fontStyle_0.FontSize;
-    local l_LineHeight_0 = l_fontStyle_0.LineHeight;
-    local v63 = v2.useCallback(function() --[[ Line: 216 ]]
-        -- upvalues: v39 (copy)
-        if v39.current then
-            v39.current:CaptureFocus();
-        end;
-    end, {});
-    local v64 = v2.useCallback(function() --[[ Line: 222 ]]
-        -- upvalues: v39 (copy)
-        if v39.current then
-            v39.current:ReleaseFocus();
-        end;
-    end, {});
-    local v65 = v2.useCallback(function() --[[ Line: 228 ]]
-        -- upvalues: v39 (copy)
-        if v39.current then
-            return (v39.current:IsFocused());
-        else
-            return nil;
-        end;
-    end, {});
-    local v66 = v2.useCallback(function() --[[ Line: 235 ]]
-        -- upvalues: v39 (copy)
-        if v39.current then
-            return v39.current.SelectionStart;
-        else
-            return nil;
-        end;
-    end, {});
-    local v67 = v2.useCallback(function() --[[ Line: 242 ]]
-        -- upvalues: v39 (copy)
-        if v39.current then
-            return v39.current.CursorPosition;
-        else
-            return nil;
-        end;
-    end, {});
-    local v69 = v2.useCallback(function(v68) --[[ Line: 249 ]]
-        -- upvalues: v39 (copy)
-        if v39.current then
-            v39.current.SelectionStart = v68;
-        end;
-    end, {});
-    local v71 = v2.useCallback(function(v70) --[[ Line: 255 ]]
-        -- upvalues: v39 (copy)
-        if v39.current then
-            v39.current.CursorPosition = v70;
-        end;
-    end, {});
-    v2.useImperativeHandle(v34, function() --[[ Line: 263 ]]
-        -- upvalues: v65 (copy), v63 (copy), v64 (copy), v46 (copy), v66 (copy), v67 (copy), v71 (copy), v69 (copy)
-        return {
-            getIsFocused = v65, 
-            focus = v63, 
-            releaseFocus = v64, 
-            setHover = v46, 
-            getSelectionStart = v66, 
-            getCursorPosition = v67, 
-            setCursorPosition = v71, 
-            setSelectionStart = v69
-        };
-    end, {
-        v67, 
-        v65, 
-        v66, 
-        v63, 
-        v64, 
-        v71, 
-        v69
-    });
-    local v74 = v2.useCallback(function(v72) --[[ Line: 286 ]]
-        -- upvalues: v42 (copy), v38 (copy), v40 (copy), v35 (copy)
-        if v72 == nil or v72.Parent == nil or v42.current ~= "" then
-            return;
-        else
-            local l_Text_0 = v72.Text;
-            if v38 and v40.current then
-                v40.current.Text = l_Text_0;
-            end;
-            v35.onChanged(l_Text_0);
-            return;
-        end;
-    end, {
-        v35.onChanged, 
-        v38, 
-        v52
-    });
-    local v75 = v2.useCallback(function() --[[ Line: 300 ]]
-        -- upvalues: v35 (copy), v38 (copy), v54 (copy), v39 (copy), v42 (copy), v53 (copy), v48 (copy)
-        if v35.isDisabled then
-            return;
-        else
-            if v38 and v54 then
-                if v39.current and v39.current.Parent then
-                    v42.current = v39.current.Text;
-                end;
-                v53(true);
-            end;
-            v48(true);
-            if v35.onFocus then
-                v35.onFocus();
-            end;
-            return;
-        end;
-    end, {
-        v35.onFocus, 
-        v35.isDisabled, 
-        v54, 
-        v38
-    });
-    local v79 = v2.useCallback(function(_, v77, v78) --[[ Line: 320 ]]
-        -- upvalues: v48 (copy), v38 (copy), v53 (copy), v35 (copy)
-        v48(false);
-        if v38 then
-            v53(false);
-        end;
-        if v35.onFocusLost then
-            v35.onFocusLost(v78);
-        end;
-        if v77 and v35.onReturnPressed then
-            v35.onReturnPressed();
-        end;
-    end, {
-        v35.onReturnPressed, 
-        v38, 
-        v35.onFocusLost
-    });
-    local v81 = v2.useCallback(function(v80) --[[ Line: 338 ]]
-        -- upvalues: v46 (copy), v25 (ref)
-        v46(v80 == v25.Hover);
-    end, {});
-    local v84 = v2.useCallback(function(v82, v83) --[[ Line: 342 ]]
-        -- upvalues: v43 (copy), v35 (copy)
-        v43.current = v83;
-        if v35.onDragStarted then
-            v35.onDragStarted(v82, v83);
-        end;
-    end, {
-        v35.onDragStarted
-    });
-    local v87 = v2.useCallback(function(v85, v86) --[[ Line: 349 ]]
-        -- upvalues: v35 (copy)
-        if v35.onDrag then
-            v35.onDrag(v85, v86);
-        end;
-    end, {
-        v35.onDrag
-    });
-    local v90 = v2.useCallback(function(v88, v89) --[[ Line: 355 ]]
-        -- upvalues: v43 (copy), v63 (copy), v64 (copy), v48 (copy), v35 (copy)
-        if v43.current == v89 then
-            v63();
-        else
-            v64();
-            v48(false);
-        end;
-        v43.current = nil;
-        if v35.onDragEnded then
-            v35.onDragEnded(v88, v89);
-        end;
-    end, {
-        v35.onDragEnded
-    });
-    local v91 = v2.useMemo(function() --[[ Line: 368 ]]
-        -- upvalues: v49 (copy), v36 (copy)
-        return {
-            radius = UDim.new(0, v49.innerContainer.radius), 
-            offset = v36.Stroke.Thick, 
-            borderWidth = v36.Stroke.Thick
-        };
-    end, {
-        v36, 
-        v49.innerContainer.radius
-    });
-    local v92 = v2.useMemo(function() --[[ Line: 376 ]]
-        -- upvalues: v12 (ref), l_FontSize_0 (copy), v37 (copy), l_LineHeight_0 (copy)
-        return v12(l_FontSize_0, v37, l_LineHeight_0);
-    end, {
-        l_FontSize_0, 
-        v37, 
-        l_LineHeight_0
-    });
-    local v97, v98 = v2.useMemo(function() --[[ Line: 381 ]]
-        -- upvalues: v49 (copy), v56 (copy), v12 (ref), l_FontSize_0 (copy), l_LineHeight_0 (copy), v92 (copy)
-        local v93 = math.round((v49.outerContainer.minHeight - v56 - v12(l_FontSize_0, 1, l_LineHeight_0)) * 2) / 2;
-        local v94 = UDim.new(0, (math.floor(v93 / 2)));
-        local v95 = UDim.new(0, (math.ceil(v93 / 2)));
-        local v96 = v92 + math.round(v93) + v56;
-        return {
-            top = v94, 
-            bottom = v95, 
-            left = UDim.new(0, 0), 
-            right = UDim.new(0, 0)
-        }, v96;
-    end, {
-        v49.outerContainer.minHeight, 
-        v56, 
-        v58, 
-        l_FontSize_0, 
-        v92, 
-        l_LineHeight_0
-    });
-    local v99 = v97.bottom.Offset + v97.top.Offset;
-    local v100 = UDim2.new(1, 0, 0, v92 + v99);
-    local v101 = v2.useMemo(function() --[[ Line: 417 ]]
-        -- upvalues: v38 (copy)
-        if v38 then
-            return {
-                FillDirection = Enum.FillDirection.Vertical, 
-                ItemLineAlignment = Enum.ItemLineAlignment.Center
-            };
-        else
-            return nil;
-        end;
-    end, {
-        v38
-    });
-    local v102 = v2.useMemo(function() --[[ Line: 426 ]]
-        -- upvalues: v38 (copy)
-        if v38 then
-            return {
-                AutomaticCanvasSize = Enum.AutomaticSize.Y, 
-                CanvasSize = UDim2.fromOffset(0, 0), 
-                ScrollingDirection = Enum.ScrollingDirection.Y, 
-                VerticalScrollBarInset = Enum.ScrollBarInset.Always
-            };
-        else
-            return nil;
-        end;
-    end, {
-        v38
-    });
-    local v111 = v2.useCallback(function(v103) --[[ Line: 437 ]]
-        -- upvalues: v41 (copy), v40 (copy), v14 (ref), v97 (copy)
-        local l_current_0 = v41.current;
-        local l_current_1 = v40.current;
-        if l_current_0 == nil or l_current_1 == nil then
-            return;
-        else
-            local v106 = v103.TextSize * v103.LineHeight;
-            local l_Y_0 = l_current_0.CanvasPosition.Y;
-            l_current_1.Text = v14(v103);
-            local l_Y_1 = l_current_1.TextBounds.Y;
-            local v109 = l_Y_0 - v97.top.Offset + v97.bottom.Offset;
-            local v110 = l_Y_0 + l_current_0.AbsoluteSize.Y - v97.top.Offset - v97.bottom.Offset;
-            if l_Y_1 - v106 < v109 then
-                l_current_0.CanvasPosition = l_current_0.CanvasPosition + Vector2.new(0, l_Y_1 - v106 - v109);
-            end;
-            if v110 < l_Y_1 then
-                l_current_0.CanvasPosition = l_current_0.CanvasPosition + Vector2.new(0, l_Y_1 - v110);
-            end;
-            return;
-        end;
-    end, {
-        v97
-    });
-    local v113 = v2.useCallback(function(v112) --[[ Line: 470 ]]
-        -- upvalues: v41 (copy), v44 (copy)
-        if v112 == nil then
-            return;
-        else
-            v41.current = v112;
-            v112.ClipsDescendants = true;
-            v112.CanvasPosition = v44.current;
-            return;
-        end;
-    end, {});
-    local v115 = v2.useCallback(function(v114) --[[ Line: 480 ]]
-        -- upvalues: v42 (copy)
-        if v114 then
-            v114.Text = v42.current;
-            v42.current = "";
-            v114:CaptureFocus();
-        end;
-    end, {});
-    local v117 = v2.useCallback(function(v116) --[[ Line: 488 ]]
-        -- upvalues: v44 (copy)
-        v44.current = v116.CanvasPosition;
-    end, {});
-    local v118 = v2.useMemo(function() --[[ Line: 492 ]]
-        -- upvalues: v35 (copy), v2 (ref), v84 (copy), v87 (copy), v90 (copy), v47 (copy)
-        if not v35.onDragStarted and not v35.onDrag and not v35.onDragEnded then
-            return nil;
-        else
-            return v2.createElement("UIDragDetector", {
-                DragStyle = Enum.UIDragDetectorDragStyle.Scriptable, 
-                [v2.Event.DragStart] = v84, 
-                [v2.Event.DragContinue] = v87, 
-                [v2.Event.DragEnd] = v90, 
-                Enabled = not v47 and not v35.isDisabled
-            });
-        end;
-    end, {
-        v84, 
-        v87, 
-        v90, 
-        v47, 
-        v35.isDisabled
-    });
-    local v119 = v15(if v35.horizontalPadding then v35.horizontalPadding.left or UDim.new(0, 0) else UDim.new(0, 0));
-    local v120 = v15(if v35.horizontalPadding then v35.horizontalPadding.right or UDim.new(0, 0) else UDim.new(0, 0));
-    return v2.createElement(v7, v20(v35, {
-        GroupTransparency = if not v9.FoundationInternalTextInputDisabledTransparency and v35.isDisabled then v8.DISABLED_TRANSPARENCY else nil, 
-        Size = UDim2.new(1, 0, 0, v98), 
-        selection = {
-            Selectable = not v35.isDisabled
-        }, 
-        cursor = v91, 
-        stroke = if not (not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput) or v49.outerView.strokeStyle and v49.outerView.strokeThickness then {
-            Color = if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v49.outerView.strokeStyle.Color3 else if v35.hasError then v36.Color.System.Alert.Color3 else v36.Color.Stroke.Emphasis.Color3, 
-            Transparency = if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then if v35.isDisabled then v10(v49.outerView.strokeStyle.Transparency, v8.DISABLED_TRANSPARENCY) else v49.outerView.strokeStyle.Transparency else if v35.hasError then v36.Color.System.Alert.Transparency else v47 and 0 or v36.Color.Stroke.Emphasis.Transparency, 
-            Thickness = if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v49.outerView.strokeThickness else l_Standard_0, 
-            BorderStrokePosition = if (not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput) and (v47 or v45) then Enum.BorderStrokePosition.Center else Enum.BorderStrokePosition.Inner
-        } else nil, 
-        cornerRadius = if v9.FoundationTextInputSingleLineCircleRadius and v35.radius == v24.Circle then UDim.new(0, (math.ceil(v49.outerContainer.minHeight / 2))) else nil, 
-        padding = {
-            left = v119:map(function(v121) --[[ Line: 557 ]]
-                -- upvalues: l_Standard_0 (copy)
-                return UDim.new(0, l_Standard_0) + v121;
-            end), 
-            right = v120:map(function(v122) --[[ Line: 560 ]]
-                -- upvalues: l_Standard_0 (copy)
-                return UDim.new(0, l_Standard_0) + v122;
-            end), 
-            top = UDim.new(0, l_Standard_0), 
-            bottom = UDim.new(0, l_Standard_0)
-        }, 
-        onActivated = if not v35.isDisabled then v63 else nil, 
-        onStateChanged = v81, 
-        isDisabled = v35.isDisabled, 
-        backgroundStyle = if not (not not v9.FoundationInternalTextInputVariants or v35.forceEnableFlagsForSearchInput) or v49.outerView.bgStyle then if v9.FoundationInternalTextInputDisabledTransparency then v11({
-            Color3 = v49.outerView.bgStyle.Color3, 
-            Transparency = v35.backgroundGradient and 0 or v49.outerView.bgStyle.Transparency
-        }, v35.isDisabled) else {
-            Color3 = v49.outerView.bgStyle.Color3, 
-            Transparency = v35.backgroundGradient and 0 or v49.outerView.bgStyle.Transparency
-        } else nil, 
-        stateLayer = {
-            affordance = v26.None
-        }, 
-        tag = v49.outerView.tag, 
-        testId = ("%*--outer-container"):format(v35.testId)
-    }), {
-        DragDetector = v118, 
-        Background = v35.backgroundGradient, 
-        HoverStroke = if not (not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput or v35.isDisabled) and (v45 or v47) then v2.createElement("UIStroke", {
-            Color = v36.Color.Stroke.Emphasis.Color3, 
-            Transparency = v36.Color.Stroke.Emphasis.Transparency, 
-            Thickness = l_Thick_0, 
-            BorderStrokePosition = Enum.BorderStrokePosition.Inner, 
-            BorderOffset = UDim.new(0, -v58 / 2)
-        }) else nil, 
-        Leading = if v35.leadingElement then v2.createElement(v7, {
-            GroupTransparency = if v9.FoundationInternalTextInputDisabledTransparency and v35.isDisabled then v8.DISABLED_TRANSPARENCY else nil, 
-            LayoutOrder = 1, 
-            tag = "size-0-full auto-x", 
-            testId = ("%*--leading"):format(v35.testId)
-        }, v35.leadingElement) else nil, 
-        TextBoxWrapper = v2.createElement(if v38 then v5 else v7, {
-            LayoutOrder = 2, 
-            scroll = v102, 
-            layout = v101, 
-            onCanvasPositionChanged = if v38 then v117 else nil, 
-            scrollingFrameRef = if v38 then v113 else nil, 
-            tag = "size-full fill clip"
-        }, {
-            TextBox = if not v52 then v2.createElement(v32, {
-                text = v35.text, 
-                placeholder = v35.placeholder, 
-                textInputType = v35.textInputType, 
-                fontStyle = l_fontStyle_0, 
-                textStyle = v59, 
-                isMultiLine = v38, 
-                isDisabled = v35.isDisabled, 
-                ref = v39, 
-                tag = ("%* data-testid=%*--textbox"):format(v50 or "", v35.testId), 
-                Size = if v38 then v100 else nil, 
-                automaticSize = if not (not v38 or v52) and v35.text ~= "" then Enum.AutomaticSize.Y else nil, 
-                padding = v97, 
-                onFocusGained = v75, 
-                onFocusLost = if v38 and v54 then nil else v79, 
-                onTextChanged = v74, 
-                onCursorPositionChanged = if v38 then v111 else nil
-            }, {
-                DragDetector = v118, 
-                BoundsChecker = if v38 then v2.createElement(v32, {
-                    isBoundsChecker = true, 
-                    fontStyle = l_fontStyle_0, 
-                    textStyle = v59, 
-                    Size = UDim2.new(1, 0, 1, v99), 
-                    ref = v40
-                }) else nil
-            }) else nil, 
-            MobileTextBox = if v38 and v52 then v2.createElement(v32, {
-                text = v35.text, 
-                placeholder = v35.placeholder, 
-                textInputType = v35.textInputType, 
-                fontStyle = l_fontStyle_0, 
-                textStyle = v59, 
-                isMultiLine = v38, 
-                isDisabled = v35.isDisabled, 
-                padding = v97, 
-                ref = v115, 
-                tag = ("%* data-testid=%*--mobile-textbox"):format(v50 or "", v35.testId), 
-                Size = v100, 
-                onFocusLost = if v38 and v54 then v79 else nil, 
-                onTextChanged = v74, 
-                onCursorPositionChanged = if v38 then v111 else nil
-            }) else nil
-        }), 
-        Trailing = if v35.trailingElement then v2.createElement(v7, {
-            GroupTransparency = if v9.FoundationInternalTextInputDisabledTransparency and v35.isDisabled then v8.DISABLED_TRANSPARENCY else nil, 
-            LayoutOrder = 3, 
-            tag = "size-0-full auto-x", 
-            testId = ("%*--trailing"):format(v35.testId)
-        }, v35.trailingElement) else nil
-    });
-end));
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+local React = require(FoundationParent.React)
+local ReactUtils = require(FoundationParent.ReactUtils)
+local Components = Foundation.Components
+local Icon = require(Components.Icon)
+local Padding = require(Components.Padding)
+local ScrollView = require(Components.ScrollView)
+
+require(Components.Types)
+
+local View = require(Components.View)
+local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
+local blendTransparencies = require(Foundation.Utility.blendTransparencies)
+local getBindableValue = require(Foundation.Utility.getBindableValue)
+local getDisabledStyle = require(Foundation.Utility.getDisabledStyle)
+local getMultiLineTextHeight = require(Foundation.Utility.getMultiLineTextHeight)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
+local mapBindable = require(Foundation.Utility.mapBindable)
+local truncateTextToCursor = require(script.Parent.truncateTextToCursor)
+local useBindable = require(Foundation.Utility.useBindable)
+local usePreferredInput = require(Foundation.Utility.usePreferredInput)
+local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
+local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local InputFocusBehavior = require(Foundation.Enums.InputFocusBehavior)
+local InputSize = require(Foundation.Enums.InputSize)
+local InputVariant = require(Foundation.Enums.InputVariant)
+local Radius = require(Foundation.Enums.Radius)
+local ControlState = require(Foundation.Enums.ControlState)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local t1 = {
+	size = InputSize.Large,
+	variant = InputVariant.Standard,
+	numLines = 1,
+	testId = "--foundation-internal-text-input"
+}
+local v33 = React.memo(React.forwardRef(function(t2: {[any]: any}, p1) -- line: 121
+	-- upvalues: React (copy), Flags (copy), isPluginSecurity (copy), Padding (copy)
+	local isBoundsChecker = t2.isBoundsChecker
+	local v37 = t2.isMultiLine or isBoundsChecker
+
+	return React.createElement("TextBox", {
+		ClearTextOnFocus = false,
+		Selectable = false,
+		Active = not isBoundsChecker and nil,
+		Visible = not isBoundsChecker and nil,
+		BackgroundTransparency = not Flags.FoundationCleanupTextInputPolyfill and 1 or nil,
+		ClipsDescendants = not Flags.FoundationCleanupTextInputPolyfill or nil,
+		TextXAlignment = if not Flags.FoundationCleanupTextInputPolyfill then Enum.TextXAlignment.Left else nil,
+		Font = t2.fontStyle.Font,
+		TextSize = t2.fontStyle.FontSize,
+		LineHeight = t2.fontStyle.LineHeight,
+		TextColor3 = if not t2.textStyle then nil else t2.textStyle.Color3,
+		TextTransparency = if not t2.textStyle then nil else t2.textStyle.Transparency,
+		MultiLine = v37,
+		TextWrapped = v37,
+		TextYAlignment = if not v37 then Enum.TextYAlignment.Center else Enum.TextYAlignment.Top,
+		TextEditable = not isBoundsChecker and not t2.isDisabled,
+		PlaceholderText = t2.placeholder,
+		TextInputType = if not isPluginSecurity() then nil else t2.textInputType,
+		Size = if t2.Size == nil then UDim2.fromScale(1, 1) else t2.Size,
+		AutomaticSize = t2.automaticSize,
+		Text = if not isBoundsChecker then t2.text else nil,
+		ref = p1,
+		[React.Tag] = t2.tag,
+		[React.Change.Text] = t2.onTextChanged,
+		[React.Change.CursorPosition] = t2.onCursorPositionChanged,
+		[React.Event.Focused] = t2.onFocusGained,
+		[React.Event.FocusLost] = t2.onFocusLost
+	}, if not t2.padding then nil else {
+		Padding = React.createElement(Padding, {
+			value = t2.padding
+		})
+	}, t2.children)
+end))
+
+return React.memo(React.forwardRef(function(p2, p3) --[[ InternalTextInput ]] -- line: 168
+	-- upvalues: withDefaults (copy), t1 (copy), useTokens (copy), React (copy), Flags (copy), getBindableValue (copy), useTextInputVariants (copy), useStyleTags (copy), usePreferredInput (copy), getDisabledStyle (copy), InputFocusBehavior (copy), ControlState (copy), getMultiLineTextHeight (copy), truncateTextToCursor (copy), useBindable (copy), ReactUtils (copy), View (copy), withCommonProps (copy), blendTransparencies (copy), Constants (copy), Radius (copy), StateLayerAffordance (copy), ScrollView (copy), v33 (copy), mapBindable (copy), Icon (copy)
+	local v40 = withDefaults(p2, t1)
+	local v41 = useTokens()
+	local v42 = math.max(1, v40.numLines)
+	local v43 = v42 > 1
+	local v44 = React.useRef(nil)
+	local v45 = if not Flags.FoundationTextInputFocusBehavior then nil else React.useRef(nil)
+	local v46 = React.useRef(nil)
+	local v47 = React.useRef(nil)
+	local v48 = React.useRef("")
+	local v49 = if not Flags.FoundationTextInputFocusBehavior then nil else React.useRef(getBindableValue(v40.text))
+	local v50 = React.useRef(nil)
+	local v51 = React.useRef(Vector2.zero)
+	local v52, v53 = React.useState(false)
+	local v54, v55 = React.useState(false)
+	local v56 = useTextInputVariants(v41, v40.size, v40.variant, v40.radius, v54, v52, v40.hasError)
+	local v57 = if not Flags.FoundationInputVariantsConsolidateContainer then v56.innerContainer else v56.container
+	local v58 = if not Flags.FoundationInputVariantsConsolidateContainer then v56.outerContainer else v56.container
+	local v59 = if not Flags.FoundationInputVariantsConsolidateContainer then v56.outerView else v56.container
+	local v60 = useStyleTags(v56.textBox.tag)
+	local v61 = usePreferredInput()
+	local v62, v63 = React.useState(false)
+	local v64 = v61 == Enum.PreferredInput.Touch
+	local Standard = v41.Stroke.Standard
+	local v66 = math.ceil(Standard) * 2
+	local v67 = math.ceil(v41.Stroke.Thick) * 2
+	local v68 = getDisabledStyle(v41.Color.Content.Emphasis, v40.isDisabled)
+	local fontStyle = v56.textBox.fontStyle
+	local FontSize = fontStyle.FontSize
+	local LineHeight = fontStyle.LineHeight
+	local v72 = React.useCallback(function() -- line: 220
+		-- upvalues: v44 (copy)
+		if v44.current then
+			v44.current:CaptureFocus()
+		end
+	end, {})
+	local v73 = React.useCallback(function() -- line: 226
+		-- upvalues: v44 (copy)
+		if v44.current then
+			v44.current:ReleaseFocus()
+		end
+	end, {})
+	local v74 = React.useCallback(function() -- line: 232
+		-- upvalues: v44 (copy)
+		if v44.current then
+			return (v44.current:IsFocused())
+		end
+
+		return nil
+	end, {})
+	local v75 = React.useCallback(function() -- line: 239
+		-- upvalues: v44 (copy)
+		if v44.current then
+			return v44.current.SelectionStart
+		end
+
+		return nil
+	end, {})
+	local v76 = React.useCallback(function() -- line: 246
+		-- upvalues: v44 (copy)
+		if v44.current then
+			return v44.current.CursorPosition
+		end
+
+		return nil
+	end, {})
+	local v77 = React.useCallback(function(p4) -- line: 253
+		-- upvalues: v44 (copy), Flags (copy), v45 (copy)
+		if v44.current then
+			v44.current.SelectionStart = p4
+		end
+
+		if Flags.FoundationTextInputFocusBehavior and v45.current then
+			v45.current.SelectionStart = p4
+		end
+	end, {})
+	local v78 = React.useCallback(function(p5) -- line: 262
+		-- upvalues: v44 (copy), Flags (copy), v45 (copy)
+		if v44.current then
+			v44.current.CursorPosition = p5
+		end
+
+		if Flags.FoundationTextInputFocusBehavior and v45.current then
+			v45.current.CursorPosition = p5
+		end
+	end, {})
+	local v79 = if not Flags.FoundationInternalTextInputClearButton then nil else React.useCallback(function() -- line: 272
+		-- upvalues: v44 (copy)
+		if v44.current then
+			v44.current.Text = ""
+		end
+	end, {})
+
+	React.useImperativeHandle(p3, function() -- line: 281
+		-- upvalues: v74 (copy), v72 (copy), v73 (copy), v53 (copy), v75 (copy), v76 (copy), v78 (copy), v77 (copy)
+		return {
+			getIsFocused = v74,
+			focus = v72,
+			releaseFocus = v73,
+			setHover = v53,
+			getSelectionStart = v75,
+			getCursorPosition = v76,
+			setCursorPosition = v78,
+			setSelectionStart = v77
+		}
+	end, {
+		v76,
+		v74,
+		v75,
+		v72,
+		v73,
+		v78,
+		v77
+	})
+
+	local v80 = React.useCallback(function(p6) -- line: 304
+		-- upvalues: v48 (copy), Flags (copy), v49 (copy), v43 (copy), v46 (copy), v40 (copy)
+		if p6 == nil or (p6.Parent == nil or v48.current ~= "") then
+			return
+		end
+
+		local p6Text = p6.Text
+
+		if Flags.FoundationTextInputFocusBehavior then
+			if p6Text == v49.current then
+				return
+			end
+
+			v49.current = p6Text
+		end
+
+		if v43 and v46.current then
+			v46.current.Text = p6Text
+		end
+
+		v40.onChanged(p6Text)
+	end, {
+		v40.onChanged,
+		v43,
+		v62
+	})
+	local v81 = React.useCallback(function() -- line: 327
+		-- upvalues: v40 (copy), v43 (copy), v64 (copy), v44 (copy), v48 (copy), v63 (copy), v55 (copy), Flags (copy), InputFocusBehavior (copy), v45 (copy), v77 (copy), v78 (copy)
+		if v40.isDisabled then
+			return
+		end
+
+		if v43 and v64 then
+			if v44.current and v44.current.Parent then
+				v48.current = v44.current.Text
+			end
+
+			v63(true)
+		end
+
+		v55(true)
+
+		if v40.onFocus then
+			v40.onFocus()
+		end
+
+		if Flags.FoundationTextInputFocusBehavior then
+			local focusBehavior = v40.focusBehavior
+
+			if focusBehavior == InputFocusBehavior.Clear then
+				v48.current = ""
+
+				if v44.current then
+					v44.current.Text = ""
+				end
+
+				if v45.current then
+					v45.current.Text = ""
+
+					return
+				end
+			elseif focusBehavior == InputFocusBehavior.Highlight then
+				task.spawn(function() -- line: 359
+					-- upvalues: v44 (copy), v45 (copy), v77 (copy), v78 (copy)
+					local v138 = v44.current or v45.current
+
+					if v138 and v138.Parent ~= nil then
+						local v139 = utf8.len(v138.Text)
+
+						if v139 then
+							v77(0)
+							v78(v139 + 1)
+						end
+					end
+				end)
+			end
+		end
+	end, {
+		v40.onFocus,
+		v40.isDisabled,
+		v64,
+		v43,
+		if not Flags.FoundationTextInputFocusBehavior then nil else v40.focusBehavior,
+		if not Flags.FoundationTextInputFocusBehavior then nil else v77,
+		if not Flags.FoundationTextInputFocusBehavior then nil else v78
+	})
+	local v82 = React.useCallback(function(_, b1: boolean, p8) -- line: 384
+		-- upvalues: v55 (copy), v43 (copy), v63 (copy), v40 (copy)
+		v55(false)
+
+		if v43 then
+			v63(false)
+		end
+
+		if v40.onFocusLost then
+			v40.onFocusLost(p8)
+		end
+
+		if b1 and v40.onReturnPressed then
+			v40.onReturnPressed()
+		end
+	end, {
+		v40.onReturnPressed,
+		v43,
+		v40.onFocusLost
+	})
+	local v83 = React.useCallback(function(p9) -- line: 402
+		-- upvalues: v53 (copy), ControlState (copy)
+		v53(p9 == ControlState.Hover)
+	end, {})
+	local v84 = React.useCallback(function(p10, vector2: Vector2) -- line: 406
+		-- upvalues: v50 (copy), v40 (copy)
+		v50.current = vector2
+
+		if v40.onDragStarted then
+			v40.onDragStarted(p10, vector2)
+		end
+	end, { v40.onDragStarted })
+	local v85 = React.useCallback(function(p11, vector2: Vector2) -- line: 413
+		-- upvalues: v40 (copy)
+		if v40.onDrag then
+			v40.onDrag(p11, vector2)
+		end
+	end, { v40.onDrag })
+	local v86 = React.useCallback(function(p12, vector2: Vector2) -- line: 419
+		-- upvalues: v50 (copy), v72 (copy), v73 (copy), v55 (copy), v40 (copy)
+		if vector2 == v50.current then
+			v72()
+		else
+			v73()
+			v55(false)
+		end
+
+		v50.current = nil
+
+		if v40.onDragEnded then
+			v40.onDragEnded(p12, vector2)
+		end
+	end, { v40.onDragEnded })
+	local v87 = React.useMemo(function() -- line: 432
+		-- upvalues: v57 (copy), v41 (copy)
+		return {
+			radius = UDim.new(0, v57.radius),
+			offset = v41.Stroke.Thick,
+			borderWidth = v41.Stroke.Thick
+		}
+	end, {
+		v41,
+		v57.radius
+	})
+	local v88 = React.useMemo(function() -- line: 440
+		-- upvalues: getMultiLineTextHeight (copy), FontSize (copy), v42 (copy), LineHeight (copy)
+		return getMultiLineTextHeight(FontSize, v42, LineHeight)
+	end, {
+		FontSize,
+		v42,
+		LineHeight
+	})
+	local v89, v90 = React.useMemo(function() -- line: 445
+		-- upvalues: v58 (copy), v66 (copy), getMultiLineTextHeight (copy), FontSize (copy), LineHeight (copy), v88 (copy)
+		local v119 = math.round((v58.minHeight - v66 - getMultiLineTextHeight(FontSize, 1, LineHeight)) * 2) / 2
+		local uDim = UDim.new(0, (math.floor(v119 / 2)))
+		local uDim2 = UDim.new(0, (math.ceil(v119 / 2)))
+		local v122 = v88 + math.round(v119) + v66
+
+		return {
+			top = uDim,
+			bottom = uDim2,
+			left = UDim.new(0, 0),
+			right = UDim.new(0, 0)
+		}, v122
+	end, {
+		v58.minHeight,
+		v66,
+		v67,
+		FontSize,
+		v88,
+		LineHeight
+	})
+	local v91 = v89.bottom.Offset + v89.top.Offset
+	local uDim2 = UDim2.new(1, 0, 0, v88 + v91)
+	local v93 = React.useMemo(function() -- line: 478
+		-- upvalues: v43 (copy)
+		if v43 then
+			return {
+				FillDirection = Enum.FillDirection.Vertical,
+				ItemLineAlignment = Enum.ItemLineAlignment.Center
+			}
+		end
+
+		return nil
+	end, { v43 })
+	local v94 = React.useMemo(function() -- line: 487
+		-- upvalues: v43 (copy)
+		if v43 then
+			return {
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				CanvasSize = UDim2.fromOffset(0, 0),
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				VerticalScrollBarInset = Enum.ScrollBarInset.Always
+			}
+		end
+
+		return nil
+	end, { v43 })
+	local v95 = React.useCallback(function(p13) -- line: 498
+		-- upvalues: v47 (copy), v46 (copy), truncateTextToCursor (copy), v89 (copy)
+		local current = v47.current
+		local current2 = v46.current
+
+		if current == nil or current2 == nil then
+			return
+		end
+
+		local v126 = p13.TextSize * p13.LineHeight
+		local CanvasPositionY = current.CanvasPosition.Y
+
+		current2.Text = truncateTextToCursor(p13)
+
+		local TextBoundsY = current2.TextBounds.Y
+		local v129 = CanvasPositionY - v89.top.Offset + v89.bottom.Offset
+		local v130 = CanvasPositionY + current.AbsoluteSize.Y - v89.top.Offset - v89.bottom.Offset
+
+		if v129 > TextBoundsY - v126 then
+			current.CanvasPosition = current.CanvasPosition + Vector2.new(0, TextBoundsY - v126 - v129)
+		end
+
+		if v130 < TextBoundsY then
+			current.CanvasPosition = current.CanvasPosition + Vector2.new(0, TextBoundsY - v130)
+		end
+	end, { v89 })
+	local v96 = React.useCallback(function(p14) -- line: 531
+		-- upvalues: v47 (copy), v51 (copy)
+		if p14 == nil then
+			return
+		end
+
+		v47.current = p14
+		p14.ClipsDescendants = true
+		p14.CanvasPosition = v51.current
+	end, {})
+	local v97 = React.useCallback(function(p15) -- line: 541
+		-- upvalues: v48 (copy)
+		if p15 then
+			p15.Text = v48.current
+			v48.current = ""
+			p15:CaptureFocus()
+		end
+	end, {})
+	local v98 = React.useCallback(function(p16) -- line: 549
+		-- upvalues: v51 (copy)
+		v51.current = p16.CanvasPosition
+	end, {})
+	local v99 = React.useMemo(function() -- line: 553
+		-- upvalues: v40 (copy), React (copy), v84 (copy), v85 (copy), v86 (copy), v54 (copy)
+		if not v40.onDragStarted and (not v40.onDrag and not v40.onDragEnded) then
+			return nil
+		end
+
+		return React.createElement("UIDragDetector", {
+			DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
+			[React.Event.DragStart] = v84,
+			[React.Event.DragContinue] = v85,
+			[React.Event.DragEnd] = v86,
+			Enabled = not v54 and not v40.isDisabled
+		})
+	end, {
+		v84,
+		v85,
+		v86,
+		v54,
+		v40.isDisabled
+	})
+	local v100 = useBindable(if not v40.horizontalPadding then UDim.new(0, 0) else v40.horizontalPadding.left or UDim.new(0, 0))
+	local v101 = useBindable(if not v40.horizontalPadding then UDim.new(0, 0) else v40.horizontalPadding.right or UDim.new(0, 0))
+	local v102 = if not Flags.FoundationInternalTextInputClearButton then nil else React.useMemo(function() -- line: 574
+		-- upvalues: v40 (copy), v58 (copy), v41 (copy)
+		if v40.hasClearButton then
+			return (UDim2.fromOffset(0, (v58.minHeight - v41.Stroke.Standard) / 2))
+		end
+
+		return nil
+	end, {
+		v40.hasClearButton,
+		v58.minHeight,
+		v41.Stroke.Standard
+	})
+	local v103 = if not Flags.FoundationTextInputFocusBehavior then nil else ReactUtils.useComposedRef(v45, v97)
+
+	return React.createElement(View, withCommonProps(v40, {
+		Size = UDim2.new(1, 0, 0, v90),
+		selection = {
+			Selectable = not v40.isDisabled
+		},
+		cursor = v87,
+		stroke = if not v59.strokeStyle or not v59.strokeThickness then nil else {
+			Color = v59.strokeStyle.Color3,
+			Transparency = if not v40.isDisabled then v59.strokeStyle.Transparency else blendTransparencies(v59.strokeStyle.Transparency, Constants.DISABLED_TRANSPARENCY),
+			Thickness = v59.strokeThickness,
+			BorderStrokePosition = if not v54 and not v52 then Enum.BorderStrokePosition.Inner else Enum.BorderStrokePosition.Center
+		},
+		cornerRadius = if v40.radius ~= Radius.Circle then nil else UDim.new(0, (math.ceil(v58.minHeight / 2))),
+		padding = {
+			left = v100:map(function(p17) -- line: 615
+				-- upvalues: Standard (copy)
+				return UDim.new(0, Standard) + p17
+			end),
+			right = if not Flags.FoundationInternalTextInputClearButton or (v40.trailingElement ~= nil or not v40.hasClearButton) then v101:map(function(p18) -- line: 623
+				-- upvalues: Standard (copy)
+				return UDim.new(0, Standard) + p18
+			end) else UDim.new(0, Standard),
+			top = UDim.new(0, Standard),
+			bottom = UDim.new(0, Standard)
+		},
+		onActivated = if v40.isDisabled then nil else v72,
+		onStateChanged = v83,
+		isDisabled = v40.isDisabled,
+		backgroundStyle = if not v59.bgStyle then nil else getDisabledStyle({
+			Color3 = v59.bgStyle.Color3,
+			Transparency = if not v40.backgroundGradient then v59.bgStyle.Transparency else 0
+		}, v40.isDisabled),
+		stateLayer = {
+			affordance = StateLayerAffordance.None
+		},
+		tag = v59.tag,
+		testId = `{ v40.testId }--outer-container`
+	}), {
+		DragDetector = v99,
+		Background = v40.backgroundGradient,
+		Leading = if not v40.leadingElement then nil else React.createElement(View, {
+			GroupTransparency = if not v40.isDisabled then nil else Constants.DISABLED_TRANSPARENCY,
+			LayoutOrder = 1,
+			tag = "size-0-full auto-x",
+			testId = `{ v40.testId }--leading`
+		}, v40.leadingElement),
+		TextBoxWrapper = React.createElement(if not v43 then View else ScrollView, {
+			LayoutOrder = 2,
+			selection = if not Flags.FoundationTextAreaFixDoubleSelection then nil else {
+				Selectable = false
+			},
+			scroll = v94,
+			layout = v93,
+			onCanvasPositionChanged = if not v43 then nil else v98,
+			scrollingFrameRef = if not v43 then nil else v96,
+			tag = "fill size-full clip"
+		}, {
+			TextBox = if v62 then nil else React.createElement(v33, {
+				text = v40.text,
+				placeholder = v40.placeholder,
+				textInputType = v40.textInputType,
+				fontStyle = fontStyle,
+				textStyle = v68,
+				isMultiLine = v43,
+				isDisabled = v40.isDisabled,
+				ref = v44,
+				tag = `{ v60 or "" } data-testid={ v40.testId }--textbox`,
+				Size = if not v43 then nil else uDim2,
+				automaticSize = if not Flags.FoundationNumberInputBindableValue then if not v43 or (v62 or v40.text == "") then nil else Enum.AutomaticSize.Y else mapBindable(v40.text, function(p19) -- line: 677
+					-- upvalues: v43 (copy), v62 (copy)
+					if v43 and (not v62 and p19 ~= "") then
+						return Enum.AutomaticSize.Y
+					end
+
+					return nil
+				end),
+				padding = v89,
+				onFocusGained = v81,
+				onFocusLost = if not v43 or not v64 then v82 else nil,
+				onTextChanged = v80,
+				onCursorPositionChanged = if not v43 then nil else v95
+			}, {
+				DragDetector = v99,
+				BoundsChecker = if not v43 then nil else React.createElement(v33, {
+					isBoundsChecker = true,
+					fontStyle = fontStyle,
+					textStyle = v68,
+					Size = UDim2.new(1, 0, 1, v91),
+					ref = v46
+				})
+			}),
+			MobileTextBox = if not v43 or not v62 then nil else React.createElement(v33, {
+				text = v40.text,
+				placeholder = v40.placeholder,
+				textInputType = v40.textInputType,
+				fontStyle = fontStyle,
+				textStyle = v68,
+				isMultiLine = v43,
+				isDisabled = v40.isDisabled,
+				padding = v89,
+				ref = if not Flags.FoundationTextInputFocusBehavior then v97 else v103,
+				tag = `{ v60 or "" } data-testid={ v40.testId }--mobile-textbox`,
+				Size = uDim2,
+				onFocusLost = if not v43 or not v64 then nil else v82,
+				onTextChanged = v80,
+				onCursorPositionChanged = if not v43 then nil else v95
+			})
+		}),
+		Clear = if not Flags.FoundationInternalTextInputClearButton or not v40.hasClearButton then nil else React.createElement(View, {
+			isDisabled = v40.isDisabled,
+			GroupTransparency = if not v40.isDisabled then nil else Constants.DISABLED_TRANSPARENCY,
+			LayoutOrder = 3,
+			Visible = mapBindable(v40.text, function(p20) -- line: 737
+				return p20 ~= ""
+			end),
+			tag = v56.clearButton.tag
+		}, {
+			ClearButton = React.createElement(View, {
+				onActivated = v79,
+				padding = UDim.new(0, v56.clearButton.padding),
+				Position = v102,
+				stateLayer = {
+					affordance = StateLayerAffordance.None
+				},
+				tag = "anchor-center-left auto-xy",
+				testId = `{ v40.testId }--clear-button`
+			}, {
+				Icon = React.createElement(Icon, {
+					name = v56.clearButton.icon
+				})
+			})
+		}),
+		Trailing = if not v40.trailingElement then nil else React.createElement(View, {
+			GroupTransparency = if not v40.isDisabled then nil else Constants.DISABLED_TRANSPARENCY,
+			LayoutOrder = not Flags.FoundationInternalTextInputClearButton and 3 or 4,
+			tag = "size-0-full auto-x",
+			testId = `{ v40.testId }--trailing`
+		}, v40.trailingElement)
+	})
+end))

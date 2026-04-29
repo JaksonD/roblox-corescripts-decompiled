@@ -1,12 +1,14 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local _ = require(l_script_FirstAncestor_0.Enums.StateLayerAffordance);
-local _ = require(l_script_FirstAncestor_0.Enums.StateLayerMode);
-local _ = require(l_script_FirstAncestor_0.Enums.CursorType);
-local _ = require(l_script_FirstAncestor_0.Enums.ControlState);
-local _ = require(l_script_FirstAncestor_0.Enums.ButtonVariant);
-local _ = require(l_script_FirstAncestor_0.Enums.InputFocusBehavior);
-local _ = require(l_script_FirstAncestor_0.Enums.InputSize);
-local _ = require(l_script_FirstAncestor_0.Enums.InputVariant);
-local _ = require(l_Parent_0.React);
-return {};
+local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationParent = Foundation.Parent
+
+require(Foundation.Enums.StateLayerAffordance)
+require(Foundation.Enums.StateLayerMode)
+require(Foundation.Enums.CursorType)
+require(Foundation.Enums.ControlState)
+require(Foundation.Enums.ButtonVariant)
+require(Foundation.Enums.InputFocusBehavior)
+require(Foundation.Enums.InputSize)
+require(Foundation.Enums.InputVariant)
+require(FoundationParent.React)
+
+return {}

@@ -1,45 +1,56 @@
-local l_Parent_0 = script:FindFirstAncestor("PlayabilityRodux").Parent;
-local l_PlayabilityStatusEnum_0 = require(l_Parent_0.DiscoveryTypes).PlayabilityStatusEnum;
-local l_FFlagLuaAppUnplayableDisplayText_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppUnplayableDisplayText;
-local l_FFlagLuaAppPlayableUxTreatment_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppPlayableUxTreatment;
-local v4 = require(l_Parent_0.Result);
-local v5 = {
-    new = function() --[[ Line: 47 ]] --[[ Name: new ]]
-        return {};
-    end
-};
-v5.mock = function() --[[ Line: 53 ]] --[[ Name: mock ]]
-    -- upvalues: v5 (copy), l_PlayabilityStatusEnum_0 (copy)
-    local v6 = v5.new();
-    v6.universeId = "149757";
-    v6.isPlayable = true;
-    v6.playabilityStatus = l_PlayabilityStatusEnum_0.Playable;
-    return v6;
-end;
-v5.fromJsonData = function(v7) --[[ Line: 62 ]] --[[ Name: fromJsonData ]]
-    -- upvalues: v4 (copy), v5 (copy), l_FFlagLuaAppUnplayableDisplayText_0 (copy), l_FFlagLuaAppPlayableUxTreatment_0 (copy)
-    if type(v7.universeId) ~= "number" and type(v7.universeId) ~= "string" then
-        return v4.error("PlayabilityStatus.fromJsonData expects universeId to be a number or a string");
-    elseif type(v7.isPlayable) ~= "boolean" then
-        return v4.error("PlayabilityStatus.fromJsonData expects isPlayable to be a boolean");
-    elseif type(v7.playabilityStatus) ~= "string" then
-        return v4.error("PlayabilityStatus.fromJsonData expects playabilityStatus to be a string");
-    else
-        local v8 = v5.new();
-        v8.universeId = tostring(v7.universeId);
-        v8.isPlayable = v7.isPlayable;
-        v8.playabilityStatus = v7.playabilityStatus;
-        v8.unplayableDisplayText = if l_FFlagLuaAppUnplayableDisplayText_0 then v7.unplayableDisplayText else nil;
-        if l_FFlagLuaAppPlayableUxTreatment_0 then
-            local l_playableUxTreatment_0 = v7.playableUxTreatment;
-            if l_playableUxTreatment_0 and type(l_playableUxTreatment_0) == "table" and type(l_playableUxTreatment_0.treatment) == "string" then
-                v8.playableUxTreatment = {
-                    treatment = l_playableUxTreatment_0.treatment, 
-                    data = l_playableUxTreatment_0.data
-                };
-            end;
-        end;
-        return v4.success(v8);
-    end;
-end;
-return v5;
+local Parent = script:FindFirstAncestor("PlayabilityRodux").Parent
+local PlayabilityStatusEnum = require(Parent.DiscoveryTypes).PlayabilityStatusEnum
+local FFlagLuaAppPlayableUxTreatment = require(Parent.SharedFlags).FFlagLuaAppPlayableUxTreatment
+local Result = require(Parent.Result)
+local t1 = {
+	new = function() --[[ new ]] -- line: 45
+		return {}
+	end
+}
+
+function t1.mock() -- line: 51
+	-- upvalues: t1 (copy), PlayabilityStatusEnum (copy)
+	local v6 = t1.new()
+
+	v6.universeId = "149757"
+	v6.isPlayable = true
+	v6.playabilityStatus = PlayabilityStatusEnum.Playable
+
+	return v6
+end
+function t1.fromJsonData(p1) -- line: 60
+	-- upvalues: Result (copy), t1 (copy), FFlagLuaAppPlayableUxTreatment (copy)
+	if type(p1.universeId) ~= "number" and type(p1.universeId) ~= "string" then
+		return Result.error("PlayabilityStatus.fromJsonData expects universeId to be a number or a string")
+	end
+
+	if type(p1.isPlayable) ~= "boolean" then
+		return Result.error("PlayabilityStatus.fromJsonData expects isPlayable to be a boolean")
+	end
+
+	if type(p1.playabilityStatus) ~= "string" then
+		return Result.error("PlayabilityStatus.fromJsonData expects playabilityStatus to be a string")
+	end
+
+	local v8 = t1.new()
+
+	v8.universeId = tostring(p1.universeId)
+	v8.isPlayable = p1.isPlayable
+	v8.playabilityStatus = p1.playabilityStatus
+	v8.unplayableDisplayText = p1.unplayableDisplayText
+
+	if FFlagLuaAppPlayableUxTreatment then
+		local playableUxTreatment = p1.playableUxTreatment
+
+		if playableUxTreatment and type(playableUxTreatment) == "table" and type(playableUxTreatment.treatment) == "string" then
+			v8.playableUxTreatment = {
+				treatment = playableUxTreatment.treatment,
+				data = playableUxTreatment.data
+			}
+		end
+	end
+
+	return Result.success(v8)
+end
+
+return t1
