@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAmpWizardParseExtraParameters) and game:DefineFastFlag("TCVerifiedParentalControl", false);

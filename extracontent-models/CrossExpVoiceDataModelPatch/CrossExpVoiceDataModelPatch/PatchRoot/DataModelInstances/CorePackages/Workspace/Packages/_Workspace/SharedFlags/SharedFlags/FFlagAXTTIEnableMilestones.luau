@@ -1,1 +1,0 @@
-return game:DefineFastFlag("AXTTIEnableMilestones4", false);

@@ -1,6 +1,0 @@
-local SharedFlags = script:FindFirstAncestor("SharedFlags")
-local FFlagLuaAppDataHydrationFollowingsStore = require(SharedFlags.FFlagLuaAppDataHydrationFollowingsStore)
-local FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore = require(SharedFlags.FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore)
-local FFlagLuaAppDataHydrationUserVotesStore = require(SharedFlags.FFlagLuaAppDataHydrationUserVotesStore)
-
-return FFlagLuaAppDataHydrationFollowingsStore and (FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore and (FFlagLuaAppDataHydrationUserVotesStore and game:DefineFastFlag("LuaAppSduiExperienceDetailsComponents2", false)))
