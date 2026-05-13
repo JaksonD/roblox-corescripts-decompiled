@@ -1,8 +1,0 @@
-return {
-    Unspecified = "Unspecified", 
-    BuyRobuxPage = "BuyRobuxPage", 
-    PromptSubscriptionPurchase = "PromptSubscriptionPurchase", 
-    RobuxTransferUpsell = "RobuxTransferUpsell", 
-    PrivateServerUpsell = "PrivateServerUpsell", 
-    UnifiedProductPurchaseModal = "UnifiedProductPurchaseModal"
-};

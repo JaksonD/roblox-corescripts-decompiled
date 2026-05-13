@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAXCatalogCategoriesStore) and game:DefineFastFlag("AXFixHydratedWidgetsParams2", false);

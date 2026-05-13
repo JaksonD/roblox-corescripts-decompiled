@@ -1,1 +1,0 @@
-return game:DefineFastFlag("ProfilePlatformNewProfileHeader_V18", false);

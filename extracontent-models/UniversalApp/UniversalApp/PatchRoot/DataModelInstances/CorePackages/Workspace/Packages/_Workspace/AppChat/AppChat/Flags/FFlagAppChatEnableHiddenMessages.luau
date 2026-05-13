@@ -1,1 +1,0 @@
-return game:DefineFastFlag("AppChatEnableHiddenMessagesv700", false);

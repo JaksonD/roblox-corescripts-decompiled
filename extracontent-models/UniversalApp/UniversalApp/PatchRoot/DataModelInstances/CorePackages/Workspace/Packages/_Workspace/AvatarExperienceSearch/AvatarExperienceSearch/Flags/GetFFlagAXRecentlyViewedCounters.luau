@@ -1,4 +1,0 @@
-game:DefineFastFlag("AXRecentlyViewedCounters", false);
-return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("AXRecentlyViewedCounters");
-end;

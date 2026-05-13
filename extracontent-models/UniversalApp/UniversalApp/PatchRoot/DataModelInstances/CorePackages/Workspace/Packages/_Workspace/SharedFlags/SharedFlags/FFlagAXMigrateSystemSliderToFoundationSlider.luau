@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAXMigrateAXToGlobalAutofocus) and game:DefineFastFlag("AXMigrateSystemSliderToFoundationSlider2", false);
