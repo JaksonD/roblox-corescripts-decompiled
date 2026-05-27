@@ -1,1 +1,0 @@
-return game:DefineFastFlag("EnableAppChatFocusableFixes4", false);
