@@ -1,3 +1,8 @@
+> [!CAUTION]  
+> This repo is currently out of date as I can't be bothered to pay for an Oracle API key. This notice will be removed once I get another decompiler working.
+
+---
+
 # Repo Info
 A full decompilation of every CoreScript Roblox currently ships in the client.
 
